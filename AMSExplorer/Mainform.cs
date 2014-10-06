@@ -6175,7 +6175,28 @@ namespace AMSExplorer
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() + "(format=mpd-time-csf)");
+                    switch (ptype)
+                    {
+
+                        case PlayerType.FlashAzurePage:
+                        case PlayerType.SilverlightAzurePage:
+                        case PlayerType.SilverlightMonitoring:
+                            AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                            break;
+                        case PlayerType.DASHAzurePage:
+                        case PlayerType.DASHIFRefPlayer:
+                        case PlayerType.DASHLiveAzure:
+                            AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() + "(format=mpd-time-csf)");
+                            break;
+                        case PlayerType.CustomPlayer:
+                        case PlayerType.MP4AzurePage:
+                            AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                            break;
+                        default:
+                            AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                            break;
+                    }
+                        
                 }
             }
         }
