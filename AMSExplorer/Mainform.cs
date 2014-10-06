@@ -6175,7 +6175,11 @@ namespace AMSExplorer
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() + "(format=mpd-time-csf)");
+ssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() + "(format=mpd-time-csf)");<<<<<<< .mine
+
+=======
+
+>>>>>>> .theirs
                 }
             }
         }
