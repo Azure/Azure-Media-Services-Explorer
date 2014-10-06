@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taskDefinition xmlns="http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#">
+  <name>MP4 Preprocessor</name>
+  <id>859515BF-9BA3-4BDD-A3B6-400CEF07F870</id>
+  <description xml:lang="en" />
+  <inputFolder />
+  <properties namespace="http://schemas.microsoft.com/iis/media/V4/TM/MP4Preprocessor#" prefix="mp4p">
+    <property name="SmoothRequired" value="true" />
+    <property name="HLSRequired" value="true" />
+  </properties>
+  <taskCode>
+    <type>Microsoft.Web.Media.TransformManager.MP4PreProcessor.MP4Preprocessor_Task, Microsoft.Web.Media.TransformManager.MP4Preprocessor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type>
+  </taskCode>
+</taskDefinition>

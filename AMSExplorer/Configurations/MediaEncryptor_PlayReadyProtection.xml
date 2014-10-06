@@ -1,0 +1,21 @@
+<taskDefinition xmlns="http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#">
+  <name>PlayReady Protection</name>
+  <id>9A3BFEAC-F8AE-41CA-87FA-D639E4D1C753</id>
+  <description xml:lang="en" />
+  <properties namespace="http://schemas.microsoft.com/iis/media/v4/SharedData#" prefix="sd">
+    <property name="adjustSubSamples" value="true" />
+    <property name="contentKey" value="" />
+    <property name="customAttributes" value="" />
+    <property name="dataFormats" value="h264, avc1, mp4a, vc1, wma, owma, ovc1, aacl, aach, ac-3, ec-3, mlpa, dtsc, dtsh, dtsl, dtse" />
+    <property name="keyId" value="" />
+    <property name="keySeedValue" value="" />
+    <property name="licenseAcquisitionUrl" value="" />
+    <property name="useSencBox" value="true" />
+    <property name="serviceId" value="" />
+  </properties>
+  <inputFolder/>
+  <outputFolder>Protected</outputFolder>
+  <taskCode>
+    <type>Microsoft.Web.Media.TransformManager.DigitalRightsManagementTask, Microsoft.Web.Media.TransformManager.DigitalRightsManagement, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type>
+  </taskCode>
+</taskDefinition>

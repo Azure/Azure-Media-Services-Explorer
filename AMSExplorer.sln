@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSExplorer", "AMSExplorer\AMSExplorer.csproj", "{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
+EndProject
+Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "SetupAMSExplorer", "SetupAMSExplorer\SetupAMSExplorer.isproj", "{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86} = {67573AA5-0316-4C90-8CE4-93A950CD0A86}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CD_ROM|Any CPU = CD_ROM|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		DVD-5|Any CPU = DVD-5|Any CPU
+		Release|Any CPU = Release|Any CPU
+		SingleImage|Any CPU = SingleImage|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.CD_ROM|Any CPU.ActiveCfg = Release|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.CD_ROM|Any CPU.Build.0 = Release|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.DVD-5|Any CPU.ActiveCfg = Debug|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.DVD-5|Any CPU.Build.0 = Debug|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.SingleImage|Any CPU.ActiveCfg = Release|Any CPU
+		{67573AA5-0316-4C90-8CE4-93A950CD0A86}.SingleImage|Any CPU.Build.0 = Release|Any CPU
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.CD_ROM|Any CPU.ActiveCfg = CD_ROM
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.CD_ROM|Any CPU.Build.0 = CD_ROM
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.Debug|Any CPU.ActiveCfg = SingleImage
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.Debug|Any CPU.Build.0 = SingleImage
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.DVD-5|Any CPU.ActiveCfg = DVD-5
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.DVD-5|Any CPU.Build.0 = DVD-5
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.Release|Any CPU.ActiveCfg = SingleImage
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.Release|Any CPU.Build.0 = SingleImage
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.SingleImage|Any CPU.ActiveCfg = SingleImage
+		{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}.SingleImage|Any CPU.Build.0 = SingleImage
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4
+	EndGlobalSection
+EndGlobal

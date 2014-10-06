@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration version="2.0">
+  <input>
+    <!-- [Optional] Metadata of the input media file(s) -->
+    <!-- Format: <metadata key="..." value="..." /> -->
+  </input>
+  <settings>
+    <!-- [Optional] Settings of the indexing job -->
+    <!-- Format: <add key="..." value="..." /> -->
+    <!-- Reserved -->
+  </settings>
+</configuration>

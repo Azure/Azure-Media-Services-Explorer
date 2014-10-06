@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taskDefinition xmlns="http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#">
+  <name>MP4 to Smooth Streams</name>
+  <id>5e1e1a1c-bba6-11df-8991-0019d1916af0</id>
+  <description xml:lang="en" />
+  <inputFolder />
+  <properties namespace="http://schemas.microsoft.com/iis/media/V4/TM/MP4ToSmooth#" prefix="mp4">
+    <property name="keepSourceNames" value="false" />
+  </properties>
+  <taskCode>
+    <type>Microsoft.Web.Media.TransformManager.MP4toSmooth.MP4toSmooth_Task, Microsoft.Web.Media.TransformManager.MP4toSmooth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type>
+  </taskCode>
+</taskDefinition>

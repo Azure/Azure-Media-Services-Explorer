@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<taskDefinition xmlns="http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#">
+  <name>Smooth Streams to Apple HTTP Live Streams</name>
+  <id>A72D7A5D-3022-45f2-89B4-1DDC5457C111</id>
+  <description xml:lang="en" />
+  <inputFolder />
+  <outputFolder>TS_Out</outputFolder>
+  <properties namespace="http://schemas.microsoft.com/iis/media/AppleHTTP#" prefix="hls">
+    <property name="maxbitrate" value="6600000" />
+    <property name="manifest" value="" />
+    <property name="segment" value="10" />
+    <property name="log" value="" />
+    <property name="encrypt" value="true" />
+    <property name="pid" value="" />
+    <property name="codecs" value="false" />
+    <property name="backwardcompatible" value="false" />
+    <property name="allowcaching" value="true" />
+    <property name="passphrase"  required="false" value="" />
+    <property name="key" value="" />
+    <property name="keyuri" value="" />
+    <property name="overwrite" value="true" />
+  </properties>
+  <taskCode>
+    <type>Microsoft.Web.Media.TransformManager.SmoothToHLS.SmoothToHLSTask, Microsoft.Web.Media.TransformManager.SmoothToHLS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type>
+  </taskCode>
+</taskDefinition>

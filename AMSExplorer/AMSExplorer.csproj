@@ -1,0 +1,666 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{67573AA5-0316-4C90-8CE4-93A950CD0A86}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AMSExplorer</RootNamespace>
+    <AssemblyName>AMSExplorer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>35068857</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AMSExplorer.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>MediaNew.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release No Credentials|AnyCPU'">
+    <OutputPath>bin\Release No Credentials\</OutputPath>
+    <DefineConstants>TRACE;NOCREDENTIALS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.OData.5.6.2\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Services.Client, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.2\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Practices.TransientFaultHandling.Core, Version=5.1.1209.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\TransientFaultHandling.Core.5.1.1209.1\lib\NET4\Microsoft.Practices.TransientFaultHandling.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Desktop, Version=1.0.168.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Configuration, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.0.0.7, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\windowsazure.mediaservices.3.0.0.7\lib\net40\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=2.0.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.2.0.0.2\lib\net40\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\WindowsAzure.Storage.4.3.0\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Spatial, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.Spatial.5.6.2\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AMSLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AMSLogin.Designer.cs">
+      <DependentUpon>AMSLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BathUploadFrame2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BathUploadFrame2.Designer.cs">
+      <DependentUpon>BathUploadFrame2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BathUploadFrame1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BathUploadFrame1.Designer.cs">
+      <DependentUpon>BathUploadFrame1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bitmaps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bitmaps.resx</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DeleteProgram.Designer.cs">
+      <DependentUpon>DeleteProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlayReadyLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayReadyLicense.Designer.cs">
+      <DependentUpon>PlayReadyLicense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDynamicEncryption.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryption.Designer.cs">
+      <DependentUpon>AddDynamicEncryption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateStreamingEndpoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateStreamingEndpoint.Designer.cs">
+      <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DynamicEncryption.cs" />
+    <Compile Include="StreamingEndpointInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StreamingEndpointInformation.Designer.cs">
+      <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="origin.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Indexer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Indexer.Designer.cs">
+      <DependentUpon>Indexer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportHttp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportHttp.Designer.cs">
+      <DependentUpon>ImportHttp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Thumbnails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Thumbnails.Designer.cs">
+      <DependentUpon>Thumbnails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ProgramInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgramInformation.Designer.cs">
+      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChannelInformation.Designer.cs">
+      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateProgram.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateProgram.Designer.cs">
+      <DependentUpon>CreateProgram.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssetInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AssetInformation.Designer.cs">
+      <DependentUpon>AssetInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateLiveChannel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateLiveChannel.Designer.cs">
+      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="live.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="options.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="options.Designer.cs">
+      <DependentUpon>options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WatchFolder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WatchFolder.Designer.cs">
+      <DependentUpon>WatchFolder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateLocator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateLocator.Designer.cs">
+      <DependentUpon>CreateLocator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenericProcessor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenericProcessor.Designer.cs">
+      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EncodingAMEAdv.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncodingAMEAdv.Designer.cs">
+      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EncodingZenium.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncodingZenium.Designer.cs">
+      <DependentUpon>EncodingZenium.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HLSAESStatic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HLSAESStatic.Designer.cs">
+      <DependentUpon>HLSAESStatic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="JobInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobInformation.Designer.cs">
+      <DependentUpon>JobInformation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Mainform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Mainform.Designer.cs">
+      <DependentUpon>Mainform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlayReadyStaticEnc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayReadyStaticEnc.Designer.cs">
+      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Priority.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Priority.Designer.cs">
+      <DependentUpon>Priority.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="EncodingAMEPreset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EncodingAMEPreset.Designer.cs">
+      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportAssetToAzureStorage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportAssetToAzureStorage.Designer.cs">
+      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImportFromAzureStorage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImportFromAzureStorage.Designer.cs">
+      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AMSLogin.resx">
+      <DependentUpon>AMSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BathUploadFrame2.resx">
+      <DependentUpon>BathUploadFrame2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BathUploadFrame1.resx">
+      <DependentUpon>BathUploadFrame1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bitmaps.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DeleteProgram.resx">
+      <DependentUpon>DeleteProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayReadyLicense.resx">
+      <DependentUpon>PlayReadyLicense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryption.resx">
+      <DependentUpon>AddDynamicEncryption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateStreamingEndpoint.resx">
+      <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StreamingEndpointInformation.resx">
+      <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Indexer.resx">
+      <DependentUpon>Indexer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportHttp.resx">
+      <DependentUpon>ImportHttp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Thumbnails.resx">
+      <DependentUpon>Thumbnails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProgramInformation.resx">
+      <DependentUpon>ProgramInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelInformation.resx">
+      <DependentUpon>ChannelInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateProgram.resx">
+      <DependentUpon>CreateProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AssetInformation.resx">
+      <DependentUpon>AssetInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateLiveChannel.resx">
+      <DependentUpon>CreateLiveChannel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="options.resx">
+      <DependentUpon>options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WatchFolder.resx">
+      <DependentUpon>WatchFolder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateLocator.resx">
+      <DependentUpon>CreateLocator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenericProcessor.resx">
+      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingAMEAdv.resx">
+      <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingZenium.resx">
+      <DependentUpon>EncodingZenium.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HLSAESStatic.resx">
+      <DependentUpon>HLSAESStatic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobInformation.resx">
+      <DependentUpon>JobInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mainform.resx">
+      <DependentUpon>Mainform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayReadyStaticEnc.resx">
+      <DependentUpon>PlayReadyStaticEnc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Priority.resx">
+      <DependentUpon>Priority.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EncodingAMEPreset.resx">
+      <DependentUpon>EncodingAMEPreset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportAssetToAzureStorage.resx">
+      <DependentUpon>ExportAssetToAzureStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImportFromAzureStorage.resx">
+      <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <Content Include="BitmapsPNG\media2.ico" />
+    <Content Include="BitmapsPNG\media2.png" />
+    <None Include="BitmapsPNG\MediaNew.png" />
+    <Content Include="BitmapsPNG\modeltaskxenio1.png" />
+    <Content Include="BitmapsPNG\modeltaskxenio2.png" />
+    <Content Include="BitmapsPNG\modetaskjob1.png" />
+    <Content Include="BitmapsPNG\modetaskjob2.png" />
+    <Content Include="BitmapsPNG\modetaskjob3.png" />
+    <Content Include="BitmapsPNG\xenio.png" />
+    <Content Include="Configurations\MediaIndexer.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\Thumbnails.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\AzureMedia.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="IconsPNG\about.png" />
+    <None Include="IconsPNG\archive.png" />
+    <None Include="IconsPNG\cancel.png" />
+    <None Include="IconsPNG\change_priority.png" />
+    <None Include="IconsPNG\create.png" />
+    <None Include="IconsPNG\create_outlook_report.png" />
+    <None Include="IconsPNG\delete.png" />
+    <None Include="IconsPNG\Display_information.png" />
+    <None Include="IconsPNG\download.png" />
+    <None Include="IconsPNG\DRM_protection.png" />
+    <None Include="IconsPNG\encoding.png" />
+    <None Include="IconsPNG\envelope_encryption.png" />
+    <None Include="IconsPNG\export.png" />
+    <None Include="IconsPNG\external_link.png" />
+    <None Include="IconsPNG\help.png" />
+    <None Include="IconsPNG\import.png" />
+    <None Include="IconsPNG\index.png" />
+    <None Include="IconsPNG\Input_asset_information.png" />
+    <None Include="IconsPNG\known_asset.png" />
+    <None Include="IconsPNG\options.png" />
+    <None Include="IconsPNG\output_asset_information.png" />
+    <None Include="IconsPNG\packaging.png" />
+    <None Include="IconsPNG\play.png" />
+    <None Include="IconsPNG\refresh.png" />
+    <None Include="IconsPNG\rename.png" />
+    <None Include="IconsPNG\SAS_locator.png" />
+    <None Include="IconsPNG\start.png" />
+    <None Include="IconsPNG\start-48.png" />
+    <None Include="IconsPNG\storage_encryption.png" />
+    <None Include="IconsPNG\streaming_locator.png" />
+    <None Include="IconsPNG\thumbnails.png" />
+    <None Include="IconsPNG\transfer_destination.png" />
+    <None Include="IconsPNG\upload.png" />
+    <None Include="IconsPNG\watch_folder.png" />
+    <None Include="IconsPNG\stop.png" />
+    <None Include="IconsPNG\storage_decryption.png" />
+    <Content Include="License\Azure Media Services Explorer.rtf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\DataGridViewJobs.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="media2.ico" />
+    <Content Include="MediaNew.ico" />
+    <Content Include="WAMEPresetFiles\AAC Good Quality Audio.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Broadband 1080p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Broadband 720p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Broadband SD 16x9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Broadband SD 4x3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 1080p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\Thumbnails.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Broadband 1080p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Broadband 720p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Broadband SD 16x9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Broadband SD 4x3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WAMEPresetFiles\WMA High Quality Audio.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\MediaEncryptor_PlayReadyProtection.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Configurations\MediaPackager_MP4toSmooth.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\MediaPackager_SmoothToHLS.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\MediaPackager_SmoothToHLSWithAES.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\MediaPackager_ValidateTask.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
