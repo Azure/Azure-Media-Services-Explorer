@@ -6176,6 +6176,7 @@ namespace AMSExplorer
                 if (ValidURIs.FirstOrDefault() != null)
                 {
                     AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() + "(format=mpd-time-csf)");
+
                 }
             }
         }
