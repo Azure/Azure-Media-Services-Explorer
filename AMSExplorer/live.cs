@@ -570,15 +570,12 @@ namespace AMSExplorer
                             MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
                             break;
                         }
-
                     }
                     RefreshChannels();
                 }
 
-
                 else
                 {
-
                     ChannelState StateToReach;
 
                     switch (operationtype)
@@ -596,7 +593,7 @@ namespace AMSExplorer
                             break;
 
                         case OperationType.Reset:
-                            StateToReach = ChannelState.Stopped;
+                            StateToReach = ChannelState.Running;
                             break;
 
 
@@ -606,9 +603,6 @@ namespace AMSExplorer
 
 
                     }
-
-
-
 
                     bool timeout = false;
                     bool Error = false;
@@ -628,20 +622,15 @@ namespace AMSExplorer
                         if (LSI.Count > 0)
                         {
                             Error = true;
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
+                            //MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
                             break;
                         }
-
                     }
                     RefreshChannel(channel);
-
                 }
 
             });
         }
-
-
-
     }
 
     public class DataGridViewLiveProgram : DataGridView
