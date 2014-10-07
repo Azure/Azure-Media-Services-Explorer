@@ -463,6 +463,8 @@ namespace AMSExplorer
         private const string format_smooth_legacy = "fmp4-v20";
         private const string format_hls_v4 = "m3u8-aapl";
         private const string format_hls_v3 = "m3u8-aapl-v3";
+        private const string format_dash = "mpd-time-csf";
+        private const string format_url = "(format={0})";
 
         public AssetInfo(List<IAsset> MySelectedAssets)
         {
@@ -882,12 +884,12 @@ namespace AMSExplorer
             return sb;
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url)
+        public static void DoPlayBack(PlayerType typeplayer, Uri Url)
         {
-            DoPlayBack(typeplayer, new Uri(Url));
+            DoPlayBack(typeplayer, Url.ToString());
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, Uri Url)
+        public static void DoPlayBack(PlayerType typeplayer, string Url)
         {
             switch (typeplayer)
             {
@@ -896,14 +898,17 @@ namespace AMSExplorer
                     break;
 
                 case PlayerType.DASHIFRefPlayer:
+                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
                     Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Url);
                     break;
 
                 case PlayerType.DASHAzurePage:
+                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
                     Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Url);
                     break;
 
                 case PlayerType.DASHLiveAzure:
+                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
                     Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Url);
                     break;
 

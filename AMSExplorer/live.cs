@@ -542,8 +542,6 @@ namespace AMSExplorer
         {
             Task.Run(() =>
             {
-
-
                 if (operationtype == OperationType.Delete)
                 {
 
@@ -551,7 +549,6 @@ namespace AMSExplorer
                     bool Error = false;
                     List<StatusInfo> LSI;
                     DateTime starttime = DateTime.Now;
-
 
                     while (_context.Channels.Where(o => o.Id == channel.Id).FirstOrDefault() != null)
                     {
@@ -570,15 +567,12 @@ namespace AMSExplorer
                             MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
                             break;
                         }
-
                     }
                     RefreshChannels();
                 }
 
-
                 else
                 {
-
                     ChannelState StateToReach;
 
                     switch (operationtype)
@@ -596,18 +590,14 @@ namespace AMSExplorer
                             break;
 
                         case OperationType.Reset:
-                            StateToReach = ChannelState.Stopped;
+                            StateToReach = ChannelState.Running;
                             break;
 
 
                         default:
                             StateToReach = ChannelState.Stopped;
                             break;
-
-
                     }
-
-
 
 
                     bool timeout = false;
@@ -628,20 +618,14 @@ namespace AMSExplorer
                         if (LSI.Count > 0)
                         {
                             Error = true;
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
+                            //MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
                             break;
                         }
-
                     }
                     RefreshChannel(channel);
-
                 }
-
             });
         }
-
-
-
     }
 
     public class DataGridViewLiveProgram : DataGridView
