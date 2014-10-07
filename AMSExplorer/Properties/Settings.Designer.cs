@@ -238,5 +238,17 @@ namespace AMSExplorer.Properties {
                 this["CustomPlayerEnabled"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int DefaultJobPriority {
+            get {
+                return ((int)(this["DefaultJobPriority"]));
+            }
+            set {
+                this["DefaultJobPriority"] = value;
+            }
+        }
     }
 }
