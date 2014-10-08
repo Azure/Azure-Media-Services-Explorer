@@ -180,6 +180,7 @@
             // 
             // label4
             // 
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label4.Location = new System.Drawing.Point(6, 27);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(504, 78);

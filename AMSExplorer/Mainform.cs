@@ -1501,7 +1501,6 @@ namespace AMSExplorer
             try
             {
                 locator = _context.Locators.Create(locatorType, AssetToP, accessPolicyPermissions, accessPolicyDuration, startTime);
-
             }
             catch (Exception ex)
             {
@@ -2540,7 +2539,7 @@ namespace AMSExplorer
                 EncodingProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 EncodingJobName = "Zenium Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-Zenium encoded with " + Constants.NameconvBlueprint,
-                EncodingPriority = 0,
+                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 ZeniumBlueprints = listblueprints,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count
@@ -2588,7 +2587,7 @@ namespace AMSExplorer
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
 
-                        IJob job = _context.Jobs.Create(jobnameloc);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
                         foreach (IAsset graphAsset in form.SelectedZeniumBlueprints) // for each blueprint selected, we create a task
                         {
                             string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
@@ -2649,7 +2648,8 @@ namespace AMSExplorer
                 EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingJobName = "AME Encoding of " + Constants.NameconvInputasset,
                 EncodingLabel2 = "Select a encoding profile:",
-                EncodingProcessorsList = Encoders
+                EncodingProcessorsList = Encoders,
+                EncodingJobPriority = Properties.Settings.Default.DefaultJobPriority
             };
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -3111,7 +3111,7 @@ namespace AMSExplorer
         }
         private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions)
         {
-            LaunchJobs(processor, selectedassets, jobname, 0, taskname, outputassetname, configuration, creationoptions);
+            LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions);
         }
 
         private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions)
@@ -3119,8 +3119,7 @@ namespace AMSExplorer
             foreach (IAsset asset in selectedassets)
             {
                 string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
-                IJob myJob = _context.Jobs.Create(jobnameloc);
-                myJob.Priority = jobpriority;
+                IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
                 string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name);
                 ITask myTask = myJob.Tasks.AddNew(
                     tasknameloc,
@@ -3222,6 +3221,7 @@ namespace AMSExplorer
                 IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed."
             };
 
@@ -3476,7 +3476,7 @@ namespace AMSExplorer
             EncodingAMEAdv form = new EncodingAMEAdv()
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. One job will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingPriority = 0,
+                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 EncodingProcessorsList = Encoders,
                 EncodingJobName = "AME (adv) Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-AME (adv) encoded",
@@ -3550,7 +3550,7 @@ namespace AMSExplorer
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
-                EncodingPriority = 0,
+                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 SelectedAssets = SelectedAssets,
                 EncodingCreationMode = TaskJobCreationMode.MultipleTasks_MultipleJobs,
             };
@@ -3567,7 +3567,7 @@ namespace AMSExplorer
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
 
-                        IJob job = _context.Jobs.Create(jobnameloc);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
                         string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
 
@@ -3601,8 +3601,7 @@ namespace AMSExplorer
                 else if (form.EncodingCreationMode == TaskJobCreationMode.MultipleTasks_SingleJob)  /////////////   Several tasks but all in one job
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-                    IJob job = _context.Jobs.Create(jobnameloc);
-
+                    IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
                     foreach (IAsset asset in SelectedAssets)
                     {
@@ -3639,7 +3638,7 @@ namespace AMSExplorer
                 else if (form.EncodingCreationMode == TaskJobCreationMode.SingleTask_SingleJob) // Create one single task in one job
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-                    IJob job = _context.Jobs.Create(jobnameloc);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
                     string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
 
@@ -4222,8 +4221,10 @@ namespace AMSExplorer
 
             if (SelectedJobs.Count > 0)
             {
-                Priority form = new Priority();
-                form.JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : 0; // if only one job so we pass the current priority to dialog box
+                Priority form = new Priority()
+                {
+                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : 10 // if only one job so we pass the current priority to dialog box
+                };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -5780,6 +5781,7 @@ namespace AMSExplorer
                 ThumbnailsOutputAssetName = Constants.NameconvInputasset + "-Thumbnails",
                 ThumbnailsProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 ThumbnailsJobName = "Thumbnails generation of " + Constants.NameconvInputasset,
+                ThumbnailsJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 ThumbnailsTimeValue = "0:0:0",
                 ThumbnailsTimeStep = "0:0:5",
                 ThumbnailsTimeStop = string.Empty,
@@ -6362,7 +6364,7 @@ namespace AMSExplorer
                                 IContentKey key = null;
 
                                 var contenkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                if (form.ForceContentKeyCreation | contenkeys.Count() == 0) // no content key existing or user wants to force creation
+                                if (contenkeys.Count() == 0) // no content key existing so we need to create one
                                 {
                                     try
                                     {
@@ -6392,7 +6394,6 @@ namespace AMSExplorer
                                     key = contenkeys.FirstOrDefault();
                                     TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", key.Id, AssetToProcess.Name);
                                 }
-
 
 
                                 // if CENC, let's build the PlayReady license template
