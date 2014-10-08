@@ -65,17 +65,7 @@ namespace AMSExplorer
             }
         }
 
-
-
-        public bool ForceContentKeyCreation
-        {
-            get
-            {
-                return (checkBoxForceCreateContentKey.Checked);
-            }
-        }
-
-
+        
         public AssetDeliveryProtocol GetAssetDeliveryProtocol
         {
             get
@@ -153,7 +143,6 @@ namespace AMSExplorer
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
-            checkBoxForceCreateContentKey.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
     }

@@ -1501,7 +1501,6 @@ namespace AMSExplorer
             try
             {
                 locator = _context.Locators.Create(locatorType, AssetToP, accessPolicyPermissions, accessPolicyDuration, startTime);
-
             }
             catch (Exception ex)
             {
@@ -6365,7 +6364,7 @@ namespace AMSExplorer
                                 IContentKey key = null;
 
                                 var contenkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                if (form.ForceContentKeyCreation | contenkeys.Count() == 0) // no content key existing or user wants to force creation
+                                if (contenkeys.Count() == 0) // no content key existing so we need to create one
                                 {
                                     try
                                     {
@@ -6395,7 +6394,6 @@ namespace AMSExplorer
                                     key = contenkeys.FirstOrDefault();
                                     TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", key.Id, AssetToProcess.Name);
                                 }
-
 
 
                                 // if CENC, let's build the PlayReady license template

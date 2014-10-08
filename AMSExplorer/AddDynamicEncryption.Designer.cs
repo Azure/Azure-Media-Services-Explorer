@@ -38,7 +38,6 @@
             this.radioButtonDecryptStorage = new System.Windows.Forms.RadioButton();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.checkBoxForceCreateContentKey = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxProtocolSmooth = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
@@ -114,7 +113,6 @@
             this.groupBoxKeyType.Controls.Add(this.radioButtonDecryptStorage);
             this.groupBoxKeyType.Controls.Add(this.pictureBox3);
             this.groupBoxKeyType.Controls.Add(this.pictureBox2);
-            this.groupBoxKeyType.Controls.Add(this.checkBoxForceCreateContentKey);
             this.groupBoxKeyType.Controls.Add(this.radioButtonCENCKey);
             this.groupBoxKeyType.Controls.Add(this.radioButtonEnvelope);
             this.groupBoxKeyType.Location = new System.Drawing.Point(12, 56);
@@ -164,17 +162,6 @@
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox2.TabIndex = 51;
             this.pictureBox2.TabStop = false;
-            // 
-            // checkBoxForceCreateContentKey
-            // 
-            this.checkBoxForceCreateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxForceCreateContentKey.AutoSize = true;
-            this.checkBoxForceCreateContentKey.Location = new System.Drawing.Point(341, 74);
-            this.checkBoxForceCreateContentKey.Name = "checkBoxForceCreateContentKey";
-            this.checkBoxForceCreateContentKey.Size = new System.Drawing.Size(201, 17);
-            this.checkBoxForceCreateContentKey.TabIndex = 59;
-            this.checkBoxForceCreateContentKey.Text = "Do not try to use existing content key";
-            this.checkBoxForceCreateContentKey.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -275,6 +262,7 @@
             this.textBoxIssuer.Name = "textBoxIssuer";
             this.textBoxIssuer.Size = new System.Drawing.Size(304, 20);
             this.textBoxIssuer.TabIndex = 56;
+            this.textBoxIssuer.Text = "http://testacs.com";
             // 
             // label3
             // 
@@ -293,6 +281,7 @@
             this.textBoxAudience.Name = "textBoxAudience";
             this.textBoxAudience.Size = new System.Drawing.Size(304, 20);
             this.textBoxAudience.TabIndex = 57;
+            this.textBoxAudience.Text = "urn:test";
             // 
             // label2
             // 
@@ -390,7 +379,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelAutPol;
         private System.Windows.Forms.CheckBox checkBoxForceCreateDelPol;
-        private System.Windows.Forms.CheckBox checkBoxForceCreateContentKey;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
