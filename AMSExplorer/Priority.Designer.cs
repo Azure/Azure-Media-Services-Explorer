@@ -33,6 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonUpdate = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.SuspendLayout();
             // 
@@ -60,8 +61,13 @@
             // 
             this.numericUpDownPriority.Location = new System.Drawing.Point(29, 43);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
             this.numericUpDownPriority.TabIndex = 41;
+            this.numericUpDownPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // buttonUpdate
             // 
@@ -75,12 +81,22 @@
             this.buttonUpdate.Text = "Update job(s) priority";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label5.Location = new System.Drawing.Point(129, 46);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(137, 17);
+            this.label5.TabIndex = 51;
+            this.label5.Text = "(100 is the highest priority)";
+            // 
             // Priority
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(296, 167);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
@@ -101,5 +117,6 @@
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
+        private System.Windows.Forms.Label label5;
     }
 }

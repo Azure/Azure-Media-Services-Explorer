@@ -542,8 +542,6 @@ namespace AMSExplorer
         {
             Task.Run(() =>
             {
-
-
                 if (operationtype == OperationType.Delete)
                 {
 
@@ -551,7 +549,6 @@ namespace AMSExplorer
                     bool Error = false;
                     List<StatusInfo> LSI;
                     DateTime starttime = DateTime.Now;
-
 
                     while (_context.Channels.Where(o => o.Id == channel.Id).FirstOrDefault() != null)
                     {
@@ -600,9 +597,8 @@ namespace AMSExplorer
                         default:
                             StateToReach = ChannelState.Stopped;
                             break;
-
-
                     }
+
 
                     bool timeout = false;
                     bool Error = false;
@@ -628,7 +624,6 @@ namespace AMSExplorer
                     }
                     RefreshChannel(channel);
                 }
-
             });
         }
     }

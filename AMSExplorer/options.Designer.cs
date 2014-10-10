@@ -50,18 +50,23 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
+            this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
+            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(276, 379);
+            this.buttonOk.Location = new System.Drawing.Point(276, 398);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(113, 32);
             this.buttonOk.TabIndex = 7;
@@ -72,7 +77,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(395, 379);
+            this.buttonCancel.Location = new System.Drawing.Point(395, 398);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(113, 32);
             this.buttonCancel.TabIndex = 6;
@@ -129,7 +134,7 @@
             // 
             // buttonReset
             // 
-            this.buttonReset.Location = new System.Drawing.Point(12, 379);
+            this.buttonReset.Location = new System.Drawing.Point(12, 398);
             this.buttonReset.Name = "buttonReset";
             this.buttonReset.Size = new System.Drawing.Size(113, 32);
             this.buttonReset.TabIndex = 14;
@@ -232,13 +237,16 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pictureBox2);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.numericUpDownPriority);
             this.groupBox2.Controls.Add(this.checkBoxUseStorageEncryption);
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Location = new System.Drawing.Point(12, 148);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(496, 111);
+            this.groupBox2.Size = new System.Drawing.Size(496, 135);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
@@ -257,17 +265,24 @@
             // 
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
-            this.groupBox3.Location = new System.Drawing.Point(12, 275);
+            this.groupBox3.Location = new System.Drawing.Point(12, 289);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(496, 89);
             this.groupBox3.TabIndex = 51;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Custom player";
             // 
+            // textBoxCustomPlayer
+            // 
+            this.textBoxCustomPlayer.Location = new System.Drawing.Point(16, 47);
+            this.textBoxCustomPlayer.Name = "textBoxCustomPlayer";
+            this.textBoxCustomPlayer.Size = new System.Drawing.Size(474, 20);
+            this.textBoxCustomPlayer.TabIndex = 9;
+            // 
             // checkBoxEnableCustomPlayer
             // 
             this.checkBoxEnableCustomPlayer.AutoSize = true;
-            this.checkBoxEnableCustomPlayer.Location = new System.Drawing.Point(16, 20);
+            this.checkBoxEnableCustomPlayer.Location = new System.Drawing.Point(16, 24);
             this.checkBoxEnableCustomPlayer.Name = "checkBoxEnableCustomPlayer";
             this.checkBoxEnableCustomPlayer.Size = new System.Drawing.Size(59, 17);
             this.checkBoxEnableCustomPlayer.TabIndex = 8;
@@ -275,19 +290,43 @@
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
-            // textBoxCustomPlayer
+            // numericUpDownPriority
             // 
-            this.textBoxCustomPlayer.Location = new System.Drawing.Point(16, 43);
-            this.textBoxCustomPlayer.Name = "textBoxCustomPlayer";
-            this.textBoxCustomPlayer.Size = new System.Drawing.Size(474, 20);
-            this.textBoxCustomPlayer.TabIndex = 9;
+            this.numericUpDownPriority.Location = new System.Drawing.Point(140, 98);
+            this.numericUpDownPriority.Name = "numericUpDownPriority";
+            this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownPriority.TabIndex = 50;
+            this.numericUpDownPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Default job priority :";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
+            this.pictureBox2.Location = new System.Drawing.Point(18, 97);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 51;
+            this.pictureBox2.TabStop = false;
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(520, 423);
+            this.ClientSize = new System.Drawing.Size(520, 441);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -305,6 +344,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -333,5 +374,8 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.TextBox textBoxCustomPlayer;
         private System.Windows.Forms.CheckBox checkBoxEnableCustomPlayer;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
     }
 }
