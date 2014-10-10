@@ -679,6 +679,7 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
             DoRefreshGridChannelV(false);
             DoRefreshGridOriginV(false);
+            DoRefreshGridProcessorV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -715,7 +716,6 @@ namespace AMSExplorer
                 dataGridViewJobsV.Init(_credentials);
                 for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
                 comboBoxPageJobs.SelectedIndex = 0;
-
             }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
@@ -3383,25 +3383,6 @@ namespace AMSExplorer
           );
             comboBoxOrderProgram.SelectedIndex = 0;
 
-
-            // Processors tab
-            dataGridViewProcessors.ColumnCount = 5;
-            dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
-            dataGridViewProcessors.Columns[1].HeaderText = "Name";
-            dataGridViewProcessors.Columns[2].HeaderText = "Version";
-            dataGridViewProcessors.Columns[3].HeaderText = "Id";
-            dataGridViewProcessors.Columns[4].HeaderText = "Description";
-            dataGridViewProcessors.Columns[0].Width = 110;
-            dataGridViewProcessors.Columns[2].Width = 70;
-
-            List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
-            foreach (IMediaProcessor proc in Procs)
-            {
-                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
-            }
-            tabPageProcessors.Text = string.Format("Processors ({0})", Procs.Count());
-
-
             // List of state and numbers of jobs per state
             DoRefreshGridJobV(true);
             DoGridTransferInit();
@@ -3409,6 +3390,7 @@ namespace AMSExplorer
             DoRefreshGridChannelV(true);
             DoRefreshGridProgramV(true);
             DoRefreshGridOriginV(true);
+            DoRefreshGridProcessorV(true);
 
         }
 
@@ -4919,7 +4901,29 @@ namespace AMSExplorer
             dataGridViewOriginsV.Invoke(new Action(() => dataGridViewOriginsV.RefreshOrigins(_context, 1)));
 
             tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewOriginsV.DisplayedCount)));
+        }
 
+        private void DoRefreshGridProcessorV(bool firstime)
+        {
+            if (firstime)
+            {
+                // Processors tab
+                dataGridViewProcessors.ColumnCount = 5;
+                dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
+                dataGridViewProcessors.Columns[1].HeaderText = "Name";
+                dataGridViewProcessors.Columns[2].HeaderText = "Version";
+                dataGridViewProcessors.Columns[3].HeaderText = "Id";
+                dataGridViewProcessors.Columns[4].HeaderText = "Description";
+                dataGridViewProcessors.Columns[0].Width = 110;
+                dataGridViewProcessors.Columns[2].Width = 70;
+            }
+            dataGridViewProcessors.Rows.Clear();
+            List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
+            foreach (IMediaProcessor proc in Procs)
+            {
+                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
+            }
+            tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
         }
 
 
