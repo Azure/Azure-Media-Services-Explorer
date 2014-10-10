@@ -4205,7 +4205,7 @@ namespace AMSExplorer
             {
                 Priority form = new Priority()
                 {
-                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : 10 // if only one job so we pass the current priority to dialog box
+                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : Properties.Settings.Default.DefaultJobPriority // if only one job so we pass the current priority to dialog box
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
