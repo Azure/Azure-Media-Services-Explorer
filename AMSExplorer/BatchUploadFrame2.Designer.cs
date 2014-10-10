@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class BathUploadFrame2
+    partial class BatchUploadFrame2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BathUploadFrame2));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BatchUploadFrame2));
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkedListBoxFiles = new System.Windows.Forms.CheckedListBox();
