@@ -1078,6 +1078,57 @@ namespace AMSExplorer
             }
         }
 
+        private async Task DoRefreshOriginLocators(DateTime targetExpireTime)
+        {
+            IList<IAsset> SelectedAssets = ReturnSelectedAssets();
+            if (SelectedAssets.Count > 0)
+            {
+                try
+                {
+                    foreach (var asset in SelectedAssets)
+                    {
+                        var tasks = asset
+                            .Locators
+                            .Where(locator => locator.Type == LocatorType.OnDemandOrigin)
+                            .Select(locator => UpdateLocatorExpirationDate(locator, targetExpireTime));
+
+                        await Task.WhenAll(tasks);
+                    }
+                }
+                finally
+                {
+
+                }
+            }
+        }
+
+        private async Task UpdateLocatorExpirationDate(ILocator locator, DateTime expirationTime)
+        {
+            try
+            {
+                if (locator.ExpirationDateTime >= expirationTime)
+                {
+                    TextBoxLogWriteLine("Skipped origin locator {1} on asset '{0}' because it already have an expiration time greater than the provided value.",
+                        locator.Asset.Name, locator.Id);
+                    return;
+                }
+                TextBoxLogWriteLine(
+                    string.Format(
+                        "Update asset '{0}' origin locator {1} expiration date from {2} to {3} ...",
+                        locator.Asset.Name, locator.Id, locator.ExpirationDateTime, expirationTime
+                    )
+                );
+                await locator.UpdateAsync(expirationTime);
+                TextBoxLogWriteLine("Update asset '{0}' origin locator {1}...Done.", locator.Asset.Name, locator.Id);
+            }
+            catch (Exception e)
+            {
+                TextBoxLogWriteLine("Failed to update asset '{0}' origin locator {1}.", locator.Asset.Name, locator.Id, true);
+                TextBoxLogWriteLine(e);
+            }
+            
+        }
+
 
         private void ProcessMergeAssetsInNewAsset(IList<IAsset> MyAssets, string newassetname)
         {
@@ -6826,6 +6877,11 @@ namespace AMSExplorer
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri());
+        }
+
+        private async void refreshOriginLocatorsExpirationTime_Click(object sender, EventArgs e)
+        {
+            await DoRefreshOriginLocators(DateTime.UtcNow.Date.AddYears(100));
         }
 
 
