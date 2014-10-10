@@ -1,4 +1,4 @@
-Azure-Media-Services-Explorer
+Forked for Azure-Media-Services-Explorer
 =============================
 
 Azure Media Explorer is a Winforms/C# application for Windows that does upload, download, encode, package, and stream assets with Azure Media Services.
