@@ -1408,6 +1408,56 @@ namespace AMSExplorer
             }
         }
 
+        private void buttonGetTestToken_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
 
+        private void DoGetTestToken()
+        {
+            Mainform parent = (Mainform)this.Owner;
+
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                if (listViewAutPol.SelectedItems.Count > 0)
+                {
+                    IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    if (policy != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption option = policy.Options.FirstOrDefault();
+                        if (option != null)
+                        {
+                            string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
+                            if (!string.IsNullOrEmpty(tokenTemplateString))
+                            {
+                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
+                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+
+                                switch (MessageBox.Show("Test token will be copied to log window and clipboard." + Constants.endline + "Do you want the URL encoded version ?", "Test token", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                                {
+                                    case DialogResult.Yes:
+                                        testToken = HttpUtility.UrlEncode(testToken);
+                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        System.Windows.Forms.Clipboard.SetText(testToken);
+                                        break;
+
+                                    case DialogResult.No:
+                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        System.Windows.Forms.Clipboard.SetText(testToken);
+                                        break;
+
+                                    default:
+                                        break;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -95,6 +95,7 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonGetTestToken = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -517,6 +518,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonGetTestToken);
             this.tabPage5.Controls.Add(this.label3);
             this.tabPage5.Controls.Add(this.dataGridViewAutPol);
             this.tabPage5.Controls.Add(this.listViewAutPol);
@@ -833,6 +835,17 @@
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
             // 
+            // buttonGetTestToken
+            // 
+            this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGetTestToken.Location = new System.Drawing.Point(126, 421);
+            this.buttonGetTestToken.Name = "buttonGetTestToken";
+            this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
+            this.buttonGetTestToken.TabIndex = 41;
+            this.buttonGetTestToken.Text = "Get Test Token";
+            this.buttonGetTestToken.UseVisualStyleBackColor = true;
+            this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
+            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -935,5 +948,6 @@
         private System.Windows.Forms.ListView listViewAutPol;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonGetTestToken;
     }
 }

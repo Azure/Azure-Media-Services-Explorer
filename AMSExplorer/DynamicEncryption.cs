@@ -39,7 +39,7 @@ namespace AMSExplorer
 
     class DynamicEncryption
     {
-        
+
         /// <summary>
         /// Configures authorization policy. 
         /// Creates a content key. 
@@ -142,24 +142,17 @@ namespace AMSExplorer
         static public IContentKeyAuthorizationPolicy AddOpenAuthorizationPolicy(IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
         {
             // Create ContentKeyAuthorizationPolicy with Open restrictions 
-            // and create authorization policy             
-            IContentKeyAuthorizationPolicy policy = _context.
-                                    ContentKeyAuthorizationPolicies.
-                                    CreateAsync("Open Authorization Policy").Result;
-
-            List<ContentKeyAuthorizationPolicyRestriction> restrictions =
-                new List<ContentKeyAuthorizationPolicyRestriction>();
-
-            ContentKeyAuthorizationPolicyRestriction restriction =
-                new ContentKeyAuthorizationPolicyRestriction
-                {
-                    Name = "Open Authorization Policy",
-                    KeyRestrictionType = (int)ContentKeyRestrictionType.Open,
-                    Requirements = null // no requirements needed 
-                };
-
-            restrictions.Add(restriction);
-
+            // and create authorization policy          
+            List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
+    {
+        new ContentKeyAuthorizationPolicyRestriction 
+        { 
+            Name = "Open", 
+            KeyRestrictionType = (int)ContentKeyRestrictionType.Open, 
+            Requirements = null
+        }
+    };
+      
             IContentKeyAuthorizationPolicyOption policyOption =
                 _context.ContentKeyAuthorizationPolicyOptions.Create(
                 "policy",
@@ -167,17 +160,23 @@ namespace AMSExplorer
                 restrictions,
                 keydeliveryconfig);
 
-            policy.Options.Add(policyOption);
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                                     ContentKeyAuthorizationPolicies.
+                                     CreateAsync("Open Authorization Policy").Result;
 
-            // Add ContentKeyAutorizationPolicy to ContentKey
-            contentKey.AuthorizationPolicyId = policy.Id;
-            IContentKey updatedKey = contentKey.UpdateAsync().Result;
-            return policy;
+            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+            // Associate the content key authorization policy with the content key.
+            contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+            contentKey = contentKey.UpdateAsync().Result;
+
+            return contentKeyAuthorizationPolicy;
         }
 
+        
 
 
-        public static string AddTokenRestrictedAuthorizationPolicy(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
+        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
         {
             string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
 
@@ -213,6 +212,46 @@ namespace AMSExplorer
             contentKey.AuthorizationPolicyId = policy.Id;
             IContentKey updatedKey = contentKey.UpdateAsync().Result;
             Console.WriteLine("Adding Key to Asset: Key ID is " + updatedKey.Id);
+
+            return tokenTemplateString;
+        }
+
+        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context, string newLicenseTemplate)
+        {
+            string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
+
+            IContentKeyAuthorizationPolicy policy = _context.
+                                    ContentKeyAuthorizationPolicies.
+                                    CreateAsync("HLS token restricted authorization policy").Result;
+
+            List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
+    {
+        new ContentKeyAuthorizationPolicyRestriction 
+        { 
+            Name = "Token Authorization Policy", 
+            KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
+            Requirements = tokenTemplateString, 
+        }
+    };
+
+            IContentKeyAuthorizationPolicyOption policyOption =
+         _context.ContentKeyAuthorizationPolicyOptions.Create("Token option",
+             ContentKeyDeliveryType.PlayReadyLicense,
+                 restrictions, newLicenseTemplate);
+
+            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                        ContentKeyAuthorizationPolicies.
+                        CreateAsync("Deliver Common Content Key with no restrictions").
+                        Result;
+
+            policy.Options.Add(policyOption);
+
+            // Add ContentKeyAutorizationPolicy to ContentKey
+            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+            // Associate the content key authorization policy with the content key
+            contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+            contentKey = contentKey.UpdateAsync().Result;
 
             return tokenTemplateString;
         }

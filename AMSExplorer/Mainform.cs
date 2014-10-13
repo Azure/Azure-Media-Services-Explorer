@@ -3463,7 +3463,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("No asset was selected");
                 return;
-
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
@@ -3499,7 +3498,7 @@ namespace AMSExplorer
                    form.EncodingConfiguration,
                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
 
-                AMETask.InputAssets.AddRange(SelectedAssets);
+                AMETask.InputAssets.AddRange(form.SelectedAssets);
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
@@ -6382,7 +6381,7 @@ namespace AMSExplorer
                         {
                             if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
                             {
-                                IContentKey key = null;
+                                IContentKey contentKey = null;
 
                                 var contenkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
                                 if (contenkeys.Count() == 0) // no content key existing so we need to create one
@@ -6391,11 +6390,11 @@ namespace AMSExplorer
                                     {
                                         if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
                                         {
-                                            key = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
+                                            contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
                                         }
                                         else // CENC
                                         {
-                                            key = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                                            contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
 
                                         }
                                     }
@@ -6407,13 +6406,13 @@ namespace AMSExplorer
                                         Error = true;
                                     }
                                     if (Error) break;
-                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", key.Id, AssetToProcess.Name);
+                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
 
                                 }
                                 else // let's use existing content key
                                 {
-                                    key = contenkeys.FirstOrDefault();
-                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", key.Id, AssetToProcess.Name);
+                                    contentKey = contenkeys.FirstOrDefault();
+                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
                                 }
 
 
@@ -6443,30 +6442,29 @@ namespace AMSExplorer
                                 }
 
 
-
+                                string tokenTemplateString = null;
                                 try
                                 {
                                     switch (form.GetKeyRestrictionType)
                                     {
                                         case ContentKeyRestrictionType.Open:
-                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(key, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+
+                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+
+
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            string tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicy(key, form.GetAudienceUri, form.GetIssuerUri, _context);
-                                            if (!String.IsNullOrEmpty(tokenTemplateString))
-                                            {
-                                                // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
-                                                // back into a TokenRestrictionTemplate class instance.
-                                                TokenRestrictionTemplate tokenTemplate =
-                                                    TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                                            
 
-                                                // Generate a test token based on the data in the given TokenRestrictionTemplate.
-                                                // Note, you need to pass the key id Guid because we specified 
-                                                // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                                                TextBoxLogWriteLine("The authorization token is:\n{0}", testToken);
+                                            if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                            {
+                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
+
+                                            }
+                                            else  // Envelope encryption 
+                                            {
+                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
                                             }
 
                                             break;
@@ -6485,24 +6483,24 @@ namespace AMSExplorer
                                 }
                                 if (Error) break;
 
-                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", key.Id, AssetToProcess.Name);
+                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
 
                                 IAssetDeliveryPolicy DelPol = null;
 
                                 var DelPols = _context.AssetDeliveryPolicies
                                     .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == form.GetDeliveryPolicyType));
-                                if (form.ForceDeliveryPolicyCreation | DelPols.Count() == 0) // no delivery policy found or user want to force creation
+                                if (form.ForceDeliveryPolicyCreation || DelPols.Count() == 0) // no delivery policy found or user want to force creation
                                 {
                                     string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
                                     try
                                     {
                                         if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
                                         {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, key, form.GetAssetDeliveryProtocol, name, _context);
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                         }
                                         else  // Envelope encryption or no encryption
                                         {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, key, form.GetAssetDeliveryProtocol, name, _context);
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                         }
 
                                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -6533,6 +6531,23 @@ namespace AMSExplorer
                                 }
 
                                 if (Error) break;
+
+
+                                if (!String.IsNullOrEmpty(tokenTemplateString))
+                                {
+                                    // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
+                                    // back into a TokenRestrictionTemplate class instance.
+                                    TokenRestrictionTemplate tokenTemplate =
+                                        TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
+                                    // Generate a test token based on the data in the given TokenRestrictionTemplate.
+                                    // Note, you need to pass the key id Guid because we specified 
+                                    // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
+                                    Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
+                                    string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                    TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                    TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
+                                }
 
                             }
                             else // No Dynamic encryption

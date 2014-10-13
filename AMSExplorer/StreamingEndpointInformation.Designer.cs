@@ -37,6 +37,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.hostnamelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.buttonDelHostName = new System.Windows.Forms.Button();
             this.buttonAddHostName = new System.Windows.Forms.Button();
@@ -63,7 +64,6 @@
             this.labelOriginName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.hostnamelink = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -174,6 +174,18 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // hostnamelink
+            // 
+            this.hostnamelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hostnamelink.AutoSize = true;
+            this.hostnamelink.Location = new System.Drawing.Point(176, 417);
+            this.hostnamelink.Name = "hostnamelink";
+            this.hostnamelink.Size = new System.Drawing.Size(170, 13);
+            this.hostnamelink.TabIndex = 60;
+            this.hostnamelink.TabStop = true;
+            this.hostnamelink.Text = "How custom hostname are verified";
+            this.hostnamelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.hostnamelink_LinkClicked);
             // 
             // label3
             // 
@@ -392,6 +404,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCrossDomPolicy.Enabled = false;
+            this.textBoxCrossDomPolicy.Font = new System.Drawing.Font("Consolas", 8.25F);
             this.textBoxCrossDomPolicy.Location = new System.Drawing.Point(6, 256);
             this.textBoxCrossDomPolicy.Multiline = true;
             this.textBoxCrossDomPolicy.Name = "textBoxCrossDomPolicy";
@@ -415,6 +428,7 @@
             this.textBoxClientPolicy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxClientPolicy.Enabled = false;
+            this.textBoxClientPolicy.Font = new System.Drawing.Font("Consolas", 8.25F);
             this.textBoxClientPolicy.Location = new System.Drawing.Point(6, 29);
             this.textBoxClientPolicy.Multiline = true;
             this.textBoxClientPolicy.Name = "textBoxClientPolicy";
@@ -444,19 +458,7 @@
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
             // 
-            // hostnamelink
-            // 
-            this.hostnamelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.hostnamelink.AutoSize = true;
-            this.hostnamelink.Location = new System.Drawing.Point(176, 417);
-            this.hostnamelink.Name = "hostnamelink";
-            this.hostnamelink.Size = new System.Drawing.Size(170, 13);
-            this.hostnamelink.TabIndex = 60;
-            this.hostnamelink.TabStop = true;
-            this.hostnamelink.Text = "How custom hostname are verified";
-            this.hostnamelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.hostnamelink_LinkClicked);
-            // 
-            // OriginInformation
+            // StreamingEndpointInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -467,7 +469,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonApplyClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "OriginInformation";
+            this.Name = "StreamingEndpointInformation";
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
             this.Load += new System.EventHandler(this.OriginInformation_Load);
