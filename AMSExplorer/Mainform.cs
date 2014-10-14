@@ -58,7 +58,7 @@ namespace AMSExplorer
     public partial class Mainform : Form
     {
         // XML Congiguration files path.
-        private static string _configurationXMLFiles;
+        public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
         public static bool havestoragecredentials = true;

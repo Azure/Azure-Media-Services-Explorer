@@ -57,7 +57,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.checkBoxcrossdomains = new System.Windows.Forms.CheckBox();
+            this.buttonAddExampleCrossDomainPolicy = new System.Windows.Forms.Button();
+            this.buttonAddExampleClientPolicy = new System.Windows.Forms.Button();
+            this.checkBoxcrossdomain = new System.Windows.Forms.CheckBox();
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
@@ -375,7 +377,9 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBoxcrossdomains);
+            this.tabPage3.Controls.Add(this.buttonAddExampleCrossDomainPolicy);
+            this.tabPage3.Controls.Add(this.buttonAddExampleClientPolicy);
+            this.tabPage3.Controls.Add(this.checkBoxcrossdomain);
             this.tabPage3.Controls.Add(this.textBoxCrossDomPolicy);
             this.tabPage3.Controls.Add(this.checkBoxclientpolicy);
             this.tabPage3.Controls.Add(this.textBoxClientPolicy);
@@ -387,16 +391,40 @@
             this.tabPage3.Text = "Policies";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // checkBoxcrossdomains
+            // buttonAddExampleCrossDomainPolicy
             // 
-            this.checkBoxcrossdomains.AutoSize = true;
-            this.checkBoxcrossdomains.Location = new System.Drawing.Point(6, 233);
-            this.checkBoxcrossdomains.Name = "checkBoxcrossdomains";
-            this.checkBoxcrossdomains.Size = new System.Drawing.Size(157, 17);
-            this.checkBoxcrossdomains.TabIndex = 62;
-            this.checkBoxcrossdomains.Text = "Define cross domains policy";
-            this.checkBoxcrossdomains.UseVisualStyleBackColor = true;
-            this.checkBoxcrossdomains.CheckedChanged += new System.EventHandler(this.checkBoxcrossdomains_CheckedChanged_1);
+            this.buttonAddExampleCrossDomainPolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddExampleCrossDomainPolicy.Enabled = false;
+            this.buttonAddExampleCrossDomainPolicy.Location = new System.Drawing.Point(650, 229);
+            this.buttonAddExampleCrossDomainPolicy.Name = "buttonAddExampleCrossDomainPolicy";
+            this.buttonAddExampleCrossDomainPolicy.Size = new System.Drawing.Size(96, 23);
+            this.buttonAddExampleCrossDomainPolicy.TabIndex = 64;
+            this.buttonAddExampleCrossDomainPolicy.Text = "Add example";
+            this.buttonAddExampleCrossDomainPolicy.UseVisualStyleBackColor = true;
+            this.buttonAddExampleCrossDomainPolicy.Click += new System.EventHandler(this.buttonAddExampleCrossDomainPolicy_Click);
+            // 
+            // buttonAddExampleClientPolicy
+            // 
+            this.buttonAddExampleClientPolicy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddExampleClientPolicy.Enabled = false;
+            this.buttonAddExampleClientPolicy.Location = new System.Drawing.Point(650, 3);
+            this.buttonAddExampleClientPolicy.Name = "buttonAddExampleClientPolicy";
+            this.buttonAddExampleClientPolicy.Size = new System.Drawing.Size(96, 23);
+            this.buttonAddExampleClientPolicy.TabIndex = 63;
+            this.buttonAddExampleClientPolicy.Text = "Add example";
+            this.buttonAddExampleClientPolicy.UseVisualStyleBackColor = true;
+            this.buttonAddExampleClientPolicy.Click += new System.EventHandler(this.buttonAddExampleClientPolicy_Click);
+            // 
+            // checkBoxcrossdomain
+            // 
+            this.checkBoxcrossdomain.AutoSize = true;
+            this.checkBoxcrossdomain.Location = new System.Drawing.Point(6, 233);
+            this.checkBoxcrossdomain.Name = "checkBoxcrossdomain";
+            this.checkBoxcrossdomain.Size = new System.Drawing.Size(299, 17);
+            this.checkBoxcrossdomain.TabIndex = 62;
+            this.checkBoxcrossdomain.Text = "Define cross domain access policy for Adobe Flash clients";
+            this.checkBoxcrossdomain.UseVisualStyleBackColor = true;
+            this.checkBoxcrossdomain.CheckedChanged += new System.EventHandler(this.checkBoxcrossdomains_CheckedChanged_1);
             // 
             // textBoxCrossDomPolicy
             // 
@@ -417,9 +445,9 @@
             this.checkBoxclientpolicy.AutoSize = true;
             this.checkBoxclientpolicy.Location = new System.Drawing.Point(6, 6);
             this.checkBoxclientpolicy.Name = "checkBoxclientpolicy";
-            this.checkBoxclientpolicy.Size = new System.Drawing.Size(121, 17);
+            this.checkBoxclientpolicy.Size = new System.Drawing.Size(294, 17);
             this.checkBoxclientpolicy.TabIndex = 60;
-            this.checkBoxclientpolicy.Text = "Define client policy :";
+            this.checkBoxclientpolicy.Text = "Define client access policy for Microsoft Silverlight clients";
             this.checkBoxclientpolicy.UseVisualStyleBackColor = true;
             this.checkBoxclientpolicy.CheckedChanged += new System.EventHandler(this.checkBoxclientpolicy_CheckedChanged_1);
             // 
@@ -535,7 +563,7 @@
         private System.Windows.Forms.Button buttonAddAkamai;
         private System.Windows.Forms.DataGridView dataGridViewAkamai;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.CheckBox checkBoxcrossdomains;
+        private System.Windows.Forms.CheckBox checkBoxcrossdomain;
         private System.Windows.Forms.TextBox textBoxCrossDomPolicy;
         private System.Windows.Forms.CheckBox checkBoxclientpolicy;
         private System.Windows.Forms.TextBox textBoxClientPolicy;
@@ -544,5 +572,7 @@
         private System.Windows.Forms.Button buttonAddHostName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.LinkLabel hostnamelink;
+        private System.Windows.Forms.Button buttonAddExampleCrossDomainPolicy;
+        private System.Windows.Forms.Button buttonAddExampleClientPolicy;
     }
 }
