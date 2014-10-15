@@ -777,6 +777,8 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshChannels;
+        public string _published = "Published";
+        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
 
         public void Init(CredentialsEntry credentials)
         {
@@ -794,18 +796,32 @@ namespace AMSExplorer
                                Description = c.Description,
                                ArchiveWindowLength = c.ArchiveWindowLength,
                                LastModified = c.LastModified.ToLocalTime(),
+                               Published = null,
                                ChannelName = c.Channel.Name,
                                ChannelId = c.Channel.Id
-
-
                            };
 
+            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            {
+                NullValue = null,
+                Alignment = DataGridViewContentAlignment.MiddleCenter
+            };
+            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            {
+                DefaultCellStyle = cellstyle,
+                Name = _published,
+                DataPropertyName = _published,
+            };
+            this.Columns.Add(imageCol);
 
 
             BindingList<ProgramEntry> MyObservProgramInPage = new BindingList<ProgramEntry>(programquery.Take(0).ToList());
             this.DataSource = MyObservProgramInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
             this.Columns["ChannelId"].Visible = false;
+            this.Columns[_published].DisplayIndex = this.ColumnCount - 3;
+            this.Columns[_published].DefaultCellStyle.NullValue = null;
+            this.Columns[_published].HeaderText = _published;
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -966,6 +982,7 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                         }).ToArray();
                     break;
 
@@ -983,6 +1000,8 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                         }).ToArray();
                     break;
 
@@ -1000,6 +1019,8 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                         }).ToArray();
                     break;
 
@@ -1017,6 +1038,8 @@ namespace AMSExplorer
                       LastModified = p.LastModified.ToLocalTime(),
                       ChannelName = c.Name,
                       ChannelId = c.Id,
+                      Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                   }).ToArray();
                     break;
             }
@@ -1145,6 +1168,7 @@ namespace AMSExplorer
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
+        public Bitmap Published { get; set; }
         public string ChannelName { get; set; }
         public string ChannelId { get; set; }
     }

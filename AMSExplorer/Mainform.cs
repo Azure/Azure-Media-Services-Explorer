@@ -6818,6 +6818,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             DoCreateLocator(SelectedAssets);
+            DoRefreshGridProgramV(false);
         }
 
         private void createALocatorToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -6834,6 +6835,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
+            DoRefreshGridProgramV(false);
         }
 
         private void displayRelatedAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
