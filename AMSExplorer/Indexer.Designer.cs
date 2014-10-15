@@ -48,6 +48,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.labelWarning = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +57,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 388);
+            this.label3.Location = new System.Drawing.Point(12, 384);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 22;
@@ -66,7 +67,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(15, 404);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(15, 400);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(522, 20);
             this.textboxoutputassetname.TabIndex = 21;
@@ -74,7 +75,7 @@
             // processorlabel
             // 
             this.processorlabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.processorlabel.Location = new System.Drawing.Point(12, 445);
+            this.processorlabel.Location = new System.Drawing.Point(12, 435);
             this.processorlabel.Name = "processorlabel";
             this.processorlabel.Size = new System.Drawing.Size(529, 22);
             this.processorlabel.TabIndex = 20;
@@ -146,7 +147,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(15, 356);
+            this.textBoxJobName.Location = new System.Drawing.Point(15, 352);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(414, 20);
             this.textBoxJobName.TabIndex = 54;
@@ -155,7 +156,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(12, 340);
+            this.label5.Location = new System.Drawing.Point(12, 336);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(59, 13);
             this.label5.TabIndex = 53;
@@ -203,7 +204,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(435, 359);
+            this.label7.Location = new System.Drawing.Point(435, 355);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 61;
@@ -212,7 +213,7 @@
             // numericUpDownPriority
             // 
             this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(479, 356);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(479, 352);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownPriority.TabIndex = 60;
@@ -240,12 +241,24 @@
             this.buttonOk.Text = "Launch indexing";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
+            // labelWarning
+            // 
+            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(12, 465);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelWarning.TabIndex = 62;
+            this.labelWarning.Text = "Warning";
+            // 
             // Indexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.label6);
@@ -291,5 +304,6 @@
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
+        private System.Windows.Forms.Label labelWarning;
     }
 }

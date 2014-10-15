@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
+
 namespace AMSExplorer
 {
     public partial class Indexer : Form
@@ -115,6 +116,13 @@ namespace AMSExplorer
             }
         }
 
+        public string Warning
+        {
+            set
+            {
+                labelWarning.Text = value;
+            }
+        }
 
 
         public Indexer()

@@ -58,6 +58,7 @@ namespace AMSExplorer
         private string MyAssetType;
         //public string MyAssetType;
         public CloudMediaContext MyContext;
+        public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
         private List<IContentKeyAuthorizationPolicy> MyPolicies = null;
 
@@ -414,7 +415,7 @@ namespace AMSExplorer
                 }
 
                 int i;
-                foreach (var se in MyAsset.GetMediaContext().StreamingEndpoints)
+                foreach (var se in MyStreamingEndpoints) //MyAsset.GetMediaContext().StreamingEndpoints)
                 {
                     i=comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
                     if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;

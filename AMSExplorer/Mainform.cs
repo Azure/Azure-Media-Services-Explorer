@@ -50,6 +50,7 @@ using System.Reflection;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
+using System.Text.RegularExpressions;
 
 
 namespace AMSExplorer
@@ -695,7 +696,7 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
             DoRefreshGridChannelV(false);
-            DoRefreshGridOriginV(false);
+            DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
         }
 
@@ -1266,10 +1267,14 @@ namespace AMSExplorer
 
         public DialogResult DisplayInfo(IAsset asset)
         {
+
+
             AssetInformation form = new AssetInformation()
                 {
                     MyAsset = asset,
-                    MyContext = _context
+                    MyContext = _context,
+                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+
                 };
 
             DialogResult dialogResult = form.ShowDialog(this);
@@ -3230,6 +3235,18 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            // let's check that filename are correct
+           bool RegexResult = true;
+            Regex reg = new Regex(@"^[\w-_.]+$", RegexOptions.Compiled);
+            foreach (var asset in SelectedAssets)
+            {
+                foreach (var file in asset.AssetFiles)
+                {
+                     if (!reg.IsMatch(file.Name)) RegexResult=false;
+                }
+            }
+           
+
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
@@ -3239,7 +3256,8 @@ namespace AMSExplorer
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed."
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
+                Warning = RegexResult ? string.Empty: "One of the asset files contains a character which is perhaps not supported by the Indexer."
             };
 
             string taskname = "Indexing of " + Constants.NameconvInputasset;
@@ -3400,13 +3418,21 @@ namespace AMSExplorer
           );
             comboBoxOrderProgram.SelectedIndex = 0;
 
+            comboBoxOrderStreamingEndpoints.Items.AddRange(
+          typeof(OrderStreamingEndpoints)
+          .GetFields()
+          .Select(i => i.GetValue(null) as string)
+          .ToArray()
+          );
+            comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
+
             // List of state and numbers of jobs per state
             DoRefreshGridJobV(true);
             DoGridTransferInit();
             DoRefreshGridAssetV(true);
             DoRefreshGridChannelV(true);
             DoRefreshGridProgramV(true);
-            DoRefreshGridOriginV(true);
+            DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
 
         }
@@ -4855,7 +4881,7 @@ namespace AMSExplorer
                 dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewChannelsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewProgramsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-                dataGridViewOriginsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
+                dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             }
 
             dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid;
@@ -4906,17 +4932,17 @@ namespace AMSExplorer
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
         }
 
-        private void DoRefreshGridOriginV(bool firstime)
+        private void DoRefreshGridStreamingEndpointV(bool firstime)
         {
             if (firstime)
             {
-                dataGridViewOriginsV.Init(_credentials);
+                dataGridViewStreamingEndpointsV.Init(_credentials);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
-            dataGridViewOriginsV.Invoke(new Action(() => dataGridViewOriginsV.RefreshOrigins(_context, 1)));
+            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context, 1)));
 
-            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewOriginsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
         }
 
         private void DoRefreshGridProcessorV(bool firstime)
@@ -4956,9 +4982,9 @@ namespace AMSExplorer
         private List<IStreamingEndpoint> ReturnSelectedOrigins()
         {
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
-            foreach (DataGridViewRow Row in dataGridViewOriginsV.SelectedRows)
+            foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewOriginsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
             }
             SelectedOrigins.Reverse();
             return SelectedOrigins;
@@ -5131,7 +5157,7 @@ namespace AMSExplorer
                         ErrorMessage = Program.GetErrorMessage(ex)
                     };
                     TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
                 }
             }
         }
@@ -5157,9 +5183,9 @@ namespace AMSExplorer
                         ErrorMessage = Program.GetErrorMessage(ex)
                     };
                     TextBoxLogWriteLine("Error when updating streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
                 }
-                DoRefreshGridOriginV(false);
+                DoRefreshGridStreamingEndpointV(false);
             }
         }
 
@@ -5270,7 +5296,7 @@ namespace AMSExplorer
                     ErrorMessage = Program.GetErrorMessage(ex)
                 };
                 TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
             }
         }
 
@@ -5426,7 +5452,7 @@ namespace AMSExplorer
         public void DoOriginMonitor(string originname, OperationType operationtype)
         {
             IStreamingEndpoint origin = _context.StreamingEndpoints.Where(c => c.Name == originname).FirstOrDefault();
-            if (origin != null) dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.DoOriginMonitor(origin, operationtype)), null);
+            if (origin != null) dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.DoStreamingEndpointMonitor(origin, operationtype)), null);
 
         }
 
@@ -5829,11 +5855,11 @@ namespace AMSExplorer
 
         private void dataGridViewOriginsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewOriginsV.Columns["State"].Index) // state column
+            if (e.ColumnIndex == dataGridViewStreamingEndpointsV.Columns["State"].Index) // state column
             {
-                if (dataGridViewOriginsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                if (dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                 {
-                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewOriginsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                     Color mycolor;
 
                     switch (OS)
@@ -5858,7 +5884,7 @@ namespace AMSExplorer
                             break;
 
                     }
-                    for (int i = 0; i < dataGridViewOriginsV.Columns.Count; i++) dataGridViewOriginsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    for (int i = 0; i < dataGridViewStreamingEndpointsV.Columns.Count; i++) dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
 
                 }
             }
@@ -6062,7 +6088,7 @@ namespace AMSExplorer
 
                 await STask;
 
-                DoRefreshGridOriginV(false);
+                DoRefreshGridStreamingEndpointV(false);
             }
         }
 
@@ -6174,7 +6200,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IStreamingEndpoint origin = GetOrigin(dataGridViewOriginsV.Rows[e.RowIndex].Cells[dataGridViewOriginsV.Columns["Id"].Index].Value.ToString());
+                IStreamingEndpoint origin = GetOrigin(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
                 if (origin != null)
                 {
                     DoDisplayOriginInfo(origin);
@@ -6455,7 +6481,7 @@ namespace AMSExplorer
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            
+
 
                                             if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
                                             {
@@ -6864,6 +6890,16 @@ namespace AMSExplorer
                 AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri());
         }
 
+        private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (dataGridViewStreamingEndpointsV.Initialized)
+            {
+                DoRefreshGridStreamingEndpointV(false);
+            }
+        }
+
 
     }
 
@@ -7115,6 +7151,14 @@ namespace AMSExplorer
         public const string State = "State";
     }
 
+    public static class OrderStreamingEndpoints
+    {
+        public const string LastModified = "Last modified";
+        public const string Name = "Name";
+        public const string State = "State";
+        public const string ScaleUnits = "Scale units";
+    }
+
 
     public static class StatusAssets
     {
@@ -7158,18 +7202,6 @@ namespace AMSExplorer
         ExportToAzureStorage = 4,
         DownloadToLocal = 5
     }
-
-    public static class OrderOrigins
-    {
-        public const string LastModified = "Last modified";
-        public const string StartTime = "Start Time";
-        public const string EndTime = "End Time";
-        public const string ProcessTime = "Duration";
-        public const string Name = "Name";
-        public const string State = "State";
-    }
-
-
 
 
     public class DataGridViewAssets : DataGridView
