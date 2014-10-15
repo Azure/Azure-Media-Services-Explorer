@@ -39,6 +39,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetImportFileFromAzure = new System.Windows.Forms.ToolStripMenuItem();
@@ -193,6 +195,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxPageJobs = new System.Windows.Forms.ComboBox();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobInputAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
@@ -209,6 +213,8 @@
             this.contextMenuStripTransfers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
@@ -233,6 +239,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -258,6 +266,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
             this.contextMenuStripPrograms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.displayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -280,7 +290,9 @@
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxOrderStreamingEndpoints = new System.Windows.Forms.ComboBox();
             this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
-            this.contextMenuStripStreaminEndpoint = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemOriginDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.createStreamingEndpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -304,6 +316,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.contextMenuStripTransfers.SuspendLayout();
             this.tabControlMain.SuspendLayout();
+            this.contextMenuStripProcessors.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
             this.tabPageTransfers.SuspendLayout();
@@ -322,7 +335,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
             this.tabPageOrigins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
-            this.contextMenuStripStreaminEndpoint.SuspendLayout();
+            this.contextMenuStripStreaminEndpoints.SuspendLayout();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -400,6 +413,8 @@
             // contextMenuStripAssets
             // 
             this.contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem1,
+            this.toolStripSeparator9,
             this.ContextMenuItemAssetDisplayInfo,
             this.ContextMenuItemAssetCreateOutlookReportEmail,
             this.ContextMenuItemAssetImportFileFromAzure,
@@ -422,8 +437,21 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 386);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 414);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
+            // 
+            // refreshToolStripMenuItem1
+            // 
+            this.refreshToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
+            this.refreshToolStripMenuItem1.Text = "Refresh";
+            this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.refreshToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(346, 6);
             // 
             // ContextMenuItemAssetDisplayInfo
             // 
@@ -1568,15 +1596,15 @@
             this.refreshToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripMenuItem.Image")));
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh grids";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh all";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -1797,6 +1825,8 @@
             // contextMenuStripJobs
             // 
             this.contextMenuStripJobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem2,
+            this.toolStripSeparator18,
             this.ContextMenuItemJobDisplayInfo,
             this.ContextMenuItemJobInputAssetInformation,
             this.ContextMenuItemJobOpenOutputAsset,
@@ -1806,8 +1836,21 @@
             this.ContextMenuItemJobCancel,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 164);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 192);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
+            // 
+            // refreshToolStripMenuItem2
+            // 
+            this.refreshToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem2.Name = "refreshToolStripMenuItem2";
+            this.refreshToolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
+            this.refreshToolStripMenuItem2.Text = "Refresh";
+            this.refreshToolStripMenuItem2.Click += new System.EventHandler(this.refreshToolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(263, 6);
             // 
             // ContextMenuItemJobDisplayInfo
             // 
@@ -1957,6 +2000,7 @@
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlMain.ContextMenuStrip = this.contextMenuStripProcessors;
             this.tabControlMain.Controls.Add(this.tabPageAssets);
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
@@ -1970,6 +2014,21 @@
             this.tabControlMain.Size = new System.Drawing.Size(1014, 469);
             this.tabControlMain.TabIndex = 28;
             this.tabControlMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlMain_Selected);
+            // 
+            // contextMenuStripProcessors
+            // 
+            this.contextMenuStripProcessors.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem6});
+            this.contextMenuStripProcessors.Name = "contextMenuStripStreamingEndpoints";
+            this.contextMenuStripProcessors.Size = new System.Drawing.Size(114, 26);
+            // 
+            // refreshToolStripMenuItem6
+            // 
+            this.refreshToolStripMenuItem6.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem6.Name = "refreshToolStripMenuItem6";
+            this.refreshToolStripMenuItem6.Size = new System.Drawing.Size(113, 22);
+            this.refreshToolStripMenuItem6.Text = "Refresh";
+            this.refreshToolStripMenuItem6.Click += new System.EventHandler(this.refreshToolStripMenuItem6_Click);
             // 
             // tabPageAssets
             // 
@@ -2310,6 +2369,8 @@
             // contextMenuStripChannels
             // 
             this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem3,
+            this.toolStripSeparator20,
             this.ContextMenuItemChannelDisplayInfomation,
             this.createChannelToolStripMenuItem1,
             this.ContextMenuItemChannelStart,
@@ -2322,7 +2383,20 @@
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 214);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 242);
+            // 
+            // refreshToolStripMenuItem3
+            // 
+            this.refreshToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem3.Name = "refreshToolStripMenuItem3";
+            this.refreshToolStripMenuItem3.Size = new System.Drawing.Size(256, 22);
+            this.refreshToolStripMenuItem3.Text = "Refresh";
+            this.refreshToolStripMenuItem3.Click += new System.EventHandler(this.refreshToolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(253, 6);
             // 
             // ContextMenuItemChannelDisplayInfomation
             // 
@@ -2552,6 +2626,8 @@
             // contextMenuStripPrograms
             // 
             this.contextMenuStripPrograms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem4,
+            this.toolStripSeparator21,
             this.ContextMenuItemProgramDisplayInformation,
             this.displayRelatedAssetInformationToolStripMenuItem,
             this.createProgramToolStripMenuItem,
@@ -2563,7 +2639,20 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 208);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 236);
+            // 
+            // refreshToolStripMenuItem4
+            // 
+            this.refreshToolStripMenuItem4.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem4.Name = "refreshToolStripMenuItem4";
+            this.refreshToolStripMenuItem4.Size = new System.Drawing.Size(262, 22);
+            this.refreshToolStripMenuItem4.Text = "Refresh";
+            this.refreshToolStripMenuItem4.Click += new System.EventHandler(this.refreshToolStripMenuItem4_Click);
+            // 
+            // toolStripSeparator21
+            // 
+            this.toolStripSeparator21.Name = "toolStripSeparator21";
+            this.toolStripSeparator21.Size = new System.Drawing.Size(259, 6);
             // 
             // ContextMenuItemProgramDisplayInformation
             // 
@@ -2763,7 +2852,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoint;
+            this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
             this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
             this.dataGridViewStreamingEndpointsV.ItemsPerPage = 50;
             this.dataGridViewStreamingEndpointsV.Location = new System.Drawing.Point(6, 6);
@@ -2779,16 +2868,31 @@
             this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
             this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
             // 
-            // contextMenuStripStreaminEndpoint
+            // contextMenuStripStreaminEndpoints
             // 
-            this.contextMenuStripStreaminEndpoint.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStripStreaminEndpoints.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem5,
+            this.toolStripSeparator25,
             this.ContextMenuItemOriginDisplayInformation,
             this.createStreamingEndpointToolStripMenuItem,
             this.ContextMenuItemOriginStart,
             this.ContextMenuItemOriginStop,
             this.ContextMenuItemOriginDelete});
-            this.contextMenuStripStreaminEndpoint.Name = "contextMenuStripOrigins";
-            this.contextMenuStripStreaminEndpoint.Size = new System.Drawing.Size(341, 114);
+            this.contextMenuStripStreaminEndpoints.Name = "contextMenuStripOrigins";
+            this.contextMenuStripStreaminEndpoints.Size = new System.Drawing.Size(341, 142);
+            // 
+            // refreshToolStripMenuItem5
+            // 
+            this.refreshToolStripMenuItem5.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem5.Name = "refreshToolStripMenuItem5";
+            this.refreshToolStripMenuItem5.Size = new System.Drawing.Size(340, 22);
+            this.refreshToolStripMenuItem5.Text = "Refresh";
+            this.refreshToolStripMenuItem5.Click += new System.EventHandler(this.refreshToolStripMenuItem5_Click);
+            // 
+            // toolStripSeparator25
+            // 
+            this.toolStripSeparator25.Name = "toolStripSeparator25";
+            this.toolStripSeparator25.Size = new System.Drawing.Size(337, 6);
             // 
             // ContextMenuItemOriginDisplayInformation
             // 
@@ -2954,9 +3058,10 @@
             this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRefresh.Location = new System.Drawing.Point(337, 30);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(92, 28);
+            this.buttonRefresh.Size = new System.Drawing.Size(100, 28);
             this.buttonRefresh.TabIndex = 23;
-            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.Text = "Refresh all";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
@@ -2988,6 +3093,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.contextMenuStripTransfers.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
+            this.contextMenuStripProcessors.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
             this.tabPageAssets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
@@ -3011,7 +3117,7 @@
             this.tabPageOrigins.ResumeLayout(false);
             this.tabPageOrigins.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
-            this.contextMenuStripStreaminEndpoint.ResumeLayout(false);
+            this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
             this.tabPageChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.splitContainerMain.Panel1.ResumeLayout(false);
@@ -3218,7 +3324,7 @@
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramStart;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramStop;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramDelete;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripStreaminEndpoint;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripStreaminEndpoints;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginDisplayInformation;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginStart;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginStop;
@@ -3291,6 +3397,18 @@
         private System.Windows.Forms.ToolStripMenuItem withDASHLiveAzurePlayerToolStripMenuItem1;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox comboBoxOrderStreamingEndpoints;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripProcessors;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem6;
     }
 }
 

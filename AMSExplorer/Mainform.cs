@@ -3236,16 +3236,16 @@ namespace AMSExplorer
             if (SelectedAssets.FirstOrDefault() == null) return;
 
             // let's check that filename are correct
-           bool RegexResult = true;
+            bool RegexResult = true;
             Regex reg = new Regex(@"^[\w-_.]+$", RegexOptions.Compiled);
             foreach (var asset in SelectedAssets)
             {
                 foreach (var file in asset.AssetFiles)
                 {
-                     if (!reg.IsMatch(file.Name)) RegexResult=false;
+                    if (!reg.IsMatch(file.Name)) RegexResult = false;
                 }
             }
-           
+
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
@@ -3257,7 +3257,7 @@ namespace AMSExplorer
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
-                Warning = RegexResult ? string.Empty: "One of the asset files contains a character which is perhaps not supported by the Indexer."
+                Warning = RegexResult ? string.Empty : "One of the asset files contains a character which is perhaps not supported by the Indexer."
             };
 
             string taskname = "Indexing of " + Constants.NameconvInputasset;
@@ -4744,7 +4744,7 @@ namespace AMSExplorer
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabTransfers)));
 
             EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
-            EnableChildItems(ref contextMenuStripStreaminEndpoint, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
+            EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
 
             EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
             EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
@@ -6467,7 +6467,6 @@ namespace AMSExplorer
 
                                 }
 
-
                                 string tokenTemplateString = null;
                                 try
                                 {
@@ -6552,12 +6551,9 @@ namespace AMSExplorer
                                         TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         Error = true;
-
                                     }
                                 }
-
                                 if (Error) break;
-
 
                                 if (!String.IsNullOrEmpty(tokenTemplateString))
                                 {
@@ -6574,7 +6570,6 @@ namespace AMSExplorer
                                     TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
                                     TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
                                 }
-
                             }
                             else // No Dynamic encryption
                             {
@@ -6615,6 +6610,7 @@ namespace AMSExplorer
 
                                 if (Error) break;
                             }
+
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                 }
@@ -6898,6 +6894,36 @@ namespace AMSExplorer
             {
                 DoRefreshGridStreamingEndpointV(false);
             }
+        }
+
+        private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridAssetV(false);
+        }
+
+        private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridJobV(false);
+        }
+
+        private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridChannelV(false);
+        }
+
+        private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridProgramV(false);
+        }
+
+        private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridStreamingEndpointV(false);
+        }
+
+        private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridProcessorV(false);
         }
 
 
@@ -7492,9 +7518,6 @@ namespace AMSExplorer
             {
                 // cancel the analyze.
                 WorkerAnalyzeAssets.CancelAsync();
-
-                //System.Threading.Thread.Sleep(1000);
-
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
@@ -7627,20 +7650,16 @@ namespace AMSExplorer
 
             AnalyzeItemsInBackground();
             this.FindForm().Cursor = Cursors.Default;
-
         }
-
-
 
 
         public void AnalyzeItemsInBackground()
         {
             Task.Run(() =>
        {
-
+           WorkerAnalyzeAssets.CancelAsync();
            // let's wait a little for the previous worker to cancel if needed
            System.Threading.Thread.Sleep(2000);
-
 
            if (WorkerAnalyzeAssets.IsBusy != true)
            {
@@ -7651,7 +7670,6 @@ namespace AMSExplorer
                }
                catch { }
            }
-
        });
 
         }
