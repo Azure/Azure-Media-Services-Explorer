@@ -261,7 +261,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label26.Location = new System.Drawing.Point(651, 97);
+            this.label26.Location = new System.Drawing.Point(603, 97);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(63, 13);
             this.label26.TabIndex = 31;
@@ -271,7 +271,7 @@
             // 
             this.label25.AutoSize = true;
             this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(651, 62);
+            this.label25.Location = new System.Drawing.Point(603, 62);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(63, 13);
             this.label25.TabIndex = 30;
@@ -300,7 +300,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(466, 27);
+            this.label22.Location = new System.Drawing.Point(418, 27);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(34, 13);
             this.label22.TabIndex = 27;
@@ -313,7 +313,7 @@
             this.comboBoxVOverlayMode.Items.AddRange(new object[] {
             "WholeSequence",
             "Custom"});
-            this.comboBoxVOverlayMode.Location = new System.Drawing.Point(545, 24);
+            this.comboBoxVOverlayMode.Location = new System.Drawing.Point(497, 24);
             this.comboBoxVOverlayMode.Name = "comboBoxVOverlayMode";
             this.comboBoxVOverlayMode.Size = new System.Drawing.Size(169, 21);
             this.comboBoxVOverlayMode.TabIndex = 23;
@@ -429,7 +429,7 @@
             // 
             // textBoxVOverlayEndTime
             // 
-            this.textBoxVOverlayEndTime.Location = new System.Drawing.Point(545, 94);
+            this.textBoxVOverlayEndTime.Location = new System.Drawing.Point(497, 94);
             this.textBoxVOverlayEndTime.Name = "textBoxVOverlayEndTime";
             this.textBoxVOverlayEndTime.Size = new System.Drawing.Size(100, 20);
             this.textBoxVOverlayEndTime.TabIndex = 11;
@@ -439,7 +439,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(469, 97);
+            this.label9.Location = new System.Drawing.Point(421, 97);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(48, 13);
             this.label9.TabIndex = 10;
@@ -447,7 +447,7 @@
             // 
             // textBoxVOverlayStartTime
             // 
-            this.textBoxVOverlayStartTime.Location = new System.Drawing.Point(545, 58);
+            this.textBoxVOverlayStartTime.Location = new System.Drawing.Point(497, 58);
             this.textBoxVOverlayStartTime.Name = "textBoxVOverlayStartTime";
             this.textBoxVOverlayStartTime.Size = new System.Drawing.Size(100, 20);
             this.textBoxVOverlayStartTime.TabIndex = 9;
@@ -457,7 +457,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(466, 61);
+            this.label10.Location = new System.Drawing.Point(418, 61);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(51, 13);
             this.label10.TabIndex = 8;
@@ -574,7 +574,7 @@
             // 
             this.label30.AutoSize = true;
             this.label30.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(651, 67);
+            this.label30.Location = new System.Drawing.Point(603, 46);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(63, 13);
             this.label30.TabIndex = 32;
@@ -584,7 +584,7 @@
             // 
             this.label29.AutoSize = true;
             this.label29.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(651, 97);
+            this.label29.Location = new System.Drawing.Point(603, 76);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(63, 13);
             this.label29.TabIndex = 31;
@@ -594,7 +594,7 @@
             // 
             this.label28.AutoSize = true;
             this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(232, 100);
+            this.label28.Location = new System.Drawing.Point(232, 79);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(63, 13);
             this.label28.TabIndex = 30;
@@ -604,7 +604,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(232, 67);
+            this.label27.Location = new System.Drawing.Point(232, 46);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(63, 13);
             this.label27.TabIndex = 29;
@@ -613,7 +613,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(469, 35);
+            this.label21.Location = new System.Drawing.Point(421, 14);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(34, 13);
             this.label21.TabIndex = 26;
@@ -621,7 +621,7 @@
             // 
             // textBoxAOverlayGap
             // 
-            this.textBoxAOverlayGap.Location = new System.Drawing.Point(126, 133);
+            this.textBoxAOverlayGap.Location = new System.Drawing.Point(126, 112);
             this.textBoxAOverlayGap.Name = "textBoxAOverlayGap";
             this.textBoxAOverlayGap.Size = new System.Drawing.Size(100, 20);
             this.textBoxAOverlayGap.TabIndex = 25;
@@ -631,7 +631,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(93, 136);
+            this.label20.Location = new System.Drawing.Point(93, 115);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(27, 13);
             this.label20.TabIndex = 24;
@@ -642,7 +642,7 @@
             this.CheckBoxAOverlayLoop.AutoSize = true;
             this.CheckBoxAOverlayLoop.Checked = true;
             this.CheckBoxAOverlayLoop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CheckBoxAOverlayLoop.Location = new System.Drawing.Point(21, 135);
+            this.CheckBoxAOverlayLoop.Location = new System.Drawing.Point(21, 114);
             this.CheckBoxAOverlayLoop.Name = "CheckBoxAOverlayLoop";
             this.CheckBoxAOverlayLoop.Size = new System.Drawing.Size(50, 17);
             this.CheckBoxAOverlayLoop.TabIndex = 23;
@@ -657,7 +657,7 @@
             this.comboBoxAOverlayMode.Items.AddRange(new object[] {
             "WholeSequence",
             "Custom"});
-            this.comboBoxAOverlayMode.Location = new System.Drawing.Point(545, 32);
+            this.comboBoxAOverlayMode.Location = new System.Drawing.Point(497, 11);
             this.comboBoxAOverlayMode.Name = "comboBoxAOverlayMode";
             this.comboBoxAOverlayMode.Size = new System.Drawing.Size(169, 21);
             this.comboBoxAOverlayMode.TabIndex = 22;
@@ -665,7 +665,7 @@
             // 
             // textBoxAOverlayEnd
             // 
-            this.textBoxAOverlayEnd.Location = new System.Drawing.Point(545, 97);
+            this.textBoxAOverlayEnd.Location = new System.Drawing.Point(497, 76);
             this.textBoxAOverlayEnd.Name = "textBoxAOverlayEnd";
             this.textBoxAOverlayEnd.Size = new System.Drawing.Size(100, 20);
             this.textBoxAOverlayEnd.TabIndex = 21;
@@ -675,7 +675,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(469, 100);
+            this.label15.Location = new System.Drawing.Point(421, 79);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(48, 13);
             this.label15.TabIndex = 20;
@@ -683,7 +683,7 @@
             // 
             // textBoxAOverlayStart
             // 
-            this.textBoxAOverlayStart.Location = new System.Drawing.Point(545, 64);
+            this.textBoxAOverlayStart.Location = new System.Drawing.Point(497, 43);
             this.textBoxAOverlayStart.Name = "textBoxAOverlayStart";
             this.textBoxAOverlayStart.Size = new System.Drawing.Size(100, 20);
             this.textBoxAOverlayStart.TabIndex = 19;
@@ -693,7 +693,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(469, 67);
+            this.label16.Location = new System.Drawing.Point(421, 46);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(51, 13);
             this.label16.TabIndex = 18;
@@ -701,7 +701,7 @@
             // 
             // textBoxAOverlayFadeOut
             // 
-            this.textBoxAOverlayFadeOut.Location = new System.Drawing.Point(126, 97);
+            this.textBoxAOverlayFadeOut.Location = new System.Drawing.Point(126, 76);
             this.textBoxAOverlayFadeOut.Name = "textBoxAOverlayFadeOut";
             this.textBoxAOverlayFadeOut.Size = new System.Drawing.Size(100, 20);
             this.textBoxAOverlayFadeOut.TabIndex = 17;
@@ -711,7 +711,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(17, 100);
+            this.label17.Location = new System.Drawing.Point(17, 79);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(92, 13);
             this.label17.TabIndex = 16;
@@ -719,7 +719,7 @@
             // 
             // textBoxAOverlayFadeIn
             // 
-            this.textBoxAOverlayFadeIn.Location = new System.Drawing.Point(126, 64);
+            this.textBoxAOverlayFadeIn.Location = new System.Drawing.Point(126, 43);
             this.textBoxAOverlayFadeIn.Name = "textBoxAOverlayFadeIn";
             this.textBoxAOverlayFadeIn.Size = new System.Drawing.Size(100, 20);
             this.textBoxAOverlayFadeIn.TabIndex = 15;
@@ -729,7 +729,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(18, 67);
+            this.label18.Location = new System.Drawing.Point(18, 46);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(84, 13);
             this.label18.TabIndex = 14;
@@ -743,7 +743,7 @@
             0,
             0,
             65536});
-            this.numericUpDownAOverlayGain.Location = new System.Drawing.Point(126, 32);
+            this.numericUpDownAOverlayGain.Location = new System.Drawing.Point(126, 11);
             this.numericUpDownAOverlayGain.Maximum = new decimal(new int[] {
             10,
             0,
@@ -762,7 +762,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(17, 35);
+            this.label19.Location = new System.Drawing.Point(17, 14);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(54, 13);
             this.label19.TabIndex = 12;

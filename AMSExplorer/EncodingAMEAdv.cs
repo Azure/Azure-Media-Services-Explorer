@@ -37,7 +37,7 @@ namespace AMSExplorer
         public string EncodingAMEPresetXMLFiles;
         private bool xmlOpenedNotYetStiched = true; // true if xml has been opened and no stiching done yet
         private bool xmlOpenedNotYetNamedConvention = true; // true if xml has been opened and no naming convention done yet
-        private bool xmlOpenedNotYetVSSRotation = true; // true if xml has been opened and no naming convention done yet
+        private bool xmlOpenedNotYetVSSRotation = true; // true if xml has been opened and no VSS done yet
         private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
         private bool bAudioOverlay = false; // indicate if audio overlay has been checked or not
 
@@ -224,7 +224,6 @@ namespace AMSExplorer
             var position = tableLayoutPanelIAssets.GetPositionFromControl(cbStitch);
 
             for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
-            // foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
                 Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
                 if (c.Text == strEditTimes)
@@ -242,9 +241,7 @@ namespace AMSExplorer
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
             var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
-            //int tag = (int)(cb.Tag);
             for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
-            //foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
                 Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
                 if (c.GetType() == typeof(TextBox))
@@ -409,7 +406,6 @@ namespace AMSExplorer
                             if (mediafile.Attributes("AudioOverlayFadeInDuration").Count() > 0) mediafile.Attributes("AudioOverlayFadeInDuration").Remove();
                             if (mediafile.Attributes("AudioOverlayFadeOutDuration").Count() > 0) mediafile.Attributes("AudioOverlayFadeOutDuration").Remove();
 
-                            //foreach (Control c in this.tableLayoutPanelIAssets.Controls)
                             for (int row = 0; row < tableLayoutPanelIAssets.RowCount; row++)
                             {
                                 for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
@@ -655,7 +651,7 @@ namespace AMSExplorer
         {
             bool Error = false;
 
-            if (checkBoxVSS.Checked | !xmlOpenedNotYetVSSRotation) // name convention checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
+            if (checkBoxVSS.Checked | !xmlOpenedNotYetVSSRotation) // VSS checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
             {
                 XDocument docbackup = doc;
 
@@ -665,7 +661,7 @@ namespace AMSExplorer
                     if (rootpresets != null) // It's an v5 preset with Presets attribute
                     {
                         // VSS Rotation
-                        if (rootpresets.Attributes("Rotation").Count() == 0) rootpresets.Attributes("Rotation").Remove();
+                        if (rootpresets.Attributes("Rotation").Count() > 0) rootpresets.Attributes("Rotation").Remove();
                         if (checkBoxVSS.Checked) rootpresets.Add(new XAttribute("Rotation", "Auto"));
                     }
                 }
@@ -709,7 +705,7 @@ namespace AMSExplorer
             foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
             {
                 style.SizeType = SizeType.Absolute;
-                style.Width = 100;
+                style.Width = 80;
             }
             tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
             tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
@@ -719,6 +715,10 @@ namespace AMSExplorer
             tableLayoutPanelIAssets.ColumnStyles[2].Width = 20;
             tableLayoutPanelIAssets.ColumnStyles[3].SizeType = SizeType.Percent;
             tableLayoutPanelIAssets.ColumnStyles[3].Width = 10;
+            tableLayoutPanelIAssets.ColumnStyles[4].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[4].Width = 100;
+            tableLayoutPanelIAssets.ColumnStyles[5].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[5].Width = 100;
             int i = 0;
 
             if (SelectedAssets.Count > 1) // Multi assets mode
@@ -745,6 +745,7 @@ namespace AMSExplorer
                     i++;
                 }
             }
+            tableLayoutPanelIAssets.Refresh();
             tableLayoutPanelIAssets.Visible = true;
             comboBoxAOverlayMode.SelectedIndex = 0;
             comboBoxVOverlayMode.SelectedIndex = 0;
