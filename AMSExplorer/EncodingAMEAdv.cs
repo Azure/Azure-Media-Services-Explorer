@@ -141,7 +141,7 @@ namespace AMSExplorer
                     tableLayoutPanelIAssets.Enabled = true;
                     if (bMultiAssetMode) // multi asset
                     {
-                        DisableControlsInMultiAssetsMode();
+                        DisableControls();
                     }
                 }
                 catch (Exception ex)
@@ -162,11 +162,15 @@ namespace AMSExplorer
         }
 
         // Some controls must be disabled
-        private void DisableControlsInMultiAssetsMode()
+        private void DisableControls()
         {
             tableLayoutPanelIAssets.GetControlFromPosition(0, 0).Enabled = false; // not possible to go up for first row
-            tableLayoutPanelIAssets.GetControlFromPosition(4, 0).Enabled = false; // not possible to do overlay with first asset
-            tableLayoutPanelIAssets.GetControlFromPosition(5, 0).Enabled = false; // not possible to do overlay with first asset
+            if (bMultiAssetMode)
+            {
+                tableLayoutPanelIAssets.GetControlFromPosition(4, 0).Enabled = false; // not possible to do overlay with first asset
+                tableLayoutPanelIAssets.GetControlFromPosition(5, 0).Enabled = false; // not possible to do overlay with first asset
+            }
+            
             if (tableLayoutPanelIAssets.RowCount > 1)
             {
                 for (int i = 1; i < tableLayoutPanelIAssets.RowCount; i++)
@@ -672,108 +676,31 @@ namespace AMSExplorer
         private void BuildAssetsPanel()
         {
             tableLayoutPanelIAssets.Visible = false;
+            tableLayoutPanelIAssets.ColumnCount += 3;
+            foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
+            {
+                style.SizeType = SizeType.Absolute;
+                style.Width = 80;
+            }
+            tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[1].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[1].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[2].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[2].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[3].SizeType = SizeType.Percent;
+            tableLayoutPanelIAssets.ColumnStyles[3].Width = 10;
+            int i = 0;
+
             if (SelectedAssets.Count > 1) // Multi assets mode
             {
                 bMultiAssetMode = true;
                 tableLayoutPanelIAssets.RowCount = SelectedAssets.Count;
-                int i = 0;
-                tableLayoutPanelIAssets.ColumnCount += 3;
-
-                foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
-                {
-                    style.SizeType = SizeType.Absolute;
-                    style.Width = 80;
-                }
-                tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
-                tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
-                tableLayoutPanelIAssets.ColumnStyles[1].SizeType = SizeType.Absolute;
-                tableLayoutPanelIAssets.ColumnStyles[1].Width = 20;
-                tableLayoutPanelIAssets.ColumnStyles[2].SizeType = SizeType.Absolute;
-                tableLayoutPanelIAssets.ColumnStyles[2].Width = 20;
-                tableLayoutPanelIAssets.ColumnStyles[3].SizeType = SizeType.Percent;
-                tableLayoutPanelIAssets.ColumnStyles[3].Width = 10;
-
+    
                 foreach (IAsset asset in SelectedAssets)
                 {
-                    Button butUp = new Button() { Text = char.ConvertFromUtf32(8593), Tag = i, Width = 20 };
-                    butUp.Click += new System.EventHandler(butUp_Clicked);
-
-                    Button butDwn = new Button() { Text = char.ConvertFromUtf32(8595), Tag = i, Width = 20 };
-                    butDwn.Click += new System.EventHandler(butDwn_Clicked);
-
-                    Label Index = new Label()
-                    {
-                        Tag = i,
-                        AutoSize = true,
-                        Text = i.ToString()
-                    };
-
-                    Label label = new Label()
-                    {
-                        Tag = i,
-                        AutoSize = true,
-                        Text = asset.Name
-                    };
-
-
-                    CheckBox checkboxVisualOverlay = new CheckBox()
-                    {
-                        Text = "Visual overlay",
-                        Tag = i
-                    };
-                    checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
-
-                    CheckBox checkboxAudioOverlay = new CheckBox()
-                    {
-                        Text = "Audio overlay",
-                        Tag = i
-                    };
-                    checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
-
-                    CheckBox checkboxStitch = new CheckBox()
-                    {
-                        Text = "Stitch",
-                        Tag = i
-                    };
-                    checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
-
-                    CheckBox checkboxTime = new CheckBox()
-                    {
-                        Text = "Edit times",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
-
-                    TextBox textbaseStart = new TextBox()
-                    {
-                        Text = "00:00:00",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    TextBox textbaseEnd = new TextBox()
-                    {
-                        Text = "00:00:05",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    tableLayoutPanelIAssets.Controls.Add(butUp, 0 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(butDwn, 1 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(Index, 2 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(label, 3 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 4 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 5 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 6 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxTime, 7 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseStart, 8 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 9 /* Column Index */, i /* Row index */);
-
+                    AddRowControls(i, asset.Name);
                     i++;
-
                 }
                 tableLayoutPanelIAssets.Refresh();
             }
@@ -782,94 +709,11 @@ namespace AMSExplorer
                 bMultiAssetMode = false;
                 tableLayoutPanelIAssets.RowCount = SelectedAssets.FirstOrDefault().AssetFiles.Count();
                 tabControl1.TabPages[0].Text = "Input files";
-                int i = 0;
-
-                tableLayoutPanelIAssets.ColumnCount += 1;
-
-                foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
-                {
-                    style.SizeType = SizeType.Absolute;
-                    style.Width = 80;
-                }
-                
-                tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute; // Index
-                tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
-                tableLayoutPanelIAssets.ColumnStyles[1].SizeType = SizeType.Percent; // Name of file
-                tableLayoutPanelIAssets.ColumnStyles[1].Width = 10;
 
                 foreach (IAssetFile assetfile in SelectedAssets.FirstOrDefault().AssetFiles)
                 {
-                    Label Index = new Label()
-                    {
-                        Tag = i,
-                        AutoSize = true,
-                        Text = i.ToString()
-                    };
-
-                    Label label = new Label()
-                    {
-                        Tag = i,
-                        AutoSize = true,
-                        Text = assetfile.Name
-                    };
-
-
-                    CheckBox checkboxVisualOverlay = new CheckBox()
-                    {
-                        Text = "Visual overlay",
-                        Tag = i
-                    };
-                    checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
-
-                    CheckBox checkboxAudioOverlay = new CheckBox()
-                    {
-                        Text = "Audio overlay",
-                        Tag = i
-                    };
-                    checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
-
-                    CheckBox checkboxStitch = new CheckBox()
-                    {
-                        Text = "Stitch",
-                        Tag = i
-                    };
-                    checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
-
-                    CheckBox checkboxTime = new CheckBox()
-                    {
-                        Text = "Edit times",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
-
-                    TextBox textbaseStart = new TextBox()
-                    {
-                        Text = "00:00:00",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    TextBox textbaseEnd = new TextBox()
-                    {
-                        Text = "00:00:05",
-                        Tag = i,
-                        Enabled = false
-                    };
-                    textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    tableLayoutPanelIAssets.Controls.Add(Index, 0 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(label, 1 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 2 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 3 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 4 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxTime, 5 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseStart, 6 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 7 /* Column Index */, i /* Row index */);
-
+                    AddRowControls(i, assetfile.Name);
                     i++;
-
                 }
             }
             tableLayoutPanelIAssets.Visible = true;
@@ -877,21 +721,99 @@ namespace AMSExplorer
             comboBoxVOverlayMode.SelectedIndex = 0;
         }
 
+        private void AddRowControls(int i, string itemName)
+        {
+            Button butUp = new Button() { Text = char.ConvertFromUtf32(8593), Tag = i, Width = 20 };
+            butUp.Click += new System.EventHandler(butUp_Clicked);
+
+            Button butDwn = new Button() { Text = char.ConvertFromUtf32(8595), Tag = i, Width = 20 };
+            butDwn.Click += new System.EventHandler(butDwn_Clicked);
+
+            Label Index = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = i.ToString()
+            };
+
+            Label label = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = itemName
+            };
+
+
+            CheckBox checkboxVisualOverlay = new CheckBox()
+            {
+                Text = "Visual overlay",
+                Tag = i
+            };
+            checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
+
+            CheckBox checkboxAudioOverlay = new CheckBox()
+            {
+                Text = "Audio overlay",
+                Tag = i
+            };
+            checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
+
+            CheckBox checkboxStitch = new CheckBox()
+            {
+                Text = "Stitch",
+                Tag = i
+            };
+            checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
+
+            CheckBox checkboxTime = new CheckBox()
+            {
+                Text = "Edit times",
+                Tag = i,
+                Enabled = false
+            };
+            checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
+
+            TextBox textbaseStart = new TextBox()
+            {
+                Text = "00:00:00",
+                Tag = i,
+                Enabled = false
+            };
+            textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
+
+            TextBox textbaseEnd = new TextBox()
+            {
+                Text = "00:00:05.3",
+                Tag = i,
+                Enabled = false
+            };
+            textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
+
+            tableLayoutPanelIAssets.Controls.Add(butUp, 0 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(butDwn, 1 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(Index, 2 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(label, 3 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 4 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 5 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 6 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxTime, 7 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(textbaseStart, 8 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 9 /* Column Index */, i /* Row index */);
+        }
+
         private void butDwn_Clicked(object sender, EventArgs e)
         {
             int mytag = (int)((Button)sender).Tag;
-            SelectedAssets = Swap(SelectedAssets, mytag, mytag + 1);
             SwapControls(mytag, mytag + 1);
-            DisableControlsInMultiAssetsMode();
+            DisableControls();
             UpdateStitchAndOverlaysInDoc();
         }
 
         private void butUp_Clicked(object sender, EventArgs e)
         {
             int mytag = (int)((Button)sender).Tag;
-            SelectedAssets = Swap(SelectedAssets, mytag, mytag - 1);
             SwapControls(mytag, mytag - 1);
-            DisableControlsInMultiAssetsMode();
+            DisableControls();
             UpdateStitchAndOverlaysInDoc();
         }
 
@@ -906,32 +828,30 @@ namespace AMSExplorer
                     Control controw2 = tableLayoutPanelIAssets.GetControlFromPosition(col, indexrow2);
                     tableLayoutPanelIAssets.SetRow(controw1, indexrow2);
                     tableLayoutPanelIAssets.SetRow(controw2, indexrow1);
-                    controw1.Tag = indexrow2;
-                    controw2.Tag = indexrow1;
+                    if (bMultiAssetMode) // if we have multiple assets as source, then let's exchange the assets and update the tag
+                    {
+                        SwapSelectedAssets(indexrow1, indexrow2); // SelectedAssets, 
+                        controw1.Tag = indexrow2;
+                        controw2.Tag = indexrow1;
+                    }
                 }
             }
             tableLayoutPanelIAssets.Visible = true;
         }
 
 
-        private List<IAsset> Swap(List<IAsset> source, int index1, int index2)
+        private void SwapSelectedAssets(int index1, int index2)
         {
-            // Parameter checking is skipped in this example.
-
             // If nothing needs to be swapped, just return the original collection.
             if (index1 == index2)
-                return source;
+                return ;
 
-            // Make a copy.
-            List<IAsset> copy = source.ToList();
+               // Swap the items.
+            IAsset temp = SelectedAssets[index1];
+            SelectedAssets[index1] = SelectedAssets[index2];
+            SelectedAssets[index2] = temp;
 
-            // Swap the items.
-            IAsset temp = copy[index1];
-            copy[index1] = copy[index2];
-            copy[index2] = temp;
-
-            // Return the copy with the swapped items.
-            return copy;
+     
         }
 
         private void VOverlaySetting_ValueChanged(object sender, EventArgs e)
