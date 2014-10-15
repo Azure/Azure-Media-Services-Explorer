@@ -38,10 +38,17 @@ namespace AMSExplorer
         private bool xmlOpenedNotYetStiched = true; // true if xml has been opened and no stiching done yet
         private bool xmlOpenedNotYetNamedConvention = true; // true if xml has been opened and no naming convention done yet
         private bool xmlOpenedNotYetVSSRotation = true; // true if xml has been opened and no naming convention done yet
+        private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
+        private bool bAudioOverlay = false; // indicate if audio overlay has been checked or not
+
 
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private bool bMultiAssetMode = true;
+        private const string strEditTimes = "Edit times";
+        private const string strStitch = "Stitch";
+        private const string strAudiooverlay = "Audio overlay";
+        private const string strVisualoverlay = "Visual overlay";
 
         public string EncodingLabel
         {
@@ -139,10 +146,7 @@ namespace AMSExplorer
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
-                    if (bMultiAssetMode) // multi asset
-                    {
-                        DisableControls();
-                    }
+                    UpdateControls();
                 }
                 catch (Exception ex)
                 {
@@ -161,24 +165,52 @@ namespace AMSExplorer
             }
         }
 
-        // Some controls must be disabled
-        private void DisableControls()
+        // Some controls must be disabled or enabled
+        private void UpdateControls()
         {
             tableLayoutPanelIAssets.GetControlFromPosition(0, 0).Enabled = false; // not possible to go up for first row
             if (bMultiAssetMode)
             {
-                tableLayoutPanelIAssets.GetControlFromPosition(4, 0).Enabled = false; // not possible to do overlay with first asset
-                tableLayoutPanelIAssets.GetControlFromPosition(5, 0).Enabled = false; // not possible to do overlay with first asset
+                CheckBox CBV = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, 0));
+                CheckBox CBA = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(5, 0));
+
+                if (CBV.Checked)
+                {
+                    bVisualOverlay = false; // fist row is enabled for visualoverlay now, not possible, so we disable it
+                    CBV.Checked = false; // not possible to do overlay with first asset
+                }
+
+                if (CBA.Checked)
+                {
+                    bAudioOverlay = false;// fist row is enabled for audiooverlay now, not possible, so we disable it
+                    CBA.Checked = false; // not possible to do overlay with first asset
+                }
+                CBV.Enabled = false; // not possible to do overlay with first asset
+                CBA.Enabled = false; // not possible to do overlay with first asset
             }
-            
+
             if (tableLayoutPanelIAssets.RowCount > 1)
             {
                 for (int i = 1; i < tableLayoutPanelIAssets.RowCount; i++)
                 {
                     tableLayoutPanelIAssets.GetControlFromPosition(0, i).Enabled = true; // button up
                     tableLayoutPanelIAssets.GetControlFromPosition(1, i).Enabled = true; // button down
-                    tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = true; // checkbox overlay
-                    tableLayoutPanelIAssets.GetControlFromPosition(5, i).Enabled = true; // checkbox overlay
+                    if (!bVisualOverlay) // no visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = true; // checkbox overlay
+                    }
+                    else // one visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, i)).Checked;
+                    }
+                    if (!bAudioOverlay) // no audio overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(5, i).Enabled = true; // checkbox overlay
+                    }
+                    else // one audio overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(5, i).Enabled = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(5, i)).Checked;
+                    }
                 }
             }
             tableLayoutPanelIAssets.GetControlFromPosition(1, tableLayoutPanelIAssets.RowCount - 1).Enabled = false; // not possible to go down for last row
@@ -186,20 +218,22 @@ namespace AMSExplorer
 
         public void checkBoxStitch_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox cb = (CheckBox)sender; // get the checkbox object
-            int tag = (int)(cb.Tag);
-
+            CheckBox cbStitch = (CheckBox)sender; // get the checkbox object
             xmlOpenedNotYetStiched = false;
             UpdateStitchAndOverlaysInDoc();
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cbStitch);
 
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+            for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
+            // foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if ((c.Text == "Edit times") && ((int)c.Tag == tag))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
+                if (c.Text == strEditTimes)
                 {
-                    c.Enabled = cb.Checked; // enable or disable time checkbox
-                    if (!cb.Checked) ((CheckBox)c).Checked = false; // enable or disable time checkbox
-                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 1].Enabled = cb.Checked; // start time code control
-                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 2].Enabled = cb.Checked; // start time code control
+                    CheckBox cbEditTime = (CheckBox)c;
+                    cbEditTime.Enabled = cbStitch.Checked; // enable or disable time checkbox
+                    if (!cbStitch.Checked) cbEditTime.Checked = false; // enable or disable time checkbox
+                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 1].Enabled = cbEditTime.Checked; // edit time control
+                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 2].Enabled = cbEditTime.Checked; // start time code control
                 }
             }
         }
@@ -207,12 +241,13 @@ namespace AMSExplorer
         public void checkBoxTime_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
-
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+            //int tag = (int)(cb.Tag);
+            for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
+            //foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if ((c.GetType() == typeof(TextBox)) && ((int)c.Tag == tag))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
+                if (c.GetType() == typeof(TextBox))
                 {
                     c.Enabled = cb.Checked;
                 }
@@ -224,7 +259,6 @@ namespace AMSExplorer
 
         private void UpdateStitchAndOverlaysInDoc()
         {
-
             bool Error = false;
 
             // Let's see if one stich button is enabled
@@ -235,7 +269,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Stitch")
+                if (c.Text == strStitch)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -247,7 +281,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Visual overlay")
+                if (c.Text == strVisualoverlay)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -259,7 +293,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Audio overlay")
+                if (c.Text == strAudiooverlay)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -306,7 +340,7 @@ namespace AMSExplorer
                                 for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
                                 {
                                     Control c = tableLayoutPanelIAssets.GetControlFromPosition(col, row);
-                                    if (c.Text == "Stitch")
+                                    if (c.Text == strStitch)
                                     {
                                         if (((CheckBox)c).Checked)
                                         {
@@ -381,7 +415,7 @@ namespace AMSExplorer
                                 for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
                                 {
                                     Control c = tableLayoutPanelIAssets.GetControlFromPosition(col, row);
-                                    if (c.Text == "Stitch")
+                                    if (c.Text == strStitch)
                                     {
                                         if (((CheckBox)c).Checked)
                                         {
@@ -416,7 +450,7 @@ namespace AMSExplorer
                                             }
                                         }
                                     }
-                                    if (c.Text == "Visual overlay")
+                                    if (c.Text == strVisualoverlay)
                                     {
                                         if (((CheckBox)c).Checked)
                                         {
@@ -452,7 +486,7 @@ namespace AMSExplorer
                                         }
 
                                     }
-                                    if (c.Text == "Audio overlay")
+                                    if (c.Text == strAudiooverlay)
                                     {
                                         if (((CheckBox)c).Checked)
                                         {
@@ -517,13 +551,17 @@ namespace AMSExplorer
         private void checkboxVisualOverlay_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
+            bVisualOverlay = cb.Checked;
+            UpdateCheckboxOverlay(cb);
+        }
 
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+        private void UpdateCheckboxOverlay(CheckBox cb)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+            for (int i = 0; i < tableLayoutPanelIAssets.RowCount; i++)
             {
-
-                if ((c.GetType() == typeof(CheckBox)) && (c.Text == "Visual overlay") && (c.Tag != cb.Tag) && ((!bMultiAssetMode) | (bMultiAssetMode && (int)c.Tag != 0)))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(position.Column, i); // let find all control from the same row and disable other checkboxes
+                if (i != position.Row && ((!bMultiAssetMode) | (bMultiAssetMode && i != 0)))
                 {
                     c.Enabled = !cb.Checked;
                 }
@@ -534,17 +572,8 @@ namespace AMSExplorer
         private void checkboxAudioOverlay_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
-
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
-            {
-                if ((c.GetType() == typeof(CheckBox)) && (c.Text == "Audio overlay") && (c.Tag != cb.Tag) && ((!bMultiAssetMode) | (bMultiAssetMode && (int)c.Tag != 0)))
-                {
-                    c.Enabled = !cb.Checked;
-                }
-            }
-            UpdateStitchAndOverlaysInDoc();
+            bAudioOverlay = cb.Checked;
+            UpdateCheckboxOverlay(cb);
         }
 
 
@@ -680,7 +709,7 @@ namespace AMSExplorer
             foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
             {
                 style.SizeType = SizeType.Absolute;
-                style.Width = 80;
+                style.Width = 100;
             }
             tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
             tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
@@ -696,7 +725,7 @@ namespace AMSExplorer
             {
                 bMultiAssetMode = true;
                 tableLayoutPanelIAssets.RowCount = SelectedAssets.Count;
-    
+
                 foreach (IAsset asset in SelectedAssets)
                 {
                     AddRowControls(i, asset.Name);
@@ -746,14 +775,14 @@ namespace AMSExplorer
 
             CheckBox checkboxVisualOverlay = new CheckBox()
             {
-                Text = "Visual overlay",
+                Text = strVisualoverlay,
                 Tag = i
             };
             checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
 
             CheckBox checkboxAudioOverlay = new CheckBox()
             {
-                Text = "Audio overlay",
+                Text = strAudiooverlay,
                 Tag = i
             };
             checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
@@ -767,7 +796,7 @@ namespace AMSExplorer
 
             CheckBox checkboxTime = new CheckBox()
             {
-                Text = "Edit times",
+                Text = strEditTimes,
                 Tag = i,
                 Enabled = false
             };
@@ -803,17 +832,17 @@ namespace AMSExplorer
 
         private void butDwn_Clicked(object sender, EventArgs e)
         {
-            int mytag = (int)((Button)sender).Tag;
-            SwapControls(mytag, mytag + 1);
-            DisableControls();
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row + 1);
+            UpdateControls();
             UpdateStitchAndOverlaysInDoc();
         }
 
         private void butUp_Clicked(object sender, EventArgs e)
         {
-            int mytag = (int)((Button)sender).Tag;
-            SwapControls(mytag, mytag - 1);
-            DisableControls();
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row - 1);
+            UpdateControls();
             UpdateStitchAndOverlaysInDoc();
         }
 
@@ -844,14 +873,12 @@ namespace AMSExplorer
         {
             // If nothing needs to be swapped, just return the original collection.
             if (index1 == index2)
-                return ;
+                return;
 
-               // Swap the items.
+            // Swap the items.
             IAsset temp = SelectedAssets[index1];
             SelectedAssets[index1] = SelectedAssets[index2];
             SelectedAssets[index2] = temp;
-
-     
         }
 
         private void VOverlaySetting_ValueChanged(object sender, EventArgs e)
