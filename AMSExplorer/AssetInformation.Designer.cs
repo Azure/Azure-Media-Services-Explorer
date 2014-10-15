@@ -70,6 +70,7 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonGetTestToken = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewAutPol = new System.Windows.Forms.DataGridView();
             this.listViewAutPol = new System.Windows.Forms.ListView();
@@ -95,7 +96,6 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonGetTestToken = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -532,6 +532,17 @@
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // buttonGetTestToken
+            // 
+            this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGetTestToken.Location = new System.Drawing.Point(126, 421);
+            this.buttonGetTestToken.Name = "buttonGetTestToken";
+            this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
+            this.buttonGetTestToken.TabIndex = 41;
+            this.buttonGetTestToken.Text = "Get Test Token";
+            this.buttonGetTestToken.UseVisualStyleBackColor = true;
+            this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -726,7 +737,7 @@
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
             this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 4);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(179, 21);
             this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
@@ -834,17 +845,6 @@
             this.labelAssetNameTitle.Size = new System.Drawing.Size(753, 32);
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
-            // 
-            // buttonGetTestToken
-            // 
-            this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonGetTestToken.Location = new System.Drawing.Point(126, 421);
-            this.buttonGetTestToken.Name = "buttonGetTestToken";
-            this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
-            this.buttonGetTestToken.TabIndex = 41;
-            this.buttonGetTestToken.Text = "Get Test Token";
-            this.buttonGetTestToken.UseVisualStyleBackColor = true;
-            this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
             // 
             // AssetInformation
             // 

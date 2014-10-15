@@ -413,9 +413,10 @@ namespace AMSExplorer
                     DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
                 }
 
+                int i;
                 foreach (var se in MyAsset.GetMediaContext().StreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(se.Name, se.HostName));
+                    i=comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
                     if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
                 }
                 BuildLocatorsTree();
