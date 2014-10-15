@@ -160,6 +160,7 @@ namespace AMSExplorer
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
             bool Error = false;
+            string ErrorMessage = string.Empty;
 
             TextBoxLogWriteLine("Starting the Http import process.");
 
@@ -218,7 +219,11 @@ namespace AMSExplorer
                                 if (copyStatus.Status != CopyStatus.Pending)
                                 {
                                     continueLoop = false;
-                                    if (copyStatus.Status == CopyStatus.Failed) Error = true;
+                                    if (copyStatus.Status == CopyStatus.Failed) 
+                                    {
+                                        Error = true;
+                                        ErrorMessage = copyStatus.StatusDescription;
+                                    }
                                 }
                             }
                         }
@@ -247,7 +252,7 @@ namespace AMSExplorer
                 else // Error!
                 {
                     TextBoxLogWriteLine("Error during file import.", true);
-                    DoGridTransferDeclareError(index);
+                    DoGridTransferDeclareError(index, "Error during import. " + ErrorMessage);
                     try
                     {
                         destinationLocator.Delete();
@@ -265,7 +270,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex.Message, true);
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, ex);
 
                 if (destinationLocator != null)
                 {
@@ -371,10 +376,10 @@ namespace AMSExplorer
                                                                );
                 SetISMFileAsPrimary(asset);
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading from {0}", folderPath, true);
             }
             if (!Error)
@@ -815,10 +820,10 @@ namespace AMSExplorer
                                                       }
                                                       );
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
             }
             if (!Error)
@@ -870,12 +875,22 @@ namespace AMSExplorer
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
+        private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
+        {
+            string message = e.Message;
+            if (e.InnerException != null)
+            {
+                message = message + Constants.endline + Program.GetErrorMessage(e);
+            }
+            DoGridTransferDeclareError(index, message);
+        }
 
-        private void DoGridTransferDeclareError(int index)  // Process is completed
+        private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
         {
             _MyListTransfer[index].Progress = 100;
             _MyListTransfer[index].EndTime = DateTime.Now.ToString();
             _MyListTransfer[index].State = TransferState.Error;
+            _MyListTransfer[index].ErrorDescription = ErrorDesc;
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
@@ -977,11 +992,11 @@ namespace AMSExplorer
                     await File.DownloadAsync(Path.Combine(folder as string, File.Name), blobTransferClient, sasLocator, CancellationToken.None);
                     sasLocator.Delete();
                 }
-                catch
+                catch (Exception e)
                 {
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
-                    DoGridTransferDeclareError(index);
+                    DoGridTransferDeclareError(index, e);
 
                 }
                 if (!Error)
@@ -1993,7 +2008,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
                                 TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
@@ -2005,17 +2020,17 @@ namespace AMSExplorer
                             if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", fileName, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, "Error during blob copy.");
                                 Error = true;
                                 break;
                             }
 
 
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy file '{0}'!.", fileName, true);
-                            DoGridTransferDeclareError(index);
+                            DoGridTransferDeclareError(index, ex);
                             Error = true;
                         }
 
@@ -2132,7 +2147,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
                                 TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
@@ -2142,10 +2157,10 @@ namespace AMSExplorer
                             assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
                             assetFile.Update();
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                            DoGridTransferDeclareError(index);
+                            DoGridTransferDeclareError(index, ex);
                             Error = true;
                             break;
 
@@ -2203,10 +2218,10 @@ namespace AMSExplorer
                     {
                         TargetContainer.CreateIfNotExists();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}'", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(index);
+                        DoGridTransferDeclareError(index, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
                         Error = true;
                     }
                 }
@@ -2258,7 +2273,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
                                     TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2268,15 +2283,15 @@ namespace AMSExplorer
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, "Error during blob copy.");
                                     Error = true;
                                     break;
                                 }
                             }
-                            catch
+                            catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, ex);
                                 Error = true;
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
@@ -2331,10 +2346,10 @@ namespace AMSExplorer
                     {
                         TargetContainer.CreateIfNotExists();
                     }
-                    catch
+                    catch (Exception e)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}' ", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(index);
+                        DoGridTransferDeclareError(index, e);
                         Error = true;
                     }
                 }
@@ -2387,7 +2402,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                     TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2397,15 +2412,15 @@ namespace AMSExplorer
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, string.Format("Failed to copy file '{0}'", file.Name));
                                     Error = true;
                                     break;
                                 }
                             }
-                            catch
+                            catch (Exception e)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, e);
                                 Error = true;
                             }
 
@@ -2721,6 +2736,7 @@ namespace AMSExplorer
                     dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
                     dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
                     dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
+                    dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
                 }
           ));
         }
@@ -4204,6 +4220,18 @@ namespace AMSExplorer
 
 
                     }
+                }
+            }
+        }
+
+        private void DoDisplayTransferError()
+        {
+            if (dataGridViewTransfer.SelectedRows.Count > 0)
+            {
+                if ((TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value == TransferState.Error)
+                {
+                    string ErrorMessage = dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["ErrorDescription"].Index].Value.ToString();
+                    MessageBox.Show(ErrorMessage, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -6926,6 +6954,16 @@ namespace AMSExplorer
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
             DoRefreshGridProcessorV(false);
+        }
+
+        private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDisplayTransferError();
+        }
+
+        private void displayErrorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDisplayTransferError();
         }
 
 

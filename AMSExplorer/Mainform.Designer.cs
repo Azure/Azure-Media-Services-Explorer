@@ -104,6 +104,7 @@
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDestinationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayErrorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -212,6 +213,7 @@
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.contextMenuStripTransfers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
@@ -999,7 +1001,8 @@
             // transferToolStripMenuItem
             // 
             this.transferToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openDestinationToolStripMenuItem});
+            this.openDestinationToolStripMenuItem,
+            this.displayErrorToolStripMenuItem1});
             this.transferToolStripMenuItem.Enabled = false;
             this.transferToolStripMenuItem.Name = "transferToolStripMenuItem";
             this.transferToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
@@ -1013,6 +1016,14 @@
             this.openDestinationToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.openDestinationToolStripMenuItem.Text = "Open destination";
             this.openDestinationToolStripMenuItem.Click += new System.EventHandler(this.openDestinationToolStripMenuItem_Click);
+            // 
+            // displayErrorToolStripMenuItem1
+            // 
+            this.displayErrorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem1.Name = "displayErrorToolStripMenuItem1";
+            this.displayErrorToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
+            this.displayErrorToolStripMenuItem1.Text = "Display error";
+            this.displayErrorToolStripMenuItem1.Click += new System.EventHandler(this.displayErrorToolStripMenuItem1_Click);
             // 
             // processToolStripMenuItem
             // 
@@ -1596,7 +1607,7 @@
             this.refreshToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripMenuItem.Image")));
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.refreshToolStripMenuItem.Text = "Refresh all";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -1604,7 +1615,7 @@
             // 
             this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -1981,9 +1992,10 @@
             // contextMenuStripTransfers
             // 
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContextMenuItemTransferOpenDest});
+            this.ContextMenuItemTransferOpenDest,
+            this.displayErrorToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
-            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 26);
+            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 70);
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
             // 
             // ContextMenuItemTransferOpenDest
@@ -1994,6 +2006,14 @@
             this.ContextMenuItemTransferOpenDest.Size = new System.Drawing.Size(206, 22);
             this.ContextMenuItemTransferOpenDest.Text = "Open destination";
             this.ContextMenuItemTransferOpenDest.Click += new System.EventHandler(this.toolStripMenuItemOpenDest_Click);
+            // 
+            // displayErrorToolStripMenuItem
+            // 
+            this.displayErrorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem.Name = "displayErrorToolStripMenuItem";
+            this.displayErrorToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.displayErrorToolStripMenuItem.Text = "Display error";
+            this.displayErrorToolStripMenuItem.Click += new System.EventHandler(this.displayErrorToolStripMenuItem_Click);
             // 
             // tabControlMain
             // 
@@ -3409,6 +3429,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripProcessors;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
     }
 }
 

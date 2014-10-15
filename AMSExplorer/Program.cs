@@ -990,6 +990,7 @@ namespace AMSExplorer
         public string EndTime { get; set; }
         public string DestLocation { get; set; }
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
+        public string ErrorDescription { get; set; }
     }
 
     public class CredentialsEntry
