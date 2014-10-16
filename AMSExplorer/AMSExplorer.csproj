@@ -523,7 +523,6 @@
   <ItemGroup>
     <Content Include="media2.ico" />
     <Content Include="MediaNew.ico" />
-    <Content Include="version.xml" />
     <Content Include="WAMEPresetFiles\AAC Good Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

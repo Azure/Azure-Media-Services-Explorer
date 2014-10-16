@@ -148,7 +148,42 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging will not work.", true); // Warning
 
             ApplySettingsOptions(true);
+
+
+
+            CheckAMSEVersion();
+
+
         }
+
+        private void CheckAMSEVersion()
+        {
+            var webClient = new WebClient();
+            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+        }
+
+        private void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                try
+                {
+                    var xmlversion = XDocument.Parse(e.Result);
+                    Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
+                    Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
+                    if (versionAMSEGitHub > versionAMSELocal)
+                    {
+                        TextBoxLogWriteLine("A newer version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -219,7 +254,7 @@ namespace AMSExplorer
                                 if (copyStatus.Status != CopyStatus.Pending)
                                 {
                                     continueLoop = false;
-                                    if (copyStatus.Status == CopyStatus.Failed) 
+                                    if (copyStatus.Status == CopyStatus.Failed)
                                     {
                                         Error = true;
                                         ErrorMessage = copyStatus.StatusDescription;
@@ -5726,7 +5761,7 @@ namespace AMSExplorer
                         ArchiveWindowLength = form.archiveWindowLength,
                         AssetId = assetid
                     };
-                  
+
                     var STask = ProgramExecuteAsync(
                            () =>
                                channel.Programs.CreateAsync(options)
