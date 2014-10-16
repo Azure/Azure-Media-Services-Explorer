@@ -182,7 +182,6 @@ namespace AMSExplorer
                             AssetInfo.DoPlayBack(PlayerType.DASHIFRefPlayer, new Uri(TreeViewLocators.SelectedNode.Text));
                             break;
 
-
                         default:
                             break;
                     }
@@ -271,7 +270,6 @@ namespace AMSExplorer
                 {
                     AssetInfo.DoPlayBack(PlayerType.MP4AzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
                 }
-
             }
         }
 
