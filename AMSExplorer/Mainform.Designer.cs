@@ -39,6 +39,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetImportFileFromAzure = new System.Windows.Forms.ToolStripMenuItem();
@@ -102,6 +104,7 @@
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.transferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDestinationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayErrorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,20 +135,6 @@
             this.deleteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.publishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.setupDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.removeDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
-            this.createALocatorForTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllLocatorsOfTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
-            this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withFlashOSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withSilverlightMMPPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withMPEGDASHIFRefPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withMPEGDASHAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withDASHLiveAzurePlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.withCustomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.liveChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.channToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,6 +149,20 @@
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.publishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.setupDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
+            this.createALocatorForTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllLocatorsOfTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
+            this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashOSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightMMPPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withMPEGDASHIFRefPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withMPEGDASHAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withDASHLiveAzurePlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.withCustomPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOriginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -193,6 +196,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxPageJobs = new System.Windows.Forms.ComboBox();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobInputAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
@@ -208,7 +213,10 @@
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.contextMenuStripTransfers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
             this.label10 = new System.Windows.Forms.Label();
             this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
@@ -233,6 +241,8 @@
             this.label13 = new System.Windows.Forms.Label();
             this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -258,6 +268,8 @@
             this.label14 = new System.Windows.Forms.Label();
             this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
             this.contextMenuStripPrograms = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.displayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -277,8 +289,12 @@
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
-            this.dataGridViewOriginsV = new AMSExplorer.DataGridViewOrigins();
-            this.contextMenuStripStreaminEndpoint = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxOrderStreamingEndpoints = new System.Windows.Forms.ComboBox();
+            this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
+            this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemOriginDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.createStreamingEndpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -302,6 +318,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.contextMenuStripTransfers.SuspendLayout();
             this.tabControlMain.SuspendLayout();
+            this.contextMenuStripProcessors.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
             this.tabPageTransfers.SuspendLayout();
@@ -319,8 +336,8 @@
             this.tabPageProcessors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
             this.tabPageOrigins.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOriginsV)).BeginInit();
-            this.contextMenuStripStreaminEndpoint.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
+            this.contextMenuStripStreaminEndpoints.SuspendLayout();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -398,6 +415,8 @@
             // contextMenuStripAssets
             // 
             this.contextMenuStripAssets.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem1,
+            this.toolStripSeparator9,
             this.ContextMenuItemAssetDisplayInfo,
             this.ContextMenuItemAssetCreateOutlookReportEmail,
             this.ContextMenuItemAssetImportFileFromAzure,
@@ -420,8 +439,21 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 386);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 414);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
+            // 
+            // refreshToolStripMenuItem1
+            // 
+            this.refreshToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem1.Name = "refreshToolStripMenuItem1";
+            this.refreshToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
+            this.refreshToolStripMenuItem1.Text = "Refresh";
+            this.refreshToolStripMenuItem1.Click += new System.EventHandler(this.refreshToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator9
+            // 
+            this.toolStripSeparator9.Name = "toolStripSeparator9";
+            this.toolStripSeparator9.Size = new System.Drawing.Size(346, 6);
             // 
             // ContextMenuItemAssetDisplayInfo
             // 
@@ -969,7 +1001,8 @@
             // transferToolStripMenuItem
             // 
             this.transferToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openDestinationToolStripMenuItem});
+            this.openDestinationToolStripMenuItem,
+            this.displayErrorToolStripMenuItem1});
             this.transferToolStripMenuItem.Enabled = false;
             this.transferToolStripMenuItem.Name = "transferToolStripMenuItem";
             this.transferToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
@@ -983,6 +1016,14 @@
             this.openDestinationToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.openDestinationToolStripMenuItem.Text = "Open destination";
             this.openDestinationToolStripMenuItem.Click += new System.EventHandler(this.openDestinationToolStripMenuItem_Click);
+            // 
+            // displayErrorToolStripMenuItem1
+            // 
+            this.displayErrorToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem1.Name = "displayErrorToolStripMenuItem1";
+            this.displayErrorToolStripMenuItem1.Size = new System.Drawing.Size(206, 22);
+            this.displayErrorToolStripMenuItem1.Text = "Display error";
+            this.displayErrorToolStripMenuItem1.Click += new System.EventHandler(this.displayErrorToolStripMenuItem1_Click);
             // 
             // processToolStripMenuItem
             // 
@@ -1253,6 +1294,128 @@
             this.allJobsToolStripMenuItem.Text = "All jobs...";
             this.allJobsToolStripMenuItem.Click += new System.EventHandler(this.allJobsToolStripMenuItem_Click);
             // 
+            // liveChannelToolStripMenuItem
+            // 
+            this.liveChannelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.channToolStripMenuItem,
+            this.createChannelToolStripMenuItem,
+            this.startChannelsToolStripMenuItem,
+            this.stopChannelsToolStripMenuItem,
+            this.resetChannelsToolStripMenuItem,
+            this.deleteChannelsToolStripMenuItem,
+            this.toolStripSeparator15,
+            this.displayProgramInformationToolStripMenuItem,
+            this.displayRelatedAssetInformationToolStripMenuItem1,
+            this.createProgramToolStripMenuItem1,
+            this.startProgramsToolStripMenuItem1,
+            this.stopProgramsToolStripMenuItem,
+            this.deleteProgramsToolStripMenuItem1});
+            this.liveChannelToolStripMenuItem.Enabled = false;
+            this.liveChannelToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
+            this.liveChannelToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.liveChannelToolStripMenuItem.Text = "Live";
+            // 
+            // channToolStripMenuItem
+            // 
+            this.channToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("channToolStripMenuItem.Image")));
+            this.channToolStripMenuItem.Name = "channToolStripMenuItem";
+            this.channToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.channToolStripMenuItem.Text = "Channel infomation and settings...";
+            this.channToolStripMenuItem.Click += new System.EventHandler(this.channToolStripMenuItem_Click);
+            // 
+            // createChannelToolStripMenuItem
+            // 
+            this.createChannelToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createChannelToolStripMenuItem.Image")));
+            this.createChannelToolStripMenuItem.Name = "createChannelToolStripMenuItem";
+            this.createChannelToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.createChannelToolStripMenuItem.Text = "Create channel...";
+            this.createChannelToolStripMenuItem.Click += new System.EventHandler(this.createChannelToolStripMenuItem_Click);
+            // 
+            // startChannelsToolStripMenuItem
+            // 
+            this.startChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startChannelsToolStripMenuItem.Image")));
+            this.startChannelsToolStripMenuItem.Name = "startChannelsToolStripMenuItem";
+            this.startChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.startChannelsToolStripMenuItem.Text = "Start channel(s)";
+            this.startChannelsToolStripMenuItem.Click += new System.EventHandler(this.startChannelsToolStripMenuItem_Click);
+            // 
+            // stopChannelsToolStripMenuItem
+            // 
+            this.stopChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopChannelsToolStripMenuItem.Image")));
+            this.stopChannelsToolStripMenuItem.Name = "stopChannelsToolStripMenuItem";
+            this.stopChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.stopChannelsToolStripMenuItem.Text = "Stop channel(s)";
+            this.stopChannelsToolStripMenuItem.Click += new System.EventHandler(this.stopChannelsToolStripMenuItem_Click);
+            // 
+            // resetChannelsToolStripMenuItem
+            // 
+            this.resetChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("resetChannelsToolStripMenuItem.Image")));
+            this.resetChannelsToolStripMenuItem.Name = "resetChannelsToolStripMenuItem";
+            this.resetChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.resetChannelsToolStripMenuItem.Text = "Reset channel(s)";
+            this.resetChannelsToolStripMenuItem.Click += new System.EventHandler(this.resetChannelsToolStripMenuItem_Click);
+            // 
+            // deleteChannelsToolStripMenuItem
+            // 
+            this.deleteChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteChannelsToolStripMenuItem.Image")));
+            this.deleteChannelsToolStripMenuItem.Name = "deleteChannelsToolStripMenuItem";
+            this.deleteChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.deleteChannelsToolStripMenuItem.Text = "Delete channel(s)";
+            this.deleteChannelsToolStripMenuItem.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator15
+            // 
+            this.toolStripSeparator15.Name = "toolStripSeparator15";
+            this.toolStripSeparator15.Size = new System.Drawing.Size(259, 6);
+            // 
+            // displayProgramInformationToolStripMenuItem
+            // 
+            this.displayProgramInformationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("displayProgramInformationToolStripMenuItem.Image")));
+            this.displayProgramInformationToolStripMenuItem.Name = "displayProgramInformationToolStripMenuItem";
+            this.displayProgramInformationToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.displayProgramInformationToolStripMenuItem.Text = "Program information and settings...";
+            this.displayProgramInformationToolStripMenuItem.Click += new System.EventHandler(this.displayProgramInformationToolStripMenuItem_Click);
+            // 
+            // displayRelatedAssetInformationToolStripMenuItem1
+            // 
+            this.displayRelatedAssetInformationToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.displayRelatedAssetInformationToolStripMenuItem1.Name = "displayRelatedAssetInformationToolStripMenuItem1";
+            this.displayRelatedAssetInformationToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
+            this.displayRelatedAssetInformationToolStripMenuItem1.Text = "Display related asset information...";
+            this.displayRelatedAssetInformationToolStripMenuItem1.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem1_Click);
+            // 
+            // createProgramToolStripMenuItem1
+            // 
+            this.createProgramToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createProgramToolStripMenuItem1.Image")));
+            this.createProgramToolStripMenuItem1.Name = "createProgramToolStripMenuItem1";
+            this.createProgramToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
+            this.createProgramToolStripMenuItem1.Text = "Create program...";
+            this.createProgramToolStripMenuItem1.Click += new System.EventHandler(this.createProgramToolStripMenuItem1_Click);
+            // 
+            // startProgramsToolStripMenuItem1
+            // 
+            this.startProgramsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("startProgramsToolStripMenuItem1.Image")));
+            this.startProgramsToolStripMenuItem1.Name = "startProgramsToolStripMenuItem1";
+            this.startProgramsToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
+            this.startProgramsToolStripMenuItem1.Text = "Start program(s)";
+            this.startProgramsToolStripMenuItem1.Click += new System.EventHandler(this.startProgramsToolStripMenuItem1_Click);
+            // 
+            // stopProgramsToolStripMenuItem
+            // 
+            this.stopProgramsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopProgramsToolStripMenuItem.Image")));
+            this.stopProgramsToolStripMenuItem.Name = "stopProgramsToolStripMenuItem";
+            this.stopProgramsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.stopProgramsToolStripMenuItem.Text = "Stop program(s)";
+            this.stopProgramsToolStripMenuItem.Click += new System.EventHandler(this.stopProgramsToolStripMenuItem_Click);
+            // 
+            // deleteProgramsToolStripMenuItem1
+            // 
+            this.deleteProgramsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("deleteProgramsToolStripMenuItem1.Image")));
+            this.deleteProgramsToolStripMenuItem1.Name = "deleteProgramsToolStripMenuItem1";
+            this.deleteProgramsToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
+            this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)";
+            this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
+            // 
             // publishToolStripMenuItem
             // 
             this.publishToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1376,128 +1539,6 @@
             this.withCustomPlayerToolStripMenuItem.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem_Click);
             // 
-            // liveChannelToolStripMenuItem
-            // 
-            this.liveChannelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.channToolStripMenuItem,
-            this.createChannelToolStripMenuItem,
-            this.startChannelsToolStripMenuItem,
-            this.stopChannelsToolStripMenuItem,
-            this.resetChannelsToolStripMenuItem,
-            this.deleteChannelsToolStripMenuItem,
-            this.toolStripSeparator15,
-            this.displayProgramInformationToolStripMenuItem,
-            this.displayRelatedAssetInformationToolStripMenuItem1,
-            this.createProgramToolStripMenuItem1,
-            this.startProgramsToolStripMenuItem1,
-            this.stopProgramsToolStripMenuItem,
-            this.deleteProgramsToolStripMenuItem1});
-            this.liveChannelToolStripMenuItem.Enabled = false;
-            this.liveChannelToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
-            this.liveChannelToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
-            this.liveChannelToolStripMenuItem.Text = "Live";
-            // 
-            // channToolStripMenuItem
-            // 
-            this.channToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("channToolStripMenuItem.Image")));
-            this.channToolStripMenuItem.Name = "channToolStripMenuItem";
-            this.channToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.channToolStripMenuItem.Text = "Channel infomation and settings...";
-            this.channToolStripMenuItem.Click += new System.EventHandler(this.channToolStripMenuItem_Click);
-            // 
-            // createChannelToolStripMenuItem
-            // 
-            this.createChannelToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createChannelToolStripMenuItem.Image")));
-            this.createChannelToolStripMenuItem.Name = "createChannelToolStripMenuItem";
-            this.createChannelToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.createChannelToolStripMenuItem.Text = "Create channel...";
-            this.createChannelToolStripMenuItem.Click += new System.EventHandler(this.createChannelToolStripMenuItem_Click);
-            // 
-            // startChannelsToolStripMenuItem
-            // 
-            this.startChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("startChannelsToolStripMenuItem.Image")));
-            this.startChannelsToolStripMenuItem.Name = "startChannelsToolStripMenuItem";
-            this.startChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.startChannelsToolStripMenuItem.Text = "Start channel(s)";
-            this.startChannelsToolStripMenuItem.Click += new System.EventHandler(this.startChannelsToolStripMenuItem_Click);
-            // 
-            // stopChannelsToolStripMenuItem
-            // 
-            this.stopChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopChannelsToolStripMenuItem.Image")));
-            this.stopChannelsToolStripMenuItem.Name = "stopChannelsToolStripMenuItem";
-            this.stopChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.stopChannelsToolStripMenuItem.Text = "Stop channel(s)";
-            this.stopChannelsToolStripMenuItem.Click += new System.EventHandler(this.stopChannelsToolStripMenuItem_Click);
-            // 
-            // resetChannelsToolStripMenuItem
-            // 
-            this.resetChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("resetChannelsToolStripMenuItem.Image")));
-            this.resetChannelsToolStripMenuItem.Name = "resetChannelsToolStripMenuItem";
-            this.resetChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.resetChannelsToolStripMenuItem.Text = "Reset channel(s)";
-            this.resetChannelsToolStripMenuItem.Click += new System.EventHandler(this.resetChannelsToolStripMenuItem_Click);
-            // 
-            // deleteChannelsToolStripMenuItem
-            // 
-            this.deleteChannelsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteChannelsToolStripMenuItem.Image")));
-            this.deleteChannelsToolStripMenuItem.Name = "deleteChannelsToolStripMenuItem";
-            this.deleteChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.deleteChannelsToolStripMenuItem.Text = "Delete channel(s)";
-            this.deleteChannelsToolStripMenuItem.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator15
-            // 
-            this.toolStripSeparator15.Name = "toolStripSeparator15";
-            this.toolStripSeparator15.Size = new System.Drawing.Size(259, 6);
-            // 
-            // displayProgramInformationToolStripMenuItem
-            // 
-            this.displayProgramInformationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("displayProgramInformationToolStripMenuItem.Image")));
-            this.displayProgramInformationToolStripMenuItem.Name = "displayProgramInformationToolStripMenuItem";
-            this.displayProgramInformationToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.displayProgramInformationToolStripMenuItem.Text = "Program information and settings...";
-            this.displayProgramInformationToolStripMenuItem.Click += new System.EventHandler(this.displayProgramInformationToolStripMenuItem_Click);
-            // 
-            // displayRelatedAssetInformationToolStripMenuItem1
-            // 
-            this.displayRelatedAssetInformationToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.displayRelatedAssetInformationToolStripMenuItem1.Name = "displayRelatedAssetInformationToolStripMenuItem1";
-            this.displayRelatedAssetInformationToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.displayRelatedAssetInformationToolStripMenuItem1.Text = "Display related asset information...";
-            this.displayRelatedAssetInformationToolStripMenuItem1.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem1_Click);
-            // 
-            // createProgramToolStripMenuItem1
-            // 
-            this.createProgramToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createProgramToolStripMenuItem1.Image")));
-            this.createProgramToolStripMenuItem1.Name = "createProgramToolStripMenuItem1";
-            this.createProgramToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.createProgramToolStripMenuItem1.Text = "Create program...";
-            this.createProgramToolStripMenuItem1.Click += new System.EventHandler(this.createProgramToolStripMenuItem1_Click);
-            // 
-            // startProgramsToolStripMenuItem1
-            // 
-            this.startProgramsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("startProgramsToolStripMenuItem1.Image")));
-            this.startProgramsToolStripMenuItem1.Name = "startProgramsToolStripMenuItem1";
-            this.startProgramsToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.startProgramsToolStripMenuItem1.Text = "Start program(s)";
-            this.startProgramsToolStripMenuItem1.Click += new System.EventHandler(this.startProgramsToolStripMenuItem1_Click);
-            // 
-            // stopProgramsToolStripMenuItem
-            // 
-            this.stopProgramsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("stopProgramsToolStripMenuItem.Image")));
-            this.stopProgramsToolStripMenuItem.Name = "stopProgramsToolStripMenuItem";
-            this.stopProgramsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.stopProgramsToolStripMenuItem.Text = "Stop program(s)";
-            this.stopProgramsToolStripMenuItem.Click += new System.EventHandler(this.stopProgramsToolStripMenuItem_Click);
-            // 
-            // deleteProgramsToolStripMenuItem1
-            // 
-            this.deleteProgramsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("deleteProgramsToolStripMenuItem1.Image")));
-            this.deleteProgramsToolStripMenuItem1.Name = "deleteProgramsToolStripMenuItem1";
-            this.deleteProgramsToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)";
-            this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
-            // 
             // originToolStripMenuItem
             // 
             this.originToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1566,15 +1607,15 @@
             this.refreshToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripMenuItem.Image")));
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh grids";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh all";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -1795,6 +1836,8 @@
             // contextMenuStripJobs
             // 
             this.contextMenuStripJobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem2,
+            this.toolStripSeparator18,
             this.ContextMenuItemJobDisplayInfo,
             this.ContextMenuItemJobInputAssetInformation,
             this.ContextMenuItemJobOpenOutputAsset,
@@ -1804,8 +1847,21 @@
             this.ContextMenuItemJobCancel,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 164);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 192);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
+            // 
+            // refreshToolStripMenuItem2
+            // 
+            this.refreshToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem2.Name = "refreshToolStripMenuItem2";
+            this.refreshToolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
+            this.refreshToolStripMenuItem2.Text = "Refresh";
+            this.refreshToolStripMenuItem2.Click += new System.EventHandler(this.refreshToolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator18
+            // 
+            this.toolStripSeparator18.Name = "toolStripSeparator18";
+            this.toolStripSeparator18.Size = new System.Drawing.Size(263, 6);
             // 
             // ContextMenuItemJobDisplayInfo
             // 
@@ -1936,9 +1992,10 @@
             // contextMenuStripTransfers
             // 
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ContextMenuItemTransferOpenDest});
+            this.ContextMenuItemTransferOpenDest,
+            this.displayErrorToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
-            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 26);
+            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 70);
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
             // 
             // ContextMenuItemTransferOpenDest
@@ -1950,11 +2007,20 @@
             this.ContextMenuItemTransferOpenDest.Text = "Open destination";
             this.ContextMenuItemTransferOpenDest.Click += new System.EventHandler(this.toolStripMenuItemOpenDest_Click);
             // 
+            // displayErrorToolStripMenuItem
+            // 
+            this.displayErrorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem.Name = "displayErrorToolStripMenuItem";
+            this.displayErrorToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
+            this.displayErrorToolStripMenuItem.Text = "Display error";
+            this.displayErrorToolStripMenuItem.Click += new System.EventHandler(this.displayErrorToolStripMenuItem_Click);
+            // 
             // tabControlMain
             // 
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlMain.ContextMenuStrip = this.contextMenuStripProcessors;
             this.tabControlMain.Controls.Add(this.tabPageAssets);
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
@@ -1968,6 +2034,21 @@
             this.tabControlMain.Size = new System.Drawing.Size(1014, 469);
             this.tabControlMain.TabIndex = 28;
             this.tabControlMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlMain_Selected);
+            // 
+            // contextMenuStripProcessors
+            // 
+            this.contextMenuStripProcessors.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem6});
+            this.contextMenuStripProcessors.Name = "contextMenuStripStreamingEndpoints";
+            this.contextMenuStripProcessors.Size = new System.Drawing.Size(114, 26);
+            // 
+            // refreshToolStripMenuItem6
+            // 
+            this.refreshToolStripMenuItem6.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem6.Name = "refreshToolStripMenuItem6";
+            this.refreshToolStripMenuItem6.Size = new System.Drawing.Size(113, 22);
+            this.refreshToolStripMenuItem6.Text = "Refresh";
+            this.refreshToolStripMenuItem6.Click += new System.EventHandler(this.refreshToolStripMenuItem6_Click);
             // 
             // tabPageAssets
             // 
@@ -2308,6 +2389,8 @@
             // contextMenuStripChannels
             // 
             this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem3,
+            this.toolStripSeparator20,
             this.ContextMenuItemChannelDisplayInfomation,
             this.createChannelToolStripMenuItem1,
             this.ContextMenuItemChannelStart,
@@ -2320,7 +2403,20 @@
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 214);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 242);
+            // 
+            // refreshToolStripMenuItem3
+            // 
+            this.refreshToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem3.Name = "refreshToolStripMenuItem3";
+            this.refreshToolStripMenuItem3.Size = new System.Drawing.Size(256, 22);
+            this.refreshToolStripMenuItem3.Text = "Refresh";
+            this.refreshToolStripMenuItem3.Click += new System.EventHandler(this.refreshToolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator20
+            // 
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(253, 6);
             // 
             // ContextMenuItemChannelDisplayInfomation
             // 
@@ -2550,6 +2646,8 @@
             // contextMenuStripPrograms
             // 
             this.contextMenuStripPrograms.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem4,
+            this.toolStripSeparator21,
             this.ContextMenuItemProgramDisplayInformation,
             this.displayRelatedAssetInformationToolStripMenuItem,
             this.createProgramToolStripMenuItem,
@@ -2561,7 +2659,20 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 208);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 236);
+            // 
+            // refreshToolStripMenuItem4
+            // 
+            this.refreshToolStripMenuItem4.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem4.Name = "refreshToolStripMenuItem4";
+            this.refreshToolStripMenuItem4.Size = new System.Drawing.Size(262, 22);
+            this.refreshToolStripMenuItem4.Text = "Refresh";
+            this.refreshToolStripMenuItem4.Click += new System.EventHandler(this.refreshToolStripMenuItem4_Click);
+            // 
+            // toolStripSeparator21
+            // 
+            this.toolStripSeparator21.Name = "toolStripSeparator21";
+            this.toolStripSeparator21.Size = new System.Drawing.Size(259, 6);
             // 
             // ContextMenuItemProgramDisplayInformation
             // 
@@ -2719,7 +2830,9 @@
             // 
             // tabPageOrigins
             // 
-            this.tabPageOrigins.Controls.Add(this.dataGridViewOriginsV);
+            this.tabPageOrigins.Controls.Add(this.label19);
+            this.tabPageOrigins.Controls.Add(this.comboBoxOrderStreamingEndpoints);
+            this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
             this.tabPageOrigins.Location = new System.Drawing.Point(4, 22);
             this.tabPageOrigins.Name = "tabPageOrigins";
             this.tabPageOrigins.Padding = new System.Windows.Forms.Padding(3);
@@ -2728,42 +2841,78 @@
             this.tabPageOrigins.Text = "Streaming endpoints";
             this.tabPageOrigins.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewOriginsV
+            // label19
             // 
-            this.dataGridViewOriginsV.AllowUserToAddRows = false;
-            this.dataGridViewOriginsV.AllowUserToDeleteRows = false;
-            this.dataGridViewOriginsV.AllowUserToResizeRows = false;
-            this.dataGridViewOriginsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(660, 419);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 13);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Order by:";
+            // 
+            // comboBoxOrderStreamingEndpoints
+            // 
+            this.comboBoxOrderStreamingEndpoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderStreamingEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderStreamingEndpoints.FormattingEnabled = true;
+            this.comboBoxOrderStreamingEndpoints.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderStreamingEndpoints.Name = "comboBoxOrderStreamingEndpoints";
+            this.comboBoxOrderStreamingEndpoints.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderStreamingEndpoints.TabIndex = 15;
+            this.comboBoxOrderStreamingEndpoints.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderStreamingEndpoints_SelectedIndexChanged);
+            // 
+            // dataGridViewStreamingEndpointsV
+            // 
+            this.dataGridViewStreamingEndpointsV.AllowUserToAddRows = false;
+            this.dataGridViewStreamingEndpointsV.AllowUserToDeleteRows = false;
+            this.dataGridViewStreamingEndpointsV.AllowUserToResizeRows = false;
+            this.dataGridViewStreamingEndpointsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewOriginsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewOriginsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewOriginsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoint;
-            this.dataGridViewOriginsV.FilterOriginsState = "All";
-            this.dataGridViewOriginsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewOriginsV.Name = "dataGridViewOriginsV";
-            this.dataGridViewOriginsV.OrderOriginsInGrid = "Last modified";
-            this.dataGridViewOriginsV.OriginsPerPage = 50;
-            this.dataGridViewOriginsV.ReadOnly = true;
-            this.dataGridViewOriginsV.RowHeadersVisible = false;
-            this.dataGridViewOriginsV.SearchInName = "";
-            this.dataGridViewOriginsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewOriginsV.Size = new System.Drawing.Size(994, 431);
-            this.dataGridViewOriginsV.TabIndex = 0;
-            this.dataGridViewOriginsV.TimeFilter = "Last week";
-            this.dataGridViewOriginsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
-            this.dataGridViewOriginsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
+            this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
+            this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
+            this.dataGridViewStreamingEndpointsV.ItemsPerPage = 50;
+            this.dataGridViewStreamingEndpointsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewStreamingEndpointsV.Name = "dataGridViewStreamingEndpointsV";
+            this.dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = "Last modified";
+            this.dataGridViewStreamingEndpointsV.ReadOnly = true;
+            this.dataGridViewStreamingEndpointsV.RowHeadersVisible = false;
+            this.dataGridViewStreamingEndpointsV.SearchInName = "";
+            this.dataGridViewStreamingEndpointsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStreamingEndpointsV.Size = new System.Drawing.Size(994, 403);
+            this.dataGridViewStreamingEndpointsV.TabIndex = 0;
+            this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
+            this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
+            this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
             // 
-            // contextMenuStripStreaminEndpoint
+            // contextMenuStripStreaminEndpoints
             // 
-            this.contextMenuStripStreaminEndpoint.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextMenuStripStreaminEndpoints.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem5,
+            this.toolStripSeparator25,
             this.ContextMenuItemOriginDisplayInformation,
             this.createStreamingEndpointToolStripMenuItem,
             this.ContextMenuItemOriginStart,
             this.ContextMenuItemOriginStop,
             this.ContextMenuItemOriginDelete});
-            this.contextMenuStripStreaminEndpoint.Name = "contextMenuStripOrigins";
-            this.contextMenuStripStreaminEndpoint.Size = new System.Drawing.Size(341, 114);
+            this.contextMenuStripStreaminEndpoints.Name = "contextMenuStripOrigins";
+            this.contextMenuStripStreaminEndpoints.Size = new System.Drawing.Size(341, 142);
+            // 
+            // refreshToolStripMenuItem5
+            // 
+            this.refreshToolStripMenuItem5.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem5.Name = "refreshToolStripMenuItem5";
+            this.refreshToolStripMenuItem5.Size = new System.Drawing.Size(340, 22);
+            this.refreshToolStripMenuItem5.Text = "Refresh";
+            this.refreshToolStripMenuItem5.Click += new System.EventHandler(this.refreshToolStripMenuItem5_Click);
+            // 
+            // toolStripSeparator25
+            // 
+            this.toolStripSeparator25.Name = "toolStripSeparator25";
+            this.toolStripSeparator25.Size = new System.Drawing.Size(337, 6);
             // 
             // ContextMenuItemOriginDisplayInformation
             // 
@@ -2929,9 +3078,10 @@
             this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRefresh.Location = new System.Drawing.Point(337, 30);
             this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(92, 28);
+            this.buttonRefresh.Size = new System.Drawing.Size(100, 28);
             this.buttonRefresh.TabIndex = 23;
-            this.buttonRefresh.Text = "Refresh";
+            this.buttonRefresh.Text = "Refresh all";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
@@ -2963,6 +3113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.contextMenuStripTransfers.ResumeLayout(false);
             this.tabControlMain.ResumeLayout(false);
+            this.contextMenuStripProcessors.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
             this.tabPageAssets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
@@ -2984,8 +3135,9 @@
             this.tabPageProcessors.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
             this.tabPageOrigins.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOriginsV)).EndInit();
-            this.contextMenuStripStreaminEndpoint.ResumeLayout(false);
+            this.tabPageOrigins.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
+            this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
             this.tabPageChart.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.splitContainerMain.Panel1.ResumeLayout(false);
@@ -3174,7 +3326,7 @@
         private System.Windows.Forms.ToolStripMenuItem displayProgramInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateThumbnailsForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageOrigins;
-        private DataGridViewOrigins dataGridViewOriginsV;
+        private DataGridViewStreamingEndpoints dataGridViewStreamingEndpointsV;
         private System.Windows.Forms.ToolStripMenuItem originToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayOriginInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startOriginsToolStripMenuItem;
@@ -3192,7 +3344,7 @@
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramStart;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramStop;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramDelete;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripStreaminEndpoint;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripStreaminEndpoints;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginDisplayInformation;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginStart;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemOriginStop;
@@ -3263,6 +3415,22 @@
         private System.Windows.Forms.ToolStripMenuItem withCustomPlayerToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem displayRelatedAssetInformationToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem withDASHLiveAzurePlayerToolStripMenuItem1;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox comboBoxOrderStreamingEndpoints;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator9;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator18;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator20;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator21;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripProcessors;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
     }
 }
 

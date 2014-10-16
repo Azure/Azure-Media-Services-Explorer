@@ -1,16 +1,28 @@
-﻿using System;
+﻿//----------------------------------------------------------------------- 
+// <copyright file="live.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
-
-
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-
 using System.Windows.Forms;
 using System.Security.Cryptography;
 using Microsoft.WindowsAzure;
@@ -600,6 +612,8 @@ namespace AMSExplorer
                     }
 
 
+
+
                     bool timeout = false;
                     bool Error = false;
                     List<StatusInfo> LSI;
@@ -765,6 +779,8 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshChannels;
+        public string _published = "Published";
+        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
 
         public void Init(CredentialsEntry credentials)
         {
@@ -782,18 +798,32 @@ namespace AMSExplorer
                                Description = c.Description,
                                ArchiveWindowLength = c.ArchiveWindowLength,
                                LastModified = c.LastModified.ToLocalTime(),
+                               Published = null,
                                ChannelName = c.Channel.Name,
                                ChannelId = c.Channel.Id
-
-
                            };
 
+            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            {
+                NullValue = null,
+                Alignment = DataGridViewContentAlignment.MiddleCenter
+            };
+            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            {
+                DefaultCellStyle = cellstyle,
+                Name = _published,
+                DataPropertyName = _published,
+            };
+            this.Columns.Add(imageCol);
 
 
             BindingList<ProgramEntry> MyObservProgramInPage = new BindingList<ProgramEntry>(programquery.Take(0).ToList());
             this.DataSource = MyObservProgramInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
             this.Columns["ChannelId"].Visible = false;
+            this.Columns[_published].DisplayIndex = this.ColumnCount - 3;
+            this.Columns[_published].DefaultCellStyle.NullValue = null;
+            this.Columns[_published].HeaderText = _published;
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -954,6 +984,7 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                         }).ToArray();
                     break;
 
@@ -971,6 +1002,8 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                         }).ToArray();
                     break;
 
@@ -988,6 +1021,8 @@ namespace AMSExplorer
                             LastModified = p.LastModified.ToLocalTime(),
                             ChannelName = c.Name,
                             ChannelId = c.Id,
+                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                         }).ToArray();
                     break;
 
@@ -1005,6 +1040,8 @@ namespace AMSExplorer
                       LastModified = p.LastModified.ToLocalTime(),
                       ChannelName = c.Name,
                       ChannelId = c.Id,
+                      Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+
                   }).ToArray();
                     break;
             }
@@ -1133,6 +1170,7 @@ namespace AMSExplorer
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
+        public Bitmap Published { get; set; }
         public string ChannelName { get; set; }
         public string ChannelId { get; set; }
     }

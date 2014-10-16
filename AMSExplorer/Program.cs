@@ -1,4 +1,22 @@
-﻿using System;
+﻿
+//----------------------------------------------------------------------- 
+// <copyright file="Program.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -149,6 +167,9 @@ namespace AMSExplorer
 
     public class Constants
     {
+        public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
+        public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
+        
         public const string ZeniumConfig = "";
         public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
         public const string AzureMediaEncoder = "Azure Media Encoder";
@@ -972,6 +993,7 @@ namespace AMSExplorer
         public string EndTime { get; set; }
         public string DestLocation { get; set; }
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
+        public string ErrorDescription { get; set; }
     }
 
     public class CredentialsEntry

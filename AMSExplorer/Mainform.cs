@@ -1,4 +1,21 @@
-﻿using System;
+﻿//----------------------------------------------------------------------- 
+// <copyright file="Mainform.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -33,6 +50,7 @@ using System.Reflection;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
+using System.Text.RegularExpressions;
 
 
 namespace AMSExplorer
@@ -41,7 +59,7 @@ namespace AMSExplorer
     public partial class Mainform : Form
     {
         // XML Congiguration files path.
-        private static string _configurationXMLFiles;
+        public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
         public static bool havestoragecredentials = true;
@@ -130,7 +148,42 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging will not work.", true); // Warning
 
             ApplySettingsOptions(true);
+
+
+
+            CheckAMSEVersion();
+
+
         }
+
+        private void CheckAMSEVersion()
+        {
+            var webClient = new WebClient();
+            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+        }
+
+        private void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                try
+                {
+                    var xmlversion = XDocument.Parse(e.Result);
+                    Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
+                    Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
+                    if (versionAMSEGitHub > versionAMSELocal)
+                    {
+                        TextBoxLogWriteLine("A newer version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
@@ -142,6 +195,7 @@ namespace AMSExplorer
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
             bool Error = false;
+            string ErrorMessage = string.Empty;
 
             TextBoxLogWriteLine("Starting the Http import process.");
 
@@ -200,7 +254,11 @@ namespace AMSExplorer
                                 if (copyStatus.Status != CopyStatus.Pending)
                                 {
                                     continueLoop = false;
-                                    if (copyStatus.Status == CopyStatus.Failed) Error = true;
+                                    if (copyStatus.Status == CopyStatus.Failed)
+                                    {
+                                        Error = true;
+                                        ErrorMessage = copyStatus.StatusDescription;
+                                    }
                                 }
                             }
                         }
@@ -229,7 +287,7 @@ namespace AMSExplorer
                 else // Error!
                 {
                     TextBoxLogWriteLine("Error during file import.", true);
-                    DoGridTransferDeclareError(index);
+                    DoGridTransferDeclareError(index, "Error during import. " + ErrorMessage);
                     try
                     {
                         destinationLocator.Delete();
@@ -247,7 +305,7 @@ namespace AMSExplorer
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
                 TextBoxLogWriteLine(ex.Message, true);
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, ex);
 
                 if (destinationLocator != null)
                 {
@@ -353,10 +411,10 @@ namespace AMSExplorer
                                                                );
                 SetISMFileAsPrimary(asset);
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading from {0}", folderPath, true);
             }
             if (!Error)
@@ -678,7 +736,8 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
             DoRefreshGridAssetV(false);
             DoRefreshGridChannelV(false);
-            DoRefreshGridOriginV(false);
+            DoRefreshGridStreamingEndpointV(false);
+            DoRefreshGridProcessorV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -715,7 +774,6 @@ namespace AMSExplorer
                 dataGridViewJobsV.Init(_credentials);
                 for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
                 comboBoxPageJobs.SelectedIndex = 0;
-
             }
 
             Debug.WriteLine("DoRefreshGridJobVNotforsttime");
@@ -797,10 +855,10 @@ namespace AMSExplorer
                                                       }
                                                       );
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
-                DoGridTransferDeclareError(index);
+                DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
             }
             if (!Error)
@@ -852,12 +910,22 @@ namespace AMSExplorer
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
+        private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
+        {
+            string message = e.Message;
+            if (e.InnerException != null)
+            {
+                message = message + Constants.endline + Program.GetErrorMessage(e);
+            }
+            DoGridTransferDeclareError(index, message);
+        }
 
-        private void DoGridTransferDeclareError(int index)  // Process is completed
+        private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
         {
             _MyListTransfer[index].Progress = 100;
             _MyListTransfer[index].EndTime = DateTime.Now.ToString();
             _MyListTransfer[index].State = TransferState.Error;
+            _MyListTransfer[index].ErrorDescription = ErrorDesc;
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
@@ -959,11 +1027,11 @@ namespace AMSExplorer
                     await File.DownloadAsync(Path.Combine(folder as string, File.Name), blobTransferClient, sasLocator, CancellationToken.None);
                     sasLocator.Delete();
                 }
-                catch
+                catch (Exception e)
                 {
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
-                    DoGridTransferDeclareError(index);
+                    DoGridTransferDeclareError(index, e);
 
                 }
                 if (!Error)
@@ -1249,10 +1317,14 @@ namespace AMSExplorer
 
         public DialogResult DisplayInfo(IAsset asset)
         {
+
+
             AssetInformation form = new AssetInformation()
                 {
                     MyAsset = asset,
-                    MyContext = _context
+                    MyContext = _context,
+                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+
                 };
 
             DialogResult dialogResult = form.ShowDialog(this);
@@ -1971,7 +2043,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
                                 TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
@@ -1983,17 +2055,17 @@ namespace AMSExplorer
                             if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", fileName, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, "Error during blob copy.");
                                 Error = true;
                                 break;
                             }
 
 
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy file '{0}'!.", fileName, true);
-                            DoGridTransferDeclareError(index);
+                            DoGridTransferDeclareError(index, ex);
                             Error = true;
                         }
 
@@ -2110,7 +2182,7 @@ namespace AMSExplorer
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
                                 TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
@@ -2120,10 +2192,10 @@ namespace AMSExplorer
                             assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
                             assetFile.Update();
                         }
-                        catch
+                        catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy '{0}'", fileName, true);
-                            DoGridTransferDeclareError(index);
+                            DoGridTransferDeclareError(index, ex);
                             Error = true;
                             break;
 
@@ -2181,10 +2253,10 @@ namespace AMSExplorer
                     {
                         TargetContainer.CreateIfNotExists();
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}'", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(index);
+                        DoGridTransferDeclareError(index, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
                         Error = true;
                     }
                 }
@@ -2236,7 +2308,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
                                     TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2246,15 +2318,15 @@ namespace AMSExplorer
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, "Error during blob copy.");
                                     Error = true;
                                     break;
                                 }
                             }
-                            catch
+                            catch (Exception ex)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, ex);
                                 Error = true;
                             }
                             BytesCopied += sourceCloudBlob.Properties.Length;
@@ -2309,10 +2381,10 @@ namespace AMSExplorer
                     {
                         TargetContainer.CreateIfNotExists();
                     }
-                    catch
+                    catch (Exception e)
                     {
                         TextBoxLogWriteLine("Failed to create container '{0}' ", TargetContainer.Name, true);
-                        DoGridTransferDeclareError(index);
+                        DoGridTransferDeclareError(index, e);
                         Error = true;
                     }
                 }
@@ -2365,7 +2437,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                     TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2375,15 +2447,15 @@ namespace AMSExplorer
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
                                     TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                    DoGridTransferDeclareError(index);
+                                    DoGridTransferDeclareError(index, string.Format("Failed to copy file '{0}'", file.Name));
                                     Error = true;
                                     break;
                                 }
                             }
-                            catch
+                            catch (Exception e)
                             {
                                 TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                DoGridTransferDeclareError(index);
+                                DoGridTransferDeclareError(index, e);
                                 Error = true;
                             }
 
@@ -2699,6 +2771,7 @@ namespace AMSExplorer
                     dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
                     dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
                     dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
+                    dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
                 }
           ));
         }
@@ -3213,6 +3286,18 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            // let's check that filename are correct
+            bool RegexResult = true;
+            Regex reg = new Regex(@"^[\w-_.]+$", RegexOptions.Compiled);
+            foreach (var asset in SelectedAssets)
+            {
+                foreach (var file in asset.AssetFiles)
+                {
+                    if (!reg.IsMatch(file.Name)) RegexResult = false;
+                }
+            }
+
+
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
@@ -3222,7 +3307,8 @@ namespace AMSExplorer
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed."
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
+                Warning = RegexResult ? string.Empty : "One of the asset files contains a character which is perhaps not supported by the Indexer."
             };
 
             string taskname = "Indexing of " + Constants.NameconvInputasset;
@@ -3383,24 +3469,13 @@ namespace AMSExplorer
           );
             comboBoxOrderProgram.SelectedIndex = 0;
 
-
-            // Processors tab
-            dataGridViewProcessors.ColumnCount = 5;
-            dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
-            dataGridViewProcessors.Columns[1].HeaderText = "Name";
-            dataGridViewProcessors.Columns[2].HeaderText = "Version";
-            dataGridViewProcessors.Columns[3].HeaderText = "Id";
-            dataGridViewProcessors.Columns[4].HeaderText = "Description";
-            dataGridViewProcessors.Columns[0].Width = 110;
-            dataGridViewProcessors.Columns[2].Width = 70;
-
-            List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
-            foreach (IMediaProcessor proc in Procs)
-            {
-                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
-            }
-            tabPageProcessors.Text = string.Format("Processors ({0})", Procs.Count());
-
+            comboBoxOrderStreamingEndpoints.Items.AddRange(
+          typeof(OrderStreamingEndpoints)
+          .GetFields()
+          .Select(i => i.GetValue(null) as string)
+          .ToArray()
+          );
+            comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
             // List of state and numbers of jobs per state
             DoRefreshGridJobV(true);
@@ -3408,7 +3483,8 @@ namespace AMSExplorer
             DoRefreshGridAssetV(true);
             DoRefreshGridChannelV(true);
             DoRefreshGridProgramV(true);
-            DoRefreshGridOriginV(true);
+            DoRefreshGridStreamingEndpointV(true);
+            DoRefreshGridProcessorV(true);
 
         }
 
@@ -3464,7 +3540,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("No asset was selected");
                 return;
-
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
@@ -3500,7 +3575,7 @@ namespace AMSExplorer
                    form.EncodingConfiguration,
                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
 
-                AMETask.InputAssets.AddRange(SelectedAssets);
+                AMETask.InputAssets.AddRange(form.SelectedAssets);
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
@@ -4184,6 +4259,18 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDisplayTransferError()
+        {
+            if (dataGridViewTransfer.SelectedRows.Count > 0)
+            {
+                if ((TransferState)dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["State"].Index].Value == TransferState.Error)
+                {
+                    string ErrorMessage = dataGridViewTransfer.SelectedRows[0].Cells[dataGridViewTransfer.Columns["ErrorDescription"].Index].Value.ToString();
+                    MessageBox.Show(ErrorMessage, "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void openDestinationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoOpenTransferDestLocation();
@@ -4223,7 +4310,7 @@ namespace AMSExplorer
             {
                 Priority form = new Priority()
                 {
-                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : 10 // if only one job so we pass the current priority to dialog box
+                    JobPriority = (SelectedJobs.Count == 1) ? SelectedJobs[0].Priority : Properties.Settings.Default.DefaultJobPriority // if only one job so we pass the current priority to dialog box
                 };
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -4720,7 +4807,7 @@ namespace AMSExplorer
             EnableChildItems(ref contextMenuStripTransfers, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabTransfers)));
 
             EnableChildItems(ref originToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
-            EnableChildItems(ref contextMenuStripStreaminEndpoint, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
+            EnableChildItems(ref contextMenuStripStreaminEndpoints, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabOrigins)));
 
             EnableChildItems(ref liveChannelToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
             EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
@@ -4857,7 +4944,7 @@ namespace AMSExplorer
                 dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewChannelsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewProgramsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
-                dataGridViewOriginsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
+                dataGridViewStreamingEndpointsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
             }
 
             dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid;
@@ -4908,18 +4995,40 @@ namespace AMSExplorer
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
         }
 
-        private void DoRefreshGridOriginV(bool firstime)
+        private void DoRefreshGridStreamingEndpointV(bool firstime)
         {
             if (firstime)
             {
-                dataGridViewOriginsV.Init(_credentials);
+                dataGridViewStreamingEndpointsV.Init(_credentials);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
-            dataGridViewOriginsV.Invoke(new Action(() => dataGridViewOriginsV.RefreshOrigins(_context, 1)));
+            dataGridViewStreamingEndpointsV.Invoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoints(_context, 1)));
 
-            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewOriginsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageOrigins.Text = string.Format(Constants.TabOrigins + " ({0})", dataGridViewStreamingEndpointsV.DisplayedCount)));
+        }
 
+        private void DoRefreshGridProcessorV(bool firstime)
+        {
+            if (firstime)
+            {
+                // Processors tab
+                dataGridViewProcessors.ColumnCount = 5;
+                dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
+                dataGridViewProcessors.Columns[1].HeaderText = "Name";
+                dataGridViewProcessors.Columns[2].HeaderText = "Version";
+                dataGridViewProcessors.Columns[3].HeaderText = "Id";
+                dataGridViewProcessors.Columns[4].HeaderText = "Description";
+                dataGridViewProcessors.Columns[0].Width = 110;
+                dataGridViewProcessors.Columns[2].Width = 70;
+            }
+            dataGridViewProcessors.Rows.Clear();
+            List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
+            foreach (IMediaProcessor proc in Procs)
+            {
+                dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
+            }
+            tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
         }
 
 
@@ -4936,9 +5045,9 @@ namespace AMSExplorer
         private List<IStreamingEndpoint> ReturnSelectedOrigins()
         {
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
-            foreach (DataGridViewRow Row in dataGridViewOriginsV.SelectedRows)
+            foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewOriginsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
             }
             SelectedOrigins.Reverse();
             return SelectedOrigins;
@@ -5111,7 +5220,7 @@ namespace AMSExplorer
                         ErrorMessage = Program.GetErrorMessage(ex)
                     };
                     TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
                 }
             }
         }
@@ -5137,9 +5246,9 @@ namespace AMSExplorer
                         ErrorMessage = Program.GetErrorMessage(ex)
                     };
                     TextBoxLogWriteLine("Error when updating streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
                 }
-                DoRefreshGridOriginV(false);
+                DoRefreshGridStreamingEndpointV(false);
             }
         }
 
@@ -5250,7 +5359,7 @@ namespace AMSExplorer
                     ErrorMessage = Program.GetErrorMessage(ex)
                 };
                 TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.AddOriginEvent(si)), null);
+                dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
             }
         }
 
@@ -5406,7 +5515,7 @@ namespace AMSExplorer
         public void DoOriginMonitor(string originname, OperationType operationtype)
         {
             IStreamingEndpoint origin = _context.StreamingEndpoints.Where(c => c.Name == originname).FirstOrDefault();
-            if (origin != null) dataGridViewOriginsV.BeginInvoke(new Action(() => dataGridViewOriginsV.DoOriginMonitor(origin, operationtype)), null);
+            if (origin != null) dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.DoStreamingEndpointMonitor(origin, operationtype)), null);
 
         }
 
@@ -5809,11 +5918,11 @@ namespace AMSExplorer
 
         private void dataGridViewOriginsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewOriginsV.Columns["State"].Index) // state column
+            if (e.ColumnIndex == dataGridViewStreamingEndpointsV.Columns["State"].Index) // state column
             {
-                if (dataGridViewOriginsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                if (dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
                 {
-                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewOriginsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                     Color mycolor;
 
                     switch (OS)
@@ -5838,7 +5947,7 @@ namespace AMSExplorer
                             break;
 
                     }
-                    for (int i = 0; i < dataGridViewOriginsV.Columns.Count; i++) dataGridViewOriginsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    for (int i = 0; i < dataGridViewStreamingEndpointsV.Columns.Count; i++) dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
 
                 }
             }
@@ -6042,7 +6151,7 @@ namespace AMSExplorer
 
                 await STask;
 
-                DoRefreshGridOriginV(false);
+                DoRefreshGridStreamingEndpointV(false);
             }
         }
 
@@ -6154,7 +6263,7 @@ namespace AMSExplorer
         {
             if (e.RowIndex > -1)
             {
-                IStreamingEndpoint origin = GetOrigin(dataGridViewOriginsV.Rows[e.RowIndex].Cells[dataGridViewOriginsV.Columns["Id"].Index].Value.ToString());
+                IStreamingEndpoint origin = GetOrigin(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
                 if (origin != null)
                 {
                     DoDisplayOriginInfo(origin);
@@ -6239,10 +6348,10 @@ namespace AMSExplorer
 
         private void DoBatchUpload()
         {
-            BathUploadFrame1 form = new BathUploadFrame1();
+            BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                BathUploadFrame2 form2 = new BathUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders);
+                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders);
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
                     int index;
@@ -6361,7 +6470,7 @@ namespace AMSExplorer
                         {
                             if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
                             {
-                                IContentKey key = null;
+                                IContentKey contentKey = null;
 
                                 var contenkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
                                 if (contenkeys.Count() == 0) // no content key existing so we need to create one
@@ -6370,11 +6479,11 @@ namespace AMSExplorer
                                     {
                                         if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
                                         {
-                                            key = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
+                                            contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
                                         }
                                         else // CENC
                                         {
-                                            key = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                                            contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
 
                                         }
                                     }
@@ -6386,13 +6495,13 @@ namespace AMSExplorer
                                         Error = true;
                                     }
                                     if (Error) break;
-                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", key.Id, AssetToProcess.Name);
+                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
 
                                 }
                                 else // let's use existing content key
                                 {
-                                    key = contenkeys.FirstOrDefault();
-                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", key.Id, AssetToProcess.Name);
+                                    contentKey = contenkeys.FirstOrDefault();
+                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
                                 }
 
 
@@ -6421,31 +6530,29 @@ namespace AMSExplorer
 
                                 }
 
-
-
+                                string tokenTemplateString = null;
                                 try
                                 {
                                     switch (form.GetKeyRestrictionType)
                                     {
                                         case ContentKeyRestrictionType.Open:
-                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(key, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+
+                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+
+
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            string tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicy(key, form.GetAudienceUri, form.GetIssuerUri, _context);
-                                            if (!String.IsNullOrEmpty(tokenTemplateString))
-                                            {
-                                                // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
-                                                // back into a TokenRestrictionTemplate class instance.
-                                                TokenRestrictionTemplate tokenTemplate =
-                                                    TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
-                                                // Generate a test token based on the data in the given TokenRestrictionTemplate.
-                                                // Note, you need to pass the key id Guid because we specified 
-                                                // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                                                TextBoxLogWriteLine("The authorization token is:\n{0}", testToken);
+
+                                            if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                            {
+                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
+
+                                            }
+                                            else  // Envelope encryption 
+                                            {
+                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
                                             }
 
                                             break;
@@ -6464,24 +6571,24 @@ namespace AMSExplorer
                                 }
                                 if (Error) break;
 
-                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", key.Id, AssetToProcess.Name);
+                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
 
                                 IAssetDeliveryPolicy DelPol = null;
 
                                 var DelPols = _context.AssetDeliveryPolicies
                                     .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == form.GetDeliveryPolicyType));
-                                if (form.ForceDeliveryPolicyCreation | DelPols.Count() == 0) // no delivery policy found or user want to force creation
+                                if (form.ForceDeliveryPolicyCreation || DelPols.Count() == 0) // no delivery policy found or user want to force creation
                                 {
                                     string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
                                     try
                                     {
                                         if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
                                         {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, key, form.GetAssetDeliveryProtocol, name, _context);
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                         }
                                         else  // Envelope encryption or no encryption
                                         {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, key, form.GetAssetDeliveryProtocol, name, _context);
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                         }
 
                                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -6507,12 +6614,25 @@ namespace AMSExplorer
                                         TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         Error = true;
-
                                     }
                                 }
-
                                 if (Error) break;
 
+                                if (!String.IsNullOrEmpty(tokenTemplateString))
+                                {
+                                    // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
+                                    // back into a TokenRestrictionTemplate class instance.
+                                    TokenRestrictionTemplate tokenTemplate =
+                                        TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
+                                    // Generate a test token based on the data in the given TokenRestrictionTemplate.
+                                    // Note, you need to pass the key id Guid because we specified 
+                                    // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
+                                    Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
+                                    string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                    TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                    TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
+                                }
                             }
                             else // No Dynamic encryption
                             {
@@ -6553,6 +6673,7 @@ namespace AMSExplorer
 
                                 if (Error) break;
                             }
+
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                 }
@@ -6760,6 +6881,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             DoCreateLocator(SelectedAssets);
+            DoRefreshGridProgramV(false);
         }
 
         private void createALocatorToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -6776,6 +6898,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedPrograms().Select(p => p.Asset).ToList();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
+            DoRefreshGridProgramV(false);
         }
 
         private void displayRelatedAssetInformationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6826,6 +6949,56 @@ namespace AMSExplorer
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri());
+        }
+
+        private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+
+            if (dataGridViewStreamingEndpointsV.Initialized)
+            {
+                DoRefreshGridStreamingEndpointV(false);
+            }
+        }
+
+        private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridAssetV(false);
+        }
+
+        private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridJobV(false);
+        }
+
+        private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridChannelV(false);
+        }
+
+        private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridProgramV(false);
+        }
+
+        private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridStreamingEndpointV(false);
+        }
+
+        private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridProcessorV(false);
+        }
+
+        private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDisplayTransferError();
+        }
+
+        private void displayErrorToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDisplayTransferError();
         }
 
 
@@ -7079,6 +7252,14 @@ namespace AMSExplorer
         public const string State = "State";
     }
 
+    public static class OrderStreamingEndpoints
+    {
+        public const string LastModified = "Last modified";
+        public const string Name = "Name";
+        public const string State = "State";
+        public const string ScaleUnits = "Scale units";
+    }
+
 
     public static class StatusAssets
     {
@@ -7122,18 +7303,6 @@ namespace AMSExplorer
         ExportToAzureStorage = 4,
         DownloadToLocal = 5
     }
-
-    public static class OrderOrigins
-    {
-        public const string LastModified = "Last modified";
-        public const string StartTime = "Start Time";
-        public const string EndTime = "End Time";
-        public const string ProcessTime = "Duration";
-        public const string Name = "Name";
-        public const string State = "State";
-    }
-
-
 
 
     public class DataGridViewAssets : DataGridView
@@ -7424,9 +7593,6 @@ namespace AMSExplorer
             {
                 // cancel the analyze.
                 WorkerAnalyzeAssets.CancelAsync();
-
-                //System.Threading.Thread.Sleep(1000);
-
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
@@ -7559,20 +7725,16 @@ namespace AMSExplorer
 
             AnalyzeItemsInBackground();
             this.FindForm().Cursor = Cursors.Default;
-
         }
-
-
 
 
         public void AnalyzeItemsInBackground()
         {
             Task.Run(() =>
        {
-
+           WorkerAnalyzeAssets.CancelAsync();
            // let's wait a little for the previous worker to cancel if needed
            System.Threading.Thread.Sleep(2000);
-
 
            if (WorkerAnalyzeAssets.IsBusy != true)
            {
@@ -7583,7 +7745,6 @@ namespace AMSExplorer
                }
                catch { }
            }
-
        });
 
         }
