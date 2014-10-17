@@ -246,15 +246,27 @@ namespace AMSExplorer
 
             foreach (IListBlobItem b in mediaBlobs)
             {
-                CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
-                string lastModified = "";
-                ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.ToString()), 0);
-                lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
-                item.SubItems.Add(lastModified);
-                item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
-                // Place a check mark next to the item.
-                listViewFiles.Items.Add(item);
-                ListBlobs.Add(b);
+                if (b.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
+                    string lastModified = "";
+                    ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.ToString()), 0);
+                    lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
+                    item.SubItems.Add(lastModified);
+                    item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
+                    // Place a check mark next to the item.
+                    listViewFiles.Items.Add(item);
+                    ListBlobs.Add(b);
+                }
+                /*
+                if (b.GetType() == typeof(CloudBlobDirectory))
+                {
+                    CloudBlobDirectory cloudBlockDir = b as CloudBlobDirectory;
+                    ListViewItem item = new ListViewItem(cloudBlockDir.Prefix, 0);
+                    listViewFiles.Items.Add(item);
+                    ListBlobs.Add(b);
+                }
+               */
 
             }
             listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
