@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--This file is downloaded by Azure Media Services Explorer to check its version and warn the user if there is an update-->
+<Versions>
+<Production Version="3.0.0.10" />
+<Beta Version="3.0.0.10" />
+</Versions>

@@ -70,6 +70,7 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonGetTestToken = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dataGridViewAutPol = new System.Windows.Forms.DataGridView();
             this.listViewAutPol = new System.Windows.Forms.ListView();
@@ -95,6 +96,8 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
+            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -168,9 +171,10 @@
             this.toolStripMenuItemPlaybackSilverlightMonitoring,
             this.toolStripMenuItemDASHIF,
             this.toolStripMenuItemDASHAzure,
+            this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 180);
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 224);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
@@ -221,6 +225,7 @@
             // 
             // toolStripMenuItemDASHAzure
             // 
+            this.toolStripMenuItemDASHAzure.Enabled = false;
             this.toolStripMenuItemDASHAzure.Name = "toolStripMenuItemDASHAzure";
             this.toolStripMenuItemDASHAzure.Size = new System.Drawing.Size(322, 22);
             this.toolStripMenuItemDASHAzure.Text = "Playback with MPEG-DASH Azure Player";
@@ -242,7 +247,7 @@
             this.TreeViewLocators.ContextMenuStrip = this.contextMenuStripLocators;
             this.TreeViewLocators.Location = new System.Drawing.Point(6, 31);
             this.TreeViewLocators.Name = "TreeViewLocators";
-            this.TreeViewLocators.Size = new System.Drawing.Size(740, 384);
+            this.TreeViewLocators.Size = new System.Drawing.Size(740, 356);
             this.TreeViewLocators.TabIndex = 19;
             this.TreeViewLocators.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewLocators_AfterSelect);
             // 
@@ -517,6 +522,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonGetTestToken);
             this.tabPage5.Controls.Add(this.label3);
             this.tabPage5.Controls.Add(this.dataGridViewAutPol);
             this.tabPage5.Controls.Add(this.listViewAutPol);
@@ -529,6 +535,17 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // buttonGetTestToken
+            // 
+            this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonGetTestToken.Location = new System.Drawing.Point(126, 421);
+            this.buttonGetTestToken.Name = "buttonGetTestToken";
+            this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
+            this.buttonGetTestToken.TabIndex = 41;
+            this.buttonGetTestToken.Text = "Get Test Token";
+            this.buttonGetTestToken.UseVisualStyleBackColor = true;
+            this.buttonGetTestToken.Click += new System.EventHandler(this.buttonGetTestToken_Click);
             // 
             // label3
             // 
@@ -690,6 +707,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.buttonDashLiveAzure);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
             this.tabPage3.Controls.Add(this.buttonOpen);
@@ -724,7 +742,7 @@
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
             this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 4);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(179, 21);
             this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
@@ -732,7 +750,7 @@
             // 
             this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpen.Enabled = false;
-            this.buttonOpen.Location = new System.Drawing.Point(69, 421);
+            this.buttonOpen.Location = new System.Drawing.Point(66, 393);
             this.buttonOpen.Name = "buttonOpen";
             this.buttonOpen.Size = new System.Drawing.Size(50, 23);
             this.buttonOpen.TabIndex = 25;
@@ -744,7 +762,7 @@
             // 
             this.buttonDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDel.Enabled = false;
-            this.buttonDel.Location = new System.Drawing.Point(3, 421);
+            this.buttonDel.Location = new System.Drawing.Point(3, 393);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(57, 23);
             this.buttonDel.TabIndex = 28;
@@ -756,7 +774,7 @@
             // 
             this.buttonDashAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDashAzure.Enabled = false;
-            this.buttonDashAzure.Location = new System.Drawing.Point(517, 421);
+            this.buttonDashAzure.Location = new System.Drawing.Point(398, 422);
             this.buttonDashAzure.Name = "buttonDashAzure";
             this.buttonDashAzure.Size = new System.Drawing.Size(112, 23);
             this.buttonDashAzure.TabIndex = 27;
@@ -768,7 +786,7 @@
             // 
             this.buttonSLMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSLMonitor.Enabled = false;
-            this.buttonSLMonitor.Location = new System.Drawing.Point(290, 421);
+            this.buttonSLMonitor.Location = new System.Drawing.Point(171, 422);
             this.buttonSLMonitor.Name = "buttonSLMonitor";
             this.buttonSLMonitor.Size = new System.Drawing.Size(103, 23);
             this.buttonSLMonitor.TabIndex = 26;
@@ -780,7 +798,7 @@
             // 
             this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonHTML.Enabled = false;
-            this.buttonHTML.Location = new System.Drawing.Point(635, 421);
+            this.buttonHTML.Location = new System.Drawing.Point(592, 422);
             this.buttonHTML.Name = "buttonHTML";
             this.buttonHTML.Size = new System.Drawing.Size(111, 23);
             this.buttonHTML.TabIndex = 24;
@@ -792,7 +810,7 @@
             // 
             this.buttonDASH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDASH.Enabled = false;
-            this.buttonDASH.Location = new System.Drawing.Point(399, 421);
+            this.buttonDASH.Location = new System.Drawing.Point(280, 422);
             this.buttonDASH.Name = "buttonDASH";
             this.buttonDASH.Size = new System.Drawing.Size(112, 23);
             this.buttonDASH.TabIndex = 23;
@@ -804,7 +822,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(125, 426);
+            this.label1.Location = new System.Drawing.Point(6, 427);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 21;
@@ -814,7 +832,7 @@
             // 
             this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(207, 421);
+            this.buttonFlash.Location = new System.Drawing.Point(88, 422);
             this.buttonFlash.Name = "buttonFlash";
             this.buttonFlash.Size = new System.Drawing.Size(77, 23);
             this.buttonFlash.TabIndex = 20;
@@ -832,6 +850,25 @@
             this.labelAssetNameTitle.Size = new System.Drawing.Size(753, 32);
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
+            // 
+            // buttonDashLiveAzure
+            // 
+            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDashLiveAzure.Enabled = false;
+            this.buttonDashLiveAzure.Location = new System.Drawing.Point(516, 422);
+            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
+            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
+            this.buttonDashLiveAzure.TabIndex = 31;
+            this.buttonDashLiveAzure.Text = "DASH Live";
+            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
+            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
+            // 
+            // toolStripMenuItemDASHLiveAzure
+            // 
+            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
+            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
+            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
             // 
             // AssetInformation
             // 
@@ -935,5 +972,8 @@
         private System.Windows.Forms.ListView listViewAutPol;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button buttonGetTestToken;
+        private System.Windows.Forms.Button buttonDashLiveAzure;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHLiveAzure;
     }
 }

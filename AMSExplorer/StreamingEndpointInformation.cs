@@ -1,4 +1,21 @@
-﻿using System;
+﻿//----------------------------------------------------------------------- 
+// <copyright file="StreamingEndpointInformation.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +32,8 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -111,7 +130,7 @@ namespace AMSExplorer
 
         public string GetOriginCrossdomaintPolicy
         {
-            get { return (checkBoxcrossdomains.Checked) ? textBoxCrossDomPolicy.Text : null; }
+            get { return (checkBoxcrossdomain.Checked) ? textBoxCrossDomPolicy.Text : null; }
 
         }
 
@@ -216,7 +235,7 @@ namespace AMSExplorer
                 }
                 if (MyOrigin.CrossSiteAccessPolicies.CrossDomainPolicy != null)
                 {
-                    checkBoxcrossdomains.Checked = true;
+                    checkBoxcrossdomain.Checked = true;
                     textBoxCrossDomPolicy.Text = MyOrigin.CrossSiteAccessPolicies.CrossDomainPolicy;
                 }
             }
@@ -298,11 +317,13 @@ namespace AMSExplorer
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
             textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = checkBoxcrossdomains.Checked;
+            textBoxCrossDomPolicy.Enabled = checkBoxcrossdomain.Checked;
+            buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
@@ -335,6 +356,16 @@ namespace AMSExplorer
         private void hostnamelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void buttonAddExampleClientPolicy_Click(object sender, EventArgs e)
+        {
+            textBoxClientPolicy.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"ClientAccessPolicy.xml"));
+        }
+
+        private void buttonAddExampleCrossDomainPolicy_Click(object sender, EventArgs e)
+        {
+            textBoxCrossDomPolicy.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"CrossDomainPolicy.xml"));
         }
     }
 }

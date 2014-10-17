@@ -1,4 +1,21 @@
-﻿using System;
+﻿//----------------------------------------------------------------------- 
+// <copyright file="AssetInformation.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -41,6 +58,7 @@ namespace AMSExplorer
         private string MyAssetType;
         //public string MyAssetType;
         public CloudMediaContext MyContext;
+        public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
         private List<IContentKeyAuthorizationPolicy> MyPolicies = null;
 
@@ -164,7 +182,6 @@ namespace AMSExplorer
                             AssetInfo.DoPlayBack(PlayerType.DASHIFRefPlayer, new Uri(TreeViewLocators.SelectedNode.Text));
                             break;
 
-
                         default:
                             break;
                     }
@@ -182,6 +199,7 @@ namespace AMSExplorer
                 {
                     toolStripMenuItemDASHAzure.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
+                    toolStripMenuItemDASHLiveAzure.Enabled = false;
                     toolStripMenuItemPlaybackFlashAzure.Enabled = false;
                     toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                     toolStripMenuItemPlaybackMP4.Enabled = false;
@@ -191,6 +209,7 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) | TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
                         toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = true;
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = true;
@@ -201,6 +220,7 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
                     {
                         toolStripMenuItemDASHAzure.Enabled = true;
+                        toolStripMenuItemDASHLiveAzure.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = true;
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
@@ -211,6 +231,7 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https))
                     {
                         toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = false;
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
@@ -221,6 +242,7 @@ namespace AMSExplorer
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http))
                     {
                         toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = false;
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
@@ -253,7 +275,6 @@ namespace AMSExplorer
                 {
                     AssetInfo.DoPlayBack(PlayerType.MP4AzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
                 }
-
             }
         }
 
@@ -396,9 +417,10 @@ namespace AMSExplorer
                     DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
                 }
 
-                foreach (var se in MyAsset.GetMediaContext().StreamingEndpoints)
+                int i;
+                foreach (var se in MyStreamingEndpoints) //MyAsset.GetMediaContext().StreamingEndpoints)
                 {
-                    comboBoxStreamingEndpoint.Items.Add(new Item(se.Name, se.HostName));
+                    i=comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
                     if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
                 }
                 BuildLocatorsTree();
@@ -980,6 +1002,7 @@ namespace AMSExplorer
                 {
                     buttonDASH.Enabled = false;
                     buttonDashAzure.Enabled = false;
+                    buttonDashLiveAzure.Enabled = false;
                     buttonFlash.Enabled = false;
                     buttonSLMonitor.Enabled = false;
                     buttonHTML.Enabled = false;
@@ -993,6 +1016,7 @@ namespace AMSExplorer
 
                             buttonDASH.Enabled = false;
                             buttonDashAzure.Enabled = false;
+                            buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = true;
                             buttonSLMonitor.Enabled = true;
                             buttonHTML.Enabled = false;
@@ -1002,6 +1026,7 @@ namespace AMSExplorer
                         case AssetInfo._dash:
                             buttonDASH.Enabled = true;
                             buttonDashAzure.Enabled = true;
+                            buttonDashLiveAzure.Enabled = true;
                             buttonFlash.Enabled = true;
                             buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = false;
@@ -1011,6 +1036,7 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_https:
                             buttonDASH.Enabled = false;
                             buttonDashAzure.Enabled = false;
+                            buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
                             buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = false;
@@ -1020,6 +1046,7 @@ namespace AMSExplorer
                         case AssetInfo._prog_down_http:
                             buttonDASH.Enabled = false;
                             buttonDashAzure.Enabled = false;
+                            buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
                             buttonSLMonitor.Enabled = false;
                             buttonHTML.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
@@ -1391,6 +1418,83 @@ namespace AMSExplorer
             }
         }
 
+        private void buttonGetTestToken_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
 
+        private void DoGetTestToken()
+        {
+            Mainform parent = (Mainform)this.Owner;
+
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                if (listViewAutPol.SelectedItems.Count > 0)
+                {
+                    IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    if (policy != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption option = policy.Options.FirstOrDefault();
+                        if (option != null)
+                        {
+                            string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
+                            if (!string.IsNullOrEmpty(tokenTemplateString))
+                            {
+                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
+                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+
+                                switch (MessageBox.Show("Test token will be copied to log window and clipboard." + Constants.endline + "Do you want the URL encoded version ?", "Test token", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+                                {
+                                    case DialogResult.Yes:
+                                        testToken = HttpUtility.UrlEncode(testToken);
+                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        System.Windows.Forms.Clipboard.SetText(testToken);
+                                        break;
+
+                                    case DialogResult.No:
+                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        System.Windows.Forms.Clipboard.SetText(testToken);
+                                        break;
+
+                                    default:
+                                        break;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void buttonDashLiveAzure_Click(object sender, EventArgs e)
+        {
+            DoDashLiveAzurePlayer();
+        }
+
+        private void DoDashLiveAzurePlayer()
+        {
+            if (TreeViewLocators.SelectedNode != null)
+            {
+                // Root node's Parent property is null, so do check
+                if (TreeViewLocators.SelectedNode.Parent != null)
+                {
+                    switch (TreeViewLocators.SelectedNode.Parent.Text)
+                    {
+                        case AssetInfo._dash:
+                            AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, new Uri(TreeViewLocators.SelectedNode.Text));
+                            break;
+
+
+                        default:
+                            break;
+                    }
+
+                }
+            }
+        }
     }
 }

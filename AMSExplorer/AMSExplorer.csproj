@@ -153,17 +153,17 @@
     <Compile Include="AMSLogin.Designer.cs">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="BathUploadFrame2.cs">
+    <Compile Include="BatchUploadFrame2.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BathUploadFrame2.Designer.cs">
-      <DependentUpon>BathUploadFrame2.cs</DependentUpon>
+    <Compile Include="BatchUploadFrame2.Designer.cs">
+      <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </Compile>
-    <Compile Include="BathUploadFrame1.cs">
+    <Compile Include="BatchUploadFrame1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BathUploadFrame1.Designer.cs">
-      <DependentUpon>BathUploadFrame1.cs</DependentUpon>
+    <Compile Include="BatchUploadFrame1.Designer.cs">
+      <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </Compile>
     <Compile Include="Bitmaps.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -348,11 +348,11 @@
     <EmbeddedResource Include="AMSLogin.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BathUploadFrame2.resx">
-      <DependentUpon>BathUploadFrame2.cs</DependentUpon>
+    <EmbeddedResource Include="BatchUploadFrame2.resx">
+      <DependentUpon>BatchUploadFrame2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="BathUploadFrame1.resx">
-      <DependentUpon>BathUploadFrame1.cs</DependentUpon>
+    <EmbeddedResource Include="BatchUploadFrame1.resx">
+      <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Bitmaps.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -448,6 +448,12 @@
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
     <Content Include="BitmapsPNG\xenio.png" />
+    <Content Include="Configurations\CrossDomainPolicy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Configurations\ClientAccessPolicy.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configurations\MediaIndexer.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

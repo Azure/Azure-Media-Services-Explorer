@@ -44,9 +44,9 @@ namespace AMSExplorer
 
     }
 
-    public class DataGridViewOrigins : DataGridView
+    public class DataGridViewStreamingEndpoints : DataGridView
     {
-        public int OriginsPerPage
+        public int ItemsPerPage
         {
             get
             {
@@ -73,27 +73,27 @@ namespace AMSExplorer
             }
 
         }
-        public string OrderOriginsInGrid
+        public string OrderStreamingEndpointsInGrid
         {
             get
             {
-                return _orderorigins;
+                return _orderstreamingendpoints;
             }
             set
             {
-                _orderorigins = value;
+                _orderstreamingendpoints = value;
             }
 
         }
-        public string FilterOriginsState
+        public string FilterStreamingEndpointsState
         {
             get
             {
-                return _filteroriginsstate;
+                return _filterstreamingendpointsstate;
             }
             set
             {
-                _filteroriginsstate = value;
+                _filterstreamingendpointsstate = value;
             }
 
         }
@@ -132,37 +132,37 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservOrigins.Count();
+                return _MyObservStreamingEndpoints.Count();
             }
 
         }
-        public IEnumerable<IStreamingEndpoint> DisplayedOrigins
+        public IEnumerable<IStreamingEndpoint> DisplayedStreamingEndpoints
         {
             get
             {
-                return origins;
+                return streamingendpoints;
             }
 
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
 
-        static BindingList<StreamingEndpointEntry> _MyObservOrigins;
-        static BindingList<StreamingEndpointEntry> _MyObservOriginthisPage;
+        static BindingList<StreamingEndpointEntry> _MyObservStreamingEndpoints;
+        static BindingList<StreamingEndpointEntry> _MyObservStreamingEndpointthisPage;
 
-        static IEnumerable<IStreamingEndpoint> origins;
+        static IEnumerable<IStreamingEndpoint> streamingendpoints;
         static private int _originsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderorigins = OrderOrigins.LastModified;
-        static string _filteroriginsstate = "All";
+        static string _orderstreamingendpoints = OrderStreamingEndpoints.LastModified;
+        static string _filterstreamingendpointsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
-        static BackgroundWorker WorkerRefreshOrigins;
+        static BackgroundWorker WorkerRefreshStreamingEndpoints;
 
         public void Init(CredentialsEntry credentials)
         {
@@ -211,9 +211,9 @@ namespace AMSExplorer
             this.Columns["Priority"].Width = 50;
             Task.Run(() => RestoreJobProgress());*/
 
-            WorkerRefreshOrigins = new BackgroundWorker();
-            WorkerRefreshOrigins.WorkerSupportsCancellation = true;
-            WorkerRefreshOrigins.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshOrigins_DoWork);
+            WorkerRefreshStreamingEndpoints = new BackgroundWorker();
+            WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;
+            WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshStreamingEndpoints_DoWork);
 
             _initialized = true;
         }
@@ -227,20 +227,20 @@ namespace AMSExplorer
             if ((page <= _pagecount) && (page > 0))
             {
                 _currentpage = page;
-                this.DataSource = new BindingList<StreamingEndpointEntry>(_MyObservOrigins.Skip(_originsperpage * (page - 1)).Take(_originsperpage).ToList());
+                this.DataSource = new BindingList<StreamingEndpointEntry>(_MyObservStreamingEndpoints.Skip(_originsperpage * (page - 1)).Take(_originsperpage).ToList());
 
 
             }
         }
 
-        public void RefreshOrigin(IStreamingEndpoint origin)
+        public void RefreshStreamingEndpoint(IStreamingEndpoint origin)
         {
             int index = -1;
-            foreach (StreamingEndpointEntry CE in _MyObservOrigins) // let's search for index
+            foreach (StreamingEndpointEntry CE in _MyObservStreamingEndpoints) // let's search for index
             {
                 if (CE.Id == origin.Id)
                 {
-                    index = _MyObservOrigins.IndexOf(CE);
+                    index = _MyObservStreamingEndpoints.IndexOf(CE);
                     break;
                 }
             }
@@ -251,22 +251,21 @@ namespace AMSExplorer
                 origin = _context.StreamingEndpoints.Where(o => o.Id == origin.Id).FirstOrDefault(); //refresh
                 if (origin != null)
                 {
-                    _MyObservOrigins[index].State = origin.State;
+                    _MyObservStreamingEndpoints[index].State = origin.State;
                     if (origin.ScaleUnits != null)
                     {
-                        _MyObservOrigins[index].ScaleUnits = (int)origin.ScaleUnits;
+                        _MyObservStreamingEndpoints[index].ScaleUnits = (int)origin.ScaleUnits;
                     }
 
                 }
 
-                Debug.WriteLine("Refresh origin status");
-                // this.Refresh();
+                Debug.WriteLine("Refresh streaming endpoint status");
             }
 
 
         }
 
-        private void WorkerRefreshOrigins_DoWork(object sender, DoWorkEventArgs e)
+        private void WorkerRefreshStreamingEndpoints_DoWork(object sender, DoWorkEventArgs e)
         {
 
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
@@ -274,7 +273,7 @@ namespace AMSExplorer
             IStreamingEndpoint origin;
 
 
-            foreach (StreamingEndpointEntry OE in _MyObservOrigins)
+            foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
             {
 
                 origin = null;
@@ -305,13 +304,13 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
 
-        private void RefreshOrigins()
+        private void RefreshStreamingEndpoints()
         {
-            RefreshOrigins(_context, _currentpage);
+            RefreshStreamingEndpoints(_context, _currentpage);
         }
 
 
-        public void RefreshOrigins(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
+        public void RefreshStreamingEndpoints(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
 
@@ -320,57 +319,12 @@ namespace AMSExplorer
 
             _context = context;
 
-            //this.Invoke(new Action(() => this.Cursor = Cursors.WaitCursor));
+            IEnumerable<StreamingEndpointEntry> endpointquery;
 
-            //   Task.Run(() =>    // REMOVE background task otherwise issue with page number in dropdown control
-            //  {
-            IEnumerable<StreamingEndpointEntry> originquery;
-
-            /*
-            if (_timefilter != "" && _timefilter != null && _timefilter != FilterTime.All)
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
-                        break;
-                    case FilterTime.LastWeek:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
-                        break;
-                    case FilterTime.LastMonth:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
-                        break;
-
-                    default:
-                        channels = context.Jobs;
-
-                        break;
-
-                }
-
-            }
-             * 
-            else*/
-            origins = context.StreamingEndpoints;
-
-
-            /*
-            if (_filterjobsstate != "All")
-            {
-                channels = channels.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
-            }
-
-
-
-            if (_searchinname != "" && _searchinname != null)
-            {
-                string searchlower = _searchinname.ToLower();
-                channels = channels.Where(j => (j.Name.ToLower().Contains(searchlower)));
-            }
-            */
+            streamingendpoints = context.StreamingEndpoints;
 
             _context = context;
-            _pagecount = (int)Math.Ceiling(((double)origins.Count()) / ((double)_originsperpage));
+            _pagecount = (int)Math.Ceiling(((double)streamingendpoints.Count()) / ((double)_originsperpage));
             if (_pagecount == 0) _pagecount = 1; // no asset but one page
 
             if (pagetodisplay < 1) pagetodisplay = 1;
@@ -379,7 +333,7 @@ namespace AMSExplorer
 
             try
             {
-                int c = origins.Count();
+                int c = streamingendpoints.Count();
             }
             catch (Exception e)
             {
@@ -387,155 +341,64 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-
-            /*
-            switch (_orderjobs)
+           
+            switch (_orderstreamingendpoints)
             {
-                case OrderJobs.LastModified:*/
-            originquery = from c in origins
-                          orderby c.LastModified descending
-                          select new StreamingEndpointEntry
-                          {
-                              Name = c.Name,
-                              Id = c.Id,
-                              Description = c.Description,
-                              ScaleUnits = c.ScaleUnits,
-                              State = c.State,
-                              LastModified = c.LastModified.ToLocalTime(),
-
-                          };/*
-                    break;
-                case OrderJobs.Name:
-                    channelquery = from j in channels
-                               orderby j.Name
-                                   select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.EndTime:
-                    jobquery = from j in channels
-                               orderby j.EndTime descending
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.ProcessTime:
-                    jobquery = from j in channels
-                               orderby j.RunningDuration descending
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.StartTime:
-                    jobquery = from j in channels
-                               orderby j.StartTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.State:
-                    jobquery = from j in channels
-                               orderby j.State
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running durarion == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
+                case OrderStreamingEndpoints.LastModified:
                 default:
-                    jobquery = from j in channels
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running durarion == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
+                    streamingendpoints = from c in streamingendpoints
+                                         orderby c.LastModified descending
+                                         select c;
+                    break;
+
+                case OrderStreamingEndpoints.Name:
+                    streamingendpoints = from c in streamingendpoints
+                                         orderby c.Name
+                                         select c;
+                    break;
+
+                case OrderStreamingEndpoints.State:
+                    streamingendpoints = from c in streamingendpoints
+                                         orderby c.State
+                                         select c;
+                    break;
+
+                case OrderStreamingEndpoints.ScaleUnits:
+                    streamingendpoints = from c in streamingendpoints
+                                         orderby c.ScaleUnits
+                                         select c;
                     break;
             }
-            */
-            _MyObservOrigins = new BindingList<StreamingEndpointEntry>(originquery.ToList());
-            _MyObservOriginthisPage = new BindingList<StreamingEndpointEntry>(_MyObservOrigins.Skip(_originsperpage * (_currentpage - 1)).Take(_originsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = _MyObservOriginthisPage));
+
+            endpointquery = from c in streamingendpoints
+                            select new StreamingEndpointEntry
+                            {
+                                Name = c.Name,
+                                Id = c.Id,
+                                Description = c.Description,
+                                ScaleUnits = c.ScaleUnits,
+                                State = c.State,
+                                LastModified = c.LastModified.ToLocalTime(),
+                            };
+
+
+            _MyObservStreamingEndpoints = new BindingList<StreamingEndpointEntry>(endpointquery.ToList());
+            _MyObservStreamingEndpointthisPage = new BindingList<StreamingEndpointEntry>(_MyObservStreamingEndpoints.Skip(_originsperpage * (_currentpage - 1)).Take(_originsperpage).ToList());
+            this.BeginInvoke(new Action(() => this.DataSource = _MyObservStreamingEndpointthisPage));
             _refreshedatleastonetime = true;
-
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
-
-
-
         }
 
 
 
 
-        public void AddOriginEvent(StatusInfo statusinfo)
+        public void AddStreamingEndpointEvent(StatusInfo statusinfo)
         {
             ListStatus.Add(statusinfo);
 
         }
 
-        public void DoOriginMonitor(IStreamingEndpoint origin, OperationType operationtype)
+        public void DoStreamingEndpointMonitor(IStreamingEndpoint origin, OperationType operationtype)
         {
             Task.Run(() =>
             {
@@ -547,7 +410,7 @@ namespace AMSExplorer
 
                     while (origin.State == StreamingEndpointState.Scaling)
                     {
-                        RefreshOrigin(origin);
+                        RefreshStreamingEndpoint(origin);
                         System.Threading.Thread.Sleep(500);
                         if (DateTime.Now > starttime.AddMinutes(10))
                         {
@@ -561,7 +424,7 @@ namespace AMSExplorer
                         }
 
                     }
-                    RefreshOrigin(origin);
+                    RefreshStreamingEndpoint(origin);
                 }
                 else if (operationtype == OperationType.Delete)
                 {
@@ -570,7 +433,7 @@ namespace AMSExplorer
                     DateTime starttime = DateTime.Now;
                     while (_context.StreamingEndpoints.Where(o => o.Id == originid).FirstOrDefault() != null)
                     {
-                        RefreshOrigin(origin);
+                        RefreshStreamingEndpoint(origin);
                         System.Threading.Thread.Sleep(1000);
                         if (DateTime.Now > starttime.AddMinutes(10))
                         {
@@ -583,7 +446,7 @@ namespace AMSExplorer
                             break;
                         }
                     }
-                    RefreshOrigins();
+                    RefreshStreamingEndpoints();
                 }
                 else
                 {
@@ -613,7 +476,7 @@ namespace AMSExplorer
 
                     while (origin.State != StateToReach)
                     {
-                        RefreshOrigin(origin);
+                        RefreshStreamingEndpoint(origin);
                         System.Threading.Thread.Sleep(500);
                         if (DateTime.Now > starttime.AddMinutes(10))
                         {
@@ -626,7 +489,7 @@ namespace AMSExplorer
                             break;
                         }
                     }
-                    RefreshOrigin(origin);
+                    RefreshStreamingEndpoint(origin);
                 }
             });
         }

@@ -1,4 +1,21 @@
-﻿using System;
+﻿//----------------------------------------------------------------------- 
+// <copyright file="EncodingAMEAdv.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <license>
+// Azure Media Services Explorer Ver. 3.0
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+//  
+// http://www.apache.org/licenses/LICENSE-2.0 
+//  
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License. 
+// </license> 
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,11 +37,18 @@ namespace AMSExplorer
         public string EncodingAMEPresetXMLFiles;
         private bool xmlOpenedNotYetStiched = true; // true if xml has been opened and no stiching done yet
         private bool xmlOpenedNotYetNamedConvention = true; // true if xml has been opened and no naming convention done yet
-        private bool xmlOpenedNotYetVSSRotation = true; // true if xml has been opened and no naming convention done yet
+        private bool xmlOpenedNotYetVSSRotation = true; // true if xml has been opened and no VSS done yet
+        private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
+        private bool bAudioOverlay = false; // indicate if audio overlay has been checked or not
+
 
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private bool bMultiAssetMode = true;
+        private const string strEditTimes = "Edit times";
+        private const string strStitch = "Stitch";
+        private const string strAudiooverlay = "Audio overlay";
+        private const string strVisualoverlay = "Visual overlay";
 
         public string EncodingLabel
         {
@@ -122,11 +146,7 @@ namespace AMSExplorer
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
-                    if (bMultiAssetMode) // multi asset
-                    {
-                        tableLayoutPanelIAssets.Controls[1].Enabled = false; // not possible to do overlay with first asset
-                        tableLayoutPanelIAssets.Controls[2].Enabled = false; // not possible to do overlay with first asset
-                    }
+                    UpdateControls();
                 }
                 catch (Exception ex)
                 {
@@ -145,22 +165,74 @@ namespace AMSExplorer
             }
         }
 
+        // Some controls must be disabled or enabled
+        private void UpdateControls()
+        {
+            tableLayoutPanelIAssets.GetControlFromPosition(0, 0).Enabled = false; // not possible to go up for first row
+            if (bMultiAssetMode)
+            {
+                CheckBox CBV = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, 0));
+                CheckBox CBA = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(5, 0));
+
+                if (CBV.Checked)
+                {
+                    bVisualOverlay = false; // fist row is enabled for visualoverlay now, not possible, so we disable it
+                    CBV.Checked = false; // not possible to do overlay with first asset
+                }
+
+                if (CBA.Checked)
+                {
+                    bAudioOverlay = false;// fist row is enabled for audiooverlay now, not possible, so we disable it
+                    CBA.Checked = false; // not possible to do overlay with first asset
+                }
+                CBV.Enabled = false; // not possible to do overlay with first asset
+                CBA.Enabled = false; // not possible to do overlay with first asset
+            }
+
+            if (tableLayoutPanelIAssets.RowCount > 1)
+            {
+                for (int i = 1; i < tableLayoutPanelIAssets.RowCount; i++)
+                {
+                    tableLayoutPanelIAssets.GetControlFromPosition(0, i).Enabled = true; // button up
+                    tableLayoutPanelIAssets.GetControlFromPosition(1, i).Enabled = true; // button down
+                    if (!bVisualOverlay) // no visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = true; // checkbox overlay
+                    }
+                    else // one visual overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(4, i).Enabled = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(4, i)).Checked;
+                    }
+                    if (!bAudioOverlay) // no audio overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(5, i).Enabled = true; // checkbox overlay
+                    }
+                    else // one audio overlay
+                    {
+                        tableLayoutPanelIAssets.GetControlFromPosition(5, i).Enabled = ((CheckBox)tableLayoutPanelIAssets.GetControlFromPosition(5, i)).Checked;
+                    }
+                }
+            }
+            tableLayoutPanelIAssets.GetControlFromPosition(1, tableLayoutPanelIAssets.RowCount - 1).Enabled = false; // not possible to go down for last row
+        }
+
         public void checkBoxStitch_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox cb = (CheckBox)sender; // get the checkbox object
-            int tag = (int)(cb.Tag);
-
+            CheckBox cbStitch = (CheckBox)sender; // get the checkbox object
             xmlOpenedNotYetStiched = false;
             UpdateStitchAndOverlaysInDoc();
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cbStitch);
 
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+            for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
             {
-                if ((c.Text == "Edit times") && ((int)c.Tag == tag))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
+                if (c.Text == strEditTimes)
                 {
-                    c.Enabled = cb.Checked; // enable or disable time checkbox
-                    if (!cb.Checked) ((CheckBox)c).Checked = false; // enable or disable time checkbox
-                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 1].Enabled = cb.Checked; // start time code control
-                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 2].Enabled = cb.Checked; // start time code control
+                    CheckBox cbEditTime = (CheckBox)c;
+                    cbEditTime.Enabled = cbStitch.Checked; // enable or disable time checkbox
+                    if (!cbStitch.Checked) cbEditTime.Checked = false; // enable or disable time checkbox
+                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 1].Enabled = cbEditTime.Checked; // edit time control
+                    this.tableLayoutPanelIAssets.Controls[this.tableLayoutPanelIAssets.Controls.IndexOf(c) + 2].Enabled = cbEditTime.Checked; // start time code control
                 }
             }
         }
@@ -168,12 +240,11 @@ namespace AMSExplorer
         public void checkBoxTime_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
-
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+            for (int i = 0; i < tableLayoutPanelIAssets.ColumnCount; i++)
             {
-                if ((c.GetType() == typeof(TextBox)) && ((int)c.Tag == tag))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(i, position.Row);
+                if (c.GetType() == typeof(TextBox))
                 {
                     c.Enabled = cb.Checked;
                 }
@@ -185,7 +256,6 @@ namespace AMSExplorer
 
         private void UpdateStitchAndOverlaysInDoc()
         {
-
             bool Error = false;
 
             // Let's see if one stich button is enabled
@@ -196,7 +266,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Stitch")
+                if (c.Text == strStitch)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -208,7 +278,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Visual overlay")
+                if (c.Text == strVisualoverlay)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -220,7 +290,7 @@ namespace AMSExplorer
 
             foreach (Control c in this.tableLayoutPanelIAssets.Controls)
             {
-                if (c.Text == "Audio overlay")
+                if (c.Text == strAudiooverlay)
                 {
                     if (((CheckBox)c).Checked)
                     {
@@ -261,32 +331,37 @@ namespace AMSExplorer
                                 .AddFirst(new XElement("Sources"));
                             }
 
-                            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+
+                            for (int row = 0; row < tableLayoutPanelIAssets.RowCount; row++)
                             {
-                                if (c.Text == "Stitch")
+                                for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
                                 {
-                                    if (((CheckBox)c).Checked)
+                                    Control c = tableLayoutPanelIAssets.GetControlFromPosition(col, row);
+                                    if (c.Text == strStitch)
                                     {
-                                        string f = string.Format("%{0}%", (int)c.Tag);
-
-                                        // We should not add MediaFile attribute for asset #0
-                                        if ((int)c.Tag == 0)
+                                        if (((CheckBox)c).Checked)
                                         {
-                                            preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
+                                            string f = string.Format("%{0}%", (int)c.Tag);
 
-                                        }
-                                        else
-                                        {
-                                            preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
-                                        }
+                                            // We should not add MediaFile attribute for asset #0
+                                            if ((int)c.Tag == 0)
+                                            {
+                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
 
-                                        CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
-                                        if (edittimes.Checked)
-                                        {
-                                            preset.Descendants("Source").LastOrDefault().AddFirst(new XElement("Clips"));
-                                            TextBox startime = (TextBox)c.Parent.GetNextControl(edittimes, true);
-                                            TextBox endtime = (TextBox)c.Parent.GetNextControl(startime, true);
-                                            preset.Descendants("Clips").LastOrDefault().Add(new XElement("Clip", new XAttribute("StartTime", startime.Text), new XAttribute("EndTime", endtime.Text)));
+                                            }
+                                            else
+                                            {
+                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
+                                            }
+
+                                            CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
+                                            if (edittimes.Checked)
+                                            {
+                                                preset.Descendants("Source").LastOrDefault().AddFirst(new XElement("Clips"));
+                                                TextBox startime = (TextBox)c.Parent.GetNextControl(edittimes, true);
+                                                TextBox endtime = (TextBox)c.Parent.GetNextControl(startime, true);
+                                                preset.Descendants("Clips").LastOrDefault().Add(new XElement("Clip", new XAttribute("StartTime", startime.Text), new XAttribute("EndTime", endtime.Text)));
+                                            }
                                         }
                                     }
                                 }
@@ -331,116 +406,120 @@ namespace AMSExplorer
                             if (mediafile.Attributes("AudioOverlayFadeInDuration").Count() > 0) mediafile.Attributes("AudioOverlayFadeInDuration").Remove();
                             if (mediafile.Attributes("AudioOverlayFadeOutDuration").Count() > 0) mediafile.Attributes("AudioOverlayFadeOutDuration").Remove();
 
-                            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+                            for (int row = 0; row < tableLayoutPanelIAssets.RowCount; row++)
                             {
-                                if (c.Text == "Stitch")
+                                for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
                                 {
-                                    if (((CheckBox)c).Checked)
+                                    Control c = tableLayoutPanelIAssets.GetControlFromPosition(col, row);
+                                    if (c.Text == strStitch)
                                     {
-
-                                        string f = string.Empty;
-                                        if (bMultiAssetMode)
+                                        if (((CheckBox)c).Checked)
                                         {
-                                            f = string.Format("%{0}%", (int)c.Tag);
-                                            if ((int)c.Tag == 0) // We should not add MediaFile attribute for asset #0
+
+                                            string f = string.Empty;
+                                            if (bMultiAssetMode)
                                             {
-                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
+                                                f = string.Format("%{0}%", (int)c.Tag);
+                                                if ((int)c.Tag == 0) // We should not add MediaFile attribute for asset #0
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
+                                                }
+                                                else
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
+                                                }
+
                                             }
-                                            else
+                                            else // mono asset mode
                                             {
-                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
+                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
                                             }
 
-                                        }
-                                        else // mono asset mode
-                                        {
-                                            preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
-                                        }
 
-
-                                        CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
-                                        if (edittimes.Checked)
-                                        {
-                                            preset.Descendants("Source").LastOrDefault().AddFirst(new XElement("Clips"));
-                                            TextBox startime = (TextBox)c.Parent.GetNextControl(edittimes, true);
-                                            TextBox endtime = (TextBox)c.Parent.GetNextControl(startime, true);
-                                            preset.Descendants("Clips").LastOrDefault().Add(new XElement("Clip", new XAttribute("StartTime", startime.Text), new XAttribute("EndTime", endtime.Text)));
+                                            CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
+                                            if (edittimes.Checked)
+                                            {
+                                                preset.Descendants("Source").LastOrDefault().AddFirst(new XElement("Clips"));
+                                                TextBox startime = (TextBox)c.Parent.GetNextControl(edittimes, true);
+                                                TextBox endtime = (TextBox)c.Parent.GetNextControl(startime, true);
+                                                preset.Descendants("Clips").LastOrDefault().Add(new XElement("Clip", new XAttribute("StartTime", startime.Text), new XAttribute("EndTime", endtime.Text)));
+                                            }
                                         }
                                     }
-                                }
-                                if (c.Text == "Visual overlay")
-                                {
-                                    if (((CheckBox)c).Checked)
+                                    if (c.Text == strVisualoverlay)
                                     {
-                                        string f = string.Empty;
-                                        if (bMultiAssetMode)
+                                        if (((CheckBox)c).Checked)
                                         {
-                                            f = string.Format("%{0}%", (int)c.Tag);
-                                            if ((int)c.Tag == 0)
+                                            string f = string.Empty;
+                                            if (bMultiAssetMode)
                                             {
-                                                mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", 0));
+                                                f = string.Format("%{0}%", (int)c.Tag);
+                                                if ((int)c.Tag == 0)
+                                                {
+                                                    mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", 0));
+                                                }
+                                                else
+                                                {
+                                                    mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", f));
+                                                }
+
                                             }
-                                            else
+                                            else // mono asset mode
                                             {
-                                                mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", f));
+                                                mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name));
                                             }
 
-                                        }
-                                        else // mono asset mode
-                                        {
-                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayFileName", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayRect", string.Format("{0}, {1}, {2}, {3}", numericUpDownVOverlayRectX.Value, numericUpDownVOverlayRectY.Value, numericUpDownVOverlayRectW.Value, numericUpDownVOverlayRectH.Value)));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayOpacity", numericUpDownVOverlayOpacity.Value));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayFadeInDuration", textBoxVOverlayFadeIn.Text));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayFadeOutDuration", textBoxVOverlayFadeOut.Text));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayLayoutMode", comboBoxVOverlayMode.SelectedItem));
+                                            if ((string)comboBoxVOverlayMode.SelectedItem == "Custom")
+                                            {
+                                                mediafile.FirstOrDefault().Add(new XAttribute("OverlayStartTime", textBoxVOverlayStartTime.Text));
+                                                mediafile.FirstOrDefault().Add(new XAttribute("OverlayEndTime", textBoxVOverlayEndTime.Text));
+                                            }
                                         }
 
-                                        mediafile.FirstOrDefault().Add(new XAttribute("OverlayRect", string.Format("{0}, {1}, {2}, {3}", numericUpDownVOverlayRectX.Value, numericUpDownVOverlayRectY.Value, numericUpDownVOverlayRectW.Value, numericUpDownVOverlayRectH.Value)));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("OverlayOpacity", numericUpDownVOverlayOpacity.Value));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("OverlayFadeInDuration", textBoxVOverlayFadeIn.Text));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("OverlayFadeOutDuration", textBoxVOverlayFadeOut.Text));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("OverlayLayoutMode", comboBoxVOverlayMode.SelectedItem));
-                                        if ((string)comboBoxVOverlayMode.SelectedItem == "Custom")
-                                        {
-                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayStartTime", textBoxVOverlayStartTime.Text));
-                                            mediafile.FirstOrDefault().Add(new XAttribute("OverlayEndTime", textBoxVOverlayEndTime.Text));
-                                        }
                                     }
-
-                                }
-                                if (c.Text == "Audio overlay")
-                                {
-                                    if (((CheckBox)c).Checked)
+                                    if (c.Text == strAudiooverlay)
                                     {
-                                        string f = string.Empty;
-                                        if (bMultiAssetMode)
+                                        if (((CheckBox)c).Checked)
                                         {
-                                            f = string.Format("%{0}%", (int)c.Tag);
-                                            if ((int)c.Tag == 0)
+                                            string f = string.Empty;
+                                            if (bMultiAssetMode)
                                             {
-                                                mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", 0));
+                                                f = string.Format("%{0}%", (int)c.Tag);
+                                                if ((int)c.Tag == 0)
+                                                {
+                                                    mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", 0));
+                                                }
+                                                else
+                                                {
+                                                    mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", f));
+                                                }
+
                                             }
-                                            else
+                                            else // mono asset mode
                                             {
-                                                mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", f));
+                                                mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name));
                                             }
 
-                                        }
-                                        else // mono asset mode
-                                        {
-                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFileName", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name));
+
+                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLoop", CheckBoxAOverlayLoop.Checked));
+                                            if (CheckBoxAOverlayLoop.Checked) mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLoopingGap", textBoxAOverlayGap.Text));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayGainLevel", numericUpDownAOverlayGain.Value));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFadeInDuration", textBoxAOverlayFadeIn.Text));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFadeOutDuration", textBoxAOverlayFadeOut.Text));
+                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLayoutMode", comboBoxAOverlayMode.SelectedItem));
+                                            if ((string)comboBoxAOverlayMode.SelectedItem == "Custom")
+                                            {
+                                                mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayStartTime", textBoxAOverlayStart.Text));
+                                                mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayEndTime", textBoxAOverlayEnd.Text));
+                                            }
                                         }
 
-
-                                        mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLoop", CheckBoxAOverlayLoop.Checked));
-                                        if (CheckBoxAOverlayLoop.Checked) mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLoopingGap", textBoxAOverlayGap.Text));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayGainLevel", numericUpDownAOverlayGain.Value));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFadeInDuration", textBoxAOverlayFadeIn.Text));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayFadeOutDuration", textBoxAOverlayFadeOut.Text));
-                                        mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayLayoutMode", comboBoxAOverlayMode.SelectedItem));
-                                        if ((string)comboBoxAOverlayMode.SelectedItem == "Custom")
-                                        {
-                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayStartTime", textBoxAOverlayStart.Text));
-                                            mediafile.FirstOrDefault().Add(new XAttribute("AudioOverlayEndTime", textBoxAOverlayEnd.Text));
-                                        }
                                     }
-
                                 }
                             }
                         }
@@ -468,13 +547,17 @@ namespace AMSExplorer
         private void checkboxVisualOverlay_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
+            bVisualOverlay = cb.Checked;
+            UpdateCheckboxOverlay(cb);
+        }
 
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
+        private void UpdateCheckboxOverlay(CheckBox cb)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl(cb);
+            for (int i = 0; i < tableLayoutPanelIAssets.RowCount; i++)
             {
-
-                if ((c.GetType() == typeof(CheckBox)) && (c.Text == "Visual overlay") && (c.Tag != cb.Tag) && ((!bMultiAssetMode) | (bMultiAssetMode && (int)c.Tag != 0)))
+                Control c = tableLayoutPanelIAssets.GetControlFromPosition(position.Column, i); // let find all control from the same row and disable other checkboxes
+                if (i != position.Row && ((!bMultiAssetMode) | (bMultiAssetMode && i != 0)))
                 {
                     c.Enabled = !cb.Checked;
                 }
@@ -485,17 +568,8 @@ namespace AMSExplorer
         private void checkboxAudioOverlay_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender; // get the checkbox object
-
-            int tag = (int)(cb.Tag);
-
-            foreach (Control c in this.tableLayoutPanelIAssets.Controls)
-            {
-                if ((c.GetType() == typeof(CheckBox)) && (c.Text == "Audio overlay") && (c.Tag != cb.Tag) && ((!bMultiAssetMode) | (bMultiAssetMode && (int)c.Tag != 0)))
-                {
-                    c.Enabled = !cb.Checked;
-                }
-            }
-            UpdateStitchAndOverlaysInDoc();
+            bAudioOverlay = cb.Checked;
+            UpdateCheckboxOverlay(cb);
         }
 
 
@@ -577,7 +651,7 @@ namespace AMSExplorer
         {
             bool Error = false;
 
-            if (checkBoxVSS.Checked | !xmlOpenedNotYetVSSRotation) // name convention checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
+            if (checkBoxVSS.Checked | !xmlOpenedNotYetVSSRotation) // VSS checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
             {
                 XDocument docbackup = doc;
 
@@ -587,7 +661,7 @@ namespace AMSExplorer
                     if (rootpresets != null) // It's an v5 preset with Presets attribute
                     {
                         // VSS Rotation
-                        if (rootpresets.Attributes("Rotation").Count() == 0) rootpresets.Attributes("Rotation").Remove();
+                        if (rootpresets.Attributes("Rotation").Count() > 0) rootpresets.Attributes("Rotation").Remove();
                         if (checkBoxVSS.Checked) rootpresets.Add(new XAttribute("Rotation", "Auto"));
                     }
                 }
@@ -620,123 +694,192 @@ namespace AMSExplorer
 
         private void EncodingCustom_Shown(object sender, EventArgs e)
         {
+            BuildAssetsPanel();
+
+        }
+
+        private void BuildAssetsPanel()
+        {
             tableLayoutPanelIAssets.Visible = false;
+            tableLayoutPanelIAssets.ColumnCount += 3;
+            foreach (ColumnStyle style in tableLayoutPanelIAssets.ColumnStyles)
+            {
+                style.SizeType = SizeType.Absolute;
+                style.Width = 80;
+            }
+            tableLayoutPanelIAssets.ColumnStyles[0].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[0].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[1].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[1].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[2].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[2].Width = 20;
+            tableLayoutPanelIAssets.ColumnStyles[3].SizeType = SizeType.Percent;
+            tableLayoutPanelIAssets.ColumnStyles[3].Width = 10;
+            tableLayoutPanelIAssets.ColumnStyles[4].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[4].Width = 100;
+            tableLayoutPanelIAssets.ColumnStyles[5].SizeType = SizeType.Absolute;
+            tableLayoutPanelIAssets.ColumnStyles[5].Width = 100;
+            int i = 0;
+
             if (SelectedAssets.Count > 1) // Multi assets mode
             {
                 bMultiAssetMode = true;
-                int i = 0;
+                tableLayoutPanelIAssets.RowCount = SelectedAssets.Count;
+
                 foreach (IAsset asset in SelectedAssets)
                 {
-                    Label label = new Label();
-                    label.Tag = i;
-                    label.AutoSize = true;
-                    label.Text = asset.Name;
-
-                    CheckBox checkboxVisualOverlay = new CheckBox();
-                    checkboxVisualOverlay.Text = "Visual overlay";
-                    checkboxVisualOverlay.Tag = i;
-                    checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
-
-                    CheckBox checkboxAudioOverlay = new CheckBox();
-                    checkboxAudioOverlay.Text = "Audio overlay";
-                    checkboxAudioOverlay.Tag = i;
-                    checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
-
-                    CheckBox checkboxStitch = new CheckBox();
-                    checkboxStitch.Text = "Stitch";
-                    checkboxStitch.Tag = i;
-                    checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
-
-                    CheckBox checkboxTime = new CheckBox();
-                    checkboxTime.Text = "Edit times";
-                    checkboxTime.Tag = i;
-                    checkboxTime.Enabled = false;
-                    checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
-
-                    TextBox textbaseStart = new TextBox();
-                    textbaseStart.Tag = i;
-                    textbaseStart.Enabled = false;
-                    textbaseStart.Text = "00:00:00";
-                    textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    TextBox textbaseEnd = new TextBox();
-                    textbaseEnd.Tag = i;
-                    textbaseEnd.Enabled = false;
-                    textbaseEnd.Text = "00:00:05";
-                    textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    tableLayoutPanelIAssets.Controls.Add(label, 0 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 1 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 2 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 3 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxTime, 4 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseStart, 5 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 6 /* Column Index */, i /* Row index */);
-
+                    AddRowControls(i, asset.Name);
                     i++;
-
                 }
+                tableLayoutPanelIAssets.Refresh();
             }
             else // Mono asset mode
             {
                 bMultiAssetMode = false;
+                tableLayoutPanelIAssets.RowCount = SelectedAssets.FirstOrDefault().AssetFiles.Count();
                 tabControl1.TabPages[0].Text = "Input files";
-                int i = 0;
+
                 foreach (IAssetFile assetfile in SelectedAssets.FirstOrDefault().AssetFiles)
                 {
-                    Label label = new Label();
-                    label.Tag = i;
-                    label.AutoSize = true;
-                    label.Text = assetfile.Name;
-
-                    CheckBox checkboxVisualOverlay = new CheckBox();
-                    checkboxVisualOverlay.Text = "Visual overlay";
-                    checkboxVisualOverlay.Tag = i;
-                    checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
-
-                    CheckBox checkboxAudioOverlay = new CheckBox();
-                    checkboxAudioOverlay.Text = "Audio overlay";
-                    checkboxAudioOverlay.Tag = i;
-                    checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
-
-                    CheckBox checkboxStitch = new CheckBox();
-                    checkboxStitch.Text = "Stitch";
-                    checkboxStitch.Tag = i;
-                    checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
-
-                    CheckBox checkboxTime = new CheckBox();
-                    checkboxTime.Text = "Edit times";
-                    checkboxTime.Tag = i;
-                    checkboxTime.Enabled = false;
-                    checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
-
-                    TextBox textbaseStart = new TextBox();
-                    textbaseStart.Tag = i;
-                    textbaseStart.Enabled = false;
-                    textbaseStart.Text = "00:00:00";
-                    textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    TextBox textbaseEnd = new TextBox();
-                    textbaseEnd.Tag = i;
-                    textbaseEnd.Enabled = false;
-                    textbaseEnd.Text = "00:00:05";
-                    textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
-
-                    tableLayoutPanelIAssets.Controls.Add(label, 0 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 1 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 2 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 3 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(checkboxTime, 4 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseStart, 5 /* Column Index */, i /* Row index */);
-                    tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 6 /* Column Index */, i /* Row index */);
-
+                    AddRowControls(i, assetfile.Name);
                     i++;
                 }
             }
+            tableLayoutPanelIAssets.Refresh();
             tableLayoutPanelIAssets.Visible = true;
             comboBoxAOverlayMode.SelectedIndex = 0;
             comboBoxVOverlayMode.SelectedIndex = 0;
+        }
 
+        private void AddRowControls(int i, string itemName)
+        {
+            Button butUp = new Button() { Text = char.ConvertFromUtf32(8593), Tag = i, Width = 20 };
+            butUp.Click += new System.EventHandler(butUp_Clicked);
+
+            Button butDwn = new Button() { Text = char.ConvertFromUtf32(8595), Tag = i, Width = 20 };
+            butDwn.Click += new System.EventHandler(butDwn_Clicked);
+
+            Label Index = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = i.ToString()
+            };
+
+            Label label = new Label()
+            {
+                Tag = i,
+                AutoSize = true,
+                Text = itemName
+            };
+
+
+            CheckBox checkboxVisualOverlay = new CheckBox()
+            {
+                Text = strVisualoverlay,
+                Tag = i
+            };
+            checkboxVisualOverlay.CheckedChanged += new System.EventHandler(checkboxVisualOverlay_CheckedChanged);
+
+            CheckBox checkboxAudioOverlay = new CheckBox()
+            {
+                Text = strAudiooverlay,
+                Tag = i
+            };
+            checkboxAudioOverlay.CheckedChanged += new System.EventHandler(checkboxAudioOverlay_CheckedChanged);
+
+            CheckBox checkboxStitch = new CheckBox()
+            {
+                Text = "Stitch",
+                Tag = i
+            };
+            checkboxStitch.CheckedChanged += new System.EventHandler(checkBoxStitch_CheckedChanged);
+
+            CheckBox checkboxTime = new CheckBox()
+            {
+                Text = strEditTimes,
+                Tag = i,
+                Enabled = false
+            };
+            checkboxTime.CheckedChanged += new System.EventHandler(checkBoxTime_CheckedChanged);
+
+            TextBox textbaseStart = new TextBox()
+            {
+                Text = "00:00:00",
+                Tag = i,
+                Enabled = false
+            };
+            textbaseStart.TextChanged += new System.EventHandler(textbase_TextChanged);
+
+            TextBox textbaseEnd = new TextBox()
+            {
+                Text = "00:00:05.3",
+                Tag = i,
+                Enabled = false
+            };
+            textbaseEnd.TextChanged += new System.EventHandler(textbase_TextChanged);
+
+            tableLayoutPanelIAssets.Controls.Add(butUp, 0 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(butDwn, 1 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(Index, 2 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(label, 3 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxVisualOverlay, 4 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxAudioOverlay, 5 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxStitch, 6 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(checkboxTime, 7 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(textbaseStart, 8 /* Column Index */, i /* Row index */);
+            tableLayoutPanelIAssets.Controls.Add(textbaseEnd, 9 /* Column Index */, i /* Row index */);
+        }
+
+        private void butDwn_Clicked(object sender, EventArgs e)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row + 1);
+            UpdateControls();
+            UpdateStitchAndOverlaysInDoc();
+        }
+
+        private void butUp_Clicked(object sender, EventArgs e)
+        {
+            var position = tableLayoutPanelIAssets.GetPositionFromControl((Control)sender);
+            SwapControls(position.Row, position.Row - 1);
+            UpdateControls();
+            UpdateStitchAndOverlaysInDoc();
+        }
+
+        private void SwapControls(int indexrow1, int indexrow2)
+        {
+            tableLayoutPanelIAssets.Visible = false;
+            for (int col = 0; col < tableLayoutPanelIAssets.ColumnCount; col++)
+            {
+                if (col != 2) // col = 2 it's Visual Index column
+                {
+                    Control controw1 = tableLayoutPanelIAssets.GetControlFromPosition(col, indexrow1);
+                    Control controw2 = tableLayoutPanelIAssets.GetControlFromPosition(col, indexrow2);
+                    tableLayoutPanelIAssets.SetRow(controw1, indexrow2);
+                    tableLayoutPanelIAssets.SetRow(controw2, indexrow1);
+                    if (bMultiAssetMode) // if we have multiple assets as source, then let's exchange the assets and update the tag
+                    {
+                        SwapSelectedAssets(indexrow1, indexrow2); // SelectedAssets, 
+                        controw1.Tag = indexrow2;
+                        controw2.Tag = indexrow1;
+                    }
+                }
+            }
+            tableLayoutPanelIAssets.Visible = true;
+        }
+
+
+        private void SwapSelectedAssets(int index1, int index2)
+        {
+            // If nothing needs to be swapped, just return the original collection.
+            if (index1 == index2)
+                return;
+
+            // Swap the items.
+            IAsset temp = SelectedAssets[index1];
+            SelectedAssets[index1] = SelectedAssets[index2];
+            SelectedAssets[index2] = temp;
         }
 
         private void VOverlaySetting_ValueChanged(object sender, EventArgs e)
