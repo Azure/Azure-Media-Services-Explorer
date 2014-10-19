@@ -1223,19 +1223,16 @@ namespace AMSExplorer
                                 AssetFileTarget.Update();
 
                                 MyAsset.Update();
-
-
                             }
                         }
 
                     }
                     sourceLocator.Delete();
                 }
-
                 destinationLocator.Delete();
                 readPolicy.Delete();
                 writePolicy.Delete();
-
+                SetISMFileAsPrimary(NewAsset);
             }
             catch
             {
