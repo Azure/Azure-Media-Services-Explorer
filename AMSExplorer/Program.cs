@@ -720,7 +720,7 @@ namespace AMSExplorer
                 // This happen if outlook is not installed
                 if (ce.HResult == unchecked((int)0x80040154))
                 {
-                    MessageBox.Show("Please install Office Outlook to used this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
                 exception = ce;
@@ -732,7 +732,7 @@ namespace AMSExplorer
 
             if (exception != null)
             {
-                MessageBox.Show("Exception while trying to compose the mail." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
