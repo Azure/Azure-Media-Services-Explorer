@@ -393,6 +393,7 @@ namespace AMSExplorer
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAsset.Rows.Add("Name", MyAsset.Name);
             DGAsset.Rows.Add("Type", MyAssetType);
+            DGAsset.Rows.Add("AssetType", MyAsset.AssetType);
             DGAsset.Rows.Add("Id", MyAsset.Id);
             DGAsset.Rows.Add("AlternateId", MyAsset.AlternateId);
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));

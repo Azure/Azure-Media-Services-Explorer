@@ -714,8 +714,8 @@ namespace AMSExplorer
         {
             if (asset.AssetFiles.Count() == 1)
             {
-                return (asset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".kayak")
-                    | asset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".xenio"));
+                return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+                    | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase));
             }
             else
             {
@@ -1577,8 +1577,6 @@ namespace AMSExplorer
                 TextBoxLogWriteLine(ex.Message, true);
                 return;
             }
-
-
             if (locator == null) return;
 
             StringBuilder sbuilderThisAsset = new StringBuilder();
@@ -1604,7 +1602,6 @@ namespace AMSExplorer
                 // Get the Smooth URL of the asset for adaptive streaming.
                 Uri SmoothUri = locator.GetSmoothStreamingUri();
 
-
                 if (SmoothUri != null)
                 {
                     sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
@@ -1624,14 +1621,12 @@ namespace AMSExplorer
                     sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
                     sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.ToString()));
                 }
-
             }
             else //SAS
             {
-
                 IEnumerable<IAssetFile> AssetFiles = AssetToP
-                   .AssetFiles
-                   .ToList();
+   .AssetFiles
+   .ToList();
 
                 // Generate the Progressive Download URLs for each file. 
                 List<Uri> ProgressiveDownloadUris =
@@ -1645,9 +1640,7 @@ namespace AMSExplorer
 
                                 }
                                     );
-
             }
-
             //log window
             TextBoxLogWriteLine(sbuilderThisAsset.ToString());
 
@@ -1664,6 +1657,7 @@ namespace AMSExplorer
             dataGridViewAssetsV.AnalyzeItemsInBackground();
         }
 
+
         public string AddBracket(string url)
         {
             return "<" + url + ">";
@@ -1673,7 +1667,6 @@ namespace AMSExplorer
         {
             Clipboard.SetText((string)text);
         }
-
 
 
         private void DoDeleteAllLocatorsOnAssets(List<IAsset> SelectedAssets)
@@ -2590,7 +2583,7 @@ namespace AMSExplorer
             List<IAsset> listblueprints = new List<IAsset>();
 
 
-            var query = _context.Files.Where(f => (f.Name.EndsWith(".xenio") | f.Name.EndsWith(".kayak")));
+            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase))).ToArray();
             foreach (IAssetFile file in query)
             {
                 if (file.Asset.AssetFiles.Count() == 1)

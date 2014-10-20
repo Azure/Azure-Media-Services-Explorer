@@ -169,7 +169,7 @@ namespace AMSExplorer
     {
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
-        
+
         public const string ZeniumConfig = "";
         public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
         public const string AzureMediaEncoder = "Azure Media Encoder";
@@ -627,8 +627,8 @@ namespace AMSExplorer
         public static string GetAssetType(IAsset asset)
         {
             string type = asset.AssetType.ToString();
-            int assetcount = asset.AssetFiles.Count();
-            int number = assetcount;
+            int assetfilescount = asset.AssetFiles.Count();
+            int number = assetfilescount;
 
             switch (asset.AssetType)
             {
@@ -640,20 +640,24 @@ namespace AMSExplorer
                     break;
 
                 case AssetType.MultiBitrateMP4:
-                    type = "Multi Bitrate MP4";
+                    var mp4files = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = mp4files.Count();
+                    type = number == 1 ? "Single Bitrate MP4" : "Multi Bitrate MP4";
                     break;
 
                 case AssetType.SmoothStreaming:
                     type = "Smooth Streaming";
+                    var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = cfffiles.Count();
                     break;
 
                 case AssetType.Unknown:
                     string ext;
                     string pr = string.Empty;
 
-                    if (assetcount == 0) return "(empty)";
+                    if (assetfilescount == 0) return "(empty)";
 
-                    if (assetcount == 1)
+                    if (assetfilescount == 1)
                     {
                         number = 1;
                         ext = Path.GetExtension(asset.AssetFiles.FirstOrDefault().Name.ToUpper());
@@ -663,6 +667,19 @@ namespace AMSExplorer
                             case "KAYAK":
                             case "XENIO":
                                 type = Type_Blueprint;
+                                break;
+
+                            case "ISM":
+                                var program = asset.GetMediaContext().Programs.ToList().Where(p => p.AssetId == asset.Id).ToArray();
+                                if (program.Count() == 1) // from a live program
+                                {
+                                    return "Live archive";
+                                }
+                                else
+                                {
+                                    type = ext;
+                                }
+
                                 break;
 
                             default:
@@ -685,7 +702,6 @@ namespace AMSExplorer
 
                 default:
                     break;
-
             }
             return string.Format("{0} ({1})", type, number);
         }
