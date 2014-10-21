@@ -71,6 +71,7 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.createALocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extendExistingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
@@ -311,6 +312,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.extendExistingStreamingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -673,6 +675,7 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1,
             this.toolStripSeparator24,
             this.createALocatorToolStripMenuItem,
+            this.extendExistingLocatorsToolStripMenuItem,
             this.deleteAllLocatorsToolStripMenuItem});
             this.publishToolStripMenuItem1.Name = "publishToolStripMenuItem1";
             this.publishToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
@@ -706,6 +709,14 @@
             this.createALocatorToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
             this.createALocatorToolStripMenuItem.Text = "Create a locator...";
             this.createALocatorToolStripMenuItem.Click += new System.EventHandler(this.createALocatorToolStripMenuItem_Click);
+            // 
+            // extendExistingLocatorsToolStripMenuItem
+            // 
+            this.extendExistingLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.extendExistingLocatorsToolStripMenuItem.Name = "extendExistingLocatorsToolStripMenuItem";
+            this.extendExistingLocatorsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
+            this.extendExistingLocatorsToolStripMenuItem.Text = "Extend existing streaming locators...";
+            this.extendExistingLocatorsToolStripMenuItem.Click += new System.EventHandler(this.extendExistingLocatorsToolStripMenuItem_Click);
             // 
             // deleteAllLocatorsToolStripMenuItem
             // 
@@ -1423,6 +1434,7 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem,
             this.toolStripSeparator22,
             this.createALocatorForTheAssetToolStripMenuItem,
+            this.extendExistingStreamingLocatorsToolStripMenuItem,
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem,
             this.toolStripSeparator23,
             this.playbackToolStripMenuItem});
@@ -1995,7 +2007,7 @@
             this.ContextMenuItemTransferOpenDest,
             this.displayErrorToolStripMenuItem});
             this.contextMenuStripTransfers.Name = "contextMenuStripTransfers";
-            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 70);
+            this.contextMenuStripTransfers.Size = new System.Drawing.Size(207, 48);
             this.contextMenuStripTransfers.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripTransfers_Opening);
             // 
             // ContextMenuItemTransferOpenDest
@@ -3085,6 +3097,14 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // extendExistingStreamingLocatorsToolStripMenuItem
+            // 
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Name = "extendExistingStreamingLocatorsToolStripMenuItem";
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Text = "Extend existing streaming locators...";
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Click += new System.EventHandler(this.extendExistingStreamingLocatorsToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3431,6 +3451,8 @@
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem extendExistingLocatorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extendExistingStreamingLocatorsToolStripMenuItem;
     }
 }
 

@@ -670,6 +670,11 @@ namespace AMSExplorer
             TextBoxLogWriteLine(string.Format(message, o1, o2, o3), Error);
         }
 
+        public void TextBoxLogWriteLine(string message, object o1, object o2, object o3, object o4, bool Error = false)
+        {
+            TextBoxLogWriteLine(string.Format(message, o1, o2, o3, o4), Error);
+        }
+
         public void TextBoxLogWriteLine(Exception e)
         {
             TextBoxLogWriteLine(e.Message, true);
@@ -1144,6 +1149,74 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private async Task DoRefreshStreamingLocators()
+        {
+            IList<IAsset> SelectedAssets = ReturnSelectedAssets();
+            if (SelectedAssets.Count > 0)
+            {
+                string labelAssetName = "Streaming locators will be updated for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+
+                if (SelectedAssets.Count > 1)
+                {
+                    labelAssetName = "Streaming locators will be updated for the " + SelectedAssets.Count.ToString() + " selected assets.";
+                }
+
+                CreateLocator form = new CreateLocator(true)
+                               {
+                                   LocStartDate = DateTime.Now.ToLocalTime(),
+                                   LocEndDate = DateTime.Now.ToLocalTime().AddDays(30),
+                                   LocAssetName = labelAssetName,
+                                   LocHasStartDate = false,
+                                   LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
+                               };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        foreach (var asset in SelectedAssets)
+                        {
+                            var tasks = asset
+                                .Locators
+                                .Where(locator => locator.Type ==  form.LocType)
+                                .Select(locator => UpdateLocatorExpirationDate(locator, form.LocEndDate));
+
+                            await Task.WhenAll(tasks);
+                        }
+                    }
+                    finally
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private async Task UpdateLocatorExpirationDate(ILocator locator, DateTime expirationTime)
+        {
+            try
+            {
+                if (locator.ExpirationDateTime >= expirationTime)
+                {
+                    TextBoxLogWriteLine("Skipped streaming locator {1} on asset '{0}' because it already have an expiration time greater than the provided value.",
+                        locator.Asset.Name, locator.Id);
+                    return;
+                }
+                TextBoxLogWriteLine(
+                        "Update asset '{0}' streaming locator {1} expiration date from {2} to {3} ...",
+                        locator.Asset.Name, locator.Id, locator.ExpirationDateTime, expirationTime
+                );
+                await locator.UpdateAsync(expirationTime);
+                TextBoxLogWriteLine("Update asset '{0}' streaming locator {1}...Done.", locator.Asset.Name, locator.Id);
+            }
+            catch (Exception e)
+            {
+                TextBoxLogWriteLine("Failed to update asset '{0}' streaming locator {1}.", locator.Asset.Name, locator.Id, true);
+                TextBoxLogWriteLine(e);
+            }
+
         }
 
 
@@ -6989,6 +7062,16 @@ namespace AMSExplorer
         private void displayErrorToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoDisplayTransferError();
+        }
+
+        private async void extendExistingLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoRefreshStreamingLocators();
+        }
+
+        private async void extendExistingStreamingLocatorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            await DoRefreshStreamingLocators();
         }
 
 

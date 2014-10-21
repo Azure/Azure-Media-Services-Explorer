@@ -42,6 +42,7 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml.Linq;
+using System.Runtime.ExceptionServices;
 
 
 namespace AMSExplorer
@@ -709,22 +710,46 @@ namespace AMSExplorer
 
         public void CreateOutlookMail()
         {
-            StringBuilder SB = GetStats();
-            // Let's create the email with Outlook
-            Outlook.Application outlookApp = new Outlook.Application();
-            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-            if (SelectedAssets.Count == 1)
+            Exception exception = null;
+            try
             {
-                string title = "Report: Asset '{0}'";
-                mailItem.Subject = string.Format(title, SelectedAssets.FirstOrDefault().Name);
+                StringBuilder SB = GetStats();
+                // Let's create the email with Outlook
+                Outlook.Application outlookApp = new Outlook.Application();
+                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+                if (SelectedAssets.Count == 1)
+                {
+                    string title = "Report: Asset '{0}'";
+                    mailItem.Subject = string.Format(title, SelectedAssets.FirstOrDefault().Name);
+                }
+                else
+                {
+                    mailItem.Subject = string.Format("Report: {0} Assets", SelectedAssets.Count());
+                }
+                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+                mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+                mailItem.Display(false);
             }
-            else
+            catch (System.Runtime.InteropServices.COMException ce)
             {
-                mailItem.Subject = string.Format("Report: {0} Assets", SelectedAssets.Count());
+                // 0x80040154 Class not registered
+                // This happen if outlook is not installed
+                if (ce.HResult == unchecked((int)0x80040154))
+                {
+                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                exception = ce;
             }
-            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-            mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-            mailItem.Display(false);
+            catch(Exception e)
+            {
+                exception = e;
+            }
+
+            if (exception != null)
+            {
+                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void CopyStatsToClipBoard()
