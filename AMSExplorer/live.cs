@@ -45,6 +45,10 @@ using System.Collections.ObjectModel;
 using System.Drawing.Drawing2D;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Globalization;
+
 
 namespace AMSExplorer
 {
@@ -1291,4 +1295,151 @@ namespace AMSExplorer
             }
         }
     }
+
+
+
+
+
+
+    public static class AccessToken
+    {
+        public static string GetAccessToken(CloudMediaContext cloudMediaContext, string host)
+        {
+            using (var client = new WebClient())
+            {
+                client.BaseAddress = host;
+
+                var values
+                    = new NameValueCollection
+                        {
+                            {"grant_type", "client_credentials"},
+                            {"client_id", cloudMediaContext.Credentials.ClientId},
+                            {"client_secret", HttpUtility.HtmlEncode(cloudMediaContext.Credentials.ClientSecret)},
+                            {"scope", HttpUtility.HtmlEncode("urn:WindowsAzureMediaServices")}
+                        };
+
+                using (var stream = new MemoryStream(client.UploadValues("/v2/OAuth2-13", "POST", values)))
+                {
+                    var response = (OAuth2TokenResponse)new DataContractJsonSerializer(typeof(OAuth2TokenResponse)).ReadObject(stream);
+                    return response.AccessToken;
+                }
+            }
+        }
+    }
+
+    [DataContract]
+    internal class OAuth2TokenResponse
+    {
+        [DataMember(Name = "access_token")]
+        public string AccessToken { get; set; }
+    }
+
+    public class LocatorHelper
+    {
+        private string accountUrl;
+        private string accessToken;
+        private CloudMediaContext context;
+
+        public LocatorHelper(string accountUrl, string accessToken, CloudMediaContext context)
+        {
+            this.accountUrl = accountUrl;
+            this.accessToken = accessToken;
+            this.context = context;
+
+            var request = (HttpWebRequest)WebRequest.Create(accountUrl);
+
+            request.AllowAutoRedirect = false;
+            request.Method = "GET";
+            request.ContentType = "application/json;odata=verbose";
+            request.Accept = "application/json;odata=verbose";
+
+            // Build request header
+            request.Headers.Add("DataServiceVersion", "3.0");
+            request.Headers.Add("MaxDataServiceVersion", "3.0");
+            request.Headers.Add("x-ms-version", "2.0");
+            request.Headers.Add("Authorization", string.Format(CultureInfo.InvariantCulture, "Bearer {0}", this.accessToken));
+
+            HttpWebResponse response = null;
+            Exception innerException = null;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException exception)
+            {
+                response = (HttpWebResponse)exception.Response;
+                innerException = exception;
+                throw exception;
+            }
+
+            if (response.StatusCode == HttpStatusCode.Moved ||
+                    response.StatusCode == HttpStatusCode.MovedPermanently)
+            {
+                this.accountUrl = response.Headers["Location"];
+            }
+
+        }
+
+        public ILocator CreateLocator(string locatorId, LocatorType locatorType, string assetId, string accessPolicyId)
+        {
+            var request = (HttpWebRequest)WebRequest.Create(new Uri(new Uri(this.accountUrl), "/API/Locators"));
+
+            request.AllowAutoRedirect = true;
+            request.Method = "POST";
+            request.ContentType = "application/json;odata=verbose";
+            request.Accept = "application/json;odata=verbose";
+
+            // Build request header
+            request.Headers.Add("DataServiceVersion", "3.0");
+            request.Headers.Add("MaxDataServiceVersion", "3.0");
+            request.Headers.Add("x-ms-version", "2.0");
+            request.Headers.Add("Authorization", string.Format(CultureInfo.InvariantCulture, "Bearer {0}", this.accessToken));
+
+
+            // Build request body
+            var body = new StringBuilder();
+            body.Append("{ \"AssetId\" : \"" + assetId + "\"");
+            body.Append(", \"AccessPolicyId\" : \"" + accessPolicyId + "\"");
+            body.Append(", \"Type\" : \"" + (int)LocatorType.OnDemandOrigin + "\"");
+            body.Append(", \"Id\" : \"" + locatorId + "\"");
+            body.Append("}");
+
+
+            var data = Encoding.UTF8.GetBytes(body.ToString());
+            var requestStream = request.GetRequestStream();
+
+            requestStream.Write(data, 0, data.Length);
+            requestStream.Close();
+
+            HttpWebResponse response = null;
+            Exception innerException = null;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException exception)
+            {
+                response = (HttpWebResponse)exception.Response;
+                throw exception;
+            }
+
+            if ((response.StatusCode != HttpStatusCode.OK) && (response.StatusCode != HttpStatusCode.Accepted) && (response.StatusCode != HttpStatusCode.Created))
+            {
+                throw new InvalidOperationException(
+                    string.Format(
+                        CultureInfo.InvariantCulture,
+                        "There was an error processing the request (LocatorId: {0}, LocatorType: {1}, AssetId: {2}, AccessPolicyId: {3}).",
+                        locatorId,
+                        (int)locatorType,
+                        assetId,
+                        accessPolicyId),
+                    innerException);
+            }
+
+            return this.context.Locators.Where(l => l.Id.Equals(locatorId, StringComparison.OrdinalIgnoreCase)).Single();
+        }
+    }
+
 }

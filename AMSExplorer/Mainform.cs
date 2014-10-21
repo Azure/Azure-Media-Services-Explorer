@@ -304,7 +304,7 @@ namespace AMSExplorer
             {
                 Error = true;
                 TextBoxLogWriteLine("Error during file import.", true);
-                TextBoxLogWriteLine(ex.Message, true);
+                TextBoxLogWriteLine(ex);
                 DoGridTransferDeclareError(index, ex);
 
                 if (destinationLocator != null)
@@ -677,7 +677,7 @@ namespace AMSExplorer
 
         public void TextBoxLogWriteLine(Exception e)
         {
-            TextBoxLogWriteLine(e.Message, true);
+            TextBoxLogWriteLine(e);
             if (e.InnerException != null)
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
@@ -832,7 +832,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                        TextBoxLogWriteLine(ex.Message, true);
+                        TextBoxLogWriteLine(ex);
                     }
                 }
             }
@@ -1083,7 +1083,7 @@ namespace AMSExplorer
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
                     TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                    TextBoxLogWriteLine(ex.Message, true);
+                    TextBoxLogWriteLine(ex);
                 }
             }
 
@@ -1180,7 +1180,7 @@ namespace AMSExplorer
                         {
                             var tasks = asset
                                 .Locators
-                                .Where(locator => locator.Type ==  form.LocType)
+                                .Where(locator => locator.Type == form.LocType)
                                 .Select(locator => UpdateLocatorExpirationDate(locator, form.LocEndDate));
 
                             await Task.WhenAll(tasks);
@@ -1647,7 +1647,7 @@ namespace AMSExplorer
             catch (Exception ex)
             {
                 TextBoxLogWriteLine("Error. Could not create a locator for '{0}' (is the asset encrypted, or locators quota has been reached ?)", AssetToP.Name, true);
-                TextBoxLogWriteLine(ex.Message, true);
+                TextBoxLogWriteLine(ex);
                 return;
             }
             if (locator == null) return;
@@ -1766,7 +1766,7 @@ namespace AMSExplorer
                             {
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
-                                TextBoxLogWriteLine(ex.Message, true);
+                                TextBoxLogWriteLine(ex);
                             }
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
 
@@ -1845,7 +1845,7 @@ namespace AMSExplorer
                             {
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", AssetTODelete.Name, true);
-                                TextBoxLogWriteLine(ex.Message, true);
+                                TextBoxLogWriteLine(ex);
                             }
                         }
                     DoRefreshGridAssetV(false);
@@ -2554,7 +2554,7 @@ namespace AMSExplorer
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Error when deleting job '{0}'", job.Name, true);
-                        TextBoxLogWriteLine(ex.Message, true);
+                        TextBoxLogWriteLine(ex);
                     }
                 }
                 System.Threading.Thread.Sleep(1000);
@@ -2597,7 +2597,7 @@ namespace AMSExplorer
                             {
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when deleting the job '{0}'", JobToDelete.Name, true);
-                                TextBoxLogWriteLine(ex.Message, true);
+                                TextBoxLogWriteLine(ex);
                             }
                         }
                     DoRefreshGridJobV(false);
@@ -5742,7 +5742,7 @@ namespace AMSExplorer
                                 {
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                    TextBoxLogWriteLine(ex.Message, true);
+                                    TextBoxLogWriteLine(ex);
                                 }
                             }
                         }
@@ -7074,9 +7074,139 @@ namespace AMSExplorer
             await DoRefreshStreamingLocators();
         }
 
+        private void recreateProgramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoResetPrograms();
+        }
 
+        private async void DoResetPrograms()
+        {
+
+            List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
+            if (SelectedPrograms.Count > 0)
+            {
+                string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
+                question += Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name and locator ID.";
+
+                if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                {
+                    string accessToken = AccessToken.GetAccessToken(_context, Program.GetACSBaseAddress(_credentials));
+                    LocatorHelper lh = null;
+                    bool ErrorConnect = false;
+                    try
+                    {
+                        lh = new LocatorHelper(Program.GetAPIServer(_credentials), accessToken, _context);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when connecting to Media Services.", true);
+                        TextBoxLogWriteLine(ex);
+                        ErrorConnect = true;
+                    }
+
+
+                    if (!ErrorConnect)
+                    {
+                        foreach (IProgram myP in SelectedPrograms)
+                        {
+                            IAsset asset = myP.Asset;
+                            string assetName = asset.Name;
+                            string programName = myP.Name;
+                            string programDesc = myP.Description;
+                            TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
+                            var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
+                            IChannel myChannel = myP.Channel;
+                            var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+                            if (locator.Count() != 1) // no single locator, we do nothing
+                            {
+                                TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
+                            }
+                            else if (ismAssetFiles.Count() != 1)
+                            {
+                                TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
+                            }
+                            else
+                            {
+                                string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
+                                string locatorID = locator.FirstOrDefault().Id;
+                                DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
+
+                                try
+                                {
+                                    TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
+                                    myP.Delete();
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+
+                                if (myP.Asset != null)
+                                {
+                                    //delete
+                                    try
+                                    {
+                                        TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                        DeleteAsset(asset);
+                                        if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+                                }
+
+                                IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+
+                                // let's use same expiration date than previous locator
+                                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
+
+                                try
+                                {
+                                    TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
+                                    lh.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset.Id, policy.Id);
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+
+                                ProgramCreationOptions options = new ProgramCreationOptions()
+                                {
+                                    AssetId = newAsset.Id,
+                                    Name = programName,
+                                    Description = programDesc,
+                                    ArchiveWindowLength = programArchiveWindowLength,
+                                    ManifestName = ismName,
+                                };
+
+                                var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
+                                await STask;
+
+                            }
+                        }
+                    }
+                    // _context = Program.ConnectAndGetNewContext(_credentials);
+                    DoRefreshGridProgramV(false);
+                    DoRefreshGridAssetV(false);
+                }
+
+            }
+        }
+
+        private void recreateProgramsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoResetPrograms();
+        }
     }
-
 }
 
 

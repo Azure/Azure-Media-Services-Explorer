@@ -54,6 +54,7 @@ namespace AMSExplorer
         /// </summary>
         /// 
 
+
         [STAThread]
         static void Main()
         {
@@ -114,6 +115,38 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
             return myContext;
+        }
+
+        public static string GetAPIServer(CredentialsEntry credentials)
+        {
+            if (credentials.UsePartnerAPI == true.ToString())
+            {
+                return CredentialsEntry.PartnerAPIServer;
+            }
+            else if (credentials.UseOtherAPI == true.ToString())
+            {
+                return credentials.OtherAPIServer;
+            }
+            else
+            {
+                return Constants.ProdAPIServer;
+            }
+        }
+
+        public static string GetACSBaseAddress(CredentialsEntry credentials)
+        {
+            if (credentials.UsePartnerAPI == true.ToString())
+            {
+                return CredentialsEntry.PartnerACSBaseAddress;
+            }
+            else if (credentials.UseOtherAPI == true.ToString())
+            {
+                return credentials.OtherACSBaseAddress;
+            }
+            else
+            {
+                return Constants.ProdACSBaseAddress;
+            }
         }
 
 
@@ -206,6 +239,11 @@ namespace AMSExplorer
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
         public const string AMSPlayer = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url=";
+
+        public const string LocatorIdPrefix = "nb:lid:UUID:";
+
+        public const string ProdAPIServer = "https://media.windows.net";
+        public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
     }
 
 
@@ -741,7 +779,7 @@ namespace AMSExplorer
                 }
                 exception = ce;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 exception = e;
             }

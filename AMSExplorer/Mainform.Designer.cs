@@ -147,6 +147,7 @@
             this.displayProgramInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayRelatedAssetInformationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.recreateProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,6 +156,7 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             this.createALocatorForTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extendExistingStreamingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -274,6 +276,7 @@
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.displayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.recreateProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramStop = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -312,7 +315,6 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.extendExistingStreamingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1318,6 +1320,7 @@
             this.displayProgramInformationToolStripMenuItem,
             this.displayRelatedAssetInformationToolStripMenuItem1,
             this.createProgramToolStripMenuItem1,
+            this.recreateProgramsToolStripMenuItem,
             this.startProgramsToolStripMenuItem1,
             this.stopProgramsToolStripMenuItem,
             this.deleteProgramsToolStripMenuItem1});
@@ -1403,6 +1406,14 @@
             this.createProgramToolStripMenuItem1.Text = "Create program...";
             this.createProgramToolStripMenuItem1.Click += new System.EventHandler(this.createProgramToolStripMenuItem1_Click);
             // 
+            // recreateProgramsToolStripMenuItem
+            // 
+            this.recreateProgramsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.recreateProgramsToolStripMenuItem.Name = "recreateProgramsToolStripMenuItem";
+            this.recreateProgramsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.recreateProgramsToolStripMenuItem.Text = "Reset program(s)";
+            this.recreateProgramsToolStripMenuItem.Click += new System.EventHandler(this.recreateProgramsToolStripMenuItem_Click);
+            // 
             // startProgramsToolStripMenuItem1
             // 
             this.startProgramsToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("startProgramsToolStripMenuItem1.Image")));
@@ -1471,6 +1482,14 @@
             this.createALocatorForTheAssetToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
             this.createALocatorForTheAssetToolStripMenuItem.Text = "Create a locator...";
             this.createALocatorForTheAssetToolStripMenuItem.Click += new System.EventHandler(this.createALocatorForTheAssetToolStripMenuItem_Click);
+            // 
+            // extendExistingStreamingLocatorsToolStripMenuItem
+            // 
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Name = "extendExistingStreamingLocatorsToolStripMenuItem";
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Text = "Extend existing streaming locators...";
+            this.extendExistingStreamingLocatorsToolStripMenuItem.Click += new System.EventHandler(this.extendExistingStreamingLocatorsToolStripMenuItem_Click);
             // 
             // deleteAllLocatorsOfTheAssetToolStripMenuItem
             // 
@@ -2663,6 +2682,7 @@
             this.ContextMenuItemProgramDisplayInformation,
             this.displayRelatedAssetInformationToolStripMenuItem,
             this.createProgramToolStripMenuItem,
+            this.recreateProgramToolStripMenuItem,
             this.ContextMenuItemProgramStart,
             this.ContextMenuItemProgramStop,
             this.ContextMenuItemProgramDelete,
@@ -2671,7 +2691,7 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 236);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 280);
             // 
             // refreshToolStripMenuItem4
             // 
@@ -2709,6 +2729,14 @@
             this.createProgramToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.createProgramToolStripMenuItem.Text = "Create program...";
             this.createProgramToolStripMenuItem.Click += new System.EventHandler(this.createProgramToolStripMenuItem_Click_1);
+            // 
+            // recreateProgramToolStripMenuItem
+            // 
+            this.recreateProgramToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.recreateProgramToolStripMenuItem.Name = "recreateProgramToolStripMenuItem";
+            this.recreateProgramToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.recreateProgramToolStripMenuItem.Text = "Reset program(s)";
+            this.recreateProgramToolStripMenuItem.Click += new System.EventHandler(this.recreateProgramToolStripMenuItem_Click);
             // 
             // ContextMenuItemProgramStart
             // 
@@ -3097,14 +3125,6 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // extendExistingStreamingLocatorsToolStripMenuItem
-            // 
-            this.extendExistingStreamingLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.extendExistingStreamingLocatorsToolStripMenuItem.Name = "extendExistingStreamingLocatorsToolStripMenuItem";
-            this.extendExistingStreamingLocatorsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
-            this.extendExistingStreamingLocatorsToolStripMenuItem.Text = "Extend existing streaming locators...";
-            this.extendExistingStreamingLocatorsToolStripMenuItem.Click += new System.EventHandler(this.extendExistingStreamingLocatorsToolStripMenuItem_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3453,6 +3473,8 @@
         private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem extendExistingLocatorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extendExistingStreamingLocatorsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recreateProgramToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem recreateProgramsToolStripMenuItem;
     }
 }
 
