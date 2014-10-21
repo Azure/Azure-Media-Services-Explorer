@@ -24,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -77,6 +78,7 @@ namespace AMSExplorer
         public AttachStorage()
         {
             InitializeComponent();
+            linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));
 
         }
 
@@ -107,6 +109,11 @@ namespace AMSExplorer
                 textBoxStorageKey.Text = filename;
             }
              * */
+        }
+
+        private void linkLabelAttach_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }

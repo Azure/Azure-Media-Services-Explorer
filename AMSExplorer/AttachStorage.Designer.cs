@@ -42,8 +42,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxCertThumbprint = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label6 = new System.Windows.Forms.Label();
+            this.linkLabelAttach = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -174,28 +173,20 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(28, 88);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 13);
+            this.label2.Size = new System.Drawing.Size(181, 13);
             this.label2.TabIndex = 49;
-            this.label2.Text = "Certificate Thumbprint :";
+            this.label2.Text = "Management Certificate Thumbprint :";
             // 
-            // linkLabel1
+            // linkLabelAttach
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(149, 127);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(307, 13);
-            this.linkLabel1.TabIndex = 50;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(31, 127);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(120, 13);
-            this.label6.TabIndex = 51;
-            this.label6.Text = "To create a certificate : ";
+            this.linkLabelAttach.AutoSize = true;
+            this.linkLabelAttach.Location = new System.Drawing.Point(28, 127);
+            this.linkLabelAttach.Name = "linkLabelAttach";
+            this.linkLabelAttach.Size = new System.Drawing.Size(272, 13);
+            this.linkLabelAttach.TabIndex = 50;
+            this.linkLabelAttach.TabStop = true;
+            this.linkLabelAttach.Text = "See how to create and upload a management certificate";
+            this.linkLabelAttach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAttach_LinkClicked);
             // 
             // AttachStorage
             // 
@@ -203,8 +194,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(684, 391);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.linkLabel1);
+            this.Controls.Add(this.linkLabelAttach);
             this.Controls.Add(this.textBoxCertThumbprint);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
@@ -238,7 +228,6 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxCertThumbprint;
         public System.Windows.Forms.Label label2;
-        private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.LinkLabel linkLabelAttach;
     }
 }
