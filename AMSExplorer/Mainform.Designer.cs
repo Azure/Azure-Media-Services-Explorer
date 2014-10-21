@@ -315,6 +315,8 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -808,6 +810,7 @@
             this.liveChannelToolStripMenuItem,
             this.publishToolStripMenuItem,
             this.originToolStripMenuItem,
+            this.managementToolStripMenuItem,
             this.toolStripMenuItem1,
             this.samplePlayersToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -2691,7 +2694,7 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 280);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 258);
             // 
             // refreshToolStripMenuItem4
             // 
@@ -3125,6 +3128,21 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // managementToolStripMenuItem
+            // 
+            this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.attachAnotherStoragheAccountToolStripMenuItem});
+            this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
+            this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.managementToolStripMenuItem.Text = "Management";
+            // 
+            // attachAnotherStoragheAccountToolStripMenuItem
+            // 
+            this.attachAnotherStoragheAccountToolStripMenuItem.Name = "attachAnotherStoragheAccountToolStripMenuItem";
+            this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
+            this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3475,6 +3493,8 @@
         private System.Windows.Forms.ToolStripMenuItem extendExistingStreamingLocatorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recreateProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem recreateProgramsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem attachAnotherStoragheAccountToolStripMenuItem;
     }
 }
 

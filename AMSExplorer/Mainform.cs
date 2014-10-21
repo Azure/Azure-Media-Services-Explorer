@@ -7206,6 +7206,66 @@ namespace AMSExplorer
         {
             DoResetPrograms();
         }
+
+        private void attachAnotherStoragheAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAttachAnotherStorageAccount();
+        }
+
+        private void DoAttachAnotherStorageAccount()
+        {
+            AttachStorage form = new AttachStorage();
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper("https://management.core.windows.net", form.GetCertThumbprint, form.GetAzureSubscriptionID);
+
+                // Initialize the AccountInfo class.
+                MediaServicesAccount accountInfo = new MediaServicesAccount();
+                accountInfo.AccountName = _context.Credentials.ClientId;
+
+                //accountInfo.Region = "";
+                accountInfo.StorageAccountName = _context.DefaultStorageAccount.Name;
+                //accountInfo.StorageAccountKey = _credentials.StorageKey;
+                //accountInfo.BlobStorageEndpointUri = _context.DefaultStorageAccount.;
+
+
+                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest();
+                storageAccountToAttach.StorageAccountName = form.GetStorageName;
+                storageAccountToAttach.StorageAccountKey = form.GetStorageKey;
+                storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpoint;
+
+                // Call CreateMediaServiceAccountUsingXmlContentType to create a new \
+                // Media Services account. 
+                //helper.CreateMediaServiceAccountUsingXmlContentType(accountInfo);
+
+                // Call AttachStorageAccountToMediaServiceAccount to 
+                // attach an existing storage account to the Media Services account.
+                try
+                {
+                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo,
+                                                   storageAccountToAttach);
+                    TextBoxLogWriteLine("Storage account '{0}' attached to '{1}' account.", form.GetStorageName, _context.Credentials.ClientId);
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
+                    TextBoxLogWriteLine(ex);
+
+                }
+
+
+                // Call the following methods to get details about 
+                // Media Services account.
+                //helper.GetAccountDetails(accountInfo);
+                //helper.ListAvailableRegions(accountInfo);
+                //helper.ListSubscriptionAccounts(accountInfo);
+                //helper.ListSubscriptionAccounts(accountInfo);
+
+            }
+        }
     }
 }
 

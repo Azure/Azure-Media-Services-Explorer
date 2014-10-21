@@ -176,6 +176,13 @@
     <Compile Include="DeleteProgram.Designer.cs">
       <DependentUpon>DeleteProgram.cs</DependentUpon>
     </Compile>
+    <Compile Include="AttachStorage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AttachStorage.Designer.cs">
+      <DependentUpon>AttachStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManagementREST.cs" />
     <Compile Include="PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -360,6 +367,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteProgram.resx">
       <DependentUpon>DeleteProgram.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AttachStorage.resx">
+      <DependentUpon>AttachStorage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayReadyLicense.resx">
       <DependentUpon>PlayReadyLicense.cs</DependentUpon>
