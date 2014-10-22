@@ -47,20 +47,23 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDownLocatorDuration = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -237,6 +240,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
             this.groupBox2.Controls.Add(this.pictureBox2);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.numericUpDownPriority);
@@ -246,10 +251,41 @@
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Location = new System.Drawing.Point(12, 148);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(496, 135);
+            this.groupBox2.Size = new System.Drawing.Size(496, 148);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
+            this.pictureBox2.Location = new System.Drawing.Point(18, 97);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 51;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(40, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(97, 13);
+            this.label2.TabIndex = 22;
+            this.label2.Text = "Default job priority :";
+            // 
+            // numericUpDownPriority
+            // 
+            this.numericUpDownPriority.Location = new System.Drawing.Point(200, 96);
+            this.numericUpDownPriority.Name = "numericUpDownPriority";
+            this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownPriority.TabIndex = 50;
+            this.numericUpDownPriority.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // pictureBox1
             // 
@@ -265,7 +301,7 @@
             // 
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
-            this.groupBox3.Location = new System.Drawing.Point(12, 289);
+            this.groupBox3.Location = new System.Drawing.Point(12, 302);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(496, 89);
             this.groupBox3.TabIndex = 51;
@@ -290,36 +326,36 @@
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
-            // numericUpDownPriority
+            // label3
             // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(140, 98);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
-            this.numericUpDownPriority.TabIndex = 50;
-            this.numericUpDownPriority.Value = new decimal(new int[] {
-            10,
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(40, 124);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(154, 13);
+            this.label3.TabIndex = 52;
+            this.label3.Text = "Default locator duration (days) :";
+            // 
+            // numericUpDownLocatorDuration
+            // 
+            this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(200, 122);
+            this.numericUpDownLocatorDuration.Maximum = new decimal(new int[] {
+            36500,
             0,
             0,
             0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 100);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(97, 13);
-            this.label2.TabIndex = 22;
-            this.label2.Text = "Default job priority :";
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
-            this.pictureBox2.Location = new System.Drawing.Point(18, 97);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 51;
-            this.pictureBox2.TabStop = false;
+            this.numericUpDownLocatorDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLocatorDuration.Name = "numericUpDownLocatorDuration";
+            this.numericUpDownLocatorDuration.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownLocatorDuration.TabIndex = 53;
+            this.numericUpDownLocatorDuration.Value = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
             // 
             // Options
             // 
@@ -341,11 +377,12 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -377,5 +414,7 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
     }
 }

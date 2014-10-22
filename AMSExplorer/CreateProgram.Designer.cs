@@ -238,9 +238,9 @@
             this.checkBoxCreateLocator.AutoSize = true;
             this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 340);
             this.checkBoxCreateLocator.Name = "checkBoxCreateLocator";
-            this.checkBoxCreateLocator.Size = new System.Drawing.Size(240, 17);
+            this.checkBoxCreateLocator.Size = new System.Drawing.Size(292, 17);
             this.checkBoxCreateLocator.TabIndex = 9;
-            this.checkBoxCreateLocator.Text = "Publish this asset now (locator valid one year)";
+            this.checkBoxCreateLocator.Text = "Publish this asset now (default locator duration: {0} days)";
             this.checkBoxCreateLocator.UseVisualStyleBackColor = true;
             // 
             // label5

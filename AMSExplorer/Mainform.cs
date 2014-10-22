@@ -1166,7 +1166,7 @@ namespace AMSExplorer
                 CreateLocator form = new CreateLocator(true)
                                {
                                    LocStartDate = DateTime.Now.ToLocalTime(),
-                                   LocEndDate = DateTime.Now.ToLocalTime().AddDays(30),
+                                   LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDays),
                                    LocAssetName = labelAssetName,
                                    LocHasStartDate = false,
                                    LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
@@ -1594,7 +1594,7 @@ namespace AMSExplorer
                 CreateLocator form = new CreateLocator()
                 {
                     LocStartDate = DateTime.Now.ToLocalTime(),
-                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(30),
+                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDays),
                     LocAssetName = labelAssetName,
                     LocHasStartDate = false,
                     LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
@@ -5789,7 +5789,7 @@ namespace AMSExplorer
         public void CreateOriginLocator(IAsset outputAsset)
         {
             IAccessPolicy policy =
-                _context.AccessPolicies.Create("AP:" + outputAsset.Name, TimeSpan.FromDays(365), AccessPermissions.Read);
+                _context.AccessPolicies.Create("AP:" + outputAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
             _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, outputAsset, policy, DateTime.UtcNow.AddMinutes(-5));
         }
 
@@ -7164,7 +7164,7 @@ namespace AMSExplorer
 
                                 IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
 
-                                // let's use same expiration date than previous locator
+                                // let's use the same expiration date than previous locator
                                 IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
 
                                 try

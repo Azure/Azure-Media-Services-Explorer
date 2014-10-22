@@ -250,5 +250,17 @@ namespace AMSExplorer.Properties {
                 this["DefaultJobPriority"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("365")]
+        public int DefaultLocatorDurationDays {
+            get {
+                return ((int)(this["DefaultLocatorDurationDays"]));
+            }
+            set {
+                this["DefaultLocatorDurationDays"] = value;
+            }
+        }
     }
 }

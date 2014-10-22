@@ -53,6 +53,7 @@ namespace AMSExplorer
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
+            Properties.Settings.Default.DefaultLocatorDurationDays = (int)numericUpDownLocatorDuration.Value;
 
             Properties.Settings.Default.Save();
         }
@@ -79,6 +80,7 @@ namespace AMSExplorer
             checkBoxEnableCustomPlayer.Checked = false;
 
             numericUpDownPriority.Value = 10;
+            numericUpDownLocatorDuration.Value = 365;
 
             Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folder
             Properties.Settings.Default.Save();
@@ -108,6 +110,7 @@ namespace AMSExplorer
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
 
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
+            numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDays;
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)
