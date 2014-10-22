@@ -153,6 +153,12 @@
     <Compile Include="AMSLogin.Designer.cs">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChangeEncodingRU.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChangeEncodingRU.Designer.cs">
+      <DependentUpon>ChangeEncodingRU.cs</DependentUpon>
+    </Compile>
     <Compile Include="BatchUploadFrame2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -354,6 +360,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AMSLogin.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChangeEncodingRU.resx">
+      <DependentUpon>ChangeEncodingRU.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BatchUploadFrame2.resx">
       <DependentUpon>BatchUploadFrame2.cs</DependentUpon>

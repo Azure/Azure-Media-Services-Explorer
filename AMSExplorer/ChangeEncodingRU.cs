@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------- 
-// <copyright file="AttachStorage.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <copyright file="ChangeEncodingRU.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.0
 // Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -28,7 +28,7 @@ using System.Diagnostics;
 
 namespace AMSExplorer
 {
-    public partial class AttachStorage : Form
+    public partial class ChangeEncodingRU : Form
     {
         public string GetAzureSubscriptionID
         {
@@ -47,35 +47,23 @@ namespace AMSExplorer
             }
         }
 
-        public string GetStorageKey
+        public int RUNumber
         {
             get
             {
-                return textBoxStorageKey.Text;
+                return (int) numericUpDownRUNumber.Value;
+            }
+            set
+            {
+                numericUpDownRUNumber.Value = value;
             }
 
         }
 
-        public string GetStorageName
-        {
-            get
-            {
-                return textBoxStorageName.Text;
-            }
-
-        }
-
-        public string GetStorageEndpoint
-        {
-            get
-            {
-                return textBoxStorageEndPoint.Text;
-            }
-
-        }
+      
 
 
-        public AttachStorage()
+        public ChangeEncodingRU()
         {
             InitializeComponent();
             linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));

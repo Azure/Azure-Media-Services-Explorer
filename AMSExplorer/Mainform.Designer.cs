@@ -172,6 +172,8 @@
             this.startOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -315,8 +317,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1626,6 +1627,22 @@
             this.deleteOriginsToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
             this.deleteOriginsToolStripMenuItem.Text = "Delete streaming endpoint(s)";
             this.deleteOriginsToolStripMenuItem.Click += new System.EventHandler(this.deleteOriginsToolStripMenuItem_Click);
+            // 
+            // managementToolStripMenuItem
+            // 
+            this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.attachAnotherStoragheAccountToolStripMenuItem,
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem});
+            this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
+            this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
+            this.managementToolStripMenuItem.Text = "Management";
+            // 
+            // attachAnotherStoragheAccountToolStripMenuItem
+            // 
+            this.attachAnotherStoragheAccountToolStripMenuItem.Name = "attachAnotherStoragheAccountToolStripMenuItem";
+            this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
+            this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -3128,20 +3145,12 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // managementToolStripMenuItem
+            // changeTheNumberOfEncodingReservedUnitsToolStripMenuItem
             // 
-            this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.attachAnotherStoragheAccountToolStripMenuItem});
-            this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
-            this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
-            this.managementToolStripMenuItem.Text = "Management";
-            // 
-            // attachAnotherStoragheAccountToolStripMenuItem
-            // 
-            this.attachAnotherStoragheAccountToolStripMenuItem.Name = "attachAnotherStoragheAccountToolStripMenuItem";
-            this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
-            this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Name = "changeTheNumberOfEncodingReservedUnitsToolStripMenuItem";
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Text = "Change the number of encoding Reserved Units...";
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Click += new System.EventHandler(this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -3495,6 +3504,7 @@
         private System.Windows.Forms.ToolStripMenuItem recreateProgramsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem attachAnotherStoragheAccountToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem changeTheNumberOfEncodingReservedUnitsToolStripMenuItem;
     }
 }
 
