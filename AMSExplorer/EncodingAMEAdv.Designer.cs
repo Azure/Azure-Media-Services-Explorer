@@ -98,8 +98,9 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
-            this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -113,14 +114,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAOverlayGain)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 469);
+            this.label3.Location = new System.Drawing.Point(27, 451);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 22;
@@ -130,9 +130,9 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(30, 485);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(30, 467);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(499, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(425, 20);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // buttonCancel
@@ -167,7 +167,7 @@
             this.groupBox1.Controls.Add(this.textBoxConfiguration);
             this.groupBox1.Location = new System.Drawing.Point(30, 95);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(728, 318);
+            this.groupBox1.Size = new System.Drawing.Size(728, 299);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder Configuration";
@@ -838,7 +838,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(706, 65);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(706, 46);
             this.textBoxConfiguration.TabIndex = 27;
             // 
             // openFileDialogPreset
@@ -873,7 +873,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(474, 425);
+            this.label5.Location = new System.Drawing.Point(474, 407);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 45;
@@ -882,7 +882,7 @@
             // numericUpDownPriority
             // 
             this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(477, 442);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(477, 424);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(52, 20);
             this.numericUpDownPriority.TabIndex = 44;
@@ -891,7 +891,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 425);
+            this.label1.Location = new System.Drawing.Point(28, 407);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 43;
@@ -901,7 +901,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(30, 441);
+            this.textBoxJobName.Location = new System.Drawing.Point(30, 423);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(425, 20);
             this.textBoxJobName.TabIndex = 42;
@@ -925,17 +925,6 @@
             this.label32.TabIndex = 47;
             this.label32.Text = "Processor :";
             // 
-            // pictureBoxJob
-            // 
-            this.pictureBoxJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.modetaskjob3;
-            this.pictureBoxJob.Location = new System.Drawing.Point(565, 447);
-            this.pictureBoxJob.Name = "pictureBoxJob";
-            this.pictureBoxJob.Size = new System.Drawing.Size(191, 89);
-            this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxJob.TabIndex = 40;
-            this.pictureBoxJob.TabStop = false;
-            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -949,12 +938,34 @@
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(474, 451);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 53;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(477, 467);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 52;
+            // 
             // EncodingAMEAdv
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.label);
             this.Controls.Add(this.label5);
@@ -962,7 +973,6 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label31);
-            this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
@@ -991,7 +1001,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1011,7 +1020,6 @@
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelIAssets;
         private System.Windows.Forms.ComboBox comboBoxProcessor;
-        private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.TextBox textboxoutputassetname;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
@@ -1070,5 +1078,7 @@
         private System.Windows.Forms.TextBox textBoxJobName;
         public System.Windows.Forms.Label label;
         public System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }

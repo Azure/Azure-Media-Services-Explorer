@@ -2668,7 +2668,7 @@ namespace AMSExplorer
 
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.ZeniumEncoder);
 
-            EncodingZenium form = new EncodingZenium()
+            EncodingZenium form = new EncodingZenium(_context)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
@@ -2698,7 +2698,7 @@ namespace AMSExplorer
                         task.InputAssets.Add(graphAsset);
                         task.InputAssets.AddRange(SelectedAssets); // we add all assets
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                     }
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                     // Submit the job and wait until it is completed. 
@@ -2737,7 +2737,7 @@ namespace AMSExplorer
                             task.InputAssets.Add(asset); // we add one asset
                             string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
 
-                            task.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                            task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                         }
                         TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                         // Submit the job and wait until it is completed. 
@@ -2776,7 +2776,7 @@ namespace AMSExplorer
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.WindowsAzureMediaEncoder));
 
-            EncodingAMEPreset form = new EncodingAMEPreset()
+            EncodingAMEPreset form = new EncodingAMEPreset(_context)
             {
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-AME encoded with " + Constants.NameconvAMEpreset,
                 Text = "Azure Media Encoding",
@@ -2792,7 +2792,7 @@ namespace AMSExplorer
                 string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + form.EncodingSelectedPreset;
                 string outputassetname = form.EncodingOutputAssetName.Replace(Constants.NameconvAMEpreset, form.EncodingSelectedPreset);
 
-                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, outputassetname, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, outputassetname, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
 
         }
@@ -3245,12 +3245,12 @@ namespace AMSExplorer
             }
 
         }
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions)
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
         {
-            LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions);
+            LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions, storageaccountname);
         }
 
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions)
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
         {
             foreach (IAsset asset in selectedassets)
             {
@@ -3267,7 +3267,16 @@ namespace AMSExplorer
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name);
-                myTask.OutputAssets.AddNew(outputassetnameloc, creationoptions);
+                if (storageaccountname == "")
+                {
+                    myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, creationoptions); // let's use the same storage account than the input asset
+
+                }
+                else
+                {
+                    myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, creationoptions);
+
+                }
 
                 // Submit the job and wait until it is completed. 
                 try
@@ -3364,7 +3373,7 @@ namespace AMSExplorer
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
-            Indexer form = new Indexer()
+            Indexer form = new Indexer(_context)
             {
                 IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
@@ -3389,7 +3398,7 @@ namespace AMSExplorer
                );
                 }
 
-                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, configIndexer, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, configIndexer, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 
@@ -3611,7 +3620,7 @@ namespace AMSExplorer
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.WindowsAzureMediaEncoder));
 
-            EncodingAMEAdv form = new EncodingAMEAdv()
+            EncodingAMEAdv form = new EncodingAMEAdv(_context)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. One job will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
@@ -3642,7 +3651,7 @@ namespace AMSExplorer
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                AMETask.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                AMETask.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
 
                 // Submit the job and wait until it is completed. 
                 try
@@ -3683,7 +3692,7 @@ namespace AMSExplorer
 
             string taskname = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset;
 
-            GenericProcessor form = new GenericProcessor()
+            GenericProcessor form = new GenericProcessor(_context)
             {
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
@@ -3717,7 +3726,7 @@ namespace AMSExplorer
                         // Specify the graph asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.AddRange(SelectedAssets);
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
 
                         TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                         // Submit the job and wait until it is completed. 
@@ -3753,7 +3762,7 @@ namespace AMSExplorer
                         // Specify the graph asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.Add(asset);
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                     }
 
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
@@ -3788,7 +3797,7 @@ namespace AMSExplorer
                     // Specify the graph asset to be encoded, followed by the input video asset to be used
                     task.InputAssets.AddRange(SelectedAssets);
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                    task.OutputAssets.AddNew(outputassetnameloc, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
 
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                     // Submit the job and wait until it is completed. 
@@ -5946,7 +5955,7 @@ namespace AMSExplorer
             string taskname = "Thumbnails generation of " + Constants.NameconvInputasset;
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.WindowsAzureMediaEncoder);
 
-            Thumbnails form = new Thumbnails()
+            Thumbnails form = new Thumbnails(_context)
             {
                 ThumbnailsFileName = "{OriginalFilename}_{ThumbnailIndex}.{DefaultExtension}",
                 ThumbnailsInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for thumbnails generation." : "Generate thumbnails for '" + SelectedAssets.FirstOrDefault().Name + "'  ?",
@@ -5975,7 +5984,7 @@ namespace AMSExplorer
                 form.ThumbnailsTimeStop
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, configThumbnails, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, configThumbnails, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 

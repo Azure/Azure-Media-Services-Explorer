@@ -62,6 +62,8 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.labelWarning = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -73,7 +75,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 159);
+            this.label1.Location = new System.Drawing.Point(14, 164);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 13);
             this.label1.TabIndex = 18;
@@ -107,7 +109,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(16, 176);
+            this.textBoxJobName.Location = new System.Drawing.Point(16, 181);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(704, 20);
             this.textBoxJobName.TabIndex = 13;
@@ -222,6 +224,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label33);
+            this.tabPage3.Controls.Add(this.comboBoxStorage);
             this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.label3);
@@ -237,7 +241,7 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(504, 181);
             this.label6.Name = "label6";
@@ -258,7 +262,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 197);
+            this.label3.Location = new System.Drawing.Point(15, 205);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 22;
@@ -268,9 +272,9 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 214);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(17, 222);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(702, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(403, 20);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // listViewInputAssets
@@ -408,6 +412,26 @@
             this.labelWarning.TabIndex = 40;
             this.labelWarning.Text = "Warning";
             // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(438, 206);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 57;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(438, 222);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 56;
+            // 
             // GenericProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -474,5 +498,7 @@
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.TextBox textBoxJobName;
         private System.Windows.Forms.TextBox textboxoutputassetname;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }

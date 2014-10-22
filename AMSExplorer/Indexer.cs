@@ -25,12 +25,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 
 namespace AMSExplorer
 {
     public partial class Indexer : Form
     {
+        private CloudMediaContext _context;
 
         public string IndexerInputAssetName
         {
@@ -52,6 +54,14 @@ namespace AMSExplorer
             set
             {
                 textboxoutputassetname.Text = value;
+            }
+        }
+
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
             }
         }
 
@@ -125,17 +135,20 @@ namespace AMSExplorer
         }
 
 
-        public Indexer()
+        public Indexer(CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
         }
 
 
         private void Indexer_Load(object sender, EventArgs e)
         {
-
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
         }
-
-
     }
 }

@@ -38,6 +38,8 @@ namespace AMSExplorer
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
 
         private List<IAsset> listblueprints = new List<IAsset>();
+        private CloudMediaContext _context;
+
 
         public List<IAsset> ZeniumBlueprints
         {
@@ -50,6 +52,13 @@ namespace AMSExplorer
                 }
             }
 
+        }
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
+            }
         }
 
         public List<IAsset> SelectedZeniumBlueprints
@@ -155,9 +164,10 @@ namespace AMSExplorer
 
 
 
-        public EncodingZenium()
+        public EncodingZenium(CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -196,6 +206,12 @@ namespace AMSExplorer
         private void EncodingXenio_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://www.digitalrapids.com/en/Products/KayakMP/FeaturesFormats.aspx"));
+
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
 
         }
 
