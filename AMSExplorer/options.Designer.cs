@@ -47,6 +47,8 @@
             this.checkBoxDisplayProgramID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayChannelID = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.numericUpDownLocatorDuration = new System.Windows.Forms.NumericUpDown();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
@@ -55,15 +57,14 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.numericUpDownLocatorDuration = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -158,7 +159,7 @@
             // checkBoxDisplayJobID
             // 
             this.checkBoxDisplayJobID.AutoSize = true;
-            this.checkBoxDisplayJobID.Location = new System.Drawing.Point(42, 74);
+            this.checkBoxDisplayJobID.Location = new System.Drawing.Point(187, 51);
             this.checkBoxDisplayJobID.Name = "checkBoxDisplayJobID";
             this.checkBoxDisplayJobID.Size = new System.Drawing.Size(92, 17);
             this.checkBoxDisplayJobID.TabIndex = 16;
@@ -167,6 +168,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
             this.groupBox1.Controls.Add(this.checkBoxDisplayOriginID);
@@ -211,17 +213,17 @@
             // checkBoxDisplayOriginID
             // 
             this.checkBoxDisplayOriginID.AutoSize = true;
-            this.checkBoxDisplayOriginID.Location = new System.Drawing.Point(341, 51);
+            this.checkBoxDisplayOriginID.Location = new System.Drawing.Point(187, 72);
             this.checkBoxDisplayOriginID.Name = "checkBoxDisplayOriginID";
-            this.checkBoxDisplayOriginID.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxDisplayOriginID.Size = new System.Drawing.Size(161, 17);
             this.checkBoxDisplayOriginID.TabIndex = 19;
-            this.checkBoxDisplayOriginID.Text = "Display Origin Id";
+            this.checkBoxDisplayOriginID.Text = "Display Streamin Endpoint Id";
             this.checkBoxDisplayOriginID.UseVisualStyleBackColor = true;
             // 
             // checkBoxDisplayProgramID
             // 
             this.checkBoxDisplayProgramID.AutoSize = true;
-            this.checkBoxDisplayProgramID.Location = new System.Drawing.Point(187, 74);
+            this.checkBoxDisplayProgramID.Location = new System.Drawing.Point(361, 72);
             this.checkBoxDisplayProgramID.Name = "checkBoxDisplayProgramID";
             this.checkBoxDisplayProgramID.Size = new System.Drawing.Size(114, 17);
             this.checkBoxDisplayProgramID.TabIndex = 18;
@@ -231,7 +233,7 @@
             // checkBoxDisplayChannelID
             // 
             this.checkBoxDisplayChannelID.AutoSize = true;
-            this.checkBoxDisplayChannelID.Location = new System.Drawing.Point(187, 51);
+            this.checkBoxDisplayChannelID.Location = new System.Drawing.Point(361, 51);
             this.checkBoxDisplayChannelID.Name = "checkBoxDisplayChannelID";
             this.checkBoxDisplayChannelID.Size = new System.Drawing.Size(114, 17);
             this.checkBoxDisplayChannelID.TabIndex = 17;
@@ -255,6 +257,37 @@
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(40, 124);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(154, 13);
+            this.label3.TabIndex = 52;
+            this.label3.Text = "Default locator duration (days) :";
+            // 
+            // numericUpDownLocatorDuration
+            // 
+            this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(200, 122);
+            this.numericUpDownLocatorDuration.Maximum = new decimal(new int[] {
+            36500,
+            0,
+            0,
+            0});
+            this.numericUpDownLocatorDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownLocatorDuration.Name = "numericUpDownLocatorDuration";
+            this.numericUpDownLocatorDuration.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownLocatorDuration.TabIndex = 53;
+            this.numericUpDownLocatorDuration.Value = new decimal(new int[] {
+            365,
+            0,
+            0,
+            0});
             // 
             // pictureBox2
             // 
@@ -326,36 +359,15 @@
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
-            // label3
+            // checkBoxDisplayAssetStorage
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 124);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(154, 13);
-            this.label3.TabIndex = 52;
-            this.label3.Text = "Default locator duration (days) :";
-            // 
-            // numericUpDownLocatorDuration
-            // 
-            this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(200, 122);
-            this.numericUpDownLocatorDuration.Maximum = new decimal(new int[] {
-            36500,
-            0,
-            0,
-            0});
-            this.numericUpDownLocatorDuration.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownLocatorDuration.Name = "numericUpDownLocatorDuration";
-            this.numericUpDownLocatorDuration.Size = new System.Drawing.Size(93, 20);
-            this.numericUpDownLocatorDuration.TabIndex = 53;
-            this.numericUpDownLocatorDuration.Value = new decimal(new int[] {
-            365,
-            0,
-            0,
-            0});
+            this.checkBoxDisplayAssetStorage.AutoSize = true;
+            this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(42, 72);
+            this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
+            this.checkBoxDisplayAssetStorage.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxDisplayAssetStorage.TabIndex = 22;
+            this.checkBoxDisplayAssetStorage.Text = "Display Asset Storage";
+            this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
             // 
             // Options
             // 
@@ -377,12 +389,12 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -416,5 +428,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
+        private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
     }
 }

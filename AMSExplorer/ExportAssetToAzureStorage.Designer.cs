@@ -75,7 +75,7 @@
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(75, 23);
             this.buttonUpload.TabIndex = 2;
-            this.buttonUpload.Text = "Upload";
+            this.buttonUpload.Text = "Export";
             this.buttonUpload.UseVisualStyleBackColor = true;
             this.buttonUpload.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
@@ -403,7 +403,7 @@
             this.labelWarning.TabIndex = 41;
             this.labelWarning.Text = "Warning";
             // 
-            // CopyAssetToBlob
+            // ExportAssetToAzureStorage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -416,7 +416,7 @@
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonUpload);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "CopyAssetToBlob";
+            this.Name = "ExportAssetToAzureStorage";
             this.Text = "Export Asset File(s) to Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
             this.SizeChanged += new System.EventHandler(this.UploadFromBlob_SizeChanged);

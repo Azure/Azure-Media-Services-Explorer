@@ -1233,74 +1233,78 @@ namespace AMSExplorer
                 IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
                 IAccessPolicy readPolicy = _context.AccessPolicies.Create("readPolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
 
-
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, NewAsset, writePolicy);
                 Uri uploadUri = new Uri(destinationLocator.Path);
 
                 foreach (IAsset MyAsset in MyAssets)
                 {
-                    ILocator sourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, MyAsset, readPolicy);
-                    Uri SourceUri = new Uri(sourceLocator.Path);
-                    foreach (IAssetFile MyAssetFile in MyAsset.AssetFiles)
+                    if (MyAsset.StorageAccountName == _context.DefaultStorageAccount.Name) // asset is in default storage
                     {
-                        TextBoxLogWriteLine("   Copying file '{0}' from asset '{1}'...", MyAssetFile.Name, MyAsset.Name);
-                        if (MyAssetFile.IsEncrypted)
+                        ILocator sourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, MyAsset, readPolicy);
+                        Uri SourceUri = new Uri(sourceLocator.Path);
+                        foreach (IAssetFile MyAssetFile in MyAsset.AssetFiles)
                         {
-                            TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", MyAssetFile.Name, true);
-                        }
-                        else
-                        {
-                            IAssetFile AssetFileTarget = NewAsset.AssetFiles.Where(f => f.Name == MyAssetFile.Name).FirstOrDefault();
-                            if (AssetFileTarget == null)
+                            TextBoxLogWriteLine("   Copying file '{0}' from asset '{1}'...", MyAssetFile.Name, MyAsset.Name);
+                            if (MyAssetFile.IsEncrypted)
                             {
-                                AssetFileTarget = NewAsset.AssetFiles.Create(MyAssetFile.Name); // does not exist so we create it
+                                TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", MyAssetFile.Name, true);
                             }
                             else
                             {
-                                int i = 0;
-                                while (NewAsset.AssetFiles.Where(f => f.Name == Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name)).FirstOrDefault() != null)
+                                IAssetFile AssetFileTarget = NewAsset.AssetFiles.Where(f => f.Name == MyAssetFile.Name).FirstOrDefault();
+                                if (AssetFileTarget == null)
                                 {
-                                    i++;
+                                    AssetFileTarget = NewAsset.AssetFiles.Create(MyAssetFile.Name); // does not exist so we create it
                                 }
-                                AssetFileTarget = NewAsset.AssetFiles.Create(Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name));// exist so we add a number
-                            }
-
-                            // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                            string sourceTargetContainerName = SourceUri.Segments[1];
-                            string assetTargetContainerName = uploadUri.Segments[1];
-                            CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(sourceTargetContainerName);
-                            CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-
-                            CloudBlockBlob sourceCloudBlob, destinationBlob;
-
-                            sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(MyAssetFile.Name);
-                            sourceCloudBlob.FetchAttributes();
-
-                            if (sourceCloudBlob.Properties.Length > 0)
-                            {
-
-                                destinationBlob = assetTargetContainer.GetBlockBlobReference(AssetFileTarget.Name);
-
-                                destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
-
-                                CloudBlockBlob blob;
-                                blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AssetFileTarget.Name);
-
-                                while (blob.CopyState.Status == CopyStatus.Pending)
+                                else
                                 {
-                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    int i = 0;
+                                    while (NewAsset.AssetFiles.Where(f => f.Name == Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name)).FirstOrDefault() != null)
+                                    {
+                                        i++;
+                                    }
+                                    AssetFileTarget = NewAsset.AssetFiles.Create(Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name));// exist so we add a number
                                 }
-                                destinationBlob.FetchAttributes();
-                                AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                AssetFileTarget.Update();
 
-                                MyAsset.Update();
+                                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+                                string sourceTargetContainerName = SourceUri.Segments[1];
+                                string assetTargetContainerName = uploadUri.Segments[1];
+                                CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(sourceTargetContainerName);
+                                CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
+                                CloudBlockBlob sourceCloudBlob, destinationBlob;
+                                sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(MyAssetFile.Name);
+                                sourceCloudBlob.FetchAttributes();
+
+                                if (sourceCloudBlob.Properties.Length > 0)
+                                {
+
+                                    destinationBlob = assetTargetContainer.GetBlockBlobReference(AssetFileTarget.Name);
+
+                                    destinationBlob.DeleteIfExists();
+                                    destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+
+                                    CloudBlockBlob blob;
+                                    blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AssetFileTarget.Name);
+
+                                    while (blob.CopyState.Status == CopyStatus.Pending)
+                                    {
+                                        Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    }
+                                    destinationBlob.FetchAttributes();
+                                    AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
+                                    AssetFileTarget.Update();
+
+                                    MyAsset.Update();
+                                }
                             }
                         }
-
+                        sourceLocator.Delete();
                     }
-                    sourceLocator.Delete();
+                    else // asset in not in the default storage
+                    {
+                        TextBoxLogWriteLine("Asset '{0}' has been ignored as this asset is not in the default storage account.", MyAsset.Name, true);
+                    }
+
                 }
                 destinationLocator.Delete();
                 readPolicy.Delete();
@@ -1987,16 +1991,16 @@ namespace AMSExplorer
 
                 if (!string.IsNullOrEmpty(targetAssetID))
                 {
-                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None) // Ok, the selected asset is not encrypyted
+                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypyted and is in the default storage account
                     {
                         form.ImportOptionToCopyFilesToExistingAsset = true;
                         form.ImportLabelExistingAssetName = GetAsset(targetAssetID).Name;
                         form.ImportOptionToCopyFilesToExistingAssetLabel = string.Empty;
                     }
-                    else // selected asset is encrypted, so we disable it and display a warning
+                    else // selected asset is encrypted or not in the default storage account, so we disable it and display a warning
                     {
                         form.ImportOptionToCopyFilesToExistingAsset = false;
-                        form.ImportOptionToCopyFilesToExistingAssetLabel = "(Selected asset seems to be encrypted)";
+                        form.ImportOptionToCopyFilesToExistingAssetLabel = (SelectedAssets.FirstOrDefault().StorageAccountName != _context.DefaultStorageAccount.Name) ? "(Selected asset is not in the defaut storage)" : "(Selected asset seems to be encrypted)";
                     }
                 }
 
@@ -4635,7 +4639,7 @@ namespace AMSExplorer
                 }
                 if (havestoragecredentials) // if we have the storage credentials
                 {
-                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None) // Ok, the selected asset is not encrypyted
+                    if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypyted
                     {
                         if (CopyAssetToAzure(ref UseDefaultStorage, ref containername, ref otherstoragename, ref otherstoragekey, ref SelectedFiles, ref CreateNewContainer, SelectedAssets.FirstOrDefault()) == DialogResult.OK)
                         {
@@ -4645,6 +4649,10 @@ namespace AMSExplorer
                             DotabControlMainSwitch(Constants.TabTransfers);
                             DoRefreshGridAssetV(false);
                         }
+                    }
+                    else if (SelectedAssets.FirstOrDefault().StorageAccountName != _context.DefaultStorageAccount.Name)
+                    {
+                        MessageBox.Show("Asset cannot be exported as it is not in the default storage acount. Feature not implemented yet.", "Asset storage", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
                     else // selected asset is encrypted, so we warn the user
                     {
@@ -5013,6 +5021,7 @@ namespace AMSExplorer
             if (!init)
             {
                 dataGridViewAssetsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+                dataGridViewAssetsV.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
                 dataGridViewJobsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
                 dataGridViewChannelsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
                 dataGridViewProgramsV.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveProgramIDinGrid;
@@ -7571,7 +7580,8 @@ namespace AMSExplorer
         public const string DynEnc = "Dynamic encrypted";
         public const string NotEncrypted = "Not encrypted";
         public const string Empty = "Empty";
-
+        public const string DefaultStorage = "Default storage";
+        public const string NotDefaultStorage = "Not default storage";
     }
 
     public static class FilterTime
@@ -7689,7 +7699,6 @@ namespace AMSExplorer
             {
                 return _MyObservAsset.Count();
             }
-
         }
         public string _statEnc = "StaticEncryption";
         public string _publication = "Publication";
@@ -7732,7 +7741,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime() };
+            assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
@@ -7776,6 +7785,7 @@ namespace AMSExplorer
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
+            this.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
             this.Columns[_publication].DisplayIndex = lastColumn_sIndex;
             this.Columns[_publication].DefaultCellStyle.NullValue = null;
@@ -7970,6 +7980,12 @@ namespace AMSExplorer
                     case StatusAssets.Empty:
                         assets = assets.Where(a => a.AssetFiles.Count() == 0);
                         break;
+                    case StatusAssets.DefaultStorage:
+                        assets = assets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                        break;
+                    case StatusAssets.NotDefaultStorage:
+                        assets = assets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                        break;
                     default:
                         break;
                 }
@@ -7990,17 +8006,17 @@ namespace AMSExplorer
             switch (_orderassets)
             {
                 case OrderAssets.LastModified:
-                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime() };
+                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                     break;
                 case OrderAssets.Name:
-                    assetquery = from a in assets orderby a.Name select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime() };
+                    assetquery = from a in assets orderby a.Name select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                     break;
                 case OrderAssets.Size:
-                    assetquery = from a in assets orderby size(a) descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime() };
+                    assetquery = from a in assets orderby size(a) descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                     break;
 
                 default:
-                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime() };
+                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                     break;
             }
 

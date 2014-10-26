@@ -262,5 +262,17 @@ namespace AMSExplorer.Properties {
                 this["DefaultLocatorDurationDays"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayAssetStorageinGrid {
+            get {
+                return ((bool)(this["DisplayAssetStorageinGrid"]));
+            }
+            set {
+                this["DisplayAssetStorageinGrid"] = value;
+            }
+        }
     }
 }

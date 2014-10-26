@@ -1052,6 +1052,7 @@ namespace AMSExplorer
         public Nullable<DateTime> LastModified { get; set; }
         public string Size { get; set; }
         public long SizeLong { get; set; }
+        public string Storage { get; set; }
         public Bitmap StaticEncryption { get; set; }
         public string StaticEncryptionMouseOver { get; set; }
         public Bitmap DynamicEncryption { get; set; }
