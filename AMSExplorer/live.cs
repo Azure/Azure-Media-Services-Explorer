@@ -1421,20 +1421,13 @@ namespace AMSExplorer
             catch (WebException exception)
             {
                 response = (HttpWebResponse)exception.Response;
-                throw exception;
+                innerException = exception;
             }
+
 
             if ((response.StatusCode != HttpStatusCode.OK) && (response.StatusCode != HttpStatusCode.Accepted) && (response.StatusCode != HttpStatusCode.Created))
             {
-                throw new InvalidOperationException(
-                    string.Format(
-                        CultureInfo.InvariantCulture,
-                        "There was an error processing the request (LocatorId: {0}, LocatorType: {1}, AssetId: {2}, AccessPolicyId: {3}).",
-                        locatorId,
-                        (int)locatorType,
-                        assetId,
-                        accessPolicyId),
-                    innerException);
+                throw new InvalidOperationException("There was an error processing the request", innerException);
             }
 
             return this.context.Locators.Where(l => l.Id.Equals(locatorId, StringComparison.OrdinalIgnoreCase)).Single();

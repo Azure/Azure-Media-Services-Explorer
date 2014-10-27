@@ -31,6 +31,7 @@ namespace AMSExplorer
     {
         public string ChannelName;
 
+
         public string ProgramName
         {
             get { return textboxprogramname.Text; }
@@ -75,7 +76,25 @@ namespace AMSExplorer
             }
         }
 
+        public bool IsReplica
+        {
+            get
+            {
+                return checkBoxReplica.Checked;
+            }
+        }
 
+        public string ReplicaLocatorID
+        {
+            get { return labelLocatorID.Text; }
+
+        }
+
+        public string ReplicaManifestName
+        {
+            get { return labelManifestFile.Text; }
+
+        }
 
         public string AssetName
         {
@@ -99,6 +118,57 @@ namespace AMSExplorer
         {
             this.Text = string.Format(this.Text, ChannelName);
             checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
+            labelManifestFile.Text = string.Empty;
+            labelLocatorID.Text = string.Empty;
+            labelURLFileNameWarning.Text = string.Empty;
+        }
+
+        private void checkBoxReplica_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxProgramSourceURL.Enabled = checkBoxReplica.Checked;
+            if (checkBoxReplica.Checked)
+            {
+                checkBoxCreateLocator.Checked = true;
+                checkBoxCreateLocator.Enabled = false;
+            }
+            else
+            {
+                checkBoxCreateLocator.Enabled = true;
+            }
+        }
+
+        private void textBoxIProgramSourceURL_TextChanged(object sender, EventArgs e)
+        {
+            string filename = null;
+            string locId = null;
+            bool Error = false;
+            string url = textBoxProgramSourceURL.Text;
+            if (url.EndsWith("/manifest", StringComparison.OrdinalIgnoreCase))
+            {
+                url = url.ToLower().Replace("/manifest", string.Empty);
+            }
+            try
+            {
+                Uri myUri = new Uri(url);
+                filename = System.IO.Path.GetFileNameWithoutExtension((myUri).LocalPath);
+                locId = System.IO.Path.GetDirectoryName((myUri).LocalPath).Replace(@"\", "nb:lid:UUID:");
+            }
+            catch
+            {
+                Error = true;
+                labelURLFileNameWarning.Text = "URL cannot be analyzed";
+                labelManifestFile.Text = string.Empty;
+                labelLocatorID.Text = string.Empty;
+            }
+
+            if (!Error)
+            {
+                labelURLFileNameWarning.Text = string.Empty;
+                labelManifestFile.Text = filename;
+                labelLocatorID.Text = locId;
+            }
+
+
         }
     }
 }

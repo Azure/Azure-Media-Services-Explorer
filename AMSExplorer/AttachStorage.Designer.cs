@@ -43,6 +43,7 @@
             this.textBoxCertThumbprint = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelAttach = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -188,12 +189,22 @@
             this.linkLabelAttach.Text = "See how to create and upload a management certificate";
             this.linkLabelAttach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAttach_LinkClicked);
             // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(28, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(436, 14);
+            this.label6.TabIndex = 51;
+            this.label6.Text = "This operation cannot be reverted !";
+            // 
             // AttachStorage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(684, 391);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.linkLabelAttach);
             this.Controls.Add(this.textBoxCertThumbprint);
             this.Controls.Add(this.label2);
@@ -229,5 +240,6 @@
         private System.Windows.Forms.TextBox textBoxCertThumbprint;
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelAttach;
+        private System.Windows.Forms.Label label6;
     }
 }

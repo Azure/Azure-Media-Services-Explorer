@@ -214,7 +214,7 @@
     <Compile Include="StreamingEndpointInformation.Designer.cs">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="origin.cs">
+    <Compile Include="StreamingEndpoint.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Indexer.cs">

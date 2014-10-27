@@ -677,7 +677,7 @@ namespace AMSExplorer
 
         public void TextBoxLogWriteLine(Exception e)
         {
-            TextBoxLogWriteLine(e);
+            TextBoxLogWriteLine(e.Message);
             if (e.InnerException != null)
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
@@ -5804,6 +5804,51 @@ namespace AMSExplorer
             return myA;
         }
 
+        private IAsset CreateLiveAssetWithAdvancedLocator(string assetName, string LocatorID)
+        {
+            string accessToken = AccessToken.GetAccessToken(_context, Program.GetACSBaseAddress(_credentials));
+            LocatorHelper lh = null;
+            bool ErrorConnect = false;
+            try
+            {
+                lh = new LocatorHelper(Program.GetAPIServer(_credentials), accessToken, _context);
+            }
+            catch (Exception ex)
+            {
+                // Add useful information to the exception
+                TextBoxLogWriteLine("There is a problem when connecting to Media Services.", true);
+                TextBoxLogWriteLine(ex);
+                ErrorConnect = true;
+            }
+
+            if (!ErrorConnect)
+            {
+                IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+
+                // let's use the same expiration date than previous locator
+                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+
+                bool Error = false;
+                try
+                {
+                    TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
+                    lh.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset.Id, policy.Id);
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+                return Error ? null : newAsset;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public void CreateOriginLocator(IAsset outputAsset)
         {
             IAccessPolicy policy =
@@ -5833,23 +5878,36 @@ namespace AMSExplorer
 
                     TextBoxLogWriteLine("Creating Program '{0}'...", form.ProgramName);
                     string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
-                    string assetid = CreateLiveAsset(assetname, form.CreateLocator).Id;
-
-                    var options = new ProgramCreationOptions()
+                    IAsset NewAsset;
+                    if (form.IsReplica)
                     {
-                        Name = form.ProgramName,
-                        Description = form.ProgramDescription,
-                        ArchiveWindowLength = form.archiveWindowLength,
-                        AssetId = assetid
-                    };
+                        NewAsset = CreateLiveAssetWithAdvancedLocator(assetname, form.ReplicaLocatorID);
+                    }
+                    else
+                    {
+                        NewAsset = CreateLiveAsset(assetname, form.CreateLocator);
+                    }
 
-                    var STask = ProgramExecuteAsync(
-                           () =>
-                               channel.Programs.CreateAsync(options)
-                               , form.ProgramName,
-                               "created");
-                    await STask;
-                    DoRefreshGridProgramV(false);
+                    if (NewAsset != null)
+                    {
+                        var options = new ProgramCreationOptions()
+                        {
+                            Name = form.ProgramName,
+                            Description = form.ProgramDescription,
+                            ArchiveWindowLength = form.archiveWindowLength,
+                            AssetId = NewAsset.Id,
+                            ManifestName = form.IsReplica ? form.ReplicaManifestName : null // if replica is selected, then we force the manifest name
+                        };
+
+                        var STask = ProgramExecuteAsync(
+                               () =>
+                                   channel.Programs.CreateAsync(options)
+                                   , form.ProgramName,
+                                   "created");
+                        await STask;
+                        DoRefreshGridProgramV(false);
+                    }
+                    DoRefreshGridAssetV(false);
                 }
             }
             else
@@ -5890,7 +5948,6 @@ namespace AMSExplorer
 
                     switch (CS)
                     {
-
                         case ProgramState.Stopping:
                             mycolor = Color.Blue;
                             break;
@@ -5906,7 +5963,6 @@ namespace AMSExplorer
                         default:
                             mycolor = Color.Black;
                             break;
-
                     }
                     for (int i = 0; i < dataGridViewProgramsV.Columns.Count; i++) dataGridViewProgramsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
                 }
@@ -5982,7 +6038,6 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-
                 string configThumbnails = LoadAndUpdateThumbnailsConfiguration(
                 Path.Combine(_configurationXMLFiles, @"Thumbnails.xml"),
                 form.ThumbnailsSize,
