@@ -5804,49 +5804,28 @@ namespace AMSExplorer
             return myA;
         }
 
-        private IAsset CreateLiveAssetWithAdvancedLocator(string assetName, string LocatorID)
+        private IAsset CreateLiveAssetWithSpecifiedLocatorID(string assetName, string LocatorID)
         {
-            string accessToken = AccessToken.GetAccessToken(_context, Program.GetACSBaseAddress(_credentials));
-            LocatorHelper lh = null;
-            bool ErrorConnect = false;
+            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+
+            // let's use the same expiration date than previous locator
+            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+
+            bool Error = false;
             try
             {
-                lh = new LocatorHelper(Program.GetAPIServer(_credentials), accessToken, _context);
+                TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
+                _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
             }
             catch (Exception ex)
             {
                 // Add useful information to the exception
-                TextBoxLogWriteLine("There is a problem when connecting to Media Services.", true);
+                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
                 TextBoxLogWriteLine(ex);
-                ErrorConnect = true;
+                Error = true;
             }
+            return Error ? null : newAsset;
 
-            if (!ErrorConnect)
-            {
-                IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
-
-                // let's use the same expiration date than previous locator
-                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
-
-                bool Error = false;
-                try
-                {
-                    TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
-                    lh.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset.Id, policy.Id);
-                }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
-                    TextBoxLogWriteLine(ex);
-                    Error = true;
-                }
-                return Error ? null : newAsset;
-            }
-            else
-            {
-                return null;
-            }
         }
 
         public void CreateOriginLocator(IAsset outputAsset)
@@ -5881,7 +5860,7 @@ namespace AMSExplorer
                     IAsset NewAsset;
                     if (form.IsReplica)
                     {
-                        NewAsset = CreateLiveAssetWithAdvancedLocator(assetname, form.ReplicaLocatorID);
+                        NewAsset = CreateLiveAssetWithSpecifiedLocatorID(assetname, form.ReplicaLocatorID);
                     }
                     else
                     {
@@ -7154,7 +7133,6 @@ namespace AMSExplorer
 
         private async void DoResetPrograms()
         {
-
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
             if (SelectedPrograms.Count > 0)
             {
@@ -7163,111 +7141,90 @@ namespace AMSExplorer
 
                 if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    string accessToken = AccessToken.GetAccessToken(_context, Program.GetACSBaseAddress(_credentials));
-                    LocatorHelper lh = null;
-                    bool ErrorConnect = false;
-                    try
+                    foreach (IProgram myP in SelectedPrograms)
                     {
-                        lh = new LocatorHelper(Program.GetAPIServer(_credentials), accessToken, _context);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when connecting to Media Services.", true);
-                        TextBoxLogWriteLine(ex);
-                        ErrorConnect = true;
-                    }
+                        IAsset asset = myP.Asset;
+                        string assetName = asset.Name;
+                        string programName = myP.Name;
+                        string programDesc = myP.Description;
+                        TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
+                        var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
+                        IChannel myChannel = myP.Channel;
+                        var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-
-                    if (!ErrorConnect)
-                    {
-                        foreach (IProgram myP in SelectedPrograms)
+                        if (locator.Count() != 1) // no single locator, we do nothing
                         {
-                            IAsset asset = myP.Asset;
-                            string assetName = asset.Name;
-                            string programName = myP.Name;
-                            string programDesc = myP.Description;
-                            TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
-                            var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
-                            IChannel myChannel = myP.Channel;
-                            var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+                            TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
+                        }
+                        else if (ismAssetFiles.Count() != 1)
+                        {
+                            TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
+                        }
+                        else
+                        {
+                            string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
+                            string locatorID = locator.FirstOrDefault().Id;
+                            DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
 
-                            if (locator.Count() != 1) // no single locator, we do nothing
+                            try
                             {
-                                TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
+                                TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
+                                myP.Delete();
                             }
-                            else if (ismAssetFiles.Count() != 1)
+                            catch (Exception ex)
                             {
-                                TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
+                                TextBoxLogWriteLine(ex);
                             }
-                            else
-                            {
-                                string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
-                                string locatorID = locator.FirstOrDefault().Id;
-                                DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
 
+                            if (myP.Asset != null)
+                            {
+                                //delete
                                 try
                                 {
-                                    TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
-                                    myP.Delete();
+                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                    DeleteAsset(asset);
+                                    if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
                                 }
                                 catch (Exception ex)
                                 {
                                     // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
+                                    TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
                                     TextBoxLogWriteLine(ex);
                                 }
-
-                                if (myP.Asset != null)
-                                {
-                                    //delete
-                                    try
-                                    {
-                                        TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                        DeleteAsset(asset);
-                                        if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                        TextBoxLogWriteLine(ex);
-                                    }
-                                }
-
-                                IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
-
-                                // let's use the same expiration date than previous locator
-                                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
-
-                                try
-                                {
-                                    TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
-                                    lh.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset.Id, policy.Id);
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
-                                    TextBoxLogWriteLine(ex);
-                                }
-
-                                ProgramCreationOptions options = new ProgramCreationOptions()
-                                {
-                                    AssetId = newAsset.Id,
-                                    Name = programName,
-                                    Description = programDesc,
-                                    ArchiveWindowLength = programArchiveWindowLength,
-                                    ManifestName = ismName,
-                                };
-
-                                var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
-                                await STask;
-
                             }
+
+                            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+                            // let's use the same expiration date than previous locator
+                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
+
+                            try
+                            {
+
+                                TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
+                                ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                            }
+                            catch (Exception ex)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
+                                TextBoxLogWriteLine(ex);
+                            }
+
+                            ProgramCreationOptions options = new ProgramCreationOptions()
+                            {
+                                AssetId = newAsset.Id,
+                                Name = programName,
+                                Description = programDesc,
+                                ArchiveWindowLength = programArchiveWindowLength,
+                                ManifestName = ismName,
+                            };
+
+                            var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
+                            await STask;
                         }
                     }
-                    // _context = Program.ConnectAndGetNewContext(_credentials);
                     DoRefreshGridProgramV(false);
                     DoRefreshGridAssetV(false);
                 }
