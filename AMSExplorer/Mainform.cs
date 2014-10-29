@@ -7289,6 +7289,55 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private void addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSetupDynEnc();
+        }
+
+        private void removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemoveDynEnc();
+        }
+
+        private void displayErrorToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoDisplayJobError();
+        }
+
+        private void DoDisplayJobError()
+        {
+            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            if (SelectedJobs.Count == 1)
+            {
+                IJob JobToDisplayP = SelectedJobs.FirstOrDefault();
+
+                // Refresh the job.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == JobToDisplayP.Id).FirstOrDefault();
+
+                if (JobToDisplayP2 != null)
+                {
+                    if (JobToDisplayP2.State == JobState.Error)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        foreach (var task in JobToDisplayP2.Tasks)
+                        {
+                            foreach (var details in task.ErrorDetails)
+                            {
+                                sb.AppendLine(details.Message);
+                            }
+                        }
+                        MessageBox.Show(sb.ToString(),"Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void displayErrorToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoDisplayJobError();
+        }
     }
 }
 

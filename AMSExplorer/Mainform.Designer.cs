@@ -126,6 +126,7 @@
             this.dynamicPackagingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayJobInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.displayErrorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayInformationForAKnownJobIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -285,6 +286,9 @@
             this.ContextMenuItemProgramDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.publishToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyTheOutputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -318,6 +322,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.displayErrorToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -592,8 +597,7 @@
             // 
             this.validateTheMultiMP4AssetsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.validateTheMultiMP4AssetsToolStripMenuItem.Name = "validateTheMultiMP4AssetsToolStripMenuItem";
-            this.validateTheMultiMP4AssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.validateTheMultiMP4AssetsToolStripMenuItem.Size = new System.Drawing.Size(441, 22);
+            this.validateTheMultiMP4AssetsToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.validateTheMultiMP4AssetsToolStripMenuItem.Text = "Validate the multi MP4 asset(s)....";
             this.validateTheMultiMP4AssetsToolStripMenuItem.Click += new System.EventHandler(this.validateTheMultiMP4AssetsToolStripMenuItem_Click);
             // 
@@ -601,8 +605,7 @@
             // 
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Name = "packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem";
-            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(441, 22);
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Text = "Package the multi MP4 asset(s) to Smooth Streaming (static)";
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Click += new System.EventHandler(this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem_Click_1);
             // 
@@ -610,8 +613,7 @@
             // 
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Name = "packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem";
-            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Size = new System.Drawing.Size(441, 22);
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Text = "Package the Smooth Streaming asset(s) to HLS v3 (static)...";
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Click += new System.EventHandler(this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem_Click_1);
             // 
@@ -619,8 +621,7 @@
             // 
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Name = "encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem";
-            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(441, 22);
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Text = "Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Click += new System.EventHandler(this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem_Click_1);
             // 
@@ -1131,7 +1132,6 @@
             // 
             this.validateMultiMP4AssetToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("validateMultiMP4AssetToolStripMenuItem.Image")));
             this.validateMultiMP4AssetToolStripMenuItem.Name = "validateMultiMP4AssetToolStripMenuItem";
-            this.validateMultiMP4AssetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.validateMultiMP4AssetToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
             this.validateMultiMP4AssetToolStripMenuItem.Text = "Validate the multi MP4 asset(s)....";
             this.validateMultiMP4AssetToolStripMenuItem.Click += new System.EventHandler(this.validateMultiMP4AssetToolStripMenuItem_Click);
@@ -1140,7 +1140,6 @@
             // 
             this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Image")));
             this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Name = "packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem";
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
             this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Text = "Package the multi MP4 asset(s) to Smooth Streaming (static)";
             this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Click += new System.EventHandler(this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem_Click);
@@ -1149,7 +1148,6 @@
             // 
             this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("packageSmoothStreamingTOHLSstaticToolStripMenuItem.Image")));
             this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Name = "packageSmoothStreamingTOHLSstaticToolStripMenuItem";
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
             this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Text = "Package the Smooth Streaming asset(s) to HLS v3 (static)...";
             this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Click += new System.EventHandler(this.packageSmoothStreamingTOHLSstaticToolStripMenuItem_Click);
@@ -1158,7 +1156,6 @@
             // 
             this.encryptWithPlayReadystaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encryptWithPlayReadystaticToolStripMenuItem.Image")));
             this.encryptWithPlayReadystaticToolStripMenuItem.Name = "encryptWithPlayReadystaticToolStripMenuItem";
-            this.encryptWithPlayReadystaticToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.encryptWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
             this.encryptWithPlayReadystaticToolStripMenuItem.Text = "Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
             this.encryptWithPlayReadystaticToolStripMenuItem.Click += new System.EventHandler(this.encryptWithPlayReadystaticToolStripMenuItem_Click);
@@ -1201,6 +1198,7 @@
             // 
             this.encodingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.displayJobInformationToolStripMenuItem,
+            this.displayErrorToolStripMenuItem2,
             this.inputAssetInformationToolStripMenuItem,
             this.outputAssetInformationToolStripMenuItem,
             this.displayInformationForAKnownJobIdToolStripMenuItem,
@@ -1223,6 +1221,14 @@
             this.displayJobInformationToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
             this.displayJobInformationToolStripMenuItem.Text = "Display information";
             this.displayJobInformationToolStripMenuItem.Click += new System.EventHandler(this.displayJobInformationToolStripMenuItem_Click);
+            // 
+            // displayErrorToolStripMenuItem2
+            // 
+            this.displayErrorToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem2.Name = "displayErrorToolStripMenuItem2";
+            this.displayErrorToolStripMenuItem2.Size = new System.Drawing.Size(324, 22);
+            this.displayErrorToolStripMenuItem2.Text = "Display error";
+            this.displayErrorToolStripMenuItem2.Click += new System.EventHandler(this.displayErrorToolStripMenuItem2_Click);
             // 
             // inputAssetInformationToolStripMenuItem
             // 
@@ -1491,6 +1497,8 @@
             // 
             this.extendExistingStreamingLocatorsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.extendExistingStreamingLocatorsToolStripMenuItem.Name = "extendExistingStreamingLocatorsToolStripMenuItem";
+            this.extendExistingStreamingLocatorsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
+            | System.Windows.Forms.Keys.L)));
             this.extendExistingStreamingLocatorsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
             this.extendExistingStreamingLocatorsToolStripMenuItem.Text = "Extend existing streaming locators...";
             this.extendExistingStreamingLocatorsToolStripMenuItem.Click += new System.EventHandler(this.extendExistingStreamingLocatorsToolStripMenuItem_Click);
@@ -1897,6 +1905,7 @@
             this.refreshToolStripMenuItem2,
             this.toolStripSeparator18,
             this.ContextMenuItemJobDisplayInfo,
+            this.displayErrorToolStripMenuItem3,
             this.ContextMenuItemJobInputAssetInformation,
             this.ContextMenuItemJobOpenOutputAsset,
             this.ContextMenuItemJobCreateOutlookReportEmail,
@@ -1905,7 +1914,7 @@
             this.ContextMenuItemJobCancel,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 192);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 236);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
             // 
             // refreshToolStripMenuItem2
@@ -2797,17 +2806,41 @@
             // publishToolStripMenuItem2
             // 
             this.publishToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem,
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem,
+            this.toolStripSeparator26,
             this.createALocatorToolStripMenuItem2,
             this.deleteAllLocatorsToolStripMenuItem1});
             this.publishToolStripMenuItem2.Name = "publishToolStripMenuItem2";
             this.publishToolStripMenuItem2.Size = new System.Drawing.Size(262, 22);
             this.publishToolStripMenuItem2.Text = "Publish";
             // 
+            // addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem
+            // 
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem.Name = "addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem";
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem.Text = "Add a dynamic encryption policy for the asset(s)...";
+            this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem.Click += new System.EventHandler(this.addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem_Click);
+            // 
+            // removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem
+            // 
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.cancel;
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem.Name = "removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem";
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(373, 22);
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem.Text = "Remove all dynamic encryption policies for the asset(s)...";
+            this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem.Click += new System.EventHandler(this.removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator26
+            // 
+            this.toolStripSeparator26.Name = "toolStripSeparator26";
+            this.toolStripSeparator26.Size = new System.Drawing.Size(370, 6);
+            // 
             // createALocatorToolStripMenuItem2
             // 
             this.createALocatorToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.createALocatorToolStripMenuItem2.Name = "createALocatorToolStripMenuItem2";
-            this.createALocatorToolStripMenuItem2.Size = new System.Drawing.Size(176, 22);
+            this.createALocatorToolStripMenuItem2.Size = new System.Drawing.Size(373, 22);
             this.createALocatorToolStripMenuItem2.Text = "Create a locator...";
             this.createALocatorToolStripMenuItem2.Click += new System.EventHandler(this.createALocatorToolStripMenuItem2_Click);
             // 
@@ -2815,7 +2848,7 @@
             // 
             this.deleteAllLocatorsToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteAllLocatorsToolStripMenuItem1.Name = "deleteAllLocatorsToolStripMenuItem1";
-            this.deleteAllLocatorsToolStripMenuItem1.Size = new System.Drawing.Size(176, 22);
+            this.deleteAllLocatorsToolStripMenuItem1.Size = new System.Drawing.Size(373, 22);
             this.deleteAllLocatorsToolStripMenuItem1.Text = "Delete all locators...";
             this.deleteAllLocatorsToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem1_Click);
             // 
@@ -3151,6 +3184,14 @@
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // displayErrorToolStripMenuItem3
+            // 
+            this.displayErrorToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.help;
+            this.displayErrorToolStripMenuItem3.Name = "displayErrorToolStripMenuItem3";
+            this.displayErrorToolStripMenuItem3.Size = new System.Drawing.Size(266, 22);
+            this.displayErrorToolStripMenuItem3.Text = "Display error";
+            this.displayErrorToolStripMenuItem3.Click += new System.EventHandler(this.displayErrorToolStripMenuItem3_Click);
             // 
             // Mainform
             // 
@@ -3505,6 +3546,11 @@
         private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem attachAnotherStoragheAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem changeTheNumberOfEncodingReservedUnitsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem displayErrorToolStripMenuItem3;
     }
 }
 
