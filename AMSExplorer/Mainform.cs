@@ -6579,7 +6579,7 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     bool Error = false;
-                    string keydeliveryconfig = string.Empty;
+                    string keydeliveryconfig = null;
                     foreach (IAsset AssetToProcess in SelectedAssets)
                         if (AssetToProcess != null)
                         {
@@ -6587,8 +6587,8 @@ namespace AMSExplorer
                             {
                                 IContentKey contentKey = null;
 
-                                var contenkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                if (contenkeys.Count() == 0) // no content key existing so we need to create one
+                                var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
+                                if (contentkeys.Count() == 0) // no content key existing so we need to create one
                                 {
                                     try
                                     {
@@ -6615,7 +6615,7 @@ namespace AMSExplorer
                                 }
                                 else // let's use existing content key
                                 {
-                                    contentKey = contenkeys.FirstOrDefault();
+                                    contentKey = contentkeys.FirstOrDefault();
                                     TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
                                 }
 
@@ -6653,8 +6653,6 @@ namespace AMSExplorer
                                         case ContentKeyRestrictionType.Open:
 
                                             IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-
-
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
