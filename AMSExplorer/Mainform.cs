@@ -6483,16 +6483,13 @@ namespace AMSExplorer
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
-
             }
-
         }
 
         private void azureMediaBlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://azure.microsoft.com/blog/topics/media-services/");
         }
-
 
 
         private void createProgramToolStripMenuItem_Click_1(object sender, EventArgs e)
@@ -6598,7 +6595,6 @@ namespace AMSExplorer
                                         else // CENC
                                         {
                                             contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
-
                                         }
                                     }
                                     catch (Exception e)
@@ -6610,7 +6606,6 @@ namespace AMSExplorer
                                     }
                                     if (Error) break;
                                     TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-
                                 }
                                 else // let's use existing content key
                                 {
