@@ -41,7 +41,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.checkBoxProtocolSmooth = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
-            this.checkBoxForceCreateDelPol = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolHLS = new System.Windows.Forms.CheckBox();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
             this.panelAutPol = new System.Windows.Forms.Panel();
@@ -169,7 +168,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.checkBoxProtocolSmooth);
             this.groupBox1.Controls.Add(this.checkBoxProtocolDASH);
-            this.groupBox1.Controls.Add(this.checkBoxForceCreateDelPol);
             this.groupBox1.Controls.Add(this.checkBoxProtocolHLS);
             this.groupBox1.Location = new System.Drawing.Point(12, 349);
             this.groupBox1.Name = "groupBox1";
@@ -201,18 +199,6 @@
             this.checkBoxProtocolDASH.TabIndex = 56;
             this.checkBoxProtocolDASH.Text = "DASH";
             this.checkBoxProtocolDASH.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxForceCreateDelPol
-            // 
-            this.checkBoxForceCreateDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxForceCreateDelPol.AutoSize = true;
-            this.checkBoxForceCreateDelPol.Location = new System.Drawing.Point(331, 77);
-            this.checkBoxForceCreateDelPol.Name = "checkBoxForceCreateDelPol";
-            this.checkBoxForceCreateDelPol.Size = new System.Drawing.Size(211, 17);
-            this.checkBoxForceCreateDelPol.TabIndex = 50;
-            this.checkBoxForceCreateDelPol.Text = "Do not try to use existing delivery policy";
-            this.checkBoxForceCreateDelPol.UseVisualStyleBackColor = true;
-            this.checkBoxForceCreateDelPol.CheckedChanged += new System.EventHandler(this.checkBoxForceCreateDelPol_CheckedChanged);
             // 
             // checkBoxProtocolHLS
             // 
@@ -378,7 +364,6 @@
         private System.Windows.Forms.TextBox textBoxIssuer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panelAutPol;
-        private System.Windows.Forms.CheckBox checkBoxForceCreateDelPol;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;

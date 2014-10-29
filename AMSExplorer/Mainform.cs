@@ -6573,9 +6573,8 @@ namespace AMSExplorer
                 {
                     labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
                 }
-                AddDynamicEncryption form = new AddDynamicEncryption(_context)
+                AddDynamicEncryption form = new AddDynamicEncryption(_context);
 
-                    ;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     bool Error = false;
@@ -6683,52 +6682,31 @@ namespace AMSExplorer
                                     Error = true;
                                 }
                                 if (Error) break;
-
                                 TextBoxLogWriteLine("Created authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
 
+                                // Let's create the Asset Delivery Policy now
                                 IAssetDeliveryPolicy DelPol = null;
-
-                                var DelPols = _context.AssetDeliveryPolicies
-                                    .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == form.GetDeliveryPolicyType));
-                                if (form.ForceDeliveryPolicyCreation || DelPols.Count() == 0) // no delivery policy found or user want to force creation
+                                string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
+                                try
                                 {
-                                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
-                                    try
+                                    if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
                                     {
-                                        if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                                        {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                        }
-                                        else  // Envelope encryption or no encryption
-                                        {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                        }
-
-                                        TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                     }
-                                    catch (Exception e)
+                                    else  // Envelope encryption or no encryption
                                     {
-                                        TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-
+                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                     }
+
+                                    TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                                 }
-                                else // use existing delivery policy
+                                catch (Exception e)
                                 {
-                                    try
-                                    {
-                                        AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
-                                        TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
-                                    }
-
-                                    catch (Exception e)
-                                    {
-                                        TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
+                                    TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                    Error = true;
                                 }
+
                                 if (Error) break;
 
                                 if (!String.IsNullOrEmpty(tokenTemplateString))
@@ -6841,17 +6819,13 @@ namespace AMSExplorer
             if (SelectedAssets.Count > 0)
             {
                 labelAssetName = "Dynamic encryption will be removed for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
-
                 if (SelectedAssets.Count > 1)
                 {
                     labelAssetName = "Dynamic encryption will removed for these " + SelectedAssets.Count.ToString() + " selected assets.";
                 }
 
-
-
                 if (MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
-
                     bool Error = false;
                     string keydeliveryconfig = string.Empty;
                     foreach (IAsset AssetToProcess in SelectedAssets)
@@ -6861,7 +6835,7 @@ namespace AMSExplorer
                             IAssetDeliveryPolicy DelPol = null;
                             try
                             {
-                                foreach (var loc in AssetToProcess.Locators)
+                                foreach (var loc in AssetToProcess.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
                                 {
                                     loc.Delete();
                                 }
