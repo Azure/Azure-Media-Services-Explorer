@@ -241,6 +241,7 @@ namespace AMSExplorer
         public const string AMSPlayer = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url=";
 
         public const string LocatorIdPrefix = "nb:lid:UUID:";
+        public const string AssetIdPrefix = "nb:cid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
@@ -709,15 +710,19 @@ namespace AMSExplorer
                                 break;
 
                             case "ISM":
+                                /*
                                 var program = asset.GetMediaContext().Programs.ToList().Where(p => p.AssetId == asset.Id).ToArray();
                                 if (program.Count() == 1) // from a live program
                                 {
+                                */
                                     return "Live archive";
+                                /*
                                 }
                                 else
                                 {
                                     type = ext;
                                 }
+                                */
 
                                 break;
 

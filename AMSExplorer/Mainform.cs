@@ -7884,42 +7884,38 @@ namespace AMSExplorer
 
             //      Task.Run(() =>
             //   {
-
+            IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
-            IEnumerable<IAsset> assets;
-
+            int days = -1;
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
             {
                 switch (_timefilter)
                 {
                     case FilterTime.LastDay:
-                        assets = context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
+                        days = 1;
                         break;
                     case FilterTime.LastWeek:
-                        assets = context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
+                        days = 7;
                         break;
                     case FilterTime.LastMonth:
-                        assets = context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
+                        days = 30;
                         break;
                     case FilterTime.LastYear:
-                        assets = context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(365)))));
+                        days = 365;
                         break;
 
                     default:
-                        assets = context.Assets;
-
                         break;
-
                 }
-
             }
-            else assets = context.Assets;
+            assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+
 
             if (!string.IsNullOrEmpty(_searchinname))
             {
                 string searchlower = _searchinname.ToLower();
-                assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower)));
+                assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
             }
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
@@ -7985,22 +7981,25 @@ namespace AMSExplorer
             switch (_orderassets)
             {
                 case OrderAssets.LastModified:
-                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                    assets = from a in assets orderby a.LastModified descending select a;
+
                     break;
                 case OrderAssets.Name:
-                    assetquery = from a in assets orderby a.Name select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                    assets = from a in assets orderby a.Name select a;
                     break;
+
                 case OrderAssets.Size:
-                    assetquery = from a in assets orderby size(a) descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                    assets = from a in assets orderby size(a) descending select a;
                     break;
 
                 default:
-                    assetquery = from a in assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                    assets = from a in assets orderby a.LastModified descending select a;
                     break;
             }
 
             try
             {
+                assetquery = from a in assets select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
             catch (Exception e)
@@ -8008,7 +8007,6 @@ namespace AMSExplorer
                 MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + e.Message);
                 Environment.Exit(0);
             }
-
 
             BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
@@ -8442,32 +8440,31 @@ namespace AMSExplorer
 
             IEnumerable<JobEntry> jobquery;
 
+            int days = -1;
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
             {
                 switch (_timefilter)
                 {
                     case FilterTime.LastDay:
-                        jobs = context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
+                        days = 1;
                         break;
                     case FilterTime.LastWeek:
-                        jobs = context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
+                        days = 7;
                         break;
                     case FilterTime.LastMonth:
-                        jobs = context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
+                        days = 30;
                         break;
                     case FilterTime.LastYear:
-                        jobs = context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(365)))));
+                        days = 365;
                         break;
 
                     default:
-                        jobs = context.Jobs;
-
                         break;
 
                 }
 
             }
-            else jobs = context.Jobs;
+            jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
 
 
@@ -8481,7 +8478,7 @@ namespace AMSExplorer
             if (!string.IsNullOrEmpty(_searchinname))
             {
                 string searchlower = _searchinname.ToLower();
-                jobs = jobs.Where(j => (j.Name.ToLower().Contains(searchlower)));
+                jobs = jobs.Where(j => (j.Name.ToLower().Contains(searchlower) || j.Id.ToLower().Contains(searchlower)));
             }
 
 

@@ -930,39 +930,37 @@ namespace AMSExplorer
 
             IEnumerable<ProgramEntry> programquery;
 
-
+            int days = -1;
             if (_timefilter != string.Empty && _timefilter != null && _timefilter != FilterTime.All)
             {
                 switch (_timefilter)
                 {
                     case FilterTime.LastDay:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
+                        days = 1;
                         break;
                     case FilterTime.LastWeek:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
+                        days = 7;
                         break;
                     case FilterTime.LastMonth:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
+                        days = 30;
+                        break;
+                    case FilterTime.LastYear:
+                        days = 365;
                         break;
 
                     default:
-                        programs = context.Programs;
-
                         break;
 
                 }
 
             }
-
-            else
-                programs = context.Programs;
+            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
 
 
-
-            if (_searchinname != "" && _searchinname != null)
+            if (!string.IsNullOrEmpty(_searchinname ))
             {
                 string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower)));
+                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower)|| p.Id.ToLower().Contains(searchlower)));
             }
 
             if (FilterState != "All")
@@ -1333,5 +1331,5 @@ namespace AMSExplorer
         public string AccessToken { get; set; }
     }
 
-   
+
 }

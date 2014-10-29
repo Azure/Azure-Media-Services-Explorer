@@ -31,7 +31,6 @@ namespace AMSExplorer
     {
         public string ChannelName;
 
-
         public string ProgramName
         {
             get { return textboxprogramname.Text; }
@@ -72,7 +71,7 @@ namespace AMSExplorer
         {
             get
             {
-                return checkBoxAddScaleUnit.Checked;
+                return checkBoxAddScaleUnit.Visible ? checkBoxAddScaleUnit.Checked : false;
             }
         }
 
@@ -167,8 +166,6 @@ namespace AMSExplorer
                 labelManifestFile.Text = filename;
                 labelLocatorID.Text = locId;
             }
-
-
         }
     }
 }

@@ -174,6 +174,7 @@
             this.deleteOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -317,7 +318,6 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1644,6 +1644,13 @@
             this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
             this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
             // 
+            // changeTheNumberOfEncodingReservedUnitsToolStripMenuItem
+            // 
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Name = "changeTheNumberOfEncodingReservedUnitsToolStripMenuItem";
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Text = "Change the number of encoding Reserved Units...";
+            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Click += new System.EventHandler(this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2184,17 +2191,17 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(11, 419);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(84, 13);
+            this.label8.Size = new System.Drawing.Size(108, 13);
             this.label8.TabIndex = 38;
-            this.label8.Text = "Search in name:";
+            this.label8.Text = "Search in name or Id:";
             // 
             // textBoxAssetSearch
             // 
             this.textBoxAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetSearch.Location = new System.Drawing.Point(101, 416);
+            this.textBoxAssetSearch.Location = new System.Drawing.Point(125, 416);
             this.textBoxAssetSearch.Name = "textBoxAssetSearch";
-            this.textBoxAssetSearch.Size = new System.Drawing.Size(139, 20);
+            this.textBoxAssetSearch.Size = new System.Drawing.Size(115, 20);
             this.textBoxAssetSearch.TabIndex = 37;
             // 
             // dataGridViewAssetsV
@@ -2296,17 +2303,17 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(11, 419);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(84, 13);
+            this.label7.Size = new System.Drawing.Size(108, 13);
             this.label7.TabIndex = 35;
-            this.label7.Text = "Search in name:";
+            this.label7.Text = "Search in name or Id:";
             // 
             // textBoxJobSearch
             // 
             this.textBoxJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobSearch.Location = new System.Drawing.Point(101, 416);
+            this.textBoxJobSearch.Location = new System.Drawing.Point(125, 416);
             this.textBoxJobSearch.Name = "textBoxJobSearch";
-            this.textBoxJobSearch.Size = new System.Drawing.Size(139, 20);
+            this.textBoxJobSearch.Size = new System.Drawing.Size(115, 20);
             this.textBoxJobSearch.TabIndex = 34;
             // 
             // label6
@@ -2624,17 +2631,17 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(10, 178);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(84, 13);
+            this.label17.Size = new System.Drawing.Size(108, 13);
             this.label17.TabIndex = 47;
-            this.label17.Text = "Search in name:";
+            this.label17.Text = "Search in name or Id:";
             // 
             // textBoxSearchNameProgram
             // 
             this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(100, 175);
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(118, 175);
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(139, 20);
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(121, 20);
             this.textBoxSearchNameProgram.TabIndex = 46;
             // 
             // label18
@@ -3144,13 +3151,6 @@
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // changeTheNumberOfEncodingReservedUnitsToolStripMenuItem
-            // 
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Name = "changeTheNumberOfEncodingReservedUnitsToolStripMenuItem";
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Text = "Change the number of encoding Reserved Units...";
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Click += new System.EventHandler(this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click);
             // 
             // Mainform
             // 

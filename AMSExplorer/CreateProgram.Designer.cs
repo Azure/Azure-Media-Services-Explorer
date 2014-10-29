@@ -356,7 +356,7 @@
             this.label8.Size = new System.Drawing.Size(394, 32);
             this.label8.TabIndex = 67;
             this.label8.Text = "This option is useful if you created a live program in another datacenter and you" +
-    " want to create a program with the same path";
+    " want to create a program with the same URL path.";
             // 
             // label7
             // 
@@ -392,9 +392,9 @@
             this.checkBoxReplica.AutoSize = true;
             this.checkBoxReplica.Location = new System.Drawing.Point(20, 13);
             this.checkBoxReplica.Name = "checkBoxReplica";
-            this.checkBoxReplica.Size = new System.Drawing.Size(297, 17);
+            this.checkBoxReplica.Size = new System.Drawing.Size(309, 17);
             this.checkBoxReplica.TabIndex = 62;
-            this.checkBoxReplica.Text = "This program is a replica of a program in another account.";
+            this.checkBoxReplica.Text = "This program is a replica of a program in another datacenter.";
             this.checkBoxReplica.UseVisualStyleBackColor = true;
             this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
             // 
