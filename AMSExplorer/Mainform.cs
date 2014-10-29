@@ -7338,6 +7338,11 @@ namespace AMSExplorer
         {
             DoDisplayJobError();
         }
+
+        private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://sltoken.azurewebsites.net");
+        }
     }
 }
 
