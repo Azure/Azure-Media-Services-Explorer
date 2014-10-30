@@ -236,13 +236,16 @@ namespace AMSExplorer
 
             foreach (IListBlobItem b in mediaBlobs)
             {
-                CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
-                string lastModified = "";
-                ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.ToString()), 0);
-                lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
-                item.SubItems.Add(lastModified);
-                item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
-                listViewFiles.Items.Add(item);
+                if (b.GetType() == typeof(CloudBlockBlob))
+                {
+                    CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
+                    string lastModified = "";
+                    ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.ToString()), 0);
+                    lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
+                    item.SubItems.Add(lastModified);
+                    item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
+                    listViewFiles.Items.Add(item);
+                }
             }
             listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }

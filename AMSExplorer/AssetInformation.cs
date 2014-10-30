@@ -39,21 +39,6 @@ namespace AMSExplorer
 {
     public partial class AssetInformation : Form
     {
-
-        private class Item
-        {
-            public string Name;
-            public string Value;
-            public Item(string name, string value)
-            {
-                Name = name; Value = value;
-            }
-            public override string ToString()
-            {
-                // Generates the text shown in the combo box
-                return Name;
-            }
-        }
         public IAsset MyAsset;
         private string MyAssetType;
         //public string MyAssetType;
@@ -393,6 +378,7 @@ namespace AMSExplorer
             DGAsset.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGAsset.Rows.Add("Name", MyAsset.Name);
             DGAsset.Rows.Add("Type", MyAssetType);
+            DGAsset.Rows.Add("AssetType", MyAsset.AssetType);
             DGAsset.Rows.Add("Id", MyAsset.Id);
             DGAsset.Rows.Add("AlternateId", MyAsset.AlternateId);
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
@@ -420,7 +406,7 @@ namespace AMSExplorer
                 int i;
                 foreach (var se in MyStreamingEndpoints) //MyAsset.GetMediaContext().StreamingEndpoints)
                 {
-                    i=comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
+                    i = comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
                     if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
                 }
                 BuildLocatorsTree();

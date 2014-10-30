@@ -45,6 +45,9 @@ using System.Collections.ObjectModel;
 using System.Drawing.Drawing2D;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
+using System.Runtime.Serialization;
+
+
 
 namespace AMSExplorer
 {
@@ -927,39 +930,37 @@ namespace AMSExplorer
 
             IEnumerable<ProgramEntry> programquery;
 
-
+            int days = -1;
             if (_timefilter != string.Empty && _timefilter != null && _timefilter != FilterTime.All)
             {
                 switch (_timefilter)
                 {
                     case FilterTime.LastDay:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
+                        days = 1;
                         break;
                     case FilterTime.LastWeek:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
+                        days = 7;
                         break;
                     case FilterTime.LastMonth:
-                        programs = context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
+                        days = 30;
+                        break;
+                    case FilterTime.LastYear:
+                        days = 365;
                         break;
 
                     default:
-                        programs = context.Programs;
-
                         break;
 
                 }
 
             }
-
-            else
-                programs = context.Programs;
+            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
 
 
-
-            if (_searchinname != "" && _searchinname != null)
+            if (!string.IsNullOrEmpty(_searchinname ))
             {
                 string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower)));
+                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower)|| p.Id.ToLower().Contains(searchlower)));
             }
 
             if (FilterState != "All")
@@ -1291,4 +1292,44 @@ namespace AMSExplorer
             }
         }
     }
+
+
+
+
+
+
+    public static class AccessToken
+    {
+        public static string GetAccessToken(CloudMediaContext cloudMediaContext, string host)
+        {
+            using (var client = new WebClient())
+            {
+                client.BaseAddress = host;
+
+                var values
+                    = new NameValueCollection
+                        {
+                            {"grant_type", "client_credentials"},
+                            {"client_id", cloudMediaContext.Credentials.ClientId},
+                            {"client_secret", HttpUtility.HtmlEncode(cloudMediaContext.Credentials.ClientSecret)},
+                            {"scope", HttpUtility.HtmlEncode("urn:WindowsAzureMediaServices")}
+                        };
+
+                using (var stream = new MemoryStream(client.UploadValues("/v2/OAuth2-13", "POST", values)))
+                {
+                    var response = (OAuth2TokenResponse)new DataContractJsonSerializer(typeof(OAuth2TokenResponse)).ReadObject(stream);
+                    return response.AccessToken;
+                }
+            }
+        }
+    }
+
+    [DataContract]
+    internal class OAuth2TokenResponse
+    {
+        [DataMember(Name = "access_token")]
+        public string AccessToken { get; set; }
+    }
+
+
 }
