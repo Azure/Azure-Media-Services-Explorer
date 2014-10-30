@@ -63,6 +63,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _8_12_2014_13_20_04 {
+            get {
+                object obj = ResourceManager.GetObject("_8_12_2014_13_20_04", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap about {
             get {
                 object obj = ResourceManager.GetObject("about", resourceCulture);
@@ -206,6 +216,16 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Imagine {
+            get {
+                object obj = ResourceManager.GetObject("Imagine", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -516,26 +536,6 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap watch_folder {
             get {
                 object obj = ResourceManager.GetObject("watch_folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap xenio {
-            get {
-                object obj = ResourceManager.GetObject("xenio", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap xenio1 {
-            get {
-                object obj = ResourceManager.GetObject("xenio1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

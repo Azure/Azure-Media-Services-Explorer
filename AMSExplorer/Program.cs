@@ -42,6 +42,7 @@ using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml.Linq;
+using System.Runtime.ExceptionServices;
 
 
 namespace AMSExplorer
@@ -52,6 +53,7 @@ namespace AMSExplorer
         /// The main entry point for the application.
         /// </summary>
         /// 
+
 
         [STAThread]
         static void Main()
@@ -115,6 +117,38 @@ namespace AMSExplorer
             return myContext;
         }
 
+        public static string GetAPIServer(CredentialsEntry credentials)
+        {
+            if (credentials.UsePartnerAPI == true.ToString())
+            {
+                return CredentialsEntry.PartnerAPIServer;
+            }
+            else if (credentials.UseOtherAPI == true.ToString())
+            {
+                return credentials.OtherAPIServer;
+            }
+            else
+            {
+                return Constants.ProdAPIServer;
+            }
+        }
+
+        public static string GetACSBaseAddress(CredentialsEntry credentials)
+        {
+            if (credentials.UsePartnerAPI == true.ToString())
+            {
+                return CredentialsEntry.PartnerACSBaseAddress;
+            }
+            else if (credentials.UseOtherAPI == true.ToString())
+            {
+                return credentials.OtherACSBaseAddress;
+            }
+            else
+            {
+                return Constants.ProdACSBaseAddress;
+            }
+        }
+
 
         public static bool ConnectToStorage(CloudMediaContext context, CredentialsEntry credentials)
         {
@@ -169,7 +203,7 @@ namespace AMSExplorer
     {
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
-        
+
         public const string ZeniumConfig = "";
         public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
         public const string AzureMediaEncoder = "Azure Media Encoder";
@@ -205,6 +239,12 @@ namespace AMSExplorer
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
         public const string AMSPlayer = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url=";
+
+        public const string LocatorIdPrefix = "nb:lid:UUID:";
+        public const string AssetIdPrefix = "nb:cid:UUID:";
+
+        public const string ProdAPIServer = "https://media.windows.net";
+        public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
     }
 
 
@@ -627,8 +667,8 @@ namespace AMSExplorer
         public static string GetAssetType(IAsset asset)
         {
             string type = asset.AssetType.ToString();
-            int assetcount = asset.AssetFiles.Count();
-            int number = assetcount;
+            int assetfilescount = asset.AssetFiles.Count();
+            int number = assetfilescount;
 
             switch (asset.AssetType)
             {
@@ -640,20 +680,24 @@ namespace AMSExplorer
                     break;
 
                 case AssetType.MultiBitrateMP4:
-                    type = "Multi Bitrate MP4";
+                    var mp4files = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = mp4files.Count();
+                    type = number == 1 ? "Single Bitrate MP4" : "Multi Bitrate MP4";
                     break;
 
                 case AssetType.SmoothStreaming:
                     type = "Smooth Streaming";
+                    var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    number = cfffiles.Count();
                     break;
 
                 case AssetType.Unknown:
                     string ext;
                     string pr = string.Empty;
 
-                    if (assetcount == 0) return "(empty)";
+                    if (assetfilescount == 0) return "(empty)";
 
-                    if (assetcount == 1)
+                    if (assetfilescount == 1)
                     {
                         number = 1;
                         ext = Path.GetExtension(asset.AssetFiles.FirstOrDefault().Name.ToUpper());
@@ -663,6 +707,23 @@ namespace AMSExplorer
                             case "KAYAK":
                             case "XENIO":
                                 type = Type_Blueprint;
+                                break;
+
+                            case "ISM":
+                                /*
+                                var program = asset.GetMediaContext().Programs.ToList().Where(p => p.AssetId == asset.Id).ToArray();
+                                if (program.Count() == 1) // from a live program
+                                {
+                                */
+                                    return "Live archive";
+                                /*
+                                }
+                                else
+                                {
+                                    type = ext;
+                                }
+                                */
+
                                 break;
 
                             default:
@@ -685,7 +746,6 @@ namespace AMSExplorer
 
                 default:
                     break;
-
             }
             return string.Format("{0} ({1})", type, number);
         }
@@ -693,22 +753,46 @@ namespace AMSExplorer
 
         public void CreateOutlookMail()
         {
-            StringBuilder SB = GetStats();
-            // Let's create the email with Outlook
-            Outlook.Application outlookApp = new Outlook.Application();
-            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-            if (SelectedAssets.Count == 1)
+            Exception exception = null;
+            try
             {
-                string title = "Report: Asset '{0}'";
-                mailItem.Subject = string.Format(title, SelectedAssets.FirstOrDefault().Name);
+                StringBuilder SB = GetStats();
+                // Let's create the email with Outlook
+                Outlook.Application outlookApp = new Outlook.Application();
+                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+                if (SelectedAssets.Count == 1)
+                {
+                    string title = "Report: Asset '{0}'";
+                    mailItem.Subject = string.Format(title, SelectedAssets.FirstOrDefault().Name);
+                }
+                else
+                {
+                    mailItem.Subject = string.Format("Report: {0} Assets", SelectedAssets.Count());
+                }
+                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+                mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+                mailItem.Display(false);
             }
-            else
+            catch (System.Runtime.InteropServices.COMException ce)
             {
-                mailItem.Subject = string.Format("Report: {0} Assets", SelectedAssets.Count());
+                // 0x80040154 Class not registered
+                // This happen if outlook is not installed
+                if (ce.HResult == unchecked((int)0x80040154))
+                {
+                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                exception = ce;
             }
-            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-            mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-            mailItem.Display(false);
+            catch (Exception e)
+            {
+                exception = e;
+            }
+
+            if (exception != null)
+            {
+                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void CopyStatsToClipBoard()
@@ -973,6 +1057,7 @@ namespace AMSExplorer
         public Nullable<DateTime> LastModified { get; set; }
         public string Size { get; set; }
         public long SizeLong { get; set; }
+        public string Storage { get; set; }
         public Bitmap StaticEncryption { get; set; }
         public string StaticEncryptionMouseOver { get; set; }
         public Bitmap DynamicEncryption { get; set; }
@@ -1065,5 +1150,20 @@ namespace AMSExplorer
     class HostNameClass
     {
         public string HostName { get; set; }
+    }
+
+    public class Item
+    {
+        public string Name;
+        public string Value;
+        public Item(string name, string value)
+        {
+            Name = name; Value = value;
+        }
+        public override string ToString()
+        {
+            // Generates the text shown in the combo box
+            return Name;
+        }
     }
 }

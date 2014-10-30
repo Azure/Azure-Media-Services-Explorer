@@ -74,15 +74,7 @@ namespace AMSExplorer
             }
         }
 
-        public bool ForceDeliveryPolicyCreation
-        {
-            get
-            {
-                return (checkBoxForceCreateDelPol.Checked);
-            }
-        }
-
-        
+             
         public AssetDeliveryProtocol GetAssetDeliveryProtocol
         {
             get

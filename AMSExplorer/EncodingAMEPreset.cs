@@ -33,6 +33,7 @@ namespace AMSExplorer
     public partial class EncodingAMEPreset : Form
     {
         private List<IMediaProcessor> Procs;
+        private CloudMediaContext _context;
 
         public List<IMediaProcessor> EncodingProcessorsList
         {
@@ -42,6 +43,14 @@ namespace AMSExplorer
                     comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2} ({3})", pr.Vendor, pr.Name, pr.Version, pr.Description));
                 comboBoxProcessor.SelectedIndex = 0;
                 Procs = value;
+            }
+        }
+
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
             }
         }
 
@@ -117,9 +126,10 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEPreset()
+        public EncodingAMEPreset(CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -153,6 +163,12 @@ namespace AMSExplorer
 
             listbox.SelectedItem = listbox.Items.Cast<string>()
                 .SingleOrDefault(i => i == MediaEncoderTaskPresetStrings.H264AdaptiveBitrateMP4Set720p);
+
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
         }
     }
 }

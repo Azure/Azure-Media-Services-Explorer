@@ -41,7 +41,7 @@ namespace AMSExplorer
         private bool bVisualOverlay = false; // indicate if visual overlay has been checked or not
         private bool bAudioOverlay = false; // indicate if audio overlay has been checked or not
 
-
+        private CloudMediaContext _context;
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private bool bMultiAssetMode = true;
@@ -67,6 +67,14 @@ namespace AMSExplorer
             set
             {
                 textBoxJobName.Text = value;
+            }
+        }
+
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
             }
         }
 
@@ -125,9 +133,11 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEAdv()
+        public EncodingAMEAdv(CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -678,7 +688,11 @@ namespace AMSExplorer
 
         private void EncodingCustom_Load(object sender, EventArgs e)
         {
-
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
         }
 
         private void textBoxNamingConvention_TextChanged(object sender, EventArgs e)

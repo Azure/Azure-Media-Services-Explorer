@@ -91,9 +91,16 @@ namespace AMSExplorer
         }
 
 
-        public CreateLocator()
+        public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
+            if (extendlocator) // dialog box used to extend locator expiration date
+            {
+                buttonOk.Text = "Update locator(s)";
+                this.Text = "Update locators";
+                radioButtonSAS.Enabled = false; // only streaming locator can be updated
+                groupBox2.Enabled = false; // do not propose to specificy start date
+            }
         }
 
 

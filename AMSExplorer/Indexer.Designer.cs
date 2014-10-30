@@ -49,6 +49,8 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.buttonOk = new System.Windows.Forms.Button();
             this.labelWarning = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.SuspendLayout();
@@ -69,7 +71,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxoutputassetname.Location = new System.Drawing.Point(15, 400);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(522, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(313, 20);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // processorlabel
@@ -149,7 +151,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxJobName.Location = new System.Drawing.Point(15, 352);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(414, 20);
+            this.textBoxJobName.Size = new System.Drawing.Size(313, 20);
             this.textBoxJobName.TabIndex = 54;
             // 
             // label5
@@ -204,7 +206,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(435, 355);
+            this.label7.Location = new System.Drawing.Point(346, 336);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 61;
@@ -213,7 +215,7 @@
             // numericUpDownPriority
             // 
             this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(479, 352);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(347, 353);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownPriority.TabIndex = 60;
@@ -252,12 +254,34 @@
             this.labelWarning.TabIndex = 62;
             this.labelWarning.Text = "Warning";
             // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(346, 384);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 64;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(347, 400);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(190, 21);
+            this.comboBoxStorage.TabIndex = 63;
+            // 
             // Indexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDownPriority);
@@ -305,5 +329,7 @@
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }

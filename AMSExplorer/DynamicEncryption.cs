@@ -152,7 +152,7 @@ namespace AMSExplorer
             Requirements = null
         }
     };
-      
+
             IContentKeyAuthorizationPolicyOption policyOption =
                 _context.ContentKeyAuthorizationPolicyOptions.Create(
                 "policy",
@@ -173,7 +173,7 @@ namespace AMSExplorer
             return contentKeyAuthorizationPolicy;
         }
 
-        
+
 
 
         public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
