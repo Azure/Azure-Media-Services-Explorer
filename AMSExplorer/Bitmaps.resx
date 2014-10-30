@@ -121,9 +121,6 @@
   <data name="modetaskjob11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modetaskjob1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="xenio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\xenio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="DRM_protection" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\DRM_protection.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -132,9 +129,6 @@
   </data>
   <data name="SAS_locator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\SAS_locator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="xenio1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\xenio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="modeltaskxenio1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modeltaskxenio1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -264,5 +258,8 @@
   </data>
   <data name="_8_12_2014_13_20_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\8-12-2014-13-20-04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Imagine" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\Imagine.PNG;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

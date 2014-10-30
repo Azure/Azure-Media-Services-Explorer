@@ -4478,7 +4478,7 @@ namespace AMSExplorer
 
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            bool CanBePlay = IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator);
+            bool CanBePlay = IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator);
             withFlashOSMFToolStripMenuItem.Enabled = CanBePlay;
             withSilverlightMMPPFToolStripMenuItem.Enabled = CanBePlay;
             withMPEGDASHAzurePlayerToolStripMenuItem.Enabled = CanBePlay;
@@ -6424,13 +6424,12 @@ namespace AMSExplorer
         }
 
 
-        private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copyIngestURLToClipboard_Click(object sender, EventArgs e)
         {
-
             System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri);
         }
 
-        private void copyPreviewURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri);
         }
@@ -6502,12 +6501,12 @@ namespace AMSExplorer
             DoCreateChannel();
         }
 
-        private void withFlashOSMFAzurePlayerToolStripMenuItem_Click_2(object sender, EventArgs e)
+        private void PlaybackPreviewWithFlashOSMFAzurePlayer_Click(object sender, EventArgs e)
         {
             DoPlaybackChannelPreview(PlayerType.FlashAzurePage);
         }
 
-        private void withSilverlightMontoringPlayerToolStripMenuItem_Click_2(object sender, EventArgs e)
+        private void PlaybackPreviewWithSilverlightMonitoringPlayer_Click(object sender, EventArgs e)
         {
             DoPlaybackChannelPreview(PlayerType.SilverlightMonitoring);
         }
@@ -7342,6 +7341,16 @@ namespace AMSExplorer
         private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://sltoken.azurewebsites.net");
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://manage.windowsazure.com");
         }
     }
 }

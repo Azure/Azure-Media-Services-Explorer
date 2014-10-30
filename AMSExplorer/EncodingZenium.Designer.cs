@@ -229,10 +229,10 @@
             // pictureBoxXenio
             // 
             this.pictureBoxXenio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxXenio.Image = global::AMSExplorer.Bitmaps.xenio;
-            this.pictureBoxXenio.Location = new System.Drawing.Point(582, 23);
+            this.pictureBoxXenio.Image = global::AMSExplorer.Bitmaps.Imagine;
+            this.pictureBoxXenio.Location = new System.Drawing.Point(537, 23);
             this.pictureBoxXenio.Name = "pictureBoxXenio";
-            this.pictureBoxXenio.Size = new System.Drawing.Size(188, 124);
+            this.pictureBoxXenio.Size = new System.Drawing.Size(233, 80);
             this.pictureBoxXenio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBoxXenio.TabIndex = 42;
             this.pictureBoxXenio.TabStop = false;

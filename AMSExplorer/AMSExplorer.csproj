@@ -459,6 +459,7 @@
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="BitmapsPNG\8-12-2014-13-20-04.png" />
+    <Content Include="BitmapsPNG\Imagine.PNG" />
     <Content Include="BitmapsPNG\media2.ico" />
     <Content Include="BitmapsPNG\media2.png" />
     <None Include="BitmapsPNG\MediaNew.png" />
@@ -467,7 +468,6 @@
     <Content Include="BitmapsPNG\modetaskjob1.png" />
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
-    <Content Include="BitmapsPNG\xenio.png" />
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

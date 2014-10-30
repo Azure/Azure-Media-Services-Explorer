@@ -223,6 +223,16 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Imagine {
+            get {
+                object obj = ResourceManager.GetObject("Imagine", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap import {
             get {
                 object obj = ResourceManager.GetObject("import", resourceCulture);
@@ -526,26 +536,6 @@ namespace AMSExplorer {
         internal static System.Drawing.Bitmap watch_folder {
             get {
                 object obj = ResourceManager.GetObject("watch_folder", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap xenio {
-            get {
-                object obj = ResourceManager.GetObject("xenio", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap xenio1 {
-            get {
-                object obj = ResourceManager.GetObject("xenio1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
