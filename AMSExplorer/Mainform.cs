@@ -5997,7 +5997,7 @@ namespace AMSExplorer
             if (SelectedAssets.FirstOrDefault() == null) return;
 
             string taskname = "Thumbnails generation of " + Constants.NameconvInputasset;
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.WindowsAzureMediaEncoder);
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
 
             Thumbnails form = new Thumbnails(_context)
             {
