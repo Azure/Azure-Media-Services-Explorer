@@ -7352,6 +7352,11 @@ namespace AMSExplorer
         {
             Process.Start(@"https://manage.windowsazure.com");
         }
+
+        private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@" http://dashplayer.azurewebsites.net");
+        }
     }
 }
 

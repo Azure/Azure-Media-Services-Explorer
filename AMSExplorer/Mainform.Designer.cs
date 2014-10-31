@@ -172,6 +172,7 @@
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyTheOutputURLToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOriginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -329,7 +330,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.copyTheOutputURLToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dASHLivePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1651,6 +1652,13 @@
             this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)";
             this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
             // 
+            // copyTheOutputURLToClipboardToolStripMenuItem1
+            // 
+            this.copyTheOutputURLToClipboardToolStripMenuItem1.Name = "copyTheOutputURLToClipboardToolStripMenuItem1";
+            this.copyTheOutputURLToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
+            this.copyTheOutputURLToClipboardToolStripMenuItem1.Text = "Copy the output URL to clipboard";
+            this.copyTheOutputURLToClipboardToolStripMenuItem1.Click += new System.EventHandler(this.copyTheOutputURLToClipboardToolStripMenuItem_Click);
+            // 
             // originToolStripMenuItem
             // 
             this.originToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1773,6 +1781,7 @@
             this.silverlightMonitoringPlayerToolStripMenuItem,
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem,
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem,
+            this.dASHLivePlayerToolStripMenuItem,
             this.hTML5VideoElementToolStripMenuItem,
             this.iVXHLSPlayerToolStripMenuItem,
             this.oSMFToolStripMenuItem,
@@ -3287,12 +3296,13 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // copyTheOutputURLToClipboardToolStripMenuItem1
+            // dASHLivePlayerToolStripMenuItem
             // 
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Name = "copyTheOutputURLToClipboardToolStripMenuItem1";
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Text = "Copy the output URL to clipboard";
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Click += new System.EventHandler(this.copyTheOutputURLToClipboardToolStripMenuItem_Click);
+            this.dASHLivePlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.dASHLivePlayerToolStripMenuItem.Name = "dASHLivePlayerToolStripMenuItem";
+            this.dASHLivePlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.dASHLivePlayerToolStripMenuItem.Text = "DASH Live Player";
+            this.dASHLivePlayerToolStripMenuItem.Click += new System.EventHandler(this.dASHLivePlayerToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -3659,6 +3669,7 @@
         private System.Windows.Forms.ToolStripMenuItem withFlashOSMFAzurePlayerToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem withSilverlightMonitoringPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyTheOutputURLToClipboardToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem dASHLivePlayerToolStripMenuItem;
     }
 }
 
