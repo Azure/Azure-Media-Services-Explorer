@@ -40,6 +40,8 @@
             this.buttonFolderSelAll = new System.Windows.Forms.Button();
             this.buttonFileDeselAll = new System.Windows.Forms.Button();
             this.buttonFileSelAll = new System.Windows.Forms.Button();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -52,7 +54,7 @@
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonNext.Image = global::AMSExplorer.Bitmaps.upload;
             this.buttonNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonNext.Location = new System.Drawing.Point(398, 326);
+            this.buttonNext.Location = new System.Drawing.Point(398, 415);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(124, 23);
             this.buttonNext.TabIndex = 0;
@@ -63,7 +65,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(317, 326);
+            this.buttonCancel.Location = new System.Drawing.Point(317, 415);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -79,7 +81,7 @@
             this.checkedListBoxFiles.FormattingEnabled = true;
             this.checkedListBoxFiles.Location = new System.Drawing.Point(6, 23);
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
-            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 94);
+            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 124);
             this.checkedListBoxFiles.TabIndex = 2;
             // 
             // checkedListBoxFolders
@@ -136,14 +138,14 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(520, 313);
-            this.splitContainer1.SplitterDistance = 160;
+            this.splitContainer1.Size = new System.Drawing.Size(520, 354);
+            this.splitContainer1.SplitterDistance = 163;
             this.splitContainer1.TabIndex = 6;
             // 
             // buttonFolderDeselAll
             // 
             this.buttonFolderDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 131);
+            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 128);
             this.buttonFolderDeselAll.Name = "buttonFolderDeselAll";
             this.buttonFolderDeselAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderDeselAll.TabIndex = 6;
@@ -154,7 +156,7 @@
             // buttonFolderSelAll
             // 
             this.buttonFolderSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 131);
+            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 128);
             this.buttonFolderSelAll.Name = "buttonFolderSelAll";
             this.buttonFolderSelAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderSelAll.TabIndex = 5;
@@ -165,7 +167,7 @@
             // buttonFileDeselAll
             // 
             this.buttonFileDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileDeselAll.Location = new System.Drawing.Point(87, 123);
+            this.buttonFileDeselAll.Location = new System.Drawing.Point(87, 152);
             this.buttonFileDeselAll.Name = "buttonFileDeselAll";
             this.buttonFileDeselAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFileDeselAll.TabIndex = 8;
@@ -176,7 +178,7 @@
             // buttonFileSelAll
             // 
             this.buttonFileSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileSelAll.Location = new System.Drawing.Point(6, 123);
+            this.buttonFileSelAll.Location = new System.Drawing.Point(6, 152);
             this.buttonFileSelAll.Name = "buttonFileSelAll";
             this.buttonFileSelAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFileSelAll.TabIndex = 7;
@@ -184,17 +186,39 @@
             this.buttonFileSelAll.UseVisualStyleBackColor = true;
             this.buttonFileSelAll.Click += new System.EventHandler(this.buttonFileSelAll_Click);
             // 
-            // BathUploadFrame2
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(15, 373);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 55;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(18, 389);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 54;
+            // 
+            // BatchUploadFrame2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(544, 361);
+            this.ClientSize = new System.Drawing.Size(544, 450);
+            this.Controls.Add(this.label33);
+            this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonNext);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "BathUploadFrame2";
+            this.Name = "BatchUploadFrame2";
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame2_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -204,6 +228,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -220,5 +245,7 @@
         private System.Windows.Forms.Button buttonFolderSelAll;
         private System.Windows.Forms.Button buttonFileDeselAll;
         private System.Windows.Forms.Button buttonFileSelAll;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }

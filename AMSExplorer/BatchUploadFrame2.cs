@@ -25,6 +25,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.WindowsAzure.MediaServices.Client;
+
 
 namespace AMSExplorer
 {
@@ -33,6 +35,7 @@ namespace AMSExplorer
         private List<string> folders;
         private List<string> files;
         private bool ErrorConnect = false;
+        private CloudMediaContext _context; 
 
         public List<string> BatchSelectedFolders
         {
@@ -60,9 +63,18 @@ namespace AMSExplorer
             }
         }
 
-        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders)
+        public string StorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorage.SelectedItem).Value;
+            }
+        }
+
+        public BatchUploadFrame2(string BatchFolderPath, bool BatchProcessFiles, bool BatchProcessSubFolders, CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
 
             folders = Directory.GetDirectories(BatchFolderPath).ToList();
             files = Directory.GetFiles(BatchFolderPath).ToList();
@@ -103,6 +115,11 @@ namespace AMSExplorer
             if (ErrorConnect)
             {
                 this.Close();
+            }
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
 
