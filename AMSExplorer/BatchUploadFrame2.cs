@@ -35,7 +35,7 @@ namespace AMSExplorer
         private List<string> folders;
         private List<string> files;
         private bool ErrorConnect = false;
-        private CloudMediaContext _context; 
+        private CloudMediaContext _context;
 
         public List<string> BatchSelectedFolders
         {
