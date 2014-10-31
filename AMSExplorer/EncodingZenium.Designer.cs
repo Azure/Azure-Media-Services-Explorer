@@ -122,7 +122,7 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(579, 150);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(534, 106);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.Size = new System.Drawing.Size(107, 13);
             this.moreinfoprofilelink.TabIndex = 7;
