@@ -68,9 +68,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(28, 27);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(150, 13);
+            this.label1.Size = new System.Drawing.Size(202, 13);
             this.label1.TabIndex = 38;
-            this.label1.Text = "Enter the HTTP URL Source :";
+            this.label1.Text = "Enter the HTTP, HTTPS or FTP Source :";
             // 
             // textBoxURL
             // 
@@ -170,7 +170,7 @@
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImportHttp";
-            this.Text = "Import from Http";
+            this.Text = "Import from HTTP/HTTPS/FTP";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

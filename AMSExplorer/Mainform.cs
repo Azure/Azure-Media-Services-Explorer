@@ -366,10 +366,12 @@ namespace AMSExplorer
         }
 
 
-        private void ProcessUploadFromFolder(object folderPath, int index)
+        private void ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             var filePaths = Directory.EnumerateFiles(folderPath as string);
 
@@ -390,6 +392,7 @@ namespace AMSExplorer
             {
                 asset = _context.Assets.CreateFromFolder(
                                                                folderPath as string,
+                                                               storageaccount,
                                                                Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                                (af, p) =>
                                                                {
@@ -841,10 +844,12 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFile(object name, int index, bool bdeletefile)
+        private void ProcessUploadFile(object name, int index, bool bdeletefile, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             TextBoxLogWriteLine("Starting upload of file '{0}'", name);
             bool Error = false;
@@ -853,6 +858,7 @@ namespace AMSExplorer
             {
                 asset = _context.Assets.CreateFromFile(
                                                       name as string,
+                                                      storageaccount,
                                                       Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                       (af, p) =>
                                                       {
@@ -6465,19 +6471,19 @@ namespace AMSExplorer
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders);
+                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context);
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
                     int index;
                     foreach (string folder in form2.BatchSelectedFolders)
                     {
                         index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index));
+                        Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected));
                     }
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false));
+                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, form2.StorageSelected));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
@@ -7327,7 +7333,7 @@ namespace AMSExplorer
                                 sb.AppendLine(details.Message);
                             }
                         }
-                        MessageBox.Show(sb.ToString(),"Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(sb.ToString(), "Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
