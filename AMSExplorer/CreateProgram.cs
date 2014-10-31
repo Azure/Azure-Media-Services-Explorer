@@ -24,12 +24,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
     public partial class CreateProgram : Form
     {
         public string ChannelName;
+        private CloudMediaContext _context;
 
         public string ProgramName
         {
@@ -107,10 +109,15 @@ namespace AMSExplorer
             set { checkBoxCreateLocator.Checked = value; }
         }
 
+        public string StorageSelected
+        {
+            get { return ((Item)comboBoxStorage.SelectedItem).Value; }
+        }
 
-        public CreateProgram()
+        public CreateProgram(CloudMediaContext context)
         {
             InitializeComponent();
+            _context = context;
         }
 
         private void CreateLocator_Load(object sender, EventArgs e)
@@ -120,6 +127,12 @@ namespace AMSExplorer
             labelManifestFile.Text = string.Empty;
             labelLocatorID.Text = string.Empty;
             labelURLFileNameWarning.Text = string.Empty;
+
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
         }
 
         private void checkBoxReplica_CheckedChanged(object sender, EventArgs e)

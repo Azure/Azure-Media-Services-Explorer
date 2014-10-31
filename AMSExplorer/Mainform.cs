@@ -5802,16 +5802,9 @@ namespace AMSExplorer
         }
 
 
-        private IAsset CreateLiveAsset(string strName, bool createlocator)
+        private IAsset CreateLiveAssetWithOptionalpecifiedLocatorID(string assetName, string storageaccount, bool createlocator, string LocatorID = null)
         {
-            var myA = _context.Assets.Create(strName, AssetCreationOptions.None); // Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
-            if (createlocator) CreateOriginLocator(myA);
-            return myA;
-        }
-
-        private IAsset CreateLiveAssetWithSpecifiedLocatorID(string assetName, string LocatorID)
-        {
-            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+            IAsset newAsset = _context.Assets.Create(assetName, storageaccount, AssetCreationOptions.None);
 
             // let's use the same expiration date than previous locator
             IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
@@ -5820,7 +5813,20 @@ namespace AMSExplorer
             try
             {
                 TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
-                _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                if (createlocator)
+                {
+                    if (LocatorID != null)
+                    {
+                        _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+
+                    }
+                    else
+                    {
+                        _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, newAsset, policy, null);
+
+                    }
+                }
+
             }
             catch (Exception ex)
             {
@@ -5830,22 +5836,15 @@ namespace AMSExplorer
                 Error = true;
             }
             return Error ? null : newAsset;
-
         }
 
-        public void CreateOriginLocator(IAsset outputAsset)
-        {
-            IAccessPolicy policy =
-                _context.AccessPolicies.Create("AP:" + outputAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
-            _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, outputAsset, policy, DateTime.UtcNow.AddMinutes(-5));
-        }
 
         private async void DoCreateProgram()
         {
             IChannel channel = ReturnSelectedChannels().FirstOrDefault();
             if (channel != null)
             {
-                CreateProgram form = new CreateProgram()
+                CreateProgram form = new CreateProgram(_context)
                     {
                         ChannelName = channel.Name,
                         archiveWindowLength = new TimeSpan(4, 0, 0),
@@ -5865,11 +5864,11 @@ namespace AMSExplorer
                     IAsset NewAsset;
                     if (form.IsReplica)
                     {
-                        NewAsset = CreateLiveAssetWithSpecifiedLocatorID(assetname, form.ReplicaLocatorID);
+                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, true, form.ReplicaLocatorID);
                     }
                     else
                     {
-                        NewAsset = CreateLiveAsset(assetname, form.CreateLocator);
+                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, form.CreateLocator);
                     }
 
                     if (NewAsset != null)
@@ -7116,9 +7115,10 @@ namespace AMSExplorer
                     foreach (IProgram myP in SelectedPrograms)
                     {
                         IAsset asset = myP.Asset;
-                        string assetName = asset.Name;
-                        string programName = myP.Name;
-                        string programDesc = myP.Description;
+                        string assetName = asset.Name; // backup the asset name
+                        string assetstorageaccount = asset.StorageAccountName; // backup the storage account name
+                        string programName = myP.Name; // backup program name
+                        string programDesc = myP.Description; // backup program description
                         TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
                         var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
                         IChannel myChannel = myP.Channel;
@@ -7167,7 +7167,7 @@ namespace AMSExplorer
                                 }
                             }
 
-                            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
+                            IAsset newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
                             // let's use the same expiration date than previous locator
                             IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
 
@@ -7200,7 +7200,6 @@ namespace AMSExplorer
                     DoRefreshGridProgramV(false);
                     DoRefreshGridAssetV(false);
                 }
-
             }
         }
 

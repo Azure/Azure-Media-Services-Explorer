@@ -60,6 +60,8 @@
             this.textBoxProgramSourceURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxReplica = new System.Windows.Forms.CheckBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -93,7 +95,7 @@
             // 
             this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(18, 42);
+            this.textBoxAssetName.Location = new System.Drawing.Point(18, 93);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.Size = new System.Drawing.Size(386, 20);
             this.textBoxAssetName.TabIndex = 6;
@@ -101,7 +103,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 26);
+            this.label4.Location = new System.Drawing.Point(15, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 48;
@@ -110,7 +112,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(180, 83);
+            this.label9.Location = new System.Drawing.Point(180, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 60;
@@ -118,7 +120,7 @@
             // 
             // numericUpDownArchiveDays
             // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(183, 99);
+            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(183, 39);
             this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -131,7 +133,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 99);
+            this.label2.Location = new System.Drawing.Point(50, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 0;
@@ -218,6 +220,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label33);
+            this.tabPage1.Controls.Add(this.comboBoxStorage);
             this.tabPage1.Controls.Add(this.textBoxAssetName);
             this.tabPage1.Controls.Add(this.numericUpDownArchiveMinutes);
             this.tabPage1.Controls.Add(this.label11);
@@ -238,7 +242,7 @@
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(289, 99);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(289, 39);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -251,7 +255,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(286, 83);
+            this.label11.Location = new System.Drawing.Point(286, 23);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(44, 13);
             this.label11.TabIndex = 63;
@@ -260,7 +264,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 96);
+            this.pictureBox1.Location = new System.Drawing.Point(18, 36);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -270,7 +274,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(233, 83);
+            this.label10.Location = new System.Drawing.Point(233, 23);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 61;
@@ -278,7 +282,7 @@
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(236, 99);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(236, 39);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
             23,
             0,
@@ -398,6 +402,26 @@
             this.checkBoxReplica.UseVisualStyleBackColor = true;
             this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
             // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(15, 128);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(18, 144);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 64;
+            // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -465,5 +489,7 @@
         private System.Windows.Forms.Label labelLocatorID;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label labelURLFileNameWarning;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
     }
 }
