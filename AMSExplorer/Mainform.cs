@@ -1392,7 +1392,6 @@ namespace AMSExplorer
         public DialogResult DisplayInfo(IAsset asset)
         {
 
-
             AssetInformation form = new AssetInformation()
                 {
                     MyAsset = asset,
@@ -5966,7 +5965,8 @@ namespace AMSExplorer
                 ProgramInformation form = new ProgramInformation()
                 {
                     MyProgram = program,
-                    MyContext = _context
+                    MyContext = _context,
+                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
                 };
 
 
