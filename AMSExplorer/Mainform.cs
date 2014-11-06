@@ -643,6 +643,18 @@ namespace AMSExplorer
             var ismAssetFiles = asset.AssetFiles.ToList().
                 Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
+            // if (ismAssetFiles.Count() != 1)
+            //     return;
+
+            ismAssetFiles.First().IsPrimary = true;
+            ismAssetFiles.First().Update();
+        }
+
+        static void SetISMFileAsPrimary(IAsset asset, string assetfilename)
+        {
+            var ismAssetFiles = asset.AssetFiles.ToList().
+                Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
+
             if (ismAssetFiles.Count() != 1)
                 return;
 
@@ -1243,6 +1255,9 @@ namespace AMSExplorer
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, NewAsset, writePolicy);
                 Uri uploadUri = new Uri(destinationLocator.Path);
 
+                // let's backup the primary file from the first asset to set it to the merged asset
+                var ismAssetFile = MyAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
+
                 foreach (IAsset MyAsset in MyAssets)
                 {
                     if (MyAsset.StorageAccountName == _context.DefaultStorageAccount.Name) // asset is in default storage
@@ -1300,8 +1315,8 @@ namespace AMSExplorer
                                     destinationBlob.FetchAttributes();
                                     AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
                                     AssetFileTarget.Update();
-
-                                    MyAsset.Update();
+                                    TextBoxLogWriteLine("     File '{0}' copied as '{1}'...", MyAssetFile.Name, AssetFileTarget.Name);
+                                    //MyAsset.Update();
                                 }
                             }
                         }
@@ -1316,7 +1331,15 @@ namespace AMSExplorer
                 destinationLocator.Delete();
                 readPolicy.Delete();
                 writePolicy.Delete();
-                SetISMFileAsPrimary(NewAsset);
+                if (ismAssetFile.Count() > 0)
+                {
+                    SetISMFileAsPrimary(NewAsset, ismAssetFile.FirstOrDefault().Name);
+                }
+                else
+                {
+                    SetISMFileAsPrimary(NewAsset);
+                }
+
             }
             catch
             {
@@ -6763,7 +6786,7 @@ namespace AMSExplorer
                                         Error = true;
                                     }
                                     if (Error) break;
-                                  
+
 
                                     // Let's create the Asset Delivery Policy now
                                     IAssetDeliveryPolicy DelPol = null;
@@ -6772,7 +6795,7 @@ namespace AMSExplorer
                                     {
                                         if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
                                         {
-                                            if (form.GetKeyRestrictionType!=null) // Licenses delivered by Azure Media Services
+                                            if (form.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
                                             {
                                                 DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                             }
@@ -6780,7 +6803,7 @@ namespace AMSExplorer
                                             {
                                                 DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context, new Uri(formPlayReadyExternalServer.PlayReadyLAurl));
                                             }
-                                            
+
                                         }
                                         else  // Envelope encryption or no encryption
                                         {
