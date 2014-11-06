@@ -33,11 +33,9 @@ namespace AMSExplorer
 {
     public partial class PlayReadyExternalServer : Form
     {
-
-        private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx";
+        private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
         private bool multiassets;
-
 
         public string PlayReadyKeySeed
         {
@@ -84,9 +82,6 @@ namespace AMSExplorer
             }
         }
 
-
-
-
         public PlayReadyExternalServer(bool Multiassets)
         {
             InitializeComponent();
@@ -105,11 +100,10 @@ namespace AMSExplorer
         {
             textBoxLAurl.Text = _PlayReadyTestLAURL;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
-            textBoxkeyid.Text = Guid.NewGuid().ToString();
+            if (multiassets) textBoxkeyid.Text = Guid.NewGuid().ToString();
 
             textBoxcontentkey.Text = string.Empty;
         }
-
 
         private void buttonGenKeyID_Click_1(object sender, EventArgs e)
         {
@@ -132,8 +126,6 @@ namespace AMSExplorer
             textBoxkeyseed.Text = string.Empty;
         }
 
-
-
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             bool validation = false;
@@ -142,14 +134,6 @@ namespace AMSExplorer
                 validation = true;
             }
             buttonOk.Enabled = validation;
-        }
-
-
-
-
-        private void buttonOk_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

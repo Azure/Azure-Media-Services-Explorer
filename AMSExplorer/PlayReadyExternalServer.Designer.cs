@@ -65,7 +65,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(267, 488);
+            this.buttonCancel.Location = new System.Drawing.Point(267, 396);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(208, 32);
             this.buttonCancel.TabIndex = 16;
@@ -93,6 +93,8 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(23, 95);
@@ -123,6 +125,8 @@
             // 
             // textBoxLAurl
             // 
+            this.textBoxLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxLAurl.Location = new System.Drawing.Point(24, 82);
             this.textBoxLAurl.Name = "textBoxLAurl";
             this.textBoxLAurl.Size = new System.Drawing.Size(414, 20);
@@ -130,6 +134,7 @@
             // 
             // buttongenerateContentKey
             // 
+            this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttongenerateContentKey.Location = new System.Drawing.Point(355, 187);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
             this.buttongenerateContentKey.Size = new System.Drawing.Size(83, 25);
@@ -158,6 +163,8 @@
             // 
             // textBoxkeyseed
             // 
+            this.textBoxkeyseed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxkeyseed.Location = new System.Drawing.Point(24, 136);
             this.textBoxkeyseed.Name = "textBoxkeyseed";
             this.textBoxkeyseed.Size = new System.Drawing.Size(414, 20);
@@ -166,6 +173,7 @@
             // 
             // buttonGenKeyID
             // 
+            this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGenKeyID.Location = new System.Drawing.Point(355, 25);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
             this.buttonGenKeyID.Size = new System.Drawing.Size(83, 25);
@@ -176,6 +184,8 @@
             // 
             // textBoxkeyid
             // 
+            this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxkeyid.Location = new System.Drawing.Point(24, 28);
             this.textBoxkeyid.Name = "textBoxkeyid";
             this.textBoxkeyid.Size = new System.Drawing.Size(325, 20);
@@ -184,6 +194,8 @@
             // 
             // textBoxcontentkey
             // 
+            this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxcontentkey.Location = new System.Drawing.Point(24, 190);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
             this.textBoxcontentkey.Size = new System.Drawing.Size(325, 20);
@@ -223,21 +235,20 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(38, 488);
+            this.buttonOk.Location = new System.Drawing.Point(38, 396);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(208, 32);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // PlayReadyExternalServer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(517, 532);
+            this.ClientSize = new System.Drawing.Size(517, 454);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonPlayReadyTestSettings);
             this.Controls.Add(this.label);
