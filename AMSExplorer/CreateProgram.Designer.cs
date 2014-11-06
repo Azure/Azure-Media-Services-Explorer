@@ -45,6 +45,8 @@
             this.checkBoxAddScaleUnit = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -60,8 +62,7 @@
             this.textBoxProgramSourceURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxReplica = new System.Windows.Forms.CheckBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -74,7 +75,7 @@
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(121, 471);
+            this.buttonOk.Location = new System.Drawing.Point(121, 487);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(113, 32);
             this.buttonOk.TabIndex = 10;
@@ -84,7 +85,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(255, 471);
+            this.buttonCancel.Location = new System.Drawing.Point(255, 487);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(113, 32);
             this.buttonCancel.TabIndex = 11;
@@ -180,9 +181,9 @@
             this.checkBoxCreateLocator.AutoSize = true;
             this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 428);
             this.checkBoxCreateLocator.Name = "checkBoxCreateLocator";
-            this.checkBoxCreateLocator.Size = new System.Drawing.Size(292, 17);
+            this.checkBoxCreateLocator.Size = new System.Drawing.Size(335, 17);
             this.checkBoxCreateLocator.TabIndex = 9;
-            this.checkBoxCreateLocator.Text = "Publish this asset now (default locator duration: {0} days)";
+            this.checkBoxCreateLocator.Text = "Publish this program/asset now (default locator duration: {0} days)";
             this.checkBoxCreateLocator.UseVisualStyleBackColor = true;
             // 
             // label5
@@ -239,6 +240,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(15, 128);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(18, 144);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 64;
             // 
             // numericUpDownArchiveMinutes
             // 
@@ -359,8 +380,8 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(394, 32);
             this.label8.TabIndex = 67;
-            this.label8.Text = "This option is useful if you created a live program in another datacenter and you" +
-    " want to create a program with the same URL path.";
+            this.label8.Text = "This option is useful if you created a live program in another datacenter and wan" +
+    "t to create a program with the same URL path.";
             // 
             // label7
             // 
@@ -402,32 +423,23 @@
             this.checkBoxReplica.UseVisualStyleBackColor = true;
             this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
             // 
-            // label33
+            // label13
             // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(15, 128);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 65;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(18, 144);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
-            this.comboBoxStorage.TabIndex = 64;
+            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label13.Location = new System.Drawing.Point(49, 448);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(366, 31);
+            this.label13.TabIndex = 52;
+            this.label13.Text = "Do not publish the program now if you want to apply Dynamic Encryption.\r\nDo it on" +
+    "ce Dynamic Encryption has been configured.";
             // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 524);
+            this.ClientSize = new System.Drawing.Size(490, 535);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBoxAddScaleUnit);
             this.Controls.Add(this.label5);
@@ -491,5 +503,6 @@
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.Label label13;
     }
 }
