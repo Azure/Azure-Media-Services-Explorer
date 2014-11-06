@@ -43,13 +43,14 @@
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolHLS = new System.Windows.Forms.CheckBox();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
+            this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panelAutPol = new System.Windows.Forms.Panel();
             this.textBoxIssuer = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxAudience = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioButtonToken = new System.Windows.Forms.RadioButton();
-            this.radioButtonOpen = new System.Windows.Forms.RadioButton();
+            this.radioButtonTokenAuthPolicy = new System.Windows.Forms.RadioButton();
+            this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -63,7 +64,7 @@
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(133, 485);
+            this.buttonOk.Location = new System.Drawing.Point(133, 509);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(161, 32);
             this.buttonOk.TabIndex = 17;
@@ -74,7 +75,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(315, 485);
+            this.buttonCancel.Location = new System.Drawing.Point(315, 509);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(161, 32);
             this.buttonCancel.TabIndex = 16;
@@ -103,6 +104,7 @@
             this.radioButtonCENCKey.TabIndex = 46;
             this.radioButtonCENCKey.Text = "Common encryption (PlayReady...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
+            this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
             // 
             // groupBoxKeyType
             // 
@@ -169,7 +171,7 @@
             this.groupBox1.Controls.Add(this.checkBoxProtocolSmooth);
             this.groupBox1.Controls.Add(this.checkBoxProtocolDASH);
             this.groupBox1.Controls.Add(this.checkBoxProtocolHLS);
-            this.groupBox1.Location = new System.Drawing.Point(12, 349);
+            this.groupBox1.Location = new System.Drawing.Point(12, 379);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(560, 108);
             this.groupBox1.TabIndex = 47;
@@ -216,15 +218,27 @@
             // 
             this.groupBoxAuthPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxAuthPol.Controls.Add(this.radioButtonNoAuthPolicy);
             this.groupBoxAuthPol.Controls.Add(this.panelAutPol);
-            this.groupBoxAuthPol.Controls.Add(this.radioButtonToken);
-            this.groupBoxAuthPol.Controls.Add(this.radioButtonOpen);
-            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 180);
+            this.groupBoxAuthPol.Controls.Add(this.radioButtonTokenAuthPolicy);
+            this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
+            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 178);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(560, 146);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(560, 183);
             this.groupBoxAuthPol.TabIndex = 47;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Content key\'s authorization policy";
+            // 
+            // radioButtonNoAuthPolicy
+            // 
+            this.radioButtonNoAuthPolicy.AutoSize = true;
+            this.radioButtonNoAuthPolicy.Enabled = false;
+            this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(35, 28);
+            this.radioButtonNoAuthPolicy.Name = "radioButtonNoAuthPolicy";
+            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(340, 17);
+            this.radioButtonNoAuthPolicy.TabIndex = 61;
+            this.radioButtonNoAuthPolicy.Text = "None - An external PlayReady server is used to deliver the licenses\r\n";
+            this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
             // panelAutPol
             // 
@@ -235,7 +249,7 @@
             this.panelAutPol.Controls.Add(this.textBoxAudience);
             this.panelAutPol.Controls.Add(this.label2);
             this.panelAutPol.Enabled = false;
-            this.panelAutPol.Location = new System.Drawing.Point(35, 66);
+            this.panelAutPol.Location = new System.Drawing.Point(35, 90);
             this.panelAutPol.Name = "panelAutPol";
             this.panelAutPol.Size = new System.Drawing.Size(515, 74);
             this.panelAutPol.TabIndex = 60;
@@ -278,29 +292,29 @@
             this.label2.TabIndex = 58;
             this.label2.Text = "Issuer of the token Url :";
             // 
-            // radioButtonToken
+            // radioButtonTokenAuthPolicy
             // 
-            this.radioButtonToken.AutoSize = true;
-            this.radioButtonToken.Location = new System.Drawing.Point(35, 50);
-            this.radioButtonToken.Name = "radioButtonToken";
-            this.radioButtonToken.Size = new System.Drawing.Size(56, 17);
-            this.radioButtonToken.TabIndex = 55;
-            this.radioButtonToken.Text = "Token";
-            this.radioButtonToken.UseVisualStyleBackColor = true;
-            this.radioButtonToken.CheckedChanged += new System.EventHandler(this.radioButtonToken_CheckedChanged);
+            this.radioButtonTokenAuthPolicy.AutoSize = true;
+            this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(35, 74);
+            this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
+            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(56, 17);
+            this.radioButtonTokenAuthPolicy.TabIndex = 55;
+            this.radioButtonTokenAuthPolicy.Text = "Token";
+            this.radioButtonTokenAuthPolicy.UseVisualStyleBackColor = true;
+            this.radioButtonTokenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonToken_CheckedChanged);
             // 
-            // radioButtonOpen
+            // radioButtonOpenAuthPolicy
             // 
-            this.radioButtonOpen.AutoSize = true;
-            this.radioButtonOpen.Checked = true;
-            this.radioButtonOpen.Location = new System.Drawing.Point(35, 27);
-            this.radioButtonOpen.Name = "radioButtonOpen";
-            this.radioButtonOpen.Size = new System.Drawing.Size(51, 17);
-            this.radioButtonOpen.TabIndex = 54;
-            this.radioButtonOpen.TabStop = true;
-            this.radioButtonOpen.Text = "Open";
-            this.radioButtonOpen.UseVisualStyleBackColor = true;
-            this.radioButtonOpen.CheckedChanged += new System.EventHandler(this.radioButtonOpen_CheckedChanged);
+            this.radioButtonOpenAuthPolicy.AutoSize = true;
+            this.radioButtonOpenAuthPolicy.Checked = true;
+            this.radioButtonOpenAuthPolicy.Location = new System.Drawing.Point(35, 51);
+            this.radioButtonOpenAuthPolicy.Name = "radioButtonOpenAuthPolicy";
+            this.radioButtonOpenAuthPolicy.Size = new System.Drawing.Size(51, 17);
+            this.radioButtonOpenAuthPolicy.TabIndex = 54;
+            this.radioButtonOpenAuthPolicy.TabStop = true;
+            this.radioButtonOpenAuthPolicy.Text = "Open";
+            this.radioButtonOpenAuthPolicy.UseVisualStyleBackColor = true;
+            this.radioButtonOpenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonOpen_CheckedChanged);
             // 
             // label1
             // 
@@ -317,7 +331,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(591, 529);
+            this.ClientSize = new System.Drawing.Size(591, 562);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Controls.Add(this.groupBox1);
@@ -356,8 +370,8 @@
         private System.Windows.Forms.CheckBox checkBoxProtocolSmooth;
         private System.Windows.Forms.CheckBox checkBoxProtocolDASH;
         private System.Windows.Forms.CheckBox checkBoxProtocolHLS;
-        private System.Windows.Forms.RadioButton radioButtonToken;
-        private System.Windows.Forms.RadioButton radioButtonOpen;
+        private System.Windows.Forms.RadioButton radioButtonTokenAuthPolicy;
+        private System.Windows.Forms.RadioButton radioButtonOpenAuthPolicy;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxAudience;
@@ -368,5 +382,6 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.RadioButton radioButtonDecryptStorage;
+        private System.Windows.Forms.RadioButton radioButtonNoAuthPolicy;
     }
 }

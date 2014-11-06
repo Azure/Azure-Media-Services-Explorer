@@ -32,17 +32,21 @@ namespace AMSExplorer
 {
     public partial class AddDynamicEncryption : Form
     {
-        public ContentKeyRestrictionType GetKeyRestrictionType
+        public ContentKeyRestrictionType? GetKeyRestrictionType
         {
             get
             {
-                if (radioButtonOpen.Checked)
+                if (radioButtonOpenAuthPolicy.Checked)
                 {
                     return ContentKeyRestrictionType.Open;
                 }
-                else
+                else if (radioButtonTokenAuthPolicy.Checked)
                 {
                     return ContentKeyRestrictionType.TokenRestricted;
+                }
+                else // PlayReady but no license delivery from Azure Media Services
+                {
+                    return null;
                 }
             }
         }
@@ -120,7 +124,7 @@ namespace AMSExplorer
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
-            panelAutPol.Enabled = radioButtonToken.Checked;
+            panelAutPol.Enabled = radioButtonTokenAuthPolicy.Checked;
 
         }
 
@@ -152,6 +156,15 @@ namespace AMSExplorer
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
+        }
+
+        private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
+            if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
+            {
+                radioButtonOpenAuthPolicy.Checked = true;
+            }
         }
 
     }

@@ -117,6 +117,21 @@ namespace AMSExplorer
             return key;
         }
 
+        static public IContentKey CreateCommonTypeContentKey(IAsset asset, CloudMediaContext _context, Guid keyId, byte[] contentKey)
+        {
+
+            IContentKey key = _context.ContentKeys.Create(
+                                    keyId,
+                                    contentKey,
+                                    "ContentKey CENC",
+                                    ContentKeyType.CommonEncryption);
+
+            // Associate the key with the asset.
+            asset.ContentKeys.Add(key);
+
+            return key;
+        }
+
 
 
         static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset)
@@ -313,9 +328,9 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null)
         {
-            Uri acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+            if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
 
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
     {
@@ -349,7 +364,7 @@ namespace AMSExplorer
         }
 
 
-        byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
+        static public byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
         {
             const int DRM_AES_KEYSIZE_128 = 16;
             byte[] contentKey = new byte[DRM_AES_KEYSIZE_128];

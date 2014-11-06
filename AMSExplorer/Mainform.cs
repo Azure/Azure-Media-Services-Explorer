@@ -5142,13 +5142,31 @@ namespace AMSExplorer
 
         private List<IProgram> ReturnSelectedPrograms()
         {
+            bool Error = false;
             List<IProgram> SelectedPrograms = new List<IProgram>();
             foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                try
+                {
+                    SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                }
+                catch
+                {
+                    Error = true;
+                    break;
+
+                }
             }
-            SelectedPrograms.Reverse();
-            return SelectedPrograms;
+            if (!Error)
+            {
+                SelectedPrograms.Reverse();
+                return SelectedPrograms;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         private void DoStopChannels()
@@ -5739,52 +5757,57 @@ namespace AMSExplorer
         {
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
-
-                DeleteProgram form = new DeleteProgram(question);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                if (SelectedPrograms.Count > 0)
                 {
-                    foreach (IProgram myP in SelectedPrograms)
+                    string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
+
+                    DeleteProgram form = new DeleteProgram(question);
+
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        IAsset asset = myP.Asset;
-                        DeleteProgram(myP);
-                        if (form.DeleteAsset)
+                        foreach (IProgram myP in SelectedPrograms)
                         {
-                            if (myP.Asset != null)
+                            IAsset asset = myP.Asset;
+                            DeleteProgram(myP);
+                            if (form.DeleteAsset)
                             {
-                                //delete
-                                TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                try
+                                if (myP.Asset != null)
                                 {
-                                    DeleteAsset(asset);
-                                    if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                    TextBoxLogWriteLine(ex);
+                                    //delete
+                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                    try
+                                    {
+                                        DeleteAsset(asset);
+                                        if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
         }
 
 
         private void DoStartPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                foreach (IProgram myP in SelectedPrograms)
+                if (SelectedPrograms.Count > 0)
                 {
-                    StartProgam(myP);
+                    foreach (IProgram myP in SelectedPrograms)
+                    {
+                        StartProgam(myP);
+                    }
                 }
             }
         }
@@ -5793,11 +5816,14 @@ namespace AMSExplorer
         private void DoStopPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                foreach (IProgram myP in SelectedPrograms)
+                if (SelectedPrograms.Count > 0)
                 {
-                    StopProgram(myP);
+                    foreach (IProgram myP in SelectedPrograms)
+                    {
+                        StopProgram(myP);
+                    }
                 }
             }
         }
@@ -6579,194 +6605,269 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    bool Error = false;
-                    string keydeliveryconfig = null;
-                    foreach (IAsset AssetToProcess in SelectedAssets)
-                        if (AssetToProcess != null)
+                    bool UserCancelledPlayReadyForm = false;
+                    PlayReadyLicense formPlayReadyLicense = new PlayReadyLicense();
+                    PlayReadyExternalServer formPlayReadyExternalServer = new PlayReadyExternalServer(SelectedAssets.Count > 1);
+
+                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
+                    {
+                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
                         {
-                            if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
+                            if (formPlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                             {
-                                IContentKey contentKey = null;
+                                UserCancelledPlayReadyForm = true;
+                            }
+                        }
+                        else // PlayReady license but delivery from an external PlayReady server
+                        {
+                            if (formPlayReadyExternalServer.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                            {
+                                UserCancelledPlayReadyForm = true;
+                            }
+                        }
+                    }
 
-                                var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                    if (!UserCancelledPlayReadyForm)
+                    {
+                        bool Error = false;
+                        string keydeliveryconfig = null;
+                        foreach (IAsset AssetToProcess in SelectedAssets)
+                            if (AssetToProcess != null)
+                            {
+                                if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
                                 {
-                                    try
-                                    {
-                                        if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
-                                        {
-                                            contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
-                                        }
-                                        else // CENC
-                                        {
-                                            contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
-                                        }
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
-                                    if (Error) break;
-                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                                }
-                                else // let's use existing content key
-                                {
-                                    contentKey = contentkeys.FirstOrDefault();
-                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
-                                }
+                                    IContentKey contentKey = null;
 
-
-                                // if CENC, let's build the PlayReady license template
-                                if (form.GetContentKeyType == ContentKeyType.CommonEncryption)
-                                {
-                                    PlayReadyLicense formPlayReady = new PlayReadyLicense();
-                                    if (formPlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
+                                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
                                     {
                                         try
                                         {
-                                            keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReady.GetLicenseTemplate);
+                                            if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
+                                            {
+                                                contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
+                                            }
+                                            else // CENC
+                                            {
+                                                if (form.GetKeyRestrictionType != null) // Azure will deliver the license so we can create a key with a random content key
+                                                {
+                                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                                                }
+                                                else // user wants to deliver with an external PlayReady server so let's create the key based on what the user input
+                                                {
+                                                    if (!string.IsNullOrEmpty(formPlayReadyExternalServer.PlayReadyKeySeed)) // seed has been given
+                                                    {
+                                                        Guid keyid = (formPlayReadyExternalServer.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)formPlayReadyExternalServer.PlayReadyKeyId;
+                                                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyKeySeed), keyid);
+                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                                    }
+                                                    else if (SelectedAssets.Count() == 1)// no seed given, so content key has been setup. Only work to process one asset
+                                                    {
+                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)formPlayReadyExternalServer.PlayReadyKeyId, Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyContentKey));
+
+                                                    }
+                                                    else
+                                                    {
+                                                        TextBoxLogWriteLine("Error: seed is empty and several assets has been selected.");
+                                                    }
+                                                }
+                                            }
                                         }
                                         catch (Exception e)
                                         {
                                             // Add useful information to the exception
-                                            TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
                                             TextBoxLogWriteLine(e);
                                             Error = true;
                                         }
+                                        if (Error) break;
+                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
                                     }
-                                    else
+                                    else if (form.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
                                     {
-                                        return;
+                                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
                                     }
 
-                                }
-
-                                string tokenTemplateString = null;
-                                try
-                                {
-                                    switch (form.GetKeyRestrictionType)
+                                    else // let's use existing content key
                                     {
-                                        case ContentKeyRestrictionType.Open:
-
-                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                            break;
-
-                                        case ContentKeyRestrictionType.TokenRestricted:
+                                        contentKey = contentkeys.FirstOrDefault();
+                                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                                    }
 
 
-                                            if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                    // if CENC, let's build the PlayReady license template
+                                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption)
+                                    {
+                                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
+                                        {
+                                            try
                                             {
-                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
-
+                                                keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReadyLicense.GetLicenseTemplate);
                                             }
-                                            else  // Envelope encryption 
+                                            catch (Exception e)
                                             {
-                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
+                                                // Add useful information to the exception
+                                                TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                                                TextBoxLogWriteLine(e);
+                                                Error = true;
                                             }
 
-                                            break;
+                                        }
+                                        else // PlayReady license but delivery from an external PlayReady server
+                                        {
 
-                                        default:
-                                            break;
-                                    }
-                                }
+                                        }
 
-                                catch (Exception e)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                                    TextBoxLogWriteLine(e);
-                                    Error = true;
-                                }
-                                if (Error) break;
-                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-
-                                // Let's create the Asset Delivery Policy now
-                                IAssetDeliveryPolicy DelPol = null;
-                                string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
-                                try
-                                {
-                                    if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                                    {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                    }
-                                    else  // Envelope encryption or no encryption
-                                    {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                     }
 
-                                    TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
-                                }
-                                catch (Exception e)
-                                {
-                                    TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                                    TextBoxLogWriteLine(e);
-                                    Error = true;
-                                }
-
-                                if (Error) break;
-
-                                if (!String.IsNullOrEmpty(tokenTemplateString))
-                                {
-                                    // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
-                                    // back into a TokenRestrictionTemplate class instance.
-                                    TokenRestrictionTemplate tokenTemplate =
-                                        TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-
-                                    // Generate a test token based on the data in the given TokenRestrictionTemplate.
-                                    // Note, you need to pass the key id Guid because we specified 
-                                    // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                    Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
-                                    string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                                    TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
-                                    TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
-                                }
-                            }
-                            else // No Dynamic encryption
-                            {
-                                IAssetDeliveryPolicy DelPol = null;
-
-                                var DelPols = _context.AssetDeliveryPolicies
-                                   .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
-                                if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
-                                {
+                                    string tokenTemplateString = null;
                                     try
                                     {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form.GetAssetDeliveryProtocol, _context);
+                                        switch (form.GetKeyRestrictionType)
+                                        {
+                                            case ContentKeyRestrictionType.Open:
+
+                                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+                                                TextBoxLogWriteLine("Created Open AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                break;
+
+                                            case ContentKeyRestrictionType.TokenRestricted:
+
+
+                                                if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                                {
+                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
+                                                    TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                }
+                                                else  // Envelope encryption 
+                                                {
+                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
+                                                    TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                }
+
+                                                break;
+
+                                            case null:
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        Error = true;
+                                    }
+                                    if (Error) break;
+                                  
+
+                                    // Let's create the Asset Delivery Policy now
+                                    IAssetDeliveryPolicy DelPol = null;
+                                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
+                                    try
+                                    {
+                                        if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                        {
+                                            if (form.GetKeyRestrictionType!=null) // Licenses delivered by Azure Media Services
+                                            {
+                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
+                                            }
+                                            else // Licenses NOT delivered by Azure Media Services
+                                            {
+                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context, new Uri(formPlayReadyExternalServer.PlayReadyLAurl));
+                                            }
+                                            
+                                        }
+                                        else  // Envelope encryption or no encryption
+                                        {
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
+                                        }
+
                                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                                     }
                                     catch (Exception e)
                                     {
-                                        // Add useful information to the exception
                                         TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         Error = true;
                                     }
+
+                                    if (Error) break;
+
+                                    if (!String.IsNullOrEmpty(tokenTemplateString))
+                                    {
+                                        // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
+                                        // back into a TokenRestrictionTemplate class instance.
+                                        TokenRestrictionTemplate tokenTemplate =
+                                            TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
+                                        // Generate a test token based on the data in the given TokenRestrictionTemplate.
+                                        // Note, you need to pass the key id Guid because we specified 
+                                        // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
+                                        Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
+                                        string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                        TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
+                                    }
                                 }
-                                else // let's use an existing delivery policy for no dynamic encryption
+                                else // No Dynamic encryption
                                 {
-                                    try
+                                    IAssetDeliveryPolicy DelPol = null;
+
+                                    var DelPols = _context.AssetDeliveryPolicies
+                                       .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
+                                    if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
                                     {
-                                        AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
-                                        TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
+                                        try
+                                        {
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form.GetAssetDeliveryProtocol, _context);
+                                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            // Add useful information to the exception
+                                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                                            TextBoxLogWriteLine(e);
+                                            Error = true;
+                                        }
+                                    }
+                                    else // let's use an existing delivery policy for no dynamic encryption
+                                    {
+                                        try
+                                        {
+                                            AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
+                                            TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
+                                        }
+
+                                        catch (Exception e)
+                                        {
+                                            TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
+                                            TextBoxLogWriteLine(e);
+                                            Error = true;
+                                        }
                                     }
 
-                                    catch (Exception e)
-                                    {
-                                        TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
+                                    if (Error) break;
                                 }
 
-                                if (Error) break;
                             }
 
-                            dataGridViewAssetsV.AnalyzeItemsInBackground();
-                        }
+
+
+
+
+
+
+
+
+
+
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                    }
                 }
             }
 
@@ -7106,100 +7207,103 @@ namespace AMSExplorer
         private async void DoResetPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
-                question += Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name and locator ID.";
-
-                if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (SelectedPrograms.Count > 0)
                 {
-                    foreach (IProgram myP in SelectedPrograms)
+                    string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
+                    question += Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name and locator ID.";
+
+                    if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
-                        IAsset asset = myP.Asset;
-                        string assetName = asset.Name; // backup the asset name
-                        string assetstorageaccount = asset.StorageAccountName; // backup the storage account name
-                        string programName = myP.Name; // backup program name
-                        string programDesc = myP.Description; // backup program description
-                        TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
-                        var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
-                        IChannel myChannel = myP.Channel;
-                        var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        foreach (IProgram myP in SelectedPrograms)
+                        {
+                            IAsset asset = myP.Asset;
+                            string assetName = asset.Name; // backup the asset name
+                            string assetstorageaccount = asset.StorageAccountName; // backup the storage account name
+                            string programName = myP.Name; // backup program name
+                            string programDesc = myP.Description; // backup program description
+                            TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
+                            var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
+                            IChannel myChannel = myP.Channel;
+                            var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-                        if (locator.Count() != 1) // no single locator, we do nothing
-                        {
-                            TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
-                        }
-                        else if (ismAssetFiles.Count() != 1)
-                        {
-                            TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
-                        }
-                        else
-                        {
-                            string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
-                            string locatorID = locator.FirstOrDefault().Id;
-                            DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
-
-                            try
+                            if (locator.Count() != 1) // no single locator, we do nothing
                             {
-                                TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
-                                myP.Delete();
+                                TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
                             }
-                            catch (Exception ex)
+                            else if (ismAssetFiles.Count() != 1)
                             {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
-                                TextBoxLogWriteLine(ex);
+                                TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
                             }
-
-                            if (myP.Asset != null)
+                            else
                             {
-                                //delete
+                                string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
+                                string locatorID = locator.FirstOrDefault().Id;
+                                DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
+
                                 try
                                 {
-                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                    DeleteAsset(asset);
-                                    if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                    TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
+                                    myP.Delete();
                                 }
                                 catch (Exception ex)
                                 {
                                     // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                    TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
                                     TextBoxLogWriteLine(ex);
                                 }
+
+                                if (myP.Asset != null)
+                                {
+                                    //delete
+                                    try
+                                    {
+                                        TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                        DeleteAsset(asset);
+                                        if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+                                }
+
+                                IAsset newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
+                                // let's use the same expiration date than previous locator
+                                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
+
+                                try
+                                {
+
+                                    TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
+                                    ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
+                                    TextBoxLogWriteLine(ex);
+                                }
+
+                                ProgramCreationOptions options = new ProgramCreationOptions()
+                                {
+                                    AssetId = newAsset.Id,
+                                    Name = programName,
+                                    Description = programDesc,
+                                    ArchiveWindowLength = programArchiveWindowLength,
+                                    ManifestName = ismName,
+                                };
+
+                                var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
+                                await STask;
                             }
-
-                            IAsset newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
-                            // let's use the same expiration date than previous locator
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
-
-                            try
-                            {
-
-                                TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
-                                ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-
-                            ProgramCreationOptions options = new ProgramCreationOptions()
-                            {
-                                AssetId = newAsset.Id,
-                                Name = programName,
-                                Description = programDesc,
-                                ArchiveWindowLength = programArchiveWindowLength,
-                                ManifestName = ismName,
-                            };
-
-                            var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
-                            await STask;
                         }
+                        DoRefreshGridProgramV(false);
+                        DoRefreshGridAssetV(false);
                     }
-                    DoRefreshGridProgramV(false);
-                    DoRefreshGridAssetV(false);
                 }
             }
         }
