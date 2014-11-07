@@ -472,9 +472,6 @@
     <Content Include="BitmapsPNG\Azure Explorer.png" />
     <Content Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <Content Include="BitmapsPNG\Imagine.PNG" />
-    <Content Include="BitmapsPNG\media2.ico" />
-    <Content Include="BitmapsPNG\media2.png" />
-    <None Include="BitmapsPNG\MediaNew.png" />
     <Content Include="BitmapsPNG\modeltaskxenio1.png" />
     <Content Include="BitmapsPNG\modeltaskxenio2.png" />
     <Content Include="BitmapsPNG\modetaskjob1.png" />
@@ -553,8 +550,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="media2.ico" />
-    <Content Include="MediaNew.ico" />
     <None Include="Resources\%24this.Icon.ico" />
     <Content Include="WAMEPresetFiles\AAC Good Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -250,9 +250,6 @@
   <data name="modeltaskxenio11" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modeltaskxenio1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="MediaNew" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>BitmapsPNG\MediaNew.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="storage_decryption" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\storage_decryption.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
