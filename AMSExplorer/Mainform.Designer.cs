@@ -59,12 +59,11 @@
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemStorageDecrypter = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.submitFromTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemGenericProcessor = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemStorageDecrypter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.publishToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,19 +108,20 @@
             this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.encodeAssetWithImagineZeniumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encodeAssetWithZeniumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.generateThumbnailsForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithAJobTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsadvancedModeWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorBottomIndex = new System.Windows.Forms.ToolStripSeparator();
-            this.validateMultiMP4AssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.encryptWithPlayReadystaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.decryptAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.processAssetsadvancedModeWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deprecatedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.validateTheMultiMP4AssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.dynamicPackagingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -134,6 +134,8 @@
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.priorityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resubmitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsTemplateToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -160,6 +162,7 @@
             this.resetChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyInputSSLURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPreviewURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackThePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withFlashOSMFAzurePlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -221,6 +224,8 @@
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobChangePriority = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCancel = new System.Windows.Forms.ToolStripMenuItem();
+            this.resubmitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
@@ -267,6 +272,7 @@
             this.ContextMenuItemChannelDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyInputURLSSLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -321,6 +327,10 @@
             this.ContextMenuItemOriginStop = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageChart = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
+            this.label20 = new System.Windows.Forms.Label();
+            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.progressBarChart = new System.Windows.Forms.ProgressBar();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonbuildchart = new System.Windows.Forms.Button();
@@ -448,18 +458,17 @@
             this.toolStripSeparator5,
             this.encodeToolStripMenuItem,
             this.packageToolStripMenuItem,
-            this.toolStripSeparator7,
             this.ContextMenuItemThumbnails,
             this.ContextMenuItemIndexer,
-            this.ContextMenuItemStorageDecrypter,
-            this.toolStripSeparator10,
+            this.submitFromTemplateToolStripMenuItem,
             this.ContextMenuItemGenericProcessor,
+            this.ContextMenuItemStorageDecrypter,
             this.toolStripSeparator6,
             this.publishToolStripMenuItem1,
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 414);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -569,25 +578,29 @@
             // 
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Name = "encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem";
-            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Size = new System.Drawing.Size(505, 22);
-            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Text = "Encode asset(s) with Azure Media Encoder (system preset)...";
+            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (system preset)...";
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem_Click);
             // 
             // encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem
             // 
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Name = "encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem";
-            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Size = new System.Drawing.Size(505, 22);
-            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Text = "Encode asset(s) with Azure Media Encoder (advanced mode with custom preset)...";
+            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.E)));
+            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem_Click);
             // 
-            // ContextMenuItemZenium
+            // ContextMenuItemAMEPremiumWorkflow
             // 
             this.ContextMenuItemZenium.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemZenium.Name = "ContextMenuItemZenium";
-            this.ContextMenuItemZenium.Size = new System.Drawing.Size(505, 22);
+            this.ContextMenuItemZenium.Name = "ContextMenuItemAMEPremiumWorkflow";
+            this.ContextMenuItemZenium.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.ContextMenuItemZenium.Size = new System.Drawing.Size(544, 22);
             this.ContextMenuItemZenium.Text = "Encode asset(s) with Imagine Communications Zenium...";
-            this.ContextMenuItemZenium.Click += new System.EventHandler(this.encodeAssetsWithImagineCommunicationsZeniumToolStripMenuItem_Click);
+            this.ContextMenuItemZenium.Click += new System.EventHandler(this.encodeAssetsWithZeniumToolStripMenuItem_Click);
             // 
             // packageToolStripMenuItem
             // 
@@ -599,44 +612,39 @@
             this.packageToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.packageToolStripMenuItem.Name = "packageToolStripMenuItem";
             this.packageToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
-            this.packageToolStripMenuItem.Text = "Package";
+            this.packageToolStripMenuItem.Text = "Static packaging";
             // 
             // validateTheMultiMP4AssetsToolStripMenuItem
             // 
             this.validateTheMultiMP4AssetsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.validateTheMultiMP4AssetsToolStripMenuItem.Name = "validateTheMultiMP4AssetsToolStripMenuItem";
-            this.validateTheMultiMP4AssetsToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.validateTheMultiMP4AssetsToolStripMenuItem.Text = "Validate the multi MP4 asset(s)....";
+            this.validateTheMultiMP4AssetsToolStripMenuItem.Size = new System.Drawing.Size(470, 22);
+            this.validateTheMultiMP4AssetsToolStripMenuItem.Text = "(deprecated) Validate the multi MP4 asset(s)....";
             this.validateTheMultiMP4AssetsToolStripMenuItem.Click += new System.EventHandler(this.validateTheMultiMP4AssetsToolStripMenuItem_Click);
             // 
             // packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem
             // 
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Name = "packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem";
-            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Text = "Package the multi MP4 asset(s) to Smooth Streaming (static)";
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(470, 22);
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Text = "(deprecated) Package the multi MP4 asset(s) to Smooth Streaming (static)";
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem.Click += new System.EventHandler(this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem_Click_1);
             // 
             // packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem
             // 
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.packaging;
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Name = "packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem";
-            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Text = "Package the Smooth Streaming asset(s) to HLS v3 (static)...";
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Size = new System.Drawing.Size(470, 22);
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Text = "(deprecated) Package the Smooth Streaming asset(s) to HLS v3 (static)...";
             this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem.Click += new System.EventHandler(this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem_Click_1);
             // 
             // encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem
             // 
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Name = "encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem";
-            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(400, 22);
-            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Text = "Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(470, 22);
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Text = "(deprecated) Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
             this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem.Click += new System.EventHandler(this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem_Click_1);
-            // 
-            // toolStripSeparator7
-            // 
-            this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(346, 6);
             // 
             // ContextMenuItemThumbnails
             // 
@@ -656,18 +664,13 @@
             this.ContextMenuItemIndexer.Text = "Index asset(s) with Azure Media Indexer...";
             this.ContextMenuItemIndexer.Click += new System.EventHandler(this.toolStripMenuItemIndex_Click);
             // 
-            // ContextMenuItemStorageDecrypter
+            // submitFromTemplateToolStripMenuItem
             // 
-            this.ContextMenuItemStorageDecrypter.Image = global::AMSExplorer.Bitmaps.storage_decryption;
-            this.ContextMenuItemStorageDecrypter.Name = "ContextMenuItemStorageDecrypter";
-            this.ContextMenuItemStorageDecrypter.Size = new System.Drawing.Size(349, 22);
-            this.ContextMenuItemStorageDecrypter.Text = "Storage decrypt the asset(s)...";
-            this.ContextMenuItemStorageDecrypter.Click += new System.EventHandler(this.storageDecryptTheAssetsToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator10
-            // 
-            this.toolStripSeparator10.Name = "toolStripSeparator10";
-            this.toolStripSeparator10.Size = new System.Drawing.Size(346, 6);
+            this.submitFromTemplateToolStripMenuItem.Name = "submitFromTemplateToolStripMenuItem";
+            this.submitFromTemplateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.J)));
+            this.submitFromTemplateToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
+            this.submitFromTemplateToolStripMenuItem.Text = "Process asset(s) from a job template...";
+            this.submitFromTemplateToolStripMenuItem.Click += new System.EventHandler(this.submitFromTemplateToolStripMenuItem_Click);
             // 
             // ContextMenuItemGenericProcessor
             // 
@@ -676,6 +679,14 @@
             this.ContextMenuItemGenericProcessor.Size = new System.Drawing.Size(349, 22);
             this.ContextMenuItemGenericProcessor.Text = "Process asset(s) with a processor (generic)....";
             this.ContextMenuItemGenericProcessor.Click += new System.EventHandler(this.processAssetsWithAProcessorToolStripMenuItem_Click);
+            // 
+            // ContextMenuItemStorageDecrypter
+            // 
+            this.ContextMenuItemStorageDecrypter.Image = global::AMSExplorer.Bitmaps.storage_decryption;
+            this.ContextMenuItemStorageDecrypter.Name = "ContextMenuItemStorageDecrypter";
+            this.ContextMenuItemStorageDecrypter.Size = new System.Drawing.Size(349, 22);
+            this.ContextMenuItemStorageDecrypter.Text = "Storage decrypt the asset(s)...";
+            this.ContextMenuItemStorageDecrypter.Click += new System.EventHandler(this.storageDecryptTheAssetsToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
@@ -1064,19 +1075,16 @@
             this.processToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2,
-            this.toolStripSeparator2,
-            this.encodeAssetWithImagineZeniumToolStripMenuItem,
+            this.encodeAssetWithZeniumToolStripMenuItem,
             this.toolStripSeparator17,
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
             this.indexAssetsToolStripMenuItem,
+            this.processAssetsWithAJobTemplateToolStripMenuItem,
+            this.processAssetsadvancedModeWithToolStripMenuItem,
             this.toolStripSeparatorBottomIndex,
-            this.validateMultiMP4AssetToolStripMenuItem,
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem,
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem,
-            this.encryptWithPlayReadystaticToolStripMenuItem,
             this.decryptAssetToolStripMenuItem,
             this.toolStripSeparator3,
-            this.processAssetsadvancedModeWithToolStripMenuItem,
+            this.deprecatedToolStripMenuItem,
             this.toolStripSeparator4,
             this.dynamicPackagingToolStripMenuItem});
             this.processToolStripMenuItem.Name = "processToolStripMenuItem";
@@ -1088,8 +1096,8 @@
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithAzureMediaEncoderToolStripMenuItem.Image")));
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Name = "encodeAssetWithAzureMediaEncoderToolStripMenuItem";
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Text = "Encode asset(s) with Azure Media Encoder (system preset)...";
+            this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (system preset)...";
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithAzureMediaEncoderToolStripMenuItem_Click);
             // 
             // encodeAssetsWithAzureMediaEncoderToolStripMenuItem2
@@ -1098,35 +1106,30 @@
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Name = "encodeAssetsWithAzureMediaEncoderToolStripMenuItem2";
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.E)));
-            this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Size = new System.Drawing.Size(577, 22);
-            this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Text = "Encode asset(s) with Azure Media Encoder (advanced mode with custom preset)...";
+            this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2_Click);
             // 
-            // toolStripSeparator2
+            // encodeAssetWithAMEPremiumWorkflowToolStripMenuItem
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(574, 6);
-            // 
-            // encodeAssetWithImagineZeniumToolStripMenuItem
-            // 
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithImagineZeniumToolStripMenuItem.Image")));
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.Name = "encodeAssetWithImagineZeniumToolStripMenuItem";
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.Text = "Encode asset(s) with Imagine Communications Zenium...";
-            this.encodeAssetWithImagineZeniumToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click);
+            this.encodeAssetWithZeniumToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithAMEPremiumWorkflowToolStripMenuItem.Image")));
+            this.encodeAssetWithZeniumToolStripMenuItem.Name = "encodeAssetWithAMEPremiumWorkflowToolStripMenuItem";
+            this.encodeAssetWithZeniumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.encodeAssetWithZeniumToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetWithZeniumToolStripMenuItem.Text = "Encode asset(s) with Imagine Communications Zenium...";
+            this.encodeAssetWithZeniumToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
-            this.toolStripSeparator17.Size = new System.Drawing.Size(574, 6);
+            this.toolStripSeparator17.Size = new System.Drawing.Size(541, 6);
             // 
             // generateThumbnailsForTheAssetsToolStripMenuItem
             // 
             this.generateThumbnailsForTheAssetsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("generateThumbnailsForTheAssetsToolStripMenuItem.Image")));
             this.generateThumbnailsForTheAssetsToolStripMenuItem.Name = "generateThumbnailsForTheAssetsToolStripMenuItem";
             this.generateThumbnailsForTheAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
-            this.generateThumbnailsForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
+            this.generateThumbnailsForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.generateThumbnailsForTheAssetsToolStripMenuItem.Text = "Generate thumbnails for the asset(s)...";
             this.generateThumbnailsForTheAssetsToolStripMenuItem.Click += new System.EventHandler(this.generateThumbnailsForTheAssetsToolStripMenuItem_Click);
             // 
@@ -1135,77 +1138,96 @@
             this.indexAssetsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("indexAssetsToolStripMenuItem.Image")));
             this.indexAssetsToolStripMenuItem.Name = "indexAssetsToolStripMenuItem";
             this.indexAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
-            this.indexAssetsToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
+            this.indexAssetsToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.indexAssetsToolStripMenuItem.Text = "Index asset(s) with Azure Media Indexer...";
             this.indexAssetsToolStripMenuItem.Click += new System.EventHandler(this.indexAssetsToolStripMenuItem_Click);
+            // 
+            // processAssetsWithAJobTemplateToolStripMenuItem
+            // 
+            this.processAssetsWithAJobTemplateToolStripMenuItem.Name = "processAssetsWithAJobTemplateToolStripMenuItem";
+            this.processAssetsWithAJobTemplateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.J)));
+            this.processAssetsWithAJobTemplateToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.processAssetsWithAJobTemplateToolStripMenuItem.Text = "Process asset(s) from a job template...";
+            this.processAssetsWithAJobTemplateToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithAJobTemplateToolStripMenuItem_Click);
+            // 
+            // processAssetsadvancedModeWithToolStripMenuItem
+            // 
+            this.processAssetsadvancedModeWithToolStripMenuItem.Name = "processAssetsadvancedModeWithToolStripMenuItem";
+            this.processAssetsadvancedModeWithToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
+            this.processAssetsadvancedModeWithToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.processAssetsadvancedModeWithToolStripMenuItem.Text = "Process asset(s) with a processor (generic)...";
+            this.processAssetsadvancedModeWithToolStripMenuItem.Click += new System.EventHandler(this.processAssetsadvancedModeWithToolStripMenuItem_Click);
             // 
             // toolStripSeparatorBottomIndex
             // 
             this.toolStripSeparatorBottomIndex.Name = "toolStripSeparatorBottomIndex";
-            this.toolStripSeparatorBottomIndex.Size = new System.Drawing.Size(574, 6);
-            // 
-            // validateMultiMP4AssetToolStripMenuItem
-            // 
-            this.validateMultiMP4AssetToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("validateMultiMP4AssetToolStripMenuItem.Image")));
-            this.validateMultiMP4AssetToolStripMenuItem.Name = "validateMultiMP4AssetToolStripMenuItem";
-            this.validateMultiMP4AssetToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.validateMultiMP4AssetToolStripMenuItem.Text = "Validate the multi MP4 asset(s)....";
-            this.validateMultiMP4AssetToolStripMenuItem.Click += new System.EventHandler(this.validateMultiMP4AssetToolStripMenuItem_Click);
-            // 
-            // packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem
-            // 
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Image")));
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Name = "packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem";
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Text = "Package the multi MP4 asset(s) to Smooth Streaming (static)";
-            this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem.Click += new System.EventHandler(this.packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem_Click);
-            // 
-            // packageSmoothStreamingTOHLSstaticToolStripMenuItem
-            // 
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("packageSmoothStreamingTOHLSstaticToolStripMenuItem.Image")));
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Name = "packageSmoothStreamingTOHLSstaticToolStripMenuItem";
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Text = "Package the Smooth Streaming asset(s) to HLS v3 (static)...";
-            this.packageSmoothStreamingTOHLSstaticToolStripMenuItem.Click += new System.EventHandler(this.packageSmoothStreamingTOHLSstaticToolStripMenuItem_Click);
-            // 
-            // encryptWithPlayReadystaticToolStripMenuItem
-            // 
-            this.encryptWithPlayReadystaticToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encryptWithPlayReadystaticToolStripMenuItem.Image")));
-            this.encryptWithPlayReadystaticToolStripMenuItem.Name = "encryptWithPlayReadystaticToolStripMenuItem";
-            this.encryptWithPlayReadystaticToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.encryptWithPlayReadystaticToolStripMenuItem.Text = "Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
-            this.encryptWithPlayReadystaticToolStripMenuItem.Click += new System.EventHandler(this.encryptWithPlayReadystaticToolStripMenuItem_Click);
+            this.toolStripSeparatorBottomIndex.Size = new System.Drawing.Size(541, 6);
             // 
             // decryptAssetToolStripMenuItem
             // 
             this.decryptAssetToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.storage_decryption;
             this.decryptAssetToolStripMenuItem.Name = "decryptAssetToolStripMenuItem";
-            this.decryptAssetToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
+            this.decryptAssetToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.decryptAssetToolStripMenuItem.Text = "Storage decrypt the asset(s)...";
             this.decryptAssetToolStripMenuItem.Click += new System.EventHandler(this.decryptAssetToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(574, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(541, 6);
             // 
-            // processAssetsadvancedModeWithToolStripMenuItem
+            // deprecatedToolStripMenuItem
             // 
-            this.processAssetsadvancedModeWithToolStripMenuItem.Name = "processAssetsadvancedModeWithToolStripMenuItem";
-            this.processAssetsadvancedModeWithToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.G)));
-            this.processAssetsadvancedModeWithToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
-            this.processAssetsadvancedModeWithToolStripMenuItem.Text = "Process asset(s) with a processor (generic)...";
-            this.processAssetsadvancedModeWithToolStripMenuItem.Click += new System.EventHandler(this.processAssetsadvancedModeWithToolStripMenuItem_Click);
+            this.deprecatedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.validateTheMultiMP4AssetsToolStripMenuItem1,
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1,
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1,
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1});
+            this.deprecatedToolStripMenuItem.Name = "deprecatedToolStripMenuItem";
+            this.deprecatedToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.deprecatedToolStripMenuItem.Text = "Static packaging";
+            // 
+            // validateTheMultiMP4AssetsToolStripMenuItem1
+            // 
+            this.validateTheMultiMP4AssetsToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.packaging;
+            this.validateTheMultiMP4AssetsToolStripMenuItem1.Name = "validateTheMultiMP4AssetsToolStripMenuItem1";
+            this.validateTheMultiMP4AssetsToolStripMenuItem1.Size = new System.Drawing.Size(470, 22);
+            this.validateTheMultiMP4AssetsToolStripMenuItem1.Text = "(deprecated) Validate the multi MP4 asset(s)....";
+            this.validateTheMultiMP4AssetsToolStripMenuItem1.Click += new System.EventHandler(this.validateTheMultiMP4AssetsToolStripMenuItem1_Click);
+            // 
+            // packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1
+            // 
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.packaging;
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Name = "packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1";
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Size = new System.Drawing.Size(470, 22);
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Text = "(deprecated) Package the multi MP4 asset(s) to Smooth Streaming (static)";
+            this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1.Click += new System.EventHandler(this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1_Click);
+            // 
+            // encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1
+            // 
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Name = "encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1";
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Size = new System.Drawing.Size(470, 22);
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Text = "(deprecated) Encrypt the Smooth Streaming asset(s) with PlayReady (static)";
+            this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1.Click += new System.EventHandler(this.encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1_Click);
+            // 
+            // packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1
+            // 
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.packaging;
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Name = "packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1";
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Size = new System.Drawing.Size(470, 22);
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Text = "(deprecated) Package the Smooth Streaming asset(s) to HLS v3 (static)...";
+            this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1.Click += new System.EventHandler(this.packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(574, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(541, 6);
             // 
             // dynamicPackagingToolStripMenuItem
             // 
             this.dynamicPackagingToolStripMenuItem.Name = "dynamicPackagingToolStripMenuItem";
-            this.dynamicPackagingToolStripMenuItem.Size = new System.Drawing.Size(577, 22);
+            this.dynamicPackagingToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.dynamicPackagingToolStripMenuItem.Text = "Dynamic Packaging (Smooth, HLS, DASH)...";
             this.dynamicPackagingToolStripMenuItem.Click += new System.EventHandler(this.dynamicPackagingToolStripMenuItem_Click);
             // 
@@ -1221,6 +1243,8 @@
             this.toolStripSeparator11,
             this.priorityToolStripMenuItem,
             this.cancelJobToolStripMenuItem,
+            this.resubmitToolStripMenuItem1,
+            this.saveAsTemplateToolStripMenuItem1,
             this.deleteToolStripMenuItem2});
             this.encodingToolStripMenuItem.Enabled = false;
             this.encodingToolStripMenuItem.Name = "encodingToolStripMenuItem";
@@ -1302,6 +1326,24 @@
             this.cancelJobToolStripMenuItem.Size = new System.Drawing.Size(324, 22);
             this.cancelJobToolStripMenuItem.Text = "Cancel job(s)";
             this.cancelJobToolStripMenuItem.Click += new System.EventHandler(this.cancelJobToolStripMenuItem_Click);
+            // 
+            // resubmitToolStripMenuItem1
+            // 
+            this.resubmitToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.resubmitToolStripMenuItem1.Name = "resubmitToolStripMenuItem1";
+            this.resubmitToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.resubmitToolStripMenuItem1.Size = new System.Drawing.Size(324, 22);
+            this.resubmitToolStripMenuItem1.Text = "Resubmit...";
+            this.resubmitToolStripMenuItem1.Click += new System.EventHandler(this.resubmitToolStripMenuItem1_Click);
+            // 
+            // saveAsTemplateToolStripMenuItem1
+            // 
+            this.saveAsTemplateToolStripMenuItem1.Name = "saveAsTemplateToolStripMenuItem1";
+            this.saveAsTemplateToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveAsTemplateToolStripMenuItem1.Size = new System.Drawing.Size(324, 22);
+            this.saveAsTemplateToolStripMenuItem1.Text = "Save as template...";
+            this.saveAsTemplateToolStripMenuItem1.Click += new System.EventHandler(this.saveAsTemplateToolStripMenuItem1_Click);
             // 
             // deleteToolStripMenuItem2
             // 
@@ -1477,6 +1519,7 @@
             this.resetChannelsToolStripMenuItem,
             this.deleteChannelsToolStripMenuItem,
             this.copyInputURLToClipboardToolStripMenuItem,
+            this.copyInputSSLURLToClipboardToolStripMenuItem,
             this.copyPreviewURLToClipboardToolStripMenuItem,
             this.playbackThePreviewToolStripMenuItem,
             this.toolStripSeparator15,
@@ -1553,6 +1596,13 @@
             this.copyInputURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.copyInputURLToClipboardToolStripMenuItem.Text = "Copy Input URL to clipboard";
             this.copyInputURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyIngestURLToClipboard_Click);
+            // 
+            // copyInputSSLURLToClipboardToolStripMenuItem
+            // 
+            this.copyInputSSLURLToClipboardToolStripMenuItem.Name = "copyInputSSLURLToClipboardToolStripMenuItem";
+            this.copyInputSSLURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.copyInputSSLURLToClipboardToolStripMenuItem.Text = "Copy Input URL (SSL) to clipboard";
+            this.copyInputSSLURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInputSSLURLToClipboardToolStripMenuItem_Click);
             // 
             // copyPreviewURLToClipboardToolStripMenuItem
             // 
@@ -2007,9 +2057,11 @@
             this.toolStripSeparator12,
             this.ContextMenuItemJobChangePriority,
             this.ContextMenuItemJobCancel,
+            this.resubmitToolStripMenuItem,
+            this.saveAsTemplateToolStripMenuItem,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 214);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 258);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
             // 
             // refreshToolStripMenuItem2
@@ -2090,6 +2142,24 @@
             this.ContextMenuItemJobCancel.Size = new System.Drawing.Size(266, 22);
             this.ContextMenuItemJobCancel.Text = "Cancel...";
             this.ContextMenuItemJobCancel.Click += new System.EventHandler(this.toolStripMenuJobsCancel_Click);
+            // 
+            // resubmitToolStripMenuItem
+            // 
+            this.resubmitToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.resubmitToolStripMenuItem.Name = "resubmitToolStripMenuItem";
+            this.resubmitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.resubmitToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.resubmitToolStripMenuItem.Text = "Resubmit...";
+            this.resubmitToolStripMenuItem.Click += new System.EventHandler(this.resubmitToolStripMenuItem_Click);
+            // 
+            // saveAsTemplateToolStripMenuItem
+            // 
+            this.saveAsTemplateToolStripMenuItem.Name = "saveAsTemplateToolStripMenuItem";
+            this.saveAsTemplateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveAsTemplateToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.saveAsTemplateToolStripMenuItem.Text = "Save as template...";
+            this.saveAsTemplateToolStripMenuItem.Click += new System.EventHandler(this.saveAsTemplateToolStripMenuItem_Click);
             // 
             // ContextMenuItemJobDelete
             // 
@@ -2567,11 +2637,12 @@
             this.ContextMenuItemChannelDelete,
             this.toolStripSeparator14,
             this.ContextMenuItemChannelCopyIngestURLToClipboard,
+            this.copyInputURLSSLToClipboardToolStripMenuItem,
             this.ContextMenuItemChannelCopyPreviewURLToClipboard,
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 242);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 264);
             // 
             // refreshToolStripMenuItem3
             // 
@@ -2651,6 +2722,13 @@
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Size = new System.Drawing.Size(256, 22);
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Text = "Copy Input URL to clipboard";
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Click += new System.EventHandler(this.copyIngestURLToClipboard_Click);
+            // 
+            // copyInputURLSSLToClipboardToolStripMenuItem
+            // 
+            this.copyInputURLSSLToClipboardToolStripMenuItem.Name = "copyInputURLSSLToClipboardToolStripMenuItem";
+            this.copyInputURLSSLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.copyInputURLSSLToClipboardToolStripMenuItem.Text = "Copy Input URL (SSL) to clipboard";
+            this.copyInputURLSSLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInputURLSSLToClipboardToolStripMenuItem_Click);
             // 
             // ContextMenuItemChannelCopyPreviewURLToClipboard
             // 
@@ -3176,6 +3254,10 @@
             // 
             // tabPageChart
             // 
+            this.tabPageChart.Controls.Add(this.label21);
+            this.tabPageChart.Controls.Add(this.dateTimePickerEndDate);
+            this.tabPageChart.Controls.Add(this.label20);
+            this.tabPageChart.Controls.Add(this.dateTimePickerStartDate);
             this.tabPageChart.Controls.Add(this.progressBarChart);
             this.tabPageChart.Controls.Add(this.chart);
             this.tabPageChart.Controls.Add(this.buttonbuildchart);
@@ -3187,9 +3269,41 @@
             this.tabPageChart.Text = "Chart";
             this.tabPageChart.UseVisualStyleBackColor = true;
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(261, 9);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(26, 13);
+            this.label21.TabIndex = 42;
+            this.label21.Text = "To :";
+            // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(293, 6);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEndDate.TabIndex = 41;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(36, 13);
+            this.label20.TabIndex = 40;
+            this.label20.Text = "From :";
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(48, 6);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartDate.TabIndex = 39;
+            // 
             // progressBarChart
             // 
-            this.progressBarChart.Location = new System.Drawing.Point(134, 19);
+            this.progressBarChart.Location = new System.Drawing.Point(623, 4);
             this.progressBarChart.Name = "progressBarChart";
             this.progressBarChart.Size = new System.Drawing.Size(158, 23);
             this.progressBarChart.TabIndex = 38;
@@ -3203,15 +3317,15 @@
             this.chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chart.Legends.Add(legend1);
-            this.chart.Location = new System.Drawing.Point(5, 51);
+            this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
-            this.chart.Size = new System.Drawing.Size(997, 373);
+            this.chart.Size = new System.Drawing.Size(997, 404);
             this.chart.TabIndex = 37;
             this.chart.Text = "chartJobs";
             // 
             // buttonbuildchart
             // 
-            this.buttonbuildchart.Location = new System.Drawing.Point(8, 19);
+            this.buttonbuildchart.Location = new System.Drawing.Point(512, 4);
             this.buttonbuildchart.Name = "buttonbuildchart";
             this.buttonbuildchart.Size = new System.Drawing.Size(105, 23);
             this.buttonbuildchart.TabIndex = 36;
@@ -3357,6 +3471,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
             this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
             this.tabPageChart.ResumeLayout(false);
+            this.tabPageChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
@@ -3399,11 +3514,6 @@
         private System.Windows.Forms.ToolStripMenuItem oSMFToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelConnection;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem packageSmoothStreamingTOHLSstaticToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encryptWithPlayReadystaticToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem validateMultiMP4AssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem decryptAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesPlayerPageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hTML5VideoElementToolStripMenuItem;
@@ -3413,7 +3523,7 @@
         private System.Windows.Forms.ToolStripMenuItem publishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createALocatorForTheAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsOfTheAssetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encodeAssetWithImagineZeniumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem encodeAssetWithZeniumToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxPageAssets;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -3473,7 +3583,6 @@
         private System.Windows.Forms.ComboBox comboBoxFilterAssetsTime;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBoxFilterJobsTime;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithAzureMediaEncoderToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem indexAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorBottomIndex;
@@ -3493,7 +3602,6 @@
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemAssetCreateOutlookReportEmail;
         private System.Windows.Forms.ToolStripMenuItem processAssetsadvancedModeWithToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemGenericProcessor;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemJobOpenOutputAsset;
         private System.Windows.Forms.ToolStripMenuItem inputAssetInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem outputAssetInformationToolStripMenuItem;
@@ -3669,6 +3777,23 @@
         private System.Windows.Forms.ToolStripMenuItem withSilverlightMonitoringPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyTheOutputURLToClipboardToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem dASHLivePlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deprecatedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem validateTheMultiMP4AssetsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem resubmitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveAsTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem submitFromTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithAJobTemplateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem resubmitToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem saveAsTemplateToolStripMenuItem1;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
+        private System.Windows.Forms.ToolStripMenuItem copyInputURLSSLToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyInputSSLURLToClipboardToolStripMenuItem;
     }
 }
 

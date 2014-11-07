@@ -65,6 +65,7 @@
             this.labelOriginName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -75,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGOrigin
@@ -115,7 +117,7 @@
             // 
             this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(501, 526);
+            this.buttonApplyClose.Location = new System.Drawing.Point(511, 13);
             this.buttonApplyClose.Name = "buttonApplyClose";
             this.buttonApplyClose.Size = new System.Drawing.Size(159, 23);
             this.buttonApplyClose.TabIndex = 3;
@@ -478,12 +480,24 @@
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(666, 526);
+            this.buttonDisregard.Location = new System.Drawing.Point(676, 13);
             this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(106, 23);
+            this.buttonDisregard.Size = new System.Drawing.Size(99, 23);
             this.buttonDisregard.TabIndex = 39;
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonApplyClose);
+            this.panel1.Controls.Add(this.buttonDisregard);
+            this.panel1.Location = new System.Drawing.Point(-3, 513);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(790, 48);
+            this.panel1.TabIndex = 64;
             // 
             // StreamingEndpointInformation
             // 
@@ -491,10 +505,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.buttonDisregard);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelOriginName);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.buttonApplyClose);
             this.Name = "StreamingEndpointInformation";
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
@@ -512,6 +525,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -572,5 +586,6 @@
         private System.Windows.Forms.LinkLabel hostnamelink;
         private System.Windows.Forms.Button buttonAddExampleCrossDomainPolicy;
         private System.Windows.Forms.Button buttonAddExampleClientPolicy;
+        private System.Windows.Forms.Panel panel1;
     }
 }

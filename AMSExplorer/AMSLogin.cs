@@ -320,5 +320,10 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
+
+        private void AMSLogin_Shown(object sender, EventArgs e)
+        {
+            Program.CheckAMSEVersion();
+        }
     }
 }

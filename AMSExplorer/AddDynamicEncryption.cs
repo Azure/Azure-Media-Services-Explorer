@@ -78,7 +78,7 @@ namespace AMSExplorer
             }
         }
 
-             
+
         public AssetDeliveryProtocol GetAssetDeliveryProtocol
         {
             get
@@ -104,13 +104,36 @@ namespace AMSExplorer
             }
         }
 
+        public bool ContentKeyRandomGeneration
+        {
+            get
+            {
+                return radioButtonKeyRandomGeneration.Checked;
+            }
+            set
+            {
+                radioButtonKeyRandomGeneration.Checked = value;
+                radioButtonKeySpecifiedByUser.Checked = !value;
+            }
+        }
+
         private CloudMediaContext _context;
 
-        public AddDynamicEncryption(CloudMediaContext context)
+        public AddDynamicEncryption(CloudMediaContext context, bool IsLiveAsset, bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            if (IsLiveAsset)
+            {// only AES encryption is supported for Live today, so let's disable storage decryption
+                radioButtonDecryptStorage.Enabled = false;
+            }
+            if (ForceUseToProvideKey) // code wants to forcxe user to provide the key
+            {
+                radioButtonKeyRandomGeneration.Enabled = false;
+                radioButtonKeyRandomGeneration.Checked = false;
+                radioButtonKeySpecifiedByUser.Checked = true;
+            }
         }
 
 
@@ -165,6 +188,11 @@ namespace AMSExplorer
             {
                 radioButtonOpenAuthPolicy.Checked = true;
             }
+        }
+
+        private void radioButtonNoAuthPolicy_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
         }
 
     }

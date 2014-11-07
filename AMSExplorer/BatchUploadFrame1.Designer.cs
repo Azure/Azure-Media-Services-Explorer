@@ -39,16 +39,18 @@
             this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonNext
             // 
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonNext.Location = new System.Drawing.Point(398, 326);
+            this.buttonNext.Location = new System.Drawing.Point(379, 12);
             this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(124, 23);
+            this.buttonNext.Size = new System.Drawing.Size(75, 23);
             this.buttonNext.TabIndex = 0;
             this.buttonNext.Text = "Next";
             this.buttonNext.UseVisualStyleBackColor = true;
@@ -57,7 +59,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(317, 326);
+            this.buttonCancel.Location = new System.Drawing.Point(460, 12);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -158,19 +160,30 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Path processing";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonNext);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Location = new System.Drawing.Point(-3, 314);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(548, 48);
+            this.panel1.TabIndex = 54;
+            // 
             // BatchUploadFrame1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(544, 361);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxFolder);
             this.Controls.Add(this.buttonSelectFolder);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonNext);
             this.Name = "BatchUploadFrame1";
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame1_Load);
@@ -178,6 +191,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,5 +210,6 @@
         private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -274,5 +274,17 @@ namespace AMSExplorer.Properties {
                 this["DisplayAssetStorageinGrid"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string PremiumWorkflowPresetXMLFilesCurrentFolder {
+            get {
+                return ((string)(this["PremiumWorkflowPresetXMLFilesCurrentFolder"]));
+            }
+            set {
+                this["PremiumWorkflowPresetXMLFilesCurrentFolder"] = value;
+            }
+        }
     }
 }

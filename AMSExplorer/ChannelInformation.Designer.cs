@@ -36,6 +36,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
+            this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.checkBoxInputSet = new System.Windows.Forms.CheckBox();
             this.checkBoxPreviewSet = new System.Windows.Forms.CheckBox();
             this.dataGridViewInputIP = new System.Windows.Forms.DataGridView();
@@ -54,6 +56,7 @@
             this.labelChannelName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -62,6 +65,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -127,6 +131,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.tabPage2.Controls.Add(this.textBoxKeyFrame);
             this.tabPage2.Controls.Add(this.checkBoxInputSet);
             this.tabPage2.Controls.Add(this.checkBoxPreviewSet);
             this.tabPage2.Controls.Add(this.dataGridViewInputIP);
@@ -144,6 +150,25 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxKeyFrameIntDefined
+            // 
+            this.checkBoxKeyFrameIntDefined.AutoSize = true;
+            this.checkBoxKeyFrameIntDefined.Location = new System.Drawing.Point(19, 294);
+            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.checkBoxKeyFrameIntDefined.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxKeyFrameIntDefined.TabIndex = 52;
+            this.checkBoxKeyFrameIntDefined.Text = "Key frame interval (s) :";
+            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
+            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
+            // 
+            // textBoxKeyFrame
+            // 
+            this.textBoxKeyFrame.Enabled = false;
+            this.textBoxKeyFrame.Location = new System.Drawing.Point(19, 314);
+            this.textBoxKeyFrame.Name = "textBoxKeyFrame";
+            this.textBoxKeyFrame.Size = new System.Drawing.Size(121, 20);
+            this.textBoxKeyFrame.TabIndex = 51;
             // 
             // checkBoxInputSet
             // 
@@ -330,7 +355,7 @@
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(666, 526);
+            this.buttonDisregard.Location = new System.Drawing.Point(668, 10);
             this.buttonDisregard.Name = "buttonDisregard";
             this.buttonDisregard.Size = new System.Drawing.Size(106, 23);
             this.buttonDisregard.TabIndex = 41;
@@ -341,12 +366,24 @@
             // 
             this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(501, 526);
+            this.buttonApplyClose.Location = new System.Drawing.Point(503, 10);
             this.buttonApplyClose.Name = "buttonApplyClose";
             this.buttonApplyClose.Size = new System.Drawing.Size(159, 23);
             this.buttonApplyClose.TabIndex = 40;
             this.buttonApplyClose.Text = "Update settings and close";
             this.buttonApplyClose.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonDisregard);
+            this.panel1.Controls.Add(this.buttonApplyClose);
+            this.panel1.Location = new System.Drawing.Point(-2, 516);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(790, 48);
+            this.panel1.TabIndex = 58;
             // 
             // ChannelInformation
             // 
@@ -354,8 +391,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.buttonDisregard);
-            this.Controls.Add(this.buttonApplyClose);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
             this.Controls.Add(this.tabControl1);
             this.Name = "ChannelInformation";
@@ -373,6 +409,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -404,5 +441,8 @@
         private System.Windows.Forms.CheckBox checkBoxclientpolicy;
         private System.Windows.Forms.TextBox textBoxClientPolicy;
         private System.Windows.Forms.CheckBox checkBoxInputSet;
+        private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
+        private System.Windows.Forms.TextBox textBoxKeyFrame;
+        private System.Windows.Forms.Panel panel1;
     }
 }

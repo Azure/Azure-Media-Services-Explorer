@@ -109,6 +109,12 @@ namespace AMSExplorer
             set { checkBoxCreateLocator.Checked = value; }
         }
 
+        public bool EnableDynEnc
+        {
+            get { return checkBoxDynEnc.Checked; }
+            set { checkBoxDynEnc.Checked = value; }
+        }
+
         public string StorageSelected
         {
             get { return ((Item)comboBoxStorage.SelectedItem).Value; }
