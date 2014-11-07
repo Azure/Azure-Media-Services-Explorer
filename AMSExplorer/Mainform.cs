@@ -737,6 +737,9 @@ namespace AMSExplorer
             {
                 return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
                     | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
+                    | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
+                    | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+                    | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
                     | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase));
             }
             else
@@ -2690,7 +2693,12 @@ namespace AMSExplorer
             List<IAsset> listblueprints = new List<IAsset>();
 
 
-            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase))).ToArray();
+            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase) 
+                | f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+                | f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
+                | f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+                | f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase) 
+                | f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase))).ToArray();
             foreach (IAssetFile file in query)
             {
                 if (file.Asset.AssetFiles.Count() == 1)

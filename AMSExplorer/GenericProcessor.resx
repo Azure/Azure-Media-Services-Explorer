@@ -123,7 +123,7 @@
   <data name="radioButtonSingleTaskSingleJob.Text" xml:space="preserve">
     <value>Single task, single job
 (pass all selected assets as inputs to a single task in a single job)
-Required for Xenio and for WAME in some case like multi asset stitching.
+Required for Xenio and for AME in some case like multi asset stitching.
 The order of the assets are important.</value>
   </data>
 </root>

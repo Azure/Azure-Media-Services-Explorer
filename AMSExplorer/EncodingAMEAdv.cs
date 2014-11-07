@@ -438,13 +438,19 @@ namespace AMSExplorer
                                                 {
                                                     preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
                                                 }
-
                                             }
                                             else // mono asset mode
                                             {
-                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
+                                                if ((int)c.Tag == 0) // We should not add MediaFile attribute for assetfile #0
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
+                                                }
+                                                else
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
+                                                }
+              
                                             }
-
 
                                             CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
                                             if (edittimes.Checked)
@@ -537,10 +543,9 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
-
                 }
                 textBoxConfiguration.Text = doc.ToString();
                 if (!Error) xmlOpenedNotYetStiched = false;
@@ -647,7 +652,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
                 }
@@ -677,7 +682,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
                 }
