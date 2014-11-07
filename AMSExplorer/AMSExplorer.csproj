@@ -436,6 +436,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericProcessor.resx">
       <DependentUpon>GenericProcessor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEAdv.resx">
       <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
@@ -551,97 +552,97 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\%24this.Icon.ico" />
-    <Content Include="WAMEPresetFiles\AAC Good Quality Audio.xml">
+    <Content Include="AMEPresetFiles\AAC Good Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\Thumbnails.xml">
+    <Content Include="AMEPresetFiles\Thumbnails.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband 1080p.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband 720p.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband SD 16x9.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband SD 4x3.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\WMA High Quality Audio.xml">
+    <Content Include="AMEPresetFiles\WMA High Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Configurations\MediaEncryptor_PlayReadyProtection.xml">

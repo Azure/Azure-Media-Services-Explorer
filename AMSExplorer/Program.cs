@@ -233,7 +233,7 @@ namespace AMSExplorer
         public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
-        public const string PathAMEFiles = @"\WAMEPresetFiles\";
+        public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
@@ -705,7 +705,11 @@ namespace AMSExplorer
                         switch (ext)
                         {
                             case "KAYAK":
+                            case "GRAPH":
                             case "XENIO":
+                            case "ZENIUM":
+                            case "WORKFLOW":
+                            case "BLUEPRINT":
                                 type = Type_Blueprint;
                                 break;
 
