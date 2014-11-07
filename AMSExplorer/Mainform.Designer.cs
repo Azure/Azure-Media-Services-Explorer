@@ -2248,9 +2248,9 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(327, 418);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(33, 13);
+            this.label10.Size = new System.Drawing.Size(32, 13);
             this.label10.TabIndex = 43;
-            this.label10.Text = "Time:";
+            this.label10.Text = "Filter:";
             // 
             // comboBoxFilterAssetsTime
             // 
@@ -2381,9 +2381,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(327, 418);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(33, 13);
+            this.label11.Size = new System.Drawing.Size(32, 13);
             this.label11.TabIndex = 45;
-            this.label11.Text = "Time:";
+            this.label11.Text = "Filter:";
             // 
             // comboBoxFilterJobsTime
             // 
@@ -2694,9 +2694,9 @@
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(326, 177);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(33, 13);
+            this.label15.Size = new System.Drawing.Size(32, 13);
             this.label15.TabIndex = 52;
-            this.label15.Text = "Time:";
+            this.label15.Text = "Filter:";
             // 
             // comboBoxFilterTimeProgram
             // 

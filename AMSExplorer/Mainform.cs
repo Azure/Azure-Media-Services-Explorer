@@ -2693,11 +2693,11 @@ namespace AMSExplorer
             List<IAsset> listblueprints = new List<IAsset>();
 
 
-            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase) 
+            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
                 | f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
                 | f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
                 | f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-                | f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase) 
+                | f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
                 | f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase))).ToArray();
             foreach (IAssetFile file in query)
             {
@@ -3546,7 +3546,7 @@ namespace AMSExplorer
          .Select(i => i.GetValue(null) as string)
          .ToArray()
          );
-            comboBoxFilterAssetsTime.SelectedIndex = 1; // last week
+            comboBoxFilterAssetsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterJobsTime.Items.AddRange(
          typeof(FilterTime)
@@ -3554,7 +3554,7 @@ namespace AMSExplorer
          .Select(i => i.GetValue(null) as string)
          .ToArray()
          );
-            comboBoxFilterJobsTime.SelectedIndex = 1; // last week
+            comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
 
             comboBoxFilterTimeProgram.Items.AddRange(
@@ -3563,7 +3563,7 @@ namespace AMSExplorer
        .Select(i => i.GetValue(null) as string)
        .ToArray()
        );
-            comboBoxFilterTimeProgram.SelectedIndex = 1; // last week
+            comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
 
             comboBoxStatusProgram.Items.AddRange(
             typeof(ProgramState)
@@ -7733,19 +7733,28 @@ namespace AMSExplorer
 {
     public static class OrderAssets
     {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string Size = "Size";
+        public const string LastModifiedDescending = "Last modified >";
+        public const string LastModifiedAscending = "Last modified <";
+        public const string NameDescending = "Name >";
+        public const string NameAscending = "Name <";
+        public const string SizeDescending = "Size >";
+        public const string SizeAscending = "Size <";
     }
 
     public static class OrderJobs
     {
-        public const string LastModified = "Last modified";
-        public const string StartTime = "Start Time";
-        public const string EndTime = "End Time";
-        public const string ProcessTime = "Duration";
-        public const string Name = "Name";
-        public const string State = "State";
+        public const string LastModifiedDescending = "Last modified >";
+        public const string LastModifiedAscending = "Last modified <";
+        public const string StartTimeDescending = "Start Time >";
+        public const string StartTimeAscending = "Start Time <";
+        public const string EndTimeDescending = "End Time >";
+        public const string EndTimeAscending = "End Time <";
+        public const string ProcessTimeDescending = "Duration >";
+        public const string ProcessTimeAscending = "Duration <";
+        public const string NameDescending = "Name >";
+        public const string NameAscending = "Name <";
+        public const string StateDescending = "State >";
+        public const string StateAscending = "State <";
     }
 
     public static class OrderStreamingEndpoints
@@ -7777,6 +7786,7 @@ namespace AMSExplorer
 
     public static class FilterTime
     {
+        public const string First50Items = "First 50 items";
         public const string LastDay = "Last 24 hours";
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
@@ -7907,9 +7917,9 @@ namespace AMSExplorer
         static private bool _neveranalyzed = true;
         static private string _searchinname = "";
         static private string _statefilter = "";
-        static private string _timefilter = FilterTime.LastWeek;
+        static private string _timefilter = FilterTime.First50Items;
 
-        static string _orderassets = OrderAssets.LastModified;
+        static string _orderassets = OrderAssets.LastModifiedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
         static CloudMediaContext _context;
         static Bitmap cancelimage = Bitmaps.cancel;
@@ -8100,7 +8110,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
 
             int days = -1;
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
                 switch (_timefilter)
                 {
@@ -8179,6 +8189,48 @@ namespace AMSExplorer
             }
 
 
+
+
+            var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+
+            switch (_orderassets)
+            {
+                case OrderAssets.LastModifiedDescending:
+                    assets = from a in assets orderby a.LastModified descending select a;
+                    break;
+
+                case OrderAssets.LastModifiedAscending:
+                    assets = from a in assets orderby a.LastModified ascending select a;
+                    break;
+
+                case OrderAssets.NameAscending:
+                    assets = from a in assets orderby a.Name ascending select a;
+                    break;
+
+                case OrderAssets.NameDescending:
+                    assets = from a in assets orderby a.Name descending select a;
+                    break;
+
+                case OrderAssets.SizeDescending:
+                    assets = from a in assets orderby size(a) descending select a;
+                    break;
+
+                case OrderAssets.SizeAscending:
+                    assets = from a in assets orderby size(a) ascending select a;
+                    break;
+
+                default:
+                    assets = from a in assets orderby a.LastModified descending select a;
+                    break;
+            }
+
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                assets = assets.Take(50);
+            }
+
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
             if (_pagecount == 0) _pagecount = 1; // no asset but one page
@@ -8186,28 +8238,6 @@ namespace AMSExplorer
             if (pagetodisplay < 1) pagetodisplay = 1;
             if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
             _currentpage = pagetodisplay;
-
-            var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-
-            switch (_orderassets)
-            {
-                case OrderAssets.LastModified:
-                    assets = from a in assets orderby a.LastModified descending select a;
-
-                    break;
-                case OrderAssets.Name:
-                    assets = from a in assets orderby a.Name select a;
-                    break;
-
-                case OrderAssets.Size:
-                    assets = from a in assets orderby size(a) descending select a;
-                    break;
-
-                default:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-            }
 
             try
             {
@@ -8572,7 +8602,7 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModified;
+        static string _orderjobs = OrderJobs.LastModifiedDescending;
         static string _filterjobsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -8649,7 +8679,7 @@ namespace AMSExplorer
             IEnumerable<JobEntry> jobquery;
 
             int days = -1;
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
                 switch (_timefilter)
                 {
@@ -8690,6 +8720,68 @@ namespace AMSExplorer
             }
 
 
+
+            switch (_orderjobs)
+            {
+                case OrderJobs.LastModifiedDescending:
+                    jobs = from j in jobs orderby j.LastModified descending select j;
+                    break;
+
+                case OrderJobs.LastModifiedAscending:
+                    jobs = from j in jobs orderby j.LastModified ascending select j;
+                    break;
+
+                case OrderJobs.NameDescending:
+                    jobs = from j in jobs orderby j.Name descending select j;
+                    break;
+
+                case OrderJobs.NameAscending:
+                    jobs = from j in jobs orderby j.Name ascending select j;
+                    break;
+
+                case OrderJobs.EndTimeDescending:
+                    jobs = from j in jobs orderby j.EndTime descending select j;
+                    break;
+
+                case OrderJobs.EndTimeAscending:
+                    jobs = from j in jobs orderby j.EndTime ascending select j;
+                    break;
+
+                case OrderJobs.ProcessTimeDescending:
+                    jobs = from j in jobs orderby j.RunningDuration descending select j;
+                    break;
+
+                case OrderJobs.ProcessTimeAscending:
+                    jobs = from j in jobs orderby j.RunningDuration ascending select j;
+                    break;
+
+                case OrderJobs.StartTimeDescending:
+                    jobs = from j in jobs orderby j.StartTime descending select j;
+                    break;
+
+                case OrderJobs.StartTimeAscending:
+                    jobs = from j in jobs orderby j.StartTime ascending select j;
+                    break;
+
+                case OrderJobs.StateDescending:
+                    jobs = from j in jobs orderby j.State descending select j;
+                    break;
+
+                case OrderJobs.StateAscending:
+                    jobs = from j in jobs orderby j.State ascending select j;
+                    break;
+
+                default:
+                    jobs = from j in jobs orderby j.LastModified descending select j;
+                    break;
+            }
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                jobs = jobs.Take(50);
+            }
+
+
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
             if (_pagecount == 0) _pagecount = 1; // no asset but one page
@@ -8698,9 +8790,23 @@ namespace AMSExplorer
             if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
             _currentpage = pagetodisplay;
 
+
             try
             {
-                int c = jobs.Count();
+                jobquery = from j in jobs
+                           select new JobEntry
+                           {
+                               Name = j.Name,
+                               Id = j.Id,
+                               Tasks = j.Tasks.Count,
+                               Priority = j.Priority,
+                               State = j.State,
+                               StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
+                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
+                               Progress = j.GetOverallProgress()
+                           };
+                _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             }
             catch (Exception e)
             {
@@ -8708,126 +8814,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-
-
-            switch (_orderjobs)
-            {
-                case OrderJobs.LastModified:
-                    jobquery = from j in jobs
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"hh\:mm\:ss") : string.Empty,
-
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.Name:
-                    jobquery = from j in jobs
-                               orderby j.Name
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.EndTime:
-                    jobquery = from j in jobs
-                               orderby j.EndTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.ProcessTime:
-                    jobquery = from j in jobs
-                               orderby j.RunningDuration descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.StartTime:
-                    jobquery = from j in jobs
-                               orderby j.StartTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.State:
-                    jobquery = from j in jobs
-                               orderby j.State
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                default:
-                    jobquery = from j in jobs
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-            }
-
-            _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             _MyObservAssethisPage = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (_currentpage - 1)).Take(_jobsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
             _refreshedatleastonetime = true;
