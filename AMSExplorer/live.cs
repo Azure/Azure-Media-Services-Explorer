@@ -171,7 +171,7 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModified;
+        static string _orderjobs = OrderJobs.LastModifiedDescending;
         static string _filterjobsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -989,6 +989,8 @@ namespace AMSExplorer
                         }).ToArray();
                     break;
 
+
+
                 case OrderPrograms.Name:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)
                  .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
@@ -1045,6 +1047,11 @@ namespace AMSExplorer
 
                   }).ToArray();
                     break;
+            }
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                programquery = programquery.Take(50);
             }
 
 
