@@ -64,7 +64,7 @@ namespace AMSExplorer
         public ImportHttp()
         {
             InitializeComponent();
-
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void ImportHttp_Load(object sender, EventArgs e)

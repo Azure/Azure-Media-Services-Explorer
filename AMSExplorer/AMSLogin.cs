@@ -62,6 +62,7 @@ namespace AMSExplorer
         public AMSLogin()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void AMSLogin_Load(object sender, EventArgs e)

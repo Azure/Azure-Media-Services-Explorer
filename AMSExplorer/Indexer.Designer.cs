@@ -295,7 +295,6 @@
             this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Indexer";
             this.Text = "Media Indexing";
             this.Load += new System.EventHandler(this.Indexer_Load);

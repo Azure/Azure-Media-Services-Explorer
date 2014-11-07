@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateStreamingEndpoint));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -137,7 +136,7 @@
             this.textBoxOriginDescription.Size = new System.Drawing.Size(449, 20);
             this.textBoxOriginDescription.TabIndex = 46;
             // 
-            // CreateOrigin
+            // CreateStreamingEndpoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -150,8 +149,7 @@
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "CreateOrigin";
+            this.Name = "CreateStreamingEndpoint";
             this.Text = "Create a streaming endpoint";
             this.Load += new System.EventHandler(this.CreateOrigin_Load);
             this.groupBox4.ResumeLayout(false);

@@ -117,6 +117,7 @@ namespace AMSExplorer
         public CreateLiveChannel()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void CreateLocator_Load(object sender, EventArgs e)

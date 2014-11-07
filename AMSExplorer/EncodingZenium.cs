@@ -167,6 +167,7 @@ namespace AMSExplorer
         public EncodingZenium(CloudMediaContext context)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
         }
 

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInformation));
             this.DGAsset = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +41,7 @@
             this.toolStripMenuItemPlaybackSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
@@ -84,6 +84,7 @@
             this.listViewDelPol = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
             this.buttonOpen = new System.Windows.Forms.Button();
@@ -96,8 +97,6 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
-            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -174,7 +173,7 @@
             this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 224);
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 202);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
@@ -230,6 +229,13 @@
             this.toolStripMenuItemDASHAzure.Size = new System.Drawing.Size(322, 22);
             this.toolStripMenuItemDASHAzure.Text = "Playback with MPEG-DASH Azure Player";
             this.toolStripMenuItemDASHAzure.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItemDASHLiveAzure
+            // 
+            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
+            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
+            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
             // 
             // toolStripMenuItemPlaybackMP4
             // 
@@ -727,6 +733,18 @@
             this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // buttonDashLiveAzure
+            // 
+            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDashLiveAzure.Enabled = false;
+            this.buttonDashLiveAzure.Location = new System.Drawing.Point(516, 422);
+            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
+            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
+            this.buttonDashLiveAzure.TabIndex = 31;
+            this.buttonDashLiveAzure.Text = "DASH Live";
+            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
+            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -851,25 +869,6 @@
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
             // 
-            // buttonDashLiveAzure
-            // 
-            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDashLiveAzure.Enabled = false;
-            this.buttonDashLiveAzure.Location = new System.Drawing.Point(516, 422);
-            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
-            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
-            this.buttonDashLiveAzure.TabIndex = 31;
-            this.buttonDashLiveAzure.Text = "DASH Live";
-            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
-            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
-            // 
-            // toolStripMenuItemDASHLiveAzure
-            // 
-            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
-            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
-            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
-            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -879,7 +878,6 @@
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonClose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AssetInformation";
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);

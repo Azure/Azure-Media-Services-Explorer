@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayReadyStaticEnc));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.processorlabel = new System.Windows.Forms.Label();
@@ -392,7 +391,6 @@
             this.Controls.Add(this.moreinfotestserver);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayReadyStaticEnc";
             this.Text = "PlayReady Static Encryption";
             this.Load += new System.EventHandler(this.PlayReadyStaticEnc_Load);

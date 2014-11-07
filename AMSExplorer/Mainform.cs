@@ -85,6 +85,7 @@ namespace AMSExplorer
         public Mainform()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
 
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
             {

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportHttp));
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -168,7 +167,6 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ImportHttp";
             this.Text = "Import from HTTP/HTTPS/FTP";
             this.Load += new System.EventHandler(this.ImportHttp_Load);

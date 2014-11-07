@@ -81,6 +81,7 @@ namespace AMSExplorer
         public ChannelInformation()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)

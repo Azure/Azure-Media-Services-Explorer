@@ -136,8 +136,8 @@ namespace AMSExplorer
         public EncodingAMEAdv(CloudMediaContext context)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-
         }
 
         private void button1_Click(object sender, EventArgs e)

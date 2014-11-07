@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMSLogin));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
@@ -394,7 +393,6 @@
             this.Controls.Add(this.listBoxAcounts);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonLogin);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AMSLogin";

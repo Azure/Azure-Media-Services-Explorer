@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportFromAzureStorage));
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonClose = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelSelectedAssetWarning = new System.Windows.Forms.Label();
             this.labelExistingAssetName = new System.Windows.Forms.Label();
             this.textBoxNewAssetName = new System.Windows.Forms.TextBox();
             this.radioButtonSelectedAsset = new System.Windows.Forms.RadioButton();
@@ -56,7 +56,6 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.labelSelectedAssetWarning = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -100,6 +99,17 @@
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Copy to Azure Media Services";
+            // 
+            // labelSelectedAssetWarning
+            // 
+            this.labelSelectedAssetWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelSelectedAssetWarning.AutoSize = true;
+            this.labelSelectedAssetWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelSelectedAssetWarning.Location = new System.Drawing.Point(475, 45);
+            this.labelSelectedAssetWarning.Name = "labelSelectedAssetWarning";
+            this.labelSelectedAssetWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelSelectedAssetWarning.TabIndex = 45;
+            this.labelSelectedAssetWarning.Text = "Warning";
             // 
             // labelExistingAssetName
             // 
@@ -343,18 +353,7 @@
             this.label5.TabIndex = 23;
             this.label5.Text = "Search:";
             // 
-            // labelSelectedAssetWarning
-            // 
-            this.labelSelectedAssetWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelSelectedAssetWarning.AutoSize = true;
-            this.labelSelectedAssetWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelSelectedAssetWarning.Location = new System.Drawing.Point(475, 45);
-            this.labelSelectedAssetWarning.Name = "labelSelectedAssetWarning";
-            this.labelSelectedAssetWarning.Size = new System.Drawing.Size(47, 13);
-            this.labelSelectedAssetWarning.TabIndex = 45;
-            this.labelSelectedAssetWarning.Text = "Warning";
-            // 
-            // UploadFromBlob
+            // ImportFromAzureStorage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -370,8 +369,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonClose);
             this.Controls.Add(this.buttonUpload);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "UploadFromBlob";
+            this.Name = "ImportFromAzureStorage";
             this.Text = "Import from Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
             this.SizeChanged += new System.EventHandler(this.UploadFromBlob_SizeChanged);

@@ -3316,7 +3316,6 @@
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.menuStripMain);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "Mainform";
             this.Text = "{0} - Azure Media Services Explorer";

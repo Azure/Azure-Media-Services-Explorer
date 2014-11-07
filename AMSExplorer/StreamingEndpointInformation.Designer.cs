@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StreamingEndpointInformation));
             this.DGOrigin = new System.Windows.Forms.DataGridView();
             this.contextMenuStripOI = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -496,7 +495,6 @@
             this.Controls.Add(this.labelOriginName);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonApplyClose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "StreamingEndpointInformation";
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);

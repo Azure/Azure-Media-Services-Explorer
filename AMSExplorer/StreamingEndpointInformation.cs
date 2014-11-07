@@ -137,6 +137,7 @@ namespace AMSExplorer
         public StreamingEndpointInformation()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 
