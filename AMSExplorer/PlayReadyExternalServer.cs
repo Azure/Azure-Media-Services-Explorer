@@ -85,6 +85,7 @@ namespace AMSExplorer
         public PlayReadyExternalServer(bool Multiassets)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             multiassets = Multiassets;
 
             if (multiassets) // batch mode for dyn enc so user can only input the seed

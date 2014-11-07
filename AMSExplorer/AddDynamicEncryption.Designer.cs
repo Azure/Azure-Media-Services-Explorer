@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddDynamicEncryption));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.radioButtonEnvelope = new System.Windows.Forms.RadioButton();
@@ -338,7 +337,6 @@
             this.Controls.Add(this.groupBoxKeyType);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddDynamicEncryption";
             this.Text = "Dynamic encryption and key/license delivery";
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);

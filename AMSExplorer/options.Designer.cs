@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
@@ -41,6 +40,7 @@
             this.checkBoxDisplayAssetID = new System.Windows.Forms.CheckBox();
             this.checkBoxDisplayJobID = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.checkBoxAutoRefresh = new System.Windows.Forms.CheckBox();
             this.comboBoxAutoRefreshTime = new System.Windows.Forms.ComboBox();
             this.checkBoxDisplayOriginID = new System.Windows.Forms.CheckBox();
@@ -57,7 +57,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
-            this.checkBoxDisplayAssetStorage = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
@@ -184,6 +183,16 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grids display";
+            // 
+            // checkBoxDisplayAssetStorage
+            // 
+            this.checkBoxDisplayAssetStorage.AutoSize = true;
+            this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(42, 72);
+            this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
+            this.checkBoxDisplayAssetStorage.Size = new System.Drawing.Size(129, 17);
+            this.checkBoxDisplayAssetStorage.TabIndex = 22;
+            this.checkBoxDisplayAssetStorage.Text = "Display Asset Storage";
+            this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
             // 
             // checkBoxAutoRefresh
             // 
@@ -359,16 +368,6 @@
             this.checkBoxEnableCustomPlayer.UseVisualStyleBackColor = true;
             this.checkBoxEnableCustomPlayer.CheckedChanged += new System.EventHandler(this.checkBoxEnableCustomPlayer_CheckedChanged);
             // 
-            // checkBoxDisplayAssetStorage
-            // 
-            this.checkBoxDisplayAssetStorage.AutoSize = true;
-            this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(42, 72);
-            this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
-            this.checkBoxDisplayAssetStorage.Size = new System.Drawing.Size(129, 17);
-            this.checkBoxDisplayAssetStorage.TabIndex = 22;
-            this.checkBoxDisplayAssetStorage.Text = "Display Asset Storage";
-            this.checkBoxDisplayAssetStorage.UseVisualStyleBackColor = true;
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -381,7 +380,6 @@
             this.Controls.Add(this.buttonReset);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Options";
             this.Text = "Options";
             this.Load += new System.EventHandler(this.options_Load);

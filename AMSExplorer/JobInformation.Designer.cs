@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JobInformation));
             this.DGErrors = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -251,7 +250,6 @@
             this.Controls.Add(this.labelJobNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.buttonClose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "JobInformation";
             this.Text = "Job Information";
             this.Load += new System.EventHandler(this.JobInformation_Load);

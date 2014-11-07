@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BatchUploadFrame1));
             this.buttonNext = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonSelectFolder = new System.Windows.Forms.Button();
@@ -159,7 +158,7 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Path processing";
             // 
-            // BathUploadFrame1
+            // BatchUploadFrame1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -172,8 +171,7 @@
             this.Controls.Add(this.buttonSelectFolder);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonNext);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "BathUploadFrame1";
+            this.Name = "BatchUploadFrame1";
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame1_Load);
             this.groupBox1.ResumeLayout(false);

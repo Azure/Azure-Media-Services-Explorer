@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayReadyExternalServer));
             this.moreinfotestserver = new System.Windows.Forms.LinkLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label = new System.Windows.Forms.Label();
@@ -255,7 +254,6 @@
             this.Controls.Add(this.moreinfotestserver);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayReadyExternalServer";
             this.Text = "PlayReady External Server Configuration";
             this.Load += new System.EventHandler(this.PlayReadyExternalServer_Load);

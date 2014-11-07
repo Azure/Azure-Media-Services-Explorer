@@ -28,17 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChangeEncodingRU));
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxSubId = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownRUNumber = new System.Windows.Forms.NumericUpDown();
             this.textBoxCertThumbprint = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelAttach = new System.Windows.Forms.LinkLabel();
-            this.numericUpDownRUNumber = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRUNumber)).BeginInit();
             this.SuspendLayout();
@@ -105,6 +104,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoding Reserved Units";
             // 
+            // numericUpDownRUNumber
+            // 
+            this.numericUpDownRUNumber.Location = new System.Drawing.Point(63, 25);
+            this.numericUpDownRUNumber.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numericUpDownRUNumber.Name = "numericUpDownRUNumber";
+            this.numericUpDownRUNumber.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownRUNumber.TabIndex = 2;
+            // 
             // textBoxCertThumbprint
             // 
             this.textBoxCertThumbprint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -135,18 +146,6 @@
             this.linkLabelAttach.Text = "See how to create and upload a management certificate";
             this.linkLabelAttach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAttach_LinkClicked);
             // 
-            // numericUpDownRUNumber
-            // 
-            this.numericUpDownRUNumber.Location = new System.Drawing.Point(63, 25);
-            this.numericUpDownRUNumber.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.numericUpDownRUNumber.Name = "numericUpDownRUNumber";
-            this.numericUpDownRUNumber.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownRUNumber.TabIndex = 2;
-            // 
             // ChangeEncodingRU
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,7 +160,6 @@
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.label1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ChangeEncodingRU";
             this.Text = "Change number of encoding/processing reserved units";
             this.Load += new System.EventHandler(this.AttachStorage_Load);

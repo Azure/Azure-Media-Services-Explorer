@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveChannel));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxRestrictIngestIP = new System.Windows.Forms.TextBox();
@@ -228,7 +227,6 @@
             this.Controls.Add(this.textboxchannelname);
             this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateLiveChannel";
             this.Text = "Create a live channel";
             this.Load += new System.EventHandler(this.CreateLocator_Load);

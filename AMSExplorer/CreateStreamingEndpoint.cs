@@ -49,6 +49,7 @@ namespace AMSExplorer
         public CreateStreamingEndpoint()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 

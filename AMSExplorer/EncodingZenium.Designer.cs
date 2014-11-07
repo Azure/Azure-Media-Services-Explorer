@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EncodingZenium));
             this.label = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -296,7 +295,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncodingZenium";
             this.Text = "Encoding with Zenium";
             this.Load += new System.EventHandler(this.EncodingXenio_Load);

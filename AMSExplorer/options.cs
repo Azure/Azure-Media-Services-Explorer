@@ -32,6 +32,7 @@ namespace AMSExplorer
         public Options()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

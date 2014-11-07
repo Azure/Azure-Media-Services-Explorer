@@ -94,6 +94,7 @@ namespace AMSExplorer
         public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             if (extendlocator) // dialog box used to extend locator expiration date
             {
                 buttonOk.Text = "Update locator(s)";

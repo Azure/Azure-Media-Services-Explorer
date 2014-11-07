@@ -29,9 +29,6 @@ namespace AMSExplorer
 {
     public partial class DeleteProgram : Form
     {
-      
-
-
         public bool DeleteAsset
         {
             get
@@ -43,6 +40,7 @@ namespace AMSExplorer
         public DeleteProgram(string label)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             labelmain.Text = label;
         }
 

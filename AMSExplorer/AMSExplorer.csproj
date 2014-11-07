@@ -52,7 +52,7 @@
     <StartupObject>AMSExplorer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MediaNew.ico</ApplicationIcon>
+    <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release No Credentials|AnyCPU'">
     <OutputPath>bin\Release No Credentials\</OutputPath>
@@ -467,7 +467,10 @@
     <EmbeddedResource Include="ImportFromAzureStorage.resx">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Azure Explorer_ico.ico" />
     <Content Include="BitmapsPNG\8-12-2014-13-20-04.png" />
+    <Content Include="BitmapsPNG\Azure Explorer.png" />
+    <Content Include="BitmapsPNG\Azure Explorer_ico.ico" />
     <Content Include="BitmapsPNG\Imagine.PNG" />
     <Content Include="BitmapsPNG\media2.ico" />
     <Content Include="BitmapsPNG\media2.png" />

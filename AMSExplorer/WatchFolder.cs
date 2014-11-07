@@ -78,7 +78,7 @@ namespace AMSExplorer
         public WatchFolder()
         {
             InitializeComponent();
-
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)

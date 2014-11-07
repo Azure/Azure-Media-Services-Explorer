@@ -78,8 +78,8 @@ namespace AMSExplorer
         public AttachStorage()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));
-
         }
 
         private void AttachStorage_Load(object sender, EventArgs e)

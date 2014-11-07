@@ -151,9 +151,9 @@ namespace AMSExplorer
         public ImportFromAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             MediaServicesStorageAccountKey = MediaServicesStorageAccountKeyArg;
             contextUpload = contextUploadArg;
-
         }
 
         private void UploadFromBlob_Load(object sender, EventArgs e)

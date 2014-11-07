@@ -125,6 +125,7 @@ namespace AMSExplorer
         public HLSAESStatic()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void buttonGenKeyID_Click(object sender, EventArgs e)
