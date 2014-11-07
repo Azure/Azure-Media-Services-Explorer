@@ -33,6 +33,7 @@ using System.Net;
 using System.Xml.Linq;
 using System.Web;
 using System.Globalization;
+using System.Security;
 
 namespace AMSExplorer
 {
@@ -331,10 +332,11 @@ namespace AMSExplorer
         static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null)
         {
             if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+            string stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
 
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
     {
-        {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, acquisitionUrl.ToString()},
+        {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},
     };
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(

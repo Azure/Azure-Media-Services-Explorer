@@ -74,7 +74,7 @@ namespace AMSExplorer
         {
             get
             {
-                return multiassets ? null : (Guid?) new Guid(textBoxkeyid.Text);
+                return multiassets ? null : (Guid?)new Guid(textBoxkeyid.Text);
             }
             set
             {
@@ -101,7 +101,7 @@ namespace AMSExplorer
         {
             textBoxLAurl.Text = _PlayReadyTestLAURL;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
-            if (multiassets) textBoxkeyid.Text = Guid.NewGuid().ToString();
+            if (!multiassets) textBoxkeyid.Text = Guid.NewGuid().ToString();
 
             textBoxcontentkey.Text = string.Empty;
         }
@@ -130,11 +130,40 @@ namespace AMSExplorer
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             bool validation = false;
-            if ((textBoxkeyid.Text != string.Empty) && ((textBoxkeyseed.Text != string.Empty) | (textBoxcontentkey.Text != string.Empty)))
+            if (multiassets) // multi assets selectyed. We need at least the key seed
             {
-                validation = true;
+                if (!string.IsNullOrEmpty(textBoxkeyseed.Text) && !string.IsNullOrEmpty(textBoxLAurl.Text))
+                {
+                    validation = true;
+                }
             }
+            else // single asset selected
+            {
+                if (!string.IsNullOrEmpty(textBoxLAurl.Text) && !string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) | (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
+                {
+                    validation = true;
+                }
+            }
+
             buttonOk.Enabled = validation;
+        }
+
+        private void textBoxkeyseed_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxkeyseed.Text)) // if a seed is set, let's make sure no content key is defined
+            {
+                textBoxcontentkey.Text = string.Empty;
+            }
+            textBox_TextChanged(sender, e);
+        }
+
+        private void textBoxcontentkey_TextChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBoxcontentkey.Text)) // if a content key, let's make sure no seed is defined
+            {
+                textBoxkeyseed.Text = string.Empty;
+            }
+            textBox_TextChanged(sender, e);
         }
     }
 }
