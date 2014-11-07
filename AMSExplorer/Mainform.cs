@@ -7245,6 +7245,7 @@ namespace AMSExplorer
                 {
                     string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
                     question += Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name and locator ID.";
+                    question += Constants.endline + Constants.endline + "As the new asset uses the same locator ID, this can create CDN/caching issues.";
                     question += Constants.endline + Constants.endline + "This feature is not compatible with Dynamic Encryption for now.";
 
                     if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
