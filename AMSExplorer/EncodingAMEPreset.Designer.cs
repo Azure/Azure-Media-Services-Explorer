@@ -37,7 +37,6 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.outputassetname = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -45,7 +44,11 @@
             this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
@@ -84,16 +87,17 @@
             this.listbox.FormattingEnabled = true;
             this.listbox.Location = new System.Drawing.Point(35, 116);
             this.listbox.Name = "listbox";
+            this.listbox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listbox.Size = new System.Drawing.Size(662, 121);
             this.listbox.TabIndex = 3;
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(409, 410);
+            this.buttonCancel.Location = new System.Drawing.Point(622, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -140,19 +144,6 @@
             this.outputassetname.Size = new System.Drawing.Size(353, 20);
             this.outputassetname.TabIndex = 9;
             // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(542, 9);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(181, 20);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Azure Media Encoder";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.label4.Click += new System.EventHandler(this.label4_Click);
-            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -173,13 +164,13 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(248, 410);
+            this.buttonOk.Location = new System.Drawing.Point(476, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(140, 32);
+            this.buttonOk.Size = new System.Drawing.Size(140, 23);
             this.buttonOk.TabIndex = 5;
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -224,6 +215,41 @@
             this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
             this.comboBoxStorage.TabIndex = 54;
             // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.label34.Location = new System.Drawing.Point(509, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(214, 24);
+            this.label34.TabIndex = 62;
+            this.label34.Text = "Azure Media Encoder";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(513, 240);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(184, 13);
+            this.label12.TabIndex = 63;
+            this.label12.Text = "(Use ctrl or shift to multiselect presets)";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(2, 415);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(734, 48);
+            this.panel1.TabIndex = 65;
+            // 
             // EncodingAMEPreset
             // 
             this.AcceptButton = this.buttonOk;
@@ -232,19 +258,19 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(735, 463);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDownPriority);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.outputassetname);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.listbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxJobName);
@@ -253,6 +279,7 @@
             this.Text = "AME System Preset Encoding";
             this.Load += new System.EventHandler(this.EncodingPreset_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -270,13 +297,15 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox outputassetname;
-        public System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         public System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox comboBoxProcessor;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        public System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }

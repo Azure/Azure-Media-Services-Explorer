@@ -168,8 +168,6 @@ namespace AMSExplorer
                 DoListBlobs(true);
                 if (ErrorConnect) this.Close();
             }
-
-
         }
 
         private void ConnectToStorage()

@@ -51,6 +51,7 @@
             this.labelProgramName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
@@ -61,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripDG
@@ -84,7 +86,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 403);
+            this.tabPage1.Size = new System.Drawing.Size(752, 400);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -106,7 +108,7 @@
             this.DGChannel.Name = "DGChannel";
             this.DGChannel.ReadOnly = true;
             this.DGChannel.RowHeadersVisible = false;
-            this.DGChannel.Size = new System.Drawing.Size(740, 391);
+            this.DGChannel.Size = new System.Drawing.Size(740, 388);
             this.DGChannel.TabIndex = 0;
             // 
             // buttonCopyStats
@@ -132,7 +134,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 81);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 429);
+            this.tabControl1.Size = new System.Drawing.Size(760, 426);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage2
@@ -281,9 +283,9 @@
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(662, 526);
+            this.buttonDisregard.Location = new System.Drawing.Point(677, 13);
             this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(106, 23);
+            this.buttonDisregard.Size = new System.Drawing.Size(99, 23);
             this.buttonDisregard.TabIndex = 41;
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
@@ -292,12 +294,24 @@
             // 
             this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(497, 526);
+            this.buttonApplyClose.Location = new System.Drawing.Point(512, 13);
             this.buttonApplyClose.Name = "buttonApplyClose";
             this.buttonApplyClose.Size = new System.Drawing.Size(159, 23);
             this.buttonApplyClose.TabIndex = 40;
             this.buttonApplyClose.Text = "Update settings and close";
             this.buttonApplyClose.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonApplyClose);
+            this.panel1.Controls.Add(this.buttonDisregard);
+            this.panel1.Location = new System.Drawing.Point(-4, 513);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(790, 48);
+            this.panel1.TabIndex = 63;
             // 
             // ProgramInformation
             // 
@@ -305,9 +319,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.buttonCopyStats);
-            this.Controls.Add(this.buttonDisregard);
-            this.Controls.Add(this.buttonApplyClose);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
             this.Name = "ProgramInformation";
@@ -326,6 +339,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -354,5 +368,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveDays;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel1;
     }
 }

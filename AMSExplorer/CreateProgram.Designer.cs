@@ -61,7 +61,8 @@
             this.textBoxProgramSourceURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxReplica = new System.Windows.Forms.CheckBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -69,25 +70,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(121, 487);
+            this.buttonOk.Location = new System.Drawing.Point(274, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
-            this.buttonOk.TabIndex = 10;
+            this.buttonOk.Size = new System.Drawing.Size(99, 23);
+            this.buttonOk.TabIndex = 6;
             this.buttonOk.Text = "Create Program";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(255, 487);
+            this.buttonCancel.Location = new System.Drawing.Point(382, 12);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
-            this.buttonCancel.TabIndex = 11;
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -98,7 +102,7 @@
             this.textBoxAssetName.Location = new System.Drawing.Point(18, 93);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.Size = new System.Drawing.Size(386, 20);
-            this.textBoxAssetName.TabIndex = 6;
+            this.textBoxAssetName.TabIndex = 3;
             // 
             // label4
             // 
@@ -128,7 +132,7 @@
             0});
             this.numericUpDownArchiveDays.Name = "numericUpDownArchiveDays";
             this.numericUpDownArchiveDays.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveDays.TabIndex = 2;
+            this.numericUpDownArchiveDays.TabIndex = 0;
             // 
             // label2
             // 
@@ -178,10 +182,10 @@
             // checkBoxCreateLocator
             // 
             this.checkBoxCreateLocator.AutoSize = true;
-            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 428);
+            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 453);
             this.checkBoxCreateLocator.Name = "checkBoxCreateLocator";
             this.checkBoxCreateLocator.Size = new System.Drawing.Size(335, 17);
-            this.checkBoxCreateLocator.TabIndex = 9;
+            this.checkBoxCreateLocator.TabIndex = 5;
             this.checkBoxCreateLocator.Text = "Publish this program/asset now (default locator duration: {0} days)";
             this.checkBoxCreateLocator.UseVisualStyleBackColor = true;
             // 
@@ -202,7 +206,7 @@
             this.checkBoxAddScaleUnit.Location = new System.Drawing.Point(30, 405);
             this.checkBoxAddScaleUnit.Name = "checkBoxAddScaleUnit";
             this.checkBoxAddScaleUnit.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxAddScaleUnit.TabIndex = 49;
+            this.checkBoxAddScaleUnit.TabIndex = 3;
             this.checkBoxAddScaleUnit.Text = "Add one scale streaming unit";
             this.checkBoxAddScaleUnit.UseVisualStyleBackColor = true;
             // 
@@ -216,7 +220,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(434, 206);
-            this.tabControl1.TabIndex = 51;
+            this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
@@ -258,7 +262,7 @@
             this.comboBoxStorage.Location = new System.Drawing.Point(18, 144);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
-            this.comboBoxStorage.TabIndex = 64;
+            this.comboBoxStorage.TabIndex = 4;
             // 
             // numericUpDownArchiveMinutes
             // 
@@ -270,7 +274,7 @@
             0});
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
             this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveMinutes.TabIndex = 4;
+            this.numericUpDownArchiveMinutes.TabIndex = 2;
             // 
             // label11
             // 
@@ -310,7 +314,7 @@
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveHours.TabIndex = 3;
+            this.numericUpDownArchiveHours.TabIndex = 1;
             // 
             // tabPage2
             // 
@@ -422,15 +426,27 @@
             this.checkBoxReplica.UseVisualStyleBackColor = true;
             this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
             // 
-            // label13
+            // checkBoxDynEnc
             // 
-            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label13.Location = new System.Drawing.Point(49, 448);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(366, 31);
-            this.label13.TabIndex = 52;
-            this.label13.Text = "Do not publish the program now if you want to apply Dynamic Encryption.\r\nDo it on" +
-    "ce Dynamic Encryption has been configured.";
+            this.checkBoxDynEnc.AutoSize = true;
+            this.checkBoxDynEnc.Location = new System.Drawing.Point(30, 429);
+            this.checkBoxDynEnc.Name = "checkBoxDynEnc";
+            this.checkBoxDynEnc.Size = new System.Drawing.Size(156, 17);
+            this.checkBoxDynEnc.TabIndex = 4;
+            this.checkBoxDynEnc.Text = "Enable Dynamic Encryption";
+            this.checkBoxDynEnc.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-3, 488);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.TabIndex = 61;
             // 
             // CreateProgram
             // 
@@ -438,7 +454,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 535);
-            this.Controls.Add(this.label13);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.checkBoxDynEnc);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBoxAddScaleUnit);
             this.Controls.Add(this.label5);
@@ -447,8 +464,6 @@
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "CreateProgram";
             this.Text = "Create a new program for channel {0}";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
@@ -461,6 +476,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -501,6 +517,7 @@
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBoxDynEnc;
+        private System.Windows.Forms.Panel panel1;
     }
 }

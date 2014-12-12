@@ -200,34 +200,11 @@ namespace AMSExplorer
 
                           };
 
-            /*
-            try
-            {
-                int c = jobs.Count();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + e.Message);
-                Environment.Exit(0);
-            }
-             * */
-
-            //DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            //DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
-            //col.Name = "Progress";
-            //col.DataPropertyName = "Progress";
-
-            //this.Columns.Add(col);
+       
             BindingList<StreamingEndpointEntry> MyObservOriginInPage = new BindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
             this.DataSource = MyObservOriginInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
-            /*this.Columns["Progress"].DisplayIndex = 6;
-            this.Columns["Tasks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Tasks"].Width = 50;
-            this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Priority"].Width = 50;
-            Task.Run(() => RestoreJobProgress());*/
-
+          
             WorkerRefreshStreamingEndpoints = new BackgroundWorker();
             WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;
             WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshStreamingEndpoints_DoWork);
@@ -262,24 +239,21 @@ namespace AMSExplorer
                 }
             }
 
-
             if (index >= 0) // we found it
             { // we update the observation collection
                 origin = _context.StreamingEndpoints.Where(o => o.Id == origin.Id).FirstOrDefault(); //refresh
                 if (origin != null)
                 {
                     _MyObservStreamingEndpoints[index].State = origin.State;
+                    _MyObservStreamingEndpoints[index].Description = origin.Description;
+                    _MyObservStreamingEndpoints[index].LastModified = origin.LastModified;
                     if (origin.ScaleUnits != null)
                     {
                         _MyObservStreamingEndpoints[index].ScaleUnits = (int)origin.ScaleUnits;
+                        this.Refresh();
                     }
-
                 }
-
-                Debug.WriteLine("Refresh streaming endpoint status");
             }
-
-
         }
 
         private void WorkerRefreshStreamingEndpoints_DoWork(object sender, DoWorkEventArgs e)
@@ -288,7 +262,6 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             IStreamingEndpoint origin;
-
 
             foreach (StreamingEndpointEntry OE in _MyObservStreamingEndpoints)
             {
@@ -405,111 +378,5 @@ namespace AMSExplorer
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
-
-
-
-
-        public void AddStreamingEndpointEvent(StatusInfo statusinfo)
-        {
-            ListStatus.Add(statusinfo);
-
-        }
-
-        public void DoStreamingEndpointMonitor(IStreamingEndpoint origin, OperationType operationtype)
-        {
-            Task.Run(() =>
-            {
-                if (operationtype == OperationType.Scale)
-                {
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-                    System.Threading.Thread.Sleep(1000); // it take some time for the origin to switch to scaling mode
-
-                    while (origin.State == StreamingEndpointState.Scaling)
-                    {
-                        RefreshStreamingEndpoint(origin);
-                        System.Threading.Thread.Sleep(500);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == origin.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-
-                    }
-                    RefreshStreamingEndpoint(origin);
-                }
-                else if (operationtype == OperationType.Delete)
-                {
-                    string originid = origin.Id;
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-                    while (_context.StreamingEndpoints.Where(o => o.Id == originid).FirstOrDefault() != null)
-                    {
-                        RefreshStreamingEndpoint(origin);
-                        System.Threading.Thread.Sleep(1000);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == origin.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-                    }
-                    RefreshStreamingEndpoints();
-                }
-                else
-                {
-                    StreamingEndpointState StateToReach;
-
-                    switch (operationtype)
-                    {
-                        case OperationType.Create:
-                            StateToReach = StreamingEndpointState.Stopped;
-                            break;
-
-                        case OperationType.Start:
-                            StateToReach = StreamingEndpointState.Running;
-                            break;
-
-                        case OperationType.Stop:
-                            StateToReach = StreamingEndpointState.Stopped;
-                            break;
-
-                        default:
-                            StateToReach = StreamingEndpointState.Stopped;
-                            break;
-                    }
-
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-
-                    while (origin.State != StateToReach)
-                    {
-                        RefreshStreamingEndpoint(origin);
-                        System.Threading.Thread.Sleep(500);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == origin.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-                    }
-                    RefreshStreamingEndpoint(origin);
-                }
-            });
-        }
-
     }
 }

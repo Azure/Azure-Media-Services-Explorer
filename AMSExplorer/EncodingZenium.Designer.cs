@@ -31,11 +31,9 @@
             this.label = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.listbox = new System.Windows.Forms.ListBox();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.processorlabel = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.radioButtonMultipleJob = new System.Windows.Forms.RadioButton();
@@ -44,21 +42,34 @@
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.pictureBoxXenio = new System.Windows.Forms.PictureBox();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.listViewWorkflows = new System.Windows.Forms.ListView();
+            this.columnHeaderFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFileDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderFileSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAssetName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAssetId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.progressBarUpload = new System.Windows.Forms.ProgressBar();
+            this.buttonUpload = new System.Windows.Forms.Button();
+            this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXenio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label
             // 
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(32, 23);
+            this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label.Location = new System.Drawing.Point(32, 41);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(35, 13);
+            this.label.Size = new System.Drawing.Size(606, 17);
             this.label.TabIndex = 0;
             this.label.Text = "label1";
             // 
@@ -66,41 +77,28 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(32, 262);
+            this.textBoxJobName.Location = new System.Drawing.Point(32, 312);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(440, 20);
+            this.textBoxJobName.Size = new System.Drawing.Size(443, 20);
             this.textBoxJobName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 54);
+            this.label2.Location = new System.Drawing.Point(32, 124);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(338, 26);
+            this.label2.Size = new System.Drawing.Size(340, 26);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Please select one or several blueprints.\r\nFor each blueprint selected, one parall" +
-    "el task will be created in the job.";
-            // 
-            // listbox
-            // 
-            this.listbox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listbox.FormattingEnabled = true;
-            this.listbox.Location = new System.Drawing.Point(32, 83);
-            this.listbox.Name = "listbox";
-            this.listbox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listbox.Size = new System.Drawing.Size(440, 147);
-            this.listbox.TabIndex = 3;
-            this.listbox.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
+            this.label2.Text = "Please select one or several workflows.\r\nFor each workflow selected, one parallel" +
+    " task will be created in the job.";
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(336, 510);
+            this.buttonCancel.Location = new System.Drawing.Point(676, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -110,7 +108,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(29, 246);
+            this.label1.Location = new System.Drawing.Point(32, 296);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(70, 13);
             this.label1.TabIndex = 6;
@@ -121,28 +119,19 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(534, 106);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(707, 61);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(107, 13);
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(51, 13);
             this.moreinfoprofilelink.TabIndex = 7;
             this.moreinfoprofilelink.TabStop = true;
-            this.moreinfoprofilelink.Text = "More info on features";
+            this.moreinfoprofilelink.Text = "More info";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
-            // 
-            // processorlabel
-            // 
-            this.processorlabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.processorlabel.Location = new System.Drawing.Point(26, 463);
-            this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(446, 22);
-            this.processorlabel.TabIndex = 8;
-            this.processorlabel.Text = "processor name";
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 294);
+            this.label3.Location = new System.Drawing.Point(32, 344);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 13);
             this.label3.TabIndex = 11;
@@ -153,7 +142,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(29, 310);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(32, 360);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(443, 20);
             this.textboxoutputassetname.TabIndex = 9;
@@ -164,7 +153,7 @@
             this.radioButtonMultipleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonMultipleJob.AutoSize = true;
             this.radioButtonMultipleJob.Checked = true;
-            this.radioButtonMultipleJob.Location = new System.Drawing.Point(29, 362);
+            this.radioButtonMultipleJob.Location = new System.Drawing.Point(32, 412);
             this.radioButtonMultipleJob.Name = "radioButtonMultipleJob";
             this.radioButtonMultipleJob.Size = new System.Drawing.Size(211, 17);
             this.radioButtonMultipleJob.TabIndex = 12;
@@ -177,7 +166,7 @@
             // 
             this.radioButtonSingleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonSingleJob.AutoSize = true;
-            this.radioButtonSingleJob.Location = new System.Drawing.Point(29, 385);
+            this.radioButtonSingleJob.Location = new System.Drawing.Point(32, 435);
             this.radioButtonSingleJob.Name = "radioButtonSingleJob";
             this.radioButtonSingleJob.Size = new System.Drawing.Size(400, 17);
             this.radioButtonSingleJob.TabIndex = 13;
@@ -187,8 +176,8 @@
             // 
             // labelsummaryjob
             // 
-            this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(26, 419);
+            this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelsummaryjob.Location = new System.Drawing.Point(32, 469);
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(228, 22);
             this.labelsummaryjob.TabIndex = 14;
@@ -198,7 +187,7 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(489, 246);
+            this.label5.Location = new System.Drawing.Point(489, 296);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 36;
@@ -207,42 +196,32 @@
             // numericUpDownPriority
             // 
             this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(489, 262);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(489, 312);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownPriority.TabIndex = 35;
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(189, 510);
+            this.buttonOk.Location = new System.Drawing.Point(529, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(141, 32);
+            this.buttonOk.Size = new System.Drawing.Size(141, 23);
             this.buttonOk.TabIndex = 5;
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // pictureBoxXenio
-            // 
-            this.pictureBoxXenio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxXenio.Image = global::AMSExplorer.Bitmaps.Imagine;
-            this.pictureBoxXenio.Location = new System.Drawing.Point(537, 23);
-            this.pictureBoxXenio.Name = "pictureBoxXenio";
-            this.pictureBoxXenio.Size = new System.Drawing.Size(233, 80);
-            this.pictureBoxXenio.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBoxXenio.TabIndex = 42;
-            this.pictureBoxXenio.TabStop = false;
             // 
             // pictureBoxJob
             // 
             this.pictureBoxJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.modeltaskxenio2;
-            this.pictureBoxJob.Location = new System.Drawing.Point(490, 348);
+            this.pictureBoxJob.Location = new System.Drawing.Point(489, 397);
             this.pictureBoxJob.Name = "pictureBoxJob";
-            this.pictureBoxJob.Size = new System.Drawing.Size(280, 211);
+            this.pictureBoxJob.Size = new System.Drawing.Size(269, 110);
             this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxJob.TabIndex = 41;
             this.pictureBoxJob.TabStop = false;
@@ -251,7 +230,7 @@
             // 
             this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(489, 294);
+            this.label33.Location = new System.Drawing.Point(489, 344);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(83, 13);
             this.label33.TabIndex = 55;
@@ -262,10 +241,123 @@
             this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(489, 310);
+            this.comboBoxStorage.Location = new System.Drawing.Point(489, 360);
             this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.Size = new System.Drawing.Size(269, 21);
             this.comboBoxStorage.TabIndex = 54;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(32, 68);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(60, 13);
+            this.label32.TabIndex = 57;
+            this.label32.Text = "Processor :";
+            // 
+            // comboBoxProcessor
+            // 
+            this.comboBoxProcessor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxProcessor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxProcessor.FormattingEnabled = true;
+            this.comboBoxProcessor.Location = new System.Drawing.Point(32, 84);
+            this.comboBoxProcessor.Name = "comboBoxProcessor";
+            this.comboBoxProcessor.Size = new System.Drawing.Size(726, 21);
+            this.comboBoxProcessor.TabIndex = 56;
+            // 
+            // label31
+            // 
+            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.label31.Location = new System.Drawing.Point(436, 9);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(322, 24);
+            this.label31.TabIndex = 60;
+            this.label31.Text = "Imagine Communications Zenium";
+            this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // listViewWorkflows
+            // 
+            this.listViewWorkflows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderFileName,
+            this.columnHeaderFileDate,
+            this.columnHeaderFileSize,
+            this.columnHeaderAssetName,
+            this.columnHeaderAssetId});
+            this.listViewWorkflows.FullRowSelect = true;
+            this.listViewWorkflows.HideSelection = false;
+            this.listViewWorkflows.Location = new System.Drawing.Point(32, 153);
+            this.listViewWorkflows.Name = "listViewWorkflows";
+            this.listViewWorkflows.Size = new System.Drawing.Size(726, 126);
+            this.listViewWorkflows.TabIndex = 61;
+            this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
+            this.listViewWorkflows.View = System.Windows.Forms.View.Details;
+            this.listViewWorkflows.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewInputAssets_ColumnClick);
+            this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
+            // 
+            // columnHeaderFileName
+            // 
+            this.columnHeaderFileName.Text = "Workflow File Name";
+            // 
+            // columnHeaderFileDate
+            // 
+            this.columnHeaderFileDate.Text = "Last modified";
+            // 
+            // columnHeaderFileSize
+            // 
+            this.columnHeaderFileSize.Text = "Size";
+            // 
+            // columnHeaderAssetName
+            // 
+            this.columnHeaderAssetName.Text = "Asset Name";
+            this.columnHeaderAssetName.Width = 55;
+            // 
+            // columnHeaderAssetId
+            // 
+            this.columnHeaderAssetId.Text = "Asset Id";
+            // 
+            // progressBarUpload
+            // 
+            this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarUpload.Location = new System.Drawing.Point(459, 124);
+            this.progressBarUpload.Name = "progressBarUpload";
+            this.progressBarUpload.Size = new System.Drawing.Size(299, 23);
+            this.progressBarUpload.TabIndex = 63;
+            this.progressBarUpload.Visible = false;
+            // 
+            // buttonUpload
+            // 
+            this.buttonUpload.Location = new System.Drawing.Point(384, 125);
+            this.buttonUpload.Name = "buttonUpload";
+            this.buttonUpload.Size = new System.Drawing.Size(69, 23);
+            this.buttonUpload.TabIndex = 62;
+            this.buttonUpload.Text = "Upload";
+            this.buttonUpload.UseVisualStyleBackColor = true;
+            this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
+            // 
+            // openFileDialogWorkflow
+            // 
+            this.openFileDialogWorkflow.Filter = "Worflow files|*.workflow;*.kayak;*.xenio;*.zenium;*.graph;*.blueprint|All files (" +
+    "*.*)|*.*";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-3, 513);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(788, 48);
+            this.panel1.TabIndex = 66;
             // 
             // EncodingZenium
             // 
@@ -275,9 +367,14 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.progressBarUpload);
+            this.Controls.Add(this.buttonUpload);
+            this.Controls.Add(this.listViewWorkflows);
+            this.Controls.Add(this.label32);
+            this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
-            this.Controls.Add(this.pictureBoxXenio);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDownPriority);
@@ -286,21 +383,18 @@
             this.Controls.Add(this.radioButtonMultipleJob);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
-            this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.listbox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
+            this.Controls.Add(this.label31);
             this.Name = "EncodingZenium";
-            this.Text = "Encoding with Zenium";
-            this.Load += new System.EventHandler(this.EncodingXenio_Load);
+            this.Text = "Encoding with Imagine Communications Zenium";
+            this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxXenio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -311,12 +405,10 @@
         public System.Windows.Forms.Label label;
         public System.Windows.Forms.TextBox textBoxJobName;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.ListBox listbox;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
-        private System.Windows.Forms.Label processorlabel;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textboxoutputassetname;
         private System.Windows.Forms.RadioButton radioButtonMultipleJob;
@@ -325,9 +417,21 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.PictureBox pictureBoxJob;
-        private System.Windows.Forms.PictureBox pictureBoxXenio;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        public System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ComboBox comboBoxProcessor;
+        public System.Windows.Forms.Label label31;
+        private System.Windows.Forms.ListView listViewWorkflows;
+        private System.Windows.Forms.ColumnHeader columnHeaderAssetName;
+        private System.Windows.Forms.ColumnHeader columnHeaderFileName;
+        private System.Windows.Forms.ColumnHeader columnHeaderFileDate;
+        private System.Windows.Forms.ColumnHeader columnHeaderFileSize;
+        private System.Windows.Forms.ColumnHeader columnHeaderAssetId;
+        private System.Windows.Forms.ProgressBar progressBarUpload;
+        private System.Windows.Forms.Button buttonUpload;
+        private System.Windows.Forms.OpenFileDialog openFileDialogWorkflow;
+        private System.Windows.Forms.Panel panel1;
 
     }
 }

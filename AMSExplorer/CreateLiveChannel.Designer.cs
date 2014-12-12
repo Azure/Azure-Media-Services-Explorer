@@ -37,35 +37,39 @@
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxProtocol = new System.Windows.Forms.ComboBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
+            this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelWarning = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.checkBoxStartChannel = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(136, 448);
+            this.buttonOk.Location = new System.Drawing.Point(278, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
-            this.buttonOk.TabIndex = 8;
+            this.buttonOk.Size = new System.Drawing.Size(98, 23);
+            this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Create Channel";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(270, 448);
+            this.buttonCancel.Location = new System.Drawing.Point(382, 12);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
-            this.buttonCancel.TabIndex = 9;
+            this.buttonCancel.Size = new System.Drawing.Size(98, 23);
+            this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -123,14 +127,14 @@
             this.comboBoxProtocol.Location = new System.Drawing.Point(23, 39);
             this.comboBoxProtocol.Name = "comboBoxProtocol";
             this.comboBoxProtocol.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxProtocol.TabIndex = 2;
+            this.comboBoxProtocol.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.groupBox1.Controls.Add(this.checkBoxHLSFragPerSegDefined);
             this.groupBox1.Controls.Add(this.numericUpDownHLSFragPerSeg);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxKeyFrame);
-            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.labelWarning);
             this.groupBox1.Controls.Add(this.textBoxRestrictIngestIP);
             this.groupBox1.Controls.Add(this.comboBoxProtocol);
@@ -139,41 +143,47 @@
             this.groupBox1.Location = new System.Drawing.Point(30, 126);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(429, 271);
-            this.groupBox1.TabIndex = 46;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // checkBoxKeyFrameIntDefined
+            // 
+            this.checkBoxKeyFrameIntDefined.AutoSize = true;
+            this.checkBoxKeyFrameIntDefined.Location = new System.Drawing.Point(23, 71);
+            this.checkBoxKeyFrameIntDefined.Name = "checkBoxKeyFrameIntDefined";
+            this.checkBoxKeyFrameIntDefined.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxKeyFrameIntDefined.TabIndex = 1;
+            this.checkBoxKeyFrameIntDefined.Text = "Key frame interval (s) :";
+            this.checkBoxKeyFrameIntDefined.UseVisualStyleBackColor = true;
+            this.checkBoxKeyFrameIntDefined.CheckedChanged += new System.EventHandler(this.checkBoxKeyFrameIntDefined_CheckedChanged);
+            // 
+            // checkBoxHLSFragPerSegDefined
+            // 
+            this.checkBoxHLSFragPerSegDefined.AutoSize = true;
+            this.checkBoxHLSFragPerSegDefined.Location = new System.Drawing.Point(23, 124);
+            this.checkBoxHLSFragPerSegDefined.Name = "checkBoxHLSFragPerSegDefined";
+            this.checkBoxHLSFragPerSegDefined.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxHLSFragPerSegDefined.TabIndex = 3;
+            this.checkBoxHLSFragPerSegDefined.Text = "HLS fragments per segment :";
+            this.checkBoxHLSFragPerSegDefined.UseVisualStyleBackColor = true;
+            this.checkBoxHLSFragPerSegDefined.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSegDefined_CheckedChanged);
+            // 
             // numericUpDownHLSFragPerSeg
             // 
+            this.numericUpDownHLSFragPerSeg.Enabled = false;
             this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(23, 144);
             this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
             this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownHLSFragPerSeg.TabIndex = 4;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 127);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(144, 13);
-            this.label2.TabIndex = 48;
-            this.label2.Text = "HLS fragments per segment :";
-            // 
             // textBoxKeyFrame
             // 
+            this.textBoxKeyFrame.Enabled = false;
             this.textBoxKeyFrame.Location = new System.Drawing.Point(23, 91);
             this.textBoxKeyFrame.Name = "textBoxKeyFrame";
             this.textBoxKeyFrame.Size = new System.Drawing.Size(121, 20);
-            this.textBoxKeyFrame.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 75);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(111, 13);
-            this.label1.TabIndex = 46;
-            this.label1.Text = "Key frame interval (s) :";
+            this.textBoxKeyFrame.TabIndex = 2;
             // 
             // labelWarning
             // 
@@ -209,9 +219,21 @@
             this.checkBoxStartChannel.Location = new System.Drawing.Point(30, 414);
             this.checkBoxStartChannel.Name = "checkBoxStartChannel";
             this.checkBoxStartChannel.Size = new System.Drawing.Size(153, 17);
-            this.checkBoxStartChannel.TabIndex = 7;
+            this.checkBoxStartChannel.TabIndex = 3;
             this.checkBoxStartChannel.Text = "Start the new channel now";
             this.checkBoxStartChannel.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-2, 445);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.TabIndex = 59;
             // 
             // CreateLiveChannel
             // 
@@ -219,20 +241,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 492);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxStartChannel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxchannelname);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "CreateLiveChannel";
             this.Text = "Create a live channel";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,11 +273,12 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxStartChannel;
+        private System.Windows.Forms.CheckBox checkBoxHLSFragPerSegDefined;
+        private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
+        private System.Windows.Forms.Panel panel1;
     }
 }

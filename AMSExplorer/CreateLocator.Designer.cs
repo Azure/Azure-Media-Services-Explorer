@@ -48,37 +48,46 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelWarning = new System.Windows.Forms.Label();
+            this.groupBoxForceLocator = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxLocatorGUID = new System.Windows.Forms.TextBox();
+            this.checkBoxForLocatorGUID = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxForceLocator.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(111, 392);
+            this.buttonOk.Location = new System.Drawing.Point(282, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
-            this.buttonOk.TabIndex = 17;
+            this.buttonOk.Size = new System.Drawing.Size(96, 23);
+            this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Create Locator";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(245, 392);
+            this.buttonCancel.Location = new System.Drawing.Point(384, 12);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
-            this.buttonCancel.TabIndex = 16;
+            this.buttonCancel.Size = new System.Drawing.Size(96, 23);
+            this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 346);
+            this.label1.Location = new System.Drawing.Point(32, 429);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(410, 13);
             this.label1.TabIndex = 35;
@@ -95,7 +104,7 @@
             this.groupBox1.Location = new System.Drawing.Point(245, 154);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(220, 180);
-            this.groupBox1.TabIndex = 37;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "End date/time";
             // 
@@ -105,7 +114,7 @@
             this.radioButtonEndUnlimited.Location = new System.Drawing.Point(9, 157);
             this.radioButtonEndUnlimited.Name = "radioButtonEndUnlimited";
             this.radioButtonEndUnlimited.Size = new System.Drawing.Size(71, 17);
-            this.radioButtonEndUnlimited.TabIndex = 35;
+            this.radioButtonEndUnlimited.TabIndex = 4;
             this.radioButtonEndUnlimited.Text = "100 years";
             this.radioButtonEndUnlimited.UseVisualStyleBackColor = true;
             // 
@@ -115,7 +124,7 @@
             this.radioButtonEndYear.Location = new System.Drawing.Point(9, 128);
             this.radioButtonEndYear.Name = "radioButtonEndYear";
             this.radioButtonEndYear.Size = new System.Drawing.Size(54, 17);
-            this.radioButtonEndYear.TabIndex = 34;
+            this.radioButtonEndYear.TabIndex = 3;
             this.radioButtonEndYear.Text = "1 year";
             this.radioButtonEndYear.UseVisualStyleBackColor = true;
             // 
@@ -126,7 +135,7 @@
             this.radioButtonEndCustom.Location = new System.Drawing.Point(9, 26);
             this.radioButtonEndCustom.Name = "radioButtonEndCustom";
             this.radioButtonEndCustom.Size = new System.Drawing.Size(87, 17);
-            this.radioButtonEndCustom.TabIndex = 33;
+            this.radioButtonEndCustom.TabIndex = 0;
             this.radioButtonEndCustom.TabStop = true;
             this.radioButtonEndCustom.Text = "Custom date:";
             this.radioButtonEndCustom.UseVisualStyleBackColor = true;
@@ -141,7 +150,7 @@
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
             this.dateTimePickerEndTime.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerEndTime.TabIndex = 32;
+            this.dateTimePickerEndTime.TabIndex = 2;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
             // dateTimePickerEndDate
@@ -151,7 +160,7 @@
             this.dateTimePickerEndDate.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
             this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerEndDate.TabIndex = 30;
+            this.dateTimePickerEndDate.TabIndex = 1;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
             // groupBox2
@@ -162,7 +171,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 154);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(220, 180);
-            this.groupBox2.TabIndex = 38;
+            this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Start date/time";
             // 
@@ -172,7 +181,7 @@
             this.checkBoxStartDate.Location = new System.Drawing.Point(10, 26);
             this.checkBoxStartDate.Name = "checkBoxStartDate";
             this.checkBoxStartDate.Size = new System.Drawing.Size(144, 17);
-            this.checkBoxStartDate.TabIndex = 40;
+            this.checkBoxStartDate.TabIndex = 0;
             this.checkBoxStartDate.Text = "Specify a start date/time:";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
             this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged_1);
@@ -187,7 +196,7 @@
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
             this.dateTimePickerStartTime.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerStartTime.TabIndex = 39;
+            this.dateTimePickerStartTime.TabIndex = 2;
             this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
@@ -196,7 +205,7 @@
             this.dateTimePickerStartDate.Location = new System.Drawing.Point(11, 60);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerStartDate.TabIndex = 37;
+            this.dateTimePickerStartDate.TabIndex = 1;
             this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
             // 
             // labelAssetName
@@ -214,10 +223,11 @@
             this.radioButtonOrigin.Location = new System.Drawing.Point(35, 29);
             this.radioButtonOrigin.Name = "radioButtonOrigin";
             this.radioButtonOrigin.Size = new System.Drawing.Size(205, 17);
-            this.radioButtonOrigin.TabIndex = 44;
+            this.radioButtonOrigin.TabIndex = 0;
             this.radioButtonOrigin.TabStop = true;
             this.radioButtonOrigin.Text = "Streaming locator (adaptive streaming)";
             this.radioButtonOrigin.UseVisualStyleBackColor = true;
+            this.radioButtonOrigin.CheckedChanged += new System.EventHandler(this.UpdateLocatorGUID_CheckedChanged);
             // 
             // radioButtonSAS
             // 
@@ -225,7 +235,7 @@
             this.radioButtonSAS.Location = new System.Drawing.Point(35, 53);
             this.radioButtonSAS.Name = "radioButtonSAS";
             this.radioButtonSAS.Size = new System.Drawing.Size(193, 17);
-            this.radioButtonSAS.TabIndex = 46;
+            this.radioButtonSAS.TabIndex = 1;
             this.radioButtonSAS.Text = "SAS locator (progressive download)";
             this.radioButtonSAS.UseVisualStyleBackColor = true;
             // 
@@ -238,7 +248,7 @@
             this.groupBox4.Location = new System.Drawing.Point(12, 48);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(453, 86);
-            this.groupBox4.TabIndex = 43;
+            this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Locator type";
             // 
@@ -267,26 +277,82 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(32, 369);
+            this.labelWarning.Location = new System.Drawing.Point(32, 454);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 44;
             this.labelWarning.Text = "Warning";
+            // 
+            // groupBoxForceLocator
+            // 
+            this.groupBoxForceLocator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxForceLocator.Controls.Add(this.label8);
+            this.groupBoxForceLocator.Controls.Add(this.textBoxLocatorGUID);
+            this.groupBoxForceLocator.Controls.Add(this.checkBoxForLocatorGUID);
+            this.groupBoxForceLocator.Location = new System.Drawing.Point(12, 340);
+            this.groupBoxForceLocator.Name = "groupBoxForceLocator";
+            this.groupBoxForceLocator.Size = new System.Drawing.Size(453, 79);
+            this.groupBoxForceLocator.TabIndex = 3;
+            this.groupBoxForceLocator.TabStop = false;
+            this.groupBoxForceLocator.Text = "Advanced user only";
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(158, 21);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(284, 16);
+            this.label8.TabIndex = 68;
+            this.label8.Text = "format: nb:lid:UUID:96687412-6d...  or 96687412-6d...";
+            // 
+            // textBoxLocatorGUID
+            // 
+            this.textBoxLocatorGUID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLocatorGUID.Enabled = false;
+            this.textBoxLocatorGUID.Location = new System.Drawing.Point(11, 45);
+            this.textBoxLocatorGUID.Name = "textBoxLocatorGUID";
+            this.textBoxLocatorGUID.Size = new System.Drawing.Size(431, 20);
+            this.textBoxLocatorGUID.TabIndex = 1;
+            // 
+            // checkBoxForLocatorGUID
+            // 
+            this.checkBoxForLocatorGUID.AutoSize = true;
+            this.checkBoxForLocatorGUID.Location = new System.Drawing.Point(11, 20);
+            this.checkBoxForLocatorGUID.Name = "checkBoxForLocatorGUID";
+            this.checkBoxForLocatorGUID.Size = new System.Drawing.Size(149, 17);
+            this.checkBoxForLocatorGUID.TabIndex = 0;
+            this.checkBoxForLocatorGUID.Text = "Force a locator ID/GUID :";
+            this.checkBoxForLocatorGUID.UseVisualStyleBackColor = true;
+            this.checkBoxForLocatorGUID.CheckedChanged += new System.EventHandler(this.UpdateLocatorGUID_CheckedChanged);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-2, 479);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(493, 48);
+            this.panel1.TabIndex = 60;
             // 
             // CreateLocator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 441);
+            this.ClientSize = new System.Drawing.Size(490, 526);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBoxForceLocator);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "CreateLocator";
             this.Text = "Publish an asset";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
@@ -298,6 +364,9 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.groupBoxForceLocator.ResumeLayout(false);
+            this.groupBoxForceLocator.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,5 +394,10 @@
         private System.Windows.Forms.RadioButton radioButtonEndYear;
         private System.Windows.Forms.RadioButton radioButtonEndCustom;
         private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.GroupBox groupBoxForceLocator;
+        private System.Windows.Forms.CheckBox checkBoxForLocatorGUID;
+        private System.Windows.Forms.TextBox textBoxLocatorGUID;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panel1;
     }
 }

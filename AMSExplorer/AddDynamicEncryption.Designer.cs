@@ -51,6 +51,11 @@
             this.radioButtonTokenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
+            this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -58,14 +63,16 @@
             this.groupBox1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelAutPol.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(133, 509);
+            this.buttonOk.Location = new System.Drawing.Point(331, 11);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(161, 32);
+            this.buttonOk.Size = new System.Drawing.Size(151, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Setup dynamic encryption";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -74,9 +81,9 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(315, 509);
+            this.buttonCancel.Location = new System.Drawing.Point(488, 11);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(161, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(92, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -170,7 +177,7 @@
             this.groupBox1.Controls.Add(this.checkBoxProtocolSmooth);
             this.groupBox1.Controls.Add(this.checkBoxProtocolDASH);
             this.groupBox1.Controls.Add(this.checkBoxProtocolHLS);
-            this.groupBox1.Location = new System.Drawing.Point(12, 379);
+            this.groupBox1.Location = new System.Drawing.Point(12, 479);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(560, 108);
             this.groupBox1.TabIndex = 47;
@@ -221,7 +228,7 @@
             this.groupBoxAuthPol.Controls.Add(this.panelAutPol);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonTokenAuthPolicy);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
-            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 178);
+            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 278);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
             this.groupBoxAuthPol.Size = new System.Drawing.Size(560, 183);
             this.groupBoxAuthPol.TabIndex = 47;
@@ -238,6 +245,7 @@
             this.radioButtonNoAuthPolicy.TabIndex = 61;
             this.radioButtonNoAuthPolicy.Text = "None - An external PlayReady server is used to deliver the licenses\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
+            this.radioButtonNoAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonNoAuthPolicy_CheckedChanged);
             // 
             // panelAutPol
             // 
@@ -325,18 +333,76 @@
             this.label1.Text = "This will add a dynamic encryption policy and configure the key/license delivery " +
     "service.";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
+            this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
+            this.groupBox2.Location = new System.Drawing.Point(13, 165);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(559, 100);
+            this.groupBox2.TabIndex = 50;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Content key\'s generation";
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(31, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(493, 19);
+            this.label8.TabIndex = 68;
+            this.label8.Text = "Explorer will use the existing key attached to the asset. If there is none, a key" +
+    " must be created :";
+            // 
+            // radioButtonKeySpecifiedByUser
+            // 
+            this.radioButtonKeySpecifiedByUser.AutoSize = true;
+            this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(34, 70);
+            this.radioButtonKeySpecifiedByUser.Name = "radioButtonKeySpecifiedByUser";
+            this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(124, 17);
+            this.radioButtonKeySpecifiedByUser.TabIndex = 1;
+            this.radioButtonKeySpecifiedByUser.Text = "Specified by the user";
+            this.radioButtonKeySpecifiedByUser.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonKeyRandomGeneration
+            // 
+            this.radioButtonKeyRandomGeneration.AutoSize = true;
+            this.radioButtonKeyRandomGeneration.Checked = true;
+            this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(34, 47);
+            this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
+            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(118, 17);
+            this.radioButtonKeyRandomGeneration.TabIndex = 0;
+            this.radioButtonKeyRandomGeneration.TabStop = true;
+            this.radioButtonKeyRandomGeneration.Text = "Random generation";
+            this.radioButtonKeyRandomGeneration.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Location = new System.Drawing.Point(-1, 615);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(593, 48);
+            this.panel1.TabIndex = 51;
+            // 
             // AddDynamicEncryption
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(591, 562);
+            this.ClientSize = new System.Drawing.Size(591, 661);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxKeyType);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "AddDynamicEncryption";
             this.Text = "Dynamic encryption and key/license delivery";
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);
@@ -351,6 +417,9 @@
             this.groupBoxAuthPol.PerformLayout();
             this.panelAutPol.ResumeLayout(false);
             this.panelAutPol.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -381,5 +450,10 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.RadioButton radioButtonDecryptStorage;
         private System.Windows.Forms.RadioButton radioButtonNoAuthPolicy;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton radioButtonKeySpecifiedByUser;
+        private System.Windows.Forms.RadioButton radioButtonKeyRandomGeneration;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Panel panel1;
     }
 }

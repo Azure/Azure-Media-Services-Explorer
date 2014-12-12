@@ -43,6 +43,8 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml.Linq;
 using System.Runtime.ExceptionServices;
+using System.Collections;
+using System.Reflection;
 
 
 namespace AMSExplorer
@@ -62,7 +64,6 @@ namespace AMSExplorer
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform());
         }
-
 
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials)
         {
@@ -197,22 +198,57 @@ namespace AMSExplorer
             }
         }
 
+        public static string MessageNewVersion = string.Empty;
+
+        public static void CheckAMSEVersion()
+        {
+            var webClient = new WebClient();
+            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+        }
+
+        public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                try
+                {
+                    var xmlversion = XDocument.Parse(e.Result);
+                    Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
+                    Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
+                    if (versionAMSEGitHub > versionAMSELocal)
+                    {
+                        MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
+                        if (MessageBox.Show(string.Format("A new version of Azure Media Services Explorer ({0}) is available." + Constants.endline + "Would you like to download it ?", versionAMSEGitHub), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        { // user selected yes
+                            System.Diagnostics.Process.Start(Constants.GitHubAMSELink);
+                            Environment.Exit(0);
+                        }
+                    }
+                }
+                catch
+                {
+
+                }
+            }
+        }
     }
 
     public class Constants
     {
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
+        public const string GitHubAMSELink = "http://aka.ms/amse";
 
-        public const string ZeniumConfig = "";
         public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
         public const string AzureMediaEncoder = "Azure Media Encoder";
+        public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
         public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
-
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
-        public const string NameconvBlueprint = "{Blueprint}";
+        public const string NameconvWorkflow = "{Workflow}";
+        public const string NameconvTemplate = "{Template}";
         public const string NameconvAMEpreset = "{Preset}";
         public const string NameconvFormathls = "{Format}";
         public const string NameconvEncodername = "{Encoder}";
@@ -233,9 +269,11 @@ namespace AMSExplorer
         public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
+        public const string PathPremiumWorkflowFiles = @"\PremiumWorflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
+
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 
         public const string AMSPlayer = @"http://amsplayer.azurewebsites.net/?player=flash&format=smooth&url=";
@@ -382,50 +420,82 @@ namespace AMSExplorer
             return assetSize;
         }
 
+        public static IMediaProcessor GetMediaProcessorFromId(string processorID, CloudMediaContext _context)
+        {
+            bool Error = false;
+            IMediaProcessor processor = null;
+            try
+            {
+                var processorquery =
+                  from p in _context.MediaProcessors
+                  orderby p.Version descending
+                  where p.Id == processorID
+                  select p;
+                // Reference the asset as an IAsset.
+                processor = processorquery.FirstOrDefault(); //lastordefault returns an error so that's why we use first with sorting descending
+            }
+            catch
+            {
+                Error = true;
+            }
+            return Error ? null : processor;
+        }
+
         private StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
+            const string section = "==============================================================================";
             if (SelectedJobs.Count > 0)
             {
                 // Job Stats
 
                 foreach (IJob theJob in SelectedJobs)
                 {
-                    sb.AppendLine("Job Name        : " + theJob.Name);
-                    sb.AppendLine("Job ID          : " + theJob.Id);
-                    sb.AppendLine("Job State       : " + theJob.State);
-                    sb.AppendLine("Job Priority    : " + theJob.Priority);
-                    sb.AppendLine("Job Created     : " + theJob.Created.ToLongDateString() + " " + theJob.Created.ToLongTimeString());
+                    sb.AppendLine(section);
+                    sb.AppendLine(" START OF JOB REPORT");
+                    sb.AppendLine(section);
+                    sb.AppendLine("");
+                    sb.AppendLine("Job Name            : " + theJob.Name);
+                    sb.AppendLine("Job ID              : " + theJob.Id);
+                    sb.AppendLine("Job State           : " + theJob.State);
+                    sb.AppendLine("Job Priority        : " + theJob.Priority);
+                    sb.AppendLine("Job Template Id     : " + theJob.TemplateId);
+                    sb.AppendLine("Job Created (UTC)   : " + theJob.Created.ToLongDateString() + " " + theJob.Created.ToLongTimeString());
                     if (theJob.StartTime != null)
-                        sb.AppendLine("Job StartTime   : " + theJob.StartTime.Value.ToLongDateString() + " " + theJob.StartTime.Value.ToLongTimeString());
+                        sb.AppendLine("Job StartTime (UTC) : " + theJob.StartTime.Value.ToLongDateString() + " " + theJob.StartTime.Value.ToLongTimeString());
                     if (theJob.EndTime != null)
-                        sb.AppendLine("Job EndTime     : " + theJob.EndTime.Value.ToLongDateString() + " " + theJob.EndTime.Value.ToLongTimeString());
+                        sb.AppendLine("Job EndTime (UTC)   : " + theJob.EndTime.Value.ToLongDateString() + " " + theJob.EndTime.Value.ToLongTimeString());
                     TimeSpan ts = theJob.RunningDuration;
                     string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                    sb.AppendLine("Job CPU runtime : " + elapsedTime);
+                    sb.AppendLine("Job CPU runtime     : " + elapsedTime);
 
                     if ((theJob.StartTime != null) && (theJob.EndTime != null))
                     {
                         ts = ((DateTime)theJob.EndTime).Subtract((DateTime)theJob.StartTime);
                         elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-                        sb.AppendLine("Job Duration    : " + elapsedTime);
+                        sb.AppendLine("Job Duration        : " + elapsedTime);
                     }
-
                     sb.AppendLine("");
-                    sb.AppendLine("Media Account : " + theJob.GetMediaContext().Credentials.ClientId);
+                    sb.AppendLine("Media Account       : " + theJob.GetMediaContext().Credentials.ClientId);
                     sb.AppendLine("");
-
 
                     foreach (ITask task in theJob.Tasks)
                     {
+                        sb.AppendLine(section);
+                        sb.AppendLine("");
                         sb.AppendLine("Task Name           : " + task.Name);
                         sb.AppendLine("Task ID             : " + task.Id);
                         sb.AppendLine("Task Priority       : " + task.Priority);
-                        sb.AppendLine("Task MP             : " + task.MediaProcessorId);
+                        sb.AppendLine("Media Processor     : " + task.MediaProcessorId);
+                        IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, (CloudMediaContext) theJob.GetMediaContext());
+                        if (processor != null)
+                            sb.AppendLine("Media Processor Name: " + processor.Name);
+
+
                         if (task.StartTime != null) // If not in queued state
-                            sb.AppendLine("Task StartTime      : " + task.StartTime.Value.ToLongDateString() + " " + task.StartTime.Value.ToLongTimeString());
+                            sb.AppendLine("Task StartTime (UTC): " + task.StartTime.Value.ToLongDateString() + " " + task.StartTime.Value.ToLongTimeString());
                         if (task.EndTime != null) // If not completed yet
-                            sb.AppendLine("Task EndTime        : " + task.EndTime.Value.ToLongDateString() + " " + task.EndTime.Value.ToLongTimeString());
+                            sb.AppendLine("Task EndTime (UTC)  : " + task.EndTime.Value.ToLongDateString() + " " + task.EndTime.Value.ToLongTimeString());
                         ts = task.RunningDuration;
                         elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                         sb.AppendLine("Task CPU runtime    : " + elapsedTime);
@@ -472,7 +542,7 @@ namespace AMSExplorer
                                 lSizeinput += ListFilesInAsset(asset, ref sb);
                             }
                             sb.AppendLine("");
-                            sb.AppendLine("Output Assets:");
+                            sb.AppendLine("Output Assets :");
                             foreach (IAsset asset in task.OutputAssets)
                                 lSizeoutput += ListFilesInAsset(asset, ref sb);
 
@@ -484,15 +554,16 @@ namespace AMSExplorer
                                 sb.AppendLine("Input gigabytes processed by the task  : " + lsizeinputprocessed.ToString());
                                 sb.AppendLine("Output gigabytes processed by the task : " + lsizeoutputprocessed.ToString());
                                 sb.AppendLine("Total gigabytes processed by the task  : " + lsizeprocessed.ToString());
-
                             }
                             else sb.AppendLine("Gigabytes processed by the task : cannot be calculated, asset deleted?");
 
                         }
                         sb.AppendLine("");
-                        sb.AppendLine("==============================================================================");
-                        sb.AppendLine("");
                     }
+                    sb.AppendLine(section);
+                    sb.AppendLine(" END OF JOB REPORT");
+                    sb.AppendLine(section);
+                    sb.AppendLine("");
                 }
             }
 
@@ -510,10 +581,12 @@ namespace AMSExplorer
     public class AssetInfo
     {
         private List<IAsset> SelectedAssets;
-        public const string Type_Blueprint = "Blueprint";
+        public const string Type_Workflow = "Workflow";
+        public const string Type_LiveArchive = "Live archive";
+        public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
-        public const string _prog_down_https = "Progressive Download URIs (https)";
-        public const string _prog_down_http = "Progressive Download URIs (http)";
+        public const string _prog_down_https_SAS = "Progressive Download URIs (SAS)";
+        public const string _prog_down_http_streaming = "Progressive Download URIs (SE)";
         public const string _hls_v4 = "HLS v4  URI";
         public const string _hls_v3 = "HLS v3  URI";
         public const string _dash = "MPEG-DASH URI";
@@ -547,6 +620,30 @@ namespace AMSExplorer
         {
             return hls_uri.Replace("(format=" + format_hls_v4, "(format=" + format_hls_v3);
         }
+
+        // return the URL with hostname from streaming endpoint
+        public static Uri rw(Uri url, IStreamingEndpoint se, bool https = false)
+        {
+            if (url != null)
+            {
+                string hostname = se.HostName;
+                UriBuilder urib = new UriBuilder()
+                {
+                    Host = hostname,
+                    Scheme = https ? "https://" : "http://",
+                    Path = url.AbsolutePath,
+                };
+                return urib.Uri;
+            }
+            else return null;
+        }
+
+        public static string rw(string path, IStreamingEndpoint se, bool https = false)
+        {
+            return rw(new Uri(path), se, https).ToString();
+        }
+
+
         public long GetSize()
         {
             return GetSize(0);
@@ -636,9 +733,7 @@ namespace AMSExplorer
             {
                 LocPubStatus = PublishStatus.NotPublished;
             }
-
             return LocPubStatus;
-
         }
 
         public static PublishStatus GetPublishedStatusForLocator(ILocator Locator)
@@ -663,6 +758,28 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+        public static IAsset GetAsset(string assetId, CloudMediaContext _context)
+        {
+            IAsset asset;
+
+            try
+            {
+                // Use a LINQ Select query to get an asset.
+                var assetInstance =
+                    from a in _context.Assets
+                    where a.Id == assetId
+                    select a;
+                // Reference the asset as an IAsset.
+                asset = assetInstance.FirstOrDefault();
+            }
+            catch
+            {
+
+                asset = null;
+            }
+
+            return asset;
+        }
 
         public static string GetAssetType(IAsset asset)
         {
@@ -687,7 +804,7 @@ namespace AMSExplorer
 
                 case AssetType.SmoothStreaming:
                     type = "Smooth Streaming";
-                    var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
+                    var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = cfffiles.Count();
                     break;
 
@@ -710,7 +827,7 @@ namespace AMSExplorer
                             case "ZENIUM":
                             case "WORKFLOW":
                             case "BLUEPRINT":
-                                type = Type_Blueprint;
+                                type = Type_Workflow;
                                 break;
 
                             case "ISM":
@@ -719,7 +836,7 @@ namespace AMSExplorer
                                 if (program.Count() == 1) // from a live program
                                 {
                                 */
-                                    return "Live archive";
+                                return Type_LiveArchive;
                                 /*
                                 }
                                 else
@@ -738,11 +855,11 @@ namespace AMSExplorer
                     else
                     { // multi files in asset
                         var AssetFiles = asset.AssetFiles.ToList();
-                        var JPGAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        var JPGAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
 
                         if ((JPGAssetFiles.Count() > 1) && (JPGAssetFiles.Count() == AssetFiles.Count))
                         {
-                            type = "Thumbnails";
+                            type = Type_Thumbnails;
                             number = JPGAssetFiles.Count();
                         }
                     }
@@ -858,46 +975,47 @@ namespace AMSExplorer
                             size += file.ContentFileSize;
                         }
                     }
-                    sb.AppendLine("Asset Name        : " + theAsset.Name);
-                    sb.AppendLine("Asset Type        : " + theAsset.AssetType);
-                    sb.AppendLine("Asset Id          : " + theAsset.Id);
-                    sb.AppendLine("Alternate ID      : " + theAsset.AlternateId);
-                    if (size != -1) sb.AppendLine("Size              : " + FormatByteSize(size));
-                    sb.AppendLine("State             : " + theAsset.State);
-                    sb.AppendLine("Created           : " + theAsset.Created.ToLongDateString() + " " + theAsset.Created.ToLongTimeString());
-                    sb.AppendLine("Last Modified     : " + theAsset.LastModified.ToLongDateString() + " " + theAsset.LastModified.ToLongTimeString());
-                    sb.AppendLine("Creations Options : " + theAsset.Options);
+                    sb.AppendLine("Asset Name          : " + theAsset.Name);
+                    sb.AppendLine("Asset Type          : " + theAsset.AssetType);
+                    sb.AppendLine("Asset Id            : " + theAsset.Id);
+                    sb.AppendLine("Alternate ID        : " + theAsset.AlternateId);
+                    if (size != -1)
+                        sb.AppendLine("Size                : " + FormatByteSize(size));
+                    sb.AppendLine("State               : " + theAsset.State);
+                    sb.AppendLine("Created (UTC)       : " + theAsset.Created.ToLongDateString() + " " + theAsset.Created.ToLongTimeString());
+                    sb.AppendLine("Last Modified (UTC) : " + theAsset.LastModified.ToLongDateString() + " " + theAsset.LastModified.ToLongTimeString());
+                    sb.AppendLine("Creations Options   : " + theAsset.Options);
 
                     if (theAsset.State != AssetState.Deleted)
                     {
-                        sb.AppendLine("IsStreamable      : " + theAsset.IsStreamable);
-                        sb.AppendLine("SupportsDynEnc    : " + theAsset.SupportsDynamicEncryption);
-                        sb.AppendLine("Uri               : " + theAsset.Uri.ToString());
+                        sb.AppendLine("IsStreamable        : " + theAsset.IsStreamable);
+                        sb.AppendLine("SupportsDynEnc      : " + theAsset.SupportsDynamicEncryption);
+                        sb.AppendLine("Uri                 : " + theAsset.Uri.ToString());
                         sb.AppendLine("");
-                        sb.AppendLine("Storage Name      : " + theAsset.StorageAccountName);
-                        sb.AppendLine("Storage Bytes used: " + FormatByteSize(theAsset.StorageAccount.BytesUsed));
-                        sb.AppendLine("Storage IsDefault : " + theAsset.StorageAccount.IsDefault);
+                        sb.AppendLine("Storage Name        : " + theAsset.StorageAccountName);
+                        sb.AppendLine("Storage Bytes used  : " + FormatByteSize(theAsset.StorageAccount.BytesUsed));
+                        sb.AppendLine("Storage IsDefault   : " + theAsset.StorageAccount.IsDefault);
                         sb.AppendLine("");
 
                         foreach (IAsset p_asset in theAsset.ParentAssets)
                         {
-                            sb.AppendLine("Parent asset Name : " + p_asset.Name);
-                            sb.AppendLine("Parent asset Id   : " + p_asset.Id);
+                            sb.AppendLine("Parent asset Name   : " + p_asset.Name);
+                            sb.AppendLine("Parent asset Id     : " + p_asset.Id);
                         }
                         sb.AppendLine("");
                         foreach (IContentKey key in theAsset.ContentKeys)
                         {
-                            sb.AppendLine("Content key       : " + key.Name);
-                            sb.AppendLine("Content key Id    : " + key.Id);
-                            sb.AppendLine("Content key Type  : " + key.ContentKeyType);
+                            sb.AppendLine("Content key         : " + key.Name);
+                            sb.AppendLine("Content key Id      : " + key.Id);
+                            sb.AppendLine("Content key Type    : " + key.ContentKeyType);
                         }
                         sb.AppendLine("");
                         foreach (var pol in theAsset.DeliveryPolicies)
                         {
-                            sb.AppendLine("Deliv policy Name : " + pol.Name);
-                            sb.AppendLine("Deliv policy Id   : " + pol.Id);
-                            sb.AppendLine("Deliv policy Type : " + pol.AssetDeliveryPolicyType);
-                            sb.AppendLine("Deliv pol Protocol: " + pol.AssetDeliveryProtocol);
+                            sb.AppendLine("Deliv policy Name   : " + pol.Name);
+                            sb.AppendLine("Deliv policy Id     : " + pol.Id);
+                            sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
+                            sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
                         }
                         sb.AppendLine("");
 
@@ -917,7 +1035,6 @@ namespace AMSExplorer
                             sb.AppendLine("Encryption key id    : " + fileItem.EncryptionKeyId);
                             sb.AppendLine("InitializationVector : " + fileItem.InitializationVector);
                             sb.AppendLine("ParentAssetId        : " + fileItem.ParentAssetId);
-
                             sb.AppendLine("==============");
                             sb.AppendLine("");
                         }
@@ -934,7 +1051,7 @@ namespace AMSExplorer
 
                             if (locator.Type == LocatorType.OnDemandOrigin)
                             {
-                                sb.AppendLine(_prog_down_http + " : ");
+                                sb.AppendLine(_prog_down_http_streaming + " : ");
                                 foreach (IAssetFile IAF in theAsset.AssetFiles) sb.AppendLine(locator.Path + IAF.Name);
                                 sb.AppendLine("");
 
@@ -974,7 +1091,7 @@ namespace AMSExplorer
                             {
                                 List<Uri> ProgressiveDownloadUris;
                                 IEnumerable<IAssetFile> MyAssetFiles;
-                                sb.AppendLine(AssetInfo._prog_down_https + " : ");
+                                sb.AppendLine(AssetInfo._prog_down_https_SAS + " : ");
                                 MyAssetFiles = theAsset.AssetFiles.ToList();
                                 // Generate the Progressive Download URLs for each file. 
                                 ProgressiveDownloadUris = MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
@@ -993,9 +1110,20 @@ namespace AMSExplorer
             return sb;
         }
 
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context)
+        {
+            DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context);
+        }
+
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context)
+        {
+            Url = rw(Url, GetBestStreamingEndpoint(context));
+            DoPlayBack(typeplayer, Url);
+        }
         public static void DoPlayBack(PlayerType typeplayer, Uri Url)
         {
-            DoPlayBack(typeplayer, Url.ToString());
+            if (Url != null)
+                DoPlayBack(typeplayer, Url.ToString());
         }
 
         public static void DoPlayBack(PlayerType typeplayer, string Url)
@@ -1034,6 +1162,18 @@ namespace AMSExplorer
                     Process.Start(myurl.Replace(Constants.NameconvManifestURL, Url.ToString()));
                     break;
             }
+        }
+
+        internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
+        {
+            // let's choose the default SE if it is running and use one RU minimum
+            IStreamingEndpoint SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault(); //default
+            if (SESelected == null || SESelected.ScaleUnits == 0 || SESelected.State != StreamingEndpointState.Running) //default is not there, or not running or has no scale unit
+            {
+                IStreamingEndpoint SESelected2 = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running).OrderBy(se => se.ScaleUnits).LastOrDefault();
+                if (SESelected2 != null) SESelected = SESelected2;
+            }
+            return SESelected;
         }
     }
 
@@ -1169,5 +1309,53 @@ namespace AMSExplorer
             // Generates the text shown in the combo box
             return Name;
         }
+    }
+
+
+
+
+    public class ListViewItemComparer : IComparer
+    {
+        private int col;
+        private SortOrder order;
+        public ListViewItemComparer()
+        {
+            col = 0;
+            order = SortOrder.Ascending;
+        }
+        public ListViewItemComparer(int column, SortOrder order)
+        {
+            col = column;
+            this.order = order;
+        }
+        public int Compare(object x, object y)
+        {
+            int returnVal;
+            // Determine whether the type being compared is a date type.
+            try
+            {
+                // Parse the two objects passed as a parameter as a DateTime.
+                System.DateTime firstDate =
+                        DateTime.Parse(((ListViewItem)x).SubItems[col].Text);
+                System.DateTime secondDate =
+                        DateTime.Parse(((ListViewItem)y).SubItems[col].Text);
+                // Compare the two dates.
+                returnVal = DateTime.Compare(firstDate, secondDate);
+            }
+            // If neither compared object has a valid date format, compare
+            // as a string.
+            catch
+            {
+                // Compare the two items as a string.
+                returnVal = String.Compare(((ListViewItem)x).SubItems[col].Text,
+                            ((ListViewItem)y).SubItems[col].Text);
+            }
+            // Determine whether the sort order is descending.
+            if (order == SortOrder.Descending)
+                // Invert the value returned by String.Compare.
+                returnVal *= -1;
+            return returnVal;
+        }
+
     }
 }

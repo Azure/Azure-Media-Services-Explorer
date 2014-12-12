@@ -59,10 +59,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.comboBoxKeyRestriction = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -102,10 +104,11 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(267, 488);
+            this.buttonCancel.Location = new System.Drawing.Point(409, 12);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(208, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -350,12 +353,13 @@
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(38, 488);
+            this.buttonOk.Location = new System.Drawing.Point(244, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(208, 32);
+            this.buttonOk.Size = new System.Drawing.Size(159, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "Launch encryption";
             this.buttonOk.Text = "Launch encryption";
@@ -372,12 +376,25 @@
             this.comboBoxKeyRestriction.Size = new System.Drawing.Size(81, 21);
             this.comboBoxKeyRestriction.TabIndex = 54;
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Location = new System.Drawing.Point(-3, 484);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(523, 48);
+            this.panel1.TabIndex = 63;
+            // 
             // PlayReadyStaticEnc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(517, 532);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.comboBoxKeyRestriction);
             this.Controls.Add(this.checkBoxDeliverLicenses);
             this.Controls.Add(this.labelAssetName);
@@ -389,8 +406,6 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.moreinfotestserver);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "PlayReadyStaticEnc";
             this.Text = "PlayReady Static Encryption";
             this.Load += new System.EventHandler(this.PlayReadyStaticEnc_Load);
@@ -400,6 +415,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,5 +454,6 @@
         private System.Windows.Forms.CheckBox checkBoxDeliverLicenses;
         private System.Windows.Forms.Button buttongenerateContentKey;
         private System.Windows.Forms.ComboBox comboBoxKeyRestriction;
+        private System.Windows.Forms.Panel panel1;
     }
 }

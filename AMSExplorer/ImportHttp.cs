@@ -78,6 +78,19 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
+                Uri myUri = this.GetURL;
+            }
+            catch
+            {
+                Error = true;
+                labelURLFileNameWarning.Text = "Error detected in the URL";
+                buttonImport.Enabled = false;
+                return;
+            }
+           
+            buttonImport.Enabled = true;
+            try
+            {
                 filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
             }
             catch
@@ -91,6 +104,7 @@ namespace AMSExplorer
                 labelURLFileNameWarning.Text = string.Empty;
                 textBoxAssetName.Text = filename;
                 textBoxAssetFileName.Text = filename;
+                
             }
         }
     }

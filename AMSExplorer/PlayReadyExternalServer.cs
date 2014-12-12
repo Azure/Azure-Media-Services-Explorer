@@ -82,7 +82,7 @@ namespace AMSExplorer
             }
         }
 
-        public PlayReadyExternalServer(bool Multiassets)
+        public PlayReadyExternalServer(bool Multiassets, bool DoNotAskURL)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -94,6 +94,11 @@ namespace AMSExplorer
                 buttonGenKeyID.Enabled = false;
                 textBoxcontentkey.Enabled = false;
                 buttongenerateContentKey.Enabled = false;
+            }
+            if (DoNotAskURL)
+            {
+                textBoxLAurl.Enabled = false;
+                panelPlayReadyTest.Visible = false;
             }
         }
 
@@ -132,14 +137,14 @@ namespace AMSExplorer
             bool validation = false;
             if (multiassets) // multi assets selectyed. We need at least the key seed
             {
-                if (!string.IsNullOrEmpty(textBoxkeyseed.Text) && !string.IsNullOrEmpty(textBoxLAurl.Text))
+                if (!string.IsNullOrEmpty(textBoxkeyseed.Text))
                 {
                     validation = true;
                 }
             }
             else // single asset selected
             {
-                if (!string.IsNullOrEmpty(textBoxLAurl.Text) && !string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) | (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
+                if (!string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) || (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
                 {
                     validation = true;
                 }
