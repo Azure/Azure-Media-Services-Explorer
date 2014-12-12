@@ -56,18 +56,20 @@
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonUpload
             // 
-            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(298, 526);
+            this.buttonUpload.Location = new System.Drawing.Point(564, 12);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpload.Size = new System.Drawing.Size(99, 23);
             this.buttonUpload.TabIndex = 2;
             this.buttonUpload.Text = "Upload";
             this.buttonUpload.UseVisualStyleBackColor = true;
@@ -75,11 +77,11 @@
             // 
             // buttonClose
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(402, 526);
+            this.buttonClose.Location = new System.Drawing.Point(675, 12);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
+            this.buttonClose.Size = new System.Drawing.Size(99, 23);
             this.buttonClose.TabIndex = 10;
             this.buttonClose.Text = "Cancel";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -93,7 +95,7 @@
             this.groupBox1.Controls.Add(this.textBoxNewAssetName);
             this.groupBox1.Controls.Add(this.radioButtonSelectedAsset);
             this.groupBox1.Controls.Add(this.radioButtonNewAsset);
-            this.groupBox1.Location = new System.Drawing.Point(25, 443);
+            this.groupBox1.Location = new System.Drawing.Point(25, 438);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(735, 77);
             this.groupBox1.TabIndex = 11;
@@ -347,18 +349,31 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 409);
+            this.label5.Location = new System.Drawing.Point(22, 413);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(44, 13);
             this.label5.TabIndex = 23;
             this.label5.Text = "Search:";
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonUpload);
+            this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Location = new System.Drawing.Point(-2, 529);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(791, 48);
+            this.panel1.TabIndex = 63;
             // 
             // ImportFromAzureStorage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 576);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxSearch);
             this.Controls.Add(this.listViewBlobs);
@@ -367,8 +382,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.buttonClose);
-            this.Controls.Add(this.buttonUpload);
             this.Name = "ImportFromAzureStorage";
             this.Text = "Import from Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
@@ -377,6 +390,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -412,5 +426,6 @@
         private System.Windows.Forms.TextBox textBoxSearch;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label labelSelectedAssetWarning;
+        private System.Windows.Forms.Panel panel1;
     }
 }

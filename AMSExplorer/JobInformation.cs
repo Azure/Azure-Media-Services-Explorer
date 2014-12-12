@@ -176,27 +176,9 @@ namespace AMSExplorer
             DGTasks.Rows.Add("Encryption Version", task.EncryptionVersion);
 
             // let's get the name of the processor
-            bool Error = false;
-            IMediaProcessor processor = null;
-            try
-            {
-                var processorquery =
-                  from p in _context.MediaProcessors
-                  orderby p.Version descending
-                  where p.Id == task.MediaProcessorId
-                  select p;
-                // Reference the asset as an IAsset.
-                processor = processorquery.FirstOrDefault(); //lastordefault returns an error so that's why we use first with sorting descending
-            }
-            catch
-            {
-                Error = true;
-            }
-            if (!Error)
-            {
-                DGTasks.Rows.Add("Mediaprocessor Name", processor.Name);
-                DGTasks.Rows.Add("Mediaprocessor Id", task.MediaProcessorId);
-            }
+            IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, _context);
+            DGTasks.Rows.Add("Mediaprocessor Id", task.MediaProcessorId);
+            if (processor != null) DGTasks.Rows.Add("Mediaprocessor Name", processor.Name);
 
 
             DGTasks.Rows.Add("Task Body", task.TaskBody);
@@ -237,6 +219,7 @@ namespace AMSExplorer
                 DGTasks.Rows.Add("Error", task.ErrorDetails[i].Code + ": " + task.ErrorDetails[i].Message);
 
             }
+            textBoxConfiguration.Text = task.GetClearConfiguration();
         }
     }
 }

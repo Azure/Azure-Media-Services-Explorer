@@ -38,24 +38,26 @@
             this.textBoxCertThumbprint = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.linkLabelAttach = new System.Windows.Forms.LinkLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRUNumber)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonUpdate
             // 
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdate.Location = new System.Drawing.Point(234, 340);
+            this.buttonUpdate.Location = new System.Drawing.Point(462, 12);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(103, 23);
             this.buttonUpdate.TabIndex = 3;
-            this.buttonUpdate.Text = "Change nb units";
+            this.buttonUpdate.Text = "Scale units";
             this.buttonUpdate.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(353, 340);
+            this.buttonCancel.Location = new System.Drawing.Point(571, 12);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(103, 23);
             this.buttonCancel.TabIndex = 4;
@@ -146,19 +148,30 @@
             this.linkLabelAttach.Text = "See how to create and upload a management certificate";
             this.linkLabelAttach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAttach_LinkClicked);
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonUpdate);
+            this.panel1.Location = new System.Drawing.Point(-2, 344);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(689, 48);
+            this.panel1.TabIndex = 57;
+            // 
             // ChangeEncodingRU
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(684, 391);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.linkLabelAttach);
             this.Controls.Add(this.textBoxCertThumbprint);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxSubId);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.label1);
             this.Name = "ChangeEncodingRU";
             this.Text = "Change number of encoding/processing reserved units";
@@ -166,6 +179,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRUNumber)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,5 +197,6 @@
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.LinkLabel linkLabelAttach;
         private System.Windows.Forms.NumericUpDown numericUpDownRUNumber;
+        private System.Windows.Forms.Panel panel1;
     }
 }

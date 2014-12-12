@@ -254,7 +254,7 @@ namespace AMSExplorer
             bool validation = false;
 
 
-            if ((textBoxkeyid.Text != string.Empty) && ((textBoxkeyseed.Text != string.Empty) | (textBoxcontentkey.Text != string.Empty)))
+            if ((textBoxkeyid.Text != string.Empty) && ((textBoxkeyseed.Text != string.Empty) || (textBoxcontentkey.Text != string.Empty)))
             {
                 validation = true;
             }

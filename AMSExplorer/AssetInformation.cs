@@ -34,6 +34,7 @@ using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using Microsoft.WindowsAzure.MediaServices.Client.Metadata;
 
 namespace AMSExplorer
 {
@@ -41,10 +42,10 @@ namespace AMSExplorer
     {
         public IAsset MyAsset;
         private string MyAssetType;
-        //public string MyAssetType;
         public CloudMediaContext MyContext;
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
+        private ILocator TempMetadaLocator = null;
         private List<IContentKeyAuthorizationPolicy> MyPolicies = null;
 
         public AssetInformation()
@@ -55,23 +56,6 @@ namespace AMSExplorer
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
         {
-
-            ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
-            DataGridView DG = (DataGridView)contextmenu.SourceControl;
-
-            if (DG.SelectedCells.Count == 1)
-            {
-                if (DG.SelectedCells[0].Value != null)
-                {
-                    System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
-
-                }
-                else
-                {
-                    System.Windows.Forms.Clipboard.Clear();
-                }
-
-            }
 
         }
 
@@ -201,7 +185,6 @@ namespace AMSExplorer
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = true;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
-
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
                     {
@@ -212,9 +195,8 @@ namespace AMSExplorer
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = false;
-
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
                         toolStripMenuItemDASHAzure.Enabled = false;
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
@@ -223,9 +205,8 @@ namespace AMSExplorer
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = false;
                         toolStripMenuItemOpen.Enabled = true;
-
                     }
-                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http))
+                    if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
                     {
                         toolStripMenuItemDASHAzure.Enabled = false;
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
@@ -234,7 +215,6 @@ namespace AMSExplorer
                         toolStripMenuItemPlaybackSilverlightMonitoring.Enabled = false;
                         toolStripMenuItemPlaybackMP4.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemOpen.Enabled = !(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".ism"));
-
                     }
                 }
                 else
@@ -297,7 +277,6 @@ namespace AMSExplorer
                 listViewFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 listViewFiles.EndUpdate();
             }
-
             return size;
         }
 
@@ -329,7 +308,6 @@ namespace AMSExplorer
                 listViewKeys.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
                 listViewKeys.EndUpdate();
             }
-
             return size;
         }
 
@@ -388,7 +366,6 @@ namespace AMSExplorer
             DGAsset.Rows.Add("Last Modified", ((DateTime)MyAsset.LastModified).ToLocalTime());
             DGAsset.Rows.Add("Creation Options", (AssetCreationOptions)MyAsset.Options);
 
-
             if (MyAsset.State != AssetState.Deleted)
             {
                 DGAsset.Rows.Add("IsStreamable", MyAsset.IsStreamable);
@@ -405,48 +382,22 @@ namespace AMSExplorer
                 }
 
                 int i;
-                foreach (var se in MyStreamingEndpoints) //MyAsset.GetMediaContext().StreamingEndpoints)
+                IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(MyContext);
+
+                foreach (var se in MyStreamingEndpoints)
                 {
-                    i = comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1})", se.Name, se.State), se.HostName));
-                    if (se.Name == "default") comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
+                    i = comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 0 ? "s" : string.Empty), se.HostName));
+                    if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
                 }
                 BuildLocatorsTree();
                 buttonUpload.Enabled = true;
             }
         }
 
-
-
-        // Rewrite the uri with selected streaming endpoint
-        private Uri rw(Uri url)
+        private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
         {
             string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
-            UriBuilder urib = new UriBuilder()
-            {
-                Host = hostname,
-                Scheme = url.Scheme,
-                Path = url.AbsolutePath,
-            };
-
-            return urib.Uri;
-
-        }
-
-        private string rw(string path)
-        {
-            string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
-
-            Uri url = new Uri(path);
-
-            UriBuilder urib = new UriBuilder()
-            {
-                Host = hostname,
-                Scheme = url.Scheme,
-                Path = url.AbsolutePath,
-            };
-
-            return urib.Uri.ToString();
-
+            return MyStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
         }
 
 
@@ -456,6 +407,9 @@ namespace AMSExplorer
 
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
+            IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
+            bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
+            Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
 
             TreeViewLocators.BeginUpdate();
             TreeViewLocators.Nodes.Clear();
@@ -465,6 +419,7 @@ namespace AMSExplorer
                 indexloc++;
                 Color colornode;
                 string locatorstatus = string.Empty;
+                string SEstatus = string.Empty;
 
                 switch (AssetInfo.GetPublishedStatusForLocator(locator))
                 {
@@ -484,14 +439,18 @@ namespace AMSExplorer
                         colornode = Color.Black;
                         break;
                 }
+                if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
 
-                TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}) {2}", locator.Type.ToString(), locatorstatus, locator.Name));
+                TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
                 myLocNode.ForeColor = colornode;
 
                 TreeViewLocators.Nodes.Add(myLocNode);
 
                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
 
+                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+               string.Format("{0}", (locator.Id))
+               ));
 
                 TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
                     string.Format("Name: {0}", locator.Name)
@@ -500,8 +459,6 @@ namespace AMSExplorer
                 TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
                     string.Format("Type: {0}", locator.Type.ToString())
                     ));
-
-
 
                 if (locator.StartTime != null)
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
@@ -513,59 +470,58 @@ namespace AMSExplorer
                      string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
                      ));
 
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-               string.Format("ID: {0}", (locator.Id))
-               ));
-
                 if (locator.Type == LocatorType.OnDemandOrigin)
                 {
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                 string.Format("Path: {0}", rw(locator.Path))
+                 string.Format("Path: {0}", AssetInfo.rw(locator.Path, SelectedSE))
                  ));
 
                     int indexn = 1;
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http));
 
+                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
                     foreach (IAssetFile IAF in MyAsset.AssetFiles)
-                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(rw(locator.Path) + IAF.Name);
+                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
                     indexn++;
 
-                    if (MyAssetType.StartsWith("HLS")) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+                    if (MyAssetType.StartsWith("HLS"))
+                    // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
                         TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
                         indexn++;
                     }
-                    else // It's not Static HLS
+                    else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
+                    // It's not Static HLS
+                    // Smooth or multi MP4
                     {
                         if (locator.GetSmoothStreamingUri() != null)
                         {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(rw(locator.GetSmoothStreamingUri()).ToString()));
+                            Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
+                            indexn++;
+
                             // legacy smooth streaming without repeat tag (manifest v2.0)
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(rw(locator.GetSmoothStreamingUri()).ToString())));
-                            indexn = indexn + 2;
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
+                            indexn++;
                         }
                         if (locator.GetMpegDashUri() != null)
                         {
-
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(rw(locator.GetMpegDashUri()).ToString()));
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
                             indexn++;
                         }
                         if (locator.GetHlsUri() != null)
                         {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(rw(locator.GetHlsUri()).ToString()));
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(rw(locator.GetHlsv3Uri()).ToString()));
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
                             indexn = indexn + 2;
                         }
                     }
-
                 }
-
 
                 if (locator.Type == LocatorType.Sas)
                 {
@@ -573,7 +529,7 @@ namespace AMSExplorer
                  string.Format("Path: {0}", locator.Path)
                  ));
 
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https));
+                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
 
                     MyAssetFiles = MyAsset
                  .AssetFiles
@@ -583,9 +539,7 @@ namespace AMSExplorer
                     ProgressiveDownloadUris =
                         MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
                     ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
-
                 }
-
             }
             TreeViewLocators.EndUpdate();
         }
@@ -597,7 +551,6 @@ namespace AMSExplorer
             if (listViewFiles.SelectedItems.Count > 0)
             {
                 IAssetFile AF = MyAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-
                 DGFiles.Rows.Clear();
                 DGFiles.Rows.Add("Name", AF.Name);
                 DGFiles.Rows.Add("Id", AF.Id);
@@ -742,13 +695,6 @@ namespace AMSExplorer
 
 
 
-        private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-
-
         private void AssetInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
             // let's delete temporary locators if any
@@ -756,15 +702,26 @@ namespace AMSExplorer
             {
                 try
                 {
-
                     var locatorTask = Task.Factory.StartNew(() =>
                    {
-
                        TempLocator.Delete();
-
                    });
                     locatorTask.Wait();
+                }
+                catch
+                {
 
+                }
+            }
+            if (TempMetadaLocator != null)
+            {
+                try
+                {
+                    var locatorTask = Task.Factory.StartNew(() =>
+                    {
+                        TempMetadaLocator.Delete();
+                    });
+                    locatorTask.Wait();
                 }
                 catch
                 {
@@ -785,47 +742,27 @@ namespace AMSExplorer
                 if (listViewFiles.SelectedItems[0] != null)
                 {
                     IAssetFile AF = null;
-                    bool Error = false;
+                    ILocator locator = GetTemporaryLocator();
 
-                    if (TempLocator == null) // no temp locator, let's create it
-                    {
-                        try
-                        {
-                            var locatorTask = Task.Factory.StartNew(() =>
-                            {
-                                TempLocator = MyContext.Locators.Create(LocatorType.Sas, MyAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
-
-                            });
-                            locatorTask.Wait();
-                        }
-                        catch
-                        {
-                            Error = true;
-                            MessageBox.Show("Error when creating the temporary SAS locator");
-                        }
-                    }
                     try
                     {
-                        if (!Error)
+                        if (locator != null)
                         {
                             AF = MyAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                            Process.Start(AF.GetSasUri(TempLocator).ToString());
+                            Process.Start(AF.GetSasUri(locator).ToString());
                         }
                     }
                     catch
                     {
                         MessageBox.Show("Error when accessing temporary SAS locator");
                     }
-
                 }
-
             }
         }
 
         private void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
         {
             DoDownloadFile();
-
         }
 
         private void DoDownloadFile()
@@ -839,7 +776,7 @@ namespace AMSExplorer
 
                 if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
                 {
-                    int index = parent.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", AF.Name, MyAsset.Name), TransferType.DownloadToLocal, true);
+                    int index = parent.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", AF.Name, MyAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
 
                     // Start a worker thread that does downloading.
                     parent.DoDownloadFileFromAsset(MyAsset, AF, folderBrowserDialogDownload.SelectedPath, index);
@@ -961,6 +898,7 @@ namespace AMSExplorer
             buttonOpenFile.Enabled = bSelect;
             buttonDuplicate.Enabled = bSelect & NonEncrypted;
             buttonUpload.Enabled = true;
+            buttonFileMetadata.Enabled = bSelect;
             DoDisplayFileProperties();
         }
 
@@ -1020,7 +958,7 @@ namespace AMSExplorer
                             buttonOpen.Enabled = false;
                             break;
 
-                        case AssetInfo._prog_down_https:
+                        case AssetInfo._prog_down_https_SAS:
                             buttonDASH.Enabled = false;
                             buttonDashAzure.Enabled = false;
                             buttonDashLiveAzure.Enabled = false;
@@ -1030,7 +968,7 @@ namespace AMSExplorer
                             buttonOpen.Enabled = true;
                             break;
 
-                        case AssetInfo._prog_down_http:
+                        case AssetInfo._prog_down_http_streaming:
                             buttonDASH.Enabled = false;
                             buttonDashAzure.Enabled = false;
                             buttonDashLiveAzure.Enabled = false;
@@ -1220,10 +1158,7 @@ namespace AMSExplorer
 
         }
 
-        private void DoUploadUpdateProgress(int p)
-        {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = p), null);
-        }
+
 
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1482,6 +1417,143 @@ namespace AMSExplorer
 
                 }
             }
+        }
+
+        private void checkBoxHttps_CheckedChanged(object sender, EventArgs e)
+        {
+            BuildLocatorsTree();
+        }
+
+        private void buttonAudioVideoAnalysis_Click(object sender, EventArgs e)
+        {
+            IEnumerable<AssetFileMetadata> manifestAssetFile = MyAsset.GetMetadata();
+
+            IAssetFile metadatafile = MyContext.Files.Where(f => f.Name == MyAsset.Id.Replace(Constants.AssetIdPrefix, string.Empty) + "_metadata.xml").OrderBy(f => f.LastModified).FirstOrDefault();
+            if (metadatafile != null)
+            {
+                bool Error = false;
+                if (TempMetadaLocator == null)
+                {
+                    try
+                    {
+                        var locatorTask = Task.Factory.StartNew(() =>
+                        {
+                            TempMetadaLocator = MyContext.Locators.Create(LocatorType.Sas, metadatafile.Asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                        });
+                        locatorTask.Wait();
+                    }
+                    catch
+                    {
+                        Error = true;
+                        MessageBox.Show("Error when creating the temporary SAS locator to the metadata file.");
+                    }
+                }
+
+                try
+                {
+                    if (!Error)
+                    {
+
+                        AssetFileMetadata MyAssetMetada = metadatafile.GetMetadata(TempMetadaLocator);
+
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Error when accessing temporary SAS locator");
+                }
+
+
+            }
+        }
+
+        private void buttonFileMetadata_Click(object sender, EventArgs e)
+        {
+            ShowFileMetadata();
+        }
+
+        private void ShowFileMetadata()
+        {
+            if (listViewFiles.SelectedItems.Count > 0)
+            {
+                if (listViewFiles.SelectedItems[0] != null)
+                {
+                    IAssetFile AF = null;
+                    ILocator locator = GetTemporaryLocator();
+
+                    if (locator != null)
+                    {
+                        AssetFileMetadata manifestAssetFile = null;
+                        try
+                        {
+                            AF = MyAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
+                            // Get the metadata for the asset file.
+                            manifestAssetFile = AF.GetMetadata(locator);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error when accessing metadata." + ex.Message);
+                        }
+
+                        if (manifestAssetFile != null)
+                        {
+                            MetadataInformation form = new MetadataInformation(manifestAssetFile);
+                            form.ShowDialog();
+                        }
+                        else
+                        {
+                            MessageBox.Show("There is no metadata for this file.");
+                        }
+                    }
+                }
+            }
+        }
+
+        private ILocator GetTemporaryLocator()
+        {
+            if (TempLocator == null) // no temp locator, let's create it
+            {
+                try
+                {
+                    var locatorTask = Task.Factory.StartNew(() =>
+                    {
+                        TempLocator = MyContext.Locators.Create(LocatorType.Sas, MyAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
+
+                    });
+                    locatorTask.Wait();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error when creating the temporary SAS locator." + ex.Message);
+                }
+            }
+            return TempLocator;
+        }
+
+    
+        private void contextMenuStripDG_MouseClick_1(object sender, MouseEventArgs e)
+        {
+            ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
+            DataGridView DG = (DataGridView)contextmenu.SourceControl;
+
+            if (DG.SelectedCells.Count == 1)
+            {
+                if (DG.SelectedCells[0].Value != null)
+                {
+                    System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
+
+                }
+                else
+                {
+                    System.Windows.Forms.Clipboard.Clear();
+                }
+
+            }
+        }
+
+        private void showMetadataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowFileMetadata();
         }
     }
 }

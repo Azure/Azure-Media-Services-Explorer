@@ -56,7 +56,10 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -87,10 +90,11 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(320, 488);
+            this.buttonCancel.Location = new System.Drawing.Point(442, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(78, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -284,12 +288,13 @@
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(127, 488);
+            this.buttonOk.Location = new System.Drawing.Point(264, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(172, 32);
+            this.buttonOk.Size = new System.Drawing.Size(172, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Launch thumbnails job(s)";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -314,12 +319,39 @@
             this.comboBoxStorage.Size = new System.Drawing.Size(190, 21);
             this.comboBoxStorage.TabIndex = 67;
             // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.label34.Location = new System.Drawing.Point(327, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(214, 24);
+            this.label34.TabIndex = 69;
+            this.label34.Text = "Azure Media Encoder";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(0, 484);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(554, 48);
+            this.panel1.TabIndex = 70;
+            // 
             // Thumbnails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.label13);
@@ -346,12 +378,11 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Name = "Thumbnails";
             this.Text = "Thumbnails generation";
             this.Load += new System.EventHandler(this.Thumbnails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -387,5 +418,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        public System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Panel panel1;
     }
 }

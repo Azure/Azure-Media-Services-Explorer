@@ -52,15 +52,16 @@ namespace AMSExplorer
             }
         }
 
-        public short HLSFragmentPerSegment
+        public short? HLSFragmentPerSegment
         {
             get
             {
-                return (short)numericUpDownHLSFragPerSeg.Value;
+                return checkBoxHLSFragPerSegDefined.Checked ? (short?) numericUpDownHLSFragPerSeg.Value : null;
             }
             set
             {
-                numericUpDownHLSFragPerSeg.Value = value;
+                if (value!=null)
+                numericUpDownHLSFragPerSeg.Value = (short) value;
             }
         }
 
@@ -70,14 +71,16 @@ namespace AMSExplorer
             {
 
                 TimeSpan? ts = null;
-                try
+                if (checkBoxKeyFrameIntDefined.Checked)
                 {
-                    ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxKeyFrame.Text));
+                    try
+                    {
+                        ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxKeyFrame.Text));
+                    }
+                    catch
+                    {
+                    }
                 }
-                catch
-                {
-                }
-
                 return ts;
             }
             set
@@ -156,6 +159,16 @@ namespace AMSExplorer
                 labelWarning.Text = string.Empty;
                 buttonOk.Enabled = true;
             }
+        }
+
+        private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSegDefined.Checked;
+        }
+
+        private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
         }
     }
 }

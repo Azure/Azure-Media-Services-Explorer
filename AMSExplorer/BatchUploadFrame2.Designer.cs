@@ -41,10 +41,12 @@
             this.buttonFileSelAll = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonNext
@@ -53,7 +55,7 @@
             this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonNext.Image = global::AMSExplorer.Bitmaps.upload;
             this.buttonNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonNext.Location = new System.Drawing.Point(398, 415);
+            this.buttonNext.Location = new System.Drawing.Point(327, 11);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(124, 23);
             this.buttonNext.TabIndex = 0;
@@ -64,7 +66,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(317, 415);
+            this.buttonCancel.Location = new System.Drawing.Point(457, 11);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -80,7 +82,7 @@
             this.checkedListBoxFiles.FormattingEnabled = true;
             this.checkedListBoxFiles.Location = new System.Drawing.Point(6, 23);
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
-            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 124);
+            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 94);
             this.checkedListBoxFiles.TabIndex = 2;
             // 
             // checkedListBoxFolders
@@ -92,7 +94,7 @@
             this.checkedListBoxFolders.FormattingEnabled = true;
             this.checkedListBoxFolders.Location = new System.Drawing.Point(6, 16);
             this.checkedListBoxFolders.Name = "checkedListBoxFolders";
-            this.checkedListBoxFolders.Size = new System.Drawing.Size(504, 109);
+            this.checkedListBoxFolders.Size = new System.Drawing.Size(504, 154);
             this.checkedListBoxFolders.TabIndex = 3;
             // 
             // label1
@@ -138,13 +140,13 @@
             this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(520, 354);
-            this.splitContainer1.SplitterDistance = 163;
+            this.splitContainer1.SplitterDistance = 197;
             this.splitContainer1.TabIndex = 6;
             // 
             // buttonFolderDeselAll
             // 
             this.buttonFolderDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 128);
+            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 190);
             this.buttonFolderDeselAll.Name = "buttonFolderDeselAll";
             this.buttonFolderDeselAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderDeselAll.TabIndex = 6;
@@ -155,7 +157,7 @@
             // buttonFolderSelAll
             // 
             this.buttonFolderSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 128);
+            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 190);
             this.buttonFolderSelAll.Name = "buttonFolderSelAll";
             this.buttonFolderSelAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderSelAll.TabIndex = 5;
@@ -189,7 +191,7 @@
             // 
             this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(15, 373);
+            this.label33.Location = new System.Drawing.Point(9, 378);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(83, 13);
             this.label33.TabIndex = 55;
@@ -200,22 +202,33 @@
             this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(18, 389);
+            this.comboBoxStorage.Location = new System.Drawing.Point(12, 394);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
             this.comboBoxStorage.TabIndex = 54;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonNext);
+            this.panel1.Location = new System.Drawing.Point(0, 435);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(545, 48);
+            this.panel1.TabIndex = 56;
             // 
             // BatchUploadFrame2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(544, 450);
+            this.ClientSize = new System.Drawing.Size(544, 481);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonNext);
             this.Name = "BatchUploadFrame2";
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame2_Load);
@@ -225,6 +238,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -245,5 +259,6 @@
         private System.Windows.Forms.Button buttonFileSelAll;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.Panel panel1;
     }
 }

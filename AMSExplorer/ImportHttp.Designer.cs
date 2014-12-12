@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonImport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
@@ -39,25 +39,30 @@
             this.label4 = new System.Windows.Forms.Label();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonUpdate
+            // buttonImport
             // 
-            this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdate.Location = new System.Drawing.Point(234, 307);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(103, 23);
-            this.buttonUpdate.TabIndex = 3;
-            this.buttonUpdate.Text = "Import";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonImport.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonImport.Enabled = false;
+            this.buttonImport.Location = new System.Drawing.Point(467, 13);
+            this.buttonImport.Name = "buttonImport";
+            this.buttonImport.Size = new System.Drawing.Size(99, 23);
+            this.buttonImport.TabIndex = 3;
+            this.buttonImport.Text = "Import";
+            this.buttonImport.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(353, 307);
+            this.buttonCancel.Location = new System.Drawing.Point(572, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(103, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -154,24 +159,36 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Asset creation";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonImport);
+            this.panel1.Location = new System.Drawing.Point(1, 307);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(686, 48);
+            this.panel1.TabIndex = 63;
+            // 
             // ImportHttp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(684, 355);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelURLFileNameWarning);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxURL);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonUpdate);
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
             this.Text = "Import from HTTP/HTTPS/FTP";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,7 +196,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonImport;
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxURL;
@@ -190,5 +207,6 @@
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

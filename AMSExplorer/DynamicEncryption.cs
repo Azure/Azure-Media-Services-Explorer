@@ -135,11 +135,16 @@ namespace AMSExplorer
 
 
 
-        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset)
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset)  // with key generated randomly
         {
             // Create envelope encryption content key
-            Guid keyId = Guid.NewGuid();
             byte[] contentKey = GetRandomBuffer(16);
+            return CreateEnvelopeTypeContentKey(asset, contentKey);
+        }
+
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, byte[] contentKey)
+        {
+            Guid keyId = Guid.NewGuid();
 
             IContentKey key = asset.GetMediaContext().ContentKeys.Create(
                                     keyId,
