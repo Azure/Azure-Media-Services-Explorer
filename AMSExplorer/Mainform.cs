@@ -77,27 +77,33 @@ namespace AMSExplorer
         private string WatchFolderFolderPath = string.Empty;
         private bool WatchFolderIsOn = false;
         private bool WatchFolderDeleteFile = false;
+        private IJobTemplate WatchFolderJobTemplate = null;
         FileSystemWatcher WatchFolderWatcher;
-        private bool ZeniumPresent = true;
+        private bool AMEZeniumPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
 
         public Mainform()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
 
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.CallUpgrade = false;
             }
-
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
-
-            if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) | (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
+            if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
+                Properties.Settings.Default.Save();
+            }
+
+            if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
+            {
+                Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
                 Properties.Settings.Default.Save();
             }
 
@@ -128,11 +134,13 @@ namespace AMSExplorer
                 bool ret = Program.ConnectToStorage(_context, _credentials);
             }
 
-            if (GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null)
+            if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
             {
-                ZeniumPresent = false;
-                encodeAssetWithImagineZeniumToolStripMenuItem.Enabled = false;  //menu
+                AMEZeniumPresent = false;
+                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
+                encodeAssetWithZeniumToolStripMenuItem.Visible = false;
                 ContextMenuItemZenium.Enabled = false; // mouse context menu
+                ContextMenuItemZenium.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -148,41 +156,8 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging will not work.", true); // Warning
 
             ApplySettingsOptions(true);
-
-
-
-            CheckAMSEVersion();
-
-
         }
 
-        private void CheckAMSEVersion()
-        {
-            var webClient = new WebClient();
-            webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
-            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
-        }
-
-        private void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e.Error == null)
-            {
-                try
-                {
-                    var xmlversion = XDocument.Parse(e.Result);
-                    Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
-                    Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
-                    if (versionAMSEGitHub > versionAMSELocal)
-                    {
-                        TextBoxLogWriteLine("A newer version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                    }
-                }
-                catch
-                {
-
-                }
-            }
-        }
 
 
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
@@ -366,10 +341,12 @@ namespace AMSExplorer
         }
 
 
-        private void ProcessUploadFromFolder(object folderPath, int index)
+        private void ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             var filePaths = Directory.EnumerateFiles(folderPath as string);
 
@@ -390,6 +367,7 @@ namespace AMSExplorer
             {
                 asset = _context.Assets.CreateFromFolder(
                                                                folderPath as string,
+                                                               storageaccount,
                                                                Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                                (af, p) =>
                                                                {
@@ -474,6 +452,7 @@ namespace AMSExplorer
             return job;
         }
 
+        /*
         static IAsset GetAsset(string assetId)
         {
             IAsset asset;
@@ -496,6 +475,7 @@ namespace AMSExplorer
 
             return asset;
         }
+         * */
 
         static IChannel GetChannel(string channelId)
         {
@@ -566,7 +546,7 @@ namespace AMSExplorer
             return program;
         }
 
-        static IStreamingEndpoint GetOrigin(string originId)
+        static IStreamingEndpoint GetStreamingEndpoint(string originId)
         {
             IStreamingEndpoint origin;
 
@@ -639,6 +619,18 @@ namespace AMSExplorer
         {
             var ismAssetFiles = asset.AssetFiles.ToList().
                 Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (ismAssetFiles.Count() == 0)
+                return;
+
+            ismAssetFiles.First().IsPrimary = true;
+            ismAssetFiles.First().Update();
+        }
+
+        static void SetISMFileAsPrimary(IAsset asset, string assetfilename)
+        {
+            var ismAssetFiles = asset.AssetFiles.ToList().
+                Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
 
             if (ismAssetFiles.Count() != 1)
                 return;
@@ -715,12 +707,16 @@ namespace AMSExplorer
         }
 
 
-        static private bool IsAZeniumBlueprint(IAsset asset)
+        static private bool IsAWorkflow(IAsset asset)
         {
             if (asset.AssetFiles.Count() == 1)
             {
-                return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-                    | asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase));
+                return (asset.AssetFiles.FirstOrDefault().Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
+                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
+                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
+                    || asset.AssetFiles.FirstOrDefault().Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase));
             }
             else
             {
@@ -825,7 +821,7 @@ namespace AMSExplorer
                     {
                         int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false));
+                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
                         DotabControlMainSwitch(Constants.TabTransfers);
                         DoRefreshGridAssetV(false);
                     }
@@ -841,10 +837,12 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFile(object name, int index, bool bdeletefile)
+        private void ProcessUploadFile(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             TextBoxLogWriteLine("Starting upload of file '{0}'", name);
             bool Error = false;
@@ -853,6 +851,7 @@ namespace AMSExplorer
             {
                 asset = _context.Assets.CreateFromFile(
                                                       name as string,
+                                                      storageaccount,
                                                       Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                       (af, p) =>
                                                       {
@@ -875,11 +874,36 @@ namespace AMSExplorer
                     try
                     {
                         File.Delete(name as string);
+                        TextBoxLogWriteLine("File '{0}' deleted.", name);
                     }
                     catch
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
                     }
+                }
+
+                if (jobtemplatetorun != null) // option with watchfolder to run a job based on a job template
+                {
+                    string jobname = string.Format("Processing of {0} with template {1}", asset.Name, jobtemplatetorun.Name);
+                    List<IAsset> assetlist = new List<IAsset>() { asset };
+
+                    TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
+                    // Submit the job
+                    IJob job = _context.Jobs.Create(jobname, jobtemplatetorun, assetlist, Properties.Settings.Default.DefaultJobPriority);
+
+                    try
+                    {
+                        job.Submit();
+                    }
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
+                        TextBoxLogWriteLine(e);
+                        return;
+                    }
+
+                    DoRefreshGridJobV(false);
                 }
             }
             DoRefreshGridAssetV(false);
@@ -899,7 +923,7 @@ namespace AMSExplorer
             if (progress > 3 && _MyListTransfer[index].StartTime != null)
             {
                 TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)_MyListTransfer[index].StartTime).ToUniversalTime());
-                DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress) * interval.TotalSeconds);
+                DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                 _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString() + " ?";
             }
 
@@ -969,15 +993,14 @@ namespace AMSExplorer
 
         private void ProcessDownloadAsset(List<IAsset> SelectedAssets, object folder, int index)
         {
-            bool multipleassets = false;
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+            bool multipleassets = SelectedAssets.Count > 1;
 
             string labeldb = "Starting download of " + SelectedAssets.FirstOrDefault().Name + " to " + folder as string + Constants.endline;
-            if (SelectedAssets.Count > 1)
+            if (multipleassets)
             {
                 labeldb = "Starting download of files of " + SelectedAssets.Count + " assets to " + folder as string + Constants.endline;
-                multipleassets = true;
             }
             TextBoxLogWriteLine(labeldb);
             foreach (IAsset mediaAsset in SelectedAssets)
@@ -987,25 +1010,22 @@ namespace AMSExplorer
                 {
                     foldera += "\\" + mediaAsset.Id.Substring(12);
                     Directory.CreateDirectory(foldera);
-
                 }
-
                 mediaAsset.DownloadToFolder(foldera,
                                                                  (af, p) =>
                                                                  {
                                                                      DoGridTransferUpdateProgress(p.Progress, index);
-
                                                                  }
                                                                 );
-
             }
             TextBoxLogWriteLine("Download finished.");
             DoGridTransferDeclareCompleted(index, folder.ToString());
-
         }
 
         public void DoDownloadFileFromAsset(IAsset asset, IAssetFile File, object folder, int index)
         {
+            // If download is in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
 
             string labeldb = "Starting download of " + File.Name + " of asset " + asset.Name + " to " + folder as string + Constants.endline;
             ILocator sasLocator = null;
@@ -1023,7 +1043,6 @@ namespace AMSExplorer
                 ParallelTransferThreadCount = _context.ParallelTransferThreadCount
             };
 
-
             Task.Factory.StartNew(async () =>
             {
                 bool Error = false;
@@ -1037,7 +1056,6 @@ namespace AMSExplorer
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
                     DoGridTransferDeclareError(index, e);
-
                 }
                 if (!Error)
                 {
@@ -1046,7 +1064,7 @@ namespace AMSExplorer
                 }
             });
 
-            MessageBox.Show("Download process has been initiated. See the Transfers tab to see the progress.");
+            MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
         }
 
 
@@ -1236,6 +1254,9 @@ namespace AMSExplorer
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, NewAsset, writePolicy);
                 Uri uploadUri = new Uri(destinationLocator.Path);
 
+                // let's backup the primary file from the first asset to set it to the merged asset
+                var ismAssetFile = MyAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
+
                 foreach (IAsset MyAsset in MyAssets)
                 {
                     if (MyAsset.StorageAccountName == _context.DefaultStorageAccount.Name) // asset is in default storage
@@ -1293,8 +1314,8 @@ namespace AMSExplorer
                                     destinationBlob.FetchAttributes();
                                     AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
                                     AssetFileTarget.Update();
-
-                                    MyAsset.Update();
+                                    TextBoxLogWriteLine("     File '{0}' copied as '{1}'...", MyAssetFile.Name, AssetFileTarget.Name);
+                                    //MyAsset.Update();
                                 }
                             }
                         }
@@ -1309,7 +1330,15 @@ namespace AMSExplorer
                 destinationLocator.Delete();
                 readPolicy.Delete();
                 writePolicy.Delete();
-                SetISMFileAsPrimary(NewAsset);
+                if (ismAssetFile.Count() > 0)
+                {
+                    SetISMFileAsPrimary(NewAsset, ismAssetFile.FirstOrDefault().Name);
+                }
+                else
+                {
+                    SetISMFileAsPrimary(NewAsset);
+                }
+
             }
             catch
             {
@@ -1391,7 +1420,6 @@ namespace AMSExplorer
 
         public DialogResult DisplayInfo(IAsset asset)
         {
-
 
             AssetInformation form = new AssetInformation()
                 {
@@ -1623,7 +1651,7 @@ namespace AMSExplorer
                             try
                             {
 
-                                Task.Factory.StartNew(() => DoCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate));
+                                Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
                             }
 
                             catch (Exception e)
@@ -1641,12 +1669,20 @@ namespace AMSExplorer
 
 
 
-        private void DoCreateLocator(LocatorType locatorType, IAsset AssetToP, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime)
+        private void ProcessCreateLocator(LocatorType locatorType, IAsset AssetToP, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
             ILocator locator = null;
             try
             {
-                locator = _context.Locators.Create(locatorType, AssetToP, accessPolicyPermissions, accessPolicyDuration, startTime);
+                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + AssetToP, accessPolicyDuration, accessPolicyPermissions);
+                if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
+                {
+                    locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
+                }
+                else // Streaming locator and user wants to force the GUID
+                {
+                    locator = _context.Locators.CreateLocator(ForceLocatorGUID, LocatorType.OnDemandOrigin, AssetToP, policy, startTime);
+                }
             }
             catch (Exception ex)
             {
@@ -1655,6 +1691,17 @@ namespace AMSExplorer
                 return;
             }
             if (locator == null) return;
+
+
+            // let's choose a SE that running and with higher number of RU
+            IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
+            bool SESelectedHasRU = SESelected.ScaleUnits > 0;
+
+            if (!SESelectedHasRU && AssetToP.AssetType != AssetType.SmoothStreaming)
+            {
+                TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit.", true);
+            }
+
 
             StringBuilder sbuilderThisAsset = new StringBuilder();
 
@@ -1665,45 +1712,68 @@ namespace AMSExplorer
             sbuilderThisAsset.AppendLine(AssetToP.Id);
             sbuilderThisAsset.AppendLine("Locator ID:");
             sbuilderThisAsset.AppendLine(locator.Id);
-            sbuilderThisAsset.AppendLine("Locator Path:");
-            sbuilderThisAsset.AppendLine(locator.Path);
+            sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
+            sbuilderThisAsset.AppendLine(AssetInfo.rw(locator.Path, SESelected));
+            sbuilderThisAsset.AppendLine("");
 
             if (locatorType == LocatorType.OnDemandOrigin)
             {
+
                 // Get the MPEG-DASH URL of the asset for adaptive streaming.
-                Uri mpegDashUri = locator.GetMpegDashUri();
+                Uri mpegDashUri = AssetInfo.rw(locator.GetMpegDashUri(), SESelected);
 
                 // Get the HLS URL of the asset for adaptive streaming.
-                Uri HLSUri = locator.GetHlsUri();
+                Uri HLSUri = AssetInfo.rw(locator.GetHlsUri(), SESelected);
 
                 // Get the Smooth URL of the asset for adaptive streaming.
-                Uri SmoothUri = locator.GetSmoothStreamingUri();
+                Uri SmoothUri = AssetInfo.rw(locator.GetSmoothStreamingUri(), SESelected);
 
-                if (SmoothUri != null)
+                if (AssetToP.AssetType == AssetType.MediaServicesHLS)
+                // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                 {
-                    sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
-                    sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(locator.GetSmoothStreamingUri().ToString())));
-                }
-                if (HLSUri != null)
-                {
-                    sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(HLSUri.ToString()));
                     sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(locator.GetHlsv3Uri().ToString()));
+                    sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetHLSv3(HLSUri.ToString())));
                 }
-                if (mpegDashUri != null)
+                else // It's not Static HLS
                 {
-                    sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.ToString()));
+                    if (!SESelectedHasRU && AssetToP.AssetType == AssetType.SmoothStreaming)
+                    // it's smooth streaming with no dynamic packaging
+                    {
+                        sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
+                        sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
+
+                    }
+                    else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
+                    // Smooth or multi MP4, SE RU so dynamic packaging is possible
+                    {
+                        if (locator.GetSmoothStreamingUri() != null)
+                        {
+                            sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
+                            sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.ToString())));
+
+
+                        }
+                        if (locator.GetMpegDashUri() != null)
+                        {
+                            sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.ToString()));
+                        }
+                        if (locator.GetHlsUri() != null)
+                        {
+                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.ToString()));
+                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.rw(locator.GetHlsv3Uri(), SESelected).ToString()));
+                        }
+                    }
                 }
+
             }
             else //SAS
             {
-                IEnumerable<IAssetFile> AssetFiles = AssetToP
-   .AssetFiles
-   .ToList();
+                IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
 
                 // Generate the Progressive Download URLs for each file. 
                 List<Uri> ProgressiveDownloadUris =
@@ -1730,7 +1800,6 @@ namespace AMSExplorer
                 MyThread.IsBackground = true;
                 MyThread.Start(sbuilder.ToString());
             }
-
             dataGridViewAssetsV.AnalyzeItemsInBackground();
         }
 
@@ -1842,7 +1911,7 @@ namespace AMSExplorer
                             try
                             {
                                 DeleteAsset(AssetTODelete);
-                                if (GetAsset(AssetTODelete.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                if (AssetInfo.GetAsset(AssetTODelete.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
                             }
 
                             catch (Exception ex)
@@ -1994,7 +2063,7 @@ namespace AMSExplorer
                     if (SelectedAssets.FirstOrDefault().Options == AssetCreationOptions.None && SelectedAssets.FirstOrDefault().StorageAccountName == _context.DefaultStorageAccount.Name) // Ok, the selected asset is not encrypyted and is in the default storage account
                     {
                         form.ImportOptionToCopyFilesToExistingAsset = true;
-                        form.ImportLabelExistingAssetName = GetAsset(targetAssetID).Name;
+                        form.ImportLabelExistingAssetName = AssetInfo.GetAsset(targetAssetID, _context).Name;
                         form.ImportOptionToCopyFilesToExistingAssetLabel = string.Empty;
                     }
                     else // selected asset is encrypted or not in the default storage account, so we disable it and display a warning
@@ -2032,7 +2101,7 @@ namespace AMSExplorer
             }
             else //copy files in an existing asset
             {
-                asset = GetAsset(targetAssetID);
+                asset = AssetInfo.GetAsset(targetAssetID, _context);
 
             }
             if (UseDefaultStorage) // The default storage is used
@@ -2649,39 +2718,29 @@ namespace AMSExplorer
 
             foreach (IAsset asset in SelectedAssets) // check that there is no blueprint in the selected assets
             {
-                if (IsAZeniumBlueprint(asset))
+                if (IsAWorkflow(asset))
                 {
-                    MessageBox.Show("One of the selected asset(s) is a blueprint. Please select only video assets.");
+                    MessageBox.Show("One of the selected asset(s) is a workflow. Please select only video assets.");
                     return;
                 }
             }
 
-            string taskname = "Zenium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvBlueprint;
-            List<IAsset> listblueprints = new List<IAsset>();
+            List<IMediaProcessor> Encoders;
+            Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
+            Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
 
-
-            var query = _context.Files.ToList().Where(f => (f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase) | f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase))).ToArray();
-            foreach (IAssetFile file in query)
-            {
-                if (file.Asset.AssetFiles.Count() == 1)
-                {
-                    listblueprints.Add(file.Asset);
-                }
-            }
-
-
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.ZeniumEncoder);
+            string taskname = "Zenium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
 
             EncodingZenium form = new EncodingZenium(_context)
             {
-                EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
+                EncodingProcessorsList = Encoders,
                 EncodingJobName = "Zenium Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-Zenium encoded with " + Constants.NameconvBlueprint,
+                EncodingOutputAssetName = Constants.NameconvInputasset + "-Zenium encoded with " + Constants.NameconvWorkflow,
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
-                ZeniumBlueprints = listblueprints,
                 EncodingMultipleJobs = true,
-                EncodingNumberInputAssets = SelectedAssets.Count
+                EncodingNumberInputAssets = SelectedAssets.Count,
+                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder
             };
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -2690,18 +2749,18 @@ namespace AMSExplorer
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                    foreach (IAsset graphAsset in form.SelectedZeniumBlueprints) // for each blueprint selected, we create a task
+                    foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each blueprint selected, we create a task
                     {
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
-                                   processor,
-                                   Constants.ZeniumConfig,
+                                   form.EncodingProcessorSelected,
+                                   "",
                                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-                        // Specify the graph asset to be encoded, followed by the input video asset to be used
+                        // Specify the workflow asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.Add(graphAsset);
                         task.InputAssets.AddRange(SelectedAssets); // we add all assets
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
                         task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                     }
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
@@ -2727,19 +2786,19 @@ namespace AMSExplorer
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
 
                         IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                        foreach (IAsset graphAsset in form.SelectedZeniumBlueprints) // for each blueprint selected, we create a task
+                        foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each workflow selected, we create a task
                         {
-                            string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
+                            string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
                             ITask task = job.Tasks.AddNew(
                                         tasknameloc,
-                                       processor,
-                                       Constants.ZeniumConfig,
+                                       form.EncodingProcessorSelected,
+                                       "",
                                        Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
                             // Specify the graph asset to be encoded, followed by the input video asset to be used
                             task.InputAssets.Add(graphAsset);
                             task.InputAssets.Add(asset); // we add one asset
-                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvBlueprint, graphAsset.Name);
+                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
                             task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
                         }
@@ -2763,7 +2822,6 @@ namespace AMSExplorer
                 DoRefreshGridJobV(false);
             }
         }
-
 
 
         private void DoMenuEncodeWithAMESystemPreset()
@@ -2793,18 +2851,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + form.EncodingSelectedPreset;
-                string outputassetname = form.EncodingOutputAssetName.Replace(Constants.NameconvAMEpreset, form.EncodingSelectedPreset);
-
-                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, outputassetname, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
+                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, form.EncodingOutputAssetName, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
-
         }
-
 
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
+            // display the update message if a new version is available
+            if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
         }
 
 
@@ -3054,6 +3110,8 @@ namespace AMSExplorer
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
 
+            DisplayDeprecatedMessage();
+
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
                 MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3087,7 +3145,7 @@ namespace AMSExplorer
                 jobname = jobname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 taskname = taskname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 string outputassetname = form.HLSOutputAssetName.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, configHLS, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configHLS }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
             }
         }
 
@@ -3107,6 +3165,8 @@ namespace AMSExplorer
             }
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
+
+            DisplayDeprecatedMessage();
 
             if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4))
             {
@@ -3137,7 +3197,7 @@ namespace AMSExplorer
                             _configurationXMLFiles,
                             "MediaPackager_MP4toSmooth.xml"));
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, smoothConfig, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
             }
         }
 
@@ -3159,6 +3219,8 @@ namespace AMSExplorer
 
             }
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            DisplayDeprecatedMessage();
 
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
@@ -3243,44 +3305,47 @@ namespace AMSExplorer
                     form.PlayReadyServiceId,
                     form.PlayReadyCustomAttributes);
 
-                    LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, configPlayReady, AssetCreationOptions.CommonEncryptionProtected);
+                    LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, new List<string> { configPlayReady }, AssetCreationOptions.CommonEncryptionProtected);
                 }
 
             }
 
         }
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
         {
             LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions, storageaccountname);
         }
 
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, string configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
         {
             foreach (IAsset asset in selectedassets)
             {
                 string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
                 IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
-                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name);
-                ITask myTask = myJob.Tasks.AddNew(
-                    tasknameloc,
-                   processor,
-                   configuration,
-                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-
-                myTask.InputAssets.Add(asset);
-
-                // Add an output asset to contain the results of the job.  
-                string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name);
-                if (storageaccountname == "")
+                foreach (string config in configuration)
                 {
-                    myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, creationoptions); // let's use the same storage account than the input asset
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                    ITask myTask = myJob.Tasks.AddNew(
+                           tasknameloc,
+                          processor,
+                          config,
+                          Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
 
-                }
-                else
-                {
-                    myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, creationoptions);
+                    myTask.InputAssets.Add(asset);
 
+                    // Add an output asset to contain the results of the task
+                    string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                    if (storageaccountname == "")
+                    {
+                        myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, creationoptions); // let's use the same storage account than the input asset
+
+                    }
+                    else
+                    {
+                        myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, creationoptions);
+                    }
                 }
+
 
                 // Submit the job and wait until it is completed. 
                 try
@@ -3323,6 +3388,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            DisplayDeprecatedMessage();
 
             string labeldb = "Validate '" + mediaAsset.Name + "'  ?";
 
@@ -3346,8 +3412,13 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, configMp4Validation, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configMp4Validation }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
             }
+        }
+
+        private void DisplayDeprecatedMessage()
+        {
+            MessageBox.Show("On November 1, 2015, Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life. At that time, these components—used to convert file packaging formats and apply encryption—become fully deactivated and no longer available. The conversion and encryption capabilities will be transitioned to the dynamic packaging component of Azure Media Services.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DoMenuIndexAssets()
@@ -3393,7 +3464,7 @@ namespace AMSExplorer
             {
                 string configIndexer = string.Empty;
 
-                if (!string.IsNullOrEmpty(form.IndexerTitle) | !string.IsNullOrEmpty(form.IndexerDescription))
+                if (!string.IsNullOrEmpty(form.IndexerTitle) || !string.IsNullOrEmpty(form.IndexerDescription))
                 {
                     configIndexer = LoadAndUpdateIndexerConfiguration(
                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
@@ -3402,7 +3473,7 @@ namespace AMSExplorer
                );
                 }
 
-                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, configIndexer, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 
@@ -3437,7 +3508,7 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.StorageDecryption);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, "", AssetCreationOptions.None);
+                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { "" }, AssetCreationOptions.None);
             }
         }
 
@@ -3467,7 +3538,6 @@ namespace AMSExplorer
         {
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
-
 
             comboBoxOrderAssets.Items.AddRange(
            typeof(OrderAssets)
@@ -3508,7 +3578,7 @@ namespace AMSExplorer
          .Select(i => i.GetValue(null) as string)
          .ToArray()
          );
-            comboBoxFilterAssetsTime.SelectedIndex = 1; // last week
+            comboBoxFilterAssetsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterJobsTime.Items.AddRange(
          typeof(FilterTime)
@@ -3516,7 +3586,7 @@ namespace AMSExplorer
          .Select(i => i.GetValue(null) as string)
          .ToArray()
          );
-            comboBoxFilterJobsTime.SelectedIndex = 1; // last week
+            comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
 
             comboBoxFilterTimeProgram.Items.AddRange(
@@ -3525,7 +3595,7 @@ namespace AMSExplorer
        .Select(i => i.GetValue(null) as string)
        .ToArray()
        );
-            comboBoxFilterTimeProgram.SelectedIndex = 1; // last week
+            comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
 
             comboBoxStatusProgram.Items.AddRange(
             typeof(ProgramState)
@@ -3561,6 +3631,9 @@ namespace AMSExplorer
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
+
+            dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
+            dateTimePickerEndDate.Value = DateTime.Now;
 
         }
 
@@ -3604,8 +3677,6 @@ namespace AMSExplorer
             List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
             DoDeleteAllLocatorsOnAssets(SelectedAssets);
         }
-
-
 
         private void DoMenuEncodeWithAMEAdvanced()
         {
@@ -3657,6 +3728,21 @@ namespace AMSExplorer
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                 AMETask.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
 
+                // if UserControl wants also aboutToolStripMenuItem thumbnails task
+                if (form.EncodingGenerateThumbnails)
+                {
+                    ITask AMETaskThumbnails = job.Tasks.AddNew(
+                                       tasknameloc,
+                                     form.EncodingProcessorSelected,// processor,
+                                      "Thumbnails",
+                                      Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+
+                    AMETaskThumbnails.InputAssets.AddRange(form.SelectedAssets);
+
+                    // Add an output asset to contain the results of the job.  
+                    string outputassetnamelocthumbnails = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name) + " (Thumbnails)";
+                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                }
                 // Submit the job and wait until it is completed. 
                 try
                 {
@@ -3675,7 +3761,6 @@ namespace AMSExplorer
                 DoRefreshGridJobV(false);
                 Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
             }
-
         }
 
         private void DoMenuProcessGeneric()
@@ -3705,8 +3790,6 @@ namespace AMSExplorer
                 SelectedAssets = SelectedAssets,
                 EncodingCreationMode = TaskJobCreationMode.MultipleTasks_MultipleJobs,
             };
-
-
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -3747,7 +3830,6 @@ namespace AMSExplorer
                         }
                         dataGridViewJobsV.DoJobProgress(job);
                     }
-
                 }
                 else if (form.EncodingCreationMode == TaskJobCreationMode.MultipleTasks_SingleJob)  /////////////   Several tasks but all in one job
                 {
@@ -3784,7 +3866,6 @@ namespace AMSExplorer
                         return;
                     }
                     dataGridViewJobsV.DoJobProgress(job);
-
                 }
                 else if (form.EncodingCreationMode == TaskJobCreationMode.SingleTask_SingleJob) // Create one single task in one job
                 {
@@ -3817,16 +3898,11 @@ namespace AMSExplorer
                         return;
                     }
                     dataGridViewJobsV.DoJobProgress(job);
-
                 }
-
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);
             }
-
         }
-
-
 
         private void butNextPageAsset_Click(object sender, EventArgs e)
         {
@@ -3876,21 +3952,15 @@ namespace AMSExplorer
 
         private void Mainform_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            int TransferUncompleted = _MyListTransfer.Where(t => (t.State == TransferState.Processing) | (t.State == TransferState.Queued)).Count();
+            int TransferUncompleted = _MyListTransfer.Where(t => (t.State == TransferState.Processing) || (t.State == TransferState.Queued)).Count();
             if (TransferUncompleted > 0)
             {
                 if (System.Windows.Forms.MessageBox.Show("One or several transfers are in the queue or in progress and will be interrupted." + Constants.endline + "Are you sure that you want to quit the application?", "Caution: transfer(s) in progress", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 {
                     e.Cancel = true;
                 }
-
             }
-
-
         }
-
-
 
         private void comboBoxPageJobs_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -3901,14 +3971,11 @@ namespace AMSExplorer
             butNextPageJob.Enabled = (selectedindex == (dataGridViewJobsV.PageCount - 1)) ? false : true;
         }
 
-
-
         private void dataGridViewAssetsV_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-
-                IAsset asset = GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString());
+                IAsset asset = AssetInfo.GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString(), _context);
 
                 if (asset == null) return;
 
@@ -3938,7 +4005,6 @@ namespace AMSExplorer
 
         private void dataGridViewJobsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
             if (e.ColumnIndex == dataGridViewJobsV.Columns["State"].Index) // state column
             {
                 if (dataGridViewJobsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
@@ -3966,10 +4032,8 @@ namespace AMSExplorer
                         default:
                             mycolor = Color.Black;
                             break;
-
                     }
                     for (int i = 0; i < dataGridViewJobsV.Columns["Progress"].Index; i++) dataGridViewJobsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
-
                 }
             }
         }
@@ -4007,7 +4071,7 @@ namespace AMSExplorer
                 {
                     string TypeStr = (string)dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                     if (TypeStr.Equals(AssetInfo.Type_Empty)) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
-                    else if (TypeStr.Contains(AssetInfo.Type_Blueprint)) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Blue;
+                    else if (TypeStr.Contains(AssetInfo.Type_Workflow)) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Blue;
                 }
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns["Size"].Index) // size column
@@ -4017,7 +4081,6 @@ namespace AMSExplorer
                     string TypeStr = (string)dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
                     if (TypeStr.Equals("0 B")) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
                 }
-
             }
 
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
@@ -4039,10 +4102,6 @@ namespace AMSExplorer
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value != null)
                     cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
             }
-
-
-
-
         }
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
@@ -4062,8 +4121,6 @@ namespace AMSExplorer
         {
             DoMenuRenameAsset();
         }
-
-
 
         private void toolStripMenuItemDownloadToLocal_Click(object sender, EventArgs e)
         {
@@ -4194,7 +4251,7 @@ namespace AMSExplorer
 
             if (InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
-                IAsset KnownAsset = GetAsset(AssetId);
+                IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
                 if (KnownAsset == null)
                 {
                     MessageBox.Show("This asset has not been found.");
@@ -4321,7 +4378,7 @@ namespace AMSExplorer
                         case TransferType.ImportFromHttp:
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
-                            IAsset asset = GetAsset(location);
+                            IAsset asset = AssetInfo.GetAsset(location, _context);
                             if (asset != null) DisplayInfo(asset);
                             break;
 
@@ -4458,7 +4515,7 @@ namespace AMSExplorer
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
 
@@ -4466,7 +4523,7 @@ namespace AMSExplorer
         private void withSilverlightMMPPFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
 
@@ -4492,7 +4549,7 @@ namespace AMSExplorer
             {
                 if (asset.Locators.Count > 0)
                 {
-                    ILocator LocatorsOrigin = asset.Locators.Where(l => (l.Type == LocatorType.OnDemandOrigin) && ((l.StartTime < DateTime.UtcNow) | (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
+                    ILocator LocatorsOrigin = asset.Locators.Where(l => (l.Type == LocatorType.OnDemandOrigin) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
                     if (LocatorsOrigin != null)
                     {
                         //OK we can play the content
@@ -4507,7 +4564,7 @@ namespace AMSExplorer
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
         }
 
 
@@ -4515,25 +4572,25 @@ namespace AMSExplorer
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void withSilverlightMontoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
         }
 
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri(), _context);
         }
 
         private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -4694,8 +4751,7 @@ namespace AMSExplorer
 
         private void DoWatchFolder()
         {
-
-            WatchFolder form = new WatchFolder()
+            WatchFolder form = new WatchFolder(_context)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
@@ -4710,6 +4766,7 @@ namespace AMSExplorer
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
                 Properties.Settings.Default.Save();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
+                WatchFolderJobTemplate = form.WatchRunJobTemplate ? form.WatchSelectedJobTemplate : null; // let's save the job template to the main variable
 
                 if (!WatchFolderIsOn) // user want to stop the watch folder (if if exists)
                 {
@@ -4729,7 +4786,6 @@ namespace AMSExplorer
                         WatchFolderWatcher = new FileSystemWatcher();
                     }
 
-
                     WatchFolderWatcher.Path = WatchFolderFolderPath;
                     /* Watch for changes in LastAccess and LastWrite times, and
                        the renaming of files or directories. */
@@ -4738,7 +4794,6 @@ namespace AMSExplorer
                     // Only watch text files.
                     WatchFolderWatcher.Filter = "*.*";
                     WatchFolderWatcher.IncludeSubdirectories = false;
-
 
                     // Begin watching.
                     WatchFolderWatcher.EnableRaisingEvents = true;
@@ -4787,7 +4842,7 @@ namespace AMSExplorer
                     {
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(path, index, WatchFolderDeleteFile));
+                        Task.Factory.StartNew(() => ProcessUploadFile(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate));
 
                     }
                     catch (Exception e)
@@ -4795,8 +4850,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Error: Could not read file from disk. Original error : ", true);
                         TextBoxLogWriteLine(e);
                     }
-
-
                     break;
                 }
                 catch (FileNotFoundException)
@@ -4875,7 +4928,7 @@ namespace AMSExplorer
             TabControl tabcontrol = (TabControl)sender;
 
             // let's enable or disable all items from menu and context menu
-            EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets) | (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive))));
+            EnableChildItems(ref publishToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets) || (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive))));
             EnableChildItems(ref processToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
             EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
             EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
@@ -4893,10 +4946,10 @@ namespace AMSExplorer
             EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
             EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
 
-            // let's disable Zenium or Indexer if not present
-            if (!ZeniumPresent)
+            // let's disable Zenium if not present
+            if (!AMEZeniumPresent)
             {
-                encodeAssetWithImagineZeniumToolStripMenuItem.Enabled = false;  //menu
+                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
                 ContextMenuItemZenium.Enabled = false; // mouse context menu
             }
 
@@ -4952,42 +5005,92 @@ namespace AMSExplorer
 
             progressBarChart.Value = 0;
 
-
             var seriesJobTotal = new Series()
             {
-                Name = "Job total",
+                Name = "Jobs total",
+
                 XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.FastLine
+                ChartType = SeriesChartType.Line,
+                MarkerStyle = MarkerStyle.Square,
+                Color = Color.Black,
+                IsValueShownAsLabel = false
             };
-
             chart.Series.Add(seriesJobTotal);
-
 
             var seriesError = new Series()
             {
-                Name = "Job errors",
+                Name = "Jobs in error",
                 XValueType = ChartValueType.DateTime,
-                ChartType = SeriesChartType.FastLine
+                ChartType = SeriesChartType.Line,
+                MarkerStyle = MarkerStyle.Square,
+                Color = Color.Red,
+                IsValueShownAsLabel = false
             };
-
-
-
             chart.Series.Add(seriesError);
 
-            var querytotal = dataGridViewJobsV.DisplayedJobs.GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-            var queryerror = dataGridViewJobsV.DisplayedJobs.Where(j => j.State == JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var seriesCancel = new Series()
+            {
+                Name = "Jobs cancelled",
+                XValueType = ChartValueType.DateTime,
+                ChartType = SeriesChartType.Line,
+                MarkerStyle = MarkerStyle.Square,
+                Color = Color.Blue,
+                IsValueShownAsLabel = false
+            };
+            chart.Series.Add(seriesCancel);
+
+            var seriesSucess = new Series()
+            {
+                Name = "Jobs succeeded",
+                XValueType = ChartValueType.DateTime,
+                ChartType = SeriesChartType.Line,
+                MarkerStyle = MarkerStyle.Square,
+                Color = Color.Green,
+                IsValueShownAsLabel = false
+            };
+            chart.Series.Add(seriesSucess);
+
+            IEnumerable<IJob> jobs = _context.Jobs.Where(j => j.LastModified >= dateTimePickerStartDate.Value && j.LastModified <= dateTimePickerEndDate.Value);
+
+            var querytotal = jobs.GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var queryerror = jobs.Where(j => j.State == JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var querycancel = jobs.Where(j => j.State == JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
+            var querysuccess = jobs.Where(j => j.State == JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
 
             int i = 0;
             progressBarChart.Minimum = 0;
-            progressBarChart.Maximum = querytotal.Count() + queryerror.Count();
+            progressBarChart.Maximum = querytotal.Count + queryerror.Count + querycancel.Count + querysuccess.Count;
 
+            DateTime day = dateTimePickerStartDate.Value.Date;
 
-            foreach (var j in querytotal)
+            int val;
+            while (day <= dateTimePickerEndDate.Value.Date)
             {
-                i++;
-                progressBarChart.Value = i;
-                seriesJobTotal.Points.AddXY(j.date, j.number);
+                if (querytotal.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querytotal.Where(d => d.date == day).FirstOrDefault().number;
+                DrawPoint(seriesJobTotal, "in error", day, val);
+
+                if (queryerror.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = queryerror.Where(d => d.date == day).FirstOrDefault().number;
+                DrawPoint(seriesError, "in error", day, val);
+
+                if (querycancel.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querycancel.Where(d => d.date == day).FirstOrDefault().number;
+                DrawPoint(seriesCancel, "canceled", day, val);
+
+                if (querysuccess.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querysuccess.Where(d => d.date == day).FirstOrDefault().number;
+                DrawPoint(seriesSucess, "finished", day, val);
+
+                day = day.AddDays(1);
             }
+
+            /*
+
+                foreach (var j in querytotal)
+                {
+                    i++;
+                    progressBarChart.Value = i;
+                    seriesJobTotal.Points.AddXY(j.date, j.number);
+                }
+             
+
             foreach (var j in queryerror)
             {
                 i++;
@@ -4995,10 +5098,36 @@ namespace AMSExplorer
                 seriesError.Points.AddXY(j.date, j.number);
             }
 
+            foreach (var j in querycancel)
+            {
+                i++;
+                progressBarChart.Value = i;
+                seriesCancel.Points.AddXY(j.date, j.number);
+            }
+
+            foreach (var j in querysuccess)
+            {
+                i++;
+                progressBarChart.Value = i;
+                seriesSucess.Points.AddXY(j.date, j.number);
+            }
+            */
+
+
 
             // draw!
             chart.Invalidate();
 
+        }
+
+        private static void DrawPoint(Series seriestoprocess, string word, DateTime day, int val)
+        {
+            int pos = seriestoprocess.Points.AddXY(day, val);
+            if (val != 0)
+            {
+                seriestoprocess.Points[pos].IsValueShownAsLabel = true;
+                seriestoprocess.Points[pos].LabelToolTip = string.Format("{0} jobs {1} on {2}", val, word, day.ToShortDateString());
+            }
         }
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5123,7 +5252,7 @@ namespace AMSExplorer
             SelectedChannels.Reverse();
             return SelectedChannels;
         }
-        private List<IStreamingEndpoint> ReturnSelectedOrigins()
+        private List<IStreamingEndpoint> ReturnSelectedStreamingEndpoints()
         {
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
@@ -5136,20 +5265,65 @@ namespace AMSExplorer
 
         private List<IProgram> ReturnSelectedPrograms()
         {
+            bool Error = false;
             List<IProgram> SelectedPrograms = new List<IProgram>();
             foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                try
+                {
+                    SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                }
+                catch
+                {
+                    Error = true;
+                    break;
+
+                }
             }
-            SelectedPrograms.Reverse();
-            return SelectedPrograms;
+            if (!Error)
+            {
+                SelectedPrograms.Reverse();
+                return SelectedPrograms;
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
-        private void DoStopChannels()
+        private async void DoStopChannels()
         {
-            foreach (IChannel myC in ReturnSelectedChannels())
+            List<IChannel> channels = ReturnSelectedChannels();
+            List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
+            var programquery = _context.Programs.AsEnumerable().Where(p => ListChannelIDs.Contains(p.ChannelId) && p.State != ProgramState.Stopped);
+            var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
+
+            if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be stopped now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
             {
-                StopChannel(myC);
+                if (programqueryrunning.Count() > 0) // some programs are running
+                {
+                    if (MessageBox.Show("One or several programs are running. Do you want to stop the program(s) ?", "Channel stop", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        var yourForeachTask = Task.Run(() =>
+                        {
+                            Parallel.ForEach(programqueryrunning, myP =>
+                            {
+                                TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
+                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
+                            });
+                        });
+                        await yourForeachTask;
+                    }
+                }
+
+                // let's stop the channels now that running programs are stopped
+                foreach (IChannel myC in channels)
+                {
+                    StopChannel(myC);
+                }
             }
         }
 
@@ -5172,9 +5346,7 @@ namespace AMSExplorer
             if (myC != null)
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
-                var STask = ChannelExecuteAsync(myC.StartAsync, myC.Name, "started");
-                DoChannelMonitor(myC.Name, OperationType.Start);
-                await STask;
+                await Task.Run(() => ChannelExecuteAsync(myC.StartAsync, myC, "started"));
             }
         }
 
@@ -5183,9 +5355,7 @@ namespace AMSExplorer
             if (myC != null)
             {
                 TextBoxLogWriteLine("Stopping channel '{0}'", myC.Name);
-                var STask = ChannelExecuteAsync(myC.StopAsync, myC.Name, "stopped");
-                DoChannelMonitor(myC.Name, OperationType.Stop);
-                await STask;
+                await Task.Run(() => ChannelExecuteAsync(myC.StopAsync, myC, "stopped"));
             }
         }
 
@@ -5194,9 +5364,7 @@ namespace AMSExplorer
             if (myC != null)
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
-                var STask = ChannelExecuteAsync(myC.ResetAsync, myC.Name, "reset");
-                DoChannelMonitor(myC.Name, OperationType.Reset);
-                await STask;
+                await Task.Run(() => ChannelExecuteAsync(myC.ResetAsync, myC, "reset"));
             }
         }
 
@@ -5205,9 +5373,7 @@ namespace AMSExplorer
             if (myC != null)
             {
                 TextBoxLogWriteLine("Deleting channel '{0}'...", myC.Name);
-                var STask = ChannelExecuteAsync(myC.DeleteAsync, myC.Name, "deleted");
-                DoChannelMonitor(myC.Name, OperationType.Delete);
-                await STask;
+                await Task.Run(() => ChannelExecuteAsync(myC.DeleteAsync, myC, "deleted"));
                 DoRefreshGridChannelV(false);
             }
         }
@@ -5217,9 +5383,7 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Deleting program '{0}'...", myP.Name);
-                var STask = ProgramExecuteAsync(myP.DeleteAsync, myP.Name, "deleted");
-                DoProgramMonitor(myP.Name, OperationType.Delete);
-                await STask;
+                await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
                 DoRefreshGridProgramV(false);
             }
         }
@@ -5229,10 +5393,7 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Starting program '{0}'...", myP.Name);
-                var STask = ProgramExecuteAsync(myP.StartAsync, myP.Name, "started");
-                DoProgramMonitor(myP.Name, OperationType.Start);
-                await STask;
-                DoRefreshGridProgramV(false);
+                await Task.Run(() => ProgramExecuteAsync(myP.StartAsync, myP, "started"));
             }
         }
 
@@ -5241,151 +5402,83 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                var STask = ProgramExecuteAsync(myP.StopAsync, myP.Name, "stopped");
-                DoProgramMonitor(myP.Name, OperationType.Stop);
-                await STask;
-                DoRefreshGridProgramV(false);
+                await Task.Run(() => ProgramExecuteAsync(myP.StopAsync, myP, "stopped"));
             }
         }
 
-        private async void StartOrigin(IStreamingEndpoint myO)
+        private async void StartStreamingEndpoint(IStreamingEndpoint myO)
         {
             if (myO != null)
             {
                 TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
-                var STask = OriginExecuteAsync(myO.StartAsync, myO.Name, "started");
-                DoOriginMonitor(myO.Name, OperationType.Start);
-                await STask;
+                await Task.Run(() => StreamingEndpointExecuteAsync(myO.StartAsync, myO, "started"));
             }
         }
-        private async void StopOrigin(IStreamingEndpoint myO)
+        private async void StopStreamingEndpoint(IStreamingEndpoint myO)
         {
             if (myO != null)
             {
                 TextBoxLogWriteLine("Stopping streaming endpoint '{0}'...", myO.Name);
-                var STask = OriginExecuteAsync(myO.StopAsync, myO.Name, "stopped");
-                DoOriginMonitor(myO.Name, OperationType.Stop);
-                await STask;
+                await Task.Run(() => StreamingEndpointExecuteAsync(myO.StopAsync, myO, "stopped"));
             }
         }
 
-        private async void DeleteOrigin(IStreamingEndpoint myO)
+        private async void DeleteStreamingEndpoint(IStreamingEndpoint myO)
         {
             if (myO != null)
             {
                 TextBoxLogWriteLine("Deleting streaming endpoint '{0}'.", myO.Name);
-                var STask = OriginExecuteAsync(myO.DeleteAsync, myO.Name, "deleted");
-                DoOriginMonitor(myO.Name, OperationType.Delete);
-                await STask;
+                await Task.Run(() => StreamingEndpointExecuteAsync(myO.DeleteAsync, myO, "deleted"));
+                DoRefreshGridStreamingEndpointV(false);
             }
         }
 
 
-        private async void ScaleOrigin(IStreamingEndpoint myO, int unit)
+        private async void ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit)
         {
             if (myO != null)
             {
                 try
                 {
                     TextBoxLogWriteLine("Scaling streaming endpoint '{0}' to {1} unit(s)...", myO.Name, unit.ToString());
-                    var STask = myO.ScaleAsync(unit);
-                    DoOriginMonitor(myO.Name, OperationType.Scale);
-                    await STask;
+                    await Task.Run(() => myO.ScaleAsync(unit));
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", myO.Name);
+                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
                 }
 
                 catch (Exception ex)
                 {
-                    var si = new StatusInfo
-                    {
-                        EntityName = myO.Name,
-                        ErrorMessage = Program.GetErrorMessage(ex)
-                    };
-                    TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
+                    TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
                 }
             }
         }
 
-        private async void UpdateOrigin(IStreamingEndpoint myO)
+        internal async Task ChannelExecuteAsync(Func<Task> fCall, IChannel channel, string strStatusSuccess) //used for all except creation 
         {
-            if (myO != null)
+            try
             {
-                try
+                var STask = fCall();
+                var state = channel.State;
+                while (!STask.IsCompleted)
                 {
-                    TextBoxLogWriteLine("Updating streaming endpoint '{0}'...", myO.Name);
-                    var STask = myO.UpdateAsync();
-                    await STask;
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' updated.", myO.Name);
-
-                }
-
-                catch (Exception ex)
-                {
-                    var si = new StatusInfo
+                    // refresh the channel
+                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                    if (channelR != null && state != channelR.State)
                     {
-                        EntityName = myO.Name,
-                        ErrorMessage = Program.GetErrorMessage(ex)
-                    };
-                    TextBoxLogWriteLine("Error when updating streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
+                        state = channelR.State;
+                        dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
                 }
-                DoRefreshGridStreamingEndpointV(false);
+                await STask;
+                TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
             }
         }
-
-        private async void UpdateChannel(IChannel channel)
-        {
-            if (channel != null)
-            {
-                try
-                {
-                    TextBoxLogWriteLine("Updating Channel '{0}'...", channel.Name);
-                    var STask = channel.UpdateAsync();
-                    await STask;
-                    TextBoxLogWriteLine("Channel '{0}' updated.", channel.Name);
-                }
-
-                catch (Exception ex)
-                {
-                    var si = new StatusInfo
-                    {
-                        EntityName = channel.Name,
-                        ErrorMessage = Program.GetErrorMessage(ex)
-                    };
-                    TextBoxLogWriteLine("Error when updating channel '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.AddChannelEvent(si)), null);
-                }
-                DoRefreshGridChannelV(false);
-            }
-        }
-
-        private async void UpdateProgram(IProgram program)
-        {
-            if (program != null)
-            {
-                try
-                {
-                    TextBoxLogWriteLine("Updating Program {0}...", program.Name);
-                    var STask = program.UpdateAsync();
-                    await STask;
-                    TextBoxLogWriteLine("Program {0} updated.", program.Name);
-                }
-
-                catch (Exception ex)
-                {
-                    var si = new StatusInfo
-                    {
-                        EntityName = program.Name,
-                        ErrorMessage = Program.GetErrorMessage(ex)
-                    };
-                    TextBoxLogWriteLine("Error when updating program '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                    dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.AddProgramEvent(si)), null);
-                }
-                DoRefreshGridProgramV(false);
-            }
-        }
-
-
 
         internal async Task ChannelExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
         {
@@ -5396,13 +5489,34 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                var si = new StatusInfo
+                TextBoxLogWriteLine("Error with channel '{0}' : {1}", strObjectName, Program.GetErrorMessage(ex), true);
+            }
+        }
+
+        internal async Task ProgramExecuteAsync(Func<Task> fCall, IProgram program, string strStatusSuccess) //used for all except creation 
+        {
+            try
+            {
+                var STask = fCall();
+                var state = program.State;
+                while (!STask.IsCompleted)
                 {
-                    EntityName = strObjectName,
-                    ErrorMessage = Program.GetErrorMessage(ex)
-                };
-                TextBoxLogWriteLine("Error with channel '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.AddChannelEvent(si)), null);
+                    // refersh the program
+                    IProgram programR = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
+                    if (programR != null && state != programR.State)
+                    {
+                        state = programR.State;
+                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                await STask;
+                TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error with program '{0}' : {1}", program.Name, Program.GetErrorMessage(ex), true);
             }
         }
 
@@ -5415,35 +5529,50 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                var si = new StatusInfo
-                {
-                    EntityName = strObjectName,
-                    ErrorMessage = Program.GetErrorMessage(ex)
-                };
-                TextBoxLogWriteLine("Error with program '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.AddProgramEvent(si)), null);
+                TextBoxLogWriteLine("Error with program '{0}' : {1}", strObjectName, Program.GetErrorMessage(ex), true);
             }
         }
 
-        internal async Task OriginExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
+
+        internal async Task StreamingEndpointExecuteAsync(Func<Task> fCall, IStreamingEndpoint myO, string strStatusSuccess) //used for all except creation 
+        {
+            try
+            {
+                var state = myO.State;
+                var STask = fCall();
+                while (!STask.IsCompleted)
+                {
+                    // refersh the setreaming endpoint
+                    IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
+                    if (myOR != null && state != myOR.State)
+                    {
+                        state = myOR.State;
+                        dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myOR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                await STask;
+                TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", myO.Name, strStatusSuccess);
+                dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
+            }
+        }
+
+        internal async Task StreamingEndpointExecuteAsync(Func<Task> fCall, string sename, string strStatusSuccess) // used for creation 
         {
             try
             {
                 await fCall();
-                TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", strObjectName, strStatusSuccess);
+                TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", sename, strStatusSuccess);
             }
             catch (Exception ex)
             {
-                var si = new StatusInfo
-                {
-                    EntityName = strObjectName,
-                    ErrorMessage = Program.GetErrorMessage(ex)
-                };
-                TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", si.EntityName, si.ErrorMessage, true);
-                dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.AddStreamingEndpointEvent(si)), null);
+                TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", sename, Program.GetErrorMessage(ex), true);
             }
         }
-
 
 
 
@@ -5550,7 +5679,6 @@ namespace AMSExplorer
                 {
                     Name = form.ChannelName,
                     Description = form.ChannelDescription,
-
                     Input = new ChannelInput()
                     {
                         StreamingProtocol = form.Protocol,
@@ -5562,15 +5690,15 @@ namespace AMSExplorer
                     },
                     Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } }
                 };
-                var STask = ChannelExecuteAsync(
-                      () =>
-                          _context.Channels.CreateAsync(
-                          options
-                               ),
-                          form.ChannelName,
-                          "created");
 
-                await STask;
+                await Task.Run(() => ChannelExecuteAsync(
+                     () =>
+                         _context.Channels.CreateAsync(
+                         options
+                              ),
+                         form.ChannelName,
+                         "created"));
+
                 DoRefreshGridChannelV(false);
                 IChannel channel = GetChannelFromName(form.ChannelName);
                 if (channel != null)
@@ -5578,34 +5706,10 @@ namespace AMSExplorer
                     if (form.StartChannelNow)
                     {
                         StartChannel(GetChannelFromName(form.ChannelName));
-
                     }
                 }
             }
         }
-
-
-
-        public void DoChannelMonitor(string channelname, OperationType operationtype)
-        {
-            IChannel channel = _context.Channels.Where(c => c.Name == channelname).FirstOrDefault();
-            if (channel != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.DoChannelMonitor(channel, operationtype)), null);
-
-        }
-
-        public void DoOriginMonitor(string originname, OperationType operationtype)
-        {
-            IStreamingEndpoint origin = _context.StreamingEndpoints.Where(c => c.Name == originname).FirstOrDefault();
-            if (origin != null) dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.DoStreamingEndpointMonitor(origin, operationtype)), null);
-
-        }
-
-        public void DoProgramMonitor(string programnane, OperationType operationtype)
-        {
-            IProgram program = _context.Programs.Where(c => c.Name == programnane).FirstOrDefault();
-            if (program != null) dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.DoProgramMonitor(program, operationtype)), null);
-        }
-
 
 
         private void channToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5618,7 +5722,7 @@ namespace AMSExplorer
             DoDisplayChannelInfo(ReturnSelectedChannels().FirstOrDefault());
         }
 
-        private void DoDisplayChannelInfo(IChannel channel)
+        private async void DoDisplayChannelInfo(IChannel channel)
         {
 
             ChannelInformation form = new ChannelInformation()
@@ -5629,8 +5733,9 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
                 channel.Description = form.GetChannelDescription;
+
+                channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
                 // Input allow list
                 if (form.GetInputIPAllowList != null)
@@ -5706,9 +5811,8 @@ namespace AMSExplorer
                         channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
                     }
                 }
-                UpdateChannel(channel);
+                await Task.Run(() => ChannelExecuteAsync(channel.UpdateAsync, channel, "updated"));
             }
-
         }
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
@@ -5733,52 +5837,57 @@ namespace AMSExplorer
         {
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
-
-                DeleteProgram form = new DeleteProgram(question);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                if (SelectedPrograms.Count > 0)
                 {
-                    foreach (IProgram myP in SelectedPrograms)
+                    string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
+
+                    DeleteProgram form = new DeleteProgram(question);
+
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        IAsset asset = myP.Asset;
-                        DeleteProgram(myP);
-                        if (form.DeleteAsset)
+                        foreach (IProgram myP in SelectedPrograms)
                         {
-                            if (myP.Asset != null)
+                            IAsset asset = myP.Asset;
+                            DeleteProgram(myP);
+                            if (form.DeleteAsset)
                             {
-                                //delete
-                                TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                try
+                                if (myP.Asset != null)
                                 {
-                                    DeleteAsset(asset);
-                                    if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
-                                }
-                                catch (Exception ex)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                    TextBoxLogWriteLine(ex);
+                                    //delete
+                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                    try
+                                    {
+                                        DeleteAsset(asset);
+                                        if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-
         }
 
 
         private void DoStartPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                foreach (IProgram myP in SelectedPrograms)
+                if (SelectedPrograms.Count > 0)
                 {
-                    StartProgam(myP);
+                    foreach (IProgram myP in SelectedPrograms)
+                    {
+                        StartProgam(myP);
+                    }
                 }
             }
         }
@@ -5787,64 +5896,83 @@ namespace AMSExplorer
         private void DoStopPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                foreach (IProgram myP in SelectedPrograms)
+                if (SelectedPrograms.Count > 0)
                 {
-                    StopProgram(myP);
+                    foreach (IProgram myP in SelectedPrograms)
+                    {
+                        StopProgram(myP);
+                    }
                 }
             }
         }
 
 
-        private IAsset CreateLiveAsset(string strName, bool createlocator)
+        private IAsset CreateLiveAssetWithOptionalpecifiedLocatorID(string assetName, string storageaccount, bool createlocator, bool setupdynamicencryption, string LocatorID = null)
         {
-            var myA = _context.Assets.Create(strName, AssetCreationOptions.None); // Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
-            if (createlocator) CreateOriginLocator(myA);
-            return myA;
-        }
-
-        private IAsset CreateLiveAssetWithSpecifiedLocatorID(string assetName, string LocatorID)
-        {
-            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
-
-            // let's use the same expiration date than previous locator
-            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
-
+            bool oktocontinue = true;
             bool Error = false;
-            try
+
+            IAsset newAsset = _context.Assets.Create(assetName, storageaccount, AssetCreationOptions.None);
+
+            if (setupdynamicencryption) // user want to enable Dynamic Encryption on the program's asset. We must do it before locator creation
             {
-                TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
-                _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                // if user want to create a locator, force locator and setyp dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
+                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, true, createlocator && (LocatorID != null));
             }
-            catch (Exception ex)
+
+            if (oktocontinue)
             {
-                // Add useful information to the exception
-                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
-                TextBoxLogWriteLine(ex);
+                try
+                {
+                    if (createlocator)
+                    {
+                        TextBoxLogWriteLine("Creating locator for asset '{0}'", newAsset.Name);
+                        IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+                        if (LocatorID != null)
+                        {
+                            _context.Locators.CreateLocator(LocatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                        }
+                        else
+                        {
+                            _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, newAsset, policy, null);
+                        }
+                        if (AssetInfo.GetBestStreamingEndpoint(_context).ScaleUnits == 0)
+                        {
+                            TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit. The locator on the program will not work.", true);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", newAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+            }
+            else
+            {
+                newAsset.Delete();
                 Error = true;
+                TextBoxLogWriteLine("User canceled.");
             }
             return Error ? null : newAsset;
-
         }
 
-        public void CreateOriginLocator(IAsset outputAsset)
-        {
-            IAccessPolicy policy =
-                _context.AccessPolicies.Create("AP:" + outputAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
-            _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, outputAsset, policy, DateTime.UtcNow.AddMinutes(-5));
-        }
 
         private async void DoCreateProgram()
         {
             IChannel channel = ReturnSelectedChannels().FirstOrDefault();
             if (channel != null)
             {
-                CreateProgram form = new CreateProgram()
+                CreateProgram form = new CreateProgram(_context)
                     {
                         ChannelName = channel.Name,
                         archiveWindowLength = new TimeSpan(4, 0, 0),
                         CreateLocator = true,
+                        EnableDynEnc = false,
                         AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
                         ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
                     };
@@ -5852,19 +5980,19 @@ namespace AMSExplorer
                 {
                     if (form.ScaleUnit)
                     {
-                        ScaleOrigin(_context.StreamingEndpoints.FirstOrDefault(), 1);
+                        ScaleStreamingEndpoint(_context.StreamingEndpoints.FirstOrDefault(), 1);
                     }
 
                     TextBoxLogWriteLine("Creating Program '{0}'...", form.ProgramName);
                     string assetname = form.AssetName.Replace(Constants.NameconvProgram, form.ProgramName).Replace(Constants.NameconvChannel, form.ChannelName);
                     IAsset NewAsset;
-                    if (form.IsReplica)
+                    if (form.IsReplica) // special case. We want to create a program with a specific manifest name, locator GUID and encryption key
                     {
-                        NewAsset = CreateLiveAssetWithSpecifiedLocatorID(assetname, form.ReplicaLocatorID);
+                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, true, form.EnableDynEnc, form.ReplicaLocatorID);
                     }
-                    else
+                    else // normal case
                     {
-                        NewAsset = CreateLiveAsset(assetname, form.CreateLocator);
+                        NewAsset = CreateLiveAssetWithOptionalpecifiedLocatorID(assetname, form.StorageSelected, form.CreateLocator, form.EnableDynEnc);
                     }
 
                     if (NewAsset != null)
@@ -5884,6 +6012,8 @@ namespace AMSExplorer
                                    , form.ProgramName,
                                    "created");
                         await STask;
+
+
                         DoRefreshGridProgramV(false);
                     }
                     DoRefreshGridAssetV(false);
@@ -5959,14 +6089,15 @@ namespace AMSExplorer
             DoDisplayProgramInfo(ReturnSelectedPrograms().FirstOrDefault());
         }
 
-        private void DoDisplayProgramInfo(IProgram program)
+        private async void DoDisplayProgramInfo(IProgram program)
         {
             if (program != null)
             {
                 ProgramInformation form = new ProgramInformation()
                 {
                     MyProgram = program,
-                    MyContext = _context
+                    MyContext = _context,
+                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
                 };
 
 
@@ -5974,7 +6105,7 @@ namespace AMSExplorer
                 {
                     program.ArchiveWindowLength = form.archiveWindowLength;
                     program.Description = form.ProgramDescription;
-                    UpdateProgram(program);
+                    await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
                 }
             }
         }
@@ -5997,7 +6128,7 @@ namespace AMSExplorer
             if (SelectedAssets.FirstOrDefault() == null) return;
 
             string taskname = "Thumbnails generation of " + Constants.NameconvInputasset;
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.WindowsAzureMediaEncoder);
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
 
             Thumbnails form = new Thumbnails(_context)
             {
@@ -6027,7 +6158,7 @@ namespace AMSExplorer
                 form.ThumbnailsTimeStop
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, configThumbnails, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, new List<string> { configThumbnails }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 
@@ -6070,169 +6201,166 @@ namespace AMSExplorer
 
         private void displayOriginInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDisplayOriginInfo();
+            DoDisplayStreamingEndpointInfo();
         }
 
 
-        private void DoDisplayOriginInfo()
+        private void DoDisplayStreamingEndpointInfo()
         {
-            DoDisplayOriginInfo(ReturnSelectedOrigins().FirstOrDefault());
+            DoDisplayStreamingEndpointInfo(ReturnSelectedStreamingEndpoints().FirstOrDefault());
         }
-        private void DoDisplayOriginInfo(IStreamingEndpoint origin)
+        private async void DoDisplayStreamingEndpointInfo(IStreamingEndpoint streamingendpoint)
         {
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
-                MyOrigin = origin,
+                MyOrigin = streamingendpoint,
                 MyContext = _context
             };
 
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (origin.ScaleUnits != form.GetScaleUnits)
+                if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
                 {
-                    ScaleOrigin(origin, form.GetScaleUnits);
+                    ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
                 }
 
-                origin.CustomHostNames = form.GetStreamingCustomHostnames;
+                streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
 
                 if (form.GetStreamingAllowList != null)
                 {
-                    if (origin.AccessControl == null)
+                    if (streamingendpoint.AccessControl == null)
                     {
-                        origin.AccessControl = new StreamingEndpointAccessControl();
+                        streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
                     }
-                    origin.AccessControl.IPAllowList = form.GetStreamingAllowList;
+                    streamingendpoint.AccessControl.IPAllowList = form.GetStreamingAllowList;
                 }
                 else
                 {
-                    if (origin.AccessControl != null)
+                    if (streamingendpoint.AccessControl != null)
                     {
-                        origin.AccessControl.IPAllowList = null;
+                        streamingendpoint.AccessControl.IPAllowList = null;
                     }
                 }
 
                 if (form.GetStreamingAkamaiList != null)
                 {
-                    if (origin.AccessControl == null)
+                    if (streamingendpoint.AccessControl == null)
                     {
-                        origin.AccessControl = new StreamingEndpointAccessControl();
+                        streamingendpoint.AccessControl = new StreamingEndpointAccessControl();
                     }
-                    origin.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
+                    streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = form.GetStreamingAkamaiList;
 
                 }
                 else
                 {
-                    if (origin.AccessControl != null)
+                    if (streamingendpoint.AccessControl != null)
                     {
-                        origin.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
+                        streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
                     }
                 }
 
                 if (form.MaxCacheAge != null)
                 {
-                    if (origin.CacheControl == null)
+                    if (streamingendpoint.CacheControl == null)
                     {
-                        origin.CacheControl = new StreamingEndpointCacheControl();
+                        streamingendpoint.CacheControl = new StreamingEndpointCacheControl();
                     }
-                    origin.CacheControl.MaxAge = form.MaxCacheAge;
+                    streamingendpoint.CacheControl.MaxAge = form.MaxCacheAge;
                 }
                 else
                 {
-                    if (origin.CacheControl != null)
+                    if (streamingendpoint.CacheControl != null)
                     {
-                        origin.CacheControl.MaxAge = null;
+                        streamingendpoint.CacheControl.MaxAge = null;
                     }
                 }
 
                 // Client Access Policy
                 if (form.GetOriginClientPolicy != null)
                 {
-                    if (origin.CrossSiteAccessPolicies == null)
+                    if (streamingendpoint.CrossSiteAccessPolicies == null)
                     {
-                        origin.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
                     }
-                    origin.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
+                    streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetOriginClientPolicy;
 
                 }
                 else
                 {
-                    if (origin.CrossSiteAccessPolicies != null)
+                    if (streamingendpoint.CrossSiteAccessPolicies != null)
                     {
-                        origin.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                        streamingendpoint.CrossSiteAccessPolicies.ClientAccessPolicy = null;
                     }
                 }
-
-
-
 
 
                 // Cross domain  Policy
                 if (form.GetOriginCrossdomaintPolicy != null)
                 {
-                    if (origin.CrossSiteAccessPolicies == null)
+                    if (streamingendpoint.CrossSiteAccessPolicies == null)
                     {
-                        origin.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        streamingendpoint.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
                     }
-                    origin.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
+                    streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetOriginCrossdomaintPolicy;
 
                 }
                 else
                 {
-                    if (origin.CrossSiteAccessPolicies != null)
+                    if (streamingendpoint.CrossSiteAccessPolicies != null)
                     {
-                        origin.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                        streamingendpoint.CrossSiteAccessPolicies.CrossDomainPolicy = null;
                     }
                 }
 
-                origin.Description = form.GetOriginDescription;
-                UpdateOrigin(origin);
+                streamingendpoint.Description = form.GetOriginDescription;
+                await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
             }
         }
 
         private void startOriginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStartOrigins();
+            DoStartStreamingEndpoints();
         }
 
-        private void DoStartOrigins()
+        private void DoStartStreamingEndpoints()
         {
-            foreach (IStreamingEndpoint myO in ReturnSelectedOrigins())
+            foreach (IStreamingEndpoint myO in ReturnSelectedStreamingEndpoints())
             {
-                StartOrigin(myO);
+                StartStreamingEndpoint(myO);
             }
         }
 
         private void stopOriginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoStopOrigins();
+            DoStopStreamingEndpoints();
         }
 
-        private void DoStopOrigins()
+        private void DoStopStreamingEndpoints()
         {
-            foreach (IStreamingEndpoint myO in ReturnSelectedOrigins())
+            foreach (IStreamingEndpoint myO in ReturnSelectedStreamingEndpoints())
             {
-                StopOrigin(myO);
+                StopStreamingEndpoint(myO);
             }
         }
 
         private void deleteOriginsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteOrigins();
+            DoDeleteStreamingEndpoints();
         }
 
-        private void DoDeleteOrigins()
+        private void DoDeleteStreamingEndpoints()
         {
-            List<IStreamingEndpoint> SelectedOrigins = ReturnSelectedOrigins();
+            List<IStreamingEndpoint> SelectedOrigins = ReturnSelectedStreamingEndpoints();
             if (SelectedOrigins.Count > 0)
             {
                 string question = (SelectedOrigins.Count == 1) ? "Delete streaming endpoint " + SelectedOrigins[0].Name + " ?" : "Delete these " + SelectedOrigins.Count + " streaming endpoints ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Streaming endpoint(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    foreach (IStreamingEndpoint myO in ReturnSelectedOrigins())
+                    foreach (IStreamingEndpoint myO in ReturnSelectedStreamingEndpoints())
                     {
-                        DeleteOrigin(myO);
+                        DeleteStreamingEndpoint(myO);
                     }
                 }
             }
@@ -6240,38 +6368,33 @@ namespace AMSExplorer
 
         private void createOriginToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateOrigin();
+            DoCreateStreamingEndpoint();
         }
 
-        private async void DoCreateOrigin()
+        private async void DoCreateStreamingEndpoint()
         {
             CreateStreamingEndpoint form = new CreateStreamingEndpoint() { scaleUnits = 1 };
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                TextBoxLogWriteLine("Creating streaming endpoint {0}...", form.OriginName);
+                TextBoxLogWriteLine("Creating streaming endpoint {0}...", form.StreamingEndpointName);
 
                 var options = new StreamingEndpointCreationOptions()
                 {
-                    Name = form.OriginName,
+                    Name = form.StreamingEndpointName,
                     ScaleUnits = form.scaleUnits,
-                    Description = form.OriginDescription
+                    Description = form.StreamingEndpointDescription
                 };
 
-                var STask = OriginExecuteAsync(
+                await Task.Run(() => StreamingEndpointExecuteAsync(
                        () =>
                            _context.StreamingEndpoints.CreateAsync(options)
-                           , form.OriginName,
-                           "created");
-
-                await STask;
+                           , form.StreamingEndpointName,
+                           "created"));
 
                 DoRefreshGridStreamingEndpointV(false);
             }
         }
-
-
-
 
         private static byte[] GenerateRandomBytes(int length)
         {
@@ -6356,32 +6479,32 @@ namespace AMSExplorer
 
         private void displayOriginInformationToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDisplayOriginInfo();
+            DoDisplayStreamingEndpointInfo();
         }
 
         private void startOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStartOrigins();
+            DoStartStreamingEndpoints();
         }
 
         private void stopOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoStopOrigins();
+            DoStopStreamingEndpoints();
         }
 
         private void deleteOriginsToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            DoDeleteOrigins();
+            DoDeleteStreamingEndpoints();
         }
 
         private void dataGridViewOriginsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex > -1)
             {
-                IStreamingEndpoint origin = GetOrigin(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
-                if (origin != null)
+                IStreamingEndpoint se = GetStreamingEndpoint(dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString());
+                if (se != null)
                 {
-                    DoDisplayOriginInfo(origin);
+                    DoDisplayStreamingEndpointInfo(se);
                 }
             }
         }
@@ -6389,7 +6512,6 @@ namespace AMSExplorer
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             DoPlaybackProgram(PlayerType.FlashAzurePage);
-
         }
 
         private void DoPlaybackProgram(PlayerType ptype)
@@ -6402,6 +6524,10 @@ namespace AMSExplorer
                 if (ValidURIs.FirstOrDefault() != null)
                 {
                     AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                }
+                else
+                {
+                    TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
                 }
             }
         }
@@ -6465,19 +6591,19 @@ namespace AMSExplorer
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders);
+                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context);
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
                     int index;
                     foreach (string folder in form2.BatchSelectedFolders)
                     {
                         index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index));
+                        Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected));
                     }
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false));
+                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null, form2.StorageSelected));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
@@ -6549,7 +6675,7 @@ namespace AMSExplorer
 
         private void createStreamingEndpointToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCreateOrigin();
+            DoCreateStreamingEndpoint();
         }
 
 
@@ -6560,8 +6686,14 @@ namespace AMSExplorer
 
         private void DoSetupDynEnc()
         {
-            string labelAssetName;
             List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+            SetupDynamicEncryption(SelectedAssets, false, false);
+        }
+
+        private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool IsLiveAsset, bool forceusertoprovidekey)
+        {
+            string labelAssetName;
+            bool oktoproceed = false;
             if (SelectedAssets.Count > 0)
             {
                 labelAssetName = "Dynamic encryption will be applied for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
@@ -6569,201 +6701,290 @@ namespace AMSExplorer
                 {
                     labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
                 }
-                AddDynamicEncryption form = new AddDynamicEncryption(_context);
+                AddDynamicEncryption form = new AddDynamicEncryption(_context, IsLiveAsset, forceusertoprovidekey);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    bool Error = false;
-                    string keydeliveryconfig = null;
-                    foreach (IAsset AssetToProcess in SelectedAssets)
-                        if (AssetToProcess != null)
+
+                    bool UserCancelledPlayReadyForm = false;
+                    PlayReadyLicense formPlayReadyLicense = new PlayReadyLicense();
+                    PlayReadyExternalServer formPlayReadyExternalServer = new PlayReadyExternalServer(SelectedAssets.Count > 1, /*forceusertoprovidekey ||*/ form.GetKeyRestrictionType != null);
+                    string aeskey = string.Empty;
+
+                    // TO DO: ASK for content key if the user has to provid it for CENC
+                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
+                    {
+                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
                         {
-                            if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
+                            if (forceusertoprovidekey || !form.ContentKeyRandomGeneration) // user has to provide the playready key
                             {
-                                IContentKey contentKey = null;
-
-                                var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                                if (formPlayReadyExternalServer.ShowDialog() != System.Windows.Forms.DialogResult.OK)
                                 {
-                                    try
-                                    {
-                                        if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
-                                        {
-                                            contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
-                                        }
-                                        else // CENC
-                                        {
-                                            contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
-                                        }
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
-                                    if (Error) break;
-                                    TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                    UserCancelledPlayReadyForm = true;
                                 }
-                                else // let's use existing content key
+                            }
+                            if (!UserCancelledPlayReadyForm)
+                            {
+                                if (formPlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) //form to set the license
                                 {
-                                    contentKey = contentkeys.FirstOrDefault();
-                                    TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                                    UserCancelledPlayReadyForm = true;
                                 }
+                            }
+                        }
+                        else // PlayReady license but delivery from an external PlayReady server
+                        {
+                            if (formPlayReadyExternalServer.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                            {
+                                UserCancelledPlayReadyForm = true;
+                            }
+                        }
+                    }
+                    else if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption && (forceusertoprovidekey || !form.ContentKeyRandomGeneration)) // Envelope and user want to provide the key
+                    {
+                        if (InputBox("AES Key", "Please enter the AES clear key :", ref aeskey) == DialogResult.Cancel)
+                        {
+                            aeskey = string.Empty;
+                        }
+                    }
 
 
-                                // if CENC, let's build the PlayReady license template
-                                if (form.GetContentKeyType == ContentKeyType.CommonEncryption)
+                    if (!UserCancelledPlayReadyForm)
+                    {
+                        oktoproceed = true;
+                        bool Error = false;
+                        string keydeliveryconfig = null;
+                        foreach (IAsset AssetToProcess in SelectedAssets)
+                            if (AssetToProcess != null)
+                            {
+                                if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
                                 {
-                                    PlayReadyLicense formPlayReady = new PlayReadyLicense();
-                                    if (formPlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                    IContentKey contentKey = null;
+
+                                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
+                                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
                                     {
                                         try
                                         {
-                                            keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReady.GetLicenseTemplate);
+                                            if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
+                                            {
+                                                if ((forceusertoprovidekey || !form.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
+                                                {
+                                                    contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey));
+                                                }
+                                                else
+                                                {
+                                                    contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
+                                                }
+                                            }
+                                            else // CENC
+                                            {
+                                                if (form.GetKeyRestrictionType != null && (!forceusertoprovidekey && form.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
+                                                {
+                                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                                                }
+                                                else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
+                                                {
+                                                    if (!string.IsNullOrEmpty(formPlayReadyExternalServer.PlayReadyKeySeed)) // seed has been given
+                                                    {
+                                                        Guid keyid = (formPlayReadyExternalServer.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)formPlayReadyExternalServer.PlayReadyKeyId;
+                                                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyKeySeed), keyid);
+                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                                    }
+                                                    else // no seed given, so content key has been setup
+                                                    {
+                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)formPlayReadyExternalServer.PlayReadyKeyId, Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyContentKey));
+                                                    }
+                                                }
+                                            }
                                         }
                                         catch (Exception e)
                                         {
                                             // Add useful information to the exception
-                                            TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
                                             TextBoxLogWriteLine(e);
                                             Error = true;
                                         }
+                                        if (Error) break;
+                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
                                     }
-                                    else
+                                    else if (form.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
                                     {
-                                        return;
+                                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
                                     }
 
-                                }
-
-                                string tokenTemplateString = null;
-                                try
-                                {
-                                    switch (form.GetKeyRestrictionType)
+                                    else // let's use existing content key
                                     {
-                                        case ContentKeyRestrictionType.Open:
-
-                                            IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                            break;
-
-                                        case ContentKeyRestrictionType.TokenRestricted:
+                                        contentKey = contentkeys.FirstOrDefault();
+                                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                                    }
 
 
-                                            if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                    // if CENC, let's build the PlayReady license template
+                                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption)
+                                    {
+                                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
+                                        {
+                                            try
                                             {
-                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
-
+                                                keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReadyLicense.GetLicenseTemplate);
                                             }
-                                            else  // Envelope encryption 
+                                            catch (Exception e)
                                             {
-                                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
+                                                // Add useful information to the exception
+                                                TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                                                TextBoxLogWriteLine(e);
+                                                Error = true;
                                             }
 
-                                            break;
+                                        }
+                                        else // PlayReady license but delivery from an external PlayReady server
+                                        {
 
-                                        default:
-                                            break;
-                                    }
-                                }
+                                        }
 
-                                catch (Exception e)
-                                {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                                    TextBoxLogWriteLine(e);
-                                    Error = true;
-                                }
-                                if (Error) break;
-                                TextBoxLogWriteLine("Created authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-
-                                // Let's create the Asset Delivery Policy now
-                                IAssetDeliveryPolicy DelPol = null;
-                                string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
-                                try
-                                {
-                                    if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                                    {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                    }
-                                    else  // Envelope encryption or no encryption
-                                    {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
                                     }
 
-                                    TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
-                                }
-                                catch (Exception e)
-                                {
-                                    TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                                    TextBoxLogWriteLine(e);
-                                    Error = true;
-                                }
-
-                                if (Error) break;
-
-                                if (!String.IsNullOrEmpty(tokenTemplateString))
-                                {
-                                    // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
-                                    // back into a TokenRestrictionTemplate class instance.
-                                    TokenRestrictionTemplate tokenTemplate =
-                                        TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-
-                                    // Generate a test token based on the data in the given TokenRestrictionTemplate.
-                                    // Note, you need to pass the key id Guid because we specified 
-                                    // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                    Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
-                                    string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                                    TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
-                                    TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
-                                }
-                            }
-                            else // No Dynamic encryption
-                            {
-                                IAssetDeliveryPolicy DelPol = null;
-
-                                var DelPols = _context.AssetDeliveryPolicies
-                                   .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
-                                if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
-                                {
+                                    string tokenTemplateString = null;
                                     try
                                     {
-                                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form.GetAssetDeliveryProtocol, _context);
+                                        switch (form.GetKeyRestrictionType)
+                                        {
+                                            case ContentKeyRestrictionType.Open:
+
+                                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+                                                TextBoxLogWriteLine("Created Open AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                break;
+
+                                            case ContentKeyRestrictionType.TokenRestricted:
+
+
+                                                if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                                {
+                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
+                                                    TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                }
+                                                else  // Envelope encryption 
+                                                {
+                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
+                                                    TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                }
+
+                                                break;
+
+                                            case null:
+                                                break;
+
+                                            default:
+                                                break;
+                                        }
+                                    }
+
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        Error = true;
+                                    }
+                                    if (Error) break;
+
+
+                                    // Let's create the Asset Delivery Policy now
+                                    IAssetDeliveryPolicy DelPol = null;
+                                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
+                                    try
+                                    {
+                                        if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
+                                        {
+                                            if (form.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
+                                            {
+                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
+                                            }
+                                            else // Licenses NOT delivered by Azure Media Services
+                                            {
+                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context, new Uri(formPlayReadyExternalServer.PlayReadyLAurl));
+                                            }
+
+                                        }
+                                        else  // Envelope encryption or no encryption
+                                        {
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
+                                        }
+
                                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                                     }
                                     catch (Exception e)
                                     {
-                                        // Add useful information to the exception
                                         TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         Error = true;
                                     }
+
+                                    if (Error) break;
+
+                                    if (!String.IsNullOrEmpty(tokenTemplateString))
+                                    {
+                                        // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
+                                        // back into a TokenRestrictionTemplate class instance.
+                                        TokenRestrictionTemplate tokenTemplate =
+                                            TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
+                                        // Generate a test token based on the data in the given TokenRestrictionTemplate.
+                                        // Note, you need to pass the key id Guid because we specified 
+                                        // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
+                                        Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
+                                        string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                        TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
+                                    }
                                 }
-                                else // let's use an existing delivery policy for no dynamic encryption
+                                else // No Dynamic encryption
                                 {
-                                    try
+                                    IAssetDeliveryPolicy DelPol = null;
+
+                                    var DelPols = _context.AssetDeliveryPolicies
+                                       .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
+                                    if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
                                     {
-                                        AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
-                                        TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
+                                        try
+                                        {
+                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form.GetAssetDeliveryProtocol, _context);
+                                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            // Add useful information to the exception
+                                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                                            TextBoxLogWriteLine(e);
+                                            Error = true;
+                                        }
+                                    }
+                                    else // let's use an existing delivery policy for no dynamic encryption
+                                    {
+                                        try
+                                        {
+                                            AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
+                                            TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
+                                        }
+
+                                        catch (Exception e)
+                                        {
+                                            TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
+                                            TextBoxLogWriteLine(e);
+                                            Error = true;
+                                        }
                                     }
 
-                                    catch (Exception e)
-                                    {
-                                        TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
+                                    if (Error) break;
                                 }
 
-                                if (Error) break;
                             }
 
-                            dataGridViewAssetsV.AnalyzeItemsInBackground();
-                        }
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                    }
                 }
             }
-
+            return oktoproceed;
         }
 
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -6867,7 +7088,7 @@ namespace AMSExplorer
         }
 
 
-        private void encodeAssetsWithImagineCommunicationsZeniumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void encodeAssetsWithZeniumToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEncodeWithZenium();
         }
@@ -6948,13 +7169,13 @@ namespace AMSExplorer
         private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void withCustomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
 
@@ -6999,20 +7220,20 @@ namespace AMSExplorer
         private void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
 
         }
 
         private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7023,13 +7244,13 @@ namespace AMSExplorer
         private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri(), _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
         }
 
         private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
@@ -7100,101 +7321,139 @@ namespace AMSExplorer
         private async void DoResetPrograms()
         {
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
-            if (SelectedPrograms.Count > 0)
+            if (SelectedPrograms.FirstOrDefault() != null)
             {
-                string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
-                question += Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name and locator ID.";
-
-                if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (SelectedPrograms.Count > 0)
                 {
-                    foreach (IProgram myP in SelectedPrograms)
+                    string question = (SelectedPrograms.Count == 1) ? string.Format("Reset program '{0}' ?", SelectedPrograms[0].Name) : string.Format("Reset these {0} programs ?", SelectedPrograms.Count);
+                    question += Constants.endline + Constants.endline + "This will delete the program, the related asset and locator and will re-create them with the same ISM file name, locator ID, keys and delivery policies.";
+                    question += Constants.endline + Constants.endline + "WARNING: As the new asset will use the same locator ID, this can create issues. Notes:";
+                    question += Constants.endline + "- Encoder must use incremental timestamps";
+                    question += Constants.endline + "- Locator GUID are cached by the streaming endpoints for 5 minutes";
+                    question += Constants.endline + "- The old live archive manifest could have been be cached";
+
+                    if (MessageBox.Show(question, "Program(s) reset", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
-                        IAsset asset = myP.Asset;
-                        string assetName = asset.Name;
-                        string programName = myP.Name;
-                        string programDesc = myP.Description;
-                        TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
-                        var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
-                        IChannel myChannel = myP.Channel;
-                        var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-                        if (locator.Count() != 1) // no single locator, we do nothing
+                        foreach (IProgram myP in SelectedPrograms)
                         {
-                            TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
-                        }
-                        else if (ismAssetFiles.Count() != 1)
-                        {
-                            TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
-                        }
-                        else
-                        {
-                            string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
-                            string locatorID = locator.FirstOrDefault().Id;
-                            DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
-
-                            try
+                            if (myP.State != ProgramState.Stopped) // program is not stopped
                             {
-                                TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
-                                myP.Delete();
+                                TextBoxLogWriteLine("Program '{0}' must be stopped in order to reset it. Operation aborted.", myP.Name, true);
                             }
-                            catch (Exception ex)
+                            else // program is stopped
                             {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
+                                IAsset asset = myP.Asset;
+                                IAsset newAsset = null;
 
-                            if (myP.Asset != null)
-                            {
-                                //delete
-                                try
+                                string assetName = asset.Name; // backup the asset name
+                                string assetstorageaccount = asset.StorageAccountName; // backup the storage account name
+                                string programName = myP.Name; // backup program name
+                                string programDesc = myP.Description; // backup program description
+                                TimeSpan programArchiveWindowLength = myP.ArchiveWindowLength;
+                                var locator = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).ToArray();
+                                IChannel myChannel = myP.Channel;
+                                var ismAssetFiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
+
+
+                                if (locator.Count() != 1) // no single locator, we do nothing
                                 {
-                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
-                                    DeleteAsset(asset);
-                                    if (GetAsset(asset.Id) == null) TextBoxLogWriteLine("Deletion done.");
+                                    TextBoxLogWriteLine("Asset of program '{0}' does not have a single locator. Operation aborted.", myP.Name, true);
                                 }
-                                catch (Exception ex)
+                                else if (ismAssetFiles.Count() != 1)
                                 {
-                                    // Add useful information to the exception
-                                    TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
-                                    TextBoxLogWriteLine(ex);
+                                    TextBoxLogWriteLine("Asset of program '{0}' does not have a ISM file. Operation aborted.", myP.Name, true);
+                                }
+                                else
+                                {
+                                    string ismName = Path.GetFileNameWithoutExtension(ismAssetFiles.FirstOrDefault().Name);
+                                    string locatorID = locator.FirstOrDefault().Id;
+                                    DateTime locatorExpDateTime = locator.FirstOrDefault().ExpirationDateTime;
+
+                                    try
+                                    {
+                                        TextBoxLogWriteLine("Deleting program '{0}'", myP.Name);
+                                        myP.Delete();
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the program {0}.", myP.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+
+                                    try
+                                    {
+                                        newAsset = _context.Assets.Create(assetName, assetstorageaccount, AssetCreationOptions.None);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the new asset {0}.", assetName, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+
+
+
+                                    if (asset != null)
+                                    {
+                                        //let's copy the keys
+                                        foreach (var key in asset.ContentKeys)
+                                        {
+                                            newAsset.ContentKeys.Add(key);
+                                        }
+                                        //let's copy the policies
+                                        foreach (var delpol in asset.DeliveryPolicies)
+                                        {
+                                            newAsset.DeliveryPolicies.Add(delpol);
+                                        }
+                                        //delete
+                                        try
+                                        {
+                                            TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                            DeleteAsset(asset);
+                                            if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            // Add useful information to the exception
+                                            TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                            TextBoxLogWriteLine(ex);
+                                        }
+                                    }
+
+                                    // let's use the same expiration date than previous locator
+                                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
+
+                                    try
+                                    {
+
+                                        TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
+                                        ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+
+                                    ProgramCreationOptions options = new ProgramCreationOptions()
+                                    {
+                                        AssetId = newAsset.Id,
+                                        Name = programName,
+                                        Description = programDesc,
+                                        ArchiveWindowLength = programArchiveWindowLength,
+                                        ManifestName = ismName,
+                                    };
+                                    await Task.Run(() => ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created"));
                                 }
                             }
 
-                            IAsset newAsset = _context.Assets.Create(assetName, AssetCreationOptions.None);
-                            // let's use the same expiration date than previous locator
-                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + assetName, locatorExpDateTime.Subtract(DateTime.UtcNow), AccessPermissions.Read);
-
-                            try
-                            {
-
-                                TextBoxLogWriteLine("Creating locator for asset '{0}'", asset.Name);
-                                ILocator locat = _context.Locators.CreateLocator(locatorID, LocatorType.OnDemandOrigin, newAsset, policy, null);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", asset.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-
-                            ProgramCreationOptions options = new ProgramCreationOptions()
-                            {
-                                AssetId = newAsset.Id,
-                                Name = programName,
-                                Description = programDesc,
-                                ArchiveWindowLength = programArchiveWindowLength,
-                                ManifestName = ismName,
-                            };
-
-                            var STask = ProgramExecuteAsync(() => myChannel.Programs.CreateAsync(options), programName, "created");
-                            await STask;
                         }
+                        DoRefreshGridProgramV(false);
+                        DoRefreshGridAssetV(false);
                     }
-                    DoRefreshGridProgramV(false);
-                    DoRefreshGridAssetV(false);
                 }
-
             }
         }
 
@@ -7327,7 +7586,7 @@ namespace AMSExplorer
                                 sb.AppendLine(details.Message);
                             }
                         }
-                        MessageBox.Show(sb.ToString(),"Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(sb.ToString(), "Error message(s)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -7351,6 +7610,214 @@ namespace AMSExplorer
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             Process.Start(@"https://manage.windowsazure.com");
+        }
+
+        private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://dashplayer.azurewebsites.net");
+        }
+
+        private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuPackageSmoothToHLSStatic();
+        }
+
+        private void encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuProtectWithPlayReadyStatic();
+        }
+
+        private void packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuMP4ToSmoothStatic();
+        }
+
+        private void validateTheMultiMP4AssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuValidateMultiMP4Static();
+        }
+
+        private void resubmitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoJobResubmit();
+        }
+
+        private void DoJobResubmit()
+        {
+            List<IJob> SelectedJobs = ReturnSelectedJobs();
+
+            if (SelectedJobs.Count == 0)
+            {
+                MessageBox.Show("No job was selected");
+                return;
+            }
+            else if (SelectedJobs.Count > 1)
+            {
+                MessageBox.Show("Please select one job only");
+                return;
+            }
+
+            if (SelectedJobs.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No job was selected");
+                return;
+            }
+            IJob myJob = SelectedJobs.FirstOrDefault();
+            if (SelectedJobs.FirstOrDefault().Tasks.Count != 1)
+            {
+                MessageBox.Show("This feature works only with a job that contains a single task");
+                return;
+            }
+
+            string taskname = myJob.Tasks.FirstOrDefault().Name; //Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset;
+
+            GenericProcessor form = new GenericProcessor(_context, myJob)
+            {
+                Text = "Job re-submission",
+                EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
+                EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()), // Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()), // Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
+                EncodingPriority = myJob.Priority,
+                SelectedAssets = myJob.InputMediaAssets.ToList(),
+                EncodingCreationMode = TaskJobCreationMode.SingleTask_SingleJob,
+            };
+
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+
+                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
+                IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+
+                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+
+                ITask task = job.Tasks.AddNew(
+                            tasknameloc,
+                           form.EncodingProcessorSelected,
+                           form.EncodingConfiguration,
+                           Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                // Specify the graph asset to be encoded, followed by the input video asset to be used
+                task.InputAssets.AddRange(myJob.InputMediaAssets.ToList());
+                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+                task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+
+                TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
+                // Submit the job and wait until it is completed. 
+                try
+                {
+                    job.Submit();
+                }
+                catch (Exception e)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", jobnameloc, true);
+                    TextBoxLogWriteLine(e);
+                    return;
+                }
+                dataGridViewJobsV.DoJobProgress(job);
+
+                DoRefreshGridJobV(false);
+            }
+        }
+
+        private void saveAsTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSaveJobAsTemplate();
+        }
+
+        private void DoSaveJobAsTemplate()
+        {
+            List<IJob> SelectedJobs = ReturnSelectedJobs();
+            string jobtemplatename = string.Empty;
+            if (SelectedJobs.Count == 1)
+            {
+                if (InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
+                {
+                    IJobTemplate jtemplate = SelectedJobs.FirstOrDefault().SaveAsTemplate(jobtemplatename);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select one job", "Selection", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void submitFromTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSubmitFromTemplate();
+        }
+
+        private void DoSubmitFromTemplate()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            ProcessFromJobTemplate form = new ProcessFromJobTemplate(_context, SelectedAssets.Count)
+            {
+                ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
+                Text = "Template based processing",
+                ProcessingJobName = string.Format("Processing of {0} with template {1}", Constants.NameconvInputasset, Constants.NameconvTemplate),
+                ProcessingPriority = Properties.Settings.Default.DefaultJobPriority
+            };
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                string jobname = form.ProcessingJobName.Replace(Constants.NameconvTemplate, form.SelectedJobTemplate.Name);
+                string assetname = (SelectedAssets.Count == 1) ? SelectedAssets.FirstOrDefault().Name : "Multiple assets";
+                jobname = jobname.Replace(Constants.NameconvInputasset, assetname);
+
+                // Submit the job
+                try
+                {
+                    IJob job = _context.Jobs.Create(jobname, form.SelectedJobTemplate, SelectedAssets, form.ProcessingPriority);
+                    job.Submit();
+                }
+                catch (Exception e)
+                {
+                    // Add useful information to the exception
+                    MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobname) + Constants.endline + e.Message);
+                    TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobname, true);
+                    TextBoxLogWriteLine(e);
+                    return;
+                }
+                DotabControlMainSwitch(Constants.TabJobs);
+                DoRefreshGridJobV(false);
+            }
+        }
+
+        private void processAssetsWithAJobTemplateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSubmitFromTemplate();
+        }
+
+        private void resubmitToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoJobResubmit();
+        }
+
+        private void saveAsTemplateToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoSaveJobAsTemplate();
+        }
+
+        private void copyInputURLSSLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopySSLIngestURLToClipboard();
+        }
+
+        private void DoCopySSLIngestURLToClipboard()
+        {
+            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+            if (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
+            {
+                System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri.ToString().Replace("http://", "https://"));
+            }
+            else
+            {
+                MessageBox.Show("SSL is not yet possible for live RTMP input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void copyInputSSLURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopySSLIngestURLToClipboard();
         }
     }
 }
@@ -7584,19 +8051,28 @@ namespace AMSExplorer
 {
     public static class OrderAssets
     {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string Size = "Size";
+        public const string LastModifiedDescending = "Last modified >";
+        public const string LastModifiedAscending = "Last modified <";
+        public const string NameDescending = "Name >";
+        public const string NameAscending = "Name <";
+        public const string SizeDescending = "Size >";
+        public const string SizeAscending = "Size <";
     }
 
     public static class OrderJobs
     {
-        public const string LastModified = "Last modified";
-        public const string StartTime = "Start Time";
-        public const string EndTime = "End Time";
-        public const string ProcessTime = "Duration";
-        public const string Name = "Name";
-        public const string State = "State";
+        public const string LastModifiedDescending = "Last modified >";
+        public const string LastModifiedAscending = "Last modified <";
+        public const string StartTimeDescending = "Start Time >";
+        public const string StartTimeAscending = "Start Time <";
+        public const string EndTimeDescending = "End Time >";
+        public const string EndTimeAscending = "End Time <";
+        public const string ProcessTimeDescending = "Duration >";
+        public const string ProcessTimeAscending = "Duration <";
+        public const string NameDescending = "Name >";
+        public const string NameAscending = "Name <";
+        public const string StateDescending = "State >";
+        public const string StateAscending = "State <";
     }
 
     public static class OrderStreamingEndpoints
@@ -7628,6 +8104,7 @@ namespace AMSExplorer
 
     public static class FilterTime
     {
+        public const string First50Items = "First 50 items";
         public const string LastDay = "Last 24 hours";
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
@@ -7758,9 +8235,9 @@ namespace AMSExplorer
         static private bool _neveranalyzed = true;
         static private string _searchinname = "";
         static private string _statefilter = "";
-        static private string _timefilter = FilterTime.LastWeek;
+        static private string _timefilter = FilterTime.First50Items;
 
-        static string _orderassets = OrderAssets.LastModified;
+        static string _orderassets = OrderAssets.LastModifiedDescending;
         static BackgroundWorker WorkerAnalyzeAssets;
         static CloudMediaContext _context;
         static Bitmap cancelimage = Bitmaps.cancel;
@@ -7951,7 +8428,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
 
             int days = -1;
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
                 switch (_timefilter)
                 {
@@ -8030,6 +8507,48 @@ namespace AMSExplorer
             }
 
 
+
+
+            var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+
+            switch (_orderassets)
+            {
+                case OrderAssets.LastModifiedDescending:
+                    assets = from a in assets orderby a.LastModified descending select a;
+                    break;
+
+                case OrderAssets.LastModifiedAscending:
+                    assets = from a in assets orderby a.LastModified ascending select a;
+                    break;
+
+                case OrderAssets.NameAscending:
+                    assets = from a in assets orderby a.Name ascending select a;
+                    break;
+
+                case OrderAssets.NameDescending:
+                    assets = from a in assets orderby a.Name descending select a;
+                    break;
+
+                case OrderAssets.SizeDescending:
+                    assets = from a in assets orderby size(a) descending select a;
+                    break;
+
+                case OrderAssets.SizeAscending:
+                    assets = from a in assets orderby size(a) ascending select a;
+                    break;
+
+                default:
+                    assets = from a in assets orderby a.LastModified descending select a;
+                    break;
+            }
+
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                assets = assets.Take(50);
+            }
+
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
             if (_pagecount == 0) _pagecount = 1; // no asset but one page
@@ -8037,28 +8556,6 @@ namespace AMSExplorer
             if (pagetodisplay < 1) pagetodisplay = 1;
             if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
             _currentpage = pagetodisplay;
-
-            var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-
-            switch (_orderassets)
-            {
-                case OrderAssets.LastModified:
-                    assets = from a in assets orderby a.LastModified descending select a;
-
-                    break;
-                case OrderAssets.Name:
-                    assets = from a in assets orderby a.Name select a;
-                    break;
-
-                case OrderAssets.Size:
-                    assets = from a in assets orderby size(a) descending select a;
-                    break;
-
-                default:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-            }
 
             try
             {
@@ -8205,7 +8702,6 @@ namespace AMSExplorer
                     streami = null;
 
                     break;
-
             }
 
             // IF BOTH PUBLISHED
@@ -8228,12 +8724,9 @@ namespace AMSExplorer
         }
 
 
-
-
         private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
         {
             AssetBitmapAndText ABT = new AssetBitmapAndText();
-
 
             switch (asset.Options)
             {
@@ -8251,7 +8744,6 @@ namespace AMSExplorer
                     ABT.bitmap = envelopeencryptedimage;
                     ABT.MouseOverDesc = "Envelope encrypted";
                     break;
-
 
                 default:
                     break;
@@ -8287,8 +8779,8 @@ namespace AMSExplorer
                     AssetEncryptionState assetEncryptionStateHLS = asset.GetEncryptionState(AssetDeliveryProtocol.HLS);
                     AssetEncryptionState assetEncryptionStateSmooth = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming);
                     AssetEncryptionState assetEncryptionStateDash = asset.GetEncryptionState(AssetDeliveryProtocol.Dash);
-                    bool CENCEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryption | assetEncryptionStateSmooth == AssetEncryptionState.DynamicCommonEncryption | assetEncryptionStateDash == AssetEncryptionState.DynamicCommonEncryption);
-                    bool EnvelopeEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicEnvelopeEncryption | assetEncryptionStateSmooth == AssetEncryptionState.DynamicEnvelopeEncryption | assetEncryptionStateDash == AssetEncryptionState.DynamicEnvelopeEncryption);
+                    bool CENCEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicCommonEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicCommonEncryption);
+                    bool EnvelopeEnable = (assetEncryptionStateHLS == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateSmooth == AssetEncryptionState.DynamicEnvelopeEncryption || assetEncryptionStateDash == AssetEncryptionState.DynamicEnvelopeEncryption);
                     if (CENCEnable && EnvelopeEnable)
                     {
                         ABT.bitmap = new Bitmap((envelopeencryptedimage.Width + commonencryptedimage.Width), envelopeencryptedimage.Height);
@@ -8427,7 +8919,7 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModified;
+        static string _orderjobs = OrderJobs.LastModifiedDescending;
         static string _filterjobsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -8451,7 +8943,7 @@ namespace AMSExplorer
                                State = j.State,
                                StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"hh\:mm\:ss") : string.Empty,
+                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                                Progress = j.GetOverallProgress()
                            };
 
@@ -8487,8 +8979,6 @@ namespace AMSExplorer
             {
                 _currentpage = page;
                 this.DataSource = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (page - 1)).Take(_jobsperpage).ToList());
-
-
             }
         }
 
@@ -8500,11 +8990,10 @@ namespace AMSExplorer
             this.FindForm().Cursor = Cursors.WaitCursor;
             _context = context;
 
-
             IEnumerable<JobEntry> jobquery;
 
             int days = -1;
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter != FilterTime.All)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
                 switch (_timefilter)
                 {
@@ -8525,18 +9014,13 @@ namespace AMSExplorer
                         break;
 
                 }
-
             }
             jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
-
 
             if (_filterjobsstate != "All")
             {
                 jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
-
-
 
             if (!string.IsNullOrEmpty(_searchinname))
             {
@@ -8544,6 +9028,65 @@ namespace AMSExplorer
                 jobs = jobs.Where(j => (j.Name.ToLower().Contains(searchlower) || j.Id.ToLower().Contains(searchlower)));
             }
 
+            switch (_orderjobs)
+            {
+                case OrderJobs.LastModifiedDescending:
+                    jobs = from j in jobs orderby j.LastModified descending select j;
+                    break;
+
+                case OrderJobs.LastModifiedAscending:
+                    jobs = from j in jobs orderby j.LastModified ascending select j;
+                    break;
+
+                case OrderJobs.NameDescending:
+                    jobs = from j in jobs orderby j.Name descending select j;
+                    break;
+
+                case OrderJobs.NameAscending:
+                    jobs = from j in jobs orderby j.Name ascending select j;
+                    break;
+
+                case OrderJobs.EndTimeDescending:
+                    jobs = from j in jobs orderby j.EndTime descending select j;
+                    break;
+
+                case OrderJobs.EndTimeAscending:
+                    jobs = from j in jobs orderby j.EndTime ascending select j;
+                    break;
+
+                case OrderJobs.ProcessTimeDescending:
+                    jobs = from j in jobs orderby j.RunningDuration descending select j;
+                    break;
+
+                case OrderJobs.ProcessTimeAscending:
+                    jobs = from j in jobs orderby j.RunningDuration ascending select j;
+                    break;
+
+                case OrderJobs.StartTimeDescending:
+                    jobs = from j in jobs orderby j.StartTime descending select j;
+                    break;
+
+                case OrderJobs.StartTimeAscending:
+                    jobs = from j in jobs orderby j.StartTime ascending select j;
+                    break;
+
+                case OrderJobs.StateDescending:
+                    jobs = from j in jobs orderby j.State descending select j;
+                    break;
+
+                case OrderJobs.StateAscending:
+                    jobs = from j in jobs orderby j.State ascending select j;
+                    break;
+
+                default:
+                    jobs = from j in jobs orderby j.LastModified descending select j;
+                    break;
+            }
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                jobs = jobs.Take(50);
+            }
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
@@ -8555,7 +9098,20 @@ namespace AMSExplorer
 
             try
             {
-                int c = jobs.Count();
+                jobquery = from j in jobs
+                           select new JobEntry
+                           {
+                               Name = j.Name,
+                               Id = j.Id,
+                               Tasks = j.Tasks.Count,
+                               Priority = j.Priority,
+                               State = j.State,
+                               StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
+                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
+                               Progress = j.GetOverallProgress()
+                           };
+                _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             }
             catch (Exception e)
             {
@@ -8563,132 +9119,10 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-
-
-            switch (_orderjobs)
-            {
-                case OrderJobs.LastModified:
-                    jobquery = from j in jobs
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"hh\:mm\:ss") : string.Empty,
-
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.Name:
-                    jobquery = from j in jobs
-                               orderby j.Name
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.EndTime:
-                    jobquery = from j in jobs
-                               orderby j.EndTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.ProcessTime:
-                    jobquery = from j in jobs
-                               orderby j.RunningDuration descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.StartTime:
-                    jobquery = from j in jobs
-                               orderby j.StartTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.State:
-                    jobquery = from j in jobs
-                               orderby j.State
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                default:
-                    jobquery = from j in jobs
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-            }
-
-            _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             _MyObservAssethisPage = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (_currentpage - 1)).Take(_jobsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
             _refreshedatleastonetime = true;
             this.FindForm().Cursor = Cursors.Default;
-
-
         }
 
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
@@ -8696,7 +9130,7 @@ namespace AMSExplorer
         {
             Task.Run(() =>
            {
-               IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) | (j.State == JobState.Scheduled) | (j.State == JobState.Processing));
+               IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) || (j.State == JobState.Scheduled) || (j.State == JobState.Processing));
 
                foreach (IJob job in ActiveJobs)
                {
@@ -8718,7 +9152,6 @@ namespace AMSExplorer
             {
                 try
                 {
-
                     job = job.StartExecutionProgressTask(
                        j =>
                        {
@@ -8743,7 +9176,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if ((JobRefreshed.State == JobState.Processing | JobRefreshed.State == JobState.Queued)) // in progress
+                               if ((JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -8763,13 +9196,13 @@ namespace AMSExplorer
                                    {
                                        DateTime startlocaltime = ((DateTime)JobRefreshed.StartTime).ToLocalTime();
                                        TimeSpan interval = (TimeSpan)(DateTime.Now - startlocaltime);
-                                       DateTime ETA = DateTime.Now.AddSeconds((100d / progress) * interval.TotalSeconds);
+                                       DateTime ETA = DateTime.Now.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                                        TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
 
                                        ETAstr = "Estimated: " + ETA.ToString();
-                                       Durationstr = "Estimated: " + estimatedduration.ToString(@"hh\:mm\:ss");
+                                       Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
                                        _MyObservJob[index].EndTime = ETA.ToString(@"g") + " ?";
-                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : estimatedduration.ToString(@"hh\:mm\:ss") + " ?";
+                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                                    }
 
 
@@ -8789,7 +9222,6 @@ namespace AMSExplorer
                                                    {
                                                        this.Rows[indexdisplayed].Cells[this.Columns["EndTime"].Index].ToolTipText = ETAstr;// mouse hover info
                                                        this.Rows[indexdisplayed].Cells[this.Columns["Duration"].Index].ToolTipText = Durationstr;// mouse hover info
-
                                                    }
                                                    this.Refresh();
                                                }));
@@ -8806,7 +9238,7 @@ namespace AMSExplorer
                                else // no progress anymore (finished or failed)
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
-                                   _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"hh\:mm\:ss") : null;
+                                   _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
                                    _MyObservJob[index].Progress = progress;
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
                                    _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;

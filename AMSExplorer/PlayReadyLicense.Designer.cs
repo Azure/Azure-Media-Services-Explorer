@@ -28,28 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PlayReadyLicense));
             this.moreinfocompliance = new System.Windows.Forms.LinkLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.groupBoxTimeValues = new System.Windows.Forms.GroupBox();
+            this.checkBoxStartDate = new System.Windows.Forms.CheckBox();
+            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerStartTime = new System.Windows.Forms.DateTimePicker();
             this.label11 = new System.Windows.Forms.Label();
-            this.numericUpDownFPExpMinutes = new System.Windows.Forms.NumericUpDown();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownFPExpHours = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownFPExpDays = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFPExp = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.checkBoxEndDate = new System.Windows.Forms.CheckBox();
             this.dateTimePickerEndTime = new System.Windows.Forms.DateTimePicker();
-            this.checkBoxStartDate = new System.Windows.Forms.CheckBox();
+            this.numericUpDownFPExpMinutes = new System.Windows.Forms.NumericUpDown();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerStartTime = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
+            this.numericUpDownFPExpDays = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.numericUpDownFPExpHours = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.numericUpDownAnalogVideoOPL = new System.Windows.Forms.NumericUpDown();
             this.checkBoxAnalogVideoOPL = new System.Windows.Forms.CheckBox();
@@ -70,19 +70,20 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.labelWarning = new System.Windows.Forms.Label();
-            this.groupBoxTimeValues = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBoxTimeValues.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpMinutes)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpHours)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnalogVideoOPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUncompressedDigitalVideoOPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUncompressedDigitalAudioOPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalVideoOPL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalAudioOPL)).BeginInit();
-            this.groupBoxTimeValues.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // moreinfocompliance
@@ -98,10 +99,11 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(267, 488);
+            this.buttonCancel.Location = new System.Drawing.Point(405, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -130,22 +132,59 @@
             this.tabPage3.Text = "Common settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // textBoxPolicyName
+            // groupBoxTimeValues
             // 
-            this.textBoxPolicyName.Location = new System.Drawing.Point(12, 32);
-            this.textBoxPolicyName.Name = "textBoxPolicyName";
-            this.textBoxPolicyName.Size = new System.Drawing.Size(132, 20);
-            this.textBoxPolicyName.TabIndex = 55;
-            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            this.groupBoxTimeValues.Controls.Add(this.checkBoxStartDate);
+            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerStartDate);
+            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerStartTime);
+            this.groupBoxTimeValues.Controls.Add(this.label11);
+            this.groupBoxTimeValues.Controls.Add(this.checkBoxFPExp);
+            this.groupBoxTimeValues.Controls.Add(this.checkBoxEndDate);
+            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerEndTime);
+            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpMinutes);
+            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerEndDate);
+            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpDays);
+            this.groupBoxTimeValues.Controls.Add(this.label10);
+            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpHours);
+            this.groupBoxTimeValues.Controls.Add(this.label9);
+            this.groupBoxTimeValues.Location = new System.Drawing.Point(11, 107);
+            this.groupBoxTimeValues.Name = "groupBoxTimeValues";
+            this.groupBoxTimeValues.Size = new System.Drawing.Size(440, 231);
+            this.groupBoxTimeValues.TabIndex = 56;
+            this.groupBoxTimeValues.TabStop = false;
             // 
-            // label13
+            // checkBoxStartDate
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 16);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(192, 13);
-            this.label13.TabIndex = 54;
-            this.label13.Text = "Content key authorization policy name :";
+            this.checkBoxStartDate.AutoSize = true;
+            this.checkBoxStartDate.Location = new System.Drawing.Point(6, 28);
+            this.checkBoxStartDate.Name = "checkBoxStartDate";
+            this.checkBoxStartDate.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxStartDate.TabIndex = 40;
+            this.checkBoxStartDate.Text = "Specify a start date/time:";
+            this.checkBoxStartDate.UseVisualStyleBackColor = true;
+            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged);
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Enabled = false;
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(7, 51);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartDate.TabIndex = 37;
+            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
+            // 
+            // dateTimePickerStartTime
+            // 
+            this.dateTimePickerStartTime.CustomFormat = "";
+            this.dateTimePickerStartTime.Enabled = false;
+            this.dateTimePickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePickerStartTime.Location = new System.Drawing.Point(7, 77);
+            this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
+            this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
+            this.dateTimePickerStartTime.ShowUpDown = true;
+            this.dateTimePickerStartTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartTime.TabIndex = 39;
+            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
             // label11
             // 
@@ -155,71 +194,6 @@
             this.label11.Size = new System.Drawing.Size(44, 13);
             this.label11.TabIndex = 51;
             this.label11.Text = "Minutes";
-            // 
-            // numericUpDownFPExpMinutes
-            // 
-            this.numericUpDownFPExpMinutes.Enabled = false;
-            this.numericUpDownFPExpMinutes.Location = new System.Drawing.Point(135, 168);
-            this.numericUpDownFPExpMinutes.Maximum = new decimal(new int[] {
-            59,
-            0,
-            0,
-            0});
-            this.numericUpDownFPExpMinutes.Name = "numericUpDownFPExpMinutes";
-            this.numericUpDownFPExpMinutes.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownFPExpMinutes.TabIndex = 49;
-            this.numericUpDownFPExpMinutes.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(79, 152);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
-            this.label10.TabIndex = 48;
-            this.label10.Text = "Hours";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(26, 152);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 13);
-            this.label9.TabIndex = 47;
-            this.label9.Text = "Days";
-            // 
-            // numericUpDownFPExpHours
-            // 
-            this.numericUpDownFPExpHours.Enabled = false;
-            this.numericUpDownFPExpHours.Location = new System.Drawing.Point(82, 168);
-            this.numericUpDownFPExpHours.Maximum = new decimal(new int[] {
-            23,
-            0,
-            0,
-            0});
-            this.numericUpDownFPExpHours.Name = "numericUpDownFPExpHours";
-            this.numericUpDownFPExpHours.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownFPExpHours.TabIndex = 46;
-            this.numericUpDownFPExpHours.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
-            // 
-            // numericUpDownFPExpDays
-            // 
-            this.numericUpDownFPExpDays.Enabled = false;
-            this.numericUpDownFPExpDays.Location = new System.Drawing.Point(29, 168);
-            this.numericUpDownFPExpDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownFPExpDays.Name = "numericUpDownFPExpDays";
-            this.numericUpDownFPExpDays.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownFPExpDays.TabIndex = 45;
-            this.numericUpDownFPExpDays.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericUpDownFPExpDays.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
             // 
             // checkBoxFPExp
             // 
@@ -231,25 +205,6 @@
             this.checkBoxFPExp.Text = "Specify a first play expiration :";
             this.checkBoxFPExp.UseVisualStyleBackColor = true;
             this.checkBoxFPExp.CheckedChanged += new System.EventHandler(this.checkBoxFPExp_CheckedChanged);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 64);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(73, 13);
-            this.label8.TabIndex = 42;
-            this.label8.Text = "License type :";
-            // 
-            // comboBoxType
-            // 
-            this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(11, 80);
-            this.comboBoxType.Name = "comboBoxType";
-            this.comboBoxType.Size = new System.Drawing.Size(133, 21);
-            this.comboBoxType.TabIndex = 41;
-            this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.comboBoxType_SelectedIndexChanged);
             // 
             // checkBoxEndDate
             // 
@@ -275,16 +230,19 @@
             this.dateTimePickerEndTime.TabIndex = 39;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
-            // checkBoxStartDate
+            // numericUpDownFPExpMinutes
             // 
-            this.checkBoxStartDate.AutoSize = true;
-            this.checkBoxStartDate.Location = new System.Drawing.Point(6, 28);
-            this.checkBoxStartDate.Name = "checkBoxStartDate";
-            this.checkBoxStartDate.Size = new System.Drawing.Size(144, 17);
-            this.checkBoxStartDate.TabIndex = 40;
-            this.checkBoxStartDate.Text = "Specify a start date/time:";
-            this.checkBoxStartDate.UseVisualStyleBackColor = true;
-            this.checkBoxStartDate.CheckedChanged += new System.EventHandler(this.checkBoxStartDate_CheckedChanged);
+            this.numericUpDownFPExpMinutes.Enabled = false;
+            this.numericUpDownFPExpMinutes.Location = new System.Drawing.Point(135, 168);
+            this.numericUpDownFPExpMinutes.Maximum = new decimal(new int[] {
+            59,
+            0,
+            0,
+            0});
+            this.numericUpDownFPExpMinutes.Name = "numericUpDownFPExpMinutes";
+            this.numericUpDownFPExpMinutes.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownFPExpMinutes.TabIndex = 49;
+            this.numericUpDownFPExpMinutes.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
             // 
             // dateTimePickerEndDate
             // 
@@ -295,27 +253,92 @@
             this.dateTimePickerEndDate.TabIndex = 37;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
-            // dateTimePickerStartTime
+            // numericUpDownFPExpDays
             // 
-            this.dateTimePickerStartTime.CustomFormat = "";
-            this.dateTimePickerStartTime.Enabled = false;
-            this.dateTimePickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerStartTime.Location = new System.Drawing.Point(7, 77);
-            this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
-            this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
-            this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerStartTime.TabIndex = 39;
-            this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
+            this.numericUpDownFPExpDays.Enabled = false;
+            this.numericUpDownFPExpDays.Location = new System.Drawing.Point(29, 168);
+            this.numericUpDownFPExpDays.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownFPExpDays.Name = "numericUpDownFPExpDays";
+            this.numericUpDownFPExpDays.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownFPExpDays.TabIndex = 45;
+            this.numericUpDownFPExpDays.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownFPExpDays.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
             // 
-            // dateTimePickerStartDate
+            // label10
             // 
-            this.dateTimePickerStartDate.Enabled = false;
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(7, 51);
-            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerStartDate.TabIndex = 37;
-            this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(79, 152);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.TabIndex = 48;
+            this.label10.Text = "Hours";
+            // 
+            // numericUpDownFPExpHours
+            // 
+            this.numericUpDownFPExpHours.Enabled = false;
+            this.numericUpDownFPExpHours.Location = new System.Drawing.Point(82, 168);
+            this.numericUpDownFPExpHours.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.numericUpDownFPExpHours.Name = "numericUpDownFPExpHours";
+            this.numericUpDownFPExpHours.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownFPExpHours.TabIndex = 46;
+            this.numericUpDownFPExpHours.ValueChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(26, 152);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.TabIndex = 47;
+            this.label9.Text = "Days";
+            // 
+            // textBoxPolicyName
+            // 
+            this.textBoxPolicyName.Location = new System.Drawing.Point(12, 32);
+            this.textBoxPolicyName.Name = "textBoxPolicyName";
+            this.textBoxPolicyName.Size = new System.Drawing.Size(132, 20);
+            this.textBoxPolicyName.TabIndex = 55;
+            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(9, 16);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(192, 13);
+            this.label13.TabIndex = 54;
+            this.label13.Text = "Content key authorization policy name :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 64);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(73, 13);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "License type :";
+            // 
+            // comboBoxType
+            // 
+            this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxType.FormattingEnabled = true;
+            this.comboBoxType.Location = new System.Drawing.Point(11, 80);
+            this.comboBoxType.Name = "comboBoxType";
+            this.comboBoxType.Size = new System.Drawing.Size(133, 21);
+            this.comboBoxType.TabIndex = 41;
+            this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.comboBoxType_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -558,12 +581,13 @@
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(100, 488);
+            this.buttonOk.Location = new System.Drawing.Point(300, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(146, 32);
+            this.buttonOk.Size = new System.Drawing.Size(99, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -588,26 +612,17 @@
             this.labelWarning.TabIndex = 45;
             this.labelWarning.Text = "Warning";
             // 
-            // groupBoxTimeValues
+            // panel1
             // 
-            this.groupBoxTimeValues.Controls.Add(this.checkBoxStartDate);
-            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerStartDate);
-            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerStartTime);
-            this.groupBoxTimeValues.Controls.Add(this.label11);
-            this.groupBoxTimeValues.Controls.Add(this.checkBoxFPExp);
-            this.groupBoxTimeValues.Controls.Add(this.checkBoxEndDate);
-            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerEndTime);
-            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpMinutes);
-            this.groupBoxTimeValues.Controls.Add(this.dateTimePickerEndDate);
-            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpDays);
-            this.groupBoxTimeValues.Controls.Add(this.label10);
-            this.groupBoxTimeValues.Controls.Add(this.numericUpDownFPExpHours);
-            this.groupBoxTimeValues.Controls.Add(this.label9);
-            this.groupBoxTimeValues.Location = new System.Drawing.Point(11, 107);
-            this.groupBoxTimeValues.Name = "groupBoxTimeValues";
-            this.groupBoxTimeValues.Size = new System.Drawing.Size(440, 231);
-            this.groupBoxTimeValues.TabIndex = 56;
-            this.groupBoxTimeValues.TabStop = false;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(1, 484);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(518, 48);
+            this.panel1.TabIndex = 63;
             // 
             // PlayReadyLicense
             // 
@@ -615,22 +630,22 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(517, 532);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.moreinfocompliance);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PlayReadyLicense";
             this.Text = "PlayReady License Definition";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBoxTimeValues.ResumeLayout(false);
+            this.groupBoxTimeValues.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpMinutes)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownFPExpHours)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnalogVideoOPL)).EndInit();
@@ -638,8 +653,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownUncompressedDigitalAudioOPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalVideoOPL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownCompressedDigitalAudioOPL)).EndInit();
-            this.groupBoxTimeValues.ResumeLayout(false);
-            this.groupBoxTimeValues.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -689,5 +703,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.GroupBox groupBoxTimeValues;
+        private System.Windows.Forms.Panel panel1;
     }
 }

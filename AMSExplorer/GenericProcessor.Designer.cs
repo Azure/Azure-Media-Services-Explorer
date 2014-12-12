@@ -46,7 +46,8 @@
             this.ListViewDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.label6 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
@@ -54,22 +55,24 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panelJobMode = new System.Windows.Forms.Panel();
+            this.radioButtonMultipleTasksSingleJob = new System.Windows.Forms.RadioButton();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
-            this.radioButtonMultipleTasksSingleJob = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.labelWarning = new System.Windows.Forms.Label();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.panelJobMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -83,12 +86,12 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Enabled = false;
-            this.buttonOk.Location = new System.Drawing.Point(293, 517);
+            this.buttonOk.Location = new System.Drawing.Point(555, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
+            this.buttonOk.Size = new System.Drawing.Size(113, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Submit job(s)";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -96,11 +99,11 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(416, 517);
+            this.buttonCancel.Location = new System.Drawing.Point(674, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -121,9 +124,9 @@
             // 
             // processorlabel
             // 
-            this.processorlabel.Location = new System.Drawing.Point(22, 7);
+            this.processorlabel.Location = new System.Drawing.Point(18, 16);
             this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(162, 22);
+            this.processorlabel.Size = new System.Drawing.Size(162, 13);
             this.processorlabel.TabIndex = 31;
             this.processorlabel.Text = "Select a processor :";
             // 
@@ -147,9 +150,9 @@
             // 
             this.radioButtonSingleTaskSingleJob.AutoSize = true;
             this.radioButtonSingleTaskSingleJob.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonSingleTaskSingleJob.Location = new System.Drawing.Point(16, 92);
+            this.radioButtonSingleTaskSingleJob.Location = new System.Drawing.Point(12, 87);
             this.radioButtonSingleTaskSingleJob.Name = "radioButtonSingleTaskSingleJob";
-            this.radioButtonSingleTaskSingleJob.Size = new System.Drawing.Size(367, 56);
+            this.radioButtonSingleTaskSingleJob.Size = new System.Drawing.Size(356, 56);
             this.radioButtonSingleTaskSingleJob.TabIndex = 36;
             this.radioButtonSingleTaskSingleJob.Text = resources.GetString("radioButtonSingleTaskSingleJob.Text");
             this.radioButtonSingleTaskSingleJob.UseVisualStyleBackColor = true;
@@ -160,7 +163,7 @@
             this.radioButtonMultipleTasksMultipleJobs.AutoSize = true;
             this.radioButtonMultipleTasksMultipleJobs.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.radioButtonMultipleTasksMultipleJobs.Checked = true;
-            this.radioButtonMultipleTasksMultipleJobs.Location = new System.Drawing.Point(16, 17);
+            this.radioButtonMultipleTasksMultipleJobs.Location = new System.Drawing.Point(12, 12);
             this.radioButtonMultipleTasksMultipleJobs.Name = "radioButtonMultipleTasksMultipleJobs";
             this.radioButtonMultipleTasksMultipleJobs.Size = new System.Drawing.Size(377, 30);
             this.radioButtonMultipleTasksMultipleJobs.TabIndex = 35;
@@ -226,7 +229,6 @@
             // 
             this.tabPage3.Controls.Add(this.label33);
             this.tabPage3.Controls.Add(this.comboBoxStorage);
-            this.tabPage3.Controls.Add(this.label6);
             this.tabPage3.Controls.Add(this.label4);
             this.tabPage3.Controls.Add(this.label3);
             this.tabPage3.Controls.Add(this.textboxoutputassetname);
@@ -239,15 +241,25 @@
             this.tabPage3.Text = "Asset(s)";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // label6
+            // label33
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(504, 181);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(223, 13);
-            this.label6.TabIndex = 41;
-            this.label6.Text = "Note: with Zenium, blueprint must be asset #0";
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(438, 206);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 57;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(438, 222);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 56;
             // 
             // label4
             // 
@@ -305,12 +317,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.panelJobMode);
             this.tabPage1.Controls.Add(this.pictureBoxJob);
             this.tabPage1.Controls.Add(this.labelsummaryjob);
-            this.tabPage1.Controls.Add(this.radioButtonMultipleTasksSingleJob);
-            this.tabPage1.Controls.Add(this.radioButtonSingleTaskSingleJob);
             this.tabPage1.Controls.Add(this.textBoxJobName);
-            this.tabPage1.Controls.Add(this.radioButtonMultipleTasksMultipleJobs);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.numericUpDownPriority);
             this.tabPage1.Controls.Add(this.label1);
@@ -322,6 +332,29 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Job(s)";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // panelJobMode
+            // 
+            this.panelJobMode.Controls.Add(this.radioButtonSingleTaskSingleJob);
+            this.panelJobMode.Controls.Add(this.radioButtonMultipleTasksMultipleJobs);
+            this.panelJobMode.Controls.Add(this.radioButtonMultipleTasksSingleJob);
+            this.panelJobMode.Location = new System.Drawing.Point(5, 5);
+            this.panelJobMode.Name = "panelJobMode";
+            this.panelJobMode.Size = new System.Drawing.Size(405, 156);
+            this.panelJobMode.TabIndex = 40;
+            // 
+            // radioButtonMultipleTasksSingleJob
+            // 
+            this.radioButtonMultipleTasksSingleJob.AutoSize = true;
+            this.radioButtonMultipleTasksSingleJob.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButtonMultipleTasksSingleJob.Location = new System.Drawing.Point(12, 49);
+            this.radioButtonMultipleTasksSingleJob.Name = "radioButtonMultipleTasksSingleJob";
+            this.radioButtonMultipleTasksSingleJob.Size = new System.Drawing.Size(305, 30);
+            this.radioButtonMultipleTasksSingleJob.TabIndex = 37;
+            this.radioButtonMultipleTasksSingleJob.Text = "Multiple tasks, single job\r\n (a task created for each input asset, a single job s" +
+    "ubmitted)";
+            this.radioButtonMultipleTasksSingleJob.UseVisualStyleBackColor = true;
+            this.radioButtonMultipleTasksSingleJob.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // pictureBoxJob
             // 
@@ -340,19 +373,6 @@
             this.labelsummaryjob.Size = new System.Drawing.Size(365, 22);
             this.labelsummaryjob.TabIndex = 38;
             this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
-            // 
-            // radioButtonMultipleTasksSingleJob
-            // 
-            this.radioButtonMultipleTasksSingleJob.AutoSize = true;
-            this.radioButtonMultipleTasksSingleJob.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonMultipleTasksSingleJob.Location = new System.Drawing.Point(16, 54);
-            this.radioButtonMultipleTasksSingleJob.Name = "radioButtonMultipleTasksSingleJob";
-            this.radioButtonMultipleTasksSingleJob.Size = new System.Drawing.Size(305, 30);
-            this.radioButtonMultipleTasksSingleJob.TabIndex = 37;
-            this.radioButtonMultipleTasksSingleJob.Text = "Multiple tasks, single job\r\n (a task created for each input asset, a single job s" +
-    "ubmitted)";
-            this.radioButtonMultipleTasksSingleJob.UseVisualStyleBackColor = true;
-            this.radioButtonMultipleTasksSingleJob.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // tabPage2
             // 
@@ -406,45 +426,35 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(22, 527);
+            this.labelWarning.Location = new System.Drawing.Point(22, 505);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 40;
             this.labelWarning.Text = "Warning";
             // 
-            // label33
+            // panel1
             // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(438, 206);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 57;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(438, 222);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
-            this.comboBoxStorage.TabIndex = 56;
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Location = new System.Drawing.Point(-1, 528);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(788, 48);
+            this.panel1.TabIndex = 67;
             // 
             // GenericProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 576);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.listViewProcessors);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.processorlabel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "GenericProcessor";
             this.Text = "Generic processor call";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
@@ -455,9 +465,12 @@
             this.tabPage3.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panelJobMode.ResumeLayout(false);
+            this.panelJobMode.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -492,7 +505,6 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.RadioButton radioButtonMultipleTasksSingleJob;
-        public System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label labelsummaryjob;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.PictureBox pictureBoxJob;
@@ -500,5 +512,7 @@
         private System.Windows.Forms.TextBox textboxoutputassetname;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.Panel panelJobMode;
+        private System.Windows.Forms.Panel panel1;
     }
 }

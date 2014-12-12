@@ -113,6 +113,7 @@ namespace AMSExplorer
         public PlayReadyLicense()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 

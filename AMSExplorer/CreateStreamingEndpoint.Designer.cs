@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateStreamingEndpoint));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -38,29 +37,35 @@
             this.textboxoriginname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOriginDescription = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(68, 397);
+            this.buttonOk.Location = new System.Drawing.Point(227, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(164, 32);
-            this.buttonOk.TabIndex = 17;
+            this.buttonOk.Size = new System.Drawing.Size(148, 23);
+            this.buttonOk.TabIndex = 3;
             this.buttonOk.Text = "Create streaming endpoint";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(253, 397);
+            this.buttonCancel.Location = new System.Drawing.Point(381, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(164, 32);
-            this.buttonCancel.TabIndex = 16;
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // groupBox4
             // 
@@ -69,7 +74,7 @@
             this.groupBox4.Location = new System.Drawing.Point(14, 132);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(449, 128);
-            this.groupBox4.TabIndex = 43;
+            this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Settings";
             // 
@@ -83,7 +88,7 @@
             0});
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.Size = new System.Drawing.Size(72, 20);
-            this.numericUpDownRU.TabIndex = 4;
+            this.numericUpDownRU.TabIndex = 0;
             this.numericUpDownRU.Value = new decimal(new int[] {
             1,
             0,
@@ -116,7 +121,7 @@
             this.textboxoriginname.Location = new System.Drawing.Point(14, 36);
             this.textboxoriginname.Name = "textboxoriginname";
             this.textboxoriginname.Size = new System.Drawing.Size(449, 20);
-            this.textboxoriginname.TabIndex = 44;
+            this.textboxoriginname.TabIndex = 0;
             // 
             // label1
             // 
@@ -135,28 +140,39 @@
             this.textBoxOriginDescription.Location = new System.Drawing.Point(14, 89);
             this.textBoxOriginDescription.Name = "textBoxOriginDescription";
             this.textBoxOriginDescription.Size = new System.Drawing.Size(449, 20);
-            this.textBoxOriginDescription.TabIndex = 46;
+            this.textBoxOriginDescription.TabIndex = 1;
             // 
-            // CreateOrigin
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-2, 393);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.TabIndex = 62;
+            // 
+            // CreateStreamingEndpoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 441);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxOriginDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoriginname);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "CreateOrigin";
+            this.Name = "CreateStreamingEndpoint";
             this.Text = "Create a streaming endpoint";
             this.Load += new System.EventHandler(this.CreateOrigin_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,5 +189,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxOriginDescription;
         private System.Windows.Forms.NumericUpDown numericUpDownRU;
+        private System.Windows.Forms.Panel panel1;
     }
 }

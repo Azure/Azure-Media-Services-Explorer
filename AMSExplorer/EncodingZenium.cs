@@ -26,33 +26,45 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
-
+using System.Collections;
+using System.IO;
 
 namespace AMSExplorer
 {
     public partial class EncodingZenium : Form
     {
         private int numberofinputassets;
+        private List<IMediaProcessor> Procs;
 
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
 
-        private List<IAsset> listblueprints = new List<IAsset>();
+        //private List<IAsset> listblueprints = new List<IAsset>();
         private CloudMediaContext _context;
 
+        private int sortColumn = -1;
+        public string EncodingPremiumWorkflowPresetXMLFiles;
 
-        public List<IAsset> ZeniumBlueprints
+        public List<IMediaProcessor> EncodingProcessorsList
         {
             set
             {
-                foreach (IAsset blueprint in value)
-                {
-                    listbox.Items.Add(blueprint.Name);
-                    listblueprints.Add(blueprint);
-                }
+                foreach (IMediaProcessor pr in value)
+                    comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2} ({3})", pr.Vendor, pr.Name, pr.Version, pr.Description));
+                comboBoxProcessor.SelectedIndex = 0;
+                Procs = value;
             }
-
         }
+
+        public IMediaProcessor EncodingProcessorSelected
+        {
+            get
+            {
+                return Procs[comboBoxProcessor.SelectedIndex];
+            }
+        }
+
+
         public string StorageSelected
         {
             get
@@ -61,19 +73,23 @@ namespace AMSExplorer
             }
         }
 
-        public List<IAsset> SelectedZeniumBlueprints
+        public List<IAsset> SelectedZeniumWorkflows
         {
             get
             {
                 List<IAsset> SelecBP = new List<IAsset>();
-                if (listbox.SelectedItems.Count > 0)
+                if (listViewWorkflows.SelectedItems.Count > 0)
                 {
-                    foreach (int index in listbox.SelectedIndices)
-                        SelecBP.Add(listblueprints[index]);
+                    int indexid = columnHeaderAssetId.Index;
+
+                    foreach (ListViewItem itemw in listViewWorkflows.SelectedItems)
+                    {
+                        string sid = itemw.SubItems[indexid].Text;
+                        SelecBP.Add(AssetInfo.GetAsset(itemw.SubItems[indexid].Text, _context));
+                    }
                 }
                 return SelecBP;
             }
-
         }
 
         public bool EncodingMultipleJobs
@@ -86,7 +102,6 @@ namespace AMSExplorer
             {
                 radioButtonSingleJob.Checked = !value;
                 radioButtonMultipleJob.Checked = value;
-
             }
         }
 
@@ -133,13 +148,6 @@ namespace AMSExplorer
             }
         }
 
-        public string EncodingProcessorName
-        {
-            set
-            {
-                processorlabel.Text = value;
-            }
-        }
 
         public string EncodingPromptText
         {
@@ -161,12 +169,10 @@ namespace AMSExplorer
             }
         }
 
-
-
-
         public EncodingZenium(CloudMediaContext context)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
         }
 
@@ -191,7 +197,7 @@ namespace AMSExplorer
             labelsummaryjob.Text = "You are going to submit "
                 + (radioButtonMultipleJob.Checked ? numberofinputassets.ToString() + " jobs" : "1 job")
             + " with "
-            + (listbox.SelectedIndices.Count == 1 ? "1 task" : listbox.SelectedIndices.Count.ToString() + " tasks")
+            + (listViewWorkflows.SelectedIndices.Count == 1 ? "1 task" : listViewWorkflows.SelectedIndices.Count.ToString() + " tasks")
             ;
 
             pictureBoxJob.Image = radioButtonMultipleJob.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
@@ -201,17 +207,52 @@ namespace AMSExplorer
         private void listbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateJobSummary();
+            buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
         }
 
-        private void EncodingXenio_Load(object sender, EventArgs e)
+        private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://www.digitalrapids.com/en/Products/KayakMP/FeaturesFormats.aspx"));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://aka.ms/amspremium"));
 
             foreach (var storage in _context.StorageAccounts)
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+            LoadWorkflows();
+            UpdateJobSummary();
+
+        }
+
+        private void LoadWorkflows()
+        {
+            var query = _context.Files.ToList().Where(f => (
+               f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
+               || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+               || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
+               || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+               || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
+               || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
+               )).ToArray();
+
+            listViewWorkflows.BeginUpdate();
+            listViewWorkflows.Items.Clear();
+            foreach (IAssetFile file in query)
+            {
+                if (file.Asset.AssetFiles.Count() == 1)
+                {
+                    ListViewItem item = new ListViewItem(file.Name, 0);
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
+                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
+                    item.SubItems.Add(file.Asset.Name);
+                    item.SubItems.Add(file.Asset.Id);
+                    listViewWorkflows.Items.Add(item);
+                }
+            }
+            listViewWorkflows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            listViewWorkflows.EndUpdate();
+
+
 
         }
 
@@ -229,5 +270,98 @@ namespace AMSExplorer
         {
 
         }
+
+        private void listViewInputAssets_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            // Determine whether the column is the same as the last column clicked.
+            if (e.Column != sortColumn)
+            {
+                // Set the sort column to the new column.
+                sortColumn = e.Column;
+                // Set the sort order to ascending by default.
+                listViewWorkflows.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                // Determine what the last sort order was and change it.
+                if (listViewWorkflows.Sorting == SortOrder.Ascending)
+                    listViewWorkflows.Sorting = SortOrder.Descending;
+                else
+                    listViewWorkflows.Sorting = SortOrder.Ascending;
+            }
+
+            // Call the sort method to manually sort.
+            listViewWorkflows.Sort();
+            // Set the ListViewItemSorter property to a new ListViewItemComparer
+            // object.
+            this.listViewWorkflows.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                                                              listViewWorkflows.Sorting);
+        }
+
+        private void buttonUpload_Click(object sender, EventArgs e)
+        {
+            DoUpload();
+        }
+
+        private async void DoUpload()
+        {
+              if (Directory.Exists(this.EncodingPremiumWorkflowPresetXMLFiles))
+                openFileDialogWorkflow.InitialDirectory = this.EncodingPremiumWorkflowPresetXMLFiles;
+           
+
+            if (openFileDialogWorkflow.ShowDialog() == DialogResult.OK)
+            {
+                this.EncodingPremiumWorkflowPresetXMLFiles = Path.GetDirectoryName(openFileDialogWorkflow.FileName); // let's save the folder
+                progressBarUpload.Value = 0;
+                progressBarUpload.Visible = true;
+                buttonCancel.Enabled = false;
+                buttonUpload.Enabled = false;
+                foreach (string file in openFileDialogWorkflow.FileNames)
+                {
+                    await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                }
+                progressBarUpload.Visible = false;
+                buttonCancel.Enabled = true;
+                buttonUpload.Enabled = true;
+                LoadWorkflows();
+            }
+        }
+
+
+        private void ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        {
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
+
+
+            bool Error = false;
+            IAsset asset = null;
+            try
+            {
+                asset = _context.Assets.CreateFromFile(
+                                                      FileName as string,
+                                                      storageaccount,
+                                                      Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                                                      (af, p) =>
+                                                      {
+                                                          progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
+                                                      }
+                                                      );
+            }
+            catch (Exception e)
+            {
+                Error = true;
+
+            }
+            if (!Error)
+            {
+
+            }
+
+        }
+
+
     }
+ 
+
 }

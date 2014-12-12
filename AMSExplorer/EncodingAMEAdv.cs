@@ -120,6 +120,17 @@ namespace AMSExplorer
             }
         }
 
+
+
+        public bool EncodingGenerateThumbnails
+        {
+            get
+            {
+                return checkBoxAddThumbnails.Checked;
+            }
+        }
+
+
         public int EncodingPriority
         {
             get
@@ -136,8 +147,8 @@ namespace AMSExplorer
         public EncodingAMEAdv(CloudMediaContext context)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -313,7 +324,7 @@ namespace AMSExplorer
 
 
 
-            if (stich_on | voverlay_on | aoverlay_on | !xmlOpenedNotYetStiched) // on stich checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
+            if (stich_on || voverlay_on || aoverlay_on || !xmlOpenedNotYetStiched) // on stich checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
             {
                 XDocument docbackup = doc;
 
@@ -438,13 +449,19 @@ namespace AMSExplorer
                                                 {
                                                     preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", f)));
                                                 }
-
                                             }
                                             else // mono asset mode
                                             {
-                                                preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
-                                            }
+                                                if ((int)c.Tag == 0) // We should not add MediaFile attribute for assetfile #0
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0)));
+                                                }
+                                                else
+                                                {
+                                                    preset.Descendants("Sources").FirstOrDefault().Add(new XElement("Source", new XAttribute("AudioStreamIndex", 0), new XAttribute("MediaFile", SelectedAssets.FirstOrDefault().AssetFiles.Skip((int)c.Tag).Take(1).FirstOrDefault().Name)));
+                                                }
 
+                                            }
 
                                             CheckBox edittimes = (CheckBox)c.Parent.GetNextControl(c, true);
                                             if (edittimes.Checked)
@@ -537,10 +554,9 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
-
                 }
                 textBoxConfiguration.Text = doc.ToString();
                 if (!Error) xmlOpenedNotYetStiched = false;
@@ -567,7 +583,7 @@ namespace AMSExplorer
             for (int i = 0; i < tableLayoutPanelIAssets.RowCount; i++)
             {
                 Control c = tableLayoutPanelIAssets.GetControlFromPosition(position.Column, i); // let find all control from the same row and disable other checkboxes
-                if (i != position.Row && ((!bMultiAssetMode) | (bMultiAssetMode && i != 0)))
+                if (i != position.Row && ((!bMultiAssetMode) || (bMultiAssetMode && i != 0)))
                 {
                     c.Enabled = !cb.Checked;
                 }
@@ -587,7 +603,7 @@ namespace AMSExplorer
         {
             bool Error = false;
             // Let's see if one stich button is enabled
-            if (checkBoxNamingConvention.Checked | !xmlOpenedNotYetNamedConvention) // name convention checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
+            if (checkBoxNamingConvention.Checked || !xmlOpenedNotYetNamedConvention) // name convention checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
             {
                 XDocument docbackup = doc;
                 try
@@ -647,7 +663,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
                 }
@@ -661,7 +677,7 @@ namespace AMSExplorer
         {
             bool Error = false;
 
-            if (checkBoxVSS.Checked | !xmlOpenedNotYetVSSRotation) // VSS checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
+            if (checkBoxVSS.Checked || !xmlOpenedNotYetVSSRotation) // VSS checkbox is checked, or checkbox as been selected in the past for this file, so let's modify the xml doc
             {
                 XDocument docbackup = doc;
 
@@ -677,7 +693,7 @@ namespace AMSExplorer
                 }
                 catch
                 {
-                    MessageBox.Show("Error when processing the XML preset. Is it a WAME preset?");
+                    MessageBox.Show("Error when processing the XML preset. Is it a AME preset?");
                     doc = docbackup;
                     Error = true;
                 }
@@ -946,6 +962,11 @@ namespace AMSExplorer
         private void checkBoxVSS_CheckedChanged(object sender, EventArgs e)
         {
             AddVSSRotationToDoc();
+        }
+
+        private void label34_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

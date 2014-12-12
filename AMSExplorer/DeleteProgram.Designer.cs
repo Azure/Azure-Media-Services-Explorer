@@ -28,30 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DeleteProgram));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelmain = new System.Windows.Forms.Label();
             this.checkBoxDeleteAsset = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(111, 109);
+            this.buttonOk.Location = new System.Drawing.Point(262, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
+            this.buttonOk.Size = new System.Drawing.Size(113, 23);
             this.buttonOk.TabIndex = 10;
             this.buttonOk.Text = "Delete Program(s)";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(245, 109);
+            this.buttonCancel.Location = new System.Drawing.Point(381, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 11;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -84,21 +87,32 @@
             this.label5.TabIndex = 50;
             this.label5.Text = "(user data will be deleted)";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-2, 116);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.TabIndex = 63;
+            // 
             // DeleteProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 164);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxDeleteAsset);
             this.Controls.Add(this.labelmain);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DeleteProgram";
             this.Text = "Delete program(s)";
             this.Load += new System.EventHandler(this.DeleteProgram_Load);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -111,5 +125,6 @@
         private System.Windows.Forms.Label labelmain;
         private System.Windows.Forms.CheckBox checkBoxDeleteAsset;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel1;
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EncodingAMEAdv));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -91,7 +90,6 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -101,6 +99,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.label34 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxAddThumbnails = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -114,6 +115,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAOverlayGain)).BeginInit();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -137,11 +139,11 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(416, 517);
+            this.buttonCancel.Location = new System.Drawing.Point(674, 11);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -770,6 +772,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.checkBoxAddThumbnails);
             this.tabPage3.Controls.Add(this.checkBoxVSS);
             this.tabPage3.Controls.Add(this.checkBoxNamingConvention);
             this.tabPage3.Controls.Add(this.textBoxNamingConvention);
@@ -857,18 +860,6 @@
             this.comboBoxProcessor.Size = new System.Drawing.Size(728, 21);
             this.comboBoxProcessor.TabIndex = 32;
             // 
-            // label31
-            // 
-            this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(577, 12);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(181, 20);
-            this.label31.TabIndex = 41;
-            this.label31.Text = "Azure Media Encoder";
-            this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // label5
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -912,7 +903,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label.Location = new System.Drawing.Point(27, 12);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(544, 20);
+            this.label.Size = new System.Drawing.Size(511, 20);
             this.label.TabIndex = 46;
             this.label.Text = "label1";
             // 
@@ -947,16 +938,52 @@
             // 
             // buttonOk
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(264, 517);
+            this.buttonOk.Location = new System.Drawing.Point(526, 11);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(142, 32);
+            this.buttonOk.Size = new System.Drawing.Size(142, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
+            // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.label34.Location = new System.Drawing.Point(558, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(214, 24);
+            this.label34.TabIndex = 61;
+            this.label34.Text = "Azure Media Encoder";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label34.Click += new System.EventHandler(this.label34_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-1, 515);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(785, 48);
+            this.panel1.TabIndex = 64;
+            // 
+            // checkBoxAddThumbnails
+            // 
+            this.checkBoxAddThumbnails.AutoSize = true;
+            this.checkBoxAddThumbnails.Location = new System.Drawing.Point(19, 117);
+            this.checkBoxAddThumbnails.Name = "checkBoxAddThumbnails";
+            this.checkBoxAddThumbnails.Size = new System.Drawing.Size(260, 17);
+            this.checkBoxAddThumbnails.TabIndex = 65;
+            this.checkBoxAddThumbnails.Text = "add a Thumbnails generation task in the same job";
+            this.checkBoxAddThumbnails.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEAdv
             // 
@@ -964,6 +991,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.label32);
@@ -972,14 +1001,10 @@
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxJobName);
-            this.Controls.Add(this.label31);
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncodingAMEAdv";
             this.Text = "AME Advanced Encoding";
             this.Load += new System.EventHandler(this.EncodingCustom_Load);
@@ -1001,6 +1026,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1071,7 +1097,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label27;
-        public System.Windows.Forms.Label label31;
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         public System.Windows.Forms.Label label1;
@@ -1080,5 +1105,8 @@
         public System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
+        public System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBoxAddThumbnails;
     }
 }

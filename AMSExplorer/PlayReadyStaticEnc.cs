@@ -193,6 +193,7 @@ namespace AMSExplorer
         public PlayReadyStaticEnc()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
@@ -221,9 +222,6 @@ namespace AMSExplorer
 
             comboBoxKeyRestriction.Items.AddRange(Enum.GetNames(typeof(ContentKeyRestrictionType)).ToArray()); // key restriction
             comboBoxKeyRestriction.SelectedItem = Enum.GetName(typeof(ContentKeyRestrictionType), ContentKeyRestrictionType.Open);
-
-
-
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
@@ -256,7 +254,7 @@ namespace AMSExplorer
             bool validation = false;
 
 
-            if ((textBoxkeyid.Text != string.Empty) && ((textBoxkeyseed.Text != string.Empty) | (textBoxcontentkey.Text != string.Empty)))
+            if ((textBoxkeyid.Text != string.Empty) && ((textBoxkeyseed.Text != string.Empty) || (textBoxcontentkey.Text != string.Empty)))
             {
                 validation = true;
             }

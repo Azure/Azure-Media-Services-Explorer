@@ -41,6 +41,7 @@ namespace AMSExplorer
 
         private List<IMediaProcessor> Procs;
         private CloudMediaContext _context;
+        private IJob _myJob;
 
         public string EncodingJobName
         {
@@ -77,8 +78,22 @@ namespace AMSExplorer
 
                 }
                 listViewProcessors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                listViewProcessors.EndUpdate();
                 Procs = value;
+
+                if (_myJob != null) // we are in resubmit mode
+                {
+                    IMediaProcessor mp = _context.MediaProcessors.Where(p => p.Id == _myJob.Tasks.FirstOrDefault().MediaProcessorId).FirstOrDefault();
+                    if (mp != null)
+                    {
+                        int indexmp = Procs.IndexOf(mp);
+                        if (indexmp > -1) // processor found
+                        {
+                            listViewProcessors.Items[indexmp].Selected = true;
+                            listViewProcessors.Select();
+                        }
+                    }
+                }
+                listViewProcessors.EndUpdate();
             }
         }
 
@@ -156,10 +171,20 @@ namespace AMSExplorer
 
 
 
-        public GenericProcessor(CloudMediaContext context)
+        public GenericProcessor(CloudMediaContext context, IJob myJob = null)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _myJob = myJob;
+
+            if (_myJob != null) // we are in resubmit mode
+            {
+                textBoxConfiguration.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
+                radioButtonSingleTaskSingleJob.Checked = true;
+                panelJobMode.Enabled = false;
+            }
+           
         }
 
         private void button1_Click(object sender, EventArgs e)

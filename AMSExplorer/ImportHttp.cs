@@ -64,7 +64,7 @@ namespace AMSExplorer
         public ImportHttp()
         {
             InitializeComponent();
-
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void ImportHttp_Load(object sender, EventArgs e)
@@ -76,6 +76,19 @@ namespace AMSExplorer
         {
             string filename = null;
             bool Error = false;
+            try
+            {
+                Uri myUri = this.GetURL;
+            }
+            catch
+            {
+                Error = true;
+                labelURLFileNameWarning.Text = "Error detected in the URL";
+                buttonImport.Enabled = false;
+                return;
+            }
+           
+            buttonImport.Enabled = true;
             try
             {
                 filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
@@ -91,6 +104,7 @@ namespace AMSExplorer
                 labelURLFileNameWarning.Text = string.Empty;
                 textBoxAssetName.Text = filename;
                 textBoxAssetFileName.Text = filename;
+                
             }
         }
     }

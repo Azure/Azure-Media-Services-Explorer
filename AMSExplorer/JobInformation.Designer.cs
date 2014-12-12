@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(JobInformation));
             this.DGErrors = new System.Windows.Forms.DataGridView();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +43,12 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabControl2 = new System.Windows.Forms.TabControl();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGTasks)).BeginInit();
@@ -52,6 +56,10 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabControl2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGErrors
@@ -99,9 +107,9 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(681, 526);
+            this.buttonClose.Location = new System.Drawing.Point(675, 13);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
+            this.buttonClose.Size = new System.Drawing.Size(99, 23);
             this.buttonClose.TabIndex = 11;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -118,12 +126,12 @@
             this.DGTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGTasks.ColumnHeadersVisible = false;
             this.DGTasks.ContextMenuStrip = this.contextMenuStrip;
-            this.DGTasks.Location = new System.Drawing.Point(6, 98);
+            this.DGTasks.Location = new System.Drawing.Point(3, 6);
             this.DGTasks.MultiSelect = false;
             this.DGTasks.Name = "DGTasks";
             this.DGTasks.ReadOnly = true;
             this.DGTasks.RowHeadersVisible = false;
-            this.DGTasks.Size = new System.Drawing.Size(740, 358);
+            this.DGTasks.Size = new System.Drawing.Size(726, 301);
             this.DGTasks.TabIndex = 10;
             // 
             // DGJob
@@ -174,9 +182,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxTasks.FormattingEnabled = true;
             this.listBoxTasks.HorizontalScrollbar = true;
-            this.listBoxTasks.Location = new System.Drawing.Point(6, 10);
+            this.listBoxTasks.Location = new System.Drawing.Point(6, 6);
             this.listBoxTasks.Name = "listBoxTasks";
-            this.listBoxTasks.Size = new System.Drawing.Size(740, 82);
+            this.listBoxTasks.Size = new System.Drawing.Size(734, 82);
             this.listBoxTasks.TabIndex = 22;
             this.listBoxTasks.SelectedIndexChanged += new System.EventHandler(this.listBoxTasks_SelectedIndexChanged);
             // 
@@ -187,7 +195,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 42);
+            this.tabControl1.Location = new System.Drawing.Point(12, 40);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(760, 469);
@@ -221,7 +229,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.DGTasks);
+            this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.listBoxTasks);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -230,6 +238,55 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabControl2
+            // 
+            this.tabControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl2.Controls.Add(this.tabPage3);
+            this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Location = new System.Drawing.Point(6, 98);
+            this.tabControl2.Name = "tabControl2";
+            this.tabControl2.SelectedIndex = 0;
+            this.tabControl2.Size = new System.Drawing.Size(740, 339);
+            this.tabControl2.TabIndex = 23;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.DGTasks);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(732, 313);
+            this.tabPage3.TabIndex = 0;
+            this.tabPage3.Text = "Task information";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.textBoxConfiguration);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(732, 313);
+            this.tabPage4.TabIndex = 1;
+            this.tabPage4.Text = "Configuration";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // textBoxConfiguration
+            // 
+            this.textBoxConfiguration.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxConfiguration.Location = new System.Drawing.Point(6, 6);
+            this.textBoxConfiguration.Multiline = true;
+            this.textBoxConfiguration.Name = "textBoxConfiguration";
+            this.textBoxConfiguration.ReadOnly = true;
+            this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxConfiguration.Size = new System.Drawing.Size(720, 301);
+            this.textBoxConfiguration.TabIndex = 28;
             // 
             // labelJobNameTitle
             // 
@@ -242,16 +299,26 @@
             this.labelJobNameTitle.TabIndex = 36;
             this.labelJobNameTitle.Text = "Job : ";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Location = new System.Drawing.Point(-2, 513);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(786, 48);
+            this.panel1.TabIndex = 63;
+            // 
             // JobInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelJobNameTitle);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.buttonClose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "JobInformation";
             this.Text = "Job Information";
             this.Load += new System.EventHandler(this.JobInformation_Load);
@@ -263,6 +330,11 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabControl2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -284,5 +356,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.Label labelJobNameTitle;
+        private System.Windows.Forms.TabControl tabControl2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox textBoxConfiguration;
+        private System.Windows.Forms.Panel panel1;
     }
 }

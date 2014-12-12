@@ -62,6 +62,7 @@ namespace AMSExplorer
         public AMSLogin()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void AMSLogin_Load(object sender, EventArgs e)
@@ -318,6 +319,11 @@ namespace AMSExplorer
         private void accountmgtlink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void AMSLogin_Shown(object sender, EventArgs e)
+        {
+            Program.CheckAMSEVersion();
         }
     }
 }

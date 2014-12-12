@@ -32,6 +32,7 @@ namespace AMSExplorer
         public Options()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -84,7 +85,8 @@ namespace AMSExplorer
             numericUpDownPriority.Value = 10;
             numericUpDownLocatorDuration.Value = 365;
 
-            Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folder
+            Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folders
+            Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.Save();
         }
 

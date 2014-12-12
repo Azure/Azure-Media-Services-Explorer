@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HLSAESStatic));
             this.textBoxServiceSegment = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxMaxBitrate = new System.Windows.Forms.TextBox();
@@ -39,6 +38,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.checkBoxEncrypt = new System.Windows.Forms.CheckBox();
             this.textBoxkey = new System.Windows.Forms.TextBox();
             this.buttonGenKey = new System.Windows.Forms.Button();
@@ -47,12 +47,13 @@
             this.processorlabel = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabPage2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxServiceSegment
@@ -154,6 +155,16 @@
             this.tabPage1.Text = "AES Encryption";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
+            this.pictureBox1.Location = new System.Drawing.Point(9, 15);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 49;
+            this.pictureBox1.TabStop = false;
+            // 
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
@@ -210,10 +221,11 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(264, 487);
+            this.buttonCancel.Location = new System.Drawing.Point(364, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
             this.buttonCancel.TabIndex = 34;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -227,27 +239,30 @@
             this.label3.TabIndex = 39;
             this.label3.Text = "Please enter an output asset name:";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 15);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 49;
-            this.pictureBox1.TabStop = false;
-            // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.packaging;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(102, 487);
+            this.buttonOk.Location = new System.Drawing.Point(217, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(141, 32);
+            this.buttonOk.Size = new System.Drawing.Size(141, 23);
             this.buttonOk.TabIndex = 35;
             this.buttonOk.Text = "Launch Packaging";
             this.buttonOk.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-1, 483);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(479, 48);
+            this.panel1.TabIndex = 62;
             // 
             // HLSAESStatic
             // 
@@ -255,14 +270,12 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(474, 531);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.label3);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "HLSAESStatic";
             this.Text = "Packaging to HLS v3 (static)";
             this.tabPage2.ResumeLayout(false);
@@ -271,6 +284,7 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -298,5 +312,6 @@
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel1;
     }
 }

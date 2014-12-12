@@ -74,6 +74,27 @@ namespace AMSExplorer
 
         }
 
+        public string ForceLocatorGuid
+        {
+            get
+            {
+                if (radioButtonOrigin.Checked && checkBoxForLocatorGUID.Checked)
+                {
+                    string locatorstr = textBoxLocatorGUID.Text;
+                    if (!locatorstr.StartsWith(Constants.LocatorIdPrefix))
+                    {
+                        locatorstr = Constants.LocatorIdPrefix + locatorstr;
+                    }
+                    return locatorstr;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+        }
+
         public string LocAssetName
         {
             set
@@ -94,6 +115,7 @@ namespace AMSExplorer
         public CreateLocator(bool extendlocator = false)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             if (extendlocator) // dialog box used to extend locator expiration date
             {
                 buttonOk.Text = "Update locator(s)";
@@ -140,6 +162,12 @@ namespace AMSExplorer
         {
             dateTimePickerEndDate.Enabled = radioButtonEndCustom.Checked;
             dateTimePickerEndTime.Enabled = radioButtonEndCustom.Checked;
+        }
+
+        private void UpdateLocatorGUID_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxForceLocator.Visible = radioButtonOrigin.Checked;
+            textBoxLocatorGUID.Enabled = checkBoxForLocatorGUID.Checked;
         }
     }
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateProgram));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
@@ -45,6 +44,8 @@
             this.checkBoxAddScaleUnit = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -60,6 +61,8 @@
             this.textBoxProgramSourceURL = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxReplica = new System.Windows.Forms.CheckBox();
+            this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -67,25 +70,28 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(121, 471);
+            this.buttonOk.Location = new System.Drawing.Point(274, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 32);
-            this.buttonOk.TabIndex = 10;
+            this.buttonOk.Size = new System.Drawing.Size(99, 23);
+            this.buttonOk.TabIndex = 6;
             this.buttonOk.Text = "Create Program";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(255, 471);
+            this.buttonCancel.Location = new System.Drawing.Point(382, 12);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(113, 32);
-            this.buttonCancel.TabIndex = 11;
+            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.TabIndex = 7;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -93,15 +99,15 @@
             // 
             this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(18, 42);
+            this.textBoxAssetName.Location = new System.Drawing.Point(18, 93);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.Size = new System.Drawing.Size(386, 20);
-            this.textBoxAssetName.TabIndex = 6;
+            this.textBoxAssetName.TabIndex = 3;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 26);
+            this.label4.Location = new System.Drawing.Point(15, 77);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 48;
@@ -110,7 +116,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(180, 83);
+            this.label9.Location = new System.Drawing.Point(180, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 60;
@@ -118,7 +124,7 @@
             // 
             // numericUpDownArchiveDays
             // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(183, 99);
+            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(183, 39);
             this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -126,12 +132,12 @@
             0});
             this.numericUpDownArchiveDays.Name = "numericUpDownArchiveDays";
             this.numericUpDownArchiveDays.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveDays.TabIndex = 2;
+            this.numericUpDownArchiveDays.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(50, 99);
+            this.label2.Location = new System.Drawing.Point(50, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 0;
@@ -176,11 +182,11 @@
             // checkBoxCreateLocator
             // 
             this.checkBoxCreateLocator.AutoSize = true;
-            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 428);
+            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 453);
             this.checkBoxCreateLocator.Name = "checkBoxCreateLocator";
-            this.checkBoxCreateLocator.Size = new System.Drawing.Size(292, 17);
-            this.checkBoxCreateLocator.TabIndex = 9;
-            this.checkBoxCreateLocator.Text = "Publish this asset now (default locator duration: {0} days)";
+            this.checkBoxCreateLocator.Size = new System.Drawing.Size(335, 17);
+            this.checkBoxCreateLocator.TabIndex = 5;
+            this.checkBoxCreateLocator.Text = "Publish this program/asset now (default locator duration: {0} days)";
             this.checkBoxCreateLocator.UseVisualStyleBackColor = true;
             // 
             // label5
@@ -200,7 +206,7 @@
             this.checkBoxAddScaleUnit.Location = new System.Drawing.Point(30, 405);
             this.checkBoxAddScaleUnit.Name = "checkBoxAddScaleUnit";
             this.checkBoxAddScaleUnit.Size = new System.Drawing.Size(162, 17);
-            this.checkBoxAddScaleUnit.TabIndex = 49;
+            this.checkBoxAddScaleUnit.TabIndex = 3;
             this.checkBoxAddScaleUnit.Text = "Add one scale streaming unit";
             this.checkBoxAddScaleUnit.UseVisualStyleBackColor = true;
             // 
@@ -214,10 +220,12 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(434, 206);
-            this.tabControl1.TabIndex = 51;
+            this.tabControl1.TabIndex = 2;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label33);
+            this.tabPage1.Controls.Add(this.comboBoxStorage);
             this.tabPage1.Controls.Add(this.textBoxAssetName);
             this.tabPage1.Controls.Add(this.numericUpDownArchiveMinutes);
             this.tabPage1.Controls.Add(this.label11);
@@ -236,9 +244,29 @@
             this.tabPage1.Text = "Settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(15, 128);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(83, 13);
+            this.label33.TabIndex = 65;
+            this.label33.Text = "Output storage :";
+            // 
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(18, 144);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
+            this.comboBoxStorage.TabIndex = 4;
+            // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(289, 99);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(289, 39);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -246,12 +274,12 @@
             0});
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
             this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveMinutes.TabIndex = 4;
+            this.numericUpDownArchiveMinutes.TabIndex = 2;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(286, 83);
+            this.label11.Location = new System.Drawing.Point(286, 23);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(44, 13);
             this.label11.TabIndex = 63;
@@ -260,7 +288,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox1.Location = new System.Drawing.Point(18, 96);
+            this.pictureBox1.Location = new System.Drawing.Point(18, 36);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -270,7 +298,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(233, 83);
+            this.label10.Location = new System.Drawing.Point(233, 23);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(35, 13);
             this.label10.TabIndex = 61;
@@ -278,7 +306,7 @@
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(236, 99);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(236, 39);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
             23,
             0,
@@ -286,7 +314,7 @@
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(47, 20);
-            this.numericUpDownArchiveHours.TabIndex = 3;
+            this.numericUpDownArchiveHours.TabIndex = 1;
             // 
             // tabPage2
             // 
@@ -355,8 +383,8 @@
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(394, 32);
             this.label8.TabIndex = 67;
-            this.label8.Text = "This option is useful if you created a live program in another datacenter and you" +
-    " want to create a program with the same URL path.";
+            this.label8.Text = "This option is useful if you created a live program in another datacenter and wan" +
+    "t to create a program with the same URL path.";
             // 
             // label7
             // 
@@ -398,12 +426,36 @@
             this.checkBoxReplica.UseVisualStyleBackColor = true;
             this.checkBoxReplica.CheckedChanged += new System.EventHandler(this.checkBoxReplica_CheckedChanged);
             // 
+            // checkBoxDynEnc
+            // 
+            this.checkBoxDynEnc.AutoSize = true;
+            this.checkBoxDynEnc.Location = new System.Drawing.Point(30, 429);
+            this.checkBoxDynEnc.Name = "checkBoxDynEnc";
+            this.checkBoxDynEnc.Size = new System.Drawing.Size(156, 17);
+            this.checkBoxDynEnc.TabIndex = 4;
+            this.checkBoxDynEnc.Text = "Enable Dynamic Encryption";
+            this.checkBoxDynEnc.UseVisualStyleBackColor = true;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Location = new System.Drawing.Point(-3, 488);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.TabIndex = 61;
+            // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 524);
+            this.ClientSize = new System.Drawing.Size(490, 535);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.checkBoxDynEnc);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.checkBoxAddScaleUnit);
             this.Controls.Add(this.label5);
@@ -412,9 +464,6 @@
             this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
-            this.Controls.Add(this.buttonOk);
-            this.Controls.Add(this.buttonCancel);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "CreateProgram";
             this.Text = "Create a new program for channel {0}";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
@@ -427,6 +476,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -465,5 +515,9 @@
         private System.Windows.Forms.Label labelLocatorID;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label labelURLFileNameWarning;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.CheckBox checkBoxDynEnc;
+        private System.Windows.Forms.Panel panel1;
     }
 }

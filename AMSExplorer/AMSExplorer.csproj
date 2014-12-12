@@ -52,7 +52,7 @@
     <StartupObject>AMSExplorer.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>MediaNew.ico</ApplicationIcon>
+    <ApplicationIcon>Azure Explorer_ico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release No Credentials|AnyCPU'">
     <OutputPath>bin\Release No Credentials\</OutputPath>
@@ -153,6 +153,17 @@
     <Compile Include="AMSLogin.Designer.cs">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bitmaps.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Bitmaps.resx</DependentUpon>
+    </Compile>
+    <Compile Include="MetadataInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MetadataInformation.Designer.cs">
+      <DependentUpon>MetadataInformation.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChangeEncodingRU.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,11 +182,6 @@
     <Compile Include="BatchUploadFrame1.Designer.cs">
       <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Bitmaps.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Bitmaps.resx</DependentUpon>
-    </Compile>
     <Compile Include="DeleteProgram.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,15 @@
     </Compile>
     <Compile Include="AttachStorage.Designer.cs">
       <DependentUpon>AttachStorage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListViewTemplates.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProcessFromJobTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProcessFromJobTemplate.Designer.cs">
+      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagementREST.cs" />
     <Compile Include="PlayReadyLicense.cs">
@@ -208,6 +223,12 @@
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="DynamicEncryption.cs" />
+    <Compile Include="PlayReadyExternalServer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayReadyExternalServer.Designer.cs">
+      <DependentUpon>PlayReadyExternalServer.cs</DependentUpon>
+    </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -361,6 +382,9 @@
     <EmbeddedResource Include="AMSLogin.resx">
       <DependentUpon>AMSLogin.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MetadataInformation.resx">
+      <DependentUpon>MetadataInformation.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChangeEncodingRU.resx">
       <DependentUpon>ChangeEncodingRU.cs</DependentUpon>
     </EmbeddedResource>
@@ -372,6 +396,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Bitmaps.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="DeleteProgram.resx">
@@ -379,6 +404,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ProcessFromJobTemplate.resx">
+      <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PlayReadyLicense.resx">
       <DependentUpon>PlayReadyLicense.cs</DependentUpon>
@@ -388,6 +416,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayReadyExternalServer.resx">
+      <DependentUpon>PlayReadyExternalServer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
@@ -427,6 +458,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GenericProcessor.resx">
       <DependentUpon>GenericProcessor.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEAdv.resx">
       <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
@@ -458,11 +490,11 @@
     <EmbeddedResource Include="ImportFromAzureStorage.resx">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Azure Explorer_ico.ico" />
     <Content Include="BitmapsPNG\8-12-2014-13-20-04.png" />
-    <Content Include="BitmapsPNG\Imagine.PNG" />
-    <Content Include="BitmapsPNG\media2.ico" />
-    <Content Include="BitmapsPNG\media2.png" />
-    <None Include="BitmapsPNG\MediaNew.png" />
+    <Content Include="BitmapsPNG\Azure Explorer.png" />
+    <Content Include="BitmapsPNG\Azure Explorer_ico.ico" />
+    <None Include="BitmapsPNG\AzureMedia_Full-Color-64-opaque.png" />
     <Content Include="BitmapsPNG\modeltaskxenio1.png" />
     <Content Include="BitmapsPNG\modeltaskxenio2.png" />
     <Content Include="BitmapsPNG\modetaskjob1.png" />
@@ -541,100 +573,98 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="media2.ico" />
-    <Content Include="MediaNew.ico" />
     <None Include="Resources\%24this.Icon.ico" />
-    <Content Include="WAMEPresetFiles\AAC Good Quality Audio.xml">
+    <Content Include="AMEPresetFiles\AAC Good Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p for iOS Cellular Only.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9 for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3 for iOS Cellular Only.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Adaptive Bitrate MP4 Set SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Broadband SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Broadband SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 1080p.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p Xbox Live ADK.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p for 3G or 4G.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming 720p.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
+    <Content Include="AMEPresetFiles\H264 Smooth Streaming Windows Phone 7 Series.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\Thumbnails.xml">
+    <Content Include="AMEPresetFiles\Thumbnails.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband 1080p.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband 720p.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband SD 16x9.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Broadband SD 4x3.xml">
+    <Content Include="AMEPresetFiles\VC1 Broadband SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 1080p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p Xbox Live ADK.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming 720p.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming 720p.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 16x9.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
+    <Content Include="AMEPresetFiles\VC1 Smooth Streaming SD 4x3.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WAMEPresetFiles\WMA High Quality Audio.xml">
+    <Content Include="AMEPresetFiles\WMA High Quality Audio.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Configurations\MediaEncryptor_PlayReadyProtection.xml">

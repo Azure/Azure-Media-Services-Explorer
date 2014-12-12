@@ -171,7 +171,7 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModified;
+        static string _orderjobs = OrderJobs.LastModifiedDescending;
         static string _filterjobsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
@@ -200,33 +200,10 @@ namespace AMSExplorer
 
                            };
 
-            /*
-            try
-            {
-                int c = jobs.Count();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + e.Message);
-                Environment.Exit(0);
-            }
-             * */
 
-            //DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            //DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
-            //col.Name = "Progress";
-            //col.DataPropertyName = "Progress";
-
-            //this.Columns.Add(col);
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
-            /*this.Columns["Progress"].DisplayIndex = 6;
-            this.Columns["Tasks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Tasks"].Width = 50;
-            this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Priority"].Width = 50;
-            Task.Run(() => RestoreJobProgress());*/
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -245,8 +222,6 @@ namespace AMSExplorer
             {
                 _currentpage = page;
                 this.DataSource = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (page - 1)).Take(_channelsperpage).ToList());
-
-
             }
         }
 
@@ -262,25 +237,26 @@ namespace AMSExplorer
                 }
             }
 
-
             if (index >= 0) // we found it
             { // we update the observation collection
                 channel = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault(); //refresh
-                if (channel != null) _MyObservChannels[index].State = channel.State;
-                Debug.WriteLine("Refresh channel status");
-                // this.Refresh();
+                if (channel != null)
+                {
+                    _MyObservChannels[index].State = channel.State;
+                    _MyObservChannels[index].Description = channel.Description;
+                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime();
+                    this.Refresh();
+                }
+
+
             }
-
-
         }
 
         private void WorkerRefreshChannels_DoWork(object sender, DoWorkEventArgs e)
         {
-
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             IChannel channel;
-
 
             foreach (ChannelEntry CE in _MyObservChannels)
             {
@@ -291,12 +267,8 @@ namespace AMSExplorer
                     channel = _context.Channels.Where(a => a.Id == CE.Id).FirstOrDefault();
                     if (channel != null)
                     {
-
                         CE.State = channel.State;
-
-                        //if ((i % 5) == 0) this.BeginInvoke(new Action(() => this.Refresh()), null);
                         this.BeginInvoke(new Action(() => this.Refresh()), null);
-                        //i++;
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -308,7 +280,6 @@ namespace AMSExplorer
                     e.Cancel = true;
                     return;
                 }
-
             }
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
@@ -322,58 +293,12 @@ namespace AMSExplorer
         {
             if (!_initialized) return;
 
-
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
 
-            //this.Invoke(new Action(() => this.Cursor = Cursors.WaitCursor));
 
-            //   Task.Run(() =>    // REMOVE background task otherwise issue with page number in dropdown control
-            //  {
             IEnumerable<ChannelEntry> channelquery;
-
-            /*
-            if (_timefilter != "" && _timefilter != null && _timefilter != FilterTime.All)
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(1)))));
-                        break;
-                    case FilterTime.LastWeek:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(7)))));
-                        break;
-                    case FilterTime.LastMonth:
-                        channels = context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
-                        break;
-
-                    default:
-                        channels = context.Jobs;
-
-                        break;
-
-                }
-
-            }
-             * 
-            else*/
             channels = context.Channels;
-
-
-            /*
-            if (_filterjobsstate != "All")
-            {
-                channels = channels.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
-            }
-
-
-
-            if (_searchinname != "" && _searchinname != null)
-            {
-                string searchlower = _searchinname.ToLower();
-                channels = channels.Where(j => (j.Name.ToLower().Contains(searchlower)));
-            }
-            */
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)channels.Count()) / ((double)_channelsperpage));
@@ -393,11 +318,6 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-
-            /*
-            switch (_orderjobs)
-            {
-                case OrderJobs.LastModified:*/
             channelquery = from c in channels
                            orderby c.LastModified descending
                            select new ChannelEntry
@@ -411,118 +331,7 @@ namespace AMSExplorer
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
 
-                           };/*
-                    break;
-                case OrderJobs.Name:
-                    channelquery = from j in channels
-                               orderby j.Name
-                                   select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.EndTime:
-                    jobquery = from j in channels
-                               orderby j.EndTime descending
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.ProcessTime:
-                    jobquery = from j in channels
-                               orderby j.RunningDuration descending
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.StartTime:
-                    jobquery = from j in channels
-                               orderby j.StartTime descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running duration == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                case OrderJobs.State:
-                    jobquery = from j in channels
-                               orderby j.State
-                               select new ChannelEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running durarion == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-                default:
-                    jobquery = from j in channels
-                               orderby j.LastModified descending
-                               select new JobEntry
-                               {
-                                   Name = j.Name,
-                                   Id = j.Id,
-                                   Tasks = j.Tasks.Count,
-                                   Priority = j.Priority,
-                                   State = j.State,
-                                   StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                                   EndTime = j.EndTime.HasValue ? (Nullable<DateTime>)((DateTime)j.EndTime).ToLocalTime() : null,
-                                   //Duration = j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   // Running durarion == 0 if job is processed so in that case, we calculate it
-                                   Duration = (j.State == JobState.Processing) ? (j.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - j.StartTime)).ToString(@"hh\:mm\:ss") : null) : j.RunningDuration.ToString(@"hh\:mm\:ss"),
-                                   Progress = j.GetOverallProgress()
-                               };
-                    break;
-            }
-            */
+                           };
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannelthisPage));
@@ -530,118 +339,6 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
 
-
-        }
-
-        private void RestoreJobProgress()  // when app is launched, we want to restore job progress updates
-        {
-            /*
-            IEnumerable<IJob> ActiveJobs = _context.Jobs.Where(j => (j.State == JobState.Queued) | (j.State == JobState.Scheduled) | (j.State == JobState.Processing));
-
-            foreach (IJob job in ActiveJobs)
-            {
-                this.DoJobProgress(job);
-            }
-             * */
-        }
-
-        //private List<StatusInfo> ListStatus = new List<StatusInfo>();
-
-        public void AddChannelEvent(StatusInfo statusinfo)
-        {
-            ListStatus.Add(statusinfo);
-
-        }
-
-        public void DoChannelMonitor(IChannel channel, OperationType operationtype)
-        {
-            Task.Run(() =>
-            {
-                if (operationtype == OperationType.Delete)
-                {
-
-                    bool timeout = false;
-                    bool Error = false;
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-
-                    while (_context.Channels.Where(o => o.Id == channel.Id).FirstOrDefault() != null)
-                    {
-
-                        RefreshChannel(channel);
-                        System.Threading.Thread.Sleep(1000);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            timeout = true;
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == channel.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            Error = true;
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-                    }
-                    RefreshChannels();
-                }
-
-                else
-                {
-                    ChannelState StateToReach;
-
-                    switch (operationtype)
-                    {
-                        case OperationType.Create:
-                            StateToReach = ChannelState.Stopped;
-                            break;
-
-                        case OperationType.Start:
-                            StateToReach = ChannelState.Running;
-                            break;
-
-                        case OperationType.Stop:
-                            StateToReach = ChannelState.Stopped;
-                            break;
-
-                        case OperationType.Reset:
-                            StateToReach = ChannelState.Running;
-                            break;
-
-
-                        default:
-                            StateToReach = ChannelState.Stopped;
-                            break;
-                    }
-
-
-
-
-                    bool timeout = false;
-                    bool Error = false;
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-
-                    while (channel.State != StateToReach)
-                    {
-                        RefreshChannel(channel);
-                        System.Threading.Thread.Sleep(500);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            timeout = true;
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == channel.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            Error = true;
-                            //MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-                    }
-                    RefreshChannel(channel);
-                }
-            });
         }
     }
 
@@ -869,6 +566,10 @@ namespace AMSExplorer
                     try // sometimes, index could be wrong id program has been deleted
                     {
                         _MyObservPrograms[index].State = program.State;
+                        _MyObservPrograms[index].Description = program.Description;
+                        _MyObservPrograms[index].ArchiveWindowLength = program.ArchiveWindowLength;
+                        _MyObservPrograms[index].LastModified = program.LastModified;
+                        this.Refresh();
                     }
                     catch
                     {
@@ -957,10 +658,10 @@ namespace AMSExplorer
             programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
 
 
-            if (!string.IsNullOrEmpty(_searchinname ))
+            if (!string.IsNullOrEmpty(_searchinname))
             {
                 string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower)|| p.Id.ToLower().Contains(searchlower)));
+                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower)));
             }
 
             if (FilterState != "All")
@@ -988,6 +689,8 @@ namespace AMSExplorer
                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                         }).ToArray();
                     break;
+
+
 
                 case OrderPrograms.Name:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)
@@ -1047,106 +750,17 @@ namespace AMSExplorer
                     break;
             }
 
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                programquery = programquery.Take(50);
+            }
 
             _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
-
-
         }
-
-
-
-        public void AddProgramEvent(StatusInfo statusinfo)
-        {
-            ListStatus.Add(statusinfo);
-
-        }
-
-        public void DoProgramMonitor(IProgram program, OperationType operationtype)
-        {
-            Task.Run(() =>
-            {
-                if (operationtype == OperationType.Delete)
-                {
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-                    while (_context.Programs.Where(p => p.Id == program.Id).FirstOrDefault() != null)
-                    {
-                        RefreshProgram(program);
-                        System.Threading.Thread.Sleep(1000);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == program.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-
-                    }
-                    RefreshPrograms();
-                }
-
-
-                else
-                {
-
-                    ProgramState StateToReach;
-
-                    switch (operationtype)
-                    {
-                        case OperationType.Create:
-                            StateToReach = ProgramState.Stopped;
-                            break;
-
-                        case OperationType.Start:
-                            StateToReach = ProgramState.Running;
-                            break;
-
-                        case OperationType.Stop:
-                            StateToReach = ProgramState.Stopped;
-                            break;
-
-                        case OperationType.Reset:
-                            StateToReach = ProgramState.Stopped;
-                            break;
-
-
-                        default:
-                            StateToReach = ProgramState.Stopped;
-                            break;
-
-
-                    }
-
-                    List<StatusInfo> LSI;
-                    DateTime starttime = DateTime.Now;
-
-                    while (program.State != StateToReach)
-                    {
-                        RefreshProgram(program);
-                        System.Threading.Thread.Sleep(500);
-                        if (DateTime.Now > starttime.AddMinutes(10))
-                        {
-                            break;
-                        }
-                        LSI = ListStatus.Where(l => l.EntityName == program.Name).ToList();
-                        if (LSI.Count > 0)
-                        {
-                            MessageBox.Show(LSI.FirstOrDefault().ErrorMessage);
-                            break;
-                        }
-                    }
-                    RefreshProgram(program);
-                }
-            });
-        }
-
     }
 
 
@@ -1245,7 +859,7 @@ namespace AMSExplorer
                     _context
                         .StreamingEndpoints
                         .AsEnumerable()
-                          .Where(o => o.State == StreamingEndpointState.Running)
+                          .Where(o => (o.State == StreamingEndpointState.Running) && (o.ScaleUnits > 0))
                         .Select(
                             o =>
                                 template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
@@ -1276,7 +890,7 @@ namespace AMSExplorer
                    _context
                        .StreamingEndpoints
                        .AsEnumerable()
-                         .Where(o => o.State != StreamingEndpointState.Running)
+                         .Where(o => (o.State != StreamingEndpointState.Running) || (o.ScaleUnits > 0))
                        .Select(
                            o =>
                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
@@ -1292,11 +906,6 @@ namespace AMSExplorer
             }
         }
     }
-
-
-
-
-
 
     public static class AccessToken
     {
@@ -1330,6 +939,4 @@ namespace AMSExplorer
         [DataMember(Name = "access_token")]
         public string AccessToken { get; set; }
     }
-
-
 }

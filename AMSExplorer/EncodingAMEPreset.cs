@@ -117,11 +117,16 @@ namespace AMSExplorer
         }
 
 
-        public string EncodingSelectedPreset
+        public List<string> EncodingSelectedPreset
         {
             get
             {
-                return (listbox.SelectedIndex > -1) ? listbox.Items[listbox.SelectedIndex].ToString() : null;
+                List<string> ListOfPresets =  new List<string>();
+                foreach (var item in listbox.SelectedItems)
+                    ListOfPresets.Add(item.ToString());
+
+                //return (listbox.SelectedIndex > -1) ? listbox.Items[listbox.SelectedIndex].ToString() : null;
+                return ListOfPresets;
             }
         }
 
@@ -129,6 +134,7 @@ namespace AMSExplorer
         public EncodingAMEPreset(CloudMediaContext context)
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
         }
 

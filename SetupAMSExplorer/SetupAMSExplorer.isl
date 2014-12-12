@@ -3764,7 +3764,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>1285690286</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.azure.com</td><td>0</td><td/><td>1034081297</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1285690286</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
@@ -3875,7 +3875,7 @@
 		<col def="V0">Data</col>
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I2">ISIconIndex</col>
-		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\MediaNew.ico</td><td>0</td></row>
+		<row><td>ARPPRODUCTICON.exe</td><td/><td>&lt;VSSolutionFolder&gt;\AMSExplorer\BitmapsPNG\Azure Explorer_ico.ico</td><td>0</td></row>
 		<row><td>KayakDemoInterface_B01AA13565D54E19B2202AF22AAED385.exe</td><td/><td>&lt;ISProductFolder&gt;\redist\Language Independent\OS Independent\GenericExe.ico</td><td>0</td></row>
 		<row><td>_Built_7CBECF5DD63B4DAC88869F3398803345.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
 		<row><td>_Built_88A92BF5B48E49FE8E4BD1F83B583DF5.exe</td><td/><td>C:\Users\xpouyat\Desktop\cloud.fog.ico</td><td>0</td></row>
@@ -4389,9 +4389,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{8A0BBCFB-6156-47F1-9EE9-C38A7A8D484A}</td><td/></row>
+		<row><td>ProductCode</td><td>{E6B4F2A0-B81D-4A81-B76A-DEA449477C93}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
-		<row><td>ProductVersion</td><td>3.01</td><td/></row>
+		<row><td>ProductVersion</td><td>3.03</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>

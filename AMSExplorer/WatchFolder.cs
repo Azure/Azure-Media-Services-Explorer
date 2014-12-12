@@ -24,11 +24,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
     public partial class WatchFolder : Form
     {
+        private CloudMediaContext _context;
 
         public string WatchFolderPath
         {
@@ -74,11 +76,26 @@ namespace AMSExplorer
                 checkBoxDeleteFile.Checked = value;
             }
         }
+        public bool WatchRunJobTemplate
+        {
+            get
+            {
+                return checkBoxRunJobTemplate.Checked;
+            }
+        }
+        public IJobTemplate WatchSelectedJobTemplate
+        {
+            get
+            {
+                return listViewTemplates.GetSelectedJobTemplate;
+            }
+        }
 
-        public WatchFolder()
+        public WatchFolder(CloudMediaContext context)
         {
             InitializeComponent();
-
+            this.Icon = Bitmaps.Azure_Explorer_ico;
+            _context = context;
         }
 
         private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)
@@ -89,7 +106,6 @@ namespace AMSExplorer
         private void WatchFolder_Load(object sender, EventArgs e)
         {
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
-
         }
 
         private void buttonSelFolder_Click(object sender, EventArgs e)
@@ -112,7 +128,18 @@ namespace AMSExplorer
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
         }
 
-
-
+        private void checkBoxRunJobTemplate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRunJobTemplate.Checked)
+            {
+                listViewTemplates.Enabled = true;
+                listViewTemplates.LoadTemplates(_context);
+            }
+            else
+            {
+                listViewTemplates.Items.Clear();
+                listViewTemplates.Enabled = false;
+            }
+        }
     }
 }

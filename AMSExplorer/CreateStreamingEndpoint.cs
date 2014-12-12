@@ -29,12 +29,12 @@ namespace AMSExplorer
 {
     public partial class CreateStreamingEndpoint : Form
     {
-        public string OriginName
+        public string StreamingEndpointName
         {
             get { return textboxoriginname.Text; }
             set { textboxoriginname.Text = value; }
         }
-        public string OriginDescription
+        public string StreamingEndpointDescription
         {
             get { return textBoxOriginDescription.Text; }
             set { textBoxOriginDescription.Text = value; }
@@ -49,10 +49,21 @@ namespace AMSExplorer
         public CreateStreamingEndpoint()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
 
         private void CreateOrigin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
 
         }

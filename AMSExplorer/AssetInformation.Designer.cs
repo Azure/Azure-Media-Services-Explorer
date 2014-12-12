@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AssetInformation));
             this.DGAsset = new System.Windows.Forms.DataGridView();
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +41,7 @@
             this.toolStripMenuItemPlaybackSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
             this.DGFiles = new System.Windows.Forms.DataGridView();
@@ -65,7 +65,9 @@
             this.ListViewFilesSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonFileMetadata = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
@@ -84,6 +86,8 @@
             this.listViewDelPol = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBoxHttps = new System.Windows.Forms.CheckBox();
+            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
             this.buttonOpen = new System.Windows.Forms.Button();
@@ -96,8 +100,8 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.buttonDashLiveAzure = new System.Windows.Forms.Button();
-            this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -112,6 +116,7 @@
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGDelPol)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -140,8 +145,7 @@
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
             this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
-            this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
-            this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
+            this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick_1);
             // 
             // toolStripMenuItemFilesCopyClipboard
             // 
@@ -153,7 +157,7 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(681, 526);
+            this.buttonClose.Location = new System.Drawing.Point(697, 12);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(75, 23);
             this.buttonClose.TabIndex = 3;
@@ -174,7 +178,7 @@
             this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
-            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 224);
+            this.contextMenuStripLocators.Size = new System.Drawing.Size(323, 202);
             this.contextMenuStripLocators.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripLocators_Opening);
             // 
             // toolStripMenuItemCopy
@@ -231,6 +235,13 @@
             this.toolStripMenuItemDASHAzure.Text = "Playback with MPEG-DASH Azure Player";
             this.toolStripMenuItemDASHAzure.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
+            // toolStripMenuItemDASHLiveAzure
+            // 
+            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
+            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
+            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
+            // 
             // toolStripMenuItemPlaybackMP4
             // 
             this.toolStripMenuItemPlaybackMP4.Enabled = false;
@@ -267,20 +278,21 @@
             this.DGFiles.Name = "DGFiles";
             this.DGFiles.ReadOnly = true;
             this.DGFiles.RowHeadersVisible = false;
-            this.DGFiles.Size = new System.Drawing.Size(410, 409);
+            this.DGFiles.Size = new System.Drawing.Size(410, 397);
             this.DGFiles.TabIndex = 20;
             // 
             // contextMenuStripFiles
             // 
             this.contextMenuStripFiles.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.makeItPrimaryToolStripMenuItem,
+            this.showMetadataToolStripMenuItem,
             this.toolStripMenuItemOpenFile,
             this.toolStripMenuItemDownloadFile,
             this.deleteFileToolStripMenuItem,
             this.duplicateFileToolStripMenuItem,
             this.uploadASmallFileInTheAssetToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(234, 136);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(234, 158);
             // 
             // makeItPrimaryToolStripMenuItem
             // 
@@ -360,7 +372,7 @@
             // 
             this.buttonSetPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSetPrimary.Enabled = false;
-            this.buttonSetPrimary.Location = new System.Drawing.Point(9, 421);
+            this.buttonSetPrimary.Location = new System.Drawing.Point(9, 409);
             this.buttonSetPrimary.Name = "buttonSetPrimary";
             this.buttonSetPrimary.Size = new System.Drawing.Size(88, 23);
             this.buttonSetPrimary.TabIndex = 27;
@@ -372,7 +384,7 @@
             // 
             this.buttonDeleteFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteFile.Enabled = false;
-            this.buttonDeleteFile.Location = new System.Drawing.Point(231, 421);
+            this.buttonDeleteFile.Location = new System.Drawing.Point(332, 409);
             this.buttonDeleteFile.Name = "buttonDeleteFile";
             this.buttonDeleteFile.Size = new System.Drawing.Size(54, 23);
             this.buttonDeleteFile.TabIndex = 28;
@@ -385,7 +397,7 @@
             // 
             this.buttonDownloadFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDownloadFile.Enabled = false;
-            this.buttonDownloadFile.Location = new System.Drawing.Point(154, 421);
+            this.buttonDownloadFile.Location = new System.Drawing.Point(255, 409);
             this.buttonDownloadFile.Name = "buttonDownloadFile";
             this.buttonDownloadFile.Size = new System.Drawing.Size(71, 23);
             this.buttonDownloadFile.TabIndex = 29;
@@ -397,7 +409,7 @@
             // 
             this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpenFile.Enabled = false;
-            this.buttonOpenFile.Location = new System.Drawing.Point(103, 421);
+            this.buttonOpenFile.Location = new System.Drawing.Point(204, 409);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(45, 23);
             this.buttonOpenFile.TabIndex = 30;
@@ -420,7 +432,7 @@
             this.listViewFiles.Location = new System.Drawing.Point(9, 6);
             this.listViewFiles.MultiSelect = false;
             this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.Size = new System.Drawing.Size(315, 409);
+            this.listViewFiles.Size = new System.Drawing.Size(315, 397);
             this.listViewFiles.TabIndex = 31;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
@@ -448,11 +460,12 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 44);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 476);
+            this.tabControl1.Size = new System.Drawing.Size(760, 464);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.buttonAudioVideoAnalysis);
             this.tabPage1.Controls.Add(this.DGAsset);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
@@ -465,8 +478,21 @@
             this.tabPage1.Text = "Asset information";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // buttonAudioVideoAnalysis
+            // 
+            this.buttonAudioVideoAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAudioVideoAnalysis.Location = new System.Drawing.Point(615, 421);
+            this.buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
+            this.buttonAudioVideoAnalysis.Size = new System.Drawing.Size(131, 23);
+            this.buttonAudioVideoAnalysis.TabIndex = 27;
+            this.buttonAudioVideoAnalysis.Text = "Audio/Video analysis";
+            this.buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
+            this.buttonAudioVideoAnalysis.Visible = false;
+            this.buttonAudioVideoAnalysis.Click += new System.EventHandler(this.buttonAudioVideoAnalysis_Click);
+            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonFileMetadata);
             this.tabPage2.Controls.Add(this.progressBarUpload);
             this.tabPage2.Controls.Add(this.buttonUpload);
             this.tabPage2.Controls.Add(this.buttonDuplicate);
@@ -479,18 +505,31 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 450);
+            this.tabPage2.Size = new System.Drawing.Size(752, 438);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonFileMetadata
+            // 
+            this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFileMetadata.Enabled = false;
+            this.buttonFileMetadata.Location = new System.Drawing.Point(103, 409);
+            this.buttonFileMetadata.Name = "buttonFileMetadata";
+            this.buttonFileMetadata.Size = new System.Drawing.Size(95, 23);
+            this.buttonFileMetadata.TabIndex = 35;
+            this.buttonFileMetadata.Text = "Show metadata";
+            this.toolTip1.SetToolTip(this.buttonFileMetadata, "Duplicate the selected file");
+            this.buttonFileMetadata.UseVisualStyleBackColor = true;
+            this.buttonFileMetadata.Click += new System.EventHandler(this.buttonFileMetadata_Click);
             // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(441, 420);
+            this.progressBarUpload.Location = new System.Drawing.Point(542, 408);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(299, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(198, 23);
             this.progressBarUpload.TabIndex = 34;
             this.progressBarUpload.Visible = false;
             // 
@@ -498,7 +537,7 @@
             // 
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(366, 421);
+            this.buttonUpload.Location = new System.Drawing.Point(467, 409);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(69, 23);
             this.buttonUpload.TabIndex = 33;
@@ -511,7 +550,7 @@
             // 
             this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDuplicate.Enabled = false;
-            this.buttonDuplicate.Location = new System.Drawing.Point(291, 421);
+            this.buttonDuplicate.Location = new System.Drawing.Point(392, 409);
             this.buttonDuplicate.Name = "buttonDuplicate";
             this.buttonDuplicate.Size = new System.Drawing.Size(69, 23);
             this.buttonDuplicate.TabIndex = 32;
@@ -707,6 +746,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.checkBoxHttps);
             this.tabPage3.Controls.Add(this.buttonDashLiveAzure);
             this.tabPage3.Controls.Add(this.label2);
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
@@ -727,6 +767,29 @@
             this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBoxHttps
+            // 
+            this.checkBoxHttps.AutoSize = true;
+            this.checkBoxHttps.Location = new System.Drawing.Point(398, 6);
+            this.checkBoxHttps.Name = "checkBoxHttps";
+            this.checkBoxHttps.Size = new System.Drawing.Size(221, 17);
+            this.checkBoxHttps.TabIndex = 32;
+            this.checkBoxHttps.Text = "Display HTTPS streaming endpoint URLs";
+            this.checkBoxHttps.UseVisualStyleBackColor = true;
+            this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
+            // 
+            // buttonDashLiveAzure
+            // 
+            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDashLiveAzure.Enabled = false;
+            this.buttonDashLiveAzure.Location = new System.Drawing.Point(516, 422);
+            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
+            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
+            this.buttonDashLiveAzure.TabIndex = 31;
+            this.buttonDashLiveAzure.Text = "DASH Live";
+            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
+            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -739,10 +802,11 @@
             // comboBoxStreamingEndpoint
             // 
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStreamingEndpoint.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
             this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 4);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(179, 21);
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(275, 21);
             this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
@@ -851,24 +915,23 @@
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
             // 
-            // buttonDashLiveAzure
+            // showMetadataToolStripMenuItem
             // 
-            this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDashLiveAzure.Enabled = false;
-            this.buttonDashLiveAzure.Location = new System.Drawing.Point(516, 422);
-            this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
-            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
-            this.buttonDashLiveAzure.TabIndex = 31;
-            this.buttonDashLiveAzure.Text = "DASH Live";
-            this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
-            this.buttonDashLiveAzure.Click += new System.EventHandler(this.buttonDashLiveAzure_Click);
+            this.showMetadataToolStripMenuItem.Name = "showMetadataToolStripMenuItem";
+            this.showMetadataToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showMetadataToolStripMenuItem.Text = "Show metadata";
+            this.showMetadataToolStripMenuItem.Click += new System.EventHandler(this.showMetadataToolStripMenuItem_Click);
             // 
-            // toolStripMenuItemDASHLiveAzure
+            // panel1
             // 
-            this.toolStripMenuItemDASHLiveAzure.Enabled = false;
-            this.toolStripMenuItemDASHLiveAzure.Name = "toolStripMenuItemDASHLiveAzure";
-            this.toolStripMenuItemDASHLiveAzure.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemDASHLiveAzure.Text = "Playback with MPEG-DASH Live Azure Player";
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Location = new System.Drawing.Point(0, 514);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(785, 48);
+            this.panel1.TabIndex = 36;
             // 
             // AssetInformation
             // 
@@ -876,10 +939,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.buttonClose);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AssetInformation";
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
@@ -901,6 +963,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGDelPol)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -975,5 +1038,10 @@
         private System.Windows.Forms.Button buttonGetTestToken;
         private System.Windows.Forms.Button buttonDashLiveAzure;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHLiveAzure;
+        private System.Windows.Forms.CheckBox checkBoxHttps;
+        private System.Windows.Forms.Button buttonAudioVideoAnalysis;
+        private System.Windows.Forms.Button buttonFileMetadata;
+        private System.Windows.Forms.ToolStripMenuItem showMetadataToolStripMenuItem;
+        private System.Windows.Forms.Panel panel1;
     }
 }

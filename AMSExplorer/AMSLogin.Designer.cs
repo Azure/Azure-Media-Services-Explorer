@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AMSLogin));
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
@@ -61,30 +60,34 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
+            this.pictureBoxJob = new System.Windows.Forms.PictureBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonLogin
             // 
             this.buttonLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonLogin.Location = new System.Drawing.Point(232, 383);
+            this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonLogin.Location = new System.Drawing.Point(505, 13);
             this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(90, 28);
+            this.buttonLogin.Size = new System.Drawing.Size(90, 23);
             this.buttonLogin.TabIndex = 4;
-            this.buttonLogin.Text = "Login";
+            this.buttonLogin.Text = "Connect";
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonCancel.Location = new System.Drawing.Point(343, 383);
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCancel.Location = new System.Drawing.Point(601, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(90, 28);
+            this.buttonCancel.Size = new System.Drawing.Size(90, 23);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -131,6 +134,8 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(250, 44);
@@ -159,7 +164,9 @@
             // 
             // textBoxDescription
             // 
-            this.textBoxDescription.Location = new System.Drawing.Point(17, 204);
+            this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDescription.Location = new System.Drawing.Point(17, 197);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(387, 20);
             this.textBoxDescription.TabIndex = 3;
@@ -167,7 +174,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 188);
+            this.label2.Location = new System.Drawing.Point(14, 181);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(106, 13);
             this.label2.TabIndex = 36;
@@ -175,7 +182,9 @@
             // 
             // textBoxBlobKey
             // 
-            this.textBoxBlobKey.Location = new System.Drawing.Point(17, 151);
+            this.textBoxBlobKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxBlobKey.Location = new System.Drawing.Point(17, 144);
             this.textBoxBlobKey.Name = "textBoxBlobKey";
             this.textBoxBlobKey.Size = new System.Drawing.Size(387, 20);
             this.textBoxBlobKey.TabIndex = 2;
@@ -184,7 +193,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 135);
+            this.label3.Location = new System.Drawing.Point(14, 128);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(381, 13);
             this.label3.TabIndex = 34;
@@ -192,7 +201,9 @@
             // 
             // textBoxAccountKey
             // 
-            this.textBoxAccountKey.Location = new System.Drawing.Point(17, 98);
+            this.textBoxAccountKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAccountKey.Location = new System.Drawing.Point(17, 91);
             this.textBoxAccountKey.Name = "textBoxAccountKey";
             this.textBoxAccountKey.Size = new System.Drawing.Size(387, 20);
             this.textBoxAccountKey.TabIndex = 1;
@@ -201,7 +212,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 82);
+            this.label4.Location = new System.Drawing.Point(14, 75);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(174, 13);
             this.label4.TabIndex = 32;
@@ -209,7 +220,9 @@
             // 
             // textBoxAccountName
             // 
-            this.textBoxAccountName.Location = new System.Drawing.Point(17, 45);
+            this.textBoxAccountName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAccountName.Location = new System.Drawing.Point(17, 38);
             this.textBoxAccountName.Name = "textBoxAccountName";
             this.textBoxAccountName.Size = new System.Drawing.Size(387, 20);
             this.textBoxAccountName.TabIndex = 0;
@@ -217,7 +230,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 29);
+            this.label1.Location = new System.Drawing.Point(14, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(184, 13);
             this.label1.TabIndex = 30;
@@ -369,7 +382,7 @@
             // 
             this.accountmgtlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.accountmgtlink.AutoSize = true;
-            this.accountmgtlink.Location = new System.Drawing.Point(487, 9);
+            this.accountmgtlink.Location = new System.Drawing.Point(221, 13);
             this.accountmgtlink.Name = "accountmgtlink";
             this.accountmgtlink.Size = new System.Drawing.Size(203, 13);
             this.accountmgtlink.TabIndex = 34;
@@ -377,12 +390,37 @@
             this.accountmgtlink.Text = "How to Create a Media Services Account";
             this.accountmgtlink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.accountmgtlink_LinkClicked);
             // 
+            // pictureBoxJob
+            // 
+            this.pictureBoxJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.AzureMedia_Full_Color_64_opaque;
+            this.pictureBoxJob.Location = new System.Drawing.Point(499, 0);
+            this.pictureBoxJob.Name = "pictureBoxJob";
+            this.pictureBoxJob.Size = new System.Drawing.Size(194, 64);
+            this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBoxJob.TabIndex = 42;
+            this.pictureBoxJob.TabStop = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.buttonLogin);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Location = new System.Drawing.Point(-1, 385);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(704, 48);
+            this.panel1.TabIndex = 52;
+            // 
             // AMSLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(702, 423);
+            this.ClientSize = new System.Drawing.Size(702, 433);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.accountmgtlink);
             this.Controls.Add(this.buttonImportAll);
             this.Controls.Add(this.buttonExportAll);
@@ -392,19 +430,19 @@
             this.Controls.Add(this.buttonDeleteAccountEntry);
             this.Controls.Add(this.buttonSaveToList);
             this.Controls.Add(this.listBoxAcounts);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonLogin);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AMSLogin";
-            this.Text = "Azure Media Services Explorer Login";
+            this.Text = "Azure Media Services Explorer";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
+            this.Shown += new System.EventHandler(this.AMSLogin_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -444,5 +482,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.LinkLabel accountmgtlink;
+        private System.Windows.Forms.PictureBox pictureBoxJob;
+        private System.Windows.Forms.Panel panel1;
     }
 }

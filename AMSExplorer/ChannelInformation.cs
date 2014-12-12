@@ -78,9 +78,30 @@ namespace AMSExplorer
 
         }
 
+        public TimeSpan? KeyframeInterval
+        {
+            get
+            {
+
+                TimeSpan? ts = null;
+                if (checkBoxKeyFrameIntDefined.Checked)
+                {
+                    try
+                    {
+                        ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxKeyFrame.Text));
+                    }
+                    catch
+                    {
+                    }
+                }
+                return ts;
+            }
+        }
+
         public ChannelInformation()
         {
             InitializeComponent();
+            this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -121,11 +142,20 @@ namespace AMSExplorer
             DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
 
 
-            if (MyChannel.Input.KeyFrameInterval != null) DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
+            if (MyChannel.Input.KeyFrameInterval != null)
+            {
+                DGChannel.Rows.Add("Input KeyFrameInterval (s)", ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds);
+                checkBoxKeyFrameIntDefined.Checked = true;
+                textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
+            }
 
             foreach (var endpoint in MyChannel.Input.Endpoints)
             {
                 DGChannel.Rows.Add(string.Format("Input URL ({0})", endpoint.Protocol), endpoint.Url);
+                if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
+                {
+                    DGChannel.Rows.Add(string.Format("Input URL ({0}, SSL)", endpoint.Protocol), endpoint.Url.ToString().Replace("http://","https://"));
+                }
             }
             foreach (var endpoint in MyChannel.Preview.Endpoints)
             {
@@ -136,7 +166,9 @@ namespace AMSExplorer
                 if (MyChannel.Output.Hls != null)
                 {
                     if (MyChannel.Output.Hls.FragmentsPerSegment != null)
+                    {
                         DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
+                    }
                 }
             }
 
@@ -273,6 +305,11 @@ namespace AMSExplorer
             dataGridViewInputIP.Enabled = checkBoxInputSet.Checked;
             buttonAddInputIP.Enabled = checkBoxInputSet.Checked;
             buttonDelInputIP.Enabled = checkBoxInputSet.Checked;
+        }
+
+        private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
         }
     }
 }
