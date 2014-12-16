@@ -1429,5 +1429,35 @@ namespace AMSExplorer
             return returnVal;
         }
 
+        static public void ListView_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListView ThisListView = (ListView)sender;
+            // Determine whether the column is the same as the last column clicked.
+            if (e.Column != ((int)ThisListView.Tag))
+            {
+                // Set the sort column to the new column.
+                ThisListView.Tag = e.Column;
+                // Set the sort order to ascending by default.
+                ThisListView.Sorting = SortOrder.Ascending;
+            }
+            else
+            {
+                // Determine what the last sort order was and change it.
+                if (ThisListView.Sorting == SortOrder.Ascending)
+                    ThisListView.Sorting = SortOrder.Descending;
+                else
+                    ThisListView.Sorting = SortOrder.Ascending;
+            }
+
+            // Call the sort method to manually sort.
+            ThisListView.Sort();
+            // Set the ListViewItemSorter property to a new ListViewItemComparer
+            // object.
+            ThisListView.ListViewItemSorter = new ListViewItemComparer(e.Column,
+                                                              ThisListView.Sorting);
+        }
+
     }
+
+     
 }

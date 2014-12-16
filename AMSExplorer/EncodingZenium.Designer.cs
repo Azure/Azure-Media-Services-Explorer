@@ -298,7 +298,6 @@
             this.listViewWorkflows.TabIndex = 61;
             this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
             this.listViewWorkflows.View = System.Windows.Forms.View.Details;
-            this.listViewWorkflows.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewInputAssets_ColumnClick);
             this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
             // 
             // columnHeaderFileName

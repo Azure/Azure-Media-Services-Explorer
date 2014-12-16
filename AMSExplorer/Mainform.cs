@@ -1436,36 +1436,12 @@ namespace AMSExplorer
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
-            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey);
-            TreeView TreeViewBlob = (TreeView)form.Controls.Find("TreeViewBlob", true).FirstOrDefault();
-            ListBox ListBoxFiles = (ListBox)form.Controls.Find("ListBoxFiles", true).FirstOrDefault();
-            ListView listViewAssetFiles = (ListView)form.Controls.Find("listViewAssetFiles", true).FirstOrDefault();
-
-            form.BlobStorageDefault = UseDefaultStorage;
-            form.BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name;
-
-            // list asset files ///////////////////////
-            bool bfileinasset = (sourceAsset.AssetFiles.Count() == 0) ? false : true;
-            listViewAssetFiles.Items.Clear();
-            if (bfileinasset)
+            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset)
             {
-                listViewAssetFiles.BeginUpdate();
-                foreach (IAssetFile file in sourceAsset.AssetFiles)
-                {
-                    ListViewItem item = new ListViewItem(file.Name, 0);
-                    if (file.IsPrimary) item.ForeColor = Color.Blue;
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
-                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
-                    (listViewAssetFiles.Items.Add(item)).Selected = true;
-                    form.listassetfiles.Add(file);
-                }
-
-                listViewAssetFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                listViewAssetFiles.EndUpdate();
-
-            }
-            form.BlobLabelWarning = sourceAsset.Options == AssetCreationOptions.StorageEncrypted ? "Note: asset is storage encrypted" : "";
-
+                BlobStorageDefault = UseDefaultStorage,
+                BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name,
+                BlobLabelWarning = sourceAsset.Options == AssetCreationOptions.StorageEncrypted ? "Note: asset is storage encrypted" : ""
+            };
             DialogResult dialogResult = form.ShowDialog();
 
             UseDefaultStorage = form.BlobStorageDefault;
@@ -3191,7 +3167,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
-             
+
                 // Windows Azure Media Packager does not accept string presets, so load xml configuration
                 string smoothConfig = File.ReadAllText(Path.Combine(
                             _configurationXMLFiles,
@@ -5053,7 +5029,7 @@ namespace AMSExplorer
             var queryerror = jobs.Where(j => j.State == JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
             var querycancel = jobs.Where(j => j.State == JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
             var querysuccess = jobs.Where(j => j.State == JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
- 
+
             DateTime day = dateTimePickerStartDate.Value.Date;
 
             int val;
