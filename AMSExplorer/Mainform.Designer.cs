@@ -331,7 +331,6 @@
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.label20 = new System.Windows.Forms.Label();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
-            this.progressBarChart = new System.Windows.Forms.ProgressBar();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.label12 = new System.Windows.Forms.Label();
@@ -468,7 +467,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -593,10 +592,10 @@
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem_Click);
             // 
-            // ContextMenuItemAMEPremiumWorkflow
+            // ContextMenuItemZenium
             // 
             this.ContextMenuItemZenium.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemZenium.Name = "ContextMenuItemAMEPremiumWorkflow";
+            this.ContextMenuItemZenium.Name = "ContextMenuItemZenium";
             this.ContextMenuItemZenium.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.ContextMenuItemZenium.Size = new System.Drawing.Size(544, 22);
             this.ContextMenuItemZenium.Text = "Encode asset(s) with Imagine Communications Zenium...";
@@ -1110,10 +1109,10 @@
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2_Click);
             // 
-            // encodeAssetWithAMEPremiumWorkflowToolStripMenuItem
+            // encodeAssetWithZeniumToolStripMenuItem
             // 
-            this.encodeAssetWithZeniumToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithAMEPremiumWorkflowToolStripMenuItem.Image")));
-            this.encodeAssetWithZeniumToolStripMenuItem.Name = "encodeAssetWithAMEPremiumWorkflowToolStripMenuItem";
+            this.encodeAssetWithZeniumToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithZeniumToolStripMenuItem.Image")));
+            this.encodeAssetWithZeniumToolStripMenuItem.Name = "encodeAssetWithZeniumToolStripMenuItem";
             this.encodeAssetWithZeniumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.encodeAssetWithZeniumToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.encodeAssetWithZeniumToolStripMenuItem.Text = "Encode asset(s) with Imagine Communications Zenium...";
@@ -2258,7 +2257,6 @@
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlMain.ContextMenuStrip = this.contextMenuStripProcessors;
             this.tabControlMain.Controls.Add(this.tabPageAssets);
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
@@ -3117,6 +3115,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewProcessors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
             this.dataGridViewProcessors.Location = new System.Drawing.Point(5, 6);
             this.dataGridViewProcessors.Name = "dataGridViewProcessors";
             this.dataGridViewProcessors.ReadOnly = true;
@@ -3258,7 +3257,6 @@
             this.tabPageChart.Controls.Add(this.dateTimePickerEndDate);
             this.tabPageChart.Controls.Add(this.label20);
             this.tabPageChart.Controls.Add(this.dateTimePickerStartDate);
-            this.tabPageChart.Controls.Add(this.progressBarChart);
             this.tabPageChart.Controls.Add(this.chart);
             this.tabPageChart.Controls.Add(this.buttonbuildchart);
             this.tabPageChart.Location = new System.Drawing.Point(4, 22);
@@ -3300,13 +3298,6 @@
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
             this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerStartDate.TabIndex = 39;
-            // 
-            // progressBarChart
-            // 
-            this.progressBarChart.Location = new System.Drawing.Point(623, 4);
-            this.progressBarChart.Name = "progressBarChart";
-            this.progressBarChart.Size = new System.Drawing.Size(158, 23);
-            this.progressBarChart.TabIndex = 38;
             // 
             // chart
             // 
@@ -3626,7 +3617,6 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageChart;
-        private System.Windows.Forms.ProgressBar progressBarChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.Button buttonbuildchart;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;

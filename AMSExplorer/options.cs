@@ -24,6 +24,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
+
 
 namespace AMSExplorer
 {
@@ -56,7 +58,10 @@ namespace AMSExplorer
 
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDays = (int)numericUpDownLocatorDuration.Value;
-
+            Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
+            Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
+            Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
+            Properties.Settings.Default.Currency = textBoxCurrency.Text;
             Properties.Settings.Default.Save();
         }
 
@@ -83,7 +88,11 @@ namespace AMSExplorer
             checkBoxEnableCustomPlayer.Checked = false;
 
             numericUpDownPriority.Value = 10;
+            textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 365;
+            numericUpDownAMEPrice.Value = ((decimal)1.99);
+            numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
+            numericUpDownIndexingPrice.Value = ((decimal)10);
 
             Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
@@ -116,11 +125,24 @@ namespace AMSExplorer
 
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDays;
+
+            textBoxCurrency.Text = Properties.Settings.Default.Currency;
+            numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
+            numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
+            numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPrice;
+
+            amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
+
         }
 
         private void checkBoxEnableCustomPlayer_CheckedChanged(object sender, EventArgs e)
         {
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
+        }
+
+        private void amspriceslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }

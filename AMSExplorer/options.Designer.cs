@@ -58,6 +58,16 @@
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownAMEPrice = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownLegacyEncodingPrice = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownIndexingPrice = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxCurrency = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.amspriceslink = new System.Windows.Forms.LinkLabel();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
@@ -66,6 +76,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -267,7 +281,7 @@
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Location = new System.Drawing.Point(12, 148);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(496, 148);
+            this.groupBox2.Size = new System.Drawing.Size(496, 155);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
@@ -348,7 +362,7 @@
             // 
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
-            this.groupBox3.Location = new System.Drawing.Point(12, 302);
+            this.groupBox3.Location = new System.Drawing.Point(12, 455);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(496, 89);
             this.groupBox3.TabIndex = 51;
@@ -381,17 +395,147 @@
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonReset);
-            this.panel1.Location = new System.Drawing.Point(-2, 401);
+            this.panel1.Location = new System.Drawing.Point(-2, 558);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(523, 48);
             this.panel1.TabIndex = 63;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(40, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(153, 13);
+            this.label4.TabIndex = 54;
+            this.label4.Text = "Encoding price per output GB :";
+            // 
+            // numericUpDownAMEPrice
+            // 
+            this.numericUpDownAMEPrice.DecimalPlaces = 2;
+            this.numericUpDownAMEPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(260, 49);
+            this.numericUpDownAMEPrice.Name = "numericUpDownAMEPrice";
+            this.numericUpDownAMEPrice.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownAMEPrice.TabIndex = 55;
+            this.numericUpDownAMEPrice.Value = new decimal(new int[] {
+            199,
+            0,
+            0,
+            131072});
+            // 
+            // numericUpDownLegacyEncodingPrice
+            // 
+            this.numericUpDownLegacyEncodingPrice.DecimalPlaces = 2;
+            this.numericUpDownLegacyEncodingPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(260, 75);
+            this.numericUpDownLegacyEncodingPrice.Name = "numericUpDownLegacyEncodingPrice";
+            this.numericUpDownLegacyEncodingPrice.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownLegacyEncodingPrice.TabIndex = 57;
+            this.numericUpDownLegacyEncodingPrice.Value = new decimal(new int[] {
+            139,
+            0,
+            0,
+            131072});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(40, 77);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(218, 13);
+            this.label5.TabIndex = 56;
+            this.label5.Text = "Legacy encoding price per input/output GB :";
+            // 
+            // numericUpDownIndexingPrice
+            // 
+            this.numericUpDownIndexingPrice.DecimalPlaces = 2;
+            this.numericUpDownIndexingPrice.Enabled = false;
+            this.numericUpDownIndexingPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(260, 101);
+            this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
+            this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownIndexingPrice.TabIndex = 59;
+            this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
+            199,
+            0,
+            0,
+            131072});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(39, 103);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(194, 13);
+            this.label6.TabIndex = 58;
+            this.label6.Text = "Content indexer price per content hour :";
+            // 
+            // textBoxCurrency
+            // 
+            this.textBoxCurrency.Location = new System.Drawing.Point(260, 23);
+            this.textBoxCurrency.Name = "textBoxCurrency";
+            this.textBoxCurrency.Size = new System.Drawing.Size(51, 20);
+            this.textBoxCurrency.TabIndex = 60;
+            this.textBoxCurrency.Text = "$";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.amspriceslink);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.textBoxCurrency);
+            this.groupBox4.Controls.Add(this.numericUpDownAMEPrice);
+            this.groupBox4.Controls.Add(this.numericUpDownLegacyEncodingPrice);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Location = new System.Drawing.Point(12, 309);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(496, 140);
+            this.groupBox4.TabIndex = 64;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Prices (for job cost estimation)";
+            // 
+            // amspriceslink
+            // 
+            this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.amspriceslink.AutoSize = true;
+            this.amspriceslink.Location = new System.Drawing.Point(360, 26);
+            this.amspriceslink.Name = "amspriceslink";
+            this.amspriceslink.Size = new System.Drawing.Size(115, 13);
+            this.amspriceslink.TabIndex = 62;
+            this.amspriceslink.TabStop = true;
+            this.amspriceslink.Text = "Media Services Pricing";
+            this.amspriceslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.amspriceslink_LinkClicked);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(39, 26);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(90, 13);
+            this.label7.TabIndex = 61;
+            this.label7.Text = "Currency symbol :";
             // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(520, 449);
+            this.ClientSize = new System.Drawing.Size(520, 606);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -410,6 +554,11 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAMEPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -445,5 +594,15 @@
         private System.Windows.Forms.NumericUpDown numericUpDownLocatorDuration;
         private System.Windows.Forms.CheckBox checkBoxDisplayAssetStorage;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.NumericUpDown numericUpDownAMEPrice;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown numericUpDownLegacyEncodingPrice;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownIndexingPrice;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxCurrency;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.LinkLabel amspriceslink;
     }
 }

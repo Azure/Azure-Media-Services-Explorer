@@ -475,22 +475,31 @@ namespace AMSExplorer
                         elapsedTime = String.Format("{0:00}:{1:00}:{2:00}:{3:00}.{4:00}", ts.Days, ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                         sb.AppendLine("Job Duration        : " + elapsedTime);
                     }
+                    sb.AppendLine("Number of tasks     : " + theJob.Tasks.Count);
                     sb.AppendLine("");
                     sb.AppendLine("Media Account       : " + theJob.GetMediaContext().Credentials.ClientId);
                     sb.AppendLine("");
 
+                    double total_price = 0;
+                    double total_dsizeinputprocessed = 0;
+                    double total_dsizeoutputprocessed = 0;
+                    bool total_pricecanbecalculated = true;
+                    bool total_sizescanbecalculated = true;
+
                     foreach (ITask task in theJob.Tasks)
                     {
+                        bool pricecanbecalculated = false;
+                        bool sizecanbecalculated = false;
+
                         sb.AppendLine(section);
                         sb.AppendLine("");
                         sb.AppendLine("Task Name           : " + task.Name);
                         sb.AppendLine("Task ID             : " + task.Id);
                         sb.AppendLine("Task Priority       : " + task.Priority);
                         sb.AppendLine("Media Processor     : " + task.MediaProcessorId);
-                        IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, (CloudMediaContext) theJob.GetMediaContext());
+                        IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, (CloudMediaContext)theJob.GetMediaContext());
                         if (processor != null)
                             sb.AppendLine("Media Processor Name: " + processor.Name);
-
 
                         if (task.StartTime != null) // If not in queued state
                             sb.AppendLine("Task StartTime (UTC): " + task.StartTime.Value.ToLongDateString() + " " + task.StartTime.Value.ToLongTimeString());
@@ -529,7 +538,8 @@ namespace AMSExplorer
                             //long lSize = 0;
                             long lSizeinput = 0;
                             long lSizeoutput = 0;
-                            bool sizecanbecalculated = true;
+                            sizecanbecalculated = true;
+                            pricecanbecalculated = true;
                             sb.AppendLine("Input Assets:");
                             foreach (IAsset asset in task.InputAssets)
                             {
@@ -537,8 +547,8 @@ namespace AMSExplorer
                                 {
                                     sb.AppendLine("Asset Deleted");
                                     sizecanbecalculated = false;
+                                    pricecanbecalculated = false;
                                 }
-
                                 lSizeinput += ListFilesInAsset(asset, ref sb);
                             }
                             sb.AppendLine("");
@@ -548,25 +558,87 @@ namespace AMSExplorer
 
                             double lsizeinputprocessed = (double)lSizeinput / (1024 * 1024 * 1024);
                             double lsizeoutputprocessed = (double)lSizeoutput / (1024 * 1024 * 1024);
-                            double lsizeprocessed = (double)(lSizeinput + lSizeoutput) / (1024 * 1024 * 1024);
                             if (sizecanbecalculated)
                             {
-                                sb.AppendLine("Input gigabytes processed by the task  : " + lsizeinputprocessed.ToString());
-                                sb.AppendLine("Output gigabytes processed by the task : " + lsizeoutputprocessed.ToString());
-                                sb.AppendLine("Total gigabytes processed by the task  : " + lsizeprocessed.ToString());
+                                if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
+                                {
+                                    sb.AppendLine("Input gigabytes processed by the task  : " + lsizeinputprocessed.ToString());
+                                    sb.AppendLine("Output gigabytes processed by the task : " + lsizeoutputprocessed.ToString());
+                                    sb.AppendLine("Total gigabytes processed by the task  : " + (lsizeinputprocessed + lsizeoutputprocessed).ToString());
+                                }
+                                total_dsizeinputprocessed += lsizeinputprocessed;
+                                total_dsizeoutputprocessed += lsizeoutputprocessed;
+                                if (processor != null)
+                                {
+                                    double pricetask = -1;
+                                    switch (processor.Name)
+                                    {
+                                        case (Constants.AzureMediaEncoder):
+                                            // AME Encoding task
+                                            pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
+                                            break;
+                                        case (Constants.WindowsAzureMediaEncoder):
+                                            // WAME Encoding task
+                                            pricetask = (lsizeinputprocessed + lsizeoutputprocessed) * (double)Properties.Settings.Default.LegacyEncodingPrice;
+                                            break;
+                                        case (MediaProcessorNames.StorageDecryption):
+                                        case (MediaProcessorNames.WindowsAzureMediaEncryptor):
+                                        case (MediaProcessorNames.WindowsAzureMediaPackager):
+                                            // No cost
+                                            pricetask = 0;
+                                            break;
+                                        case (Constants.AzureMediaIndexer):
+                                            // Indexing task
+                                            // TO DO: GET DURATION OF CONTENT
+                                            //pricetask = lsizeprocessed * (double)Properties.Settings.Default.LegacyEncodingPrice;
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    if (pricetask >= 0)
+                                    {
+                                        if (theJob.Tasks.Count > 1) sb.AppendLine(string.Format("Estimated cost of the task             : {0} {1:0.00}", Properties.Settings.Default.Currency, pricetask));
+                                        total_price += pricetask;
+                                    }
+                                    else
+                                    {
+                                        total_pricecanbecalculated = false;
+                                    }
+                                }
                             }
-                            else sb.AppendLine("Gigabytes processed by the task : cannot be calculated, asset deleted?");
-
+                            else
+                            {
+                                sb.AppendLine("Gigabytes processed by the task : cannot be calculated, asset deleted?");
+                                total_pricecanbecalculated = false;
+                                total_sizescanbecalculated = false;
+                            }
                         }
+                        if (!pricecanbecalculated) total_pricecanbecalculated = false;
+                        if (!sizecanbecalculated) total_sizescanbecalculated = false;
+
                         sb.AppendLine("");
+                        sb.AppendLine(section);
+
                     }
+                    sb.AppendLine("");
+
+                    if (total_sizescanbecalculated)
+                    {
+                        sb.AppendLine("Input gigabytes processed by the job   : " + total_dsizeinputprocessed.ToString());
+                        sb.AppendLine("Output gigabytes processed by the job  : " + total_dsizeoutputprocessed.ToString());
+                        sb.AppendLine("Total gigabytes processed by the job   : " + (total_dsizeinputprocessed + total_dsizeoutputprocessed).ToString());
+                    }
+                    if (total_pricecanbecalculated)
+                    {
+                        sb.AppendLine(string.Format("Estimated cost of the job              : {0} {1:0.00}", Properties.Settings.Default.Currency, total_price));
+                    }
+                    sb.AppendLine("");
                     sb.AppendLine(section);
                     sb.AppendLine(" END OF JOB REPORT");
                     sb.AppendLine(section);
                     sb.AppendLine("");
                 }
             }
-
             return sb;
         }
     }

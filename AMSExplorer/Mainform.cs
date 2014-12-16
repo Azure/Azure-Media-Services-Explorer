@@ -3191,7 +3191,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
-
+             
                 // Windows Azure Media Packager does not accept string presets, so load xml configuration
                 string smoothConfig = File.ReadAllText(Path.Combine(
                             _configurationXMLFiles,
@@ -5003,12 +5003,9 @@ namespace AMSExplorer
         {
             chart.Series.Clear();
 
-            progressBarChart.Value = 0;
-
             var seriesJobTotal = new Series()
             {
                 Name = "Jobs total",
-
                 XValueType = ChartValueType.DateTime,
                 ChartType = SeriesChartType.Line,
                 MarkerStyle = MarkerStyle.Square,
@@ -5056,18 +5053,14 @@ namespace AMSExplorer
             var queryerror = jobs.Where(j => j.State == JobState.Error).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
             var querycancel = jobs.Where(j => j.State == JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
             var querysuccess = jobs.Where(j => j.State == JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
-
-            int i = 0;
-            progressBarChart.Minimum = 0;
-            progressBarChart.Maximum = querytotal.Count + queryerror.Count + querycancel.Count + querysuccess.Count;
-
+ 
             DateTime day = dateTimePickerStartDate.Value.Date;
 
             int val;
             while (day <= dateTimePickerEndDate.Value.Date)
             {
                 if (querytotal.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querytotal.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesJobTotal, "in error", day, val);
+                DrawPoint(seriesJobTotal, "(total)", day, val);
 
                 if (queryerror.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = queryerror.Where(d => d.date == day).FirstOrDefault().number;
                 DrawPoint(seriesError, "in error", day, val);
@@ -5081,43 +5074,8 @@ namespace AMSExplorer
                 day = day.AddDays(1);
             }
 
-            /*
-
-                foreach (var j in querytotal)
-                {
-                    i++;
-                    progressBarChart.Value = i;
-                    seriesJobTotal.Points.AddXY(j.date, j.number);
-                }
-             
-
-            foreach (var j in queryerror)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesError.Points.AddXY(j.date, j.number);
-            }
-
-            foreach (var j in querycancel)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesCancel.Points.AddXY(j.date, j.number);
-            }
-
-            foreach (var j in querysuccess)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesSucess.Points.AddXY(j.date, j.number);
-            }
-            */
-
-
-
             // draw!
             chart.Invalidate();
-
         }
 
         private static void DrawPoint(Series seriestoprocess, string word, DateTime day, int val)
@@ -9188,7 +9146,7 @@ namespace AMSExplorer
                                    Debug.WriteLine(index.ToString() + JobRefreshed.State);
 
                                    StringBuilder sb = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
-                                   foreach (ITask task in JobRefreshed.Tasks) sb.AppendLine(Convert.ToInt32(task.Progress).ToString() + " %");
+                                   foreach (ITask task in JobRefreshed.Tasks) sb.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(task.Progress).ToString(), task.Name));
 
                                    // let's calculate the estipated time
                                    string ETAstr = "", Durationstr = "";
