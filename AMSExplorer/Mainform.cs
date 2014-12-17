@@ -816,7 +816,7 @@ namespace AMSExplorer
         {
             if (FileNames.Count() > 1)
             {
-                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. They will be uploaded as individual assets. If you want to create one single asset with several files, use 'Upload from a local folder' command.", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. Each file will be uploaded as individual asset. If you want to create asset(s) that contain(s) several files, copy the files to folder(s) and upload or drag&drop the folder(s).", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
                     return;
             }
 
@@ -1076,10 +1076,10 @@ namespace AMSExplorer
 
         private void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
         {
-            DoMenuUploadFromFolder();
+            DoMenuUploadFromFolder_Step1();
         }
 
-        private void DoMenuUploadFromFolder()
+        private void DoMenuUploadFromFolder_Step1()
         {
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
@@ -1088,28 +1088,31 @@ namespace AMSExplorer
 
             if (openFolderDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    if ((name = openFolderDialog1.SelectedPath) != null)
-                    {
-                        _backuprootfolderupload = name;
-                        int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(name)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                DoMenuUploadFromFolder_Step2(openFolderDialog1.SelectedPath);
+            }
+        }
 
-                        // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFromFolder(name, index));
-                        DotabControlMainSwitch(Constants.TabTransfers);
-                        DoRefreshGridAssetV(false);
-
-                    }
-                }
-                catch (Exception ex)
+        private void DoMenuUploadFromFolder_Step2(string SelectedPath)
+        {
+            try
+            {
+                if (SelectedPath != null)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
-                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                    TextBoxLogWriteLine(ex);
+                    _backuprootfolderupload = SelectedPath;
+                    int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFromFolder(SelectedPath, index));
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DoRefreshGridAssetV(false);
                 }
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
+                TextBoxLogWriteLine("Error: Could not read file or folder '{0}' from disk.", SelectedPath, true);
+                TextBoxLogWriteLine(ex);
+            }
         }
 
 
@@ -7766,13 +7769,17 @@ namespace AMSExplorer
             {
                 // Assign the file names to a string array, in  
                 // case the user has selected multiple files. 
-                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-                DoMenuUploadFromSingleFile_Step2(files);
+                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                List<string> folders = objects.Where(f => Directory.Exists(f)).ToList();
+                List<string> files = objects.Where(f => !Directory.Exists(f)).ToList();
+
+                foreach (var fold in folders)
+                    DoMenuUploadFromFolder_Step2(fold); // it's a folder
+
+                if (files.Count > 0)
+                    DoMenuUploadFromSingleFile_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
             }
-
-            // Force the form to be redrawn with the image. 
-            this.Invalidate();
-
         }
 
         private void dataGridViewAssetsV_DragEnter(object sender, DragEventArgs e)
