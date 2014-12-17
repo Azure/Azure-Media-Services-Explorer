@@ -798,38 +798,43 @@ namespace AMSExplorer
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile();
+            DoMenuUploadFromSingleFile_Step1();
         }
 
-        private void DoMenuUploadFromSingleFile()
+        private void DoMenuUploadFromSingleFile_Step1()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (openFileDialog.FileNames.Count() > 1)
-                {
-                    if (System.Windows.Forms.MessageBox.Show("You selected multiple files. They will be uploaded as individual assets. If you want to create one single asset with several files, use 'Upload from a local folder' command.", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
-                        return;
-                }
+                DoMenuUploadFromSingleFile_Step2(openFileDialog.FileNames);
+            }
+        }
 
-                // Each file goes in a individual asset
-                foreach (String file in openFileDialog.FileNames)
+        private void DoMenuUploadFromSingleFile_Step2(string[] FileNames)
+        {
+            if (FileNames.Count() > 1)
+            {
+                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. They will be uploaded as individual assets. If you want to create one single asset with several files, use 'Upload from a local folder' command.", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+            }
+
+            // Each file goes in a individual asset
+            foreach (String file in FileNames)
+            {
+                try
                 {
-                    try
-                    {
-                        int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
-                        DotabControlMainSwitch(Constants.TabTransfers);
-                        DoRefreshGridAssetV(false);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                        TextBoxLogWriteLine(ex);
-                    }
+                    int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DoRefreshGridAssetV(false);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
                 }
             }
         }
@@ -7752,6 +7757,36 @@ namespace AMSExplorer
         private void copyInputSSLURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCopySSLIngestURLToClipboard();
+        }
+
+        private void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
+        {
+            // Handle FileDrop data. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Assign the file names to a string array, in  
+                // case the user has selected multiple files. 
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                DoMenuUploadFromSingleFile_Step2(files);
+            }
+
+            // Force the form to be redrawn with the image. 
+            this.Invalidate();
+
+        }
+
+        private void dataGridViewAssetsV_DragEnter(object sender, DragEventArgs e)
+        {
+            // If the data is a file display the copy cursor. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+
         }
     }
 }
