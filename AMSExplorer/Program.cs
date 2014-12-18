@@ -1026,6 +1026,32 @@ namespace AMSExplorer
             else return null;
         }
 
+        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context)
+        {
+            string testToken = null;
+            IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
+            if (key != null)
+            {
+                IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                if (policy != null)
+                {
+                    IContentKeyAuthorizationPolicyOption option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
+                    if (option != null)
+                    {
+                        string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
+                        if (!string.IsNullOrEmpty(tokenTemplateString))
+                        {
+                            Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                            testToken = HttpUtility.UrlEncode(testToken);
+                        }
+                    }
+                }
+            }
+            return testToken;
+        }
+
 
         private StringBuilder GetStats()
         {
@@ -1182,28 +1208,59 @@ namespace AMSExplorer
             return sb;
         }
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context)
+
+
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context, IAsset myassetwithtoken = null)
         {
-            DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context);
+            DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context, myassetwithtoken);
         }
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context)
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
         {
             Url = rw(Url, GetBestStreamingEndpoint(context));
-            DoPlayBack(typeplayer, Url);
-        }
-        public static void DoPlayBack(PlayerType typeplayer, Uri Url)
-        {
-            if (Url != null)
-                DoPlayBack(typeplayer, Url.ToString());
+            DoPlayBack(typeplayer, Url, context, myassetwithtoken);
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url)
+        public static void DoPlayBack(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
+        {
+            string token = null;
+            if (myassetwithtoken != null)
+            {
+                // user wants perhaps to play an asset with a token
+                switch (typeplayer)
+                {
+                    case PlayerType.SilverlightPlayReadyToken:
+                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context);
+                        break;
+
+                    case PlayerType.FlashAESToken:
+                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context);
+                        break;
+
+                    default:
+                        // no token enable player
+                        break;
+                }
+            }
+            DoPlayBack(typeplayer, Url, token);
+
+        }
+        public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
+        {
+            if (Url != null)
+                DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
+        }
+
+        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null)
         {
             switch (typeplayer)
             {
                 case PlayerType.SilverlightMonitoring:
                     Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Url);
+                    break;
+
+                case PlayerType.SilverlightPlayReadyToken:
+                    Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
                     break;
 
                 case PlayerType.DASHIFRefPlayer:
@@ -1223,6 +1280,10 @@ namespace AMSExplorer
 
                 case PlayerType.FlashAzurePage:
                     Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Url);
+                    break;
+
+                case PlayerType.FlashAESToken:
+                    Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
                     break;
 
                 case PlayerType.MP4AzurePage:
@@ -1341,11 +1402,13 @@ namespace AMSExplorer
         FlashAzurePage = 0,
         SilverlightAzurePage = 1,
         SilverlightMonitoring = 2,
-        DASHAzurePage = 3,
-        DASHLiveAzure = 4,
-        DASHIFRefPlayer = 5,
-        MP4AzurePage = 6,
-        CustomPlayer = 7
+        SilverlightPlayReadyToken = 3,
+        FlashAESToken = 4,
+        DASHAzurePage = 5,
+        DASHLiveAzure = 6,
+        DASHIFRefPlayer = 7,
+        MP4AzurePage = 8,
+        CustomPlayer = 9
     }
 
     public enum TaskJobCreationMode
@@ -1459,5 +1522,5 @@ namespace AMSExplorer
 
     }
 
-     
+
 }

@@ -4582,6 +4582,8 @@ namespace AMSExplorer
             ContextMenuItemPlaybackWithMPEGDASHIFReference.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithSilverlightMonitoring.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithFlashOSMFAzure.Enabled = CanBePlay;
+            withFlashTokenPlayerToolStripMenuItem.Enabled = CanBePlay;
+            withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Enabled = CanBePlay;
             withCustomPlayerToolStripMenuItem1.Enabled = CanBePlay;
         }
 
@@ -6454,21 +6456,23 @@ namespace AMSExplorer
             DoPlaybackProgram(PlayerType.FlashAzurePage);
         }
 
-        private void DoPlaybackProgram(PlayerType ptype)
+        private void DoPlaybackProgram(PlayerType ptype, bool tokenplayer = false)
         {
             IProgram program = ReturnSelectedPrograms().FirstOrDefault();
-            if (program != null)
+            if (program != null && program.Asset != null)
             {
                 ProgramInfo PI = new ProgramInfo(program, _context);
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString(), _context, program.Asset);
+                    //AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() );
                 }
                 else
                 {
                     TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
                 }
+
             }
         }
 
@@ -7093,7 +7097,6 @@ namespace AMSExplorer
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://www.jwplayer.com/partners/azure/");
-
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7792,6 +7795,48 @@ namespace AMSExplorer
                 e.Effect = DragDropEffects.None;
             }
 
+        }
+
+        private void withFlashAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.FlashAESToken);
+
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.SilverlightPlayReadyToken);
+
+        }
+
+        private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://aestoken.azurewebsites.net");
+        }
+
+        private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
     }

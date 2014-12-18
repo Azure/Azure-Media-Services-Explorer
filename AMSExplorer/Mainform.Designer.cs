@@ -79,6 +79,8 @@
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithMPEGDASHAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -149,7 +151,9 @@
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withFlashOSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashAESTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withSilverlightMMPPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.withMPEGDASHIFRefPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withMPEGDASHAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withDASHLiveAzurePlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -195,6 +199,7 @@
             this.azureMediaServicesPlayerPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.silverlightMonitoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dASHLivePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hTML5VideoElementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -310,6 +315,8 @@
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring = new System.Windows.Forms.ToolStripMenuItem();
             this.withDASHLiveAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashAESTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
             this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -467,7 +474,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -767,7 +774,9 @@
             // 
             this.ContextMenuItemAssetPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ContextMenuItemPlaybackWithFlashOSMFAzure,
+            this.withFlashTokenPlayerToolStripMenuItem,
             this.ContextMenuItemPlaybackWithSilverlightMonitoring,
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem,
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference,
             this.ContextMenuItemPlaybackWithMPEGDASHAzure,
             this.withCustomPlayerToolStripMenuItem1});
@@ -816,6 +825,20 @@
             this.withCustomPlayerToolStripMenuItem1.Size = new System.Drawing.Size(308, 22);
             this.withCustomPlayerToolStripMenuItem1.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
+            // 
+            // withFlashTokenPlayerToolStripMenuItem
+            // 
+            this.withFlashTokenPlayerToolStripMenuItem.Name = "withFlashTokenPlayerToolStripMenuItem";
+            this.withFlashTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withFlashTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
+            this.withFlashTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashTokenPlayerToolStripMenuItem_Click);
+            // 
+            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem
+            // 
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Text = "with Silverlight PlayReady (Token) Player";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click);
             // 
             // label5
             // 
@@ -1448,7 +1471,9 @@
             // 
             this.playbackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.withFlashOSMFToolStripMenuItem,
+            this.withFlashAESTokenPlayerToolStripMenuItem1,
             this.withSilverlightMMPPFToolStripMenuItem,
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2,
             this.withMPEGDASHIFRefPlayerToolStripMenuItem,
             this.withMPEGDASHAzurePlayerToolStripMenuItem,
             this.withDASHLiveAzurePlayerToolStripMenuItem1,
@@ -1468,6 +1493,13 @@
             this.withFlashOSMFToolStripMenuItem.DropDownOpening += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_DropDownOpening);
             this.withFlashOSMFToolStripMenuItem.Click += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_Click);
             // 
+            // withFlashAESTokenPlayerToolStripMenuItem1
+            // 
+            this.withFlashAESTokenPlayerToolStripMenuItem1.Name = "withFlashAESTokenPlayerToolStripMenuItem1";
+            this.withFlashAESTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(308, 22);
+            this.withFlashAESTokenPlayerToolStripMenuItem1.Text = "with Flash AES Token Player";
+            this.withFlashAESTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem1_Click);
+            // 
             // withSilverlightMMPPFToolStripMenuItem
             // 
             this.withSilverlightMMPPFToolStripMenuItem.Name = "withSilverlightMMPPFToolStripMenuItem";
@@ -1475,6 +1507,13 @@
             this.withSilverlightMMPPFToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
             this.withSilverlightMMPPFToolStripMenuItem.Text = "with Silverlight Monitoring Player";
             this.withSilverlightMMPPFToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightMMPPFToolStripMenuItem_Click);
+            // 
+            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem2
+            // 
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem2";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Size = new System.Drawing.Size(308, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Text = "with Silverlight PlayReady Token Player";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click);
             // 
             // withMPEGDASHIFRefPlayerToolStripMenuItem
             // 
@@ -1829,6 +1868,7 @@
             this.azureMediaServicesPlayerPageToolStripMenuItem,
             this.silverlightMonitoringPlayerToolStripMenuItem,
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem,
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem,
             this.dASHIFHTML5ReferencePlayerToolStripMenuItem,
             this.dASHLivePlayerToolStripMenuItem,
             this.hTML5VideoElementToolStripMenuItem,
@@ -1875,6 +1915,14 @@
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Text = "Silverlight Smooth Streaming PlayReady Token Player";
             this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click);
+            // 
+            // flashSmoothStreamingAESTokenPlayerToolStripMenuItem
+            // 
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Name = "flashSmoothStreamingAESTokenPlayerToolStripMenuItem";
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Text = "Flash Smooth Streaming AES Token Player";
+            this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click);
             // 
             // dASHIFHTML5ReferencePlayerToolStripMenuItem
             // 
@@ -3048,7 +3096,9 @@
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure,
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring,
             this.withDASHLiveAzurePlayerToolStripMenuItem,
-            this.withCustomPlayerToolStripMenuItem2});
+            this.withCustomPlayerToolStripMenuItem2,
+            this.withFlashAESTokenPlayerToolStripMenuItem,
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1});
             this.ContextMenuItemProgramPlayback.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemProgramPlayback.Image")));
             this.ContextMenuItemProgramPlayback.Name = "ContextMenuItemProgramPlayback";
             this.ContextMenuItemProgramPlayback.Size = new System.Drawing.Size(262, 22);
@@ -3057,30 +3107,44 @@
             // ContextMenuItemProgramPlaybackWithFlashOSMFAzure
             // 
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Name = "ContextMenuItemProgramPlaybackWithFlashOSMFAzure";
-            this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Size = new System.Drawing.Size(250, 22);
+            this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Size = new System.Drawing.Size(288, 22);
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Text = "with Flash OSMF Azure Player";
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click_1);
             // 
             // ContextMenuItemProgramPlaybackWithSilverlightMontoring
             // 
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Name = "ContextMenuItemProgramPlaybackWithSilverlightMontoring";
-            this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Size = new System.Drawing.Size(250, 22);
+            this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Size = new System.Drawing.Size(288, 22);
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Text = "with Silverlight Monitoring Player";
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Click += new System.EventHandler(this.withSilverlightMontoringPlayerToolStripMenuItem_Click_1);
             // 
             // withDASHLiveAzurePlayerToolStripMenuItem
             // 
             this.withDASHLiveAzurePlayerToolStripMenuItem.Name = "withDASHLiveAzurePlayerToolStripMenuItem";
-            this.withDASHLiveAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.withDASHLiveAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
             this.withDASHLiveAzurePlayerToolStripMenuItem.Text = "with DASH Live Azure Player";
             this.withDASHLiveAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.withDASHLiveAzurePlayerToolStripMenuItem_Click);
             // 
             // withCustomPlayerToolStripMenuItem2
             // 
             this.withCustomPlayerToolStripMenuItem2.Name = "withCustomPlayerToolStripMenuItem2";
-            this.withCustomPlayerToolStripMenuItem2.Size = new System.Drawing.Size(250, 22);
+            this.withCustomPlayerToolStripMenuItem2.Size = new System.Drawing.Size(288, 22);
             this.withCustomPlayerToolStripMenuItem2.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem2_Click);
+            // 
+            // withFlashAESTokenPlayerToolStripMenuItem
+            // 
+            this.withFlashAESTokenPlayerToolStripMenuItem.Name = "withFlashAESTokenPlayerToolStripMenuItem";
+            this.withFlashAESTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
+            this.withFlashAESTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
+            this.withFlashAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem_Click);
+            // 
+            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem1
+            // 
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem1";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Text = "with Silverlight PlayReady (Token) Player";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click);
             // 
             // tabPageProcessors
             // 
@@ -3787,6 +3851,13 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
         private System.Windows.Forms.ToolStripMenuItem copyInputURLSSLToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyInputSSLURLToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withFlashTokenPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withSilverlightPlayReadyTokenPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withFlashAESTokenPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withSilverlightPlayReadyTokenPlayerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem flashSmoothStreamingAESTokenPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withFlashAESTokenPlayerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem withSilverlightPlayReadyTokenPlayerToolStripMenuItem2;
     }
 }
 

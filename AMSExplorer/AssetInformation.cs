@@ -1283,7 +1283,6 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        Mainform parent = (Mainform)this.Owner;
                         MessageBox.Show("Error when removing this policy." + Constants.endline + Program.GetErrorMessage(e));
                         ListAssetDeliveryPolicies();
                     }
