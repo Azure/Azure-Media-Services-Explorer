@@ -685,7 +685,6 @@ namespace AMSExplorer
             {
                 richTextBoxLog.BeginInvoke(new Action(() =>
                 {
-
                     richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
                     richTextBoxLog.SelectionLength = 0;
 
@@ -702,7 +701,6 @@ namespace AMSExplorer
                 richTextBoxLog.SelectionColor = Error ? Color.Red : Color.Black;
                 richTextBoxLog.AppendText(text);
                 richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
-
             }
         }
 
@@ -1429,7 +1427,7 @@ namespace AMSExplorer
         public DialogResult DisplayInfo(IAsset asset)
         {
 
-            AssetInformation form = new AssetInformation()
+            AssetInformation form = new AssetInformation(this)
                 {
                     MyAsset = asset,
                     MyContext = _context,
@@ -6035,7 +6033,7 @@ namespace AMSExplorer
         {
             if (program != null)
             {
-                ProgramInformation form = new ProgramInformation()
+                ProgramInformation form = new ProgramInformation(this)
                 {
                     MyProgram = program,
                     MyContext = _context,
@@ -7795,6 +7793,7 @@ namespace AMSExplorer
             }
 
         }
+
     }
 }
 

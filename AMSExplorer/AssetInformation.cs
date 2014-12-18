@@ -47,11 +47,13 @@ namespace AMSExplorer
         private ILocator TempLocator = null;
         private ILocator TempMetadaLocator = null;
         private List<IContentKeyAuthorizationPolicy> MyPolicies = null;
+        private Mainform MyMainForm;
 
-        public AssetInformation()
+        public AssetInformation(Mainform mainform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            MyMainForm = mainform;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -594,6 +596,8 @@ namespace AMSExplorer
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 dataGridViewKeys.Rows.Clear();
+                dataGridViewKeys.Rows.Add("Name", key.Name != null ? key.Name : "<no name>");
+                /*
                 if (key.Name != null)
                 {
                     dataGridViewKeys.Rows.Add("Name", key.Name);
@@ -602,6 +606,7 @@ namespace AMSExplorer
                 {
                     dataGridViewKeys.Rows.Add("Name", "<no name>");
                 }
+                 * */
 
                 dataGridViewKeys.Rows.Add("Id", key.Id);
                 dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
@@ -772,14 +777,12 @@ namespace AMSExplorer
                 IAssetFile AF = MyAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
                 if (AF == null) return;
 
-                Mainform parent = (Mainform)this.Owner;
-
                 if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
                 {
-                    int index = parent.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", AF.Name, MyAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                    int index = MyMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", AF.Name, MyAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
 
                     // Start a worker thread that does downloading.
-                    parent.DoDownloadFileFromAsset(MyAsset, AF, folderBrowserDialogDownload.SelectedPath, index);
+                    MyMainForm.DoDownloadFileFromAsset(MyAsset, AF, folderBrowserDialogDownload.SelectedPath, index);
                 }
             }
         }
@@ -1304,25 +1307,16 @@ namespace AMSExplorer
 
         private void DoDisplayAuthorizationPolicyProperties()
         {
+            bool DisplayButGetToken = false;
 
             if (listViewAutPol.SelectedItems.Count > 0)
             {
                 IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
 
                 dataGridViewAutPol.Rows.Clear();
-                if (policy.Name != null)
-                {
-                    dataGridViewAutPol.Rows.Add("Name", policy.Name);
-                }
-                else
-                {
-                    dataGridViewAutPol.Rows.Add("Name", "<no name>");
-                }
-
+                dataGridViewAutPol.Rows.Add("Name", policy.Name != null ? policy.Name : "<no name>");
                 dataGridViewAutPol.Rows.Add("Id", policy.Id);
                 IList<IContentKeyAuthorizationPolicyOption> objIList_option = policy.Options;
-
-
 
                 foreach (var option in objIList_option)
                 {
@@ -1333,11 +1327,13 @@ namespace AMSExplorer
                     foreach (var restriction in objList_restriction)
                     {
                         dataGridViewAutPol.Rows.Add("Option restriction Name", restriction.Name);
-                        dataGridViewAutPol.Rows.Add("Option restriction KeyRestrictionType", restriction.KeyRestrictionType);
+                        dataGridViewAutPol.Rows.Add("Option restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
+                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted) DisplayButGetToken = true;
                         dataGridViewAutPol.Rows.Add("Option restriction Requirements", FormatXmlString(restriction.Requirements));
                     }
                 }
             }
+            buttonGetTestToken.Enabled = DisplayButGetToken;
         }
 
         private void buttonGetTestToken_Click(object sender, EventArgs e)
@@ -1347,8 +1343,6 @@ namespace AMSExplorer
 
         private void DoGetTestToken()
         {
-            Mainform parent = (Mainform)this.Owner;
-
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
@@ -1372,12 +1366,12 @@ namespace AMSExplorer
                                 {
                                     case DialogResult.Yes:
                                         testToken = HttpUtility.UrlEncode(testToken);
-                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        MyMainForm.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
                                         System.Windows.Forms.Clipboard.SetText(testToken);
                                         break;
 
                                     case DialogResult.No:
-                                        parent.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
+                                        MyMainForm.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
                                         System.Windows.Forms.Clipboard.SetText(testToken);
                                         break;
 
@@ -1530,7 +1524,7 @@ namespace AMSExplorer
             return TempLocator;
         }
 
-    
+
         private void contextMenuStripDG_MouseClick_1(object sender, MouseEventArgs e)
         {
             ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
