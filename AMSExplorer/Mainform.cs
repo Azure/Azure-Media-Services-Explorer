@@ -5587,11 +5587,38 @@ namespace AMSExplorer
             DoResetChannels();
         }
 
-        private void DoResetChannels()
+        private async void DoResetChannels()
         {
-            foreach (IChannel myC in ReturnSelectedChannels())
+            List<IChannel> channels = ReturnSelectedChannels();
+            List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
+            var programquery = _context.Programs.AsEnumerable().Where(p => ListChannelIDs.Contains(p.ChannelId) && p.State != ProgramState.Stopped);
+            var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
+
+            if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be reset now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
             {
-                ResetChannel(myC);
+                if (programqueryrunning.Count() > 0) // some programs are running
+                {
+                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        var yourForeachTask = Task.Run(() =>
+                        {
+                            Parallel.ForEach(programqueryrunning, myP =>
+                            {
+                                TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
+                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
+                            });
+                        });
+                        await yourForeachTask;
+                    }
+                }
+
+                // let's stop the channels now that running programs are stopped
+                foreach (IChannel myC in channels)
+                {
+                    ResetChannel(myC);
+                }
             }
         }
 
