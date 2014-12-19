@@ -1030,7 +1030,7 @@ namespace AMSExplorer
         {
             string testToken = null;
             IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
-            if (key != null)
+            if (key != null && key.AuthorizationPolicyId != null)
             {
                 IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
                 if (policy != null)

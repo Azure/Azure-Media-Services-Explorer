@@ -1361,23 +1361,9 @@ namespace AMSExplorer
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
                                 string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
 
-                                switch (MessageBox.Show("Test token will be copied to log window and clipboard." + Constants.endline + "Do you want the URL encoded version ?", "Test token", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-                                {
-                                    case DialogResult.Yes:
-                                        testToken = HttpUtility.UrlEncode(testToken);
-                                        MyMainForm.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
-                                        System.Windows.Forms.Clipboard.SetText(testToken);
-                                        break;
-
-                                    case DialogResult.No:
-                                        MyMainForm.TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", testToken);
-                                        System.Windows.Forms.Clipboard.SetText(testToken);
-                                        break;
-
-                                    default:
-                                        break;
-
-                                }
+                                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
+                                System.Windows.Forms.Clipboard.SetText(testToken);
+                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
                             }
                         }
                     }

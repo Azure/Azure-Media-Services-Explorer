@@ -75,12 +75,12 @@
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithFlashOSMFAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithMPEGDASHAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.withFlashTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -474,7 +474,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -790,23 +790,41 @@
             // 
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Name = "ContextMenuItemPlaybackWithFlashOSMFAzure";
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-            this.ContextMenuItemPlaybackWithFlashOSMFAzure.Size = new System.Drawing.Size(308, 22);
+            this.ContextMenuItemPlaybackWithFlashOSMFAzure.Size = new System.Drawing.Size(360, 22);
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Text = "with Flash OSMF Azure Player";
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click);
+            // 
+            // withFlashTokenPlayerToolStripMenuItem
+            // 
+            this.withFlashTokenPlayerToolStripMenuItem.Name = "withFlashTokenPlayerToolStripMenuItem";
+            this.withFlashTokenPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F)));
+            this.withFlashTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.withFlashTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
+            this.withFlashTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashTokenPlayerToolStripMenuItem_Click);
             // 
             // ContextMenuItemPlaybackWithSilverlightMonitoring
             // 
             this.ContextMenuItemPlaybackWithSilverlightMonitoring.Name = "ContextMenuItemPlaybackWithSilverlightMonitoring";
             this.ContextMenuItemPlaybackWithSilverlightMonitoring.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.ContextMenuItemPlaybackWithSilverlightMonitoring.Size = new System.Drawing.Size(308, 22);
+            this.ContextMenuItemPlaybackWithSilverlightMonitoring.Size = new System.Drawing.Size(360, 22);
             this.ContextMenuItemPlaybackWithSilverlightMonitoring.Text = "with Silverlight Monitoring Player";
             this.ContextMenuItemPlaybackWithSilverlightMonitoring.Click += new System.EventHandler(this.withSilverlightMontoringPlayerToolStripMenuItem_Click);
+            // 
+            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem
+            // 
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Text = "with Silverlight PlayReady (Token) Player";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click);
             // 
             // ContextMenuItemPlaybackWithMPEGDASHIFReference
             // 
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Name = "ContextMenuItemPlaybackWithMPEGDASHIFReference";
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
-            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Size = new System.Drawing.Size(308, 22);
+            this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Size = new System.Drawing.Size(360, 22);
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Text = "with MPEG-DASH IF Reference Player";
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference.Click += new System.EventHandler(this.withMPEGDASHIFReferencePlayerToolStripMenuItem_Click);
             // 
@@ -814,7 +832,7 @@
             // 
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Name = "ContextMenuItemPlaybackWithMPEGDASHAzure";
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            this.ContextMenuItemPlaybackWithMPEGDASHAzure.Size = new System.Drawing.Size(308, 22);
+            this.ContextMenuItemPlaybackWithMPEGDASHAzure.Size = new System.Drawing.Size(360, 22);
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Text = "with MPEG-DASH Azure Player";
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Click += new System.EventHandler(this.withMPEGDASHAzurePlayerToolStripMenuItem1_Click);
             // 
@@ -822,23 +840,9 @@
             // 
             this.withCustomPlayerToolStripMenuItem1.Name = "withCustomPlayerToolStripMenuItem1";
             this.withCustomPlayerToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.withCustomPlayerToolStripMenuItem1.Size = new System.Drawing.Size(308, 22);
+            this.withCustomPlayerToolStripMenuItem1.Size = new System.Drawing.Size(360, 22);
             this.withCustomPlayerToolStripMenuItem1.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
-            // 
-            // withFlashTokenPlayerToolStripMenuItem
-            // 
-            this.withFlashTokenPlayerToolStripMenuItem.Name = "withFlashTokenPlayerToolStripMenuItem";
-            this.withFlashTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.withFlashTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
-            this.withFlashTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashTokenPlayerToolStripMenuItem_Click);
-            // 
-            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem
-            // 
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Text = "with Silverlight PlayReady (Token) Player";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click);
             // 
             // label5
             // 
@@ -1488,7 +1492,7 @@
             // 
             this.withFlashOSMFToolStripMenuItem.Name = "withFlashOSMFToolStripMenuItem";
             this.withFlashOSMFToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
-            this.withFlashOSMFToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withFlashOSMFToolStripMenuItem.Size = new System.Drawing.Size(352, 22);
             this.withFlashOSMFToolStripMenuItem.Text = "with Flash OSMF Azure Player";
             this.withFlashOSMFToolStripMenuItem.DropDownOpening += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_DropDownOpening);
             this.withFlashOSMFToolStripMenuItem.Click += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_Click);
@@ -1496,7 +1500,9 @@
             // withFlashAESTokenPlayerToolStripMenuItem1
             // 
             this.withFlashAESTokenPlayerToolStripMenuItem1.Name = "withFlashAESTokenPlayerToolStripMenuItem1";
-            this.withFlashAESTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(308, 22);
+            this.withFlashAESTokenPlayerToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.F)));
+            this.withFlashAESTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(352, 22);
             this.withFlashAESTokenPlayerToolStripMenuItem1.Text = "with Flash AES Token Player";
             this.withFlashAESTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem1_Click);
             // 
@@ -1504,14 +1510,16 @@
             // 
             this.withSilverlightMMPPFToolStripMenuItem.Name = "withSilverlightMMPPFToolStripMenuItem";
             this.withSilverlightMMPPFToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.withSilverlightMMPPFToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withSilverlightMMPPFToolStripMenuItem.Size = new System.Drawing.Size(352, 22);
             this.withSilverlightMMPPFToolStripMenuItem.Text = "with Silverlight Monitoring Player";
             this.withSilverlightMMPPFToolStripMenuItem.Click += new System.EventHandler(this.withSilverlightMMPPFToolStripMenuItem_Click);
             // 
             // withSilverlightPlayReadyTokenPlayerToolStripMenuItem2
             // 
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem2";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Size = new System.Drawing.Size(308, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.S)));
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Size = new System.Drawing.Size(352, 22);
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Text = "with Silverlight PlayReady Token Player";
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click);
             // 
@@ -1519,7 +1527,7 @@
             // 
             this.withMPEGDASHIFRefPlayerToolStripMenuItem.Name = "withMPEGDASHIFRefPlayerToolStripMenuItem";
             this.withMPEGDASHIFRefPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D)));
-            this.withMPEGDASHIFRefPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withMPEGDASHIFRefPlayerToolStripMenuItem.Size = new System.Drawing.Size(352, 22);
             this.withMPEGDASHIFRefPlayerToolStripMenuItem.Text = "with MPEG-DASH IF Reference Player";
             this.withMPEGDASHIFRefPlayerToolStripMenuItem.Click += new System.EventHandler(this.withMPEGDASHIFRefPlayerToolStripMenuItem_Click);
             // 
@@ -1527,7 +1535,7 @@
             // 
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Name = "withMPEGDASHAzurePlayerToolStripMenuItem";
             this.withMPEGDASHAzurePlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
-            this.withMPEGDASHAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withMPEGDASHAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(352, 22);
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Text = "with MPEG-DASH Azure Player";
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.withMPEGDASHAzurePlayerToolStripMenuItem_Click);
             // 
@@ -1535,7 +1543,7 @@
             // 
             this.withDASHLiveAzurePlayerToolStripMenuItem1.Name = "withDASHLiveAzurePlayerToolStripMenuItem1";
             this.withDASHLiveAzurePlayerToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.L)));
-            this.withDASHLiveAzurePlayerToolStripMenuItem1.Size = new System.Drawing.Size(308, 22);
+            this.withDASHLiveAzurePlayerToolStripMenuItem1.Size = new System.Drawing.Size(352, 22);
             this.withDASHLiveAzurePlayerToolStripMenuItem1.Text = "with DASH Live Azure Player";
             this.withDASHLiveAzurePlayerToolStripMenuItem1.Click += new System.EventHandler(this.withDASHLiveAzurePlayerToolStripMenuItem1_Click_1);
             // 
@@ -1543,7 +1551,7 @@
             // 
             this.withCustomPlayerToolStripMenuItem.Name = "withCustomPlayerToolStripMenuItem";
             this.withCustomPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.C)));
-            this.withCustomPlayerToolStripMenuItem.Size = new System.Drawing.Size(308, 22);
+            this.withCustomPlayerToolStripMenuItem.Size = new System.Drawing.Size(352, 22);
             this.withCustomPlayerToolStripMenuItem.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem_Click);
             // 
