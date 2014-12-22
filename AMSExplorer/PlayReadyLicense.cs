@@ -130,10 +130,8 @@ namespace AMSExplorer
             comboBoxType.Items.AddRange(Enum.GetNames(typeof(PlayReadyLicenseType)).ToArray()); // license type
             comboBoxType.SelectedItem = Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent);
 
-
             comboBoxAllowPassingVideoContentUnknownOutput.Items.AddRange(Enum.GetNames(typeof(UnknownOutputPassingOption)).ToArray());
             comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem = Enum.GetName(typeof(UnknownOutputPassingOption), UnknownOutputPassingOption.NotAllowed);
-
         }
 
 

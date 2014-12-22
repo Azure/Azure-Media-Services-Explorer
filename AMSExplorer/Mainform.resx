@@ -754,6 +754,9 @@
         CSbtWoBwnwkFjBXY/Ejg/QXECuyd7RRg6EfSATdSB94Xxzh1AAAAAElFTkSuQmCC
 </value>
   </data>
+  <metadata name="contextMenuStripProcessors.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>773, 56</value>
+  </metadata>
   <metadata name="contextMenuStripChannels.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 56</value>
   </metadata>
@@ -877,9 +880,6 @@
         o+4AAAAASUVORK5CYII=
 </value>
   </data>
-  <metadata name="contextMenuStripProcessors.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>773, 56</value>
-  </metadata>
   <metadata name="contextMenuStripStreaminEndpoints.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>416, 56</value>
   </metadata>

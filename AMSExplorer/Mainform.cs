@@ -3570,13 +3570,12 @@ namespace AMSExplorer
          );
             comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
-
             comboBoxFilterTimeProgram.Items.AddRange(
-       typeof(FilterTime)
-       .GetFields()
-       .Select(i => i.GetValue(null) as string)
-       .ToArray()
-       );
+typeof(FilterTime)
+.GetFields()
+.Select(i => i.GetValue(null) as string)
+.ToArray()
+);
             comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
 
             comboBoxStatusProgram.Items.AddRange(
@@ -5181,6 +5180,13 @@ namespace AMSExplorer
                 dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
             }
             tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
+
+            // Encoding Reserved Unit(s)
+            comboBoxEncodingRU.Items.Clear();
+            comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
+            comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
+            numericUpDownEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+            numericUpDownEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
         }
 
 
@@ -7864,6 +7870,36 @@ namespace AMSExplorer
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void buttonUpdateEncodingRU_Click(object sender, EventArgs e)
+        {
+            DoUpdateEncodingRU();
+        }
+
+        private async void DoUpdateEncodingRU()
+        {
+            TextBoxLogWriteLine("Updating reserved unit(s)...");
+            _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
+            _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
+
+            await Task.Run(() =>
+            {
+
+                try
+                {
+                    _context.EncodingReservedUnits.FirstOrDefault().Update();
+                    TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+                );
+            DoRefreshGridProcessorV(false);
         }
 
     }
