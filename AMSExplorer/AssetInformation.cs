@@ -1357,11 +1357,9 @@ namespace AMSExplorer
                             string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
                             if (!string.IsNullOrEmpty(tokenTemplateString))
                             {
-                                //Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
+                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                                var contentKeyId = Guid.Parse(key.Id.Replace("nb:kid:UUID:", String.Empty));
-                                //string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate,tokenTemplate.PrimaryVerificationKey, contentKeyId, DateTime.Now.AddDays(2));
+                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
 
                                 MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
                                 System.Windows.Forms.Clipboard.SetText(testToken);

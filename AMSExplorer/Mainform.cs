@@ -6910,11 +6910,8 @@ typeof(FilterTime)
                                         // Generate a test token based on the data in the given TokenRestrictionTemplate.
                                         // Note, you need to pass the key id Guid because we specified 
                                         // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                        //Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
-                                        //string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-
-                                        var contentKeyId = Guid.Parse(contentKey.Id.Replace("nb:kid:UUID:", String.Empty));
-                                        string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, tokenTemplate.PrimaryVerificationKey, contentKeyId, DateTime.Now.AddDays(2));
+                                        Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
+                                        string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
                                         TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
                                         TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
                                     }

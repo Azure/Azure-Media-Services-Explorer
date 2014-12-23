@@ -194,46 +194,13 @@ namespace AMSExplorer
             return contentKeyAuthorizationPolicy;
         }
 
-        public static IContentKeyAuthorizationPolicy CreateTestPolicy(CloudMediaContext mediaContext, string name, List<IContentKeyAuthorizationPolicyOption> policyOptions, ref IContentKey contentKey)
-        {
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = mediaContext.ContentKeyAuthorizationPolicies.CreateAsync(name).Result;
-            foreach (IContentKeyAuthorizationPolicyOption option in policyOptions)
-            {
-                contentKeyAuthorizationPolicy.Options.Add(option);
-            }
-
-            // Associate the content key authorization policy with the content key 
-            contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
-            contentKey = contentKey.UpdateAsync().Result;
-
-            return contentKeyAuthorizationPolicy;
-        }
-
-        public static IContentKeyAuthorizationPolicyOption CreateOption(CloudMediaContext dataContext, string optionName, ContentKeyDeliveryType deliveryType, string requirements, string configuration, ContentKeyRestrictionType restrictionType)
-        {
-            var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
-                {
-                    new ContentKeyAuthorizationPolicyRestriction { Requirements = requirements, Name = "somename" }
-                };
-
-            restrictions[0].SetKeyRestrictionTypeValue(restrictionType);
-
-            IContentKeyAuthorizationPolicyOption option = dataContext.ContentKeyAuthorizationPolicyOptions.Create(
-                optionName,
-                deliveryType,
-                restrictions,
-                configuration);
-
-            return option;
-        }
 
 
 
         public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer, contentKey);
+            string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
 
-            /*
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
                                     CreateAsync("HLS token restricted authorization policy").Result;
@@ -266,37 +233,13 @@ namespace AMSExplorer
             contentKey.AuthorizationPolicyId = policy.Id;
             IContentKey updatedKey = contentKey.UpdateAsync().Result;
             Console.WriteLine("Adding Key to Asset: Key ID is " + updatedKey.Id);
-             * */
-
-
-
-            ContentKeyRestrictionType restrictionType = ContentKeyRestrictionType.TokenRestricted;
-            var _testOption = CreateOption(_context, "SWT Token option for HLS", ContentKeyDeliveryType.BaselineHttp, tokenTemplateString, null, restrictionType);
-
-            List<IContentKeyAuthorizationPolicyOption> options = new List<IContentKeyAuthorizationPolicyOption> 
-                 { 
-                     _testOption 
-                 };
-
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = CreateTestPolicy(_context, String.Empty, options, ref contentKey);
-
-
-
-            Uri keyDeliveryServiceUri = contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
-
-
-            // string swtTokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenRestrictionTemplate, tokenRestrictionTemplate.PrimaryVerificationKey, null, DateTime.Now.AddDays(2));
-            // byte[] key = keyClient.AcquireHlsKeyWithBearerHeader(keyDeliveryServiceUri, swtTokenString);
-
-
-
 
             return tokenTemplateString;
         }
 
         public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context, string newLicenseTemplate)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer, contentKey);
+            string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -335,17 +278,15 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IContentKey contentKey)
+        static private string GenerateTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer)
         {
-            var contentKeyId = Guid.Parse(contentKey.Id.Replace("nb:kid:UUID:", String.Empty));
             TokenRestrictionTemplate template = new TokenRestrictionTemplate();
 
             template.PrimaryVerificationKey = new SymmetricVerificationKey();
-            //template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
+            template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
             template.Audience = _sampleAudience;
             template.Issuer = _sampleIssuer;
-            template.TokenType = TokenType.SWT;
-            //template.RequiredClaims.Add(new TokenClaim(TokenClaim.ContentKeyIdentifierClaimType, contentKeyId.ToString()));
+            template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
 
             return TokenRestrictionTemplateSerializer.Serialize(template);
         }
