@@ -286,5 +286,53 @@ namespace AMSExplorer.Properties {
                 this["PremiumWorkflowPresetXMLFilesCurrentFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.99")]
+        public decimal AMEPrice {
+            get {
+                return ((decimal)(this["AMEPrice"]));
+            }
+            set {
+                this["AMEPrice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.39")]
+        public decimal LegacyEncodingPrice {
+            get {
+                return ((decimal)(this["LegacyEncodingPrice"]));
+            }
+            set {
+                this["LegacyEncodingPrice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public decimal IndexingPrice {
+            get {
+                return ((decimal)(this["IndexingPrice"]));
+            }
+            set {
+                this["IndexingPrice"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("$")]
+        public string Currency {
+            get {
+                return ((string)(this["Currency"]));
+            }
+            set {
+                this["Currency"] = value;
+            }
+        }
     }
 }

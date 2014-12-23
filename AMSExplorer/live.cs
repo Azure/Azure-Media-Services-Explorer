@@ -890,7 +890,7 @@ namespace AMSExplorer
                    _context
                        .StreamingEndpoints
                        .AsEnumerable()
-                         .Where(o => (o.State != StreamingEndpointState.Running) || (o.ScaleUnits > 0))
+                         .Where(o => (o.State != StreamingEndpointState.Running) || (o.ScaleUnits == 0))
                        .Select(
                            o =>
                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,

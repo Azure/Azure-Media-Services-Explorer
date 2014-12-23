@@ -11,9 +11,7 @@ namespace AMSExplorer
 {
     class ListViewTemplates : ListView
     {
-        private int sortColumn = -1;
         private CloudMediaContext _context;
-
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderTemplateName;
         private System.Windows.Forms.ColumnHeader columnHeaderTemplateDate;
@@ -60,7 +58,8 @@ namespace AMSExplorer
             this.TabIndex = 61;
             this.UseCompatibleStateImageBehavior = false;
             this.View = System.Windows.Forms.View.Details;
-            this.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewInputAssets_ColumnClick);
+            this.Tag = -1;
+            this.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
             // 
             // columnHeaderTemplateName
             // 
@@ -119,34 +118,6 @@ namespace AMSExplorer
                     this.LoadTemplates();
                 }
             }
-        }
-
-        private void listViewInputAssets_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            // Determine whether the column is the same as the last column clicked.
-            if (e.Column != sortColumn)
-            {
-                // Set the sort column to the new column.
-                sortColumn = e.Column;
-                // Set the sort order to ascending by default.
-                this.Sorting = SortOrder.Ascending;
-            }
-            else
-            {
-                // Determine what the last sort order was and change it.
-                if (this.Sorting == SortOrder.Ascending)
-                    this.Sorting = SortOrder.Descending;
-                else
-                    this.Sorting = SortOrder.Ascending;
-            }
-
-            // Call the sort method to manually sort.
-            this.Sort();
-            // Set the ListViewItemSorter property to a new ListViewItemComparer
-            // object.
-            this.ListViewItemSorter = new ListViewItemComparer(e.Column,
-                                                              this.Sorting);
-
         }
     }
 }

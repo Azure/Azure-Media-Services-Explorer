@@ -221,6 +221,8 @@ namespace AMSExplorer
             }
             LoadWorkflows();
             UpdateJobSummary();
+            listViewWorkflows.Tag = -1;
+            listViewWorkflows.ColumnClick += ListViewItemComparer.ListView_ColumnClick;
 
         }
 
@@ -251,9 +253,6 @@ namespace AMSExplorer
             }
             listViewWorkflows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewWorkflows.EndUpdate();
-
-
-
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -270,33 +269,7 @@ namespace AMSExplorer
         {
 
         }
-
-        private void listViewInputAssets_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            // Determine whether the column is the same as the last column clicked.
-            if (e.Column != sortColumn)
-            {
-                // Set the sort column to the new column.
-                sortColumn = e.Column;
-                // Set the sort order to ascending by default.
-                listViewWorkflows.Sorting = SortOrder.Ascending;
-            }
-            else
-            {
-                // Determine what the last sort order was and change it.
-                if (listViewWorkflows.Sorting == SortOrder.Ascending)
-                    listViewWorkflows.Sorting = SortOrder.Descending;
-                else
-                    listViewWorkflows.Sorting = SortOrder.Ascending;
-            }
-
-            // Call the sort method to manually sort.
-            listViewWorkflows.Sort();
-            // Set the ListViewItemSorter property to a new ListViewItemComparer
-            // object.
-            this.listViewWorkflows.ListViewItemSorter = new ListViewItemComparer(e.Column,
-                                                              listViewWorkflows.Sorting);
-        }
+              
 
         private void buttonUpload_Click(object sender, EventArgs e)
         {

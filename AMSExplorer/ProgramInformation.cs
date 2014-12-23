@@ -45,6 +45,7 @@ namespace AMSExplorer
         private IEnumerable<Uri> ValidURIs;
         private IEnumerable<Uri> NotValidURIs;
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
+        private Mainform MyMainForm;
 
         public string ProgramDescription
         {
@@ -61,10 +62,11 @@ namespace AMSExplorer
         }
 
 
-        public ProgramInformation()
+        public ProgramInformation(Mainform mainform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            MyMainForm = mainform;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -99,8 +101,7 @@ namespace AMSExplorer
             IAsset AssetToDisplayP = MyProgram.Asset;
             if (AssetToDisplayP != null)
             {
-                Mainform parent = (Mainform)this.Owner;
-                AssetInformation form = new AssetInformation()
+                AssetInformation form = new AssetInformation(MyMainForm)
                 {
                     MyAsset = AssetToDisplayP,
                     MyContext = MyContext,

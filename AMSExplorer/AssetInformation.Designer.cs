@@ -47,6 +47,7 @@
             this.DGFiles = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFiles = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.makeItPrimaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.showMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -100,7 +101,6 @@
             this.buttonFlash = new System.Windows.Forms.Button();
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.showMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
@@ -301,6 +301,13 @@
             this.makeItPrimaryToolStripMenuItem.Text = "Set as Primary";
             this.makeItPrimaryToolStripMenuItem.Click += new System.EventHandler(this.makeItPrimaryToolStripMenuItem_Click);
             // 
+            // showMetadataToolStripMenuItem
+            // 
+            this.showMetadataToolStripMenuItem.Name = "showMetadataToolStripMenuItem";
+            this.showMetadataToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
+            this.showMetadataToolStripMenuItem.Text = "Show metadata";
+            this.showMetadataToolStripMenuItem.Click += new System.EventHandler(this.showMetadataToolStripMenuItem_Click);
+            // 
             // toolStripMenuItemOpenFile
             // 
             this.toolStripMenuItemOpenFile.Name = "toolStripMenuItemOpenFile";
@@ -473,7 +480,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 450);
+            this.tabPage1.Size = new System.Drawing.Size(752, 438);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Asset information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -570,7 +577,7 @@
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(752, 450);
+            this.tabPage5.Size = new System.Drawing.Size(752, 438);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -578,7 +585,8 @@
             // buttonGetTestToken
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonGetTestToken.Location = new System.Drawing.Point(126, 421);
+            this.buttonGetTestToken.Enabled = false;
+            this.buttonGetTestToken.Location = new System.Drawing.Point(235, 409);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
             this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
             this.buttonGetTestToken.TabIndex = 41;
@@ -612,7 +620,7 @@
             this.dataGridViewAutPol.Name = "dataGridViewAutPol";
             this.dataGridViewAutPol.ReadOnly = true;
             this.dataGridViewAutPol.RowHeadersVisible = false;
-            this.dataGridViewAutPol.Size = new System.Drawing.Size(281, 192);
+            this.dataGridViewAutPol.Size = new System.Drawing.Size(281, 180);
             this.dataGridViewAutPol.TabIndex = 38;
             // 
             // listViewAutPol
@@ -626,7 +634,7 @@
             this.listViewAutPol.Location = new System.Drawing.Point(236, 252);
             this.listViewAutPol.MultiSelect = false;
             this.listViewAutPol.Name = "listViewAutPol";
-            this.listViewAutPol.Size = new System.Drawing.Size(219, 192);
+            this.listViewAutPol.Size = new System.Drawing.Size(219, 151);
             this.listViewAutPol.TabIndex = 39;
             this.listViewAutPol.UseCompatibleStateImageBehavior = false;
             this.listViewAutPol.View = System.Windows.Forms.View.Details;
@@ -683,7 +691,7 @@
             this.tabPage4.Controls.Add(this.listViewDelPol);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(752, 450);
+            this.tabPage4.Size = new System.Drawing.Size(752, 438);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Delivery policies";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -762,7 +770,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(752, 450);
+            this.tabPage3.Size = new System.Drawing.Size(752, 438);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -914,13 +922,6 @@
             this.labelAssetNameTitle.Size = new System.Drawing.Size(753, 32);
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
-            // 
-            // showMetadataToolStripMenuItem
-            // 
-            this.showMetadataToolStripMenuItem.Name = "showMetadataToolStripMenuItem";
-            this.showMetadataToolStripMenuItem.Size = new System.Drawing.Size(233, 22);
-            this.showMetadataToolStripMenuItem.Text = "Show metadata";
-            this.showMetadataToolStripMenuItem.Click += new System.EventHandler(this.showMetadataToolStripMenuItem_Click);
             // 
             // panel1
             // 

@@ -49,7 +49,7 @@ namespace AMSExplorer
         private CloudBlobClient cloudBlobClient;
         private List<CloudBlobContainer> ListContainers = new List<CloudBlobContainer>();
 
-        public List<IAssetFile> listassetfiles = new List<IAssetFile>();
+        private List<IAssetFile> listassetfiles = new List<IAssetFile>();
         public string SelectedContainer = null;
         public List<IAssetFile> SelectedAssetFiles = new List<IAssetFile>();
         public bool useDefaultStorage;
@@ -141,12 +141,36 @@ namespace AMSExplorer
         }
 
 
-        public ExportAssetToAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg)
+        public ExportAssetToAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg, IAsset sourceAsset)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MediaServicesStorageAccountKey = MediaServicesStorageAccountKeyArg;
             contextUpload = contextUploadArg;
+
+            // list asset files ///////////////////////
+            bool bfileinasset = (sourceAsset.AssetFiles.Count() == 0) ? false : true;
+            listViewAssetFiles.Items.Clear();
+            if (bfileinasset)
+            {
+                listViewAssetFiles.BeginUpdate();
+                foreach (IAssetFile file in sourceAsset.AssetFiles)
+                {
+                    ListViewItem item = new ListViewItem(file.Name, 0);
+                    if (file.IsPrimary) item.ForeColor = Color.Blue;
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
+                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
+                    (listViewAssetFiles.Items.Add(item)).Selected = true;
+                    listassetfiles.Add(file);
+                }
+
+                listViewAssetFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                listViewAssetFiles.EndUpdate();
+
+            }
+
+
+
         }
 
         private void UploadFromBlob_Load(object sender, EventArgs e)
@@ -163,6 +187,12 @@ namespace AMSExplorer
                 DoListBlobs(true);
                 if (ErrorConnect) this.Close();
             }
+            listViewAssetFiles.Tag = -1;
+            listViewAssetFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
+
+            listViewBlobs.Tag = -1;
+            listViewBlobs.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
+
         }
 
         private void ConnectToStorage()
@@ -253,14 +283,14 @@ namespace AMSExplorer
 
         private void buttonCopy_Click(object sender, EventArgs e)
         {
-            if (radioButtonSelectedContainer.Checked) SelectedContainer = ListContainers[listViewBlobs.SelectedIndices[0]].Name;
-
+            if (radioButtonSelectedContainer.Checked) SelectedContainer = listViewBlobs.SelectedItems[0].Text;
             this.SelectedAssetFiles.Clear();
-            foreach (int index in listViewAssetFiles.SelectedIndices)
+            foreach (ListViewItem item in listViewAssetFiles.SelectedItems)
             {
-                this.SelectedAssetFiles.Add(listassetfiles[index]);
+                // let's find the file as control has perhaps been sorted
+                IAssetFile fitem = listassetfiles.Where(l => l.Name == item.Text).FirstOrDefault();
+                this.SelectedAssetFiles.Add(fitem);
             }
-
         }
 
         private void radioButtonStorageDefault_CheckedChanged(object sender, EventArgs e)

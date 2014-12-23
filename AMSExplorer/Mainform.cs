@@ -685,7 +685,6 @@ namespace AMSExplorer
             {
                 richTextBoxLog.BeginInvoke(new Action(() =>
                 {
-
                     richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
                     richTextBoxLog.SelectionLength = 0;
 
@@ -702,7 +701,6 @@ namespace AMSExplorer
                 richTextBoxLog.SelectionColor = Error ? Color.Red : Color.Black;
                 richTextBoxLog.AppendText(text);
                 richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
-
             }
         }
 
@@ -798,38 +796,43 @@ namespace AMSExplorer
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuUploadFromSingleFile();
+            DoMenuUploadFromSingleFile_Step1();
         }
 
-        private void DoMenuUploadFromSingleFile()
+        private void DoMenuUploadFromSingleFile_Step1()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = true;
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if (openFileDialog.FileNames.Count() > 1)
-                {
-                    if (System.Windows.Forms.MessageBox.Show("You selected multiple files. They will be uploaded as individual assets. If you want to create one single asset with several files, use 'Upload from a local folder' command.", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
-                        return;
-                }
+                DoMenuUploadFromSingleFile_Step2(openFileDialog.FileNames);
+            }
+        }
 
-                // Each file goes in a individual asset
-                foreach (String file in openFileDialog.FileNames)
+        private void DoMenuUploadFromSingleFile_Step2(string[] FileNames)
+        {
+            if (FileNames.Count() > 1)
+            {
+                if (System.Windows.Forms.MessageBox.Show("You selected multiple files. Each file will be uploaded as individual asset. If you want to create asset(s) that contain(s) several files, copy the files to folder(s) and upload or drag&drop the folder(s).", "Upload as invividual assets?", System.Windows.Forms.MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.Cancel)
+                    return;
+            }
+
+            // Each file goes in a individual asset
+            foreach (String file in FileNames)
+            {
+                try
                 {
-                    try
-                    {
-                        int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
-                        DotabControlMainSwitch(Constants.TabTransfers);
-                        DoRefreshGridAssetV(false);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                        TextBoxLogWriteLine(ex);
-                    }
+                    int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DoRefreshGridAssetV(false);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
+                    TextBoxLogWriteLine(ex);
                 }
             }
         }
@@ -1071,10 +1074,10 @@ namespace AMSExplorer
 
         private void fromMultipleFilesToolStripMenuItem_Click(object sender, EventArgs e) // upload from multiple files
         {
-            DoMenuUploadFromFolder();
+            DoMenuUploadFromFolder_Step1();
         }
 
-        private void DoMenuUploadFromFolder()
+        private void DoMenuUploadFromFolder_Step1()
         {
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
@@ -1083,28 +1086,31 @@ namespace AMSExplorer
 
             if (openFolderDialog1.ShowDialog() == DialogResult.OK)
             {
-                try
-                {
-                    if ((name = openFolderDialog1.SelectedPath) != null)
-                    {
-                        _backuprootfolderupload = name;
-                        int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(name)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                DoMenuUploadFromFolder_Step2(openFolderDialog1.SelectedPath);
+            }
+        }
 
-                        // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFromFolder(name, index));
-                        DotabControlMainSwitch(Constants.TabTransfers);
-                        DoRefreshGridAssetV(false);
-
-                    }
-                }
-                catch (Exception ex)
+        private void DoMenuUploadFromFolder_Step2(string SelectedPath)
+        {
+            try
+            {
+                if (SelectedPath != null)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
-                    TextBoxLogWriteLine("Error: Could not read file from disk.", true);
-                    TextBoxLogWriteLine(ex);
+                    _backuprootfolderupload = SelectedPath;
+                    int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(SelectedPath)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+
+                    // Start a worker thread that does uploading.
+                    Task.Factory.StartNew(() => ProcessUploadFromFolder(SelectedPath, index));
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                    DoRefreshGridAssetV(false);
                 }
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
+                TextBoxLogWriteLine("Error: Could not read file or folder '{0}' from disk.", SelectedPath, true);
+                TextBoxLogWriteLine(ex);
+            }
         }
 
 
@@ -1421,7 +1427,7 @@ namespace AMSExplorer
         public DialogResult DisplayInfo(IAsset asset)
         {
 
-            AssetInformation form = new AssetInformation()
+            AssetInformation form = new AssetInformation(this)
                 {
                     MyAsset = asset,
                     MyContext = _context,
@@ -1436,36 +1442,12 @@ namespace AMSExplorer
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
-            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey);
-            TreeView TreeViewBlob = (TreeView)form.Controls.Find("TreeViewBlob", true).FirstOrDefault();
-            ListBox ListBoxFiles = (ListBox)form.Controls.Find("ListBoxFiles", true).FirstOrDefault();
-            ListView listViewAssetFiles = (ListView)form.Controls.Find("listViewAssetFiles", true).FirstOrDefault();
-
-            form.BlobStorageDefault = UseDefaultStorage;
-            form.BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name;
-
-            // list asset files ///////////////////////
-            bool bfileinasset = (sourceAsset.AssetFiles.Count() == 0) ? false : true;
-            listViewAssetFiles.Items.Clear();
-            if (bfileinasset)
+            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset)
             {
-                listViewAssetFiles.BeginUpdate();
-                foreach (IAssetFile file in sourceAsset.AssetFiles)
-                {
-                    ListViewItem item = new ListViewItem(file.Name, 0);
-                    if (file.IsPrimary) item.ForeColor = Color.Blue;
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
-                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
-                    (listViewAssetFiles.Items.Add(item)).Selected = true;
-                    form.listassetfiles.Add(file);
-                }
-
-                listViewAssetFiles.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                listViewAssetFiles.EndUpdate();
-
-            }
-            form.BlobLabelWarning = sourceAsset.Options == AssetCreationOptions.StorageEncrypted ? "Note: asset is storage encrypted" : "";
-
+                BlobStorageDefault = UseDefaultStorage,
+                BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name,
+                BlobLabelWarning = sourceAsset.Options == AssetCreationOptions.StorageEncrypted ? "Note: asset is storage encrypted" : ""
+            };
             DialogResult dialogResult = form.ShowDialog();
 
             UseDefaultStorage = form.BlobStorageDefault;
@@ -4600,6 +4582,8 @@ namespace AMSExplorer
             ContextMenuItemPlaybackWithMPEGDASHIFReference.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithSilverlightMonitoring.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithFlashOSMFAzure.Enabled = CanBePlay;
+            withFlashTokenPlayerToolStripMenuItem.Enabled = CanBePlay;
+            withSilverlightPlayReadyTokenPlayerToolStripMenuItem.Enabled = CanBePlay;
             withCustomPlayerToolStripMenuItem1.Enabled = CanBePlay;
         }
 
@@ -5003,12 +4987,9 @@ namespace AMSExplorer
         {
             chart.Series.Clear();
 
-            progressBarChart.Value = 0;
-
             var seriesJobTotal = new Series()
             {
                 Name = "Jobs total",
-
                 XValueType = ChartValueType.DateTime,
                 ChartType = SeriesChartType.Line,
                 MarkerStyle = MarkerStyle.Square,
@@ -5057,17 +5038,13 @@ namespace AMSExplorer
             var querycancel = jobs.Where(j => j.State == JobState.Canceled).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
             var querysuccess = jobs.Where(j => j.State == JobState.Finished).GroupBy(j => ((DateTime)j.Created).Date).Select(j => new { number = j.Count(), date = (DateTime)j.Key }).ToList();
 
-            int i = 0;
-            progressBarChart.Minimum = 0;
-            progressBarChart.Maximum = querytotal.Count + queryerror.Count + querycancel.Count + querysuccess.Count;
-
             DateTime day = dateTimePickerStartDate.Value.Date;
 
             int val;
             while (day <= dateTimePickerEndDate.Value.Date)
             {
                 if (querytotal.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = querytotal.Where(d => d.date == day).FirstOrDefault().number;
-                DrawPoint(seriesJobTotal, "in error", day, val);
+                DrawPoint(seriesJobTotal, "(total)", day, val);
 
                 if (queryerror.Where(d => d.date == day).FirstOrDefault() == null) val = 0; else val = queryerror.Where(d => d.date == day).FirstOrDefault().number;
                 DrawPoint(seriesError, "in error", day, val);
@@ -5081,43 +5058,8 @@ namespace AMSExplorer
                 day = day.AddDays(1);
             }
 
-            /*
-
-                foreach (var j in querytotal)
-                {
-                    i++;
-                    progressBarChart.Value = i;
-                    seriesJobTotal.Points.AddXY(j.date, j.number);
-                }
-             
-
-            foreach (var j in queryerror)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesError.Points.AddXY(j.date, j.number);
-            }
-
-            foreach (var j in querycancel)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesCancel.Points.AddXY(j.date, j.number);
-            }
-
-            foreach (var j in querysuccess)
-            {
-                i++;
-                progressBarChart.Value = i;
-                seriesSucess.Points.AddXY(j.date, j.number);
-            }
-            */
-
-
-
             // draw!
             chart.Invalidate();
-
         }
 
         private static void DrawPoint(Series seriestoprocess, string word, DateTime day, int val)
@@ -5645,11 +5587,38 @@ namespace AMSExplorer
             DoResetChannels();
         }
 
-        private void DoResetChannels()
+        private async void DoResetChannels()
         {
-            foreach (IChannel myC in ReturnSelectedChannels())
+            List<IChannel> channels = ReturnSelectedChannels();
+            List<string> ListChannelIDs = channels.Select(c => c.Id).ToList();
+            var programquery = _context.Programs.AsEnumerable().Where(p => ListChannelIDs.Contains(p.ChannelId) && p.State != ProgramState.Stopped);
+            var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
+
+            if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+                MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be reset now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            else
             {
-                ResetChannel(myC);
+                if (programqueryrunning.Count() > 0) // some programs are running
+                {
+                    if (MessageBox.Show("One or several programs are running which prevents the channel(s) reset. Do you want to stop the program(s) ?", "Channel reset", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        var yourForeachTask = Task.Run(() =>
+                        {
+                            Parallel.ForEach(programqueryrunning, myP =>
+                            {
+                                TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
+                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
+                            });
+                        });
+                        await yourForeachTask;
+                    }
+                }
+
+                // let's stop the channels now that running programs are stopped
+                foreach (IChannel myC in channels)
+                {
+                    ResetChannel(myC);
+                }
             }
         }
 
@@ -6093,7 +6062,7 @@ namespace AMSExplorer
         {
             if (program != null)
             {
-                ProgramInformation form = new ProgramInformation()
+                ProgramInformation form = new ProgramInformation(this)
                 {
                     MyProgram = program,
                     MyContext = _context,
@@ -6514,21 +6483,23 @@ namespace AMSExplorer
             DoPlaybackProgram(PlayerType.FlashAzurePage);
         }
 
-        private void DoPlaybackProgram(PlayerType ptype)
+        private void DoPlaybackProgram(PlayerType ptype, bool tokenplayer = false)
         {
             IProgram program = ReturnSelectedPrograms().FirstOrDefault();
-            if (program != null)
+            if (program != null && program.Asset != null)
             {
                 ProgramInfo PI = new ProgramInfo(program, _context);
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString());
+                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString(), _context, program.Asset);
+                    //AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() );
                 }
                 else
                 {
                     TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
                 }
+
             }
         }
 
@@ -7153,7 +7124,6 @@ namespace AMSExplorer
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://www.jwplayer.com/partners/azure/");
-
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7819,6 +7789,83 @@ namespace AMSExplorer
         {
             DoCopySSLIngestURLToClipboard();
         }
+
+        private void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
+        {
+            // Handle FileDrop data. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Assign the file names to a string array, in  
+                // case the user has selected multiple files. 
+                string[] objects = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                List<string> folders = objects.Where(f => Directory.Exists(f)).ToList();
+                List<string> files = objects.Where(f => !Directory.Exists(f)).ToList();
+
+                foreach (var fold in folders)
+                    DoMenuUploadFromFolder_Step2(fold); // it's a folder
+
+                if (files.Count > 0)
+                    DoMenuUploadFromSingleFile_Step2(files.ToArray()); // let's upload the objects as files, each file as an individual asset
+            }
+        }
+
+        private void dataGridViewAssetsV_DragEnter(object sender, DragEventArgs e)
+        {
+            // If the data is a file display the copy cursor. 
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                e.Effect = DragDropEffects.Copy;
+            }
+            else
+            {
+                e.Effect = DragDropEffects.None;
+            }
+
+        }
+
+        private void withFlashAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.FlashAESToken);
+
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.SilverlightPlayReadyToken);
+
+        }
+
+        private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://aestoken.azurewebsites.net");
+        }
+
+        private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
     }
 }
 
@@ -9188,7 +9235,7 @@ namespace AMSExplorer
                                    Debug.WriteLine(index.ToString() + JobRefreshed.State);
 
                                    StringBuilder sb = new StringBuilder(); // display percentage for each task for mouse hover (tooltiptext)
-                                   foreach (ITask task in JobRefreshed.Tasks) sb.AppendLine(Convert.ToInt32(task.Progress).ToString() + " %");
+                                   foreach (ITask task in JobRefreshed.Tasks) sb.AppendLine(string.Format("{0} % ({1})", Convert.ToInt32(task.Progress).ToString(), task.Name));
 
                                    // let's calculate the estipated time
                                    string ETAstr = "", Durationstr = "";

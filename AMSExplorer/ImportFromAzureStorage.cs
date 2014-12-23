@@ -168,6 +168,10 @@ namespace AMSExplorer
                 DoListBlobs(true);
                 if (ErrorConnect) this.Close();
             }
+            listViewBlobs.Tag = -1;
+            listViewBlobs.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
+            listViewFiles.Tag = -1;
+            listViewFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
         }
 
         private void ConnectToStorage()
@@ -248,7 +252,7 @@ namespace AMSExplorer
                 {
                     CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
                     string lastModified = "";
-                    ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.ToString()), 0);
+                    ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.LocalPath), 0);
                     lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
                     item.SubItems.Add(lastModified);
                     item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
@@ -276,10 +280,12 @@ namespace AMSExplorer
         {
 
             this.SelectedBlobs.Clear();
-            foreach (int index in listViewFiles.SelectedIndices)
+           
+            foreach (ListViewItem item in listViewFiles.SelectedItems)
             {
-                this.SelectedBlobs.Add(ListBlobs[index]);
-
+                // let's find the file as control has perhaps been sorted
+                IListBlobItem bitem = ListBlobs.Where(l => Path.GetFileName(l.Uri.LocalPath) == item.Text).FirstOrDefault();
+                this.SelectedBlobs.Add(bitem);
             }
         }
 
@@ -328,7 +334,6 @@ namespace AMSExplorer
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonUpload.Enabled = !(listViewFiles.SelectedItems.Count == 0);
-
         }
 
         private void listViewBlobs_SelectedIndexChanged(object sender, EventArgs e)
@@ -348,5 +353,6 @@ namespace AMSExplorer
         {
             DoListBlobs(false);
         }
+             
     }
 }
