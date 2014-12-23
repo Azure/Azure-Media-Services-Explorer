@@ -1043,7 +1043,11 @@ namespace AMSExplorer
                         {
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                            var contentKeyId = Guid.Parse(key.Id.Replace("nb:kid:UUID:", String.Empty));
+                             testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, tokenTemplate.PrimaryVerificationKey, contentKeyId, DateTime.Now.AddDays(2));
+
+
+                            //testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
                             testToken = HttpUtility.UrlEncode(testToken);
                         }
                     }
