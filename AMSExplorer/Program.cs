@@ -1269,7 +1269,6 @@ namespace AMSExplorer
                     break;
 
                 case PlayerType.DASHAzurePage:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
                     Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Url);
                     break;
 
