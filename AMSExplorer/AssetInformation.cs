@@ -290,7 +290,7 @@ namespace AMSExplorer
             dataGridViewKeys.Rows.Clear();
             listViewAutPol.Items.Clear();
             dataGridViewAutPol.Rows.Clear();
-            buttonRemoveKey.Enabled = bkeyinasset;
+            buttonRemoveKey.Enabled = false;
 
             if (bkeyinasset)
             {
@@ -317,7 +317,7 @@ namespace AMSExplorer
         private void ListAssetDeliveryPolicies()
         {
             listViewDelPol.Items.Clear();
-            buttonRemovePol.Enabled = (MyAsset.DeliveryPolicies.Count > 0);
+            buttonRemovePol.Enabled = false;
 
             DGDelPol.Rows.Clear();
             listViewDelPol.BeginUpdate();
@@ -1287,25 +1287,46 @@ namespace AMSExplorer
             {
                 if (listViewDelPol.SelectedItems[0] != null)
                 {
-                    try
+                    IAssetDeliveryPolicy DP = MyAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    if (DP != null)
                     {
-                        IAssetDeliveryPolicy DP = MyAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                        string question = string.Format("Remove the policy '{0}' ?", DP.Name);
+                        string DPid = DP.Id;
+                        string question = string.Format("This will remove the policy '{0}' from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?", DP.Name);
+                        DialogResult DR = MessageBox.Show(question, "Delivery Policy removal", MessageBoxButtons.YesNoCancel);
 
-                        if (System.Windows.Forms.MessageBox.Show(question, "Delivery Policy removal", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                        if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
-                            MyAsset.DeliveryPolicies.Remove(DP);
+                            string step = "removing";
+
+                            try
+                            {
+                                MyAsset.DeliveryPolicies.Remove(DP);
+
+                                if (DR == DialogResult.Yes) // user wants also to delete the policy
+                                {
+                                    step = "deleting";
+                                    IAssetDeliveryPolicy policyrefreshed = MyContext.AssetDeliveryPolicies.Where(p => p.Id == DPid).FirstOrDefault();
+                                    if (policyrefreshed != null)
+                                    {
+                                        policyrefreshed.Delete();
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when {0} the delivery policy.", step);
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
                             ListAssetDeliveryPolicies();
                         }
                     }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Error when removing this policy." + Constants.endline + Program.GetErrorMessage(e));
-                        ListAssetDeliveryPolicies();
-                    }
-
                 }
             }
+
         }
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
@@ -1553,16 +1574,17 @@ namespace AMSExplorer
 
         private void buttonDelKey_Click(object sender, EventArgs e)
         {
-            DoDeleteKey();
+            DoDemoveKey();
         }
 
-        private void DoDeleteKey()
+        private void DoDemoveKey()
         {
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 string keyid = key.Id;
-                DialogResult DR = MessageBox.Show("This will remove the key from the asset. Do you want to also DELETE the key from the Azure Media Services account ?", "Key removal", MessageBoxButtons.YesNoCancel);
+                string question = string.Format("This will remove the key '{0}' from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?", key.Name);
+                DialogResult DR = MessageBox.Show(question, "Key removal", MessageBoxButtons.YesNoCancel);
 
                 if (DR == DialogResult.Yes || DR == DialogResult.No)
                 {
@@ -1591,9 +1613,49 @@ namespace AMSExplorer
                     }
                     ListAssetKeys();
                 }
-
-
             }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDemoveKey();
+        }
+
+        private void getTestTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
+
+        private void removeDeliveryPolicyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemovePol();
+        }
+
+        private void contextMenuStripDelPol_Opening(object sender, CancelEventArgs e)
+        {
+            removeDeliveryPolicyToolStripMenuItem.Enabled = (listViewDelPol.SelectedItems.Count > 0);
+        }
+
+        private void contextMenuStripKey_Opening(object sender, CancelEventArgs e)
+        {
+            removeKeyToolStripMenuItem.Enabled = (listViewKeys.SelectedItems.Count > 0);
+
+        }
+
+        private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
+        {
+            getTestTokenToolStripMenuItem.Enabled = (listViewAutPol.SelectedItems.Count > 0);
+        }
+
+        private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
+        {
+            bool selected = (listViewFiles.SelectedItems.Count > 0);
+            makeItPrimaryToolStripMenuItem.Enabled = selected;
+            showMetadataToolStripMenuItem.Enabled = selected;
+            toolStripMenuItemOpenFile.Enabled = selected;
+            toolStripMenuItemDownloadFile.Enabled = selected;
+            deleteFileToolStripMenuItem.Enabled = selected;
+            duplicateFileToolStripMenuItem.Enabled = selected;
         }
     }
 }
