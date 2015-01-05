@@ -65,14 +65,14 @@ namespace AMSExplorer
             DGMetadataGal.Rows.Add("Name", _metadata.Name);
             DGMetadataGal.Rows.Add("Duration", _metadata.Duration);
             DGMetadataGal.Rows.Add("Size", AssetInfo.FormatByteSize(_metadata.Size));
-            DGMetadataGal.Rows.Add("Video tracks", _metadata.VideoTracks.Count());
-            DGMetadataGal.Rows.Add("Audio tracks", _metadata.AudioTracks.Count());
+            if (_metadata.VideoTracks != null) DGMetadataGal.Rows.Add("Video tracks", _metadata.VideoTracks.Count());
+            if (_metadata.AudioTracks != null) DGMetadataGal.Rows.Add("Audio tracks", _metadata.AudioTracks.Count());
 
             foreach (var source in _metadata.Sources)
                 DGMetadataGal.Rows.Add("Source", source.Name);
 
-            numericUpDownVideoTrack.Maximum = _metadata.VideoTracks.Count() - 1;
-            numericUpDownAudioTrack.Maximum = _metadata.AudioTracks.Count() - 1;
+            if (_metadata.VideoTracks != null) numericUpDownVideoTrack.Maximum = _metadata.VideoTracks.Count() - 1;
+            if (_metadata.AudioTracks != null) numericUpDownAudioTrack.Maximum = _metadata.AudioTracks.Count() - 1;
             DGMetadataGal.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             BuildGridVideo();
@@ -82,33 +82,39 @@ namespace AMSExplorer
         private void BuildGridAudio()
         {
             // audio metadata
-            var audio = _metadata.AudioTracks.ElementAt((int) numericUpDownAudioTrack.Value);
             DGMetadataAudio.Rows.Clear();
-            DGMetadataAudio.Rows.Add("Codec", audio.Codec);
-            DGMetadataAudio.Rows.Add("Bitrate", audio.Bitrate);
-            DGMetadataAudio.Rows.Add("BitsPerSample", audio.BitsPerSample);
-            DGMetadataAudio.Rows.Add("Channels", audio.Channels);
-            DGMetadataAudio.Rows.Add("SamplingRate", audio.SamplingRate);
-            DGMetadataAudio.Rows.Add("EncoderVersion", audio.EncoderVersion);
-            DGMetadataAudio.Rows.Add("Id", audio.Id);
+            if (_metadata.AudioTracks != null)
+            {
+                var audio = _metadata.AudioTracks.ElementAt((int)numericUpDownAudioTrack.Value);
+                DGMetadataAudio.Rows.Add("Codec", audio.Codec);
+                DGMetadataAudio.Rows.Add("Bitrate", audio.Bitrate);
+                DGMetadataAudio.Rows.Add("BitsPerSample", audio.BitsPerSample);
+                DGMetadataAudio.Rows.Add("Channels", audio.Channels);
+                DGMetadataAudio.Rows.Add("SamplingRate", audio.SamplingRate);
+                DGMetadataAudio.Rows.Add("EncoderVersion", audio.EncoderVersion);
+                DGMetadataAudio.Rows.Add("Id", audio.Id);
+            }
             DGMetadataAudio.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void BuildGridVideo()
         {
             // video metadata
-            var video = _metadata.VideoTracks.ElementAt((int) numericUpDownVideoTrack.Value);
             DGMetadataVideo.Rows.Clear();
-            DGMetadataVideo.Rows.Add("FourCC", video.FourCC);
-            DGMetadataVideo.Rows.Add("Bitrate", video.Bitrate);
-            DGMetadataVideo.Rows.Add("TargetBitrate", video.TargetBitrate);
-            DGMetadataVideo.Rows.Add("Width", video.Width);
-            DGMetadataVideo.Rows.Add("Height", video.Height);
-            DGMetadataVideo.Rows.Add("DisplayAspectRatioNumerator", video.DisplayAspectRatioNumerator);
-            DGMetadataVideo.Rows.Add("DisplayAspectRatioDenominator", video.DisplayAspectRatioDenominator);
-            DGMetadataVideo.Rows.Add("Framerate", video.Framerate);
-            DGMetadataVideo.Rows.Add("TargetFramerate", video.TargetFramerate);
-            DGMetadataVideo.Rows.Add("Id", video.Id);
+            if (_metadata.VideoTracks!=null)
+            {
+                var video = _metadata.VideoTracks.ElementAt((int)numericUpDownVideoTrack.Value);
+                DGMetadataVideo.Rows.Add("FourCC", video.FourCC);
+                DGMetadataVideo.Rows.Add("Bitrate", video.Bitrate);
+                DGMetadataVideo.Rows.Add("TargetBitrate", video.TargetBitrate);
+                DGMetadataVideo.Rows.Add("Width", video.Width);
+                DGMetadataVideo.Rows.Add("Height", video.Height);
+                DGMetadataVideo.Rows.Add("DisplayAspectRatioNumerator", video.DisplayAspectRatioNumerator);
+                DGMetadataVideo.Rows.Add("DisplayAspectRatioDenominator", video.DisplayAspectRatioDenominator);
+                DGMetadataVideo.Rows.Add("Framerate", video.Framerate);
+                DGMetadataVideo.Rows.Add("TargetFramerate", video.TargetFramerate);
+                DGMetadataVideo.Rows.Add("Id", video.Id);
+            }
             DGMetadataVideo.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
