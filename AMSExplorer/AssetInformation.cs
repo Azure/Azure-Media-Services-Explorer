@@ -290,6 +290,7 @@ namespace AMSExplorer
             dataGridViewKeys.Rows.Clear();
             listViewAutPol.Items.Clear();
             dataGridViewAutPol.Rows.Clear();
+            buttonRemoveKey.Enabled = bkeyinasset;
 
             if (bkeyinasset)
             {
@@ -1309,14 +1310,13 @@ namespace AMSExplorer
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewKeys.SelectedItems.Count > 0 ? true : false;
+            buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
             DoDisplayKeyProperties();
         }
 
 
         private void listViewAutPol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewAutPol.SelectedItems.Count > 0 ? true : false;
             DoDisplayAuthorizationPolicyProperties();
         }
 
@@ -1549,6 +1549,51 @@ namespace AMSExplorer
         private void showMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowFileMetadata();
+        }
+
+        private void buttonDelKey_Click(object sender, EventArgs e)
+        {
+            DoDeleteKey();
+        }
+
+        private void DoDeleteKey()
+        {
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+                string keyid = key.Id;
+                DialogResult DR = MessageBox.Show("This will remove the key from the asset. Do you want to also DELETE the key from the Azure Media Services account ?", "Key removal", MessageBoxButtons.YesNoCancel);
+
+                if (DR == DialogResult.Yes || DR == DialogResult.No)
+                {
+                    string step = "removing";
+                    try
+                    {
+                        MyAsset.ContentKeys.Remove(key);
+                        if (DR == DialogResult.Yes) // user wants also to delete the key
+                        {
+                            step = "deleting";
+                            IContentKey keyrefreshed = MyContext.ContentKeys.Where(k => k.Id == keyid).FirstOrDefault();
+                            if (keyrefreshed != null)
+                            {
+                                keyrefreshed.Delete();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        string messagestr = string.Format("Error when {0} the key", step);
+                        if (e.InnerException != null)
+                        {
+                            messagestr += Constants.endline + Program.GetErrorMessage(e);
+                        }
+                        MessageBox.Show(messagestr);
+                    }
+                    ListAssetKeys();
+                }
+
+
+            }
         }
     }
 }
