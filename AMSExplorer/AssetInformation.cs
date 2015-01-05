@@ -632,7 +632,23 @@ namespace AMSExplorer
                 {
 
                     case ContentKeyType.CommonEncryption:
-                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).OriginalString);
+                        string DelUrl;
+                        try
+                        {
+                            DelUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).OriginalString;
+                        }
+                        catch (Exception e) // Perhaps PlayReady license delivery has been activated
+                        {
+                            if (e.InnerException == null)
+                            {
+                                DelUrl = e.Message;
+                            }
+                            else
+                            {
+                                DelUrl = string.Format("{0} ({1})", e.Message, Program.GetErrorMessage(e));
+                            }
+                        }
+                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
                         if (MyPolicies != null)
                         {
                             listViewAutPol.BeginUpdate();
