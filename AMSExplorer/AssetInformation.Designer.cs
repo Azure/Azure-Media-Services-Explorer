@@ -102,6 +102,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRemoveKey = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -568,6 +569,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonRemoveKey);
             this.tabPage5.Controls.Add(this.buttonGetTestToken);
             this.tabPage5.Controls.Add(this.label3);
             this.tabPage5.Controls.Add(this.dataGridViewAutPol);
@@ -700,11 +702,11 @@
             // 
             this.buttonRemovePol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemovePol.Enabled = false;
-            this.buttonRemovePol.Location = new System.Drawing.Point(9, 421);
+            this.buttonRemovePol.Location = new System.Drawing.Point(9, 408);
             this.buttonRemovePol.Name = "buttonRemovePol";
-            this.buttonRemovePol.Size = new System.Drawing.Size(60, 23);
+            this.buttonRemovePol.Size = new System.Drawing.Size(134, 23);
             this.buttonRemovePol.TabIndex = 34;
-            this.buttonRemovePol.Text = "Remove";
+            this.buttonRemovePol.Text = "Remove delivry policy";
             this.toolTip1.SetToolTip(this.buttonRemovePol, "Delete the selected file");
             this.buttonRemovePol.UseVisualStyleBackColor = true;
             this.buttonRemovePol.Click += new System.EventHandler(this.buttonRemovePol_Click);
@@ -726,7 +728,7 @@
             this.DGDelPol.Name = "DGDelPol";
             this.DGDelPol.ReadOnly = true;
             this.DGDelPol.RowHeadersVisible = false;
-            this.DGDelPol.Size = new System.Drawing.Size(410, 409);
+            this.DGDelPol.Size = new System.Drawing.Size(410, 396);
             this.DGDelPol.TabIndex = 32;
             this.DGDelPol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -741,7 +743,7 @@
             this.listViewDelPol.Location = new System.Drawing.Point(9, 6);
             this.listViewDelPol.MultiSelect = false;
             this.listViewDelPol.Name = "listViewDelPol";
-            this.listViewDelPol.Size = new System.Drawing.Size(315, 409);
+            this.listViewDelPol.Size = new System.Drawing.Size(315, 396);
             this.listViewDelPol.TabIndex = 33;
             this.listViewDelPol.UseCompatibleStateImageBehavior = false;
             this.listViewDelPol.View = System.Windows.Forms.View.Details;
@@ -934,6 +936,17 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
+            // buttonRemoveKey
+            // 
+            this.buttonRemoveKey.Enabled = false;
+            this.buttonRemoveKey.Location = new System.Drawing.Point(11, 236);
+            this.buttonRemoveKey.Name = "buttonRemoveKey";
+            this.buttonRemoveKey.Size = new System.Drawing.Size(104, 23);
+            this.buttonRemoveKey.TabIndex = 42;
+            this.buttonRemoveKey.Text = "Remove key";
+            this.buttonRemoveKey.UseVisualStyleBackColor = true;
+            this.buttonRemoveKey.Click += new System.EventHandler(this.buttonDelKey_Click);
+            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1044,5 +1057,6 @@
         private System.Windows.Forms.Button buttonFileMetadata;
         private System.Windows.Forms.ToolStripMenuItem showMetadataToolStripMenuItem;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonRemoveKey;
     }
 }
