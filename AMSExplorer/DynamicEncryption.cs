@@ -199,7 +199,7 @@ namespace AMSExplorer
 
         public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
         {
-            string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -239,7 +239,7 @@ namespace AMSExplorer
 
         public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context, string newLicenseTemplate)
         {
-            string tokenTemplateString = GenerateTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -278,7 +278,7 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer)
+        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer)
         {
             TokenRestrictionTemplate template = new TokenRestrictionTemplate();
 
@@ -286,6 +286,7 @@ namespace AMSExplorer
             template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
             template.Audience = _sampleAudience;
             template.Issuer = _sampleIssuer;
+            template.TokenType = TokenType.SWT;
             template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
 
             return TokenRestrictionTemplateSerializer.Serialize(template);

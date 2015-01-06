@@ -1026,7 +1026,7 @@ namespace AMSExplorer
             else return null;
         }
 
-        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context)
+        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, bool UrlEncoded = false)
         {
             string testToken = null;
             IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
@@ -1043,8 +1043,8 @@ namespace AMSExplorer
                         {
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                            testToken = HttpUtility.UrlEncode(testToken);
+                            testToken = "Bearer " + TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                            if (UrlEncoded) testToken = HttpUtility.UrlEncode(testToken);
                         }
                     }
                 }
@@ -1230,11 +1230,11 @@ namespace AMSExplorer
                 switch (typeplayer)
                 {
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context);
+                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context, true);
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context);
+                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context, true);
                         break;
 
                     default:
