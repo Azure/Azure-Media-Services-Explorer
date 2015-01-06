@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class DeleteProgram
+    partial class DeleteProgramChannel
     {
         /// <summary>
         /// Required designer variable.
@@ -71,7 +71,7 @@
             // checkBoxDeleteAsset
             // 
             this.checkBoxDeleteAsset.AutoSize = true;
-            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(84, 70);
+            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(30, 68);
             this.checkBoxDeleteAsset.Name = "checkBoxDeleteAsset";
             this.checkBoxDeleteAsset.Size = new System.Drawing.Size(149, 17);
             this.checkBoxDeleteAsset.TabIndex = 49;
@@ -81,7 +81,7 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(239, 70);
+            this.label5.Location = new System.Drawing.Point(185, 68);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(166, 17);
             this.label5.TabIndex = 50;
@@ -99,7 +99,7 @@
             this.panel1.Size = new System.Drawing.Size(494, 48);
             this.panel1.TabIndex = 63;
             // 
-            // DeleteProgram
+            // DeleteProgramChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -109,9 +109,9 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxDeleteAsset);
             this.Controls.Add(this.labelmain);
-            this.Name = "DeleteProgram";
+            this.Name = "DeleteProgramChannel";
             this.Text = "Delete program(s)";
-            this.Load += new System.EventHandler(this.DeleteProgram_Load);
+            this.Load += new System.EventHandler(this.DeleteProgramChannel_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

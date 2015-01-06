@@ -1638,7 +1638,7 @@
             this.deleteChannelsToolStripMenuItem.Name = "deleteChannelsToolStripMenuItem";
             this.deleteChannelsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
             this.deleteChannelsToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.deleteChannelsToolStripMenuItem.Text = "Delete channel(s)";
+            this.deleteChannelsToolStripMenuItem.Text = "Delete channel(s)...";
             this.deleteChannelsToolStripMenuItem.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem_Click);
             // 
             // copyInputURLToClipboardToolStripMenuItem
@@ -1750,7 +1750,7 @@
             this.deleteProgramsToolStripMenuItem1.Name = "deleteProgramsToolStripMenuItem1";
             this.deleteProgramsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
             this.deleteProgramsToolStripMenuItem1.Size = new System.Drawing.Size(262, 22);
-            this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)";
+            this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)...";
             this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
             // 
             // copyTheOutputURLToClipboardToolStripMenuItem1
@@ -1853,7 +1853,7 @@
             this.refreshToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("refreshToolStripMenuItem.Image")));
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
             this.refreshToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.refreshToolStripMenuItem.Text = "Refresh all";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
@@ -1861,7 +1861,7 @@
             // 
             this.optionsToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("optionsToolStripMenuItem.Image")));
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.optionsToolStripMenuItem.Text = "Options...";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
@@ -2747,7 +2747,7 @@
             this.ContextMenuItemChannelDelete.Name = "ContextMenuItemChannelDelete";
             this.ContextMenuItemChannelDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
             this.ContextMenuItemChannelDelete.Size = new System.Drawing.Size(256, 22);
-            this.ContextMenuItemChannelDelete.Text = "Delete channel(s)";
+            this.ContextMenuItemChannelDelete.Text = "Delete channel(s)...";
             this.ContextMenuItemChannelDelete.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem1_Click);
             // 
             // toolStripSeparator14
@@ -3025,7 +3025,7 @@
             this.ContextMenuItemProgramDelete.Name = "ContextMenuItemProgramDelete";
             this.ContextMenuItemProgramDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.P)));
             this.ContextMenuItemProgramDelete.Size = new System.Drawing.Size(262, 22);
-            this.ContextMenuItemProgramDelete.Text = "Delete program(s)";
+            this.ContextMenuItemProgramDelete.Text = "Delete program(s)...";
             this.ContextMenuItemProgramDelete.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem_Click);
             // 
             // toolStripSeparator16

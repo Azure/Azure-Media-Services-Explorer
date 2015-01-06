@@ -27,7 +27,7 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class DeleteProgram : Form
+    public partial class DeleteProgramChannel : Form
     {
         public bool DeleteAsset
         {
@@ -37,14 +37,16 @@ namespace AMSExplorer
             }
         }
 
-        public DeleteProgram(string label)
+        public DeleteProgramChannel(string label, string title)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             labelmain.Text = label;
+            this.Text = title;
+            buttonOk.Text = title;
         }
 
-        private void DeleteProgram_Load(object sender, EventArgs e)
+        private void DeleteProgramChannel_Load(object sender, EventArgs e)
         {
         }
     }

@@ -5515,14 +5515,60 @@ typeof(FilterTime)
         private void DoDeleteChannels()
         {
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
+            string hannelstr = SelectedChannels.Count > 1 ? "hannels" : "hannel";
             if (SelectedChannels.Count > 0)
             {
-                string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Channel(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                List<string> ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+                List<IProgram> Programs = _context.Programs.AsEnumerable().Where(p => ChannelSourceIDs.Contains(p.ChannelId)).ToList();
+
+                if (Programs.Count == 0) // No program associated to the channel(s) to be deleted
                 {
-                    foreach (IChannel myC in ReturnSelectedChannels())
+                    string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
+
+                    if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        DeleteChannel(myC);
+                        foreach (IChannel myC in ReturnSelectedChannels())
+                        {
+                            DeleteChannel(myC);
+                        }
+                    }
+                }
+                else // There are programs associated to the channel(s) to be deleted. We need to delete the programs
+                {
+                    string question = (Programs.Count == 1) ? string.Format("There is one program associated to the c{0}.\nDelete the c{0} and program '{1}' ?", hannelstr, Programs[0].Name)
+                                                            : string.Format("There are {0} programs associated to the c{1}.\nDelete the c{1} and these programs ?", Programs.Count, hannelstr);
+
+                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete C" + hannelstr);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        foreach (IProgram myP in Programs)
+                        {
+                            IAsset asset = myP.Asset;
+                            DeleteProgram(myP);
+                            if (form.DeleteAsset)
+                            {
+                                if (myP.Asset != null)
+                                {
+                                    //delete
+                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                    try
+                                    {
+                                        DeleteAsset(asset);
+                                        if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+                                }
+                            }
+                        }
+                        foreach (IChannel myC in ReturnSelectedChannels())
+                        {
+                            DeleteChannel(myC);
+                        }
                     }
                 }
             }
@@ -5806,7 +5852,7 @@ typeof(FilterTime)
                 {
                     string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
 
-                    DeleteProgram form = new DeleteProgram(question);
+                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete Program(s)");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {

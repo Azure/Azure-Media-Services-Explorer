@@ -176,11 +176,11 @@
     <Compile Include="BatchUploadFrame1.Designer.cs">
       <DependentUpon>BatchUploadFrame1.cs</DependentUpon>
     </Compile>
-    <Compile Include="DeleteProgram.cs">
+    <Compile Include="DeleteProgramChannel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DeleteProgram.Designer.cs">
-      <DependentUpon>DeleteProgram.cs</DependentUpon>
+    <Compile Include="DeleteProgramChannel.Designer.cs">
+      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
     </Compile>
     <Compile Include="AttachStorage.cs">
       <SubType>Form</SubType>
@@ -390,8 +390,8 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Bitmaps.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="DeleteProgram.resx">
-      <DependentUpon>DeleteProgram.cs</DependentUpon>
+    <EmbeddedResource Include="DeleteProgramChannel.resx">
+      <DependentUpon>DeleteProgramChannel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AttachStorage.resx">
       <DependentUpon>AttachStorage.cs</DependentUpon>
