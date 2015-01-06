@@ -5936,6 +5936,8 @@ typeof(FilterTime)
                         archiveWindowLength = new TimeSpan(4, 0, 0),
                         CreateLocator = true,
                         EnableDynEnc = false,
+                        StartProgram = false,
+                        ProposeStartProgram = (channel.State == ChannelState.Running),
                         AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
                         ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
                     };
@@ -5976,8 +5978,13 @@ typeof(FilterTime)
                                    "created");
                         await STask;
 
-
                         DoRefreshGridProgramV(false);
+
+                        if (form.StartProgram)
+                        {
+
+                            StartProgam(_context.Programs.Where(p => p.Name == form.ProgramName && p.ChannelId == channel.Id).FirstOrDefault());
+                        }
                     }
                     DoRefreshGridAssetV(false);
                 }
