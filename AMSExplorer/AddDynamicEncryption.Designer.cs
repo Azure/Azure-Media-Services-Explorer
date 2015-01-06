@@ -304,9 +304,9 @@
             this.radioButtonTokenAuthPolicy.AutoSize = true;
             this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(35, 74);
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
-            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(56, 17);
+            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(90, 17);
             this.radioButtonTokenAuthPolicy.TabIndex = 55;
-            this.radioButtonTokenAuthPolicy.Text = "Token";
+            this.radioButtonTokenAuthPolicy.Text = "Token (SWT)";
             this.radioButtonTokenAuthPolicy.UseVisualStyleBackColor = true;
             this.radioButtonTokenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonToken_CheckedChanged);
             // 

@@ -108,6 +108,18 @@ namespace AMSExplorer
             get { return checkBoxCreateLocator.Checked; }
             set { checkBoxCreateLocator.Checked = value; }
         }
+        public bool ProposeStartProgram
+        {
+            set
+            {
+                checkBoxStartProgramNow.Enabled = value;
+            }
+        }
+        public bool StartProgram
+        {
+            get { return checkBoxStartProgramNow.Checked; }
+            set { checkBoxStartProgramNow.Checked = value; }
+        }
 
         public bool EnableDynEnc
         {

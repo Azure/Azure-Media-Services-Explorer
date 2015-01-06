@@ -126,15 +126,6 @@ namespace AMSExplorer
             }
         }
 
-        public string Warning
-        {
-            set
-            {
-                labelWarning.Text = value;
-            }
-        }
-
-
         public Indexer(CloudMediaContext context)
         {
             InitializeComponent();

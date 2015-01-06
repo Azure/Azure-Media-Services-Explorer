@@ -1382,29 +1382,10 @@ namespace AMSExplorer
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-
-                if (listViewAutPol.SelectedItems.Count > 0)
-                {
-                    IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    if (policy != null)
-                    {
-                        IContentKeyAuthorizationPolicyOption option = policy.Options.FirstOrDefault();
-                        if (option != null)
-                        {
-                            string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                            if (!string.IsNullOrEmpty(tokenTemplateString))
-                            {
-                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-
-                                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
-                                System.Windows.Forms.Clipboard.SetText(testToken);
-                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
-                            }
-                        }
-                    }
-                }
+                string testToken = AssetInfo.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
+                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
+                System.Windows.Forms.Clipboard.SetText(testToken);
+                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
             }
         }
 

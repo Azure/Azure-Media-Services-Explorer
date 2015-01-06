@@ -45,7 +45,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.labelWarning = new System.Windows.Forms.Label();
             this.label33 = new System.Windows.Forms.Label();
             this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
@@ -223,17 +222,6 @@
             this.buttonOk.Text = "Launch indexing";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
-            // labelWarning
-            // 
-            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelWarning.AutoSize = true;
-            this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(12, 461);
-            this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
-            this.labelWarning.TabIndex = 62;
-            this.labelWarning.Text = "Warning";
-            // 
             // label33
             // 
             this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -299,7 +287,6 @@
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
-            this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.groupBox1);
@@ -341,7 +328,6 @@
         private System.Windows.Forms.Label label4;
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
-        private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.ComboBox comboBoxStorage;
         public System.Windows.Forms.Label label34;
