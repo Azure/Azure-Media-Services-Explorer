@@ -3415,18 +3415,6 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            // let's check that filename are correct
-            bool RegexResult = true;
-            Regex reg = new Regex(@"^[\w-_.]+$", RegexOptions.Compiled);
-            foreach (var asset in SelectedAssets)
-            {
-                foreach (var file in asset.AssetFiles)
-                {
-                    if (!reg.IsMatch(file.Name)) RegexResult = false;
-                }
-            }
-
-
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
@@ -3437,7 +3425,6 @@ namespace AMSExplorer
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
-                Warning = RegexResult ? string.Empty : "One of the asset files contains a character which is perhaps not supported by the Indexer."
             };
 
             string taskname = "Indexing of " + Constants.NameconvInputasset;
