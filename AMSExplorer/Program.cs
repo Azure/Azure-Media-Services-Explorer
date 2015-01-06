@@ -283,6 +283,8 @@ namespace AMSExplorer
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
+
+        public const string Bearer = "Bearer ";
     }
 
 
@@ -1026,7 +1028,7 @@ namespace AMSExplorer
             else return null;
         }
 
-        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, bool UrlEncoded = false)
+        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context)
         {
             string testToken = null;
             IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
@@ -1043,8 +1045,7 @@ namespace AMSExplorer
                         {
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                            testToken = "Bearer " + TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                            if (UrlEncoded) testToken = HttpUtility.UrlEncode(testToken);
+                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
                         }
                     }
                 }
@@ -1230,20 +1231,19 @@ namespace AMSExplorer
                 switch (typeplayer)
                 {
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context, true);
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context, true);
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
                         break;
 
                     default:
-                        // no token enable player
+                        // no token enabled player
                         break;
                 }
             }
             DoPlayBack(typeplayer, Url, token);
-
         }
         public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
         {
