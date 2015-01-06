@@ -189,7 +189,6 @@
             this.managementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureManagementPortalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStoragheAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -312,11 +311,11 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.withFlashAESTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withDASHLiveAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.withFlashAESTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
             this.numericUpDownEncodingRU = new System.Windows.Forms.NumericUpDown();
@@ -480,7 +479,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1819,8 +1818,7 @@
             // 
             this.managementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureManagementPortalToolStripMenuItem1,
-            this.attachAnotherStoragheAccountToolStripMenuItem,
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem});
+            this.attachAnotherStoragheAccountToolStripMenuItem});
             this.managementToolStripMenuItem.Name = "managementToolStripMenuItem";
             this.managementToolStripMenuItem.Size = new System.Drawing.Size(90, 20);
             this.managementToolStripMenuItem.Text = "Management";
@@ -1829,23 +1827,16 @@
             // 
             this.azureManagementPortalToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.external_link;
             this.azureManagementPortalToolStripMenuItem1.Name = "azureManagementPortalToolStripMenuItem1";
-            this.azureManagementPortalToolStripMenuItem1.Size = new System.Drawing.Size(336, 22);
+            this.azureManagementPortalToolStripMenuItem1.Size = new System.Drawing.Size(250, 22);
             this.azureManagementPortalToolStripMenuItem1.Text = "Azure Management Portal";
             this.azureManagementPortalToolStripMenuItem1.Click += new System.EventHandler(this.azureManagementPortalToolStripMenuItem1_Click);
             // 
             // attachAnotherStoragheAccountToolStripMenuItem
             // 
             this.attachAnotherStoragheAccountToolStripMenuItem.Name = "attachAnotherStoragheAccountToolStripMenuItem";
-            this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
+            this.attachAnotherStoragheAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
             this.attachAnotherStoragheAccountToolStripMenuItem.Text = "Attach another storage account...";
             this.attachAnotherStoragheAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStoragheAccountToolStripMenuItem_Click);
-            // 
-            // changeTheNumberOfEncodingReservedUnitsToolStripMenuItem
-            // 
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Name = "changeTheNumberOfEncodingReservedUnitsToolStripMenuItem";
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Size = new System.Drawing.Size(336, 22);
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Text = "Change the number of encoding Reserved Units...";
-            this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem.Click += new System.EventHandler(this.changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
@@ -3125,12 +3116,26 @@
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Text = "with Flash OSMF Azure Player";
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click_1);
             // 
+            // withFlashAESTokenPlayerToolStripMenuItem
+            // 
+            this.withFlashAESTokenPlayerToolStripMenuItem.Name = "withFlashAESTokenPlayerToolStripMenuItem";
+            this.withFlashAESTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
+            this.withFlashAESTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
+            this.withFlashAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem_Click);
+            // 
             // ContextMenuItemProgramPlaybackWithSilverlightMontoring
             // 
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Name = "ContextMenuItemProgramPlaybackWithSilverlightMontoring";
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Size = new System.Drawing.Size(288, 22);
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Text = "with Silverlight Monitoring Player";
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring.Click += new System.EventHandler(this.withSilverlightMontoringPlayerToolStripMenuItem_Click_1);
+            // 
+            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem1
+            // 
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem1";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Text = "with Silverlight PlayReady (Token) Player";
+            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click);
             // 
             // withDASHLiveAzurePlayerToolStripMenuItem
             // 
@@ -3145,20 +3150,6 @@
             this.withCustomPlayerToolStripMenuItem2.Size = new System.Drawing.Size(288, 22);
             this.withCustomPlayerToolStripMenuItem2.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem2_Click);
-            // 
-            // withFlashAESTokenPlayerToolStripMenuItem
-            // 
-            this.withFlashAESTokenPlayerToolStripMenuItem.Name = "withFlashAESTokenPlayerToolStripMenuItem";
-            this.withFlashAESTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(288, 22);
-            this.withFlashAESTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
-            this.withFlashAESTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem_Click);
-            // 
-            // withSilverlightPlayReadyTokenPlayerToolStripMenuItem1
-            // 
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Name = "withSilverlightPlayReadyTokenPlayerToolStripMenuItem1";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(288, 22);
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Text = "with Silverlight PlayReady (Token) Player";
-            this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1_Click);
             // 
             // tabPageProcessors
             // 
@@ -3891,7 +3882,6 @@
         private System.Windows.Forms.ToolStripMenuItem recreateProgramsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem managementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem attachAnotherStoragheAccountToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem changeTheNumberOfEncodingReservedUnitsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;

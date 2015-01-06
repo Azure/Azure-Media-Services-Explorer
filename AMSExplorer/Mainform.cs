@@ -7489,31 +7489,6 @@ typeof(FilterTime)
             }
         }
 
-        private void changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeEncodingRU form = new ChangeEncodingRU();
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper("https://management.core.windows.net", form.GetCertThumbprint, form.GetAzureSubscriptionID);
-
-                // Initialize the AccountInfo class.
-                MediaServicesAccount accountInfo = new MediaServicesAccount();
-                accountInfo.AccountName = _context.Credentials.ClientId;
-
-                try
-                {
-                    helper.UpdateEncodingReservedUnits(accountInfo, form.RUNumber);
-                    TextBoxLogWriteLine("Media Services account '{0}' updated with {1} encoding reserved units.", _context.Credentials.ClientId, form.RUNumber);
-                }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when changing the number of encoding reserved units.", true);
-                    TextBoxLogWriteLine(ex);
-                }
-            }
-        }
 
         private void addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {

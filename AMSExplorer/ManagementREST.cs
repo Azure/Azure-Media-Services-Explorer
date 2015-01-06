@@ -471,50 +471,6 @@ namespace AMSExplorer
                     Console.WriteLine("The secondary key was regenerated.");
             }
         }
-
-        public void UpdateEncodingReservedUnits(MediaServicesAccount accountInfo, int value)
-        {
-            var mgmtCert = GetClientCertificate();
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/{1}/services/mediaservices/Accounts/{2}/ServiceQuotas", Endpoint, SubscriptionId, accountInfo.AccountName));
-
-            request.Method = "PUT";
-            request.Accept = "application/json";
-            request.ContentType = "application/json; charset=utf-8";
-            request.Headers.Add("x-ms-version", "2011-10-01");
-            request.Headers.Add("Accept-Encoding: gzip, deflate");
-            request.ClientCertificates.Add(mgmtCert);
-
-            string jsonString = "";
-
-            List<ServiceQuotaUpdateRequest> serviceQuotaUpdateRequests = new List<ServiceQuotaUpdateRequest>();
-            serviceQuotaUpdateRequests.Add(new ServiceQuotaUpdateRequest
-            {
-                ServiceType = "Encoding",
-                RequestedUnits = value
-            });
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<ServiceQuotaUpdateRequest>));
-                serializer.WriteObject(ms, serviceQuotaUpdateRequests);
-                jsonString = Encoding.Default.GetString(ms.ToArray());
-            }
-
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                var requestBytes = System.Text.Encoding.ASCII.GetBytes(jsonString);
-                requestStream.Write(requestBytes, 0, requestBytes.Length);
-                requestStream.Close();
-            }
-
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                Stream stream1 = response.GetResponseStream();
-                StreamReader sr = new StreamReader(stream1);
-                Console.WriteLine(sr.ReadToEnd());
-            }
-        }
     }
     #region SerializationClasses
 
