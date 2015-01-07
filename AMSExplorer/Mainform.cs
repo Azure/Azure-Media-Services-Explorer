@@ -5174,7 +5174,6 @@ typeof(FilterTime)
             comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
             numericUpDownEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
             numericUpDownEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            RUEncodingUpdateControls();
         }
 
 
@@ -7885,35 +7884,49 @@ typeof(FilterTime)
 
         private async void DoUpdateEncodingRU()
         {
-            TextBoxLogWriteLine("Updating reserved unit(s)...");
+            bool oktocontinue = true;
 
-            IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
-            EncResUnit.CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
-            EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
-
-            numericUpDownEncodingRU.Enabled = false;
-            comboBoxEncodingRU.Enabled = false;
-            buttonUpdateEncodingRU.Enabled = false;
-
-            await Task.Run(() =>
+            if (numericUpDownEncodingRU.Value == 0 && ((string)comboBoxEncodingRU.SelectedItem != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
+            // user selected 0 with a non BASIC hardware...
             {
-                try
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not Basic. Are you sure you want to continue ?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Cancel)
                 {
-                    EncResUnit.Update();
-                    TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
-                    TextBoxLogWriteLine(ex);
+                    oktocontinue = false;
                 }
             }
 
-                );
-            DoRefreshGridProcessorV(false);
-            numericUpDownEncodingRU.Enabled = true;
-            comboBoxEncodingRU.Enabled = true;
-            buttonUpdateEncodingRU.Enabled = true;
+            if (oktocontinue)
+            {
+                TextBoxLogWriteLine(string.Format("Updating to {0} {1} reserved unit{2}...", (int)numericUpDownEncodingRU.Value, (string)comboBoxEncodingRU.SelectedItem, (int)numericUpDownEncodingRU.Value > 1 ? "s" : string.Empty));
+
+                IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
+                EncResUnit.CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
+                EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
+
+                numericUpDownEncodingRU.Enabled = false;
+                comboBoxEncodingRU.Enabled = false;
+                buttonUpdateEncodingRU.Enabled = false;
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        EncResUnit.Update();
+                        TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+
+                    );
+                DoRefreshGridProcessorV(false);
+                numericUpDownEncodingRU.Enabled = true;
+                comboBoxEncodingRU.Enabled = true;
+                buttonUpdateEncodingRU.Enabled = true;
+            }
         }
 
         private void numericUpDownEncodingRU_ValueChanged(object sender, EventArgs e)
@@ -7927,11 +7940,6 @@ typeof(FilterTime)
             if (numericUpDownEncodingRU.Value == 0)
             {
                 comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
-                comboBoxEncodingRU.Enabled = false;
-            }
-            else
-            {
-                comboBoxEncodingRU.Enabled = true;
             }
         }
     }
