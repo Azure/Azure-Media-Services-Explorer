@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="AssetInformation.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.0
+// Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -290,6 +290,7 @@ namespace AMSExplorer
             dataGridViewKeys.Rows.Clear();
             listViewAutPol.Items.Clear();
             dataGridViewAutPol.Rows.Clear();
+            buttonRemoveKey.Enabled = false;
 
             if (bkeyinasset)
             {
@@ -316,7 +317,7 @@ namespace AMSExplorer
         private void ListAssetDeliveryPolicies()
         {
             listViewDelPol.Items.Clear();
-            buttonRemovePol.Enabled = (MyAsset.DeliveryPolicies.Count > 0);
+            buttonRemovePol.Enabled = false;
 
             DGDelPol.Rows.Clear();
             listViewDelPol.BeginUpdate();
@@ -632,7 +633,23 @@ namespace AMSExplorer
                 {
 
                     case ContentKeyType.CommonEncryption:
-                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).OriginalString);
+                        string DelUrl;
+                        try
+                        {
+                            DelUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).OriginalString;
+                        }
+                        catch (Exception e) // Perhaps PlayReady license delivery has been activated
+                        {
+                            if (e.InnerException == null)
+                            {
+                                DelUrl = e.Message;
+                            }
+                            else
+                            {
+                                DelUrl = string.Format("{0} ({1})", e.Message, Program.GetErrorMessage(e));
+                            }
+                        }
+                        dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
                         if (MyPolicies != null)
                         {
                             listViewAutPol.BeginUpdate();
@@ -1270,37 +1287,57 @@ namespace AMSExplorer
             {
                 if (listViewDelPol.SelectedItems[0] != null)
                 {
-                    try
+                    IAssetDeliveryPolicy DP = MyAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    if (DP != null)
                     {
-                        IAssetDeliveryPolicy DP = MyAsset.DeliveryPolicies.Skip(listViewDelPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                        string question = string.Format("Remove the policy '{0}' ?", DP.Name);
+                        string DPid = DP.Id;
+                        string question = string.Format("This will remove the policy '{0}' from the asset.\nDo you want to also DELETE the policy from the Azure Media Services account ?", DP.Name);
+                        DialogResult DR = MessageBox.Show(question, "Delivery Policy removal", MessageBoxButtons.YesNoCancel);
 
-                        if (System.Windows.Forms.MessageBox.Show(question, "Delivery Policy removal", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                        if (DR == DialogResult.Yes || DR == DialogResult.No)
                         {
-                            MyAsset.DeliveryPolicies.Remove(DP);
+                            string step = "removing";
+
+                            try
+                            {
+                                MyAsset.DeliveryPolicies.Remove(DP);
+
+                                if (DR == DialogResult.Yes) // user wants also to delete the policy
+                                {
+                                    step = "deleting";
+                                    IAssetDeliveryPolicy policyrefreshed = MyContext.AssetDeliveryPolicies.Where(p => p.Id == DPid).FirstOrDefault();
+                                    if (policyrefreshed != null)
+                                    {
+                                        policyrefreshed.Delete();
+                                    }
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when {0} the delivery policy.", step);
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
                             ListAssetDeliveryPolicies();
                         }
                     }
-                    catch (Exception e)
-                    {
-                        MessageBox.Show("Error when removing this policy." + Constants.endline + Program.GetErrorMessage(e));
-                        ListAssetDeliveryPolicies();
-                    }
-
                 }
             }
+
         }
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewKeys.SelectedItems.Count > 0 ? true : false;
+            buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
             DoDisplayKeyProperties();
         }
 
 
         private void listViewAutPol_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewAutPol.SelectedItems.Count > 0 ? true : false;
             DoDisplayAuthorizationPolicyProperties();
         }
 
@@ -1345,29 +1382,10 @@ namespace AMSExplorer
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-
-                if (listViewAutPol.SelectedItems.Count > 0)
-                {
-                    IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    if (policy != null)
-                    {
-                        IContentKeyAuthorizationPolicyOption option = policy.Options.FirstOrDefault();
-                        if (option != null)
-                        {
-                            string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                            if (!string.IsNullOrEmpty(tokenTemplateString))
-                            {
-                                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                                string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-
-                                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
-                                System.Windows.Forms.Clipboard.SetText(testToken);
-                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
-                            }
-                        }
-                    }
-                }
+                string testToken = AssetInfo.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
+                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
+                System.Windows.Forms.Clipboard.SetText(testToken);
+                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
             }
         }
 
@@ -1533,6 +1551,92 @@ namespace AMSExplorer
         private void showMetadataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowFileMetadata();
+        }
+
+        private void buttonDelKey_Click(object sender, EventArgs e)
+        {
+            DoDemoveKey();
+        }
+
+        private void DoDemoveKey()
+        {
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+                string keyid = key.Id;
+                string question = string.Format("This will remove the key '{0}' from the asset.\nDo you want to also DELETE the key from the Azure Media Services account ?", key.Name);
+                DialogResult DR = MessageBox.Show(question, "Key removal", MessageBoxButtons.YesNoCancel);
+
+                if (DR == DialogResult.Yes || DR == DialogResult.No)
+                {
+                    string step = "removing";
+                    try
+                    {
+                        MyAsset.ContentKeys.Remove(key);
+                        if (DR == DialogResult.Yes) // user wants also to delete the key
+                        {
+                            step = "deleting";
+                            IContentKey keyrefreshed = MyContext.ContentKeys.Where(k => k.Id == keyid).FirstOrDefault();
+                            if (keyrefreshed != null)
+                            {
+                                keyrefreshed.Delete();
+                            }
+                        }
+                    }
+                    catch (Exception e)
+                    {
+                        string messagestr = string.Format("Error when {0} the key", step);
+                        if (e.InnerException != null)
+                        {
+                            messagestr += Constants.endline + Program.GetErrorMessage(e);
+                        }
+                        MessageBox.Show(messagestr);
+                    }
+                    ListAssetKeys();
+                }
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDemoveKey();
+        }
+
+        private void getTestTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
+
+        private void removeDeliveryPolicyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemovePol();
+        }
+
+        private void contextMenuStripDelPol_Opening(object sender, CancelEventArgs e)
+        {
+            removeDeliveryPolicyToolStripMenuItem.Enabled = (listViewDelPol.SelectedItems.Count > 0);
+        }
+
+        private void contextMenuStripKey_Opening(object sender, CancelEventArgs e)
+        {
+            removeKeyToolStripMenuItem.Enabled = (listViewKeys.SelectedItems.Count > 0);
+
+        }
+
+        private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
+        {
+            getTestTokenToolStripMenuItem.Enabled = (listViewAutPol.SelectedItems.Count > 0);
+        }
+
+        private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
+        {
+            bool selected = (listViewFiles.SelectedItems.Count > 0);
+            makeItPrimaryToolStripMenuItem.Enabled = selected;
+            showMetadataToolStripMenuItem.Enabled = selected;
+            toolStripMenuItemOpenFile.Enabled = selected;
+            toolStripMenuItemDownloadFile.Enabled = selected;
+            deleteFileToolStripMenuItem.Enabled = selected;
+            duplicateFileToolStripMenuItem.Enabled = selected;
         }
     }
 }

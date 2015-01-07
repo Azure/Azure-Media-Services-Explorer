@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="ManagementREST.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.0
+// Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -469,50 +469,6 @@ namespace AMSExplorer
             {
                 if (response.StatusCode == HttpStatusCode.NoContent)
                     Console.WriteLine("The secondary key was regenerated.");
-            }
-        }
-
-        public void UpdateEncodingReservedUnits(MediaServicesAccount accountInfo, int value)
-        {
-            var mgmtCert = GetClientCertificate();
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/{1}/services/mediaservices/Accounts/{2}/ServiceQuotas", Endpoint, SubscriptionId, accountInfo.AccountName));
-
-            request.Method = "PUT";
-            request.Accept = "application/json";
-            request.ContentType = "application/json; charset=utf-8";
-            request.Headers.Add("x-ms-version", "2011-10-01");
-            request.Headers.Add("Accept-Encoding: gzip, deflate");
-            request.ClientCertificates.Add(mgmtCert);
-
-            string jsonString = "";
-
-            List<ServiceQuotaUpdateRequest> serviceQuotaUpdateRequests = new List<ServiceQuotaUpdateRequest>();
-            serviceQuotaUpdateRequests.Add(new ServiceQuotaUpdateRequest
-            {
-                ServiceType = "Encoding",
-                RequestedUnits = value
-            });
-
-            using (MemoryStream ms = new MemoryStream())
-            {
-                DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(List<ServiceQuotaUpdateRequest>));
-                serializer.WriteObject(ms, serviceQuotaUpdateRequests);
-                jsonString = Encoding.Default.GetString(ms.ToArray());
-            }
-
-            using (Stream requestStream = request.GetRequestStream())
-            {
-                var requestBytes = System.Text.Encoding.ASCII.GetBytes(jsonString);
-                requestStream.Write(requestBytes, 0, requestBytes.Length);
-                requestStream.Close();
-            }
-
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                Stream stream1 = response.GetResponseStream();
-                StreamReader sr = new StreamReader(stream1);
-                Console.WriteLine(sr.ReadToEnd());
             }
         }
     }

@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------- 
 // <copyright file="Program.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.0
+// Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -283,6 +283,8 @@ namespace AMSExplorer
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
+
+        public const string Bearer = "Bearer ";
     }
 
 
@@ -1044,7 +1046,6 @@ namespace AMSExplorer
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
                             testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                            testToken = HttpUtility.UrlEncode(testToken);
                         }
                     }
                 }
@@ -1230,20 +1231,19 @@ namespace AMSExplorer
                 switch (typeplayer)
                 {
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context);
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context);
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
                         break;
 
                     default:
-                        // no token enable player
+                        // no token enabled player
                         break;
                 }
             }
             DoPlayBack(typeplayer, Url, token);
-
         }
         public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
         {
@@ -1269,7 +1269,6 @@ namespace AMSExplorer
                     break;
 
                 case PlayerType.DASHAzurePage:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
                     Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Url);
                     break;
 

@@ -63,6 +63,7 @@
             this.checkBoxReplica = new System.Windows.Forms.CheckBox();
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxStartProgramNow = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -146,7 +147,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(27, 82);
+            this.label3.Location = new System.Drawing.Point(27, 73);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 13);
             this.label3.TabIndex = 45;
@@ -156,7 +157,7 @@
             // 
             this.textboxprogramname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxprogramname.Location = new System.Drawing.Point(30, 98);
+            this.textboxprogramname.Location = new System.Drawing.Point(30, 89);
             this.textboxprogramname.Name = "textboxprogramname";
             this.textboxprogramname.Size = new System.Drawing.Size(433, 20);
             this.textboxprogramname.TabIndex = 0;
@@ -164,7 +165,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(27, 133);
+            this.label1.Location = new System.Drawing.Point(27, 124);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 13);
             this.label1.TabIndex = 47;
@@ -174,7 +175,7 @@
             // 
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(30, 149);
+            this.textBoxDescription.Location = new System.Drawing.Point(30, 140);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(434, 20);
             this.textBoxDescription.TabIndex = 1;
@@ -182,7 +183,7 @@
             // checkBoxCreateLocator
             // 
             this.checkBoxCreateLocator.AutoSize = true;
-            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 453);
+            this.checkBoxCreateLocator.Location = new System.Drawing.Point(30, 444);
             this.checkBoxCreateLocator.Name = "checkBoxCreateLocator";
             this.checkBoxCreateLocator.Size = new System.Drawing.Size(335, 17);
             this.checkBoxCreateLocator.TabIndex = 5;
@@ -203,7 +204,7 @@
             // checkBoxAddScaleUnit
             // 
             this.checkBoxAddScaleUnit.AutoSize = true;
-            this.checkBoxAddScaleUnit.Location = new System.Drawing.Point(30, 405);
+            this.checkBoxAddScaleUnit.Location = new System.Drawing.Point(30, 396);
             this.checkBoxAddScaleUnit.Name = "checkBoxAddScaleUnit";
             this.checkBoxAddScaleUnit.Size = new System.Drawing.Size(162, 17);
             this.checkBoxAddScaleUnit.TabIndex = 3;
@@ -216,7 +217,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(30, 184);
+            this.tabControl1.Location = new System.Drawing.Point(30, 175);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(434, 206);
@@ -429,7 +430,7 @@
             // checkBoxDynEnc
             // 
             this.checkBoxDynEnc.AutoSize = true;
-            this.checkBoxDynEnc.Location = new System.Drawing.Point(30, 429);
+            this.checkBoxDynEnc.Location = new System.Drawing.Point(30, 420);
             this.checkBoxDynEnc.Name = "checkBoxDynEnc";
             this.checkBoxDynEnc.Size = new System.Drawing.Size(156, 17);
             this.checkBoxDynEnc.TabIndex = 4;
@@ -448,12 +449,23 @@
             this.panel1.Size = new System.Drawing.Size(494, 48);
             this.panel1.TabIndex = 61;
             // 
+            // checkBoxStartProgramNow
+            // 
+            this.checkBoxStartProgramNow.AutoSize = true;
+            this.checkBoxStartProgramNow.Location = new System.Drawing.Point(30, 467);
+            this.checkBoxStartProgramNow.Name = "checkBoxStartProgramNow";
+            this.checkBoxStartProgramNow.Size = new System.Drawing.Size(130, 17);
+            this.checkBoxStartProgramNow.TabIndex = 62;
+            this.checkBoxStartProgramNow.Text = "Start the program now";
+            this.checkBoxStartProgramNow.UseVisualStyleBackColor = true;
+            // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 535);
+            this.Controls.Add(this.checkBoxStartProgramNow);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxDynEnc);
             this.Controls.Add(this.tabControl1);
@@ -519,5 +531,6 @@
         private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.CheckBox checkBoxDynEnc;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBoxStartProgramNow;
     }
 }

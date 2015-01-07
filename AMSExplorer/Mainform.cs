@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="Mainform.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.0
+// Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -3415,18 +3415,6 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            // let's check that filename are correct
-            bool RegexResult = true;
-            Regex reg = new Regex(@"^[\w-_.]+$", RegexOptions.Compiled);
-            foreach (var asset in SelectedAssets)
-            {
-                foreach (var file in asset.AssetFiles)
-                {
-                    if (!reg.IsMatch(file.Name)) RegexResult = false;
-                }
-            }
-
-
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
@@ -3437,7 +3425,6 @@ namespace AMSExplorer
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
-                Warning = RegexResult ? string.Empty : "One of the asset files contains a character which is perhaps not supported by the Indexer."
             };
 
             string taskname = "Indexing of " + Constants.NameconvInputasset;
@@ -3570,13 +3557,12 @@ namespace AMSExplorer
          );
             comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
-
             comboBoxFilterTimeProgram.Items.AddRange(
-       typeof(FilterTime)
-       .GetFields()
-       .Select(i => i.GetValue(null) as string)
-       .ToArray()
-       );
+typeof(FilterTime)
+.GetFields()
+.Select(i => i.GetValue(null) as string)
+.ToArray()
+);
             comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
 
             comboBoxStatusProgram.Items.AddRange(
@@ -4572,7 +4558,7 @@ namespace AMSExplorer
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -5181,6 +5167,14 @@ namespace AMSExplorer
                 dataGridViewProcessors.Rows.Add(proc.Vendor, proc.Name, proc.Version, proc.Id, proc.Description);
             }
             tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
+
+            // Encoding Reserved Unit(s)
+            comboBoxEncodingRU.Items.Clear();
+            comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
+            comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
+            numericUpDownEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+            numericUpDownEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+            RUEncodingUpdateControls();
         }
 
 
@@ -5521,14 +5515,60 @@ namespace AMSExplorer
         private void DoDeleteChannels()
         {
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
+            string hannelstr = SelectedChannels.Count > 1 ? "hannels" : "hannel";
             if (SelectedChannels.Count > 0)
             {
-                string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Channel(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                List<string> ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+                List<IProgram> Programs = _context.Programs.AsEnumerable().Where(p => ChannelSourceIDs.Contains(p.ChannelId)).ToList();
+
+                if (Programs.Count == 0) // No program associated to the channel(s) to be deleted
                 {
-                    foreach (IChannel myC in ReturnSelectedChannels())
+                    string question = (SelectedChannels.Count == 1) ? "Delete channel " + SelectedChannels[0].Name + " ?" : "Delete these " + SelectedChannels.Count + " channels ?";
+
+                    if (System.Windows.Forms.MessageBox.Show(question, "C" + hannelstr + " deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        DeleteChannel(myC);
+                        foreach (IChannel myC in ReturnSelectedChannels())
+                        {
+                            DeleteChannel(myC);
+                        }
+                    }
+                }
+                else // There are programs associated to the channel(s) to be deleted. We need to delete the programs
+                {
+                    string question = (Programs.Count == 1) ? string.Format("There is one program associated to the c{0}.\nDelete the c{0} and program '{1}' ?", hannelstr, Programs[0].Name)
+                                                            : string.Format("There are {0} programs associated to the c{1}.\nDelete the c{1} and these programs ?", Programs.Count, hannelstr);
+
+                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete C" + hannelstr);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        foreach (IProgram myP in Programs)
+                        {
+                            IAsset asset = myP.Asset;
+                            DeleteProgram(myP);
+                            if (form.DeleteAsset)
+                            {
+                                if (myP.Asset != null)
+                                {
+                                    //delete
+                                    TextBoxLogWriteLine("Deleting asset '{0}'", asset.Name);
+                                    try
+                                    {
+                                        DeleteAsset(asset);
+                                        if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", asset.Name, true);
+                                        TextBoxLogWriteLine(ex);
+                                    }
+                                }
+                            }
+                        }
+                        foreach (IChannel myC in ReturnSelectedChannels())
+                        {
+                            DeleteChannel(myC);
+                        }
                     }
                 }
             }
@@ -5812,7 +5852,7 @@ namespace AMSExplorer
                 {
                     string question = (SelectedPrograms.Count == 1) ? "Delete program " + SelectedPrograms[0].Name + " ?" : "Delete these " + SelectedPrograms.Count + " programs ?";
 
-                    DeleteProgram form = new DeleteProgram(question);
+                    DeleteProgramChannel form = new DeleteProgramChannel(question, "Delete Program(s)");
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
@@ -5942,6 +5982,8 @@ namespace AMSExplorer
                         archiveWindowLength = new TimeSpan(4, 0, 0),
                         CreateLocator = true,
                         EnableDynEnc = false,
+                        StartProgram = false,
+                        ProposeStartProgram = (channel.State == ChannelState.Running),
                         AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
                         ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
                     };
@@ -5982,8 +6024,13 @@ namespace AMSExplorer
                                    "created");
                         await STask;
 
-
                         DoRefreshGridProgramV(false);
+
+                        if (form.StartProgram)
+                        {
+
+                            StartProgam(_context.Programs.Where(p => p.Name == form.ProgramName && p.ChannelId == channel.Id).FirstOrDefault());
+                        }
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -6895,18 +6942,8 @@ namespace AMSExplorer
 
                                     if (!String.IsNullOrEmpty(tokenTemplateString))
                                     {
-                                        // Deserializes a string containing an Xml representation of a TokenRestrictionTemplate
-                                        // back into a TokenRestrictionTemplate class instance.
-                                        TokenRestrictionTemplate tokenTemplate =
-                                            TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-
-                                        // Generate a test token based on the data in the given TokenRestrictionTemplate.
-                                        // Note, you need to pass the key id Guid because we specified 
-                                        // TokenClaim.ContentKeyIdentifierClaim in during the creation of TokenRestrictionTemplate.
-                                        Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(contentKey.Id);
-                                        string testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                        string testToken = AssetInfo.GetTestToken(AssetToProcess, form.GetContentKeyType, _context);
                                         TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
-                                        TextBoxLogWriteLine("The authorization test token is (URL encoded):\n{0}", HttpUtility.UrlEncode(testToken));
                                     }
                                 }
                                 else // No Dynamic encryption
@@ -7214,7 +7251,7 @@ namespace AMSExplorer
         private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
@@ -7492,31 +7529,6 @@ namespace AMSExplorer
             }
         }
 
-        private void changeTheNumberOfEncodingReservedUnitsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ChangeEncodingRU form = new ChangeEncodingRU();
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper("https://management.core.windows.net", form.GetCertThumbprint, form.GetAzureSubscriptionID);
-
-                // Initialize the AccountInfo class.
-                MediaServicesAccount accountInfo = new MediaServicesAccount();
-                accountInfo.AccountName = _context.Credentials.ClientId;
-
-                try
-                {
-                    helper.UpdateEncodingReservedUnits(accountInfo, form.RUNumber);
-                    TextBoxLogWriteLine("Media Services account '{0}' updated with {1} encoding reserved units.", _context.Credentials.ClientId, form.RUNumber);
-                }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when changing the number of encoding reserved units.", true);
-                    TextBoxLogWriteLine(ex);
-                }
-            }
-        }
 
         private void addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7866,6 +7878,62 @@ namespace AMSExplorer
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
+        private void buttonUpdateEncodingRU_Click(object sender, EventArgs e)
+        {
+            DoUpdateEncodingRU();
+        }
+
+        private async void DoUpdateEncodingRU()
+        {
+            TextBoxLogWriteLine("Updating reserved unit(s)...");
+
+            IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
+            EncResUnit.CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
+            EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
+
+            numericUpDownEncodingRU.Enabled = false;
+            comboBoxEncodingRU.Enabled = false;
+            buttonUpdateEncodingRU.Enabled = false;
+
+            await Task.Run(() =>
+            {
+                try
+                {
+                    EncResUnit.Update();
+                    TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+                );
+            DoRefreshGridProcessorV(false);
+            numericUpDownEncodingRU.Enabled = true;
+            comboBoxEncodingRU.Enabled = true;
+            buttonUpdateEncodingRU.Enabled = true;
+        }
+
+        private void numericUpDownEncodingRU_ValueChanged(object sender, EventArgs e)
+        {
+            RUEncodingUpdateControls();
+        }
+
+        private void RUEncodingUpdateControls()
+        {
+            // If RU is set to 0, let's switch to basic
+            if (numericUpDownEncodingRU.Value == 0)
+            {
+                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
+                comboBoxEncodingRU.Enabled = false;
+            }
+            else
+            {
+                comboBoxEncodingRU.Enabled = true;
+            }
+        }
     }
 }
 

@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="PlayReadyLicense.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.0
+// Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -130,10 +130,8 @@ namespace AMSExplorer
             comboBoxType.Items.AddRange(Enum.GetNames(typeof(PlayReadyLicenseType)).ToArray()); // license type
             comboBoxType.SelectedItem = Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent);
 
-
             comboBoxAllowPassingVideoContentUnknownOutput.Items.AddRange(Enum.GetNames(typeof(UnknownOutputPassingOption)).ToArray());
             comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem = Enum.GetName(typeof(UnknownOutputPassingOption), UnknownOutputPassingOption.NotAllowed);
-
         }
 
 
