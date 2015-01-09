@@ -110,9 +110,9 @@
             this.checkBoxUseStorageEncryption.AutoSize = true;
             this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(42, 29);
             this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
-            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(355, 17);
+            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(361, 17);
             this.checkBoxUseStorageEncryption.TabIndex = 8;
-            this.checkBoxUseStorageEncryption.Text = "Use storage encryption for new assets (exept storage to storage copy)";
+            this.checkBoxUseStorageEncryption.Text = "Use storage encryption for new assets (except storage to storage copy)";
             this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
             // 
             // checkBoxUseProtectedConfig
