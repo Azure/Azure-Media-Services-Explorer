@@ -153,7 +153,17 @@ namespace AMSExplorer
 
             // Let's check if there is one streaming scale units
             if (_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0)
-                TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging will not work.", true); // Warning
+                TextBoxLogWriteLine("There is no reserved unit streaming endpoint in this account. Dynamic packaging and live streaming output will not work.", true); // Warning
+
+            // Let's check if there is enough streaming scale units for the channels
+            double nbchannels = (double)_context.Channels.Count();
+            double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
+            if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
+                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", true); // Warning
+
+            // let's check the encoding reserved unit and type
+            if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
+                TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
 
             ApplySettingsOptions(true);
         }
@@ -1331,7 +1341,6 @@ namespace AMSExplorer
                     {
                         TextBoxLogWriteLine("Asset '{0}' has been ignored as this asset is not in the default storage account.", MyAsset.Name, true);
                     }
-
                 }
                 destinationLocator.Delete();
                 readPolicy.Delete();
@@ -1353,7 +1362,6 @@ namespace AMSExplorer
                 Error = true;
             }
             if (!Error) TextBoxLogWriteLine("Assets merged to new asset '{0}'.", newassetname);
-
         }
 
 
@@ -1408,7 +1416,6 @@ namespace AMSExplorer
                 Text = value
             };
 
-
             label.SetBounds(9, 20, 372, 13);
             textBox.SetBounds(12, 36, 372, 20);
             buttonOk.SetBounds(228, 72, 75, 23);
@@ -1426,7 +1433,6 @@ namespace AMSExplorer
 
         public DialogResult DisplayInfo(IAsset asset)
         {
-
             AssetInformation form = new AssetInformation(this)
                 {
                     MyAsset = asset,
@@ -1463,7 +1469,6 @@ namespace AMSExplorer
         }
 
 
-
         public static DialogResult DisplayInfo(IJob job)
         {
             CloudMediaContext context = Program.ConnectAndGetNewContext(_credentials);
@@ -1483,7 +1488,6 @@ namespace AMSExplorer
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
         {
             DoMenuRenameAsset();
-
         }
 
 
@@ -1512,14 +1516,9 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("There is a problem when renaming the asset.", true);
                             return;
                         }
-
-
                         TextBoxLogWriteLine("Renamed asset '{0}'.", AssetTORename.Id);
                         DoRefreshGridAssetV(false);
-
-
                     }
-
                 }
             }
         }
@@ -1648,9 +1647,6 @@ namespace AMSExplorer
         }
 
 
-
-
-
         private void ProcessCreateLocator(LocatorType locatorType, IAsset AssetToP, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
             ILocator locator = null;
@@ -1683,7 +1679,6 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit.", true);
             }
-
 
             StringBuilder sbuilderThisAsset = new StringBuilder();
 
@@ -1751,7 +1746,6 @@ namespace AMSExplorer
                         }
                     }
                 }
-
             }
             else //SAS
             {
@@ -1824,9 +1818,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(ex);
                             }
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
-
                         }
-
                     }
                 }
             }
@@ -1906,7 +1898,6 @@ namespace AMSExplorer
                     DoRefreshGridAssetV(false);
                 }
             }
-
         }
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1945,7 +1936,6 @@ namespace AMSExplorer
             if (DisplayInfo(AssetToDisplayP) == DialogResult.OK)
             {
             }
-
         }
 
 
@@ -2018,7 +2008,6 @@ namespace AMSExplorer
         {
             string valuekey = "";
             string targetAssetID = "";
-
 
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
             if (SelectedAssets.Count > 0) targetAssetID = SelectedAssets.FirstOrDefault().Id;
@@ -5172,9 +5161,10 @@ typeof(FilterTime)
             comboBoxEncodingRU.Items.Clear();
             comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
             comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
-            numericUpDownEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
-            numericUpDownEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            RUEncodingUpdateControls();
+            trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+            trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+
         }
 
 
@@ -5745,6 +5735,31 @@ typeof(FilterTime)
                 channel.Description = form.GetChannelDescription;
 
                 channel.Input.KeyFrameInterval = form.KeyframeInterval;
+
+                // HLS Fragment per segment
+                if (form.HLSFragPerSegment != null)
+                {
+                    if (channel.Output == null)
+                    {
+                        channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                    }
+                    else if (channel.Output.Hls == null)
+                    {
+                        channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                    }
+                    else
+                    {
+                        channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                    }
+                }
+                else
+                {
+                    if (channel.Output.Hls.FragmentsPerSegment != null)
+                    {
+                        channel.Output.Hls.FragmentsPerSegment = null;
+                    }
+                }
+
 
                 // Input allow list
                 if (form.GetInputIPAllowList != null)
@@ -7885,54 +7900,69 @@ typeof(FilterTime)
 
         private async void DoUpdateEncodingRU()
         {
-            TextBoxLogWriteLine("Updating reserved unit(s)...");
+            bool oktocontinue = true;
 
-            IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
-            EncResUnit.CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
-            EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
-
-            numericUpDownEncodingRU.Enabled = false;
-            comboBoxEncodingRU.Enabled = false;
-            buttonUpdateEncodingRU.Enabled = false;
-
-            await Task.Run(() =>
+            if (trackBarEncodingRU.Value == 0 && ((string)comboBoxEncodingRU.SelectedItem != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
+            // user selected 0 with a non BASIC hardware...
             {
-                try
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not Basic. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                 {
-                    EncResUnit.Update();
-                    TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
-                }
-                catch (Exception ex)
-                {
-                    TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
-                    TextBoxLogWriteLine(ex);
+                    oktocontinue = false;
                 }
             }
 
-                );
-            DoRefreshGridProcessorV(false);
-            numericUpDownEncodingRU.Enabled = true;
-            comboBoxEncodingRU.Enabled = true;
-            buttonUpdateEncodingRU.Enabled = true;
+            if (oktocontinue)
+            {
+                TextBoxLogWriteLine(string.Format("Updating to {0} {1} reserved unit{2}...", (int)trackBarEncodingRU.Value, (string)comboBoxEncodingRU.SelectedItem, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
+
+                IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
+                EncResUnit.CurrentReservedUnits = (int)trackBarEncodingRU.Value;
+                EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
+
+                trackBarEncodingRU.Enabled = false;
+                comboBoxEncodingRU.Enabled = false;
+                buttonUpdateEncodingRU.Enabled = false;
+
+                await Task.Run(() =>
+                {
+                    try
+                    {
+                        EncResUnit.Update();
+                        TextBoxLogWriteLine("Encoding reserved unit(s) updated.");
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when updating encoding reserved unit(s).");
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+
+                    );
+                DoRefreshGridProcessorV(false);
+                trackBarEncodingRU.Enabled = true;
+                comboBoxEncodingRU.Enabled = true;
+                buttonUpdateEncodingRU.Enabled = true;
+            }
         }
 
-        private void numericUpDownEncodingRU_ValueChanged(object sender, EventArgs e)
+     
+        private void RUEncodingUpdateControls()
+        {
+            // If RU is set to 0, let's switch to basic
+            if (trackBarEncodingRU.Value == 0)
+            {
+                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
+            }
+        }
+
+        private void trackBarEncodingRU_ValueChanged(object sender, EventArgs e)
         {
             RUEncodingUpdateControls();
         }
 
-        private void RUEncodingUpdateControls()
+        private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
         {
-            // If RU is set to 0, let's switch to basic
-            if (numericUpDownEncodingRU.Value == 0)
-            {
-                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
-                comboBoxEncodingRU.Enabled = false;
-            }
-            else
-            {
-                comboBoxEncodingRU.Enabled = true;
-            }
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
         }
     }
 }

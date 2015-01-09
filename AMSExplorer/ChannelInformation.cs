@@ -82,7 +82,6 @@ namespace AMSExplorer
         {
             get
             {
-
                 TimeSpan? ts = null;
                 if (checkBoxKeyFrameIntDefined.Checked)
                 {
@@ -95,6 +94,14 @@ namespace AMSExplorer
                     }
                 }
                 return ts;
+            }
+        }
+
+        public short? HLSFragPerSegment
+        {
+            get
+            {
+                return checkBoxHLSFragPerSeg.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
             }
         }
 
@@ -114,7 +121,6 @@ namespace AMSExplorer
                 if (DG.SelectedCells[0].Value != null)
                 {
                     System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
-
                 }
                 else
                 {
@@ -122,8 +128,6 @@ namespace AMSExplorer
                 }
             }
         }
-
-
 
 
         private void ChannelInformation_Load(object sender, EventArgs e)
@@ -154,7 +158,7 @@ namespace AMSExplorer
                 DGChannel.Rows.Add(string.Format("Input URL ({0})", endpoint.Protocol), endpoint.Url);
                 if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
                 {
-                    DGChannel.Rows.Add(string.Format("Input URL ({0}, SSL)", endpoint.Protocol), endpoint.Url.ToString().Replace("http://","https://"));
+                    DGChannel.Rows.Add(string.Format("Input URL ({0}, SSL)", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                 }
             }
             foreach (var endpoint in MyChannel.Preview.Endpoints)
@@ -168,6 +172,8 @@ namespace AMSExplorer
                     if (MyChannel.Output.Hls.FragmentsPerSegment != null)
                     {
                         DGChannel.Rows.Add("Output HLS Fragments per segment", MyChannel.Output.Hls.FragmentsPerSegment);
+                        checkBoxHLSFragPerSeg.Checked = true;
+                        numericUpDownHLSFragPerSeg.Value = (int)MyChannel.Output.Hls.FragmentsPerSegment;
                     }
                 }
             }
@@ -310,6 +316,12 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+        }
+
+        private void checkBoxHLSFragPerSeg_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSeg.Checked;
+
         }
     }
 }
