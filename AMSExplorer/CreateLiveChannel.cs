@@ -56,12 +56,12 @@ namespace AMSExplorer
         {
             get
             {
-                return checkBoxHLSFragPerSegDefined.Checked ? (short?) numericUpDownHLSFragPerSeg.Value : null;
+                return checkBoxHLSFragPerSegDefined.Checked ? (short?)numericUpDownHLSFragPerSeg.Value : null;
             }
             set
             {
-                if (value!=null)
-                numericUpDownHLSFragPerSeg.Value = (short) value;
+                if (value != null)
+                    numericUpDownHLSFragPerSeg.Value = (short)value;
             }
         }
 
