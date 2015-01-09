@@ -163,7 +163,7 @@ namespace AMSExplorer
 
             // let's check the encoding reserved unit and type
             if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool mode) but unit type is not set to BASIC.", true); // Warning
+                TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
 
             ApplySettingsOptions(true);
         }
@@ -5161,8 +5161,10 @@ typeof(FilterTime)
             comboBoxEncodingRU.Items.Clear();
             comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
             comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
-            numericUpDownEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
-            numericUpDownEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+            trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+            trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+
         }
 
 
@@ -7900,10 +7902,10 @@ typeof(FilterTime)
         {
             bool oktocontinue = true;
 
-            if (numericUpDownEncodingRU.Value == 0 && ((string)comboBoxEncodingRU.SelectedItem != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
+            if (trackBarEncodingRU.Value == 0 && ((string)comboBoxEncodingRU.SelectedItem != Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic)))
             // user selected 0 with a non BASIC hardware...
             {
-                if (MessageBox.Show("You selected 0 unit but the encoding type is not Basic. Are you sure you want to continue ?", "Warning", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Cancel)
+                if (MessageBox.Show("You selected 0 unit but the encoding type is not Basic. Are you sure you want to continue ?", "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.No)
                 {
                     oktocontinue = false;
                 }
@@ -7911,13 +7913,13 @@ typeof(FilterTime)
 
             if (oktocontinue)
             {
-                TextBoxLogWriteLine(string.Format("Updating to {0} {1} reserved unit{2}...", (int)numericUpDownEncodingRU.Value, (string)comboBoxEncodingRU.SelectedItem, (int)numericUpDownEncodingRU.Value > 1 ? "s" : string.Empty));
+                TextBoxLogWriteLine(string.Format("Updating to {0} {1} reserved unit{2}...", (int)trackBarEncodingRU.Value, (string)comboBoxEncodingRU.SelectedItem, (int)trackBarEncodingRU.Value > 1 ? "s" : string.Empty));
 
                 IEncodingReservedUnit EncResUnit = _context.EncodingReservedUnits.FirstOrDefault();
-                EncResUnit.CurrentReservedUnits = (int)numericUpDownEncodingRU.Value;
+                EncResUnit.CurrentReservedUnits = (int)trackBarEncodingRU.Value;
                 EncResUnit.ReservedUnitType = (ReservedUnitType)(Enum.Parse(typeof(ReservedUnitType), (string)comboBoxEncodingRU.SelectedItem));
 
-                numericUpDownEncodingRU.Enabled = false;
+                trackBarEncodingRU.Enabled = false;
                 comboBoxEncodingRU.Enabled = false;
                 buttonUpdateEncodingRU.Enabled = false;
 
@@ -7937,24 +7939,30 @@ typeof(FilterTime)
 
                     );
                 DoRefreshGridProcessorV(false);
-                numericUpDownEncodingRU.Enabled = true;
+                trackBarEncodingRU.Enabled = true;
                 comboBoxEncodingRU.Enabled = true;
                 buttonUpdateEncodingRU.Enabled = true;
             }
         }
 
-        private void numericUpDownEncodingRU_ValueChanged(object sender, EventArgs e)
+     
+        private void RUEncodingUpdateControls()
+        {
+            // If RU is set to 0, let's switch to basic
+            if (trackBarEncodingRU.Value == 0)
+            {
+                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
+            }
+        }
+
+        private void trackBarEncodingRU_ValueChanged(object sender, EventArgs e)
         {
             RUEncodingUpdateControls();
         }
 
-        private void RUEncodingUpdateControls()
+        private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
         {
-            // If RU is set to 0, let's switch to basic
-            if (numericUpDownEncodingRU.Value == 0)
-            {
-                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), ReservedUnitType.Basic);
-            }
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
         }
     }
 }
