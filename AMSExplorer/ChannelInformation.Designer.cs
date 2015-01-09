@@ -57,6 +57,8 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
+            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -66,6 +68,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -131,6 +134,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.numericUpDownHLSFragPerSeg);
+            this.tabPage2.Controls.Add(this.checkBoxHLSFragPerSeg);
             this.tabPage2.Controls.Add(this.checkBoxKeyFrameIntDefined);
             this.tabPage2.Controls.Add(this.textBoxKeyFrame);
             this.tabPage2.Controls.Add(this.checkBoxInputSet);
@@ -385,6 +390,30 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 58;
             // 
+            // checkBoxHLSFragPerSeg
+            // 
+            this.checkBoxHLSFragPerSeg.AutoSize = true;
+            this.checkBoxHLSFragPerSeg.Location = new System.Drawing.Point(19, 352);
+            this.checkBoxHLSFragPerSeg.Name = "checkBoxHLSFragPerSeg";
+            this.checkBoxHLSFragPerSeg.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxHLSFragPerSeg.TabIndex = 54;
+            this.checkBoxHLSFragPerSeg.Text = "HLS fragments per segment :";
+            this.checkBoxHLSFragPerSeg.UseVisualStyleBackColor = true;
+            this.checkBoxHLSFragPerSeg.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSeg_CheckedChanged);
+            // 
+            // numericUpDownHLSFragPerSeg
+            // 
+            this.numericUpDownHLSFragPerSeg.Enabled = false;
+            this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(19, 375);
+            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
+            this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownHLSFragPerSeg.TabIndex = 55;
+            this.numericUpDownHLSFragPerSeg.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
             // ChannelInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -410,6 +439,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -444,5 +474,7 @@
         private System.Windows.Forms.CheckBox checkBoxKeyFrameIntDefined;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBoxHLSFragPerSeg;
+        private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
     }
 }

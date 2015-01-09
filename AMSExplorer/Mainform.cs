@@ -5734,6 +5734,31 @@ typeof(FilterTime)
 
                 channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
+                // HLS Fragment per segment
+                if (form.HLSFragPerSegment != null)
+                {
+                    if (channel.Output == null)
+                    {
+                        channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                    }
+                    else if (channel.Output.Hls == null)
+                    {
+                        channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                    }
+                    else
+                    {
+                        channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                    }
+                }
+                else
+                {
+                    if (channel.Output.Hls.FragmentsPerSegment != null)
+                    {
+                        channel.Output.Hls.FragmentsPerSegment = null;
+                    }
+                }
+
+
                 // Input allow list
                 if (form.GetInputIPAllowList != null)
                 {
