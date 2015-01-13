@@ -7964,6 +7964,13 @@ typeof(FilterTime)
         {
             labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
         }
+
+        private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+
+        }
     }
 }
 

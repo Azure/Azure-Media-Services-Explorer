@@ -1039,7 +1039,7 @@ namespace AMSExplorer
                 if (policy != null)
                 {
                     IContentKeyAuthorizationPolicyOption option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
-                    if (option != null)
+                    if (option != null) // && option.Restrictions.FirstOrDefault() != null && option.Restrictions.FirstOrDefault().KeyRestrictionType == (int)ContentKeyRestrictionType.TokenRestricted)
                     {
                         string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
                         if (!string.IsNullOrEmpty(tokenTemplateString))
@@ -1236,7 +1236,8 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
+                    case PlayerType.AzureMediaPlayer:
+                        if (token != null) token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
                         break;
 
                     default:
@@ -1256,6 +1257,15 @@ namespace AMSExplorer
         {
             switch (typeplayer)
             {
+                case PlayerType.AzureMediaPlayer:
+                    string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
+                    string protectionaes = "&protection=aes";
+                    string protectionPR = "&protection=playready";
+                    string aestoken = "&aestoken={0}";
+                    if (urlencodedtoken != null) playerurl += protectionaes + string.Format(aestoken, urlencodedtoken);
+                    Process.Start(string.Format(playerurl, Url));
+                    break;
+
                 case PlayerType.SilverlightMonitoring:
                     Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Url);
                     break;
@@ -1399,16 +1409,17 @@ namespace AMSExplorer
 
     public enum PlayerType
     {
-        FlashAzurePage = 0,
-        SilverlightAzurePage = 1,
-        SilverlightMonitoring = 2,
-        SilverlightPlayReadyToken = 3,
-        FlashAESToken = 4,
-        DASHAzurePage = 5,
-        DASHLiveAzure = 6,
-        DASHIFRefPlayer = 7,
-        MP4AzurePage = 8,
-        CustomPlayer = 9
+        AzureMediaPlayer = 0,
+        FlashAzurePage = 1,
+        SilverlightAzurePage = 2,
+        SilverlightMonitoring = 3,
+        SilverlightPlayReadyToken = 4,
+        FlashAESToken = 5,
+        DASHAzurePage = 6,
+        DASHLiveAzure = 7,
+        DASHIFRefPlayer = 8,
+        MP4AzurePage = 9,
+        CustomPlayer = 10
     }
 
     public enum TaskJobCreationMode
