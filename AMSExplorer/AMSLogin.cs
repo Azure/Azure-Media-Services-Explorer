@@ -28,6 +28,8 @@ using System.Collections.Specialized;
 using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
+using System.Configuration;
+
 
 namespace AMSExplorer
 {
@@ -84,9 +86,9 @@ namespace AMSExplorer
             }
             catch // error, let's purge all
             {
-                MessageBox.Show("Error reading creadentials. Settings have been deleted.");
+                MessageBox.Show("Error reading credentials. Settings have been deleted.");
                 Properties.Settings.Default.LoginList.Clear();
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
                 listBoxAcounts.Items.Clear();
             }
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, "http://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/"));
@@ -116,7 +118,9 @@ namespace AMSExplorer
             {
                 CredentialsList.AddRange(myCredentials.ToArray());
                 Properties.Settings.Default.LoginList = CredentialsList;
-                Properties.Settings.Default.Save();
+
+                Program.SaveAndProtectUserConfig();
+                
                 listBoxAcounts.Items.Add(myCredentials.AccountName);
             }
             else
@@ -125,10 +129,8 @@ namespace AMSExplorer
                 for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.RemoveAt(foundindex);
                 for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.Insert(foundindex + i, myCredentials.ToArray().Skip(i).Take(1).FirstOrDefault());
                 Properties.Settings.Default.LoginList = CredentialsList;
-                Properties.Settings.Default.Save();
-
+                Program.SaveAndProtectUserConfig();
             }
-
         }
 
         private void buttonDeleteAccount_Click(object sender, EventArgs e)
@@ -138,7 +140,7 @@ namespace AMSExplorer
             {
                 for (int i = 0; i < CredentialsEntry.StringsCount; i++) CredentialsList.RemoveAt(index * CredentialsEntry.StringsCount);
                 Properties.Settings.Default.LoginList = CredentialsList;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
                 listBoxAcounts.Items.Clear();
                 if (CredentialsList != null)
                 {
@@ -153,7 +155,7 @@ namespace AMSExplorer
             {
                 CredentialsList.Clear();
                 Properties.Settings.Default.LoginList.Clear();
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
                 listBoxAcounts.Items.Clear();
             }
         }
@@ -284,7 +286,6 @@ namespace AMSExplorer
                             CredentialsList.Add(att.Attribute("OtherScope").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherACSBaseAddress").Value.ToString());
                             CredentialsList.Add(string.Empty);
-
                         }
                     }
                     catch
@@ -304,8 +305,7 @@ namespace AMSExplorer
 
                     // let's save the list of credentials in settings
                     Properties.Settings.Default.LoginList = CredentialsList;
-                    Properties.Settings.Default.Save();
-
+                    Program.SaveAndProtectUserConfig();
                 }
                 else
                 {

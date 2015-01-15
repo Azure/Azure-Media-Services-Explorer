@@ -62,7 +62,7 @@ namespace AMSExplorer
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
             Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
-            Properties.Settings.Default.Save();
+            Program.SaveAndProtectUserConfig();
         }
 
         private void buttonReset_Click(object sender, EventArgs e)
@@ -96,7 +96,7 @@ namespace AMSExplorer
 
             Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-            Properties.Settings.Default.Save();
+            Program.SaveAndProtectUserConfig();
         }
 
         private void options_Load(object sender, EventArgs e)

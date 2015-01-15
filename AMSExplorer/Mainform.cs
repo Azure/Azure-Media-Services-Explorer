@@ -92,19 +92,20 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.CallUpgrade = false;
+                Program.SaveAndProtectUserConfig();
             }
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
             if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
             }
 
             if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
             }
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
@@ -3668,7 +3669,7 @@ typeof(FilterTime)
                 // Read and update the configuration XML.
                 //
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = form.EncodingAMEPresetXMLFiles;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
 
                 string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                 IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
@@ -4723,7 +4724,7 @@ typeof(FilterTime)
                 WatchFolderFolderPath = form.WatchFolderPath;
                 WatchFolderIsOn = form.WatchOn;
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
                 WatchFolderJobTemplate = form.WatchRunJobTemplate ? form.WatchSelectedJobTemplate : null; // let's save the job template to the main variable
 
