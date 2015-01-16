@@ -88,25 +88,27 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
+
+            // USER SETTINSG CHECKS & UPDATES
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.CallUpgrade = false;
-                Program.SaveAndProtectUserConfig();
             }
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
             if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
-                Program.SaveAndProtectUserConfig();
             }
 
             if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-                Program.SaveAndProtectUserConfig();
             }
+            Program.SaveAndProtectUserConfig(); // to save settings and to make sure they are encrypted if the user just upgraded from an earlier version
+
+
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
