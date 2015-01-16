@@ -42,8 +42,30 @@ namespace AMSExplorer
                     AllowTestDevices = checkBoxAllowTestDevices.Checked,
                 };
 
-                if (checkBoxStartDate.Checked) licenseTemplate.BeginDate = (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
-                if (checkBoxEndDate.Checked) licenseTemplate.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
+                if (checkBoxStartDate.Checked)
+                {
+                    if (radioButtonStartDateAbsolute.Checked)
+                    {
+                        licenseTemplate.BeginDate = (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
+                    }
+                    else // Relative
+                    {
+                        licenseTemplate.RelativeBeginDate = (TimeSpan)new TimeSpan((int)numericUpDownStartDateDays.Value, (int)numericUpDownStartDateHours.Value, (int)numericUpDownStartDateMinutes.Value, 0);
+                    }
+                }
+
+                if (checkBoxEndDate.Checked)
+                {
+                    if (radioButtonStartDateAbsolute.Checked)
+                    {
+                        licenseTemplate.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
+                    }
+                    else // Relative
+                    {
+                        licenseTemplate.RelativeExpirationDate = (TimeSpan)new TimeSpan((int)numericUpDownEndDateDays.Value, (int)numericUpDownEndDateHours.Value, (int)numericUpDownEndDateMinutes.Value, 0);
+                    }
+                }
+
                 if (checkBoxFPExp.Checked) licenseTemplate.PlayRight.FirstPlayExpiration = (TimeSpan)new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
 
                 if (licenseTemplate.PlayRight == null) licenseTemplate.PlayRight = new PlayReadyPlayRight();
@@ -60,10 +82,7 @@ namespace AMSExplorer
                 licenseTemplate.PlayRight.AllowPassingVideoContentToUnknownOutput = (UnknownOutputPassingOption)(Enum.Parse(typeof(UnknownOutputPassingOption), (string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem));
                 return licenseTemplate;
             }
-
         }
-
-
 
         public string PlayReadyPolicyName
         {
@@ -78,44 +97,11 @@ namespace AMSExplorer
         }
 
 
-
-        public DateTime? PlayReadyLicStartDate
-        {
-            get
-            {
-                return (checkBoxStartDate.Checked) ? (DateTime)dateTimePickerStartDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
-            }
-            set
-            {
-                dateTimePickerStartDate.Value = (DateTime)value;
-                dateTimePickerStartTime.Value = (DateTime)value;
-            }
-        }
-
-
-
-        public DateTime? PlayReadyLicEndDate
-        {
-            get
-            {
-                return (checkBoxEndDate.Checked) ? (DateTime)dateTimePickerEndDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
-            }
-            set
-            {
-                dateTimePickerEndDate.Value = (DateTime)value;
-                dateTimePickerEndTime.Value = (DateTime)value;
-            }
-        }
-
-
-
-
         public PlayReadyLicense()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
-
 
 
         private void moreinfotestserver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -135,19 +121,23 @@ namespace AMSExplorer
         }
 
 
-
-
         private void checkBoxStartDate_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePickerStartDate.Enabled = checkBoxStartDate.Checked;
-            dateTimePickerStartTime.Enabled = checkBoxStartDate.Checked;
+            radioButtonStartDateAbsolute.Enabled = checkBoxStartDate.Checked;
+            radioButtonStartDateRelative.Enabled = checkBoxStartDate.Checked;
+            panelStartDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
+            panelStartDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
+
             value_SelectedIndexChanged(sender, e);
         }
 
         private void checkBoxEndDate_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePickerEndDate.Enabled = checkBoxEndDate.Checked;
-            dateTimePickerEndTime.Enabled = checkBoxEndDate.Checked;
+            radioButtonEndDateAbsolute.Enabled = checkBoxEndDate.Checked;
+            radioButtonEndDateRelative.Enabled = checkBoxEndDate.Checked;
+            panelEndDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
+            panelEndDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
+
             value_SelectedIndexChanged(sender, e);
         }
 
@@ -224,24 +214,40 @@ namespace AMSExplorer
 
         private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((string)comboBoxType.SelectedItem == Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent))  // Non presistent
+            if ((string)comboBoxType.SelectedItem == Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent))  // Non persistent
             {
-                groupBoxTimeValues.Enabled = false;
+                groupBoxFirstPlay.Enabled = false;
+                checkBoxFPExp.Checked = false;
+                groupBoxEndDate.Enabled = false;
+                checkBoxEndDate.Checked = false;
+                groupBoxStartDate.Enabled = false;
+                checkBoxStartDate.Checked = false;
             }
             else
             {
-                groupBoxTimeValues.Enabled = true;
+                groupBoxFirstPlay.Enabled = true;
+                groupBoxEndDate.Enabled = true;
+                groupBoxStartDate.Enabled = true;
             }
             value_SelectedIndexChanged(sender, e);
-
         }
 
         private void checkBoxFPExp_CheckedChanged(object sender, EventArgs e)
         {
-            numericUpDownFPExpDays.Enabled = checkBoxFPExp.Checked;
-            numericUpDownFPExpHours.Enabled = checkBoxFPExp.Checked;
-            numericUpDownFPExpMinutes.Enabled = checkBoxFPExp.Checked;
+            panelFirstPlayExpiration.Enabled = checkBoxFPExp.Checked;
             value_SelectedIndexChanged(sender, e);
+        }
+
+        private void radioButtonsStartDate_CheckedChanged(object sender, EventArgs e)
+        {
+            panelStartDateAbsolute.Enabled = radioButtonStartDateAbsolute.Checked;
+            panelStartDateRelative.Enabled = radioButtonStartDateRelative.Checked;
+        }
+
+        private void radioButtonsEndDate_CheckedChanged(object sender, EventArgs e)
+        {
+            panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
+            panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
         }
     }
 }
