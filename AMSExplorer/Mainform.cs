@@ -5179,10 +5179,9 @@ typeof(FilterTime)
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 3;
+                dataGridViewStorage.ColumnCount = 2;
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[1].HeaderText = "Default";
-                dataGridViewStorage.Columns[2].HeaderText = "Used space";
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5193,7 +5192,7 @@ typeof(FilterTime)
                 dataGridViewStorage.Columns.Add(col);
             }
             dataGridViewStorage.Rows.Clear();
-            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderBy(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
             foreach (IStorageAccount storage in Storages)
             {
                 bool displaycapacity = false;
@@ -5204,9 +5203,17 @@ typeof(FilterTime)
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
 
-                dataGridViewStorage.Rows.Add(storage.Name, storage.IsDefault, displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string) ((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                if (storage.IsDefault)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
+                    dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Default storage account";
+                }
+                if (!displaycapacity)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
+                }
             }
-
             tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
         }
 
@@ -7355,7 +7362,7 @@ typeof(FilterTime)
 
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
-                DoRefreshGridProcessorV(false);
+            DoRefreshGridProcessorV(false);
         }
 
         private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
