@@ -750,6 +750,7 @@ namespace AMSExplorer
             DoRefreshGridChannelV(false);
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
+            DoRefreshGridStorageV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -3591,6 +3592,7 @@ typeof(FilterTime)
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
+            DoRefreshGridStorageV(true);
 
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
@@ -5167,7 +5169,45 @@ typeof(FilterTime)
             trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
             trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
             labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+        }
 
+        private void DoRefreshGridStorageV(bool firstime)
+        {
+            const long OneTBInByte = 1099511627776;
+            const long TotalStorageInBytes = OneTBInByte * 200;
+
+            if (firstime)
+            {
+                // Storage tab
+                dataGridViewStorage.ColumnCount = 3;
+                dataGridViewStorage.Columns[0].HeaderText = "Name";
+                dataGridViewStorage.Columns[1].HeaderText = "Default";
+                dataGridViewStorage.Columns[2].HeaderText = "Used space";
+
+                DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
+                {
+                    Name = "% used",
+                    DataPropertyName = "% used",
+                    HeaderText = "% used"
+                };
+                dataGridViewStorage.Columns.Add(col);
+            }
+            dataGridViewStorage.Rows.Clear();
+            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderBy(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+            foreach (IStorageAccount storage in Storages)
+            {
+                bool displaycapacity = false;
+                double? capacityPercentageFullTmp = null;
+                if (storage.BytesUsed != null)
+                {
+                    displaycapacity = true;
+                    capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
+                }
+
+                dataGridViewStorage.Rows.Add(storage.Name, storage.IsDefault, displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+            }
+
+            tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
         }
 
 
@@ -7315,7 +7355,7 @@ typeof(FilterTime)
 
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
-            DoRefreshGridProcessorV(false);
+                DoRefreshGridProcessorV(false);
         }
 
         private void displayErrorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7948,7 +7988,7 @@ typeof(FilterTime)
             }
         }
 
-     
+
         private void RUEncodingUpdateControls()
         {
             // If RU is set to 0, let's switch to basic
@@ -7966,6 +8006,16 @@ typeof(FilterTime)
         private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
         {
             labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridStorageV(false);
+        }
+
+        private void attachAnotherStorageAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAttachAnotherStorageAccount();
         }
     }
 }

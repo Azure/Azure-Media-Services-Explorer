@@ -292,6 +292,7 @@ namespace AMSExplorer
         public const string TabLive = "Live"; // name of the Live tab
         public const string TabProcessors = "Processors"; // name of the Processors tab
         public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
+        public const string TabStorage = "Storage"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorflowSamples\";
