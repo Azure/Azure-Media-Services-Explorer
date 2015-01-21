@@ -232,6 +232,31 @@ namespace AMSExplorer
                 }
             }
         }
+
+
+        public static void SaveAndProtectUserConfig()
+        {
+            Properties.Settings.Default.Save();
+
+            string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+            if (connStrings != null)
+            {
+                if (!connStrings.SectionInformation.IsProtected)
+                {
+                    if (!connStrings.ElementInformation.IsLocked)
+                    {
+                        connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                        connStrings.SectionInformation.ForceSave = true;
+                        config.Save(ConfigurationSaveMode.Full);
+                    }
+                }
+            }
+        }
+
+
     }
 
     public class Constants
