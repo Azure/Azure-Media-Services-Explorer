@@ -433,6 +433,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AMSLogin";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Azure Media Services Explorer";
             this.Load += new System.EventHandler(this.AMSLogin_Load);
             this.Shown += new System.EventHandler(this.AMSLogin_Shown);

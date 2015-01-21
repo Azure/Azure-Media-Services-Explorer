@@ -83,11 +83,12 @@ namespace AMSExplorer
 
         private System.Timers.Timer TimerAutoRefresh;
 
+        bool DisplaySplashDuringLoading;
+
         public Mainform()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-
 
             // USER SETTINSG CHECKS & UPDATES
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
@@ -118,7 +119,22 @@ namespace AMSExplorer
             {
                 Environment.Exit(0);
             }
+
             _credentials = form.LoginCredentials;
+
+            DisplaySplashDuringLoading = true;
+            ThreadPool.QueueUserWorkItem((x) =>
+            {
+                using (var splashForm = new Splash(_credentials.AccountName))
+                {
+                    splashForm.Show();
+                    while (DisplaySplashDuringLoading)
+                        Application.DoEvents();
+                    splashForm.Close();
+                }
+            });
+
+                      
 
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
@@ -777,7 +793,7 @@ namespace AMSExplorer
             for (int i = 1; i <= pagecount; i++) comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i)));
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
+            //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
         }
 
         private void DoRefreshGridJobV(bool firstime)
@@ -2834,6 +2850,7 @@ namespace AMSExplorer
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
+            
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
         }
@@ -3498,6 +3515,11 @@ namespace AMSExplorer
 
         private void Mainform_Load(object sender, EventArgs e)
         {
+            Hide();
+            
+
+
+
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
@@ -3585,6 +3607,7 @@ typeof(FilterTime)
             comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
             // List of state and numbers of jobs per state
+           
             DoRefreshGridJobV(true);
             DoGridTransferInit();
             DoRefreshGridAssetV(true);
@@ -3597,6 +3620,8 @@ typeof(FilterTime)
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
 
+            DisplaySplashDuringLoading = false;
+            Show();
         }
 
         private void UpdateLabelStorageEncryption()
@@ -8024,6 +8049,8 @@ typeof(FilterTime)
         {
             DoAttachAnotherStorageAccount();
         }
+
+             
     }
 }
 
@@ -8627,157 +8654,159 @@ namespace AMSExplorer
             this.FindForm().Cursor = Cursors.WaitCursor;
 
 
-            //      Task.Run(() =>
-            //   {
-            IEnumerable<IAsset> assets;
-            IEnumerable<AssetEntry> assetquery;
+          //  Task.Run(() =>
+        // {
+             IEnumerable<IAsset> assets;
+             IEnumerable<AssetEntry> assetquery;
 
-            int days = -1;
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
+             int days = -1;
+             if (!string.IsNullOrEmpty(_timefilter))
+             {
+                 switch (_timefilter)
+                 {
+                     case FilterTime.LastDay:
+                         days = 1;
+                         break;
+                     case FilterTime.LastWeek:
+                         days = 7;
+                         break;
+                     case FilterTime.LastMonth:
+                         days = 30;
+                         break;
+                     case FilterTime.LastYear:
+                         days = 365;
+                         break;
 
-                    default:
-                        break;
-                }
-            }
-            assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
-
-            if (!string.IsNullOrEmpty(_searchinname))
-            {
-                string searchlower = _searchinname.ToLower();
-                assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
-            }
-
-            if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
-            {
-                switch (_statefilter)
-                {
-                    case StatusAssets.Published:
-                        assets = assets.Where(a => a.Locators.Count > 0);
-                        break;
-                    case StatusAssets.PublishedExpired:
-                        assets = assets.Where(a => a.Locators.Count > 0).Where(a => a.Locators.All(l => l.ExpirationDateTime < DateTime.UtcNow));
-                        break;
-                    case StatusAssets.NotPublished:
-                        assets = assets.Where(a => a.Locators.Count == 0);
-                        break;
-                    case StatusAssets.Storage:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                        break;
-                    case StatusAssets.CENC:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                        break;
-                    case StatusAssets.Envelope:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                        break;
-                    case StatusAssets.NotEncrypted:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.None);
-                        break;
-                    case StatusAssets.DynEnc:
-                        assets = assets.Where(a => a.DeliveryPolicies.Count > 0);
-                        break;
-                    case StatusAssets.Streamable:
-                        assets = assets.Where(a => a.IsStreamable);
-                        break;
-                    case StatusAssets.SupportDynEnc:
-                        assets = assets.Where(a => a.SupportsDynamicEncryption);
-                        break;
-                    case StatusAssets.Empty:
-                        assets = assets.Where(a => a.AssetFiles.Count() == 0);
-                        break;
-                    case StatusAssets.DefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                        break;
-                    case StatusAssets.NotDefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                        break;
-                    default:
-                        break;
-                }
-            }
+                     default:
+                         break;
+                 }
+             }
+             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
 
+             if (!string.IsNullOrEmpty(_searchinname))
+             {
+                 string searchlower = _searchinname.ToLower();
+                 assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
+             }
+
+             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
+             {
+                 switch (_statefilter)
+                 {
+                     case StatusAssets.Published:
+                         assets = assets.Where(a => a.Locators.Count > 0);
+                         break;
+                     case StatusAssets.PublishedExpired:
+                         assets = assets.Where(a => a.Locators.Count > 0).Where(a => a.Locators.All(l => l.ExpirationDateTime < DateTime.UtcNow));
+                         break;
+                     case StatusAssets.NotPublished:
+                         assets = assets.Where(a => a.Locators.Count == 0);
+                         break;
+                     case StatusAssets.Storage:
+                         assets = assets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                         break;
+                     case StatusAssets.CENC:
+                         assets = assets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                         break;
+                     case StatusAssets.Envelope:
+                         assets = assets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                         break;
+                     case StatusAssets.NotEncrypted:
+                         assets = assets.Where(a => a.Options == AssetCreationOptions.None);
+                         break;
+                     case StatusAssets.DynEnc:
+                         assets = assets.Where(a => a.DeliveryPolicies.Count > 0);
+                         break;
+                     case StatusAssets.Streamable:
+                         assets = assets.Where(a => a.IsStreamable);
+                         break;
+                     case StatusAssets.SupportDynEnc:
+                         assets = assets.Where(a => a.SupportsDynamicEncryption);
+                         break;
+                     case StatusAssets.Empty:
+                         assets = assets.Where(a => a.AssetFiles.Count() == 0);
+                         break;
+                     case StatusAssets.DefaultStorage:
+                         assets = assets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                         break;
+                     case StatusAssets.NotDefaultStorage:
+                         assets = assets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                         break;
+                     default:
+                         break;
+                 }
+             }
 
 
-            var size = new Func<IAsset, long>(AssetInfo.GetSize);
 
 
-            switch (_orderassets)
-            {
-                case OrderAssets.LastModifiedDescending:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-
-                case OrderAssets.LastModifiedAscending:
-                    assets = from a in assets orderby a.LastModified ascending select a;
-                    break;
-
-                case OrderAssets.NameAscending:
-                    assets = from a in assets orderby a.Name ascending select a;
-                    break;
-
-                case OrderAssets.NameDescending:
-                    assets = from a in assets orderby a.Name descending select a;
-                    break;
-
-                case OrderAssets.SizeDescending:
-                    assets = from a in assets orderby size(a) descending select a;
-                    break;
-
-                case OrderAssets.SizeAscending:
-                    assets = from a in assets orderby size(a) ascending select a;
-                    break;
-
-                default:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-            }
+             var size = new Func<IAsset, long>(AssetInfo.GetSize);
 
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
-            {
-                assets = assets.Take(50);
-            }
+             switch (_orderassets)
+             {
+                 case OrderAssets.LastModifiedDescending:
+                     assets = from a in assets orderby a.LastModified descending select a;
+                     break;
 
-            _context = context;
-            _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
-            if (_pagecount == 0) _pagecount = 1; // no asset but one page
+                 case OrderAssets.LastModifiedAscending:
+                     assets = from a in assets orderby a.LastModified ascending select a;
+                     break;
 
-            if (pagetodisplay < 1) pagetodisplay = 1;
-            if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            _currentpage = pagetodisplay;
+                 case OrderAssets.NameAscending:
+                     assets = from a in assets orderby a.Name ascending select a;
+                     break;
 
-            try
-            {
-                assetquery = from a in assets select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
-                _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + e.Message);
-                Environment.Exit(0);
-            }
+                 case OrderAssets.NameDescending:
+                     assets = from a in assets orderby a.Name descending select a;
+                     break;
 
-            BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
-            this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
-            _refreshedatleastonetime = true;
+                 case OrderAssets.SizeDescending:
+                     assets = from a in assets orderby size(a) descending select a;
+                     break;
 
-            AnalyzeItemsInBackground();
+                 case OrderAssets.SizeAscending:
+                     assets = from a in assets orderby size(a) ascending select a;
+                     break;
+
+                 default:
+                     assets = from a in assets orderby a.LastModified descending select a;
+                     break;
+             }
+
+
+             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+             {
+                 assets = assets.Take(50);
+             }
+
+             _context = context;
+             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
+             if (_pagecount == 0) _pagecount = 1; // no asset but one page
+
+             if (pagetodisplay < 1) pagetodisplay = 1;
+             if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
+             _currentpage = pagetodisplay;
+
+             try
+             {
+                 assetquery = from a in assets select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
+             }
+             catch (Exception e)
+             {
+                 MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + e.Message);
+                 Environment.Exit(0);
+             }
+
+             BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(_MyObservAsset.Skip(_assetsperpage * (_currentpage - 1)).Take(_assetsperpage).ToList());
+             this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
+             _refreshedatleastonetime = true;
+
+             AnalyzeItemsInBackground();
+            
+       //  });
             this.FindForm().Cursor = Cursors.Default;
         }
 
