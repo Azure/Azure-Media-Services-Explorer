@@ -311,7 +311,7 @@ namespace AMSExplorer
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
 
         public const string Bearer = "Bearer ";
-        public const string strUnits = "{0} unit(s)";
+        public const string strUnits = "{0} unit{1}";
     }
 
 

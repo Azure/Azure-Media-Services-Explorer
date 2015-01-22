@@ -3185,10 +3185,10 @@
             // 
             this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEncodingRU.Location = new System.Drawing.Point(251, 398);
+            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 398);
             this.trackBarEncodingRU.Maximum = 25;
             this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.Size = new System.Drawing.Size(591, 45);
+            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
             this.trackBarEncodingRU.TabIndex = 39;
             this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
@@ -3207,14 +3207,14 @@
             // 
             // labelnbunits
             // 
-            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelnbunits.AutoSize = true;
-            this.labelnbunits.Location = new System.Drawing.Point(848, 411);
+            this.labelnbunits.Location = new System.Drawing.Point(239, 411);
             this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Size = new System.Drawing.Size(52, 13);
+            this.labelnbunits.Size = new System.Drawing.Size(55, 13);
             this.labelnbunits.TabIndex = 36;
-            this.labelnbunits.Tag = "{0} unit(s)";
-            this.labelnbunits.Text = "{0} unit(s)";
+            this.labelnbunits.Tag = "";
+            this.labelnbunits.Text = "{0} unit{1}";
             // 
             // comboBoxEncodingRU
             // 
