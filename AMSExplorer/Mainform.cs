@@ -178,7 +178,7 @@ namespace AMSExplorer
             double nbchannels = (double)_context.Channels.Count();
             double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
             if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", true); // Warning
+                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
             // let's check the encoding reserved unit and type
             if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
@@ -8050,7 +8050,15 @@ typeof(FilterTime)
             DoAttachAnotherStorageAccount();
         }
 
-             
+        private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+           
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+        }
+  
     }
 }
 

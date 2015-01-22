@@ -2285,6 +2285,7 @@
             this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 431);
             this.dataGridViewTransfer.TabIndex = 32;
             this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
+            this.dataGridViewTransfer.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewTransfer.DoubleClick += new System.EventHandler(this.dataGridViewTransfer_DoubleClick);
             // 
             // contextMenuStripTransfers
@@ -2455,6 +2456,7 @@
             this.dataGridViewAssetsV.TimeFilter = "Last week";
             this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
             this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
+            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
             this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
             // 
@@ -2590,6 +2592,7 @@
             this.dataGridViewJobsV.TimeFilter = "Last week";
             this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
             this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
+            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // tabPageLive
             // 
@@ -2670,6 +2673,7 @@
             this.dataGridViewChannelsV.TimeFilter = "Last week";
             this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
             this.dataGridViewChannelsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewLiveV_CellFormatting);
+            this.dataGridViewChannelsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
             // 
             // contextMenuStripChannels
@@ -2942,6 +2946,7 @@
             this.dataGridViewProgramsV.TimeFilter = "Last week";
             this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
             this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
+            this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripPrograms
             // 
@@ -3249,6 +3254,7 @@
             this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 390);
             this.dataGridViewProcessors.TabIndex = 33;
+            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripProcessors
             // 
@@ -3324,6 +3330,7 @@
             this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
             this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
             this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
+            this.dataGridViewStreamingEndpointsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripStreaminEndpoints
             // 
@@ -3421,6 +3428,7 @@
             this.dataGridViewStorage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewStorage.Size = new System.Drawing.Size(997, 390);
             this.dataGridViewStorage.TabIndex = 34;
+            this.dataGridViewStorage.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripStorage
             // 

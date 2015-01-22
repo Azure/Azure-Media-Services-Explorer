@@ -121,8 +121,14 @@ namespace AMSExplorer
 
         private void Splash_Load(object sender, EventArgs e)
         {
+        }
 
-
+        private void Splash_Paint(object sender, PaintEventArgs e)
+        {
+            System.Drawing.Pen myPen = new System.Drawing.Pen(System.Drawing.Color.DarkGray, 1);
+            System.Drawing.Graphics formGraphics;
+            formGraphics = this.CreateGraphics();
+            formGraphics.DrawRectangle(myPen, 0, 0, this.Width-1 , this.Height-1 );
         }
              
     }

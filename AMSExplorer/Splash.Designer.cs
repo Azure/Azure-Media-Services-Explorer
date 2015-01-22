@@ -35,7 +35,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 203);
+            this.progressBar1.Location = new System.Drawing.Point(12, 143);
             this.progressBar1.MarqueeAnimationSpeed = 30;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(411, 23);
@@ -45,20 +45,19 @@
             // labelConnecting
             // 
             this.labelConnecting.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConnecting.Location = new System.Drawing.Point(157, 61);
+            this.labelConnecting.Location = new System.Drawing.Point(120, 12);
             this.labelConnecting.Name = "labelConnecting";
-            this.labelConnecting.Size = new System.Drawing.Size(266, 75);
+            this.labelConnecting.Size = new System.Drawing.Size(303, 112);
             this.labelConnecting.TabIndex = 2;
-            this.labelConnecting.Text = "Connecting to the account :\r\n\r\n{0}";
+            this.labelConnecting.Text = "Connecting to the Media Services account :\r\n\r\n{0}";
             this.labelConnecting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // logoPictureBox
             // 
-            this.logoPictureBox.BackColor = System.Drawing.SystemColors.Window;
             this.logoPictureBox.Image = global::AMSExplorer.Bitmaps.Azure_Explorer;
             this.logoPictureBox.Location = new System.Drawing.Point(12, 12);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(128, 176);
+            this.logoPictureBox.Size = new System.Drawing.Size(102, 112);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logoPictureBox.TabIndex = 13;
             this.logoPictureBox.TabStop = false;
@@ -67,8 +66,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(435, 250);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(435, 184);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.labelConnecting);
             this.Controls.Add(this.progressBar1);
@@ -83,6 +82,7 @@
             this.Text = "Connecting to the Media account";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.Splash_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Splash_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
             this.ResumeLayout(false);
 
