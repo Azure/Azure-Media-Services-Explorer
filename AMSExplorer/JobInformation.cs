@@ -125,8 +125,20 @@ namespace AMSExplorer
             }
 
 
-            bool btaskinjob = (MyJob.Tasks.Count() > 0);
+            TaskSizeAndPrice jobSizePrice = JobInfo.CalculateJobSizeAndPrice(MyJob);
+            if ((jobSizePrice.InputSize != -1) && (jobSizePrice.OutputSize != -1))
+            {
+                DGJob.Rows.Add("Input size", AssetInfo.FormatByteSize(jobSizePrice.InputSize));
+                DGJob.Rows.Add("Output size", AssetInfo.FormatByteSize(jobSizePrice.OutputSize));
+                DGJob.Rows.Add("Processed size", AssetInfo.FormatByteSize(jobSizePrice.InputSize + jobSizePrice.OutputSize));
+                if (jobSizePrice.Price != -1) DGJob.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, jobSizePrice.Price));
+            }
+            else
+            {
+                DGJob.Rows.Add("Input/output size", "undefined, one task did not finished");
+            }
 
+            bool btaskinjob = (MyJob.Tasks.Count() > 0);
 
             if (btaskinjob)
             {
@@ -200,20 +212,20 @@ namespace AMSExplorer
                 DGTasks.Rows.Add("Output asset" + string.Format(sid, i + 1) + " Id", task.OutputAssets[i].Id);
             }
 
-
-            long inputsize = JobInfo.GetInputFilesSize(task);
-            long outputsize = JobInfo.GetOutputFilesSize(task);
-            if ((inputsize != -1) && (outputsize != -1))
+            TaskSizeAndPrice taskSizePrice = JobInfo.CalculateTaskSizeAndPrice(task, _context);
+            if ((taskSizePrice.InputSize != -1) && (taskSizePrice.OutputSize != -1))
             {
-                DGTasks.Rows.Add("Input size", AssetInfo.FormatByteSize(inputsize));
-                DGTasks.Rows.Add("Output size", AssetInfo.FormatByteSize(outputsize));
-                DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(inputsize + outputsize));
+                DGTasks.Rows.Add("Input size", AssetInfo.FormatByteSize(taskSizePrice.InputSize));
+                DGTasks.Rows.Add("Output size", AssetInfo.FormatByteSize(taskSizePrice.OutputSize));
+                DGTasks.Rows.Add("Processed size", AssetInfo.FormatByteSize(taskSizePrice.InputSize + taskSizePrice.OutputSize));
+                if (taskSizePrice.Price != -1) DGTasks.Rows.Add("Estimated price", string.Format("{0} {1:0.00}", Properties.Settings.Default.Currency, taskSizePrice.Price));
             }
             else
             {
                 DGTasks.Rows.Add("Input/output size", "undefined, task did not finished");
 
             }
+           
             for (int i = 0; i < task.ErrorDetails.Count(); i++)
             {
                 DGTasks.Rows.Add("Error", task.ErrorDetails[i].Code + ": " + task.ErrorDetails[i].Message);

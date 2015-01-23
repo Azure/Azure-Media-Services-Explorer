@@ -337,6 +337,11 @@
             this.ContextMenuItemOriginStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStop = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabPageStorage = new System.Windows.Forms.TabPage();
+            this.dataGridViewStorage = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageChart = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
@@ -380,6 +385,9 @@
             this.tabPageOrigins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
             this.contextMenuStripStreaminEndpoints.SuspendLayout();
+            this.tabPageStorage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
+            this.contextMenuStripStorage.SuspendLayout();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
@@ -2279,6 +2287,7 @@
             this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 431);
             this.dataGridViewTransfer.TabIndex = 32;
             this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
+            this.dataGridViewTransfer.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewTransfer.DoubleClick += new System.EventHandler(this.dataGridViewTransfer_DoubleClick);
             // 
             // contextMenuStripTransfers
@@ -2318,6 +2327,7 @@
             this.tabControlMain.Controls.Add(this.tabPageLive);
             this.tabControlMain.Controls.Add(this.tabPageProcessors);
             this.tabControlMain.Controls.Add(this.tabPageOrigins);
+            this.tabControlMain.Controls.Add(this.tabPageStorage);
             this.tabControlMain.Controls.Add(this.tabPageChart);
             this.tabControlMain.Location = new System.Drawing.Point(3, 6);
             this.tabControlMain.Name = "tabControlMain";
@@ -2448,6 +2458,7 @@
             this.dataGridViewAssetsV.TimeFilter = "Last week";
             this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
             this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
+            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
             this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
             // 
@@ -2583,6 +2594,7 @@
             this.dataGridViewJobsV.TimeFilter = "Last week";
             this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
             this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
+            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // tabPageLive
             // 
@@ -2663,6 +2675,7 @@
             this.dataGridViewChannelsV.TimeFilter = "Last week";
             this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
             this.dataGridViewChannelsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewLiveV_CellFormatting);
+            this.dataGridViewChannelsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
             // 
             // contextMenuStripChannels
@@ -2935,6 +2948,7 @@
             this.dataGridViewProgramsV.TimeFilter = "Last week";
             this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
             this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
+            this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripPrograms
             // 
@@ -3173,10 +3187,10 @@
             // 
             this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEncodingRU.Location = new System.Drawing.Point(251, 398);
+            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 398);
             this.trackBarEncodingRU.Maximum = 25;
             this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.Size = new System.Drawing.Size(591, 45);
+            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
             this.trackBarEncodingRU.TabIndex = 39;
             this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
@@ -3195,14 +3209,14 @@
             // 
             // labelnbunits
             // 
-            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelnbunits.AutoSize = true;
-            this.labelnbunits.Location = new System.Drawing.Point(848, 411);
+            this.labelnbunits.Location = new System.Drawing.Point(239, 411);
             this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Size = new System.Drawing.Size(52, 13);
+            this.labelnbunits.Size = new System.Drawing.Size(55, 13);
             this.labelnbunits.TabIndex = 36;
-            this.labelnbunits.Tag = "{0} unit(s)";
-            this.labelnbunits.Text = "{0} unit(s)";
+            this.labelnbunits.Tag = "";
+            this.labelnbunits.Text = "{0} unit{1}";
             // 
             // comboBoxEncodingRU
             // 
@@ -3242,6 +3256,7 @@
             this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 390);
             this.dataGridViewProcessors.TabIndex = 33;
+            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripProcessors
             // 
@@ -3317,6 +3332,7 @@
             this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
             this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
             this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
+            this.dataGridViewStreamingEndpointsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // contextMenuStripStreaminEndpoints
             // 
@@ -3384,6 +3400,60 @@
             this.ContextMenuItemOriginDelete.Size = new System.Drawing.Size(340, 22);
             this.ContextMenuItemOriginDelete.Text = "Delete streaming endpoint(s)";
             this.ContextMenuItemOriginDelete.Click += new System.EventHandler(this.deleteOriginsToolStripMenuItem1_Click);
+            // 
+            // tabPageStorage
+            // 
+            this.tabPageStorage.Controls.Add(this.dataGridViewStorage);
+            this.tabPageStorage.Location = new System.Drawing.Point(4, 22);
+            this.tabPageStorage.Name = "tabPageStorage";
+            this.tabPageStorage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStorage.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageStorage.TabIndex = 8;
+            this.tabPageStorage.Text = "Storage";
+            this.tabPageStorage.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewStorage
+            // 
+            this.dataGridViewStorage.AllowUserToAddRows = false;
+            this.dataGridViewStorage.AllowUserToDeleteRows = false;
+            this.dataGridViewStorage.AllowUserToResizeRows = false;
+            this.dataGridViewStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewStorage.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStorage.ContextMenuStrip = this.contextMenuStripStorage;
+            this.dataGridViewStorage.Location = new System.Drawing.Point(5, 6);
+            this.dataGridViewStorage.Name = "dataGridViewStorage";
+            this.dataGridViewStorage.ReadOnly = true;
+            this.dataGridViewStorage.RowHeadersVisible = false;
+            this.dataGridViewStorage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStorage.Size = new System.Drawing.Size(997, 390);
+            this.dataGridViewStorage.TabIndex = 34;
+            this.dataGridViewStorage.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            // 
+            // contextMenuStripStorage
+            // 
+            this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.attachAnotherStorageAccountToolStripMenuItem});
+            this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
+            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 48);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(250, 22);
+            this.toolStripMenuItem2.Text = "Refresh";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // attachAnotherStorageAccountToolStripMenuItem
+            // 
+            this.attachAnotherStorageAccountToolStripMenuItem.Name = "attachAnotherStorageAccountToolStripMenuItem";
+            this.attachAnotherStorageAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.attachAnotherStorageAccountToolStripMenuItem.Text = "Attach another storage account...";
+            this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
             // 
             // tabPageChart
             // 
@@ -3604,6 +3674,9 @@
             this.tabPageOrigins.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
             this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
+            this.tabPageStorage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).EndInit();
+            this.contextMenuStripStorage.ResumeLayout(false);
             this.tabPageChart.ResumeLayout(false);
             this.tabPageChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
@@ -3938,6 +4011,11 @@
         private System.Windows.Forms.ComboBox comboBoxEncodingRU;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TrackBar trackBarEncodingRU;
+        private System.Windows.Forms.TabPage tabPageStorage;
+        private System.Windows.Forms.DataGridView dataGridViewStorage;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripStorage;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem attachAnotherStorageAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem;
     }
 }

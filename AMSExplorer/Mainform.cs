@@ -83,11 +83,12 @@ namespace AMSExplorer
 
         private System.Timers.Timer TimerAutoRefresh;
 
+        bool DisplaySplashDuringLoading;
+
         public Mainform()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-
 
             // USER SETTINSG CHECKS & UPDATES
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
@@ -118,7 +119,22 @@ namespace AMSExplorer
             {
                 Environment.Exit(0);
             }
+
             _credentials = form.LoginCredentials;
+
+            DisplaySplashDuringLoading = true;
+            ThreadPool.QueueUserWorkItem((x) =>
+            {
+                using (var splashForm = new Splash(_credentials.AccountName))
+                {
+                    splashForm.Show();
+                    while (DisplaySplashDuringLoading)
+                        Application.DoEvents();
+                    splashForm.Close();
+                }
+            });
+
+
 
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
@@ -162,7 +178,7 @@ namespace AMSExplorer
             double nbchannels = (double)_context.Channels.Count();
             double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
             if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", true); // Warning
+                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
             // let's check the encoding reserved unit and type
             if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
@@ -750,6 +766,7 @@ namespace AMSExplorer
             DoRefreshGridChannelV(false);
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
+            DoRefreshGridStorageV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -2833,6 +2850,7 @@ namespace AMSExplorer
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
+
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
         }
@@ -3497,6 +3515,11 @@ namespace AMSExplorer
 
         private void Mainform_Load(object sender, EventArgs e)
         {
+            Hide();
+
+
+
+
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
@@ -3584,6 +3607,7 @@ typeof(FilterTime)
             comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
             // List of state and numbers of jobs per state
+
             DoRefreshGridJobV(true);
             DoGridTransferInit();
             DoRefreshGridAssetV(true);
@@ -3591,10 +3615,13 @@ typeof(FilterTime)
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
+            DoRefreshGridStorageV(true);
 
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
 
+            DisplaySplashDuringLoading = false;
+            Show();
         }
 
         private void UpdateLabelStorageEncryption()
@@ -5166,8 +5193,53 @@ typeof(FilterTime)
             comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
             trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
             trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+            UpdateLabelProcessorUnits();
+        }
 
+        private void DoRefreshGridStorageV(bool firstime)
+        {
+            const long OneTBInByte = 1099511627776;
+            const long TotalStorageInBytes = OneTBInByte * 200;
+
+            if (firstime)
+            {
+                // Storage tab
+                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.Columns[0].HeaderText = "Name";
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
+
+                DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
+                {
+                    Name = "% used",
+                    DataPropertyName = "% used",
+                    HeaderText = "% used"
+                };
+                dataGridViewStorage.Columns.Add(col);
+            }
+            dataGridViewStorage.Rows.Clear();
+            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+            foreach (IStorageAccount storage in Storages)
+            {
+                bool displaycapacity = false;
+                double? capacityPercentageFullTmp = null;
+                if (storage.BytesUsed != null)
+                {
+                    displaycapacity = true;
+                    capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
+                }
+
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                if (storage.IsDefault)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
+                    dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Default storage account";
+                }
+                if (!displaycapacity)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
+                }
+            }
+            tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
         }
 
 
@@ -7965,7 +8037,36 @@ typeof(FilterTime)
 
         private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+            UpdateLabelProcessorUnits();
+        }
+
+        private void UpdateLabelProcessorUnits()
+        {
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 0 ? "s" : string.Empty);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridStorageV(false);
+        }
+
+        private void attachAnotherStorageAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAttachAnotherStorageAccount();
+        }
+
+        private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+        }
+
+        private void dataGridViewAssetsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+
         }
 
         private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8577,8 +8678,8 @@ namespace AMSExplorer
             this.FindForm().Cursor = Cursors.WaitCursor;
 
 
-            //      Task.Run(() =>
-            //   {
+            //  Task.Run(() =>
+            // {
             IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
@@ -8728,6 +8829,8 @@ namespace AMSExplorer
             _refreshedatleastonetime = true;
 
             AnalyzeItemsInBackground();
+
+            //  });
             this.FindForm().Cursor = Cursors.Default;
         }
 
