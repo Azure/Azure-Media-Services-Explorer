@@ -922,6 +922,9 @@
         RFdqjgLw5gAAAABJRU5ErkJggg==
 </value>
   </data>
+  <metadata name="contextMenuStripStorage.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>928, 56</value>
+  </metadata>
   <metadata name="contextMenuStripLog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>604, 56</value>
   </metadata>

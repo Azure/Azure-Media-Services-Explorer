@@ -232,6 +232,31 @@ namespace AMSExplorer
                 }
             }
         }
+
+
+        public static void SaveAndProtectUserConfig()
+        {
+            Properties.Settings.Default.Save();
+
+            string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+            ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+            if (connStrings != null)
+            {
+                if (!connStrings.SectionInformation.IsProtected)
+                {
+                    if (!connStrings.ElementInformation.IsLocked)
+                    {
+                        connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                        connStrings.SectionInformation.ForceSave = true;
+                        config.Save(ConfigurationSaveMode.Full);
+                    }
+                }
+            }
+        }
+
+
     }
 
     public class Constants
@@ -267,6 +292,7 @@ namespace AMSExplorer
         public const string TabLive = "Live"; // name of the Live tab
         public const string TabProcessors = "Processors"; // name of the Processors tab
         public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
+        public const string TabStorage = "Storage"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorflowSamples\";
@@ -285,7 +311,7 @@ namespace AMSExplorer
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
 
         public const string Bearer = "Bearer ";
-        public const string strUnits = "{0} unit(s)";
+        public const string strUnits = "{0} unit{1}";
     }
 
 
@@ -407,6 +433,103 @@ namespace AMSExplorer
             }
         }
 
+        public static TaskSizeAndPrice CalculateJobSizeAndPrice(IJob job)
+        {
+            long totalinputsize = 0;
+            long totalouputsize = 0;
+            double totalprice = 0;
+            bool inputsizecanbecalculated = true;
+            bool outputsizecanbecalculated = true;
+            bool pricecanbecalculated = true;
+
+            foreach (ITask task in job.Tasks)
+            {
+                TaskSizeAndPrice taskinfo = CalculateTaskSizeAndPrice(task, (CloudMediaContext)job.GetMediaContext());
+                if (taskinfo.InputSize != -1)
+                {
+                    totalinputsize += taskinfo.InputSize;
+                }
+                else inputsizecanbecalculated = false;
+
+                if (taskinfo.OutputSize != -1)
+                {
+                    totalouputsize += taskinfo.OutputSize;
+                }
+                else outputsizecanbecalculated = false;
+
+                if (taskinfo.Price != -1)
+                {
+                    totalprice += taskinfo.Price;
+                }
+                else pricecanbecalculated = false;
+            }
+
+            return new TaskSizeAndPrice
+            {
+                InputSize = inputsizecanbecalculated ? totalinputsize : -1,
+                OutputSize = outputsizecanbecalculated ? totalouputsize : -1,
+                Price = pricecanbecalculated ? totalprice : -1
+            };
+        }
+
+        public static TaskSizeAndPrice CalculateTaskSizeAndPrice(ITask task, CloudMediaContext context)
+        {
+            IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, context);
+            StringBuilder sb = new StringBuilder();
+
+            long lSizeinput = -1;
+            long lSizeoutput = -1;
+            double pricetask = -1;
+
+            if (task.State == JobState.Finished)
+            {
+                lSizeinput = JobInfo.GetInputFilesSize(task);
+                lSizeoutput = JobInfo.GetOutputFilesSize(task);
+
+                if (lSizeinput != -1 && lSizeoutput != -1)
+                {
+                    double lsizeinputprocessed = (double)lSizeinput / (1024 * 1024 * 1024);
+                    double lsizeoutputprocessed = (double)lSizeoutput / (1024 * 1024 * 1024);
+
+                    if (processor != null)
+                    {
+
+                        switch (processor.Name)
+                        {
+                            case (Constants.AzureMediaEncoder):
+                                // AME Encoding task
+                                pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
+                                break;
+                            case (Constants.WindowsAzureMediaEncoder):
+                                // WAME Encoding task
+                                pricetask = (lsizeinputprocessed + lsizeoutputprocessed) * (double)Properties.Settings.Default.LegacyEncodingPrice;
+                                break;
+                            case (MediaProcessorNames.StorageDecryption):
+                            case (MediaProcessorNames.WindowsAzureMediaEncryptor):
+                            case (MediaProcessorNames.WindowsAzureMediaPackager):
+                                // No cost
+                                pricetask = 0;
+                                break;
+                            case (Constants.AzureMediaIndexer):
+                                // Indexing task
+                                // TO DO: GET DURATION OF CONTENT
+                                //pricetask = lsizeprocessed * (double)Properties.Settings.Default.LegacyEncodingPrice;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
+            return new TaskSizeAndPrice()
+            {
+                InputSize = lSizeinput,
+                OutputSize = lSizeoutput,
+                Price = pricetask
+            };
+
+        }
+
         private static long ListFilesInAsset(IAsset asset, ref StringBuilder builder)
         {
             // Display the files associated with each asset. 
@@ -479,21 +602,11 @@ namespace AMSExplorer
                         sb.AppendLine("Job Duration        : " + elapsedTime);
                     }
                     sb.AppendLine("Number of tasks     : " + theJob.Tasks.Count);
-                    sb.AppendLine("");
                     sb.AppendLine("Media Account       : " + theJob.GetMediaContext().Credentials.ClientId);
                     sb.AppendLine("");
 
-                    double total_price = 0;
-                    double total_dsizeinputprocessed = 0;
-                    double total_dsizeoutputprocessed = 0;
-                    bool total_pricecanbecalculated = true;
-                    bool total_sizescanbecalculated = true;
-
                     foreach (ITask task in theJob.Tasks)
                     {
-                        bool pricecanbecalculated = false;
-                        bool sizecanbecalculated = false;
-
                         sb.AppendLine(section);
                         sb.AppendLine("");
                         sb.AppendLine("Task Name           : " + task.Name);
@@ -536,104 +649,61 @@ namespace AMSExplorer
                                 sb.AppendLine("Error Code    : " + errordetail.Code);
                             }
                         }
+
                         if (task.State == JobState.Finished)
                         {
-                            //long lSize = 0;
-                            long lSizeinput = 0;
-                            long lSizeoutput = 0;
-                            sizecanbecalculated = true;
-                            pricecanbecalculated = true;
+                            TaskSizeAndPrice MyTaskSizePrice = CalculateTaskSizeAndPrice(task, (CloudMediaContext)theJob.GetMediaContext());
+
                             sb.AppendLine("Input Assets:");
                             foreach (IAsset asset in task.InputAssets)
                             {
                                 if (asset.State == AssetState.Deleted)
                                 {
                                     sb.AppendLine("Asset Deleted");
-                                    sizecanbecalculated = false;
-                                    pricecanbecalculated = false;
                                 }
-                                lSizeinput += ListFilesInAsset(asset, ref sb);
                             }
                             sb.AppendLine("");
                             sb.AppendLine("Output Assets :");
                             foreach (IAsset asset in task.OutputAssets)
-                                lSizeoutput += ListFilesInAsset(asset, ref sb);
+                                ListFilesInAsset(asset, ref sb);
 
-                            double lsizeinputprocessed = (double)lSizeinput / (1024 * 1024 * 1024);
-                            double lsizeoutputprocessed = (double)lSizeoutput / (1024 * 1024 * 1024);
-                            if (sizecanbecalculated)
+                            if (MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1)
                             {
+
                                 if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
                                 {
-                                    sb.AppendLine("Input gigabytes processed by the task  : " + lsizeinputprocessed.ToString());
-                                    sb.AppendLine("Output gigabytes processed by the task : " + lsizeoutputprocessed.ToString());
-                                    sb.AppendLine("Total gigabytes processed by the task  : " + (lsizeinputprocessed + lsizeoutputprocessed).ToString());
+                                    sb.AppendLine("Input size processed by the task  : " + AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize));
+                                    sb.AppendLine("Output size processed by the task : " + AssetInfo.FormatByteSize(MyTaskSizePrice.OutputSize));
+                                    sb.AppendLine("Total size processed by the task  : " + AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize));
                                 }
-                                total_dsizeinputprocessed += lsizeinputprocessed;
-                                total_dsizeoutputprocessed += lsizeoutputprocessed;
-                                if (processor != null)
+
+                                if (MyTaskSizePrice.Price >= 0)
                                 {
-                                    double pricetask = -1;
-                                    switch (processor.Name)
-                                    {
-                                        case (Constants.AzureMediaEncoder):
-                                            // AME Encoding task
-                                            pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
-                                            break;
-                                        case (Constants.WindowsAzureMediaEncoder):
-                                            // WAME Encoding task
-                                            pricetask = (lsizeinputprocessed + lsizeoutputprocessed) * (double)Properties.Settings.Default.LegacyEncodingPrice;
-                                            break;
-                                        case (MediaProcessorNames.StorageDecryption):
-                                        case (MediaProcessorNames.WindowsAzureMediaEncryptor):
-                                        case (MediaProcessorNames.WindowsAzureMediaPackager):
-                                            // No cost
-                                            pricetask = 0;
-                                            break;
-                                        case (Constants.AzureMediaIndexer):
-                                            // Indexing task
-                                            // TO DO: GET DURATION OF CONTENT
-                                            //pricetask = lsizeprocessed * (double)Properties.Settings.Default.LegacyEncodingPrice;
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                    if (pricetask >= 0)
-                                    {
-                                        if (theJob.Tasks.Count > 1) sb.AppendLine(string.Format("Estimated cost of the task             : {0} {1:0.00}", Properties.Settings.Default.Currency, pricetask));
-                                        total_price += pricetask;
-                                    }
-                                    else
-                                    {
-                                        total_pricecanbecalculated = false;
-                                    }
+                                    if (theJob.Tasks.Count > 1) sb.AppendLine(string.Format("Estimated cost of the task        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyTaskSizePrice.Price));
                                 }
                             }
                             else
                             {
                                 sb.AppendLine("Gigabytes processed by the task : cannot be calculated, asset deleted?");
-                                total_pricecanbecalculated = false;
-                                total_sizescanbecalculated = false;
                             }
                         }
-                        if (!pricecanbecalculated) total_pricecanbecalculated = false;
-                        if (!sizecanbecalculated) total_sizescanbecalculated = false;
 
                         sb.AppendLine("");
                         sb.AppendLine(section);
-
                     }
                     sb.AppendLine("");
 
-                    if (total_sizescanbecalculated)
+                    TaskSizeAndPrice MyJobSizePrice = CalculateJobSizeAndPrice(theJob);
+
+                    if (MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1)
                     {
-                        sb.AppendLine("Input gigabytes processed by the job   : " + total_dsizeinputprocessed.ToString());
-                        sb.AppendLine("Output gigabytes processed by the job  : " + total_dsizeoutputprocessed.ToString());
-                        sb.AppendLine("Total gigabytes processed by the job   : " + (total_dsizeinputprocessed + total_dsizeoutputprocessed).ToString());
+                        sb.AppendLine("Input size processed by the job  : " + AssetInfo.FormatByteSize(MyJobSizePrice.InputSize));
+                        sb.AppendLine("Output size processed by the job : " + AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize));
+                        sb.AppendLine("Total size processed by the job  : " + AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize));
                     }
-                    if (total_pricecanbecalculated)
+                    if (MyJobSizePrice.Price != -1)
                     {
-                        sb.AppendLine(string.Format("Estimated cost of the job              : {0} {1:0.00}", Properties.Settings.Default.Currency, total_price));
+                        sb.AppendLine(string.Format("Estimated cost of the job        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyJobSizePrice.Price));
                     }
                     sb.AppendLine("");
                     sb.AppendLine(section);
@@ -1310,7 +1380,12 @@ namespace AMSExplorer
         }
     }
 
-
+    public class TaskSizeAndPrice
+    {
+        public long InputSize { get; set; }
+        public long OutputSize { get; set; }
+        public double Price { get; set; }
+    }
 
     public class JobEntry
     {

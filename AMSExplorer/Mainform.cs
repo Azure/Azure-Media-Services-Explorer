@@ -83,11 +83,14 @@ namespace AMSExplorer
 
         private System.Timers.Timer TimerAutoRefresh;
 
+        bool DisplaySplashDuringLoading;
+
         public Mainform()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
+            // USER SETTINSG CHECKS & UPDATES
             if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
             {
                 Properties.Settings.Default.Upgrade();
@@ -98,14 +101,15 @@ namespace AMSExplorer
             if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
-                Properties.Settings.Default.Save();
             }
 
             if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
-                Properties.Settings.Default.Save();
             }
+            Program.SaveAndProtectUserConfig(); // to save settings and to make sure they are encrypted if the user just upgraded from an earlier version
+
+
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
@@ -115,7 +119,22 @@ namespace AMSExplorer
             {
                 Environment.Exit(0);
             }
+
             _credentials = form.LoginCredentials;
+
+            DisplaySplashDuringLoading = true;
+            ThreadPool.QueueUserWorkItem((x) =>
+            {
+                using (var splashForm = new Splash(_credentials.AccountName))
+                {
+                    splashForm.Show();
+                    while (DisplaySplashDuringLoading)
+                        Application.DoEvents();
+                    splashForm.Close();
+                }
+            });
+
+
 
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
@@ -159,7 +178,7 @@ namespace AMSExplorer
             double nbchannels = (double)_context.Channels.Count();
             double nbse = (double)_context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count;
             if (nbse > 0 && nbchannels > 0 && (nbchannels / nbse) > 5)
-                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", true); // Warning
+                TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
             // let's check the encoding reserved unit and type
             if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
@@ -747,6 +766,7 @@ namespace AMSExplorer
             DoRefreshGridChannelV(false);
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
+            DoRefreshGridStorageV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -1009,6 +1029,7 @@ namespace AMSExplorer
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
             bool multipleassets = SelectedAssets.Count > 1;
+            bool Error = false;
 
             string labeldb = "Starting download of " + SelectedAssets.FirstOrDefault().Name + " to " + folder as string + Constants.endline;
             if (multipleassets)
@@ -1024,15 +1045,30 @@ namespace AMSExplorer
                     foldera += "\\" + mediaAsset.Id.Substring(12);
                     Directory.CreateDirectory(foldera);
                 }
-                mediaAsset.DownloadToFolder(foldera,
-                                                                 (af, p) =>
-                                                                 {
-                                                                     DoGridTransferUpdateProgress(p.Progress, index);
-                                                                 }
-                                                                );
+                try
+                {
+                    mediaAsset.DownloadToFolder(foldera,
+                                                                                     (af, p) =>
+                                                                                     {
+                                                                                         DoGridTransferUpdateProgress(p.Progress, index);
+                                                                                     }
+                                                                                    );
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
+                    TextBoxLogWriteLine(e);
+                    DoGridTransferDeclareError(index, e);
+                }
+
             }
-            TextBoxLogWriteLine("Download finished.");
-            DoGridTransferDeclareCompleted(index, folder.ToString());
+            if (!Error)
+            {
+                TextBoxLogWriteLine("Download finished.");
+                DoGridTransferDeclareCompleted(index, folder.ToString());
+
+            }
         }
 
         public void DoDownloadFileFromAsset(IAsset asset, IAssetFile File, object folder, int index)
@@ -1068,6 +1104,7 @@ namespace AMSExplorer
                 {
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
+                    TextBoxLogWriteLine(e);
                     DoGridTransferDeclareError(index, e);
                 }
                 if (!Error)
@@ -1870,6 +1907,41 @@ namespace AMSExplorer
         private void DoMenuDeleteSelectedAssets()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            DoDeleteAssets(SelectedAssets);
+        }
+
+        private void DoDeleteAssets(List<IAsset> SelectedAssets)
+        {
+            if (SelectedAssets.Count > 0)
+            {
+                string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine("Deleting asset(s)");
+                    this.Cursor = Cursors.WaitCursor;
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridAssetV(false);
+                }
+            }
+        }
+        /*
+          private void DoMenuDeleteSelectedAssets()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1898,23 +1970,12 @@ namespace AMSExplorer
                     DoRefreshGridAssetV(false);
                 }
             }
-        }
+        } 
+         */
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?" + Constants.endline + "There are " + _context.Assets.Count().ToString() + " assets in the account.", "Assets deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
-                // Set cursor as hourglass
-                this.Cursor = Cursors.WaitCursor;
-                foreach (IAsset asset in _context.Assets)
-                {
-                    DeleteAllAssets(new string[] { "" });
-                }
-                System.Threading.Thread.Sleep(1000);
-                DoRefreshGridAssetV(false);
-                // Set cursor as default arrow
-                this.Cursor = Cursors.Default;
-            }
+            DoDeleteAssets(_context.Assets.ToList());
         }
 
 
@@ -2586,27 +2647,8 @@ namespace AMSExplorer
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?" + Constants.endline + "There are " + _context.Jobs.Count().ToString() + " jobs in the account.", "Jobs deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
-                // Set cursor as hourglass
-                this.Cursor = Cursors.WaitCursor;
+            DoDeleteJobs(_context.Jobs.ToList());
 
-                foreach (IJob job in _context.Jobs)
-                {
-                    try { job.Delete(); }
-
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when deleting job '{0}'", job.Name, true);
-                        TextBoxLogWriteLine(ex);
-                    }
-                }
-                System.Threading.Thread.Sleep(1000);
-                TextBoxLogWriteLine("Jobs deleted.");
-                DoRefreshGridJobV(false);
-                // Set cursor as default arrow
-                this.Cursor = Cursors.Default;
-            }
         }
 
         private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2615,6 +2657,41 @@ namespace AMSExplorer
         }
 
         private void DoDeleteSelectedJobs()
+        {
+            DoDeleteJobs(ReturnSelectedJobs());
+        }
+
+        private void DoDeleteJobs(List<IJob> SelectedJobs)
+        {
+            if (SelectedJobs.Count > 0)
+            {
+                string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine("Deleting job(s)");
+                    this.Cursor = Cursors.WaitCursor;
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridJobV(false);
+                }
+            }
+        }
+
+        /*
+         *   private void DoDeleteSelectedJobs()
         {
             List<IJob> SelectedJobs = ReturnSelectedJobs();
 
@@ -2648,7 +2725,7 @@ namespace AMSExplorer
                 }
             }
         }
-
+         */
 
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2830,6 +2907,7 @@ namespace AMSExplorer
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
+
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
         }
@@ -3494,6 +3572,11 @@ namespace AMSExplorer
 
         private void Mainform_Load(object sender, EventArgs e)
         {
+            Hide();
+
+
+
+
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
@@ -3581,6 +3664,7 @@ typeof(FilterTime)
             comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
             // List of state and numbers of jobs per state
+
             DoRefreshGridJobV(true);
             DoGridTransferInit();
             DoRefreshGridAssetV(true);
@@ -3588,10 +3672,13 @@ typeof(FilterTime)
             DoRefreshGridProgramV(true);
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
+            DoRefreshGridStorageV(true);
 
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
 
+            DisplaySplashDuringLoading = false;
+            Show();
         }
 
         private void UpdateLabelStorageEncryption()
@@ -3668,7 +3755,7 @@ typeof(FilterTime)
                 // Read and update the configuration XML.
                 //
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = form.EncodingAMEPresetXMLFiles;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
 
                 string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                 IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
@@ -4723,7 +4810,7 @@ typeof(FilterTime)
                 WatchFolderFolderPath = form.WatchFolderPath;
                 WatchFolderIsOn = form.WatchOn;
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
-                Properties.Settings.Default.Save();
+                Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
                 WatchFolderJobTemplate = form.WatchRunJobTemplate ? form.WatchSelectedJobTemplate : null; // let's save the job template to the main variable
 
@@ -5163,8 +5250,53 @@ typeof(FilterTime)
             comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
             trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
             trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+            UpdateLabelProcessorUnits();
+        }
 
+        private void DoRefreshGridStorageV(bool firstime)
+        {
+            const long OneTBInByte = 1099511627776;
+            const long TotalStorageInBytes = OneTBInByte * 200;
+
+            if (firstime)
+            {
+                // Storage tab
+                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.Columns[0].HeaderText = "Name";
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
+
+                DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
+                {
+                    Name = "% used",
+                    DataPropertyName = "% used",
+                    HeaderText = "% used"
+                };
+                dataGridViewStorage.Columns.Add(col);
+            }
+            dataGridViewStorage.Rows.Clear();
+            List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
+            foreach (IStorageAccount storage in Storages)
+            {
+                bool displaycapacity = false;
+                double? capacityPercentageFullTmp = null;
+                if (storage.BytesUsed != null)
+                {
+                    displaycapacity = true;
+                    capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
+                }
+
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                if (storage.IsDefault)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
+                    dataGridViewStorage.Rows[rowi].Cells[0].ToolTipText = "Default storage account";
+                }
+                if (!displaycapacity)
+                {
+                    dataGridViewStorage.Rows[rowi].Cells[1].ToolTipText = "Storage Account Metrics are not enabled or no data is available";
+                }
+            }
+            tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
         }
 
 
@@ -5261,11 +5393,6 @@ typeof(FilterTime)
             }
         }
 
-        private void RefreshLiveGrid(IChannel channel, bool delay)
-        {
-            if (delay) System.Threading.Thread.Sleep(1000);
-            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-        }
 
         private async void StartChannel(IChannel myC)
         {
@@ -5468,7 +5595,7 @@ typeof(FilterTime)
                 var STask = fCall();
                 while (!STask.IsCompleted)
                 {
-                    // refersh the setreaming endpoint
+                    // refresh the streaming endpoint
                     IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
                     if (myOR != null && state != myOR.State)
                     {
@@ -6885,7 +7012,7 @@ typeof(FilterTime)
                                             case ContentKeyRestrictionType.Open:
 
                                                 IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                                TextBoxLogWriteLine("Created Open AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                                 break;
 
                                             case ContentKeyRestrictionType.TokenRestricted:
@@ -6958,7 +7085,8 @@ typeof(FilterTime)
                                     if (!String.IsNullOrEmpty(tokenTemplateString))
                                     {
                                         string testToken = AssetInfo.GetTestToken(AssetToProcess, form.GetContentKeyType, _context);
-                                        TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
                                     }
                                 }
                                 else // No Dynamic encryption
@@ -7056,31 +7184,57 @@ typeof(FilterTime)
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = "Dynamic encryption will be removed for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+                labelAssetName = string.Format("Dynamic encryption policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = "Dynamic encryption will removed for these " + SelectedAssets.Count.ToString() + " selected assets.";
+                    labelAssetName = string.Format("Dynamic encryption policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
+                labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
+                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);
 
-                if (MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (myDialogResult != DialogResult.Cancel)
                 {
                     bool Error = false;
                     string keydeliveryconfig = string.Empty;
+
                     foreach (IAsset AssetToProcess in SelectedAssets)
+                    {
 
                         if (AssetToProcess != null)
                         {
-                            IAssetDeliveryPolicy DelPol = null;
                             try
                             {
-                                foreach (var loc in AssetToProcess.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
-                                {
-                                    loc.Delete();
-                                }
+                                //Removing all locators associated with asset
+                                var tasks = _context.Locators.Where(c => c.AssetId == AssetToProcess.Id && c.Type == LocatorType.OnDemandOrigin)
+                                        .ToList()
+                                        .Select(locator => locator.DeleteAsync())
+                                        .ToArray();
+                                Task.WaitAll(tasks);
+
+                                //Removing all delivery policies associated with asset
                                 List<IAssetDeliveryPolicy> items = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
                                 foreach (var item in items)
                                 {
                                     AssetToProcess.DeliveryPolicies.Remove(item);
+                                }
+
+
+                                if (myDialogResult == DialogResult.Yes) // Let's delete the policies
+                                {
+                                    Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicies.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policy => policy.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+
+                                    deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+
+
+                                    /* // Code removed as it will delete also storage encryption key !
+                                    //removing all content keys associated with assets
+                                    for (int j = 0; j < AssetToProcess.ContentKeys.Count; j++)
+                                    {
+                                        AssetToProcess.ContentKeys.RemoveAt(0);
+                                    }
+                                     */
                                 }
                             }
 
@@ -7092,10 +7246,11 @@ typeof(FilterTime)
                             }
 
                             if (Error) break;
-                            TextBoxLogWriteLine("Removed asset delivery policies and locator(s) for asset {0}.", AssetToProcess.Name);
+                            TextBoxLogWriteLine("Removed{0} asset delivery policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
+                    }
                 }
             }
         }
@@ -7945,7 +8100,7 @@ typeof(FilterTime)
             }
         }
 
-     
+
         private void RUEncodingUpdateControls()
         {
             // If RU is set to 0, let's switch to basic
@@ -7962,8 +8117,38 @@ typeof(FilterTime)
 
         private void trackBarEncodingRU_Scroll(object sender, EventArgs e)
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value);
+            UpdateLabelProcessorUnits();
         }
+
+        private void UpdateLabelProcessorUnits()
+        {
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 0 ? "s" : string.Empty);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridStorageV(false);
+        }
+
+        private void attachAnotherStorageAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoAttachAnotherStorageAccount();
+        }
+
+        private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+        }
+
+        private void dataGridViewAssetsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+
+        }
+
     }
 }
 
@@ -8567,8 +8752,8 @@ namespace AMSExplorer
             this.FindForm().Cursor = Cursors.WaitCursor;
 
 
-            //      Task.Run(() =>
-            //   {
+            //  Task.Run(() =>
+            // {
             IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
@@ -8718,6 +8903,8 @@ namespace AMSExplorer
             _refreshedatleastonetime = true;
 
             AnalyzeItemsInBackground();
+
+            //  });
             this.FindForm().Cursor = Cursors.Default;
         }
 
