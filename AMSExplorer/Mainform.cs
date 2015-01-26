@@ -793,7 +793,7 @@ namespace AMSExplorer
             for (int i = 1; i <= pagecount; i++) comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i)));
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
-            //tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
         }
 
         private void DoRefreshGridJobV(bool firstime)
@@ -5393,11 +5393,6 @@ typeof(FilterTime)
             }
         }
 
-        private void RefreshLiveGrid(IChannel channel, bool delay)
-        {
-            if (delay) System.Threading.Thread.Sleep(1000);
-            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-        }
 
         private async void StartChannel(IChannel myC)
         {
@@ -5600,7 +5595,7 @@ typeof(FilterTime)
                 var STask = fCall();
                 while (!STask.IsCompleted)
                 {
-                    // refersh the setreaming endpoint
+                    // refresh the streaming endpoint
                     IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
                     if (myOR != null && state != myOR.State)
                     {
@@ -7090,7 +7085,8 @@ typeof(FilterTime)
                                     if (!String.IsNullOrEmpty(tokenTemplateString))
                                     {
                                         string testToken = AssetInfo.GetTestToken(AssetToProcess, form.GetContentKeyType, _context);
-                                        TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
                                     }
                                 }
                                 else // No Dynamic encryption
