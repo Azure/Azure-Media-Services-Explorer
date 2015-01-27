@@ -8122,7 +8122,7 @@ typeof(FilterTime)
 
         private void UpdateLabelProcessorUnits()
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 0 ? "s" : string.Empty);
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
