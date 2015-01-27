@@ -1383,9 +1383,11 @@ namespace AMSExplorer
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 string testToken = AssetInfo.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
-                MyMainForm.TextBoxLogWriteLine("The authorization test token is :\n{0}", testToken);
-                System.Windows.Forms.Clipboard.SetText(testToken);
-                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", testToken), "Test token copied");
+                MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
+                MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+
+                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
             }
         }
 

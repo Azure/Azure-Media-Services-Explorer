@@ -1029,6 +1029,7 @@ namespace AMSExplorer
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
             bool multipleassets = SelectedAssets.Count > 1;
+            bool Error = false;
 
             string labeldb = "Starting download of " + SelectedAssets.FirstOrDefault().Name + " to " + folder as string + Constants.endline;
             if (multipleassets)
@@ -1044,15 +1045,30 @@ namespace AMSExplorer
                     foldera += "\\" + mediaAsset.Id.Substring(12);
                     Directory.CreateDirectory(foldera);
                 }
-                mediaAsset.DownloadToFolder(foldera,
-                                                                 (af, p) =>
-                                                                 {
-                                                                     DoGridTransferUpdateProgress(p.Progress, index);
-                                                                 }
-                                                                );
+                try
+                {
+                    mediaAsset.DownloadToFolder(foldera,
+                                                                                     (af, p) =>
+                                                                                     {
+                                                                                         DoGridTransferUpdateProgress(p.Progress, index);
+                                                                                     }
+                                                                                    );
+                }
+                catch (Exception e)
+                {
+                    Error = true;
+                    TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
+                    TextBoxLogWriteLine(e);
+                    DoGridTransferDeclareError(index, e);
+                }
+
             }
-            TextBoxLogWriteLine("Download finished.");
-            DoGridTransferDeclareCompleted(index, folder.ToString());
+            if (!Error)
+            {
+                TextBoxLogWriteLine("Download finished.");
+                DoGridTransferDeclareCompleted(index, folder.ToString());
+
+            }
         }
 
         public void DoDownloadFileFromAsset(IAsset asset, IAssetFile File, object folder, int index)
@@ -1088,6 +1104,7 @@ namespace AMSExplorer
                 {
                     Error = true;
                     TextBoxLogWriteLine(string.Format("Download of file '{0}' failed !", File.Name), true);
+                    TextBoxLogWriteLine(e);
                     DoGridTransferDeclareError(index, e);
                 }
                 if (!Error)
@@ -1890,6 +1907,41 @@ namespace AMSExplorer
         private void DoMenuDeleteSelectedAssets()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
+            DoDeleteAssets(SelectedAssets);
+        }
+
+        private void DoDeleteAssets(List<IAsset> SelectedAssets)
+        {
+            if (SelectedAssets.Count > 0)
+            {
+                string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine("Deleting asset(s)");
+                    this.Cursor = Cursors.WaitCursor;
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridAssetV(false);
+                }
+            }
+        }
+        /*
+          private void DoMenuDeleteSelectedAssets()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
             if (SelectedAssets.Count > 0)
             {
@@ -1918,23 +1970,12 @@ namespace AMSExplorer
                     DoRefreshGridAssetV(false);
                 }
             }
-        }
+        } 
+         */
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?" + Constants.endline + "There are " + _context.Assets.Count().ToString() + " assets in the account.", "Assets deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
-                // Set cursor as hourglass
-                this.Cursor = Cursors.WaitCursor;
-                foreach (IAsset asset in _context.Assets)
-                {
-                    DeleteAllAssets(new string[] { "" });
-                }
-                System.Threading.Thread.Sleep(1000);
-                DoRefreshGridAssetV(false);
-                // Set cursor as default arrow
-                this.Cursor = Cursors.Default;
-            }
+            DoDeleteAssets(_context.Assets.ToList());
         }
 
 
@@ -2606,27 +2647,8 @@ namespace AMSExplorer
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?" + Constants.endline + "There are " + _context.Jobs.Count().ToString() + " jobs in the account.", "Jobs deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
-                // Set cursor as hourglass
-                this.Cursor = Cursors.WaitCursor;
+            DoDeleteJobs(_context.Jobs.ToList());
 
-                foreach (IJob job in _context.Jobs)
-                {
-                    try { job.Delete(); }
-
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when deleting job '{0}'", job.Name, true);
-                        TextBoxLogWriteLine(ex);
-                    }
-                }
-                System.Threading.Thread.Sleep(1000);
-                TextBoxLogWriteLine("Jobs deleted.");
-                DoRefreshGridJobV(false);
-                // Set cursor as default arrow
-                this.Cursor = Cursors.Default;
-            }
         }
 
         private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2635,6 +2657,41 @@ namespace AMSExplorer
         }
 
         private void DoDeleteSelectedJobs()
+        {
+            DoDeleteJobs(ReturnSelectedJobs());
+        }
+
+        private void DoDeleteJobs(List<IJob> SelectedJobs)
+        {
+            if (SelectedJobs.Count > 0)
+            {
+                string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine("Deleting job(s)");
+                    this.Cursor = Cursors.WaitCursor;
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridJobV(false);
+                }
+            }
+        }
+
+        /*
+         *   private void DoDeleteSelectedJobs()
         {
             List<IJob> SelectedJobs = ReturnSelectedJobs();
 
@@ -2668,7 +2725,7 @@ namespace AMSExplorer
                 }
             }
         }
-
+         */
 
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5336,11 +5393,6 @@ typeof(FilterTime)
             }
         }
 
-        private void RefreshLiveGrid(IChannel channel, bool delay)
-        {
-            if (delay) System.Threading.Thread.Sleep(1000);
-            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
-        }
 
         private async void StartChannel(IChannel myC)
         {
@@ -5543,7 +5595,7 @@ typeof(FilterTime)
                 var STask = fCall();
                 while (!STask.IsCompleted)
                 {
-                    // refersh the setreaming endpoint
+                    // refresh the streaming endpoint
                     IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
                     if (myOR != null && state != myOR.State)
                     {
@@ -6960,7 +7012,7 @@ typeof(FilterTime)
                                             case ContentKeyRestrictionType.Open:
 
                                                 IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                                TextBoxLogWriteLine("Created Open AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                                 break;
 
                                             case ContentKeyRestrictionType.TokenRestricted:
@@ -7033,7 +7085,8 @@ typeof(FilterTime)
                                     if (!String.IsNullOrEmpty(tokenTemplateString))
                                     {
                                         string testToken = AssetInfo.GetTestToken(AssetToProcess, form.GetContentKeyType, _context);
-                                        TextBoxLogWriteLine("The authorization test token is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
+                                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
                                     }
                                 }
                                 else // No Dynamic encryption
@@ -7131,31 +7184,57 @@ typeof(FilterTime)
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = "Dynamic encryption will be removed for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+                labelAssetName = string.Format("Dynamic encryption policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = "Dynamic encryption will removed for these " + SelectedAssets.Count.ToString() + " selected assets.";
+                    labelAssetName = string.Format("Dynamic encryption policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
+                labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
+                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);
 
-                if (MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (myDialogResult != DialogResult.Cancel)
                 {
                     bool Error = false;
                     string keydeliveryconfig = string.Empty;
+
                     foreach (IAsset AssetToProcess in SelectedAssets)
+                    {
 
                         if (AssetToProcess != null)
                         {
-                            IAssetDeliveryPolicy DelPol = null;
                             try
                             {
-                                foreach (var loc in AssetToProcess.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
-                                {
-                                    loc.Delete();
-                                }
+                                //Removing all locators associated with asset
+                                var tasks = _context.Locators.Where(c => c.AssetId == AssetToProcess.Id && c.Type == LocatorType.OnDemandOrigin)
+                                        .ToList()
+                                        .Select(locator => locator.DeleteAsync())
+                                        .ToArray();
+                                Task.WaitAll(tasks);
+
+                                //Removing all delivery policies associated with asset
                                 List<IAssetDeliveryPolicy> items = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
                                 foreach (var item in items)
                                 {
                                     AssetToProcess.DeliveryPolicies.Remove(item);
+                                }
+
+
+                                if (myDialogResult == DialogResult.Yes) // Let's delete the policies
+                                {
+                                    Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicies.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policy => policy.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+
+                                    deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+
+
+                                    /* // Code removed as it will delete also storage encryption key !
+                                    //removing all content keys associated with assets
+                                    for (int j = 0; j < AssetToProcess.ContentKeys.Count; j++)
+                                    {
+                                        AssetToProcess.ContentKeys.RemoveAt(0);
+                                    }
+                                     */
                                 }
                             }
 
@@ -7167,10 +7246,11 @@ typeof(FilterTime)
                             }
 
                             if (Error) break;
-                            TextBoxLogWriteLine("Removed asset delivery policies and locator(s) for asset {0}.", AssetToProcess.Name);
+                            TextBoxLogWriteLine("Removed{0} asset delivery policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
+                    }
                 }
             }
         }
@@ -8042,7 +8122,7 @@ typeof(FilterTime)
 
         private void UpdateLabelProcessorUnits()
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 0 ? "s" : string.Empty);
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)

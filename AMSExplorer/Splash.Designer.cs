@@ -80,7 +80,6 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Connecting to the Media account";
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.Splash_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Splash_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
