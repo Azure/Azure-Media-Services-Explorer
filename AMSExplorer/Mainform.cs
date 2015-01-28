@@ -6682,7 +6682,6 @@ typeof(FilterTime)
                 if (ValidURIs.FirstOrDefault() != null)
                 {
                     AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString(), _context, program.Asset);
-                    //AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() );
                 }
                 else
                 {
@@ -6699,7 +6698,7 @@ typeof(FilterTime)
             {
                 if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url);
+                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), null, AssetProtectionType.None, true);
                 }
             }
         }
@@ -8100,7 +8099,7 @@ typeof(FilterTime)
             }
         }
 
-     
+
         private void RUEncodingUpdateControls()
         {
             // If RU is set to 0, let's switch to basic
@@ -8154,6 +8153,28 @@ typeof(FilterTime)
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
 
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.AzureMediaPlayer);
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
         }
     }
 }

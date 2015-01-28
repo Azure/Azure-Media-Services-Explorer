@@ -1124,6 +1124,30 @@ namespace AMSExplorer
             return testToken;
         }
 
+        public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
+        {
+            AssetProtectionType type = AssetProtectionType.None;
+            IAssetDeliveryPolicy policy = MyAsset.DeliveryPolicies.FirstOrDefault();
+
+            if (policy != null)
+            {
+                switch (policy.AssetDeliveryPolicyType)
+                {
+                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
+                        type = AssetProtectionType.AES;
+                        break;
+
+                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
+                        type = AssetProtectionType.PlayReady;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return type;
+        }
+
 
         private StringBuilder GetStats()
         {
@@ -1293,25 +1317,49 @@ namespace AMSExplorer
             DoPlayBack(typeplayer, Url, context, myassetwithtoken);
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
+        public static void DoPlayBack(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetprotected = null)
         {
             string token = null;
-            if (myassetwithtoken != null)
+            AssetProtectionType keytype = AssetProtectionType.None;
+
+            if (myassetprotected != null)
             {
                 // user wants perhaps to play an asset with a token
                 switch (typeplayer)
                 {
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
+                        token = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
+                        if (token != null)
+                        {
+                            token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                            keytype = AssetProtectionType.PlayReady;
+                        }
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
+                        token = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
+                        if (token != null)
+                        {
+                            token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                            keytype = AssetProtectionType.AES;
+                        }
                         break;
 
                     case PlayerType.AzureMediaPlayer:
-                        // to update: detect aes or playready
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
+                        keytype = AssetInfo.GetAssetProtection(myassetprotected, context);
+                        switch (keytype)
+                        {
+                            case AssetProtectionType.None:
+                                break;
+                            case AssetProtectionType.AES:
+                                string tokenAES = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
+                                if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
+                                break;
+                            case AssetProtectionType.PlayReady:
+                                string tokenPR = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
+                                if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
+                                break;
+                        }
                         break;
 
 
@@ -1320,7 +1368,7 @@ namespace AMSExplorer
                         break;
                 }
             }
-            DoPlayBack(typeplayer, Url, token);
+            DoPlayBack(typeplayer, Url, token, keytype);
         }
         public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
         {
@@ -1328,16 +1376,37 @@ namespace AMSExplorer
                 DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null)
+        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, bool forceSmooth=false)
         {
             switch (typeplayer)
             {
                 case PlayerType.AzureMediaPlayer:
                     string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
-                    string protectionaes = "&protection=aes";
-                    string protectionPR = "&protection=playready";
+                    string protection = "&protection={0}";
                     string token = "&token={0}";
-                    if (urlencodedtoken != null) playerurl += protectionPR + string.Format(token, urlencodedtoken);
+                    string format = "&format={0}";
+
+                    if (keytype != AssetProtectionType.None)
+                    {
+                        switch (keytype)
+                        {
+                            case AssetProtectionType.AES:
+                                playerurl += string.Format(protection, "aes");
+                                break;
+
+                            case AssetProtectionType.PlayReady:
+                                playerurl += string.Format(protection, "playready");
+                                break;
+
+                            default:
+                                break;
+                        }
+                        if (urlencodedtoken != null)
+                        {
+                            playerurl += string.Format(token, urlencodedtoken);
+                        }
+                    }
+                    if (forceSmooth) playerurl += string.Format(format, "smooth");
                     Process.Start(string.Format(playerurl, Url));
                     break;
 
@@ -1515,6 +1584,13 @@ namespace AMSExplorer
         PublishedActive = 1,
         PublishedFuture = 2,
         PublishedExpired = 3,
+    }
+
+    public enum AssetProtectionType
+    {
+        None = 0,
+        AES = 1,
+        PlayReady = 2
     }
 
     class HostNameClass

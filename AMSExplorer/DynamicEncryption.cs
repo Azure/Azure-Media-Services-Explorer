@@ -40,6 +40,7 @@ namespace AMSExplorer
 
     class DynamicEncryption
     {
+        
 
         /// <summary>
         /// Configures authorization policy. 
