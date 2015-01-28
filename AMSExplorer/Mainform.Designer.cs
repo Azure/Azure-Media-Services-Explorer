@@ -1961,7 +1961,7 @@
             this.azureMediaServicesPlayerPageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("azureMediaServicesPlayerPageToolStripMenuItem.Image")));
             this.azureMediaServicesPlayerPageToolStripMenuItem.Name = "azureMediaServicesPlayerPageToolStripMenuItem";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
-            this.azureMediaServicesPlayerPageToolStripMenuItem.Text = "Azure Media Services Player Page";
+            this.azureMediaServicesPlayerPageToolStripMenuItem.Text = "Azure Media Player";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesPlayerPageToolStripMenuItem_Click);
             // 
             // silverlightMonitoringPlayerToolStripMenuItem

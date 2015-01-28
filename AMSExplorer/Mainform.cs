@@ -3555,7 +3555,7 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://amsplayer.azurewebsites.net/player.html");
+            Process.Start(@"http://aka.ms/azuremediaplayer");
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3573,9 +3573,6 @@ namespace AMSExplorer
         private void Mainform_Load(object sender, EventArgs e)
         {
             Hide();
-
-
-
 
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
