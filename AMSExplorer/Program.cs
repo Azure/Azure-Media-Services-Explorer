@@ -1306,9 +1306,14 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.FlashAESToken:
-                    case PlayerType.AzureMediaPlayer:
-                        if (token != null) token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
                         break;
+
+                    case PlayerType.AzureMediaPlayer:
+                        // to update: detect aes or playready
+                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
+                        break;
+
 
                     default:
                         // no token enabled player
@@ -1331,8 +1336,8 @@ namespace AMSExplorer
                     string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
                     string protectionaes = "&protection=aes";
                     string protectionPR = "&protection=playready";
-                    string aestoken = "&aestoken={0}";
-                    if (urlencodedtoken != null) playerurl += protectionaes + string.Format(aestoken, urlencodedtoken);
+                    string token = "&token={0}";
+                    if (urlencodedtoken != null) playerurl += protectionPR + string.Format(token, urlencodedtoken);
                     Process.Start(string.Format(playerurl, Url));
                     break;
 
