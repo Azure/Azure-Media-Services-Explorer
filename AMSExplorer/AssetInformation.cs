@@ -46,7 +46,7 @@ namespace AMSExplorer
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
         private ILocator TempMetadaLocator = null;
-        private List<IContentKeyAuthorizationPolicy> MyPolicies = null;
+        private List<IContentKeyAuthorizationPolicy> MyAuthPolicies = null;
         private Mainform MyMainForm;
 
         public AssetInformation(Mainform mainform)
@@ -317,7 +317,7 @@ namespace AMSExplorer
         private void ListAssetDeliveryPolicies()
         {
             listViewDelPol.Items.Clear();
-            buttonRemovePol.Enabled = false;
+            buttonRemoveDelPol.Enabled = false;
 
             DGDelPol.Rows.Clear();
             listViewDelPol.BeginUpdate();
@@ -620,11 +620,11 @@ namespace AMSExplorer
                 if (key.AuthorizationPolicyId != null)
                 {
                     dataGridViewKeys.Rows.Add("AuthorizationPolicyId", key.AuthorizationPolicyId);
-                    MyPolicies = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).ToList();
+                    MyAuthPolicies = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).ToList();
                 }
                 else
                 {
-                    MyPolicies = null;
+                    MyAuthPolicies = null;
                 }
                 listViewAutPol.Items.Clear();
                 dataGridViewAutPol.Rows.Clear();
@@ -650,10 +650,10 @@ namespace AMSExplorer
                             }
                         }
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
-                        if (MyPolicies != null)
+                        if (MyAuthPolicies != null)
                         {
                             listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyPolicies)
+                            foreach (var policy in MyAuthPolicies)
                             {
                                 ListViewItem item = new ListViewItem(policy.Name, 0);
                                 listViewAutPol.Items.Add(item);
@@ -662,15 +662,16 @@ namespace AMSExplorer
                             listViewAutPol.EndUpdate();
                             if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
                         }
+
 
                         break;
 
                     case ContentKeyType.EnvelopeEncryption:
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp).OriginalString);
-                        if (MyPolicies != null)
+                        if (MyAuthPolicies != null)
                         {
                             listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyPolicies)
+                            foreach (var policy in MyAuthPolicies)
                             {
                                 ListViewItem item = new ListViewItem(policy.Name, 0);
                                 listViewAutPol.Items.Add(item);
@@ -679,6 +680,8 @@ namespace AMSExplorer
                             listViewAutPol.EndUpdate();
                             if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
                         }
+
+
 
                         break;
 
@@ -690,7 +693,7 @@ namespace AMSExplorer
             }
             else
             {
-                MyPolicies = null;
+                MyAuthPolicies = null;
             }
         }
 
@@ -1272,16 +1275,16 @@ namespace AMSExplorer
         {
 
             bool bSelect = listViewDelPol.SelectedItems.Count > 0 ? true : false;
-            buttonRemovePol.Enabled = bSelect;
+            buttonRemoveDelPol.Enabled = bSelect;
             DoDisplayDeliveryPolicyProperties();
         }
 
         private void buttonRemovePol_Click(object sender, EventArgs e)
         {
-            DoRemovePol();
+            DoRemoveDeliveryPol();
         }
 
-        private void DoRemovePol()
+        private void DoRemoveDeliveryPol()
         {
             if (listViewDelPol.SelectedItems.Count > 0)
             {
@@ -1326,12 +1329,12 @@ namespace AMSExplorer
                     }
                 }
             }
-
         }
 
         private void listViewKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
             buttonRemoveKey.Enabled = listViewKeys.SelectedItems.Count > 0;
+            buttonRemoveAuthPol.Enabled = buttonGetTestToken.Enabled = false;
             DoDisplayKeyProperties();
         }
 
@@ -1347,7 +1350,7 @@ namespace AMSExplorer
 
             if (listViewAutPol.SelectedItems.Count > 0)
             {
-                IContentKeyAuthorizationPolicy policy = MyPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                IContentKeyAuthorizationPolicy policy = MyAuthPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
 
                 dataGridViewAutPol.Rows.Clear();
                 dataGridViewAutPol.Rows.Add("Name", policy.Name != null ? policy.Name : "<no name>");
@@ -1369,7 +1372,9 @@ namespace AMSExplorer
                     }
                 }
             }
+
             buttonGetTestToken.Enabled = DisplayButGetToken;
+            buttonRemoveAuthPol.Enabled = true;
         }
 
         private void buttonGetTestToken_Click(object sender, EventArgs e)
@@ -1611,7 +1616,7 @@ namespace AMSExplorer
 
         private void removeDeliveryPolicyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoRemovePol();
+            DoRemoveDeliveryPol();
         }
 
         private void contextMenuStripDelPol_Opening(object sender, CancelEventArgs e)
@@ -1639,6 +1644,56 @@ namespace AMSExplorer
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteFileToolStripMenuItem.Enabled = selected;
             duplicateFileToolStripMenuItem.Enabled = selected;
+        }
+
+        private void button1_Click_2(object sender, EventArgs e)
+        {
+            DoRemoveAuthPol();
+        }
+
+        private void DoRemoveAuthPol()
+        {
+            if (listViewAutPol.SelectedItems.Count > 0)
+            {
+                if (listViewAutPol.SelectedItems[0] != null)
+                {
+                    IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    IContentKeyAuthorizationPolicy AuthPol = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                    if (AuthPol != null)
+                    {
+                        string AuthPolId = AuthPol.Id;
+                        string question = string.Format("This will remove the authorization policy '{0}' from the key.\nDo you want to also DELETE the policy from the Azure Media Services account ?", AuthPol.Name);
+                        DialogResult DR = MessageBox.Show(question, "Delivery Policy removal", MessageBoxButtons.YesNoCancel);
+
+                        if (DR == DialogResult.Yes || DR == DialogResult.No)
+                        {
+                            string step = "removing";
+                            try
+                            {
+                                key.AuthorizationPolicyId = null;
+
+                                if (DR == DialogResult.Yes) // user wants also to delete the auth policy
+                                {
+                                    step = "deleting";
+                                    AuthPol.Delete();
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                string messagestr = string.Format("Error when {0} the authorization policy.", step);
+                                if (e.InnerException != null)
+                                {
+                                    messagestr += Constants.endline + Program.GetErrorMessage(e);
+                                }
+                                MessageBox.Show(messagestr);
+                            }
+
+                            DoDisplayKeyProperties();
+                        }
+                    }
+                }
+            }
         }
     }
 }

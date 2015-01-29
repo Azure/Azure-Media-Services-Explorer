@@ -73,6 +73,7 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
             this.buttonGetTestToken = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -87,7 +88,7 @@
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.buttonRemovePol = new System.Windows.Forms.Button();
+            this.buttonRemoveDelPol = new System.Windows.Forms.Button();
             this.DGDelPol = new System.Windows.Forms.DataGridView();
             this.listViewDelPol = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -302,7 +303,7 @@
             this.duplicateFileToolStripMenuItem,
             this.uploadASmallFileInTheAssetToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 180);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 158);
             this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
             // 
             // makeItPrimaryToolStripMenuItem
@@ -579,6 +580,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
             this.tabPage5.Controls.Add(this.buttonGetTestToken);
             this.tabPage5.Controls.Add(this.label3);
@@ -593,6 +595,18 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // buttonRemoveAuthPol
+            // 
+            this.buttonRemoveAuthPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveAuthPol.Enabled = false;
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(235, 409);
+            this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
+            this.buttonRemoveAuthPol.Size = new System.Drawing.Size(110, 23);
+            this.buttonRemoveAuthPol.TabIndex = 43;
+            this.buttonRemoveAuthPol.Text = "Remove auth policy";
+            this.buttonRemoveAuthPol.UseVisualStyleBackColor = true;
+            this.buttonRemoveAuthPol.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // buttonRemoveKey
             // 
@@ -609,7 +623,7 @@
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonGetTestToken.Enabled = false;
-            this.buttonGetTestToken.Location = new System.Drawing.Point(235, 409);
+            this.buttonGetTestToken.Location = new System.Drawing.Point(351, 409);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
             this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
             this.buttonGetTestToken.TabIndex = 41;
@@ -735,13 +749,13 @@
             // removeKeyToolStripMenuItem
             // 
             this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
-            this.removeKeyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeKeyToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.removeKeyToolStripMenuItem.Text = "Remove key...";
             this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.buttonRemovePol);
+            this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
             this.tabPage4.Controls.Add(this.DGDelPol);
             this.tabPage4.Controls.Add(this.listViewDelPol);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -753,16 +767,16 @@
             // 
             // buttonRemovePol
             // 
-            this.buttonRemovePol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemovePol.Enabled = false;
-            this.buttonRemovePol.Location = new System.Drawing.Point(9, 408);
-            this.buttonRemovePol.Name = "buttonRemovePol";
-            this.buttonRemovePol.Size = new System.Drawing.Size(134, 23);
-            this.buttonRemovePol.TabIndex = 34;
-            this.buttonRemovePol.Text = "Remove delivery policy";
-            this.toolTip1.SetToolTip(this.buttonRemovePol, "Delete the selected file");
-            this.buttonRemovePol.UseVisualStyleBackColor = true;
-            this.buttonRemovePol.Click += new System.EventHandler(this.buttonRemovePol_Click);
+            this.buttonRemoveDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveDelPol.Enabled = false;
+            this.buttonRemoveDelPol.Location = new System.Drawing.Point(9, 408);
+            this.buttonRemoveDelPol.Name = "buttonRemovePol";
+            this.buttonRemoveDelPol.Size = new System.Drawing.Size(134, 23);
+            this.buttonRemoveDelPol.TabIndex = 34;
+            this.buttonRemoveDelPol.Text = "Remove delivery policy";
+            this.toolTip1.SetToolTip(this.buttonRemoveDelPol, "Delete the selected file");
+            this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
+            this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
             // 
             // DGDelPol
             // 
@@ -1101,7 +1115,7 @@
         private System.Windows.Forms.DataGridView DGDelPol;
         private System.Windows.Forms.ListView listViewDelPol;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button buttonRemovePol;
+        private System.Windows.Forms.Button buttonRemoveDelPol;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView dataGridViewKeys;
         private System.Windows.Forms.ListView listViewKeys;
@@ -1125,5 +1139,6 @@
         private System.Windows.Forms.ToolStripMenuItem getTestTokenToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDelPol;
         private System.Windows.Forms.ToolStripMenuItem removeDeliveryPolicyToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRemoveAuthPol;
     }
 }

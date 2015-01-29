@@ -7208,22 +7208,38 @@ typeof(FilterTime)
                                 Task.WaitAll(tasks);
 
                                 //Removing all delivery policies associated with asset
-                                List<IAssetDeliveryPolicy> items = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
-                                foreach (var item in items)
+                                List<IAssetDeliveryPolicy> DelPolItems = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
+                                foreach (var item in DelPolItems)
                                 {
                                     AssetToProcess.DeliveryPolicies.Remove(item);
                                 }
 
+                                //Removing all authorization policies associated with asset keys
+                                var AutPolListIDs = AssetToProcess.ContentKeys.Select(k => k.AuthorizationPolicyId).ToList();
+                                AssetToProcess.ContentKeys.ToList().ForEach(k => k.AuthorizationPolicyId = null);
+                                var tasks2 = AssetToProcess.ContentKeys
+                                        .ToList()
+                                        .Select(k => k.UpdateAsync())
+                                        .ToArray();
+                                Task.WaitAll(tasks2);
 
                                 if (myDialogResult == DialogResult.Yes) // Let's delete the policies
                                 {
-                                    Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicies.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policy => policy.DeleteAsync()).ToArray();
+                                    // deleting delivering policies
+                                    Task<IMediaDataServiceResponse>[] deleteTasks =  DelPolItems.Select(policy => policy.DeleteAsync()).ToArray();
                                     Task.WaitAll(deleteTasks);
 
-                                    deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
+                                    // deleting authorization policies options
+                                    foreach (var autpol in AssetToProcess.ContentKeys)
+                                    {
+                                        deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(o => o.Id == autpol.AuthorizationPolicyId).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
+                                        Task.WaitAll(deleteTasks);
+                                    }
+
+                                    // deleting authorization policies
+                                    deleteTasks = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => AutPolListIDs.Contains(p.Id)).ToList().Select(policy => policy.DeleteAsync()).ToArray();
                                     Task.WaitAll(deleteTasks);
-
-
+                                    
                                     /* // Code removed as it will delete also storage encryption key !
                                     //removing all content keys associated with assets
                                     for (int j = 0; j < AssetToProcess.ContentKeys.Count; j++)

@@ -357,8 +357,7 @@ namespace AMSExplorer
 
             return assetDeliveryPolicy;
         }
-
-
+        
 
         static public string ConfigurePlayReadyLicenseTemplate(PlayReadyLicenseTemplate licenseTemplate)
         {
@@ -371,6 +370,20 @@ namespace AMSExplorer
 
             return MediaServicesLicenseTemplateSerializer.Serialize(responseTemplate);
         }
+
+        public static byte[] HexStringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
+        static public string ByteArrayToHexString(byte[] bytes)
+        {
+            return string.Join(string.Empty, Array.ConvertAll(bytes, b => b.ToString("X2")));
+        }
+
 
 
         static public byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
