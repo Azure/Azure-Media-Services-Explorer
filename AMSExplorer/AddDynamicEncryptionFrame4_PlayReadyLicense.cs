@@ -30,7 +30,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 
 namespace AMSExplorer
 {
-    public partial class PlayReadyLicense : Form
+    public partial class AddDynamicEncryptionFrame4_PlayReadyLicense : Form
     {
         public PlayReadyLicenseTemplate GetLicenseTemplate
         {
@@ -97,7 +97,7 @@ namespace AMSExplorer
         }
 
 
-        public PlayReadyLicense()
+        public AddDynamicEncryptionFrame4_PlayReadyLicense()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

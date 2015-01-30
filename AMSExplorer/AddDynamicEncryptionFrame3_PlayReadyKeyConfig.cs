@@ -31,11 +31,24 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 
 namespace AMSExplorer
 {
-    public partial class PlayReadyExternalServer : Form
+    public partial class AddDynamicEncryptionFrame3_PlayReadyKeyConfig : Form
     {
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
         private bool multiassets;
+
+        public bool ContentKeyRandomGeneration
+        {
+            get
+            {
+                return radioButtonKeyRandomGeneration.Checked;
+            }
+            set
+            {
+                radioButtonKeyRandomGeneration.Checked = value;
+                radioButtonKeySpecifiedByUser.Checked = !value;
+            }
+        }
 
         public string PlayReadyKeySeed
         {
@@ -87,11 +100,19 @@ namespace AMSExplorer
             }
         }
 
-        public PlayReadyExternalServer(bool Multiassets, bool DoNotAskURL)
+        public AddDynamicEncryptionFrame3_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             multiassets = Multiassets;
+
+            if (ForceUseToProvideKey) // code wants to force user to provide the key
+            {
+                radioButtonKeyRandomGeneration.Enabled = false;
+                radioButtonKeyRandomGeneration.Checked = false;
+                radioButtonKeySpecifiedByUser.Checked = true;
+                groupBoxCrypto.Enabled = true;
+            }
 
             if (multiassets) // batch mode for dyn enc so user can only input the seed
             {
@@ -234,6 +255,11 @@ namespace AMSExplorer
                 }
                 
             }
+        }
+
+        private void radioButtonKeySpecifiedByUser_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonKeySpecifiedByUser.Checked) groupBoxCrypto.Enabled = true;
         }
     }
 }
