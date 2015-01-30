@@ -74,7 +74,7 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame2(CloudMediaContext context, bool IsLiveAsset, bool IsAES)
+        public AddDynamicEncryptionFrame2(CloudMediaContext context, bool IsAES)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

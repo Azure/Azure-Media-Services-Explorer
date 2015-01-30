@@ -73,15 +73,11 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame1(CloudMediaContext context, bool IsLiveAsset, bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame1(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            if (IsLiveAsset)
-            {// only AES encryption is supported for Live today, so let's disable storage decryption
-                radioButtonDecryptStorage.Enabled = false;
-            }
         }
 
 

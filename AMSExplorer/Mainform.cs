@@ -6066,8 +6066,8 @@ typeof(FilterTime)
 
             if (setupdynamicencryption) // user want to enable Dynamic Encryption on the program's asset. We must do it before locator creation
             {
-                // if user want to create a locator, force locator and setyp dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
-                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, true, createlocator && (LocatorID != null));
+                // if user want to create a locator, force locator and setup dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
+                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, createlocator && (LocatorID != null));
             }
 
             if (oktocontinue)
@@ -6843,10 +6843,10 @@ typeof(FilterTime)
         private void DoSetupDynEnc()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
-            SetupDynamicEncryption(SelectedAssets, false, false);
+            SetupDynamicEncryption(SelectedAssets, false);
         }
 
-        private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool IsLiveAsset, bool forceusertoprovidekey)
+        private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool forceusertoprovidekey)
         {
             string labelAssetName;
             bool oktoproceed = false;
@@ -6857,7 +6857,7 @@ typeof(FilterTime)
                 {
                     labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
                 }
-                AddDynamicEncryptionFrame1 form1 = new AddDynamicEncryptionFrame1(_context, IsLiveAsset, forceusertoprovidekey);
+                AddDynamicEncryptionFrame1 form1 = new AddDynamicEncryptionFrame1(_context);
 
                 if (form1.ShowDialog() == DialogResult.OK)
                 {
@@ -6865,7 +6865,7 @@ typeof(FilterTime)
                     {
                         if (form1.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, IsLiveAsset, false);
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, false);
                             if (form2.ShowDialog() == DialogResult.OK)
                             {
                                 AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady = new AddDynamicEncryptionFrame3_PlayReadyKeyConfig(SelectedAssets.Count > 1, form2.GetKeyRestrictionType != null, forceusertoprovidekey);
@@ -6890,7 +6890,7 @@ typeof(FilterTime)
                         }
                         else if (form1.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // it's AES encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, IsLiveAsset, true);
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, true);
                             if (form2.ShowDialog() == DialogResult.OK)
                             {
                                 AddDynamicEncryptionFrame3_AESKeyConfig form3_AES = new AddDynamicEncryptionFrame3_AESKeyConfig(forceusertoprovidekey);
