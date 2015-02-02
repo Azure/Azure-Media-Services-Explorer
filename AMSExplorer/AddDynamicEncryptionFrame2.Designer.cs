@@ -33,10 +33,14 @@
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panelAutPol = new System.Windows.Forms.Panel();
+            this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.buttonImportPFX = new System.Windows.Forms.Button();
+            this.radioButtonJWT = new System.Windows.Forms.RadioButton();
+            this.radioButtonSWT = new System.Windows.Forms.RadioButton();
+            this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.buttonDelHostName = new System.Windows.Forms.Button();
-            this.buttonAddHostName = new System.Windows.Forms.Button();
-            this.dataGridViewCustomHostname = new System.Windows.Forms.DataGridView();
+            this.buttonDelClaim = new System.Windows.Forms.Button();
+            this.buttonAddClaim = new System.Windows.Forms.Button();
             this.textBoxIssuer = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxAudience = new System.Windows.Forms.TextBox();
@@ -45,9 +49,10 @@
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
+            this.openFileDialogCert = new System.Windows.Forms.OpenFileDialog();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelAutPol.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -82,7 +87,7 @@
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
             this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 53);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 394);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 487);
             this.groupBoxAuthPol.TabIndex = 47;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Content key\'s authorization policy";
@@ -102,10 +107,14 @@
             // 
             this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelAutPol.Controls.Add(this.labelCertificateFile);
+            this.panelAutPol.Controls.Add(this.buttonImportPFX);
+            this.panelAutPol.Controls.Add(this.radioButtonJWT);
+            this.panelAutPol.Controls.Add(this.radioButtonSWT);
+            this.panelAutPol.Controls.Add(this.dataGridViewTokenClaims);
             this.panelAutPol.Controls.Add(this.label4);
-            this.panelAutPol.Controls.Add(this.buttonDelHostName);
-            this.panelAutPol.Controls.Add(this.buttonAddHostName);
-            this.panelAutPol.Controls.Add(this.dataGridViewCustomHostname);
+            this.panelAutPol.Controls.Add(this.buttonDelClaim);
+            this.panelAutPol.Controls.Add(this.buttonAddClaim);
             this.panelAutPol.Controls.Add(this.textBoxIssuer);
             this.panelAutPol.Controls.Add(this.label3);
             this.panelAutPol.Controls.Add(this.textBoxAudience);
@@ -113,8 +122,61 @@
             this.panelAutPol.Enabled = false;
             this.panelAutPol.Location = new System.Drawing.Point(35, 90);
             this.panelAutPol.Name = "panelAutPol";
-            this.panelAutPol.Size = new System.Drawing.Size(508, 272);
+            this.panelAutPol.Size = new System.Drawing.Size(508, 369);
             this.panelAutPol.TabIndex = 60;
+            // 
+            // labelCertificateFile
+            // 
+            this.labelCertificateFile.Location = new System.Drawing.Point(283, 306);
+            this.labelCertificateFile.Name = "labelCertificateFile";
+            this.labelCertificateFile.Size = new System.Drawing.Size(217, 18);
+            this.labelCertificateFile.TabIndex = 67;
+            this.labelCertificateFile.Text = "(no file selected)";
+            // 
+            // buttonImportPFX
+            // 
+            this.buttonImportPFX.Location = new System.Drawing.Point(82, 301);
+            this.buttonImportPFX.Name = "buttonImportPFX";
+            this.buttonImportPFX.Size = new System.Drawing.Size(195, 23);
+            this.buttonImportPFX.TabIndex = 66;
+            this.buttonImportPFX.Text = "Import X509 Certificate (.PFX)...";
+            this.buttonImportPFX.UseVisualStyleBackColor = true;
+            this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
+            // 
+            // radioButtonJWT
+            // 
+            this.radioButtonJWT.AutoSize = true;
+            this.radioButtonJWT.Location = new System.Drawing.Point(19, 277);
+            this.radioButtonJWT.Name = "radioButtonJWT";
+            this.radioButtonJWT.Size = new System.Drawing.Size(139, 17);
+            this.radioButtonJWT.TabIndex = 65;
+            this.radioButtonJWT.Text = "Json Web Token (JWT)";
+            this.radioButtonJWT.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSWT
+            // 
+            this.radioButtonSWT.AutoSize = true;
+            this.radioButtonSWT.Checked = true;
+            this.radioButtonSWT.Location = new System.Drawing.Point(19, 254);
+            this.radioButtonSWT.Name = "radioButtonSWT";
+            this.radioButtonSWT.Size = new System.Drawing.Size(150, 17);
+            this.radioButtonSWT.TabIndex = 64;
+            this.radioButtonSWT.TabStop = true;
+            this.radioButtonSWT.Text = "Simple Web Token (SWT)";
+            this.radioButtonSWT.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewTokenClaims
+            // 
+            this.dataGridViewTokenClaims.AllowUserToAddRows = false;
+            this.dataGridViewTokenClaims.AllowUserToDeleteRows = false;
+            this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(19, 84);
+            this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
+            this.dataGridViewTokenClaims.RowHeadersVisible = false;
+            this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(481, 124);
+            this.dataGridViewTokenClaims.TabIndex = 53;
             // 
             // label4
             // 
@@ -125,39 +187,25 @@
             this.label4.TabIndex = 63;
             this.label4.Text = "Claims :";
             // 
-            // buttonDelHostName
+            // buttonDelClaim
             // 
-            this.buttonDelHostName.Location = new System.Drawing.Point(100, 214);
-            this.buttonDelHostName.Name = "buttonDelHostName";
-            this.buttonDelHostName.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelHostName.TabIndex = 62;
-            this.buttonDelHostName.Text = "Delete";
-            this.buttonDelHostName.UseVisualStyleBackColor = true;
+            this.buttonDelClaim.Location = new System.Drawing.Point(100, 214);
+            this.buttonDelClaim.Name = "buttonDelClaim";
+            this.buttonDelClaim.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelClaim.TabIndex = 62;
+            this.buttonDelClaim.Text = "Delete";
+            this.buttonDelClaim.UseVisualStyleBackColor = true;
+            this.buttonDelClaim.Click += new System.EventHandler(this.buttonDelClaim_Click);
             // 
-            // buttonAddHostName
+            // buttonAddClaim
             // 
-            this.buttonAddHostName.Location = new System.Drawing.Point(19, 214);
-            this.buttonAddHostName.Name = "buttonAddHostName";
-            this.buttonAddHostName.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddHostName.TabIndex = 61;
-            this.buttonAddHostName.Text = "Add";
-            this.buttonAddHostName.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewCustomHostname
-            // 
-            this.dataGridViewCustomHostname.AllowUserToAddRows = false;
-            this.dataGridViewCustomHostname.AllowUserToDeleteRows = false;
-            this.dataGridViewCustomHostname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewCustomHostname.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCustomHostname.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCustomHostname.ColumnHeadersVisible = false;
-            this.dataGridViewCustomHostname.Location = new System.Drawing.Point(18, 84);
-            this.dataGridViewCustomHostname.Name = "dataGridViewCustomHostname";
-            this.dataGridViewCustomHostname.RowHeadersVisible = false;
-            this.dataGridViewCustomHostname.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomHostname.Size = new System.Drawing.Size(482, 124);
-            this.dataGridViewCustomHostname.TabIndex = 60;
+            this.buttonAddClaim.Location = new System.Drawing.Point(19, 214);
+            this.buttonAddClaim.Name = "buttonAddClaim";
+            this.buttonAddClaim.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddClaim.TabIndex = 61;
+            this.buttonAddClaim.Text = "Add";
+            this.buttonAddClaim.UseVisualStyleBackColor = true;
+            this.buttonAddClaim.Click += new System.EventHandler(this.buttonAddClaim_Click);
             // 
             // textBoxIssuer
             // 
@@ -202,9 +250,9 @@
             this.radioButtonTokenAuthPolicy.AutoSize = true;
             this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(35, 74);
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
-            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(90, 17);
+            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(56, 17);
             this.radioButtonTokenAuthPolicy.TabIndex = 55;
-            this.radioButtonTokenAuthPolicy.Text = "Token (SWT)";
+            this.radioButtonTokenAuthPolicy.Text = "Token";
             this.radioButtonTokenAuthPolicy.UseVisualStyleBackColor = true;
             this.radioButtonTokenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonToken_CheckedChanged);
             // 
@@ -242,6 +290,12 @@
             this.label5.TabIndex = 52;
             this.label5.Text = "Step 2 \r\nPlease configure the key authorization policy";
             // 
+            // openFileDialogCert
+            // 
+            this.openFileDialogCert.DefaultExt = "PFX";
+            this.openFileDialogCert.DereferenceLinks = false;
+            this.openFileDialogCert.Filter = "PFX files|*.pfx|All files|*.*";
+            // 
             // AddDynamicEncryptionFrame2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -258,7 +312,7 @@
             this.groupBoxAuthPol.PerformLayout();
             this.panelAutPol.ResumeLayout(false);
             this.panelAutPol.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -280,9 +334,14 @@
         private System.Windows.Forms.RadioButton radioButtonNoAuthPolicy;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button buttonDelHostName;
-        private System.Windows.Forms.Button buttonAddHostName;
-        private System.Windows.Forms.DataGridView dataGridViewCustomHostname;
+        private System.Windows.Forms.Button buttonDelClaim;
+        private System.Windows.Forms.Button buttonAddClaim;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dataGridViewTokenClaims;
+        private System.Windows.Forms.RadioButton radioButtonJWT;
+        private System.Windows.Forms.RadioButton radioButtonSWT;
+        private System.Windows.Forms.Label labelCertificateFile;
+        private System.Windows.Forms.Button buttonImportPFX;
+        private System.Windows.Forms.OpenFileDialog openFileDialogCert;
     }
 }

@@ -233,6 +233,57 @@ namespace AMSExplorer
             }
         }
 
+        public static DialogResult InputBox(string title, string promptText, ref string value)
+        {
+            Button buttonOk = new Button()
+            {
+                Text = "OK",
+                DialogResult = DialogResult.OK,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            Button buttonCancel = new Button()
+            {
+                Text = "Cancel",
+                DialogResult = DialogResult.Cancel,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+
+            Form form = new Form()
+            {
+                ClientSize = new Size(396, 107),
+                Text = title,
+                StartPosition = FormStartPosition.CenterScreen,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                AcceptButton = buttonOk,
+                CancelButton = buttonCancel,
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
+
+            Label label = new Label()
+            {
+                AutoSize = true,
+                Text = promptText
+            };
+            TextBox textBox = new TextBox()
+            {
+                Text = value
+            };
+
+            label.SetBounds(9, 20, 372, 13);
+            textBox.SetBounds(12, 36, 372, 20);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
 
         public static void SaveAndProtectUserConfig()
         {

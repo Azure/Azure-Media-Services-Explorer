@@ -27,11 +27,16 @@ using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame2 : Form
     {
+        private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
+        private X509Certificate2 cert = null;
+
         public ContentKeyRestrictionType? GetKeyRestrictionType
         {
             get
@@ -51,9 +56,6 @@ namespace AMSExplorer
             }
         }
 
-        
-
-
 
         public Uri GetAudienceUri
         {
@@ -70,7 +72,47 @@ namespace AMSExplorer
             }
         }
 
-       
+        public IList<TokenClaim> GetTokenRequiredClaims
+        {
+            get
+            {
+                IList<TokenClaim> mylist = new List<TokenClaim>();
+                foreach (var j in TokenClaimsList)
+                {
+                    if (!string.IsNullOrEmpty(j.Type) && !string.IsNullOrEmpty(j.Value))
+                    {
+                        mylist.Add(new TokenClaim(j.Type, j.Value));
+                    }
+                }
+                return mylist;
+            }
+        }
+
+        public TokenType GetTokenType
+        {
+            get
+            {
+                return radioButtonSWT.Checked ? TokenType.SWT : TokenType.JWT;
+            }
+        }
+
+        
+        public X509CertTokenVerificationKey GetX509CertTokenVerificationKey
+        {
+            get
+            {
+                return (cert != null) ? new X509CertTokenVerificationKey(cert) : null;
+            }
+        }
+         
+
+        public X509Certificate2 GetX509Certificate
+        {
+            get
+            {
+                return cert;
+            }
+        }
 
         private CloudMediaContext _context;
 
@@ -89,6 +131,8 @@ namespace AMSExplorer
 
         private void SetupDynEnc_Load(object sender, EventArgs e)
         {
+            dataGridViewTokenClaims.DataSource = TokenClaimsList;
+
 
         }
 
@@ -100,7 +144,7 @@ namespace AMSExplorer
 
         }
 
-        
+
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
@@ -111,11 +155,54 @@ namespace AMSExplorer
 
         }
 
-     
+
         private void radioButtonNoAuthPolicy_CheckedChanged(object sender, EventArgs e)
         {
-           // if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
+            // if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
         }
 
+        private void buttonAddClaim_Click(object sender, EventArgs e)
+        {
+            TokenClaimsList.AddNew();
+
+        }
+
+        private void buttonDelClaim_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewTokenClaims.SelectedRows.Count == 1)
+            {
+                TokenClaimsList.RemoveAt(dataGridViewTokenClaims.SelectedRows[0].Index);
+            }
+        }
+
+        private void buttonImportPFX_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogCert.ShowDialog() == DialogResult.OK)
+            {
+                string password = string.Empty;
+                labelCertificateFile.Text = openFileDialogCert.FileName.ToString();
+                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
+                {
+                    X509Certificate2 tempcert = new X509Certificate2(openFileDialogCert.FileName, password);
+
+                    if (tempcert != null)
+                    {
+                        if (!tempcert.HasPrivateKey)
+                        {
+                            MessageBox.Show("The certificate does not contain a private key.", "No private key", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        else
+                        {
+                            //ok
+                            cert = tempcert;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is an error when opening the certificate file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
     }
 }

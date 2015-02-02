@@ -34,13 +34,25 @@ using System.Xml.Linq;
 using System.Web;
 using System.Globalization;
 using System.Security;
+using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
+using System.IdentityModel.Tokens;
+
 
 namespace AMSExplorer
 {
+    public class MyTokenClaim
+    {
+        public string Type { get; set; }
+        public string Value { get; set; }
+    }
 
     class DynamicEncryption
     {
-        
+
+
+
 
         /// <summary>
         /// Configures authorization policy. 
@@ -198,9 +210,9 @@ namespace AMSExplorer
 
 
 
-        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
+        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, X509Certificate2 Certificate, CloudMediaContext _context)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, Certificate);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -238,9 +250,9 @@ namespace AMSExplorer
             return tokenTemplateString;
         }
 
-        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context, string newLicenseTemplate)
+        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, X509Certificate2 Certificate, CloudMediaContext _context, string newLicenseTemplate)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, Certificate);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -279,16 +291,68 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer)
+        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist)
         {
-            TokenRestrictionTemplate template = new TokenRestrictionTemplate();
-
+            TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.SWT);
             template.PrimaryVerificationKey = new SymmetricVerificationKey();
             template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
             template.Audience = _sampleAudience;
             template.Issuer = _sampleIssuer;
-            template.TokenType = TokenType.SWT;
             template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            foreach (var t in tokenclaimslist)
+            {
+                template.RequiredClaims.Add(t);
+            }
+
+            return TokenRestrictionTemplateSerializer.Serialize(template);
+        }
+
+        static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, X509Certificate2 Certificate)
+        {
+            TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.JWT);
+            template.PrimaryVerificationKey = new X509CertTokenVerificationKey(Certificate);
+            SigningCredentials cred = new X509SigningCredentials(Certificate);
+   
+     
+            template.Audience = _sampleAudience;
+            template.Issuer = _sampleIssuer;
+            template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            foreach (var t in tokenclaimslist)
+            {
+                template.RequiredClaims.Add(t);
+            }
+
+
+
+
+
+
+            ///////////
+
+          /*
+       
+        
+            JwtSecurityToken token = new JwtSecurityToken(issuer: tokenRestrictionTemplate.Issuer.AbsoluteUri, audience: tokenRestrictionTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(5), signingCredentials: cred);
+
+            JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+            string jwtTokenString = handler.WriteToken(token);
+
+            List<IContentKeyAuthorizationPolicyOption> options = new List<IContentKeyAuthorizationPolicyOption>
+                {
+                    policyOption
+                };
+
+            contentKeyAuthorizationPolicy = CreateTestPolicy(_mediaContext, String.Empty, options, ref contentKey);
+
+            Uri keyDeliveryServiceUri = contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
+            /////////////
+            */
+
+
+
+
+
+
 
             return TokenRestrictionTemplateSerializer.Serialize(template);
         }
@@ -357,7 +421,7 @@ namespace AMSExplorer
 
             return assetDeliveryPolicy;
         }
-        
+
 
         static public string ConfigurePlayReadyLicenseTemplate(PlayReadyLicenseTemplate licenseTemplate)
         {

@@ -146,25 +146,18 @@ namespace AMSExplorer
         {
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
-
-
             DGOrigin.ColumnCount = 2;
-
 
             // asset info
 
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGOrigin.Rows.Add("Name", MyOrigin.Name);
-
             DGOrigin.Rows.Add("Id", MyOrigin.Id);
             DGOrigin.Rows.Add("State", (StreamingEndpointState)MyOrigin.State);
             DGOrigin.Rows.Add("Created", ((DateTime)MyOrigin.Created).ToLocalTime());
             DGOrigin.Rows.Add("Last Modified", ((DateTime)MyOrigin.LastModified).ToLocalTime());
             DGOrigin.Rows.Add("Description", MyOrigin.Description);
             DGOrigin.Rows.Add("Host name", MyOrigin.HostName);
-
-
-
 
             // Custom Hostnames binding to control
             if (MyOrigin.CustomHostNames != null)
@@ -225,7 +218,6 @@ namespace AMSExplorer
             dataGridViewAkamai.DataSource = AkamaiSettingList;
             dataGridViewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
             dataGridViewAkamai.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
-
 
             if (MyOrigin.CrossSiteAccessPolicies != null)
             {

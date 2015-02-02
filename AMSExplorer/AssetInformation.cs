@@ -1072,7 +1072,7 @@ namespace AMSExplorer
                         else
                         {
                             string newfilename = "Copy of " + AF.Name;
-                            if (Mainform.InputBox("New name", "Enter the name of the new duplicate file:", ref newfilename) == DialogResult.OK)
+                            if (Program.InputBox("New name", "Enter the name of the new duplicate file:", ref newfilename) == DialogResult.OK)
                             {
                                 IAssetFile AFDup = MyAsset.AssetFiles.Create(newfilename);
                                 CloudMediaContext _context = Mainform._context;

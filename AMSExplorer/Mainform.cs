@@ -58,7 +58,7 @@ namespace AMSExplorer
 
     public partial class Mainform : Form
     {
-        // XML Congiguration files path.
+        // XML Configuration files path.
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
@@ -1168,7 +1168,7 @@ namespace AMSExplorer
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
 
-                if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -1204,7 +1204,7 @@ namespace AMSExplorer
                 else
                 {
                     string newassetname = string.Empty;
-                    if (InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
+                    if (Program.InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
                     {
 
                         if (!havestoragecredentials)
@@ -1414,57 +1414,7 @@ namespace AMSExplorer
             }
         }
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
-        {
-            Button buttonOk = new Button()
-                {
-                    Text = "OK",
-                    DialogResult = DialogResult.OK,
-                    Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-                };
 
-            Button buttonCancel = new Button()
-                {
-                    Text = "Cancel",
-                    DialogResult = DialogResult.Cancel,
-                    Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-                };
-
-
-            Form form = new Form()
-            {
-                ClientSize = new Size(396, 107),
-                Text = title,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimizeBox = false,
-                MaximizeBox = false,
-                AcceptButton = buttonOk,
-                CancelButton = buttonCancel,
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
-
-            Label label = new Label()
-            {
-                AutoSize = true,
-                Text = promptText
-            };
-            TextBox textBox = new TextBox()
-            {
-                Text = value
-            };
-
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
-            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-
-            DialogResult dialogResult = form.ShowDialog();
-            value = textBox.Text;
-            return dialogResult;
-        }
 
 
 
@@ -1540,7 +1490,7 @@ namespace AMSExplorer
                 {
                     string value = AssetTORename.Name;
 
-                    if (InputBox("Asset rename", "Enter the new name:", ref value) == DialogResult.OK)
+                    if (Program.InputBox("Asset rename", "Enter the new name:", ref value) == DialogResult.OK)
                     {
                         try
                         {
@@ -2075,7 +2025,7 @@ namespace AMSExplorer
 
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
-                if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -4270,7 +4220,7 @@ typeof(FilterTime)
             if (clipbs != null) if (clipbs.StartsWith("nb:jid:UUID:")) JobId = clipbs;
 
 
-            if (InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
+            if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
             {
                 IJob KnownJob = GetJob(JobId);
                 if (KnownJob == null)
@@ -4290,7 +4240,7 @@ typeof(FilterTime)
             string clipbs = Clipboard.GetText();
             if (clipbs != null) if (clipbs.StartsWith("nb:cid:UUID:")) AssetId = clipbs;
 
-            if (InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
+            if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
                 IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
                 if (KnownAsset == null)
@@ -4731,7 +4681,7 @@ typeof(FilterTime)
             {
                 if (!havestoragecredentials)
                 { // No blob credentials. Let's ask the user
-                    if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                     {
                         _credentials.StorageKey = valuekey;
                         havestoragecredentials = true;
@@ -6919,8 +6869,6 @@ typeof(FilterTime)
             {
                 if (AssetToProcess != null)
                 {
-
-
                     IContentKey contentKey = null;
                     string keydeliveryconfig = null;
 
@@ -7000,13 +6948,12 @@ typeof(FilterTime)
                         switch (form2.GetKeyRestrictionType)
                         {
                             case ContentKeyRestrictionType.Open:
-
                                 IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
                                 TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, _context, keydeliveryconfig);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context, keydeliveryconfig);
                                 TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7138,7 +7085,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, _context);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context);
                                 TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7994,7 +7941,7 @@ typeof(FilterTime)
             string jobtemplatename = string.Empty;
             if (SelectedJobs.Count == 1)
             {
-                if (InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
+                if (Program.InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
                 {
                     IJobTemplate jtemplate = SelectedJobs.FirstOrDefault().SaveAsTemplate(jobtemplatename);
                 }
