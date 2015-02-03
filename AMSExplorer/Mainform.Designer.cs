@@ -211,6 +211,7 @@
             this.iVXHLSPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -366,6 +367,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1938,7 +1940,9 @@
             this.hTML5VideoElementToolStripMenuItem,
             this.iVXHLSPlayerToolStripMenuItem,
             this.oSMFToolStripMenuItem,
-            this.jwPlayerToolStripMenuItem});
+            this.jwPlayerToolStripMenuItem,
+            this.toolStripSeparator29,
+            this.hTML5CaptionMakerToolStripMenuItem});
             this.samplePlayersToolStripMenuItem.Name = "samplePlayersToolStripMenuItem";
             this.samplePlayersToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.samplePlayersToolStripMenuItem.Text = "External links";
@@ -2035,6 +2039,14 @@
             this.jwPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.jwPlayerToolStripMenuItem.Text = "JW Player";
             this.jwPlayerToolStripMenuItem.Click += new System.EventHandler(this.jwPlayerToolStripMenuItem_Click);
+            // 
+            // hTML5CaptionMakerToolStripMenuItem
+            // 
+            this.hTML5CaptionMakerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.hTML5CaptionMakerToolStripMenuItem.Name = "hTML5CaptionMakerToolStripMenuItem";
+            this.hTML5CaptionMakerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.hTML5CaptionMakerToolStripMenuItem.Text = "HTML5 Caption Maker";
+            this.hTML5CaptionMakerToolStripMenuItem.Click += new System.EventHandler(this.hTML5CaptionMakerToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -3690,6 +3702,11 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // toolStripSeparator29
+            // 
+            this.toolStripSeparator29.Name = "toolStripSeparator29";
+            this.toolStripSeparator29.Size = new System.Drawing.Size(357, 6);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4096,6 +4113,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
         private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem4;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
+        private System.Windows.Forms.ToolStripMenuItem hTML5CaptionMakerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
     }
 }
 

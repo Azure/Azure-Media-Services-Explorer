@@ -8245,6 +8245,11 @@ typeof(FilterTime)
         {
             DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
         }
+
+        private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://ie.microsoft.com/testdrive/graphics/captionmaker");
+        }
     }
 }
 
