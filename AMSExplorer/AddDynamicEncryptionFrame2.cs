@@ -177,6 +177,10 @@ namespace AMSExplorer
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
+
+            cert = DynamicEncryption.GetCertificateFromFile();
+            if (cert != null) labelCertificateFile.Text = cert.FriendlyName;
+            /*
             if (openFileDialogCert.ShowDialog() == DialogResult.OK)
             {
                 string password = string.Empty;
@@ -203,6 +207,7 @@ namespace AMSExplorer
                     }
                 }
             }
+             * */
         }
     }
 }

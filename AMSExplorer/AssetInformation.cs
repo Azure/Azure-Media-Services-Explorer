@@ -1387,7 +1387,7 @@ namespace AMSExplorer
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                string testToken = AssetInfo.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
+                string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
                 MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
                 MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
 

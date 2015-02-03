@@ -1150,30 +1150,7 @@ namespace AMSExplorer
             else return null;
         }
 
-        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context)
-        {
-            string testToken = null;
-            IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
-            if (key != null && key.AuthorizationPolicyId != null)
-            {
-                IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                if (policy != null)
-                {
-                    IContentKeyAuthorizationPolicyOption option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
-                    if (option != null) // && option.Restrictions.FirstOrDefault() != null && option.Restrictions.FirstOrDefault().KeyRestrictionType == (int)ContentKeyRestrictionType.TokenRestricted)
-                    {
-                        string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                        if (!string.IsNullOrEmpty(tokenTemplateString))
-                        {
-                            Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                        }
-                    }
-                }
-            }
-            return testToken;
-        }
+       
 
         public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
         {
@@ -1379,7 +1356,7 @@ namespace AMSExplorer
                 switch (typeplayer)
                 {
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
+                        token = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
                         if (token != null)
                         {
                             token = HttpUtility.UrlEncode(Constants.Bearer + token);
@@ -1388,7 +1365,7 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
+                        token = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
                         if (token != null)
                         {
                             token = HttpUtility.UrlEncode(Constants.Bearer + token);
@@ -1403,11 +1380,11 @@ namespace AMSExplorer
                             case AssetProtectionType.None:
                                 break;
                             case AssetProtectionType.AES:
-                                string tokenAES = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
+                                string tokenAES = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
                                 if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
                                 break;
                             case AssetProtectionType.PlayReady:
-                                string tokenPR = AssetInfo.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
+                                string tokenPR = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
                                 if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
                                 break;
                         }
@@ -1427,7 +1404,7 @@ namespace AMSExplorer
                 DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, bool forceSmooth=false)
+        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, bool forceSmooth = false)
         {
             switch (typeplayer)
             {

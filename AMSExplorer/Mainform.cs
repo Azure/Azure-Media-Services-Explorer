@@ -51,6 +51,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
 using System.Text.RegularExpressions;
+using System.IdentityModel.Tokens;
 
 
 namespace AMSExplorer
@@ -6865,6 +6866,8 @@ typeof(FilterTime)
         private bool DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady, AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReadyLicense)
         {
             bool Error = false;
+
+
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
                 if (AssetToProcess != null)
@@ -7010,7 +7013,10 @@ typeof(FilterTime)
 
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
-                        string testToken = AssetInfo.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context);
+                        X509SigningCredentials signingcred = null;
+                        if (form2.GetTokenType == TokenType.JWT) signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
                         TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
                         TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
                     }
@@ -7060,10 +7066,6 @@ typeof(FilterTime)
                         }
                         if (Error) return Error;
                         TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                    }
-                    else if (form2.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
-                    {
-                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
                     }
 
                     else // let's use existing content key
@@ -7126,9 +7128,12 @@ typeof(FilterTime)
 
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
-                        string testToken = AssetInfo.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context);
-                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
-                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
+                        X509SigningCredentials signingcred = null;
+                        if (form2.GetTokenType == TokenType.JWT) signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
+                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
+                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                     }
                 }
             }
