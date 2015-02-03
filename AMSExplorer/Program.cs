@@ -1150,7 +1150,7 @@ namespace AMSExplorer
             else return null;
         }
 
-       
+
 
         public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
         {
@@ -1336,7 +1336,8 @@ namespace AMSExplorer
 
         public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context, IAsset myassetwithtoken = null)
         {
-            DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context, myassetwithtoken);
+            if (Url != null)
+                DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context, myassetwithtoken);
         }
 
         public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)

@@ -68,6 +68,8 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.numericUpDownTokenDuration = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLocatorDuration)).BeginInit();
@@ -80,6 +82,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLegacyEncodingPrice)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -108,7 +111,7 @@
             // checkBoxUseStorageEncryption
             // 
             this.checkBoxUseStorageEncryption.AutoSize = true;
-            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(42, 29);
+            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(42, 23);
             this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
             this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(361, 17);
             this.checkBoxUseStorageEncryption.TabIndex = 8;
@@ -118,7 +121,7 @@
             // checkBoxUseProtectedConfig
             // 
             this.checkBoxUseProtectedConfig.AutoSize = true;
-            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(42, 52);
+            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(42, 46);
             this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
             this.checkBoxUseProtectedConfig.Size = new System.Drawing.Size(223, 17);
             this.checkBoxUseProtectedConfig.TabIndex = 9;
@@ -128,7 +131,7 @@
             // checkBoxOneUpDownload
             // 
             this.checkBoxOneUpDownload.AutoSize = true;
-            this.checkBoxOneUpDownload.Location = new System.Drawing.Point(42, 75);
+            this.checkBoxOneUpDownload.Location = new System.Drawing.Point(42, 69);
             this.checkBoxOneUpDownload.Name = "checkBoxOneUpDownload";
             this.checkBoxOneUpDownload.Size = new System.Drawing.Size(243, 17);
             this.checkBoxOneUpDownload.TabIndex = 10;
@@ -270,6 +273,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.numericUpDownTokenDuration);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.numericUpDownLocatorDuration);
             this.groupBox2.Controls.Add(this.pictureBox2);
@@ -281,7 +286,7 @@
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Location = new System.Drawing.Point(12, 148);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(496, 155);
+            this.groupBox2.Size = new System.Drawing.Size(496, 166);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
@@ -289,7 +294,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(40, 124);
+            this.label3.Location = new System.Drawing.Point(40, 118);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(154, 13);
             this.label3.TabIndex = 52;
@@ -297,7 +302,7 @@
             // 
             // numericUpDownLocatorDuration
             // 
-            this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(200, 122);
+            this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(214, 116);
             this.numericUpDownLocatorDuration.Maximum = new decimal(new int[] {
             36500,
             0,
@@ -320,7 +325,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
-            this.pictureBox2.Location = new System.Drawing.Point(18, 97);
+            this.pictureBox2.Location = new System.Drawing.Point(18, 91);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -330,7 +335,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(40, 100);
+            this.label2.Location = new System.Drawing.Point(40, 94);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 22;
@@ -338,7 +343,7 @@
             // 
             // numericUpDownPriority
             // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(200, 96);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(214, 90);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
             this.numericUpDownPriority.TabIndex = 50;
@@ -351,7 +356,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(16, 23);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -501,9 +506,9 @@
             this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Location = new System.Drawing.Point(12, 309);
+            this.groupBox4.Location = new System.Drawing.Point(12, 320);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(496, 140);
+            this.groupBox4.Size = new System.Drawing.Size(496, 129);
             this.groupBox4.TabIndex = 64;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Prices (for job cost estimation)";
@@ -528,6 +533,37 @@
             this.label7.Size = new System.Drawing.Size(90, 13);
             this.label7.TabIndex = 61;
             this.label7.Text = "Currency symbol :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(40, 145);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(163, 13);
+            this.label8.TabIndex = 54;
+            this.label8.Text = "Default token duration (minutes) :";
+            // 
+            // numericUpDownTokenDuration
+            // 
+            this.numericUpDownTokenDuration.Location = new System.Drawing.Point(214, 143);
+            this.numericUpDownTokenDuration.Maximum = new decimal(new int[] {
+            36500,
+            0,
+            0,
+            0});
+            this.numericUpDownTokenDuration.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownTokenDuration.Name = "numericUpDownTokenDuration";
+            this.numericUpDownTokenDuration.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownTokenDuration.TabIndex = 55;
+            this.numericUpDownTokenDuration.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // Options
             // 
@@ -559,6 +595,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownIndexingPrice)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -604,5 +641,7 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.LinkLabel amspriceslink;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown numericUpDownTokenDuration;
     }
 }

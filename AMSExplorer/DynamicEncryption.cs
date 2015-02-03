@@ -337,7 +337,7 @@ namespace AMSExplorer
 
             if (informuser)
             {
-                MessageBox.Show("Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.","Certificate required",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.", "Certificate required", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
             OpenFileDialog openFileDialogCert = new OpenFileDialog()
@@ -393,7 +393,7 @@ namespace AMSExplorer
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
                             if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                             {
-                                testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
+                                testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
                             }
                             else // JWT
                             {
@@ -404,7 +404,7 @@ namespace AMSExplorer
                                 }
                                 if (signingcredentials != null)
                                 {
-                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(5), signingCredentials: signingcredentials);
+                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials);
                                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                                     testToken = handler.WriteToken(token);
                                 }
