@@ -100,7 +100,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame3_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame3_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -125,6 +125,11 @@ namespace AMSExplorer
             {
                 textBoxLAurl.Enabled = false;
                 panelPlayReadyTest.Visible = false;
+            }
+            if (!laststep)
+            {
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
             }
         }
 
@@ -203,25 +208,63 @@ namespace AMSExplorer
         private void radioButtonHex_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonContentKeyHex.Checked)
-                textBoxcontentkey.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxcontentkey.Text));
+            {
+                try
+                {
+                    textBoxcontentkey.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxcontentkey.Text));
+                }
+                catch
+                {
+                    textBoxcontentkey.Text = string.Empty;
+                }
+            }
         }
 
         private void radioButtonGuid_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonContentKeyBase64.Checked)
-                textBoxcontentkey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxcontentkey.Text));
+            {
+                try
+                {
+                    textBoxcontentkey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxcontentkey.Text));
+                }
+                catch
+                {
+                    textBoxcontentkey.Text = string.Empty;
+                }
+            }
+                
         }
 
         private void radioButtonKeySeedHex_CheckedChanged(object sender, EventArgs e)
-        { 
+        {
             if (radioButtonKeySeedHex.Checked)
-                textBoxkeyseed.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxkeyseed.Text));
+            {
+                try
+                {
+                    textBoxkeyseed.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxkeyseed.Text));
+                }
+                catch
+                {
+                    textBoxkeyseed.Text = string.Empty;
+                }
+            }
         }
 
         private void radioButtonKeySeedBase64_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButtonKeySeedBase64.Checked)
-                textBoxkeyseed.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxkeyseed.Text));
+            {
+                try
+                {
+                    textBoxkeyseed.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxkeyseed.Text));
+                }
+                catch
+                {
+                    textBoxkeyseed.Text = string.Empty;
+                }
+            }
+                
         }
 
         private void radioButtonKeyIDBase64_CheckedChanged(object sender, EventArgs e)

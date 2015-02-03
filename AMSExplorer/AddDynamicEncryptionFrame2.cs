@@ -96,7 +96,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
         public X509CertTokenVerificationKey GetX509CertTokenVerificationKey
         {
             get
@@ -104,7 +104,7 @@ namespace AMSExplorer
                 return (cert != null) ? new X509CertTokenVerificationKey(cert) : null;
             }
         }
-         
+
 
         public X509Certificate2 GetX509Certificate
         {
@@ -141,6 +141,7 @@ namespace AMSExplorer
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
             panelAutPol.Enabled = radioButtonTokenAuthPolicy.Checked;
+            UpdateButtonOk();
 
         }
 
@@ -152,7 +153,7 @@ namespace AMSExplorer
 
         private void radioButtonOpen_CheckedChanged(object sender, EventArgs e)
         {
-
+            UpdateButtonOk();
         }
 
 
@@ -177,37 +178,25 @@ namespace AMSExplorer
 
         private void buttonImportPFX_Click(object sender, EventArgs e)
         {
+            cert = DynamicEncryption.GetCertificateFromFile(false);
+            labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
+            UpdateButtonOk();
+        }
 
-            cert = DynamicEncryption.GetCertificateFromFile();
-            if (cert != null) labelCertificateFile.Text = cert.FriendlyName;
-            /*
-            if (openFileDialogCert.ShowDialog() == DialogResult.OK)
-            {
-                string password = string.Empty;
-                labelCertificateFile.Text = openFileDialogCert.FileName.ToString();
-                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
-                {
-                    X509Certificate2 tempcert = new X509Certificate2(openFileDialogCert.FileName, password);
+        private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
+        {
+            panelJWT.Enabled = radioButtonJWT.Checked;
+            UpdateButtonOk();
+        }
 
-                    if (tempcert != null)
-                    {
-                        if (!tempcert.HasPrivateKey)
-                        {
-                            MessageBox.Show("The certificate does not contain a private key.", "No private key", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            //ok
-                            cert = tempcert;
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is an error when opening the certificate file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-             * */
+        private void radioButtonSWT_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void UpdateButtonOk()
+        {
+            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || (radioButtonJWT.Checked && cert != null))));
         }
     }
 }

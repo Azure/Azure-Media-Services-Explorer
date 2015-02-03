@@ -453,6 +453,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
             this.Name = "AddDynamicEncryptionFrame3_PlayReadyKeyConfig";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 3";
             this.Load += new System.EventHandler(this.PlayReadyExternalServer_Load);
             this.panelPlayReadyTest.ResumeLayout(false);

@@ -49,11 +49,12 @@
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.openFileDialogCert = new System.Windows.Forms.OpenFileDialog();
+            this.panelJWT = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelAutPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panelJWT.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -107,8 +108,7 @@
             // 
             this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAutPol.Controls.Add(this.labelCertificateFile);
-            this.panelAutPol.Controls.Add(this.buttonImportPFX);
+            this.panelAutPol.Controls.Add(this.panelJWT);
             this.panelAutPol.Controls.Add(this.radioButtonJWT);
             this.panelAutPol.Controls.Add(this.radioButtonSWT);
             this.panelAutPol.Controls.Add(this.dataGridViewTokenClaims);
@@ -127,15 +127,15 @@
             // 
             // labelCertificateFile
             // 
-            this.labelCertificateFile.Location = new System.Drawing.Point(283, 306);
+            this.labelCertificateFile.Location = new System.Drawing.Point(204, 8);
             this.labelCertificateFile.Name = "labelCertificateFile";
-            this.labelCertificateFile.Size = new System.Drawing.Size(217, 18);
+            this.labelCertificateFile.Size = new System.Drawing.Size(262, 18);
             this.labelCertificateFile.TabIndex = 67;
             this.labelCertificateFile.Text = "(no file selected)";
             // 
             // buttonImportPFX
             // 
-            this.buttonImportPFX.Location = new System.Drawing.Point(82, 301);
+            this.buttonImportPFX.Location = new System.Drawing.Point(3, 3);
             this.buttonImportPFX.Name = "buttonImportPFX";
             this.buttonImportPFX.Size = new System.Drawing.Size(195, 23);
             this.buttonImportPFX.TabIndex = 66;
@@ -152,6 +152,7 @@
             this.radioButtonJWT.TabIndex = 65;
             this.radioButtonJWT.Text = "Json Web Token (JWT)";
             this.radioButtonJWT.UseVisualStyleBackColor = true;
+            this.radioButtonJWT.CheckedChanged += new System.EventHandler(this.radioButtonJWT_CheckedChanged);
             // 
             // radioButtonSWT
             // 
@@ -164,6 +165,7 @@
             this.radioButtonSWT.TabStop = true;
             this.radioButtonSWT.Text = "Simple Web Token (SWT)";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
+            this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonSWT_CheckedChanged);
             // 
             // dataGridViewTokenClaims
             // 
@@ -290,11 +292,15 @@
             this.label5.TabIndex = 52;
             this.label5.Text = "Step 2 \r\nPlease configure the key authorization policy";
             // 
-            // openFileDialogCert
+            // panelJWT
             // 
-            this.openFileDialogCert.DefaultExt = "PFX";
-            this.openFileDialogCert.DereferenceLinks = false;
-            this.openFileDialogCert.Filter = "PFX files|*.pfx|All files|*.*";
+            this.panelJWT.Controls.Add(this.buttonImportPFX);
+            this.panelJWT.Controls.Add(this.labelCertificateFile);
+            this.panelJWT.Enabled = false;
+            this.panelJWT.Location = new System.Drawing.Point(31, 300);
+            this.panelJWT.Name = "panelJWT";
+            this.panelJWT.Size = new System.Drawing.Size(469, 37);
+            this.panelJWT.TabIndex = 68;
             // 
             // AddDynamicEncryptionFrame2
             // 
@@ -306,6 +312,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Name = "AddDynamicEncryptionFrame2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 2";
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);
             this.groupBoxAuthPol.ResumeLayout(false);
@@ -314,6 +321,7 @@
             this.panelAutPol.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panelJWT.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,6 +350,6 @@
         private System.Windows.Forms.RadioButton radioButtonSWT;
         private System.Windows.Forms.Label labelCertificateFile;
         private System.Windows.Forms.Button buttonImportPFX;
-        private System.Windows.Forms.OpenFileDialog openFileDialogCert;
+        private System.Windows.Forms.Panel panelJWT;
     }
 }

@@ -328,19 +328,17 @@ namespace AMSExplorer
             {
                 TokenrestrictionTemplate.RequiredClaims.Add(t);
             }
-
             return TokenRestrictionTemplateSerializer.Serialize(TokenrestrictionTemplate);
         }
 
-        static public X509Certificate2 GetCertificateFromFile(bool informuser=false)
+        static public X509Certificate2 GetCertificateFromFile(bool informuser = false)
         {
             X509Certificate2 cert = null;
 
             if (informuser)
             {
-                MessageBox.Show("Please select the PFX file used to setup the authorization policy and that contains the private key needed to sign the JWT token.");
+                MessageBox.Show("Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.","Certificate required",MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-                
 
             OpenFileDialog openFileDialogCert = new OpenFileDialog()
             {
@@ -354,7 +352,14 @@ namespace AMSExplorer
 
                 if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
                 {
-                    cert = new X509Certificate2(openFileDialogCert.FileName, password);
+                    try
+                    {
+                        cert = new X509Certificate2(openFileDialogCert.FileName, password);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(string.Format("There is an error when opening the certificate file.\n{0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
 
                     if (cert != null)
                     {
@@ -363,11 +368,6 @@ namespace AMSExplorer
                             MessageBox.Show("The certificate does not contain a private key.", "No private key", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             cert = null;
                         }
-
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is an error when opening the certificate file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
@@ -397,7 +397,7 @@ namespace AMSExplorer
                             }
                             else // JWT
                             {
-                                if (signingcredentials ==null)
+                                if (signingcredentials == null)
                                 {
                                     X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
                                     if (cert != null) signingcredentials = new X509SigningCredentials(cert);

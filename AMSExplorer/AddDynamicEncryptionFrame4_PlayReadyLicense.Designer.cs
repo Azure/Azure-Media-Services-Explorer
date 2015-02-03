@@ -930,6 +930,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.moreinfocompliance);
             this.Name = "AddDynamicEncryptionFrame4_PlayReadyLicense";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 4";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
             this.tabControl1.ResumeLayout(false);

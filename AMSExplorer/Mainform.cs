@@ -6816,24 +6816,26 @@ typeof(FilterTime)
                     {
                         if (form1.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, false);
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, false) { Left = form1.Left, Top = form1.Top };
                             if (form2.ShowDialog() == DialogResult.OK)
                             {
-                                AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady = new AddDynamicEncryptionFrame3_PlayReadyKeyConfig(SelectedAssets.Count > 1, form2.GetKeyRestrictionType != null, forceusertoprovidekey);
+                                bool NeedToDisplayPlayReadyLicense = form2.GetKeyRestrictionType != null;
+                                AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady = new AddDynamicEncryptionFrame3_PlayReadyKeyConfig(
+                                    SelectedAssets.Count > 1, form2.GetKeyRestrictionType != null, forceusertoprovidekey || (form2.GetKeyRestrictionType == null), !NeedToDisplayPlayReadyLicense) { Left = form2.Left, Top = form2.Top };
                                 if (form3_PlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK) // let's display the playready content key dialog
                                 {
-                                    AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense();
+                                    AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense() { Left = form3_PlayReady.Left, Top = form3_PlayReady.Top };
                                     bool usercancelledlicensedialogbox = false;
-                                    if (form2.GetKeyRestrictionType != null) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                    if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                     {
-                                        if (formPlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) // let's display the dialog box to configure the playready license
+                                        if (form4_PlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) // let's display the dialog box to configure the playready license
                                         {
                                             usercancelledlicensedialogbox = true;
                                         }
                                     }
                                     if (!usercancelledlicensedialogbox)
                                     {
-                                        DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2, form3_PlayReady, formPlayReadyLicense);
+                                        DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2, form3_PlayReady, form4_PlayReadyLicense);
                                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                                     }
                                 }
@@ -6841,10 +6843,10 @@ typeof(FilterTime)
                         }
                         else if (form1.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // it's AES encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, true);
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, true) { Left = form1.Left, Top = form1.Top };
                             if (form2.ShowDialog() == DialogResult.OK)
                             {
-                                AddDynamicEncryptionFrame3_AESKeyConfig form3_AES = new AddDynamicEncryptionFrame3_AESKeyConfig(forceusertoprovidekey);
+                                AddDynamicEncryptionFrame3_AESKeyConfig form3_AES = new AddDynamicEncryptionFrame3_AESKeyConfig(forceusertoprovidekey) { Left = form2.Left, Top = form2.Top };
                                 if (form3_AES.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     DoDynamicEncryptionWithAES(SelectedAssets, form1, form2, form3_AES);
@@ -6862,6 +6864,8 @@ typeof(FilterTime)
             }
             return oktoproceed;
         }
+
+
 
         private bool DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady, AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReadyLicense)
         {
