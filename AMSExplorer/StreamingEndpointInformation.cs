@@ -309,28 +309,22 @@ namespace AMSExplorer
 
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
-            buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            textBoxClientPolicy.Enabled = buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = checkBoxcrossdomain.Checked;
-            buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
+            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled =checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-            buttonAddIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-            buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-        }
+            dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
+             }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewAkamai.Enabled = checkBoxAkamai.Checked;
-            buttonAddAkamai.Enabled = checkBoxAkamai.Checked;
-            buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
+            dataGridViewAkamai.Enabled = buttonAddAkamai.Enabled = buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
         }
 
         private void buttonAddHostName_Click(object sender, EventArgs e)

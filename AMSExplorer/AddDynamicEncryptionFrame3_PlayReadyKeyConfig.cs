@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.IO;
 
 namespace AMSExplorer
 {
@@ -114,6 +115,14 @@ namespace AMSExplorer
             }
         }
 
+        public string PlayReadyCustomAttributes
+        {
+            get
+            {
+                return string.IsNullOrEmpty(textBoxCustomAttributes.Text) ? null : textBoxCustomAttributes.Text;
+            }
+        }
+
         public AddDynamicEncryptionFrame3_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = true)
         {
             InitializeComponent();
@@ -128,7 +137,7 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
-            if (multiassets) // batch mode for dyn enc so user can only input the seed
+            if (multiassets) // batch mode for dyn enc so user can only input the seed and custom attributes
             {
                 panelContentKey.Enabled = false;
                 panelKeyId.Enabled = false;
@@ -351,5 +360,14 @@ namespace AMSExplorer
         {
             if (radioButtonKeySpecifiedByUser.Checked) groupBoxCrypto.Enabled = true;
         }
+
+        private void buttonAddExampleCustomAttributes_Click(object sender, EventArgs e)
+        {
+
+            textBoxCustomAttributes.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"PlayReadyCustomAttributes.xml"));
+
+        }
+
+
     }
 }

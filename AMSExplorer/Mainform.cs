@@ -6893,7 +6893,8 @@ typeof(FilterTime)
                                 if (!string.IsNullOrEmpty(form3_PlayReady.PlayReadyKeySeed)) // seed has been given
                                 {
                                     Guid keyid = (form3_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form3_PlayReady.PlayReadyKeyId;
-                                    byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
+                                    //byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
                                     contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
                                 }
                                 else // no seed given, so content key has been setup
@@ -6987,22 +6988,17 @@ typeof(FilterTime)
                     string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
                     try
                     {
-                        if (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                        {
-                            if (form2.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
-                            {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context);
-                            }
-                            else // Licenses NOT delivered by Azure Media Services
-                            {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl));
-                            }
 
-                        }
-                        else  // Envelope encryption or no encryption
+                        if (form2.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, form3_PlayReady.PlayReadyCustomAttributes);
                         }
+                        else // Licenses NOT delivered by Azure Media Services but by a third party server
+                        {
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl), form3_PlayReady.PlayReadyCustomAttributes);
+                        }
+
+
 
                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                     }

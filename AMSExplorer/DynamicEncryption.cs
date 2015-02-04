@@ -143,6 +143,7 @@ namespace AMSExplorer
 
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
+            asset.Update();
 
             return key;
         }
@@ -396,12 +397,12 @@ namespace AMSExplorer
                             }
                             else // JWT
                             {
-                                if (signingcredentials == null )
+                                if (signingcredentials == null)
                                 {
                                     X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
                                     if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                 }
-                                JwtSecurityToken token = new JwtSecurityToken( issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials );
+                                JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials);
                                 JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                                 testToken = handler.WriteToken(token);
 
@@ -456,7 +457,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, string CustomAttributes = null)
         {
             if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
             string stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
@@ -464,7 +465,11 @@ namespace AMSExplorer
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
     {
         {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},
-    };
+         };
+            if (CustomAttributes != null) // let's add custom attributes
+            {
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, CustomAttributes);
+            }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
                 name,

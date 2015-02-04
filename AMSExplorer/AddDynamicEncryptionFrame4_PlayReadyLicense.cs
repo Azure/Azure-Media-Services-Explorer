@@ -80,6 +80,7 @@ namespace AMSExplorer
                 licenseTemplate.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
 
                 licenseTemplate.PlayRight.AllowPassingVideoContentToUnknownOutput = (UnknownOutputPassingOption)(Enum.Parse(typeof(UnknownOutputPassingOption), (string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem));
+
                 return licenseTemplate;
             }
         }
