@@ -6960,7 +6960,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType,  form2.GetX509Certificate, _context, keydeliveryconfig);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context, keydeliveryconfig);
                                 TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7018,12 +7018,12 @@ typeof(FilterTime)
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
                         X509SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT )
+                        if (form2.GetTokenType == TokenType.JWT)
                         {
                             signingcred = new X509SigningCredentials(form2.GetX509Certificate);
                         }
 
-                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context,  signingcred);
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
                         TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
                         System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                     }
@@ -7092,7 +7092,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType,  form2.GetX509Certificate, _context);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context);
                                 TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7134,11 +7134,10 @@ typeof(FilterTime)
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
                         X509SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT )
+                        if (form2.GetTokenType == TokenType.JWT)
                         {
                             signingcred = new X509SigningCredentials(form2.GetX509Certificate);
                         }
-
                         string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
                         TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
                         System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
@@ -8223,16 +8222,34 @@ typeof(FilterTime)
 
         private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
-
+            DoPlaySelectedAssetsWithAzureMediaPlayer();
         }
 
         private void withAzureMediaPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+            DoPlaySelectedAssetsWithAzureMediaPlayer();
 
+
+        }
+
+        private void DoPlaySelectedAssetsWithAzureMediaPlayer()
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            {
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+            }
+            else
+            {
+                if (MessageBox.Show("There is no streaming locator. Do you want to create one ?", "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    IAsset myAsset = ReturnSelectedAssets().FirstOrDefault();
+                    TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
+                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+                    ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, MyLocator.GetSmoothStreamingUri(), _context, myAsset);
+
+                }
+            }
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)

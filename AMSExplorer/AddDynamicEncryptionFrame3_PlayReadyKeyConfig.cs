@@ -92,7 +92,21 @@ namespace AMSExplorer
         {
             get
             {
-                return multiassets ? null : (Guid?)new Guid(textBoxkeyid.Text);
+                try
+                {
+                    if (radioButtonKeyIDGuid.Checked) // GUID
+                    {
+                        return multiassets ? null : (Guid?)new Guid(textBoxkeyid.Text);
+                    }
+                    else // Base64
+                    {
+                        return multiassets ? null : (Guid?)new Guid(Convert.FromBase64String(textBoxkeyid.Text));
+                    }
+                }
+                catch
+                {
+                    return null;
+                }
             }
             set
             {
@@ -116,10 +130,8 @@ namespace AMSExplorer
 
             if (multiassets) // batch mode for dyn enc so user can only input the seed
             {
-                textBoxkeyid.Enabled = false;
-                buttonGenKeyID.Enabled = false;
-                textBoxcontentkey.Enabled = false;
-                buttongenerateContentKey.Enabled = false;
+                panelContentKey.Enabled = false;
+                panelKeyId.Enabled = false;
             }
             if (DoNotAskURL)
             {
@@ -183,7 +195,7 @@ namespace AMSExplorer
                     validation = true;
                 }
             }
-
+            UpdateCalculatedContentKey();
             buttonOk.Enabled = validation;
         }
 
@@ -194,6 +206,40 @@ namespace AMSExplorer
                 textBoxcontentkey.Text = string.Empty;
             }
             textBox_TextChanged(sender, e);
+            UpdateCalculatedContentKey();
+        }
+
+        private void UpdateCalculatedContentKey()
+        {
+            textBoxContentKeyCalculated.Text = string.Empty;
+            if (!multiassets && this.PlayReadyKeyId != null)
+            {
+                if (!string.IsNullOrEmpty(this.PlayReadyKeySeed))
+                {
+                    try
+                    {
+                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(this.PlayReadyKeySeed), (Guid)this.PlayReadyKeyId);
+                        if (radioButtonContentKeyBase64.Checked) // base64
+                        {
+                            textBoxContentKeyCalculated.Text = Convert.ToBase64String(bytecontentkey);
+                        }
+                        else // HEX
+                        {
+                            textBoxContentKeyCalculated.Text = DynamicEncryption.ByteArrayToHexString(bytecontentkey);
+                        }
+                    }
+                    catch
+                    {
+                        textBoxContentKeyCalculated.Text = "(error)";
+                    }
+                }
+                else // seed empty, so calulated key is the content key
+                {
+                    textBoxContentKeyCalculated.Text = textBoxcontentkey.Text;
+                }
+
+
+            }
         }
 
         private void textBoxcontentkey_TextChanged(object sender, EventArgs e)
@@ -233,7 +279,8 @@ namespace AMSExplorer
                     textBoxcontentkey.Text = string.Empty;
                 }
             }
-                
+            UpdateCalculatedContentKey();
+
         }
 
         private void radioButtonKeySeedHex_CheckedChanged(object sender, EventArgs e)
@@ -264,7 +311,7 @@ namespace AMSExplorer
                     textBoxkeyseed.Text = string.Empty;
                 }
             }
-                
+
         }
 
         private void radioButtonKeyIDBase64_CheckedChanged(object sender, EventArgs e)
@@ -296,7 +343,7 @@ namespace AMSExplorer
                 {
                     textBoxkeyid.Text = string.Empty;
                 }
-                
+
             }
         }
 
