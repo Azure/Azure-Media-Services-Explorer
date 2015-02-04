@@ -95,16 +95,7 @@ namespace AMSExplorer
                 return radioButtonSWT.Checked ? TokenType.SWT : TokenType.JWT;
             }
         }
-
-
-        public X509CertTokenVerificationKey GetX509CertTokenVerificationKey
-        {
-            get
-            {
-                return (cert != null) ? new X509CertTokenVerificationKey(cert) : null;
-            }
-        }
-
+          
 
         public X509Certificate2 GetX509Certificate
         {
@@ -132,8 +123,7 @@ namespace AMSExplorer
         private void SetupDynEnc_Load(object sender, EventArgs e)
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
-
-
+            moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
         }
 
 
@@ -185,7 +175,7 @@ namespace AMSExplorer
 
         private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
         {
-            panelJWT.Enabled = radioButtonJWT.Checked;
+            panelJWT.Enabled = radioButtonJWTX509.Checked;
             UpdateButtonOk();
         }
 
@@ -196,7 +186,7 @@ namespace AMSExplorer
 
         private void UpdateButtonOk()
         {
-            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || (radioButtonJWT.Checked && cert != null))));
+            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || (radioButtonJWTX509.Checked && cert != null))));
         }
     }
 }

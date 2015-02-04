@@ -321,7 +321,6 @@ namespace AMSExplorer
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(TokenType.JWT);
             TokenrestrictionTemplate.PrimaryVerificationKey = new X509CertTokenVerificationKey(Certificate);
-            SigningCredentials cred = new X509SigningCredentials(Certificate);
             TokenrestrictionTemplate.Audience = _sampleAudience;
             TokenrestrictionTemplate.Issuer = _sampleIssuer;
             foreach (var t in tokenclaimslist)
@@ -397,17 +396,15 @@ namespace AMSExplorer
                             }
                             else // JWT
                             {
-                                if (signingcredentials == null)
+                                if (signingcredentials == null )
                                 {
                                     X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
                                     if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                 }
-                                if (signingcredentials != null)
-                                {
-                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials);
-                                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                    testToken = handler.WriteToken(token);
-                                }
+                                JwtSecurityToken token = new JwtSecurityToken( issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials );
+                                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                                testToken = handler.WriteToken(token);
+
                             }
                         }
                     }

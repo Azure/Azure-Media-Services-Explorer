@@ -33,9 +33,11 @@
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panelAutPol = new System.Windows.Forms.Panel();
-            this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.panelJWT = new System.Windows.Forms.Panel();
+            this.moreinfocGenX509 = new System.Windows.Forms.LinkLabel();
             this.buttonImportPFX = new System.Windows.Forms.Button();
-            this.radioButtonJWT = new System.Windows.Forms.RadioButton();
+            this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.radioButtonJWTX509 = new System.Windows.Forms.RadioButton();
             this.radioButtonSWT = new System.Windows.Forms.RadioButton();
             this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
@@ -49,12 +51,11 @@
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
-            this.panelJWT = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelAutPol.SuspendLayout();
+            this.panelJWT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
-            this.panelJWT.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -109,7 +110,7 @@
             this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panelAutPol.Controls.Add(this.panelJWT);
-            this.panelAutPol.Controls.Add(this.radioButtonJWT);
+            this.panelAutPol.Controls.Add(this.radioButtonJWTX509);
             this.panelAutPol.Controls.Add(this.radioButtonSWT);
             this.panelAutPol.Controls.Add(this.dataGridViewTokenClaims);
             this.panelAutPol.Controls.Add(this.label4);
@@ -125,13 +126,26 @@
             this.panelAutPol.Size = new System.Drawing.Size(508, 369);
             this.panelAutPol.TabIndex = 60;
             // 
-            // labelCertificateFile
+            // panelJWT
             // 
-            this.labelCertificateFile.Location = new System.Drawing.Point(204, 8);
-            this.labelCertificateFile.Name = "labelCertificateFile";
-            this.labelCertificateFile.Size = new System.Drawing.Size(262, 18);
-            this.labelCertificateFile.TabIndex = 67;
-            this.labelCertificateFile.Text = "(no file selected)";
+            this.panelJWT.Controls.Add(this.moreinfocGenX509);
+            this.panelJWT.Controls.Add(this.buttonImportPFX);
+            this.panelJWT.Controls.Add(this.labelCertificateFile);
+            this.panelJWT.Enabled = false;
+            this.panelJWT.Location = new System.Drawing.Point(31, 304);
+            this.panelJWT.Name = "panelJWT";
+            this.panelJWT.Size = new System.Drawing.Size(469, 51);
+            this.panelJWT.TabIndex = 68;
+            // 
+            // moreinfocGenX509
+            // 
+            this.moreinfocGenX509.AutoSize = true;
+            this.moreinfocGenX509.Location = new System.Drawing.Point(3, 29);
+            this.moreinfocGenX509.Name = "moreinfocGenX509";
+            this.moreinfocGenX509.Size = new System.Drawing.Size(213, 13);
+            this.moreinfocGenX509.TabIndex = 69;
+            this.moreinfocGenX509.TabStop = true;
+            this.moreinfocGenX509.Text = "How to generate a X509 certificate for JWT";
             // 
             // buttonImportPFX
             // 
@@ -143,16 +157,24 @@
             this.buttonImportPFX.UseVisualStyleBackColor = true;
             this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
             // 
-            // radioButtonJWT
+            // labelCertificateFile
             // 
-            this.radioButtonJWT.AutoSize = true;
-            this.radioButtonJWT.Location = new System.Drawing.Point(19, 277);
-            this.radioButtonJWT.Name = "radioButtonJWT";
-            this.radioButtonJWT.Size = new System.Drawing.Size(139, 17);
-            this.radioButtonJWT.TabIndex = 65;
-            this.radioButtonJWT.Text = "Json Web Token (JWT)";
-            this.radioButtonJWT.UseVisualStyleBackColor = true;
-            this.radioButtonJWT.CheckedChanged += new System.EventHandler(this.radioButtonJWT_CheckedChanged);
+            this.labelCertificateFile.Location = new System.Drawing.Point(204, 8);
+            this.labelCertificateFile.Name = "labelCertificateFile";
+            this.labelCertificateFile.Size = new System.Drawing.Size(262, 18);
+            this.labelCertificateFile.TabIndex = 67;
+            this.labelCertificateFile.Text = "(no file selected)";
+            // 
+            // radioButtonJWTX509
+            // 
+            this.radioButtonJWTX509.AutoSize = true;
+            this.radioButtonJWTX509.Location = new System.Drawing.Point(19, 277);
+            this.radioButtonJWTX509.Name = "radioButtonJWTX509";
+            this.radioButtonJWTX509.Size = new System.Drawing.Size(315, 17);
+            this.radioButtonJWTX509.TabIndex = 65;
+            this.radioButtonJWTX509.Text = "JSON Web Token (JWT) - with user provided asymmetric key";
+            this.radioButtonJWTX509.UseVisualStyleBackColor = true;
+            this.radioButtonJWTX509.CheckedChanged += new System.EventHandler(this.radioButtonJWT_CheckedChanged);
             // 
             // radioButtonSWT
             // 
@@ -160,10 +182,10 @@
             this.radioButtonSWT.Checked = true;
             this.radioButtonSWT.Location = new System.Drawing.Point(19, 254);
             this.radioButtonSWT.Name = "radioButtonSWT";
-            this.radioButtonSWT.Size = new System.Drawing.Size(150, 17);
+            this.radioButtonSWT.Size = new System.Drawing.Size(319, 17);
             this.radioButtonSWT.TabIndex = 64;
             this.radioButtonSWT.TabStop = true;
-            this.radioButtonSWT.Text = "Simple Web Token (SWT)";
+            this.radioButtonSWT.Text = "Simple Web Token (SWT) - with autogenerated symmetric key";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
             this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonSWT_CheckedChanged);
             // 
@@ -292,16 +314,6 @@
             this.label5.TabIndex = 52;
             this.label5.Text = "Step 2 \r\nPlease configure the key authorization policy";
             // 
-            // panelJWT
-            // 
-            this.panelJWT.Controls.Add(this.buttonImportPFX);
-            this.panelJWT.Controls.Add(this.labelCertificateFile);
-            this.panelJWT.Enabled = false;
-            this.panelJWT.Location = new System.Drawing.Point(31, 300);
-            this.panelJWT.Name = "panelJWT";
-            this.panelJWT.Size = new System.Drawing.Size(469, 37);
-            this.panelJWT.TabIndex = 68;
-            // 
             // AddDynamicEncryptionFrame2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -319,9 +331,10 @@
             this.groupBoxAuthPol.PerformLayout();
             this.panelAutPol.ResumeLayout(false);
             this.panelAutPol.PerformLayout();
+            this.panelJWT.ResumeLayout(false);
+            this.panelJWT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panelJWT.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -346,10 +359,11 @@
         private System.Windows.Forms.Button buttonAddClaim;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridViewTokenClaims;
-        private System.Windows.Forms.RadioButton radioButtonJWT;
+        private System.Windows.Forms.RadioButton radioButtonJWTX509;
         private System.Windows.Forms.RadioButton radioButtonSWT;
         private System.Windows.Forms.Label labelCertificateFile;
         private System.Windows.Forms.Button buttonImportPFX;
         private System.Windows.Forms.Panel panelJWT;
+        private System.Windows.Forms.LinkLabel moreinfocGenX509;
     }
 }

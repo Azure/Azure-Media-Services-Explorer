@@ -6960,7 +6960,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context, keydeliveryconfig);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType,  form2.GetX509Certificate, _context, keydeliveryconfig);
                                 TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7018,11 +7018,14 @@ typeof(FilterTime)
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
                         X509SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT) signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                        if (form2.GetTokenType == TokenType.JWT )
+                        {
+                            signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                        }
 
-                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
-                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
-                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context,  signingcred);
+                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
+                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                     }
 
                 }
@@ -7058,8 +7061,6 @@ typeof(FilterTime)
                             {
                                 contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
                             }
-
-
                         }
                         catch (Exception e)
                         {
@@ -7091,7 +7092,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.GetX509Certificate, _context);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType,  form2.GetX509Certificate, _context);
                                 TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7133,7 +7134,10 @@ typeof(FilterTime)
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
                         X509SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT) signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                        if (form2.GetTokenType == TokenType.JWT )
+                        {
+                            signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                        }
 
                         string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
                         TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
