@@ -108,7 +108,7 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             }
-            Program.SaveAndProtectUserConfig(); // to save settings and to make sure they are encrypted if the user just upgraded from an earlier version
+            Program.SaveAndProtectUserConfig(); // to save settings 
 
 
 
@@ -6646,7 +6646,7 @@ typeof(FilterTime)
             {
                 if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), null, AssetProtectionType.None, true);
+                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), null, AssetProtectionType.None, AzureMediaPlayerFormats.Smooth);
                 }
             }
         }

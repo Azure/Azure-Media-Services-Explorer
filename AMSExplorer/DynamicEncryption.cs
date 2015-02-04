@@ -321,7 +321,8 @@ namespace AMSExplorer
         static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, X509Certificate2 Certificate)
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(TokenType.JWT);
-            TokenrestrictionTemplate.PrimaryVerificationKey = new X509CertTokenVerificationKey(Certificate);
+            TokenrestrictionTemplate.PrimaryVerificationKey = new X509CertTokenVerificationKey(Certificate); 
+            // TokenrestrictionTemplate.PrimaryVerificationKey = new  SymmetricVerificationKey();  Symmetric key
             TokenrestrictionTemplate.Audience = _sampleAudience;
             TokenrestrictionTemplate.Issuer = _sampleIssuer;
             foreach (var t in tokenclaimslist)

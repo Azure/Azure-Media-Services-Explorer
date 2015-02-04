@@ -287,26 +287,72 @@ namespace AMSExplorer
 
         public static void SaveAndProtectUserConfig()
         {
-            Properties.Settings.Default.Save();
-
-            string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
-
-            if (connStrings != null)
+            try
             {
-                if (!connStrings.SectionInformation.IsProtected)
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            /*
+            try
+            {
+                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+                if (connStrings != null)
                 {
-                    if (!connStrings.ElementInformation.IsLocked)
+                    if (!connStrings.SectionInformation.IsProtected)
                     {
-                        connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                        connStrings.SectionInformation.ForceSave = true;
-                        config.Save(ConfigurationSaveMode.Full);
+                        if (!connStrings.ElementInformation.IsLocked)
+                        {
+                            connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                            connStrings.SectionInformation.ForceSave = true;
+                            config.Save(ConfigurationSaveMode.Full);
+                        }
                     }
                 }
             }
-        }
 
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Step2 " + e.Message);
+            }
+             * */
+
+
+            // let's decrypt as encryption create issues with some users
+            try
+            {
+                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+                if (connStrings != null)
+                {
+                    if (connStrings.SectionInformation.IsProtected)
+                    {
+                        if (!connStrings.ElementInformation.IsLocked)
+                        {
+                            connStrings.SectionInformation.UnprotectSection();
+                            connStrings.SectionInformation.ForceSave = true;
+                            config.Save(ConfigurationSaveMode.Full);
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error " + e.Message);
+            }
+
+        }
 
     }
 
@@ -1405,7 +1451,7 @@ namespace AMSExplorer
                 DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, bool forceSmooth = false)
+        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
         {
             switch (typeplayer)
             {
@@ -1435,7 +1481,36 @@ namespace AMSExplorer
                             playerurl += string.Format(token, urlencodedtoken);
                         }
                     }
-                    if (forceSmooth) playerurl += string.Format(format, "smooth");
+
+                    if (formatamp != AzureMediaPlayerFormats.Auto)
+                    {
+                        switch (formatamp)
+                        {
+                            case AzureMediaPlayerFormats.Dash:
+                                playerurl += string.Format(format, "dash");
+                                break;
+
+                            case AzureMediaPlayerFormats.Smooth:
+                                playerurl += string.Format(format, "smooth");
+                                break;
+
+                            case AzureMediaPlayerFormats.HLS:
+                                playerurl += string.Format(format, "hls");
+                                break;
+
+                            case AzureMediaPlayerFormats.VideoMP4:
+                                playerurl += string.Format(format, "video/mp4");
+                                break;
+
+                            default: // auto or other
+                                break;
+                        }
+                        if (urlencodedtoken != null)
+                        {
+                            playerurl += string.Format(token, urlencodedtoken);
+                        }
+                    }
+
                     Process.Start(string.Format(playerurl, Url));
                     break;
 
@@ -1614,6 +1689,16 @@ namespace AMSExplorer
         PublishedFuture = 2,
         PublishedExpired = 3,
     }
+
+    public enum AzureMediaPlayerFormats
+    {
+        Auto = 0,
+        Smooth = 1,
+        Dash = 2,
+        HLS = 3,
+        VideoMP4 = 4
+    }
+
 
     public enum AssetProtectionType
     {

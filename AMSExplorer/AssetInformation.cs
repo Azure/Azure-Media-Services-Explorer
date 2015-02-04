@@ -169,7 +169,7 @@ namespace AMSExplorer
             {
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    toolStripMenuItemDASHAzure.Enabled = false;
+                    toolStripMenuItemAzureMediaPlayer.Enabled = false;
                     toolStripMenuItemDASHIF.Enabled = false;
                     toolStripMenuItemDASHLiveAzure.Enabled = false;
                     toolStripMenuItemPlaybackFlashAzure.Enabled = false;
@@ -180,7 +180,7 @@ namespace AMSExplorer
 
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._smooth) | TreeViewLocators.SelectedNode.Parent.Text.Contains(AssetInfo._smooth_legacy))
                     {
-                        toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = true;
@@ -190,7 +190,7 @@ namespace AMSExplorer
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._dash))
                     {
-                        toolStripMenuItemDASHAzure.Enabled = true;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = true;
                         toolStripMenuItemDASHLiveAzure.Enabled = true;
                         toolStripMenuItemDASHIF.Enabled = true;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = true;
@@ -200,7 +200,7 @@ namespace AMSExplorer
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
-                        toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemAzureMediaPlayer.Enabled =(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = false;
@@ -210,7 +210,7 @@ namespace AMSExplorer
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_http_streaming))
                     {
-                        toolStripMenuItemDASHAzure.Enabled = false;
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = false;
@@ -934,7 +934,7 @@ namespace AMSExplorer
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
                     buttonDASH.Enabled = false;
-                    buttonDashAzure.Enabled = false;
+                    buttonAzureMediaPlayer.Enabled = false;
                     buttonDashLiveAzure.Enabled = false;
                     buttonFlash.Enabled = false;
                     buttonSLMonitor.Enabled = false;
@@ -948,7 +948,7 @@ namespace AMSExplorer
                         case AssetInfo._smooth_legacy:
 
                             buttonDASH.Enabled = false;
-                            buttonDashAzure.Enabled = false;
+                            buttonAzureMediaPlayer.Enabled = true;
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = true;
                             buttonSLMonitor.Enabled = true;
@@ -958,7 +958,7 @@ namespace AMSExplorer
 
                         case AssetInfo._dash:
                             buttonDASH.Enabled = true;
-                            buttonDashAzure.Enabled = true;
+                            buttonAzureMediaPlayer.Enabled = true;
                             buttonDashLiveAzure.Enabled = true;
                             buttonFlash.Enabled = true;
                             buttonSLMonitor.Enabled = false;
@@ -968,7 +968,7 @@ namespace AMSExplorer
 
                         case AssetInfo._prog_down_https_SAS:
                             buttonDASH.Enabled = false;
-                            buttonDashAzure.Enabled = false;
+                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
                             buttonSLMonitor.Enabled = false;
@@ -978,7 +978,7 @@ namespace AMSExplorer
 
                         case AssetInfo._prog_down_http_streaming:
                             buttonDASH.Enabled = false;
-                            buttonDashAzure.Enabled = false;
+                            buttonAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().EndsWith(".mp4"));
                             buttonDashLiveAzure.Enabled = false;
                             buttonFlash.Enabled = false;
                             buttonSLMonitor.Enabled = false;
@@ -1000,10 +1000,10 @@ namespace AMSExplorer
 
         private void playbackWithToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDashAzurePlayer();
+            DoAzureMediaPlayer();
         }
 
-        private void DoDashAzurePlayer()
+        private void DoAzureMediaPlayer()
         {
             if (TreeViewLocators.SelectedNode != null)
             {
@@ -1013,9 +1013,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBack(PlayerType.DASHAzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
+                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.Dash);
                             break;
 
+                        case AssetInfo._smooth:
+                        case AssetInfo._smooth_legacy:
+                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.Smooth);
+                            break;
+
+                        case AssetInfo._hls_v4:
+                        case AssetInfo._hls_v3:
+                        case AssetInfo._hls:
+                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.HLS);
+                            break;
+
+                        case AssetInfo._prog_down_http_streaming:
+                        case AssetInfo._prog_down_https_SAS:
+                             AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                            break;
 
                         default:
                             break;
@@ -1032,7 +1047,7 @@ namespace AMSExplorer
 
         private void button1_Click(object sender, EventArgs e)
         {
-            DoDashAzurePlayer();
+            DoAzureMediaPlayer();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
