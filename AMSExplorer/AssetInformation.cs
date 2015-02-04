@@ -200,7 +200,7 @@ namespace AMSExplorer
                     }
                     if (TreeViewLocators.SelectedNode.Parent.Text.Equals(AssetInfo._prog_down_https_SAS))
                     {
-                        toolStripMenuItemAzureMediaPlayer.Enabled =(TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
+                        toolStripMenuItemAzureMediaPlayer.Enabled = (TreeViewLocators.SelectedNode.Text.ToLower().Contains(".mp4"));
                         toolStripMenuItemDASHLiveAzure.Enabled = false;
                         toolStripMenuItemDASHIF.Enabled = false;
                         toolStripMenuItemPlaybackFlashAzure.Enabled = false;
@@ -1029,7 +1029,7 @@ namespace AMSExplorer
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                             AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.VideoMP4);
                             break;
 
                         default:
@@ -1375,9 +1375,10 @@ namespace AMSExplorer
                         {
                             dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements", FormatXmlString(restriction.Requirements));
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                            dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements Token Type", tokenTemplate.TokenType);
-                            dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements Audience", tokenTemplate.Audience);
-                            dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements Issuer", tokenTemplate.Issuer);
+                            dataGridViewAutPol.Rows.Add(optionstr + "Token Type", tokenTemplate.TokenType);
+                            dataGridViewAutPol.Rows.Add(optionstr + "Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                            dataGridViewAutPol.Rows.Add(optionstr + "Token Audience", tokenTemplate.Audience);
+                            dataGridViewAutPol.Rows.Add(optionstr + "Token Issuer", tokenTemplate.Issuer);
                             foreach (var claim in tokenTemplate.RequiredClaims)
                             {
                                 dataGridViewAutPol.Rows.Add(optionstr + "restriction Required Claim", claim.ClaimType + " : " + claim.ClaimValue);

@@ -95,13 +95,21 @@ namespace AMSExplorer
                 return radioButtonSWT.Checked ? TokenType.SWT : TokenType.JWT;
             }
         }
-          
+
+        public bool IsJWTKeySymmetric
+        {
+            get
+            {
+                return radioButtonJWTSymmetric.Checked ? true : false;
+            }
+        }
+
 
         public X509Certificate2 GetX509Certificate
         {
             get
             {
-                return cert;
+                return radioButtonJWTX509.Checked ? cert : null;
             }
         }
 
