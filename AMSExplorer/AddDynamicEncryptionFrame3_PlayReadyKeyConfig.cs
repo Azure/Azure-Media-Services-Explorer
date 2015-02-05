@@ -73,6 +73,15 @@ namespace AMSExplorer
                 textBoxLAurl.Text = value;
             }
         }
+
+        public bool PlayReadyLAurlEncodeForSL
+        {
+            get
+            {
+                return checkBoxEncodingSL.Enabled ? checkBoxEncodingSL.Checked : false;
+            }
+           
+        }
         public string PlayReadyContentKey
         {
             get
@@ -206,6 +215,10 @@ namespace AMSExplorer
             }
             UpdateCalculatedContentKey();
             buttonOk.Enabled = validation;
+
+            checkBoxEncodingSL.Enabled = (textBoxLAurl.Text.Contains("&"));
+
+
         }
 
         private void textBoxkeyseed_TextChanged(object sender, EventArgs e)

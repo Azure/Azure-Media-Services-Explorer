@@ -321,12 +321,11 @@ namespace AMSExplorer
         static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool IsJWTKeySymmetric, X509Certificate2 Certificate)
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(TokenType.JWT);
+            TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
 
             if (IsJWTKeySymmetric) // symmetric
             {
                 TokenrestrictionTemplate.PrimaryVerificationKey = new SymmetricVerificationKey();
-                //TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
-
             }
             else // certificate
             {
@@ -408,11 +407,15 @@ namespace AMSExplorer
                             }
                             else // JWT
                             {
+                                List<Claim> myclaims = null;
+                                myclaims = new List<Claim>();
+                                myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+
                                 if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
                                 {
                                     InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
                                     signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
-       
+
                                 }
                                 else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
                                 {
@@ -423,11 +426,9 @@ namespace AMSExplorer
                                     }
                                 }
 
-                              
-                                JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-2), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials);
+                                JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
                                 JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                                 testToken = handler.WriteToken(token);
-
                             }
                         }
                     }
@@ -479,11 +480,19 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, string CustomAttributes = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, bool EncodeLAURLForSilverlight = false, string CustomAttributes = null)
         {
-            if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
-            string stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+            string stringacquisitionUrl;
+            if (EncodeLAURLForSilverlight && acquisitionUrl != null)
+            {
+                stringacquisitionUrl = acquisitionUrl.ToString().Replace("&", "%26");
+            }
+            else
+            {
+                if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
 
+                stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+            }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
     {
         {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},

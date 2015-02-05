@@ -85,6 +85,7 @@ namespace AMSExplorer
         private System.Timers.Timer TimerAutoRefresh;
 
         bool DisplaySplashDuringLoading;
+        private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
         public Mainform()
         {
@@ -182,8 +183,16 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
             // let's check the encoding reserved unit and type
-            if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
+
+            try
+            {
+                if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
+                    TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
+            }
+            catch
+            {
+                EncodingRUFeatureOn = false;
+            }
 
             ApplySettingsOptions(true);
         }
@@ -5193,12 +5202,20 @@ typeof(FilterTime)
             tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
 
             // Encoding Reserved Unit(s)
-            comboBoxEncodingRU.Items.Clear();
-            comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
-            comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
-            trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
-            trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            UpdateLabelProcessorUnits();
+            if (EncodingRUFeatureOn)
+            {
+                comboBoxEncodingRU.Items.Clear();
+                comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
+                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
+                trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+                trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+                UpdateLabelProcessorUnits();
+            }
+            else
+            {
+                comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
+            }
+
         }
 
         private void DoRefreshGridStorageV(bool firstime)
@@ -6991,11 +7008,11 @@ typeof(FilterTime)
 
                         if (form2.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, form3_PlayReady.PlayReadyCustomAttributes);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form3_PlayReady.PlayReadyCustomAttributes);
                         }
                         else // Licenses NOT delivered by Azure Media Services but by a third party server
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl), form3_PlayReady.PlayReadyCustomAttributes);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl), form3_PlayReady.PlayReadyLAurlEncodeForSL, form3_PlayReady.PlayReadyCustomAttributes);
                         }
 
 
@@ -7137,7 +7154,7 @@ typeof(FilterTime)
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
                                 InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
                                 SigningCredentials cred = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
-            
+
                             }
                             else // asymmetric
                             {
@@ -7247,10 +7264,10 @@ typeof(FilterTime)
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("Dynamic encryption policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("Dynamic encryption policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);
@@ -7265,6 +7282,7 @@ typeof(FilterTime)
 
                         if (AssetToProcess != null)
                         {
+                            List<string> AutPolListIDs = new List<string>();
                             try
                             {
                                 //Removing all locators associated with asset
@@ -7282,50 +7300,128 @@ typeof(FilterTime)
                                 }
 
                                 //Removing all authorization policies associated with asset keys
-                                var AutPolListIDs = AssetToProcess.ContentKeys.Select(k => k.AuthorizationPolicyId).ToList();
+                                AutPolListIDs = AssetToProcess.ContentKeys.Select(k => k.AuthorizationPolicyId).ToList();
                                 AssetToProcess.ContentKeys.ToList().ForEach(k => k.AuthorizationPolicyId = null);
                                 var tasks2 = AssetToProcess.ContentKeys
                                         .ToList()
                                         .Select(k => k.UpdateAsync())
                                         .ToArray();
                                 Task.WaitAll(tasks2);
-
-                                if (myDialogResult == DialogResult.Yes) // Let's delete the policies
-                                {
-                                    // deleting delivering policies
-                                    Task<IMediaDataServiceResponse>[] deleteTasks = DelPolItems.Select(policy => policy.DeleteAsync()).ToArray();
-                                    Task.WaitAll(deleteTasks);
-
-                                    // deleting authorization policies options
-                                    foreach (var autpol in AssetToProcess.ContentKeys)
-                                    {
-                                        deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(o => o.Id == autpol.AuthorizationPolicyId).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
-                                        Task.WaitAll(deleteTasks);
-                                    }
-
-                                    // deleting authorization policies
-                                    deleteTasks = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => AutPolListIDs.Contains(p.Id)).ToList().Select(policy => policy.DeleteAsync()).ToArray();
-                                    Task.WaitAll(deleteTasks);
-
-                                    /* // Code removed as it will delete also storage encryption key !
-                                    //removing all content keys associated with assets
-                                    for (int j = 0; j < AssetToProcess.ContentKeys.Count; j++)
-                                    {
-                                        AssetToProcess.ContentKeys.RemoveAt(0);
-                                    }
-                                     */
-                                }
                             }
-
                             catch (Exception e)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine("There is a problem when removing the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(e);
                             }
 
+
+                            if (myDialogResult == DialogResult.Yes) // Let's delete the policies
+                            {
+                                try
+                                {
+                                    // deleting authorization policies & options
+                                    var policies = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => AutPolListIDs.Contains(p.Id)).ToList();
+                                    foreach (var policy in policies)
+                                    {
+                                        var AutPolOptionListIDs = policy.Options.Select(o => o.Id).ToList(); // create a list of IDs
+                                        policy.Delete();
+
+                                        // deleting authorization policies options
+                                        Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.ToList().Where(p => AutPolOptionListIDs.Contains(p.Id)).ToList().Select(o => o.DeleteAsync()).ToArray();
+                                        Task.WaitAll(deleteTasks);
+                                    }
+
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                }
+
+
+                            }
+
+
+
                             if (Error) break;
-                            TextBoxLogWriteLine("Removed{0} asset delivery policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+                            TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+
+                            dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRemoveKeys()
+        {
+            string labelAssetName;
+
+            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+
+            if (SelectedAssets.Count > 0)
+            {
+                labelAssetName = string.Format("CENC and Enveloppe keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                if (SelectedAssets.Count > 1)
+                {
+                    labelAssetName = string.Format("CENC and Enveloppe keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                }
+                labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
+
+                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                if (myDialogResult != DialogResult.Cancel)
+                {
+                    bool Error = false;
+
+                    foreach (IAsset AssetToProcess in SelectedAssets)
+                    {
+
+                        if (AssetToProcess != null)
+                        {
+                            List<string> KeysListIDs = new List<string>();
+                            try
+                            {
+                                IList<IContentKey> CENCAESkeys = AssetToProcess.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption || k.ContentKeyType == ContentKeyType.EnvelopeEncryption).ToList();
+                                KeysListIDs = CENCAESkeys.Select(k => k.Id).ToList(); // create a list of IDs
+
+
+
+                                // deleting authorization policies & options
+                                foreach (var key in CENCAESkeys)
+                                {
+                                    AssetToProcess.ContentKeys.Remove(key);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when removing the keys for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                            }
+
+                            if (myDialogResult == DialogResult.Yes) // Let's delete the keys
+                            {
+
+                                try
+                                {
+                                    // deleting keys
+                                    var deleteTasks = _context.ContentKeys.ToList().Where(k => KeysListIDs.Contains(k.Id)).ToList().Select(k => k.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting the keys for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                }
+                            }
+
+
+                            if (Error) break;
+                            TextBoxLogWriteLine("Removed{0} CENC and Enveloppe keys for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
@@ -8278,6 +8374,16 @@ typeof(FilterTime)
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://ie.microsoft.com/testdrive/graphics/captionmaker");
+        }
+
+        private void removeKeysForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
+        }
+
+        private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
         }
     }
 }
