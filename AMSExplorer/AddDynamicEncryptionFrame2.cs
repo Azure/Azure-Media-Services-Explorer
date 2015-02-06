@@ -194,7 +194,7 @@ namespace AMSExplorer
 
         private void UpdateButtonOk()
         {
-            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || (radioButtonJWTX509.Checked && cert != null))));
+            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || (radioButtonJWTX509.Checked && cert != null))));
         }
     }
 }
