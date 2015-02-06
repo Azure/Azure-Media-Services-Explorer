@@ -91,7 +91,7 @@ namespace AMSExplorer
             numericUpDownPriority.Value = 10;
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 365;
-            numericUpDownTokenDuration.Value = 5;
+            numericUpDownTokenDuration.Value = 60;
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
             numericUpDownIndexingPrice.Value = ((decimal)10);
