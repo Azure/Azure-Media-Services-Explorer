@@ -80,5 +80,8 @@
     <Setting Name="Currency" Type="System.String" Scope="User">
       <Value Profile="(Default)">$</Value>
     </Setting>
+    <Setting Name="DefaultTokenDuration" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

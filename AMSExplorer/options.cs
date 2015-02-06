@@ -58,6 +58,7 @@ namespace AMSExplorer
 
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
             Properties.Settings.Default.DefaultLocatorDurationDays = (int)numericUpDownLocatorDuration.Value;
+            Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
             Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
@@ -90,6 +91,7 @@ namespace AMSExplorer
             numericUpDownPriority.Value = 10;
             textBoxCurrency.Text = "$";
             numericUpDownLocatorDuration.Value = 365;
+            numericUpDownTokenDuration.Value = 60;
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
             numericUpDownIndexingPrice.Value = ((decimal)10);
@@ -125,7 +127,8 @@ namespace AMSExplorer
 
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
             numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDays;
-
+            numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
+    
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
             numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;

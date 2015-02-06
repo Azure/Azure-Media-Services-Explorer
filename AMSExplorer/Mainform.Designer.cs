@@ -68,12 +68,15 @@
             this.publishToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeKeysForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
             this.createALocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extendExistingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemPlaybackWithFlashOSMFAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.withFlashTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
@@ -144,12 +147,15 @@
             this.publishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.removeKeysForTheAssetsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator22 = new System.Windows.Forms.ToolStripSeparator();
             this.createALocatorForTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extendExistingStreamingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.withFlashOSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withFlashAESTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withSilverlightMMPPFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -169,6 +175,8 @@
             this.copyInputSSLURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPreviewURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackThePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
             this.withFlashOSMFAzurePlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withSilverlightMonitoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
@@ -205,6 +213,8 @@
             this.iVXHLSPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oSMFToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
+            this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -278,6 +288,8 @@
             this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
             this.withFlashOSMFAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withSilverlightMontoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label15 = new System.Windows.Forms.Label();
@@ -310,6 +322,8 @@
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyTheOutputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.withFlashAESTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring = new System.Windows.Forms.ToolStripMenuItem();
@@ -487,7 +501,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -717,6 +731,7 @@
             this.publishToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem1,
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1,
+            this.removeKeysForTheAssetsToolStripMenuItem,
             this.toolStripSeparator24,
             this.createALocatorToolStripMenuItem,
             this.extendExistingLocatorsToolStripMenuItem,
@@ -743,6 +758,14 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1.Size = new System.Drawing.Size(447, 22);
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1.Text = "Remove all dynamic encryption policies for the asset(s)...";
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1.Click += new System.EventHandler(this.removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click);
+            // 
+            // removeKeysForTheAssetsToolStripMenuItem
+            // 
+            this.removeKeysForTheAssetsToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.cancel;
+            this.removeKeysForTheAssetsToolStripMenuItem.Name = "removeKeysForTheAssetsToolStripMenuItem";
+            this.removeKeysForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(447, 22);
+            this.removeKeysForTheAssetsToolStripMenuItem.Text = "Remove keys for the asset(s)...";
+            this.removeKeysForTheAssetsToolStripMenuItem.Click += new System.EventHandler(this.removeKeysForTheAssetsToolStripMenuItem_Click);
             // 
             // toolStripSeparator24
             // 
@@ -786,6 +809,8 @@
             // ContextMenuItemAssetPlayback
             // 
             this.ContextMenuItemAssetPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem,
+            this.toolStripSeparator2,
             this.ContextMenuItemPlaybackWithFlashOSMFAzure,
             this.withFlashTokenPlayerToolStripMenuItem,
             this.ContextMenuItemPlaybackWithSilverlightMonitoring,
@@ -798,6 +823,19 @@
             this.ContextMenuItemAssetPlayback.Size = new System.Drawing.Size(349, 22);
             this.ContextMenuItemAssetPlayback.Text = "Playback the asset";
             this.ContextMenuItemAssetPlayback.DropDownOpening += new System.EventHandler(this.playbackTheAssetToolStripMenuItem_DropDownOpening);
+            // 
+            // withAzureMediaPlayerToolStripMenuItem
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem.Name = "withAzureMediaPlayerToolStripMenuItem";
+            this.withAzureMediaPlayerToolStripMenuItem.ShortcutKeyDisplayString = "Alt+A";
+            this.withAzureMediaPlayerToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
+            this.withAzureMediaPlayerToolStripMenuItem.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(353, 6);
             // 
             // ContextMenuItemPlaybackWithFlashOSMFAzure
             // 
@@ -844,7 +882,6 @@
             // ContextMenuItemPlaybackWithMPEGDASHAzure
             // 
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Name = "ContextMenuItemPlaybackWithMPEGDASHAzure";
-            this.ContextMenuItemPlaybackWithMPEGDASHAzure.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Size = new System.Drawing.Size(356, 22);
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Text = "with MPEG-DASH Azure Player";
             this.ContextMenuItemPlaybackWithMPEGDASHAzure.Click += new System.EventHandler(this.withMPEGDASHAzurePlayerToolStripMenuItem1_Click);
@@ -1415,6 +1452,7 @@
             this.publishToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem,
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem,
+            this.removeKeysForTheAssetsToolStripMenuItem1,
             this.toolStripSeparator22,
             this.createALocatorForTheAssetToolStripMenuItem,
             this.extendExistingStreamingLocatorsToolStripMenuItem,
@@ -1443,6 +1481,14 @@
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem.Size = new System.Drawing.Size(447, 22);
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem.Text = "Remove all dynamic encryption policies for the asset(s)...";
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem.Click += new System.EventHandler(this.removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click);
+            // 
+            // removeKeysForTheAssetsToolStripMenuItem1
+            // 
+            this.removeKeysForTheAssetsToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.cancel;
+            this.removeKeysForTheAssetsToolStripMenuItem1.Name = "removeKeysForTheAssetsToolStripMenuItem1";
+            this.removeKeysForTheAssetsToolStripMenuItem1.Size = new System.Drawing.Size(447, 22);
+            this.removeKeysForTheAssetsToolStripMenuItem1.Text = "Remove keys for the asset(s)...";
+            this.removeKeysForTheAssetsToolStripMenuItem1.Click += new System.EventHandler(this.removeKeysForTheAssetsToolStripMenuItem1_Click);
             // 
             // toolStripSeparator22
             // 
@@ -1486,6 +1532,8 @@
             // playbackToolStripMenuItem
             // 
             this.playbackToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem1,
+            this.toolStripSeparator7,
             this.withFlashOSMFToolStripMenuItem,
             this.withFlashAESTokenPlayerToolStripMenuItem1,
             this.withSilverlightMMPPFToolStripMenuItem,
@@ -1499,6 +1547,19 @@
             this.playbackToolStripMenuItem.Size = new System.Drawing.Size(447, 22);
             this.playbackToolStripMenuItem.Text = "Playback";
             this.playbackToolStripMenuItem.DropDownOpening += new System.EventHandler(this.playbackToolStripMenuItem_DropDownOpening);
+            // 
+            // withAzureMediaPlayerToolStripMenuItem1
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem1.Name = "withAzureMediaPlayerToolStripMenuItem1";
+            this.withAzureMediaPlayerToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
+            this.withAzureMediaPlayerToolStripMenuItem1.Size = new System.Drawing.Size(348, 22);
+            this.withAzureMediaPlayerToolStripMenuItem1.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(345, 6);
             // 
             // withFlashOSMFToolStripMenuItem
             // 
@@ -1546,7 +1607,6 @@
             // withMPEGDASHAzurePlayerToolStripMenuItem
             // 
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Name = "withMPEGDASHAzurePlayerToolStripMenuItem";
-            this.withMPEGDASHAzurePlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.A)));
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(348, 22);
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Text = "with MPEG-DASH Azure Player";
             this.withMPEGDASHAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.withMPEGDASHAzurePlayerToolStripMenuItem_Click);
@@ -1672,12 +1732,26 @@
             // playbackThePreviewToolStripMenuItem
             // 
             this.playbackThePreviewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem3,
+            this.toolStripSeparator27,
             this.withFlashOSMFAzurePlayerToolStripMenuItem1,
             this.withSilverlightMonitoringPlayerToolStripMenuItem});
             this.playbackThePreviewToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.play;
             this.playbackThePreviewToolStripMenuItem.Name = "playbackThePreviewToolStripMenuItem";
             this.playbackThePreviewToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.playbackThePreviewToolStripMenuItem.Text = "Playback the Preview";
+            // 
+            // withAzureMediaPlayerToolStripMenuItem3
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem3.Name = "withAzureMediaPlayerToolStripMenuItem3";
+            this.withAzureMediaPlayerToolStripMenuItem3.Size = new System.Drawing.Size(250, 22);
+            this.withAzureMediaPlayerToolStripMenuItem3.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem3.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator27
+            // 
+            this.toolStripSeparator27.Name = "toolStripSeparator27";
+            this.toolStripSeparator27.Size = new System.Drawing.Size(247, 6);
             // 
             // withFlashOSMFAzurePlayerToolStripMenuItem1
             // 
@@ -1886,7 +1960,9 @@
             this.hTML5VideoElementToolStripMenuItem,
             this.iVXHLSPlayerToolStripMenuItem,
             this.oSMFToolStripMenuItem,
-            this.jwPlayerToolStripMenuItem});
+            this.jwPlayerToolStripMenuItem,
+            this.toolStripSeparator29,
+            this.hTML5CaptionMakerToolStripMenuItem});
             this.samplePlayersToolStripMenuItem.Name = "samplePlayersToolStripMenuItem";
             this.samplePlayersToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.samplePlayersToolStripMenuItem.Text = "External links";
@@ -1909,7 +1985,7 @@
             this.azureMediaServicesPlayerPageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("azureMediaServicesPlayerPageToolStripMenuItem.Image")));
             this.azureMediaServicesPlayerPageToolStripMenuItem.Name = "azureMediaServicesPlayerPageToolStripMenuItem";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
-            this.azureMediaServicesPlayerPageToolStripMenuItem.Text = "Azure Media Services Player Page";
+            this.azureMediaServicesPlayerPageToolStripMenuItem.Text = "Azure Media Player";
             this.azureMediaServicesPlayerPageToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesPlayerPageToolStripMenuItem_Click);
             // 
             // silverlightMonitoringPlayerToolStripMenuItem
@@ -1983,6 +2059,19 @@
             this.jwPlayerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.jwPlayerToolStripMenuItem.Text = "JW Player";
             this.jwPlayerToolStripMenuItem.Click += new System.EventHandler(this.jwPlayerToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator29
+            // 
+            this.toolStripSeparator29.Name = "toolStripSeparator29";
+            this.toolStripSeparator29.Size = new System.Drawing.Size(357, 6);
+            // 
+            // hTML5CaptionMakerToolStripMenuItem
+            // 
+            this.hTML5CaptionMakerToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.hTML5CaptionMakerToolStripMenuItem.Name = "hTML5CaptionMakerToolStripMenuItem";
+            this.hTML5CaptionMakerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.hTML5CaptionMakerToolStripMenuItem.Text = "HTML5 Caption Maker";
+            this.hTML5CaptionMakerToolStripMenuItem.Click += new System.EventHandler(this.hTML5CaptionMakerToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -2796,12 +2885,26 @@
             // playbackTheProgramToolStripMenuItem
             // 
             this.playbackTheProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem4,
+            this.toolStripSeparator28,
             this.withFlashOSMFAzurePlayerToolStripMenuItem,
             this.withSilverlightMontoringPlayerToolStripMenuItem});
             this.playbackTheProgramToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playbackTheProgramToolStripMenuItem.Image")));
             this.playbackTheProgramToolStripMenuItem.Name = "playbackTheProgramToolStripMenuItem";
             this.playbackTheProgramToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
             this.playbackTheProgramToolStripMenuItem.Text = "Playback the Preview";
+            // 
+            // withAzureMediaPlayerToolStripMenuItem4
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem4.Name = "withAzureMediaPlayerToolStripMenuItem4";
+            this.withAzureMediaPlayerToolStripMenuItem4.Size = new System.Drawing.Size(250, 22);
+            this.withAzureMediaPlayerToolStripMenuItem4.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem4.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem4_Click);
+            // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(247, 6);
             // 
             // withFlashOSMFAzurePlayerToolStripMenuItem
             // 
@@ -3111,6 +3214,8 @@
             // ContextMenuItemProgramPlayback
             // 
             this.ContextMenuItemProgramPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem2,
+            this.toolStripSeparator10,
             this.ContextMenuItemProgramPlaybackWithFlashOSMFAzure,
             this.withFlashAESTokenPlayerToolStripMenuItem,
             this.ContextMenuItemProgramPlaybackWithSilverlightMontoring,
@@ -3121,6 +3226,18 @@
             this.ContextMenuItemProgramPlayback.Name = "ContextMenuItemProgramPlayback";
             this.ContextMenuItemProgramPlayback.Size = new System.Drawing.Size(262, 22);
             this.ContextMenuItemProgramPlayback.Text = "Playback the program";
+            // 
+            // withAzureMediaPlayerToolStripMenuItem2
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem2.Name = "withAzureMediaPlayerToolStripMenuItem2";
+            this.withAzureMediaPlayerToolStripMenuItem2.Size = new System.Drawing.Size(288, 22);
+            this.withAzureMediaPlayerToolStripMenuItem2.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(285, 6);
             // 
             // ContextMenuItemProgramPlaybackWithFlashOSMFAzure
             // 
@@ -4006,6 +4123,20 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripStorage;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem attachAnotherStorageAccountToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator10;
+        private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator27;
+        private System.Windows.Forms.ToolStripMenuItem withAzureMediaPlayerToolStripMenuItem4;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator28;
+        private System.Windows.Forms.ToolStripMenuItem hTML5CaptionMakerToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
+        private System.Windows.Forms.ToolStripMenuItem removeKeysForTheAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem removeKeysForTheAssetsToolStripMenuItem1;
     }
 }
 
