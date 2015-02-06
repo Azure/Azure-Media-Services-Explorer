@@ -51,6 +51,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
 using System.Text.RegularExpressions;
+using System.IdentityModel.Tokens;
 
 
 namespace AMSExplorer
@@ -58,7 +59,7 @@ namespace AMSExplorer
 
     public partial class Mainform : Form
     {
-        // XML Congiguration files path.
+        // XML Configuration files path.
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
@@ -84,6 +85,7 @@ namespace AMSExplorer
         private System.Timers.Timer TimerAutoRefresh;
 
         bool DisplaySplashDuringLoading;
+        private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
         public Mainform()
         {
@@ -107,7 +109,7 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             }
-            Program.SaveAndProtectUserConfig(); // to save settings and to make sure they are encrypted if the user just upgraded from an earlier version
+            Program.SaveAndProtectUserConfig(); // to save settings 
 
 
 
@@ -181,9 +183,16 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("There are {0} channels and {1} streaming endpoint(s). Recommandation is to provision at least 1 streaming endpoint per group of 5 channels.", nbchannels, nbse, true); // Warning
 
             // let's check the encoding reserved unit and type
-            if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
-                TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
-
+            try
+            {
+                if ((_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0) && (_context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType != ReservedUnitType.Basic))
+                    TextBoxLogWriteLine("There is no reserved encoding unit (encoding will use a shared pool) but unit type is not set to BASIC.", true); // Warning
+            }
+            catch // can occur on test account
+            {
+                EncodingRUFeatureOn = false;
+                TextBoxLogWriteLine("There is an error when accessing to the Encoding Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
+            }
             ApplySettingsOptions(true);
         }
 
@@ -1168,7 +1177,7 @@ namespace AMSExplorer
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
 
-                if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -1204,7 +1213,7 @@ namespace AMSExplorer
                 else
                 {
                     string newassetname = string.Empty;
-                    if (InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
+                    if (Program.InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
                     {
 
                         if (!havestoragecredentials)
@@ -1414,57 +1423,7 @@ namespace AMSExplorer
             }
         }
 
-        public static DialogResult InputBox(string title, string promptText, ref string value)
-        {
-            Button buttonOk = new Button()
-                {
-                    Text = "OK",
-                    DialogResult = DialogResult.OK,
-                    Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-                };
 
-            Button buttonCancel = new Button()
-                {
-                    Text = "Cancel",
-                    DialogResult = DialogResult.Cancel,
-                    Anchor = AnchorStyles.Bottom | AnchorStyles.Right
-                };
-
-
-            Form form = new Form()
-            {
-                ClientSize = new Size(396, 107),
-                Text = title,
-                StartPosition = FormStartPosition.CenterScreen,
-                MinimizeBox = false,
-                MaximizeBox = false,
-                AcceptButton = buttonOk,
-                CancelButton = buttonCancel,
-                FormBorderStyle = FormBorderStyle.FixedDialog
-            };
-
-            Label label = new Label()
-            {
-                AutoSize = true,
-                Text = promptText
-            };
-            TextBox textBox = new TextBox()
-            {
-                Text = value
-            };
-
-            label.SetBounds(9, 20, 372, 13);
-            textBox.SetBounds(12, 36, 372, 20);
-            buttonOk.SetBounds(228, 72, 75, 23);
-            buttonCancel.SetBounds(309, 72, 75, 23);
-            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
-            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
-            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
-
-            DialogResult dialogResult = form.ShowDialog();
-            value = textBox.Text;
-            return dialogResult;
-        }
 
 
 
@@ -1540,7 +1499,7 @@ namespace AMSExplorer
                 {
                     string value = AssetTORename.Name;
 
-                    if (InputBox("Asset rename", "Enter the new name:", ref value) == DialogResult.OK)
+                    if (Program.InputBox("Asset rename", "Enter the new name:", ref value) == DialogResult.OK)
                     {
                         try
                         {
@@ -2075,7 +2034,7 @@ namespace AMSExplorer
 
             if (!havestoragecredentials)
             { // No blob credentials. Let's ask the user
-                if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                 {
                     _credentials.StorageKey = valuekey;
                     havestoragecredentials = true;
@@ -3305,7 +3264,7 @@ namespace AMSExplorer
                 string keyDeliveryServiceUri = form.PlayReadyLAurl;
                 if (form.PlayReadyConfigureLicenseDelivery)
                 {
-                    PlayReadyLicense formPlayReady = new PlayReadyLicense();
+                    AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReady = new AddDynamicEncryptionFrame4_PlayReadyLicense();
                     if (formPlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
                         try
@@ -3555,7 +3514,7 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://amsplayer.azurewebsites.net/player.html");
+            Process.Start(@"http://aka.ms/azuremediaplayer");
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3573,9 +3532,6 @@ namespace AMSExplorer
         private void Mainform_Load(object sender, EventArgs e)
         {
             Hide();
-
-
-
 
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
@@ -4273,7 +4229,7 @@ typeof(FilterTime)
             if (clipbs != null) if (clipbs.StartsWith("nb:jid:UUID:")) JobId = clipbs;
 
 
-            if (InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
+            if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
             {
                 IJob KnownJob = GetJob(JobId);
                 if (KnownJob == null)
@@ -4293,7 +4249,7 @@ typeof(FilterTime)
             string clipbs = Clipboard.GetText();
             if (clipbs != null) if (clipbs.StartsWith("nb:cid:UUID:")) AssetId = clipbs;
 
-            if (InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
+            if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
                 IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
                 if (KnownAsset == null)
@@ -4559,7 +4515,7 @@ typeof(FilterTime)
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -4567,7 +4523,7 @@ typeof(FilterTime)
         private void withSilverlightMMPPFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -4608,7 +4564,7 @@ typeof(FilterTime)
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
 
@@ -4616,25 +4572,26 @@ typeof(FilterTime)
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
+
         }
 
         private void withSilverlightMontoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -4734,7 +4691,7 @@ typeof(FilterTime)
             {
                 if (!havestoragecredentials)
                 { // No blob credentials. Let's ask the user
-                    if (InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + _context.DefaultStorageAccount.Name + ":", ref valuekey) == DialogResult.OK)
                     {
                         _credentials.StorageKey = valuekey;
                         havestoragecredentials = true;
@@ -5245,12 +5202,20 @@ typeof(FilterTime)
             tabPageProcessors.Text = string.Format(Constants.TabProcessors + " ({0})", Procs.Count());
 
             // Encoding Reserved Unit(s)
-            comboBoxEncodingRU.Items.Clear();
-            comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
-            comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
-            trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
-            trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
-            UpdateLabelProcessorUnits();
+            if (EncodingRUFeatureOn)
+            {
+                comboBoxEncodingRU.Items.Clear();
+                comboBoxEncodingRU.Items.AddRange(Enum.GetNames(typeof(ReservedUnitType)).ToArray()); // encoding ru hardware type
+                comboBoxEncodingRU.SelectedItem = Enum.GetName(typeof(ReservedUnitType), _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType);
+                trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
+                trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
+                UpdateLabelProcessorUnits();
+            }
+            else
+            {
+                comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
+            }
+
         }
 
         private void DoRefreshGridStorageV(bool firstime)
@@ -6069,8 +6034,8 @@ typeof(FilterTime)
 
             if (setupdynamicencryption) // user want to enable Dynamic Encryption on the program's asset. We must do it before locator creation
             {
-                // if user want to create a locator, force locator and setyp dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
-                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, true, createlocator && (LocatorID != null));
+                // if user want to create a locator, force locator and setup dyn encryption, that means he wants to replicate the program from another dc, and so must provide the content key to have a mirror stream 
+                oktocontinue = SetupDynamicEncryption(new List<IAsset> { newAsset }, createlocator && (LocatorID != null));
             }
 
             if (oktocontinue)
@@ -6681,14 +6646,12 @@ typeof(FilterTime)
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString(), _context, program.Asset);
-                    //AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString() );
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: ValidURIs.FirstOrDefault().ToString(), context: _context, myasset: program.Asset);
                 }
                 else
                 {
                     TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
                 }
-
             }
         }
 
@@ -6699,7 +6662,7 @@ typeof(FilterTime)
             {
                 if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
                 }
             }
         }
@@ -6728,14 +6691,15 @@ typeof(FilterTime)
         private void withSilverlightMontoringPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
 
         }
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
+
 
         }
 
@@ -6847,10 +6811,10 @@ typeof(FilterTime)
         private void DoSetupDynEnc()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
-            SetupDynamicEncryption(SelectedAssets, false, false);
+            SetupDynamicEncryption(SelectedAssets, false);
         }
 
-        private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool IsLiveAsset, bool forceusertoprovidekey)
+        private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool forceusertoprovidekey)
         {
             string labelAssetName;
             bool oktoproceed = false;
@@ -6861,281 +6825,400 @@ typeof(FilterTime)
                 {
                     labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
                 }
-                AddDynamicEncryption form = new AddDynamicEncryption(_context, IsLiveAsset, forceusertoprovidekey);
+                AddDynamicEncryptionFrame1 form1 = new AddDynamicEncryptionFrame1(_context);
 
-                if (form.ShowDialog() == DialogResult.OK)
+                if (form1.ShowDialog() == DialogResult.OK)
                 {
-
-                    bool UserCancelledPlayReadyForm = false;
-                    PlayReadyLicense formPlayReadyLicense = new PlayReadyLicense();
-                    PlayReadyExternalServer formPlayReadyExternalServer = new PlayReadyExternalServer(SelectedAssets.Count > 1, /*forceusertoprovidekey ||*/ form.GetKeyRestrictionType != null);
-                    string aeskey = string.Empty;
-
-                    // TO DO: ASK for content key if the user has to provid it for CENC
-                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
+                    if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption) // AES or PlayReady encryption. No need to ask more info if user wants to stream protected content in clear
                     {
-                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
+                        if (form1.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
                         {
-                            if (forceusertoprovidekey || !form.ContentKeyRandomGeneration) // user has to provide the playready key
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, false) { Left = form1.Left, Top = form1.Top };
+                            if (form2.ShowDialog() == DialogResult.OK)
                             {
-                                if (formPlayReadyExternalServer.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                                bool NeedToDisplayPlayReadyLicense = form2.GetKeyRestrictionType != null;
+                                AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady = new AddDynamicEncryptionFrame3_PlayReadyKeyConfig(
+                                    SelectedAssets.Count > 1, form2.GetKeyRestrictionType != null, forceusertoprovidekey || (form2.GetKeyRestrictionType == null), !NeedToDisplayPlayReadyLicense) { Left = form2.Left, Top = form2.Top };
+                                if (form3_PlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK) // let's display the playready content key dialog
                                 {
-                                    UserCancelledPlayReadyForm = true;
-                                }
-                            }
-                            if (!UserCancelledPlayReadyForm)
-                            {
-                                if (formPlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) //form to set the license
-                                {
-                                    UserCancelledPlayReadyForm = true;
+                                    AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense() { Left = form3_PlayReady.Left, Top = form3_PlayReady.Top };
+                                    bool usercancelledlicensedialogbox = false;
+                                    if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                    {
+                                        if (form4_PlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) // let's display the dialog box to configure the playready license
+                                        {
+                                            usercancelledlicensedialogbox = true;
+                                        }
+                                    }
+                                    if (!usercancelledlicensedialogbox)
+                                    {
+                                        DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2, form3_PlayReady, form4_PlayReadyLicense);
+                                        oktoproceed = true;
+                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                    }
                                 }
                             }
                         }
-                        else // PlayReady license but delivery from an external PlayReady server
+                        else if (form1.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // it's AES encryption
                         {
-                            if (formPlayReadyExternalServer.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, true) { Left = form1.Left, Top = form1.Top };
+                            if (form2.ShowDialog() == DialogResult.OK)
                             {
-                                UserCancelledPlayReadyForm = true;
+                                AddDynamicEncryptionFrame3_AESKeyConfig form3_AES = new AddDynamicEncryptionFrame3_AESKeyConfig(forceusertoprovidekey) { Left = form2.Left, Top = form2.Top };
+                                if (form3_AES.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                {
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2, form3_AES);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                }
                             }
                         }
                     }
-                    else if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption && (forceusertoprovidekey || !form.ContentKeyRandomGeneration)) // Envelope and user want to provide the key
+                    else // Dynamic decryption from a protected content
                     {
-                        if (InputBox("AES Key", "Please enter the AES clear key :", ref aeskey) == DialogResult.Cancel)
-                        {
-                            aeskey = string.Empty;
-                        }
-                    }
-
-
-                    if (!UserCancelledPlayReadyForm)
-                    {
+                        AddDynDecryption(SelectedAssets, form1, _context);
                         oktoproceed = true;
-                        bool Error = false;
-                        string keydeliveryconfig = null;
-                        foreach (IAsset AssetToProcess in SelectedAssets)
-                            if (AssetToProcess != null)
-                            {
-                                if (form.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption)  // Dynamic encryption
-                                {
-                                    IContentKey contentKey = null;
-
-                                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form.GetContentKeyType);
-                                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
-                                    {
-                                        try
-                                        {
-                                            if (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // Envelope
-                                            {
-                                                if ((forceusertoprovidekey || !form.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
-                                                {
-                                                    contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey));
-                                                }
-                                                else
-                                                {
-                                                    contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
-                                                }
-                                            }
-                                            else // CENC
-                                            {
-                                                if (form.GetKeyRestrictionType != null && (!forceusertoprovidekey && form.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
-                                                {
-                                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
-                                                }
-                                                else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
-                                                {
-                                                    if (!string.IsNullOrEmpty(formPlayReadyExternalServer.PlayReadyKeySeed)) // seed has been given
-                                                    {
-                                                        Guid keyid = (formPlayReadyExternalServer.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)formPlayReadyExternalServer.PlayReadyKeyId;
-                                                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyKeySeed), keyid);
-                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
-                                                    }
-                                                    else // no seed given, so content key has been setup
-                                                    {
-                                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)formPlayReadyExternalServer.PlayReadyKeyId, Convert.FromBase64String(formPlayReadyExternalServer.PlayReadyContentKey));
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            // Add useful information to the exception
-                                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                                            TextBoxLogWriteLine(e);
-                                            Error = true;
-                                        }
-                                        if (Error) break;
-                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                                    }
-                                    else if (form.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
-                                    {
-                                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
-                                    }
-
-                                    else // let's use existing content key
-                                    {
-                                        contentKey = contentkeys.FirstOrDefault();
-                                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
-                                    }
-
-
-                                    // if CENC, let's build the PlayReady license template
-                                    if (form.GetContentKeyType == ContentKeyType.CommonEncryption)
-                                    {
-                                        if (form.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
-                                        {
-                                            try
-                                            {
-                                                keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReadyLicense.GetLicenseTemplate);
-                                            }
-                                            catch (Exception e)
-                                            {
-                                                // Add useful information to the exception
-                                                TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
-                                                TextBoxLogWriteLine(e);
-                                                Error = true;
-                                            }
-
-                                        }
-                                        else // PlayReady license but delivery from an external PlayReady server
-                                        {
-
-                                        }
-
-                                    }
-
-                                    string tokenTemplateString = null;
-                                    try
-                                    {
-                                        switch (form.GetKeyRestrictionType)
-                                        {
-                                            case ContentKeyRestrictionType.Open:
-
-                                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, (form.GetContentKeyType == ContentKeyType.EnvelopeEncryption) ? ContentKeyDeliveryType.BaselineHttp : ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                                break;
-
-                                            case ContentKeyRestrictionType.TokenRestricted:
-
-
-                                                if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                                                {
-                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context, keydeliveryconfig);
-                                                    TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                                }
-                                                else  // Envelope encryption 
-                                                {
-                                                    tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form.GetAudienceUri, form.GetIssuerUri, _context);
-                                                    TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                                }
-
-                                                break;
-
-                                            case null:
-                                                break;
-
-                                            default:
-                                                break;
-                                        }
-                                    }
-
-                                    catch (Exception e)
-                                    {
-                                        // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
-                                    if (Error) break;
-
-
-                                    // Let's create the Asset Delivery Policy now
-                                    IAssetDeliveryPolicy DelPol = null;
-                                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form.GetContentKeyType.ToString(), form.GetAssetDeliveryProtocol.ToString());
-                                    try
-                                    {
-                                        if (form.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption) // CENC
-                                        {
-                                            if (form.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
-                                            {
-                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                            }
-                                            else // Licenses NOT delivered by Azure Media Services
-                                            {
-                                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context, new Uri(formPlayReadyExternalServer.PlayReadyLAurl));
-                                            }
-
-                                        }
-                                        else  // Envelope encryption or no encryption
-                                        {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form.GetAssetDeliveryProtocol, name, _context);
-                                        }
-
-                                        TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
-                                    }
-                                    catch (Exception e)
-                                    {
-                                        TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                                        TextBoxLogWriteLine(e);
-                                        Error = true;
-                                    }
-
-                                    if (Error) break;
-
-                                    if (!String.IsNullOrEmpty(tokenTemplateString))
-                                    {
-                                        string testToken = AssetInfo.GetTestToken(AssetToProcess, form.GetContentKeyType, _context);
-                                        TextBoxLogWriteLine("The authorization test token (without Bearer) is:\n{0}", testToken);
-                                        TextBoxLogWriteLine("The authorization test token (with Bearer) is:\n{0}", Constants.Bearer + testToken);
-                                    }
-                                }
-                                else // No Dynamic encryption
-                                {
-                                    IAssetDeliveryPolicy DelPol = null;
-
-                                    var DelPols = _context.AssetDeliveryPolicies
-                                       .Where(p => (p.AssetDeliveryProtocol == form.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
-                                    if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
-                                    {
-                                        try
-                                        {
-                                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form.GetAssetDeliveryProtocol, _context);
-                                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
-                                        }
-                                        catch (Exception e)
-                                        {
-                                            // Add useful information to the exception
-                                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                                            TextBoxLogWriteLine(e);
-                                            Error = true;
-                                        }
-                                    }
-                                    else // let's use an existing delivery policy for no dynamic encryption
-                                    {
-                                        try
-                                        {
-                                            AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
-                                            TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
-                                        }
-
-                                        catch (Exception e)
-                                        {
-                                            TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
-                                            TextBoxLogWriteLine(e);
-                                            Error = true;
-                                        }
-                                    }
-
-                                    if (Error) break;
-                                }
-
-                            }
-
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
             }
             return oktoproceed;
+        }
+
+
+
+        private bool DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady, AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReadyLicense)
+        {
+            bool Error = false;
+
+
+            foreach (IAsset AssetToProcess in SelectedAssets)
+            {
+                if (AssetToProcess != null)
+                {
+                    IContentKey contentKey = null;
+                    string keydeliveryconfig = null;
+
+                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
+                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                    {
+                        try
+                        {
+                            if (form2.GetKeyRestrictionType != null && (form3_PlayReady.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
+                            {
+                                contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
+                            }
+                            else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
+                            {
+                                if (!string.IsNullOrEmpty(form3_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                {
+                                    Guid keyid = (form3_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form3_PlayReady.PlayReadyKeyId;
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
+                                    //byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
+                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                }
+                                else // no seed given, so content key has been setup
+                                {
+                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form3_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form3_PlayReady.PlayReadyContentKey));
+                                }
+
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                        if (Error) return Error;
+                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                    }
+                    else if (form2.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
+                    {
+                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
+                    }
+
+                    else // let's use existing content key
+                    {
+                        contentKey = contentkeys.FirstOrDefault();
+                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                    }
+
+
+                    // let's build the PlayReady license template
+
+                    if (form2.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
+                    {
+                        try
+                        {
+                            keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReadyLicense.GetLicenseTemplate);
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+
+                    }
+                    else // PlayReady license but delivery from an external PlayReady server
+                    {
+
+                    }
+
+
+
+                    string tokenTemplateString = null;
+                    try
+                    {
+                        switch (form2.GetKeyRestrictionType)
+                        {
+                            case ContentKeyRestrictionType.Open:
+                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
+                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                break;
+
+                            case ContentKeyRestrictionType.TokenRestricted:
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context, keydeliveryconfig);
+                                TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                break;
+
+                            case null:
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                        TextBoxLogWriteLine(e);
+                        Error = true;
+                    }
+                    if (Error) return Error;
+
+
+                    // Let's create the Asset Delivery Policy now
+                    IAssetDeliveryPolicy DelPol = null;
+                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+                    try
+                    {
+
+                        if (form2.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
+                        {
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form3_PlayReady.PlayReadyCustomAttributes);
+                        }
+                        else // Licenses NOT delivered by Azure Media Services but by a third party server
+                        {
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl), form3_PlayReady.PlayReadyLAurlEncodeForSL, form3_PlayReady.PlayReadyCustomAttributes);
+                        }
+
+
+
+                        TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                        TextBoxLogWriteLine(e);
+                        Error = true;
+                    }
+
+                    if (Error) return Error;
+
+                    if (!String.IsNullOrEmpty(tokenTemplateString))
+                    {
+                        X509SigningCredentials signingcred = null;
+                        if (form2.GetTokenType == TokenType.JWT)
+                        {
+                            signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                        }
+
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
+                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
+                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                    }
+
+                }
+            }
+            return Error;
+        }
+
+        private bool DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_AESKeyConfig form3)
+        {
+            string aeskey = string.Empty;
+            if (!form3.ContentKeyRandomGeneration)
+            {
+                aeskey = form3.AESContentKey;
+            }
+            bool Error = false;
+            foreach (IAsset AssetToProcess in SelectedAssets)
+            {
+
+                if (AssetToProcess != null)
+                {
+                    IContentKey contentKey = null;
+
+                    var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
+                    if (contentkeys.Count() == 0) // no content key existing so we need to create one
+                    {
+                        try
+                        {
+                            if ((!form3.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
+                            {
+                                contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey));
+                            }
+                            else
+                            {
+                                contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                        if (Error) return Error;
+                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                    }
+
+                    else // let's use existing content key
+                    {
+                        contentKey = contentkeys.FirstOrDefault();
+                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                    }
+
+
+                    string tokenTemplateString = null;
+                    try
+                    {
+                        switch (form2.GetKeyRestrictionType)
+                        {
+                            case ContentKeyRestrictionType.Open:
+
+                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
+                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                break;
+
+                            case ContentKeyRestrictionType.TokenRestricted:
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context);
+                                TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                break;
+
+                            case null:
+                                break;
+
+                            default:
+                                break;
+                        }
+                    }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                        TextBoxLogWriteLine(e);
+                        Error = true;
+                    }
+                    if (Error) return Error;
+
+
+                    // Let's create the Asset Delivery Policy now
+                    IAssetDeliveryPolicy DelPol = null;
+                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+                    try
+                    {
+                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context);
+                        TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                    }
+                    catch (Exception e)
+                    {
+                        TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                        TextBoxLogWriteLine(e);
+                        Error = true;
+                    }
+
+                    if (Error) return Error;
+
+                    if (!String.IsNullOrEmpty(tokenTemplateString))
+                    {
+                        SigningCredentials signingcred = null;
+                        if (form2.GetTokenType == TokenType.JWT)
+                        {
+                            if (form2.IsJWTKeySymmetric)
+                            {
+                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                                InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
+                                SigningCredentials cred = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+
+                            }
+                            else // asymmetric
+                            {
+                                signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+
+                            }
+
+                        }
+                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
+                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
+                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                    }
+                }
+            }
+            return Error;
+        }
+
+        private bool AddDynDecryption(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, CloudMediaContext _context)
+        {
+            bool Error = false;
+            IAssetDeliveryPolicy DelPol = null;
+
+            foreach (IAsset AssetToProcess in SelectedAssets)
+                if (AssetToProcess != null)
+                {
+                    var DelPols = _context.AssetDeliveryPolicies
+                       .Where(p => (p.AssetDeliveryProtocol == form1.GetAssetDeliveryProtocol) && (p.AssetDeliveryPolicyType == AssetDeliveryPolicyType.NoDynamicEncryption));
+                    if (DelPols.Count() == 0) // no delivery policy found or user want to force creation
+                    {
+                        try
+                        {
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyNoDynEnc(AssetToProcess, form1.GetAssetDeliveryProtocol, _context);
+                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                    }
+                    else // let's use an existing delivery policy for no dynamic encryption
+                    {
+                        try
+                        {
+                            AssetToProcess.DeliveryPolicies.Add(DelPols.FirstOrDefault());
+                            TextBoxLogWriteLine("Binded existing asset delivery policy {0} for asset {1}.", DelPols.FirstOrDefault().Id, AssetToProcess.Name);
+                        }
+
+                        catch (Exception e)
+                        {
+                            TextBoxLogWriteLine("There is a problem when using the delivery policy {0} for '{1}'.", DelPols.FirstOrDefault().Id, AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                    }
+                }
+
+            return Error;
+
         }
 
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
@@ -7184,10 +7267,10 @@ typeof(FilterTime)
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("Dynamic encryption policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("Dynamic encryption policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);
@@ -7202,6 +7285,7 @@ typeof(FilterTime)
 
                         if (AssetToProcess != null)
                         {
+                            List<string> AutPolListIDs = new List<string>();
                             try
                             {
                                 //Removing all locators associated with asset
@@ -7212,41 +7296,135 @@ typeof(FilterTime)
                                 Task.WaitAll(tasks);
 
                                 //Removing all delivery policies associated with asset
-                                List<IAssetDeliveryPolicy> items = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
-                                foreach (var item in items)
+                                List<IAssetDeliveryPolicy> DelPolItems = AssetToProcess.DeliveryPolicies.ToList(); // let's do a copy of the list in order to do a removal
+                                foreach (var item in DelPolItems)
                                 {
                                     AssetToProcess.DeliveryPolicies.Remove(item);
                                 }
 
-
-                                if (myDialogResult == DialogResult.Yes) // Let's delete the policies
-                                {
-                                    Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicies.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policy => policy.DeleteAsync()).ToArray();
-                                    Task.WaitAll(deleteTasks);
-
-                                    deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.Where(c => c.Name == AssetToProcess.Id).ToList().Select(policyOption => policyOption.DeleteAsync()).ToArray();
-                                    Task.WaitAll(deleteTasks);
-
-
-                                    /* // Code removed as it will delete also storage encryption key !
-                                    //removing all content keys associated with assets
-                                    for (int j = 0; j < AssetToProcess.ContentKeys.Count; j++)
-                                    {
-                                        AssetToProcess.ContentKeys.RemoveAt(0);
-                                    }
-                                     */
-                                }
+                                //Removing all authorization policies associated with asset keys
+                                AutPolListIDs = AssetToProcess.ContentKeys.Select(k => k.AuthorizationPolicyId).ToList();
+                                AssetToProcess.ContentKeys.ToList().ForEach(k => k.AuthorizationPolicyId = null);
+                                var tasks2 = AssetToProcess.ContentKeys
+                                        .ToList()
+                                        .Select(k => k.UpdateAsync())
+                                        .ToArray();
+                                Task.WaitAll(tasks2);
                             }
-
                             catch (Exception e)
                             {
                                 // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine("There is a problem when removing the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(e);
                             }
 
+
+                            if (myDialogResult == DialogResult.Yes) // Let's delete the policies
+                            {
+                                try
+                                {
+                                    // deleting authorization policies & options
+                                    var policies = _context.ContentKeyAuthorizationPolicies.ToList().Where(p => AutPolListIDs.Contains(p.Id)).ToList();
+                                    foreach (var policy in policies)
+                                    {
+                                        var AutPolOptionListIDs = policy.Options.Select(o => o.Id).ToList(); // create a list of IDs
+                                        policy.Delete();
+
+                                        // deleting authorization policies options
+                                        Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.ToList().Where(p => AutPolOptionListIDs.Contains(p.Id)).ToList().Select(o => o.DeleteAsync()).ToArray();
+                                        Task.WaitAll(deleteTasks);
+                                    }
+
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                }
+
+
+                            }
+
+
+
                             if (Error) break;
-                            TextBoxLogWriteLine("Removed{0} asset delivery policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+                            TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
+
+                            dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRemoveKeys()
+        {
+            string labelAssetName;
+
+            List<IAsset> SelectedAssets = ReturnSelectedAssetsFromProgramsOrAssets();
+
+            if (SelectedAssets.Count > 0)
+            {
+                labelAssetName = string.Format("CENC and Enveloppe keys will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                if (SelectedAssets.Count > 1)
+                {
+                    labelAssetName = string.Format("CENC and Enveloppe keys will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                }
+                labelAssetName += Constants.endline + "Do you want to also DELETE the keys ?";
+
+                DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+
+                if (myDialogResult != DialogResult.Cancel)
+                {
+                    bool Error = false;
+
+                    foreach (IAsset AssetToProcess in SelectedAssets)
+                    {
+
+                        if (AssetToProcess != null)
+                        {
+                            List<string> KeysListIDs = new List<string>();
+                            try
+                            {
+                                IList<IContentKey> CENCAESkeys = AssetToProcess.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption || k.ContentKeyType == ContentKeyType.EnvelopeEncryption).ToList();
+                                KeysListIDs = CENCAESkeys.Select(k => k.Id).ToList(); // create a list of IDs
+
+
+
+                                // deleting authorization policies & options
+                                foreach (var key in CENCAESkeys)
+                                {
+                                    AssetToProcess.ContentKeys.Remove(key);
+                                }
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when removing the keys for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                            }
+
+                            if (myDialogResult == DialogResult.Yes) // Let's delete the keys
+                            {
+
+                                try
+                                {
+                                    // deleting keys
+                                    var deleteTasks = _context.ContentKeys.ToList().Where(k => KeysListIDs.Contains(k.Id)).ToList().Select(k => k.DeleteAsync()).ToArray();
+                                    Task.WaitAll(deleteTasks);
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when deleting the keys for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                }
+                            }
+
+
+                            if (Error) break;
+                            TextBoxLogWriteLine("Removed{0} CENC and Enveloppe keys for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
@@ -7346,13 +7524,13 @@ typeof(FilterTime)
         private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -7397,20 +7575,19 @@ typeof(FilterTime)
         private void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
-
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7421,13 +7598,13 @@ typeof(FilterTime)
         private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
@@ -7882,7 +8059,7 @@ typeof(FilterTime)
             string jobtemplatename = string.Empty;
             if (SelectedJobs.Count == 1)
             {
-                if (InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
+                if (Program.InputBox("Save as job template", "Job template name:", ref jobtemplatename) == DialogResult.OK)
                 {
                     IJobTemplate jtemplate = SelectedJobs.FirstOrDefault().SaveAsTemplate(jobtemplatename);
                 }
@@ -8021,14 +8198,14 @@ typeof(FilterTime)
         private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
 
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
         }
 
         private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8039,13 +8216,13 @@ typeof(FilterTime)
         private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void buttonUpdateEncodingRU_Click(object sender, EventArgs e)
@@ -8122,7 +8299,7 @@ typeof(FilterTime)
 
         private void UpdateLabelProcessorUnits()
         {
-            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 0 ? "s" : string.Empty);
+            labelnbunits.Text = string.Format(Constants.strUnits, trackBarEncodingRU.Value, trackBarEncodingRU.Value > 1 ? "s" : string.Empty);
         }
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
@@ -8149,6 +8326,67 @@ typeof(FilterTime)
 
         }
 
+        private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoPlaySelectedAssetsWithAzureMediaPlayer();
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoPlaySelectedAssetsWithAzureMediaPlayer();
+
+
+        }
+
+        private void DoPlaySelectedAssetsWithAzureMediaPlayer()
+        {
+            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            {
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
+            }
+            else
+            {
+                if (MessageBox.Show("There is no streaming locator. Do you want to create one ?", "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                {
+                    IAsset myAsset = ReturnSelectedAssets().FirstOrDefault();
+                    TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
+                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+                    ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, MyLocator.GetSmoothStreamingUri().ToString(), _context, myAsset);
+
+                }
+            }
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoPlaybackProgram(PlayerType.AzureMediaPlayer);
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            DoPlaybackChannelPreview(PlayerType.AzureMediaPlayer);
+        }
+
+        private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://ie.microsoft.com/testdrive/graphics/captionmaker");
+        }
+
+        private void removeKeysForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
+        }
+
+        private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
+        }
     }
 }
 

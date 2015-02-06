@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------- 
-// <copyright file="AddDynamicEncryption.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <copyright file="AddDynamicEncryptionFrame1.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -30,26 +30,8 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryption : Form
+    public partial class AddDynamicEncryptionFrame1 : Form
     {
-        public ContentKeyRestrictionType? GetKeyRestrictionType
-        {
-            get
-            {
-                if (radioButtonOpenAuthPolicy.Checked)
-                {
-                    return ContentKeyRestrictionType.Open;
-                }
-                else if (radioButtonTokenAuthPolicy.Checked)
-                {
-                    return ContentKeyRestrictionType.TokenRestricted;
-                }
-                else // PlayReady but no license delivery from Azure Media Services
-                {
-                    return null;
-                }
-            }
-        }
 
         public AssetDeliveryPolicyType GetDeliveryPolicyType
         {
@@ -89,51 +71,13 @@ namespace AMSExplorer
 
 
 
-        public Uri GetAudienceUri
-        {
-            get
-            {
-                return new Uri(textBoxAudience.Text);
-            }
-        }
-        public Uri GetIssuerUri
-        {
-            get
-            {
-                return new Uri(textBoxIssuer.Text);
-            }
-        }
-
-        public bool ContentKeyRandomGeneration
-        {
-            get
-            {
-                return radioButtonKeyRandomGeneration.Checked;
-            }
-            set
-            {
-                radioButtonKeyRandomGeneration.Checked = value;
-                radioButtonKeySpecifiedByUser.Checked = !value;
-            }
-        }
-
         private CloudMediaContext _context;
 
-        public AddDynamicEncryption(CloudMediaContext context, bool IsLiveAsset, bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame1(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            if (IsLiveAsset)
-            {// only AES encryption is supported for Live today, so let's disable storage decryption
-                radioButtonDecryptStorage.Enabled = false;
-            }
-            if (ForceUseToProvideKey) // code wants to forcxe user to provide the key
-            {
-                radioButtonKeyRandomGeneration.Enabled = false;
-                radioButtonKeyRandomGeneration.Checked = false;
-                radioButtonKeySpecifiedByUser.Checked = true;
-            }
         }
 
 
@@ -143,13 +87,6 @@ namespace AMSExplorer
 
         }
 
-
-
-        private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
-        {
-            panelAutPol.Enabled = radioButtonTokenAuthPolicy.Checked;
-
-        }
 
 
 
@@ -166,34 +103,23 @@ namespace AMSExplorer
 
         }
 
-        private void radioButtonOpen_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxForceCreateDelPol_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
+            // groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
-            if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
-            {
-                radioButtonOpenAuthPolicy.Checked = true;
-            }
+            /*
+                  radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
+                  if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
+                  {
+                      radioButtonOpenAuthPolicy.Checked = true;
+                  }
+             * */
         }
 
-        private void radioButtonNoAuthPolicy_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
-        }
 
     }
 }

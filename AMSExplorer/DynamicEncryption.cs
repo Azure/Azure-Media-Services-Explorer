@@ -34,12 +34,26 @@ using System.Xml.Linq;
 using System.Web;
 using System.Globalization;
 using System.Security;
+using System.Security.Claims;
+using System.Security.Cryptography.X509Certificates;
+using System.IdentityModel.Tokens;
+using System.Windows.Forms;
+
+
 
 namespace AMSExplorer
 {
+    public class MyTokenClaim
+    {
+        public string Type { get; set; }
+        public string Value { get; set; }
+    }
 
     class DynamicEncryption
     {
+
+
+
 
         /// <summary>
         /// Configures authorization policy. 
@@ -129,6 +143,7 @@ namespace AMSExplorer
 
             // Associate the key with the asset.
             asset.ContentKeys.Add(key);
+            asset.Update();
 
             return key;
         }
@@ -197,13 +212,16 @@ namespace AMSExplorer
 
 
 
-        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context)
+        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, IsJWTKeySymmetric, Certificate);
+
+
+
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
-                                    CreateAsync("HLS token restricted authorization policy").Result;
+                                    CreateAsync("Token restricted authorization policy").Result;
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions =
                     new List<ContentKeyAuthorizationPolicyRestriction>();
@@ -221,7 +239,7 @@ namespace AMSExplorer
             //You could have multiple options 
             IContentKeyAuthorizationPolicyOption policyOption =
                 _context.ContentKeyAuthorizationPolicyOptions.Create(
-                    "Token option for HLS",
+                    "Token option",
                     ContentKeyDeliveryType.BaselineHttp,
                     restrictions,
                     null  // no key delivery data is needed for HLS
@@ -229,17 +247,20 @@ namespace AMSExplorer
 
             policy.Options.Add(policyOption);
 
+            //saving policy
+            policy.Update();
+
             // Add ContentKeyAutorizationPolicy to ContentKey
             contentKey.AuthorizationPolicyId = policy.Id;
             IContentKey updatedKey = contentKey.UpdateAsync().Result;
-            Console.WriteLine("Adding Key to Asset: Key ID is " + updatedKey.Id);
 
             return tokenTemplateString;
+
         }
 
-        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, CloudMediaContext _context, string newLicenseTemplate)
+        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context, string newLicenseTemplate)
         {
-            string tokenTemplateString = GenerateSWTTokenRequirements(Audience, Issuer);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, IsJWTKeySymmetric, Certificate);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -267,6 +288,9 @@ namespace AMSExplorer
 
             policy.Options.Add(policyOption);
 
+            //saving policy
+            policy.Update();
+
             // Add ContentKeyAutorizationPolicy to ContentKey
             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
@@ -278,18 +302,139 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer)
+        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist)
         {
-            TokenRestrictionTemplate template = new TokenRestrictionTemplate();
-
+            TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.SWT);
             template.PrimaryVerificationKey = new SymmetricVerificationKey();
             template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
             template.Audience = _sampleAudience;
             template.Issuer = _sampleIssuer;
-            template.TokenType = TokenType.SWT;
             template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            foreach (var t in tokenclaimslist)
+            {
+                template.RequiredClaims.Add(t);
+            }
 
             return TokenRestrictionTemplateSerializer.Serialize(template);
+        }
+
+        static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool IsJWTKeySymmetric, X509Certificate2 Certificate)
+        {
+            TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(TokenType.JWT);
+            TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+
+            if (IsJWTKeySymmetric) // symmetric
+            {
+                TokenrestrictionTemplate.PrimaryVerificationKey = new SymmetricVerificationKey();
+            }
+            else // certificate
+            {
+                TokenrestrictionTemplate.PrimaryVerificationKey = new X509CertTokenVerificationKey(Certificate);
+
+            }
+            TokenrestrictionTemplate.Audience = _sampleAudience;
+            TokenrestrictionTemplate.Issuer = _sampleIssuer;
+            foreach (var t in tokenclaimslist)
+            {
+                TokenrestrictionTemplate.RequiredClaims.Add(t);
+            }
+            return TokenRestrictionTemplateSerializer.Serialize(TokenrestrictionTemplate);
+        }
+
+        static public X509Certificate2 GetCertificateFromFile(bool informuser = false)
+        {
+            X509Certificate2 cert = null;
+
+            if (informuser)
+            {
+                MessageBox.Show("Please select a certificate file (.PFX) that contains both public and private keys. Private key is needed to sign the JWT token. It is recommended to use the same certifcate that the one used during the setup of dynamic encryption for this asset.", "Certificate required", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+            OpenFileDialog openFileDialogCert = new OpenFileDialog()
+            {
+                DefaultExt = "PFX",
+                Filter = "PFX files|*.pfx|All files|*.*"
+            };
+
+            if (openFileDialogCert.ShowDialog() == DialogResult.OK)
+            {
+                string password = string.Empty;
+
+                if (Program.InputBox("PFX Password", "Please enter the password for the PFX file :", ref password) == DialogResult.OK)
+                {
+                    try
+                    {
+                        cert = new X509Certificate2(openFileDialogCert.FileName, password);
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show(string.Format("There is an error when opening the certificate file.\n{0}", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    if (cert != null)
+                    {
+                        if (!cert.HasPrivateKey)
+                        {
+                            MessageBox.Show("The certificate does not contain a private key.", "No private key", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            cert = null;
+                        }
+                    }
+                }
+            }
+            return cert;
+        }
+
+        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, SigningCredentials signingcredentials = null)
+        {
+            string testToken = null;
+            IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
+            if (key != null && key.AuthorizationPolicyId != null)
+            {
+                IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                if (policy != null)
+                {
+                    IContentKeyAuthorizationPolicyOption option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
+                    if (option != null) // && option.Restrictions.FirstOrDefault() != null && option.Restrictions.FirstOrDefault().KeyRestrictionType == (int)ContentKeyRestrictionType.TokenRestricted)
+                    {
+                        string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
+                        if (!string.IsNullOrEmpty(tokenTemplateString))
+                        {
+                            Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                            if (tokenTemplate.TokenType == TokenType.SWT) //SWT
+                            {
+                                testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
+                            }
+                            else // JWT
+                            {
+                                List<Claim> myclaims = null;
+                                myclaims = new List<Claim>();
+                                myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+
+                                if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                {
+                                    InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
+                                    signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+
+                                }
+                                else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                {
+                                    if (signingcredentials == null)
+                                    {
+                                        X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
+                                        if (cert != null) signingcredentials = new X509SigningCredentials(cert);
+                                    }
+                                }
+
+                                JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
+                                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                                testToken = handler.WriteToken(token);
+                            }
+                        }
+                    }
+                }
+            }
+            return testToken;
         }
 
         static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context)
@@ -335,15 +480,27 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, bool EncodeLAURLForSilverlight = false, string CustomAttributes = null)
         {
-            if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
-            string stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+            string stringacquisitionUrl;
+            if (EncodeLAURLForSilverlight && acquisitionUrl != null)
+            {
+                stringacquisitionUrl = acquisitionUrl.ToString().Replace("&", "%26");
+            }
+            else
+            {
+                if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
 
+                stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+            }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
     {
         {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},
-    };
+         };
+            if (CustomAttributes != null) // let's add custom attributes
+            {
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, CustomAttributes);
+            }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
                 name,
@@ -358,7 +515,6 @@ namespace AMSExplorer
         }
 
 
-
         static public string ConfigurePlayReadyLicenseTemplate(PlayReadyLicenseTemplate licenseTemplate)
         {
             // The following code configures PlayReady License Template using .NET classes
@@ -370,6 +526,20 @@ namespace AMSExplorer
 
             return MediaServicesLicenseTemplateSerializer.Serialize(responseTemplate);
         }
+
+        public static byte[] HexStringToByteArray(string hex)
+        {
+            return Enumerable.Range(0, hex.Length)
+                             .Where(x => x % 2 == 0)
+                             .Select(x => Convert.ToByte(hex.Substring(x, 2), 16))
+                             .ToArray();
+        }
+
+        static public string ByteArrayToHexString(byte[] bytes)
+        {
+            return string.Join(string.Empty, Array.ConvertAll(bytes, b => b.ToString("X2")));
+        }
+
 
 
         static public byte[] GeneratePlayReadyContentKey(byte[] keySeed, Guid keyId)
