@@ -4515,7 +4515,7 @@ typeof(FilterTime)
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -4523,7 +4523,7 @@ typeof(FilterTime)
         private void withSilverlightMMPPFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -4564,7 +4564,7 @@ typeof(FilterTime)
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
 
@@ -4572,25 +4572,26 @@ typeof(FilterTime)
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
+
         }
 
         private void withSilverlightMontoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHIFRefPlayer, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -6645,13 +6646,12 @@ typeof(FilterTime)
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, ValidURIs.FirstOrDefault().ToString(), _context, program.Asset);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: ValidURIs.FirstOrDefault().ToString(), context: _context, myasset: program.Asset);
                 }
                 else
                 {
                     TextBoxLogWriteLine("No valid URL exists for this program. Check the streaming endpoints.", true);
                 }
-
             }
         }
 
@@ -6662,7 +6662,7 @@ typeof(FilterTime)
             {
                 if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
-                    AssetInfo.DoPlayBack(ptype, channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), null, AssetProtectionType.None, AzureMediaPlayerFormats.Smooth);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
                 }
             }
         }
@@ -6691,14 +6691,15 @@ typeof(FilterTime)
         private void withSilverlightMontoringPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.SilverlightMonitoring, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
 
         }
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBack(PlayerType.FlashAzurePage, PlayBackLocator.GetSmoothStreamingUri());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
+
 
         }
 
@@ -6852,6 +6853,7 @@ typeof(FilterTime)
                                     if (!usercancelledlicensedialogbox)
                                     {
                                         DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2, form3_PlayReady, form4_PlayReadyLicense);
+                                        oktoproceed = true;
                                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                                     }
                                 }
@@ -6866,6 +6868,7 @@ typeof(FilterTime)
                                 if (form3_AES.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                                 {
                                     DoDynamicEncryptionWithAES(SelectedAssets, form1, form2, form3_AES);
+                                    oktoproceed = true;
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
@@ -6874,6 +6877,7 @@ typeof(FilterTime)
                     else // Dynamic decryption from a protected content
                     {
                         AddDynDecryption(SelectedAssets, form1, _context);
+                        oktoproceed = true;
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
@@ -7520,13 +7524,13 @@ typeof(FilterTime)
         private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
 
@@ -7571,20 +7575,19 @@ typeof(FilterTime)
         private void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
-
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.CustomPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void displayRelatedAssetInformationToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -7595,13 +7598,13 @@ typeof(FilterTime)
         private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHAzurePage, PlayBackLocator.GetSmoothStreamingUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.DASHLiveAzure, PlayBackLocator.GetMpegDashUri(), _context);
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void comboBoxOrderStreamingEndpoints_SelectedIndexChanged(object sender, EventArgs e)
@@ -8195,14 +8198,14 @@ typeof(FilterTime)
         private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
 
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
         }
 
         private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8213,13 +8216,13 @@ typeof(FilterTime)
         private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void buttonUpdateEncodingRU_Click(object sender, EventArgs e)
@@ -8339,7 +8342,7 @@ typeof(FilterTime)
         {
             if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
             {
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri(), _context, ReturnSelectedAssets().FirstOrDefault());
+                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
             }
             else
             {
@@ -8349,7 +8352,7 @@ typeof(FilterTime)
                     TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                     IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
                     ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
-                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, MyLocator.GetSmoothStreamingUri(), _context, myAsset);
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, MyLocator.GetSmoothStreamingUri().ToString(), _context, myAsset);
 
                 }
             }

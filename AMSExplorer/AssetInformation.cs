@@ -89,12 +89,12 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth_legacy:
                         case AssetInfo._smooth:
-                            AssetInfo.DoPlayBack(PlayerType.FlashAzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
-                            break;
-                        case AssetInfo._dash:
-                            AssetInfo.DoPlayBack(PlayerType.DASHAzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
                             break;
 
+                        case AssetInfo._dash:
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
+                            break;
 
                         default:
                             break;
@@ -120,7 +120,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth_legacy:
                         case AssetInfo._smooth:
-                            AssetInfo.DoPlayBack(PlayerType.SilverlightMonitoring, new Uri(TreeViewLocators.SelectedNode.Text));
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
                             break;
 
                         default:
@@ -151,7 +151,7 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBack(PlayerType.DASHIFRefPlayer, new Uri(TreeViewLocators.SelectedNode.Text));
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
                             break;
 
                         default:
@@ -241,7 +241,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBack(PlayerType.MP4AzurePage, new Uri(TreeViewLocators.SelectedNode.Text));
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
                 }
             }
         }
@@ -1013,23 +1013,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.Dash);
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Dash);
+
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.Smooth);
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.HLS);
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.HLS);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBack(PlayerType.AzureMediaPlayer, TreeViewLocators.SelectedNode.Text, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.VideoMP4);
                             break;
 
                         default:
@@ -1427,7 +1428,7 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBack(PlayerType.DASHLiveAzure, new Uri(TreeViewLocators.SelectedNode.Text));
+                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: MyContext);
                             break;
 
 

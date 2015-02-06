@@ -1380,180 +1380,180 @@ namespace AMSExplorer
 
 
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context, IAsset myassetwithtoken = null)
-        {
-            if (Url != null)
-                DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context, myassetwithtoken);
-        }
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
-        {
-            Url = rw(Url, GetBestStreamingEndpoint(context));
-            DoPlayBack(typeplayer, Url, context, myassetwithtoken);
-        }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetprotected = null)
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
         {
-            string token = null;
-            AssetProtectionType keytype = AssetProtectionType.None;
-
-            if (myassetprotected != null)
+            if (!string.IsNullOrEmpty(Urlstr))
             {
-                // user wants perhaps to play an asset with a token
+
+                IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
+                if (!DoNotRewriteURL) Urlstr = rw(Urlstr.ToString(), choosenSE);
+
+                string token = null;
+
+                if (myasset != null)
+                {
+                    // user wants perhaps to play an asset with a token, so let's try to generate it
+                    switch (typeplayer)
+                    {
+                        case PlayerType.SilverlightPlayReadyToken:
+                            token = DynamicEncryption.GetTestToken(myasset, ContentKeyType.CommonEncryption, context);
+                            if (token != null)
+                            {
+                                token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                                keytype = AssetProtectionType.PlayReady;
+                            }
+                            break;
+
+                        case PlayerType.FlashAESToken:
+                            token = DynamicEncryption.GetTestToken(myasset, ContentKeyType.EnvelopeEncryption, context);
+                            if (token != null)
+                            {
+                                token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                                keytype = AssetProtectionType.AES;
+                            }
+                            break;
+
+                        case PlayerType.AzureMediaPlayer:
+                            keytype = AssetInfo.GetAssetProtection(myasset, context);
+                            switch (keytype)
+                            {
+                                case AssetProtectionType.None:
+                                    break;
+                                case AssetProtectionType.AES:
+                                    string tokenAES = DynamicEncryption.GetTestToken(myasset, ContentKeyType.EnvelopeEncryption, context);
+                                    if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
+                                    break;
+                                case AssetProtectionType.PlayReady:
+                                    string tokenPR = DynamicEncryption.GetTestToken(myasset, ContentKeyType.CommonEncryption, context);
+                                    if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
+                                    break;
+                            }
+                            break;
+
+
+                        default:
+                            // no token enabled player
+                            break;
+                    }
+                }
+
+
+                // let's launch the player
                 switch (typeplayer)
                 {
-                    case PlayerType.SilverlightPlayReadyToken:
-                        token = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
-                        if (token != null)
+                    case PlayerType.AzureMediaPlayer:
+                        string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
+                        string protectionsyntax = "&protection={0}";
+                        string tokensyntax = "&token={0}";
+                        string formatsyntax = "&format={0}";
+
+                        if (keytype != AssetProtectionType.None)
                         {
-                            token = HttpUtility.UrlEncode(Constants.Bearer + token);
-                            keytype = AssetProtectionType.PlayReady;
+                            switch (keytype)
+                            {
+                                case AssetProtectionType.AES:
+                                    playerurl += string.Format(protectionsyntax, "aes");
+                                    break;
+
+                                case AssetProtectionType.PlayReady:
+                                    playerurl += string.Format(protectionsyntax, "playready");
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                            if (token != null)
+                            {
+                                playerurl += string.Format(tokensyntax, token);
+                            }
                         }
+
+                        if (formatamp != AzureMediaPlayerFormats.Auto)
+                        {
+                            switch (formatamp)
+                            {
+                                case AzureMediaPlayerFormats.Dash:
+                                    playerurl += string.Format(formatsyntax, "dash");
+                                    break;
+
+                                case AzureMediaPlayerFormats.Smooth:
+                                    playerurl += string.Format(formatsyntax, "smooth");
+                                    break;
+
+                                case AzureMediaPlayerFormats.HLS:
+                                    playerurl += string.Format(formatsyntax, "hls");
+                                    break;
+
+                                case AzureMediaPlayerFormats.VideoMP4:
+                                    playerurl += string.Format(formatsyntax, "video/mp4");
+                                    break;
+
+                                default: // auto or other
+                                    break;
+                            }
+                            if (token != null)
+                            {
+                                playerurl += string.Format(tokensyntax, token);
+                            }
+                        }
+                        else // format auto. If 0 Reserved Unit, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
+                        {
+                            if (choosenSE.ScaleUnits==0 && myasset!=null && myasset.AssetType==AssetType.SmoothStreaming)
+                                playerurl += string.Format(formatsyntax, "smooth");
+                        }
+                        Process.Start(string.Format(playerurl, Urlstr));
+                        break;
+
+                    case PlayerType.SilverlightMonitoring:
+                        Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Urlstr);
+                        break;
+
+                    case PlayerType.SilverlightPlayReadyToken:
+                        Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, token));
+                        break;
+
+                    case PlayerType.DASHIFRefPlayer:
+                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Urlstr);
+                        break;
+
+                    case PlayerType.DASHAzurePage:
+                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Urlstr);
+                        break;
+
+                    case PlayerType.DASHLiveAzure:
+                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Urlstr);
+                        break;
+
+                    case PlayerType.FlashAzurePage:
+                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Urlstr);
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
-                        if (token != null)
-                        {
-                            token = HttpUtility.UrlEncode(Constants.Bearer + token);
-                            keytype = AssetProtectionType.AES;
-                        }
+                        Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, token));
                         break;
 
-                    case PlayerType.AzureMediaPlayer:
-                        keytype = AssetInfo.GetAssetProtection(myassetprotected, context);
-                        switch (keytype)
-                        {
-                            case AssetProtectionType.None:
-                                break;
-                            case AssetProtectionType.AES:
-                                string tokenAES = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.EnvelopeEncryption, context);
-                                if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
-                                break;
-                            case AssetProtectionType.PlayReady:
-                                string tokenPR = DynamicEncryption.GetTestToken(myassetprotected, ContentKeyType.CommonEncryption, context);
-                                if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
-                                break;
-                        }
+                    case PlayerType.MP4AzurePage:
+                        Process.Start(string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Urlstr));
                         break;
 
-
-                    default:
-                        // no token enabled player
+                    case PlayerType.CustomPlayer:
+                        string myurl = Properties.Settings.Default.CustomPlayerUrl;
+                        Process.Start(myurl.Replace(Constants.NameconvManifestURL, Urlstr));
                         break;
                 }
+
+
             }
-            DoPlayBack(typeplayer, Url, token, keytype);
-        }
-        public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
-        {
-            if (Url != null)
-                DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
+
+
+
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
-        {
-            switch (typeplayer)
-            {
-                case PlayerType.AzureMediaPlayer:
-                    string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
-                    string protection = "&protection={0}";
-                    string token = "&token={0}";
-                    string format = "&format={0}";
 
-                    if (keytype != AssetProtectionType.None)
-                    {
-                        switch (keytype)
-                        {
-                            case AssetProtectionType.AES:
-                                playerurl += string.Format(protection, "aes");
-                                break;
-
-                            case AssetProtectionType.PlayReady:
-                                playerurl += string.Format(protection, "playready");
-                                break;
-
-                            default:
-                                break;
-                        }
-                        if (urlencodedtoken != null)
-                        {
-                            playerurl += string.Format(token, urlencodedtoken);
-                        }
-                    }
-
-                    if (formatamp != AzureMediaPlayerFormats.Auto)
-                    {
-                        switch (formatamp)
-                        {
-                            case AzureMediaPlayerFormats.Dash:
-                                playerurl += string.Format(format, "dash");
-                                break;
-
-                            case AzureMediaPlayerFormats.Smooth:
-                                playerurl += string.Format(format, "smooth");
-                                break;
-
-                            case AzureMediaPlayerFormats.HLS:
-                                playerurl += string.Format(format, "hls");
-                                break;
-
-                            case AzureMediaPlayerFormats.VideoMP4:
-                                playerurl += string.Format(format, "video/mp4");
-                                break;
-
-                            default: // auto or other
-                                break;
-                        }
-                        if (urlencodedtoken != null)
-                        {
-                            playerurl += string.Format(token, urlencodedtoken);
-                        }
-                    }
-
-                    Process.Start(string.Format(playerurl, Url));
-                    break;
-
-                case PlayerType.SilverlightMonitoring:
-                    Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Url);
-                    break;
-
-                case PlayerType.SilverlightPlayReadyToken:
-                    Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
-                    break;
-
-                case PlayerType.DASHIFRefPlayer:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                    Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Url);
-                    break;
-
-                case PlayerType.DASHAzurePage:
-                    Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Url);
-                    break;
-
-                case PlayerType.DASHLiveAzure:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                    Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Url);
-                    break;
-
-                case PlayerType.FlashAzurePage:
-                    Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Url);
-                    break;
-
-                case PlayerType.FlashAESToken:
-                    Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
-                    break;
-
-                case PlayerType.MP4AzurePage:
-                    Process.Start(string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Url));
-                    break;
-
-                case PlayerType.CustomPlayer:
-                    string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                    Process.Start(myurl.Replace(Constants.NameconvManifestURL, Url.ToString()));
-                    break;
-            }
-        }
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
