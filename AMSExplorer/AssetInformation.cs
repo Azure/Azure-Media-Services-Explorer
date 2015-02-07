@@ -46,7 +46,7 @@ namespace AMSExplorer
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
         private ILocator TempMetadaLocator = null;
-        private List<IContentKeyAuthorizationPolicy> MyAuthPolicies = null;
+        private IContentKeyAuthorizationPolicy MyAuthPolicy = null;
         private Mainform MyMainForm;
 
         public AssetInformation(Mainform mainform)
@@ -288,8 +288,8 @@ namespace AMSExplorer
             bool bkeyinasset = (MyAsset.ContentKeys.Count() == 0) ? false : true;
             listViewKeys.Items.Clear();
             dataGridViewKeys.Rows.Clear();
-            listViewAutPol.Items.Clear();
-            dataGridViewAutPol.Rows.Clear();
+            listViewAutPolOptions.Items.Clear();
+            dataGridViewAutPolOption.Rows.Clear();
             buttonRemoveKey.Enabled = false;
 
             if (bkeyinasset)
@@ -340,8 +340,8 @@ namespace AMSExplorer
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dataGridViewAutPol.ColumnCount = 2;
-            dataGridViewAutPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dataGridViewAutPolOption.ColumnCount = 2;
+            dataGridViewAutPolOption.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGDelPol.ColumnCount = 2;
             DGDelPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             dataGridViewKeys.ColumnCount = 2;
@@ -598,7 +598,6 @@ namespace AMSExplorer
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 dataGridViewKeys.Rows.Clear();
                 dataGridViewKeys.Rows.Add("Name", key.Name != null ? key.Name : "<no name>");
-
                 dataGridViewKeys.Rows.Add("Id", key.Id);
                 dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
                 dataGridViewKeys.Rows.Add("Checksum", key.Checksum);
@@ -607,17 +606,31 @@ namespace AMSExplorer
                 dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
                 dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
                 dataGridViewKeys.Rows.Add("GetClearKeyValue", Convert.ToBase64String(key.GetClearKeyValue()));
+
+                listViewAutPolOptions.Items.Clear();
+                dataGridViewAutPolOption.Rows.Clear();
+
                 if (key.AuthorizationPolicyId != null)
                 {
                     dataGridViewKeys.Rows.Add("AuthorizationPolicyId", key.AuthorizationPolicyId);
-                    MyAuthPolicies = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).ToList();
+                    MyAuthPolicy = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (MyAuthPolicy != null)
+                    {
+                        listViewAutPolOptions.BeginUpdate();
+                        foreach (var option in MyAuthPolicy.Options)
+                        {
+                            ListViewItem item = new ListViewItem(string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name, 0);
+                            listViewAutPolOptions.Items.Add(item);
+                        }
+                        listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                        listViewAutPolOptions.EndUpdate();
+                        if (listViewAutPolOptions.Items.Count > 0) listViewAutPolOptions.Items[0].Selected = true;
+                    }
                 }
                 else
                 {
-                    MyAuthPolicies = null;
+                    MyAuthPolicy = null;
                 }
-                listViewAutPol.Items.Clear();
-                dataGridViewAutPol.Rows.Clear();
 
                 switch (key.ContentKeyType)
                 {
@@ -640,34 +653,10 @@ namespace AMSExplorer
                             }
                         }
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
-                        if (MyAuthPolicies != null)
-                        {
-                            listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyAuthPolicies)
-                            {
-                                ListViewItem item = new ListViewItem(policy.Name, 0);
-                                listViewAutPol.Items.Add(item);
-                            }
-                            listViewAutPol.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                            listViewAutPol.EndUpdate();
-                            if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
-                        }
                         break;
 
                     case ContentKeyType.EnvelopeEncryption:
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp).OriginalString);
-                        if (MyAuthPolicies != null)
-                        {
-                            listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyAuthPolicies)
-                            {
-                                ListViewItem item = new ListViewItem(policy.Name, 0);
-                                listViewAutPol.Items.Add(item);
-                            }
-                            listViewAutPol.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                            listViewAutPol.EndUpdate();
-                            if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
-                        }
                         break;
 
 
@@ -678,7 +667,7 @@ namespace AMSExplorer
             }
             else
             {
-                MyAuthPolicies = null;
+                MyAuthPolicy = null;
             }
         }
 
@@ -1340,57 +1329,46 @@ namespace AMSExplorer
         }
 
 
-        private void listViewAutPol_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewAutPolOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DoDisplayAuthorizationPolicyProperties();
+            DoDisplayAuthorizationPolicyOption();
         }
 
-        private void DoDisplayAuthorizationPolicyProperties()
+        private void DoDisplayAuthorizationPolicyOption()
         {
             bool DisplayButGetToken = false;
 
-            if (listViewAutPol.SelectedItems.Count > 0)
+            if (listViewAutPolOptions.SelectedItems.Count > 0)
             {
-                IContentKeyAuthorizationPolicy policy = MyAuthPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                IContentKeyAuthorizationPolicyOption option = MyAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
 
-                dataGridViewAutPol.Rows.Clear();
-                dataGridViewAutPol.Rows.Add("Name", policy.Name != null ? policy.Name : "<no name>");
-                dataGridViewAutPol.Rows.Add("Id", policy.Id);
-                IList<IContentKeyAuthorizationPolicyOption> objIList_option = policy.Options;
-
-                int o_i = 0;
-                foreach (var option in objIList_option)
+                dataGridViewAutPolOption.Rows.Clear();
+                dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
+                dataGridViewAutPolOption.Rows.Add("Id", option.Id);
+                dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
+                dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
+                List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
+                foreach (var restriction in objList_restriction)
                 {
-                    string optionstr = string.Format("#{0} Option ", o_i);
-                    dataGridViewAutPol.Rows.Add(optionstr + "Name", option.Name);
-                    dataGridViewAutPol.Rows.Add(optionstr + "Id", option.Id);
-                    dataGridViewAutPol.Rows.Add(optionstr + "KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
-                    dataGridViewAutPol.Rows.Add(optionstr + "KeyDeliveryType", option.KeyDeliveryType);
-                    List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
-                    foreach (var restriction in objList_restriction)
+                    dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
+                    dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
+                    if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted) DisplayButGetToken = true;
+                    if (restriction.Requirements != null)
                     {
-                        dataGridViewAutPol.Rows.Add(optionstr + "restriction Name", restriction.Name);
-                        dataGridViewAutPol.Rows.Add(optionstr + "restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted) DisplayButGetToken = true;
-                        if (restriction.Requirements != null)
+                        dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
+                        TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
+                        dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
+                        dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                        dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
+                        dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
+                        foreach (var claim in tokenTemplate.RequiredClaims)
                         {
-                            dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements", FormatXmlString(restriction.Requirements));
-                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Type", tokenTemplate.TokenType);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Audience", tokenTemplate.Audience);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Issuer", tokenTemplate.Issuer);
-                            foreach (var claim in tokenTemplate.RequiredClaims)
-                            {
-                                dataGridViewAutPol.Rows.Add(optionstr + "Required Claim, Type", claim.ClaimType );
-                                dataGridViewAutPol.Rows.Add(optionstr + "Required Claim, Value", claim.ClaimValue);
-                            }
+                            dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
+                            dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
                         }
                     }
-                    o_i++;
                 }
             }
-
             buttonGetTestToken.Enabled = DisplayButGetToken;
             buttonRemoveAuthPol.Enabled = true;
         }
@@ -1650,7 +1628,7 @@ namespace AMSExplorer
 
         private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
         {
-            getTestTokenToolStripMenuItem.Enabled = (listViewAutPol.SelectedItems.Count > 0);
+            getTestTokenToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
         }
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
@@ -1671,12 +1649,12 @@ namespace AMSExplorer
 
         private void DoRemoveAuthPol()
         {
-            if (listViewAutPol.SelectedItems.Count > 0)
+            if (listViewKeys.SelectedItems.Count > 0)
             {
-                if (listViewAutPol.SelectedItems[0] != null)
+                if (listViewKeys.SelectedItems[0] != null)
                 {
                     IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    IContentKeyAuthorizationPolicy AuthPol = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    IContentKeyAuthorizationPolicy AuthPol = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
 
                     if (AuthPol != null)
                     {
