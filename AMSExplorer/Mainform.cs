@@ -4514,7 +4514,7 @@ typeof(FilterTime)
 
         private void withFlashOSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
@@ -4522,7 +4522,7 @@ typeof(FilterTime)
 
         private void withSilverlightMMPPFToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
@@ -4535,7 +4535,7 @@ typeof(FilterTime)
 
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            bool CanBePlay = IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator);
+            bool CanBePlay = IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator);
             withFlashOSMFToolStripMenuItem.Enabled = CanBePlay;
             withSilverlightMMPPFToolStripMenuItem.Enabled = CanBePlay;
             withMPEGDASHAzurePlayerToolStripMenuItem.Enabled = CanBePlay;
@@ -4543,27 +4543,26 @@ typeof(FilterTime)
             withCustomPlayerToolStripMenuItem.Enabled = CanBePlay;
         }
 
-        private bool IsAssetCanBePlayed(IAsset asset, ref ILocator locator)
+        private bool IsThereALocatorValid(IAsset asset, ref ILocator locator, LocatorType mylocatortype = LocatorType.OnDemandOrigin)
         {
-            if (asset != null)
+            bool valid = false;
+            if (asset != null && asset.Locators.Count > 0)
             {
-                if (asset.Locators.Count > 0)
+                ILocator LocatorQuery = asset.Locators.Where(l => (l.Type == mylocatortype) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
+                if (LocatorQuery != null)
                 {
-                    ILocator LocatorsOrigin = asset.Locators.Where(l => (l.Type == LocatorType.OnDemandOrigin) && ((l.StartTime < DateTime.UtcNow) || (l.StartTime == null)) && (l.ExpirationDateTime > DateTime.UtcNow)).FirstOrDefault();
-                    if (LocatorsOrigin != null)
-                    {
-                        //OK we can play the content
-                        locator = LocatorsOrigin;
-                        return true;
-                    }
+                    //OK we can play the content
+                    locator = LocatorQuery;
+                    valid = true;
                 }
+
             }
-            return false;
+            return valid;
         }
 
         private void withMPEGDASHIFRefPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
@@ -4571,32 +4570,32 @@ typeof(FilterTime)
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
 
         }
 
         private void withSilverlightMontoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHIFReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            bool CanBePlay = IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator);
+            bool CanBePlay = IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator);
             ContextMenuItemPlaybackWithMPEGDASHAzure.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithMPEGDASHIFReference.Enabled = CanBePlay;
             ContextMenuItemPlaybackWithSilverlightMonitoring.Enabled = CanBePlay;
@@ -6690,14 +6689,14 @@ typeof(FilterTime)
 
         private void withSilverlightMontoringPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
 
         }
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
 
 
@@ -7523,13 +7522,13 @@ typeof(FilterTime)
 
         private void withCustomPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
@@ -7574,19 +7573,19 @@ typeof(FilterTime)
 
         private void withCustomPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
         private void withCustomPlayerToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedPrograms().FirstOrDefault().Asset, ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.CustomPlayer, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
@@ -7597,13 +7596,13 @@ typeof(FilterTime)
 
         private void withMPEGDASHAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: PlayBackLocator.GetSmoothStreamingUri().ToString(), context: _context);
         }
 
         private void withDASHLiveAzurePlayerToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
 
@@ -8197,14 +8196,14 @@ typeof(FilterTime)
 
         private void withFlashTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
 
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
         }
 
@@ -8215,13 +8214,13 @@ typeof(FilterTime)
 
         private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.FlashAESToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void withSilverlightPlayReadyTokenPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
+            if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.SilverlightPlayReadyToken, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
@@ -8340,20 +8339,38 @@ typeof(FilterTime)
 
         private void DoPlaySelectedAssetsWithAzureMediaPlayer()
         {
-            if (IsAssetCanBePlayed(ReturnSelectedAssets().FirstOrDefault(), ref PlayBackLocator))
+            IAsset myAsset = ReturnSelectedAssets().FirstOrDefault();
+            if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // No streaming locator valid
             {
-                AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.GetSmoothStreamingUri().ToString(), _context, ReturnSelectedAssets().FirstOrDefault());
-            }
-            else
-            {
-                if (MessageBox.Show("There is no streaming locator. Do you want to create one ?", "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
+                if (MessageBox.Show("There is no valid streaming locator. Do you want to create one ?", "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                 {
-                    IAsset myAsset = ReturnSelectedAssets().FirstOrDefault();
                     TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                     IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
                     ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
-                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, MyLocator.GetSmoothStreamingUri().ToString(), _context, myAsset);
+                }
+            }
 
+            if (IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
+            {
+                Uri SmoothUri = PlayBackLocator.GetSmoothStreamingUri();
+                if (SmoothUri != null)
+                {
+                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, myAsset);
+                }
+                else
+                {
+                    // there is a streaming locator but the asset cannot be played back with adaptive streaming. It could be a single file in the asset.
+                    // if this is a single MP4 file, we can play it with the streaming locator but as progressive download
+                    if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4"))
+                    {
+                        MessageBox.Show("The asset in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The asset does not seem to be playable with adaptive streaming.", "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        
+                    }
                 }
             }
         }
