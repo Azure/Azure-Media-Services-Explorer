@@ -91,7 +91,7 @@
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
             this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 53);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 487);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 504);
             this.groupBoxAuthPol.TabIndex = 47;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Content key\'s authorization policy";
@@ -99,7 +99,7 @@
             // radioButtonNoAuthPolicy
             // 
             this.radioButtonNoAuthPolicy.AutoSize = true;
-            this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(35, 28);
+            this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(20, 470);
             this.radioButtonNoAuthPolicy.Name = "radioButtonNoAuthPolicy";
             this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(340, 17);
             this.radioButtonNoAuthPolicy.TabIndex = 61;
@@ -124,7 +124,7 @@
             this.panelAutPol.Controls.Add(this.label3);
             this.panelAutPol.Controls.Add(this.textBoxAudience);
             this.panelAutPol.Controls.Add(this.label2);
-            this.panelAutPol.Location = new System.Drawing.Point(35, 90);
+            this.panelAutPol.Location = new System.Drawing.Point(35, 45);
             this.panelAutPol.Name = "panelAutPol";
             this.panelAutPol.Size = new System.Drawing.Size(508, 391);
             this.panelAutPol.TabIndex = 60;
@@ -218,11 +218,11 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 74);
+            this.label4.Location = new System.Drawing.Point(13, 97);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(43, 13);
+            this.label4.Size = new System.Drawing.Size(71, 13);
             this.label4.TabIndex = 63;
-            this.label4.Text = "Claims :";
+            this.label4.Text = "Other claims :";
             // 
             // buttonDelClaim
             // 
@@ -286,7 +286,7 @@
             // 
             this.radioButtonTokenAuthPolicy.AutoSize = true;
             this.radioButtonTokenAuthPolicy.Checked = true;
-            this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(35, 74);
+            this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(20, 22);
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
             this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(56, 17);
             this.radioButtonTokenAuthPolicy.TabIndex = 55;
@@ -298,7 +298,7 @@
             // radioButtonOpenAuthPolicy
             // 
             this.radioButtonOpenAuthPolicy.AutoSize = true;
-            this.radioButtonOpenAuthPolicy.Location = new System.Drawing.Point(35, 51);
+            this.radioButtonOpenAuthPolicy.Location = new System.Drawing.Point(20, 447);
             this.radioButtonOpenAuthPolicy.Name = "radioButtonOpenAuthPolicy";
             this.radioButtonOpenAuthPolicy.Size = new System.Drawing.Size(51, 17);
             this.radioButtonOpenAuthPolicy.TabIndex = 54;
@@ -332,7 +332,7 @@
             this.checkBoxAddContentKeyIdentifierClaim.AutoSize = true;
             this.checkBoxAddContentKeyIdentifierClaim.Checked = true;
             this.checkBoxAddContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(17, 90);
+            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(16, 77);
             this.checkBoxAddContentKeyIdentifierClaim.Name = "checkBoxAddContentKeyIdentifierClaim";
             this.checkBoxAddContentKeyIdentifierClaim.Size = new System.Drawing.Size(177, 17);
             this.checkBoxAddContentKeyIdentifierClaim.TabIndex = 70;
