@@ -6980,7 +6980,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context, keydeliveryconfig);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.AddContentKeyIdentifierClaim, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context, keydeliveryconfig);
                                 TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 
@@ -7107,7 +7107,7 @@ typeof(FilterTime)
                                 break;
 
                             case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context);
+                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.AddContentKeyIdentifierClaim, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context);
                                 TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                 break;
 

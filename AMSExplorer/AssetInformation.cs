@@ -1382,7 +1382,8 @@ namespace AMSExplorer
                             dataGridViewAutPol.Rows.Add(optionstr + "Token Issuer", tokenTemplate.Issuer);
                             foreach (var claim in tokenTemplate.RequiredClaims)
                             {
-                                dataGridViewAutPol.Rows.Add(optionstr + "restriction Required Claim", claim.ClaimType + " : " + claim.ClaimValue);
+                                dataGridViewAutPol.Rows.Add(optionstr + "Required Claim, Type", claim.ClaimType );
+                                dataGridViewAutPol.Rows.Add(optionstr + "Required Claim, Value", claim.ClaimValue);
                             }
                         }
                     }

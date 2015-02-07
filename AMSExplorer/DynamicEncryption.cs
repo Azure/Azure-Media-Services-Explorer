@@ -212,9 +212,9 @@ namespace AMSExplorer
 
 
 
-        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context)
+        public static string AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist,bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context)
         {
-            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, IsJWTKeySymmetric, Certificate);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, IsJWTKeySymmetric, Certificate);
 
 
 
@@ -258,9 +258,11 @@ namespace AMSExplorer
 
         }
 
-        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context, string newLicenseTemplate)
+        public static string AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, X509Certificate2 Certificate, CloudMediaContext _context, string newLicenseTemplate)
         {
-            string tokenTemplateString = (tokentype == TokenType.SWT) ? GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist) : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, IsJWTKeySymmetric, Certificate);
+            string tokenTemplateString = (tokentype == TokenType.SWT) ? 
+                GenerateSWTTokenRequirements(Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim)
+                : GenerateJWTTokenRequirements(Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, IsJWTKeySymmetric, Certificate);
 
             IContentKeyAuthorizationPolicy policy = _context.
                                     ContentKeyAuthorizationPolicies.
@@ -302,14 +304,14 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist)
+        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim)
         {
             TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.SWT);
             template.PrimaryVerificationKey = new SymmetricVerificationKey();
             template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
             template.Audience = _sampleAudience;
             template.Issuer = _sampleIssuer;
-            template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            if (AddContentKeyIdentifierClaim) template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
             foreach (var t in tokenclaimslist)
             {
                 template.RequiredClaims.Add(t);
@@ -318,10 +320,10 @@ namespace AMSExplorer
             return TokenRestrictionTemplateSerializer.Serialize(template);
         }
 
-        static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool IsJWTKeySymmetric, X509Certificate2 Certificate)
+        static private string GenerateJWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim,  bool IsJWTKeySymmetric, X509Certificate2 Certificate)
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(TokenType.JWT);
-            TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            if (AddContentKeyIdentifierClaim) TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
 
             if (IsJWTKeySymmetric) // symmetric
             {

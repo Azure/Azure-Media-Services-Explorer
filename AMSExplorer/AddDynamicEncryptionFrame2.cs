@@ -72,6 +72,15 @@ namespace AMSExplorer
             }
         }
 
+        public bool AddContentKeyIdentifierClaim
+        {
+            get
+            {
+                return checkBoxAddContentKeyIdentifierClaim.Checked;
+            }
+
+        }
+
         public IList<TokenClaim> GetTokenRequiredClaims
         {
             get
@@ -79,7 +88,7 @@ namespace AMSExplorer
                 IList<TokenClaim> mylist = new List<TokenClaim>();
                 foreach (var j in TokenClaimsList)
                 {
-                    if (!string.IsNullOrEmpty(j.Type) && !string.IsNullOrEmpty(j.Value))
+                    if (!string.IsNullOrEmpty(j.Type))
                     {
                         mylist.Add(new TokenClaim(j.Type, j.Value));
                     }
