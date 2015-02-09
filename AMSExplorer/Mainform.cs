@@ -3228,7 +3228,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            
+
             string jobname = "PlayReady Encryption of " + Constants.NameconvInputasset;
             string taskname = "PlayReady Encryption of " + Constants.NameconvInputasset;
 
@@ -6907,7 +6907,6 @@ typeof(FilterTime)
                                 {
                                     Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
                                     byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
-                                    //byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
                                     contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
                                 }
                                 else // no seed given, so content key has been setup
@@ -6991,7 +6990,7 @@ typeof(FilterTime)
 
                                             _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
                                             string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred, policyOption.Id);
-                                            TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3.GetTokenType.ToString(), Constants.Bearer + testToken);
+                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
                                             System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                                             break;
 
@@ -7007,7 +7006,6 @@ typeof(FilterTime)
                                     TextBoxLogWriteLine(e);
                                     Error = true;
                                 }
-
                             }
                         }
                         contentKeyAuthorizationPolicy.Update();
@@ -7133,7 +7131,7 @@ typeof(FilterTime)
 
                                     _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
                                     string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
-                                    TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3.GetTokenType.ToString(), Constants.Bearer + testToken);
+                                    TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
                                     System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                                     break;
 
