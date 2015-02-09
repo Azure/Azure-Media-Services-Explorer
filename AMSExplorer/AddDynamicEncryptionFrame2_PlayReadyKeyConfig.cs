@@ -32,7 +32,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame3_PlayReadyKeyConfig : Form
+    public partial class AddDynamicEncryptionFrame2_PlayReadyKeyConfig : Form
     {
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
@@ -80,7 +80,7 @@ namespace AMSExplorer
             {
                 return checkBoxEncodingSL.Enabled ? checkBoxEncodingSL.Checked : false;
             }
-           
+
         }
         public string PlayReadyContentKey
         {
@@ -132,7 +132,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame3_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = true)
+        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

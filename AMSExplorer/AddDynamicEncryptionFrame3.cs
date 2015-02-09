@@ -32,12 +32,12 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame2 : Form
+    public partial class AddDynamicEncryptionFrame3 : Form
     {
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
 
-        public ContentKeyRestrictionType? GetKeyRestrictionType
+        public ContentKeyRestrictionType GetKeyRestrictionType
         {
             get
             {
@@ -45,14 +45,11 @@ namespace AMSExplorer
                 {
                     return ContentKeyRestrictionType.Open;
                 }
-                else if (radioButtonTokenAuthPolicy.Checked)
+                else // token
                 {
                     return ContentKeyRestrictionType.TokenRestricted;
                 }
-                else // PlayReady but no license delivery from Azure Media Services
-                {
-                    return null;
-                }
+                
             }
         }
 
@@ -124,15 +121,21 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame2(CloudMediaContext context, bool IsAES)
+        public AddDynamicEncryptionFrame3(CloudMediaContext context, int step, int option, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            if (IsAES)
+
+            this.Text = string.Format(this.Text, step);
+            labelStep.Text = string.Format(labelStep.Text, step, option);
+
+            if (!laststep)
             {
-                radioButtonNoAuthPolicy.Visible = radioButtonNoAuthPolicy.Enabled = false;
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
             }
+            
         }
 
 

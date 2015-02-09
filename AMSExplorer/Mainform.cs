@@ -1424,9 +1424,6 @@ namespace AMSExplorer
         }
 
 
-
-
-
         public DialogResult DisplayInfo(IAsset asset)
         {
             AssetInformation form = new AssetInformation(this)
@@ -1945,16 +1942,13 @@ namespace AMSExplorer
 
         private void DoMenuDisplayAssetInfo()
         {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-            if (SelectedAssets.Count != 1) return;
-            IAsset AssetToDisplayP = SelectedAssets.FirstOrDefault();
-            if (AssetToDisplayP == null) return;
-
-            // Refresh the asset.
-            AssetToDisplayP = _context.Assets.Where(a => a.Id == AssetToDisplayP.Id).FirstOrDefault();
-
-            if (DisplayInfo(AssetToDisplayP) == DialogResult.OK)
+            IAsset AssetToDisplayP = ReturnSelectedAssets().FirstOrDefault();
+            if (AssetToDisplayP != null)
             {
+                // Refresh the asset.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                AssetToDisplayP = _context.Assets.Where(a => a.Id == AssetToDisplayP.Id).FirstOrDefault();
+                DisplayInfo(AssetToDisplayP);
             }
         }
 
@@ -6832,41 +6826,72 @@ typeof(FilterTime)
                     {
                         if (form1.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, false) { Left = form1.Left, Top = form1.Top };
-                            if (form2.ShowDialog() == DialogResult.OK)
+                            bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
+                            AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_PlayReadyKeyConfig(
+                                SelectedAssets.Count > 1, form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense) { Left = form1.Left, Top = form1.Top };
+                            if (form2_PlayReady.ShowDialog() == DialogResult.OK)
                             {
-                                bool NeedToDisplayPlayReadyLicense = form2.GetKeyRestrictionType != null;
-                                AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady = new AddDynamicEncryptionFrame3_PlayReadyKeyConfig(
-                                    SelectedAssets.Count > 1, form2.GetKeyRestrictionType != null, forceusertoprovidekey || (form2.GetKeyRestrictionType == null), !NeedToDisplayPlayReadyLicense) { Left = form2.Left, Top = form2.Top };
-                                if (form3_PlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK) // let's display the playready content key dialog
+                                List<AddDynamicEncryptionFrame3> form3list = new List<AddDynamicEncryptionFrame3>();
+                                List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4list = new List<AddDynamicEncryptionFrame4_PlayReadyLicense>();
+                                bool usercancelledform3or4 = false;
+                                int step = 3;
+                                for (int i = 0; i < form1.GetNumberOfAuthorizationPolicyOptions; i++)
                                 {
-                                    AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense() { Left = form3_PlayReady.Left, Top = form3_PlayReady.Top };
-                                    bool usercancelledlicensedialogbox = false;
-                                    if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, step, i, !NeedToDisplayPlayReadyLicense) { Left = form2_PlayReady.Left, Top = form2_PlayReady.Top };
+                                    if (form3.ShowDialog() == DialogResult.OK)
                                     {
-                                        if (form4_PlayReadyLicense.ShowDialog() != System.Windows.Forms.DialogResult.OK) // let's display the dialog box to configure the playready license
+                                        step++;
+                                        form3list.Add(form3);
+                                        AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense(step, i, i == (form1.GetNumberOfAuthorizationPolicyOptions-1)) { Left = form3.Left, Top = form3.Top };
+                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
-                                            usercancelledlicensedialogbox = true;
+                                            step++;
+                                            if (form4_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                            {
+                                                form4list.Add(form4_PlayReadyLicense);
+                                            }
+                                            else
+                                            {
+                                                usercancelledform3or4 = true;
+                                            }
                                         }
                                     }
-                                    if (!usercancelledlicensedialogbox)
+                                    else
                                     {
-                                        DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2, form3_PlayReady, form4_PlayReadyLicense);
-                                        oktoproceed = true;
-                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                        usercancelledform3or4 = true;
                                     }
+                                }
+                                if (!usercancelledform3or4)
+                                {
+                                    DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
                         }
                         else if (form1.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // it's AES encryption
                         {
-                            AddDynamicEncryptionFrame2 form2 = new AddDynamicEncryptionFrame2(_context, true) { Left = form1.Left, Top = form1.Top };
-                            if (form2.ShowDialog() == DialogResult.OK)
+                            AddDynamicEncryptionFrame2_AESKeyConfig form2_AES = new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey) { Left = form1.Left, Top = form1.Top };
+                            if (form2_AES.ShowDialog() == DialogResult.OK)
                             {
-                                AddDynamicEncryptionFrame3_AESKeyConfig form3_AES = new AddDynamicEncryptionFrame3_AESKeyConfig(forceusertoprovidekey) { Left = form2.Left, Top = form2.Top };
-                                if (form3_AES.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                List<AddDynamicEncryptionFrame3> form3list = new List<AddDynamicEncryptionFrame3>();
+                                bool usercancelledform3 = false;
+                                for (int i = 0; i < form1.GetNumberOfAuthorizationPolicyOptions; i++)
                                 {
-                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2, form3_AES);
+                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, i + 3, i, true) { Left = form2_AES.Left, Top = form2_AES.Top };
+                                    if (form3.ShowDialog() == DialogResult.OK)
+                                    {
+                                        form3list.Add(form3);
+                                    }
+                                    else
+                                    {
+                                        usercancelledform3 = true;
+                                    }
+                                }
+
+                                if (!usercancelledform3)
+                                {
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3list);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
@@ -6886,41 +6911,37 @@ typeof(FilterTime)
 
 
 
-        private bool DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_PlayReadyKeyConfig form3_PlayReady, AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReadyLicense)
+        private void DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList)
         {
             bool Error = false;
-
-
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
                 if (AssetToProcess != null)
                 {
                     IContentKey contentKey = null;
-                    string keydeliveryconfig = null;
-
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
                     if (contentkeys.Count() == 0) // no content key existing so we need to create one
                     {
+                        Error = false;
                         try
                         {
-                            if (form2.GetKeyRestrictionType != null && (form3_PlayReady.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
+                            if (form1.GetNumberOfAuthorizationPolicyOptions > 0 && (form2_PlayReady.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
                             {
                                 contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
                             }
                             else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
                             {
-                                if (!string.IsNullOrEmpty(form3_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
                                 {
-                                    Guid keyid = (form3_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form3_PlayReady.PlayReadyKeyId;
-                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
+                                    Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
                                     //byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form3_PlayReady.PlayReadyKeySeed), keyid);
                                     contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
                                 }
                                 else // no seed given, so content key has been setup
                                 {
-                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form3_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form3_PlayReady.PlayReadyContentKey));
+                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form2_PlayReady.PlayReadyContentKey));
                                 }
-
                             }
                         }
                         catch (Exception e)
@@ -6930,94 +6951,110 @@ typeof(FilterTime)
                             TextBoxLogWriteLine(e);
                             Error = true;
                         }
-                        if (Error) return Error;
-                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                        if (!Error)
+                        {
+                            TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                        }
                     }
-                    else if (form2.GetKeyRestrictionType == null)  // user wants to deliver with an external PlayReady server but the key exists already !
+                    else if (form1.GetNumberOfAuthorizationPolicyOptions == 0)  // user wants to deliver with an external PlayReady server but the key exists already !
                     {
                         TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
                     }
-
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
                         TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
                     }
-
-
-                    // let's build the PlayReady license template
-
-                    if (form2.GetKeyRestrictionType != null) // PlayReady license and delivery from Azure Media Services
+                    if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // PlayReady license and delivery from Azure Media Services
                     {
-                        try
+                        // let's create the Authorization Policy
+                        IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                                       ContentKeyAuthorizationPolicies.
+                                       CreateAsync("My Authorization Policy").Result;
+
+                        // Associate the content key authorization policy with the content key.
+                        contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                        contentKey = contentKey.UpdateAsync().Result;
+                        
+                        foreach (var form3 in form3list)
                         {
-                            keydeliveryconfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(formPlayReadyLicense.GetLicenseTemplate);
+                            // let's build the PlayReady license template
+                            string PlayReadyLicenseDeliveryConfig = null;
+                            Error = false;
+                            try
+                            {
+                                PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
+                                TextBoxLogWriteLine(e);
+                                Error = true;
+                            }
+                            if (!Error)
+                            {
+                                IContentKeyAuthorizationPolicyOption policyOption = null;
+                                try
+                                {
+                                    switch (form3.GetKeyRestrictionType)
+                                    {
+                                        case ContentKeyRestrictionType.Open:
+                                            policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.PlayReadyLicense, PlayReadyLicenseDeliveryConfig, _context);
+                                            TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                                            break;
+
+                                        case ContentKeyRestrictionType.TokenRestricted:
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsJWTKeySymmetric, form3.GetX509Certificate, _context, PlayReadyLicenseDeliveryConfig);
+                                            TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+                                            // let display a test token
+                                            X509SigningCredentials signingcred = null;
+                                            if (form3.GetTokenType == TokenType.JWT && !form3.IsJWTKeySymmetric)
+                                            {
+                                                signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                            }
+
+                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                            string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred, policyOption.Id);
+                                            TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3.GetTokenType.ToString(), Constants.Bearer + testToken);
+                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                            break;
+
+
+                                        default:
+                                            break;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                    Error = true;
+                                }
+
+                            }
                         }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
-
+                        contentKeyAuthorizationPolicy.Update();
                     }
-                    else // PlayReady license but delivery from an external PlayReady server
-                    {
-
-                    }
-
-
-
-                    string tokenTemplateString = null;
-                    try
-                    {
-                        switch (form2.GetKeyRestrictionType)
-                        {
-                            case ContentKeyRestrictionType.Open:
-                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, ContentKeyDeliveryType.PlayReadyLicense, keydeliveryconfig, _context);
-                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                break;
-
-                            case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.AddContentKeyIdentifierClaim, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context, keydeliveryconfig);
-                                TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                break;
-
-                            case null:
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                        TextBoxLogWriteLine(e);
-                        Error = true;
-                    }
-                    if (Error) return Error;
-
 
                     // Let's create the Asset Delivery Policy now
                     IAssetDeliveryPolicy DelPol = null;
                     string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+                    Error = false;
                     try
                     {
-
-                        if (form2.GetKeyRestrictionType != null) // Licenses delivered by Azure Media Services
+                        if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form3_PlayReady.PlayReadyCustomAttributes);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form2_PlayReady.PlayReadyCustomAttributes);
                         }
                         else // Licenses NOT delivered by Azure Media Services but by a third party server
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form3_PlayReady.PlayReadyLAurl), form3_PlayReady.PlayReadyLAurlEncodeForSL, form3_PlayReady.PlayReadyCustomAttributes);
+                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
                         }
-
-
 
                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                     }
@@ -7027,35 +7064,19 @@ typeof(FilterTime)
                         TextBoxLogWriteLine(e);
                         Error = true;
                     }
-
-                    if (Error) return Error;
-
-                    if (!String.IsNullOrEmpty(tokenTemplateString))
-                    {
-                        X509SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT)
-                        {
-                            signingcred = new X509SigningCredentials(form2.GetX509Certificate);
-                        }
-
-                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
-                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
-                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                    }
-
                 }
             }
-            return Error;
         }
 
-        private bool DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2 form2, AddDynamicEncryptionFrame3_AESKeyConfig form3)
+        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, List<AddDynamicEncryptionFrame3> form3list)
         {
-            string aeskey = string.Empty;
-            if (!form3.ContentKeyRandomGeneration)
-            {
-                aeskey = form3.AESContentKey;
-            }
             bool Error = false;
+            string aeskey = string.Empty;
+            if (!form2.ContentKeyRandomGeneration)
+            {
+                aeskey = form2.AESContentKey;
+            }
+
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
 
@@ -7066,9 +7087,10 @@ typeof(FilterTime)
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
                     if (contentkeys.Count() == 0) // no content key existing so we need to create one
                     {
+                        Error = false;
                         try
                         {
-                            if ((!form3.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
+                            if ((!form2.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
                             {
                                 contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey));
                             }
@@ -7084,8 +7106,11 @@ typeof(FilterTime)
                             TextBoxLogWriteLine(e);
                             Error = true;
                         }
-                        if (Error) return Error;
-                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                        if (!Error)
+                        {
+                            TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                        }
+
                     }
 
                     else // let's use existing content key
@@ -7095,43 +7120,69 @@ typeof(FilterTime)
                     }
 
 
-                    string tokenTemplateString = null;
-                    try
+                    // let's create the Authorization Policy
+                    IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                                   ContentKeyAuthorizationPolicies.
+                                   CreateAsync("My Authorization Policy").Result;
+
+                    // Associate the content key authorization policy with the content key.
+                    contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                    contentKey = contentKey.UpdateAsync().Result;
+
+
+                    foreach (var form3 in form3list)
                     {
-                        switch (form2.GetKeyRestrictionType)
+                        IContentKeyAuthorizationPolicyOption policyOption = null;
+                        Error = false;
+                        try
                         {
-                            case ContentKeyRestrictionType.Open:
+                            switch (form3.GetKeyRestrictionType)
+                            {
+                                case ContentKeyRestrictionType.Open:
 
-                                IContentKeyAuthorizationPolicy pol = DynamicEncryption.AddOpenAuthorizationPolicy(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
-                                TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                break;
+                                    policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
+                                    TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                    break;
 
-                            case ContentKeyRestrictionType.TokenRestricted:
-                                tokenTemplateString = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form2.GetAudienceUri, form2.GetIssuerUri, form2.GetTokenRequiredClaims, form2.AddContentKeyIdentifierClaim, form2.GetTokenType, form2.IsJWTKeySymmetric, form2.GetX509Certificate, _context);
-                                TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                break;
+                                case ContentKeyRestrictionType.TokenRestricted:
+                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsJWTKeySymmetric, form3.GetX509Certificate, _context);
+                                    TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
 
-                            case null:
-                                break;
+                                    // let display a test toekn
+                                    X509SigningCredentials signingcred = null;
+                                    if (form3.GetTokenType == TokenType.JWT && !form3.IsJWTKeySymmetric)
+                                    {
+                                        signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                    }
 
-                            default:
-                                break;
+                                    _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
+                                    TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3.GetTokenType.ToString(), Constants.Bearer + testToken);
+                                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
+                        if (!Error)
+                        {
+                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                            contentKeyAuthorizationPolicy.Update();
                         }
                     }
-
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                        TextBoxLogWriteLine(e);
-                        Error = true;
-                    }
-                    if (Error) return Error;
-
 
                     // Let's create the Asset Delivery Policy now
                     IAssetDeliveryPolicy DelPol = null;
                     string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+
                     try
                     {
                         DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context);
@@ -7141,17 +7192,16 @@ typeof(FilterTime)
                     {
                         TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
                         TextBoxLogWriteLine(e);
-                        Error = true;
                     }
 
-                    if (Error) return Error;
 
+                    /*
                     if (!String.IsNullOrEmpty(tokenTemplateString))
                     {
                         SigningCredentials signingcred = null;
-                        if (form2.GetTokenType == TokenType.JWT)
+                        if (form3list.GetTokenType == TokenType.JWT)
                         {
-                            if (form2.IsJWTKeySymmetric)
+                            if (form3list.IsJWTKeySymmetric)
                             {
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
                                 InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
@@ -7160,18 +7210,18 @@ typeof(FilterTime)
                             }
                             else // asymmetric
                             {
-                                signingcred = new X509SigningCredentials(form2.GetX509Certificate);
+                                signingcred = new X509SigningCredentials(form3list.GetX509Certificate);
 
                             }
 
                         }
                         string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
-                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form2.GetTokenType.ToString(), Constants.Bearer + testToken);
+                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3list.GetTokenType.ToString(), Constants.Bearer + testToken);
                         System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                     }
+                     * */
                 }
             }
-            return Error;
         }
 
         private bool AddDynDecryption(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, CloudMediaContext _context)
@@ -8369,7 +8419,7 @@ typeof(FilterTime)
                     else
                     {
                         MessageBox.Show("The asset does not seem to be playable with adaptive streaming.", "Adaptive streaming", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        
+
                     }
                 }
             }

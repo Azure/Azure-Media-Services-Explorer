@@ -133,17 +133,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDynamicEncryptionFrame2.cs">
+    <Compile Include="AddDynamicEncryptionFrame3.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame2.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame3.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_AESKeyConfig.cs">
+    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_AESKeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_AESKeyConfig.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
@@ -227,11 +227,11 @@
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="DynamicEncryption.cs" />
-    <Compile Include="AddDynamicEncryptionFrame3_PlayReadyKeyConfig.cs">
+    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3_PlayReadyKeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3_PlayReadyKeyConfig.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
       <SubType>Form</SubType>
@@ -379,11 +379,11 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame2.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3_AESKeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_AESKeyConfig.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
@@ -428,8 +428,8 @@
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3_PlayReadyKeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3_PlayReadyKeyConfig.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>

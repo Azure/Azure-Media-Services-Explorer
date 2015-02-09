@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame3_AESKeyConfig
+    partial class AddDynamicEncryptionFrame2_AESKeyConfig
     {
         /// <summary>
         /// Required designer variable.
@@ -42,6 +42,7 @@
             this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -93,14 +94,13 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(329, 11);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(151, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
-            this.buttonOk.Text = "OK";
+            this.buttonOk.Text = "Next";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -159,7 +159,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
-            this.groupBox2.Location = new System.Drawing.Point(12, 27);
+            this.groupBox2.Location = new System.Drawing.Point(12, 99);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(552, 100);
             this.groupBox2.TabIndex = 73;
@@ -208,25 +208,36 @@
             this.groupBoxCrypto.Controls.Add(this.textBoxcontentkey);
             this.groupBoxCrypto.Controls.Add(this.label4);
             this.groupBoxCrypto.Enabled = false;
-            this.groupBoxCrypto.Location = new System.Drawing.Point(12, 146);
+            this.groupBoxCrypto.Location = new System.Drawing.Point(12, 218);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
             this.groupBoxCrypto.Size = new System.Drawing.Size(552, 173);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
             // 
-            // AddDynamicEncryptionFrame3_AESKeyConfig
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(22, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(153, 40);
+            this.label1.TabIndex = 75;
+            this.label1.Text = "Step 2\r\nSpecify the AES key";
+            // 
+            // AddDynamicEncryptionFrame2_AESKeyConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
-            this.Name = "AddDynamicEncryptionFrame3_AESKeyConfig";
+            this.Name = "AddDynamicEncryptionFrame2_AESKeyConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Dynamic Encryption - Step 3";
+            this.Text = "Dynamic Encryption - Step 2";
             this.Load += new System.EventHandler(this.PlayReadyExternalServer_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
@@ -236,6 +247,7 @@
             this.groupBoxCrypto.ResumeLayout(false);
             this.groupBoxCrypto.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -255,5 +267,6 @@
         private System.Windows.Forms.RadioButton radioButtonKeySpecifiedByUser;
         private System.Windows.Forms.RadioButton radioButtonKeyRandomGeneration;
         private System.Windows.Forms.GroupBox groupBoxCrypto;
+        private System.Windows.Forms.Label label1;
     }
 }
