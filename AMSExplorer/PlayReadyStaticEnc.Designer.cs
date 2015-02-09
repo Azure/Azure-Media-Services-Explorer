@@ -54,11 +54,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.checkBoxadjustSubSamples = new System.Windows.Forms.CheckBox();
             this.checkBoxuseSencBox = new System.Windows.Forms.CheckBox();
-            this.checkBoxDeliverLicenses = new System.Windows.Forms.CheckBox();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.comboBoxKeyRestriction = new System.Windows.Forms.ComboBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -321,17 +319,6 @@
             this.checkBoxuseSencBox.Text = "useSencBox";
             this.checkBoxuseSencBox.UseVisualStyleBackColor = true;
             // 
-            // checkBoxDeliverLicenses
-            // 
-            this.checkBoxDeliverLicenses.AutoSize = true;
-            this.checkBoxDeliverLicenses.Location = new System.Drawing.Point(27, 375);
-            this.checkBoxDeliverLicenses.Name = "checkBoxDeliverLicenses";
-            this.checkBoxDeliverLicenses.Size = new System.Drawing.Size(373, 17);
-            this.checkBoxDeliverLicenses.TabIndex = 38;
-            this.checkBoxDeliverLicenses.Text = "Setup Azure Media Services PlayReady License Delivery. Key restriction :";
-            this.checkBoxDeliverLicenses.UseVisualStyleBackColor = true;
-            this.checkBoxDeliverLicenses.CheckedChanged += new System.EventHandler(this.checkBoxDeliverLicenses_CheckedChanged);
-            // 
             // labelAssetName
             // 
             this.labelAssetName.AutoSize = true;
@@ -366,16 +353,6 @@
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // comboBoxKeyRestriction
-            // 
-            this.comboBoxKeyRestriction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxKeyRestriction.Enabled = false;
-            this.comboBoxKeyRestriction.FormattingEnabled = true;
-            this.comboBoxKeyRestriction.Location = new System.Drawing.Point(406, 373);
-            this.comboBoxKeyRestriction.Name = "comboBoxKeyRestriction";
-            this.comboBoxKeyRestriction.Size = new System.Drawing.Size(81, 21);
-            this.comboBoxKeyRestriction.TabIndex = 54;
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -395,8 +372,6 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(517, 532);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.comboBoxKeyRestriction);
-            this.Controls.Add(this.checkBoxDeliverLicenses);
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabControl1);
@@ -451,9 +426,7 @@
         private System.Windows.Forms.CheckBox checkBoxuseSencBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         public System.Windows.Forms.Label labelAssetName;
-        private System.Windows.Forms.CheckBox checkBoxDeliverLicenses;
         private System.Windows.Forms.Button buttongenerateContentKey;
-        private System.Windows.Forms.ComboBox comboBoxKeyRestriction;
         private System.Windows.Forms.Panel panel1;
     }
 }

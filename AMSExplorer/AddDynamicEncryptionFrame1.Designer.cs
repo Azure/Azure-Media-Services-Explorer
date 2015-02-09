@@ -84,7 +84,7 @@
             // 
             this.radioButtonEnvelope.AutoSize = true;
             this.radioButtonEnvelope.Checked = true;
-            this.radioButtonEnvelope.Location = new System.Drawing.Point(35, 51);
+            this.radioButtonEnvelope.Location = new System.Drawing.Point(35, 24);
             this.radioButtonEnvelope.Name = "radioButtonEnvelope";
             this.radioButtonEnvelope.Size = new System.Drawing.Size(152, 17);
             this.radioButtonEnvelope.TabIndex = 44;
@@ -96,7 +96,7 @@
             // radioButtonCENCKey
             // 
             this.radioButtonCENCKey.AutoSize = true;
-            this.radioButtonCENCKey.Location = new System.Drawing.Point(35, 74);
+            this.radioButtonCENCKey.Location = new System.Drawing.Point(35, 47);
             this.radioButtonCENCKey.Name = "radioButtonCENCKey";
             this.radioButtonCENCKey.Size = new System.Drawing.Size(187, 17);
             this.radioButtonCENCKey.TabIndex = 46;
@@ -119,12 +119,12 @@
             this.groupBoxKeyType.Size = new System.Drawing.Size(553, 102);
             this.groupBoxKeyType.TabIndex = 43;
             this.groupBoxKeyType.TabStop = false;
-            this.groupBoxKeyType.Text = "Encryption mode";
+            this.groupBoxKeyType.Text = "Dynamic Encryption mode";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_decryption;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 28);
+            this.pictureBox1.Location = new System.Drawing.Point(13, 70);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -134,18 +134,18 @@
             // radioButtonDecryptStorage
             // 
             this.radioButtonDecryptStorage.AutoSize = true;
-            this.radioButtonDecryptStorage.Location = new System.Drawing.Point(35, 28);
+            this.radioButtonDecryptStorage.Location = new System.Drawing.Point(35, 70);
             this.radioButtonDecryptStorage.Name = "radioButtonDecryptStorage";
-            this.radioButtonDecryptStorage.Size = new System.Drawing.Size(295, 17);
+            this.radioButtonDecryptStorage.Size = new System.Drawing.Size(280, 17);
             this.radioButtonDecryptStorage.TabIndex = 61;
-            this.radioButtonDecryptStorage.Text = "No encryption (stream storage encrypted asset(s) in clear)";
+            this.radioButtonDecryptStorage.Text = "Decryption (stream storage encrypted asset(s) in clear)";
             this.radioButtonDecryptStorage.UseVisualStyleBackColor = true;
             this.radioButtonDecryptStorage.CheckedChanged += new System.EventHandler(this.radioButtonDecryptStorage_CheckedChanged);
             // 
             // pictureBox3
             // 
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.pictureBox3.Location = new System.Drawing.Point(13, 74);
+            this.pictureBox3.Location = new System.Drawing.Point(13, 47);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -155,7 +155,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
-            this.pictureBox2.Location = new System.Drawing.Point(13, 52);
+            this.pictureBox2.Location = new System.Drawing.Point(13, 25);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -169,7 +169,7 @@
             this.groupBox1.Controls.Add(this.checkBoxProtocolSmooth);
             this.groupBox1.Controls.Add(this.checkBoxProtocolDASH);
             this.groupBox1.Controls.Add(this.checkBoxProtocolHLS);
-            this.groupBox1.Location = new System.Drawing.Point(12, 322);
+            this.groupBox1.Location = new System.Drawing.Point(12, 336);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(553, 108);
             this.groupBox1.TabIndex = 47;

@@ -165,30 +165,7 @@ namespace AMSExplorer
             }
         }
 
-        public bool PlayReadyConfigureLicenseDelivery
-        {
-            get
-            {
-                return checkBoxDeliverLicenses.Checked;
-            }
-            set
-            {
-                checkBoxDeliverLicenses.Checked = value;
-            }
-        }
-
-        public ContentKeyRestrictionType GetPlayReadyKeyRestrictionType
-        {
-
-            get
-            {
-                return (ContentKeyRestrictionType)(Enum.Parse(typeof(ContentKeyRestrictionType), (string)comboBoxKeyRestriction.SelectedItem));
-            }
-
-        }
-
-
-
+       
 
         public PlayReadyStaticEnc()
         {
@@ -219,9 +196,6 @@ namespace AMSExplorer
         private void PlayReadyStaticEnc_Load(object sender, EventArgs e)
         {
             moreinfotestserver.Links.Add(new LinkLabel.Link(0, moreinfotestserver.Text.Length, "http://playready.directtaps.net/"));
-
-            comboBoxKeyRestriction.Items.AddRange(Enum.GetNames(typeof(ContentKeyRestrictionType)).ToArray()); // key restriction
-            comboBoxKeyRestriction.SelectedItem = Enum.GetName(typeof(ContentKeyRestrictionType), ContentKeyRestrictionType.Open);
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
@@ -231,23 +205,6 @@ namespace AMSExplorer
 
         }
 
-        private void checkBoxDeliverLicenses_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonPlayReadyTestSettings.Enabled = !checkBoxDeliverLicenses.Checked;
-            textBoxLAurl.Enabled = !checkBoxDeliverLicenses.Checked;
-            comboBoxKeyRestriction.Enabled = checkBoxDeliverLicenses.Checked;
-
-            if (checkBoxDeliverLicenses.Checked)
-            {
-                textBoxLAurl.Text = string.Empty;
-                textBoxkeyseed.Text = string.Empty;
-
-            }
-            buttonOk.Text = checkBoxDeliverLicenses.Checked ? "Define the PlayReady template" : (string)buttonOk.Tag;
-
-
-
-        }
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {

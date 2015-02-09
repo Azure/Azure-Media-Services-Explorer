@@ -3253,63 +3253,23 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                bool Error = false;
                 IContentKey contentKey;
                 string keyDeliveryServiceUri = form.PlayReadyLAurl;
-                if (form.PlayReadyConfigureLicenseDelivery)
-                {
-                    AddDynamicEncryptionFrame4_PlayReadyLicense formPlayReady = new AddDynamicEncryptionFrame4_PlayReadyLicense();
-                    if (formPlayReady.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                    {
-                        try
-                        {
-                            contentKey = DynamicEncryption.ConfigureKeyDeliveryServiceForPlayReady(
-                                _context,
-                                form.PlayReadyKeyId,
-                                Convert.FromBase64String(form.PlayReadyContentKey),
-                                formPlayReady.GetLicenseTemplate,
-                                form.GetPlayReadyKeyRestrictionType,
-                                formPlayReady.PlayReadyPolicyName
-                                );
 
-                            keyDeliveryServiceUri = contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense).ToString();
-                            TextBoxLogWriteLine("PlayReady license delivery configured. License Acquisition URL is {0}.", keyDeliveryServiceUri);
-                        }
+                // Read and update the configuration XML.
+                //
+                string configPlayReady = LoadAndUpdatePlayReadyConfiguration(
+                Path.Combine(_configurationXMLFiles, @"MediaEncryptor_PlayReadyProtection.xml"),
+                form.PlayReadyKeySeed,
+                keyDeliveryServiceUri,
+                form.PlayReadyKeyId,
+                form.PlayReadyContentKey,
+                form.PlayReadyUseSencBox,
+                form.PlayReadyAdjustSubSamples,
+                form.PlayReadyServiceId,
+                form.PlayReadyCustomAttributes);
 
-                        catch (Exception e)
-                        {
-                            TextBoxLogWriteLine("Error when configuring PlayReady license delivery.", true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
-                    }
-                    else
-                    {
-                        return;
-                    }
-
-
-
-                }
-                if (!Error)
-                {
-                    // Read and update the configuration XML.
-                    //
-
-                    string configPlayReady = LoadAndUpdatePlayReadyConfiguration(
-                    Path.Combine(_configurationXMLFiles, @"MediaEncryptor_PlayReadyProtection.xml"),
-                    form.PlayReadyKeySeed,
-                    keyDeliveryServiceUri,
-                    form.PlayReadyKeyId,
-                    form.PlayReadyContentKey,
-                    form.PlayReadyUseSencBox,
-                    form.PlayReadyAdjustSubSamples,
-                    form.PlayReadyServiceId,
-                    form.PlayReadyCustomAttributes);
-
-                    LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, new List<string> { configPlayReady }, AssetCreationOptions.CommonEncryptionProtected);
-                }
-
+                LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, new List<string> { configPlayReady }, AssetCreationOptions.CommonEncryptionProtected);
             }
 
         }
@@ -6842,7 +6802,7 @@ typeof(FilterTime)
                                     {
                                         step++;
                                         form3list.Add(form3);
-                                        AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense(step, i, i == (form1.GetNumberOfAuthorizationPolicyOptions-1)) { Left = form3.Left, Top = form3.Top };
+                                        AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense(step, i, i == (form1.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3.Left, Top = form3.Top };
                                         if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
                                             step++;
@@ -6975,7 +6935,7 @@ typeof(FilterTime)
                         // Associate the content key authorization policy with the content key.
                         contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
                         contentKey = contentKey.UpdateAsync().Result;
-                        
+
                         foreach (var form3 in form3list)
                         {
                             // let's build the PlayReady license template
