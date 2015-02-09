@@ -3228,8 +3228,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Asset(s) should be in Smooth Streaming format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-
+            
             string jobname = "PlayReady Encryption of " + Constants.NameconvInputasset;
             string taskname = "PlayReady Encryption of " + Constants.NameconvInputasset;
 
@@ -3237,7 +3236,7 @@ namespace AMSExplorer
             IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                 MediaProcessorNames.WindowsAzureMediaEncryptor);
 
-            PlayReadyStaticEnc form = new PlayReadyStaticEnc()
+            PlayReadyStaticEnc form = new PlayReadyStaticEnc(_context)
             {
                 PlayReadyProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 PlayReadyKeyId = Guid.NewGuid(),
@@ -3253,7 +3252,6 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                IContentKey contentKey;
                 string keyDeliveryServiceUri = form.PlayReadyLAurl;
 
                 // Read and update the configuration XML.
@@ -6782,10 +6780,12 @@ typeof(FilterTime)
 
                 if (form1.ShowDialog() == DialogResult.OK)
                 {
-                    if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.NoDynamicEncryption) // AES or PlayReady encryption. No need to ask more info if user wants to stream protected content in clear
+
+                    switch (form1.GetDeliveryPolicyType)
                     {
-                        if (form1.GetContentKeyType == ContentKeyType.CommonEncryption) // it's PlayReady dyn encryption
-                        {
+                        ///////////////////////////////////////////// CENC Dynamic Encryption
+                        case AssetDeliveryPolicyType.DynamicCommonEncryption:
+                        case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_PlayReadyKeyConfig(
                                 SelectedAssets.Count > 1, form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense) { Left = form1.Left, Top = form1.Top };
@@ -6823,14 +6823,15 @@ typeof(FilterTime)
                                 }
                                 if (!usercancelledform3or4)
                                 {
-                                    DoDynamicEncryptionWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list);
+                                    DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
-                        }
-                        else if (form1.GetContentKeyType == ContentKeyType.EnvelopeEncryption) // it's AES encryption
-                        {
+                            break;
+
+                        ///////////////////////////////////////////// AES Dynamic Encryption
+                        case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
                             AddDynamicEncryptionFrame2_AESKeyConfig form2_AES = new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey) { Left = form1.Left, Top = form1.Top };
                             if (form2_AES.ShowDialog() == DialogResult.OK)
                             {
@@ -6856,22 +6857,30 @@ typeof(FilterTime)
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
-                        }
+                            break;
+
+                        ///////////////////////////////////////////// Decrypt storage protected content
+                        case AssetDeliveryPolicyType.NoDynamicEncryption:
+                            AddDynDecryption(SelectedAssets, form1, _context);
+                            oktoproceed = true;
+                            dataGridViewAssetsV.AnalyzeItemsInBackground();
+                            break;
+
+                        default:
+                            break;
+
                     }
-                    else // Dynamic decryption from a protected content
-                    {
-                        AddDynDecryption(SelectedAssets, form1, _context);
-                        oktoproceed = true;
-                        dataGridViewAssetsV.AnalyzeItemsInBackground();
-                    }
+
                 }
             }
+
+
             return oktoproceed;
         }
 
 
 
-        private void DoDynamicEncryptionWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList)
+        private void DoDynamicEncryptionAndKeyDeliveryWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList)
         {
             bool Error = false;
             foreach (IAsset AssetToProcess in SelectedAssets)
@@ -6880,6 +6889,9 @@ typeof(FilterTime)
                 {
                     IContentKey contentKey = null;
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
+                    // special case, no dynamic encryption, goal is to setup key auth policy. CENC key is selected
+
+
                     if (contentkeys.Count() == 0) // no content key existing so we need to create one
                     {
                         Error = false;
@@ -7002,28 +7014,32 @@ typeof(FilterTime)
                     }
 
                     // Let's create the Asset Delivery Policy now
-                    IAssetDeliveryPolicy DelPol = null;
-                    string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
-                    Error = false;
-                    try
+                    if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.None)
                     {
-                        if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
+                        IAssetDeliveryPolicy DelPol = null;
+                        string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
+                        Error = false;
+                        try
                         {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form2_PlayReady.PlayReadyCustomAttributes);
-                        }
-                        else // Licenses NOT delivered by Azure Media Services but by a third party server
-                        {
-                            DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
-                        }
+                            if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
+                            {
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form2_PlayReady.PlayReadyCustomAttributes);
+                            }
+                            else // Licenses NOT delivered by Azure Media Services but by a third party server
+                            {
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
+                            }
 
-                        TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                        }
+                        catch (Exception e)
+                        {
+                            TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
+                            TextBoxLogWriteLine(e);
+                            Error = true;
+                        }
                     }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
-                        TextBoxLogWriteLine(e);
-                        Error = true;
-                    }
+
                 }
             }
         }
@@ -7229,6 +7245,8 @@ typeof(FilterTime)
             return Error;
 
         }
+
+
 
         private void richTextBoxLog_LinkClicked(object sender, LinkClickedEventArgs e)
         {

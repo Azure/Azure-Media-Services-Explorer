@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
@@ -165,12 +166,14 @@ namespace AMSExplorer
             }
         }
 
-       
+        private CloudMediaContext _context;
 
-        public PlayReadyStaticEnc()
+
+        public PlayReadyStaticEnc(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _context = context;
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
@@ -225,6 +228,26 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonAzureSettings_Click(object sender, EventArgs e)
+        {
+            IContentKey key = _context.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption).FirstOrDefault();
+            if (key != null)
+            {
+                try
+                {
+                    Uri myUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+                    if (myUri != null) textBoxLAurl.Text = myUri.ToString();
+                }
+                catch
+                {
+
+                }
+            }
+            textBoxkeyseed.Text = string.Empty;
+            textBoxkeyid.Text = Guid.NewGuid().ToString();
+            textBoxcontentkey.Text = Convert.ToBase64String(DynamicEncryption.GetRandomBuffer(16));
         }
     }
 }

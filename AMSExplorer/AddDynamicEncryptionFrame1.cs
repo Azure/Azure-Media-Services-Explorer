@@ -45,9 +45,13 @@ namespace AMSExplorer
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryption;
                 }
-                else
+                else if(radioButtonDecryptStorage.Checked)
                 {
                     return AssetDeliveryPolicyType.NoDynamicEncryption;
+                }
+                else
+                {
+                    return AssetDeliveryPolicyType.None;
                 }
             }
         }
@@ -135,6 +139,11 @@ namespace AMSExplorer
                       radioButtonOpenAuthPolicy.Checked = true;
                   }
              * */
+        }
+
+        private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
         }
 
 

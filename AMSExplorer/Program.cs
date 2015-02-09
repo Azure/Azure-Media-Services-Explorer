@@ -1219,6 +1219,11 @@ namespace AMSExplorer
                         break;
                 }
             }
+            else if (MyAsset.Options == AssetCreationOptions.CommonEncryptionProtected)
+            {
+                type = AssetProtectionType.PlayReady; // CENC Static protection
+            }
+
             return type;
         }
 
@@ -1500,7 +1505,7 @@ namespace AMSExplorer
                         }
                         else // format auto. If 0 Reserved Unit, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
                         {
-                            if (choosenSE.ScaleUnits==0 && myasset!=null && myasset.AssetType==AssetType.SmoothStreaming)
+                            if (choosenSE.ScaleUnits == 0 && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
                                 playerurl += string.Format(formatsyntax, "smooth");
                         }
                         Process.Start(string.Format(playerurl, Urlstr));

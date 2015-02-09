@@ -58,6 +58,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAzureSettings = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -134,7 +135,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(23, 95);
+            this.tabControl1.Location = new System.Drawing.Point(23, 132);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(468, 262);
@@ -365,12 +366,23 @@
             this.panel1.Size = new System.Drawing.Size(523, 48);
             this.panel1.TabIndex = 63;
             // 
+            // buttonAzureSettings
+            // 
+            this.buttonAzureSettings.Location = new System.Drawing.Point(23, 86);
+            this.buttonAzureSettings.Name = "buttonAzureSettings";
+            this.buttonAzureSettings.Size = new System.Drawing.Size(159, 32);
+            this.buttonAzureSettings.TabIndex = 64;
+            this.buttonAzureSettings.Text = "Use Azure Media Settings";
+            this.buttonAzureSettings.UseVisualStyleBackColor = true;
+            this.buttonAzureSettings.Click += new System.EventHandler(this.buttonAzureSettings_Click);
+            // 
             // PlayReadyStaticEnc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(517, 532);
+            this.Controls.Add(this.buttonAzureSettings);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.pictureBox1);
@@ -428,5 +440,6 @@
         public System.Windows.Forms.Label labelAssetName;
         private System.Windows.Forms.Button buttongenerateContentKey;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button buttonAzureSettings;
     }
 }

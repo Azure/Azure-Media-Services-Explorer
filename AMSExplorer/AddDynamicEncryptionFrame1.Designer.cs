@@ -37,23 +37,24 @@
             this.radioButtonDecryptStorage = new System.Windows.Forms.RadioButton();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxDelPolProtocols = new System.Windows.Forms.GroupBox();
             this.checkBoxProtocolSmooth = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolHLS = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
-            this.label8 = new System.Windows.Forms.Label();
+            this.radioButtonNoDynEnc = new System.Windows.Forms.RadioButton();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxDelPolProtocols.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
@@ -108,6 +109,7 @@
             // 
             this.groupBoxKeyType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxKeyType.Controls.Add(this.radioButtonNoDynEnc);
             this.groupBoxKeyType.Controls.Add(this.pictureBox1);
             this.groupBoxKeyType.Controls.Add(this.radioButtonDecryptStorage);
             this.groupBoxKeyType.Controls.Add(this.pictureBox3);
@@ -116,7 +118,7 @@
             this.groupBoxKeyType.Controls.Add(this.radioButtonEnvelope);
             this.groupBoxKeyType.Location = new System.Drawing.Point(12, 81);
             this.groupBoxKeyType.Name = "groupBoxKeyType";
-            this.groupBoxKeyType.Size = new System.Drawing.Size(553, 102);
+            this.groupBoxKeyType.Size = new System.Drawing.Size(553, 126);
             this.groupBoxKeyType.TabIndex = 43;
             this.groupBoxKeyType.TabStop = false;
             this.groupBoxKeyType.Text = "Dynamic Encryption mode";
@@ -162,19 +164,19 @@
             this.pictureBox2.TabIndex = 51;
             this.pictureBox2.TabStop = false;
             // 
-            // groupBox1
+            // groupBoxDelPolProtocols
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBoxDelPolProtocols.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.checkBoxProtocolSmooth);
-            this.groupBox1.Controls.Add(this.checkBoxProtocolDASH);
-            this.groupBox1.Controls.Add(this.checkBoxProtocolHLS);
-            this.groupBox1.Location = new System.Drawing.Point(12, 336);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(553, 108);
-            this.groupBox1.TabIndex = 47;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Delivery policy protocols";
+            this.groupBoxDelPolProtocols.Controls.Add(this.checkBoxProtocolSmooth);
+            this.groupBoxDelPolProtocols.Controls.Add(this.checkBoxProtocolDASH);
+            this.groupBoxDelPolProtocols.Controls.Add(this.checkBoxProtocolHLS);
+            this.groupBoxDelPolProtocols.Location = new System.Drawing.Point(12, 231);
+            this.groupBoxDelPolProtocols.Name = "groupBoxDelPolProtocols";
+            this.groupBoxDelPolProtocols.Size = new System.Drawing.Size(553, 108);
+            this.groupBoxDelPolProtocols.TabIndex = 47;
+            this.groupBoxDelPolProtocols.TabStop = false;
+            this.groupBoxDelPolProtocols.Text = "Delivery policy protocols";
             // 
             // checkBoxProtocolSmooth
             // 
@@ -241,12 +243,22 @@
             this.groupBoxAuthPol.Controls.Add(this.numericUpDownNbOptions);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonDefineAuthPol);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonNoAuthPolicy);
-            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 202);
+            this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 362);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
             this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 114);
             this.groupBoxAuthPol.TabIndex = 52;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Key Authorization policy";
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(55, 50);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(492, 36);
+            this.label8.TabIndex = 69;
+            this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
+    "ens, or want to deliver various PlayReady licenses based on token claims";
             // 
             // label2
             // 
@@ -302,15 +314,16 @@
             this.radioButtonNoAuthPolicy.Text = "None - An external PlayReady server is used to deliver the licenses\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // radioButtonNoDynEnc
             // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(55, 50);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(492, 36);
-            this.label8.TabIndex = 69;
-            this.label8.Text = "Having more than one option is useful if you want to support several types of tok" +
-    "ens, or want to deliver various PlayReady licenses based on token claims";
+            this.radioButtonNoDynEnc.AutoSize = true;
+            this.radioButtonNoDynEnc.Location = new System.Drawing.Point(35, 93);
+            this.radioButtonNoDynEnc.Name = "radioButtonNoDynEnc";
+            this.radioButtonNoDynEnc.Size = new System.Drawing.Size(205, 17);
+            this.radioButtonNoDynEnc.TabIndex = 62;
+            this.radioButtonNoDynEnc.Text = "None - Asset already CENC encrypted";
+            this.radioButtonNoDynEnc.UseVisualStyleBackColor = true;
+            this.radioButtonNoDynEnc.CheckedChanged += new System.EventHandler(this.radioButtonNoDynEnc_CheckedChanged);
             // 
             // AddDynamicEncryptionFrame1
             // 
@@ -321,7 +334,7 @@
             this.Controls.Add(this.groupBoxAuthPol);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBoxDelPolProtocols);
             this.Controls.Add(this.groupBoxKeyType);
             this.Name = "AddDynamicEncryptionFrame1";
             this.Text = "Dynamic Encryption - Step 1";
@@ -331,8 +344,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxDelPolProtocols.ResumeLayout(false);
+            this.groupBoxDelPolProtocols.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
@@ -349,7 +362,7 @@
         private System.Windows.Forms.RadioButton radioButtonEnvelope;
         private System.Windows.Forms.RadioButton radioButtonCENCKey;
         private System.Windows.Forms.GroupBox groupBoxKeyType;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxDelPolProtocols;
         private System.Windows.Forms.CheckBox checkBoxProtocolSmooth;
         private System.Windows.Forms.CheckBox checkBoxProtocolDASH;
         private System.Windows.Forms.CheckBox checkBoxProtocolHLS;
@@ -365,5 +378,6 @@
         private System.Windows.Forms.RadioButton radioButtonDefineAuthPol;
         private System.Windows.Forms.RadioButton radioButtonNoAuthPolicy;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton radioButtonNoDynEnc;
     }
 }
