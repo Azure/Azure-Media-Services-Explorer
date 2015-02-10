@@ -1874,11 +1874,11 @@ namespace AMSExplorer
                 if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
                     bool Error = false;
-                    Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine("Deleting asset(s)");
-                    this.Cursor = Cursors.WaitCursor;
                     try
                     {
+                        Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
+                        TextBoxLogWriteLine("Deleting asset(s)");
+                        this.Cursor = Cursors.WaitCursor;
                         Task.WaitAll(deleteTasks);
                     }
                     catch (Exception ex)
