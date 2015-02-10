@@ -1352,7 +1352,10 @@ namespace AMSExplorer
                 {
                     dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
                     dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                    if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted) DisplayButGetToken = true;
+                    if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
+                    {
+                        DisplayButGetToken = true;
+                    }
                     if (restriction.Requirements != null)
                     {
                         dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
@@ -1380,16 +1383,30 @@ namespace AMSExplorer
 
         private void DoGetTestToken()
         {
+            bool Error = true;
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
-                MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
-                MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                if (key != null)
+                {
+                    IContentKeyAuthorizationPolicy AutPol = MyContext.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (AutPol != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
+                        if (AutPolOption != null)
+                        {
+                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
+                            MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
+                            MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                            MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
+                            Error = false;
+                        }
+                    }
+                }
 
-                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
             }
+            if (Error) MessageBox.Show("Error when getting the Key Authorization Policy", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void buttonDashLiveAzure_Click(object sender, EventArgs e)
