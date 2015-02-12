@@ -338,69 +338,68 @@ namespace AMSExplorer
             return cert;
         }
 
-        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
+        public static string GetTestToken(IAsset MyAsset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
         {
             string testToken = null;
-            //var keylist = MyAsset.ContentKeys.Select(k => k.Id).ToList();
-            //var policies = 
 
-            IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
-            if (key != null && key.AuthorizationPolicyId != null)
+            /// WITH UI
+            if (displayUI)
             {
-                IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                if (policy != null)
+                CreateTestToken form = new CreateTestToken(MyAsset, _context, keytype, signingcredentials, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    IContentKeyAuthorizationPolicyOption option = null;
 
-                    if (displayUI)
+                    if (form.GetOption != null)
                     {
-                        CreateTestToken form = new CreateTestToken(MyAsset, keytype, _context, policy, signingcredentials, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
-                        if (form.ShowDialog() == DialogResult.OK)
+                        string tokenTemplateString = form.GetOption.Restrictions.FirstOrDefault().Requirements;
+                        if (!string.IsNullOrEmpty(tokenTemplateString))
                         {
-                            option = form.GetOption;
-                            if (option != null)
+                            Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
+                            if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                             {
-                                string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                                if (!string.IsNullOrEmpty(tokenTemplateString))
+                                testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
+                            }
+                            else // JWT
+                            {
+                                IList<Claim> myclaims = null;
+                                myclaims = form.GetTokenRequiredClaims;
+                                if (form.PutContentKeyIdentifier)
+                                    myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+
+                                if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
                                 {
-                                    Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                                    TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-
-                                    if (tokenTemplate.TokenType == TokenType.SWT) //SWT
+                                    InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
+                                    signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+                                }
+                                else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                {
+                                    if (signingcredentials == null)
                                     {
-                                        testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
-                                    }
-                                    else // JWT
-                                    {
-                                        IList<Claim> myclaims = null;
-                                        myclaims = form.GetTokenRequiredClaims;
-                                        if (form.PutContentKeyIdentifier)
-                                            myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
-
-                                        if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
-                                        {
-                                            InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
-                                            signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
-                                        }
-                                        else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
-                                        {
-                                            if (signingcredentials == null)
-                                            {
-                                                X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
-                                                if (cert != null) signingcredentials = new X509SigningCredentials(cert);
-                                            }
-                                        }
-                                        JwtSecurityToken token = new JwtSecurityToken(issuer: form.GetIssuerUri, audience: form.GetAudienceUri, notBefore: form.StartDate, expires: form.EndDate, signingCredentials: signingcredentials, claims: myclaims);
-                                        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                        testToken = handler.WriteToken(token);
+                                        X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
+                                        if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                     }
                                 }
+                                JwtSecurityToken token = new JwtSecurityToken(issuer: form.GetIssuerUri, audience: form.GetAudienceUri, notBefore: form.StartDate, expires: form.EndDate, signingCredentials: signingcredentials, claims: myclaims);
+                                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                                testToken = handler.WriteToken(token);
                             }
                         }
                     }
-                    else // NO UI
-                    {
+                }
+            }
+            /////////////////////////////// NO UI
+            else if (keytype != null) 
+            {
 
+                IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
+                if (key != null && key.AuthorizationPolicyId != null)
+                {
+                    IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (policy != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption option = null;
                         if (optionid == null) // user does not want a specific option
                         {
                             option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
@@ -449,7 +448,11 @@ namespace AMSExplorer
                         }
                     }
                 }
+
             }
+
+
+          
             return testToken;
         }
 

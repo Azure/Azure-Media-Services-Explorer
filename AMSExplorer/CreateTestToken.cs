@@ -36,10 +36,14 @@ namespace AMSExplorer
 {
     public partial class CreateTestToken : Form
     {
-        private IContentKeyAuthorizationPolicy _policy;
+        private IContentKeyAuthorizationPolicyOption SelectedOption;
+        private IContentKey KeyFromSelectedOption;
+        private IAsset MyAsset;
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
+        private CloudMediaContext mycontext;
 
+        private List<IContentKey> ContentKeyDisplayed = new List<IContentKey>();
 
         public DateTime? StartDate
         {
@@ -54,7 +58,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
         public bool PutContentKeyIdentifier
         {
@@ -81,7 +85,7 @@ namespace AMSExplorer
         {
             get
             {
-                return  (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
+                return (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
             }
             set
             {
@@ -90,7 +94,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
 
 
         public IContentKeyAuthorizationPolicyOption GetOption
@@ -99,7 +103,22 @@ namespace AMSExplorer
             {
                 if (listViewAutOptions.SelectedIndices.Count > 0)
                 {
-                    return _policy.Options.Skip(listViewAutOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    return SelectedOption;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+
+        public IContentKey GetContentKeyFromSelectedOption
+        {
+            get
+            {
+                if (listViewAutOptions.SelectedIndices.Count > 0)
+                {
+                    return KeyFromSelectedOption;
                 }
                 else
                 {
@@ -143,30 +162,47 @@ namespace AMSExplorer
 
 
 
-        public CreateTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, IContentKeyAuthorizationPolicy policy, SigningCredentials signingcredentials = null, string optionid = null)
+        public CreateTestToken(IAsset _asset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
-            _policy = policy;
+            MyAsset = _asset;
+            mycontext = _context;
 
-            var query = _policy.Options;
+            var query = from key in MyAsset.ContentKeys
+                        join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
+                        select new { keyname = key.Name, keytype = key.ContentKeyType, keyid = key.Id, aupolid = autpol.Id };
+
+
             listViewAutOptions.BeginUpdate();
             listViewAutOptions.Items.Clear();
-            foreach (var option in query)
+            foreach (var key in query)
             {
-                ListViewItem item = new ListViewItem(option.Name, 0);
-                item.SubItems.Add(option.Id);
+                var queryoptions = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.aupolid).FirstOrDefault().Options;
 
-                string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                if (!string.IsNullOrEmpty(tokenTemplateString))
+                foreach (var option in queryoptions)
                 {
-                    TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                    item.SubItems.Add(tokenTemplate.TokenType == TokenType.JWT ? "JWT" : "SWT");
-                    item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                    if (option.Restrictions.FirstOrDefault().KeyRestrictionType == (int)ContentKeyRestrictionType.TokenRestricted)
+                    {
+                        ListViewItem item = new ListViewItem(key.keytype.ToString());
+
+                        IContentKey keyj = MyAsset.ContentKeys.Where(k => k.Id == key.keyid).FirstOrDefault();
+                        ContentKeyDisplayed.Add(keyj);
+
+                        item.SubItems.Add(option.Name);
+                        item.SubItems.Add(option.Id);
+                        string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
+                        if (!string.IsNullOrEmpty(tokenTemplateString))
+                        {
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+                            item.SubItems.Add(tokenTemplate.TokenType == TokenType.JWT ? "JWT" : "SWT");
+                            item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                        }
+                        listViewAutOptions.Items.Add(item);
+                        if (optionid == option.Id) listViewAutOptions.Items[listViewAutOptions.Items.IndexOf(item)].Selected = true;
+                    }
                 }
-                listViewAutOptions.Items.Add(item);
-                if (optionid == option.Id) listViewAutOptions.Items[listViewAutOptions.Items.IndexOf(item)].Selected = true;
             }
             listViewAutOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAutOptions.EndUpdate();
@@ -245,13 +281,19 @@ namespace AMSExplorer
 
         }
 
-       
+
 
         private void listViewAutOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewAutOptions.SelectedIndices.Count > 0)
             {
-                string tokenTemplateString = _policy.Options.Skip(listViewAutOptions.SelectedIndices[0]).Take(1).FirstOrDefault().Restrictions.FirstOrDefault().Requirements;
+                var it = listViewAutOptions.SelectedItems[0];
+                string stringoptionid = it.SubItems[2].Text;
+                SelectedOption = mycontext.ContentKeyAuthorizationPolicyOptions.Where(p => p.Id == stringoptionid).FirstOrDefault();
+
+                KeyFromSelectedOption = ContentKeyDisplayed[listViewAutOptions.SelectedItems[0].Index];
+
+                string tokenTemplateString = SelectedOption.Restrictions.FirstOrDefault().Requirements;
                 if (!string.IsNullOrEmpty(tokenTemplateString))
                 {
                     TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
@@ -295,7 +337,7 @@ namespace AMSExplorer
             TokenClaimsList.AddNew();
         }
 
-     
+
 
 
     }

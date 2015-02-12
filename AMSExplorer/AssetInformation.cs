@@ -1395,7 +1395,7 @@ namespace AMSExplorer
                         IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
                         if (AutPolOption != null)
                         {
-                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext, displayUI: true, optionid: AutPolOption.Id);
+                            string testToken = DynamicEncryption.GetTestToken(MyAsset, MyContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
                             if (!string.IsNullOrEmpty(testToken))
                             {
                                 MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
@@ -1408,7 +1408,6 @@ namespace AMSExplorer
                     }
                 }
             }
-            if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void buttonDashLiveAzure_Click(object sender, EventArgs e)

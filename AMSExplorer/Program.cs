@@ -1403,7 +1403,7 @@ namespace AMSExplorer
                     switch (typeplayer)
                     {
                         case PlayerType.SilverlightPlayReadyToken:
-                            token = DynamicEncryption.GetTestToken(myasset, ContentKeyType.CommonEncryption, context);
+                            token = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
                             if (token != null)
                             {
                                 token = HttpUtility.UrlEncode(Constants.Bearer + token);
@@ -1412,7 +1412,7 @@ namespace AMSExplorer
                             break;
 
                         case PlayerType.FlashAESToken:
-                            token = DynamicEncryption.GetTestToken(myasset, ContentKeyType.EnvelopeEncryption, context);
+                            token = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
                             if (token != null)
                             {
                                 token = HttpUtility.UrlEncode(Constants.Bearer + token);
@@ -1427,11 +1427,11 @@ namespace AMSExplorer
                                 case AssetProtectionType.None:
                                     break;
                                 case AssetProtectionType.AES:
-                                    string tokenAES = DynamicEncryption.GetTestToken(myasset, ContentKeyType.EnvelopeEncryption, context);
+                                    string tokenAES = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption,displayUI:true);
                                     if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
                                     break;
                                 case AssetProtectionType.PlayReady:
-                                    string tokenPR = DynamicEncryption.GetTestToken(myasset, ContentKeyType.CommonEncryption, context);
+                                    string tokenPR = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption, displayUI: true);
                                     if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
                                     break;
                             }

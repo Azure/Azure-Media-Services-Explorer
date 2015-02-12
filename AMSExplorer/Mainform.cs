@@ -6998,7 +6998,7 @@ typeof(FilterTime)
                                             }
 
                                             _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                            string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred, policyOption.Id);
+                                            string testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
                                             TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
                                             System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                                             break;
@@ -7141,7 +7141,7 @@ typeof(FilterTime)
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                     contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                    // let display a test toekn
+                                    // let display a test token
                                     X509SigningCredentials signingcred = null;
                                     if (!form3.IsKeySymmetric)
                                     {
@@ -7149,7 +7149,7 @@ typeof(FilterTime)
                                     }
 
                                     _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred, policyOption.Id);
+                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
                                     TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
                                     System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                                     break;

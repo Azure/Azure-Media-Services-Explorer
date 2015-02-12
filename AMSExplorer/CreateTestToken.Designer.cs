@@ -47,7 +47,7 @@
             this.textBoxAudience = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listViewAutOptions = new System.Windows.Forms.ListView();
-            this.columnHeaderName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAutPolName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -55,6 +55,7 @@
             this.panelJWTX509Cert = new System.Windows.Forms.Panel();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.columnHeaderContentKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBoxStartDate.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -88,9 +89,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
             this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
-            this.groupBox1.Location = new System.Drawing.Point(300, 328);
+            this.groupBox1.Location = new System.Drawing.Point(300, 380);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 130);
             this.groupBox1.TabIndex = 2;
@@ -121,10 +123,11 @@
             // 
             // groupBoxStartDate
             // 
+            this.groupBoxStartDate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBoxStartDate.Controls.Add(this.checkBoxStartDate);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartTime);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartDate);
-            this.groupBoxStartDate.Location = new System.Drawing.Point(12, 328);
+            this.groupBoxStartDate.Location = new System.Drawing.Point(12, 380);
             this.groupBoxStartDate.Name = "groupBoxStartDate";
             this.groupBoxStartDate.Size = new System.Drawing.Size(268, 130);
             this.groupBoxStartDate.TabIndex = 1;
@@ -166,13 +169,14 @@
             // 
             // groupBox4
             // 
-            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.panelAutPol);
             this.groupBox4.Controls.Add(this.listViewAutOptions);
             this.groupBox4.Location = new System.Drawing.Point(16, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(552, 310);
+            this.groupBox4.Size = new System.Drawing.Size(552, 362);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Select an authorization option";
@@ -189,9 +193,9 @@
             this.panelAutPol.Controls.Add(this.label3);
             this.panelAutPol.Controls.Add(this.textBoxAudience);
             this.panelAutPol.Controls.Add(this.label2);
-            this.panelAutPol.Location = new System.Drawing.Point(7, 123);
+            this.panelAutPol.Location = new System.Drawing.Point(7, 165);
             this.panelAutPol.Name = "panelAutPol";
-            this.panelAutPol.Size = new System.Drawing.Size(540, 181);
+            this.panelAutPol.Size = new System.Drawing.Size(540, 191);
             this.panelAutPol.TabIndex = 60;
             // 
             // checkBoxAddContentKeyIdentifierClaim
@@ -221,7 +225,7 @@
             this.dataGridViewTokenClaims.ReadOnly = true;
             this.dataGridViewTokenClaims.RowHeadersVisible = false;
             this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(516, 84);
+            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(516, 94);
             this.dataGridViewTokenClaims.TabIndex = 53;
             // 
             // label4
@@ -278,7 +282,8 @@
             this.listViewAutOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewAutOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderName,
+            this.columnHeaderContentKeyType,
+            this.columnHeaderAutPolName,
             this.columnHeaderId,
             this.columnHeaderType,
             this.columnHeaderKeyType});
@@ -287,27 +292,31 @@
             this.listViewAutOptions.Location = new System.Drawing.Point(7, 19);
             this.listViewAutOptions.MultiSelect = false;
             this.listViewAutOptions.Name = "listViewAutOptions";
-            this.listViewAutOptions.Size = new System.Drawing.Size(539, 98);
+            this.listViewAutOptions.Size = new System.Drawing.Size(539, 140);
             this.listViewAutOptions.TabIndex = 62;
             this.listViewAutOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutOptions.View = System.Windows.Forms.View.Details;
             this.listViewAutOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutOptions_SelectedIndexChanged);
             // 
-            // columnHeaderName
+            // columnHeaderAutPolName
             // 
-            this.columnHeaderName.Text = "Name";
+            this.columnHeaderAutPolName.DisplayIndex = 0;
+            this.columnHeaderAutPolName.Text = "Authorization Name";
             // 
             // columnHeaderId
             // 
-            this.columnHeaderId.Text = "Id";
+            this.columnHeaderId.DisplayIndex = 1;
+            this.columnHeaderId.Text = "Aut Id";
             // 
             // columnHeaderType
             // 
-            this.columnHeaderType.Text = "Token type";
+            this.columnHeaderType.DisplayIndex = 2;
+            this.columnHeaderType.Text = "Token Type";
             // 
             // columnHeaderKeyType
             // 
-            this.columnHeaderKeyType.Text = "Key type";
+            this.columnHeaderKeyType.DisplayIndex = 3;
+            this.columnHeaderKeyType.Text = "Token Key Type";
             // 
             // panel1
             // 
@@ -348,6 +357,10 @@
             this.labelCertificateFile.Size = new System.Drawing.Size(347, 18);
             this.labelCertificateFile.TabIndex = 67;
             this.labelCertificateFile.Text = "(no file selected)";
+            // 
+            // columnHeaderContentKeyType
+            // 
+            this.columnHeaderContentKeyType.Text = "Content Key Type";
             // 
             // CreateTestToken
             // 
@@ -400,10 +413,11 @@
         private System.Windows.Forms.TextBox textBoxAudience;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ListView listViewAutOptions;
-        private System.Windows.Forms.ColumnHeader columnHeaderName;
+        private System.Windows.Forms.ColumnHeader columnHeaderAutPolName;
         private System.Windows.Forms.ColumnHeader columnHeaderId;
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
         private System.Windows.Forms.ColumnHeader columnHeaderKeyType;
+        private System.Windows.Forms.ColumnHeader columnHeaderContentKeyType;
     }
 }
