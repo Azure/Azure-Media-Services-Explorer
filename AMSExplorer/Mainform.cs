@@ -6977,13 +6977,22 @@ typeof(FilterTime)
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsJWTKeySymmetric, form3.GetX509Certificate, _context, PlayReadyLicenseDeliveryConfig);
+                                            TokenVerificationKey mytokenverifkey;
+                                            if (form3.IsKeySymmetric)
+                                            {
+                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                            }
+                                            else
+                                            {
+                                                mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                            }
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig);
                                             TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
                                             // let display a test token
                                             X509SigningCredentials signingcred = null;
-                                            if (form3.GetTokenType == TokenType.JWT && !form3.IsJWTKeySymmetric)
+                                            if (!form3.IsKeySymmetric)
                                             {
                                                 signingcred = new X509SigningCredentials(form3.GetX509Certificate);
                                             }
@@ -7119,12 +7128,22 @@ typeof(FilterTime)
                                     break;
 
                                 case ContentKeyRestrictionType.TokenRestricted:
-                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsJWTKeySymmetric, form3.GetX509Certificate, _context);
+                                    TokenVerificationKey mytokenverifkey;
+                                    if (form3.IsKeySymmetric)
+                                    {
+                                        mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                    }
+                                    else
+                                    {
+                                        mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                    }
+                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-
+                                    contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                                    
                                     // let display a test toekn
                                     X509SigningCredentials signingcred = null;
-                                    if (form3.GetTokenType == TokenType.JWT && !form3.IsJWTKeySymmetric)
+                                    if (!form3.IsKeySymmetric)
                                     {
                                         signingcred = new X509SigningCredentials(form3.GetX509Certificate);
                                     }
@@ -7146,12 +7165,9 @@ typeof(FilterTime)
                             TextBoxLogWriteLine(e);
                             Error = true;
                         }
-                        if (!Error)
-                        {
-                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
-                            contentKeyAuthorizationPolicy.Update();
-                        }
+                        
                     }
+                    contentKeyAuthorizationPolicy.Update();
 
                     // Let's create the Asset Delivery Policy now
                     IAssetDeliveryPolicy DelPol = null;

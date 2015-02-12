@@ -1395,7 +1395,7 @@ namespace AMSExplorer
                         IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
                         if (AutPolOption != null)
                         {
-                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
+                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext,displayUI:true, optionid:AutPolOption.Id);
                             MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
                             MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
                             System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);

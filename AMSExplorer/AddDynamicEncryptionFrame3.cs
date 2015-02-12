@@ -29,6 +29,10 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Security;
+using System.Security.Claims;
+using System.IdentityModel.Tokens;
+using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -49,7 +53,7 @@ namespace AMSExplorer
                 {
                     return ContentKeyRestrictionType.TokenRestricted;
                 }
-                
+
             }
         }
 
@@ -102,11 +106,28 @@ namespace AMSExplorer
             }
         }
 
-        public bool IsJWTKeySymmetric
+        public bool IsKeySymmetric
         {
             get
             {
-                return radioButtonJWTSymmetric.Checked ? true : false;
+                return (radioButtonJWTSymmetric.Checked || radioButtonSWT.Checked) ? true : false;
+            }
+        }
+
+        public string SymmetricKey
+        {
+            get
+            {
+                if (radioButtonContentKeyHex.Checked)
+                {
+                    return Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text));
+                }
+                else
+                    return textBoxSymKey.Text;
+            }
+            set
+            {
+                textBoxSymKey.Text = value;
             }
         }
 
@@ -135,7 +156,7 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
-            
+
         }
 
 
@@ -144,6 +165,7 @@ namespace AMSExplorer
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
+            GenerateSymKey();
         }
 
 
@@ -196,6 +218,7 @@ namespace AMSExplorer
         private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
         {
             panelJWT.Enabled = radioButtonJWTX509.Checked;
+            panelSymKey.Enabled = !radioButtonJWTX509.Checked;
             UpdateButtonOk();
         }
 
@@ -207,6 +230,54 @@ namespace AMSExplorer
         private void UpdateButtonOk()
         {
             buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || (radioButtonJWTX509.Checked && cert != null))));
+        }
+
+        private void radioButtonJWTSymmetric_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttongenerateContentKey_Click(object sender, EventArgs e)
+        {
+            GenerateSymKey();
+        }
+
+        private void GenerateSymKey()
+        {
+            textBoxSymKey.Text = Convert.ToBase64String(new SymmetricVerificationKey().KeyValue);
+
+        }
+
+        private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyBase64.Checked)
+            {
+                try
+                {
+                    textBoxSymKey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text));
+                }
+                catch
+                {
+                    textBoxSymKey.Text = string.Empty;
+                }
+            }
+
+        }
+
+
+        private void radioButtonContentKeyHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyHex.Checked)
+            {
+                try
+                {
+                    textBoxSymKey.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxSymKey.Text));
+                }
+                catch
+                {
+                    textBoxSymKey.Text = string.Empty;
+                }
+            }
         }
     }
 }

@@ -34,6 +34,13 @@
             this.radioButtonTokenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.panelAutPol = new System.Windows.Forms.Panel();
+            this.panelSymKey = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.radioButtonContentKeyBase64 = new System.Windows.Forms.RadioButton();
+            this.radioButtonContentKeyHex = new System.Windows.Forms.RadioButton();
+            this.textBoxSymKey = new System.Windows.Forms.TextBox();
+            this.buttongenerateContentKey = new System.Windows.Forms.Button();
             this.checkBoxAddContentKeyIdentifierClaim = new System.Windows.Forms.CheckBox();
             this.radioButtonJWTSymmetric = new System.Windows.Forms.RadioButton();
             this.panelJWT = new System.Windows.Forms.Panel();
@@ -55,6 +62,8 @@
             this.labelStep = new System.Windows.Forms.Label();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelAutPol.SuspendLayout();
+            this.panelSymKey.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.panelJWT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
@@ -123,6 +132,7 @@
             // 
             this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelAutPol.Controls.Add(this.panelSymKey);
             this.panelAutPol.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
             this.panelAutPol.Controls.Add(this.radioButtonJWTSymmetric);
             this.panelAutPol.Controls.Add(this.panelJWT);
@@ -141,6 +151,84 @@
             this.panelAutPol.Size = new System.Drawing.Size(540, 391);
             this.panelAutPol.TabIndex = 60;
             // 
+            // panelSymKey
+            // 
+            this.panelSymKey.Controls.Add(this.label1);
+            this.panelSymKey.Controls.Add(this.panel2);
+            this.panelSymKey.Controls.Add(this.textBoxSymKey);
+            this.panelSymKey.Controls.Add(this.buttongenerateContentKey);
+            this.panelSymKey.Location = new System.Drawing.Point(176, 243);
+            this.panelSymKey.Name = "panelSymKey";
+            this.panelSymKey.Size = new System.Drawing.Size(356, 63);
+            this.panelSymKey.TabIndex = 76;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 13);
+            this.label1.TabIndex = 75;
+            this.label1.Text = "Symmetric key:";
+            // 
+            // panel2
+            // 
+            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
+            this.panel2.Controls.Add(this.radioButtonContentKeyHex);
+            this.panel2.Location = new System.Drawing.Point(206, 5);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(75, 48);
+            this.panel2.TabIndex = 74;
+            // 
+            // radioButtonContentKeyBase64
+            // 
+            this.radioButtonContentKeyBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonContentKeyBase64.AutoSize = true;
+            this.radioButtonContentKeyBase64.Checked = true;
+            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(8, 6);
+            this.radioButtonContentKeyBase64.Name = "radioButtonContentKeyBase64";
+            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonContentKeyBase64.TabIndex = 68;
+            this.radioButtonContentKeyBase64.TabStop = true;
+            this.radioButtonContentKeyBase64.Text = "Base64";
+            this.radioButtonContentKeyBase64.UseVisualStyleBackColor = true;
+            this.radioButtonContentKeyBase64.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyBase64_CheckedChanged);
+            // 
+            // radioButtonContentKeyHex
+            // 
+            this.radioButtonContentKeyHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonContentKeyHex.AutoSize = true;
+            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(8, 28);
+            this.radioButtonContentKeyHex.Name = "radioButtonContentKeyHex";
+            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(44, 17);
+            this.radioButtonContentKeyHex.TabIndex = 69;
+            this.radioButtonContentKeyHex.Text = "Hex";
+            this.radioButtonContentKeyHex.UseVisualStyleBackColor = true;
+            this.radioButtonContentKeyHex.CheckedChanged += new System.EventHandler(this.radioButtonContentKeyHex_CheckedChanged);
+            // 
+            // textBoxSymKey
+            // 
+            this.textBoxSymKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSymKey.Location = new System.Drawing.Point(10, 21);
+            this.textBoxSymKey.Name = "textBoxSymKey";
+            this.textBoxSymKey.Size = new System.Drawing.Size(190, 20);
+            this.textBoxSymKey.TabIndex = 72;
+            // 
+            // buttongenerateContentKey
+            // 
+            this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(287, 18);
+            this.buttongenerateContentKey.Name = "buttongenerateContentKey";
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(64, 25);
+            this.buttongenerateContentKey.TabIndex = 73;
+            this.buttongenerateContentKey.Text = "Generate";
+            this.buttongenerateContentKey.UseVisualStyleBackColor = true;
+            this.buttongenerateContentKey.Click += new System.EventHandler(this.buttongenerateContentKey_Click);
+            // 
             // checkBoxAddContentKeyIdentifierClaim
             // 
             this.checkBoxAddContentKeyIdentifierClaim.AutoSize = true;
@@ -157,13 +245,14 @@
             // 
             this.radioButtonJWTSymmetric.AutoSize = true;
             this.radioButtonJWTSymmetric.Checked = true;
-            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(19, 277);
+            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(19, 269);
             this.radioButtonJWTSymmetric.Name = "radioButtonJWTSymmetric";
-            this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(314, 17);
+            this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(145, 17);
             this.radioButtonJWTSymmetric.TabIndex = 69;
             this.radioButtonJWTSymmetric.TabStop = true;
-            this.radioButtonJWTSymmetric.Text = "JSON Web Token (JWT) - with autogenerated symmetric key";
+            this.radioButtonJWTSymmetric.Text = "JSON Web Token (JWT)";
             this.radioButtonJWTSymmetric.UseVisualStyleBackColor = true;
+            this.radioButtonJWTSymmetric.CheckedChanged += new System.EventHandler(this.radioButtonJWTSymmetric_CheckedChanged);
             // 
             // panelJWT
             // 
@@ -171,7 +260,7 @@
             this.panelJWT.Controls.Add(this.buttonImportPFX);
             this.panelJWT.Controls.Add(this.labelCertificateFile);
             this.panelJWT.Enabled = false;
-            this.panelJWT.Location = new System.Drawing.Point(31, 333);
+            this.panelJWT.Location = new System.Drawing.Point(31, 335);
             this.panelJWT.Name = "panelJWT";
             this.panelJWT.Size = new System.Drawing.Size(469, 51);
             this.panelJWT.TabIndex = 68;
@@ -207,7 +296,7 @@
             // radioButtonJWTX509
             // 
             this.radioButtonJWTX509.AutoSize = true;
-            this.radioButtonJWTX509.Location = new System.Drawing.Point(19, 300);
+            this.radioButtonJWTX509.Location = new System.Drawing.Point(19, 312);
             this.radioButtonJWTX509.Name = "radioButtonJWTX509";
             this.radioButtonJWTX509.Size = new System.Drawing.Size(315, 17);
             this.radioButtonJWTX509.TabIndex = 65;
@@ -218,11 +307,11 @@
             // radioButtonSWT
             // 
             this.radioButtonSWT.AutoSize = true;
-            this.radioButtonSWT.Location = new System.Drawing.Point(19, 254);
+            this.radioButtonSWT.Location = new System.Drawing.Point(19, 247);
             this.radioButtonSWT.Name = "radioButtonSWT";
-            this.radioButtonSWT.Size = new System.Drawing.Size(319, 17);
+            this.radioButtonSWT.Size = new System.Drawing.Size(150, 17);
             this.radioButtonSWT.TabIndex = 64;
-            this.radioButtonSWT.Text = "Simple Web Token (SWT) - with autogenerated symmetric key";
+            this.radioButtonSWT.Text = "Simple Web Token (SWT)";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
             this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonSWT_CheckedChanged);
             // 
@@ -356,6 +445,10 @@
             this.groupBoxAuthPol.PerformLayout();
             this.panelAutPol.ResumeLayout(false);
             this.panelAutPol.PerformLayout();
+            this.panelSymKey.ResumeLayout(false);
+            this.panelSymKey.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panelJWT.ResumeLayout(false);
             this.panelJWT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
@@ -393,5 +486,12 @@
         private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelStep;
+        public System.Windows.Forms.TextBox textBoxSymKey;
+        private System.Windows.Forms.Button buttongenerateContentKey;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton radioButtonContentKeyBase64;
+        private System.Windows.Forms.RadioButton radioButtonContentKeyHex;
+        private System.Windows.Forms.Panel panelSymKey;
+        public System.Windows.Forms.Label label1;
     }
 }
