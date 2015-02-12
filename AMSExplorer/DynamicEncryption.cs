@@ -341,6 +341,9 @@ namespace AMSExplorer
         public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
         {
             string testToken = null;
+            //var keylist = MyAsset.ContentKeys.Select(k => k.Id).ToList();
+            //var policies = 
+
             IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
             if (key != null && key.AuthorizationPolicyId != null)
             {
@@ -351,7 +354,7 @@ namespace AMSExplorer
 
                     if (displayUI)
                     {
-                        CreateTestToken form = new CreateTestToken(MyAsset, keytype, _context, policy, signingcredentials, optionid);
+                        CreateTestToken form = new CreateTestToken(MyAsset, keytype, _context, policy, signingcredentials, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             option = form.GetOption;
@@ -393,7 +396,6 @@ namespace AMSExplorer
                                     }
                                 }
                             }
-
                         }
                     }
                     else // NO UI

@@ -7140,7 +7140,7 @@ typeof(FilterTime)
                                     policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                     contentKeyAuthorizationPolicy.Options.Add(policyOption);
-                                    
+
                                     // let display a test toekn
                                     X509SigningCredentials signingcred = null;
                                     if (!form3.IsKeySymmetric)
@@ -7149,7 +7149,7 @@ typeof(FilterTime)
                                     }
 
                                     _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
+                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred, policyOption.Id);
                                     TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
                                     System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
                                     break;
@@ -7165,7 +7165,7 @@ typeof(FilterTime)
                             TextBoxLogWriteLine(e);
                             Error = true;
                         }
-                        
+
                     }
                     contentKeyAuthorizationPolicy.Update();
 
@@ -8446,7 +8446,47 @@ typeof(FilterTime)
         {
             DoRemoveKeys();
         }
+
+        private void getATestTokenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
+
+        private void DoGetTestToken()
+        {
+            /*
+            bool Error = true;
+            IAsset MyAsset = ReturnSelectedAssets().FirstOrDefault();
+            if (MyAsset != null)
+            {
+                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+                if (key != null)
+                {
+                    IContentKeyAuthorizationPolicy AutPol = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (AutPol != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
+                        if (AutPolOption != null)
+                        {
+                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, _context, displayUI: true, optionid: AutPolOption.Id);
+                            if (!string.IsNullOrEmpty(testToken))
+                            {
+                                TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
+                                TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
+                                Error = false;
+                            }
+                        }
+                    }
+                }
+            }
+            if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            */
+        }
+          
     }
+            
 }
 
 

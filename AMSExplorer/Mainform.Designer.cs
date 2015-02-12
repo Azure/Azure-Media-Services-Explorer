@@ -370,6 +370,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.getATestTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -501,7 +502,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 446);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 424);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1451,6 +1452,7 @@
             // 
             this.publishToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem,
+            this.getATestTokenToolStripMenuItem,
             this.removeDynamicEncryptionForTheAssetsToolStripMenuItem,
             this.removeKeysForTheAssetsToolStripMenuItem1,
             this.toolStripSeparator22,
@@ -3727,6 +3729,13 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // getATestTokenToolStripMenuItem
+            // 
+            this.getATestTokenToolStripMenuItem.Name = "getATestTokenToolStripMenuItem";
+            this.getATestTokenToolStripMenuItem.Size = new System.Drawing.Size(447, 22);
+            this.getATestTokenToolStripMenuItem.Text = "Get a test token...";
+            this.getATestTokenToolStripMenuItem.Click += new System.EventHandler(this.getATestTokenToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4137,6 +4146,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator29;
         private System.Windows.Forms.ToolStripMenuItem removeKeysForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem removeKeysForTheAssetsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem getATestTokenToolStripMenuItem;
     }
 }
 

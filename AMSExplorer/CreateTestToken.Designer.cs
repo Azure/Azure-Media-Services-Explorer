@@ -31,7 +31,6 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.checkBoxEndDate = new System.Windows.Forms.CheckBox();
             this.dateTimePickerEndTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
             this.groupBoxStartDate = new System.Windows.Forms.GroupBox();
@@ -89,7 +88,6 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.checkBoxEndDate);
             this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
             this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
             this.groupBox1.Location = new System.Drawing.Point(300, 328);
@@ -98,17 +96,6 @@
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "End date/time";
-            // 
-            // checkBoxEndDate
-            // 
-            this.checkBoxEndDate.AutoSize = true;
-            this.checkBoxEndDate.Location = new System.Drawing.Point(9, 26);
-            this.checkBoxEndDate.Name = "checkBoxEndDate";
-            this.checkBoxEndDate.Size = new System.Drawing.Size(142, 17);
-            this.checkBoxEndDate.TabIndex = 3;
-            this.checkBoxEndDate.Text = "Specify a end date/time:";
-            this.checkBoxEndDate.UseVisualStyleBackColor = true;
-            this.checkBoxEndDate.CheckedChanged += new System.EventHandler(this.checkBoxEndDate_CheckedChanged);
             // 
             // dateTimePickerEndTime
             // 
@@ -377,7 +364,6 @@
             this.Text = "Create a Test Token";
             this.Load += new System.EventHandler(this.CreateTestToken_Load);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBoxStartDate.ResumeLayout(false);
             this.groupBoxStartDate.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -419,6 +405,5 @@
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
         private System.Windows.Forms.ColumnHeader columnHeaderKeyType;
-        private System.Windows.Forms.CheckBox checkBoxEndDate;
     }
 }

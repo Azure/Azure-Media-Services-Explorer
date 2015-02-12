@@ -81,7 +81,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (checkBoxEndDate.Checked) ? (DateTime)dateTimePickerEndDate.Value.ToUniversalTime() : (Nullable<DateTime>)null;
+                return  (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
             }
             set
             {
@@ -166,6 +166,7 @@ namespace AMSExplorer
                     item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
                 }
                 listViewAutOptions.Items.Add(item);
+                if (optionid == option.Id) listViewAutOptions.Items[listViewAutOptions.Items.IndexOf(item)].Selected = true;
             }
             listViewAutOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAutOptions.EndUpdate();
@@ -294,10 +295,7 @@ namespace AMSExplorer
             TokenClaimsList.AddNew();
         }
 
-        private void checkBoxEndDate_CheckedChanged(object sender, EventArgs e)
-        {
-            dateTimePickerEndDate.Enabled = dateTimePickerEndTime.Enabled = checkBoxEndDate.Checked;
-        }
+     
 
 
     }

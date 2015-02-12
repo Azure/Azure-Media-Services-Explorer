@@ -1395,18 +1395,20 @@ namespace AMSExplorer
                         IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
                         if (AutPolOption != null)
                         {
-                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext,displayUI:true, optionid:AutPolOption.Id);
-                            MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
-                            MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
-                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                            MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
-                            Error = false;
+                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext, displayUI: true, optionid: AutPolOption.Id);
+                            if (!string.IsNullOrEmpty(testToken))
+                            {
+                                MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
+                                MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
+                                Error = false;
+                            }
                         }
                     }
                 }
-
             }
-            if (Error) MessageBox.Show("Error when getting the Key Authorization Policy", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void buttonDashLiveAzure_Click(object sender, EventArgs e)
