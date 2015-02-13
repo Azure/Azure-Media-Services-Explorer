@@ -41,16 +41,16 @@
             this.checkBoxAddContentKeyIdentifierClaim = new System.Windows.Forms.CheckBox();
             this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBoxIssuer = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.textBoxAudience = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.listViewAutOptions = new System.Windows.Forms.ListView();
             this.columnHeaderContentKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAutPolName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.textBoxIssuer = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.textBoxAudience = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panelJWTX509Cert = new System.Windows.Forms.Panel();
             this.buttonImportPFX = new System.Windows.Forms.Button();
@@ -224,46 +224,6 @@
             this.label4.TabIndex = 63;
             this.label4.Text = "Others claims :";
             // 
-            // textBoxIssuer
-            // 
-            this.textBoxIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIssuer.Location = new System.Drawing.Point(9, 195);
-            this.textBoxIssuer.Name = "textBoxIssuer";
-            this.textBoxIssuer.ReadOnly = true;
-            this.textBoxIssuer.Size = new System.Drawing.Size(537, 20);
-            this.textBoxIssuer.TabIndex = 56;
-            this.textBoxIssuer.Text = "http://testacs.com";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 228);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(178, 13);
-            this.label3.TabIndex = 59;
-            this.label3.Text = "Audience or scope of the token Url :";
-            // 
-            // textBoxAudience
-            // 
-            this.textBoxAudience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAudience.Location = new System.Drawing.Point(9, 244);
-            this.textBoxAudience.Name = "textBoxAudience";
-            this.textBoxAudience.ReadOnly = true;
-            this.textBoxAudience.Size = new System.Drawing.Size(537, 20);
-            this.textBoxAudience.TabIndex = 57;
-            this.textBoxAudience.Text = "urn:test";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 179);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 13);
-            this.label2.TabIndex = 58;
-            this.label2.Text = "Issuer of the token Url :";
-            // 
             // listViewAutOptions
             // 
             this.listViewAutOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -291,11 +251,11 @@
             // 
             // columnHeaderAutPolName
             // 
-            this.columnHeaderAutPolName.Text = "Authorization Name";
+            this.columnHeaderAutPolName.Text = "Option Name";
             // 
             // columnHeaderId
             // 
-            this.columnHeaderId.Text = "Aut Id";
+            this.columnHeaderId.Text = "Option Id";
             // 
             // columnHeaderType
             // 
@@ -304,6 +264,46 @@
             // columnHeaderKeyType
             // 
             this.columnHeaderKeyType.Text = "Token Key Type";
+            // 
+            // textBoxIssuer
+            // 
+            this.textBoxIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxIssuer.Location = new System.Drawing.Point(9, 195);
+            this.textBoxIssuer.Name = "textBoxIssuer";
+            this.textBoxIssuer.ReadOnly = true;
+            this.textBoxIssuer.Size = new System.Drawing.Size(537, 20);
+            this.textBoxIssuer.TabIndex = 56;
+            this.textBoxIssuer.Text = "http://testacs.com";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 179);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(117, 13);
+            this.label2.TabIndex = 58;
+            this.label2.Text = "Issuer of the token Url :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 228);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(178, 13);
+            this.label3.TabIndex = 59;
+            this.label3.Text = "Audience or scope of the token Url :";
+            // 
+            // textBoxAudience
+            // 
+            this.textBoxAudience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAudience.Location = new System.Drawing.Point(9, 244);
+            this.textBoxAudience.Name = "textBoxAudience";
+            this.textBoxAudience.ReadOnly = true;
+            this.textBoxAudience.Size = new System.Drawing.Size(537, 20);
+            this.textBoxAudience.TabIndex = 57;
+            this.textBoxAudience.Text = "urn:test";
             // 
             // panel1
             // 
