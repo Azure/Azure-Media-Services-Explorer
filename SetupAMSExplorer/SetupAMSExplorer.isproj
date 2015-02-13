@@ -31,4 +31,10 @@
 	<ItemGroup/>
 	<ItemGroup/>
 	<ItemGroup/>
+	<ItemGroup>
+		<ProjectReference Include="..\AMSExplorer\AMSExplorer.csproj">
+			<Name>AMSExplorer</Name>
+			<Project>{67573AA5-0316-4C90-8CE4-93A950CD0A86}</Project>
+		</ProjectReference>
+	</ItemGroup>
 </Project>

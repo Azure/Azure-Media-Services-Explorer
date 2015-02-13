@@ -1,14 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMSExplorer", "AMSExplorer\AMSExplorer.csproj", "{67573AA5-0316-4C90-8CE4-93A950CD0A86}"
 EndProject
 Project("{6141683F-8A12-4E36-9623-2EB02B2C2303}") = "SetupAMSExplorer", "SetupAMSExplorer\SetupAMSExplorer.isproj", "{FEC674B1-FBE6-4D9B-8F5E-7AE13F881F37}"
-	ProjectSection(ProjectDependencies) = postProject
-		{67573AA5-0316-4C90-8CE4-93A950CD0A86} = {67573AA5-0316-4C90-8CE4-93A950CD0A86}
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
