@@ -38,7 +38,6 @@
             this.dateTimePickerStartTime = new System.Windows.Forms.DateTimePicker();
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.panelAutPol = new System.Windows.Forms.Panel();
             this.checkBoxAddContentKeyIdentifierClaim = new System.Windows.Forms.CheckBox();
             this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
             this.label4 = new System.Windows.Forms.Label();
@@ -47,6 +46,7 @@
             this.textBoxAudience = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.listViewAutOptions = new System.Windows.Forms.ListView();
+            this.columnHeaderContentKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderAutPolName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -55,11 +55,9 @@
             this.panelJWTX509Cert = new System.Windows.Forms.Panel();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.labelCertificateFile = new System.Windows.Forms.Label();
-            this.columnHeaderContentKeyType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBoxStartDate.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.panelAutPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelJWTX509Cert.SuspendLayout();
@@ -92,7 +90,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
             this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
-            this.groupBox1.Location = new System.Drawing.Point(300, 380);
+            this.groupBox1.Location = new System.Drawing.Point(300, 427);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(268, 130);
             this.groupBox1.TabIndex = 2;
@@ -107,7 +105,7 @@
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEndTime.Size = new System.Drawing.Size(253, 20);
             this.dateTimePickerEndTime.TabIndex = 2;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
@@ -117,7 +115,7 @@
             this.dateTimePickerEndDate.Location = new System.Drawing.Point(9, 60);
             this.dateTimePickerEndDate.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(253, 20);
             this.dateTimePickerEndDate.TabIndex = 1;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
@@ -127,7 +125,7 @@
             this.groupBoxStartDate.Controls.Add(this.checkBoxStartDate);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartTime);
             this.groupBoxStartDate.Controls.Add(this.dateTimePickerStartDate);
-            this.groupBoxStartDate.Location = new System.Drawing.Point(12, 380);
+            this.groupBoxStartDate.Location = new System.Drawing.Point(16, 426);
             this.groupBoxStartDate.Name = "groupBoxStartDate";
             this.groupBoxStartDate.Size = new System.Drawing.Size(268, 130);
             this.groupBoxStartDate.TabIndex = 1;
@@ -154,7 +152,7 @@
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartTime.Size = new System.Drawing.Size(251, 20);
             this.dateTimePickerStartTime.TabIndex = 2;
             this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
@@ -163,7 +161,7 @@
             this.dateTimePickerStartDate.Enabled = false;
             this.dateTimePickerStartDate.Location = new System.Drawing.Point(11, 60);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(251, 20);
             this.dateTimePickerStartDate.TabIndex = 1;
             this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
             // 
@@ -172,31 +170,20 @@
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.panelAutPol);
+            this.groupBox4.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
+            this.groupBox4.Controls.Add(this.dataGridViewTokenClaims);
+            this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.listViewAutOptions);
+            this.groupBox4.Controls.Add(this.textBoxIssuer);
+            this.groupBox4.Controls.Add(this.label2);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.textBoxAudience);
             this.groupBox4.Location = new System.Drawing.Point(16, 12);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(552, 362);
+            this.groupBox4.Size = new System.Drawing.Size(552, 397);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Select an authorization option";
-            // 
-            // panelAutPol
-            // 
-            this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAutPol.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
-            this.panelAutPol.Controls.Add(this.dataGridViewTokenClaims);
-            this.panelAutPol.Controls.Add(this.label4);
-            this.panelAutPol.Controls.Add(this.textBoxIssuer);
-            this.panelAutPol.Controls.Add(this.label3);
-            this.panelAutPol.Controls.Add(this.textBoxAudience);
-            this.panelAutPol.Controls.Add(this.label2);
-            this.panelAutPol.Location = new System.Drawing.Point(7, 165);
-            this.panelAutPol.Name = "panelAutPol";
-            this.panelAutPol.Size = new System.Drawing.Size(540, 191);
-            this.panelAutPol.TabIndex = 60;
             // 
             // checkBoxAddContentKeyIdentifierClaim
             // 
@@ -204,7 +191,7 @@
             this.checkBoxAddContentKeyIdentifierClaim.Checked = true;
             this.checkBoxAddContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxAddContentKeyIdentifierClaim.Enabled = false;
-            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(15, 58);
+            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(7, 281);
             this.checkBoxAddContentKeyIdentifierClaim.Name = "checkBoxAddContentKeyIdentifierClaim";
             this.checkBoxAddContentKeyIdentifierClaim.Size = new System.Drawing.Size(177, 17);
             this.checkBoxAddContentKeyIdentifierClaim.TabIndex = 71;
@@ -220,18 +207,18 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(16, 94);
+            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(6, 317);
             this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
             this.dataGridViewTokenClaims.ReadOnly = true;
             this.dataGridViewTokenClaims.RowHeadersVisible = false;
             this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(516, 94);
+            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(540, 74);
             this.dataGridViewTokenClaims.TabIndex = 53;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(16, 78);
+            this.label4.Location = new System.Drawing.Point(6, 301);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 13);
             this.label4.TabIndex = 63;
@@ -241,17 +228,17 @@
             // 
             this.textBoxIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIssuer.Location = new System.Drawing.Point(203, 8);
+            this.textBoxIssuer.Location = new System.Drawing.Point(9, 195);
             this.textBoxIssuer.Name = "textBoxIssuer";
             this.textBoxIssuer.ReadOnly = true;
-            this.textBoxIssuer.Size = new System.Drawing.Size(329, 20);
+            this.textBoxIssuer.Size = new System.Drawing.Size(537, 20);
             this.textBoxIssuer.TabIndex = 56;
             this.textBoxIssuer.Text = "http://testacs.com";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 41);
+            this.label3.Location = new System.Drawing.Point(6, 228);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(178, 13);
             this.label3.TabIndex = 59;
@@ -261,17 +248,17 @@
             // 
             this.textBoxAudience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAudience.Location = new System.Drawing.Point(203, 38);
+            this.textBoxAudience.Location = new System.Drawing.Point(9, 244);
             this.textBoxAudience.Name = "textBoxAudience";
             this.textBoxAudience.ReadOnly = true;
-            this.textBoxAudience.Size = new System.Drawing.Size(329, 20);
+            this.textBoxAudience.Size = new System.Drawing.Size(537, 20);
             this.textBoxAudience.TabIndex = 57;
             this.textBoxAudience.Text = "urn:test";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 11);
+            this.label2.Location = new System.Drawing.Point(6, 179);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 13);
             this.label2.TabIndex = 58;
@@ -298,24 +285,24 @@
             this.listViewAutOptions.View = System.Windows.Forms.View.Details;
             this.listViewAutOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutOptions_SelectedIndexChanged);
             // 
+            // columnHeaderContentKeyType
+            // 
+            this.columnHeaderContentKeyType.Text = "Content Key Type";
+            // 
             // columnHeaderAutPolName
             // 
-            this.columnHeaderAutPolName.DisplayIndex = 0;
             this.columnHeaderAutPolName.Text = "Authorization Name";
             // 
             // columnHeaderId
             // 
-            this.columnHeaderId.DisplayIndex = 1;
             this.columnHeaderId.Text = "Aut Id";
             // 
             // columnHeaderType
             // 
-            this.columnHeaderType.DisplayIndex = 2;
             this.columnHeaderType.Text = "Token Type";
             // 
             // columnHeaderKeyType
             // 
-            this.columnHeaderKeyType.DisplayIndex = 3;
             this.columnHeaderKeyType.Text = "Token Key Type";
             // 
             // panel1
@@ -336,7 +323,7 @@
             this.panelJWTX509Cert.Controls.Add(this.buttonImportPFX);
             this.panelJWTX509Cert.Controls.Add(this.labelCertificateFile);
             this.panelJWTX509Cert.Enabled = false;
-            this.panelJWTX509Cert.Location = new System.Drawing.Point(12, 516);
+            this.panelJWTX509Cert.Location = new System.Drawing.Point(12, 571);
             this.panelJWTX509Cert.Name = "panelJWTX509Cert";
             this.panelJWTX509Cert.Size = new System.Drawing.Size(556, 31);
             this.panelJWTX509Cert.TabIndex = 68;
@@ -349,6 +336,7 @@
             this.buttonImportPFX.TabIndex = 66;
             this.buttonImportPFX.Text = "Import X509 Certificate (.PFX)...";
             this.buttonImportPFX.UseVisualStyleBackColor = true;
+            this.buttonImportPFX.Click += new System.EventHandler(this.buttonImportPFX_Click);
             // 
             // labelCertificateFile
             // 
@@ -357,10 +345,6 @@
             this.labelCertificateFile.Size = new System.Drawing.Size(347, 18);
             this.labelCertificateFile.TabIndex = 67;
             this.labelCertificateFile.Text = "(no file selected)";
-            // 
-            // columnHeaderContentKeyType
-            // 
-            this.columnHeaderContentKeyType.Text = "Content Key Type";
             // 
             // CreateTestToken
             // 
@@ -380,8 +364,7 @@
             this.groupBoxStartDate.ResumeLayout(false);
             this.groupBoxStartDate.PerformLayout();
             this.groupBox4.ResumeLayout(false);
-            this.panelAutPol.ResumeLayout(false);
-            this.panelAutPol.PerformLayout();
+            this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panelJWTX509Cert.ResumeLayout(false);
@@ -402,7 +385,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panelAutPol;
         private System.Windows.Forms.Panel panelJWTX509Cert;
         private System.Windows.Forms.Button buttonImportPFX;
         private System.Windows.Forms.Label labelCertificateFile;

@@ -1395,12 +1395,12 @@ namespace AMSExplorer
                         IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
                         if (AutPolOption != null)
                         {
-                            string testToken = DynamicEncryption.GetTestToken(MyAsset, MyContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
-                            if (!string.IsNullOrEmpty(testToken))
+                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, MyContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
+                            if (!string.IsNullOrEmpty(testToken.TokenString))
                             {
                                 MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
                                 MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
-                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                 MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
                                 Error = false;
                             }

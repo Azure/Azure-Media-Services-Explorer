@@ -38,6 +38,7 @@ namespace AMSExplorer
     {
         private IContentKeyAuthorizationPolicyOption SelectedOption;
         private IContentKey KeyFromSelectedOption;
+
         private IAsset MyAsset;
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
@@ -161,8 +162,17 @@ namespace AMSExplorer
 
 
 
+        public X509Certificate2 GetX509Certificate
+        {
+            get
+            {
+                return panelJWTX509Cert.Enabled ? cert : null;
+            }
+        }
 
-        public CreateTestToken(IAsset _asset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null)
+
+
+        public CreateTestToken(IAsset _asset, CloudMediaContext _context, ContentKeyType? keytype = null, string optionid = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -204,46 +214,15 @@ namespace AMSExplorer
                     }
                 }
             }
+
+            if (listViewAutOptions.Items.Count > 0 && listViewAutOptions.SelectedItems.Count == 0) // no selection, in that case, first line selected
+            {
+                listViewAutOptions.Items[0].Selected = true;
+            }
+
             listViewAutOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewAutOptions.EndUpdate();
 
-
-            /*
-            string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-            if (!string.IsNullOrEmpty(tokenTemplateString))
-            {
-                Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-
-                if (tokenTemplate.TokenType == TokenType.SWT) //SWT
-                {
-                    testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
-                }
-                else // JWT
-                {
-                    List<Claim> myclaims = null;
-                    myclaims = new List<Claim>();
-                    myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
-
-                    if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
-                    {
-                        InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
-                        signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
-                    }
-                    else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
-                    {
-                        if (signingcredentials == null)
-                        {
-                            X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
-                            if (cert != null) signingcredentials = new X509SigningCredentials(cert);
-                        }
-                    }
-                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
-                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                    testToken = handler.WriteToken(token);
-                }
-            }
-             * */
 
 
         }
@@ -319,9 +298,8 @@ namespace AMSExplorer
                         }
                     }
                 }
-
+                UpdateButtonOk();
             }
-
         }
 
         private void buttonDelClaim_Click(object sender, EventArgs e)
@@ -335,6 +313,19 @@ namespace AMSExplorer
         private void buttonAddClaim_Click(object sender, EventArgs e)
         {
             TokenClaimsList.AddNew();
+        }
+
+        private void buttonImportPFX_Click(object sender, EventArgs e)
+        {
+            cert = DynamicEncryption.GetCertificateFromFile(false);
+            labelCertificateFile.Text = (cert != null) ? cert.SubjectName.Name : "(Error)";
+            UpdateButtonOk();
+        }
+
+        private void UpdateButtonOk()
+        {
+            buttonOk.Enabled = (!panelJWTX509Cert.Enabled || (panelJWTX509Cert.Enabled && cert != null));
+
         }
 
 

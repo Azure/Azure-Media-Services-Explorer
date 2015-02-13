@@ -33,7 +33,6 @@
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
             this.radioButtonTokenAuthPolicy = new System.Windows.Forms.RadioButton();
             this.radioButtonOpenAuthPolicy = new System.Windows.Forms.RadioButton();
-            this.panelAutPol = new System.Windows.Forms.Panel();
             this.panelSymKey = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -50,7 +49,6 @@
             this.radioButtonJWTX509 = new System.Windows.Forms.RadioButton();
             this.radioButtonSWT = new System.Windows.Forms.RadioButton();
             this.dataGridViewTokenClaims = new System.Windows.Forms.DataGridView();
-            this.label4 = new System.Windows.Forms.Label();
             this.buttonDelClaim = new System.Windows.Forms.Button();
             this.buttonAddClaim = new System.Windows.Forms.Button();
             this.textBoxIssuer = new System.Windows.Forms.TextBox();
@@ -58,16 +56,31 @@
             this.textBoxAudience = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelStep = new System.Windows.Forms.Label();
+            this.tabControlTokenType = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageTokenSymmetric = new System.Windows.Forms.TabPage();
+            this.tabPageTokenX509 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tabControlTokenProperties = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBoxAuthPol.SuspendLayout();
-            this.panelAutPol.SuspendLayout();
             this.panelSymKey.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panelJWT.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.tabControlTokenType.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPageTokenSymmetric.SuspendLayout();
+            this.tabPageTokenX509.SuspendLayout();
+            this.tabControlTokenProperties.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -99,7 +112,7 @@
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
             this.groupBoxAuthPol.Location = new System.Drawing.Point(12, 73);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(553, 78);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(560, 78);
             this.groupBoxAuthPol.TabIndex = 47;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Content key\'s authorization policy option";
@@ -128,38 +141,15 @@
             this.radioButtonOpenAuthPolicy.UseVisualStyleBackColor = true;
             this.radioButtonOpenAuthPolicy.CheckedChanged += new System.EventHandler(this.radioButtonOpen_CheckedChanged);
             // 
-            // panelAutPol
-            // 
-            this.panelAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelAutPol.Controls.Add(this.panelSymKey);
-            this.panelAutPol.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
-            this.panelAutPol.Controls.Add(this.radioButtonJWTSymmetric);
-            this.panelAutPol.Controls.Add(this.panelJWT);
-            this.panelAutPol.Controls.Add(this.radioButtonJWTX509);
-            this.panelAutPol.Controls.Add(this.radioButtonSWT);
-            this.panelAutPol.Controls.Add(this.dataGridViewTokenClaims);
-            this.panelAutPol.Controls.Add(this.label4);
-            this.panelAutPol.Controls.Add(this.buttonDelClaim);
-            this.panelAutPol.Controls.Add(this.buttonAddClaim);
-            this.panelAutPol.Controls.Add(this.textBoxIssuer);
-            this.panelAutPol.Controls.Add(this.label3);
-            this.panelAutPol.Controls.Add(this.textBoxAudience);
-            this.panelAutPol.Controls.Add(this.label2);
-            this.panelAutPol.Location = new System.Drawing.Point(6, 19);
-            this.panelAutPol.Name = "panelAutPol";
-            this.panelAutPol.Size = new System.Drawing.Size(540, 391);
-            this.panelAutPol.TabIndex = 60;
-            // 
             // panelSymKey
             // 
             this.panelSymKey.Controls.Add(this.label1);
             this.panelSymKey.Controls.Add(this.panel2);
             this.panelSymKey.Controls.Add(this.textBoxSymKey);
             this.panelSymKey.Controls.Add(this.buttongenerateContentKey);
-            this.panelSymKey.Location = new System.Drawing.Point(176, 243);
+            this.panelSymKey.Location = new System.Drawing.Point(18, 25);
             this.panelSymKey.Name = "panelSymKey";
-            this.panelSymKey.Size = new System.Drawing.Size(356, 63);
+            this.panelSymKey.Size = new System.Drawing.Size(516, 63);
             this.panelSymKey.TabIndex = 76;
             // 
             // label1
@@ -176,7 +166,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel2.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel2.Location = new System.Drawing.Point(206, 5);
+            this.panel2.Location = new System.Drawing.Point(366, 5);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(75, 48);
             this.panel2.TabIndex = 74;
@@ -215,13 +205,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSymKey.Location = new System.Drawing.Point(10, 21);
             this.textBoxSymKey.Name = "textBoxSymKey";
-            this.textBoxSymKey.Size = new System.Drawing.Size(190, 20);
+            this.textBoxSymKey.Size = new System.Drawing.Size(350, 20);
             this.textBoxSymKey.TabIndex = 72;
             // 
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(287, 18);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(447, 18);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
             this.buttongenerateContentKey.Size = new System.Drawing.Size(64, 25);
             this.buttongenerateContentKey.TabIndex = 73;
@@ -234,7 +224,7 @@
             this.checkBoxAddContentKeyIdentifierClaim.AutoSize = true;
             this.checkBoxAddContentKeyIdentifierClaim.Checked = true;
             this.checkBoxAddContentKeyIdentifierClaim.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(16, 77);
+            this.checkBoxAddContentKeyIdentifierClaim.Location = new System.Drawing.Point(21, 15);
             this.checkBoxAddContentKeyIdentifierClaim.Name = "checkBoxAddContentKeyIdentifierClaim";
             this.checkBoxAddContentKeyIdentifierClaim.Size = new System.Drawing.Size(177, 17);
             this.checkBoxAddContentKeyIdentifierClaim.TabIndex = 70;
@@ -245,12 +235,12 @@
             // 
             this.radioButtonJWTSymmetric.AutoSize = true;
             this.radioButtonJWTSymmetric.Checked = true;
-            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(19, 269);
+            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(21, 47);
             this.radioButtonJWTSymmetric.Name = "radioButtonJWTSymmetric";
             this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(145, 17);
             this.radioButtonJWTSymmetric.TabIndex = 69;
             this.radioButtonJWTSymmetric.TabStop = true;
-            this.radioButtonJWTSymmetric.Text = "JSON Web Token (JWT)";
+            this.radioButtonJWTSymmetric.Text = "JWT - JSON Web Token";
             this.radioButtonJWTSymmetric.UseVisualStyleBackColor = true;
             this.radioButtonJWTSymmetric.CheckedChanged += new System.EventHandler(this.radioButtonJWTSymmetric_CheckedChanged);
             // 
@@ -260,15 +250,15 @@
             this.panelJWT.Controls.Add(this.buttonImportPFX);
             this.panelJWT.Controls.Add(this.labelCertificateFile);
             this.panelJWT.Enabled = false;
-            this.panelJWT.Location = new System.Drawing.Point(31, 335);
+            this.panelJWT.Location = new System.Drawing.Point(9, 19);
             this.panelJWT.Name = "panelJWT";
-            this.panelJWT.Size = new System.Drawing.Size(469, 51);
+            this.panelJWT.Size = new System.Drawing.Size(525, 62);
             this.panelJWT.TabIndex = 68;
             // 
             // moreinfocGenX509
             // 
             this.moreinfocGenX509.AutoSize = true;
-            this.moreinfocGenX509.Location = new System.Drawing.Point(3, 29);
+            this.moreinfocGenX509.Location = new System.Drawing.Point(3, 40);
             this.moreinfocGenX509.Name = "moreinfocGenX509";
             this.moreinfocGenX509.Size = new System.Drawing.Size(213, 13);
             this.moreinfocGenX509.TabIndex = 69;
@@ -296,22 +286,22 @@
             // radioButtonJWTX509
             // 
             this.radioButtonJWTX509.AutoSize = true;
-            this.radioButtonJWTX509.Location = new System.Drawing.Point(19, 312);
+            this.radioButtonJWTX509.Location = new System.Drawing.Point(21, 70);
             this.radioButtonJWTX509.Name = "radioButtonJWTX509";
-            this.radioButtonJWTX509.Size = new System.Drawing.Size(315, 17);
+            this.radioButtonJWTX509.Size = new System.Drawing.Size(145, 17);
             this.radioButtonJWTX509.TabIndex = 65;
-            this.radioButtonJWTX509.Text = "JSON Web Token (JWT) - with user provided asymmetric key";
+            this.radioButtonJWTX509.Text = "JWT - JSON Web Token";
             this.radioButtonJWTX509.UseVisualStyleBackColor = true;
             this.radioButtonJWTX509.CheckedChanged += new System.EventHandler(this.radioButtonJWT_CheckedChanged);
             // 
             // radioButtonSWT
             // 
             this.radioButtonSWT.AutoSize = true;
-            this.radioButtonSWT.Location = new System.Drawing.Point(19, 247);
+            this.radioButtonSWT.Location = new System.Drawing.Point(21, 24);
             this.radioButtonSWT.Name = "radioButtonSWT";
             this.radioButtonSWT.Size = new System.Drawing.Size(150, 17);
             this.radioButtonSWT.TabIndex = 64;
-            this.radioButtonSWT.Text = "Simple Web Token (SWT)";
+            this.radioButtonSWT.Text = "SWT - Simple Web Token";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
             this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonSWT_CheckedChanged);
             // 
@@ -321,25 +311,16 @@
             this.dataGridViewTokenClaims.AllowUserToDeleteRows = false;
             this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(16, 113);
+            this.dataGridViewTokenClaims.Location = new System.Drawing.Point(21, 61);
             this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
             this.dataGridViewTokenClaims.RowHeadersVisible = false;
             this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewTokenClaims.Size = new System.Drawing.Size(516, 93);
             this.dataGridViewTokenClaims.TabIndex = 53;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 97);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 13);
-            this.label4.TabIndex = 63;
-            this.label4.Text = "Other claims :";
-            // 
             // buttonDelClaim
             // 
-            this.buttonDelClaim.Location = new System.Drawing.Point(100, 212);
+            this.buttonDelClaim.Location = new System.Drawing.Point(102, 160);
             this.buttonDelClaim.Name = "buttonDelClaim";
             this.buttonDelClaim.Size = new System.Drawing.Size(75, 23);
             this.buttonDelClaim.TabIndex = 62;
@@ -349,7 +330,7 @@
             // 
             // buttonAddClaim
             // 
-            this.buttonAddClaim.Location = new System.Drawing.Point(19, 212);
+            this.buttonAddClaim.Location = new System.Drawing.Point(21, 160);
             this.buttonAddClaim.Name = "buttonAddClaim";
             this.buttonAddClaim.Size = new System.Drawing.Size(75, 23);
             this.buttonAddClaim.TabIndex = 61;
@@ -361,39 +342,39 @@
             // 
             this.textBoxIssuer.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxIssuer.Location = new System.Drawing.Point(203, 8);
+            this.textBoxIssuer.Location = new System.Drawing.Point(21, 41);
             this.textBoxIssuer.Name = "textBoxIssuer";
-            this.textBoxIssuer.Size = new System.Drawing.Size(329, 20);
+            this.textBoxIssuer.Size = new System.Drawing.Size(513, 20);
             this.textBoxIssuer.TabIndex = 56;
             this.textBoxIssuer.Text = "http://testacs.com";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(16, 41);
+            this.label3.Location = new System.Drawing.Point(18, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(178, 13);
+            this.label3.Size = new System.Drawing.Size(127, 13);
             this.label3.TabIndex = 59;
-            this.label3.Text = "Audience or scope of the token Url :";
+            this.label3.Text = "Audience or scope URL :";
             // 
             // textBoxAudience
             // 
             this.textBoxAudience.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAudience.Location = new System.Drawing.Point(203, 38);
+            this.textBoxAudience.Location = new System.Drawing.Point(21, 102);
             this.textBoxAudience.Name = "textBoxAudience";
-            this.textBoxAudience.Size = new System.Drawing.Size(329, 20);
+            this.textBoxAudience.Size = new System.Drawing.Size(513, 20);
             this.textBoxAudience.TabIndex = 57;
             this.textBoxAudience.Text = "urn:test";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 11);
+            this.label2.Location = new System.Drawing.Point(18, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 13);
+            this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 58;
-            this.label2.Text = "Issuer of the token Url :";
+            this.label2.Text = "Issuer URL :";
             // 
             // panel1
             // 
@@ -407,16 +388,6 @@
             this.panel1.Size = new System.Drawing.Size(586, 48);
             this.panel1.TabIndex = 51;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.panelAutPol);
-            this.groupBox1.Location = new System.Drawing.Point(13, 161);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(552, 432);
-            this.groupBox1.TabIndex = 53;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Token properties";
-            // 
             // labelStep
             // 
             this.labelStep.AutoSize = true;
@@ -427,14 +398,138 @@
             this.labelStep.TabIndex = 84;
             this.labelStep.Text = "Step {0}\r\nSpecify the content key Authorization Policy Option #{1}";
             // 
+            // tabControlTokenType
+            // 
+            this.tabControlTokenType.Controls.Add(this.tabPage1);
+            this.tabControlTokenType.Controls.Add(this.tabPageTokenSymmetric);
+            this.tabControlTokenType.Controls.Add(this.tabPageTokenX509);
+            this.tabControlTokenType.Location = new System.Drawing.Point(12, 172);
+            this.tabControlTokenType.Name = "tabControlTokenType";
+            this.tabControlTokenType.SelectedIndex = 0;
+            this.tabControlTokenType.Size = new System.Drawing.Size(560, 138);
+            this.tabControlTokenType.TabIndex = 85;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label6);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.radioButtonJWTSymmetric);
+            this.tabPage1.Controls.Add(this.radioButtonSWT);
+            this.tabPage1.Controls.Add(this.radioButtonJWTX509);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(552, 112);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Token Type";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPageTokenSymmetric
+            // 
+            this.tabPageTokenSymmetric.Controls.Add(this.panelSymKey);
+            this.tabPageTokenSymmetric.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTokenSymmetric.Name = "tabPageTokenSymmetric";
+            this.tabPageTokenSymmetric.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTokenSymmetric.Size = new System.Drawing.Size(552, 112);
+            this.tabPageTokenSymmetric.TabIndex = 1;
+            this.tabPageTokenSymmetric.Text = "Symmetric token key";
+            this.tabPageTokenSymmetric.UseVisualStyleBackColor = true;
+            // 
+            // tabPageTokenX509
+            // 
+            this.tabPageTokenX509.Controls.Add(this.panelJWT);
+            this.tabPageTokenX509.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTokenX509.Name = "tabPageTokenX509";
+            this.tabPageTokenX509.Size = new System.Drawing.Size(552, 112);
+            this.tabPageTokenX509.TabIndex = 2;
+            this.tabPageTokenX509.Text = "X509 Certificate";
+            this.tabPageTokenX509.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label5.Location = new System.Drawing.Point(177, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(252, 19);
+            this.label5.TabIndex = 70;
+            this.label5.Text = "with symmetric key";
+            // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(177, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(252, 19);
+            this.label6.TabIndex = 71;
+            this.label6.Text = "with symmetric key";
+            // 
+            // label7
+            // 
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Location = new System.Drawing.Point(177, 72);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(252, 19);
+            this.label7.TabIndex = 72;
+            this.label7.Text = "with asymmetric key (X509 Certificate)";
+            // 
+            // tabControlTokenProperties
+            // 
+            this.tabControlTokenProperties.Controls.Add(this.tabPage2);
+            this.tabControlTokenProperties.Controls.Add(this.tabPage3);
+            this.tabControlTokenProperties.Location = new System.Drawing.Point(12, 330);
+            this.tabControlTokenProperties.Name = "tabControlTokenProperties";
+            this.tabControlTokenProperties.SelectedIndex = 0;
+            this.tabControlTokenProperties.Size = new System.Drawing.Size(560, 223);
+            this.tabControlTokenProperties.TabIndex = 86;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.label2);
+            this.tabPage2.Controls.Add(this.textBoxAudience);
+            this.tabPage2.Controls.Add(this.label3);
+            this.tabPage2.Controls.Add(this.textBoxIssuer);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(552, 197);
+            this.tabPage2.TabIndex = 0;
+            this.tabPage2.Text = "Token Properties";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.label4);
+            this.tabPage3.Controls.Add(this.checkBoxAddContentKeyIdentifierClaim);
+            this.tabPage3.Controls.Add(this.dataGridViewTokenClaims);
+            this.tabPage3.Controls.Add(this.buttonAddClaim);
+            this.tabPage3.Controls.Add(this.buttonDelClaim);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(552, 197);
+            this.tabPage3.TabIndex = 1;
+            this.tabPage3.Text = "Claims";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Location = new System.Drawing.Point(18, 39);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(252, 19);
+            this.label4.TabIndex = 73;
+            this.label4.Text = "Other claims :";
+            // 
             // AddDynamicEncryptionFrame3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.tabControlTokenProperties);
+            this.Controls.Add(this.tabControlTokenType);
             this.Controls.Add(this.labelStep);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Name = "AddDynamicEncryptionFrame3";
@@ -443,8 +538,6 @@
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
-            this.panelAutPol.ResumeLayout(false);
-            this.panelAutPol.PerformLayout();
             this.panelSymKey.ResumeLayout(false);
             this.panelSymKey.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -453,7 +546,16 @@
             this.panelJWT.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
+            this.tabControlTokenType.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPageTokenSymmetric.ResumeLayout(false);
+            this.tabPageTokenX509.ResumeLayout(false);
+            this.tabControlTokenProperties.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -470,9 +572,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxAudience;
         private System.Windows.Forms.TextBox textBoxIssuer;
-        private System.Windows.Forms.Panel panelAutPol;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttonDelClaim;
         private System.Windows.Forms.Button buttonAddClaim;
         private System.Windows.Forms.DataGridView dataGridViewTokenClaims;
@@ -484,7 +584,6 @@
         private System.Windows.Forms.LinkLabel moreinfocGenX509;
         private System.Windows.Forms.RadioButton radioButtonJWTSymmetric;
         private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label labelStep;
         public System.Windows.Forms.TextBox textBoxSymKey;
         private System.Windows.Forms.Button buttongenerateContentKey;
@@ -493,5 +592,16 @@
         private System.Windows.Forms.RadioButton radioButtonContentKeyHex;
         private System.Windows.Forms.Panel panelSymKey;
         public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TabControl tabControlTokenType;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageTokenSymmetric;
+        private System.Windows.Forms.TabPage tabPageTokenX509;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TabControl tabControlTokenProperties;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label4;
     }
 }

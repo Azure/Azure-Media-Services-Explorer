@@ -6795,14 +6795,16 @@ typeof(FilterTime)
                                 List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4list = new List<AddDynamicEncryptionFrame4_PlayReadyLicense>();
                                 bool usercancelledform3or4 = false;
                                 int step = 3;
+                                string tokensymmetrickey = null;
                                 for (int i = 0; i < form1.GetNumberOfAuthorizationPolicyOptions; i++)
                                 {
-                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, step, i, !NeedToDisplayPlayReadyLicense) { Left = form2_PlayReady.Left, Top = form2_PlayReady.Top };
+                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_PlayReady.Left, Top = form2_PlayReady.Top };
                                     if (form3.ShowDialog() == DialogResult.OK)
                                     {
                                         step++;
                                         form3list.Add(form3);
-                                        AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense(step, i, i == (form1.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3.Left, Top = form3.Top };
+                                        tokensymmetrickey = form3.SymmetricKey;
+                                        AddDynamicEncryptionFrame4_PlayReadyLicense form4_PlayReadyLicense = new AddDynamicEncryptionFrame4_PlayReadyLicense(step, i + 1, i == (form1.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3.Left, Top = form3.Top };
                                         if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
                                             step++;
@@ -6837,12 +6839,14 @@ typeof(FilterTime)
                             {
                                 List<AddDynamicEncryptionFrame3> form3list = new List<AddDynamicEncryptionFrame3>();
                                 bool usercancelledform3 = false;
+                                string tokensymmetrickey = null;
                                 for (int i = 0; i < form1.GetNumberOfAuthorizationPolicyOptions; i++)
                                 {
-                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, i + 3, i, true) { Left = form2_AES.Left, Top = form2_AES.Top };
+                                    AddDynamicEncryptionFrame3 form3 = new AddDynamicEncryptionFrame3(_context, i + 3, i + 1, tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
                                     if (form3.ShowDialog() == DialogResult.OK)
                                     {
                                         form3list.Add(form3);
+                                        tokensymmetrickey = form3.SymmetricKey;
                                     }
                                     else
                                     {
@@ -6998,9 +7002,9 @@ typeof(FilterTime)
                                             }
 
                                             _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                            string testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
                                             TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
-                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                             break;
 
 
@@ -7149,9 +7153,9 @@ typeof(FilterTime)
                                     }
 
                                     _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                    string testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                    DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
                                     TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
-                                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
+                                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                     break;
 
                                 default:
@@ -8454,39 +8458,88 @@ typeof(FilterTime)
 
         private void DoGetTestToken()
         {
-            /*
+        
             bool Error = true;
-            IAsset MyAsset = ReturnSelectedAssets().FirstOrDefault();
+            IAsset MyAsset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
             if (MyAsset != null)
             {
-                IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                if (key != null)
+                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, _context, displayUI: true);
+
+                if (!string.IsNullOrEmpty(testToken.TokenString))
                 {
-                    IContentKeyAuthorizationPolicy AutPol = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                    if (AutPol != null)
-                    {
-                        IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
-                        if (AutPolOption != null)
-                        {
-                            string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, _context, displayUI: true, optionid: AutPolOption.Id);
-                            if (!string.IsNullOrEmpty(testToken))
-                            {
-                                TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
-                                TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
-                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
-                                Error = false;
-                            }
-                        }
-                    }
+                    TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken.TokenString);
+                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                    MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken.TokenString), "Test token copied");
+                    Error = false;
                 }
+
             }
             if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            */
         }
-          
+
+        private void securityToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoMenuDecryptAsset();
+
+        }
+
+        private void toolStripMenuItem13_Click(object sender, EventArgs e)
+        {
+            DoMenuDecryptAsset();
+        }
+
+        private void toolStripMenuItem5_Click(object sender, EventArgs e)
+        {
+            DoSetupDynEnc();
+        }
+
+        private void getATestTokenToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripMenuItem6_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
+
+        private void toolStripMenuItem7_Click(object sender, EventArgs e)
+        {
+            DoRemoveDynEnc();
+        }
+
+        private void toolStripMenuItem8_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
+        }
+
+        private void toolStripMenuItem3_Click_1(object sender, EventArgs e)
+        {
+            DoSetupDynEnc();
+        }
+
+        private void toolStripMenuItem9_Click(object sender, EventArgs e)
+        {
+            DoRemoveDynEnc();
+        }
+
+        private void toolStripMenuItem10_Click(object sender, EventArgs e)
+        {
+            DoRemoveKeys();
+        }
+
+        private void toolStripMenuItem11_Click(object sender, EventArgs e)
+        {
+            DoGetTestToken();
+        }
+
     }
-            
+
 }
 
 

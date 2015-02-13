@@ -338,14 +338,24 @@ namespace AMSExplorer
             return cert;
         }
 
-        public static string GetTestToken(IAsset MyAsset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
+        public class TokenResult
         {
-            string testToken = null;
+            public string TokenString { get; set; }
+            public TokenType TokenType { get; set; }
+            public bool IsTokenKeySymmetric { get; set; }
+            public ContentKeyType ContentKeyType { get; set; }
+        }
+
+
+        public static TokenResult GetTestToken(IAsset MyAsset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
+        {
+
+            TokenResult MyResult = new TokenResult();
 
             /// WITH UI
             if (displayUI)
             {
-                CreateTestToken form = new CreateTestToken(MyAsset, _context, keytype, signingcredentials, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
+                CreateTestToken form = new CreateTestToken(MyAsset, _context, keytype, optionid) { StartDate = DateTime.Now.AddMinutes(-5), EndDate = DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration) };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
 
@@ -357,9 +367,14 @@ namespace AMSExplorer
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
+                            MyResult.TokenType = tokenTemplate.TokenType;
+                            MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                            MyResult.ContentKeyType = form.GetContentKeyFromSelectedOption.ContentKeyType;
+
                             if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                             {
-                                testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
+                                MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
+
                             }
                             else // JWT
                             {
@@ -375,22 +390,19 @@ namespace AMSExplorer
                                 }
                                 else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
                                 {
-                                    if (signingcredentials == null)
-                                    {
-                                        X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
-                                        if (cert != null) signingcredentials = new X509SigningCredentials(cert);
-                                    }
+                                    X509Certificate2 cert = form.GetX509Certificate;
+                                    if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                 }
                                 JwtSecurityToken token = new JwtSecurityToken(issuer: form.GetIssuerUri, audience: form.GetAudienceUri, notBefore: form.StartDate, expires: form.EndDate, signingCredentials: signingcredentials, claims: myclaims);
                                 JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                testToken = handler.WriteToken(token);
+                                MyResult.TokenString = handler.WriteToken(token);
                             }
                         }
                     }
                 }
             }
             /////////////////////////////// NO UI
-            else if (keytype != null) 
+            else if (keytype != null)
             {
 
                 IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
@@ -417,9 +429,13 @@ namespace AMSExplorer
                                 Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
+                                MyResult.TokenType = tokenTemplate.TokenType;
+                                MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                                MyResult.ContentKeyType = (ContentKeyType)keytype;
+
                                 if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                                 {
-                                    testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
+                                    MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
                                 }
                                 else // JWT
                                 {
@@ -442,7 +458,7 @@ namespace AMSExplorer
                                     }
                                     JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
                                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                    testToken = handler.WriteToken(token);
+                                    MyResult.TokenString = handler.WriteToken(token);
                                 }
                             }
                         }
@@ -451,9 +467,7 @@ namespace AMSExplorer
 
             }
 
-
-          
-            return testToken;
+            return MyResult;
         }
 
         static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context)

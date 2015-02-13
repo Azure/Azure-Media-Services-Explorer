@@ -125,10 +125,7 @@ namespace AMSExplorer
                 else
                     return textBoxSymKey.Text;
             }
-            set
-            {
-                textBoxSymKey.Text = value;
-            }
+
         }
 
 
@@ -142,7 +139,7 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame3(CloudMediaContext context, int step, int option, bool laststep = true)
+        public AddDynamicEncryptionFrame3(CloudMediaContext context, int step, int option, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -156,7 +153,14 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
-
+            if (tokenSymmetricKey == null)
+            {
+                GenerateSymKey();
+            }
+            else
+            {
+                textBoxSymKey.Text = tokenSymmetricKey;
+            }
         }
 
 
@@ -165,14 +169,14 @@ namespace AMSExplorer
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
-            GenerateSymKey();
+            tabControlTokenType.TabPages.Remove(tabPageTokenX509);
         }
 
 
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
-            panelAutPol.Enabled = radioButtonTokenAuthPolicy.Checked;
+            tabControlTokenProperties.Enabled = radioButtonTokenAuthPolicy.Checked;
             UpdateButtonOk();
 
         }
@@ -218,8 +222,31 @@ namespace AMSExplorer
         private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
         {
             panelJWT.Enabled = radioButtonJWTX509.Checked;
-            panelSymKey.Enabled = !radioButtonJWTX509.Checked;
+            panelSymKey.Enabled =   !radioButtonJWTX509.Checked;
+
+            
+            if (radioButtonJWTX509.Checked)
+            {
+                tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Add(tabPageTokenX509);
+            }
+            else
+            {
+                tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Remove(tabPageTokenX509);
+            }
+
+            
             UpdateButtonOk();
+
+
+/*            //
+            tabControl.TabPages.Remove(tabPage);
+
+To put it back:
+tabControl.TabPages.Insert(index, tabPage);
+ * */
+
         }
 
         private void radioButtonSWT_CheckedChanged(object sender, EventArgs e)

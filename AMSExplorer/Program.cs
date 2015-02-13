@@ -1395,7 +1395,8 @@ namespace AMSExplorer
                 IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
                 if (!DoNotRewriteURL) Urlstr = rw(Urlstr.ToString(), choosenSE);
 
-                string token = null;
+                //string token = null;
+                DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 
                 if (myasset != null)
                 {
@@ -1403,19 +1404,19 @@ namespace AMSExplorer
                     switch (typeplayer)
                     {
                         case PlayerType.SilverlightPlayReadyToken:
-                            token = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
-                            if (token != null)
+                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
                             {
-                                token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
                                 keytype = AssetProtectionType.PlayReady;
                             }
                             break;
 
                         case PlayerType.FlashAESToken:
-                            token = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
-                            if (token != null)
+                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
                             {
-                                token = HttpUtility.UrlEncode(Constants.Bearer + token);
+                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
                                 keytype = AssetProtectionType.AES;
                             }
                             break;
@@ -1427,12 +1428,14 @@ namespace AMSExplorer
                                 case AssetProtectionType.None:
                                     break;
                                 case AssetProtectionType.AES:
-                                    string tokenAES = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption,displayUI:true);
-                                    if (tokenAES != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenAES);
-                                    break;
                                 case AssetProtectionType.PlayReady:
-                                    string tokenPR = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption, displayUI: true);
-                                    if (tokenPR != null) token = HttpUtility.UrlEncode(Constants.Bearer + tokenPR);
+                                    tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
+                                    if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                                    {
+                                        tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                        // if the user selecteed an CENC key, let's assume that the content is protected with PlayReady, otherwise AES
+                                        keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
+                                    }
                                     break;
                             }
                             break;
@@ -1469,9 +1472,9 @@ namespace AMSExplorer
                                 default:
                                     break;
                             }
-                            if (token != null)
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
                             {
-                                playerurl += string.Format(tokensyntax, token);
+                                playerurl += string.Format(tokensyntax, tokenresult.TokenString);
                             }
                         }
 
@@ -1498,9 +1501,9 @@ namespace AMSExplorer
                                 default: // auto or other
                                     break;
                             }
-                            if (token != null)
+                            if (tokenresult != null)
                             {
-                                playerurl += string.Format(tokensyntax, token);
+                                playerurl += string.Format(tokensyntax, tokenresult);
                             }
                         }
                         else // format auto. If 0 Reserved Unit, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
@@ -1516,7 +1519,7 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.SilverlightPlayReadyToken:
-                        Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, token));
+                        Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
                         break;
 
                     case PlayerType.DASHIFRefPlayer:
@@ -1538,7 +1541,7 @@ namespace AMSExplorer
                         break;
 
                     case PlayerType.FlashAESToken:
-                        Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, token));
+                        Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
                         break;
 
                     case PlayerType.MP4AzurePage:
