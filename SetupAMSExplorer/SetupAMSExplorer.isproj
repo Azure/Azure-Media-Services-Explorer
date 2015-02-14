@@ -30,7 +30,6 @@
 	<Import Project="$(MSBuildExtensionsPath32)\InstallShield\2013Limited\InstallShield.targets"/>
 	<ItemGroup/>
 	<ItemGroup/>
-	<ItemGroup/>
 	<ItemGroup>
 		<ProjectReference Include="..\AMSExplorer\AMSExplorer.csproj">
 			<Name>AMSExplorer</Name>

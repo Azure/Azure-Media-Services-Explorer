@@ -342,9 +342,7 @@
 		<col def="S0">ISDotNetInstallerArgsUninstall</col>
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>AMSExplorer.Content_Files</td><td>{F61F7BA5-1E23-4C9A-92B1-0A298E753DEB}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AMSExplorer.Content_Files1</td><td>{4393A14A-C90F-4A90-9071-74AF655B796E}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AMSExplorer.Primary_output</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>AMSExplorer.Primary_output1</td><td>{32A00E6C-ABAD-4221-94BB-5CAE3004C1FD}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1872,9 +1870,7 @@
 		<col key="yes" def="s38">Feature_</col>
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Content_Files</td></row>
-		<row><td>AlwaysInstall</td><td>AMSExplorer.Content_Files1</td></row>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Primary_output</td></row>
-		<row><td>AlwaysInstall</td><td>AMSExplorer.Primary_output1</td></row>
 	</table>
 
 	<table name="File">
@@ -1889,8 +1885,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
-		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files1</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
-		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output1</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
+		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -1908,7 +1904,6 @@
 		<col def="S255">Data</col>
 		<row><td>PROJECT_ASSISTANT_DEFAULT_FEATURE</td><td>AlwaysInstall</td></row>
 		<row><td>PROJECT_ASSISTANT_FEATURES</td><td>NonSelectable</td></row>
-		<row><td>_Built</td><td/></row>
 	</table>
 
 	<table name="ISBillBoard">
@@ -2036,9 +2031,7 @@
 		<col def="S0">HTTPLocation</col>
 		<col def="S0">Miscellaneous</col>
 		<row><td>AMSExplorer.Content_Files</td><td/><td/><td>_A081E9C2_47DC_4E59_9AE1_B0A1B3BBBEE3_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AMSExplorer.Content_Files1</td><td/><td/><td>_C62E2872_7255_488C_8D8D_8BFA5933720E_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AMSExplorer.Primary_output</td><td/><td/><td>_64934606_DE19_43F2_AF78_DFA794AB380C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>AMSExplorer.Primary_output1</td><td/><td/><td>_3C287433_D9F4_40ED_AEB7_615DF44FBA93_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -2660,7 +2653,7 @@
 		<col def="I2">Encoded</col>
 		<col def="S0">Comment</col>
 		<col def="I4">TimeStamp</col>
-		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1763948050</td></row>
+		<row><td>COMPANY_NAME</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1285690286</td></row>
 		<row><td>DN_AlwaysInstall</td><td>1033</td><td>Always Install</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_COLOR</td><td>1033</td><td>The color settings of your system are not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDPROP_EXPRESS_LAUNCH_CONDITION_DOTNETVERSION45FULL</td><td>1033</td><td>Microsoft .NET Framework 4.5 Full package or greater needs to be installed for this installation to continue.</td><td>0</td><td/><td>983744110</td></row>
@@ -3771,8 +3764,8 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.MicrosoftCorporation.com</td><td>0</td><td/><td>1763948050</td></row>
-		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1763948050</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.azure.com</td><td>0</td><td/><td>1034081297</td></row>
+		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1285690286</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
 		<row><td>IIDS_UITEXT_FeatureUninstalled</td><td>1033</td><td>This feature will remain uninstalled.</td><td>0</td><td/><td>-366859085</td></row>
@@ -4366,7 +4359,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>IS_SQLSERVER_USERNAME</td><td>sa</td><td/></row>
 		<row><td>InstallChoice</td><td>AR</td><td/></row>
 		<row><td>LAUNCHPROGRAM</td><td>1</td><td/></row>
-		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{32A00E6C-ABAD-4221-94BB-5CAE3004C1FD}</td><td/></row>
+		<row><td>LAUNCHPROGRAMCOMPCODE</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td/></row>
 		<row><td>LAUNCHPROGRAMFILEKEY</td><td>amsexplorer.primary_output</td><td/></row>
 		<row><td>MSIFASTINSTALL</td><td>0</td><td/></row>
 		<row><td>Manufacturer</td><td>##COMPANY_NAME##</td><td/></row>
@@ -4396,7 +4389,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{80CEE924-1A85-4513-97E4-4E55511BC5D1}</td><td/></row>
+		<row><td>ProductCode</td><td>{18DF5281-4182-40E4-9633-56C389482DED}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
 		<row><td>ProductVersion</td><td>3.10</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
@@ -4562,7 +4555,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<col def="S255">ISComments</col>
 		<col def="S255">ISShortcutName</col>
 		<col def="I4">ISAttributes</col>
-		<row><td>_Built</td><td>azurem_1_azure_media_services_explorer</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td>0</td><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
+		<row><td>_Built</td><td>azurem_1_azure_media_services_explorer</td><td>##IDS_SHORTCUT_DISPLAY_NAME10##</td><td>AMSExplorer.Primary_output</td><td>AlwaysInstall</td><td/><td/><td/><td/><td/><td>1</td><td/><td/><td/><td/><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="Signature">
