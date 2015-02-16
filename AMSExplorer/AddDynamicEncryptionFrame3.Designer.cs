@@ -58,12 +58,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelStep = new System.Windows.Forms.Label();
             this.tabControlTokenType = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPageTokenType = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.tabPageTokenSymmetric = new System.Windows.Forms.TabPage();
             this.tabPageTokenX509 = new System.Windows.Forms.TabPage();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabControlTokenProperties = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
@@ -75,7 +75,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlTokenType.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPageTokenType.SuspendLayout();
             this.tabPageTokenSymmetric.SuspendLayout();
             this.tabPageTokenX509.SuspendLayout();
             this.tabControlTokenProperties.SuspendLayout();
@@ -400,7 +400,7 @@
             // 
             // tabControlTokenType
             // 
-            this.tabControlTokenType.Controls.Add(this.tabPage1);
+            this.tabControlTokenType.Controls.Add(this.tabPageTokenType);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenSymmetric);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenX509);
             this.tabControlTokenType.Location = new System.Drawing.Point(12, 172);
@@ -409,21 +409,48 @@
             this.tabControlTokenType.Size = new System.Drawing.Size(560, 138);
             this.tabControlTokenType.TabIndex = 85;
             // 
-            // tabPage1
+            // tabPageTokenType
             // 
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label6);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.radioButtonJWTSymmetric);
-            this.tabPage1.Controls.Add(this.radioButtonSWT);
-            this.tabPage1.Controls.Add(this.radioButtonJWTX509);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(552, 112);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Token Type";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageTokenType.Controls.Add(this.label7);
+            this.tabPageTokenType.Controls.Add(this.label6);
+            this.tabPageTokenType.Controls.Add(this.label5);
+            this.tabPageTokenType.Controls.Add(this.radioButtonJWTSymmetric);
+            this.tabPageTokenType.Controls.Add(this.radioButtonSWT);
+            this.tabPageTokenType.Controls.Add(this.radioButtonJWTX509);
+            this.tabPageTokenType.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTokenType.Name = "tabPageTokenType";
+            this.tabPageTokenType.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTokenType.Size = new System.Drawing.Size(552, 112);
+            this.tabPageTokenType.TabIndex = 0;
+            this.tabPageTokenType.Text = "Token Type";
+            this.tabPageTokenType.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Location = new System.Drawing.Point(177, 72);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(252, 19);
+            this.label7.TabIndex = 72;
+            this.label7.Text = "with asymmetric key (X509 Certificate)";
+            // 
+            // label6
+            // 
+            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label6.Location = new System.Drawing.Point(177, 49);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(252, 19);
+            this.label6.TabIndex = 71;
+            this.label6.Text = "with symmetric key";
+            // 
+            // label5
+            // 
+            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label5.Location = new System.Drawing.Point(177, 26);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(252, 19);
+            this.label5.TabIndex = 70;
+            this.label5.Text = "with symmetric key";
             // 
             // tabPageTokenSymmetric
             // 
@@ -445,33 +472,6 @@
             this.tabPageTokenX509.TabIndex = 2;
             this.tabPageTokenX509.Text = "X509 Certificate";
             this.tabPageTokenX509.UseVisualStyleBackColor = true;
-            // 
-            // label5
-            // 
-            this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(177, 26);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(252, 19);
-            this.label5.TabIndex = 70;
-            this.label5.Text = "with symmetric key";
-            // 
-            // label6
-            // 
-            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(177, 49);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(252, 19);
-            this.label6.TabIndex = 71;
-            this.label6.Text = "with symmetric key";
-            // 
-            // label7
-            // 
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(177, 72);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(252, 19);
-            this.label7.TabIndex = 72;
-            this.label7.Text = "with asymmetric key (X509 Certificate)";
             // 
             // tabControlTokenProperties
             // 
@@ -547,8 +547,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
             this.tabControlTokenType.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPageTokenType.ResumeLayout(false);
+            this.tabPageTokenType.PerformLayout();
             this.tabPageTokenSymmetric.ResumeLayout(false);
             this.tabPageTokenX509.ResumeLayout(false);
             this.tabControlTokenProperties.ResumeLayout(false);
@@ -593,7 +593,7 @@
         private System.Windows.Forms.Panel panelSymKey;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControlTokenType;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageTokenType;
         private System.Windows.Forms.TabPage tabPageTokenSymmetric;
         private System.Windows.Forms.TabPage tabPageTokenX509;
         private System.Windows.Forms.Label label7;

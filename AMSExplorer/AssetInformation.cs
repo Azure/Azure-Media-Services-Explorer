@@ -612,14 +612,15 @@ namespace AMSExplorer
 
                 if (key.AuthorizationPolicyId != null)
                 {
-                    dataGridViewKeys.Rows.Add("AuthorizationPolicyId", key.AuthorizationPolicyId);
+                    dataGridViewKeys.Rows.Add("Authorization Policy Id", key.AuthorizationPolicyId);
                     MyAuthPolicy = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
                     if (MyAuthPolicy != null)
                     {
+                        dataGridViewKeys.Rows.Add("Authorization Policy Name", MyAuthPolicy.Name);
                         listViewAutPolOptions.BeginUpdate();
                         foreach (var option in MyAuthPolicy.Options)
                         {
-                            ListViewItem item = new ListViewItem(string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name, 0);
+                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(MyAuthPolicy.Name) ? "<no name>" : MyAuthPolicy.Name) + " / " + (string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name), 0);
                             listViewAutPolOptions.Items.Add(item);
                         }
                         listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -1340,37 +1341,44 @@ namespace AMSExplorer
 
             if (listViewAutPolOptions.SelectedItems.Count > 0)
             {
-                IContentKeyAuthorizationPolicyOption option = MyAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
-
                 dataGridViewAutPolOption.Rows.Clear();
-                dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
-                dataGridViewAutPolOption.Rows.Add("Id", option.Id);
-                dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
-                dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
-                List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
-                foreach (var restriction in objList_restriction)
+
+                IContentKeyAuthorizationPolicyOption option = MyAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
+                if (option != null) // Token option
                 {
-                    dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
-                    dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                    if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
+
+                    dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
+                    dataGridViewAutPolOption.Rows.Add("Id", option.Id);
+                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
+                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
+                    List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
+                    foreach (var restriction in objList_restriction)
                     {
-                        DisplayButGetToken = true;
-                    }
-                    if (restriction.Requirements != null)
-                    {
-                        dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
-                        TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                        dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
-                        dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
-                        dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
-                        dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
-                        foreach (var claim in tokenTemplate.RequiredClaims)
+                        dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
+                        dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
+                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
                         {
-                            dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
-                            dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
+                            DisplayButGetToken = true;
+                        }
+                        if (restriction.Requirements != null)
+                        {
+                            dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
+                            dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
+                            dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                            dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
+                            dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
+                            foreach (var claim in tokenTemplate.RequiredClaims)
+                            {
+                                dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
+                                dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
+                            }
                         }
                     }
                 }
+
+
+
             }
             buttonGetTestToken.Enabled = DisplayButGetToken;
             buttonRemoveAuthPol.Enabled = true;

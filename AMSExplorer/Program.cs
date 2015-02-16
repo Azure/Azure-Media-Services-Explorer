@@ -1398,7 +1398,7 @@ namespace AMSExplorer
                 //string token = null;
                 DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 
-                if (myasset != null)
+                if (myasset != null && DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context))
                 {
                     // user wants perhaps to play an asset with a token, so let's try to generate it
                     switch (typeplayer)

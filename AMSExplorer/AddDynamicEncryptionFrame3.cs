@@ -32,7 +32,6 @@ using System.Security.Cryptography.X509Certificates;
 using System.Security;
 using System.Security.Claims;
 using System.IdentityModel.Tokens;
-using System.Windows.Forms;
 
 namespace AMSExplorer
 {
@@ -176,9 +175,8 @@ namespace AMSExplorer
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
-            tabControlTokenProperties.Enabled = radioButtonTokenAuthPolicy.Checked;
+            tabControlTokenProperties.Enabled = tabControlTokenType.Enabled = radioButtonTokenAuthPolicy.Checked;
             UpdateButtonOk();
-
         }
 
 
@@ -192,11 +190,6 @@ namespace AMSExplorer
             UpdateButtonOk();
         }
 
-
-        private void radioButtonNoAuthPolicy_CheckedChanged(object sender, EventArgs e)
-        {
-            // if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
-        }
 
         private void buttonAddClaim_Click(object sender, EventArgs e)
         {
@@ -222,9 +215,9 @@ namespace AMSExplorer
         private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
         {
             panelJWT.Enabled = radioButtonJWTX509.Checked;
-            panelSymKey.Enabled =   !radioButtonJWTX509.Checked;
+            panelSymKey.Enabled = !radioButtonJWTX509.Checked;
 
-            
+
             if (radioButtonJWTX509.Checked)
             {
                 tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
@@ -236,16 +229,16 @@ namespace AMSExplorer
                 tabControlTokenType.TabPages.Remove(tabPageTokenX509);
             }
 
-            
+
             UpdateButtonOk();
 
 
-/*            //
-            tabControl.TabPages.Remove(tabPage);
+            /*            //
+                        tabControl.TabPages.Remove(tabPage);
 
-To put it back:
-tabControl.TabPages.Insert(index, tabPage);
- * */
+            To put it back:
+            tabControl.TabPages.Insert(index, tabPage);
+             * */
 
         }
 

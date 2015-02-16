@@ -346,6 +346,29 @@ namespace AMSExplorer
             public ContentKeyType ContentKeyType { get; set; }
         }
 
+        public static bool IsAssetHasAuthorizationPolicyWithToken(IAsset MyAsset, CloudMediaContext _context)
+        {
+             var query = from key in MyAsset.ContentKeys
+                        join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
+                         select new { aupolid = autpol.Id };
+
+
+            
+            foreach (var key in query)
+            {
+                var queryoptions = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.aupolid).FirstOrDefault().Options;
+
+                foreach (var option in queryoptions)
+                {
+                    if (option.Restrictions.FirstOrDefault().KeyRestrictionType == (int)ContentKeyRestrictionType.TokenRestricted)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
 
         public static TokenResult GetTestToken(IAsset MyAsset, CloudMediaContext _context, ContentKeyType? keytype = null, SigningCredentials signingcredentials = null, string optionid = null, bool displayUI = false)
         {
