@@ -633,7 +633,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(233, 236);
+            this.label3.Location = new System.Drawing.Point(236, 246);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(135, 13);
             this.label3.TabIndex = 40;
@@ -651,12 +651,12 @@
             this.dataGridViewAutPolOption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAutPolOption.ColumnHeadersVisible = false;
             this.dataGridViewAutPolOption.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(461, 252);
+            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(461, 262);
             this.dataGridViewAutPolOption.MultiSelect = false;
             this.dataGridViewAutPolOption.Name = "dataGridViewAutPolOption";
             this.dataGridViewAutPolOption.ReadOnly = true;
             this.dataGridViewAutPolOption.RowHeadersVisible = false;
-            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(281, 180);
+            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(281, 170);
             this.dataGridViewAutPolOption.TabIndex = 38;
             // 
             // listViewAutPolOptions
@@ -668,10 +668,10 @@
             this.listViewAutPolOptions.ContextMenuStrip = this.contextMenuStripAuthPol;
             this.listViewAutPolOptions.FullRowSelect = true;
             this.listViewAutPolOptions.HideSelection = false;
-            this.listViewAutPolOptions.Location = new System.Drawing.Point(236, 252);
+            this.listViewAutPolOptions.Location = new System.Drawing.Point(236, 262);
             this.listViewAutPolOptions.MultiSelect = false;
             this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.listViewAutPolOptions.Size = new System.Drawing.Size(219, 151);
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(219, 141);
             this.listViewAutPolOptions.TabIndex = 39;
             this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;

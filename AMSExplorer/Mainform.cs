@@ -7129,6 +7129,7 @@ typeof(FilterTime)
 
                                     policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
                                     TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                    contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                     break;
 
                                 case ContentKeyRestrictionType.TokenRestricted:
@@ -7187,33 +7188,6 @@ typeof(FilterTime)
                         TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
                         TextBoxLogWriteLine(e);
                     }
-
-
-                    /*
-                    if (!String.IsNullOrEmpty(tokenTemplateString))
-                    {
-                        SigningCredentials signingcred = null;
-                        if (form3list.GetTokenType == TokenType.JWT)
-                        {
-                            if (form3list.IsJWTKeySymmetric)
-                            {
-                                TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                                InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
-                                SigningCredentials cred = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
-
-                            }
-                            else // asymmetric
-                            {
-                                signingcred = new X509SigningCredentials(form3list.GetX509Certificate);
-
-                            }
-
-                        }
-                        string testToken = DynamicEncryption.GetTestToken(AssetToProcess, form1.GetContentKeyType, _context, signingcred);
-                        TextBoxLogWriteLine("The authorization test token ({0} with Bearer) is:\n{1}", form3list.GetTokenType.ToString(), Constants.Bearer + testToken);
-                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                    }
-                     * */
                 }
             }
         }
@@ -8458,7 +8432,7 @@ typeof(FilterTime)
 
         private void DoGetTestToken()
         {
-        
+
             bool Error = true;
             IAsset MyAsset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
             if (MyAsset != null)
