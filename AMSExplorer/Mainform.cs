@@ -6825,7 +6825,7 @@ typeof(FilterTime)
                                 }
                                 if (!usercancelledform3or4)
                                 {
-                                    DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list);
+                                    DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
@@ -6884,9 +6884,44 @@ typeof(FilterTime)
 
 
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList)
+        private void DoDynamicEncryptionAndKeyDeliveryWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList, bool DisplayUI)
         {
             bool Error = false;
+            bool reusekey = false;
+            bool firstkeycreation = true;
+            IContentKey formerkey = null;
+
+            if (!form2_PlayReady.ContentKeyRandomGeneration)  // user want to manually enter the key and did not provide a seed
+            {
+                // if the key already exists in the account (same key id), let's 
+                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.PlayReadyKeyId.ToString()).FirstOrDefault();
+                if (formerkey != null)
+                {
+                    if (MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // user wants to replace the key
+                        try
+                        {
+                            formerkey.Delete();
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the content key '{0}'.", formerkey.Id, true);
+                            TextBoxLogWriteLine(e);
+                            TextBoxLogWriteLine("This key will be reused", true);
+                            reusekey = true;
+                        }
+                    }
+                    else
+                    {
+                        reusekey = true;
+                    }
+                }
+            }
+
+
+
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
                 if (AssetToProcess != null)
@@ -6907,16 +6942,30 @@ typeof(FilterTime)
                             }
                             else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
                             {
-                                if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                // if the key does not exist in the account (same key id), let's 
+                                if (firstkeycreation && !reusekey)
                                 {
-                                    Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
-                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
-                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                    if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                    {
+                                        Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
+                                        byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
+                                    }
+                                    else // no seed given, so content key has been setup
+                                    {
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form2_PlayReady.PlayReadyContentKey));
+
+                                    }
+                                    formerkey = contentKey;
+                                    firstkeycreation = false;
                                 }
-                                else // no seed given, so content key has been setup
+                                else
                                 {
-                                    contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form2_PlayReady.PlayReadyContentKey));
+                                    contentKey = formerkey;
+                                    AssetToProcess.ContentKeys.Add(contentKey);
+                                    AssetToProcess.Update();
                                 }
+
                             }
                         }
                         catch (Exception e)

@@ -403,6 +403,7 @@ namespace AMSExplorer
 
         public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
+        public const string ContentKeyIdPrefix = "nb:kid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
