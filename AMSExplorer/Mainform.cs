@@ -6086,7 +6086,6 @@ typeof(FilterTime)
 
                         if (form.StartProgram)
                         {
-
                             StartProgam(_context.Programs.Where(p => p.Name == form.ProgramName && p.ChannelId == channel.Id).FirstOrDefault());
                         }
                     }
@@ -6886,7 +6885,7 @@ typeof(FilterTime)
 
         private void DoDynamicEncryptionAndKeyDeliveryWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady, List<AddDynamicEncryptionFrame3> form3list, List<AddDynamicEncryptionFrame4_PlayReadyLicense> form4PlayReadyLicenseList, bool DisplayUI)
         {
-            bool Error = false;
+            bool ErrorCreationKey = false;
             bool reusekey = false;
             bool firstkeycreation = true;
             IContentKey formerkey = null;
@@ -6897,7 +6896,7 @@ typeof(FilterTime)
                 formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.PlayReadyKeyId.ToString()).FirstOrDefault();
                 if (formerkey != null)
                 {
-                    if (MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    if (DisplayUI && MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         // user wants to replace the key
                         try
@@ -6909,7 +6908,7 @@ typeof(FilterTime)
                             // Add useful information to the exception
                             TextBoxLogWriteLine("There is a problem when deleting the content key '{0}'.", formerkey.Id, true);
                             TextBoxLogWriteLine(e);
-                            TextBoxLogWriteLine("This key will be reused", true);
+                            TextBoxLogWriteLine("The former key will be reused.", true);
                             reusekey = true;
                         }
                     }
@@ -6921,7 +6920,6 @@ typeof(FilterTime)
             }
 
 
-
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
                 if (AssetToProcess != null)
@@ -6930,54 +6928,84 @@ typeof(FilterTime)
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
                     // special case, no dynamic encryption, goal is to setup key auth policy. CENC key is selected
 
-
                     if (contentkeys.Count() == 0) // no content key existing so we need to create one
                     {
-                        Error = false;
-                        try
+                        ErrorCreationKey = false;
+
+                        if (form1.GetNumberOfAuthorizationPolicyOptions > 0 && (form2_PlayReady.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
                         {
-                            if (form1.GetNumberOfAuthorizationPolicyOptions > 0 && (form2_PlayReady.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
+                            try
                             {
                                 contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context);
                             }
-                            else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
+                            catch (Exception e)
                             {
-                                // if the key does not exist in the account (same key id), let's 
-                                if (firstkeycreation && !reusekey)
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
+                            if (!ErrorCreationKey)
+                            {
+                                TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                            }
+
+                        }
+                        else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
+                        {
+                            // if the key does not exist in the account (same key id), let's 
+                            if (firstkeycreation && !reusekey)
+                            {
+                                if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
                                 {
-                                    if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                    Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
+                                    try
                                     {
-                                        Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
-                                        byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
                                         contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
                                     }
-                                    else // no seed given, so content key has been setup
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        ErrorCreationKey = true;
+                                    }
+                                    if (!ErrorCreationKey)
+                                    {
+                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                    }
+
+                                }
+                                else // no seed given, so content key has been setup
+                                {
+                                    try
                                     {
                                         contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form2_PlayReady.PlayReadyContentKey));
-
                                     }
-                                    formerkey = contentKey;
-                                    firstkeycreation = false;
-                                }
-                                else
-                                {
-                                    contentKey = formerkey;
-                                    AssetToProcess.ContentKeys.Add(contentKey);
-                                    AssetToProcess.Update();
-                                }
+                                    catch (Exception e)
+                                    {
+                                        // Add useful information to the exception
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine(e);
+                                        ErrorCreationKey = true;
+                                    }
+                                    if (!ErrorCreationKey)
+                                    {
+                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                    }
 
+                                }
+                                formerkey = contentKey;
+                                firstkeycreation = false;
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
-                        if (!Error)
-                        {
-                            TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                            else
+                            {
+                                contentKey = formerkey;
+                                AssetToProcess.ContentKeys.Add(contentKey);
+                                AssetToProcess.Update();
+                                TextBoxLogWriteLine("Reusing key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                            }
                         }
                     }
                     else if (form1.GetNumberOfAuthorizationPolicyOptions == 0)  // user wants to deliver with an external PlayReady server but the key exists already !
@@ -7004,7 +7032,7 @@ typeof(FilterTime)
                         {
                             // let's build the PlayReady license template
                             string PlayReadyLicenseDeliveryConfig = null;
-                            Error = false;
+                            ErrorCreationKey = false;
                             try
                             {
                                 PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
@@ -7014,9 +7042,9 @@ typeof(FilterTime)
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when configuring the PlayReady license template.", true);
                                 TextBoxLogWriteLine(e);
-                                Error = true;
+                                ErrorCreationKey = true;
                             }
-                            if (!Error)
+                            if (!ErrorCreationKey)
                             {
                                 IContentKeyAuthorizationPolicyOption policyOption = null;
                                 try
@@ -7066,7 +7094,7 @@ typeof(FilterTime)
                                     // Add useful information to the exception
                                     TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
                                     TextBoxLogWriteLine(e);
-                                    Error = true;
+                                    ErrorCreationKey = true;
                                 }
                             }
                         }
@@ -7078,7 +7106,7 @@ typeof(FilterTime)
                     {
                         IAssetDeliveryPolicy DelPol = null;
                         string name = string.Format("AssetDeliveryPolicy {0} ({1})", form1.GetContentKeyType.ToString(), form1.GetAssetDeliveryProtocol.ToString());
-                        Error = false;
+                        ErrorCreationKey = false;
                         try
                         {
                             if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
@@ -7096,7 +7124,7 @@ typeof(FilterTime)
                         {
                             TextBoxLogWriteLine("There is a problem when creating the delivery policy for '{0}'.", AssetToProcess.Name, true);
                             TextBoxLogWriteLine(e);
-                            Error = true;
+                            ErrorCreationKey = true;
                         }
                     }
 

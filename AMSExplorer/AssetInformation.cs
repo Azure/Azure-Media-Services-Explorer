@@ -399,8 +399,13 @@ namespace AMSExplorer
 
         private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
         {
-            string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
-            return MyStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
+            if (comboBoxStreamingEndpoint.SelectedItem != null)
+            {
+                string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
+                return MyStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
+
+            }
+            else return null;
         }
 
 
@@ -411,140 +416,144 @@ namespace AMSExplorer
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
             IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
-            bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
-            Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
-
-            TreeViewLocators.BeginUpdate();
-            TreeViewLocators.Nodes.Clear();
-            int indexloc = -1;
-            foreach (ILocator locator in MyAsset.Locators)
+            if (SelectedSE != null)
             {
-                indexloc++;
-                Color colornode;
-                string locatorstatus = string.Empty;
-                string SEstatus = string.Empty;
+                bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
+                Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
 
-                switch (AssetInfo.GetPublishedStatusForLocator(locator))
+                TreeViewLocators.BeginUpdate();
+                TreeViewLocators.Nodes.Clear();
+                int indexloc = -1;
+                foreach (ILocator locator in MyAsset.Locators)
                 {
-                    case PublishStatus.PublishedActive:
-                        colornode = Color.Black;
-                        locatorstatus = "Active";
-                        break;
-                    case PublishStatus.PublishedExpired:
-                        colornode = Color.Red;
-                        locatorstatus = "Expired";
-                        break;
-                    case PublishStatus.PublishedFuture:
-                        colornode = Color.Blue;
-                        locatorstatus = "Future";
-                        break;
-                    default:
-                        colornode = Color.Black;
-                        break;
-                }
-                if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
+                    indexloc++;
+                    Color colornode;
+                    string locatorstatus = string.Empty;
+                    string SEstatus = string.Empty;
 
-                TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
-                myLocNode.ForeColor = colornode;
+                    switch (AssetInfo.GetPublishedStatusForLocator(locator))
+                    {
+                        case PublishStatus.PublishedActive:
+                            colornode = Color.Black;
+                            locatorstatus = "Active";
+                            break;
+                        case PublishStatus.PublishedExpired:
+                            colornode = Color.Red;
+                            locatorstatus = "Expired";
+                            break;
+                        case PublishStatus.PublishedFuture:
+                            colornode = Color.Blue;
+                            locatorstatus = "Future";
+                            break;
+                        default:
+                            colornode = Color.Black;
+                            break;
+                    }
+                    if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
 
-                TreeViewLocators.Nodes.Add(myLocNode);
+                    TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
+                    myLocNode.ForeColor = colornode;
 
-                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
+                    TreeViewLocators.Nodes.Add(myLocNode);
 
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-               string.Format("{0}", (locator.Id))
-               ));
+                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
 
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                    string.Format("Name: {0}", locator.Name)
-                    ));
-
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                    string.Format("Type: {0}", locator.Type.ToString())
-                    ));
-
-                if (locator.StartTime != null)
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                       string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString()))
-                       ));
+                   string.Format("{0}", (locator.Id))
+                   ));
 
-                if (locator.ExpirationDateTime != null)
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
+                        string.Format("Name: {0}", locator.Name)
+                        ));
+
+                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                        string.Format("Type: {0}", locator.Type.ToString())
+                        ));
+
+                    if (locator.StartTime != null)
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                           string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString()))
+                           ));
+
+                    if (locator.ExpirationDateTime != null)
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                         string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
+                         ));
+
+                    if (locator.Type == LocatorType.OnDemandOrigin)
+                    {
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                     string.Format("Path: {0}", AssetInfo.rw(locator.Path, SelectedSE))
                      ));
 
-                if (locator.Type == LocatorType.OnDemandOrigin)
-                {
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                 string.Format("Path: {0}", AssetInfo.rw(locator.Path, SelectedSE))
-                 ));
+                        int indexn = 1;
 
-                    int indexn = 1;
-
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
-                    foreach (IAssetFile IAF in MyAsset.AssetFiles)
-                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
-                    indexn++;
-
-                    if (MyAssetType.StartsWith("HLS"))
-                    // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                    {
-                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
+                        foreach (IAssetFile IAF in MyAsset.AssetFiles)
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
                         indexn++;
+
+                        if (MyAssetType.StartsWith("HLS"))
+                        // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+                        {
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                            indexn++;
+                        }
+                        else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
+                        // It's not Static HLS
+                        // Smooth or multi MP4
+                        {
+                            if (locator.GetSmoothStreamingUri() != null)
+                            {
+                                Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
+                                indexn++;
+
+                                // legacy smooth streaming without repeat tag (manifest v2.0)
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
+                                indexn++;
+                            }
+                            if (locator.GetMpegDashUri() != null)
+                            {
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                indexn++;
+                            }
+                            if (locator.GetHlsUri() != null)
+                            {
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                indexn = indexn + 2;
+                            }
+                        }
                     }
-                    else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                    // It's not Static HLS
-                    // Smooth or multi MP4
+
+                    if (locator.Type == LocatorType.Sas)
                     {
-                        if (locator.GetSmoothStreamingUri() != null)
-                        {
-                            Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
-                            indexn++;
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                     string.Format("Path: {0}", locator.Path)
+                     ));
 
-                            // legacy smooth streaming without repeat tag (manifest v2.0)
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
-                            indexn++;
-                        }
-                        if (locator.GetMpegDashUri() != null)
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            indexn++;
-                        }
-                        if (locator.GetHlsUri() != null)
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            indexn = indexn + 2;
-                        }
+                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
+
+                        MyAssetFiles = MyAsset
+                     .AssetFiles
+                     .ToList();
+
+                        // Generate the Progressive Download URLs for each file. 
+                        ProgressiveDownloadUris =
+                            MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
+                        ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
                     }
                 }
-
-                if (locator.Type == LocatorType.Sas)
-                {
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                 string.Format("Path: {0}", locator.Path)
-                 ));
-
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
-
-                    MyAssetFiles = MyAsset
-                 .AssetFiles
-                 .ToList();
-
-                    // Generate the Progressive Download URLs for each file. 
-                    ProgressiveDownloadUris =
-                        MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                    ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
-                }
+                TreeViewLocators.EndUpdate();
             }
-            TreeViewLocators.EndUpdate();
+
         }
 
 
