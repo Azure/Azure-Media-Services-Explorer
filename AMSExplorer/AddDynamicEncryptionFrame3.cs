@@ -29,15 +29,18 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Security;
+using System.Security.Claims;
+using System.IdentityModel.Tokens;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame2 : Form
+    public partial class AddDynamicEncryptionFrame3 : Form
     {
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
 
-        public ContentKeyRestrictionType? GetKeyRestrictionType
+        public ContentKeyRestrictionType GetKeyRestrictionType
         {
             get
             {
@@ -45,14 +48,11 @@ namespace AMSExplorer
                 {
                     return ContentKeyRestrictionType.Open;
                 }
-                else if (radioButtonTokenAuthPolicy.Checked)
+                else // token
                 {
                     return ContentKeyRestrictionType.TokenRestricted;
                 }
-                else // PlayReady but no license delivery from Azure Media Services
-                {
-                    return null;
-                }
+
             }
         }
 
@@ -72,6 +72,15 @@ namespace AMSExplorer
             }
         }
 
+        public bool AddContentKeyIdentifierClaim
+        {
+            get
+            {
+                return checkBoxAddContentKeyIdentifierClaim.Checked;
+            }
+
+        }
+
         public IList<TokenClaim> GetTokenRequiredClaims
         {
             get
@@ -79,7 +88,7 @@ namespace AMSExplorer
                 IList<TokenClaim> mylist = new List<TokenClaim>();
                 foreach (var j in TokenClaimsList)
                 {
-                    if (!string.IsNullOrEmpty(j.Type) && !string.IsNullOrEmpty(j.Value))
+                    if (!string.IsNullOrEmpty(j.Type))
                     {
                         mylist.Add(new TokenClaim(j.Type, j.Value));
                     }
@@ -96,12 +105,26 @@ namespace AMSExplorer
             }
         }
 
-        public bool IsJWTKeySymmetric
+        public bool IsKeySymmetric
         {
             get
             {
-                return radioButtonJWTSymmetric.Checked ? true : false;
+                return (radioButtonJWTSymmetric.Checked || radioButtonSWT.Checked) ? true : false;
             }
+        }
+
+        public string SymmetricKey
+        {
+            get
+            {
+                if (radioButtonContentKeyHex.Checked)
+                {
+                    return Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text));
+                }
+                else
+                    return textBoxSymKey.Text;
+            }
+
         }
 
 
@@ -115,14 +138,27 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame2(CloudMediaContext context, bool IsAES)
+        public AddDynamicEncryptionFrame3(CloudMediaContext context, int step, int option, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            if (IsAES)
+
+            this.Text = string.Format(this.Text, step);
+            labelStep.Text = string.Format(labelStep.Text, step, option);
+
+            if (!laststep)
             {
-                radioButtonNoAuthPolicy.Visible = radioButtonNoAuthPolicy.Enabled = false;
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
+            }
+            if (tokenSymmetricKey == null)
+            {
+                GenerateSymKey();
+            }
+            else
+            {
+                textBoxSymKey.Text = tokenSymmetricKey;
             }
         }
 
@@ -132,15 +168,15 @@ namespace AMSExplorer
         {
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
+            tabControlTokenType.TabPages.Remove(tabPageTokenX509);
         }
 
 
 
         private void radioButtonToken_CheckedChanged(object sender, EventArgs e)
         {
-            panelAutPol.Enabled = radioButtonTokenAuthPolicy.Checked;
+            tabControlTokenProperties.Enabled = tabControlTokenType.Enabled = radioButtonTokenAuthPolicy.Checked;
             UpdateButtonOk();
-
         }
 
 
@@ -154,11 +190,6 @@ namespace AMSExplorer
             UpdateButtonOk();
         }
 
-
-        private void radioButtonNoAuthPolicy_CheckedChanged(object sender, EventArgs e)
-        {
-            // if (radioButtonNoAuthPolicy.Checked) radioButtonKeySpecifiedByUser.Checked = true;
-        }
 
         private void buttonAddClaim_Click(object sender, EventArgs e)
         {
@@ -184,7 +215,31 @@ namespace AMSExplorer
         private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
         {
             panelJWT.Enabled = radioButtonJWTX509.Checked;
+            panelSymKey.Enabled = !radioButtonJWTX509.Checked;
+
+
+            if (radioButtonJWTX509.Checked)
+            {
+                tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Add(tabPageTokenX509);
+            }
+            else
+            {
+                tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Remove(tabPageTokenX509);
+            }
+
+
             UpdateButtonOk();
+
+
+            /*            //
+                        tabControl.TabPages.Remove(tabPage);
+
+            To put it back:
+            tabControl.TabPages.Insert(index, tabPage);
+             * */
+
         }
 
         private void radioButtonSWT_CheckedChanged(object sender, EventArgs e)
@@ -194,7 +249,55 @@ namespace AMSExplorer
 
         private void UpdateButtonOk()
         {
-            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || (radioButtonJWTX509.Checked && cert != null))));
+            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || (radioButtonJWTX509.Checked && cert != null))));
+        }
+
+        private void radioButtonJWTSymmetric_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttongenerateContentKey_Click(object sender, EventArgs e)
+        {
+            GenerateSymKey();
+        }
+
+        private void GenerateSymKey()
+        {
+            textBoxSymKey.Text = Convert.ToBase64String(new SymmetricVerificationKey().KeyValue);
+
+        }
+
+        private void radioButtonContentKeyBase64_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyBase64.Checked)
+            {
+                try
+                {
+                    textBoxSymKey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxSymKey.Text));
+                }
+                catch
+                {
+                    textBoxSymKey.Text = string.Empty;
+                }
+            }
+
+        }
+
+
+        private void radioButtonContentKeyHex_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonContentKeyHex.Checked)
+            {
+                try
+                {
+                    textBoxSymKey.Text = DynamicEncryption.ByteArrayToHexString(Convert.FromBase64String(textBoxSymKey.Text));
+                }
+                catch
+                {
+                    textBoxSymKey.Text = string.Empty;
+                }
+            }
         }
     }
 }

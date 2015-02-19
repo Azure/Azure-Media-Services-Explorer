@@ -46,7 +46,7 @@ namespace AMSExplorer
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
         private ILocator TempLocator = null;
         private ILocator TempMetadaLocator = null;
-        private List<IContentKeyAuthorizationPolicy> MyAuthPolicies = null;
+        private IContentKeyAuthorizationPolicy MyAuthPolicy = null;
         private Mainform MyMainForm;
 
         public AssetInformation(Mainform mainform)
@@ -288,8 +288,8 @@ namespace AMSExplorer
             bool bkeyinasset = (MyAsset.ContentKeys.Count() == 0) ? false : true;
             listViewKeys.Items.Clear();
             dataGridViewKeys.Rows.Clear();
-            listViewAutPol.Items.Clear();
-            dataGridViewAutPol.Rows.Clear();
+            listViewAutPolOptions.Items.Clear();
+            dataGridViewAutPolOption.Rows.Clear();
             buttonRemoveKey.Enabled = false;
 
             if (bkeyinasset)
@@ -340,8 +340,8 @@ namespace AMSExplorer
             DGAsset.ColumnCount = 2;
             DGFiles.ColumnCount = 2;
             DGFiles.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            dataGridViewAutPol.ColumnCount = 2;
-            dataGridViewAutPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            dataGridViewAutPolOption.ColumnCount = 2;
+            dataGridViewAutPolOption.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGDelPol.ColumnCount = 2;
             DGDelPol.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             dataGridViewKeys.ColumnCount = 2;
@@ -399,8 +399,13 @@ namespace AMSExplorer
 
         private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
         {
-            string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
-            return MyStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
+            if (comboBoxStreamingEndpoint.SelectedItem != null)
+            {
+                string hostname = ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
+                return MyStreamingEndpoints.Where(se => se.HostName == hostname).FirstOrDefault();
+
+            }
+            else return null;
         }
 
 
@@ -411,140 +416,144 @@ namespace AMSExplorer
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
             IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
-            bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
-            Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
-
-            TreeViewLocators.BeginUpdate();
-            TreeViewLocators.Nodes.Clear();
-            int indexloc = -1;
-            foreach (ILocator locator in MyAsset.Locators)
+            if (SelectedSE != null)
             {
-                indexloc++;
-                Color colornode;
-                string locatorstatus = string.Empty;
-                string SEstatus = string.Empty;
+                bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
+                Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
 
-                switch (AssetInfo.GetPublishedStatusForLocator(locator))
+                TreeViewLocators.BeginUpdate();
+                TreeViewLocators.Nodes.Clear();
+                int indexloc = -1;
+                foreach (ILocator locator in MyAsset.Locators)
                 {
-                    case PublishStatus.PublishedActive:
-                        colornode = Color.Black;
-                        locatorstatus = "Active";
-                        break;
-                    case PublishStatus.PublishedExpired:
-                        colornode = Color.Red;
-                        locatorstatus = "Expired";
-                        break;
-                    case PublishStatus.PublishedFuture:
-                        colornode = Color.Blue;
-                        locatorstatus = "Future";
-                        break;
-                    default:
-                        colornode = Color.Black;
-                        break;
-                }
-                if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
+                    indexloc++;
+                    Color colornode;
+                    string locatorstatus = string.Empty;
+                    string SEstatus = string.Empty;
 
-                TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
-                myLocNode.ForeColor = colornode;
+                    switch (AssetInfo.GetPublishedStatusForLocator(locator))
+                    {
+                        case PublishStatus.PublishedActive:
+                            colornode = Color.Black;
+                            locatorstatus = "Active";
+                            break;
+                        case PublishStatus.PublishedExpired:
+                            colornode = Color.Red;
+                            locatorstatus = "Expired";
+                            break;
+                        case PublishStatus.PublishedFuture:
+                            colornode = Color.Blue;
+                            locatorstatus = "Future";
+                            break;
+                        default:
+                            colornode = Color.Black;
+                            break;
+                    }
+                    if (SelectedSE.State != StreamingEndpointState.Running) colornode = Color.Red;
 
-                TreeViewLocators.Nodes.Add(myLocNode);
+                    TreeNode myLocNode = new TreeNode(string.Format("{0} ({1}{2}) {3}", locator.Type.ToString(), locatorstatus, (SelectedSE.State != StreamingEndpointState.Running) ? ", Endpoint Stopped" : string.Empty, locator.Name));
+                    myLocNode.ForeColor = colornode;
 
-                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
+                    TreeViewLocators.Nodes.Add(myLocNode);
 
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-               string.Format("{0}", (locator.Id))
-               ));
+                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode("Locator information"));
 
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                    string.Format("Name: {0}", locator.Name)
-                    ));
-
-                TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                    string.Format("Type: {0}", locator.Type.ToString())
-                    ));
-
-                if (locator.StartTime != null)
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                       string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString()))
-                       ));
+                   string.Format("{0}", (locator.Id))
+                   ));
 
-                if (locator.ExpirationDateTime != null)
                     TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
+                        string.Format("Name: {0}", locator.Name)
+                        ));
+
+                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                        string.Format("Type: {0}", locator.Type.ToString())
+                        ));
+
+                    if (locator.StartTime != null)
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                           string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString()))
+                           ));
+
+                    if (locator.ExpirationDateTime != null)
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                         string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
+                         ));
+
+                    if (locator.Type == LocatorType.OnDemandOrigin)
+                    {
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                     string.Format("Path: {0}", AssetInfo.rw(locator.Path, SelectedSE))
                      ));
 
-                if (locator.Type == LocatorType.OnDemandOrigin)
-                {
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                 string.Format("Path: {0}", AssetInfo.rw(locator.Path, SelectedSE))
-                 ));
+                        int indexn = 1;
 
-                    int indexn = 1;
-
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
-                    foreach (IAssetFile IAF in MyAsset.AssetFiles)
-                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
-                    indexn++;
-
-                    if (MyAssetType.StartsWith("HLS"))
-                    // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                    {
-                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                        TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
+                        foreach (IAssetFile IAF in MyAsset.AssetFiles)
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
                         indexn++;
+
+                        if (MyAssetType.StartsWith("HLS"))
+                        // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+                        {
+                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                            indexn++;
+                        }
+                        else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
+                        // It's not Static HLS
+                        // Smooth or multi MP4
+                        {
+                            if (locator.GetSmoothStreamingUri() != null)
+                            {
+                                Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
+                                indexn++;
+
+                                // legacy smooth streaming without repeat tag (manifest v2.0)
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
+                                indexn++;
+                            }
+                            if (locator.GetMpegDashUri() != null)
+                            {
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                indexn++;
+                            }
+                            if (locator.GetHlsUri() != null)
+                            {
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
+                                TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                indexn = indexn + 2;
+                            }
+                        }
                     }
-                    else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                    // It's not Static HLS
-                    // Smooth or multi MP4
+
+                    if (locator.Type == LocatorType.Sas)
                     {
-                        if (locator.GetSmoothStreamingUri() != null)
-                        {
-                            Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
-                            indexn++;
+                        TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
+                     string.Format("Path: {0}", locator.Path)
+                     ));
 
-                            // legacy smooth streaming without repeat tag (manifest v2.0)
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
-                            indexn++;
-                        }
-                        if (locator.GetMpegDashUri() != null)
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            indexn++;
-                        }
-                        if (locator.GetHlsUri() != null)
-                        {
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
-                            indexn = indexn + 2;
-                        }
+                        TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
+
+                        MyAssetFiles = MyAsset
+                     .AssetFiles
+                     .ToList();
+
+                        // Generate the Progressive Download URLs for each file. 
+                        ProgressiveDownloadUris =
+                            MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
+                        ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
                     }
                 }
-
-                if (locator.Type == LocatorType.Sas)
-                {
-                    TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                 string.Format("Path: {0}", locator.Path)
-                 ));
-
-                    TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_https_SAS));
-
-                    MyAssetFiles = MyAsset
-                 .AssetFiles
-                 .ToList();
-
-                    // Generate the Progressive Download URLs for each file. 
-                    ProgressiveDownloadUris =
-                        MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                    ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
-                }
+                TreeViewLocators.EndUpdate();
             }
-            TreeViewLocators.EndUpdate();
+
         }
 
 
@@ -598,7 +607,6 @@ namespace AMSExplorer
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
                 dataGridViewKeys.Rows.Clear();
                 dataGridViewKeys.Rows.Add("Name", key.Name != null ? key.Name : "<no name>");
-
                 dataGridViewKeys.Rows.Add("Id", key.Id);
                 dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
                 dataGridViewKeys.Rows.Add("Checksum", key.Checksum);
@@ -607,17 +615,32 @@ namespace AMSExplorer
                 dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
                 dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
                 dataGridViewKeys.Rows.Add("GetClearKeyValue", Convert.ToBase64String(key.GetClearKeyValue()));
+
+                listViewAutPolOptions.Items.Clear();
+                dataGridViewAutPolOption.Rows.Clear();
+
                 if (key.AuthorizationPolicyId != null)
                 {
-                    dataGridViewKeys.Rows.Add("AuthorizationPolicyId", key.AuthorizationPolicyId);
-                    MyAuthPolicies = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).ToList();
+                    dataGridViewKeys.Rows.Add("Authorization Policy Id", key.AuthorizationPolicyId);
+                    MyAuthPolicy = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (MyAuthPolicy != null)
+                    {
+                        dataGridViewKeys.Rows.Add("Authorization Policy Name", MyAuthPolicy.Name);
+                        listViewAutPolOptions.BeginUpdate();
+                        foreach (var option in MyAuthPolicy.Options)
+                        {
+                            ListViewItem item = new ListViewItem((string.IsNullOrEmpty(MyAuthPolicy.Name) ? "<no name>" : MyAuthPolicy.Name) + " / " + (string.IsNullOrEmpty(option.Name) ? "<no name>" : option.Name), 0);
+                            listViewAutPolOptions.Items.Add(item);
+                        }
+                        listViewAutPolOptions.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                        listViewAutPolOptions.EndUpdate();
+                        if (listViewAutPolOptions.Items.Count > 0) listViewAutPolOptions.Items[0].Selected = true;
+                    }
                 }
                 else
                 {
-                    MyAuthPolicies = null;
+                    MyAuthPolicy = null;
                 }
-                listViewAutPol.Items.Clear();
-                dataGridViewAutPol.Rows.Clear();
 
                 switch (key.ContentKeyType)
                 {
@@ -640,34 +663,10 @@ namespace AMSExplorer
                             }
                         }
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", DelUrl);
-                        if (MyAuthPolicies != null)
-                        {
-                            listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyAuthPolicies)
-                            {
-                                ListViewItem item = new ListViewItem(policy.Name, 0);
-                                listViewAutPol.Items.Add(item);
-                            }
-                            listViewAutPol.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                            listViewAutPol.EndUpdate();
-                            if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
-                        }
                         break;
 
                     case ContentKeyType.EnvelopeEncryption:
                         dataGridViewKeys.Rows.Add("GetkeyDeliveryUrl", key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp).OriginalString);
-                        if (MyAuthPolicies != null)
-                        {
-                            listViewAutPol.BeginUpdate();
-                            foreach (var policy in MyAuthPolicies)
-                            {
-                                ListViewItem item = new ListViewItem(policy.Name, 0);
-                                listViewAutPol.Items.Add(item);
-                            }
-                            listViewAutPol.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                            listViewAutPol.EndUpdate();
-                            if (listViewAutPol.Items.Count > 0) listViewAutPol.Items[0].Selected = true;
-                        }
                         break;
 
 
@@ -678,7 +677,7 @@ namespace AMSExplorer
             }
             else
             {
-                MyAuthPolicies = null;
+                MyAuthPolicy = null;
             }
         }
 
@@ -1340,56 +1339,56 @@ namespace AMSExplorer
         }
 
 
-        private void listViewAutPol_SelectedIndexChanged(object sender, EventArgs e)
+        private void listViewAutPolOption_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DoDisplayAuthorizationPolicyProperties();
+            DoDisplayAuthorizationPolicyOption();
         }
 
-        private void DoDisplayAuthorizationPolicyProperties()
+        private void DoDisplayAuthorizationPolicyOption()
         {
             bool DisplayButGetToken = false;
 
-            if (listViewAutPol.SelectedItems.Count > 0)
+            if (listViewAutPolOptions.SelectedItems.Count > 0)
             {
-                IContentKeyAuthorizationPolicy policy = MyAuthPolicies.Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                dataGridViewAutPolOption.Rows.Clear();
 
-                dataGridViewAutPol.Rows.Clear();
-                dataGridViewAutPol.Rows.Add("Name", policy.Name != null ? policy.Name : "<no name>");
-                dataGridViewAutPol.Rows.Add("Id", policy.Id);
-                IList<IContentKeyAuthorizationPolicyOption> objIList_option = policy.Options;
-
-                int o_i = 0;
-                foreach (var option in objIList_option)
+                IContentKeyAuthorizationPolicyOption option = MyAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
+                if (option != null) // Token option
                 {
-                    string optionstr = string.Format("#{0} Option ", o_i);
-                    dataGridViewAutPol.Rows.Add(optionstr + "Name", option.Name);
-                    dataGridViewAutPol.Rows.Add(optionstr + "Id", option.Id);
-                    dataGridViewAutPol.Rows.Add(optionstr + "KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
-                    dataGridViewAutPol.Rows.Add(optionstr + "KeyDeliveryType", option.KeyDeliveryType);
+
+                    dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
+                    dataGridViewAutPolOption.Rows.Add("Id", option.Id);
+                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
+                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
                     List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
                     foreach (var restriction in objList_restriction)
                     {
-                        dataGridViewAutPol.Rows.Add(optionstr + "restriction Name", restriction.Name);
-                        dataGridViewAutPol.Rows.Add(optionstr + "restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
-                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted) DisplayButGetToken = true;
+                        dataGridViewAutPolOption.Rows.Add("Restriction Name", restriction.Name);
+                        dataGridViewAutPolOption.Rows.Add("Restriction KeyRestrictionType", (ContentKeyRestrictionType)restriction.KeyRestrictionType);
+                        if ((ContentKeyRestrictionType)restriction.KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted)
+                        {
+                            DisplayButGetToken = true;
+                        }
                         if (restriction.Requirements != null)
                         {
-                            dataGridViewAutPol.Rows.Add(optionstr + "restriction Requirements", FormatXmlString(restriction.Requirements));
+                            dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Type", tokenTemplate.TokenType);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Audience", tokenTemplate.Audience);
-                            dataGridViewAutPol.Rows.Add(optionstr + "Token Issuer", tokenTemplate.Issuer);
+                            dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
+                            dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                            dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
+                            dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
                             foreach (var claim in tokenTemplate.RequiredClaims)
                             {
-                                dataGridViewAutPol.Rows.Add(optionstr + "restriction Required Claim", claim.ClaimType + " : " + claim.ClaimValue);
+                                dataGridViewAutPolOption.Rows.Add("Required Claim, Type", claim.ClaimType);
+                                dataGridViewAutPolOption.Rows.Add("Required Claim, Value", claim.ClaimValue);
                             }
                         }
                     }
-                    o_i++;
                 }
-            }
 
+
+
+            }
             buttonGetTestToken.Enabled = DisplayButGetToken;
             buttonRemoveAuthPol.Enabled = true;
         }
@@ -1401,15 +1400,30 @@ namespace AMSExplorer
 
         private void DoGetTestToken()
         {
+            bool Error = true;
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                string testToken = DynamicEncryption.GetTestToken(MyAsset, key.ContentKeyType, MyContext);
-                MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
-                MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
-
-                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken);
-                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
+                if (key != null)
+                {
+                    IContentKeyAuthorizationPolicy AutPol = MyContext.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (AutPol != null)
+                    {
+                        IContentKeyAuthorizationPolicyOption AutPolOption = AutPol.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).FirstOrDefault();
+                        if (AutPolOption != null)
+                        {
+                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(MyAsset, MyContext, key.ContentKeyType, displayUI: true, optionid: AutPolOption.Id);
+                            if (!string.IsNullOrEmpty(testToken.TokenString))
+                            {
+                                MyMainForm.TextBoxLogWriteLine("The authorization test token (without Bearer) is :\n{0}", testToken);
+                                MyMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
+                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken), "Test token copied");
+                                Error = false;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -1649,7 +1663,7 @@ namespace AMSExplorer
 
         private void contextMenuStripAuthPol_Opening(object sender, CancelEventArgs e)
         {
-            getTestTokenToolStripMenuItem.Enabled = (listViewAutPol.SelectedItems.Count > 0);
+            getTestTokenToolStripMenuItem.Enabled = (listViewAutPolOptions.SelectedItems.Count > 0);
         }
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
@@ -1670,12 +1684,12 @@ namespace AMSExplorer
 
         private void DoRemoveAuthPol()
         {
-            if (listViewAutPol.SelectedItems.Count > 0)
+            if (listViewKeys.SelectedItems.Count > 0)
             {
-                if (listViewAutPol.SelectedItems[0] != null)
+                if (listViewKeys.SelectedItems[0] != null)
                 {
                     IContentKey key = MyAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
-                    IContentKeyAuthorizationPolicy AuthPol = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).Skip(listViewAutPol.SelectedIndices[0]).Take(1).FirstOrDefault();
+                    IContentKeyAuthorizationPolicy AuthPol = MyContext.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
 
                     if (AuthPol != null)
                     {

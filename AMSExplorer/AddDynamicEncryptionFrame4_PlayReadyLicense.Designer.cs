@@ -91,9 +91,9 @@
             this.labelAllowPassingVideoContentToUnknownOuput = new System.Windows.Forms.Label();
             this.comboBoxAllowPassingVideoContentUnknownOutput = new System.Windows.Forms.ComboBox();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelstep = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBoxEndDate.SuspendLayout();
@@ -125,7 +125,7 @@
             // moreinfocompliance
             // 
             this.moreinfocompliance.AutoSize = true;
-            this.moreinfocompliance.Location = new System.Drawing.Point(353, 30);
+            this.moreinfocompliance.Location = new System.Drawing.Point(353, 64);
             this.moreinfocompliance.Name = "moreinfocompliance";
             this.moreinfocompliance.Size = new System.Drawing.Size(215, 13);
             this.moreinfocompliance.TabIndex = 19;
@@ -148,7 +148,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(23, 64);
+            this.tabControl1.Location = new System.Drawing.Point(23, 80);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(549, 495);
@@ -886,15 +886,6 @@
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 13);
-            this.label1.TabIndex = 34;
-            this.label1.Text = "Please specify the PlayReady template settings";
-            // 
             // labelWarning
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -918,20 +909,30 @@
             this.panel1.Size = new System.Drawing.Size(586, 48);
             this.panel1.TabIndex = 63;
             // 
+            // labelstep
+            // 
+            this.labelstep.AutoSize = true;
+            this.labelstep.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelstep.Location = new System.Drawing.Point(22, 18);
+            this.labelstep.Name = "labelstep";
+            this.labelstep.Size = new System.Drawing.Size(389, 40);
+            this.labelstep.TabIndex = 85;
+            this.labelstep.Text = "Step {0}\r\nSpecify the PlayReady license template for option #{1}";
+            // 
             // AddDynamicEncryptionFrame4_PlayReadyLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.labelstep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.moreinfocompliance);
             this.Name = "AddDynamicEncryptionFrame4_PlayReadyLicense";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Dynamic Encryption - Step 4";
+            this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -1011,7 +1012,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownCompressedDigitalAudioOPL;
         private System.Windows.Forms.NumericUpDown numericUpDownAnalogVideoOPL;
         private System.Windows.Forms.CheckBox checkBoxAnalogVideoOPL;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.GroupBox groupBoxFirstPlay;
         private System.Windows.Forms.Panel panel1;
@@ -1040,5 +1040,6 @@
         private System.Windows.Forms.Panel panelEndDateAbsolute;
         private System.Windows.Forms.Panel panelStartDateAbsolute;
         private System.Windows.Forms.Panel panelFirstPlayExpiration;
+        private System.Windows.Forms.Label labelstep;
     }
 }

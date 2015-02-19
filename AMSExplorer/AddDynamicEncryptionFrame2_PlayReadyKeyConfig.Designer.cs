@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame3_PlayReadyKeyConfig
+    partial class AddDynamicEncryptionFrame2_PlayReadyKeyConfig
     {
         /// <summary>
         /// Required designer variable.
@@ -61,14 +61,15 @@
             this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
+            this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
             this.panelContentKey = new System.Windows.Forms.Panel();
             this.textBoxContentKeyCalculated = new System.Windows.Forms.TextBox();
             this.panelKeyId = new System.Windows.Forms.Panel();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
-            this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label9 = new System.Windows.Forms.Label();
             this.panelPlayReadyTest.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -83,7 +84,7 @@
             // moreinfotestserver
             // 
             this.moreinfotestserver.AutoSize = true;
-            this.moreinfotestserver.Location = new System.Drawing.Point(178, 35);
+            this.moreinfotestserver.Location = new System.Drawing.Point(178, 26);
             this.moreinfotestserver.Name = "moreinfotestserver";
             this.moreinfotestserver.Size = new System.Drawing.Size(152, 13);
             this.moreinfotestserver.TabIndex = 19;
@@ -105,7 +106,7 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(176, 17);
+            this.label.Location = new System.Drawing.Point(176, 8);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(264, 13);
             this.label.TabIndex = 28;
@@ -113,7 +114,7 @@
             // 
             // buttonPlayReadyTestSettings
             // 
-            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(11, 18);
+            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(11, 9);
             this.buttonPlayReadyTestSettings.Name = "buttonPlayReadyTestSettings";
             this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(159, 32);
             this.buttonPlayReadyTestSettings.TabIndex = 29;
@@ -125,7 +126,7 @@
             // 
             this.textBoxLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAurl.Location = new System.Drawing.Point(11, 195);
+            this.textBoxLAurl.Location = new System.Drawing.Point(11, 179);
             this.textBoxLAurl.Name = "textBoxLAurl";
             this.textBoxLAurl.Size = new System.Drawing.Size(382, 20);
             this.textBoxLAurl.TabIndex = 37;
@@ -145,7 +146,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 222);
+            this.label1.Location = new System.Drawing.Point(8, 206);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 13);
             this.label1.TabIndex = 36;
@@ -154,7 +155,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 179);
+            this.label2.Location = new System.Drawing.Point(8, 163);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(117, 13);
             this.label2.TabIndex = 35;
@@ -164,7 +165,7 @@
             // 
             this.textBoxkeyseed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxkeyseed.Location = new System.Drawing.Point(11, 238);
+            this.textBoxkeyseed.Location = new System.Drawing.Point(11, 222);
             this.textBoxkeyseed.Name = "textBoxkeyseed";
             this.textBoxkeyseed.Size = new System.Drawing.Size(382, 20);
             this.textBoxkeyseed.TabIndex = 34;
@@ -238,9 +239,9 @@
             this.panelPlayReadyTest.Controls.Add(this.label);
             this.panelPlayReadyTest.Controls.Add(this.moreinfotestserver);
             this.panelPlayReadyTest.Controls.Add(this.buttonPlayReadyTestSettings);
-            this.panelPlayReadyTest.Location = new System.Drawing.Point(11, 30);
+            this.panelPlayReadyTest.Location = new System.Drawing.Point(11, 24);
             this.panelPlayReadyTest.Name = "panelPlayReadyTest";
-            this.panelPlayReadyTest.Size = new System.Drawing.Size(455, 73);
+            this.panelPlayReadyTest.Size = new System.Drawing.Size(455, 49);
             this.panelPlayReadyTest.TabIndex = 41;
             // 
             // panel1
@@ -260,7 +261,7 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(399, 198);
+            this.label8.Location = new System.Drawing.Point(399, 182);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(26, 13);
             this.label8.TabIndex = 67;
@@ -309,7 +310,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.radioButtonKeySeedBase64);
             this.panel3.Controls.Add(this.radioButtonKeySeedHex);
-            this.panel3.Location = new System.Drawing.Point(399, 222);
+            this.panel3.Location = new System.Drawing.Point(399, 206);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(75, 48);
             this.panel3.TabIndex = 71;
@@ -387,7 +388,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
-            this.groupBox2.Location = new System.Drawing.Point(12, 27);
+            this.groupBox2.Location = new System.Drawing.Point(12, 71);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(552, 100);
             this.groupBox2.TabIndex = 73;
@@ -442,12 +443,26 @@
             this.groupBoxCrypto.Controls.Add(this.textBoxkeyseed);
             this.groupBoxCrypto.Controls.Add(this.textBoxLAurl);
             this.groupBoxCrypto.Enabled = false;
-            this.groupBoxCrypto.Location = new System.Drawing.Point(15, 145);
+            this.groupBoxCrypto.Location = new System.Drawing.Point(15, 185);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(549, 375);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(549, 362);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
+            // 
+            // checkBoxEncodingSL
+            // 
+            this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxEncodingSL.AutoSize = true;
+            this.checkBoxEncodingSL.Enabled = false;
+            this.checkBoxEncodingSL.Location = new System.Drawing.Point(428, 181);
+            this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
+            this.checkBoxEncodingSL.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxEncodingSL.TabIndex = 76;
+            this.checkBoxEncodingSL.Text = "Encoding for SL";
+            this.toolTip1.SetToolTip(this.checkBoxEncodingSL, "& will encoded as %26 for compatibility with Silverlight (breaks compatibility wi" +
+        "th DASH)");
+            this.checkBoxEncodingSL.UseVisualStyleBackColor = true;
             // 
             // panelContentKey
             // 
@@ -458,7 +473,7 @@
             this.panelContentKey.Controls.Add(this.textBoxcontentkey);
             this.panelContentKey.Controls.Add(this.buttongenerateContentKey);
             this.panelContentKey.Controls.Add(this.panel2);
-            this.panelContentKey.Location = new System.Drawing.Point(6, 276);
+            this.panelContentKey.Location = new System.Drawing.Point(6, 260);
             this.panelContentKey.Name = "panelContentKey";
             this.panelContentKey.Size = new System.Drawing.Size(538, 81);
             this.panelContentKey.TabIndex = 75;
@@ -482,7 +497,7 @@
             this.panelKeyId.Controls.Add(this.buttonGenKeyID);
             this.panelKeyId.Controls.Add(this.label5);
             this.panelKeyId.Controls.Add(this.panel4);
-            this.panelKeyId.Location = new System.Drawing.Point(6, 109);
+            this.panelKeyId.Location = new System.Drawing.Point(6, 93);
             this.panelKeyId.Name = "panelKeyId";
             this.panelKeyId.Size = new System.Drawing.Size(538, 67);
             this.panelKeyId.TabIndex = 74;
@@ -490,7 +505,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 548);
+            this.label7.Location = new System.Drawing.Point(23, 560);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(91, 13);
             this.label7.TabIndex = 82;
@@ -501,7 +516,7 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(414, 567);
+            this.label6.Location = new System.Drawing.Point(414, 579);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(144, 13);
             this.label6.TabIndex = 81;
@@ -511,40 +526,37 @@
             // 
             this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(21, 564);
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(21, 576);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
             this.textBoxCustomAttributes.Size = new System.Drawing.Size(387, 20);
             this.textBoxCustomAttributes.TabIndex = 80;
             // 
-            // checkBoxEncodingSL
+            // label9
             // 
-            this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxEncodingSL.AutoSize = true;
-            this.checkBoxEncodingSL.Enabled = false;
-            this.checkBoxEncodingSL.Location = new System.Drawing.Point(428, 197);
-            this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
-            this.checkBoxEncodingSL.Size = new System.Drawing.Size(102, 17);
-            this.checkBoxEncodingSL.TabIndex = 76;
-            this.checkBoxEncodingSL.Text = "Encoding for SL";
-            this.toolTip1.SetToolTip(this.checkBoxEncodingSL, "& will encoded as %26 for compatibility with Silverlight (breaks compatibility wi" +
-        "th DASH)");
-            this.checkBoxEncodingSL.UseVisualStyleBackColor = true;
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(22, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(258, 40);
+            this.label9.TabIndex = 83;
+            this.label9.Text = "Step 2\r\nSpecify the PlayReady Content Key";
             // 
-            // AddDynamicEncryptionFrame3_PlayReadyKeyConfig
+            // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.textBoxCustomAttributes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
-            this.Name = "AddDynamicEncryptionFrame3_PlayReadyKeyConfig";
+            this.Name = "AddDynamicEncryptionFrame2_PlayReadyKeyConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Dynamic Encryption - Step 3";
+            this.Text = "Dynamic Encryption - Step 2";
             this.Load += new System.EventHandler(this.PlayReadyExternalServer_Load);
             this.panelPlayReadyTest.ResumeLayout(false);
             this.panelPlayReadyTest.PerformLayout();
@@ -610,5 +622,6 @@
         public System.Windows.Forms.TextBox textBoxCustomAttributes;
         private System.Windows.Forms.CheckBox checkBoxEncodingSL;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label9;
     }
 }

@@ -45,9 +45,13 @@ namespace AMSExplorer
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryption;
                 }
-                else
+                else if(radioButtonDecryptStorage.Checked)
                 {
                     return AssetDeliveryPolicyType.NoDynamicEncryption;
+                }
+                else
+                {
+                    return AssetDeliveryPolicyType.None;
                 }
             }
         }
@@ -66,6 +70,21 @@ namespace AMSExplorer
             get
             {
                 return ((checkBoxProtocolDASH.Checked ? AssetDeliveryProtocol.Dash : AssetDeliveryProtocol.None) | (checkBoxProtocolHLS.Checked ? AssetDeliveryProtocol.HLS : AssetDeliveryProtocol.None) | (checkBoxProtocolSmooth.Checked ? AssetDeliveryProtocol.SmoothStreaming : AssetDeliveryProtocol.None));
+            }
+        }
+
+        public int GetNumberOfAuthorizationPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+        {
+            get
+            {
+                if (radioButtonNoAuthPolicy.Checked)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)numericUpDownNbOptions.Value;
+                }
             }
         }
 
@@ -92,7 +111,7 @@ namespace AMSExplorer
 
         private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (radioButtonEnvelope.Checked) radioButtonDefineAuthPol.Checked = true;
         }
 
 
@@ -106,11 +125,13 @@ namespace AMSExplorer
 
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
+            groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
             // groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
             /*
                   radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
                   if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
@@ -118,6 +139,11 @@ namespace AMSExplorer
                       radioButtonOpenAuthPolicy.Checked = true;
                   }
              * */
+        }
+
+        private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
         }
 
 

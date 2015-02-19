@@ -228,7 +228,7 @@ namespace AMSExplorer
 
         private void LoadWorkflows()
         {
-            var query = _context.Files.ToList().Where(f => (
+         var query = _context.Files.ToList().Where(f => (
                f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
                || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
                || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)

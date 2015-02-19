@@ -31,7 +31,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame3_AESKeyConfig : Form
+    public partial class AddDynamicEncryptionFrame2_AESKeyConfig : Form
     {
 
         public bool ContentKeyRandomGeneration
@@ -66,7 +66,7 @@ namespace AMSExplorer
         }
        
 
-        public AddDynamicEncryptionFrame3_AESKeyConfig(bool ForceUseToProvideKey)
+        public AddDynamicEncryptionFrame2_AESKeyConfig(bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
