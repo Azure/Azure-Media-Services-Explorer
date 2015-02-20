@@ -108,6 +108,11 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.4.0.1\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -129,6 +134,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDynamicEncryptionFrame3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreateTestToken.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CreateTestToken.Designer.cs">
+      <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,17 +215,17 @@
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagementREST.cs" />
-    <Compile Include="PlayReadyLicense.cs">
+    <Compile Include="AddDynamicEncryptionFrame4_PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayReadyLicense.Designer.cs">
-      <DependentUpon>PlayReadyLicense.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame4_PlayReadyLicense.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame4_PlayReadyLicense.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddDynamicEncryption.cs">
+    <Compile Include="AddDynamicEncryptionFrame1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryption.Designer.cs">
-      <DependentUpon>AddDynamicEncryption.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame1.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateStreamingEndpoint.cs">
       <SubType>Form</SubType>
@@ -211,11 +234,11 @@
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="DynamicEncryption.cs" />
-    <Compile Include="PlayReadyExternalServer.cs">
+    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PlayReadyExternalServer.Designer.cs">
-      <DependentUpon>PlayReadyExternalServer.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
       <SubType>Form</SubType>
@@ -363,6 +386,15 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreateTestToken.resx">
+      <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -397,17 +429,17 @@
     <EmbeddedResource Include="ProcessFromJobTemplate.resx">
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyLicense.resx">
-      <DependentUpon>PlayReadyLicense.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame4_PlayReadyLicense.resx">
+      <DependentUpon>AddDynamicEncryptionFrame4_PlayReadyLicense.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryption.resx">
-      <DependentUpon>AddDynamicEncryption.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame1.resx">
+      <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PlayReadyExternalServer.resx">
-      <DependentUpon>PlayReadyExternalServer.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
@@ -489,6 +521,9 @@
     <Content Include="BitmapsPNG\modetaskjob1.png" />
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
+    <Content Include="Configurations\PlayReadyCustomAttributes.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

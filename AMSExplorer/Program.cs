@@ -233,29 +233,126 @@ namespace AMSExplorer
             }
         }
 
+        public static DialogResult InputBox(string title, string promptText, ref string value)
+        {
+            Button buttonOk = new Button()
+            {
+                Text = "OK",
+                DialogResult = DialogResult.OK,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+            Button buttonCancel = new Button()
+            {
+                Text = "Cancel",
+                DialogResult = DialogResult.Cancel,
+                Anchor = AnchorStyles.Bottom | AnchorStyles.Right
+            };
+
+
+            Form form = new Form()
+            {
+                ClientSize = new Size(396, 107),
+                Text = title,
+                StartPosition = FormStartPosition.CenterScreen,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                AcceptButton = buttonOk,
+                CancelButton = buttonCancel,
+                FormBorderStyle = FormBorderStyle.FixedDialog
+            };
+
+            Label label = new Label()
+            {
+                AutoSize = true,
+                Text = promptText
+            };
+            TextBox textBox = new TextBox()
+            {
+                Text = value
+            };
+
+            label.SetBounds(9, 20, 372, 13);
+            textBox.SetBounds(12, 36, 372, 20);
+            buttonOk.SetBounds(228, 72, 75, 23);
+            buttonCancel.SetBounds(309, 72, 75, 23);
+            textBox.Anchor = textBox.Anchor | AnchorStyles.Right;
+            form.Controls.AddRange(new Control[] { label, textBox, buttonOk, buttonCancel });
+            form.ClientSize = new Size(Math.Max(300, label.Right + 10), form.ClientSize.Height);
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+            return dialogResult;
+        }
 
         public static void SaveAndProtectUserConfig()
         {
-            Properties.Settings.Default.Save();
-
-            string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
-            System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
-            ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
-
-            if (connStrings != null)
+            try
             {
-                if (!connStrings.SectionInformation.IsProtected)
+                Properties.Settings.Default.Save();
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            /*
+            try
+            {
+                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+                if (connStrings != null)
                 {
-                    if (!connStrings.ElementInformation.IsLocked)
+                    if (!connStrings.SectionInformation.IsProtected)
                     {
-                        connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
-                        connStrings.SectionInformation.ForceSave = true;
-                        config.Save(ConfigurationSaveMode.Full);
+                        if (!connStrings.ElementInformation.IsLocked)
+                        {
+                            connStrings.SectionInformation.ProtectSection("RsaProtectedConfigurationProvider");
+                            connStrings.SectionInformation.ForceSave = true;
+                            config.Save(ConfigurationSaveMode.Full);
+                        }
                     }
                 }
             }
-        }
 
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Step2 " + e.Message);
+            }
+             * */
+
+
+            // let's decrypt as encryption create issues with some users
+            try
+            {
+                string assemblyname = Assembly.GetExecutingAssembly().GetName().Name;
+                System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal);
+                ConfigurationSection connStrings = config.GetSection("userSettings/" + assemblyname + ".Properties.Settings");
+
+                if (connStrings != null)
+                {
+                    if (connStrings.SectionInformation.IsProtected)
+                    {
+                        if (!connStrings.ElementInformation.IsLocked)
+                        {
+                            connStrings.SectionInformation.UnprotectSection();
+                            connStrings.SectionInformation.ForceSave = true;
+                            config.Save(ConfigurationSaveMode.Full);
+                        }
+                    }
+                }
+            }
+
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error " + e.Message);
+            }
+
+        }
 
     }
 
@@ -306,6 +403,7 @@ namespace AMSExplorer
 
         public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
+        public const string ContentKeyIdPrefix = "nb:kid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
@@ -1099,29 +1197,35 @@ namespace AMSExplorer
             else return null;
         }
 
-        public static string GetTestToken(IAsset MyAsset, ContentKeyType keytype, CloudMediaContext _context)
+
+
+        public static AssetProtectionType GetAssetProtection(IAsset MyAsset, CloudMediaContext _context)
         {
-            string testToken = null;
-            IContentKey key = MyAsset.ContentKeys.Where(k => k.ContentKeyType == keytype).FirstOrDefault();
-            if (key != null && key.AuthorizationPolicyId != null)
+            AssetProtectionType type = AssetProtectionType.None;
+            IAssetDeliveryPolicy policy = MyAsset.DeliveryPolicies.FirstOrDefault();
+
+            if (policy != null)
             {
-                IContentKeyAuthorizationPolicy policy = _context.ContentKeyAuthorizationPolicies.Where(p => p.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                if (policy != null)
+                switch (policy.AssetDeliveryPolicyType)
                 {
-                    IContentKeyAuthorizationPolicyOption option = policy.Options.Where(o => (ContentKeyRestrictionType)o.Restrictions.FirstOrDefault().KeyRestrictionType == ContentKeyRestrictionType.TokenRestricted).FirstOrDefault();
-                    if (option != null)
-                    {
-                        string tokenTemplateString = option.Restrictions.FirstOrDefault().Requirements;
-                        if (!string.IsNullOrEmpty(tokenTemplateString))
-                        {
-                            Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
-                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
-                            testToken = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey);
-                        }
-                    }
+                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
+                        type = AssetProtectionType.AES;
+                        break;
+
+                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
+                        type = AssetProtectionType.PlayReady;
+                        break;
+
+                    default:
+                        break;
                 }
             }
-            return testToken;
+            else if (MyAsset.Options == AssetCreationOptions.CommonEncryptionProtected)
+            {
+                type = AssetProtectionType.PlayReady; // CENC Static protection
+            }
+
+            return type;
         }
 
 
@@ -1282,90 +1386,183 @@ namespace AMSExplorer
 
 
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, Uri Url, CloudMediaContext context, IAsset myassetwithtoken = null)
-        {
-            DoPlayBackWithBestStreamingEndpoint(typeplayer, Url.ToString(), context, myassetwithtoken);
-        }
 
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
-        {
-            Url = rw(Url, GetBestStreamingEndpoint(context));
-            DoPlayBack(typeplayer, Url, context, myassetwithtoken);
-        }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, CloudMediaContext context, IAsset myassetwithtoken = null)
+        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
         {
-            string token = null;
-            if (myassetwithtoken != null)
+            if (!string.IsNullOrEmpty(Urlstr))
             {
-                // user wants perhaps to play an asset with a token
+
+                IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
+                if (!DoNotRewriteURL) Urlstr = rw(Urlstr.ToString(), choosenSE);
+
+                //string token = null;
+                DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
+
+                if (myasset != null && DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context))
+                {
+                    // user wants perhaps to play an asset with a token, so let's try to generate it
+                    switch (typeplayer)
+                    {
+                        case PlayerType.SilverlightPlayReadyToken:
+                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                            {
+                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                keytype = AssetProtectionType.PlayReady;
+                            }
+                            break;
+
+                        case PlayerType.FlashAESToken:
+                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                            {
+                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                keytype = AssetProtectionType.AES;
+                            }
+                            break;
+
+                        case PlayerType.AzureMediaPlayer:
+                            keytype = AssetInfo.GetAssetProtection(myasset, context);
+                            switch (keytype)
+                            {
+                                case AssetProtectionType.None:
+                                    break;
+                                case AssetProtectionType.AES:
+                                case AssetProtectionType.PlayReady:
+                                    tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
+                                    if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                                    {
+                                        tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                        // if the user selecteed an CENC key, let's assume that the content is protected with PlayReady, otherwise AES
+                                        keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
+                                    }
+                                    break;
+                            }
+                            break;
+
+
+                        default:
+                            // no token enabled player
+                            break;
+                    }
+                }
+
+
+                // let's launch the player
                 switch (typeplayer)
                 {
+                    case PlayerType.AzureMediaPlayer:
+                        string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
+                        string protectionsyntax = "&protection={0}";
+                        string tokensyntax = "&token={0}";
+                        string formatsyntax = "&format={0}";
+
+                        if (keytype != AssetProtectionType.None)
+                        {
+                            switch (keytype)
+                            {
+                                case AssetProtectionType.AES:
+                                    playerurl += string.Format(protectionsyntax, "aes");
+                                    break;
+
+                                case AssetProtectionType.PlayReady:
+                                    playerurl += string.Format(protectionsyntax, "playready");
+                                    break;
+
+                                default:
+                                    break;
+                            }
+                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                            {
+                                playerurl += string.Format(tokensyntax, tokenresult.TokenString);
+                            }
+                        }
+
+                        if (formatamp != AzureMediaPlayerFormats.Auto)
+                        {
+                            switch (formatamp)
+                            {
+                                case AzureMediaPlayerFormats.Dash:
+                                    playerurl += string.Format(formatsyntax, "dash");
+                                    break;
+
+                                case AzureMediaPlayerFormats.Smooth:
+                                    playerurl += string.Format(formatsyntax, "smooth");
+                                    break;
+
+                                case AzureMediaPlayerFormats.HLS:
+                                    playerurl += string.Format(formatsyntax, "hls");
+                                    break;
+
+                                case AzureMediaPlayerFormats.VideoMP4:
+                                    playerurl += string.Format(formatsyntax, "video/mp4");
+                                    break;
+
+                                default: // auto or other
+                                    break;
+                            }
+                            if (tokenresult != null)
+                            {
+                                playerurl += string.Format(tokensyntax, tokenresult);
+                            }
+                        }
+                        else // format auto. If 0 Reserved Unit, and asset is smooth, let's force to smooth (player cannot get the dash stream for example)
+                        {
+                            if (choosenSE.ScaleUnits == 0 && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
+                                playerurl += string.Format(formatsyntax, "smooth");
+                        }
+                        Process.Start(string.Format(playerurl, Urlstr));
+                        break;
+
+                    case PlayerType.SilverlightMonitoring:
+                        Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Urlstr);
+                        break;
+
                     case PlayerType.SilverlightPlayReadyToken:
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.CommonEncryption, context));
+                        Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
+                        break;
+
+                    case PlayerType.DASHIFRefPlayer:
+                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Urlstr);
+                        break;
+
+                    case PlayerType.DASHAzurePage:
+                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Urlstr);
+                        break;
+
+                    case PlayerType.DASHLiveAzure:
+                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Urlstr);
+                        break;
+
+                    case PlayerType.FlashAzurePage:
+                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Urlstr);
                         break;
 
                     case PlayerType.FlashAESToken:
-                        token = HttpUtility.UrlEncode(Constants.Bearer + AssetInfo.GetTestToken(myassetwithtoken, ContentKeyType.EnvelopeEncryption, context));
+                        Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
                         break;
 
-                    default:
-                        // no token enabled player
+                    case PlayerType.MP4AzurePage:
+                        Process.Start(string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Urlstr));
+                        break;
+
+                    case PlayerType.CustomPlayer:
+                        string myurl = Properties.Settings.Default.CustomPlayerUrl;
+                        Process.Start(myurl.Replace(Constants.NameconvManifestURL, Urlstr));
                         break;
                 }
+
+
             }
-            DoPlayBack(typeplayer, Url, token);
-        }
-        public static void DoPlayBack(PlayerType typeplayer, Uri Url, string urlencodedtoken = null)
-        {
-            if (Url != null)
-                DoPlayBack(typeplayer, Url.ToString(), urlencodedtoken);
+
+
+
         }
 
-        public static void DoPlayBack(PlayerType typeplayer, string Url, string urlencodedtoken = null)
-        {
-            switch (typeplayer)
-            {
-                case PlayerType.SilverlightMonitoring:
-                    Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Url);
-                    break;
 
-                case PlayerType.SilverlightPlayReadyToken:
-                    Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
-                    break;
-
-                case PlayerType.DASHIFRefPlayer:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                    Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Url);
-                    break;
-
-                case PlayerType.DASHAzurePage:
-                    Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Url);
-                    break;
-
-                case PlayerType.DASHLiveAzure:
-                    if (!Url.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Url += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                    Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Url);
-                    break;
-
-                case PlayerType.FlashAzurePage:
-                    Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Url);
-                    break;
-
-                case PlayerType.FlashAESToken:
-                    Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Url, urlencodedtoken));
-                    break;
-
-                case PlayerType.MP4AzurePage:
-                    Process.Start(string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Url));
-                    break;
-
-                case PlayerType.CustomPlayer:
-                    string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                    Process.Start(myurl.Replace(Constants.NameconvManifestURL, Url.ToString()));
-                    break;
-            }
-        }
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
@@ -1474,16 +1671,17 @@ namespace AMSExplorer
 
     public enum PlayerType
     {
-        FlashAzurePage = 0,
-        SilverlightAzurePage = 1,
-        SilverlightMonitoring = 2,
-        SilverlightPlayReadyToken = 3,
-        FlashAESToken = 4,
-        DASHAzurePage = 5,
-        DASHLiveAzure = 6,
-        DASHIFRefPlayer = 7,
-        MP4AzurePage = 8,
-        CustomPlayer = 9
+        AzureMediaPlayer = 0,
+        FlashAzurePage = 1,
+        SilverlightAzurePage = 2,
+        SilverlightMonitoring = 3,
+        SilverlightPlayReadyToken = 4,
+        FlashAESToken = 5,
+        DASHAzurePage = 6,
+        DASHLiveAzure = 7,
+        DASHIFRefPlayer = 8,
+        MP4AzurePage = 9,
+        CustomPlayer = 10
     }
 
     public enum TaskJobCreationMode
@@ -1499,6 +1697,23 @@ namespace AMSExplorer
         PublishedActive = 1,
         PublishedFuture = 2,
         PublishedExpired = 3,
+    }
+
+    public enum AzureMediaPlayerFormats
+    {
+        Auto = 0,
+        Smooth = 1,
+        Dash = 2,
+        HLS = 3,
+        VideoMP4 = 4
+    }
+
+
+    public enum AssetProtectionType
+    {
+        None = 0,
+        AES = 1,
+        PlayReady = 2
     }
 
     class HostNameClass

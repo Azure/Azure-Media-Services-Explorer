@@ -146,25 +146,18 @@ namespace AMSExplorer
         {
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
-
-
             DGOrigin.ColumnCount = 2;
-
 
             // asset info
 
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGOrigin.Rows.Add("Name", MyOrigin.Name);
-
             DGOrigin.Rows.Add("Id", MyOrigin.Id);
             DGOrigin.Rows.Add("State", (StreamingEndpointState)MyOrigin.State);
             DGOrigin.Rows.Add("Created", ((DateTime)MyOrigin.Created).ToLocalTime());
             DGOrigin.Rows.Add("Last Modified", ((DateTime)MyOrigin.LastModified).ToLocalTime());
             DGOrigin.Rows.Add("Description", MyOrigin.Description);
             DGOrigin.Rows.Add("Host name", MyOrigin.HostName);
-
-
-
 
             // Custom Hostnames binding to control
             if (MyOrigin.CustomHostNames != null)
@@ -225,7 +218,6 @@ namespace AMSExplorer
             dataGridViewAkamai.DataSource = AkamaiSettingList;
             dataGridViewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
             dataGridViewAkamai.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
-
 
             if (MyOrigin.CrossSiteAccessPolicies != null)
             {
@@ -317,28 +309,22 @@ namespace AMSExplorer
 
         private void checkBoxclientpolicy_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxClientPolicy.Enabled = checkBoxclientpolicy.Checked;
-            buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
+            textBoxClientPolicy.Enabled = buttonAddExampleClientPolicy.Enabled = checkBoxclientpolicy.Checked;
         }
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = checkBoxcrossdomain.Checked;
-            buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
+            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled =checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-            buttonAddIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-            buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-        }
+            dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
+             }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridViewAkamai.Enabled = checkBoxAkamai.Checked;
-            buttonAddAkamai.Enabled = checkBoxAkamai.Checked;
-            buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
+            dataGridViewAkamai.Enabled = buttonAddAkamai.Enabled = buttonDelAkamai.Enabled = checkBoxAkamai.Checked;
         }
 
         private void buttonAddHostName_Click(object sender, EventArgs e)

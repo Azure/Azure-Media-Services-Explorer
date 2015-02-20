@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class PlayReadyLicense
+    partial class AddDynamicEncryptionFrame4_PlayReadyLicense
     {
         /// <summary>
         /// Required designer variable.
@@ -91,9 +91,9 @@
             this.labelAllowPassingVideoContentToUnknownOuput = new System.Windows.Forms.Label();
             this.comboBoxAllowPassingVideoContentUnknownOutput = new System.Windows.Forms.ComboBox();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelstep = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBoxEndDate.SuspendLayout();
@@ -125,7 +125,7 @@
             // moreinfocompliance
             // 
             this.moreinfocompliance.AutoSize = true;
-            this.moreinfocompliance.Location = new System.Drawing.Point(276, 30);
+            this.moreinfocompliance.Location = new System.Drawing.Point(353, 64);
             this.moreinfocompliance.Name = "moreinfocompliance";
             this.moreinfocompliance.Size = new System.Drawing.Size(215, 13);
             this.moreinfocompliance.TabIndex = 19;
@@ -137,9 +137,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(405, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(486, 11);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(92, 23);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -148,10 +148,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(23, 64);
+            this.tabControl1.Location = new System.Drawing.Point(23, 80);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(468, 376);
+            this.tabControl1.Size = new System.Drawing.Size(549, 495);
             this.tabControl1.TabIndex = 33;
             // 
             // tabPage3
@@ -165,7 +165,7 @@
             this.tabPage3.Controls.Add(this.comboBoxType);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(460, 350);
+            this.tabPage3.Size = new System.Drawing.Size(541, 469);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Common settings";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -177,9 +177,9 @@
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateRelative);
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateAbsolute);
             this.groupBoxEndDate.Controls.Add(this.checkBoxEndDate);
-            this.groupBoxEndDate.Location = new System.Drawing.Point(236, 119);
+            this.groupBoxEndDate.Location = new System.Drawing.Point(275, 119);
             this.groupBoxEndDate.Name = "groupBoxEndDate";
-            this.groupBoxEndDate.Size = new System.Drawing.Size(205, 218);
+            this.groupBoxEndDate.Size = new System.Drawing.Size(252, 218);
             this.groupBoxEndDate.TabIndex = 58;
             this.groupBoxEndDate.TabStop = false;
             this.groupBoxEndDate.Text = "End date/time";
@@ -191,14 +191,14 @@
             this.panelEndDateAbsolute.Enabled = false;
             this.panelEndDateAbsolute.Location = new System.Drawing.Point(6, 60);
             this.panelEndDateAbsolute.Name = "panelEndDateAbsolute";
-            this.panelEndDateAbsolute.Size = new System.Drawing.Size(194, 64);
+            this.panelEndDateAbsolute.Size = new System.Drawing.Size(240, 64);
             this.panelEndDateAbsolute.TabIndex = 59;
             // 
             // dateTimePickerEndDate
             // 
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(10, 9);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(3, 9);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(175, 20);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerEndDate.TabIndex = 37;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
@@ -206,11 +206,11 @@
             // 
             this.dateTimePickerEndTime.CustomFormat = "";
             this.dateTimePickerEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerEndTime.Location = new System.Drawing.Point(10, 35);
+            this.dateTimePickerEndTime.Location = new System.Drawing.Point(3, 35);
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.Size = new System.Drawing.Size(175, 20);
+            this.dateTimePickerEndTime.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerEndTime.TabIndex = 39;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
@@ -225,7 +225,7 @@
             this.panelEndDateRelative.Enabled = false;
             this.panelEndDateRelative.Location = new System.Drawing.Point(6, 144);
             this.panelEndDateRelative.Name = "panelEndDateRelative";
-            this.panelEndDateRelative.Size = new System.Drawing.Size(193, 45);
+            this.panelEndDateRelative.Size = new System.Drawing.Size(240, 45);
             this.panelEndDateRelative.TabIndex = 58;
             // 
             // label4
@@ -342,7 +342,7 @@
             this.groupBoxStartDate.Controls.Add(this.radioButtonStartDateRelative);
             this.groupBoxStartDate.Location = new System.Drawing.Point(11, 119);
             this.groupBoxStartDate.Name = "groupBoxStartDate";
-            this.groupBoxStartDate.Size = new System.Drawing.Size(205, 218);
+            this.groupBoxStartDate.Size = new System.Drawing.Size(252, 218);
             this.groupBoxStartDate.TabIndex = 57;
             this.groupBoxStartDate.TabStop = false;
             this.groupBoxStartDate.Text = "Start date/time";
@@ -365,26 +365,26 @@
             this.panelStartDateAbsolute.Enabled = false;
             this.panelStartDateAbsolute.Location = new System.Drawing.Point(6, 60);
             this.panelStartDateAbsolute.Name = "panelStartDateAbsolute";
-            this.panelStartDateAbsolute.Size = new System.Drawing.Size(193, 65);
+            this.panelStartDateAbsolute.Size = new System.Drawing.Size(240, 65);
             this.panelStartDateAbsolute.TabIndex = 61;
             // 
             // dateTimePickerStartTime
             // 
             this.dateTimePickerStartTime.CustomFormat = "";
             this.dateTimePickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerStartTime.Location = new System.Drawing.Point(10, 35);
+            this.dateTimePickerStartTime.Location = new System.Drawing.Point(3, 35);
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.Size = new System.Drawing.Size(175, 20);
+            this.dateTimePickerStartTime.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerStartTime.TabIndex = 39;
             this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
             // 
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(10, 9);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(3, 9);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(175, 20);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(234, 20);
             this.dateTimePickerStartDate.TabIndex = 37;
             this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
             // 
@@ -413,7 +413,7 @@
             this.panelStartDateRelative.Enabled = false;
             this.panelStartDateRelative.Location = new System.Drawing.Point(6, 144);
             this.panelStartDateRelative.Name = "panelStartDateRelative";
-            this.panelStartDateRelative.Size = new System.Drawing.Size(193, 45);
+            this.panelStartDateRelative.Size = new System.Drawing.Size(240, 45);
             this.panelStartDateRelative.TabIndex = 60;
             // 
             // label5
@@ -495,9 +495,9 @@
             // 
             this.groupBoxFirstPlay.Controls.Add(this.panelFirstPlayExpiration);
             this.groupBoxFirstPlay.Controls.Add(this.checkBoxFPExp);
-            this.groupBoxFirstPlay.Location = new System.Drawing.Point(236, 10);
+            this.groupBoxFirstPlay.Location = new System.Drawing.Point(11, 355);
             this.groupBoxFirstPlay.Name = "groupBoxFirstPlay";
-            this.groupBoxFirstPlay.Size = new System.Drawing.Size(205, 91);
+            this.groupBoxFirstPlay.Size = new System.Drawing.Size(252, 91);
             this.groupBoxFirstPlay.TabIndex = 56;
             this.groupBoxFirstPlay.TabStop = false;
             this.groupBoxFirstPlay.Text = "First play expiration";
@@ -513,7 +513,7 @@
             this.panelFirstPlayExpiration.Enabled = false;
             this.panelFirstPlayExpiration.Location = new System.Drawing.Point(6, 36);
             this.panelFirstPlayExpiration.Name = "panelFirstPlayExpiration";
-            this.panelFirstPlayExpiration.Size = new System.Drawing.Size(194, 49);
+            this.panelFirstPlayExpiration.Size = new System.Drawing.Size(240, 49);
             this.panelFirstPlayExpiration.TabIndex = 52;
             // 
             // label11
@@ -655,7 +655,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(460, 350);
+            this.tabPage1.Size = new System.Drawing.Size(541, 469);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Advanced settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -879,28 +879,19 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(300, 13);
+            this.buttonOk.Location = new System.Drawing.Point(329, 11);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(99, 23);
+            this.buttonOk.Size = new System.Drawing.Size(151, 23);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(23, 30);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(229, 13);
-            this.label1.TabIndex = 34;
-            this.label1.Text = "Please specify the PlayReady template settings";
             // 
             // labelWarning
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(24, 456);
+            this.labelWarning.Location = new System.Drawing.Point(24, 585);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 45;
@@ -913,24 +904,35 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(1, 484);
+            this.panel1.Location = new System.Drawing.Point(-1, 615);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(518, 48);
+            this.panel1.Size = new System.Drawing.Size(586, 48);
             this.panel1.TabIndex = 63;
             // 
-            // PlayReadyLicense
+            // labelstep
+            // 
+            this.labelstep.AutoSize = true;
+            this.labelstep.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelstep.Location = new System.Drawing.Point(22, 18);
+            this.labelstep.Name = "labelstep";
+            this.labelstep.Size = new System.Drawing.Size(389, 40);
+            this.labelstep.TabIndex = 85;
+            this.labelstep.Text = "Step {0}\r\nSpecify the PlayReady license template for option #{1}";
+            // 
+            // AddDynamicEncryptionFrame4_PlayReadyLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(517, 532);
+            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.labelstep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.moreinfocompliance);
-            this.Name = "PlayReadyLicense";
-            this.Text = "PlayReady License Definition";
+            this.Name = "AddDynamicEncryptionFrame4_PlayReadyLicense";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
+            this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
@@ -1010,7 +1012,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownCompressedDigitalAudioOPL;
         private System.Windows.Forms.NumericUpDown numericUpDownAnalogVideoOPL;
         private System.Windows.Forms.CheckBox checkBoxAnalogVideoOPL;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.GroupBox groupBoxFirstPlay;
         private System.Windows.Forms.Panel panel1;
@@ -1039,5 +1040,6 @@
         private System.Windows.Forms.Panel panelEndDateAbsolute;
         private System.Windows.Forms.Panel panelStartDateAbsolute;
         private System.Windows.Forms.Panel panelFirstPlayExpiration;
+        private System.Windows.Forms.Label labelstep;
     }
 }

@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------- 
-// <copyright file="PlayReadyLicense.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <copyright file="AddDynamicEncryptionFrame4_PlayReadyLicense.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -30,7 +30,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 
 namespace AMSExplorer
 {
-    public partial class PlayReadyLicense : Form
+    public partial class AddDynamicEncryptionFrame4_PlayReadyLicense : Form
     {
         public PlayReadyLicenseTemplate GetLicenseTemplate
         {
@@ -80,6 +80,7 @@ namespace AMSExplorer
                 licenseTemplate.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
 
                 licenseTemplate.PlayRight.AllowPassingVideoContentToUnknownOutput = (UnknownOutputPassingOption)(Enum.Parse(typeof(UnknownOutputPassingOption), (string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem));
+
                 return licenseTemplate;
             }
         }
@@ -97,10 +98,21 @@ namespace AMSExplorer
         }
 
 
-        public PlayReadyLicense()
+        public AddDynamicEncryptionFrame4_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+
+            if (step > -1 && option > -1)
+            {
+                this.Text = string.Format(this.Text, step);
+                labelstep.Text = string.Format(labelstep.Text, step, option);
+            }
+            if (!laststep)
+            {
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
+            }
         }
 
 

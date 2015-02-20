@@ -28,6 +28,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
@@ -165,35 +166,14 @@ namespace AMSExplorer
             }
         }
 
-        public bool PlayReadyConfigureLicenseDelivery
-        {
-            get
-            {
-                return checkBoxDeliverLicenses.Checked;
-            }
-            set
-            {
-                checkBoxDeliverLicenses.Checked = value;
-            }
-        }
-
-        public ContentKeyRestrictionType GetPlayReadyKeyRestrictionType
-        {
-
-            get
-            {
-                return (ContentKeyRestrictionType)(Enum.Parse(typeof(ContentKeyRestrictionType), (string)comboBoxKeyRestriction.SelectedItem));
-            }
-
-        }
+        private CloudMediaContext _context;
 
 
-
-
-        public PlayReadyStaticEnc()
+        public PlayReadyStaticEnc(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _context = context;
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
@@ -219,9 +199,6 @@ namespace AMSExplorer
         private void PlayReadyStaticEnc_Load(object sender, EventArgs e)
         {
             moreinfotestserver.Links.Add(new LinkLabel.Link(0, moreinfotestserver.Text.Length, "http://playready.directtaps.net/"));
-
-            comboBoxKeyRestriction.Items.AddRange(Enum.GetNames(typeof(ContentKeyRestrictionType)).ToArray()); // key restriction
-            comboBoxKeyRestriction.SelectedItem = Enum.GetName(typeof(ContentKeyRestrictionType), ContentKeyRestrictionType.Open);
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
@@ -231,23 +208,6 @@ namespace AMSExplorer
 
         }
 
-        private void checkBoxDeliverLicenses_CheckedChanged(object sender, EventArgs e)
-        {
-            buttonPlayReadyTestSettings.Enabled = !checkBoxDeliverLicenses.Checked;
-            textBoxLAurl.Enabled = !checkBoxDeliverLicenses.Checked;
-            comboBoxKeyRestriction.Enabled = checkBoxDeliverLicenses.Checked;
-
-            if (checkBoxDeliverLicenses.Checked)
-            {
-                textBoxLAurl.Text = string.Empty;
-                textBoxkeyseed.Text = string.Empty;
-
-            }
-            buttonOk.Text = checkBoxDeliverLicenses.Checked ? "Define the PlayReady template" : (string)buttonOk.Tag;
-
-
-
-        }
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
@@ -268,6 +228,26 @@ namespace AMSExplorer
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonAzureSettings_Click(object sender, EventArgs e)
+        {
+            IContentKey key = _context.ContentKeys.Where(k => k.ContentKeyType == ContentKeyType.CommonEncryption).FirstOrDefault();
+            if (key != null)
+            {
+                try
+                {
+                    Uri myUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+                    if (myUri != null) textBoxLAurl.Text = myUri.ToString();
+                }
+                catch
+                {
+
+                }
+            }
+            textBoxkeyseed.Text = string.Empty;
+            textBoxkeyid.Text = Guid.NewGuid().ToString();
+            textBoxcontentkey.Text = Convert.ToBase64String(DynamicEncryption.GetRandomBuffer(16));
         }
     }
 }

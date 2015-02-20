@@ -37,10 +37,10 @@
             this.toolStripMenuItemCopy = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemAzureMediaPlayer = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackFlashAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackSilverlightMonitoring = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHIF = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemDASHAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDASHLiveAzure = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemPlaybackMP4 = new System.Windows.Forms.ToolStripMenuItem();
             this.TreeViewLocators = new System.Windows.Forms.TreeView();
@@ -73,11 +73,12 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
             this.buttonGetTestToken = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
-            this.dataGridViewAutPol = new System.Windows.Forms.DataGridView();
-            this.listViewAutPol = new System.Windows.Forms.ListView();
+            this.dataGridViewAutPolOption = new System.Windows.Forms.DataGridView();
+            this.listViewAutPolOptions = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.contextMenuStripAuthPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.getTestTokenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -87,7 +88,7 @@
             this.contextMenuStripKey = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.buttonRemovePol = new System.Windows.Forms.Button();
+            this.buttonRemoveDelPol = new System.Windows.Forms.Button();
             this.DGDelPol = new System.Windows.Forms.DataGridView();
             this.listViewDelPol = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -100,7 +101,7 @@
             this.comboBoxStreamingEndpoint = new System.Windows.Forms.ComboBox();
             this.buttonOpen = new System.Windows.Forms.Button();
             this.buttonDel = new System.Windows.Forms.Button();
-            this.buttonDashAzure = new System.Windows.Forms.Button();
+            this.buttonAzureMediaPlayer = new System.Windows.Forms.Button();
             this.buttonSLMonitor = new System.Windows.Forms.Button();
             this.buttonHTML = new System.Windows.Forms.Button();
             this.buttonDASH = new System.Windows.Forms.Button();
@@ -118,7 +119,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).BeginInit();
             this.contextMenuStripAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).BeginInit();
             this.contextMenuStripKey.SuspendLayout();
@@ -181,10 +182,10 @@
             this.toolStripMenuItemCopy,
             this.deleteLocatorToolStripMenuItem,
             this.toolStripMenuItemOpen,
+            this.toolStripMenuItemAzureMediaPlayer,
             this.toolStripMenuItemPlaybackFlashAzure,
             this.toolStripMenuItemPlaybackSilverlightMonitoring,
             this.toolStripMenuItemDASHIF,
-            this.toolStripMenuItemDASHAzure,
             this.toolStripMenuItemDASHLiveAzure,
             this.toolStripMenuItemPlaybackMP4});
             this.contextMenuStripLocators.Name = "contextMenuStripLocators";
@@ -213,6 +214,14 @@
             this.toolStripMenuItemOpen.Text = "Open the file";
             this.toolStripMenuItemOpen.Click += new System.EventHandler(this.toolStripMenuItemOpen_Click);
             // 
+            // toolStripMenuItemAzureMediaPlayer
+            // 
+            this.toolStripMenuItemAzureMediaPlayer.Enabled = false;
+            this.toolStripMenuItemAzureMediaPlayer.Name = "toolStripMenuItemAzureMediaPlayer";
+            this.toolStripMenuItemAzureMediaPlayer.Size = new System.Drawing.Size(322, 22);
+            this.toolStripMenuItemAzureMediaPlayer.Text = "Playback with Azure Media Player";
+            this.toolStripMenuItemAzureMediaPlayer.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
+            // 
             // toolStripMenuItemPlaybackFlashAzure
             // 
             this.toolStripMenuItemPlaybackFlashAzure.Enabled = false;
@@ -236,14 +245,6 @@
             this.toolStripMenuItemDASHIF.Size = new System.Drawing.Size(322, 22);
             this.toolStripMenuItemDASHIF.Text = "Playback with MPEG-DASH-IF Reference Player";
             this.toolStripMenuItemDASHIF.Click += new System.EventHandler(this.toolStripMenuItemDASHIF_Click);
-            // 
-            // toolStripMenuItemDASHAzure
-            // 
-            this.toolStripMenuItemDASHAzure.Enabled = false;
-            this.toolStripMenuItemDASHAzure.Name = "toolStripMenuItemDASHAzure";
-            this.toolStripMenuItemDASHAzure.Size = new System.Drawing.Size(322, 22);
-            this.toolStripMenuItemDASHAzure.Text = "Playback with MPEG-DASH Azure Player";
-            this.toolStripMenuItemDASHAzure.Click += new System.EventHandler(this.playbackWithToolStripMenuItem_Click);
             // 
             // toolStripMenuItemDASHLiveAzure
             // 
@@ -302,7 +303,7 @@
             this.duplicateFileToolStripMenuItem,
             this.uploadASmallFileInTheAssetToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 180);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 158);
             this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
             // 
             // makeItPrimaryToolStripMenuItem
@@ -579,11 +580,12 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
             this.tabPage5.Controls.Add(this.buttonRemoveKey);
             this.tabPage5.Controls.Add(this.buttonGetTestToken);
             this.tabPage5.Controls.Add(this.label3);
-            this.tabPage5.Controls.Add(this.dataGridViewAutPol);
-            this.tabPage5.Controls.Add(this.listViewAutPol);
+            this.tabPage5.Controls.Add(this.dataGridViewAutPolOption);
+            this.tabPage5.Controls.Add(this.listViewAutPolOptions);
             this.tabPage5.Controls.Add(this.dataGridViewKeys);
             this.tabPage5.Controls.Add(this.listViewKeys);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -594,12 +596,23 @@
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // buttonRemoveAuthPol
+            // 
+            this.buttonRemoveAuthPol.Enabled = false;
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(110, 236);
+            this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
+            this.buttonRemoveAuthPol.Size = new System.Drawing.Size(120, 23);
+            this.buttonRemoveAuthPol.TabIndex = 43;
+            this.buttonRemoveAuthPol.Text = "Remove auth policy";
+            this.buttonRemoveAuthPol.UseVisualStyleBackColor = true;
+            this.buttonRemoveAuthPol.Click += new System.EventHandler(this.button1_Click_2);
+            // 
             // buttonRemoveKey
             // 
             this.buttonRemoveKey.Enabled = false;
             this.buttonRemoveKey.Location = new System.Drawing.Point(11, 236);
             this.buttonRemoveKey.Name = "buttonRemoveKey";
-            this.buttonRemoveKey.Size = new System.Drawing.Size(104, 23);
+            this.buttonRemoveKey.Size = new System.Drawing.Size(93, 23);
             this.buttonRemoveKey.TabIndex = 42;
             this.buttonRemoveKey.Text = "Remove key";
             this.buttonRemoveKey.UseVisualStyleBackColor = true;
@@ -609,7 +622,7 @@
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonGetTestToken.Enabled = false;
-            this.buttonGetTestToken.Location = new System.Drawing.Point(235, 409);
+            this.buttonGetTestToken.Location = new System.Drawing.Point(236, 409);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
             this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
             this.buttonGetTestToken.TabIndex = 41;
@@ -620,49 +633,49 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(233, 236);
+            this.label3.Location = new System.Drawing.Point(236, 246);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
+            this.label3.Size = new System.Drawing.Size(135, 13);
             this.label3.TabIndex = 40;
-            this.label3.Text = "Authorization policies";
+            this.label3.Text = "Authorization policy options";
             // 
-            // dataGridViewAutPol
+            // dataGridViewAutPolOption
             // 
-            this.dataGridViewAutPol.AllowUserToAddRows = false;
-            this.dataGridViewAutPol.AllowUserToDeleteRows = false;
-            this.dataGridViewAutPol.AllowUserToResizeRows = false;
-            this.dataGridViewAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dataGridViewAutPolOption.AllowUserToAddRows = false;
+            this.dataGridViewAutPolOption.AllowUserToDeleteRows = false;
+            this.dataGridViewAutPolOption.AllowUserToResizeRows = false;
+            this.dataGridViewAutPolOption.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewAutPol.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dataGridViewAutPol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAutPol.ColumnHeadersVisible = false;
-            this.dataGridViewAutPol.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewAutPol.Location = new System.Drawing.Point(461, 252);
-            this.dataGridViewAutPol.MultiSelect = false;
-            this.dataGridViewAutPol.Name = "dataGridViewAutPol";
-            this.dataGridViewAutPol.ReadOnly = true;
-            this.dataGridViewAutPol.RowHeadersVisible = false;
-            this.dataGridViewAutPol.Size = new System.Drawing.Size(281, 180);
-            this.dataGridViewAutPol.TabIndex = 38;
+            this.dataGridViewAutPolOption.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dataGridViewAutPolOption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAutPolOption.ColumnHeadersVisible = false;
+            this.dataGridViewAutPolOption.ContextMenuStrip = this.contextMenuStripDG;
+            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(461, 262);
+            this.dataGridViewAutPolOption.MultiSelect = false;
+            this.dataGridViewAutPolOption.Name = "dataGridViewAutPolOption";
+            this.dataGridViewAutPolOption.ReadOnly = true;
+            this.dataGridViewAutPolOption.RowHeadersVisible = false;
+            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(281, 170);
+            this.dataGridViewAutPolOption.TabIndex = 38;
             // 
-            // listViewAutPol
+            // listViewAutPolOptions
             // 
-            this.listViewAutPol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.listViewAutPolOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.listViewAutPol.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewAutPolOptions.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader3});
-            this.listViewAutPol.ContextMenuStrip = this.contextMenuStripAuthPol;
-            this.listViewAutPol.FullRowSelect = true;
-            this.listViewAutPol.HideSelection = false;
-            this.listViewAutPol.Location = new System.Drawing.Point(236, 252);
-            this.listViewAutPol.MultiSelect = false;
-            this.listViewAutPol.Name = "listViewAutPol";
-            this.listViewAutPol.Size = new System.Drawing.Size(219, 151);
-            this.listViewAutPol.TabIndex = 39;
-            this.listViewAutPol.UseCompatibleStateImageBehavior = false;
-            this.listViewAutPol.View = System.Windows.Forms.View.Details;
-            this.listViewAutPol.SelectedIndexChanged += new System.EventHandler(this.listViewAutPol_SelectedIndexChanged);
+            this.listViewAutPolOptions.ContextMenuStrip = this.contextMenuStripAuthPol;
+            this.listViewAutPolOptions.FullRowSelect = true;
+            this.listViewAutPolOptions.HideSelection = false;
+            this.listViewAutPolOptions.Location = new System.Drawing.Point(236, 262);
+            this.listViewAutPolOptions.MultiSelect = false;
+            this.listViewAutPolOptions.Name = "listViewAutPolOptions";
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(219, 141);
+            this.listViewAutPolOptions.TabIndex = 39;
+            this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
+            this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
+            this.listViewAutPolOptions.SelectedIndexChanged += new System.EventHandler(this.listViewAutPolOption_SelectedIndexChanged);
             // 
             // columnHeader3
             // 
@@ -735,13 +748,13 @@
             // removeKeyToolStripMenuItem
             // 
             this.removeKeyToolStripMenuItem.Name = "removeKeyToolStripMenuItem";
-            this.removeKeyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.removeKeyToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.removeKeyToolStripMenuItem.Text = "Remove key...";
             this.removeKeyToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // tabPage4
             // 
-            this.tabPage4.Controls.Add(this.buttonRemovePol);
+            this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
             this.tabPage4.Controls.Add(this.DGDelPol);
             this.tabPage4.Controls.Add(this.listViewDelPol);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -751,18 +764,18 @@
             this.tabPage4.Text = "Delivery policies";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // buttonRemovePol
+            // buttonRemoveDelPol
             // 
-            this.buttonRemovePol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonRemovePol.Enabled = false;
-            this.buttonRemovePol.Location = new System.Drawing.Point(9, 408);
-            this.buttonRemovePol.Name = "buttonRemovePol";
-            this.buttonRemovePol.Size = new System.Drawing.Size(134, 23);
-            this.buttonRemovePol.TabIndex = 34;
-            this.buttonRemovePol.Text = "Remove delivery policy";
-            this.toolTip1.SetToolTip(this.buttonRemovePol, "Delete the selected file");
-            this.buttonRemovePol.UseVisualStyleBackColor = true;
-            this.buttonRemovePol.Click += new System.EventHandler(this.buttonRemovePol_Click);
+            this.buttonRemoveDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemoveDelPol.Enabled = false;
+            this.buttonRemoveDelPol.Location = new System.Drawing.Point(9, 408);
+            this.buttonRemoveDelPol.Name = "buttonRemoveDelPol";
+            this.buttonRemoveDelPol.Size = new System.Drawing.Size(134, 23);
+            this.buttonRemoveDelPol.TabIndex = 34;
+            this.buttonRemoveDelPol.Text = "Remove delivery policy";
+            this.toolTip1.SetToolTip(this.buttonRemoveDelPol, "Delete the selected file");
+            this.buttonRemoveDelPol.UseVisualStyleBackColor = true;
+            this.buttonRemoveDelPol.Click += new System.EventHandler(this.buttonRemovePol_Click);
             // 
             // DGDelPol
             // 
@@ -831,7 +844,7 @@
             this.tabPage3.Controls.Add(this.comboBoxStreamingEndpoint);
             this.tabPage3.Controls.Add(this.buttonOpen);
             this.tabPage3.Controls.Add(this.buttonDel);
-            this.tabPage3.Controls.Add(this.buttonDashAzure);
+            this.tabPage3.Controls.Add(this.buttonAzureMediaPlayer);
             this.tabPage3.Controls.Add(this.buttonSLMonitor);
             this.tabPage3.Controls.Add(this.buttonHTML);
             this.tabPage3.Controls.Add(this.buttonDASH);
@@ -861,7 +874,7 @@
             // 
             this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDashLiveAzure.Enabled = false;
-            this.buttonDashLiveAzure.Location = new System.Drawing.Point(522, 411);
+            this.buttonDashLiveAzure.Location = new System.Drawing.Point(559, 412);
             this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
             this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
             this.buttonDashLiveAzure.TabIndex = 31;
@@ -913,23 +926,23 @@
             this.buttonDel.UseVisualStyleBackColor = true;
             this.buttonDel.Click += new System.EventHandler(this.buttonDel_Click);
             // 
-            // buttonDashAzure
+            // buttonAzureMediaPlayer
             // 
-            this.buttonDashAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDashAzure.Enabled = false;
-            this.buttonDashAzure.Location = new System.Drawing.Point(404, 411);
-            this.buttonDashAzure.Name = "buttonDashAzure";
-            this.buttonDashAzure.Size = new System.Drawing.Size(112, 23);
-            this.buttonDashAzure.TabIndex = 27;
-            this.buttonDashAzure.Text = "DASH Azure Player";
-            this.buttonDashAzure.UseVisualStyleBackColor = true;
-            this.buttonDashAzure.Click += new System.EventHandler(this.button1_Click);
+            this.buttonAzureMediaPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonAzureMediaPlayer.Enabled = false;
+            this.buttonAzureMediaPlayer.Location = new System.Drawing.Point(94, 411);
+            this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
+            this.buttonAzureMediaPlayer.Size = new System.Drawing.Size(112, 23);
+            this.buttonAzureMediaPlayer.TabIndex = 27;
+            this.buttonAzureMediaPlayer.Text = "Azure Media Player";
+            this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
+            this.buttonAzureMediaPlayer.Click += new System.EventHandler(this.button1_Click);
             // 
             // buttonSLMonitor
             // 
             this.buttonSLMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSLMonitor.Enabled = false;
-            this.buttonSLMonitor.Location = new System.Drawing.Point(177, 411);
+            this.buttonSLMonitor.Location = new System.Drawing.Point(332, 412);
             this.buttonSLMonitor.Name = "buttonSLMonitor";
             this.buttonSLMonitor.Size = new System.Drawing.Size(103, 23);
             this.buttonSLMonitor.TabIndex = 26;
@@ -941,7 +954,7 @@
             // 
             this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonHTML.Enabled = false;
-            this.buttonHTML.Location = new System.Drawing.Point(598, 411);
+            this.buttonHTML.Location = new System.Drawing.Point(635, 412);
             this.buttonHTML.Name = "buttonHTML";
             this.buttonHTML.Size = new System.Drawing.Size(111, 23);
             this.buttonHTML.TabIndex = 24;
@@ -953,7 +966,7 @@
             // 
             this.buttonDASH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDASH.Enabled = false;
-            this.buttonDASH.Location = new System.Drawing.Point(286, 411);
+            this.buttonDASH.Location = new System.Drawing.Point(441, 412);
             this.buttonDASH.Name = "buttonDASH";
             this.buttonDASH.Size = new System.Drawing.Size(112, 23);
             this.buttonDASH.TabIndex = 23;
@@ -975,7 +988,7 @@
             // 
             this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(94, 411);
+            this.buttonFlash.Location = new System.Drawing.Point(249, 412);
             this.buttonFlash.Name = "buttonFlash";
             this.buttonFlash.Size = new System.Drawing.Size(77, 23);
             this.buttonFlash.TabIndex = 20;
@@ -1029,7 +1042,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).EndInit();
             this.contextMenuStripAuthPol.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewKeys)).EndInit();
             this.contextMenuStripKey.ResumeLayout(false);
@@ -1084,8 +1097,8 @@
         private System.Windows.Forms.Button buttonFlash;
         private System.Windows.Forms.Button buttonOpen;
         private System.Windows.Forms.Button buttonSLMonitor;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHAzure;
-        private System.Windows.Forms.Button buttonDashAzure;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAzureMediaPlayer;
+        private System.Windows.Forms.Button buttonAzureMediaPlayer;
         private System.Windows.Forms.Button buttonDuplicate;
         private System.Windows.Forms.ToolStripMenuItem duplicateFileToolStripMenuItem;
         private System.Windows.Forms.Button buttonDel;
@@ -1101,13 +1114,13 @@
         private System.Windows.Forms.DataGridView DGDelPol;
         private System.Windows.Forms.ListView listViewDelPol;
         private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.Button buttonRemovePol;
+        private System.Windows.Forms.Button buttonRemoveDelPol;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView dataGridViewKeys;
         private System.Windows.Forms.ListView listViewKeys;
         private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.DataGridView dataGridViewAutPol;
-        private System.Windows.Forms.ListView listViewAutPol;
+        private System.Windows.Forms.DataGridView dataGridViewAutPolOption;
+        private System.Windows.Forms.ListView listViewAutPolOptions;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button buttonGetTestToken;
@@ -1125,5 +1138,6 @@
         private System.Windows.Forms.ToolStripMenuItem getTestTokenToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDelPol;
         private System.Windows.Forms.ToolStripMenuItem removeDeliveryPolicyToolStripMenuItem;
+        private System.Windows.Forms.Button buttonRemoveAuthPol;
     }
 }
