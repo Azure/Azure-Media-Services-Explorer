@@ -1422,17 +1422,35 @@ namespace AMSExplorer
         }
 
 
-        public DialogResult DisplayInfo(IAsset asset)
+        public DialogResult? DisplayInfo(IAsset asset)
         {
-            AssetInformation form = new AssetInformation(this)
+            DialogResult? dialogResult = null;
+            if (asset != null)
+            {
+                // Refresh the asset.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+                if (asset != null)
                 {
-                    MyAsset = asset,
-                    MyContext = _context,
-                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        AssetInformation form = new AssetInformation(this)
+                        {
+                            MyAsset = asset,
+                            MyContext = _context,
+                            MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                        };
 
-                };
+                        dialogResult = form.ShowDialog(this);
 
-            DialogResult dialogResult = form.ShowDialog(this);
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
+                }
+            }
             return dialogResult;
         }
 
@@ -1460,20 +1478,32 @@ namespace AMSExplorer
         }
 
 
-        public static DialogResult DisplayInfo(IJob job)
+        public DialogResult? DisplayInfo(IJob job)
         {
-            CloudMediaContext context = Program.ConnectAndGetNewContext(_credentials);
-            JobInformation form = new JobInformation(context);
-            // we get a new context to have the latest job and task information (otherwise, task is not dynamically updated)
-            form.MyJob = context.Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
-            DialogResult dialogResult = form.ShowDialog();
+            DialogResult? dialogResult = null;
+            if (job != null)
+            {
+                // Refresh the context and job.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                job = _context.Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
+                if (job != null)
+                {
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        JobInformation form = new JobInformation(_context)
+                        {
+                            MyJob = job
+                        };
+                        dialogResult = form.ShowDialog(this);
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
+                }
+            }
             return dialogResult;
-        }
-
-
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
@@ -1935,47 +1965,15 @@ namespace AMSExplorer
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayAssetInfo();
-        }
-
-        private void DoMenuDisplayAssetInfo()
-        {
-            IAsset AssetToDisplayP = ReturnSelectedAssets().FirstOrDefault();
-            if (AssetToDisplayP != null)
-            {
-                // Refresh the asset.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                AssetToDisplayP = _context.Assets.Where(a => a.Id == AssetToDisplayP.Id).FirstOrDefault();
-                DisplayInfo(AssetToDisplayP);
-            }
+            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
         }
 
 
         private void displayJobInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayJobInfo();
+            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
         }
 
-
-        private void DoMenuDisplayJobInfo()
-        {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
-            if (SelectedJobs.Count == 1)
-            {
-                IJob JobToDisplayP = SelectedJobs.FirstOrDefault();
-
-                // Refresh the job.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == JobToDisplayP.Id).FirstOrDefault();
-
-                if (JobToDisplayP2 != null)
-                {
-                    if (DisplayInfo(JobToDisplayP2) == DialogResult.OK)
-                    {
-                    }
-                }
-            }
-        }
 
 
         public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
@@ -3922,20 +3920,7 @@ typeof(FilterTime)
             if (e.RowIndex > -1)
             {
                 IAsset asset = AssetInfo.GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString(), _context);
-
-                if (asset == null) return;
-                try
-                {
-                    this.Cursor = Cursors.WaitCursor;
-                    if (DisplayInfo(asset) == DialogResult.OK)
-                    {
-                    }
-                }
-                finally
-                {
-                    this.Cursor = Cursors.Arrow;
-                }
-
+                DisplayInfo(asset);
             }
         }
 
@@ -3997,18 +3982,19 @@ typeof(FilterTime)
             if (e.RowIndex > -1)
             {
                 IJob job = GetJob(dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["Id"].Index].Value.ToString());
-
-                if (job == null) return;
-                try
+                if (job != null)
                 {
-                    this.Cursor = Cursors.WaitCursor;
-                    if (DisplayInfo(job) == DialogResult.OK)
+                    try
                     {
+                        this.Cursor = Cursors.WaitCursor;
+                        if (DisplayInfo(job) == DialogResult.OK)
+                        {
+                        }
                     }
-                }
-                finally
-                {
-                    this.Cursor = Cursors.Arrow;
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
                 }
             }
         }
@@ -4067,7 +4053,7 @@ typeof(FilterTime)
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayAssetInfo();
+            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
         }
 
         private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
@@ -4110,7 +4096,7 @@ typeof(FilterTime)
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayJobInfo();
+            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
         }
 
         private void toolStripMenuJobsCancel_Click(object sender, EventArgs e)
@@ -4182,12 +4168,12 @@ typeof(FilterTime)
             DoMenuDisplayJobInfoFromKnownID();
         }
 
-        private static void DoMenuDisplayJobInfoFromKnownID()
+        private void DoMenuDisplayJobInfoFromKnownID()
         {
 
             string JobId = "";
             string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith("nb:jid:UUID:")) JobId = clipbs;
+            if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
 
 
             if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
@@ -6175,19 +6161,26 @@ typeof(FilterTime)
         {
             if (program != null)
             {
-                ProgramInformation form = new ProgramInformation(this)
+                try
                 {
-                    MyProgram = program,
-                    MyContext = _context,
-                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
-                };
+                    this.Cursor = Cursors.WaitCursor;
+                    ProgramInformation form = new ProgramInformation(this)
+                    {
+                        MyProgram = program,
+                        MyContext = _context,
+                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
+                    };
 
-
-                if (form.ShowDialog() == DialogResult.OK)
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        program.ArchiveWindowLength = form.archiveWindowLength;
+                        program.Description = form.ProgramDescription;
+                        await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                    }
+                }
+                finally
                 {
-                    program.ArchiveWindowLength = form.archiveWindowLength;
-                    program.Description = form.ProgramDescription;
-                    await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                    this.Cursor = Cursors.Arrow;
                 }
             }
         }
