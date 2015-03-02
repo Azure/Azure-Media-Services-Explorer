@@ -488,30 +488,7 @@ namespace AMSExplorer
             return job;
         }
 
-        /*
-        static IAsset GetAsset(string assetId)
-        {
-            IAsset asset;
-
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var assetInstance =
-                    from a in _context.Assets
-                    where a.Id == assetId
-                    select a;
-                // Reference the asset as an IAsset.
-                asset = assetInstance.FirstOrDefault();
-            }
-            catch
-            {
-
-                asset = null;
-            }
-
-            return asset;
-        }
-         * */
+       
 
         static IChannel GetChannel(string channelId)
         {
@@ -676,13 +653,7 @@ namespace AMSExplorer
         }
 
 
-        static void TextBoxAddLine(TextBox TB, string ST)
-        {
-            TB.Text += ST + "\r\n";
-            TB.Refresh();
-        }
-
-
+      
         public void TextBoxLogWriteLine(string message, object o1, bool Error = false)
         {
             TextBoxLogWriteLine(string.Format(message, o1), Error);
@@ -1922,40 +1893,7 @@ namespace AMSExplorer
                 }
             }
         }
-        /*
-          private void DoMenuDeleteSelectedAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
-
-            if (SelectedAssets.Count > 0)
-            {
-                string question = (dataGridViewAssetsV.SelectedRows.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (IAsset AssetTODelete in SelectedAssets)
-
-                        if (AssetTODelete != null)
-                        {
-                            //delete
-                            TextBoxLogWriteLine("Deleting asset '{0}'", AssetTODelete.Name);
-                            try
-                            {
-                                DeleteAsset(AssetTODelete);
-                                if (AssetInfo.GetAsset(AssetTODelete.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
-                            }
-
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", AssetTODelete.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-                        }
-                    DoRefreshGridAssetV(false);
-                }
-            }
-        } 
-         */
+        
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2639,44 +2577,7 @@ namespace AMSExplorer
             }
         }
 
-        /*
-         *   private void DoDeleteSelectedJobs()
-        {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
-
-            if (SelectedJobs.Count > 0)
-            {
-                string question = "Delete these " + SelectedJobs.Count + " jobs ?";
-                if (SelectedJobs.Count == 1) question = "Delete " + SelectedJobs[0].Name + " ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Job(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (IJob JobToDelete in SelectedJobs)
-
-                        if (JobToDelete != null)
-                        {
-                            //delete
-                            TextBoxLogWriteLine("Deleting job '{0}'.", JobToDelete.Name);
-
-                            try
-                            {
-                                JobToDelete.Delete();
-                                TextBoxLogWriteLine("Job deleted.");
-                            }
-
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the job '{0}'", JobToDelete.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-                        }
-                    DoRefreshGridJobV(false);
-                }
-            }
-        }
-         */
-
-
+       
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://smf.cloudapp.net/healthmonitor");
@@ -3085,12 +2986,6 @@ namespace AMSExplorer
         /// <returns>The asset that was packaged to HLS.</returns>
 
 
-        private void packageSmoothStreamingTOHLSstaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuPackageSmoothToHLSStatic();
-
-        }
-
         private void DoMenuPackageSmoothToHLSStatic()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -3143,10 +3038,6 @@ namespace AMSExplorer
             }
         }
 
-        private void packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuMP4ToSmoothStatic();
-        }
 
         private void DoMenuMP4ToSmoothStatic()
         {
@@ -3194,12 +3085,6 @@ namespace AMSExplorer
                 LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
             }
         }
-
-        private void encryptWithPlayReadystaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuProtectWithPlayReadyStatic();
-        }
-
 
 
         private void DoMenuProtectWithPlayReadyStatic()
@@ -3318,10 +3203,6 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void validateMultiMP4AssetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuValidateMultiMP4Static();
-        }
 
         private void DoMenuValidateMultiMP4Static()
         {
@@ -3449,11 +3330,6 @@ namespace AMSExplorer
 
                 LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { "" }, AssetCreationOptions.None);
             }
-        }
-
-        private void storageDecryptTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDecryptAsset();
         }
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4152,10 +4028,8 @@ typeof(FilterTime)
 
         private void DoCreateJobReportEmail()
         {
-
             JobInfo JR = new JobInfo(ReturnSelectedJobs());
             JR.CreateOutlookMail();
-
         }
 
         private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4253,10 +4127,6 @@ typeof(FilterTime)
             }
         }
 
-        private void toolStripComboBoxNbItemsPage_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void toolStripComboBoxNbItemsPage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -4334,7 +4204,6 @@ typeof(FilterTime)
                         default:
                             break;
 
-
                     }
                 }
             }
@@ -4374,8 +4243,6 @@ typeof(FilterTime)
                 }
             }
             else toolStripMenuItemOpenDest.Enabled = false;
-
-
         }
 
         private void priorityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4513,7 +4380,6 @@ typeof(FilterTime)
             if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
-
 
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4848,8 +4714,6 @@ typeof(FilterTime)
         }
 
 
-
-
         private void azureMediaServicesMSDNToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Process.Start(@"http://aka.ms/wamsmsdn");
@@ -5074,8 +4938,6 @@ typeof(FilterTime)
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
         }
-
-
 
 
         private void DoRefreshGridChannelV(bool firstime)
@@ -8514,16 +8376,6 @@ typeof(FilterTime)
             if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void securityToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DoMenuDecryptAsset();
-
-        }
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
@@ -8533,11 +8385,6 @@ typeof(FilterTime)
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             DoSetupDynEnc();
-        }
-
-        private void getATestTokenToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -8574,9 +8421,7 @@ typeof(FilterTime)
         {
             DoGetTestToken();
         }
-
     }
-
 }
 
 
