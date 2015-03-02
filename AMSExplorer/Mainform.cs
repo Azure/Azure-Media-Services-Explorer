@@ -3924,10 +3924,18 @@ typeof(FilterTime)
                 IAsset asset = AssetInfo.GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString(), _context);
 
                 if (asset == null) return;
-
-                if (DisplayInfo(asset) == DialogResult.OK)
+                try
                 {
+                    this.Cursor = Cursors.WaitCursor;
+                    if (DisplayInfo(asset) == DialogResult.OK)
+                    {
+                    }
                 }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
+                }
+
             }
         }
 
@@ -3991,9 +3999,16 @@ typeof(FilterTime)
                 IJob job = GetJob(dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["Id"].Index].Value.ToString());
 
                 if (job == null) return;
-
-                if (DisplayInfo(job) == DialogResult.OK)
+                try
                 {
+                    this.Cursor = Cursors.WaitCursor;
+                    if (DisplayInfo(job) == DialogResult.OK)
+                    {
+                    }
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
                 }
             }
         }
