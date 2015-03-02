@@ -4191,10 +4191,12 @@ typeof(FilterTime)
         }
         private void DoMenuDisplayAssetInfoFromKnownID()
         {
-
-            string AssetId = "";
+            string AssetId = string.Empty;
             string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith("nb:cid:UUID:")) AssetId = clipbs;
+            if (clipbs != null && clipbs.StartsWith(Constants.AssetIdPrefix))
+            {
+                AssetId = clipbs;
+            }
 
             if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
@@ -4203,12 +4205,11 @@ typeof(FilterTime)
                 {
                     MessageBox.Show("This asset has not been found.");
                 }
-
-                else if (DisplayInfo(KnownAsset) == DialogResult.OK)
+                else
                 {
+                    DisplayInfo(KnownAsset);
                 }
             }
-
         }
 
         private void displayInformationForAKnownAssetIdToolStripMenuItem_Click(object sender, EventArgs e)
