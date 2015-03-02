@@ -111,8 +111,6 @@ namespace AMSExplorer
             }
             Program.SaveAndProtectUserConfig(); // to save settings 
 
-
-
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
             AMSLogin form = new AMSLogin();
@@ -2697,10 +2695,6 @@ namespace AMSExplorer
         }
 
 
-        private void azureManagementPortalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(@"https://manage.windowsazure.com");
-        }
 
         private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -7919,31 +7913,22 @@ typeof(FilterTime)
 
         private void DoAttachAnotherStorageAccount()
         {
-            AttachStorage form = new AttachStorage();
+            AttachStorage form = new AttachStorage(_credentials);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper("https://management.core.windows.net", form.GetCertThumbprint, form.GetAzureSubscriptionID);
+                string ServiceManagementURL = (_credentials.UseOtherAPI == true.ToString()) ? _credentials.OtherServiceManagement : CredentialsEntry.DefaultServiceManagement;
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(ServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
                 MediaServicesAccount accountInfo = new MediaServicesAccount();
                 accountInfo.AccountName = _context.Credentials.ClientId;
-
-                //accountInfo.Region = "";
                 accountInfo.StorageAccountName = _context.DefaultStorageAccount.Name;
-                //accountInfo.StorageAccountKey = _credentials.StorageKey;
-                //accountInfo.BlobStorageEndpointUri = _context.DefaultStorageAccount.;
-
 
                 AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest();
                 storageAccountToAttach.StorageAccountName = form.GetStorageName;
                 storageAccountToAttach.StorageAccountKey = form.GetStorageKey;
                 storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpoint;
-
-                // Call CreateMediaServiceAccountUsingXmlContentType to create a new \
-                // Media Services account. 
-                //helper.CreateMediaServiceAccountUsingXmlContentType(accountInfo);
 
                 // Call AttachStorageAccountToMediaServiceAccount to 
                 // attach an existing storage account to the Media Services account.
@@ -7960,15 +7945,6 @@ typeof(FilterTime)
                     TextBoxLogWriteLine(ex);
 
                 }
-
-
-                // Call the following methods to get details about 
-                // Media Services account.
-                //helper.GetAccountDetails(accountInfo);
-                //helper.ListAvailableRegions(accountInfo);
-                //helper.ListSubscriptionAccounts(accountInfo);
-                //helper.ListSubscriptionAccounts(accountInfo);
-
             }
         }
 
@@ -8034,7 +8010,8 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://manage.windowsazure.com");
+            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherACSBaseAddress.EndsWith("chinacloudapi.cn")) ? CredentialsEntry.ChinaManagementPortal : CredentialsEntry.DefaultManagementPortal;
+            Process.Start(PortalUrl);
         }
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)

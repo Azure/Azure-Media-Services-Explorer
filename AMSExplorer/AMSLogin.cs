@@ -56,7 +56,7 @@ namespace AMSExplorer
                textBoxAPIServer.Text,
                textBoxScope.Text,
                textBoxACSBaseAddress.Text,
-               string.Empty);
+               textBoxServiceManagement.Text);
             }
         }
 
@@ -100,7 +100,7 @@ namespace AMSExplorer
                 MessageBox.Show("The account name cannot be empty.");
                 return;
             }
-            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, "");
+            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxServiceManagement.Text);
             if (CredentialsList == null) CredentialsList = new StringCollection();
 
             //let's find if the account name is already in the list
@@ -120,7 +120,7 @@ namespace AMSExplorer
                 Properties.Settings.Default.LoginList = CredentialsList;
 
                 Program.SaveAndProtectUserConfig();
-                
+
                 listBoxAcounts.Items.Add(myCredentials.AccountName);
             }
             else
@@ -180,6 +180,7 @@ namespace AMSExplorer
                 textBoxAPIServer.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 6];
                 textBoxScope.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 7];
                 textBoxACSBaseAddress.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 8];
+                textBoxServiceManagement.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9];
 
                 // if not partner or other, then defaut
                 if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
@@ -193,27 +194,25 @@ namespace AMSExplorer
 
         private void DoClearFields()
         {
-            textBoxAccountName.Text = "";
-            textBoxAccountKey.Text = "";
-            textBoxBlobKey.Text = "";
-            textBoxDescription.Text = "";
-            textBoxACSBaseAddress.Text = "";
-            textBoxAPIServer.Text = "";
-            textBoxScope.Text = "";
+            textBoxAccountName.Text = string.Empty;
+            textBoxAccountKey.Text = string.Empty;
+            textBoxBlobKey.Text = string.Empty;
+            textBoxDescription.Text = string.Empty;
+            textBoxACSBaseAddress.Text = string.Empty; ;
+            textBoxAPIServer.Text = string.Empty;
+            textBoxScope.Text = string.Empty; ;
+            textBoxServiceManagement.Text = string.Empty;
             radioButtonProd.Checked = true;
             listBoxAcounts.ClearSelected();
         }
 
         private void radioButtonOther_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxACSBaseAddress.Enabled = radioButtonOther.Checked;
-            textBoxAPIServer.Enabled = radioButtonOther.Checked;
-            textBoxScope.Enabled = radioButtonOther.Checked;
+            textBoxACSBaseAddress.Enabled = textBoxAPIServer.Enabled = textBoxScope.Enabled = textBoxServiceManagement.Enabled = buttonConfigureNorthChina.Enabled = radioButtonOther.Checked;
         }
 
         private void buttonExportAll_Click(object sender, EventArgs e)
         {
-
             XDocument xmlexport = new XDocument();
             xmlexport.Add(new XComment("Created by Azure Media Services Explorer"));
             xmlexport.Add(new XElement("Credentials", new XAttribute("Version", "1.0")));
@@ -228,7 +227,8 @@ namespace AMSExplorer
                    new XAttribute("UseOtherAPI", CredentialsList[i * CredentialsEntry.StringsCount + 5]),
                    new XAttribute("OtherAPIServer", CredentialsList[i * CredentialsEntry.StringsCount + 6]),
                    new XAttribute("OtherScope", CredentialsList[i * CredentialsEntry.StringsCount + 7]),
-                   new XAttribute("OtherACSBaseAddress", CredentialsList[i * CredentialsEntry.StringsCount + 8])
+                   new XAttribute("OtherACSBaseAddress", CredentialsList[i * CredentialsEntry.StringsCount + 8]),
+                    new XAttribute("OtherServiceManagement", CredentialsList[i * CredentialsEntry.StringsCount + 9])
                    ));
 
 
@@ -285,7 +285,14 @@ namespace AMSExplorer
                             CredentialsList.Add(att.Attribute("OtherAPIServer").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherScope").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherACSBaseAddress").Value.ToString());
-                            CredentialsList.Add(string.Empty);
+                            if (att.Attribute("OtherServiceManagement") != null)
+                            {
+                                CredentialsList.Add(att.Attribute("OtherServiceManagement").Value.ToString());
+                            }
+                            else
+                            {
+                                CredentialsList.Add(string.Empty);
+                            }
                         }
                     }
                     catch
@@ -324,6 +331,14 @@ namespace AMSExplorer
         private void AMSLogin_Shown(object sender, EventArgs e)
         {
             Program.CheckAMSEVersion();
+        }
+
+        private void buttonConfigureNorthChina_Click(object sender, EventArgs e)
+        {
+            textBoxAPIServer.Text = CredentialsEntry.ChinaAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.ChinaACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.ChinaScope;
+            textBoxServiceManagement.Text = CredentialsEntry.ChinaServiceManagement;
         }
     }
 }

@@ -30,6 +30,7 @@ namespace AMSExplorer
 {
     public partial class AttachStorage : Form
     {
+        private CredentialsEntry _credentials;
         public string GetAzureSubscriptionID
         {
             get
@@ -75,16 +76,20 @@ namespace AMSExplorer
         }
 
 
-        public AttachStorage()
+        public AttachStorage(CredentialsEntry credentials)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));
+            _credentials = credentials;
+
         }
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-          
+            string SampleStorageURL = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherACSBaseAddress.EndsWith("chinacloudapi.cn")) ? CredentialsEntry.ChinaSampleAttachStorageURL : CredentialsEntry.DefaultSampleAttachStorageURL;
+            textBoxStorageEndPoint.Text = SampleStorageURL;
+            
         }
 
         private void textBoxURL_TextChanged(object sender, EventArgs e)

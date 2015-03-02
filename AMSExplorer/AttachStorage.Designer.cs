@@ -149,7 +149,7 @@
             this.textBoxStorageEndPoint.Name = "textBoxStorageEndPoint";
             this.textBoxStorageEndPoint.Size = new System.Drawing.Size(602, 20);
             this.textBoxStorageEndPoint.TabIndex = 4;
-            this.textBoxStorageEndPoint.Text = "https://insertstorageaccounthere.blob.core.windows.net/";
+            this.textBoxStorageEndPoint.Text = "to be inserted at runtime";
             // 
             // label5
             // 

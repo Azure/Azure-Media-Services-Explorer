@@ -1641,14 +1641,28 @@ namespace AMSExplorer
         public string OtherAPIServer { get; set; }
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
-        public string Reserved { get; set; }
+        public string OtherServiceManagement { get; set; }
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
         public static readonly string PartnerScope = "urn:NimbusPartners";
         public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
+        public static readonly string PartnerServiceManagement = "";
 
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string reserved)
+        public static readonly string ChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
+        public static readonly string ChinaScope = "urn:WindowsAzureMediaServices";
+        public static readonly string ChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
+        public static readonly string ChinaServiceManagement = "https://management.core.chinacloudapi.cn/";
+
+        public static readonly string DefaultServiceManagement = "https://management.core.windows.net";
+
+        public static readonly string DefaultManagementPortal = "http://manage.windowsazure.com";
+        public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
+
+        public static readonly string DefaultSampleAttachStorageURL = "https://insertstorageaccounthere.blob.core.windows.net/";
+        public static readonly string ChinaSampleAttachStorageURL = "https://insertstorageaccounthere.blob.core.chinacloudapi.cn/";
+
+        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string servicemanagement)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -1659,12 +1673,12 @@ namespace AMSExplorer
             OtherAPIServer = apiserver;
             OtherScope = scope;
             OtherACSBaseAddress = acsbaseaddress;
-            Reserved = reserved;
+            OtherServiceManagement = servicemanagement;
         }
 
         public string[] ToArray()
         {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, Reserved };
+            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherServiceManagement };
             return myList;
         }
     }
