@@ -31,6 +31,8 @@ namespace AMSExplorer
     public partial class AttachStorage : Form
     {
         private CredentialsEntry _credentials;
+        private string SampleStorageURLTemplate;
+
         public string GetAzureSubscriptionID
         {
             get
@@ -39,12 +41,20 @@ namespace AMSExplorer
             }
         }
 
-      
+
         public string GetCertThumbprint
         {
             get
             {
                 return textBoxCertThumbprint.Text;
+            }
+        }
+
+        public string GetAzureServiceManagementURL
+        {
+            get
+            {
+                return textBoxServiceManagement.Text;
             }
         }
 
@@ -66,7 +76,7 @@ namespace AMSExplorer
 
         }
 
-        public string GetStorageEndpoint
+        public string GetStorageEndpointURL
         {
             get
             {
@@ -83,42 +93,58 @@ namespace AMSExplorer
             linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));
             _credentials = credentials;
 
+
         }
 
         private void AttachStorage_Load(object sender, EventArgs e)
         {
-            string SampleStorageURL = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherACSBaseAddress.EndsWith("chinacloudapi.cn")) ? CredentialsEntry.ChinaSampleAttachStorageURL : CredentialsEntry.DefaultSampleAttachStorageURL;
-            textBoxStorageEndPoint.Text = SampleStorageURL;
-            
-        }
+            SampleStorageURLTemplate = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherACSBaseAddress.EndsWith("chinacloudapi.cn")) ? CredentialsEntry.ChinaSampleAttachStorageURL : CredentialsEntry.DefaultSampleAttachStorageURL;
 
-        private void textBoxURL_TextChanged(object sender, EventArgs e)
-        {
-            /*
-            string filename = null;
-            bool Error = false;
-            try
+            // let's poopulate the Azure Service Management URL field
+            if (_credentials.UseOtherAPI == true.ToString())
             {
-                filename = System.IO.Path.GetFileName(this.GetURL.LocalPath);
+                textBoxServiceManagement.Text = _credentials.OtherServiceManagement;
             }
-            catch
+            else if (_credentials.UsePartnerAPI == true.ToString())
             {
-                Error = true;
-                labelURLFileNameWarning.Text = "File name not found in the URL";
+                textBoxServiceManagement.Text = "Please insert Azure Service Management URL here";
+            }
+            else // Global Azure
+            {
+                textBoxServiceManagement.Text = CredentialsEntry.DefaultServiceManagement;
             }
 
-            if (!Error)
-            {
-                labelURLFileNameWarning.Text = string.Empty;
-                textBoxStorageName.Text = filename;
-                textBoxStorageKey.Text = filename;
-            }
-             * */
+            UpdateEndPointURL();
         }
+
 
         private void linkLabelAttach_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void textBoxStorageName_TextChanged(object sender, EventArgs e)
+        {
+            UpdateEndPointURL();
+            textBoxTXT_Validation(sender, e);
+        }
+
+        private void UpdateEndPointURL()
+        {
+            textBoxStorageEndPoint.Text = string.Format(SampleStorageURLTemplate, textBoxStorageName.Text);
+        }
+
+
+        private void textBoxURL_Validation(object sender, EventArgs e)
+        {
+            TextBox mytextbox = (TextBox)sender;
+            mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White: Color.Pink ;
+        }
+
+        private void textBoxTXT_Validation(object sender, EventArgs e)
+        {
+            TextBox mytextbox = (TextBox)sender;
+            mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
         }
     }
 }

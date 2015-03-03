@@ -202,7 +202,6 @@ namespace AMSExplorer
                     serializer.WriteObject(ms, storageaccount);
 
                     jsonString = Encoding.Default.GetString(ms.ToArray());
-
                 }
 
                 using (Stream requestStream = request.GetRequestStream())
@@ -211,7 +210,6 @@ namespace AMSExplorer
                     requestStream.Write(requestBytes, 0, requestBytes.Length);
                     requestStream.Close();
                 }
-
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {

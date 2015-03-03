@@ -1653,15 +1653,15 @@ namespace AMSExplorer
         public static readonly string ChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
         public static readonly string ChinaScope = "urn:WindowsAzureMediaServices";
         public static readonly string ChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string ChinaServiceManagement = "https://management.core.chinacloudapi.cn/";
+        public static readonly string ChinaServiceManagement = "https://management.core.chinacloudapi.cn";
 
         public static readonly string DefaultServiceManagement = "https://management.core.windows.net";
 
         public static readonly string DefaultManagementPortal = "http://manage.windowsazure.com";
         public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
 
-        public static readonly string DefaultSampleAttachStorageURL = "https://insertstorageaccounthere.blob.core.windows.net/";
-        public static readonly string ChinaSampleAttachStorageURL = "https://insertstorageaccounthere.blob.core.chinacloudapi.cn/";
+        public static readonly string DefaultSampleAttachStorageURL = "https://{0}.blob.core.windows.net/";
+        public static readonly string ChinaSampleAttachStorageURL = "https://{0}.blob.core.chinacloudapi.cn/";
 
         public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string servicemanagement)
         {

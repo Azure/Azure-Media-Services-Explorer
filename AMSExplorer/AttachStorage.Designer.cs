@@ -44,6 +44,8 @@
             this.linkLabelAttach = new System.Windows.Forms.LinkLabel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.textBoxServiceManagement = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -81,21 +83,24 @@
             // 
             this.textBoxSubId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSubId.BackColor = System.Drawing.Color.Pink;
             this.textBoxSubId.Location = new System.Drawing.Point(31, 52);
             this.textBoxSubId.Name = "textBoxSubId";
             this.textBoxSubId.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBoxSubId.Size = new System.Drawing.Size(617, 20);
             this.textBoxSubId.TabIndex = 0;
-            this.textBoxSubId.TextChanged += new System.EventHandler(this.textBoxURL_TextChanged);
+            this.textBoxSubId.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // textBoxStorageName
             // 
             this.textBoxStorageName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStorageName.BackColor = System.Drawing.Color.Pink;
             this.textBoxStorageName.Location = new System.Drawing.Point(9, 41);
             this.textBoxStorageName.Name = "textBoxStorageName";
             this.textBoxStorageName.Size = new System.Drawing.Size(602, 20);
             this.textBoxStorageName.TabIndex = 2;
+            this.textBoxStorageName.TextChanged += new System.EventHandler(this.textBoxStorageName_TextChanged);
             // 
             // label3
             // 
@@ -110,10 +115,12 @@
             // 
             this.textBoxStorageKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStorageKey.BackColor = System.Drawing.Color.Pink;
             this.textBoxStorageKey.Location = new System.Drawing.Point(9, 80);
             this.textBoxStorageKey.Name = "textBoxStorageKey";
             this.textBoxStorageKey.Size = new System.Drawing.Size(602, 20);
             this.textBoxStorageKey.TabIndex = 3;
+            this.textBoxStorageKey.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label4
             // 
@@ -134,7 +141,7 @@
             this.groupBox1.Controls.Add(this.textBoxStorageName);
             this.groupBox1.Controls.Add(this.textBoxStorageKey);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Location = new System.Drawing.Point(31, 161);
+            this.groupBox1.Location = new System.Drawing.Point(31, 224);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(617, 158);
             this.groupBox1.TabIndex = 47;
@@ -145,11 +152,13 @@
             // 
             this.textBoxStorageEndPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStorageEndPoint.BackColor = System.Drawing.Color.Pink;
             this.textBoxStorageEndPoint.Location = new System.Drawing.Point(9, 120);
             this.textBoxStorageEndPoint.Name = "textBoxStorageEndPoint";
             this.textBoxStorageEndPoint.Size = new System.Drawing.Size(602, 20);
             this.textBoxStorageEndPoint.TabIndex = 4;
             this.textBoxStorageEndPoint.Text = "to be inserted at runtime";
+            this.textBoxStorageEndPoint.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
             // 
             // label5
             // 
@@ -164,11 +173,13 @@
             // 
             this.textBoxCertThumbprint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCertThumbprint.BackColor = System.Drawing.Color.Pink;
             this.textBoxCertThumbprint.Location = new System.Drawing.Point(31, 104);
             this.textBoxCertThumbprint.Name = "textBoxCertThumbprint";
             this.textBoxCertThumbprint.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBoxCertThumbprint.Size = new System.Drawing.Size(617, 20);
             this.textBoxCertThumbprint.TabIndex = 1;
+            this.textBoxCertThumbprint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label2
             // 
@@ -206,17 +217,40 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
-            this.panel1.Location = new System.Drawing.Point(0, 343);
+            this.panel1.Location = new System.Drawing.Point(0, 397);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 48);
             this.panel1.TabIndex = 53;
+            // 
+            // textBoxServiceManagement
+            // 
+            this.textBoxServiceManagement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxServiceManagement.BackColor = System.Drawing.Color.Pink;
+            this.textBoxServiceManagement.Location = new System.Drawing.Point(31, 177);
+            this.textBoxServiceManagement.Name = "textBoxServiceManagement";
+            this.textBoxServiceManagement.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.textBoxServiceManagement.Size = new System.Drawing.Size(617, 20);
+            this.textBoxServiceManagement.TabIndex = 54;
+            this.textBoxServiceManagement.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(28, 161);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(169, 13);
+            this.label7.TabIndex = 55;
+            this.label7.Text = "Azure Service Management URL :";
             // 
             // AttachStorage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(684, 391);
+            this.ClientSize = new System.Drawing.Size(684, 445);
+            this.Controls.Add(this.textBoxServiceManagement);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.linkLabelAttach);
@@ -254,5 +288,7 @@
         private System.Windows.Forms.LinkLabel linkLabelAttach;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBoxServiceManagement;
+        public System.Windows.Forms.Label label7;
     }
 }

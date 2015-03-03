@@ -488,7 +488,7 @@ namespace AMSExplorer
             return job;
         }
 
-       
+
 
         static IChannel GetChannel(string channelId)
         {
@@ -653,7 +653,7 @@ namespace AMSExplorer
         }
 
 
-      
+
         public void TextBoxLogWriteLine(string message, object o1, bool Error = false)
         {
             TextBoxLogWriteLine(string.Format(message, o1), Error);
@@ -1893,7 +1893,7 @@ namespace AMSExplorer
                 }
             }
         }
-        
+
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2577,7 +2577,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://smf.cloudapp.net/healthmonitor");
@@ -5132,7 +5132,10 @@ typeof(FilterTime)
             var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
 
             if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+            {
                 MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be stopped now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                TextBoxLogWriteLine("Some programs are starting or stopping. Channel(s) cannot be stopped now.", true);
+            }
             else
             {
                 if (programqueryrunning.Count() > 0) // some programs are running
@@ -7788,8 +7791,7 @@ typeof(FilterTime)
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string ServiceManagementURL = (_credentials.UseOtherAPI == true.ToString()) ? _credentials.OtherServiceManagement : CredentialsEntry.DefaultServiceManagement;
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(ServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
                 MediaServicesAccount accountInfo = new MediaServicesAccount();
@@ -7799,7 +7801,7 @@ typeof(FilterTime)
                 AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest();
                 storageAccountToAttach.StorageAccountName = form.GetStorageName;
                 storageAccountToAttach.StorageAccountKey = form.GetStorageKey;
-                storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpoint;
+                storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpointURL;
 
                 // Call AttachStorageAccountToMediaServiceAccount to 
                 // attach an existing storage account to the Media Services account.

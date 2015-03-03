@@ -340,5 +340,12 @@ namespace AMSExplorer
             textBoxScope.Text = CredentialsEntry.ChinaScope;
             textBoxServiceManagement.Text = CredentialsEntry.ChinaServiceManagement;
         }
+
+        private void textBoxURL_Validation(object sender, EventArgs e)
+        {
+            TextBox mytextbox = (TextBox)sender;
+            mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
+        }
+       
     }
 }
