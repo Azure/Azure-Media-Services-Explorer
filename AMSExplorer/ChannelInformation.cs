@@ -144,7 +144,21 @@ namespace AMSExplorer
             DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime());
             DGChannel.Rows.Add("Description", MyChannel.Description);
             DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
+            DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);
 
+            if (MyChannel.Encoding != null)
+            {
+                DGChannel.Rows.Add("Encoding System Preset", MyChannel.Encoding.SystemPreset);
+                DGChannel.Rows.Add("Encoding IgnoreCEA708", MyChannel.Encoding.IgnoreCea708ClosedCaptions);
+                DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
+                DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
+                DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
+            }
+            if (MyChannel.Slate != null)
+            {
+                DGChannel.Rows.Add("Slate Insertion", MyChannel.Slate.InsertSlateOnAdMarker);
+                DGChannel.Rows.Add("Slate Default Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+            }
 
             if (MyChannel.Input.KeyFrameInterval != null)
             {
@@ -152,6 +166,7 @@ namespace AMSExplorer
                 checkBoxKeyFrameIntDefined.Checked = true;
                 textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
             }
+
 
             foreach (var endpoint in MyChannel.Input.Endpoints)
             {

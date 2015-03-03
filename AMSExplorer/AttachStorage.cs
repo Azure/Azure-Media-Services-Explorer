@@ -115,6 +115,7 @@ namespace AMSExplorer
             }
 
             UpdateEndPointURL();
+        
         }
 
 

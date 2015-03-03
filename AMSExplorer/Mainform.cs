@@ -5578,21 +5578,29 @@ typeof(FilterTime)
             {
                 TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
 
+
                 var options = new ChannelCreationOptions()
                 {
                     Name = form.ChannelName,
                     Description = form.ChannelDescription,
+                    EncodingType = form.EncodingType,
                     Input = new ChannelInput()
-                    {
-                        StreamingProtocol = form.Protocol,
-                        AccessControl = new ChannelAccessControl()
-                        {
-                            IPAllowList = form.inputIPAllow
-                        },
-                        KeyFrameInterval = form.KeyframeInterval
-                    },
+           {
+               StreamingProtocol = form.Protocol,
+               AccessControl = new ChannelAccessControl()
+               {
+                   IPAllowList = form.inputIPAllow
+               },
+               KeyFrameInterval = form.KeyframeInterval
+           },
                     Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } }
                 };
+
+                if (form.EncodingType != ChannelEncodingType.None)
+                {
+                    options.Encoding = form.EncodingOptions;
+                    options.Slate = form.Slate;
+                }
 
                 await Task.Run(() => ChannelExecuteAsync(
                      () =>

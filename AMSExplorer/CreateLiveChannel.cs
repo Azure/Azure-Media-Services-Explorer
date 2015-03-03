@@ -31,6 +31,9 @@ namespace AMSExplorer
 {
     public partial class CreateLiveChannel : Form
     {
+        private bool EncodingTabDisplayed = false;
+        private bool InitPhase = true;
+
         public string ChannelName
         {
             get { return textboxchannelname.Text; }
@@ -44,11 +47,47 @@ namespace AMSExplorer
             set { textBoxDescription.Text = value; }
         }
 
+
+        public ChannelEncodingType EncodingType
+        {
+            get
+            {
+                return (ChannelEncodingType)(Enum.Parse(typeof(ChannelEncodingType), (string)comboBoxEncodingType.SelectedItem));
+            }
+        }
+
+        public ChannelEncoding EncodingOptions
+        {
+            get
+            {
+                                ChannelEncoding encodingoption = new ChannelEncoding()
+               {
+                   SystemPreset = comboBoxEncodingPreset.Text,
+                   AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                  
+               };
+                return encodingoption;
+            }
+        }
+
+        public ChannelSlate Slate
+        {
+            get
+            {
+                ChannelSlate myslate = new ChannelSlate()
+                {
+                    InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
+                    DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? textBoxSlateImage.Text : null
+                };
+                return myslate;
+            }
+        }
+
         public StreamingProtocol Protocol
         {
             get
             {
-                return (StreamingProtocol)(Enum.Parse(typeof(StreamingProtocol), (string)comboBoxProtocol.SelectedItem));
+                return (StreamingProtocol)(Enum.Parse(typeof(StreamingProtocol), (string)comboBoxProtocolInput.SelectedItem));
             }
         }
 
@@ -69,7 +108,6 @@ namespace AMSExplorer
         {
             get
             {
-
                 TimeSpan? ts = null;
                 if (checkBoxKeyFrameIntDefined.Checked)
                 {
@@ -123,11 +161,22 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
 
-        private void CreateLocator_Load(object sender, EventArgs e)
+        private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-            comboBoxProtocol.Items.AddRange(Enum.GetNames(typeof(StreamingProtocol)).ToArray()); // license type
-            comboBoxProtocol.SelectedItem = Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4);
+            comboBoxProtocolInput.Items.AddRange(Enum.GetNames(typeof(StreamingProtocol)).ToArray()); // license type
+            comboBoxProtocolInput.SelectedItem = Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4);
+
+            comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // license type
+            comboBoxEncodingType.SelectedItem = Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None);
+            tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+            tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
+            tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
+
+            comboBoxEncodingPreset.Items.Add("Default720p");
+            comboBoxEncodingPreset.SelectedIndex = 0;
+
             labelWarning.Text = string.Empty;
+            InitPhase = false;
         }
 
         private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
@@ -169,6 +218,45 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+        }
+
+        private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            comboBoxAdMarkerSource.Items.Clear();
+            comboBoxAdMarkerSource.Items.Add(new Item("API (default)", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
+            // SCTE-35 only available or RTP input
+            if (comboBoxProtocolInput.Text == Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS))
+            { // RTP
+                comboBoxAdMarkerSource.Items.Add(new Item("SCTE-35 Cue Messages", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
+                panelRTP.Enabled = true;
+            }
+            else
+            {
+                panelRTP.Enabled = false;
+            }
+            comboBoxAdMarkerSource.SelectedIndex = 0;
+        }
+
+        private void comboBoxEncodingType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!InitPhase)
+            {
+                // let's display the encoding tab if encoding has been choosen
+                if (comboBoxEncodingType.Text == Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None) && EncodingTabDisplayed)
+                {
+                    tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
+                    tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
+                    tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
+                    EncodingTabDisplayed = false;
+                }
+                else if (!EncodingTabDisplayed)
+                {
+                    tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
+                    tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
+                    tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
+                    EncodingTabDisplayed = true;
+                }
+            }
         }
     }
 }
