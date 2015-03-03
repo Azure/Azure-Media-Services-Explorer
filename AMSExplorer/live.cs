@@ -193,13 +193,12 @@ namespace AMSExplorer
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = c.Input.StreamingProtocol,
+                               EncodingType = c.EncodingType,
                                IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
-
                            };
-
 
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
@@ -247,8 +246,6 @@ namespace AMSExplorer
                     _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime();
                     this.Refresh();
                 }
-
-
             }
         }
 
@@ -326,6 +323,7 @@ namespace AMSExplorer
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = c.Input.StreamingProtocol,
+                               EncodingType = c.EncodingType,
                                IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
@@ -773,6 +771,7 @@ namespace AMSExplorer
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public StreamingProtocol InputProtocol { get; set; }
+        public ChannelEncodingType EncodingType { get; set; }
         public Uri IngestUrl { get; set; }
         public Uri PreviewUrl { get; set; }
     }
