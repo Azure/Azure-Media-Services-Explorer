@@ -7794,21 +7794,24 @@ typeof(FilterTime)
                 ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
-                MediaServicesAccount accountInfo = new MediaServicesAccount();
-                accountInfo.AccountName = _context.Credentials.ClientId;
-                accountInfo.StorageAccountName = _context.DefaultStorageAccount.Name;
+                MediaServicesAccount accountInfo = new MediaServicesAccount()
+                {
+                    AccountName = _context.Credentials.ClientId,
+                    StorageAccountName = _context.DefaultStorageAccount.Name
+                };
 
-                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest();
-                storageAccountToAttach.StorageAccountName = form.GetStorageName;
-                storageAccountToAttach.StorageAccountKey = form.GetStorageKey;
-                storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpointURL;
+                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest()
+                {
+                    StorageAccountName = form.GetStorageName,
+                    StorageAccountKey = form.GetStorageKey,
+                    BlobStorageEndpointUri = form.GetStorageEndpointURL
+                };
 
                 // Call AttachStorageAccountToMediaServiceAccount to 
                 // attach an existing storage account to the Media Services account.
                 try
                 {
-                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo,
-                                                   storageAccountToAttach);
+                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo, storageAccountToAttach);
                     TextBoxLogWriteLine("Storage account '{0}' attached to '{1}' account.", form.GetStorageName, _context.Credentials.ClientId);
                 }
                 catch (Exception ex)

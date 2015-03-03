@@ -184,8 +184,7 @@ namespace AMSExplorer
             {
                 var clientCert = GetClientCertificate();
 
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/{1}/services/mediaservices/Accounts/{2}/StorageAccounts",
-                    Endpoint, SubscriptionId, accountInfo.AccountName));
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/{1}/services/mediaservices/Accounts/{2}/StorageAccounts", Endpoint, SubscriptionId, accountInfo.AccountName));
                 request.Method = "POST";
                 request.ContentType = "application/json; charset=utf-8";
                 request.Headers.Add("x-ms-version", "2011-10-01");
