@@ -1885,6 +1885,8 @@
 		<col def="S255">ISBuildSourcePath</col>
 		<col def="I4">ISAttributes</col>
 		<col def="S72">ISComponentSubFolder_</col>
+		<row><td>amsexplorer.content_files</td><td>AMSExplorer.Content_Files</td><td>AMSExplorer.Content Files</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|ContentFiles</td><td>3</td><td/></row>
+		<row><td>amsexplorer.primary_output</td><td>AMSExplorer.Primary_output</td><td>AMSExplorer.Primary output</td><td>0</td><td/><td/><td/><td>1</td><td>&lt;AMSExplorer1&gt;|Built</td><td>3</td><td/></row>
 	</table>
 
 	<table name="FileSFPCatalog">
@@ -3762,7 +3764,7 @@
 		<row><td>IDS__TargetReq_DESC_PROCESSOR</td><td>1033</td><td>The processor is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RAM</td><td>1033</td><td>The amount of RAM is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
 		<row><td>IDS__TargetReq_DESC_RESOLUTION</td><td>1033</td><td>The screen resolution is not adequate for running [ProductName].</td><td>0</td><td/><td>-366859085</td></row>
-		<row><td>ID_STRING1</td><td>1033</td><td>http://www.azure.com</td><td>0</td><td/><td>1034081297</td></row>
+		<row><td>ID_STRING1</td><td>1033</td><td>http://www.azure.com/media</td><td>0</td><td/><td>564379712</td></row>
 		<row><td>ID_STRING2</td><td>1033</td><td>Microsoft Corporation</td><td>0</td><td/><td>1285690286</td></row>
 		<row><td>ID_STRING3</td><td>1033</td><td>http://aka.ms/amse</td><td>0</td><td/><td>-341645173</td></row>
 		<row><td>ID_STRING4</td><td>1033</td><td>Azure Media Services Explorer</td><td>0</td><td/><td>-1549656207</td></row>
@@ -4387,7 +4389,7 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{53A16D49-70B9-47D0-886F-E57BBEBBC9E2}</td><td/></row>
+		<row><td>ProductCode</td><td>{60A68DCE-184A-4DD5-9454-E9EF9BB5D1CD}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
 		<row><td>ProductVersion</td><td>3.10</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
