@@ -213,8 +213,7 @@ namespace AMSExplorer
                 textBoxScope.Enabled =
                 textBoxAzureEndpoint.Enabled =
                 buttonConfigureGlobal.Enabled =
-                buttonConfigureChinaNorth.Enabled =
-                buttonConfigureChinaEast.Enabled =
+                buttonConfigureChina.Enabled =
                 radioButtonOther.Checked;
         }
 
@@ -342,10 +341,10 @@ namespace AMSExplorer
 
         private void buttonConfigureNorthChina_Click(object sender, EventArgs e)
         {
-            textBoxAPIServer.Text = CredentialsEntry.OtherChinaNorthAPIServer;
-            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaNorthACSBaseAddress;
-            textBoxScope.Text = CredentialsEntry.OtherChinaNorthScope;
-            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaNorthAzureEndpoint;
+            textBoxAPIServer.Text = CredentialsEntry.OtherChinaAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.OtherChinaScope;
+            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaAzureEndpoint;
         }
 
         private void textBoxURL_Validation(object sender, EventArgs e)
@@ -354,15 +353,7 @@ namespace AMSExplorer
             mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
         }
 
-        private void buttonConfigureChinaEast_Click(object sender, EventArgs e)
-        {
-            textBoxAPIServer.Text = CredentialsEntry.OtherChinaEastAPIServer;
-            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaEastACSBaseAddress;
-            textBoxScope.Text = CredentialsEntry.OtherChinaEastScope;
-            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaEastAzureEndpoint;
-        }
-
-        private void textBoxTXT_Validation(object sender, EventArgs e)
+              private void textBoxTXT_Validation(object sender, EventArgs e)
         {
             TextBox mytextbox = (TextBox)sender;
             mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;

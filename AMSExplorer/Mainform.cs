@@ -7885,7 +7885,7 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaNorthAzureEndpoint)) ? 
+            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ? 
                 CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
             Process.Start(PortalUrl);
         }

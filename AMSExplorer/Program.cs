@@ -1655,25 +1655,19 @@ namespace AMSExplorer
         public static readonly string OtherGlobalACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
         public static readonly string OtherGlobalAzureEndpoint = "windows.net";
 
-        public static readonly string OtherChinaNorthAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
-        public static readonly string OtherChinaNorthScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherChinaNorthACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string OtherChinaNorthAzureEndpoint = "chinacloudapi.cn";
-
-        public static readonly string OtherChinaEastAPIServer = "https://wamsshaclus001rest-hs.chinacloudapp.cn/API/";
-        public static readonly string OtherChinaEastScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherChinaEastACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string OtherChinaEastAzureEndpoint = "chinacloudapi.cn";
+        public static readonly string OtherChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
+        public static readonly string OtherChinaScope = "urn:WindowsAzureMediaServices";
+        public static readonly string OtherChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
+        public static readonly string OtherChinaAzureEndpoint = "chinacloudapi.cn";
 
         public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
         public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
-
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
         public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
- 
+
         public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint)
         {
             AccountName = accountname;
