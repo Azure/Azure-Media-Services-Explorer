@@ -178,6 +178,8 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshChannels;
+        static Bitmap EncodingImage = Bitmaps.encoding;
+        public string _encoded = "Encoding";
 
         public void Init(CredentialsEntry credentials)
         {
@@ -193,16 +195,36 @@ namespace AMSExplorer
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = c.Input.StreamingProtocol,
-                               EncodingType = c.EncodingType,
                                IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
                            };
 
+
+            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
+            {
+                NullValue = null,
+                Alignment = DataGridViewContentAlignment.MiddleCenter
+            };
+            DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
+            {
+                DefaultCellStyle = cellstyle,
+                Name = _encoded,
+                DataPropertyName = _encoded,
+            };
+            this.Columns.Add(imageCol);
+
+
+
+
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
+
+            this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
+            this.Columns[_encoded].DefaultCellStyle.NullValue = null;
+            this.Columns[_encoded].HeaderText = _encoded;
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -323,7 +345,7 @@ namespace AMSExplorer
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = c.Input.StreamingProtocol,
-                               EncodingType = c.EncodingType,
+                               Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
                                IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
@@ -771,7 +793,7 @@ namespace AMSExplorer
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
         public StreamingProtocol InputProtocol { get; set; }
-        public ChannelEncodingType EncodingType { get; set; }
+        public Bitmap Encoding { get; set; }
         public Uri IngestUrl { get; set; }
         public Uri PreviewUrl { get; set; }
     }
