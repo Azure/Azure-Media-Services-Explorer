@@ -155,13 +155,13 @@ namespace AMSExplorer
         {
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.StorageKey), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(context.DefaultStorageAccount.Name, credentials.StorageKey), credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 return true;
             }
-            catch
+            catch (Exception e)
             {
-                MessageBox.Show(string.Format("There is a problem when connecting to the Azure storage account {0}.\r\nIs the storage key correct ?", context.DefaultStorageAccount.Name), "Storage Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("There is a problem when connecting to the Azure storage account.\r\nIs the storage key correct ?\r\n{0}", e.Message), "Storage Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -1642,28 +1642,39 @@ namespace AMSExplorer
         public string OtherAPIServer { get; set; }
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
-        public string OtherServiceManagement { get; set; }
+        public string OtherAzureEndpoint { get; set; }
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
         public static readonly string PartnerScope = "urn:NimbusPartners";
         public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
-        public static readonly string PartnerServiceManagement = "";
+        public static readonly string PartnerAzureEndpoint = "";
 
-        public static readonly string ChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
-        public static readonly string ChinaScope = "urn:WindowsAzureMediaServices";
-        public static readonly string ChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string ChinaServiceManagement = "https://management.core.chinacloudapi.cn";
+        public static readonly string OtherGlobalAPIServer = "https://media.windows.net/API/";
+        public static readonly string OtherGlobalScope = "urn:WindowsAzureMediaServices";
+        public static readonly string OtherGlobalACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
+        public static readonly string OtherGlobalAzureEndpoint = "windows.net";
 
-        public static readonly string DefaultServiceManagement = "https://management.core.windows.net";
+        public static readonly string OtherChinaNorthAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
+        public static readonly string OtherChinaNorthScope = "urn:WindowsAzureMediaServices";
+        public static readonly string OtherChinaNorthACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
+        public static readonly string OtherChinaNorthAzureEndpoint = "chinacloudapi.cn";
 
-        public static readonly string DefaultManagementPortal = "http://manage.windowsazure.com";
+        public static readonly string OtherChinaEastAPIServer = "https://wamsshaclus001rest-hs.chinacloudapp.cn/API/";
+        public static readonly string OtherChinaEastScope = "urn:WindowsAzureMediaServices";
+        public static readonly string OtherChinaEastACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
+        public static readonly string OtherChinaEastAzureEndpoint = "chinacloudapi.cn";
+
+        public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
+        public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
+        public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
+
+
+        public static readonly string GlobalAzureEndpoint = "windows.net";
+        public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
         public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
-
-        public static readonly string DefaultSampleAttachStorageURL = "https://{0}.blob.core.windows.net/";
-        public static readonly string ChinaSampleAttachStorageURL = "https://{0}.blob.core.chinacloudapi.cn/";
-
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string servicemanagement)
+ 
+        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -1674,13 +1685,22 @@ namespace AMSExplorer
             OtherAPIServer = apiserver;
             OtherScope = scope;
             OtherACSBaseAddress = acsbaseaddress;
-            OtherServiceManagement = servicemanagement;
+            OtherAzureEndpoint = azureendpoint;
         }
 
         public string[] ToArray()
         {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherServiceManagement };
+            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint };
             return myList;
+        }
+
+        // return the storage suffix for China, or null for Global Azure
+        public string ReturnStorageSuffix()
+        {
+            if (UseOtherAPI == true.ToString())
+                return CoreStorage + OtherAzureEndpoint;
+            else
+                return null;
         }
     }
 

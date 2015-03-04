@@ -53,7 +53,7 @@ namespace AMSExplorer
         public bool createNewAsset;
         private bool ErrorConnect = false;
         private IEnumerable<CloudBlobContainer> mediaBlobContainers;
-
+        private string mystoragesuffix; // for China DC
 
         public bool ImportUseDefaultStorage
         {
@@ -148,12 +148,13 @@ namespace AMSExplorer
 
 
 
-        public ImportFromAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg)
+        public ImportFromAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg, string StorageSuffix = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MediaServicesStorageAccountKey = MediaServicesStorageAccountKeyArg;
             contextUpload = contextUploadArg;
+            mystoragesuffix = StorageSuffix;
         }
 
         private void UploadFromBlob_Load(object sender, EventArgs e)
@@ -180,11 +181,11 @@ namespace AMSExplorer
             {
                 if (radioButtonStorageDefault.Checked)
                 {
-                    storageAccount = new CloudStorageAccount(new StorageCredentials(contextUpload.DefaultStorageAccount.Name, MediaServicesStorageAccountKey), true);
+                    storageAccount = new CloudStorageAccount(new StorageCredentials(contextUpload.DefaultStorageAccount.Name, MediaServicesStorageAccountKey), mystoragesuffix, true);
                 }
                 else
                 {
-                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), true);
+                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), mystoragesuffix, true);
                 }
             }
             catch
@@ -280,7 +281,7 @@ namespace AMSExplorer
         {
 
             this.SelectedBlobs.Clear();
-           
+
             foreach (ListViewItem item in listViewFiles.SelectedItems)
             {
                 // let's find the file as control has perhaps been sorted
@@ -353,6 +354,6 @@ namespace AMSExplorer
         {
             DoListBlobs(false);
         }
-             
+
     }
 }

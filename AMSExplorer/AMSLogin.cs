@@ -56,7 +56,7 @@ namespace AMSExplorer
                textBoxAPIServer.Text,
                textBoxScope.Text,
                textBoxACSBaseAddress.Text,
-               textBoxServiceManagement.Text);
+               textBoxAzureEndpoint.Text);
             }
         }
 
@@ -100,7 +100,7 @@ namespace AMSExplorer
                 MessageBox.Show("The account name cannot be empty.");
                 return;
             }
-            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxServiceManagement.Text);
+            CredentialsEntry myCredentials = new CredentialsEntry(textBoxAccountName.Text, textBoxAccountKey.Text, textBoxBlobKey.Text, textBoxDescription.Text, radioButtonPartner.Checked.ToString(), radioButtonOther.Checked.ToString(), textBoxAPIServer.Text, textBoxScope.Text, textBoxACSBaseAddress.Text, textBoxAzureEndpoint.Text);
             if (CredentialsList == null) CredentialsList = new StringCollection();
 
             //let's find if the account name is already in the list
@@ -180,7 +180,7 @@ namespace AMSExplorer
                 textBoxAPIServer.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 6];
                 textBoxScope.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 7];
                 textBoxACSBaseAddress.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 8];
-                textBoxServiceManagement.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9];
+                textBoxAzureEndpoint.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9];
 
                 // if not partner or other, then defaut
                 if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
@@ -201,14 +201,21 @@ namespace AMSExplorer
             textBoxACSBaseAddress.Text = string.Empty; ;
             textBoxAPIServer.Text = string.Empty;
             textBoxScope.Text = string.Empty; ;
-            textBoxServiceManagement.Text = string.Empty;
+            textBoxAzureEndpoint.Text = string.Empty;
             radioButtonProd.Checked = true;
             listBoxAcounts.ClearSelected();
         }
 
         private void radioButtonOther_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxACSBaseAddress.Enabled = textBoxAPIServer.Enabled = textBoxScope.Enabled = textBoxServiceManagement.Enabled = buttonConfigureNorthChina.Enabled = radioButtonOther.Checked;
+            textBoxACSBaseAddress.Enabled =
+                textBoxAPIServer.Enabled =
+                textBoxScope.Enabled =
+                textBoxAzureEndpoint.Enabled =
+                buttonConfigureGlobal.Enabled =
+                buttonConfigureChinaNorth.Enabled =
+                buttonConfigureChinaEast.Enabled =
+                radioButtonOther.Checked;
         }
 
         private void buttonExportAll_Click(object sender, EventArgs e)
@@ -228,7 +235,7 @@ namespace AMSExplorer
                    new XAttribute("OtherAPIServer", CredentialsList[i * CredentialsEntry.StringsCount + 6]),
                    new XAttribute("OtherScope", CredentialsList[i * CredentialsEntry.StringsCount + 7]),
                    new XAttribute("OtherACSBaseAddress", CredentialsList[i * CredentialsEntry.StringsCount + 8]),
-                    new XAttribute("OtherServiceManagement", CredentialsList[i * CredentialsEntry.StringsCount + 9])
+                    new XAttribute("OtherAzureEndpoint", CredentialsList[i * CredentialsEntry.StringsCount + 9])
                    ));
 
 
@@ -285,9 +292,9 @@ namespace AMSExplorer
                             CredentialsList.Add(att.Attribute("OtherAPIServer").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherScope").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherACSBaseAddress").Value.ToString());
-                            if (att.Attribute("OtherServiceManagement") != null)
+                            if (att.Attribute("OtherAzureEndpoint") != null)
                             {
-                                CredentialsList.Add(att.Attribute("OtherServiceManagement").Value.ToString());
+                                CredentialsList.Add(att.Attribute("OtherAzureEndpoint").Value.ToString());
                             }
                             else
                             {
@@ -335,10 +342,10 @@ namespace AMSExplorer
 
         private void buttonConfigureNorthChina_Click(object sender, EventArgs e)
         {
-            textBoxAPIServer.Text = CredentialsEntry.ChinaAPIServer;
-            textBoxACSBaseAddress.Text = CredentialsEntry.ChinaACSBaseAddress;
-            textBoxScope.Text = CredentialsEntry.ChinaScope;
-            textBoxServiceManagement.Text = CredentialsEntry.ChinaServiceManagement;
+            textBoxAPIServer.Text = CredentialsEntry.OtherChinaNorthAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaNorthACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.OtherChinaNorthScope;
+            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaNorthAzureEndpoint;
         }
 
         private void textBoxURL_Validation(object sender, EventArgs e)
@@ -346,6 +353,27 @@ namespace AMSExplorer
             TextBox mytextbox = (TextBox)sender;
             mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
         }
-       
+
+        private void buttonConfigureChinaEast_Click(object sender, EventArgs e)
+        {
+            textBoxAPIServer.Text = CredentialsEntry.OtherChinaEastAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaEastACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.OtherChinaEastScope;
+            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaEastAzureEndpoint;
+        }
+
+        private void textBoxTXT_Validation(object sender, EventArgs e)
+        {
+            TextBox mytextbox = (TextBox)sender;
+            mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
+        }
+
+        private void buttonConfigureGlobal_Click(object sender, EventArgs e)
+        {
+            textBoxAPIServer.Text = CredentialsEntry.OtherGlobalAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.OtherGlobalACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.OtherGlobalScope;
+            textBoxAzureEndpoint.Text = CredentialsEntry.OtherGlobalAzureEndpoint;
+        }
     }
 }
