@@ -45,8 +45,8 @@
             this.textBoxAccountName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonConfigureNorthChina = new System.Windows.Forms.Button();
-            this.textBoxServiceManagement = new System.Windows.Forms.TextBox();
+            this.buttonConfigureChinaNorth = new System.Windows.Forms.Button();
+            this.textBoxAzureEndpoint = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxACSBaseAddress = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -65,6 +65,8 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonConfigureChinaEast = new System.Windows.Forms.Button();
+            this.buttonConfigureGlobal = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -242,8 +244,10 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage2.Controls.Add(this.buttonConfigureNorthChina);
-            this.tabPage2.Controls.Add(this.textBoxServiceManagement);
+            this.tabPage2.Controls.Add(this.buttonConfigureGlobal);
+            this.tabPage2.Controls.Add(this.buttonConfigureChinaEast);
+            this.tabPage2.Controls.Add(this.buttonConfigureChinaNorth);
+            this.tabPage2.Controls.Add(this.textBoxAzureEndpoint);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.textBoxACSBaseAddress);
             this.tabPage2.Controls.Add(this.label6);
@@ -261,35 +265,35 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
             // 
-            // buttonConfigureNorthChina
+            // buttonConfigureChinaNorth
             // 
-            this.buttonConfigureNorthChina.Enabled = false;
-            this.buttonConfigureNorthChina.Location = new System.Drawing.Point(286, 71);
-            this.buttonConfigureNorthChina.Name = "buttonConfigureNorthChina";
-            this.buttonConfigureNorthChina.Size = new System.Drawing.Size(120, 23);
-            this.buttonConfigureNorthChina.TabIndex = 44;
-            this.buttonConfigureNorthChina.Text = "North China Settings";
-            this.buttonConfigureNorthChina.UseVisualStyleBackColor = true;
-            this.buttonConfigureNorthChina.Click += new System.EventHandler(this.buttonConfigureNorthChina_Click);
+            this.buttonConfigureChinaNorth.Enabled = false;
+            this.buttonConfigureChinaNorth.Location = new System.Drawing.Point(232, 68);
+            this.buttonConfigureChinaNorth.Name = "buttonConfigureChinaNorth";
+            this.buttonConfigureChinaNorth.Size = new System.Drawing.Size(84, 23);
+            this.buttonConfigureChinaNorth.TabIndex = 44;
+            this.buttonConfigureChinaNorth.Text = "China North";
+            this.buttonConfigureChinaNorth.UseVisualStyleBackColor = true;
+            this.buttonConfigureChinaNorth.Click += new System.EventHandler(this.buttonConfigureNorthChina_Click);
             // 
-            // textBoxServiceManagement
+            // textBoxAzureEndpoint
             // 
-            this.textBoxServiceManagement.BackColor = System.Drawing.Color.Pink;
-            this.textBoxServiceManagement.Enabled = false;
-            this.textBoxServiceManagement.Location = new System.Drawing.Point(31, 214);
-            this.textBoxServiceManagement.Name = "textBoxServiceManagement";
-            this.textBoxServiceManagement.Size = new System.Drawing.Size(375, 20);
-            this.textBoxServiceManagement.TabIndex = 43;
-            this.textBoxServiceManagement.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
+            this.textBoxAzureEndpoint.BackColor = System.Drawing.Color.Pink;
+            this.textBoxAzureEndpoint.Enabled = false;
+            this.textBoxAzureEndpoint.Location = new System.Drawing.Point(31, 214);
+            this.textBoxAzureEndpoint.Name = "textBoxAzureEndpoint";
+            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(375, 20);
+            this.textBoxAzureEndpoint.TabIndex = 43;
+            this.textBoxAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(32, 198);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(108, 13);
+            this.label9.Size = new System.Drawing.Size(79, 13);
             this.label9.TabIndex = 42;
-            this.label9.Text = "Service Management";
+            this.label9.Text = "Azure Endpoint";
             // 
             // textBoxACSBaseAddress
             // 
@@ -306,26 +310,28 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(32, 159);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(96, 13);
+            this.label6.Size = new System.Drawing.Size(126, 13);
             this.label6.TabIndex = 40;
-            this.label6.Text = "ACS Base Address";
+            this.label6.Text = "Azure ACS Base Address";
             // 
             // textBoxScope
             // 
+            this.textBoxScope.BackColor = System.Drawing.Color.Pink;
             this.textBoxScope.Enabled = false;
             this.textBoxScope.Location = new System.Drawing.Point(31, 136);
             this.textBoxScope.Name = "textBoxScope";
             this.textBoxScope.Size = new System.Drawing.Size(375, 20);
             this.textBoxScope.TabIndex = 39;
+            this.textBoxScope.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(32, 120);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.Size = new System.Drawing.Size(70, 13);
             this.label7.TabIndex = 38;
-            this.label7.Text = "Scope";
+            this.label7.Text = "Media Scope";
             // 
             // textBoxAPIServer
             // 
@@ -342,9 +348,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(32, 81);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.Size = new System.Drawing.Size(90, 13);
             this.label8.TabIndex = 36;
-            this.label8.Text = "API Server";
+            this.label8.Text = "Media API Server";
             // 
             // radioButtonOther
             // 
@@ -453,6 +459,28 @@
             this.panel1.Size = new System.Drawing.Size(704, 48);
             this.panel1.TabIndex = 52;
             // 
+            // buttonConfigureChinaEast
+            // 
+            this.buttonConfigureChinaEast.Enabled = false;
+            this.buttonConfigureChinaEast.Location = new System.Drawing.Point(322, 68);
+            this.buttonConfigureChinaEast.Name = "buttonConfigureChinaEast";
+            this.buttonConfigureChinaEast.Size = new System.Drawing.Size(84, 23);
+            this.buttonConfigureChinaEast.TabIndex = 45;
+            this.buttonConfigureChinaEast.Text = "China East";
+            this.buttonConfigureChinaEast.UseVisualStyleBackColor = true;
+            this.buttonConfigureChinaEast.Click += new System.EventHandler(this.buttonConfigureChinaEast_Click);
+            // 
+            // buttonConfigureGlobal
+            // 
+            this.buttonConfigureGlobal.Enabled = false;
+            this.buttonConfigureGlobal.Location = new System.Drawing.Point(142, 68);
+            this.buttonConfigureGlobal.Name = "buttonConfigureGlobal";
+            this.buttonConfigureGlobal.Size = new System.Drawing.Size(84, 23);
+            this.buttonConfigureGlobal.TabIndex = 46;
+            this.buttonConfigureGlobal.Text = "Global";
+            this.buttonConfigureGlobal.UseVisualStyleBackColor = true;
+            this.buttonConfigureGlobal.Click += new System.EventHandler(this.buttonConfigureGlobal_Click);
+            // 
             // AMSLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -525,8 +553,10 @@
         private System.Windows.Forms.LinkLabel accountmgtlink;
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonConfigureNorthChina;
-        private System.Windows.Forms.TextBox textBoxServiceManagement;
+        private System.Windows.Forms.Button buttonConfigureChinaNorth;
+        private System.Windows.Forms.TextBox textBoxAzureEndpoint;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button buttonConfigureChinaEast;
+        private System.Windows.Forms.Button buttonConfigureGlobal;
     }
 }

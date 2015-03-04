@@ -218,7 +218,7 @@ namespace AMSExplorer
 
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
@@ -1277,7 +1277,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Merging assets to new asset '{0}'...", newassetname);
                 IAsset NewAsset = _context.Assets.Create(newassetname, AssetCreationOptions.None); // No encryption as we do storage copy
                 CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), true);
+                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
                 IAccessPolicy readPolicy = _context.AccessPolicies.Create("readPolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
@@ -1428,7 +1428,7 @@ namespace AMSExplorer
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
-            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset)
+            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset, _credentials.ReturnStorageSuffix())
             {
                 BlobStorageDefault = UseDefaultStorage,
                 BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name,
@@ -1970,7 +1970,7 @@ namespace AMSExplorer
             }
             if (havestoragecredentials) // if we have the storage credentials
             {
-                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey)
+                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey, _credentials.ReturnStorageSuffix())
                     {
                         ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
                         ImportNewAssetName = "NewAsset Blob_" + Guid.NewGuid(),
@@ -2026,7 +2026,7 @@ namespace AMSExplorer
             if (UseDefaultStorage) // The default storage is used
             {
                 CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
 
 
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
@@ -2152,7 +2152,7 @@ namespace AMSExplorer
             {
                 // Create Media Services context.
 
-                var externalStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), true);
+                var externalStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
                 var externalCloudBlobClient = externalStorageAccount.CreateCloudBlobClient();
                 var externalMediaBlobContainer = externalCloudBlobClient.GetContainerReference(containername);
 
@@ -2173,7 +2173,7 @@ namespace AMSExplorer
                   TimeSpan.FromDays(1), AccessPermissions.Write);
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
-                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var destBlobStorage = destinationStorageAccount.CreateCloudBlobClient();
 
                 // Get the asset container URI and Blob copy from mediaContainer to assetContainer.
@@ -2290,7 +2290,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the Azure export process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
                 ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SelectedFiles[0].Asset, readpolicy);
@@ -2407,8 +2407,8 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the blob copy process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
-                CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), true);
+                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
 
                 var SourceCloudBlobClient = SourceStorageAccount.CreateCloudBlobClient();
                 var TargetCloudBlobClient = TargetStorageAccount.CreateCloudBlobClient();
@@ -7827,7 +7827,6 @@ typeof(FilterTime)
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
                     TextBoxLogWriteLine(ex);
-
                 }
             }
         }
@@ -7894,7 +7893,8 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherACSBaseAddress.EndsWith("chinacloudapi.cn")) ? CredentialsEntry.ChinaManagementPortal : CredentialsEntry.DefaultManagementPortal;
+            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaNorthAzureEndpoint)) ? 
+                CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
             Process.Start(PortalUrl);
         }
 
