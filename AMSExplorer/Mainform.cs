@@ -3043,46 +3043,41 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            if (SelectedAssets.Count == 0)
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
             {
-                MessageBox.Show("No asset was selected");
-                return;
+                MessageBox.Show("No asset was selected, or asset is null.");
             }
-            IAsset mediaAsset = SelectedAssets.FirstOrDefault();
-            if (mediaAsset == null) return;
-
-            DisplayDeprecatedMessage();
-
-            if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4))
+            else
             {
-                MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                DisplayDeprecatedMessage();
 
+                if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
+                {
+                    MessageBox.Show("Asset(s) should be a multi bitrate or single MP4 file(s).", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-            string labeldb = "Package '" + mediaAsset.Name + "' to Smooth ?";
+                string labeldb = (SelectedAssets.Count > 1) ?
+                    "Package these " + SelectedAssets.Count + " assets to Smooth Streaming ?" :
+                    "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth ?";
 
-            if (SelectedAssets.Count > 1)
-            {
-                labeldb = "Package these " + SelectedAssets.Count + " assets to Smooth Streaming?";
-            }
+                string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
 
-            string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
+                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
 
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
+                    // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
+                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
+                        MediaProcessorNames.WindowsAzureMediaPackager);
 
-                // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
-                IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                    MediaProcessorNames.WindowsAzureMediaPackager);
+                    // Windows Azure Media Packager does not accept string presets, so load xml configuration
+                    string smoothConfig = File.ReadAllText(Path.Combine(
+                                _configurationXMLFiles,
+                                "MediaPackager_MP4toSmooth.xml"));
 
-                // Windows Azure Media Packager does not accept string presets, so load xml configuration
-                string smoothConfig = File.ReadAllText(Path.Combine(
-                            _configurationXMLFiles,
-                            "MediaPackager_MP4toSmooth.xml"));
-
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                }
             }
         }
 
@@ -7885,7 +7880,7 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ? 
+            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
                 CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
             Process.Start(PortalUrl);
         }
