@@ -330,11 +330,11 @@
     <Compile Include="EncodingAMEAdv.Designer.cs">
       <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
     </Compile>
-    <Compile Include="EncodingZenium.cs">
+    <Compile Include="EncodingPremium.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EncodingZenium.Designer.cs">
-      <DependentUpon>EncodingZenium.cs</DependentUpon>
+    <Compile Include="EncodingPremium.Designer.cs">
+      <DependentUpon>EncodingPremium.cs</DependentUpon>
     </Compile>
     <Compile Include="HLSAESStatic.cs">
       <SubType>Form</SubType>
@@ -484,8 +484,8 @@
     <EmbeddedResource Include="EncodingAMEAdv.resx">
       <DependentUpon>EncodingAMEAdv.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingZenium.resx">
-      <DependentUpon>EncodingZenium.cs</DependentUpon>
+    <EmbeddedResource Include="EncodingPremium.resx">
+      <DependentUpon>EncodingPremium.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="HLSAESStatic.resx">
       <DependentUpon>HLSAESStatic.cs</DependentUpon>
@@ -579,6 +579,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
+    <Content Include="PremiumWorkflowSamples\Sample H264 Progresssive Download MP4 SD.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="PremiumWorkflowSamples\Sample H264 Progresssive Download MP4.workflow">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

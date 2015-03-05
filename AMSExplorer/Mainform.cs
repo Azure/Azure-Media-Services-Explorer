@@ -2623,14 +2623,14 @@ namespace AMSExplorer
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
 
-            string taskname = "Zenium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
+            string taskname = "Premium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
 
-            EncodingZenium form = new EncodingZenium(_context)
+            EncodingPremium form = new EncodingPremium(_context)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
                 EncodingProcessorsList = Encoders,
-                EncodingJobName = "Zenium Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-Zenium encoded with " + Constants.NameconvWorkflow,
+                EncodingJobName = "Premium Encoding of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,

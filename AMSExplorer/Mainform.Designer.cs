@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.butPrevPageAsset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.butNextPageAsset = new System.Windows.Forms.Button();
@@ -320,6 +320,7 @@
             this.toolStripSeparator16 = new System.Windows.Forms.ToolStripSeparator();
             this.securityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem10 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator24 = new System.Windows.Forms.ToolStripSeparator();
@@ -376,7 +377,8 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.toolStripMenuItem11 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -609,6 +611,7 @@
             this.encodeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem,
+            this.toolStripSeparator32,
             this.ContextMenuItemZenium});
             this.encodeToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
@@ -640,7 +643,7 @@
             this.ContextMenuItemZenium.Name = "ContextMenuItemZenium";
             this.ContextMenuItemZenium.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.ContextMenuItemZenium.Size = new System.Drawing.Size(544, 22);
-            this.ContextMenuItemZenium.Text = "Encode asset(s) with Imagine Communications Zenium...";
+            this.ContextMenuItemZenium.Text = "Encode asset(s) with Media Encoder Premium...";
             this.ContextMenuItemZenium.Click += new System.EventHandler(this.encodeAssetsWithZeniumToolStripMenuItem_Click);
             // 
             // packageToolStripMenuItem
@@ -1185,6 +1188,7 @@
             this.processToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2,
+            this.toolStripSeparator26,
             this.encodeAssetWithZeniumToolStripMenuItem,
             this.toolStripSeparator17,
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
@@ -1226,7 +1230,7 @@
             this.encodeAssetWithZeniumToolStripMenuItem.Name = "encodeAssetWithZeniumToolStripMenuItem";
             this.encodeAssetWithZeniumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.encodeAssetWithZeniumToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
-            this.encodeAssetWithZeniumToolStripMenuItem.Text = "Encode asset(s) with Imagine Communications Zenium...";
+            this.encodeAssetWithZeniumToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Premium...";
             this.encodeAssetWithZeniumToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
@@ -3116,7 +3120,7 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 308);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 286);
             // 
             // refreshToolStripMenuItem4
             // 
@@ -3218,6 +3222,14 @@
             this.toolStripMenuItem3.Size = new System.Drawing.Size(447, 22);
             this.toolStripMenuItem3.Text = "Add a dynamic encryption policy for the asset(s)...";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click_1);
+            // 
+            // toolStripMenuItem11
+            // 
+            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
+            this.toolStripMenuItem11.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.toolStripMenuItem11.Size = new System.Drawing.Size(447, 22);
+            this.toolStripMenuItem11.Text = "Get a test token...";
+            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
             // 
             // toolStripMenuItem9
             // 
@@ -3692,10 +3704,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea3.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 404);
@@ -3797,13 +3809,15 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // toolStripMenuItem11
+            // toolStripSeparator26
             // 
-            this.toolStripMenuItem11.Name = "toolStripMenuItem11";
-            this.toolStripMenuItem11.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.toolStripMenuItem11.Size = new System.Drawing.Size(447, 22);
-            this.toolStripMenuItem11.Text = "Get a test token...";
-            this.toolStripMenuItem11.Click += new System.EventHandler(this.toolStripMenuItem11_Click);
+            this.toolStripSeparator26.Name = "toolStripSeparator26";
+            this.toolStripSeparator26.Size = new System.Drawing.Size(541, 6);
+            // 
+            // toolStripSeparator32
+            // 
+            this.toolStripSeparator32.Name = "toolStripSeparator32";
+            this.toolStripSeparator32.Size = new System.Drawing.Size(541, 6);
             // 
             // Mainform
             // 
@@ -4222,6 +4236,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator24;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem10;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
     }
 }
 

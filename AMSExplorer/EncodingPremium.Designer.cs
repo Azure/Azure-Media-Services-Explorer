@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class EncodingZenium
+    partial class EncodingPremium
     {
         /// <summary>
         /// Required designer variable.
@@ -272,11 +272,11 @@
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label31.Location = new System.Drawing.Point(436, 9);
+            this.label31.Location = new System.Drawing.Point(455, 9);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(322, 24);
+            this.label31.Size = new System.Drawing.Size(303, 24);
             this.label31.TabIndex = 60;
-            this.label31.Text = "Imagine Communications Zenium";
+            this.label31.Text = "Azure Media Encoder Premium";
             this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // listViewWorkflows
@@ -325,9 +325,9 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(459, 124);
+            this.progressBarUpload.Location = new System.Drawing.Point(529, 124);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(299, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(229, 23);
             this.progressBarUpload.TabIndex = 63;
             this.progressBarUpload.Visible = false;
             // 
@@ -335,9 +335,9 @@
             // 
             this.buttonUpload.Location = new System.Drawing.Point(384, 125);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(69, 23);
+            this.buttonUpload.Size = new System.Drawing.Size(139, 23);
             this.buttonUpload.TabIndex = 62;
-            this.buttonUpload.Text = "Upload";
+            this.buttonUpload.Text = "Upload a new Workflow";
             this.buttonUpload.UseVisualStyleBackColor = true;
             this.buttonUpload.Click += new System.EventHandler(this.buttonUpload_Click);
             // 
@@ -358,7 +358,7 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 66;
             // 
-            // EncodingZenium
+            // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -388,8 +388,8 @@
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
-            this.Name = "EncodingZenium";
-            this.Text = "Encoding with Imagine Communications Zenium";
+            this.Name = "EncodingPremium";
+            this.Text = "Encoding with Azure Media Encoder Premium";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();

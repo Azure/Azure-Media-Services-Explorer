@@ -392,7 +392,7 @@ namespace AMSExplorer
         public const string TabStorage = "Storage"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
-        public const string PathPremiumWorkflowFiles = @"\PremiumWorflowSamples\";
+        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";  
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
