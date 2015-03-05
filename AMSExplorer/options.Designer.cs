@@ -68,10 +68,10 @@
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCurrency = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownAMEPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
             this.amspriceslink = new System.Windows.Forms.LinkLabel();
             this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownAMEPremiumWorkflowPrice = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -456,7 +456,7 @@
             0,
             0,
             131072});
-            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(260, 49);
+            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(255, 49);
             this.numericUpDownAMEPrice.Name = "numericUpDownAMEPrice";
             this.numericUpDownAMEPrice.Size = new System.Drawing.Size(63, 20);
             this.numericUpDownAMEPrice.TabIndex = 55;
@@ -474,7 +474,7 @@
             0,
             0,
             131072});
-            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(260, 75);
+            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(255, 75);
             this.numericUpDownLegacyEncodingPrice.Name = "numericUpDownLegacyEncodingPrice";
             this.numericUpDownLegacyEncodingPrice.Size = new System.Drawing.Size(63, 20);
             this.numericUpDownLegacyEncodingPrice.TabIndex = 57;
@@ -489,9 +489,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(40, 77);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(218, 13);
+            this.label5.Size = new System.Drawing.Size(209, 13);
             this.label5.TabIndex = 56;
-            this.label5.Text = "Legacy encoding price per input/output GB :";
+            this.label5.Text = "Legacy encoding price per processed GB :";
             // 
             // numericUpDownIndexingPrice
             // 
@@ -502,7 +502,7 @@
             0,
             0,
             131072});
-            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(260, 101);
+            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(255, 101);
             this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
             this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(63, 20);
             this.numericUpDownIndexingPrice.TabIndex = 59;
@@ -523,7 +523,7 @@
             // 
             // textBoxCurrency
             // 
-            this.textBoxCurrency.Location = new System.Drawing.Point(260, 23);
+            this.textBoxCurrency.Location = new System.Drawing.Point(255, 23);
             this.textBoxCurrency.Name = "textBoxCurrency";
             this.textBoxCurrency.Size = new System.Drawing.Size(51, 20);
             this.textBoxCurrency.TabIndex = 60;
@@ -549,6 +549,33 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Prices (for job cost estimation)";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(324, 51);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(99, 13);
+            this.label9.TabIndex = 64;
+            this.label9.Text = "Premium (preview) :";
+            // 
+            // numericUpDownAMEPremiumWorkflowPrice
+            // 
+            this.numericUpDownAMEPremiumWorkflowPrice.DecimalPlaces = 2;
+            this.numericUpDownAMEPremiumWorkflowPrice.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(427, 49);
+            this.numericUpDownAMEPremiumWorkflowPrice.Name = "numericUpDownAMEPremiumWorkflowPrice";
+            this.numericUpDownAMEPremiumWorkflowPrice.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownAMEPremiumWorkflowPrice.TabIndex = 63;
+            this.numericUpDownAMEPremiumWorkflowPrice.Value = new decimal(new int[] {
+            199,
+            0,
+            0,
+            131072});
+            // 
             // amspriceslink
             // 
             this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -569,33 +596,6 @@
             this.label7.Size = new System.Drawing.Size(90, 13);
             this.label7.TabIndex = 61;
             this.label7.Text = "Currency symbol :";
-            // 
-            // numericUpDownAMEPremiumWorkflowPrice
-            // 
-            this.numericUpDownAMEPremiumWorkflowPrice.DecimalPlaces = 2;
-            this.numericUpDownAMEPremiumWorkflowPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(397, 49);
-            this.numericUpDownAMEPremiumWorkflowPrice.Name = "numericUpDownAMEPremiumWorkflowPrice";
-            this.numericUpDownAMEPremiumWorkflowPrice.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDownAMEPremiumWorkflowPrice.TabIndex = 63;
-            this.numericUpDownAMEPremiumWorkflowPrice.Value = new decimal(new int[] {
-            399,
-            0,
-            0,
-            131072});
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(338, 51);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 13);
-            this.label9.TabIndex = 64;
-            this.label9.Text = "Premium :";
             // 
             // Options
             // 
