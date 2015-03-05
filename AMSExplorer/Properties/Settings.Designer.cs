@@ -349,13 +349,13 @@ namespace AMSExplorer.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3.99")]
-        public decimal AMEPremiumWorkflowPrice {
+        [global::System.Configuration.DefaultSettingValueAttribute("1.99")]
+        public decimal AMEPremiumWorkflowPreviewPrice {
             get {
-                return ((decimal)(this["AMEPremiumWorkflowPrice"]));
+                return ((decimal)(this["AMEPremiumWorkflowPreviewPrice"]));
             }
             set {
-                this["AMEPremiumWorkflowPrice"] = value;
+                this["AMEPremiumWorkflowPreviewPrice"] = value;
             }
         }
     }
