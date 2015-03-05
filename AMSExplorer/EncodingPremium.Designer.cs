@@ -272,11 +272,11 @@
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label31.Location = new System.Drawing.Point(455, 9);
+            this.label31.Location = new System.Drawing.Point(425, 9);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(303, 24);
+            this.label31.Size = new System.Drawing.Size(333, 24);
             this.label31.TabIndex = 60;
-            this.label31.Text = "Azure Media Encoder Premium";
+            this.label31.Text = "Media Encoder Premium Workflow";
             this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // listViewWorkflows
@@ -343,8 +343,7 @@
             // 
             // openFileDialogWorkflow
             // 
-            this.openFileDialogWorkflow.Filter = "Worflow files|*.workflow;*.kayak;*.xenio;*.zenium;*.graph;*.blueprint|All files (" +
-    "*.*)|*.*";
+            this.openFileDialogWorkflow.Filter = "Worflow files|*.workflow|All files (*.*)|*.*";
             // 
             // panel1
             // 
@@ -389,7 +388,7 @@
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
             this.Name = "EncodingPremium";
-            this.Text = "Encoding with Azure Media Encoder Premium";
+            this.Text = "Media Encoder Premium Workflow";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
