@@ -54,7 +54,7 @@
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator32 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemZenium = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemPremiumWorkflow = new System.Windows.Forms.ToolStripMenuItem();
             this.packageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.validateTheMultiMP4AssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -118,7 +118,7 @@
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
-            this.encodeAssetWithZeniumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.generateThumbnailsForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -612,7 +612,7 @@
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem,
             this.toolStripSeparator32,
-            this.ContextMenuItemZenium});
+            this.ContextMenuItemPremiumWorkflow});
             this.encodeToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
             this.encodeToolStripMenuItem.Size = new System.Drawing.Size(349, 22);
@@ -642,14 +642,14 @@
             this.toolStripSeparator32.Name = "toolStripSeparator32";
             this.toolStripSeparator32.Size = new System.Drawing.Size(541, 6);
             // 
-            // ContextMenuItemZenium
+            // ContextMenuItemPremiumWorkflow
             // 
-            this.ContextMenuItemZenium.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemZenium.Name = "ContextMenuItemZenium";
-            this.ContextMenuItemZenium.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.ContextMenuItemZenium.Size = new System.Drawing.Size(544, 22);
-            this.ContextMenuItemZenium.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
-            this.ContextMenuItemZenium.Click += new System.EventHandler(this.encodeAssetsWithZeniumToolStripMenuItem_Click);
+            this.ContextMenuItemPremiumWorkflow.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.ContextMenuItemPremiumWorkflow.Name = "ContextMenuItemPremiumWorkflow";
+            this.ContextMenuItemPremiumWorkflow.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.ContextMenuItemPremiumWorkflow.Size = new System.Drawing.Size(544, 22);
+            this.ContextMenuItemPremiumWorkflow.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
+            this.ContextMenuItemPremiumWorkflow.Click += new System.EventHandler(this.encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click);
             // 
             // packageToolStripMenuItem
             // 
@@ -1194,7 +1194,7 @@
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2,
             this.toolStripSeparator26,
-            this.encodeAssetWithZeniumToolStripMenuItem,
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem,
             this.toolStripSeparator17,
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
             this.indexAssetsToolStripMenuItem,
@@ -1234,14 +1234,14 @@
             this.toolStripSeparator26.Name = "toolStripSeparator26";
             this.toolStripSeparator26.Size = new System.Drawing.Size(541, 6);
             // 
-            // encodeAssetWithZeniumToolStripMenuItem
+            // encodeAssetWithPremiumWorkflowToolStripMenuItem
             // 
-            this.encodeAssetWithZeniumToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithZeniumToolStripMenuItem.Image")));
-            this.encodeAssetWithZeniumToolStripMenuItem.Name = "encodeAssetWithZeniumToolStripMenuItem";
-            this.encodeAssetWithZeniumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
-            this.encodeAssetWithZeniumToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
-            this.encodeAssetWithZeniumToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
-            this.encodeAssetWithZeniumToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click);
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithZeniumToolStripMenuItem.Image")));
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Name = "encodeAssetWithPremiumWorkflowToolStripMenuItem";
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click);
             // 
             // toolStripSeparator17
             // 
@@ -3929,7 +3929,7 @@
         private System.Windows.Forms.ToolStripMenuItem publishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createALocatorForTheAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsOfTheAssetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem encodeAssetWithZeniumToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem encodeAssetWithPremiumWorkflowToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxPageAssets;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -4119,7 +4119,7 @@
         private System.Windows.Forms.ToolStripMenuItem encodeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemZenium;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemPremiumWorkflow;
         private System.Windows.Forms.ToolStripMenuItem publishToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem createALocatorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsToolStripMenuItem;

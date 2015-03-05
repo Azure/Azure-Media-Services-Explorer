@@ -73,7 +73,7 @@ namespace AMSExplorer
             }
         }
 
-        public List<IAsset> SelectedZeniumWorkflows
+        public List<IAsset> SelectedPremiumWorkflows
         {
             get
             {

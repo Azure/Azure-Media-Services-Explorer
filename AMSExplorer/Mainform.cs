@@ -80,7 +80,7 @@ namespace AMSExplorer
         private bool WatchFolderDeleteFile = false;
         private IJobTemplate WatchFolderJobTemplate = null;
         FileSystemWatcher WatchFolderWatcher;
-        private bool AMEZeniumPresent = true;
+        private bool AMEPremiumWorkflowPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
 
@@ -155,11 +155,11 @@ namespace AMSExplorer
 
             if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
             {
-                AMEZeniumPresent = false;
-                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
-                encodeAssetWithZeniumToolStripMenuItem.Visible = false;
-                ContextMenuItemZenium.Enabled = false; // mouse context menu
-                ContextMenuItemZenium.Visible = false;
+                AMEPremiumWorkflowPresent = false;
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
+                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+                ContextMenuItemPremiumWorkflow.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -346,36 +346,7 @@ namespace AMSExplorer
 
         }
 
-
-
-        //delete all assets except those specified or published or Zenium Blueprint
-        void DeleteAllAssets(string[] exceptionAssetNames)
-        {
-            List<string> objList_string = new List<string>();
-            foreach (string assetName in exceptionAssetNames)
-            {
-                objList_string.Add(assetName);
-            }
-            foreach (IAsset objIAsset in _context.Assets)
-            {
-                if (!objList_string.Contains(objIAsset.Name))
-                {
-                    try
-                    {
-                        DeleteLocatorsForAsset(objIAsset);
-                        objIAsset.Delete();
-                    }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error when deleting asset '{0}'.", objIAsset.Name);
-                        TextBoxLogWriteLine(e);
-                    }
-
-                }
-            }
-            TextBoxLogWriteLine("DeleteAllAssets() completed.");
-        }
-
+               
 
         private void ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
         {
@@ -2597,10 +2568,10 @@ namespace AMSExplorer
 
         private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEncodeWithZenium();
+            DoMenuEncodeWithPremiumWorkflow();
         }
 
-        private void DoMenuEncodeWithZenium()
+        private void DoMenuEncodeWithPremiumWorkflow()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -2643,7 +2614,7 @@ namespace AMSExplorer
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                    foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each blueprint selected, we create a task
+                    foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each blueprint selected, we create a task
                     {
                         string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
                         ITask task = job.Tasks.AddNew(
@@ -2680,7 +2651,7 @@ namespace AMSExplorer
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
 
                         IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                        foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each workflow selected, we create a task
+                        foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
                         {
                             string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
@@ -3058,7 +3029,7 @@ namespace AMSExplorer
 
                 string labeldb = (SelectedAssets.Count > 1) ?
                     "Package these " + SelectedAssets.Count + " assets to Smooth Streaming ?" :
-                    "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth ?";
+                    "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth Streaming ?";
 
                 string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
                 string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
@@ -4755,14 +4726,12 @@ typeof(FilterTime)
             EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
             EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
 
-            // let's disable Zenium if not present
-            if (!AMEZeniumPresent)
+            // let's disable Premium Workflow if not present
+            if (!AMEPremiumWorkflowPresent)
             {
-                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
-                ContextMenuItemZenium.Enabled = false; // mouse context menu
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
-
-
         }
 
         private void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
@@ -4779,7 +4748,6 @@ typeof(FilterTime)
                     {
                         foreach (ToolStripItem itemd in itemt.DropDownItems) itemd.Enabled = bflag;
                     }
-
                 }
             }
         }
@@ -7403,9 +7371,9 @@ typeof(FilterTime)
         }
 
 
-        private void encodeAssetsWithZeniumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEncodeWithZenium();
+            DoMenuEncodeWithPremiumWorkflow();
         }
 
         private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
