@@ -37,9 +37,10 @@
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -67,7 +68,7 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(12, 417);
+            this.labelDescription.Location = new System.Drawing.Point(32, 223);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(58, 13);
             this.labelDescription.TabIndex = 35;
@@ -100,9 +101,9 @@
             // 
             this.groupBox4.Controls.Add(this.radioButtonLiveArchive);
             this.groupBox4.Controls.Add(this.radioButtonOnDemandAsset);
-            this.groupBox4.Location = new System.Drawing.Point(12, 48);
+            this.groupBox4.Location = new System.Drawing.Point(15, 22);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(453, 86);
+            this.groupBox4.Size = new System.Drawing.Size(463, 86);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Asset type";
@@ -112,7 +113,7 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(32, 454);
+            this.labelWarning.Location = new System.Drawing.Point(32, 255);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 44;
@@ -133,19 +134,23 @@
             // listBoxAcounts
             // 
             this.listBoxAcounts.FormattingEnabled = true;
-            this.listBoxAcounts.Location = new System.Drawing.Point(12, 180);
+            this.listBoxAcounts.Location = new System.Drawing.Point(35, 34);
             this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(219, 225);
+            this.listBoxAcounts.Size = new System.Drawing.Size(219, 186);
             this.listBoxAcounts.TabIndex = 61;
             this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
             // 
-            // label2
+            // groupBox1
             // 
-            this.label2.Location = new System.Drawing.Point(12, 164);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(141, 13);
-            this.label2.TabIndex = 62;
-            this.label2.Text = "Target account :";
+            this.groupBox1.Controls.Add(this.listBoxAcounts);
+            this.groupBox1.Controls.Add(this.labelDescription);
+            this.groupBox1.Controls.Add(this.labelWarning);
+            this.groupBox1.Location = new System.Drawing.Point(15, 126);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(463, 284);
+            this.groupBox1.TabIndex = 63;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Media Services Account Destination";
             // 
             // CopyAsset
             // 
@@ -153,20 +158,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 526);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.listBoxAcounts);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.labelDescription);
             this.Name = "CopyAsset";
             this.Text = "Copy an asset";
             this.Load += new System.EventHandler(this.CopyAsset_Load);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -181,6 +184,6 @@
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBoxAcounts;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }

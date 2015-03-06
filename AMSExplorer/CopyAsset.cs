@@ -71,25 +71,18 @@ namespace AMSExplorer
         private void CopyAsset_Load(object sender, EventArgs e)
         {
             CredentialsList = Properties.Settings.Default.LoginList;
+            labelWarning.Text = "";
 
             if (CredentialsList != null)
             {
                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
                 {
-                    //if (!string.IsNullOrEmpty(CredentialsList[i * CredentialsEntry.StringsCount+2]))
+                    //if (!string.IsNullOrEmpty(CredentialsList[i * CredentialsEntry.StringsCount+2])) // no storage key
                     {
                         listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
-
                     }
-
                 }
-
             }
-            else
-            {
-
-            }
-
 
         }
 
@@ -103,20 +96,22 @@ namespace AMSExplorer
         {
             if (listBoxAcounts.SelectedIndex > -1) // one selected
             {
+                int index = listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount;
                 SelectedCredentials = new CredentialsEntry(
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 1],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 2],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 3],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 4],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 5],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 6],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 7],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 8],
-                   CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9]
+                   CredentialsList[index],
+                   CredentialsList[index + 1],
+                   CredentialsList[index + 2],
+                   CredentialsList[index + 3],
+                   CredentialsList[index + 4],
+                   CredentialsList[index + 5],
+                   CredentialsList[index + 6],
+                   CredentialsList[index + 7],
+                   CredentialsList[index + 8],
+                   CredentialsList[index + 9]
                     );
 
                 labelDescription.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
+                labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.StorageKey)) ? "Storage key is empty !" : string.Empty;
             }
         }
     }

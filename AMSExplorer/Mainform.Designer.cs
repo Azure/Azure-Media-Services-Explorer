@@ -106,6 +106,7 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToLocalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -379,7 +380,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -493,6 +494,7 @@
             this.ContextMenuItemAssetDisplayInfo,
             this.ContextMenuItemAssetCreateOutlookReportEmail,
             this.ContextMenuItemAssetImportFileFromAzure,
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1,
             this.ContextMenuItemAssetExportAssetFilesToAzureStorage,
             this.ContextMenuItemAssetDownloadToLocal,
             this.mergeAssetsToANewAssetToolStripMenuItem,
@@ -512,7 +514,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 430);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1093,9 +1095,9 @@
             // copyAssetFilesToAzureStorageToolStripMenuItem
             // 
             this.copyAssetFilesToAzureStorageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem,
             this.toAzureStorageToolStripMenuItem,
-            this.downloadToLocalToolStripMenuItem1,
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem});
+            this.downloadToLocalToolStripMenuItem1});
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("copyAssetFilesToAzureStorageToolStripMenuItem.Image")));
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Name = "copyAssetFilesToAzureStorageToolStripMenuItem";
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(346, 22);
@@ -1117,6 +1119,13 @@
             this.downloadToLocalToolStripMenuItem1.Size = new System.Drawing.Size(303, 22);
             this.downloadToLocalToolStripMenuItem1.Text = "Download to local...";
             this.downloadToLocalToolStripMenuItem1.Click += new System.EventHandler(this.downloadToLocalToolStripMenuItem1_Click);
+            // 
+            // toAnotherAzureMediaServicesAccountToolStripMenuItem
+            // 
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Text = "To another Azure Media Services Account...";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
@@ -3821,12 +3830,12 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // toAnotherAzureMediaServicesAccountToolStripMenuItem
+            // toAnotherAzureMediaServicesAccountToolStripMenuItem1
             // 
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Text = "To another Azure Media Services Account...";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem_Click);
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem1";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Text = "Export to another Azure Media Services Account...";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click);
             // 
             // Mainform
             // 
@@ -4248,6 +4257,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator32;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem1;
     }
 }
 
