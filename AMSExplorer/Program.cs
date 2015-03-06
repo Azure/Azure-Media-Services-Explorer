@@ -380,7 +380,8 @@ namespace AMSExplorer
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
-
+        public const string NameconvAsset = "{Asset Name}";
+        
         public const string endline = "\r\n";
 
         public const string TabAssets = "Assets"; // name of the Assets tab

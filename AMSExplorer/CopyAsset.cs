@@ -38,16 +38,7 @@ namespace AMSExplorer
 
         StringCollection CredentialsList;
         CredentialsEntry SelectedCredentials;
-
-        public bool IsLiveAsset
-        {
-            get
-            {
-                return (radioButtonOnDemandAsset.Checked) ? false : true;
-            }
-
-        }
-
+            
         public CredentialsEntry LoginCredentials
         {
             get
@@ -56,17 +47,27 @@ namespace AMSExplorer
             }
         }
 
+        public string CopyAssetName
+        {
+            get
+            {
+                return copyassetname.Text;
+            }
+            set
+            {
+                copyassetname.Text = value;
+            }
+        }
 
 
+                
 
         public CopyAsset()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-
         }
-
-
+        
 
         private void CopyAsset_Load(object sender, EventArgs e)
         {
@@ -77,20 +78,13 @@ namespace AMSExplorer
             {
                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
                 {
-                    //if (!string.IsNullOrEmpty(CredentialsList[i * CredentialsEntry.StringsCount+2])) // no storage key
                     {
                         listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
                     }
                 }
             }
-
         }
 
-
-        private void UpdateLocatorGUID_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void listBoxAcounts_SelectedIndexChanged(object sender, EventArgs e)
         {

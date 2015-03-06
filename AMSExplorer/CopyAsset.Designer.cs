@@ -31,14 +31,12 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.radioButtonOnDemandAsset = new System.Windows.Forms.RadioButton();
-            this.radioButtonLiveArchive = new System.Windows.Forms.RadioButton();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox4.SuspendLayout();
+            this.label3 = new System.Windows.Forms.Label();
+            this.copyassetname = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -68,52 +66,18 @@
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(32, 223);
+            this.labelDescription.Location = new System.Drawing.Point(32, 298);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(58, 13);
             this.labelDescription.TabIndex = 35;
             this.labelDescription.Text = "description";
-            // 
-            // radioButtonOnDemandAsset
-            // 
-            this.radioButtonOnDemandAsset.AutoSize = true;
-            this.radioButtonOnDemandAsset.Checked = true;
-            this.radioButtonOnDemandAsset.Location = new System.Drawing.Point(35, 29);
-            this.radioButtonOnDemandAsset.Name = "radioButtonOnDemandAsset";
-            this.radioButtonOnDemandAsset.Size = new System.Drawing.Size(80, 17);
-            this.radioButtonOnDemandAsset.TabIndex = 0;
-            this.radioButtonOnDemandAsset.TabStop = true;
-            this.radioButtonOnDemandAsset.Text = "On-demand";
-            this.radioButtonOnDemandAsset.UseVisualStyleBackColor = true;
-            this.radioButtonOnDemandAsset.CheckedChanged += new System.EventHandler(this.UpdateLocatorGUID_CheckedChanged);
-            // 
-            // radioButtonLiveArchive
-            // 
-            this.radioButtonLiveArchive.AutoSize = true;
-            this.radioButtonLiveArchive.Location = new System.Drawing.Point(35, 53);
-            this.radioButtonLiveArchive.Name = "radioButtonLiveArchive";
-            this.radioButtonLiveArchive.Size = new System.Drawing.Size(130, 17);
-            this.radioButtonLiveArchive.TabIndex = 1;
-            this.radioButtonLiveArchive.Text = "Live archive (fragblob)";
-            this.radioButtonLiveArchive.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.radioButtonLiveArchive);
-            this.groupBox4.Controls.Add(this.radioButtonOnDemandAsset);
-            this.groupBox4.Location = new System.Drawing.Point(15, 22);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(463, 86);
-            this.groupBox4.TabIndex = 0;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Asset type";
             // 
             // labelWarning
             // 
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(32, 255);
+            this.labelWarning.Location = new System.Drawing.Point(32, 327);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 44;
@@ -136,7 +100,7 @@
             this.listBoxAcounts.FormattingEnabled = true;
             this.listBoxAcounts.Location = new System.Drawing.Point(35, 34);
             this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(219, 186);
+            this.listBoxAcounts.Size = new System.Drawing.Size(219, 251);
             this.listBoxAcounts.TabIndex = 61;
             this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
             // 
@@ -145,12 +109,31 @@
             this.groupBox1.Controls.Add(this.listBoxAcounts);
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Controls.Add(this.labelWarning);
-            this.groupBox1.Location = new System.Drawing.Point(15, 126);
+            this.groupBox1.Location = new System.Drawing.Point(15, 29);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 284);
+            this.groupBox1.Size = new System.Drawing.Size(463, 373);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Media Services Account Destination";
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 416);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(97, 13);
+            this.label3.TabIndex = 65;
+            this.label3.Text = "Asset Copy Name :";
+            // 
+            // copyassetname
+            // 
+            this.copyassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyassetname.Location = new System.Drawing.Point(23, 432);
+            this.copyassetname.Name = "copyassetname";
+            this.copyassetname.Size = new System.Drawing.Size(455, 20);
+            this.copyassetname.TabIndex = 64;
             // 
             // CopyAsset
             // 
@@ -158,18 +141,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 526);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.copyassetname);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox4);
             this.Name = "CopyAsset";
             this.Text = "Copy an asset";
             this.Load += new System.EventHandler(this.CopyAsset_Load);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -178,12 +161,11 @@
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label labelDescription;
-        private System.Windows.Forms.RadioButton radioButtonOnDemandAsset;
-        private System.Windows.Forms.RadioButton radioButtonLiveArchive;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBoxAcounts;
         private System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.TextBox copyassetname;
     }
 }
