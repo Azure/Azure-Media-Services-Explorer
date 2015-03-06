@@ -119,7 +119,7 @@ namespace AMSExplorer
             {
                 Environment.Exit(0);
             }
-
+            
             _credentials = form.LoginCredentials;
 
             DisplaySplashDuringLoading = true;
@@ -157,9 +157,9 @@ namespace AMSExplorer
             {
                 AMEPremiumWorkflowPresent = false;
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
+                //encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-                ContextMenuItemPremiumWorkflow.Visible = false;
+                //ContextMenuItemPremiumWorkflow.Visible = false;
             }
 
             // Timer Auto Refresh
