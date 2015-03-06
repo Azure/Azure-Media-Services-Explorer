@@ -56,7 +56,7 @@ namespace AMSExplorer
         public bool createNewContainer;
         private bool ErrorConnect = false;
         private IEnumerable<CloudBlobContainer> mediaBlobContainers;
-
+        private string myStorageSuffix;
 
         public bool BlobStorageDefault
         {
@@ -141,7 +141,7 @@ namespace AMSExplorer
         }
 
 
-        public ExportAssetToAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg, IAsset sourceAsset)
+        public ExportAssetToAzureStorage(CloudMediaContext contextUploadArg, string MediaServicesStorageAccountKeyArg, IAsset sourceAsset, string StorageSuffix)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -168,7 +168,7 @@ namespace AMSExplorer
                 listViewAssetFiles.EndUpdate();
 
             }
-
+            myStorageSuffix = StorageSuffix;
 
 
         }
@@ -201,11 +201,11 @@ namespace AMSExplorer
             {
                 if (radioButtonStorageDefault.Checked)
                 {
-                    storageAccount = new CloudStorageAccount(new StorageCredentials(contextUpload.DefaultStorageAccount.Name, MediaServicesStorageAccountKey), true);
+                    storageAccount = new CloudStorageAccount(new StorageCredentials(contextUpload.DefaultStorageAccount.Name, MediaServicesStorageAccountKey), myStorageSuffix, true);
                 }
                 else
                 {
-                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), true);
+                    storageAccount = new CloudStorageAccount(new StorageCredentials(textBoxStorageName.Text, textBoxStorageKey.Text), myStorageSuffix ,true);
                 }
             }
             catch

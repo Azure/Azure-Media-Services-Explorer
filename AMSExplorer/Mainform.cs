@@ -80,7 +80,7 @@ namespace AMSExplorer
         private bool WatchFolderDeleteFile = false;
         private IJobTemplate WatchFolderJobTemplate = null;
         FileSystemWatcher WatchFolderWatcher;
-        private bool AMEZeniumPresent = true;
+        private bool AMEPremiumWorkflowPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
 
@@ -111,8 +111,6 @@ namespace AMSExplorer
             }
             Program.SaveAndProtectUserConfig(); // to save settings 
 
-
-
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
 
             AMSLogin form = new AMSLogin();
@@ -121,7 +119,7 @@ namespace AMSExplorer
             {
                 Environment.Exit(0);
             }
-
+            
             _credentials = form.LoginCredentials;
 
             DisplaySplashDuringLoading = true;
@@ -157,11 +155,11 @@ namespace AMSExplorer
 
             if ((GetLatestMediaProcessorByName(Constants.ZeniumEncoder) == null) && (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderPremiumWorkflow) == null))
             {
-                AMEZeniumPresent = false;
-                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
-                encodeAssetWithZeniumToolStripMenuItem.Visible = false;
-                ContextMenuItemZenium.Enabled = false; // mouse context menu
-                ContextMenuItemZenium.Visible = false;
+                AMEPremiumWorkflowPresent = false;
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                //encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
+                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+                //ContextMenuItemPremiumWorkflow.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -220,7 +218,7 @@ namespace AMSExplorer
 
             try
             {
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 CloudBlobClient cloudBlobClient = storageAccount.CreateCloudBlobClient();
 
                 // Create a new asset.
@@ -348,36 +346,7 @@ namespace AMSExplorer
 
         }
 
-
-
-        //delete all assets except those specified or published or Zenium Blueprint
-        void DeleteAllAssets(string[] exceptionAssetNames)
-        {
-            List<string> objList_string = new List<string>();
-            foreach (string assetName in exceptionAssetNames)
-            {
-                objList_string.Add(assetName);
-            }
-            foreach (IAsset objIAsset in _context.Assets)
-            {
-                if (!objList_string.Contains(objIAsset.Name))
-                {
-                    try
-                    {
-                        DeleteLocatorsForAsset(objIAsset);
-                        objIAsset.Delete();
-                    }
-                    catch (Exception e)
-                    {
-                        TextBoxLogWriteLine("Error when deleting asset '{0}'.", objIAsset.Name);
-                        TextBoxLogWriteLine(e);
-                    }
-
-                }
-            }
-            TextBoxLogWriteLine("DeleteAllAssets() completed.");
-        }
-
+               
 
         private void ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
         {
@@ -490,30 +459,7 @@ namespace AMSExplorer
             return job;
         }
 
-        /*
-        static IAsset GetAsset(string assetId)
-        {
-            IAsset asset;
 
-            try
-            {
-                // Use a LINQ Select query to get an asset.
-                var assetInstance =
-                    from a in _context.Assets
-                    where a.Id == assetId
-                    select a;
-                // Reference the asset as an IAsset.
-                asset = assetInstance.FirstOrDefault();
-            }
-            catch
-            {
-
-                asset = null;
-            }
-
-            return asset;
-        }
-         * */
 
         static IChannel GetChannel(string channelId)
         {
@@ -677,12 +623,6 @@ namespace AMSExplorer
             ismAssetFiles.First().Update();
         }
 
-
-        static void TextBoxAddLine(TextBox TB, string ST)
-        {
-            TB.Text += ST + "\r\n";
-            TB.Refresh();
-        }
 
 
         public void TextBoxLogWriteLine(string message, object o1, bool Error = false)
@@ -1308,7 +1248,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Merging assets to new asset '{0}'...", newassetname);
                 IAsset NewAsset = _context.Assets.Create(newassetname, AssetCreationOptions.None); // No encryption as we do storage copy
                 CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), true);
+                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
                 IAccessPolicy readPolicy = _context.AccessPolicies.Create("readPolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
@@ -1424,24 +1364,42 @@ namespace AMSExplorer
         }
 
 
-        public DialogResult DisplayInfo(IAsset asset)
+        public DialogResult? DisplayInfo(IAsset asset)
         {
-            AssetInformation form = new AssetInformation(this)
+            DialogResult? dialogResult = null;
+            if (asset != null)
+            {
+                // Refresh the asset.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
+                if (asset != null)
                 {
-                    MyAsset = asset,
-                    MyContext = _context,
-                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        AssetInformation form = new AssetInformation(this)
+                        {
+                            MyAsset = asset,
+                            MyContext = _context,
+                            MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                        };
 
-                };
+                        dialogResult = form.ShowDialog(this);
 
-            DialogResult dialogResult = form.ShowDialog(this);
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
+                }
+            }
             return dialogResult;
         }
 
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
-            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset)
+            ExportAssetToAzureStorage form = new ExportAssetToAzureStorage(_context, _credentials.StorageKey, sourceAsset, _credentials.ReturnStorageSuffix())
             {
                 BlobStorageDefault = UseDefaultStorage,
                 BlobLabelDefaultStorage = _context.DefaultStorageAccount.Name,
@@ -1462,20 +1420,32 @@ namespace AMSExplorer
         }
 
 
-        public static DialogResult DisplayInfo(IJob job)
+        public DialogResult? DisplayInfo(IJob job)
         {
-            CloudMediaContext context = Program.ConnectAndGetNewContext(_credentials);
-            JobInformation form = new JobInformation(context);
-            // we get a new context to have the latest job and task information (otherwise, task is not dynamically updated)
-            form.MyJob = context.Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
-            DialogResult dialogResult = form.ShowDialog();
+            DialogResult? dialogResult = null;
+            if (job != null)
+            {
+                // Refresh the context and job.
+                _context = Program.ConnectAndGetNewContext(_credentials);
+                job = _context.Jobs.Where(j => j.Id == job.Id).FirstOrDefault();
+                if (job != null)
+                {
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        JobInformation form = new JobInformation(_context)
+                        {
+                            MyJob = job
+                        };
+                        dialogResult = form.ShowDialog(this);
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
+                }
+            }
             return dialogResult;
-        }
-
-
-        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void renameToolStripMenuItem_Click(object sender, EventArgs e)  // RENAME ASSET
@@ -1894,40 +1864,7 @@ namespace AMSExplorer
                 }
             }
         }
-        /*
-          private void DoMenuDeleteSelectedAssets()
-        {
-            List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            if (SelectedAssets.Count > 0)
-            {
-                string question = (dataGridViewAssetsV.SelectedRows.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (IAsset AssetTODelete in SelectedAssets)
-
-                        if (AssetTODelete != null)
-                        {
-                            //delete
-                            TextBoxLogWriteLine("Deleting asset '{0}'", AssetTODelete.Name);
-                            try
-                            {
-                                DeleteAsset(AssetTODelete);
-                                if (AssetInfo.GetAsset(AssetTODelete.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
-                            }
-
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the asset {0}.", AssetTODelete.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-                        }
-                    DoRefreshGridAssetV(false);
-                }
-            }
-        } 
-         */
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1937,47 +1874,15 @@ namespace AMSExplorer
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayAssetInfo();
-        }
-
-        private void DoMenuDisplayAssetInfo()
-        {
-            IAsset AssetToDisplayP = ReturnSelectedAssets().FirstOrDefault();
-            if (AssetToDisplayP != null)
-            {
-                // Refresh the asset.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                AssetToDisplayP = _context.Assets.Where(a => a.Id == AssetToDisplayP.Id).FirstOrDefault();
-                DisplayInfo(AssetToDisplayP);
-            }
+            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
         }
 
 
         private void displayJobInformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayJobInfo();
+            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
         }
 
-
-        private void DoMenuDisplayJobInfo()
-        {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
-            if (SelectedJobs.Count == 1)
-            {
-                IJob JobToDisplayP = SelectedJobs.FirstOrDefault();
-
-                // Refresh the job.
-                _context = Program.ConnectAndGetNewContext(_credentials);
-                IJob JobToDisplayP2 = _context.Jobs.Where(j => j.Id == JobToDisplayP.Id).FirstOrDefault();
-
-                if (JobToDisplayP2 != null)
-                {
-                    if (DisplayInfo(JobToDisplayP2) == DialogResult.OK)
-                    {
-                    }
-                }
-            }
-        }
 
 
         public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
@@ -2036,7 +1941,7 @@ namespace AMSExplorer
             }
             if (havestoragecredentials) // if we have the storage credentials
             {
-                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey)
+                ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey, _credentials.ReturnStorageSuffix())
                     {
                         ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
                         ImportNewAssetName = "NewAsset Blob_" + Guid.NewGuid(),
@@ -2092,7 +1997,7 @@ namespace AMSExplorer
             if (UseDefaultStorage) // The default storage is used
             {
                 CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
 
 
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
@@ -2218,7 +2123,7 @@ namespace AMSExplorer
             {
                 // Create Media Services context.
 
-                var externalStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), true);
+                var externalStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
                 var externalCloudBlobClient = externalStorageAccount.CreateCloudBlobClient();
                 var externalMediaBlobContainer = externalCloudBlobClient.GetContainerReference(containername);
 
@@ -2239,7 +2144,7 @@ namespace AMSExplorer
                   TimeSpan.FromDays(1), AccessPermissions.Write);
                 ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, asset, writePolicy);
 
-                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                var destinationStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var destBlobStorage = destinationStorageAccount.CreateCloudBlobClient();
 
                 // Get the asset container URI and Blob copy from mediaContainer to assetContainer.
@@ -2356,7 +2261,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the Azure export process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
+                CloudStorageAccount storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
                 var cloudBlobClient = storageAccount.CreateCloudBlobClient();
                 IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
                 ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SelectedFiles[0].Asset, readpolicy);
@@ -2473,8 +2378,8 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Starting the blob copy process.");
 
                 // let's get cloudblobcontainer for source
-                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), true);
-                CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), true);
+                CloudStorageAccount SourceStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount TargetStorageAccount = new CloudStorageAccount(new StorageCredentials(otherstoragename, otherstoragekey), _credentials.ReturnStorageSuffix(), true);
 
                 var SourceCloudBlobClient = SourceStorageAccount.CreateCloudBlobClient();
                 var TargetCloudBlobClient = TargetStorageAccount.CreateCloudBlobClient();
@@ -2643,43 +2548,6 @@ namespace AMSExplorer
             }
         }
 
-        /*
-         *   private void DoDeleteSelectedJobs()
-        {
-            List<IJob> SelectedJobs = ReturnSelectedJobs();
-
-            if (SelectedJobs.Count > 0)
-            {
-                string question = "Delete these " + SelectedJobs.Count + " jobs ?";
-                if (SelectedJobs.Count == 1) question = "Delete " + SelectedJobs[0].Name + " ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Job(s) deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-                {
-                    foreach (IJob JobToDelete in SelectedJobs)
-
-                        if (JobToDelete != null)
-                        {
-                            //delete
-                            TextBoxLogWriteLine("Deleting job '{0}'.", JobToDelete.Name);
-
-                            try
-                            {
-                                JobToDelete.Delete();
-                                TextBoxLogWriteLine("Job deleted.");
-                            }
-
-                            catch (Exception ex)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when deleting the job '{0}'", JobToDelete.Name, true);
-                                TextBoxLogWriteLine(ex);
-                            }
-                        }
-                    DoRefreshGridJobV(false);
-                }
-            }
-        }
-         */
-
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2697,17 +2565,13 @@ namespace AMSExplorer
         }
 
 
-        private void azureManagementPortalToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Process.Start(@"https://manage.windowsazure.com");
-        }
 
         private void encodeAssetWithDigitalRapidsKayakCloudEngineToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEncodeWithZenium();
+            DoMenuEncodeWithPremiumWorkflow();
         }
 
-        private void DoMenuEncodeWithZenium()
+        private void DoMenuEncodeWithPremiumWorkflow()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -2730,14 +2594,14 @@ namespace AMSExplorer
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
 
-            string taskname = "Zenium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
+            string taskname = "Premium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
 
-            EncodingZenium form = new EncodingZenium(_context)
+            EncodingPremium form = new EncodingPremium(_context)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
                 EncodingProcessorsList = Encoders,
-                EncodingJobName = "Zenium Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-Zenium encoded with " + Constants.NameconvWorkflow,
+                EncodingJobName = "Premium Encoding of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
@@ -2750,7 +2614,7 @@ namespace AMSExplorer
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                    foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each blueprint selected, we create a task
+                    foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each blueprint selected, we create a task
                     {
                         string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
                         ITask task = job.Tasks.AddNew(
@@ -2787,7 +2651,7 @@ namespace AMSExplorer
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
 
                         IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
-                        foreach (IAsset graphAsset in form.SelectedZeniumWorkflows) // for each workflow selected, we create a task
+                        foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
                         {
                             string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
@@ -3093,12 +2957,6 @@ namespace AMSExplorer
         /// <returns>The asset that was packaged to HLS.</returns>
 
 
-        private void packageSmoothStreamingTOHLSstaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuPackageSmoothToHLSStatic();
-
-        }
-
         private void DoMenuPackageSmoothToHLSStatic()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
@@ -3151,63 +3009,48 @@ namespace AMSExplorer
             }
         }
 
-        private void packageMultiMP4AssetToSmoothStreamingstaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuMP4ToSmoothStatic();
-        }
 
         private void DoMenuMP4ToSmoothStatic()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            if (SelectedAssets.Count == 0)
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
             {
-                MessageBox.Show("No asset was selected");
-                return;
+                MessageBox.Show("No asset was selected, or asset is null.");
             }
-            IAsset mediaAsset = SelectedAssets.FirstOrDefault();
-            if (mediaAsset == null) return;
-
-            DisplayDeprecatedMessage();
-
-            if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4))
+            else
             {
-                MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                DisplayDeprecatedMessage();
 
+                if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
+                {
+                    MessageBox.Show("Asset(s) should be a multi bitrate or single MP4 file(s).", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
 
-            string labeldb = "Package '" + mediaAsset.Name + "' to Smooth ?";
+                string labeldb = (SelectedAssets.Count > 1) ?
+                    "Package these " + SelectedAssets.Count + " assets to Smooth Streaming ?" :
+                    "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth Streaming ?";
 
-            if (SelectedAssets.Count > 1)
-            {
-                labeldb = "Package these " + SelectedAssets.Count + " assets to Smooth Streaming?";
-            }
+                string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
 
-            string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
+                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
 
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
+                    // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
+                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
+                        MediaProcessorNames.WindowsAzureMediaPackager);
 
-                // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
-                IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                    MediaProcessorNames.WindowsAzureMediaPackager);
+                    // Windows Azure Media Packager does not accept string presets, so load xml configuration
+                    string smoothConfig = File.ReadAllText(Path.Combine(
+                                _configurationXMLFiles,
+                                "MediaPackager_MP4toSmooth.xml"));
 
-                // Windows Azure Media Packager does not accept string presets, so load xml configuration
-                string smoothConfig = File.ReadAllText(Path.Combine(
-                            _configurationXMLFiles,
-                            "MediaPackager_MP4toSmooth.xml"));
-
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                }
             }
         }
-
-        private void encryptWithPlayReadystaticToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuProtectWithPlayReadyStatic();
-        }
-
 
 
         private void DoMenuProtectWithPlayReadyStatic()
@@ -3326,10 +3169,6 @@ namespace AMSExplorer
             DoRefreshGridJobV(false);
         }
 
-        private void validateMultiMP4AssetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuValidateMultiMP4Static();
-        }
 
         private void DoMenuValidateMultiMP4Static()
         {
@@ -3457,11 +3296,6 @@ namespace AMSExplorer
 
                 LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { "" }, AssetCreationOptions.None);
             }
-        }
-
-        private void storageDecryptTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDecryptAsset();
         }
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3928,12 +3762,7 @@ typeof(FilterTime)
             if (e.RowIndex > -1)
             {
                 IAsset asset = AssetInfo.GetAsset(dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString(), _context);
-
-                if (asset == null) return;
-
-                if (DisplayInfo(asset) == DialogResult.OK)
-                {
-                }
+                DisplayInfo(asset);
             }
         }
 
@@ -3995,11 +3824,19 @@ typeof(FilterTime)
             if (e.RowIndex > -1)
             {
                 IJob job = GetJob(dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["Id"].Index].Value.ToString());
-
-                if (job == null) return;
-
-                if (DisplayInfo(job) == DialogResult.OK)
+                if (job != null)
                 {
+                    try
+                    {
+                        this.Cursor = Cursors.WaitCursor;
+                        if (DisplayInfo(job) == DialogResult.OK)
+                        {
+                        }
+                    }
+                    finally
+                    {
+                        this.Cursor = Cursors.Arrow;
+                    }
                 }
             }
         }
@@ -4058,7 +3895,7 @@ typeof(FilterTime)
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayAssetInfo();
+            DisplayInfo(ReturnSelectedAssets().FirstOrDefault());
         }
 
         private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
@@ -4101,7 +3938,7 @@ typeof(FilterTime)
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayJobInfo();
+            DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
         }
 
         private void toolStripMenuJobsCancel_Click(object sender, EventArgs e)
@@ -4157,10 +3994,8 @@ typeof(FilterTime)
 
         private void DoCreateJobReportEmail()
         {
-
             JobInfo JR = new JobInfo(ReturnSelectedJobs());
             JR.CreateOutlookMail();
-
         }
 
         private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4173,12 +4008,12 @@ typeof(FilterTime)
             DoMenuDisplayJobInfoFromKnownID();
         }
 
-        private static void DoMenuDisplayJobInfoFromKnownID()
+        private void DoMenuDisplayJobInfoFromKnownID()
         {
 
             string JobId = "";
             string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith("nb:jid:UUID:")) JobId = clipbs;
+            if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
 
 
             if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
@@ -4196,10 +4031,12 @@ typeof(FilterTime)
         }
         private void DoMenuDisplayAssetInfoFromKnownID()
         {
-
-            string AssetId = "";
+            string AssetId = string.Empty;
             string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith("nb:cid:UUID:")) AssetId = clipbs;
+            if (clipbs != null && clipbs.StartsWith(Constants.AssetIdPrefix))
+            {
+                AssetId = clipbs;
+            }
 
             if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
@@ -4208,12 +4045,11 @@ typeof(FilterTime)
                 {
                     MessageBox.Show("This asset has not been found.");
                 }
-
-                else if (DisplayInfo(KnownAsset) == DialogResult.OK)
+                else
                 {
+                    DisplayInfo(KnownAsset);
                 }
             }
-
         }
 
         private void displayInformationForAKnownAssetIdToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4257,10 +4093,6 @@ typeof(FilterTime)
             }
         }
 
-        private void toolStripComboBoxNbItemsPage_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void toolStripComboBoxNbItemsPage_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -4338,7 +4170,6 @@ typeof(FilterTime)
                         default:
                             break;
 
-
                     }
                 }
             }
@@ -4378,8 +4209,6 @@ typeof(FilterTime)
                 }
             }
             else toolStripMenuItemOpenDest.Enabled = false;
-
-
         }
 
         private void priorityToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4517,7 +4346,6 @@ typeof(FilterTime)
             if (IsThereALocatorValid(ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault(), ref PlayBackLocator))
                 AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: PlayBackLocator.GetMpegDashUri().ToString(), context: _context);
         }
-
 
 
         private void withFlashOSMFAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -4852,8 +4680,6 @@ typeof(FilterTime)
         }
 
 
-
-
         private void azureMediaServicesMSDNToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
             Process.Start(@"http://aka.ms/wamsmsdn");
@@ -4900,14 +4726,12 @@ typeof(FilterTime)
             EnableChildItems(ref contextMenuStripChannels, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
             EnableChildItems(ref contextMenuStripPrograms, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabLive)));
 
-            // let's disable Zenium if not present
-            if (!AMEZeniumPresent)
+            // let's disable Premium Workflow if not present
+            if (!AMEPremiumWorkflowPresent)
             {
-                encodeAssetWithZeniumToolStripMenuItem.Enabled = false;  //menu
-                ContextMenuItemZenium.Enabled = false; // mouse context menu
+                encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
+                ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
-
-
         }
 
         private void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
@@ -4924,7 +4748,6 @@ typeof(FilterTime)
                     {
                         foreach (ToolStripItem itemd in itemt.DropDownItems) itemd.Enabled = bflag;
                     }
-
                 }
             }
         }
@@ -5078,8 +4901,6 @@ typeof(FilterTime)
             withCustomPlayerToolStripMenuItem1.Visible = Properties.Settings.Default.CustomPlayerEnabled;
             withCustomPlayerToolStripMenuItem2.Visible = Properties.Settings.Default.CustomPlayerEnabled;
         }
-
-
 
 
         private void DoRefreshGridChannelV(bool firstime)
@@ -5274,7 +5095,10 @@ typeof(FilterTime)
             var programqueryrunning = programquery.Where(p => p.State == ProgramState.Running);
 
             if (programquery.Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).Count() > 0) // programs are starting or stopping
+            {
                 MessageBox.Show("Some programs are starting or stopping. Channel(s) cannot be stopped now.", "Channel(s) stop", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                TextBoxLogWriteLine("Some programs are starting or stopping. Channel(s) cannot be stopped now.", true);
+            }
             else
             {
                 if (programqueryrunning.Count() > 0) // some programs are running
@@ -6166,19 +5990,26 @@ typeof(FilterTime)
         {
             if (program != null)
             {
-                ProgramInformation form = new ProgramInformation(this)
+                try
                 {
-                    MyProgram = program,
-                    MyContext = _context,
-                    MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
-                };
+                    this.Cursor = Cursors.WaitCursor;
+                    ProgramInformation form = new ProgramInformation(this)
+                    {
+                        MyProgram = program,
+                        MyContext = _context,
+                        MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
+                    };
 
-
-                if (form.ShowDialog() == DialogResult.OK)
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        program.ArchiveWindowLength = form.archiveWindowLength;
+                        program.Description = form.ProgramDescription;
+                        await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                    }
+                }
+                finally
                 {
-                    program.ArchiveWindowLength = form.archiveWindowLength;
-                    program.Description = form.ProgramDescription;
-                    await Task.Run(() => ProgramExecuteAsync(program.UpdateAsync, program, "updated"));
+                    this.Cursor = Cursors.Arrow;
                 }
             }
         }
@@ -7540,9 +7371,9 @@ typeof(FilterTime)
         }
 
 
-        private void encodeAssetsWithZeniumToolStripMenuItem_Click(object sender, EventArgs e)
+        private void encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuEncodeWithZenium();
+            DoMenuEncodeWithPremiumWorkflow();
         }
 
         private void createALocatorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7919,38 +7750,31 @@ typeof(FilterTime)
 
         private void DoAttachAnotherStorageAccount()
         {
-            AttachStorage form = new AttachStorage();
+            AttachStorage form = new AttachStorage(_credentials);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper("https://management.core.windows.net", form.GetCertThumbprint, form.GetAzureSubscriptionID);
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
-                MediaServicesAccount accountInfo = new MediaServicesAccount();
-                accountInfo.AccountName = _context.Credentials.ClientId;
+                MediaServicesAccount accountInfo = new MediaServicesAccount()
+                {
+                    AccountName = _context.Credentials.ClientId,
+                    StorageAccountName = _context.DefaultStorageAccount.Name
+                };
 
-                //accountInfo.Region = "";
-                accountInfo.StorageAccountName = _context.DefaultStorageAccount.Name;
-                //accountInfo.StorageAccountKey = _credentials.StorageKey;
-                //accountInfo.BlobStorageEndpointUri = _context.DefaultStorageAccount.;
-
-
-                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest();
-                storageAccountToAttach.StorageAccountName = form.GetStorageName;
-                storageAccountToAttach.StorageAccountKey = form.GetStorageKey;
-                storageAccountToAttach.BlobStorageEndpointUri = form.GetStorageEndpoint;
-
-                // Call CreateMediaServiceAccountUsingXmlContentType to create a new \
-                // Media Services account. 
-                //helper.CreateMediaServiceAccountUsingXmlContentType(accountInfo);
+                AttachStorageAccountRequest storageAccountToAttach = new AttachStorageAccountRequest()
+                {
+                    StorageAccountName = form.GetStorageName,
+                    StorageAccountKey = form.GetStorageKey,
+                    BlobStorageEndpointUri = form.GetStorageEndpointURL
+                };
 
                 // Call AttachStorageAccountToMediaServiceAccount to 
                 // attach an existing storage account to the Media Services account.
                 try
                 {
-                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo,
-                                                   storageAccountToAttach);
+                    helper.AttachStorageAccountToMediaServiceAccount(accountInfo, storageAccountToAttach);
                     TextBoxLogWriteLine("Storage account '{0}' attached to '{1}' account.", form.GetStorageName, _context.Credentials.ClientId);
                 }
                 catch (Exception ex)
@@ -7958,17 +7782,7 @@ typeof(FilterTime)
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
                     TextBoxLogWriteLine(ex);
-
                 }
-
-
-                // Call the following methods to get details about 
-                // Media Services account.
-                //helper.GetAccountDetails(accountInfo);
-                //helper.ListAvailableRegions(accountInfo);
-                //helper.ListSubscriptionAccounts(accountInfo);
-                //helper.ListSubscriptionAccounts(accountInfo);
-
             }
         }
 
@@ -8034,7 +7848,9 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://manage.windowsazure.com");
+            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
+                CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
+            Process.Start(PortalUrl);
         }
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8528,16 +8344,6 @@ typeof(FilterTime)
             if (Error) MessageBox.Show("Error when generating the test token", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void securityToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            DoMenuDecryptAsset();
-
-        }
 
         private void toolStripMenuItem13_Click(object sender, EventArgs e)
         {
@@ -8547,11 +8353,6 @@ typeof(FilterTime)
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             DoSetupDynEnc();
-        }
-
-        private void getATestTokenToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
@@ -8588,9 +8389,7 @@ typeof(FilterTime)
         {
             DoGetTestToken();
         }
-
     }
-
 }
 
 
