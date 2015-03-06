@@ -45,7 +45,8 @@
             this.textBoxAccountName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonConfigureChinaNorth = new System.Windows.Forms.Button();
+            this.buttonConfigureGlobal = new System.Windows.Forms.Button();
+            this.buttonConfigureChina = new System.Windows.Forms.Button();
             this.textBoxAzureEndpoint = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxACSBaseAddress = new System.Windows.Forms.TextBox();
@@ -65,8 +66,6 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonConfigureChinaEast = new System.Windows.Forms.Button();
-            this.buttonConfigureGlobal = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -245,8 +244,7 @@
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
             this.tabPage2.Controls.Add(this.buttonConfigureGlobal);
-            this.tabPage2.Controls.Add(this.buttonConfigureChinaEast);
-            this.tabPage2.Controls.Add(this.buttonConfigureChinaNorth);
+            this.tabPage2.Controls.Add(this.buttonConfigureChina);
             this.tabPage2.Controls.Add(this.textBoxAzureEndpoint);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.textBoxACSBaseAddress);
@@ -265,16 +263,27 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced";
             // 
-            // buttonConfigureChinaNorth
+            // buttonConfigureGlobal
             // 
-            this.buttonConfigureChinaNorth.Enabled = false;
-            this.buttonConfigureChinaNorth.Location = new System.Drawing.Point(232, 68);
-            this.buttonConfigureChinaNorth.Name = "buttonConfigureChinaNorth";
-            this.buttonConfigureChinaNorth.Size = new System.Drawing.Size(84, 23);
-            this.buttonConfigureChinaNorth.TabIndex = 44;
-            this.buttonConfigureChinaNorth.Text = "China North";
-            this.buttonConfigureChinaNorth.UseVisualStyleBackColor = true;
-            this.buttonConfigureChinaNorth.Click += new System.EventHandler(this.buttonConfigureNorthChina_Click);
+            this.buttonConfigureGlobal.Enabled = false;
+            this.buttonConfigureGlobal.Location = new System.Drawing.Point(258, 68);
+            this.buttonConfigureGlobal.Name = "buttonConfigureGlobal";
+            this.buttonConfigureGlobal.Size = new System.Drawing.Size(71, 23);
+            this.buttonConfigureGlobal.TabIndex = 46;
+            this.buttonConfigureGlobal.Text = "Global";
+            this.buttonConfigureGlobal.UseVisualStyleBackColor = true;
+            this.buttonConfigureGlobal.Click += new System.EventHandler(this.buttonConfigureGlobal_Click);
+            // 
+            // buttonConfigureChina
+            // 
+            this.buttonConfigureChina.Enabled = false;
+            this.buttonConfigureChina.Location = new System.Drawing.Point(335, 68);
+            this.buttonConfigureChina.Name = "buttonConfigureChina";
+            this.buttonConfigureChina.Size = new System.Drawing.Size(71, 23);
+            this.buttonConfigureChina.TabIndex = 44;
+            this.buttonConfigureChina.Text = "China";
+            this.buttonConfigureChina.UseVisualStyleBackColor = true;
+            this.buttonConfigureChina.Click += new System.EventHandler(this.buttonConfigureNorthChina_Click);
             // 
             // textBoxAzureEndpoint
             // 
@@ -459,28 +468,6 @@
             this.panel1.Size = new System.Drawing.Size(704, 48);
             this.panel1.TabIndex = 52;
             // 
-            // buttonConfigureChinaEast
-            // 
-            this.buttonConfigureChinaEast.Enabled = false;
-            this.buttonConfigureChinaEast.Location = new System.Drawing.Point(322, 68);
-            this.buttonConfigureChinaEast.Name = "buttonConfigureChinaEast";
-            this.buttonConfigureChinaEast.Size = new System.Drawing.Size(84, 23);
-            this.buttonConfigureChinaEast.TabIndex = 45;
-            this.buttonConfigureChinaEast.Text = "China East";
-            this.buttonConfigureChinaEast.UseVisualStyleBackColor = true;
-            this.buttonConfigureChinaEast.Click += new System.EventHandler(this.buttonConfigureChinaEast_Click);
-            // 
-            // buttonConfigureGlobal
-            // 
-            this.buttonConfigureGlobal.Enabled = false;
-            this.buttonConfigureGlobal.Location = new System.Drawing.Point(142, 68);
-            this.buttonConfigureGlobal.Name = "buttonConfigureGlobal";
-            this.buttonConfigureGlobal.Size = new System.Drawing.Size(84, 23);
-            this.buttonConfigureGlobal.TabIndex = 46;
-            this.buttonConfigureGlobal.Text = "Global";
-            this.buttonConfigureGlobal.UseVisualStyleBackColor = true;
-            this.buttonConfigureGlobal.Click += new System.EventHandler(this.buttonConfigureGlobal_Click);
-            // 
             // AMSLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -553,10 +540,9 @@
         private System.Windows.Forms.LinkLabel accountmgtlink;
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonConfigureChinaNorth;
+        private System.Windows.Forms.Button buttonConfigureChina;
         private System.Windows.Forms.TextBox textBoxAzureEndpoint;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonConfigureChinaEast;
         private System.Windows.Forms.Button buttonConfigureGlobal;
     }
 }

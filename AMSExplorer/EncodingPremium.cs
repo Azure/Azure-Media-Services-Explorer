@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------- 
-// <copyright file="EncodingZenium.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <copyright file="EncodingPremium.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
@@ -31,7 +31,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class EncodingZenium : Form
+    public partial class EncodingPremium : Form
     {
         private int numberofinputassets;
         private List<IMediaProcessor> Procs;
@@ -50,7 +50,7 @@ namespace AMSExplorer
             set
             {
                 foreach (IMediaProcessor pr in value)
-                    comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2} ({3})", pr.Vendor, pr.Name, pr.Version, pr.Description));
+                    comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2}", pr.Vendor, pr.Name, pr.Version));
                 comboBoxProcessor.SelectedIndex = 0;
                 Procs = value;
             }
@@ -73,7 +73,7 @@ namespace AMSExplorer
             }
         }
 
-        public List<IAsset> SelectedZeniumWorkflows
+        public List<IAsset> SelectedPremiumWorkflows
         {
             get
             {
@@ -169,7 +169,7 @@ namespace AMSExplorer
             }
         }
 
-        public EncodingZenium(CloudMediaContext context)
+        public EncodingPremium(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -228,14 +228,14 @@ namespace AMSExplorer
 
         private void LoadWorkflows()
         {
-         var query = _context.Files.ToList().Where(f => (
-               f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-               || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-               || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-               || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-               || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-               || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-               )).ToArray();
+            var query = _context.Files.ToList().Where(f => (
+                  f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
+                  || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
+                  || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
+                  || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
+                  || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
+                  || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
+                  )).ToArray();
 
             listViewWorkflows.BeginUpdate();
             listViewWorkflows.Items.Clear();
@@ -269,7 +269,7 @@ namespace AMSExplorer
         {
 
         }
-              
+
 
         private void buttonUpload_Click(object sender, EventArgs e)
         {
@@ -278,9 +278,9 @@ namespace AMSExplorer
 
         private async void DoUpload()
         {
-              if (Directory.Exists(this.EncodingPremiumWorkflowPresetXMLFiles))
+            if (Directory.Exists(this.EncodingPremiumWorkflowPresetXMLFiles))
                 openFileDialogWorkflow.InitialDirectory = this.EncodingPremiumWorkflowPresetXMLFiles;
-           
+
 
             if (openFileDialogWorkflow.ShowDialog() == DialogResult.OK)
             {
@@ -335,6 +335,6 @@ namespace AMSExplorer
 
 
     }
- 
+
 
 }

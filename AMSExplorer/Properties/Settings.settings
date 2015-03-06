@@ -83,5 +83,8 @@
     <Setting Name="DefaultTokenDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
+    <Setting Name="AMEPremiumWorkflowPreviewPrice" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1.99</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -346,5 +346,17 @@ namespace AMSExplorer.Properties {
                 this["DefaultTokenDuration"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1.99")]
+        public decimal AMEPremiumWorkflowPreviewPrice {
+            get {
+                return ((decimal)(this["AMEPremiumWorkflowPreviewPrice"]));
+            }
+            set {
+                this["AMEPremiumWorkflowPreviewPrice"] = value;
+            }
+        }
     }
 }
