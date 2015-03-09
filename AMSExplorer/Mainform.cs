@@ -3020,36 +3020,36 @@ namespace AMSExplorer
             }
             else
             {
-            DisplayDeprecatedMessage();
+                DisplayDeprecatedMessage();
 
                 if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
-            {
+                {
                     MessageBox.Show("Asset(s) should be a multi bitrate or single MP4 file(s).", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+                }
 
                 string labeldb = (SelectedAssets.Count > 1) ?
                     "Package these " + SelectedAssets.Count + " assets to Smooth Streaming ?" :
                     "Package '" + SelectedAssets.FirstOrDefault().Name + "' to Smooth Streaming ?";
 
-            string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-            string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
+                string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
+                string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
 
-            if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
-            {
+                if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
 
-                // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
-                IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
-                    MediaProcessorNames.WindowsAzureMediaPackager);
+                    // Get the SDK extension method to  get a reference to the Windows Azure Media Packager.
+                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
+                        MediaProcessorNames.WindowsAzureMediaPackager);
 
-                // Windows Azure Media Packager does not accept string presets, so load xml configuration
-                string smoothConfig = File.ReadAllText(Path.Combine(
-                            _configurationXMLFiles,
-                            "MediaPackager_MP4toSmooth.xml"));
+                    // Windows Azure Media Packager does not accept string presets, so load xml configuration
+                    string smoothConfig = File.ReadAllText(Path.Combine(
+                                _configurationXMLFiles,
+                                "MediaPackager_MP4toSmooth.xml"));
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                }
             }
-        }
         }
 
 
@@ -5449,10 +5449,10 @@ typeof(FilterTime)
                             mycolor = Color.Red;
                             break;
                         case ChannelState.Stopping:
-                            mycolor = Color.Blue;
+                            mycolor = Color.OrangeRed;
                             break;
                         case ChannelState.Starting:
-                            mycolor = Color.LightBlue;
+                            mycolor = Color.DarkCyan;
                             break;
                         case ChannelState.Stopped:
                             mycolor = Color.Blue;
@@ -5963,10 +5963,10 @@ typeof(FilterTime)
                     switch (CS)
                     {
                         case ProgramState.Stopping:
-                            mycolor = Color.Blue;
+                            mycolor = Color.OrangeRed;
                             break;
                         case ProgramState.Starting:
-                            mycolor = Color.LightBlue;
+                            mycolor = Color.DarkCyan;
                             break;
                         case ProgramState.Stopped:
                             mycolor = Color.Blue;
@@ -5974,6 +5974,7 @@ typeof(FilterTime)
                         case ProgramState.Running:
                             mycolor = Color.Green;
                             break;
+                     
                         default:
                             mycolor = Color.Black;
                             break;
@@ -6089,16 +6090,16 @@ typeof(FilterTime)
                             mycolor = Color.Red;
                             break;
                         case StreamingEndpointState.Stopping:
-                            mycolor = Color.Red;
+                            mycolor = Color.OrangeRed;
                             break;
                         case StreamingEndpointState.Starting:
-                            mycolor = Color.Blue;
+                            mycolor = Color.DarkCyan;
                             break;
                         case StreamingEndpointState.Stopped:
                             mycolor = Color.Red;
                             break;
                         case StreamingEndpointState.Running:
-                            mycolor = Color.Black;
+                            mycolor = Color.Green;
                             break;
                         default:
                             mycolor = Color.Black;

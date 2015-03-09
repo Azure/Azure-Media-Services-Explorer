@@ -511,7 +511,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 430);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1236,7 +1236,7 @@
             // 
             // encodeAssetWithPremiumWorkflowToolStripMenuItem
             // 
-            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithZeniumToolStripMenuItem.Image")));
+            this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithPremiumWorkflowToolStripMenuItem.Image")));
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Name = "encodeAssetWithPremiumWorkflowToolStripMenuItem";
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.K)));
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
@@ -3738,6 +3738,7 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.DarkCyan;
             this.label12.Location = new System.Drawing.Point(824, 30);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(174, 13);
