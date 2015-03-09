@@ -37,6 +37,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.copyassetname = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -77,7 +78,7 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(32, 327);
+            this.labelWarning.Location = new System.Drawing.Point(32, 321);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(47, 13);
             this.labelWarning.TabIndex = 44;
@@ -109,12 +110,12 @@
             this.groupBox1.Controls.Add(this.listBoxAcounts);
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Controls.Add(this.labelWarning);
-            this.groupBox1.Location = new System.Drawing.Point(15, 29);
+            this.groupBox1.Location = new System.Drawing.Point(15, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 373);
+            this.groupBox1.Size = new System.Drawing.Size(463, 357);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Media Services Account Destination";
+            this.groupBox1.Text = "Select the Media Services Account Destination";
             // 
             // label3
             // 
@@ -135,12 +136,23 @@
             this.copyassetname.Size = new System.Drawing.Size(455, 20);
             this.copyassetname.TabIndex = 64;
             // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(212, 13);
+            this.label1.TabIndex = 66;
+            this.label1.Text = "On-demand and Live archive are supported";
+            // 
             // CopyAsset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(490, 526);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.copyassetname);
             this.Controls.Add(this.groupBox1);
@@ -167,5 +179,6 @@
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox copyassetname;
+        public System.Windows.Forms.Label label1;
     }
 }
