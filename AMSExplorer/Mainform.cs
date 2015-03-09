@@ -394,7 +394,7 @@ namespace AMSExplorer
                                                                    DoGridTransferUpdateProgress(progressafint.Average(), index);
                                                                }
                                                                );
-                SetISMFileAsPrimary(asset);
+                //SetISMFileAsPrimary(asset); // no need as primary seems to be set by .CreateFromFolder
             }
             catch (Exception e)
             {
@@ -1077,7 +1077,6 @@ namespace AMSExplorer
         {
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
-            string name;
             if (!string.IsNullOrEmpty(_backuprootfolderupload)) openFolderDialog1.SelectedPath = _backuprootfolderupload;
 
             if (openFolderDialog1.ShowDialog() == DialogResult.OK)
@@ -4106,7 +4105,13 @@ typeof(FilterTime)
                     if (TypeStr.Equals("0 B")) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
                 }
             }
-
+            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index)  // locator expiration,
+            {
+                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var value = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._locatorexpirationdatewarning].Value;
+                if (value != null && (((bool)value) == true))
+                    cell.Style.ForeColor = Color.Red;
+            }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
             {
 
@@ -4126,6 +4131,7 @@ typeof(FilterTime)
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value != null)
                     cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
             }
+
         }
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
@@ -8633,8 +8639,9 @@ typeof(FilterTime)
         private void DoCopyAssetToAnotherAMSAccount()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
-            CopyAsset form = new CopyAsset() {
-                CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset )
+            CopyAsset form = new CopyAsset()
+            {
+                CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset)
             };
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -8927,6 +8934,9 @@ namespace AMSExplorer
         public const string NameAscending = "Name <";
         public const string SizeDescending = "Size >";
         public const string SizeAscending = "Size <";
+        public const string LocatorExpirationAscending = "Publication exp >";
+        public const string LocatorExpirationDescending = "Publication exp <";
+      
     }
 
     public static class OrderJobs
@@ -9096,6 +9106,8 @@ namespace AMSExplorer
         public string _statEncMouseOver = "StaticEncryptionMouseOver";
         public string _publicationMouseOver = "PublicationMouseOver";
         public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
+        public string _locatorexpirationdate = "LocatorExpirationDate";
+        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
 
         static BindingList<AssetEntry> _MyObservAsset;
         static private int _assetsperpage = 50; //nb of items per page
@@ -9171,6 +9183,7 @@ namespace AMSExplorer
             this.Columns[_statEncMouseOver].Visible = false;
             this.Columns[_dynEncMouseOver].Visible = false;
             this.Columns[_publicationMouseOver].Visible = false;
+            this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
@@ -9190,6 +9203,9 @@ namespace AMSExplorer
             this.Columns[_statEnc].Width = 70;
             this.Columns[_dynEnc].Width = 70;
             this.Columns[_publication].Width = 70;
+            this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
+            this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
+
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -9227,7 +9243,8 @@ namespace AMSExplorer
                         AssetBitmapAndText ABR = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = ABR.bitmap;
                         AE.StaticEncryptionMouseOver = ABR.MouseOverDesc;
-                        ABR = BuildBitmapPublication(SASLoc, OrigLoc);
+                        ABR = BuildBitmapPublication(asset);
+                        //ABR = BuildBitmapPublication(SASLoc, OrigLoc);
                         AE.Publication = ABR.bitmap;
                         AE.PublicationMouseOver = ABR.MouseOverDesc;
                         AE.Type = AssetInfo.GetAssetType(asset);
@@ -9236,6 +9253,9 @@ namespace AMSExplorer
                         ABR = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = ABR.bitmap;
                         AE.DynamicEncryptionMouseOver = ABR.MouseOverDesc;
+                        DateTime? LocDate =  asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() ;
+                        AE.LocatorExpirationDate  = LocDate;
+                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
                         i++;
                         if (i % 5 == 0)
                         {
@@ -9334,10 +9354,10 @@ namespace AMSExplorer
                 switch (_statefilter)
                 {
                     case StatusAssets.Published:
-                        assets = assets.Where(a => a.Locators.Count > 0);
+                        assets = assets.Where(a => a.Locators.Any());
                         break;
                     case StatusAssets.PublishedExpired:
-                        assets = assets.Where(a => a.Locators.Count > 0).Where(a => a.Locators.All(l => l.ExpirationDateTime < DateTime.UtcNow));
+                        assets = assets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
                         break;
                     case StatusAssets.NotPublished:
                         assets = assets.Where(a => a.Locators.Count == 0);
@@ -9355,7 +9375,7 @@ namespace AMSExplorer
                         assets = assets.Where(a => a.Options == AssetCreationOptions.None);
                         break;
                     case StatusAssets.DynEnc:
-                        assets = assets.Where(a => a.DeliveryPolicies.Count > 0);
+                        assets = assets.Where(a => a.DeliveryPolicies.Any());
                         break;
                     case StatusAssets.Streamable:
                         assets = assets.Where(a => a.IsStreamable);
@@ -9409,6 +9429,14 @@ namespace AMSExplorer
                     assets = from a in assets orderby size(a) ascending select a;
                     break;
 
+                case OrderAssets.LocatorExpirationAscending:
+                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l=> l.ExpirationDateTime) ascending select a;
+                    break;
+
+                case OrderAssets.LocatorExpirationDescending:
+                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
+                    break;
+
                 default:
                     assets = from a in assets orderby a.LastModified descending select a;
                     break;
@@ -9430,7 +9458,8 @@ namespace AMSExplorer
 
             try
             {
-                assetquery = from a in assets select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                assetquery = from a in assets select new AssetEntry 
+                { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
             catch (Exception e)
@@ -9511,8 +9540,110 @@ namespace AMSExplorer
             return newBitmap;
         }
 
+        public static AssetBitmapAndText BuildBitmapPublication(IAsset asset)
+        {
+            Bitmap returnedImage = null;
+            string returnedText = null;
+
+            foreach (var locator in asset.Locators)
+            {
+                Bitmap newbitmap = null;
+                string newtext = null;
+                PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
+
+                switch (locator.Type)
+                {
+
+                    case (LocatorType.OnDemandOrigin):
+                        switch (Status)
+                        {
+                            case PublishStatus.PublishedActive:
+                                newbitmap = Streaminglocatorimage;
+                                newtext = "Active Streaming locator";
+                                break;
+
+                            case PublishStatus.PublishedExpired:
+                                newbitmap = Redstreamimage;
+                                newtext = "Expired Streaming locator";
+                                break;
+
+                            case PublishStatus.PublishedFuture:
+                                newbitmap = Bluestreamimage;
+                                newtext = "Future Streaming locator";
+                                break;
+
+                            case PublishStatus.NotPublished:
+                                break;
+                        }
+                        break;
+
+                    case (LocatorType.Sas):
+                        switch (Status)
+                        {
+                            case PublishStatus.PublishedActive:
+                                newbitmap = SASlocatorimage;
+                                newtext = "Active SAS locator";
+                                break;
+
+                            case PublishStatus.PublishedExpired:
+                                newbitmap = Reddownloadimage;
+                                newtext = "Expired SAS locator";
+                                break;
+
+                            case PublishStatus.PublishedFuture:
+                                newbitmap = Bluedownloadimage;
+                                newtext = "Future SAS locator";
+                                break;
+
+                            case PublishStatus.NotPublished:
+
+                                break;
+                        }
+                        break;
 
 
+                    default:
+                        break;
+                }
+
+                returnedImage = AddBitmap(returnedImage, newbitmap);
+                returnedText +=   !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
+
+            }
+
+         
+            AssetBitmapAndText ABT = new AssetBitmapAndText() {
+                bitmap = returnedImage,
+                MouseOverDesc = returnedText?? "Not published"
+            
+            };
+            
+            return ABT;
+        }
+
+        private static Bitmap AddBitmap(Bitmap bitmap1, Bitmap bitmap2)
+        {
+            Bitmap returnedbitmap;
+            if (bitmap1 != null)
+            {
+                returnedbitmap = new Bitmap((bitmap1.Width + bitmap2.Width), bitmap1.Height);
+                using (Graphics graphicsObject = Graphics.FromImage(returnedbitmap))
+                {
+                    graphicsObject.DrawImage(bitmap1, new Point(0, 0));
+                    graphicsObject.DrawImage(bitmap2, new Point(bitmap1.Width, 0));
+                }
+
+            }
+            else
+            {
+                returnedbitmap = bitmap2;
+            }
+
+            return returnedbitmap;
+        }
+
+
+        /*
         private static AssetBitmapAndText BuildBitmapPublication(PublishStatus SASPub, PublishStatus OriginPub)
         {
             // optmized for speed
@@ -9595,7 +9726,7 @@ namespace AMSExplorer
             ABT.MouseOverDesc = downloads + (string.IsNullOrEmpty(downloads) ? string.Empty : Constants.endline) + streams;
             return ABT;
         }
-
+        */
 
         private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
         {
