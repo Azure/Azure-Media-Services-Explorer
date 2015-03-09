@@ -38,12 +38,26 @@ namespace AMSExplorer
 
         StringCollection CredentialsList;
         CredentialsEntry SelectedCredentials;
-            
+
         public CredentialsEntry LoginCredentials
         {
             get
             {
                 return SelectedCredentials;
+            }
+        }
+
+        public string StorageAccount
+        {
+            get
+            {
+                string storage = null;
+
+                if (radioButtonSpecifyStorage.Checked && listBoxStorage.SelectedItem != null)
+                {
+                    storage = ((Item)listBoxStorage.SelectedItem).Value;
+                }
+                return storage;
             }
         }
 
@@ -60,19 +74,20 @@ namespace AMSExplorer
         }
 
 
-                
+
 
         public CopyAsset()
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
         }
-        
+
 
         private void CopyAsset_Load(object sender, EventArgs e)
         {
             CredentialsList = Properties.Settings.Default.LoginList;
             labelWarning.Text = "";
+            labelWarningStorage.Text = "";
 
             if (CredentialsList != null)
             {
@@ -106,7 +121,45 @@ namespace AMSExplorer
 
                 labelDescription.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
                 labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.StorageKey)) ? "Storage key is empty !" : string.Empty;
+                radioButtonDefaultStorage.Checked = true;
+                listBoxStorage.Items.Clear();
             }
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            listBoxStorage.Enabled = radioButtonSpecifyStorage.Checked;
+
+            if (radioButtonSpecifyStorage.Checked)
+            {
+                try
+                {
+                    this.Cursor = Cursors.WaitCursor;
+                    CloudMediaContext newcontext = Program.ConnectAndGetNewContext(SelectedCredentials);
+                    foreach (var storage in newcontext.StorageAccounts)
+                    {
+                        listBoxStorage.Items.Add(new Item(storage.Name + ((storage.Name == newcontext.DefaultStorageAccount.Name) ? " (default)" : string.Empty), storage.Name));
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    labelWarningStorage.Text = "Erreur when connecting to account.";
+                }
+                finally
+                {
+                    this.Cursor = Cursors.Arrow;
+                }
+
+
+            }
+        }
+
+        private void listBoxStorage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+
+
         }
     }
 }

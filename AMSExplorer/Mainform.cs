@@ -2502,10 +2502,10 @@ namespace AMSExplorer
             }
         }
 
-        private void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, Dictionary<string, string> storagekeys, IAsset SourceAsset, string TargetAssetName, int index)
+        private void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, IAsset SourceAsset, string TargetAssetName, int index)
         {
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
-            IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, AssetCreationOptions.None);
+            IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
             bool Error = false;
 
@@ -2525,7 +2525,13 @@ namespace AMSExplorer
 
 
                 // let's get cloudblobcontainer for target
-                CloudStorageAccount TargetstorageAccount = new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, TargetCredentials.StorageKey), TargetCredentials.ReturnStorageSuffix(), true);
+                CloudStorageAccount TargetstorageAccount =
+                    (DestinationStorageAccount == null) ?
+                    new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, TargetCredentials.StorageKey), TargetCredentials.ReturnStorageSuffix(), true) :
+                    new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), TargetCredentials.ReturnStorageSuffix(), true);
+
+
+
                 var TargetcloudBlobClient = TargetstorageAccount.CreateCloudBlobClient();
                 IAccessPolicy writePolicy = TargetContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
                 ILocator Targetlocator = TargetContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
@@ -8647,21 +8653,21 @@ typeof(FilterTime)
             if (form.ShowDialog() == DialogResult.OK)
             {
                 bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey);
+                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, form.StorageAccount);
                 if (!usercanceled)
                 {
                     foreach (IAsset asset in SelectedAssets)
                     {
                         int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.LoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                         // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, storagekeys, asset, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index));
+                        Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, form.StorageAccount, storagekeys, asset, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                 }
             }
         }
 
-        private static Dictionary<string, string> BuildStorageKeyDictionary(List<IAsset> SelectedAssets, ref bool usercanceled, string DefaultStorageName = null, string DefaultStorageKey = null)
+        private static Dictionary<string, string> BuildStorageKeyDictionary(List<IAsset> SelectedAssets, ref bool usercanceled, string DefaultStorageName = null, string DefaultStorageKey = null, string OtherStorage = null)
         {
             Dictionary<string, string> storagekeys = new Dictionary<string, string>();
             bool canceled = false;
@@ -8677,7 +8683,7 @@ typeof(FilterTime)
                 if (!storagekeys.ContainsKey(asset.StorageAccountName))
                 {
                     string valuekey = "";
-                    if (Program.InputBox("Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey) == DialogResult.OK)
+                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey) == DialogResult.OK)
                     {
                         storagekeys.Add(asset.StorageAccountName, valuekey);
                     }
@@ -8687,6 +8693,23 @@ typeof(FilterTime)
                     }
                 }
             }
+
+
+            // useful for destination media services account with non default storage selected
+            if (OtherStorage != null)
+            {
+                string valuekey = "";
+                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", OtherStorage), ref valuekey) == DialogResult.OK)
+                {
+                    storagekeys.Add(OtherStorage, valuekey);
+                }
+                else
+                {
+                    canceled = true;
+                }
+            }
+
+
             usercanceled = canceled;
             return storagekeys;
         }
@@ -8936,7 +8959,7 @@ namespace AMSExplorer
         public const string SizeAscending = "Size <";
         public const string LocatorExpirationAscending = "Publication exp >";
         public const string LocatorExpirationDescending = "Publication exp <";
-      
+
     }
 
     public static class OrderJobs
@@ -9253,8 +9276,8 @@ namespace AMSExplorer
                         ABR = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = ABR.bitmap;
                         AE.DynamicEncryptionMouseOver = ABR.MouseOverDesc;
-                        DateTime? LocDate =  asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() ;
-                        AE.LocatorExpirationDate  = LocDate;
+                        DateTime? LocDate = asset.Locators.Any() ? (DateTime?) asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                        AE.LocatorExpirationDate = LocDate;
                         AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
                         i++;
                         if (i % 5 == 0)
@@ -9430,7 +9453,7 @@ namespace AMSExplorer
                     break;
 
                 case OrderAssets.LocatorExpirationAscending:
-                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l=> l.ExpirationDateTime) ascending select a;
+                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
                     break;
 
                 case OrderAssets.LocatorExpirationDescending:
@@ -9458,8 +9481,8 @@ namespace AMSExplorer
 
             try
             {
-                assetquery = from a in assets select new AssetEntry 
-                { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                assetquery = from a in assets
+                             select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
             catch (Exception e)
@@ -9607,17 +9630,18 @@ namespace AMSExplorer
                 }
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
-                returnedText +=   !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
+                returnedText += !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
 
             }
 
-         
-            AssetBitmapAndText ABT = new AssetBitmapAndText() {
+
+            AssetBitmapAndText ABT = new AssetBitmapAndText()
+            {
                 bitmap = returnedImage,
-                MouseOverDesc = returnedText?? "Not published"
-            
+                MouseOverDesc = returnedText ?? "Not published"
+
             };
-            
+
             return ABT;
         }
 

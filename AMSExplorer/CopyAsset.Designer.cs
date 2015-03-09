@@ -35,9 +35,13 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.listBoxStorage = new System.Windows.Forms.ListBox();
+            this.radioButtonSpecifyStorage = new System.Windows.Forms.RadioButton();
+            this.radioButtonDefaultStorage = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.copyassetname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.labelWarningStorage = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -46,7 +50,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(282, 12);
+            this.buttonOk.Location = new System.Drawing.Point(576, 12);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
             this.buttonOk.TabIndex = 4;
@@ -57,7 +61,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(384, 12);
+            this.buttonCancel.Location = new System.Drawing.Point(678, 12);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 5;
@@ -91,49 +95,86 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 479);
+            this.panel1.Location = new System.Drawing.Point(-2, 514);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(493, 48);
+            this.panel1.Size = new System.Drawing.Size(787, 48);
             this.panel1.TabIndex = 60;
             // 
             // listBoxAcounts
             // 
             this.listBoxAcounts.FormattingEnabled = true;
-            this.listBoxAcounts.Location = new System.Drawing.Point(35, 34);
+            this.listBoxAcounts.Location = new System.Drawing.Point(22, 34);
             this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(219, 251);
+            this.listBoxAcounts.Size = new System.Drawing.Size(210, 251);
             this.listBoxAcounts.TabIndex = 61;
             this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.labelWarningStorage);
+            this.groupBox1.Controls.Add(this.listBoxStorage);
+            this.groupBox1.Controls.Add(this.radioButtonDefaultStorage);
             this.groupBox1.Controls.Add(this.listBoxAcounts);
+            this.groupBox1.Controls.Add(this.radioButtonSpecifyStorage);
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Controls.Add(this.labelWarning);
             this.groupBox1.Location = new System.Drawing.Point(15, 45);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(463, 357);
+            this.groupBox1.Size = new System.Drawing.Size(570, 357);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Select the Media Services Account Destination";
+            this.groupBox1.Text = "Media Services Account Destination";
+            // 
+            // listBoxStorage
+            // 
+            this.listBoxStorage.Enabled = false;
+            this.listBoxStorage.FormattingEnabled = true;
+            this.listBoxStorage.Location = new System.Drawing.Point(282, 86);
+            this.listBoxStorage.Name = "listBoxStorage";
+            this.listBoxStorage.Size = new System.Drawing.Size(267, 199);
+            this.listBoxStorage.TabIndex = 64;
+            this.listBoxStorage.SelectedIndexChanged += new System.EventHandler(this.listBoxStorage_SelectedIndexChanged);
+            // 
+            // radioButtonSpecifyStorage
+            // 
+            this.radioButtonSpecifyStorage.AutoSize = true;
+            this.radioButtonSpecifyStorage.Location = new System.Drawing.Point(266, 57);
+            this.radioButtonSpecifyStorage.Name = "radioButtonSpecifyStorage";
+            this.radioButtonSpecifyStorage.Size = new System.Drawing.Size(66, 17);
+            this.radioButtonSpecifyStorage.TabIndex = 63;
+            this.radioButtonSpecifyStorage.Text = "Specify :";
+            this.radioButtonSpecifyStorage.UseVisualStyleBackColor = true;
+            this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // radioButtonDefaultStorage
+            // 
+            this.radioButtonDefaultStorage.AutoSize = true;
+            this.radioButtonDefaultStorage.Checked = true;
+            this.radioButtonDefaultStorage.Location = new System.Drawing.Point(266, 34);
+            this.radioButtonDefaultStorage.Name = "radioButtonDefaultStorage";
+            this.radioButtonDefaultStorage.Size = new System.Drawing.Size(139, 17);
+            this.radioButtonDefaultStorage.TabIndex = 62;
+            this.radioButtonDefaultStorage.TabStop = true;
+            this.radioButtonDefaultStorage.Text = "Default storage account";
+            this.radioButtonDefaultStorage.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 416);
+            this.label3.Location = new System.Drawing.Point(20, 451);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(97, 13);
+            this.label3.Size = new System.Drawing.Size(106, 13);
             this.label3.TabIndex = 65;
-            this.label3.Text = "Asset Copy Name :";
+            this.label3.Text = "Copied Asset Name :";
             // 
             // copyassetname
             // 
             this.copyassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyassetname.Location = new System.Drawing.Point(23, 432);
+            this.copyassetname.Location = new System.Drawing.Point(23, 467);
             this.copyassetname.Name = "copyassetname";
-            this.copyassetname.Size = new System.Drawing.Size(455, 20);
+            this.copyassetname.Size = new System.Drawing.Size(749, 20);
             this.copyassetname.TabIndex = 64;
             // 
             // label1
@@ -146,12 +187,23 @@
             this.label1.TabIndex = 66;
             this.label1.Text = "On-demand and Live archive are supported";
             // 
+            // labelWarningStorage
+            // 
+            this.labelWarningStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarningStorage.AutoSize = true;
+            this.labelWarningStorage.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningStorage.Location = new System.Drawing.Point(285, 321);
+            this.labelWarningStorage.Name = "labelWarningStorage";
+            this.labelWarningStorage.Size = new System.Drawing.Size(47, 13);
+            this.labelWarningStorage.TabIndex = 65;
+            this.labelWarningStorage.Text = "Warning";
+            // 
             // CopyAsset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 526);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.copyassetname);
@@ -180,5 +232,9 @@
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox copyassetname;
         public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox listBoxStorage;
+        private System.Windows.Forms.RadioButton radioButtonSpecifyStorage;
+        private System.Windows.Forms.RadioButton radioButtonDefaultStorage;
+        private System.Windows.Forms.Label labelWarningStorage;
     }
 }
