@@ -33,17 +33,22 @@
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listBoxAcounts = new System.Windows.Forms.ListBox();
+            this.listBoxAccounts = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelWarningStorage = new System.Windows.Forms.Label();
             this.listBoxStorage = new System.Windows.Forms.ListBox();
-            this.radioButtonSpecifyStorage = new System.Windows.Forms.RadioButton();
             this.radioButtonDefaultStorage = new System.Windows.Forms.RadioButton();
+            this.radioButtonSpecifyStorage = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.copyassetname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelWarningStorage = new System.Windows.Forms.Label();
+            this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -100,92 +105,31 @@
             this.panel1.Size = new System.Drawing.Size(787, 48);
             this.panel1.TabIndex = 60;
             // 
-            // listBoxAcounts
+            // listBoxAccounts
             // 
-            this.listBoxAcounts.FormattingEnabled = true;
-            this.listBoxAcounts.Location = new System.Drawing.Point(22, 34);
-            this.listBoxAcounts.Name = "listBoxAcounts";
-            this.listBoxAcounts.Size = new System.Drawing.Size(210, 251);
-            this.listBoxAcounts.TabIndex = 61;
-            this.listBoxAcounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
+            this.listBoxAccounts.FormattingEnabled = true;
+            this.listBoxAccounts.Location = new System.Drawing.Point(22, 47);
+            this.listBoxAccounts.Name = "listBoxAccounts";
+            this.listBoxAccounts.Size = new System.Drawing.Size(210, 238);
+            this.listBoxAccounts.TabIndex = 61;
+            this.listBoxAccounts.SelectedIndexChanged += new System.EventHandler(this.listBoxAcounts_SelectedIndexChanged);
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.labelWarningStorage);
             this.groupBox1.Controls.Add(this.listBoxStorage);
             this.groupBox1.Controls.Add(this.radioButtonDefaultStorage);
-            this.groupBox1.Controls.Add(this.listBoxAcounts);
+            this.groupBox1.Controls.Add(this.listBoxAccounts);
             this.groupBox1.Controls.Add(this.radioButtonSpecifyStorage);
             this.groupBox1.Controls.Add(this.labelDescription);
             this.groupBox1.Controls.Add(this.labelWarning);
-            this.groupBox1.Location = new System.Drawing.Point(15, 45);
+            this.groupBox1.Location = new System.Drawing.Point(15, 56);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(570, 357);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Media Services Account Destination";
-            // 
-            // listBoxStorage
-            // 
-            this.listBoxStorage.Enabled = false;
-            this.listBoxStorage.FormattingEnabled = true;
-            this.listBoxStorage.Location = new System.Drawing.Point(282, 86);
-            this.listBoxStorage.Name = "listBoxStorage";
-            this.listBoxStorage.Size = new System.Drawing.Size(267, 199);
-            this.listBoxStorage.TabIndex = 64;
-            this.listBoxStorage.SelectedIndexChanged += new System.EventHandler(this.listBoxStorage_SelectedIndexChanged);
-            // 
-            // radioButtonSpecifyStorage
-            // 
-            this.radioButtonSpecifyStorage.AutoSize = true;
-            this.radioButtonSpecifyStorage.Location = new System.Drawing.Point(266, 57);
-            this.radioButtonSpecifyStorage.Name = "radioButtonSpecifyStorage";
-            this.radioButtonSpecifyStorage.Size = new System.Drawing.Size(66, 17);
-            this.radioButtonSpecifyStorage.TabIndex = 63;
-            this.radioButtonSpecifyStorage.Text = "Specify :";
-            this.radioButtonSpecifyStorage.UseVisualStyleBackColor = true;
-            this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // radioButtonDefaultStorage
-            // 
-            this.radioButtonDefaultStorage.AutoSize = true;
-            this.radioButtonDefaultStorage.Checked = true;
-            this.radioButtonDefaultStorage.Location = new System.Drawing.Point(266, 34);
-            this.radioButtonDefaultStorage.Name = "radioButtonDefaultStorage";
-            this.radioButtonDefaultStorage.Size = new System.Drawing.Size(139, 17);
-            this.radioButtonDefaultStorage.TabIndex = 62;
-            this.radioButtonDefaultStorage.TabStop = true;
-            this.radioButtonDefaultStorage.Text = "Default storage account";
-            this.radioButtonDefaultStorage.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 451);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(106, 13);
-            this.label3.TabIndex = 65;
-            this.label3.Text = "Copied Asset Name :";
-            // 
-            // copyassetname
-            // 
-            this.copyassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.copyassetname.Location = new System.Drawing.Point(23, 467);
-            this.copyassetname.Name = "copyassetname";
-            this.copyassetname.Size = new System.Drawing.Size(749, 20);
-            this.copyassetname.TabIndex = 64;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(212, 13);
-            this.label1.TabIndex = 66;
-            this.label1.Text = "On-demand and Live archive are supported";
+            this.groupBox1.Text = "Destination";
             // 
             // labelWarningStorage
             // 
@@ -198,23 +142,129 @@
             this.labelWarningStorage.TabIndex = 65;
             this.labelWarningStorage.Text = "Warning";
             // 
+            // listBoxStorage
+            // 
+            this.listBoxStorage.Enabled = false;
+            this.listBoxStorage.FormattingEnabled = true;
+            this.listBoxStorage.Location = new System.Drawing.Point(266, 99);
+            this.listBoxStorage.Name = "listBoxStorage";
+            this.listBoxStorage.Size = new System.Drawing.Size(283, 186);
+            this.listBoxStorage.TabIndex = 64;
+            this.listBoxStorage.SelectedIndexChanged += new System.EventHandler(this.listBoxStorage_SelectedIndexChanged);
+            // 
+            // radioButtonDefaultStorage
+            // 
+            this.radioButtonDefaultStorage.AutoSize = true;
+            this.radioButtonDefaultStorage.Checked = true;
+            this.radioButtonDefaultStorage.Location = new System.Drawing.Point(266, 47);
+            this.radioButtonDefaultStorage.Name = "radioButtonDefaultStorage";
+            this.radioButtonDefaultStorage.Size = new System.Drawing.Size(139, 17);
+            this.radioButtonDefaultStorage.TabIndex = 62;
+            this.radioButtonDefaultStorage.TabStop = true;
+            this.radioButtonDefaultStorage.Text = "Default storage account";
+            this.radioButtonDefaultStorage.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonSpecifyStorage
+            // 
+            this.radioButtonSpecifyStorage.AutoSize = true;
+            this.radioButtonSpecifyStorage.Location = new System.Drawing.Point(266, 70);
+            this.radioButtonSpecifyStorage.Name = "radioButtonSpecifyStorage";
+            this.radioButtonSpecifyStorage.Size = new System.Drawing.Size(66, 17);
+            this.radioButtonSpecifyStorage.TabIndex = 63;
+            this.radioButtonSpecifyStorage.Text = "Specify :";
+            this.radioButtonSpecifyStorage.UseVisualStyleBackColor = true;
+            this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(20, 451);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(95, 13);
+            this.label3.TabIndex = 65;
+            this.label3.Text = "New Asset Name :";
+            // 
+            // copyassetname
+            // 
+            this.copyassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.copyassetname.Location = new System.Drawing.Point(15, 467);
+            this.copyassetname.Name = "copyassetname";
+            this.copyassetname.Size = new System.Drawing.Size(757, 20);
+            this.copyassetname.TabIndex = 64;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(20, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(212, 13);
+            this.label1.TabIndex = 66;
+            this.label1.Text = "On-demand and Live archive are supported";
+            // 
+            // checkBoxDeleteSource
+            // 
+            this.checkBoxDeleteSource.AutoSize = true;
+            this.checkBoxDeleteSource.Location = new System.Drawing.Point(19, 26);
+            this.checkBoxDeleteSource.Name = "checkBoxDeleteSource";
+            this.checkBoxDeleteSource.Size = new System.Drawing.Size(131, 17);
+            this.checkBoxDeleteSource.TabIndex = 67;
+            this.checkBoxDeleteSource.Text = "Delete source asset(s)";
+            this.checkBoxDeleteSource.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.checkBoxTargetSingleAsset);
+            this.groupBox2.Controls.Add(this.checkBoxDeleteSource);
+            this.groupBox2.Location = new System.Drawing.Point(603, 56);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(169, 357);
+            this.groupBox2.TabIndex = 68;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Options";
+            // 
+            // checkBoxTargetSingleAsset
+            // 
+            this.checkBoxTargetSingleAsset.AutoSize = true;
+            this.checkBoxTargetSingleAsset.Location = new System.Drawing.Point(19, 49);
+            this.checkBoxTargetSingleAsset.Name = "checkBoxTargetSingleAsset";
+            this.checkBoxTargetSingleAsset.Size = new System.Drawing.Size(102, 30);
+            this.checkBoxTargetSingleAsset.TabIndex = 68;
+            this.checkBoxTargetSingleAsset.Text = "Merge all files to\r\none single asset";
+            this.checkBoxTargetSingleAsset.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(19, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 13);
+            this.label2.TabIndex = 69;
+            this.label2.Text = "Media Services Account :";
+            // 
             // CopyAsset
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.copyassetname);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "CopyAsset";
-            this.Text = "Copy an asset";
+            this.Text = "Copy asset(s)";
             this.Load += new System.EventHandler(this.CopyAsset_Load);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,7 +277,7 @@
         public System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelWarning;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListBox listBoxAcounts;
+        private System.Windows.Forms.ListBox listBoxAccounts;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox copyassetname;
@@ -236,5 +286,9 @@
         private System.Windows.Forms.RadioButton radioButtonSpecifyStorage;
         private System.Windows.Forms.RadioButton radioButtonDefaultStorage;
         private System.Windows.Forms.Label labelWarningStorage;
+        public System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox checkBoxDeleteSource;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBoxTargetSingleAsset;
     }
 }

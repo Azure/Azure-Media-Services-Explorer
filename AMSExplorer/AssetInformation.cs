@@ -514,13 +514,11 @@ namespace AMSExplorer
                                 }
                                 indexn++;
 
-                                // legacy smooth streaming without repeat tag (manifest v2.0)
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
                                 }
-                                //TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
                                 indexn++;
                             }
                             if (locator.GetMpegDashUri() != null)
@@ -530,7 +528,6 @@ namespace AMSExplorer
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
                                 }
-                                //TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
                                 indexn++;
                             }
                             if (locator.GetHlsUri() != null)
@@ -540,13 +537,11 @@ namespace AMSExplorer
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
                                 }
-                                //TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
                                 }
-                                //TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
                                 indexn = indexn + 2;
                             }
                         }

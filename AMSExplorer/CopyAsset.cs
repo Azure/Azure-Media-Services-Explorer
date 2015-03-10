@@ -38,6 +38,7 @@ namespace AMSExplorer
 
         StringCollection CredentialsList;
         CredentialsEntry SelectedCredentials;
+        private CloudMediaContext _context;
 
         public CredentialsEntry LoginCredentials
         {
@@ -73,13 +74,40 @@ namespace AMSExplorer
             }
         }
 
+        public bool SingleDestinationAsset
+        {
+            get
+            {
+                return checkBoxTargetSingleAsset.Checked;
+            }
+           
+        }
+
+        public bool DeleteSourceAsset
+        {
+            get
+            {
+                return checkBoxDeleteSource.Checked;
+            }
+
+        }
+
+        public bool EnableSingleDestinationAsset
+        {
+            set
+            {
+                checkBoxTargetSingleAsset.Enabled = value;
+            }
+        }
 
 
 
-        public CopyAsset()
+
+        public CopyAsset(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _context = context;
         }
 
 
@@ -94,18 +122,25 @@ namespace AMSExplorer
                 for (int i = 0; i < (CredentialsList.Count / CredentialsEntry.StringsCount); i++)
                 {
                     {
-                        listBoxAcounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
+                        int index = listBoxAccounts.Items.Add(CredentialsList[i * CredentialsEntry.StringsCount]);
+                        if (CredentialsList[i * CredentialsEntry.StringsCount] == _context.Credentials.ClientId)
+                        {
+                            listBoxAccounts.SelectedIndex = index;
+                        }
+                      
                     }
                 }
             }
+            listBoxAccounts.SelectedItem = _context.DefaultStorageAccount.Name;
+
         }
 
 
         private void listBoxAcounts_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxAcounts.SelectedIndex > -1) // one selected
+            if (listBoxAccounts.SelectedIndex > -1) // one selected
             {
-                int index = listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount;
+                int index = listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount;
                 SelectedCredentials = new CredentialsEntry(
                    CredentialsList[index],
                    CredentialsList[index + 1],
@@ -119,7 +154,7 @@ namespace AMSExplorer
                    CredentialsList[index + 9]
                     );
 
-                labelDescription.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
+                labelDescription.Text = CredentialsList[listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount + 3];
                 labelWarning.Text = (string.IsNullOrEmpty(SelectedCredentials.StorageKey)) ? "Storage key is empty !" : string.Empty;
                 radioButtonDefaultStorage.Checked = true;
                 listBoxStorage.Items.Clear();
@@ -152,6 +187,10 @@ namespace AMSExplorer
                 }
 
 
+            }
+            else  // default storage selected
+            {
+                listBoxStorage.Items.Clear();
             }
         }
 
