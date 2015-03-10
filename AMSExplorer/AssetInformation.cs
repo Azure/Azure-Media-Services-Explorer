@@ -851,6 +851,7 @@ namespace AMSExplorer
         private void buttonDeleteFile_Click(object sender, EventArgs e)
         {
             DoDeleteFile();
+            BuildLocatorsTree();
         }
 
         private void DoDeleteFile()
@@ -883,6 +884,7 @@ namespace AMSExplorer
         private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteFile();
+            BuildLocatorsTree();
         }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
@@ -1053,6 +1055,7 @@ namespace AMSExplorer
         private void button1_Click_1(object sender, EventArgs e)
         {
             DoDuplicate();
+            BuildLocatorsTree();
         }
 
         private void DoDuplicate()
@@ -1186,6 +1189,7 @@ namespace AMSExplorer
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicate();
+            BuildLocatorsTree();
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -1254,11 +1258,13 @@ namespace AMSExplorer
         private void button2_Click(object sender, EventArgs e)
         {
             DoUpload();
+            BuildLocatorsTree();
         }
 
         private void uploadASmallFileInTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoUpload();
+            BuildLocatorsTree();
         }
 
         private void comboBoxStreamingEndpoint_SelectedIndexChanged(object sender, EventArgs e)
