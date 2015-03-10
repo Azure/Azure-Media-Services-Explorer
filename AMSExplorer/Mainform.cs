@@ -2507,6 +2507,10 @@ namespace AMSExplorer
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
+            // let's backup the primary file from the first asset to set it to the copied/merged asset
+            var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
+
+
             bool ErrorCopyAsset = false;
 
             TextBoxLogWriteLine("Starting the asset copy process.");
@@ -2555,77 +2559,85 @@ namespace AMSExplorer
                     int nbblob = 0;
                     foreach (IAssetFile file in SourceAsset.AssetFiles)
                     {
-                        bool ErrorCopyAssetFile = false;
-                        nbblob++;
-
-                        try
+                        if (file.IsEncrypted)
                         {
-                            sourceCloudBlockBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
-                            sourceCloudBlockBlob.FetchAttributes();
+                            TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", file.Name, true);
+                        }
+                        else
+                        {
+                            bool ErrorCopyAssetFile = false;
+                            nbblob++;
 
-                            if (sourceCloudBlockBlob.Properties.Length > 0)
+                            try
                             {
-                                if (!TargetAsset.AssetFiles.ToList().Any(f => f.Name == file.Name))  // file does not exist in the target asset
+                                sourceCloudBlockBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
+                                sourceCloudBlockBlob.FetchAttributes();
+
+                                if (sourceCloudBlockBlob.Properties.Length > 0)
                                 {
-                                    IAssetFile targetassetFile = TargetAsset.AssetFiles.Create(file.Name);
-                                    targetCloudBlockBlob = assetTargetContainer.GetBlockBlobReference(targetassetFile.Name);
-
-                                    targetCloudBlockBlob.DeleteIfExists();
-                                    targetCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
-
-                                    CloudBlockBlob blob;
-                                    blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
-
-                                    while (blob.CopyState.Status == CopyStatus.Pending)
+                                    if (!TargetAsset.AssetFiles.ToList().Any(f => f.Name == file.Name))  // file does not exist in the target asset
                                     {
-                                        Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                        IAssetFile targetassetFile = TargetAsset.AssetFiles.Create(file.Name);
+                                        targetCloudBlockBlob = assetTargetContainer.GetBlockBlobReference(targetassetFile.Name);
+
+                                        targetCloudBlockBlob.DeleteIfExists();
+                                        targetCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
+
+                                        CloudBlockBlob blob;
                                         blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
-                                        percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                        DoGridTransferUpdateProgress((int)percentComplete, index);
-                                    }
 
-                                    if (blob.CopyState.Status == CopyStatus.Failed)
+                                        while (blob.CopyState.Status == CopyStatus.Pending)
+                                        {
+                                            Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                            blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
+                                            percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
+                                            DoGridTransferUpdateProgress((int)percentComplete, index);
+                                        }
+
+                                        if (blob.CopyState.Status == CopyStatus.Failed)
+                                        {
+                                            TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
+                                            TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
+                                            DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                            ErrorCopyAssetFile = true;
+                                            ErrorCopyAsset = true;
+                                            break;
+                                        }
+
+                                        targetCloudBlockBlob.FetchAttributes();
+                                        targetassetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
+                                        targetassetFile.Update();
+
+                                        if (sourceCloudBlockBlob.Properties.Length != targetCloudBlockBlob.Properties.Length)
+                                        {
+                                            TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
+                                            DoGridTransferDeclareError(index, "Error during blob copy.");
+                                            ErrorCopyAssetFile = true;
+                                            ErrorCopyAsset = true;
+                                            break;
+                                        }
+
+                                        BytesCopied += sourceCloudBlockBlob.Properties.Length;
+                                        percentComplete = (long)100 * (long)BytesCopied / (long)Length;
+                                    }
+                                    else // file already exists.Can occur with merge function
                                     {
-                                        TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
-                                        TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
-                                        DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                        TextBoxLogWriteLine("Failed to copy file '{0} as file already exists in the destination asset.", file.Name, true);
                                         ErrorCopyAssetFile = true;
-                                        ErrorCopyAsset = true;
-                                        break;
                                     }
 
-                                    targetCloudBlockBlob.FetchAttributes();
-                                    targetassetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
-                                    targetassetFile.Update();
-
-                                    if (sourceCloudBlockBlob.Properties.Length != targetCloudBlockBlob.Properties.Length)
-                                    {
-                                        TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                        DoGridTransferDeclareError(index, "Error during blob copy.");
-                                        ErrorCopyAssetFile = true;
-                                        ErrorCopyAsset = true;
-                                        break;
-                                    }
-
-                                    BytesCopied += sourceCloudBlockBlob.Properties.Length;
-                                    percentComplete = (long)100 * (long)BytesCopied / (long)Length;
                                 }
-                                else // file already exists.Can occur with merge function
-                                {
-                                    TextBoxLogWriteLine("Failed to copy file '{0} as file already exists in the destination asset.", file.Name, true);
-                                    ErrorCopyAssetFile = true;
-                                }
-
                             }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
+                                DoGridTransferDeclareError(index, ex);
+                                ErrorCopyAsset = true;
+                                ErrorCopyAssetFile = true;
+                            }
+                            if (!ErrorCopyAssetFile) TextBoxLogWriteLine("File '{0}' copied.", file.Name);
                         }
-                        catch (Exception ex)
-                        {
-                            TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                            DoGridTransferDeclareError(index, ex);
-                            ErrorCopyAsset = true;
-                            ErrorCopyAssetFile = true;
-                        }
-                        if (!ErrorCopyAssetFile) TextBoxLogWriteLine("File '{0}' copied.", file.Name);
+
                     }
 
 
@@ -2696,9 +2708,7 @@ namespace AMSExplorer
                     }
 
                     sourcelocator.Delete();
-
-
-
+                    readpolicy.Delete();
                 }
                 else
                 {
@@ -2706,8 +2716,19 @@ namespace AMSExplorer
                     ErrorCopyAsset = true;
                 }
             }
-            SetISMFileAsPrimary(TargetAsset);
+            
+            // let's set the primary file
+            if (ismAssetFile.Count() > 0)
+            {
+                SetISMFileAsPrimary(TargetAsset, ismAssetFile.FirstOrDefault().Name);
+            }
+            else
+            {
+                SetISMFileAsPrimary(TargetAsset);
+            }
+
             Targetlocator.Delete();
+            writePolicy.Delete();            
 
             if (!ErrorCopyAsset)
             {
@@ -8659,7 +8680,7 @@ typeof(FilterTime)
             DoCopyAssetToAnotherAMSAccount();
         }
 
-        private void DoCopyAssetToAnotherAMSAccount()
+        private async void DoCopyAssetToAnotherAMSAccount()
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
