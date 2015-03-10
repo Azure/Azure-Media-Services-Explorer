@@ -195,9 +195,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 313);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.Size = new System.Drawing.Size(105, 13);
             this.label3.TabIndex = 59;
-            this.label3.Text = "Custom hostnames :";
+            this.label3.Text = "Custom host names :";
             // 
             // buttonDelHostName
             // 
@@ -356,18 +356,18 @@
             this.lblMaxCacheAge.AutoSize = true;
             this.lblMaxCacheAge.Location = new System.Drawing.Point(150, 71);
             this.lblMaxCacheAge.Name = "lblMaxCacheAge";
-            this.lblMaxCacheAge.Size = new System.Drawing.Size(97, 13);
+            this.lblMaxCacheAge.Size = new System.Drawing.Size(103, 13);
             this.lblMaxCacheAge.TabIndex = 8;
-            this.lblMaxCacheAge.Text = "MaxCacheAge (s) :";
+            this.lblMaxCacheAge.Text = "Max Cache Age (s) :";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 71);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Scale units : ";
+            this.label1.Text = "Streaming Units : ";
             // 
             // numericUpDownRU
             // 
@@ -375,6 +375,7 @@
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.Size = new System.Drawing.Size(65, 20);
             this.numericUpDownRU.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.numericUpDownRU, "1 unit = 200 mbps");
             // 
             // tabPage3
             // 

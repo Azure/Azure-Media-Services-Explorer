@@ -380,6 +380,7 @@ namespace AMSExplorer
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
+        public const string NameconvAsset = "{Asset Name}";
 
         public const string endline = "\r\n";
 
@@ -392,7 +393,7 @@ namespace AMSExplorer
         public const string TabStorage = "Storage"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
-        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";  
+        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
@@ -848,6 +849,17 @@ namespace AMSExplorer
         private const string format_dash = "mpd-time-csf";
         private const string format_url = "(format={0})";
 
+
+
+        private const string ManifestFileExtension = ".ism";
+        private const string HlsStreamingParameter = "(format=m3u8-aapl)";
+        private const string Hlsv3StreamingParameter = "(format=m3u8-aapl-v3)";
+        private const string MpegDashStreamingParameter = "(format=mpd-time-csf)";
+        private const string SmoothStreamingLegacyParameter = "(format=fmp4-v20)";
+        private const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
+
+
+
         public AssetInfo(List<IAsset> MySelectedAssets)
         {
             SelectedAssets = MySelectedAssets;
@@ -857,6 +869,106 @@ namespace AMSExplorer
             SelectedAssets = new List<IAsset>();
             SelectedAssets.Add(asset);
         }
+
+        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, string.Empty, se, https);
+        }
+
+        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, SmoothStreamingLegacyParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, HlsStreamingParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, Hlsv3StreamingParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, MpegDashStreamingParameter, se, https);
+        }
+
+
+        public static IEnumerable<IAssetFile> GetManifestAssetFiles(IAsset asset)
+        {
+            if (asset == null)
+            {
+                throw new ArgumentNullException("asset", "The asset cannot be null.");
+            }
+
+
+            return asset
+                .AssetFiles
+                .ToList()
+                .Where(af => af.Name.EndsWith(ILocatorExtensions.ManifestFileExtension, StringComparison.OrdinalIgnoreCase))
+                  .ToList();
+        }
+
+        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, string streamingParameter, IStreamingEndpoint se = null, bool https = false)
+        {
+            const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
+
+            if (originLocator == null)
+            {
+                throw new ArgumentNullException("locator", "The locator cannot be null.");
+            }
+
+            if (originLocator.Type != LocatorType.OnDemandOrigin)
+            {
+                throw new ArgumentException("The locator type must be on-demand origin.", "originLocator");
+            }
+
+            IEnumerable<Uri> smoothStreamingUri = null;
+            IAsset asset = originLocator.Asset;
+            IEnumerable<IAssetFile> manifestAssetFiles = GetManifestAssetFiles(asset);
+            if (manifestAssetFiles != null)
+            {
+                smoothStreamingUri = manifestAssetFiles.Select(f => new Uri(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            BaseStreamingUrlTemplate,
+                            originLocator.Path.TrimEnd('/'),
+                            f.Name,
+                            streamingParameter),
+                        UriKind.Absolute));
+            }
+
+            if (se != null)
+            {
+                string hostname = se.HostName;
+                smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
+                {
+                    Host = hostname,
+                    Scheme = https ? "https://" : "http://",
+                    Path = u.AbsolutePath,
+                }.Uri);
+            }
+
+            return smoothStreamingUri;
+        }
+
 
 
         public static string GetSmoothLegacy(string smooth_uri)
@@ -884,6 +996,11 @@ namespace AMSExplorer
                 return urib.Uri;
             }
             else return null;
+        }
+
+        public static IEnumerable<Uri> rw(IEnumerable<Uri> urls, IStreamingEndpoint se, bool https = false)
+        {
+            return urls.Select(u => rw(u, se, https));
         }
 
         public static string rw(string path, IStreamingEndpoint se, bool https = false)
@@ -1618,6 +1735,8 @@ namespace AMSExplorer
         public string DynamicEncryptionMouseOver { get; set; }
         public Bitmap Publication { get; set; }
         public string PublicationMouseOver { get; set; }
+        public Nullable<DateTime> LocatorExpirationDate { get; set; }
+        public bool LocatorExpirationDateWarning { get; set; }
     }
 
 

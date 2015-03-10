@@ -394,7 +394,7 @@ namespace AMSExplorer
                                                                    DoGridTransferUpdateProgress(progressafint.Average(), index);
                                                                }
                                                                );
-                SetISMFileAsPrimary(asset);
+                //SetISMFileAsPrimary(asset); // no need as primary seems to be set by .CreateFromFolder
             }
             catch (Exception e)
             {
@@ -1077,7 +1077,6 @@ namespace AMSExplorer
         {
             FolderBrowserDialog openFolderDialog1 = new FolderBrowserDialog();
 
-            string name;
             if (!string.IsNullOrEmpty(_backuprootfolderupload)) openFolderDialog1.SelectedPath = _backuprootfolderupload;
 
             if (openFolderDialog1.ShowDialog() == DialogResult.OK)
@@ -2503,6 +2502,285 @@ namespace AMSExplorer
             }
         }
 
+        private void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        {
+            CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
+            IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
+
+            // let's backup the primary file from the first asset to set it to the copied/merged asset
+            var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
+
+
+            bool ErrorCopyAsset = false;
+
+            TextBoxLogWriteLine("Starting the asset copy process.");
+
+            // let's get cloudblobcontainer for target
+            CloudStorageAccount TargetstorageAccount =
+                (DestinationStorageAccount == null) ?
+                new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, TargetCredentials.StorageKey), TargetCredentials.ReturnStorageSuffix(), true) :
+                new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), TargetCredentials.ReturnStorageSuffix(), true);
+
+            var TargetcloudBlobClient = TargetstorageAccount.CreateCloudBlobClient();
+            IAccessPolicy writePolicy = TargetContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
+            ILocator Targetlocator = TargetContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
+
+            // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+            Uri targetUri = new Uri(Targetlocator.Path);
+            CloudBlobContainer assetTargetContainer = TargetcloudBlobClient.GetContainerReference(targetUri.Segments[1]);
+
+            foreach (IAsset SourceAsset in SourceAssets) // there are several assets if user wants to do a copy with merge
+            {
+                if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
+                {
+                    // let's get cloudblobcontainer for source
+                    CloudStorageAccount sourcestorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
+                    var SourceCloudBlobClient = sourcestorageAccount.CreateCloudBlobClient();
+                    IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
+                    ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+
+                    // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+                    Uri sourceUri = new Uri(sourcelocator.Path);
+                    CloudBlobContainer assetSourceContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+
+                    ErrorCopyAsset = false;
+                    CloudBlockBlob sourceCloudBlockBlob, targetCloudBlockBlob;
+                    long Length = 0;
+                    long BytesCopied = 0;
+                    double percentComplete = 0;
+
+                    //calculate size
+                    foreach (IAssetFile file in SourceAsset.AssetFiles)
+                    {
+                        Length += file.ContentFileSize;
+                    }
+
+                    // do the copy
+                    int nbblob = 0;
+                    foreach (IAssetFile file in SourceAsset.AssetFiles)
+                    {
+                        if (file.IsEncrypted)
+                        {
+                            TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", file.Name, true);
+                        }
+                        else
+                        {
+                            bool ErrorCopyAssetFile = false;
+                            nbblob++;
+
+                            try
+                            {
+                                sourceCloudBlockBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
+                                sourceCloudBlockBlob.FetchAttributes();
+
+                                if (sourceCloudBlockBlob.Properties.Length > 0)
+                                {
+                                    if (!TargetAsset.AssetFiles.ToList().Any(f => f.Name == file.Name))  // file does not exist in the target asset
+                                    {
+                                        IAssetFile targetassetFile = TargetAsset.AssetFiles.Create(file.Name);
+                                        targetCloudBlockBlob = assetTargetContainer.GetBlockBlobReference(targetassetFile.Name);
+
+                                        targetCloudBlockBlob.DeleteIfExists();
+                                        targetCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
+
+                                        CloudBlockBlob blob;
+                                        blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
+
+                                        while (blob.CopyState.Status == CopyStatus.Pending)
+                                        {
+                                            Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                            blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
+                                            percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
+                                            DoGridTransferUpdateProgress((int)percentComplete, index);
+                                        }
+
+                                        if (blob.CopyState.Status == CopyStatus.Failed)
+                                        {
+                                            TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
+                                            TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
+                                            DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                            ErrorCopyAssetFile = true;
+                                            ErrorCopyAsset = true;
+                                            break;
+                                        }
+
+                                        targetCloudBlockBlob.FetchAttributes();
+                                        targetassetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
+                                        targetassetFile.Update();
+
+                                        if (sourceCloudBlockBlob.Properties.Length != targetCloudBlockBlob.Properties.Length)
+                                        {
+                                            TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
+                                            DoGridTransferDeclareError(index, "Error during blob copy.");
+                                            ErrorCopyAssetFile = true;
+                                            ErrorCopyAsset = true;
+                                            break;
+                                        }
+
+                                        BytesCopied += sourceCloudBlockBlob.Properties.Length;
+                                        percentComplete = (long)100 * (long)BytesCopied / (long)Length;
+                                    }
+                                    else // file already exists.Can occur with merge function
+                                    {
+                                        TextBoxLogWriteLine("Failed to copy file '{0} as file already exists in the destination asset.", file.Name, true);
+                                        ErrorCopyAssetFile = true;
+                                    }
+
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
+                                DoGridTransferDeclareError(index, ex);
+                                ErrorCopyAsset = true;
+                                ErrorCopyAssetFile = true;
+                            }
+                            if (!ErrorCopyAssetFile) TextBoxLogWriteLine("File '{0}' copied.", file.Name);
+                        }
+
+                    }
+
+
+                    if (!ErrorCopyAsset) // let's do the copy of additional fragblob if there are
+                    {
+                        List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
+                        // do the copy
+                        nbblob = 0;
+                        DoGridTransferUpdateText(string.Format("Copy asset '{0}' to account '{1}' - fragblobs", SourceAsset.Name, TargetCredentials.AccountName), index);
+                        DoGridTransferUpdateProgress(0, index);
+                        try
+                        {
+                            var mediablobs = assetSourceContainer.ListBlobs();
+                            if (mediablobs.Count() > 0) // there are fragblobs
+                            {
+                                foreach (var blob in mediablobs)
+                                {
+
+                                    if (blob.GetType() == typeof(CloudBlobDirectory))
+                                    {
+                                        CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
+                                        ListDirectories.Add(blobdir);
+                                        TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
+
+                                    }
+                                    else if (blob.GetType() == typeof(CloudBlockBlob))
+                                    {
+                                        // we must copy the file.ismc too
+                                        var blockblob = (CloudBlockBlob)blob;
+                                        if (blockblob.Name.EndsWith(".ismc"))
+                                        {
+                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
+                                            string blobToken = assetSourceContainer.GetSharedAccessSignature(
+                                            new SharedAccessBlobPolicy
+                                            {
+                                                Permissions = SharedAccessBlobPermissions.Read |
+                                                                SharedAccessBlobPermissions.Write,
+                                                SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
+                                            });
+
+
+                                            // copy using src blob as SAS
+                                            targetBlob.BeginStartCopyFromBlob(new Uri(blob.Uri.AbsoluteUri + blobToken), null, null);
+                                        }
+                                    }
+
+                                }
+                                // let's launch the copy of fragblobs
+                                List<ICancellableAsyncResult> mylistresults = CopyBlobDirectory(ListDirectories, assetTargetContainer);
+
+                                if (mylistresults.Count > 0)
+                                {
+                                    while (!mylistresults.All(r => r.IsCompleted))
+                                    {
+                                        Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
+                                        percentComplete = (100d * Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count));
+                                        DoGridTransferUpdateProgress((int)percentComplete, index);
+                                    }
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Failed to copy live fragblobs", true);
+                            DoGridTransferDeclareError(index, ex);
+                            ErrorCopyAsset = true;
+                        }
+                    }
+
+                    sourcelocator.Delete();
+                    readpolicy.Delete();
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Error storage key not found for asset '{0}'.", SourceAsset.Name, true);
+                    ErrorCopyAsset = true;
+                }
+            }
+            
+            // let's set the primary file
+            if (ismAssetFile.Count() > 0)
+            {
+                SetISMFileAsPrimary(TargetAsset, ismAssetFile.FirstOrDefault().Name);
+            }
+            else
+            {
+                SetISMFileAsPrimary(TargetAsset);
+            }
+
+            Targetlocator.Delete();
+            writePolicy.Delete();            
+
+            if (!ErrorCopyAsset)
+            {
+                if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
+                TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", TargetCredentials.AccountName);
+                TextBoxLogWriteLine(TargetAsset.Id);
+                DoGridTransferDeclareCompleted(index, assetTargetContainer.Uri.ToString());
+            }
+            DoRefreshGridAssetV(false);
+        }
+
+        // copy the directories of the same container to another container
+        public static List<ICancellableAsyncResult> CopyBlobDirectory(List<CloudBlobDirectory> ListsrcDirectory, CloudBlobContainer destContainer)
+        {
+            List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+
+            foreach (var srcDirectory in ListsrcDirectory)
+            {
+                // get the SAS token to use for all blobs
+                string blobToken = srcDirectory.Container.GetSharedAccessSignature(
+                    new SharedAccessBlobPolicy
+                    {
+                        Permissions = SharedAccessBlobPermissions.Read |
+                                        SharedAccessBlobPermissions.Write,
+                        SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
+                    });
+
+                var srcBlobList = srcDirectory.ListBlobs(
+                    useFlatBlobListing: true,
+                    blobListingDetails: BlobListingDetails.None).ToList();
+
+                foreach (var src in srcBlobList)
+                {
+                    var srcBlob = src as ICloudBlob;
+
+                    // Create appropriate destination blob type to match the source blob
+                    ICloudBlob destBlob;
+                    if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                        destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                    else
+                        destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
+
+                    // copy using src blob as SAS
+                    mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + blobToken), null, null));
+                }
+            }
+
+            return mylistresults;
+        }
+
+
+
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteJobs(_context.Jobs.ToList());
@@ -3871,7 +4149,13 @@ typeof(FilterTime)
                     if (TypeStr.Equals("0 B")) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
                 }
             }
-
+            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index)  // locator expiration,
+            {
+                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var value = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._locatorexpirationdatewarning].Value;
+                if (value != null && (((bool)value) == true))
+                    cell.Style.ForeColor = Color.Red;
+            }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
             {
 
@@ -3891,6 +4175,7 @@ typeof(FilterTime)
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value != null)
                     cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
             }
+
         }
 
         private void toolStripMenuItemDisplayInfo_Click(object sender, EventArgs e)
@@ -8398,6 +8683,107 @@ typeof(FilterTime)
         {
             DoGetTestToken();
         }
+
+        private void toAnotherAzureMediaServicesAccountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
+        private async void DoCopyAssetToAnotherAMSAccount()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            CopyAsset form = new CopyAsset(_context)
+            {
+                CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
+                EnableSingleDestinationAsset = SelectedAssets.Count > 1
+            };
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                bool usercanceled = false;
+                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, form.StorageAccount);
+                if (!usercanceled)
+                {
+                    if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
+                    {
+                        foreach (IAsset asset in SelectedAssets)
+                        {
+                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.LoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            // Start a worker thread that does asset copy.
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, form.StorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
+                        }
+                    }
+                    else // merge all assets into a single asset
+                    {
+                        if (SelectedAssets.Any(a => a.Options != AssetCreationOptions.None))
+                        {
+                            MessageBox.Show("Assets cannot be merged as at least one asset is encrypted.", "Asset encrypted", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+                        else
+                        {
+                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.LoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            // Start a worker thread that does asset copy.
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, form.StorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), index, form.DeleteSourceAsset));
+                        }
+                    }
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                }
+            }
+        }
+
+        private static Dictionary<string, string> BuildStorageKeyDictionary(List<IAsset> SelectedAssets, ref bool usercanceled, string DefaultStorageName = null, string DefaultStorageKey = null, string OtherStorage = null)
+        {
+            Dictionary<string, string> storagekeys = new Dictionary<string, string>();
+            bool canceled = false;
+
+            if (!string.IsNullOrEmpty(DefaultStorageName) && !string.IsNullOrEmpty(DefaultStorageKey))
+            {
+                storagekeys.Add(DefaultStorageName, DefaultStorageKey);
+            }
+
+            foreach (IAsset asset in SelectedAssets)
+            {
+
+                if (!storagekeys.ContainsKey(asset.StorageAccountName))
+                {
+                    string valuekey = "";
+                    if (Program.InputBox("Source Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", asset.StorageAccountName), ref valuekey) == DialogResult.OK)
+                    {
+                        storagekeys.Add(asset.StorageAccountName, valuekey);
+                    }
+                    else
+                    {
+                        canceled = true;
+                    }
+                }
+            }
+
+
+            // useful for destination media services account with non default storage selected
+            if (OtherStorage != null)
+            {
+                string valuekey = "";
+                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", OtherStorage), ref valuekey) == DialogResult.OK)
+                {
+                    storagekeys.Add(OtherStorage, valuekey);
+                }
+                else
+                {
+                    canceled = true;
+                }
+            }
+
+
+            usercanceled = canceled;
+            return storagekeys;
+        }
+
+        private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
     }
 }
 
@@ -8636,6 +9022,9 @@ namespace AMSExplorer
         public const string NameAscending = "Name <";
         public const string SizeDescending = "Size >";
         public const string SizeAscending = "Size <";
+        public const string LocatorExpirationAscending = "Publication exp >";
+        public const string LocatorExpirationDescending = "Publication exp <";
+
     }
 
     public static class OrderJobs
@@ -8704,8 +9093,9 @@ namespace AMSExplorer
         UploadFromFolder = 1,
         ImportFromAzureStorage = 2,
         ImportFromHttp = 3,
-        ExportToAzureStorage = 4,
-        DownloadToLocal = 5
+        ExportToOtherAMSAccount = 4,
+        ExportToAzureStorage = 5,
+        DownloadToLocal = 6
     }
 
 
@@ -8804,6 +9194,8 @@ namespace AMSExplorer
         public string _statEncMouseOver = "StaticEncryptionMouseOver";
         public string _publicationMouseOver = "PublicationMouseOver";
         public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
+        public string _locatorexpirationdate = "LocatorExpirationDate";
+        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
 
         static BindingList<AssetEntry> _MyObservAsset;
         static private int _assetsperpage = 50; //nb of items per page
@@ -8879,6 +9271,7 @@ namespace AMSExplorer
             this.Columns[_statEncMouseOver].Visible = false;
             this.Columns[_dynEncMouseOver].Visible = false;
             this.Columns[_publicationMouseOver].Visible = false;
+            this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
             this.Columns["LastModified"].HeaderText = "Last modified";
@@ -8898,6 +9291,9 @@ namespace AMSExplorer
             this.Columns[_statEnc].Width = 70;
             this.Columns[_dynEnc].Width = 70;
             this.Columns[_publication].Width = 70;
+            this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
+            this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
+
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -8935,7 +9331,8 @@ namespace AMSExplorer
                         AssetBitmapAndText ABR = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = ABR.bitmap;
                         AE.StaticEncryptionMouseOver = ABR.MouseOverDesc;
-                        ABR = BuildBitmapPublication(SASLoc, OrigLoc);
+                        ABR = BuildBitmapPublication(asset);
+                        //ABR = BuildBitmapPublication(SASLoc, OrigLoc);
                         AE.Publication = ABR.bitmap;
                         AE.PublicationMouseOver = ABR.MouseOverDesc;
                         AE.Type = AssetInfo.GetAssetType(asset);
@@ -8944,6 +9341,9 @@ namespace AMSExplorer
                         ABR = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = ABR.bitmap;
                         AE.DynamicEncryptionMouseOver = ABR.MouseOverDesc;
+                        DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                        AE.LocatorExpirationDate = LocDate;
+                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
                         i++;
                         if (i % 5 == 0)
                         {
@@ -9042,10 +9442,10 @@ namespace AMSExplorer
                 switch (_statefilter)
                 {
                     case StatusAssets.Published:
-                        assets = assets.Where(a => a.Locators.Count > 0);
+                        assets = assets.Where(a => a.Locators.Any());
                         break;
                     case StatusAssets.PublishedExpired:
-                        assets = assets.Where(a => a.Locators.Count > 0).Where(a => a.Locators.All(l => l.ExpirationDateTime < DateTime.UtcNow));
+                        assets = assets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
                         break;
                     case StatusAssets.NotPublished:
                         assets = assets.Where(a => a.Locators.Count == 0);
@@ -9063,7 +9463,7 @@ namespace AMSExplorer
                         assets = assets.Where(a => a.Options == AssetCreationOptions.None);
                         break;
                     case StatusAssets.DynEnc:
-                        assets = assets.Where(a => a.DeliveryPolicies.Count > 0);
+                        assets = assets.Where(a => a.DeliveryPolicies.Any());
                         break;
                     case StatusAssets.Streamable:
                         assets = assets.Where(a => a.IsStreamable);
@@ -9117,6 +9517,14 @@ namespace AMSExplorer
                     assets = from a in assets orderby size(a) ascending select a;
                     break;
 
+                case OrderAssets.LocatorExpirationAscending:
+                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
+                    break;
+
+                case OrderAssets.LocatorExpirationDescending:
+                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
+                    break;
+
                 default:
                     assets = from a in assets orderby a.LastModified descending select a;
                     break;
@@ -9138,7 +9546,8 @@ namespace AMSExplorer
 
             try
             {
-                assetquery = from a in assets select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                assetquery = from a in assets
+                             select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
             catch (Exception e)
@@ -9219,8 +9628,111 @@ namespace AMSExplorer
             return newBitmap;
         }
 
+        public static AssetBitmapAndText BuildBitmapPublication(IAsset asset)
+        {
+            Bitmap returnedImage = null;
+            string returnedText = null;
+
+            foreach (var locator in asset.Locators)
+            {
+                Bitmap newbitmap = null;
+                string newtext = null;
+                PublishStatus Status = AssetInfo.GetPublishedStatusForLocator(locator);
+
+                switch (locator.Type)
+                {
+
+                    case (LocatorType.OnDemandOrigin):
+                        switch (Status)
+                        {
+                            case PublishStatus.PublishedActive:
+                                newbitmap = Streaminglocatorimage;
+                                newtext = "Active Streaming locator";
+                                break;
+
+                            case PublishStatus.PublishedExpired:
+                                newbitmap = Redstreamimage;
+                                newtext = "Expired Streaming locator";
+                                break;
+
+                            case PublishStatus.PublishedFuture:
+                                newbitmap = Bluestreamimage;
+                                newtext = "Future Streaming locator";
+                                break;
+
+                            case PublishStatus.NotPublished:
+                                break;
+                        }
+                        break;
+
+                    case (LocatorType.Sas):
+                        switch (Status)
+                        {
+                            case PublishStatus.PublishedActive:
+                                newbitmap = SASlocatorimage;
+                                newtext = "Active SAS locator";
+                                break;
+
+                            case PublishStatus.PublishedExpired:
+                                newbitmap = Reddownloadimage;
+                                newtext = "Expired SAS locator";
+                                break;
+
+                            case PublishStatus.PublishedFuture:
+                                newbitmap = Bluedownloadimage;
+                                newtext = "Future SAS locator";
+                                break;
+
+                            case PublishStatus.NotPublished:
+
+                                break;
+                        }
+                        break;
 
 
+                    default:
+                        break;
+                }
+
+                returnedImage = AddBitmap(returnedImage, newbitmap);
+                returnedText += !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
+
+            }
+
+
+            AssetBitmapAndText ABT = new AssetBitmapAndText()
+            {
+                bitmap = returnedImage,
+                MouseOverDesc = returnedText ?? "Not published"
+
+            };
+
+            return ABT;
+        }
+
+        private static Bitmap AddBitmap(Bitmap bitmap1, Bitmap bitmap2)
+        {
+            Bitmap returnedbitmap;
+            if (bitmap1 != null)
+            {
+                returnedbitmap = new Bitmap((bitmap1.Width + bitmap2.Width), bitmap1.Height);
+                using (Graphics graphicsObject = Graphics.FromImage(returnedbitmap))
+                {
+                    graphicsObject.DrawImage(bitmap1, new Point(0, 0));
+                    graphicsObject.DrawImage(bitmap2, new Point(bitmap1.Width, 0));
+                }
+
+            }
+            else
+            {
+                returnedbitmap = bitmap2;
+            }
+
+            return returnedbitmap;
+        }
+
+
+        /*
         private static AssetBitmapAndText BuildBitmapPublication(PublishStatus SASPub, PublishStatus OriginPub)
         {
             // optmized for speed
@@ -9303,7 +9815,7 @@ namespace AMSExplorer
             ABT.MouseOverDesc = downloads + (string.IsNullOrEmpty(downloads) ? string.Empty : Constants.endline) + streams;
             return ABT;
         }
-
+        */
 
         private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
         {

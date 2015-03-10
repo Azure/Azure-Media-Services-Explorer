@@ -146,6 +146,12 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="CopyAsset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CopyAsset.Designer.cs">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreateTestToken.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -391,6 +397,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CopyAsset.resx">
+      <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
