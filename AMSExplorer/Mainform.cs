@@ -2640,7 +2640,6 @@ namespace AMSExplorer
 
                     }
 
-
                     if (!ErrorCopyAsset) // let's do the copy of additional fragblob if there are
                     {
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
@@ -6449,6 +6448,7 @@ typeof(FilterTime)
                         streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
                     }
                 }
+                streamingendpoint.CdnEnabled = form.EnableAzureCDN;
 
                 if (form.MaxCacheAge != null)
                 {

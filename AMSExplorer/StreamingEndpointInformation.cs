@@ -122,6 +122,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool EnableAzureCDN
+        {
+            get
+            {
+                return checkBoxEnableAzureCDN.Checked;
+            }
+        }
+
         public string GetOriginClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
@@ -142,7 +150,7 @@ namespace AMSExplorer
 
 
 
-        private void OriginInformation_Load(object sender, EventArgs e)
+        private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
@@ -169,6 +177,10 @@ namespace AMSExplorer
             }
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
+            // AZURE CDN
+            checkBoxEnableAzureCDN.Checked = MyOrigin.CdnEnabled;
+            checkBoxEnableAzureCDN.Enabled = ((MyOrigin.State == StreamingEndpointState.Stopped) && (MyOrigin.ScaleUnits > 0)); // Settings can only be changed in stopped state
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
 
             if (MyOrigin.ScaleUnits != null)
             {
@@ -314,13 +326,13 @@ namespace AMSExplorer
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled =checkBoxcrossdomain.Checked;
+            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-             }
+        }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
