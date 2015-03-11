@@ -46,6 +46,14 @@ namespace AMSExplorer
             set { numericUpDownRU.Value = value; }
         }
 
+        public bool EnableAzureCDN
+        {
+            get
+            {
+                return checkBoxEnableAzureCDN.Checked;
+            }
+        }
+
         public CreateStreamingEndpoint()
         {
             InitializeComponent();

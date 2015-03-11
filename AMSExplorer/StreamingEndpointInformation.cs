@@ -48,6 +48,7 @@ namespace AMSExplorer
         {
             AllowNew = true
         };
+        private bool InitTime = true;
 
         public int GetScaleUnits
         {
@@ -122,6 +123,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool EnableAzureCDN
+        {
+            get
+            {
+                return checkBoxEnableAzureCDN.Checked;
+            }
+        }
+
         public string GetOriginClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
@@ -142,12 +151,11 @@ namespace AMSExplorer
 
 
 
-        private void OriginInformation_Load(object sender, EventArgs e)
+        private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
             DGOrigin.ColumnCount = 2;
-
             // asset info
 
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
@@ -168,6 +176,11 @@ namespace AMSExplorer
                 }
             }
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
+
+            // AZURE CDN
+            checkBoxEnableAzureCDN.Checked = MyOrigin.CdnEnabled;
+            checkBoxEnableAzureCDN.Enabled = ((MyOrigin.State == StreamingEndpointState.Stopped || MyOrigin.State == StreamingEndpointState.Running) ); // Settings can only be changed in stopped state. if running, ok to change but code wiill restart the se
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
 
 
             if (MyOrigin.ScaleUnits != null)
@@ -233,6 +246,7 @@ namespace AMSExplorer
                 }
             }
             textboxorigindesc.Text = MyOrigin.Description;
+            InitTime = false;
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -314,13 +328,13 @@ namespace AMSExplorer
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled =checkBoxcrossdomain.Checked;
+            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-             }
+        }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
@@ -353,6 +367,26 @@ namespace AMSExplorer
         private void buttonAddExampleCrossDomainPolicy_Click(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"CrossDomainPolicy.xml"));
+        }
+
+        private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownRU.Value == 0 && checkBoxEnableAzureCDN.Checked)
+            {
+                MessageBox.Show("Azure CDN must be disabled in order to set the number of Streaming Unit to 0.\nAzure CDN has been disabled.", "Azure CDN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                checkBoxEnableAzureCDN.Checked = false;
+            }
+           
+        }
+
+        private void checkBoxEnableAzureCDN_CheckedChanged(object sender, EventArgs e)
+        {
+
+            if (!InitTime && numericUpDownRU.Value == 0 && checkBoxEnableAzureCDN.Checked)
+            {
+                MessageBox.Show("Azure CDN requires at least one streaming unit.\nStreamng unit number has been updated.", "Azure CDN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numericUpDownRU.Value = 1;
+            }
         }
     }
 }
