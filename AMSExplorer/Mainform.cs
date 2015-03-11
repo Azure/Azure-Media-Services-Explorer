@@ -6448,7 +6448,6 @@ typeof(FilterTime)
                         streamingendpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList = null;
                     }
                 }
-                streamingendpoint.CdnEnabled = form.EnableAzureCDN;
 
                 if (form.MaxCacheAge != null)
                 {
@@ -6504,7 +6503,32 @@ typeof(FilterTime)
                 }
 
                 streamingendpoint.Description = form.GetOriginDescription;
-                await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
+
+                if (streamingendpoint.CdnEnabled != form.EnableAzureCDN) // special case, user changes the CDN setting. We need to stop and restart the streaming endpoint
+                {
+                    bool sewasrunning = false;
+                    if (streamingendpoint.State == StreamingEndpointState.Running)
+                    {
+                        sewasrunning = true;
+                        TextBoxLogWriteLine(string.Format("Stopping the streaming endpoint in order to {0} Azure CDN...", form.EnableAzureCDN ? "enable" : "disable"));
+                        await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.StopAsync, streamingendpoint, "stopped"));
+                    }
+                    streamingendpoint.CdnEnabled = form.EnableAzureCDN; // if user changed that, it means the se is either running or stopping
+
+                    await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
+                    if (sewasrunning)
+                    {
+                        TextBoxLogWriteLine("Starting the streaming endpoint...");
+                        await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.StartAsync, streamingendpoint, "started"));
+                    }
+
+                }
+                else
+                {
+                    await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
+
+                }
+
             }
         }
 
@@ -6572,7 +6596,8 @@ typeof(FilterTime)
                 {
                     Name = form.StreamingEndpointName,
                     ScaleUnits = form.scaleUnits,
-                    Description = form.StreamingEndpointDescription
+                    Description = form.StreamingEndpointDescription,
+                    CdnEnabled = form.EnableAzureCDN
                 };
 
                 await Task.Run(() => StreamingEndpointExecuteAsync(

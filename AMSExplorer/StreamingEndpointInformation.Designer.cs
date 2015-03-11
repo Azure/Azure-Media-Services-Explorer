@@ -36,7 +36,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.labelWarning = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
             this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
             this.buttonAddAkamai = new System.Windows.Forms.Button();
@@ -160,7 +159,6 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.labelWarning);
             this.tabPage2.Controls.Add(this.panelAkamai);
             this.tabPage2.Controls.Add(this.panelStreamingAllowedIP);
             this.tabPage2.Controls.Add(this.panelCustomHostnames);
@@ -179,18 +177,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // labelWarning
-            // 
-            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelWarning.AutoSize = true;
-            this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(686, 86);
-            this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
-            this.labelWarning.TabIndex = 66;
-            this.labelWarning.Text = "Warning";
-            this.labelWarning.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // panelAkamai
             // 
@@ -397,6 +383,7 @@
             this.checkBoxEnableAzureCDN.Text = "Enable Azure CDN";
             this.toolTip1.SetToolTip(this.checkBoxEnableAzureCDN, "Not all data centers support the Azure CDN integration");
             this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
+            this.checkBoxEnableAzureCDN.CheckedChanged += new System.EventHandler(this.checkBoxEnableAzureCDN_CheckedChanged);
             // 
             // label2
             // 
@@ -670,6 +657,5 @@
         private System.Windows.Forms.Panel panelCustomHostnames;
         private System.Windows.Forms.Panel panelAkamai;
         private System.Windows.Forms.Panel panelStreamingAllowedIP;
-        private System.Windows.Forms.Label labelWarning;
     }
 }
