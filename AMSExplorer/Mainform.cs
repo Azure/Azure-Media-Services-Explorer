@@ -2588,7 +2588,7 @@ namespace AMSExplorer
 
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
-                                            Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                            Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
                                             blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                             DoGridTransferUpdateProgress((int)percentComplete, index);
@@ -2651,7 +2651,7 @@ namespace AMSExplorer
                         try
                         {
                             var mediablobs = assetSourceContainer.ListBlobs();
-                            if (mediablobs.Count() > 0) // there are fragblobs
+                            if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
                                 foreach (var blob in mediablobs)
                                 {
@@ -2667,7 +2667,7 @@ namespace AMSExplorer
                                     {
                                         // we must copy the file.ismc too
                                         var blockblob = (CloudBlockBlob)blob;
-                                        if (blockblob.Name.EndsWith(".ismc"))
+                                        if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
                                             CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
                                             string blobToken = assetSourceContainer.GetSharedAccessSignature(
@@ -2716,7 +2716,7 @@ namespace AMSExplorer
                     ErrorCopyAsset = true;
                 }
             }
-            
+
             // let's set the primary file
             if (ismAssetFile.Count() > 0)
             {
@@ -2728,7 +2728,7 @@ namespace AMSExplorer
             }
 
             Targetlocator.Delete();
-            writePolicy.Delete();            
+            writePolicy.Delete();
 
             if (!ErrorCopyAsset)
             {
