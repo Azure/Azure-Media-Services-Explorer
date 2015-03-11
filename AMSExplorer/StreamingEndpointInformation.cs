@@ -155,7 +155,7 @@ namespace AMSExplorer
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
             DGOrigin.ColumnCount = 2;
-
+            labelWarning.Text = "";
             // asset info
 
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
@@ -181,6 +181,7 @@ namespace AMSExplorer
             checkBoxEnableAzureCDN.Checked = MyOrigin.CdnEnabled;
             checkBoxEnableAzureCDN.Enabled = ((MyOrigin.State == StreamingEndpointState.Stopped) && (MyOrigin.ScaleUnits > 0)); // Settings can only be changed in stopped state
             panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
+                     
 
             if (MyOrigin.ScaleUnits != null)
             {
@@ -365,6 +366,11 @@ namespace AMSExplorer
         private void buttonAddExampleCrossDomainPolicy_Click(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"CrossDomainPolicy.xml"));
+        }
+
+        private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownRU.Value == 0 && MyOrigin.CdnEnabled) labelWarning.Text = "Azure CDN must be disabled before setting the number of Streaming Unit to 0.";
         }
     }
 }
