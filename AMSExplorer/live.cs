@@ -225,7 +225,7 @@ namespace AMSExplorer
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
             this.Columns[_encoded].HeaderText = _encoded;
-
+            
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
             WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshChannels_DoWork);
