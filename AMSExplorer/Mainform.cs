@@ -5394,7 +5394,7 @@ typeof(FilterTime)
                             Parallel.ForEach(programqueryrunning, myP =>
                             {
                                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
+                                ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped");
                             });
                         });
                         await yourForeachTask;
@@ -5423,7 +5423,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
-                await Task.Run(() => ChannelExecuteAsync(myC.StartAsync, myC, "started"));
+                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started"));
             }
         }
 
@@ -5432,7 +5432,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Stopping channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelExecuteAsync(myC.StopAsync, myC, "stopped"));
+                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped"));
             }
         }
 
@@ -5441,7 +5441,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelExecuteAsync(myC.ResetAsync, myC, "reset"));
+                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset"));
             }
         }
 
@@ -5450,7 +5450,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Deleting channel '{0}'...", myC.Name);
-                await Task.Run(() => ChannelExecuteAsync(myC.DeleteAsync, myC, "deleted"));
+                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted"));
                 DoRefreshGridChannelV(false);
             }
         }
@@ -5470,7 +5470,7 @@ typeof(FilterTime)
             if (myP != null)
             {
                 TextBoxLogWriteLine("Starting program '{0}'...", myP.Name);
-                await Task.Run(() => ProgramExecuteAsync(myP.StartAsync, myP, "started"));
+                await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStartOperationAsync, myP, "started"));
             }
         }
 
@@ -5479,7 +5479,7 @@ typeof(FilterTime)
             if (myP != null)
             {
                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                await Task.Run(() => ProgramExecuteAsync(myP.StopAsync, myP, "stopped"));
+                await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped"));
             }
         }
 
@@ -5488,7 +5488,8 @@ typeof(FilterTime)
             if (myO != null)
             {
                 TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
-                await Task.Run(() => StreamingEndpointExecuteAsync(myO.StartAsync, myO, "started"));
+                await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
+                //await Task.Run(() => StreamingEndpointExecuteAsync(myO.StartAsync, myO, "started"));
             }
         }
         private async void StopStreamingEndpoint(IStreamingEndpoint myO)
@@ -5496,7 +5497,7 @@ typeof(FilterTime)
             if (myO != null)
             {
                 TextBoxLogWriteLine("Stopping streaming endpoint '{0}'...", myO.Name);
-                await Task.Run(() => StreamingEndpointExecuteAsync(myO.StopAsync, myO, "stopped"));
+                await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStopOperationAsync, myO, "stopped"));
             }
         }
 
@@ -5505,21 +5506,37 @@ typeof(FilterTime)
             if (myO != null)
             {
                 TextBoxLogWriteLine("Deleting streaming endpoint '{0}'.", myO.Name);
-                await Task.Run(() => StreamingEndpointExecuteAsync(myO.DeleteAsync, myO, "deleted"));
+                await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
                 DoRefreshGridStreamingEndpointV(false);
             }
         }
 
 
-        private async void ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit)
+        private async Task<IOperation> ScaleStreamingEndpoint(IStreamingEndpoint myO, int unit)
         {
+            IOperation operation = null;
             if (myO != null)
             {
                 try
                 {
                     TextBoxLogWriteLine("Scaling streaming endpoint '{0}' to {1} unit(s)...", myO.Name, unit.ToString());
-                    await Task.Run(() => myO.ScaleAsync(unit));
+                    //await Task.Run(() => myO.ScaleAsync(unit));
+                    operation = await myO.SendScaleOperationAsync(unit);
+                    while (operation.State == OperationState.InProgress)
+                    {
+                        //refresh the operation
+                        operation = _context.Operations.GetOperation(operation.Id);
+                        System.Threading.Thread.Sleep(1000);
+                    }
+                    if (operation.State == OperationState.Succeeded)
+                    {
                     TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", myO.Name);
+                    }
+                    else
+                    {
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' did NOT scaled. (Error {1})", myO.Name, operation.ErrorCode, true);
+                        TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                    }
                     dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
                 }
 
@@ -5528,16 +5545,24 @@ typeof(FilterTime)
                     TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
                 }
             }
+            return operation;
         }
 
-        internal async Task ChannelExecuteAsync(Func<Task> fCall, IChannel channel, string strStatusSuccess) //used for all except creation 
+
+        internal async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess) //used for all except creation 
         {
+            IOperation operation = null;
+
             try
             {
-                var STask = fCall();
                 var state = channel.State;
-                while (!STask.IsCompleted)
+                var STask = fCall();
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
                 {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
                     // refresh the channel
                     IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
                     if (channelR != null && state != channelR.State)
@@ -5547,29 +5572,27 @@ typeof(FilterTime)
                     }
                     System.Threading.Thread.Sleep(1000);
                 }
-                await STask;
+                if (operation.State == OperationState.Succeeded)
+                {
                 TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
                 dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
             }
             catch (Exception ex)
             {
                 TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
             }
+            return operation;
         }
 
-        internal async Task ChannelExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
-        {
-            try
-            {
-                await fCall();
-                TextBoxLogWriteLine("Channel '{0}' {1}.", strObjectName, strStatusSuccess);
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Error with channel '{0}' : {1}", strObjectName, Program.GetErrorMessage(ex), true);
-            }
-        }
 
+
+        //used for program update and delete as there is not operation mode for these actions
         internal async Task ProgramExecuteAsync(Func<Task> fCall, IProgram program, string strStatusSuccess) //used for all except creation 
         {
             try
@@ -5584,7 +5607,7 @@ typeof(FilterTime)
                     {
                         state = programR.State;
                         dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
-                    }
+            }
                     System.Threading.Thread.Sleep(1000);
                 }
                 await STask;
@@ -5596,6 +5619,49 @@ typeof(FilterTime)
                 TextBoxLogWriteLine("Error with program '{0}' : {1}", program.Name, Program.GetErrorMessage(ex), true);
             }
         }
+
+
+        internal async Task<IOperation> ProgramExecuteOperationAsync(Func<Task<IOperation>> fCall, IProgram program, string strStatusSuccess) //used for all except creation 
+        {
+            IOperation operation = null;
+
+            try
+            {
+                var state = program.State;
+                var STask = fCall();
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
+                {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
+                    // refresh the program
+                    IProgram programR = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
+                    if (programR != null && state != programR.State)
+                    {
+                        state = programR.State;
+                        dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (operation.State == OperationState.Succeeded)
+                {
+                TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Program '{0}' NOT {1}. (Error {2})", program.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error with program '{0}' : {1}", program.Name, Program.GetErrorMessage(ex), true);
+            }
+            return operation;
+        }
+
 
         internal async Task ProgramExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
         {
@@ -5611,14 +5677,21 @@ typeof(FilterTime)
         }
 
 
-        internal async Task StreamingEndpointExecuteAsync(Func<Task> fCall, IStreamingEndpoint myO, string strStatusSuccess) //used for all except creation 
+
+        internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess) //used for all except creation 
         {
+            IOperation operation = null;
+
             try
             {
                 var state = myO.State;
                 var STask = fCall();
-                while (!STask.IsCompleted)
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
                 {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
                     // refresh the streaming endpoint
                     IStreamingEndpoint myOR = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
                     if (myOR != null && state != myOR.State)
@@ -5628,28 +5701,55 @@ typeof(FilterTime)
                     }
                     System.Threading.Thread.Sleep(1000);
                 }
-                await STask;
+                if (operation.State == OperationState.Succeeded)
+                {
                 TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", myO.Name, strStatusSuccess);
+                }
+                else
+                {
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
                 dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
             }
             catch (Exception ex)
             {
                 TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
             }
+            return operation;
         }
 
-        internal async Task StreamingEndpointExecuteAsync(Func<Task> fCall, string sename, string strStatusSuccess) // used for creation 
+
+        internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess) // used for creation 
+        // used for Streaming Endpoint and Channel creation
         {
+            IOperation operation = null;
             try
             {
-                await fCall();
-                TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", sename, strStatusSuccess);
+                operation = await fCall();
+                while (operation.State == OperationState.InProgress)
+                {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (operation.State == OperationState.Succeeded)
+                {
+                    TextBoxLogWriteLine("{0} '{1}' {2}.", objectlogname, objectname, strStatusSuccess);
+                }
+                else
+                {
+                    TextBoxLogWriteLine("{0} '{1}' NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", sename, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Error with {0} '{1}' : {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
             }
+            return operation;
         }
+
 
 
 
@@ -5788,7 +5888,7 @@ typeof(FilterTime)
                             Parallel.ForEach(programqueryrunning, myP =>
                             {
                                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
+                                ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped");
                             });
                         });
                         await yourForeachTask;
@@ -5849,12 +5949,12 @@ typeof(FilterTime)
                     options.Slate = form.Slate;
                 }
 
-                await Task.Run(() => ChannelExecuteAsync(
+                await Task.Run(() => IObjectExecuteOperationAsync(
                      () =>
-                         _context.Channels.CreateAsync(
-                         options
-                              ),
+                         _context.Channels.SendCreateOperationAsync(
+                         options),
                          form.ChannelName,
+                         "Channel",
                          "created"));
 
                 DoRefreshGridChannelV(false);
@@ -5994,7 +6094,7 @@ typeof(FilterTime)
                         channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
                     }
                 }
-                await Task.Run(() => ChannelExecuteAsync(channel.UpdateAsync, channel, "updated"));
+                await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
             }
         }
 
@@ -6165,7 +6265,10 @@ typeof(FilterTime)
                 {
                     if (form.ScaleUnit)
                     {
-                        ScaleStreamingEndpoint(_context.StreamingEndpoints.FirstOrDefault(), 1);
+                        Task.Run(async () =>
+                        {
+                            await ScaleStreamingEndpoint(_context.StreamingEndpoints.FirstOrDefault(), 1);
+                        });
                     }
 
                     TextBoxLogWriteLine("Creating Program '{0}'...", form.ProgramName);
@@ -6193,8 +6296,8 @@ typeof(FilterTime)
 
                         var STask = ProgramExecuteAsync(
                                () =>
-                                   channel.Programs.CreateAsync(options)
-                                   , form.ProgramName,
+                                   channel.Programs.CreateAsync(options),
+                                  form.ProgramName,
                                    "created");
                         await STask;
 
@@ -6418,10 +6521,7 @@ typeof(FilterTime)
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
-                {
-                    ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
-                }
+
 
                 streamingendpoint.CustomHostNames = form.GetStreamingCustomHostnames;
 
@@ -6513,31 +6613,54 @@ typeof(FilterTime)
 
                 streamingendpoint.Description = form.GetOriginDescription;
 
+                // Let's take actions now
+
                 if (streamingendpoint.CdnEnabled != form.EnableAzureCDN) // special case, user changes the CDN setting. We need to stop and restart the streaming endpoint
                 {
-                    bool sewasrunning = false;
                     if (streamingendpoint.State == StreamingEndpointState.Running)
                     {
-                        sewasrunning = true;
-                        TextBoxLogWriteLine(string.Format("Stopping the streaming endpoint in order to {0} Azure CDN...", form.EnableAzureCDN ? "enable" : "disable"));
-                        await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.StopAsync, streamingendpoint, "stopped"));
+                        Task.Run(async () =>
+                        {
+                            TextBoxLogWriteLine("Stopping the streaming endpoint in order to {0} Azure CDN...", form.EnableAzureCDN ? "enable" : "disable");
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStopOperationAsync, streamingendpoint, "stopped");
+                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
+                            TextBoxLogWriteLine("Starting the streaming endpoint...");
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
+                        });
                     }
-                    streamingendpoint.CdnEnabled = form.EnableAzureCDN; // if user changed that, it means the se is either running or stopping
-
-                    await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
-                    if (sewasrunning)
+                    else
                     {
+                        Task.Run(async () =>
+                    {
+                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
                         TextBoxLogWriteLine("Starting the streaming endpoint...");
-                        await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.StartAsync, streamingendpoint, "started"));
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
+                        });
                     }
-
                 }
                 else
                 {
-                    await Task.Run(() => StreamingEndpointExecuteAsync(streamingendpoint.UpdateAsync, streamingendpoint, "updated"));
+                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
+                    {
+                        Task.Run(async () =>
+                       {
+                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                           await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
+                       });
+                    }
+                    else // no scaling
+                    {
+                        Task.Run(async () =>
+                       {
+                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                       });
 
                 }
-
+                }
             }
         }
 
@@ -6609,10 +6732,11 @@ typeof(FilterTime)
                     CdnEnabled = form.EnableAzureCDN
                 };
 
-                await Task.Run(() => StreamingEndpointExecuteAsync(
+                await Task.Run(() => IObjectExecuteOperationAsync(
                        () =>
-                           _context.StreamingEndpoints.CreateAsync(options)
-                           , form.StreamingEndpointName,
+                           _context.StreamingEndpoints.SendCreateOperationAsync(options),
+                           form.StreamingEndpointName,
+                           "Streaming Endpoint",
                            "created"));
 
                 DoRefreshGridStreamingEndpointV(false);
