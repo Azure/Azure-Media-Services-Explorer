@@ -493,11 +493,11 @@ namespace AMSExplorer
                             TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
                         indexn++;
 
-                        if (MyAssetType.StartsWith("HLS"))
+                        if (MyAsset.AssetType == AssetType.MediaServicesHLS)
                         // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(locator.GetHlsUri().ToString()));
                             indexn++;
                         }
                         else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive

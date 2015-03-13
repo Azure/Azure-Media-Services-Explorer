@@ -1663,6 +1663,7 @@ namespace AMSExplorer
 
                 // Get the HLS URL of the asset for adaptive streaming.
                 Uri HLSUri = AssetInfo.rw(locator.GetHlsUri(), SESelected);
+                Uri HLSUriv3 = AssetInfo.rw(locator.GetHlsv3Uri(), SESelected);
 
                 // Get the Smooth URL of the asset for adaptive streaming.
                 Uri SmoothUri = AssetInfo.rw(locator.GetSmoothStreamingUri(), SESelected);
@@ -1671,7 +1672,7 @@ namespace AMSExplorer
                 // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                 {
                     sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetHLSv3(HLSUri.ToString())));
+                    sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.ToString()));
                 }
                 else // It's not Static HLS
                 {
@@ -2518,7 +2519,7 @@ namespace AMSExplorer
             // let's get cloudblobcontainer for target
             CloudStorageAccount TargetstorageAccount =
                 (DestinationStorageAccount == null) ?
-                new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, TargetCredentials.StorageKey), TargetCredentials.ReturnStorageSuffix(), true) :
+                new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, storagekeys[TargetContext.DefaultStorageAccount.Name]), TargetCredentials.ReturnStorageSuffix(), true) :
                 new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), TargetCredentials.ReturnStorageSuffix(), true);
 
             var TargetcloudBlobClient = TargetstorageAccount.CreateCloudBlobClient();
@@ -8857,16 +8858,16 @@ typeof(FilterTime)
             if (form.ShowDialog() == DialogResult.OK)
             {
                 bool usercanceled = false;
-                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, form.StorageAccount);
+                var storagekeys = BuildStorageKeyDictionary(SelectedAssets, form.DestinationLoginCredentials, ref usercanceled, _context.DefaultStorageAccount.Name, _credentials.StorageKey, form.DestinationStorageAccount);
                 if (!usercanceled)
                 {
                     if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.LoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, form.StorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
                         }
                     }
                     else // merge all assets into a single asset
@@ -8877,9 +8878,9 @@ typeof(FilterTime)
                         }
                         else
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.LoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
                             // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.LoginCredentials, form.StorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), index, form.DeleteSourceAsset));
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), index, form.DeleteSourceAsset));
                         }
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -8887,14 +8888,14 @@ typeof(FilterTime)
             }
         }
 
-        private static Dictionary<string, string> BuildStorageKeyDictionary(List<IAsset> SelectedAssets, ref bool usercanceled, string DefaultStorageName = null, string DefaultStorageKey = null, string OtherStorage = null)
+        private static Dictionary<string, string> BuildStorageKeyDictionary(List<IAsset> SelectedAssets, CredentialsEntry DestinationCredentials, ref bool usercanceled, string SourceDefaultStorageName = null, string SourceDefaultStorageKey = null, string DestinationOtherStorage = null)
         {
             Dictionary<string, string> storagekeys = new Dictionary<string, string>();
             bool canceled = false;
 
-            if (!string.IsNullOrEmpty(DefaultStorageName) && !string.IsNullOrEmpty(DefaultStorageKey))
+            if (!string.IsNullOrEmpty(SourceDefaultStorageName) && !string.IsNullOrEmpty(SourceDefaultStorageKey))
             {
-                storagekeys.Add(DefaultStorageName, DefaultStorageKey);
+                storagekeys.Add(SourceDefaultStorageName, SourceDefaultStorageKey);
             }
 
             foreach (IAsset asset in SelectedAssets)
@@ -8916,20 +8917,52 @@ typeof(FilterTime)
 
 
             // useful for destination media services account with non default storage selected
-            if (OtherStorage != null)
+            if (DestinationOtherStorage != null)
             {
                 string valuekey = "";
-                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", OtherStorage), ref valuekey) == DialogResult.OK)
+                if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key for '{0}' : ", DestinationOtherStorage), ref valuekey) == DialogResult.OK)
                 {
-                    storagekeys.Add(OtherStorage, valuekey);
+                    storagekeys.Add(DestinationOtherStorage, valuekey);
                 }
                 else
                 {
                     canceled = true;
                 }
             }
+            else // default destination storage is used
+            {
+                CloudMediaContext newcontext = null;
+                bool ErrorConnect = false;
+                try
+                {
+                    newcontext = Program.ConnectAndGetNewContext(DestinationCredentials);
+                }
+                catch
+                {
+                    ErrorConnect = true;
+                }
+                if (!ErrorConnect)
+                {
+                    if (string.IsNullOrEmpty(DestinationCredentials.StorageKey)) // but key is not provided
+                    {
 
+                        string valuekey = "";
+                        if (Program.InputBox("Destination Storage Account Key Needed", string.Format("Please enter the Storage Account Access Key of the destination storage account ('{0}') : ", newcontext.DefaultStorageAccount.Name), ref valuekey) == DialogResult.OK)
+                        {
+                            storagekeys.Add(newcontext.DefaultStorageAccount.Name, valuekey);
+                        }
+                        else
+                        {
+                            canceled = true;
+                        }
 
+                    }
+                    else // key is provided
+                    {
+                        storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                    }
+                }
+            }
             usercanceled = canceled;
             return storagekeys;
         }

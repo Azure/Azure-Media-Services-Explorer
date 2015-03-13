@@ -834,14 +834,14 @@ namespace AMSExplorer
         public const string Type_LiveArchive = "Live archive";
         public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
-        public const string _prog_down_https_SAS = "Progressive Download URIs (SAS)";
-        public const string _prog_down_http_streaming = "Progressive Download URIs (SE)";
-        public const string _hls_v4 = "HLS v4  URI";
-        public const string _hls_v3 = "HLS v3  URI";
-        public const string _dash = "MPEG-DASH URI";
-        public const string _smooth = "Smooth Streaming URI";
-        public const string _smooth_legacy = "Smooth Streaming (legacy) URI";
-        public const string _hls = "HLS URI";
+        public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
+        public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
+        public const string _hls_v4 = "HLS v4  URL";
+        public const string _hls_v3 = "HLS v3  URL";
+        public const string _dash = "MPEG-DASH URL";
+        public const string _smooth = "Smooth Streaming URL";
+        public const string _smooth_legacy = "Smooth Streaming (legacy) URL";
+        public const string _hls = "HLS URL";
 
         private const string format_smooth_legacy = "fmp4-v20";
         private const string format_hls_v4 = "m3u8-aapl";
@@ -974,11 +974,6 @@ namespace AMSExplorer
         public static string GetSmoothLegacy(string smooth_uri)
         {
             return string.Format("{0}(format={1})", smooth_uri, format_smooth_legacy);
-        }
-
-        public static string GetHLSv3(string hls_uri)
-        {
-            return hls_uri.Replace("(format=" + format_hls_v4, "(format=" + format_hls_v3);
         }
 
         // return the URL with hostname from streaming endpoint

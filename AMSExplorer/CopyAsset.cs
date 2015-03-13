@@ -40,7 +40,7 @@ namespace AMSExplorer
         CredentialsEntry SelectedCredentials;
         private CloudMediaContext _context;
 
-        public CredentialsEntry LoginCredentials
+        public CredentialsEntry DestinationLoginCredentials
         {
             get
             {
@@ -48,7 +48,7 @@ namespace AMSExplorer
             }
         }
 
-        public string StorageAccount
+        public string DestinationStorageAccount
         {
             get
             {
