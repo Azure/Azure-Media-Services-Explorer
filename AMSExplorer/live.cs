@@ -315,7 +315,6 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
 
-
             IEnumerable<ChannelEntry> channelquery;
             channels = context.Channels;
 
@@ -358,7 +357,6 @@ namespace AMSExplorer
             _refreshedatleastonetime = true;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
-
         }
     }
 

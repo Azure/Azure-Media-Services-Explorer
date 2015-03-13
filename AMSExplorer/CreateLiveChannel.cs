@@ -60,12 +60,13 @@ namespace AMSExplorer
         {
             get
             {
-                                ChannelEncoding encodingoption = new ChannelEncoding()
-               {
-                   SystemPreset = comboBoxEncodingPreset.Text,
-                   AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
-                  
-               };
+                ChannelEncoding encodingoption = new ChannelEncoding()
+                {
+                    SystemPreset = comboBoxEncodingPreset.Text,
+                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                };
+
+
                 return encodingoption;
             }
         }
@@ -141,7 +142,27 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                }
+                ips.Add(ip);
+                return ips;
+            }
+        }
+
+        public List<IPRange> previewIPAllow
+        {
+            get
+            {
+                List<IPRange> ips = new List<IPRange>();
+                IPRange ip;
+
+                if (checkBoxRestrictPreviewIP.Checked)
+                {
+                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                }
+                else
+                {
+                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
                 }
                 ips.Add(ip);
                 return ips;
@@ -175,7 +196,8 @@ namespace AMSExplorer
             comboBoxEncodingPreset.Items.Add("Default720p");
             comboBoxEncodingPreset.SelectedIndex = 0;
 
-            labelWarning.Text = string.Empty;
+            labelWarningIngest.Text = string.Empty;
+            labelWarningPreview.Text = string.Empty;
             InitPhase = false;
         }
 
@@ -184,8 +206,7 @@ namespace AMSExplorer
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
             if (!textBoxRestrictIngestIP.Enabled)
             {
-                labelWarning.Text = string.Empty;
-                buttonOk.Enabled = true;
+                labelWarningIngest.Text = string.Empty;
             }
         }
 
@@ -199,14 +220,12 @@ namespace AMSExplorer
             }
             catch
             {
-                labelWarning.Text = "IP address incorrect";
-                buttonOk.Enabled = false;
+                labelWarningIngest.Text = "IP address incorrect";
                 Error = true;
             }
             if (!Error)
             {
-                labelWarning.Text = string.Empty;
-                buttonOk.Enabled = true;
+                labelWarningIngest.Text = string.Empty;
             }
         }
 
@@ -256,6 +275,34 @@ namespace AMSExplorer
                     tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
                     EncodingTabDisplayed = true;
                 }
+            }
+        }
+
+        private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
+            if (!textBoxRestrictPreviewIP.Enabled)
+            {
+                labelWarningPreview.Text = string.Empty;
+            }
+        }
+
+        private void textBoxRestrictPreviewIP_TextChanged(object sender, EventArgs e)
+        {
+            bool Error = false;
+
+            try
+            {
+                IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+            }
+            catch
+            {
+                labelWarningPreview.Text = "IP address incorrect";
+                Error = true;
+            }
+            if (!Error)
+            {
+                labelWarningPreview.Text = string.Empty;
             }
         }
     }

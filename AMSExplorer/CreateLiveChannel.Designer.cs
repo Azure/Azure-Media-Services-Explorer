@@ -40,7 +40,7 @@
             this.checkBoxHLSFragPerSegDefined = new System.Windows.Forms.CheckBox();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
-            this.labelWarning = new System.Windows.Forms.Label();
+            this.labelWarningIngest = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.checkBoxStartChannel = new System.Windows.Forms.CheckBox();
@@ -50,22 +50,25 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxAdMarkerSource = new System.Windows.Forms.ComboBox();
+            this.panelRTP = new System.Windows.Forms.Panel();
+            this.textBoxVideoStreamName = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.comboBoxEncodingPreset = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.panelRTP = new System.Windows.Forms.Panel();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxVideoStreamName = new System.Windows.Forms.TextBox();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
             this.tabPageAdConfig = new System.Windows.Forms.TabPage();
-            this.checkBoxAdInsertSlate = new System.Windows.Forms.CheckBox();
-            this.textBoxSlateImage = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxSlateImage = new System.Windows.Forms.TextBox();
+            this.checkBoxAdInsertSlate = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.comboBoxAdMarkerSource = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
+            this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
+            this.labelWarningPreview = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -102,7 +105,7 @@
             // textBoxRestrictIngestIP
             // 
             this.textBoxRestrictIngestIP.Enabled = false;
-            this.textBoxRestrictIngestIP.Location = new System.Drawing.Point(18, 179);
+            this.textBoxRestrictIngestIP.Location = new System.Drawing.Point(18, 134);
             this.textBoxRestrictIngestIP.Name = "textBoxRestrictIngestIP";
             this.textBoxRestrictIngestIP.Size = new System.Drawing.Size(239, 20);
             this.textBoxRestrictIngestIP.TabIndex = 6;
@@ -111,7 +114,7 @@
             // checkBoxRestrictIngestIP
             // 
             this.checkBoxRestrictIngestIP.AutoSize = true;
-            this.checkBoxRestrictIngestIP.Location = new System.Drawing.Point(18, 156);
+            this.checkBoxRestrictIngestIP.Location = new System.Drawing.Point(18, 113);
             this.checkBoxRestrictIngestIP.Name = "checkBoxRestrictIngestIP";
             this.checkBoxRestrictIngestIP.Size = new System.Drawing.Size(183, 17);
             this.checkBoxRestrictIngestIP.TabIndex = 5;
@@ -194,15 +197,14 @@
             this.textBoxKeyFrame.Size = new System.Drawing.Size(121, 20);
             this.textBoxKeyFrame.TabIndex = 2;
             // 
-            // labelWarning
+            // labelWarningIngest
             // 
-            this.labelWarning.AutoSize = true;
-            this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(20, 211);
-            this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
-            this.labelWarning.TabIndex = 45;
-            this.labelWarning.Text = "Warning";
+            this.labelWarningIngest.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningIngest.Location = new System.Drawing.Point(263, 137);
+            this.labelWarningIngest.Name = "labelWarningIngest";
+            this.labelWarningIngest.Size = new System.Drawing.Size(152, 17);
+            this.labelWarningIngest.TabIndex = 45;
+            this.labelWarningIngest.Text = "Warning";
             // 
             // label5
             // 
@@ -258,6 +260,9 @@
             // 
             // TabSettings
             // 
+            this.TabSettings.Controls.Add(this.labelWarningPreview);
+            this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
+            this.TabSettings.Controls.Add(this.textBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
             this.TabSettings.Controls.Add(this.checkBoxHLSFragPerSegDefined);
             this.TabSettings.Controls.Add(this.label2);
@@ -266,7 +271,7 @@
             this.TabSettings.Controls.Add(this.comboBoxEncodingType);
             this.TabSettings.Controls.Add(this.comboBoxProtocolInput);
             this.TabSettings.Controls.Add(this.textBoxKeyFrame);
-            this.TabSettings.Controls.Add(this.labelWarning);
+            this.TabSettings.Controls.Add(this.labelWarningIngest);
             this.TabSettings.Controls.Add(this.checkBoxRestrictIngestIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictIngestIP);
             this.TabSettings.Location = new System.Drawing.Point(4, 22);
@@ -309,32 +314,50 @@
             this.tabPageLiveEncoding.Text = "Live Encoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // panelRTP
             // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(215, 36);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(190, 14);
-            this.label8.TabIndex = 69;
-            this.label8.Text = "SCTE-35 only available for RTP input";
+            this.panelRTP.Controls.Add(this.textBoxVideoStreamName);
+            this.panelRTP.Controls.Add(this.label9);
+            this.panelRTP.Controls.Add(this.numericUpDownVideoStreamIndex);
+            this.panelRTP.Controls.Add(this.label7);
+            this.panelRTP.Location = new System.Drawing.Point(7, 123);
+            this.panelRTP.Name = "panelRTP";
+            this.panelRTP.Size = new System.Drawing.Size(408, 100);
+            this.panelRTP.TabIndex = 70;
             // 
-            // label1
+            // textBoxVideoStreamName
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 17);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 13;
-            this.label1.Text = "Ad marker source :";
+            this.textBoxVideoStreamName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxVideoStreamName.Location = new System.Drawing.Point(12, 77);
+            this.textBoxVideoStreamName.Name = "textBoxVideoStreamName";
+            this.textBoxVideoStreamName.Size = new System.Drawing.Size(393, 20);
+            this.textBoxVideoStreamName.TabIndex = 61;
             // 
-            // comboBoxAdMarkerSource
+            // label9
             // 
-            this.comboBoxAdMarkerSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAdMarkerSource.FormattingEnabled = true;
-            this.comboBoxAdMarkerSource.Location = new System.Drawing.Point(9, 33);
-            this.comboBoxAdMarkerSource.Name = "comboBoxAdMarkerSource";
-            this.comboBoxAdMarkerSource.Size = new System.Drawing.Size(200, 21);
-            this.comboBoxAdMarkerSource.TabIndex = 12;
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(9, 64);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(153, 13);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Video Stream Name (optional) :";
+            // 
+            // numericUpDownVideoStreamIndex
+            // 
+            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(12, 31);
+            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
+            this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownVideoStreamIndex.TabIndex = 72;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(9, 14);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 13);
+            this.label7.TabIndex = 71;
+            this.label7.Text = "Video Stream Index :";
             // 
             // comboBoxEncodingPreset
             // 
@@ -352,51 +375,6 @@
             this.label6.Size = new System.Drawing.Size(43, 13);
             this.label6.TabIndex = 10;
             this.label6.Text = "Preset :";
-            // 
-            // panelRTP
-            // 
-            this.panelRTP.Controls.Add(this.textBoxVideoStreamName);
-            this.panelRTP.Controls.Add(this.label9);
-            this.panelRTP.Controls.Add(this.numericUpDownVideoStreamIndex);
-            this.panelRTP.Controls.Add(this.label7);
-            this.panelRTP.Location = new System.Drawing.Point(7, 123);
-            this.panelRTP.Name = "panelRTP";
-            this.panelRTP.Size = new System.Drawing.Size(408, 100);
-            this.panelRTP.TabIndex = 70;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 14);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 13);
-            this.label7.TabIndex = 71;
-            this.label7.Text = "Video Stream Index :";
-            // 
-            // numericUpDownVideoStreamIndex
-            // 
-            this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(12, 31);
-            this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
-            this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownVideoStreamIndex.TabIndex = 72;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 64);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(153, 13);
-            this.label9.TabIndex = 73;
-            this.label9.Text = "Video Stream Name (optional) :";
-            // 
-            // textBoxVideoStreamName
-            // 
-            this.textBoxVideoStreamName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxVideoStreamName.Location = new System.Drawing.Point(12, 77);
-            this.textBoxVideoStreamName.Name = "textBoxVideoStreamName";
-            this.textBoxVideoStreamName.Size = new System.Drawing.Size(393, 20);
-            this.textBoxVideoStreamName.TabIndex = 61;
             // 
             // tabPageAudioOptions
             // 
@@ -423,24 +401,14 @@
             this.tabPageAdConfig.Text = "Advertising Configuration";
             this.tabPageAdConfig.UseVisualStyleBackColor = true;
             // 
-            // checkBoxAdInsertSlate
+            // panel2
             // 
-            this.checkBoxAdInsertSlate.AutoSize = true;
-            this.checkBoxAdInsertSlate.Location = new System.Drawing.Point(9, 73);
-            this.checkBoxAdInsertSlate.Name = "checkBoxAdInsertSlate";
-            this.checkBoxAdInsertSlate.Size = new System.Drawing.Size(142, 17);
-            this.checkBoxAdInsertSlate.TabIndex = 70;
-            this.checkBoxAdInsertSlate.Text = "Insert Slate on Ad Signal";
-            this.checkBoxAdInsertSlate.UseVisualStyleBackColor = true;
-            // 
-            // textBoxSlateImage
-            // 
-            this.textBoxSlateImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSlateImage.Location = new System.Drawing.Point(17, 29);
-            this.textBoxSlateImage.Name = "textBoxSlateImage";
-            this.textBoxSlateImage.Size = new System.Drawing.Size(385, 20);
-            this.textBoxSlateImage.TabIndex = 74;
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.textBoxSlateImage);
+            this.panel2.Location = new System.Drawing.Point(3, 96);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(415, 100);
+            this.panel2.TabIndex = 76;
             // 
             // label10
             // 
@@ -451,14 +419,80 @@
             this.label10.TabIndex = 75;
             this.label10.Text = "Default Slate Asset ID :";
             // 
-            // panel2
+            // textBoxSlateImage
             // 
-            this.panel2.Controls.Add(this.label10);
-            this.panel2.Controls.Add(this.textBoxSlateImage);
-            this.panel2.Location = new System.Drawing.Point(3, 96);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(415, 100);
-            this.panel2.TabIndex = 76;
+            this.textBoxSlateImage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSlateImage.Location = new System.Drawing.Point(17, 29);
+            this.textBoxSlateImage.Name = "textBoxSlateImage";
+            this.textBoxSlateImage.Size = new System.Drawing.Size(385, 20);
+            this.textBoxSlateImage.TabIndex = 74;
+            // 
+            // checkBoxAdInsertSlate
+            // 
+            this.checkBoxAdInsertSlate.AutoSize = true;
+            this.checkBoxAdInsertSlate.Location = new System.Drawing.Point(9, 73);
+            this.checkBoxAdInsertSlate.Name = "checkBoxAdInsertSlate";
+            this.checkBoxAdInsertSlate.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxAdInsertSlate.TabIndex = 70;
+            this.checkBoxAdInsertSlate.Text = "Insert Slate on Ad Signal";
+            this.checkBoxAdInsertSlate.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(215, 36);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(190, 14);
+            this.label8.TabIndex = 69;
+            this.label8.Text = "SCTE-35 only available for RTP input";
+            // 
+            // comboBoxAdMarkerSource
+            // 
+            this.comboBoxAdMarkerSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAdMarkerSource.FormattingEnabled = true;
+            this.comboBoxAdMarkerSource.Location = new System.Drawing.Point(9, 33);
+            this.comboBoxAdMarkerSource.Name = "comboBoxAdMarkerSource";
+            this.comboBoxAdMarkerSource.Size = new System.Drawing.Size(200, 21);
+            this.comboBoxAdMarkerSource.TabIndex = 12;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 17);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Ad marker source :";
+            // 
+            // checkBoxRestrictPreviewIP
+            // 
+            this.checkBoxRestrictPreviewIP.AutoSize = true;
+            this.checkBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 169);
+            this.checkBoxRestrictPreviewIP.Name = "checkBoxRestrictPreviewIP";
+            this.checkBoxRestrictPreviewIP.Size = new System.Drawing.Size(192, 17);
+            this.checkBoxRestrictPreviewIP.TabIndex = 48;
+            this.checkBoxRestrictPreviewIP.Text = "Restrict preview to this IP address :";
+            this.checkBoxRestrictPreviewIP.UseVisualStyleBackColor = true;
+            this.checkBoxRestrictPreviewIP.CheckedChanged += new System.EventHandler(this.checkBoxRestrictPreviewIP_CheckedChanged);
+            // 
+            // textBoxRestrictPreviewIP
+            // 
+            this.textBoxRestrictPreviewIP.Enabled = false;
+            this.textBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 192);
+            this.textBoxRestrictPreviewIP.Name = "textBoxRestrictPreviewIP";
+            this.textBoxRestrictPreviewIP.Size = new System.Drawing.Size(239, 20);
+            this.textBoxRestrictPreviewIP.TabIndex = 49;
+            this.textBoxRestrictPreviewIP.TextChanged += new System.EventHandler(this.textBoxRestrictPreviewIP_TextChanged);
+            // 
+            // labelWarningPreview
+            // 
+            this.labelWarningPreview.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningPreview.Location = new System.Drawing.Point(263, 192);
+            this.labelWarningPreview.Name = "labelWarningPreview";
+            this.labelWarningPreview.Size = new System.Drawing.Size(152, 17);
+            this.labelWarningPreview.TabIndex = 50;
+            this.labelWarningPreview.Text = "Warning";
             // 
             // CreateLiveChannel
             // 
@@ -505,7 +539,7 @@
         private System.Windows.Forms.CheckBox checkBoxRestrictIngestIP;
         private System.Windows.Forms.ComboBox comboBoxProtocolInput;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.Label labelWarningIngest;
         private System.Windows.Forms.TextBox textBoxKeyFrame;
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Label label5;
@@ -535,5 +569,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxSlateImage;
         private System.Windows.Forms.CheckBox checkBoxAdInsertSlate;
+        private System.Windows.Forms.CheckBox checkBoxRestrictPreviewIP;
+        private System.Windows.Forms.TextBox textBoxRestrictPreviewIP;
+        private System.Windows.Forms.Label labelWarningPreview;
     }
 }

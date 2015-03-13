@@ -5530,7 +5530,7 @@ typeof(FilterTime)
                     }
                     if (operation.State == OperationState.Succeeded)
                     {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", myO.Name);
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", myO.Name);
                     }
                     else
                     {
@@ -5574,7 +5574,7 @@ typeof(FilterTime)
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                    TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
                 }
                 else
                 {
@@ -5607,7 +5607,7 @@ typeof(FilterTime)
                     {
                         state = programR.State;
                         dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(programR)), null);
-            }
+                    }
                     System.Threading.Thread.Sleep(1000);
                 }
                 await STask;
@@ -5646,7 +5646,7 @@ typeof(FilterTime)
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
+                    TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
                 }
                 else
                 {
@@ -5703,7 +5703,7 @@ typeof(FilterTime)
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", myO.Name, strStatusSuccess);
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", myO.Name, strStatusSuccess);
                 }
                 else
                 {
@@ -5916,15 +5916,14 @@ typeof(FilterTime)
         private async void DoCreateChannel()
         {
             CreateLiveChannel form = new CreateLiveChannel()
-            {
-                KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval,
-                HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
-                StartChannelNow = true
-            };
+ {
+     KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval,
+     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
+     StartChannelNow = true
+ };
             if (form.ShowDialog() == DialogResult.OK)
             {
                 TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
-
 
                 var options = new ChannelCreationOptions()
                 {
@@ -5940,7 +5939,14 @@ typeof(FilterTime)
                         },
                         KeyFrameInterval = form.KeyframeInterval
                     },
-                    Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } }
+                    Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } },
+                    Preview = new ChannelPreview()
+                    {
+                        AccessControl = new ChannelAccessControl()
+                        {
+                            IPAllowList = form.previewIPAllow
+                        },
+                    }
                 };
 
                 if (form.EncodingType != ChannelEncodingType.None)
@@ -6361,7 +6367,7 @@ typeof(FilterTime)
                         case ProgramState.Running:
                             mycolor = Color.Green;
                             break;
-                     
+
                         default:
                             mycolor = Color.Black;
                             break;
@@ -6634,12 +6640,12 @@ typeof(FilterTime)
                     {
                         Task.Run(async () =>
                     {
-                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
+                        streamingendpoint.CdnEnabled = form.EnableAzureCDN;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                        await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
                         TextBoxLogWriteLine("Starting the streaming endpoint...");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
-                        });
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
+                    });
                     }
                 }
                 else
@@ -6659,7 +6665,7 @@ typeof(FilterTime)
                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                        });
 
-                }
+                    }
                 }
             }
         }
