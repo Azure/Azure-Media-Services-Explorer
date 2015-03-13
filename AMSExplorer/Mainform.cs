@@ -2505,6 +2505,8 @@ namespace AMSExplorer
 
         private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
+   
+
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
@@ -2653,8 +2655,10 @@ namespace AMSExplorer
                             var mediablobs = assetSourceContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
+                               
                                 List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
 
+                                /*
                                 SharedAccessBlobPolicy SASPolicy = new SharedAccessBlobPolicy
                                             {
                                                 Permissions = SharedAccessBlobPermissions.Read |
@@ -2673,7 +2677,7 @@ namespace AMSExplorer
 
                                 //string blobToken = assetSourceContainer.GetSharedAccessSignature(SASPolicy);
                                 string blobToken = assetSourceContainer.GetSharedAccessSignature(null, policyname);
-
+                                */
 
                                 foreach (var blob in mediablobs)
                                 {
@@ -2691,16 +2695,19 @@ namespace AMSExplorer
                                         var blockblob = (CloudBlockBlob)blob;
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
-                                            var srcBlob = blob as ICloudBlob;
-                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(srcBlob.Name);
+                                            
+                                            //string token2 = blockblob.GetSharedAccessSignature(null, policyname);
+                                            //var srcBlob = blob as ICloudBlob;
+                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
-                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + blobToken), null, null));
+                                           
+                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + sourcelocator.ContentAccessComponent), null, null));
                                         }
                                     }
 
                                 }
                                 // let's launch the copy of fragblobs
-                                mylistresults.AddRange(CopyBlobDirectory(ListDirectories, assetTargetContainer, blobToken));
+                                mylistresults.AddRange(CopyBlobDirectory(ListDirectories, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
 
                                 if (mylistresults.Count > 0)
                                 {
@@ -2712,11 +2719,13 @@ namespace AMSExplorer
                                     }
                                 }
 
+                                /*
                                 // let's delete the sas policy now
 
                                 var containerPermissions = assetSourceContainer.GetPermissions();
                                 containerPermissions.SharedAccessPolicies.Remove(policyname);
                                 assetSourceContainer.SetPermissions(containerPermissions);
+                                 * */
                             }
                         }
                         catch (Exception ex)
