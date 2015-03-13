@@ -2653,6 +2653,14 @@ namespace AMSExplorer
                             var mediablobs = assetSourceContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
+                                string blobToken = assetSourceContainer.GetSharedAccessSignature(
+                                            new SharedAccessBlobPolicy
+                                            {
+                                                Permissions = SharedAccessBlobPermissions.Read |
+                                                                SharedAccessBlobPermissions.Write,
+                                                SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(1)
+                                            });
+
                                 foreach (var blob in mediablobs)
                                 {
 
@@ -2670,14 +2678,6 @@ namespace AMSExplorer
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
                                             CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
-                                            string blobToken = assetSourceContainer.GetSharedAccessSignature(
-                                            new SharedAccessBlobPolicy
-                                            {
-                                                Permissions = SharedAccessBlobPermissions.Read |
-                                                                SharedAccessBlobPermissions.Write,
-                                                SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
-                                            });
-
 
                                             // copy using src blob as SAS
                                             targetBlob.BeginStartCopyFromBlob(new Uri(blob.Uri.AbsoluteUri + blobToken), null, null);
@@ -2686,7 +2686,7 @@ namespace AMSExplorer
 
                                 }
                                 // let's launch the copy of fragblobs
-                                List<ICancellableAsyncResult> mylistresults = CopyBlobDirectory(ListDirectories, assetTargetContainer);
+                                List<ICancellableAsyncResult> mylistresults = CopyBlobDirectory(ListDirectories, assetTargetContainer, blobToken);
 
                                 if (mylistresults.Count > 0)
                                 {
@@ -2741,17 +2741,9 @@ namespace AMSExplorer
         }
 
         // copy the directories of the same container to another container
-        public static List<ICancellableAsyncResult> CopyBlobDirectory(List<CloudBlobDirectory> ListsrcDirectory, CloudBlobContainer destContainer)
+        public static List<ICancellableAsyncResult> CopyBlobDirectory(List<CloudBlobDirectory> ListsrcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
         {
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
-
-            string blobToken = ListsrcDirectory.FirstOrDefault().Container.GetSharedAccessSignature(
-                    new SharedAccessBlobPolicy
-                    {
-                        Permissions = SharedAccessBlobPermissions.Read |
-                                        SharedAccessBlobPermissions.Write,
-                        SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(1)
-                    });
 
             foreach (var srcDirectory in ListsrcDirectory)
             {
@@ -2774,7 +2766,7 @@ namespace AMSExplorer
                         destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
 
                     // copy using src blob as SAS
-                    mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + blobToken), null, null));
+                    mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
                 }
             }
 
