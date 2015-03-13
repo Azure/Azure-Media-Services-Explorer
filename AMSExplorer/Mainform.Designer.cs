@@ -44,6 +44,7 @@
             this.ContextMenuItemAssetDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetImportFileFromAzure = new System.Windows.Forms.ToolStripMenuItem();
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetExportAssetFilesToAzureStorage = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeAssetsToANewAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -104,9 +105,9 @@
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAssetFilesToAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToLocalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -197,6 +198,9 @@
             this.copyTheOutputURLToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator34 = new System.Windows.Forms.ToolStripSeparator();
             this.createOriginToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stopOriginsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -357,6 +361,9 @@
             this.refreshToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemOriginDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
+            this.enableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disableAzureCDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator33 = new System.Windows.Forms.ToolStripSeparator();
             this.createStreamingEndpointToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStop = new System.Windows.Forms.ToolStripMenuItem();
@@ -380,7 +387,6 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -514,7 +520,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(350, 452);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -557,6 +563,13 @@
             this.ContextMenuItemAssetImportFileFromAzure.Size = new System.Drawing.Size(349, 22);
             this.ContextMenuItemAssetImportFileFromAzure.Text = "Import file(s) from Azure Storage...";
             this.ContextMenuItemAssetImportFileFromAzure.Click += new System.EventHandler(this.toolStripMenuItemUploadFileFromAzure_Click);
+            // 
+            // toAnotherAzureMediaServicesAccountToolStripMenuItem1
+            // 
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem1";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Text = "Export to another Azure Media Services Account...";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click);
             // 
             // ContextMenuItemAssetExportAssetFilesToAzureStorage
             // 
@@ -1103,6 +1116,13 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(346, 22);
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Text = "Export";
             // 
+            // toAnotherAzureMediaServicesAccountToolStripMenuItem
+            // 
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Text = "To another Azure Media Services Account...";
+            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem_Click);
+            // 
             // toAzureStorageToolStripMenuItem
             // 
             this.toAzureStorageToolStripMenuItem.Name = "toAzureStorageToolStripMenuItem";
@@ -1119,13 +1139,6 @@
             this.downloadToLocalToolStripMenuItem1.Size = new System.Drawing.Size(303, 22);
             this.downloadToLocalToolStripMenuItem1.Text = "Download to local...";
             this.downloadToLocalToolStripMenuItem1.Click += new System.EventHandler(this.downloadToLocalToolStripMenuItem1_Click);
-            // 
-            // toAnotherAzureMediaServicesAccountToolStripMenuItem
-            // 
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Size = new System.Drawing.Size(303, 22);
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Text = "To another Azure Media Services Account...";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem_Click);
             // 
             // renameToolStripMenuItem
             // 
@@ -1917,6 +1930,9 @@
             // 
             this.originToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.displayOriginInformationToolStripMenuItem,
+            this.enableAzureCDNToolStripMenuItem1,
+            this.disableAzureCDNToolStripMenuItem1,
+            this.toolStripSeparator34,
             this.createOriginToolStripMenuItem,
             this.startOriginsToolStripMenuItem,
             this.stopOriginsToolStripMenuItem,
@@ -1925,6 +1941,7 @@
             this.originToolStripMenuItem.Name = "originToolStripMenuItem";
             this.originToolStripMenuItem.Size = new System.Drawing.Size(124, 20);
             this.originToolStripMenuItem.Text = "Streaming endpoint";
+            this.originToolStripMenuItem.DropDownOpening += new System.EventHandler(this.originToolStripMenuItem_DropDownOpening);
             // 
             // displayOriginInformationToolStripMenuItem
             // 
@@ -1934,6 +1951,25 @@
             this.displayOriginInformationToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
             this.displayOriginInformationToolStripMenuItem.Text = "Streaming endpoint information and settings...";
             this.displayOriginInformationToolStripMenuItem.Click += new System.EventHandler(this.displayOriginInformationToolStripMenuItem_Click);
+            // 
+            // enableAzureCDNToolStripMenuItem1
+            // 
+            this.enableAzureCDNToolStripMenuItem1.Name = "enableAzureCDNToolStripMenuItem1";
+            this.enableAzureCDNToolStripMenuItem1.Size = new System.Drawing.Size(340, 22);
+            this.enableAzureCDNToolStripMenuItem1.Text = "Enable Azure CDN";
+            this.enableAzureCDNToolStripMenuItem1.Click += new System.EventHandler(this.enableAzureCDNToolStripMenuItem1_Click);
+            // 
+            // disableAzureCDNToolStripMenuItem1
+            // 
+            this.disableAzureCDNToolStripMenuItem1.Name = "disableAzureCDNToolStripMenuItem1";
+            this.disableAzureCDNToolStripMenuItem1.Size = new System.Drawing.Size(340, 22);
+            this.disableAzureCDNToolStripMenuItem1.Text = "Disable Azure CDN";
+            this.disableAzureCDNToolStripMenuItem1.Click += new System.EventHandler(this.disableAzureCDNToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator34
+            // 
+            this.toolStripSeparator34.Name = "toolStripSeparator34";
+            this.toolStripSeparator34.Size = new System.Drawing.Size(337, 6);
             // 
             // createOriginToolStripMenuItem
             // 
@@ -3557,12 +3593,16 @@
             this.refreshToolStripMenuItem5,
             this.toolStripSeparator25,
             this.ContextMenuItemOriginDisplayInformation,
+            this.enableAzureCDNToolStripMenuItem,
+            this.disableAzureCDNToolStripMenuItem,
+            this.toolStripSeparator33,
             this.createStreamingEndpointToolStripMenuItem,
             this.ContextMenuItemOriginStart,
             this.ContextMenuItemOriginStop,
             this.ContextMenuItemOriginDelete});
             this.contextMenuStripStreaminEndpoints.Name = "contextMenuStripOrigins";
-            this.contextMenuStripStreaminEndpoints.Size = new System.Drawing.Size(341, 142);
+            this.contextMenuStripStreaminEndpoints.Size = new System.Drawing.Size(341, 192);
+            this.contextMenuStripStreaminEndpoints.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripStreaminEndpoints_Opening);
             // 
             // refreshToolStripMenuItem5
             // 
@@ -3585,6 +3625,25 @@
             this.ContextMenuItemOriginDisplayInformation.Size = new System.Drawing.Size(340, 22);
             this.ContextMenuItemOriginDisplayInformation.Text = "Streaming endpoint information and settings...";
             this.ContextMenuItemOriginDisplayInformation.Click += new System.EventHandler(this.displayOriginInformationToolStripMenuItem1_Click);
+            // 
+            // enableAzureCDNToolStripMenuItem
+            // 
+            this.enableAzureCDNToolStripMenuItem.Name = "enableAzureCDNToolStripMenuItem";
+            this.enableAzureCDNToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
+            this.enableAzureCDNToolStripMenuItem.Text = "Enable Azure CDN";
+            this.enableAzureCDNToolStripMenuItem.Click += new System.EventHandler(this.enableAzureCDNToolStripMenuItem_Click);
+            // 
+            // disableAzureCDNToolStripMenuItem
+            // 
+            this.disableAzureCDNToolStripMenuItem.Name = "disableAzureCDNToolStripMenuItem";
+            this.disableAzureCDNToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
+            this.disableAzureCDNToolStripMenuItem.Text = "Disable Azure CDN";
+            this.disableAzureCDNToolStripMenuItem.Click += new System.EventHandler(this.disableAzureCDNToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator33
+            // 
+            this.toolStripSeparator33.Name = "toolStripSeparator33";
+            this.toolStripSeparator33.Size = new System.Drawing.Size(337, 6);
             // 
             // createStreamingEndpointToolStripMenuItem
             // 
@@ -3829,13 +3888,6 @@
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // toAnotherAzureMediaServicesAccountToolStripMenuItem1
-            // 
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem1";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Size = new System.Drawing.Size(349, 22);
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Text = "Export to another Azure Media Services Account...";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click);
             // 
             // Mainform
             // 
@@ -4258,6 +4310,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator26;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableAzureCDNToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator33;
+        private System.Windows.Forms.ToolStripMenuItem enableAzureCDNToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem disableAzureCDNToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator34;
     }
 }
 

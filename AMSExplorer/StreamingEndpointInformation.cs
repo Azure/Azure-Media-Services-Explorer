@@ -123,13 +123,7 @@ namespace AMSExplorer
             }
         }
 
-        public bool EnableAzureCDN
-        {
-            get
-            {
-                return checkBoxEnableAzureCDN.Checked;
-            }
-        }
+        
 
         public string GetOriginClientPolicy
         {
@@ -162,6 +156,7 @@ namespace AMSExplorer
             DGOrigin.Rows.Add("Name", MyOrigin.Name);
             DGOrigin.Rows.Add("Id", MyOrigin.Id);
             DGOrigin.Rows.Add("State", (StreamingEndpointState)MyOrigin.State);
+            DGOrigin.Rows.Add("CDN Enabled", MyOrigin.CdnEnabled);
             DGOrigin.Rows.Add("Created", ((DateTime)MyOrigin.Created).ToLocalTime());
             DGOrigin.Rows.Add("Last Modified", ((DateTime)MyOrigin.LastModified).ToLocalTime());
             DGOrigin.Rows.Add("Description", MyOrigin.Description);
@@ -178,10 +173,8 @@ namespace AMSExplorer
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
             // AZURE CDN
-            checkBoxEnableAzureCDN.Checked = MyOrigin.CdnEnabled;
-            checkBoxEnableAzureCDN.Enabled = ((MyOrigin.State == StreamingEndpointState.Stopped || MyOrigin.State == StreamingEndpointState.Running) ); // Settings can only be changed in stopped state. if running, ok to change but code wiill restart the se
-            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
-
+             panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
+             labelcdn.Visible = MyOrigin.CdnEnabled;
 
             if (MyOrigin.ScaleUnits != null)
             {
@@ -371,22 +364,14 @@ namespace AMSExplorer
 
         private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
         {
-            if (numericUpDownRU.Value == 0 && checkBoxEnableAzureCDN.Checked)
-            {
-                MessageBox.Show("Azure CDN must be disabled in order to set the number of Streaming Unit to 0.\nAzure CDN has been disabled.", "Azure CDN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                checkBoxEnableAzureCDN.Checked = false;
-            }
+         
            
         }
 
-        private void checkBoxEnableAzureCDN_CheckedChanged(object sender, EventArgs e)
+
+        private void tabPage2_Click(object sender, EventArgs e)
         {
 
-            if (!InitTime && numericUpDownRU.Value == 0 && checkBoxEnableAzureCDN.Checked)
-            {
-                MessageBox.Show("Azure CDN requires at least one streaming unit.\nStreamng unit number has been updated.", "Azure CDN", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                numericUpDownRU.Value = 1;
-            }
         }
     }
 }

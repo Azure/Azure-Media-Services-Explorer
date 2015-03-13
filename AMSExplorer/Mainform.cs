@@ -2505,14 +2505,11 @@ namespace AMSExplorer
 
         private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
-
-
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
             // let's backup the primary file from the first asset to set it to the copied/merged asset
             var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
-
 
             bool ErrorCopyAsset = false;
 
@@ -2679,26 +2676,26 @@ namespace AMSExplorer
                                 }
                                 // let's launch the copy of fragblobs
                                 double ind = 0;
-                                foreach(var dir in ListDirectories)
+                                foreach (var dir in ListDirectories)
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
-                                 
-                                    mylistresults.AddRange(CopyBlobDirectory(new List<CloudBlobDirectory>(){dir}, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
+
+                                    mylistresults.AddRange(CopyBlobDirectory(new List<CloudBlobDirectory>() { dir }, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
                                     if (mylistresults.Count > 0)
                                     {
                                         while (!mylistresults.All(r => r.IsCompleted))
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
-                                            percentComplete = (ind/ListDirectories.Count)*(100d * Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count));
+                                            percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
                                             DoGridTransferUpdateProgress((int)percentComplete, index);
-                                            TextBoxLogWriteLine("Copying fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r=>r.IsCompleted).Count(), mylistresults.Count);
-                                 
+                                            TextBoxLogWriteLine("Copying fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count);
+
                                         }
                                     }
                                     ind++;
                                     mylistresults.Clear();
                                 }
-                                                          
+
                             }
                         }
                         catch (Exception ex)
@@ -6602,52 +6599,23 @@ typeof(FilterTime)
 
                 // Let's take actions now
 
-                if (streamingendpoint.CdnEnabled != form.EnableAzureCDN) // special case, user changes the CDN setting. We need to stop and restart the streaming endpoint
+                if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
                 {
-                    if (streamingendpoint.State == StreamingEndpointState.Running)
-                    {
-                        Task.Run(async () =>
-                        {
-                            TextBoxLogWriteLine("Stopping the streaming endpoint in order to {0} Azure CDN...", form.EnableAzureCDN ? "enable" : "disable");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStopOperationAsync, streamingendpoint, "stopped");
-                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
-                            TextBoxLogWriteLine("Starting the streaming endpoint...");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
-                        });
-                    }
-                    else
-                    {
-                        Task.Run(async () =>
-                        {
-                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
-                            TextBoxLogWriteLine("Starting the streaming endpoint...");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
-                        });
-                    }
+                    Task.Run(async () =>
+                   {
+                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                       await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
+                   });
                 }
-                else
+                else // no scaling
                 {
-                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
-                    {
-                        Task.Run(async () =>
-                       {
-                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                           await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
-                       });
-                    }
-                    else // no scaling
-                    {
-                        Task.Run(async () =>
-                       {
-                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                       });
+                    Task.Run(async () =>
+                   {
+                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                   });
 
-                    }
                 }
+
             }
         }
 
@@ -8955,6 +8923,80 @@ typeof(FilterTime)
             DoCopyAssetToAnotherAMSAccount();
         }
 
+        private void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(true);
+        }
+
+        private void ChangeAzureCDN(bool enable)
+        {
+            IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+
+
+            if (streamingendpoint.State == StreamingEndpointState.Stopped)
+            {
+                if (streamingendpoint.ScaleUnits > 0)
+                {
+                    Task.Run(async () =>
+                    {
+                        streamingendpoint.CdnEnabled = enable;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                    });
+                }
+                else if (enable) // 0 scale unit and user wants to enable cdn
+                {
+                    Task.Run(async () =>
+                    {
+                        TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
+                        await ScaleStreamingEndpoint(streamingendpoint, 1);
+                        streamingendpoint.CdnEnabled = enable;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                    });
+
+                }
+            }
+        }
+
+        private void disableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(false);
+        }
+
+        private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
+
+        }
+
+        private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(true);
+        }
+
+        private void disableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(false);
+        }
+
+        private void originToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem1, enableAzureCDNToolStripMenuItem1);
+        }
+
+        private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+            bool sestopped = (streamingendpoints.Count == 1 && streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
+            bool sesingle = (streamingendpoints.Count == 1);
+
+            disableAzureCDNToolStripMenuItem1.Enabled = sestopped && streamingendpoints.FirstOrDefault().CdnEnabled;
+            enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !streamingendpoints.FirstOrDefault().CdnEnabled;
+            enableAzureCDNToolStripMenuItem1.Visible = sesingle && !streamingendpoints.FirstOrDefault().CdnEnabled;
+            disableAzureCDNToolStripMenuItem1.Visible = sesingle && streamingendpoints.FirstOrDefault().CdnEnabled;
+        }
     }
 }
 
