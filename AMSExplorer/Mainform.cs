@@ -2745,16 +2745,18 @@ namespace AMSExplorer
         {
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
 
-            foreach (var srcDirectory in ListsrcDirectory)
-            {
-                // get the SAS token to use for all blobs
-                string blobToken = srcDirectory.Container.GetSharedAccessSignature(
+            string blobToken = ListsrcDirectory.FirstOrDefault().Container.GetSharedAccessSignature(
                     new SharedAccessBlobPolicy
                     {
                         Permissions = SharedAccessBlobPermissions.Read |
                                         SharedAccessBlobPermissions.Write,
-                        SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
+                        SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(1)
                     });
+
+            foreach (var srcDirectory in ListsrcDirectory)
+            {
+                // get the SAS token to use for all blobs
+                
 
                 var srcBlobList = srcDirectory.ListBlobs(
                     useFlatBlobListing: true,
