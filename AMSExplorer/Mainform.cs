@@ -1663,7 +1663,8 @@ namespace AMSExplorer
 
                 // Get the HLS URL of the asset for adaptive streaming.
                 Uri HLSUri = AssetInfo.rw(locator.GetHlsUri(), SESelected);
-
+                Uri HLSUriv3 = AssetInfo.rw(locator.GetHlsv3Uri(), SESelected);
+                
                 // Get the Smooth URL of the asset for adaptive streaming.
                 Uri SmoothUri = AssetInfo.rw(locator.GetSmoothStreamingUri(), SESelected);
 
@@ -1671,7 +1672,7 @@ namespace AMSExplorer
                 // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                 {
                     sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetHLSv3(HLSUri.ToString())));
+                    sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.ToString()));
                 }
                 else // It's not Static HLS
                 {
