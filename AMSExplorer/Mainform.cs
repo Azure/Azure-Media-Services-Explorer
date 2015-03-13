@@ -2503,7 +2503,7 @@ namespace AMSExplorer
             }
         }
 
-        private void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
@@ -2653,13 +2653,27 @@ namespace AMSExplorer
                             var mediablobs = assetSourceContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
-                                string blobToken = assetSourceContainer.GetSharedAccessSignature(
-                                            new SharedAccessBlobPolicy
+                                List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+
+                                SharedAccessBlobPolicy SASPolicy = new SharedAccessBlobPolicy
                                             {
                                                 Permissions = SharedAccessBlobPermissions.Read |
                                                                 SharedAccessBlobPermissions.Write,
                                                 SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(1)
-                                            });
+                                            };
+                                string policyname = "ExplorerAssetCopy";
+
+
+                                //Get the container's existing permissions.
+                                BlobContainerPermissions permissions = new BlobContainerPermissions();
+
+                                //Add the new policy to the container's permissions.
+                                permissions.SharedAccessPolicies.Add(policyname, SASPolicy);
+                                assetSourceContainer.SetPermissions(permissions);
+
+                                //string blobToken = assetSourceContainer.GetSharedAccessSignature(SASPolicy);
+                                string blobToken = assetSourceContainer.GetSharedAccessSignature(null, policyname);
+
 
                                 foreach (var blob in mediablobs)
                                 {
@@ -2677,16 +2691,16 @@ namespace AMSExplorer
                                         var blockblob = (CloudBlockBlob)blob;
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
-                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
-
+                                            var srcBlob = blob as ICloudBlob;
+                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(srcBlob.Name);
                                             // copy using src blob as SAS
-                                            targetBlob.BeginStartCopyFromBlob(new Uri(blob.Uri.AbsoluteUri + blobToken), null, null);
+                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + blobToken), null, null));
                                         }
                                     }
 
                                 }
                                 // let's launch the copy of fragblobs
-                                List<ICancellableAsyncResult> mylistresults = CopyBlobDirectory(ListDirectories, assetTargetContainer, blobToken);
+                                mylistresults.AddRange(CopyBlobDirectory(ListDirectories, assetTargetContainer, blobToken));
 
                                 if (mylistresults.Count > 0)
                                 {
@@ -2697,11 +2711,18 @@ namespace AMSExplorer
                                         DoGridTransferUpdateProgress((int)percentComplete, index);
                                     }
                                 }
+
+                                // let's delete the sas policy now
+
+                                var containerPermissions = assetSourceContainer.GetPermissions();
+                                containerPermissions.SharedAccessPolicies.Remove(policyname);
+                                assetSourceContainer.SetPermissions(containerPermissions);
                             }
                         }
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy live fragblobs", true);
+                            TextBoxLogWriteLine(ex);
                             DoGridTransferDeclareError(index, ex);
                             ErrorCopyAsset = true;
                         }
@@ -2747,8 +2768,6 @@ namespace AMSExplorer
 
             foreach (var srcDirectory in ListsrcDirectory)
             {
-                // get the SAS token to use for all blobs
-                
 
                 var srcBlobList = srcDirectory.ListBlobs(
                     useFlatBlobListing: true,
@@ -8938,7 +8957,10 @@ typeof(FilterTime)
                     }
                     else // key is provided
                     {
-                        storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                        if (!storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name))
+                        {
+                            storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                        }
                     }
                 }
             }
