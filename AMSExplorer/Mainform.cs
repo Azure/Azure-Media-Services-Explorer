@@ -2505,7 +2505,7 @@ namespace AMSExplorer
 
         private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
-   
+
 
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
@@ -2655,39 +2655,15 @@ namespace AMSExplorer
                             var mediablobs = assetSourceContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
-                               
                                 List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
-
-                                /*
-                                SharedAccessBlobPolicy SASPolicy = new SharedAccessBlobPolicy
-                                            {
-                                                Permissions = SharedAccessBlobPermissions.Read |
-                                                                SharedAccessBlobPermissions.Write,
-                                                SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(1)
-                                            };
-                                string policyname = "ExplorerAssetCopy";
-
-
-                                //Get the container's existing permissions.
-                                BlobContainerPermissions permissions = new BlobContainerPermissions();
-
-                                //Add the new policy to the container's permissions.
-                                permissions.SharedAccessPolicies.Add(policyname, SASPolicy);
-                                assetSourceContainer.SetPermissions(permissions);
-
-                                //string blobToken = assetSourceContainer.GetSharedAccessSignature(SASPolicy);
-                                string blobToken = assetSourceContainer.GetSharedAccessSignature(null, policyname);
-                                */
 
                                 foreach (var blob in mediablobs)
                                 {
-
                                     if (blob.GetType() == typeof(CloudBlobDirectory))
                                     {
                                         CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
                                         ListDirectories.Add(blobdir);
                                         TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
-
                                     }
                                     else if (blob.GetType() == typeof(CloudBlockBlob))
                                     {
@@ -2695,37 +2671,34 @@ namespace AMSExplorer
                                         var blockblob = (CloudBlockBlob)blob;
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
-                                            
-                                            //string token2 = blockblob.GetSharedAccessSignature(null, policyname);
-                                            //var srcBlob = blob as ICloudBlob;
                                             CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
-                                           
                                             mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + sourcelocator.ContentAccessComponent), null, null));
                                         }
                                     }
-
                                 }
                                 // let's launch the copy of fragblobs
-                                mylistresults.AddRange(CopyBlobDirectory(ListDirectories, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
-
-                                if (mylistresults.Count > 0)
+                                double ind = 0;
+                                foreach(var dir in ListDirectories)
                                 {
-                                    while (!mylistresults.All(r => r.IsCompleted))
+                                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
+                                 
+                                    mylistresults.AddRange(CopyBlobDirectory(new List<CloudBlobDirectory>(){dir}, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
+                                    if (mylistresults.Count > 0)
                                     {
-                                        Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
-                                        percentComplete = (100d * Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count));
-                                        DoGridTransferUpdateProgress((int)percentComplete, index);
+                                        while (!mylistresults.All(r => r.IsCompleted))
+                                        {
+                                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
+                                            percentComplete = (ind/ListDirectories.Count)*(100d * Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count));
+                                            DoGridTransferUpdateProgress((int)percentComplete, index);
+                                            TextBoxLogWriteLine("Copying fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r=>r.IsCompleted).Count(), mylistresults.Count);
+                                 
+                                        }
                                     }
+                                    ind++;
+                                    mylistresults.Clear();
                                 }
-
-                                /*
-                                // let's delete the sas policy now
-
-                                var containerPermissions = assetSourceContainer.GetPermissions();
-                                containerPermissions.SharedAccessPolicies.Remove(policyname);
-                                assetSourceContainer.SetPermissions(containerPermissions);
-                                 * */
+                                                          
                             }
                         }
                         catch (Exception ex)
