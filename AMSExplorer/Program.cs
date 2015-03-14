@@ -1683,13 +1683,9 @@ namespace AMSExplorer
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
-            // let's choose the default SE if it is running and use one RU minimum
-            IStreamingEndpoint SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault(); //default
-            if (SESelected == null || SESelected.ScaleUnits == 0 || SESelected.State != StreamingEndpointState.Running) //default is not there, or not running or has no scale unit
-            {
-                IStreamingEndpoint SESelected2 = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running).OrderBy(se => se.ScaleUnits).LastOrDefault();
-                if (SESelected2 != null) SESelected = SESelected2;
-            }
+            IStreamingEndpoint SESelected = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running && se.ScaleUnits > 0).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
+
             return SESelected;
         }
     }
