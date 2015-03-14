@@ -69,8 +69,6 @@ namespace AMSExplorer
         public static string Salt;
         private string _backuprootfolderupload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
-        private BindingList<TransferEntry> _MyListTransfer; // list of upload/download
-        private List<int> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
         private ILocator PlayBackLocator = null;
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
@@ -205,6 +203,9 @@ namespace AMSExplorer
 
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             bool Error = false;
             string ErrorMessage = string.Empty;
 
@@ -894,89 +895,12 @@ namespace AMSExplorer
 
 
 
-        private void DoGridTransferUpdateText(string progresstext, int index)
-        {
-            _MyListTransfer[index].Name = progresstext;
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-        private void DoGridTransferUpdateProgress(double progress, int index)
-        {
-            _MyListTransfer[index].Progress = progress;
-            if (progress > 3 && _MyListTransfer[index].StartTime != null)
-            {
-                TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)_MyListTransfer[index].StartTime).ToUniversalTime());
-                DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
-                _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString() + " ?";
-            }
-
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
-        {
-            _MyListTransfer[index].Progress = 100;
-            _MyListTransfer[index].State = TransferState.Finished;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].DestLocation = DestLocation;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-        private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
-        {
-            string message = e.Message;
-            if (e.InnerException != null)
-            {
-                message = message + Constants.endline + Program.GetErrorMessage(e);
-            }
-            DoGridTransferDeclareError(index, message);
-        }
-
-        private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
-        {
-            _MyListTransfer[index].Progress = 100;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].State = TransferState.Error;
-            _MyListTransfer[index].ErrorDescription = ErrorDesc;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private void DoGridTransferDeclareTransferStarted(int index)  // Process is started
-        {
-            _MyListTransfer[index].Progress = 0;
-            _MyListTransfer[index].State = TransferState.Processing;
-            _MyListTransfer[index].StartTime = DateTime.Now;
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private bool DoGridTransferQueueOurTurn(int index)  // Return true if this is out turn
-        {
-            return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == index) : true;
-        }
-
-        private bool DoGridTransferIsQueueRequested(int index)  // Return true trasfer is managed in the queue
-        {
-            return (_MyListTransfer[index].processedinqueue);
-        }
-
-        private void DoGridTransferWaitIfNeeded(int index)
-        {
-            // If upload in the queue, let's wait our turn
-            if (DoGridTransferIsQueueRequested(index))
-            {
-                while (!DoGridTransferQueueOurTurn(index))
-                {
-                    Thread.Sleep(500);
-                }
-
-                DoGridTransferDeclareTransferStarted(index);
-            }
-        }
 
         private void ProcessDownloadAsset(List<IAsset> SelectedAssets, object folder, int index)
         {
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
             bool multipleassets = SelectedAssets.Count > 1;
             bool Error = false;
 
@@ -1129,43 +1053,11 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    int index = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                    int index = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
-                }
-            }
-        }
-
-
-
-        private async void DoMergeAssetsToNewAsset()
-        {
-            IList<IAsset> SelectedAssets = ReturnSelectedAssets();
-            if (SelectedAssets.Count > 0)
-            {
-                if (SelectedAssets.Any(a => a.Options != AssetCreationOptions.None))
-                {
-                    MessageBox.Show("Assets cannot be merged as at least one asset is encrypted.", "Asset encrypted", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    string newassetname = string.Empty;
-                    if (Program.InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
-                    {
-
-                        if (!havestoragecredentials)
-                        { // No blob credentials.
-                            MessageBox.Show("Please specifiy the account storage key in the login window to access this feature.");
-                        }
-                        else
-                        {
-                            await Task.Factory.StartNew(() => ProcessMergeAssetsInNewAsset(SelectedAssets, newassetname));
-                            // Refresh the assets.
-                            DoRefreshGridAssetV(false);
-                        }
-                    }
                 }
             }
         }
@@ -1238,116 +1130,6 @@ namespace AMSExplorer
 
         }
 
-
-        private void ProcessMergeAssetsInNewAsset(IList<IAsset> MyAssets, string newassetname)
-        {
-            bool Error = false;
-            try
-            {
-                TextBoxLogWriteLine("Merging assets to new asset '{0}'...", newassetname);
-                IAsset NewAsset = _context.Assets.Create(newassetname, AssetCreationOptions.None); // No encryption as we do storage copy
-                CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
-                var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-                IAccessPolicy readPolicy = _context.AccessPolicies.Create("readPolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-
-                ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, NewAsset, writePolicy);
-                Uri uploadUri = new Uri(destinationLocator.Path);
-
-                // let's backup the primary file from the first asset to set it to the merged asset
-                var ismAssetFile = MyAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
-
-                foreach (IAsset MyAsset in MyAssets)
-                {
-                    if (MyAsset.StorageAccountName == _context.DefaultStorageAccount.Name) // asset is in default storage
-                    {
-                        ILocator sourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, MyAsset, readPolicy);
-                        Uri SourceUri = new Uri(sourceLocator.Path);
-                        foreach (IAssetFile MyAssetFile in MyAsset.AssetFiles)
-                        {
-                            TextBoxLogWriteLine("   Copying file '{0}' from asset '{1}'...", MyAssetFile.Name, MyAsset.Name);
-                            if (MyAssetFile.IsEncrypted)
-                            {
-                                TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", MyAssetFile.Name, true);
-                            }
-                            else
-                            {
-                                IAssetFile AssetFileTarget = NewAsset.AssetFiles.Where(f => f.Name == MyAssetFile.Name).FirstOrDefault();
-                                if (AssetFileTarget == null)
-                                {
-                                    AssetFileTarget = NewAsset.AssetFiles.Create(MyAssetFile.Name); // does not exist so we create it
-                                }
-                                else
-                                {
-                                    int i = 0;
-                                    while (NewAsset.AssetFiles.Where(f => f.Name == Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name)).FirstOrDefault() != null)
-                                    {
-                                        i++;
-                                    }
-                                    AssetFileTarget = NewAsset.AssetFiles.Create(Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name));// exist so we add a number
-                                }
-
-                                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                                string sourceTargetContainerName = SourceUri.Segments[1];
-                                string assetTargetContainerName = uploadUri.Segments[1];
-                                CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(sourceTargetContainerName);
-                                CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-                                CloudBlockBlob sourceCloudBlob, destinationBlob;
-                                sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(MyAssetFile.Name);
-                                sourceCloudBlob.FetchAttributes();
-
-                                if (sourceCloudBlob.Properties.Length > 0)
-                                {
-
-                                    destinationBlob = assetTargetContainer.GetBlockBlobReference(AssetFileTarget.Name);
-
-                                    destinationBlob.DeleteIfExists();
-                                    destinationBlob.StartCopyFromBlob(sourceCloudBlob);
-
-                                    CloudBlockBlob blob;
-                                    blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AssetFileTarget.Name);
-
-                                    while (blob.CopyState.Status == CopyStatus.Pending)
-                                    {
-                                        Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    }
-                                    destinationBlob.FetchAttributes();
-                                    AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                    AssetFileTarget.Update();
-                                    TextBoxLogWriteLine("     File '{0}' copied as '{1}'...", MyAssetFile.Name, AssetFileTarget.Name);
-                                    //MyAsset.Update();
-                                }
-                            }
-                        }
-                        sourceLocator.Delete();
-                    }
-                    else // asset in not in the default storage
-                    {
-                        TextBoxLogWriteLine("Asset '{0}' has been ignored as this asset is not in the default storage account.", MyAsset.Name, true);
-                    }
-                }
-                destinationLocator.Delete();
-                readPolicy.Delete();
-                writePolicy.Delete();
-                if (ismAssetFile.Count() > 0)
-                {
-                    SetISMFileAsPrimary(NewAsset, ismAssetFile.FirstOrDefault().Name);
-                }
-                else
-                {
-                    SetISMFileAsPrimary(NewAsset);
-                }
-
-            }
-            catch
-            {
-                MessageBox.Show("Error when merging the assets.");
-                TextBoxLogWriteLine("Error when merging the assets.", true);
-                Error = true;
-            }
-            if (!Error) TextBoxLogWriteLine("Assets merged to new asset '{0}'.", newassetname);
-        }
 
 
         private void DotabControlMainSwitch(string tab)
@@ -1885,41 +1667,7 @@ namespace AMSExplorer
 
 
 
-        public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
-        {
-            TransferEntry myTE = new TransferEntry()
-                {
-                    Name = text,
-                    SubmitTime = DateTime.Now,
-                    Type = TType
-                };
 
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                _MyListTransfer.Add(myTE);
-
-            }
-                ));
-            int indexloc = _MyListTransfer.IndexOf(myTE);
-
-            if (PutInTheQueue)
-            {
-                _MyListTransferQueue.Add(indexloc);
-                myTE.processedinqueue = true;
-                myTE.State = TransferState.Queued;
-
-            }
-            else
-            {
-                myTE.processedinqueue = false;
-                myTE.State = TransferState.Processing;
-                myTE.StartTime = DateTime.Now;
-            }
-
-            // refresh number in tab
-            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", _MyListTransfer.Count())));
-            return indexloc;
-        }
 
 
 
@@ -1971,7 +1719,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    int index = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
+                    int index = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, targetAssetID, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -1983,6 +1731,9 @@ namespace AMSExplorer
 
         private void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, string targetAssetID, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             IAsset asset;
             if (CreateNewAsset)
             {
@@ -2254,6 +2005,8 @@ namespace AMSExplorer
 
         private void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
 
             bool Error = false;
             if (UseDefaultStorage) // The default storage is used
@@ -2505,6 +2258,9 @@ namespace AMSExplorer
 
         private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
@@ -2591,7 +2347,7 @@ namespace AMSExplorer
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
                                             blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                            DoGridTransferUpdateProgress((int)percentComplete, index);
+                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, index);
                                         }
 
                                         if (blob.CopyState.Status == CopyStatus.Failed)
@@ -2645,8 +2401,7 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateText(string.Format("Copy asset '{0}' to account '{1}' - fragblobs", SourceAsset.Name, TargetCredentials.AccountName), index);
-                        DoGridTransferUpdateProgress(0, index);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, TargetCredentials.AccountName), 0, index);
                         try
                         {
                             var mediablobs = assetSourceContainer.ListBlobs();
@@ -2680,16 +2435,14 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                                    mylistresults.AddRange(CopyBlobDirectory(new List<CloudBlobDirectory>() { dir }, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
+                                    mylistresults.AddRange(CopyBlobDirectory(dir, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
                                     if (mylistresults.Count > 0)
                                     {
                                         while (!mylistresults.All(r => r.IsCompleted))
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
                                             percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
-                                            DoGridTransferUpdateProgress((int)percentComplete, index);
-                                            TextBoxLogWriteLine("Copying fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count);
-
+                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, index);
                                         }
                                     }
                                     ind++;
@@ -2740,32 +2493,28 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        // copy the directories of the same container to another container
-        public static List<ICancellableAsyncResult> CopyBlobDirectory(List<CloudBlobDirectory> ListsrcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+        // copy a directory of the same container to another container
+        public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
         {
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
 
-            foreach (var srcDirectory in ListsrcDirectory)
+            var srcBlobList = srcDirectory.ListBlobs(
+                useFlatBlobListing: true,
+                blobListingDetails: BlobListingDetails.None).ToList();
+
+            foreach (var src in srcBlobList)
             {
+                var srcBlob = src as ICloudBlob;
 
-                var srcBlobList = srcDirectory.ListBlobs(
-                    useFlatBlobListing: true,
-                    blobListingDetails: BlobListingDetails.None).ToList();
+                // Create appropriate destination blob type to match the source blob
+                ICloudBlob destBlob;
+                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                else
+                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
 
-                foreach (var src in srcBlobList)
-                {
-                    var srcBlob = src as ICloudBlob;
-
-                    // Create appropriate destination blob type to match the source blob
-                    ICloudBlob destBlob;
-                    if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
-                        destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
-                    else
-                        destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
-
-                    // copy using src blob as SAS
-                    mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
-                }
+                // copy using src blob as SAS
+                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
             }
 
             return mylistresults;
@@ -3001,39 +2750,7 @@ namespace AMSExplorer
 
 
 
-        private void DoGridTransferInit()
-        {
-            const string labelProgress = "Progress";
 
-            _MyListTransfer = new BindingList<TransferEntry>();
-            _MyListTransferQueue = new List<int>();
-
-
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
-            col.Name = labelProgress;
-            col.DataPropertyName = labelProgress;
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.Columns.Add(col);
-            }
-            ));
-
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.DataSource = _MyListTransfer;
-            }
-          ));
-
-            dataGridViewTransfer.Invoke(new Action(() =>
-                {
-                    dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
-                    dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
-                    dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
-                    dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
-                }
-          ));
-        }
 
         private void oSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4180,7 +3897,7 @@ typeof(FilterTime)
             bool singleitem = (ReturnSelectedAssets().Count == 1);
             ContextMenuItemAssetDisplayInfo.Enabled = singleitem;
             ContextMenuItemAssetRename.Enabled = singleitem;
-            ContextMenuItemAssetExportAssetFilesToAzureStorage.Enabled = singleitem;
+            toolStripMenuItemExportFilesToStorage.Enabled = singleitem;
         }
 
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
@@ -4759,7 +4476,7 @@ typeof(FilterTime)
                     {
                         if (CopyAssetToAzure(ref UseDefaultStorage, ref containername, ref otherstoragename, ref otherstoragekey, ref SelectedFiles, ref CreateNewContainer, SelectedAssets.FirstOrDefault()) == DialogResult.OK)
                         {
-                            int index = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
+                            int index = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, index));
                             DotabControlMainSwitch(Constants.TabTransfers);
@@ -7571,12 +7288,12 @@ typeof(FilterTime)
 
         private void mergeSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMergeAssetsToNewAsset();
+            DoCopyAssetToAnotherAMSAccount();
         }
 
         private void mergeAssetsToANewAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMergeAssetsToNewAsset();
+            DoCopyAssetToAnotherAMSAccount();
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8813,7 +8530,7 @@ typeof(FilterTime)
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
                         }
@@ -8826,7 +8543,7 @@ typeof(FilterTime)
                         }
                         else
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), index, form.DeleteSourceAsset));
                         }
@@ -8996,6 +8713,48 @@ typeof(FilterTime)
             enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !streamingendpoints.FirstOrDefault().CdnEnabled;
             enableAzureCDNToolStripMenuItem1.Visible = sesingle && !streamingendpoints.FirstOrDefault().CdnEnabled;
             disableAzureCDNToolStripMenuItem1.Visible = sesingle && streamingendpoints.FirstOrDefault().CdnEnabled;
+        }
+
+        private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
+        private void toolStripMenuItem12_Click(object sender, EventArgs e)
+        {
+            DoExportAssetToAzureStorage();
+
+        }
+
+        private void toolStripMenuItem16_Click(object sender, EventArgs e)
+        {
+            DoMenuDownloadToLocal();
+        }
+
+        private void toolStripMenuItem14_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromAzureStorage();
+
+        }
+
+        private void toolStripMenuItem18_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFromSingleFile_Step1();
+        }
+
+        private void toolStripMenuItem19_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFromFolder_Step1();
+        }
+
+        private void toolStripMenuItem20_Click(object sender, EventArgs e)
+        {
+            DoBatchUpload();
+        }
+
+        private void toolStripMenuItem21_Click(object sender, EventArgs e)
+        {
+            DoWatchFolder();
         }
     }
 }

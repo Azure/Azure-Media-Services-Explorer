@@ -158,6 +158,9 @@
     <Compile Include="CreateTestToken.Designer.cs">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="GridTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>

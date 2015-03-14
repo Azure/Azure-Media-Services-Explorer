@@ -1731,19 +1731,7 @@ namespace AMSExplorer
     }
 
 
-    public class TransferEntry
-    {
-        public string Name { get; set; }
-        public TransferType Type { get; set; }
-        public TransferState State { get; set; }
-        public double Progress { get; set; }
-        public Nullable<DateTime> SubmitTime { get; set; }
-        public Nullable<DateTime> StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string DestLocation { get; set; }
-        public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-        public string ErrorDescription { get; set; }
-    }
+  
 
     public class CredentialsEntry
     {
