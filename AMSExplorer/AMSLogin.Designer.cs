@@ -45,8 +45,6 @@
             this.textBoxAccountName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.buttonConfigureGlobal = new System.Windows.Forms.Button();
-            this.buttonConfigureChina = new System.Windows.Forms.Button();
             this.textBoxAzureEndpoint = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxACSBaseAddress = new System.Windows.Forms.TextBox();
@@ -66,6 +64,10 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAddMapping = new System.Windows.Forms.Button();
+            this.comboBoxMappingList = new System.Windows.Forms.ComboBox();
+            this.textBoxManagementPortal = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -243,8 +245,10 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPage2.Controls.Add(this.buttonConfigureGlobal);
-            this.tabPage2.Controls.Add(this.buttonConfigureChina);
+            this.tabPage2.Controls.Add(this.textBoxManagementPortal);
+            this.tabPage2.Controls.Add(this.label10);
+            this.tabPage2.Controls.Add(this.comboBoxMappingList);
+            this.tabPage2.Controls.Add(this.buttonAddMapping);
             this.tabPage2.Controls.Add(this.textBoxAzureEndpoint);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.textBoxACSBaseAddress);
@@ -261,29 +265,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(422, 247);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced";
-            // 
-            // buttonConfigureGlobal
-            // 
-            this.buttonConfigureGlobal.Enabled = false;
-            this.buttonConfigureGlobal.Location = new System.Drawing.Point(258, 68);
-            this.buttonConfigureGlobal.Name = "buttonConfigureGlobal";
-            this.buttonConfigureGlobal.Size = new System.Drawing.Size(71, 23);
-            this.buttonConfigureGlobal.TabIndex = 46;
-            this.buttonConfigureGlobal.Text = "Global";
-            this.buttonConfigureGlobal.UseVisualStyleBackColor = true;
-            this.buttonConfigureGlobal.Click += new System.EventHandler(this.buttonConfigureGlobal_Click);
-            // 
-            // buttonConfigureChina
-            // 
-            this.buttonConfigureChina.Enabled = false;
-            this.buttonConfigureChina.Location = new System.Drawing.Point(335, 68);
-            this.buttonConfigureChina.Name = "buttonConfigureChina";
-            this.buttonConfigureChina.Size = new System.Drawing.Size(71, 23);
-            this.buttonConfigureChina.TabIndex = 44;
-            this.buttonConfigureChina.Text = "China";
-            this.buttonConfigureChina.UseVisualStyleBackColor = true;
-            this.buttonConfigureChina.Click += new System.EventHandler(this.buttonConfigureNorthChina_Click);
+            this.tabPage2.Text = "Endpoint";
             // 
             // textBoxAzureEndpoint
             // 
@@ -291,7 +273,7 @@
             this.textBoxAzureEndpoint.Enabled = false;
             this.textBoxAzureEndpoint.Location = new System.Drawing.Point(31, 214);
             this.textBoxAzureEndpoint.Name = "textBoxAzureEndpoint";
-            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(375, 20);
+            this.textBoxAzureEndpoint.Size = new System.Drawing.Size(193, 20);
             this.textBoxAzureEndpoint.TabIndex = 43;
             this.textBoxAzureEndpoint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -467,6 +449,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(704, 48);
             this.panel1.TabIndex = 52;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // buttonAddMapping
+            // 
+            this.buttonAddMapping.Enabled = false;
+            this.buttonAddMapping.Location = new System.Drawing.Point(157, 31);
+            this.buttonAddMapping.Name = "buttonAddMapping";
+            this.buttonAddMapping.Size = new System.Drawing.Size(104, 23);
+            this.buttonAddMapping.TabIndex = 48;
+            this.buttonAddMapping.Text = "Add mapping for :";
+            this.buttonAddMapping.UseVisualStyleBackColor = true;
+            this.buttonAddMapping.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBoxMappingList
+            // 
+            this.comboBoxMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMappingList.FormattingEnabled = true;
+            this.comboBoxMappingList.Location = new System.Drawing.Point(285, 32);
+            this.comboBoxMappingList.Name = "comboBoxMappingList";
+            this.comboBoxMappingList.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxMappingList.TabIndex = 49;
+            // 
+            // textBoxManagementPortal
+            // 
+            this.textBoxManagementPortal.BackColor = System.Drawing.Color.Pink;
+            this.textBoxManagementPortal.Enabled = false;
+            this.textBoxManagementPortal.Location = new System.Drawing.Point(230, 214);
+            this.textBoxManagementPortal.Name = "textBoxManagementPortal";
+            this.textBoxManagementPortal.Size = new System.Drawing.Size(167, 20);
+            this.textBoxManagementPortal.TabIndex = 51;
+            this.textBoxManagementPortal.TextChanged += new System.EventHandler(this.textBoxURL_Validation);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(227, 198);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(99, 13);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "Management Portal";
             // 
             // AMSLogin
             // 
@@ -540,9 +562,11 @@
         private System.Windows.Forms.LinkLabel accountmgtlink;
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button buttonConfigureChina;
         private System.Windows.Forms.TextBox textBoxAzureEndpoint;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button buttonConfigureGlobal;
+        private System.Windows.Forms.ComboBox comboBoxMappingList;
+        private System.Windows.Forms.Button buttonAddMapping;
+        private System.Windows.Forms.TextBox textBoxManagementPortal;
+        private System.Windows.Forms.Label label10;
     }
 }

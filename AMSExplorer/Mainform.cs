@@ -770,7 +770,7 @@ namespace AMSExplorer
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
-            
+
             // job progress restore
             dataGridViewJobsV.RestoreJobProgress();
         }
@@ -8011,9 +8011,22 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
-                CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
-            Process.Start(PortalUrl);
+            //  string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
+            //     CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
+            string PortalUrl;
+            if (_credentials.UseOtherAPI == true.ToString())
+            {
+                string[] temp = _credentials.OtherAzureEndpoint.Split("|".ToCharArray());
+                PortalUrl = temp.Count() > 1 ? temp[1] : null;
+
+            }
+            else
+            {
+                PortalUrl = CredentialsEntry.GlobalManagementPortal;
+            }
+
+
+            if (PortalUrl != null) Process.Start(PortalUrl);
         }
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)

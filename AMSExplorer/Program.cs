@@ -1730,8 +1730,25 @@ namespace AMSExplorer
         public bool LocatorExpirationDateWarning { get; set; }
     }
 
+    public class EndPointMapping
+    {
+        public string Name { get; set; }
+        public string APIServer { get; set; }
+        public string Scope { get; set; }
+        public string ACSBaseAddress { get; set; }
+        public string AzureEndpoint { get; set; }
+        public string ManagementPortal { get; set; }
 
-  
+    }
+
+    public enum EndPointMappingName
+    {
+        AzureGlobal = 0,
+        AzureChina,
+        AzureGovernment
+    }
+
+
 
     public class CredentialsEntry
     {
@@ -1745,14 +1762,15 @@ namespace AMSExplorer
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
-
+  
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
         public static readonly string PartnerScope = "urn:NimbusPartners";
         public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
         public static readonly string PartnerAzureEndpoint = "";
 
-        public static readonly string OtherGlobalAPIServer = "https://media.windows.net/API/";
+        /*
+              public static readonly string OtherGlobalAPIServer = "https://media.windows.net/API/";
         public static readonly string OtherGlobalScope = "urn:WindowsAzureMediaServices";
         public static readonly string OtherGlobalACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
         public static readonly string OtherGlobalAzureEndpoint = "windows.net";
@@ -1762,6 +1780,12 @@ namespace AMSExplorer
         public static readonly string OtherChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
         public static readonly string OtherChinaAzureEndpoint = "chinacloudapi.cn";
 
+        public static readonly string OtherGovernmentAPIServer = "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/";
+        public static readonly string OtherGovernmentScope = "urn:WindowsAzureMediaServices";
+        public static readonly string OtherGovernmentACSBaseAddress = "https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net";
+        public static readonly string OtherGovernmentAzureEndpoint = "usgovcloudapi.net";
+        */
+         
         public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
         public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
@@ -1769,6 +1793,8 @@ namespace AMSExplorer
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
         public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
+        public static readonly string GovernmentManagementPortal = "http://manage.windowsazure.us";
+
 
         public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint)
         {
@@ -1794,7 +1820,7 @@ namespace AMSExplorer
         public string ReturnStorageSuffix()
         {
             if (UseOtherAPI == true.ToString())
-                return CoreStorage + OtherAzureEndpoint;
+                return CoreStorage + OtherAzureEndpoint.Split("|".ToCharArray())[0];
             else
                 return null;
         }

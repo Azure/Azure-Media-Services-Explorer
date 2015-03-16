@@ -42,6 +42,15 @@ namespace AMSExplorer
         private const string _Partner = "Partner";
         private const string _Other = "Other";
 
+        public readonly IList<EndPointMapping> Mappings = new List<EndPointMapping> {
+            // Global
+            new EndPointMapping() {Name="Azure Global", APIServer= "https://media.windows.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.windows.net", AzureEndpoint= "windows.net|http://manage.windowsazure.com"}, 
+            // China
+            new EndPointMapping() {Name="Azure in China",APIServer= "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn", AzureEndpoint= "chinacloudapi.cn|http://manage.windowsazure.cn"}, 
+            // Government
+            new EndPointMapping() {Name="Azure Government",APIServer= "https://ams-usge-1-hos-rest-1-1.usgovcloudapp.net/API/", Scope= "urn:WindowsAzureMediaServices", ACSBaseAddress ="https://ams-usge-0-acs-global-1-1.accesscontrol.usgovcloudapi.net", AzureEndpoint= "usgovcloudapi.net|http://manage.windowsazure.us"} 
+        };
+
         public CredentialsEntry LoginCredentials
         {
             get
@@ -56,7 +65,8 @@ namespace AMSExplorer
                textBoxAPIServer.Text,
                textBoxScope.Text,
                textBoxACSBaseAddress.Text,
-               textBoxAzureEndpoint.Text);
+               textBoxAzureEndpoint.Text + "|" + textBoxManagementPortal.Text
+               );
             }
         }
 
@@ -92,6 +102,14 @@ namespace AMSExplorer
                 listBoxAcounts.Items.Clear();
             }
             accountmgtlink.Links.Add(new LinkLabel.Link(0, accountmgtlink.Text.Length, "http://azure.microsoft.com/en-us/documentation/articles/media-services-create-account/"));
+
+
+            foreach (var map in Mappings)
+            {
+                comboBoxMappingList.Items.Add(map.Name);
+            }
+            comboBoxMappingList.SelectedIndex = 0;
+
         }
         private void buttonSaveToList_Click(object sender, EventArgs e)
         {
@@ -180,12 +198,16 @@ namespace AMSExplorer
                 textBoxAPIServer.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 6];
                 textBoxScope.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 7];
                 textBoxACSBaseAddress.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 8];
-                textBoxAzureEndpoint.Text = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9];
+                string[] temp = CredentialsList[listBoxAcounts.SelectedIndex * CredentialsEntry.StringsCount + 9].Split("|".ToCharArray());
+                textBoxAzureEndpoint.Text = temp[0];
+                textBoxManagementPortal.Text = temp.Count() > 1 ? temp[1] : null;
 
                 // if not partner or other, then defaut
                 if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
             }
         }
+
+
 
         private void buttonClear_Click(object sender, EventArgs e)
         {
@@ -212,8 +234,7 @@ namespace AMSExplorer
                 textBoxAPIServer.Enabled =
                 textBoxScope.Enabled =
                 textBoxAzureEndpoint.Enabled =
-                buttonConfigureGlobal.Enabled =
-                buttonConfigureChina.Enabled =
+                 buttonAddMapping.Enabled =
                 radioButtonOther.Checked;
         }
 
@@ -341,10 +362,12 @@ namespace AMSExplorer
 
         private void buttonConfigureNorthChina_Click(object sender, EventArgs e)
         {
-            textBoxAPIServer.Text = CredentialsEntry.OtherChinaAPIServer;
-            textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaACSBaseAddress;
-            textBoxScope.Text = CredentialsEntry.OtherChinaScope;
-            textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaAzureEndpoint;
+            /*
+                textBoxAPIServer.Text = CredentialsEntry.OtherChinaAPIServer;
+                textBoxACSBaseAddress.Text = CredentialsEntry.OtherChinaACSBaseAddress;
+                textBoxScope.Text = CredentialsEntry.OtherChinaScope;
+                textBoxAzureEndpoint.Text = CredentialsEntry.OtherChinaAzureEndpoint;
+             */
         }
 
         private void textBoxURL_Validation(object sender, EventArgs e)
@@ -353,7 +376,7 @@ namespace AMSExplorer
             mytextbox.BackColor = (Uri.IsWellFormedUriString(mytextbox.Text, UriKind.Absolute)) ? Color.White : Color.Pink;
         }
 
-              private void textBoxTXT_Validation(object sender, EventArgs e)
+        private void textBoxTXT_Validation(object sender, EventArgs e)
         {
             TextBox mytextbox = (TextBox)sender;
             mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
@@ -361,10 +384,39 @@ namespace AMSExplorer
 
         private void buttonConfigureGlobal_Click(object sender, EventArgs e)
         {
+            /*
             textBoxAPIServer.Text = CredentialsEntry.OtherGlobalAPIServer;
             textBoxACSBaseAddress.Text = CredentialsEntry.OtherGlobalACSBaseAddress;
             textBoxScope.Text = CredentialsEntry.OtherGlobalScope;
             textBoxAzureEndpoint.Text = CredentialsEntry.OtherGlobalAzureEndpoint;
+             */
+        }
+
+        private void buttonConfigureGovernment_Click(object sender, EventArgs e)
+        {
+            /*
+            textBoxAPIServer.Text = CredentialsEntry.OtherGovernmentAPIServer;
+            textBoxACSBaseAddress.Text = CredentialsEntry.OtherGovernmentACSBaseAddress;
+            textBoxScope.Text = CredentialsEntry.OtherGovernmentScope;
+            textBoxAzureEndpoint.Text = CredentialsEntry.OtherGovernmentAzureEndpoint;
+             * */
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            EndPointMapping EPM = Mappings.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
+
+            textBoxAPIServer.Text = EPM.APIServer;
+            textBoxACSBaseAddress.Text = EPM.ACSBaseAddress;
+            textBoxScope.Text = EPM.Scope;
+            string[] temp = EPM.AzureEndpoint.Split("|".ToCharArray());
+            textBoxAzureEndpoint.Text = temp[0];
+            textBoxManagementPortal.Text = temp.Count() > 1 ? temp[1] : null;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
