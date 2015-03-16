@@ -770,6 +770,8 @@ namespace AMSExplorer
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
+            
+            // job progress restore
             dataGridViewJobsV.RestoreJobProgress();
         }
 
@@ -2746,6 +2748,7 @@ namespace AMSExplorer
 
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
+
         }
 
 
@@ -3402,6 +3405,9 @@ typeof(FilterTime)
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
+
+            // let's monitor channels or programs which are in "intermediate" state
+            RestoreChannelsAndProgramsStatusMonitoring();
 
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
@@ -5104,7 +5110,7 @@ typeof(FilterTime)
                             Parallel.ForEach(programqueryrunning, myP =>
                             {
                                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                                ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped");
+                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
                             });
                         });
                         await yourForeachTask;
@@ -5218,6 +5224,48 @@ typeof(FilterTime)
                 TextBoxLogWriteLine("Deleting streaming endpoint '{0}'.", myO.Name);
                 await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
                 DoRefreshGridStreamingEndpointV(false);
+            }
+        }
+
+
+        // used to monitor program and channels in starting or stopping mode with AMS Explorer is launched
+        private async void RestoreChannelsAndProgramsStatusMonitoring()
+        {
+            var ProgramsToMonitor = _context.Programs.ToList().Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).ToList();
+            foreach (var c in ProgramsToMonitor)
+                Task.Run(() => MonitorProgram(c));
+
+
+            var ChannelsToMonitor = _context.Channels.ToList().Where(c => c.State == ChannelState.Starting).ToList();
+            foreach (var c in ChannelsToMonitor)
+                Task.Run(() => MonitorChannel(c));
+        }
+
+        private void MonitorProgram(IProgram program)
+        {
+            if (program.State == ProgramState.Starting || program.State == ProgramState.Stopping)
+            {
+                ProgramState state = program.State;
+                while (program.State == state)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    program = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
+                }
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+            }
+        }
+
+        private void MonitorChannel(IChannel channel)
+        {
+            if (channel.State == ChannelState.Deleting || channel.State == ChannelState.Starting || channel.State == ChannelState.Stopping)
+            {
+                ChannelState state = channel.State;
+                while (channel.State == state)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    channel = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                }
+                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
             }
         }
 
