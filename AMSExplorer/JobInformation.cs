@@ -135,7 +135,7 @@ namespace AMSExplorer
             }
             else
             {
-                DGJob.Rows.Add("Input/output size", "undefined, one task did not finished");
+                DGJob.Rows.Add("Input/output size", "undefined, task did not finished or one of the assets has been deleted");
             }
 
             bool btaskinjob = (MyJob.Tasks.Count() > 0);
@@ -222,7 +222,7 @@ namespace AMSExplorer
             }
             else
             {
-                DGTasks.Rows.Add("Input/output size", "undefined, task did not finished");
+                DGTasks.Rows.Add("Input/output size", "undefined, task did not finished or one of the assets has been deleted");
 
             }
            
