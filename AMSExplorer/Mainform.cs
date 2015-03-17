@@ -8016,17 +8016,14 @@ typeof(FilterTime)
             string PortalUrl;
             if (_credentials.UseOtherAPI == true.ToString())
             {
-                string[] temp = _credentials.OtherAzureEndpoint.Split("|".ToCharArray());
-                PortalUrl = temp.Count() > 1 ? temp[1] : null;
-
+                PortalUrl = _credentials.OtherManagementPortal;
             }
             else
             {
                 PortalUrl = CredentialsEntry.GlobalManagementPortal;
             }
 
-
-            if (PortalUrl != null) Process.Start(PortalUrl);
+            if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
         }
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)

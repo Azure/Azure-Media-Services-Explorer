@@ -99,13 +99,13 @@ namespace AMSExplorer
         private void AttachStorage_Load(object sender, EventArgs e)
         {
             SampleStorageURLTemplate = (_credentials.UseOtherAPI == true.ToString()) ?
-                CredentialsEntry.CoreAttachStorageURL + _credentials.OtherAzureEndpoint.Split("|".ToCharArray())[0] : // "https://{0}.blob.core.chinacloudapi.cn/"
+                CredentialsEntry.CoreAttachStorageURL + _credentials.OtherAzureEndpoint : // "https://{0}.blob.core.chinacloudapi.cn/"
                 CredentialsEntry.CoreAttachStorageURL + CredentialsEntry.GlobalAzureEndpoint; // "https://{0}.blob.core.windows.net"
 
             // let's poopulate the Azure Service Management URL field
             if (_credentials.UseOtherAPI == true.ToString())
             {
-                textBoxServiceManagement.Text = CredentialsEntry.CoreServiceManagement + _credentials.OtherAzureEndpoint.Split("|".ToCharArray())[0];
+                textBoxServiceManagement.Text = CredentialsEntry.CoreServiceManagement + _credentials.OtherAzureEndpoint;
             }
             else if (_credentials.UsePartnerAPI == true.ToString())
             {
