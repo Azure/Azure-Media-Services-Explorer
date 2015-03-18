@@ -48,6 +48,7 @@ namespace AMSExplorer
         {
             AllowNew = true
         };
+        private bool InitTime = true;
 
         public int GetScaleUnits
         {
@@ -122,6 +123,8 @@ namespace AMSExplorer
             }
         }
 
+        
+
         public string GetOriginClientPolicy
         {
             get { return (checkBoxclientpolicy.Checked) ? textBoxClientPolicy.Text : null; }
@@ -142,18 +145,18 @@ namespace AMSExplorer
 
 
 
-        private void OriginInformation_Load(object sender, EventArgs e)
+        private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
             labelOriginName.Text += MyOrigin.Name;
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
             DGOrigin.ColumnCount = 2;
-
             // asset info
 
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
             DGOrigin.Rows.Add("Name", MyOrigin.Name);
             DGOrigin.Rows.Add("Id", MyOrigin.Id);
             DGOrigin.Rows.Add("State", (StreamingEndpointState)MyOrigin.State);
+            DGOrigin.Rows.Add("CDN Enabled", MyOrigin.CdnEnabled);
             DGOrigin.Rows.Add("Created", ((DateTime)MyOrigin.Created).ToLocalTime());
             DGOrigin.Rows.Add("Last Modified", ((DateTime)MyOrigin.LastModified).ToLocalTime());
             DGOrigin.Rows.Add("Description", MyOrigin.Description);
@@ -169,6 +172,9 @@ namespace AMSExplorer
             }
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
+            // AZURE CDN
+             panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
+             labelcdn.Visible = MyOrigin.CdnEnabled;
 
             if (MyOrigin.ScaleUnits != null)
             {
@@ -233,6 +239,7 @@ namespace AMSExplorer
                 }
             }
             textboxorigindesc.Text = MyOrigin.Description;
+            InitTime = false;
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -314,13 +321,13 @@ namespace AMSExplorer
 
         private void checkBoxcrossdomains_CheckedChanged_1(object sender, EventArgs e)
         {
-            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled =checkBoxcrossdomain.Checked;
+            textBoxCrossDomPolicy.Enabled = buttonAddExampleCrossDomainPolicy.Enabled = checkBoxcrossdomain.Checked;
         }
 
         private void checkBoxStreamingIPlistSet_CheckedChanged(object sender, EventArgs e)
         {
             dataGridViewIP.Enabled = buttonAddIP.Enabled = buttonDelIP.Enabled = checkBoxStreamingIPlistSet.Checked;
-             }
+        }
 
         private void checkBoxAkamai_CheckedChanged(object sender, EventArgs e)
         {
@@ -353,6 +360,24 @@ namespace AMSExplorer
         private void buttonAddExampleCrossDomainPolicy_Click(object sender, EventArgs e)
         {
             textBoxCrossDomPolicy.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"CrossDomainPolicy.xml"));
+        }
+
+        private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
+        {
+         
+           
+        }
+
+
+        private void tabPage2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonAllowAllStreamingIP_Click(object sender, EventArgs e)
+        {
+            checkBoxStreamingIPlistSet.Checked = false;
+            endpointSettingList.Clear();
         }
     }
 }

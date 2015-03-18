@@ -36,21 +36,25 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelcdn = new System.Windows.Forms.Label();
+            this.panelAkamai = new System.Windows.Forms.Panel();
+            this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
+            this.buttonAddAkamai = new System.Windows.Forms.Button();
+            this.buttonDelAkamai = new System.Windows.Forms.Button();
+            this.checkBoxAkamai = new System.Windows.Forms.CheckBox();
+            this.panelStreamingAllowedIP = new System.Windows.Forms.Panel();
+            this.dataGridViewIP = new System.Windows.Forms.DataGridView();
+            this.buttonAddIP = new System.Windows.Forms.Button();
+            this.buttonDelIP = new System.Windows.Forms.Button();
+            this.checkBoxStreamingIPlistSet = new System.Windows.Forms.CheckBox();
+            this.panelCustomHostnames = new System.Windows.Forms.Panel();
+            this.dataGridViewCustomHostname = new System.Windows.Forms.DataGridView();
+            this.buttonAddHostName = new System.Windows.Forms.Button();
+            this.buttonDelHostName = new System.Windows.Forms.Button();
             this.hostnamelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.buttonDelHostName = new System.Windows.Forms.Button();
-            this.buttonAddHostName = new System.Windows.Forms.Button();
-            this.dataGridViewCustomHostname = new System.Windows.Forms.DataGridView();
-            this.checkBoxAkamai = new System.Windows.Forms.CheckBox();
-            this.buttonDelAkamai = new System.Windows.Forms.Button();
-            this.buttonAddAkamai = new System.Windows.Forms.Button();
-            this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
-            this.checkBoxStreamingIPlistSet = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textboxorigindesc = new System.Windows.Forms.TextBox();
-            this.buttonDelIP = new System.Windows.Forms.Button();
-            this.buttonAddIP = new System.Windows.Forms.Button();
-            this.dataGridViewIP = new System.Windows.Forms.DataGridView();
             this.textBoxMaxCacheAge = new System.Windows.Forms.TextBox();
             this.lblMaxCacheAge = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -66,14 +70,18 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAllowAllStreamingIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).BeginInit();
+            this.panelAkamai.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).BeginInit();
+            this.panelStreamingAllowedIP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIP)).BeginInit();
+            this.panelCustomHostnames.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -151,21 +159,12 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.hostnamelink);
-            this.tabPage2.Controls.Add(this.label3);
-            this.tabPage2.Controls.Add(this.buttonDelHostName);
-            this.tabPage2.Controls.Add(this.buttonAddHostName);
-            this.tabPage2.Controls.Add(this.dataGridViewCustomHostname);
-            this.tabPage2.Controls.Add(this.checkBoxAkamai);
-            this.tabPage2.Controls.Add(this.buttonDelAkamai);
-            this.tabPage2.Controls.Add(this.buttonAddAkamai);
-            this.tabPage2.Controls.Add(this.dataGridViewAkamai);
-            this.tabPage2.Controls.Add(this.checkBoxStreamingIPlistSet);
+            this.tabPage2.Controls.Add(this.labelcdn);
+            this.tabPage2.Controls.Add(this.panelAkamai);
+            this.tabPage2.Controls.Add(this.panelStreamingAllowedIP);
+            this.tabPage2.Controls.Add(this.panelCustomHostnames);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textboxorigindesc);
-            this.tabPage2.Controls.Add(this.buttonDelIP);
-            this.tabPage2.Controls.Add(this.buttonAddIP);
-            this.tabPage2.Controls.Add(this.dataGridViewIP);
             this.tabPage2.Controls.Add(this.textBoxMaxCacheAge);
             this.tabPage2.Controls.Add(this.lblMaxCacheAge);
             this.tabPage2.Controls.Add(this.label1);
@@ -177,12 +176,187 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // labelcdn
+            // 
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(375, 310);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(284, 64);
+            this.labelcdn.TabIndex = 69;
+            this.labelcdn.Text = "Azure CDN is enabled.\r\n\r\nAs a consequence, Allowed IP addresses, Akamai authentic" +
+    "ation and custom host names are disabled.";
+            // 
+            // panelAkamai
+            // 
+            this.panelAkamai.Controls.Add(this.dataGridViewAkamai);
+            this.panelAkamai.Controls.Add(this.buttonAddAkamai);
+            this.panelAkamai.Controls.Add(this.buttonDelAkamai);
+            this.panelAkamai.Controls.Add(this.checkBoxAkamai);
+            this.panelAkamai.Location = new System.Drawing.Point(374, 113);
+            this.panelAkamai.Name = "panelAkamai";
+            this.panelAkamai.Size = new System.Drawing.Size(359, 173);
+            this.panelAkamai.TabIndex = 65;
+            // 
+            // dataGridViewAkamai
+            // 
+            this.dataGridViewAkamai.AllowUserToAddRows = false;
+            this.dataGridViewAkamai.AllowUserToDeleteRows = false;
+            this.dataGridViewAkamai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAkamai.Enabled = false;
+            this.dataGridViewAkamai.Location = new System.Drawing.Point(4, 38);
+            this.dataGridViewAkamai.Name = "dataGridViewAkamai";
+            this.dataGridViewAkamai.RowHeadersVisible = false;
+            this.dataGridViewAkamai.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAkamai.Size = new System.Drawing.Size(355, 106);
+            this.dataGridViewAkamai.TabIndex = 51;
+            this.toolTip1.SetToolTip(this.dataGridViewAkamai, "Rule name / IP address, CIDR or subnet mask");
+            // 
+            // buttonAddAkamai
+            // 
+            this.buttonAddAkamai.Enabled = false;
+            this.buttonAddAkamai.Location = new System.Drawing.Point(3, 147);
+            this.buttonAddAkamai.Name = "buttonAddAkamai";
+            this.buttonAddAkamai.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddAkamai.TabIndex = 52;
+            this.buttonAddAkamai.Text = "Add";
+            this.buttonAddAkamai.UseVisualStyleBackColor = true;
+            this.buttonAddAkamai.Click += new System.EventHandler(this.buttonAddAkamai_Click);
+            // 
+            // buttonDelAkamai
+            // 
+            this.buttonDelAkamai.Enabled = false;
+            this.buttonDelAkamai.Location = new System.Drawing.Point(84, 147);
+            this.buttonDelAkamai.Name = "buttonDelAkamai";
+            this.buttonDelAkamai.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelAkamai.TabIndex = 53;
+            this.buttonDelAkamai.Text = "Delete";
+            this.buttonDelAkamai.UseVisualStyleBackColor = true;
+            this.buttonDelAkamai.Click += new System.EventHandler(this.buttonDelAkamai_Click);
+            // 
+            // checkBoxAkamai
+            // 
+            this.checkBoxAkamai.AutoSize = true;
+            this.checkBoxAkamai.Location = new System.Drawing.Point(4, 15);
+            this.checkBoxAkamai.Name = "checkBoxAkamai";
+            this.checkBoxAkamai.Size = new System.Drawing.Size(251, 17);
+            this.checkBoxAkamai.TabIndex = 54;
+            this.checkBoxAkamai.Text = "Define Akamai Signature Header authentication";
+            this.checkBoxAkamai.UseVisualStyleBackColor = true;
+            this.checkBoxAkamai.CheckedChanged += new System.EventHandler(this.checkBoxAkamai_CheckedChanged);
+            // 
+            // panelStreamingAllowedIP
+            // 
+            this.panelStreamingAllowedIP.Controls.Add(this.buttonAllowAllStreamingIP);
+            this.panelStreamingAllowedIP.Controls.Add(this.dataGridViewIP);
+            this.panelStreamingAllowedIP.Controls.Add(this.buttonAddIP);
+            this.panelStreamingAllowedIP.Controls.Add(this.buttonDelIP);
+            this.panelStreamingAllowedIP.Controls.Add(this.checkBoxStreamingIPlistSet);
+            this.panelStreamingAllowedIP.Location = new System.Drawing.Point(6, 113);
+            this.panelStreamingAllowedIP.Name = "panelStreamingAllowedIP";
+            this.panelStreamingAllowedIP.Size = new System.Drawing.Size(362, 173);
+            this.panelStreamingAllowedIP.TabIndex = 64;
+            // 
+            // dataGridViewIP
+            // 
+            this.dataGridViewIP.AllowUserToAddRows = false;
+            this.dataGridViewIP.AllowUserToDeleteRows = false;
+            this.dataGridViewIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewIP.Enabled = false;
+            this.dataGridViewIP.Location = new System.Drawing.Point(9, 38);
+            this.dataGridViewIP.Name = "dataGridViewIP";
+            this.dataGridViewIP.RowHeadersVisible = false;
+            this.dataGridViewIP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewIP.Size = new System.Drawing.Size(336, 106);
+            this.dataGridViewIP.TabIndex = 11;
+            this.toolTip1.SetToolTip(this.dataGridViewIP, "Rule name / IP address, CIDR or subnet mask");
+            // 
+            // buttonAddIP
+            // 
+            this.buttonAddIP.Enabled = false;
+            this.buttonAddIP.Location = new System.Drawing.Point(9, 147);
+            this.buttonAddIP.Name = "buttonAddIP";
+            this.buttonAddIP.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddIP.TabIndex = 13;
+            this.buttonAddIP.Text = "Add";
+            this.buttonAddIP.UseVisualStyleBackColor = true;
+            this.buttonAddIP.Click += new System.EventHandler(this.buttonAddIP_Click);
+            // 
+            // buttonDelIP
+            // 
+            this.buttonDelIP.Enabled = false;
+            this.buttonDelIP.Location = new System.Drawing.Point(90, 147);
+            this.buttonDelIP.Name = "buttonDelIP";
+            this.buttonDelIP.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelIP.TabIndex = 14;
+            this.buttonDelIP.Text = "Delete";
+            this.buttonDelIP.UseVisualStyleBackColor = true;
+            this.buttonDelIP.Click += new System.EventHandler(this.buttonDelIP_Click);
+            // 
+            // checkBoxStreamingIPlistSet
+            // 
+            this.checkBoxStreamingIPlistSet.AutoSize = true;
+            this.checkBoxStreamingIPlistSet.Location = new System.Drawing.Point(9, 15);
+            this.checkBoxStreamingIPlistSet.Name = "checkBoxStreamingIPlistSet";
+            this.checkBoxStreamingIPlistSet.Size = new System.Drawing.Size(214, 17);
+            this.checkBoxStreamingIPlistSet.TabIndex = 48;
+            this.checkBoxStreamingIPlistSet.Text = "Define streaming allowed IP addresses :";
+            this.checkBoxStreamingIPlistSet.UseVisualStyleBackColor = true;
+            this.checkBoxStreamingIPlistSet.CheckedChanged += new System.EventHandler(this.checkBoxStreamingIPlistSet_CheckedChanged);
+            // 
+            // panelCustomHostnames
+            // 
+            this.panelCustomHostnames.Controls.Add(this.dataGridViewCustomHostname);
+            this.panelCustomHostnames.Controls.Add(this.buttonAddHostName);
+            this.panelCustomHostnames.Controls.Add(this.buttonDelHostName);
+            this.panelCustomHostnames.Controls.Add(this.hostnamelink);
+            this.panelCustomHostnames.Controls.Add(this.label3);
+            this.panelCustomHostnames.Location = new System.Drawing.Point(6, 292);
+            this.panelCustomHostnames.Name = "panelCustomHostnames";
+            this.panelCustomHostnames.Size = new System.Drawing.Size(362, 143);
+            this.panelCustomHostnames.TabIndex = 63;
+            // 
+            // dataGridViewCustomHostname
+            // 
+            this.dataGridViewCustomHostname.AllowUserToAddRows = false;
+            this.dataGridViewCustomHostname.AllowUserToDeleteRows = false;
+            this.dataGridViewCustomHostname.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewCustomHostname.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCustomHostname.ColumnHeadersVisible = false;
+            this.dataGridViewCustomHostname.Location = new System.Drawing.Point(8, 18);
+            this.dataGridViewCustomHostname.Name = "dataGridViewCustomHostname";
+            this.dataGridViewCustomHostname.RowHeadersVisible = false;
+            this.dataGridViewCustomHostname.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewCustomHostname.Size = new System.Drawing.Size(336, 77);
+            this.dataGridViewCustomHostname.TabIndex = 55;
+            this.toolTip1.SetToolTip(this.dataGridViewCustomHostname, "Rule name / IP address, CIDR or subnet mask");
+            // 
+            // buttonAddHostName
+            // 
+            this.buttonAddHostName.Location = new System.Drawing.Point(9, 101);
+            this.buttonAddHostName.Name = "buttonAddHostName";
+            this.buttonAddHostName.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddHostName.TabIndex = 57;
+            this.buttonAddHostName.Text = "Add";
+            this.buttonAddHostName.UseVisualStyleBackColor = true;
+            this.buttonAddHostName.Click += new System.EventHandler(this.buttonAddHostName_Click);
+            // 
+            // buttonDelHostName
+            // 
+            this.buttonDelHostName.Location = new System.Drawing.Point(89, 101);
+            this.buttonDelHostName.Name = "buttonDelHostName";
+            this.buttonDelHostName.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelHostName.TabIndex = 58;
+            this.buttonDelHostName.Text = "Delete";
+            this.buttonDelHostName.UseVisualStyleBackColor = true;
+            this.buttonDelHostName.Click += new System.EventHandler(this.buttonDelHostName_Click);
             // 
             // hostnamelink
             // 
             this.hostnamelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hostnamelink.AutoSize = true;
-            this.hostnamelink.Location = new System.Drawing.Point(176, 417);
+            this.hostnamelink.Location = new System.Drawing.Point(174, 106);
             this.hostnamelink.Name = "hostnamelink";
             this.hostnamelink.Size = new System.Drawing.Size(170, 13);
             this.hostnamelink.TabIndex = 60;
@@ -193,104 +367,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 313);
+            this.label3.Location = new System.Drawing.Point(6, 2);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(102, 13);
+            this.label3.Size = new System.Drawing.Size(105, 13);
             this.label3.TabIndex = 59;
-            this.label3.Text = "Custom hostnames :";
-            // 
-            // buttonDelHostName
-            // 
-            this.buttonDelHostName.Location = new System.Drawing.Point(95, 412);
-            this.buttonDelHostName.Name = "buttonDelHostName";
-            this.buttonDelHostName.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelHostName.TabIndex = 58;
-            this.buttonDelHostName.Text = "Delete";
-            this.buttonDelHostName.UseVisualStyleBackColor = true;
-            this.buttonDelHostName.Click += new System.EventHandler(this.buttonDelHostName_Click);
-            // 
-            // buttonAddHostName
-            // 
-            this.buttonAddHostName.Location = new System.Drawing.Point(14, 412);
-            this.buttonAddHostName.Name = "buttonAddHostName";
-            this.buttonAddHostName.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddHostName.TabIndex = 57;
-            this.buttonAddHostName.Text = "Add";
-            this.buttonAddHostName.UseVisualStyleBackColor = true;
-            this.buttonAddHostName.Click += new System.EventHandler(this.buttonAddHostName_Click);
-            // 
-            // dataGridViewCustomHostname
-            // 
-            this.dataGridViewCustomHostname.AllowUserToAddRows = false;
-            this.dataGridViewCustomHostname.AllowUserToDeleteRows = false;
-            this.dataGridViewCustomHostname.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewCustomHostname.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewCustomHostname.ColumnHeadersVisible = false;
-            this.dataGridViewCustomHostname.Location = new System.Drawing.Point(14, 329);
-            this.dataGridViewCustomHostname.Name = "dataGridViewCustomHostname";
-            this.dataGridViewCustomHostname.RowHeadersVisible = false;
-            this.dataGridViewCustomHostname.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewCustomHostname.Size = new System.Drawing.Size(336, 77);
-            this.dataGridViewCustomHostname.TabIndex = 55;
-            this.toolTip1.SetToolTip(this.dataGridViewCustomHostname, "Rule name / IP address, CIDR or subnet mask");
-            // 
-            // checkBoxAkamai
-            // 
-            this.checkBoxAkamai.AutoSize = true;
-            this.checkBoxAkamai.Location = new System.Drawing.Point(377, 128);
-            this.checkBoxAkamai.Name = "checkBoxAkamai";
-            this.checkBoxAkamai.Size = new System.Drawing.Size(251, 17);
-            this.checkBoxAkamai.TabIndex = 54;
-            this.checkBoxAkamai.Text = "Define Akamai Signature Header authentication";
-            this.checkBoxAkamai.UseVisualStyleBackColor = true;
-            this.checkBoxAkamai.CheckedChanged += new System.EventHandler(this.checkBoxAkamai_CheckedChanged);
-            // 
-            // buttonDelAkamai
-            // 
-            this.buttonDelAkamai.Enabled = false;
-            this.buttonDelAkamai.Location = new System.Drawing.Point(458, 263);
-            this.buttonDelAkamai.Name = "buttonDelAkamai";
-            this.buttonDelAkamai.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelAkamai.TabIndex = 53;
-            this.buttonDelAkamai.Text = "Delete";
-            this.buttonDelAkamai.UseVisualStyleBackColor = true;
-            this.buttonDelAkamai.Click += new System.EventHandler(this.buttonDelAkamai_Click);
-            // 
-            // buttonAddAkamai
-            // 
-            this.buttonAddAkamai.Enabled = false;
-            this.buttonAddAkamai.Location = new System.Drawing.Point(377, 263);
-            this.buttonAddAkamai.Name = "buttonAddAkamai";
-            this.buttonAddAkamai.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddAkamai.TabIndex = 52;
-            this.buttonAddAkamai.Text = "Add";
-            this.buttonAddAkamai.UseVisualStyleBackColor = true;
-            this.buttonAddAkamai.Click += new System.EventHandler(this.buttonAddAkamai_Click);
-            // 
-            // dataGridViewAkamai
-            // 
-            this.dataGridViewAkamai.AllowUserToAddRows = false;
-            this.dataGridViewAkamai.AllowUserToDeleteRows = false;
-            this.dataGridViewAkamai.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAkamai.Enabled = false;
-            this.dataGridViewAkamai.Location = new System.Drawing.Point(378, 151);
-            this.dataGridViewAkamai.Name = "dataGridViewAkamai";
-            this.dataGridViewAkamai.RowHeadersVisible = false;
-            this.dataGridViewAkamai.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAkamai.Size = new System.Drawing.Size(355, 106);
-            this.dataGridViewAkamai.TabIndex = 51;
-            this.toolTip1.SetToolTip(this.dataGridViewAkamai, "Rule name / IP address, CIDR or subnet mask");
-            // 
-            // checkBoxStreamingIPlistSet
-            // 
-            this.checkBoxStreamingIPlistSet.AutoSize = true;
-            this.checkBoxStreamingIPlistSet.Location = new System.Drawing.Point(14, 128);
-            this.checkBoxStreamingIPlistSet.Name = "checkBoxStreamingIPlistSet";
-            this.checkBoxStreamingIPlistSet.Size = new System.Drawing.Size(214, 17);
-            this.checkBoxStreamingIPlistSet.TabIndex = 48;
-            this.checkBoxStreamingIPlistSet.Text = "Define streaming allowed IP addresses :";
-            this.checkBoxStreamingIPlistSet.UseVisualStyleBackColor = true;
-            this.checkBoxStreamingIPlistSet.CheckedChanged += new System.EventHandler(this.checkBoxStreamingIPlistSet_CheckedChanged);
+            this.label3.Text = "Custom host names :";
             // 
             // label2
             // 
@@ -308,42 +389,6 @@
             this.textboxorigindesc.Size = new System.Drawing.Size(449, 20);
             this.textboxorigindesc.TabIndex = 49;
             // 
-            // buttonDelIP
-            // 
-            this.buttonDelIP.Enabled = false;
-            this.buttonDelIP.Location = new System.Drawing.Point(95, 263);
-            this.buttonDelIP.Name = "buttonDelIP";
-            this.buttonDelIP.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelIP.TabIndex = 14;
-            this.buttonDelIP.Text = "Delete";
-            this.buttonDelIP.UseVisualStyleBackColor = true;
-            this.buttonDelIP.Click += new System.EventHandler(this.buttonDelIP_Click);
-            // 
-            // buttonAddIP
-            // 
-            this.buttonAddIP.Enabled = false;
-            this.buttonAddIP.Location = new System.Drawing.Point(15, 263);
-            this.buttonAddIP.Name = "buttonAddIP";
-            this.buttonAddIP.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddIP.TabIndex = 13;
-            this.buttonAddIP.Text = "Add";
-            this.buttonAddIP.UseVisualStyleBackColor = true;
-            this.buttonAddIP.Click += new System.EventHandler(this.buttonAddIP_Click);
-            // 
-            // dataGridViewIP
-            // 
-            this.dataGridViewIP.AllowUserToAddRows = false;
-            this.dataGridViewIP.AllowUserToDeleteRows = false;
-            this.dataGridViewIP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewIP.Enabled = false;
-            this.dataGridViewIP.Location = new System.Drawing.Point(14, 151);
-            this.dataGridViewIP.Name = "dataGridViewIP";
-            this.dataGridViewIP.RowHeadersVisible = false;
-            this.dataGridViewIP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewIP.Size = new System.Drawing.Size(336, 106);
-            this.dataGridViewIP.TabIndex = 11;
-            this.toolTip1.SetToolTip(this.dataGridViewIP, "Rule name / IP address, CIDR or subnet mask");
-            // 
             // textBoxMaxCacheAge
             // 
             this.textBoxMaxCacheAge.Location = new System.Drawing.Point(153, 86);
@@ -356,18 +401,18 @@
             this.lblMaxCacheAge.AutoSize = true;
             this.lblMaxCacheAge.Location = new System.Drawing.Point(150, 71);
             this.lblMaxCacheAge.Name = "lblMaxCacheAge";
-            this.lblMaxCacheAge.Size = new System.Drawing.Size(97, 13);
+            this.lblMaxCacheAge.Size = new System.Drawing.Size(103, 13);
             this.lblMaxCacheAge.TabIndex = 8;
-            this.lblMaxCacheAge.Text = "MaxCacheAge (s) :";
+            this.lblMaxCacheAge.Text = "Max Cache Age (s) :";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 71);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(68, 13);
+            this.label1.Size = new System.Drawing.Size(90, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Scale units : ";
+            this.label1.Text = "Streaming Units : ";
             // 
             // numericUpDownRU
             // 
@@ -375,6 +420,8 @@
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.Size = new System.Drawing.Size(65, 20);
             this.numericUpDownRU.TabIndex = 0;
+            this.toolTip1.SetToolTip(this.numericUpDownRU, "1 unit = 200 mbps");
+            this.numericUpDownRU.ValueChanged += new System.EventHandler(this.numericUpDownRU_ValueChanged);
             // 
             // tabPage3
             // 
@@ -499,6 +546,16 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 64;
             // 
+            // buttonAllowAllStreamingIP
+            // 
+            this.buttonAllowAllStreamingIP.Location = new System.Drawing.Point(213, 147);
+            this.buttonAllowAllStreamingIP.Name = "buttonAllowAllStreamingIP";
+            this.buttonAllowAllStreamingIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllStreamingIP.TabIndex = 70;
+            this.buttonAllowAllStreamingIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllStreamingIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllStreamingIP.Click += new System.EventHandler(this.buttonAllowAllStreamingIP_Click);
+            // 
             // StreamingEndpointInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -511,7 +568,7 @@
             this.Name = "StreamingEndpointInformation";
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
-            this.Load += new System.EventHandler(this.OriginInformation_Load);
+            this.Load += new System.EventHandler(this.StreamingEndpointInformation_Load);
             this.Shown += new System.EventHandler(this.OriginInformation_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).EndInit();
             this.contextMenuStripOI.ResumeLayout(false);
@@ -519,9 +576,15 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).EndInit();
+            this.panelAkamai.ResumeLayout(false);
+            this.panelAkamai.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAkamai)).EndInit();
+            this.panelStreamingAllowedIP.ResumeLayout(false);
+            this.panelStreamingAllowedIP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIP)).EndInit();
+            this.panelCustomHostnames.ResumeLayout(false);
+            this.panelCustomHostnames.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCustomHostname)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -587,5 +650,10 @@
         private System.Windows.Forms.Button buttonAddExampleCrossDomainPolicy;
         private System.Windows.Forms.Button buttonAddExampleClientPolicy;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panelCustomHostnames;
+        private System.Windows.Forms.Panel panelAkamai;
+        private System.Windows.Forms.Panel panelStreamingAllowedIP;
+        private System.Windows.Forms.Label labelcdn;
+        private System.Windows.Forms.Button buttonAllowAllStreamingIP;
     }
 }

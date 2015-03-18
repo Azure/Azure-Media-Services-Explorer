@@ -54,10 +54,10 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public StreamingEndpointState State { get; set; }
-        public DateTime LastModified { get; set; }
+        public string CDN { get; set; }
         public string Description { get; set; }
         public int? ScaleUnits { get; set; }
-
+        public DateTime LastModified { get; set; }
 
     }
 
@@ -200,11 +200,11 @@ namespace AMSExplorer
 
                           };
 
-       
+
             BindingList<StreamingEndpointEntry> MyObservOriginInPage = new BindingList<StreamingEndpointEntry>(originquery.Take(0).ToList());
             this.DataSource = MyObservOriginInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayOriginIDinGrid;
-          
+
             WorkerRefreshStreamingEndpoints = new BackgroundWorker();
             WorkerRefreshStreamingEndpoints.WorkerSupportsCancellation = true;
             WorkerRefreshStreamingEndpoints.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshStreamingEndpoints_DoWork);
@@ -331,7 +331,7 @@ namespace AMSExplorer
                 Environment.Exit(0);
             }
 
-           
+
             switch (_orderstreamingendpoints)
             {
                 case OrderStreamingEndpoints.LastModified:
@@ -366,6 +366,7 @@ namespace AMSExplorer
                                 Name = c.Name,
                                 Id = c.Id,
                                 Description = c.Description,
+                                CDN = c.CdnEnabled ? "CDN" : string.Empty,
                                 ScaleUnits = c.ScaleUnits,
                                 State = c.State,
                                 LastModified = c.LastModified.ToLocalTime(),
