@@ -332,10 +332,9 @@ namespace AMSExplorer
                             CredentialsList.Add(att.Attribute("OtherAPIServer").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherScope").Value.ToString());
                             CredentialsList.Add(att.Attribute("OtherACSBaseAddress").Value.ToString());
-                            if (version >= new Version("1.1"))
+                            if ((version == new Version("1.1")) && (att.Attribute("OtherManagementPortal")) != null)
                             {
-                                CredentialsList.Add(att.Attribute("OtherACSBaseAddress").Value.ToString() + "|" + att.Attribute("OtherManagementPortal").Value.ToString());
-
+                                CredentialsList.Add(att.Attribute("OtherAzureEndpoint").Value.ToString() + "|" + att.Attribute("OtherManagementPortal").Value.ToString());
                             }
                             else if (att.Attribute("OtherAzureEndpoint") != null)
                             {
