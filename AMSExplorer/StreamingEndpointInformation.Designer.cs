@@ -185,8 +185,8 @@
             this.labelcdn.Name = "labelcdn";
             this.labelcdn.Size = new System.Drawing.Size(284, 64);
             this.labelcdn.TabIndex = 69;
-            this.labelcdn.Text = "Allowed IP addresses, Akamai authentication and custom host names are disabled be" +
-    "cause Azure CDN is enabled";
+            this.labelcdn.Text = "Azure CDN is enabled.\r\n\r\nAs a consequence, Allowed IP addresses, Akamai authentic" +
+    "ation and custom host names are disabled.";
             // 
             // panelAkamai
             // 

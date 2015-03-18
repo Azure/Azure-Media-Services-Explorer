@@ -8574,7 +8574,7 @@ typeof(FilterTime)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            CopyAsset form = new CopyAsset(_context)
+            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count)
             {
                 CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
                 EnableSingleDestinationAsset = SelectedAssets.Count > 1
@@ -8729,7 +8729,6 @@ typeof(FilterTime)
                         streamingendpoint.CdnEnabled = enable;
                         await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
                     });
-
                 }
             }
         }

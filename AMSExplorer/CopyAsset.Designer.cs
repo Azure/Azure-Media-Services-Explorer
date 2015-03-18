@@ -35,17 +35,18 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.listBoxAccounts = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelWarningStorage = new System.Windows.Forms.Label();
             this.listBoxStorage = new System.Windows.Forms.ListBox();
             this.radioButtonDefaultStorage = new System.Windows.Forms.RadioButton();
             this.radioButtonSpecifyStorage = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
             this.copyassetname = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelcdn = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -59,7 +60,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(96, 23);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Copy Asset";
+            this.buttonOk.Text = "Copy Asset{0}";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -131,6 +132,16 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Destination";
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(19, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(129, 13);
+            this.label2.TabIndex = 69;
+            this.label2.Text = "Media Services Account :";
+            // 
             // labelWarningStorage
             // 
             this.labelWarningStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -194,24 +205,22 @@
             this.copyassetname.Size = new System.Drawing.Size(757, 20);
             this.copyassetname.TabIndex = 64;
             // 
-            // label1
+            // labelinfo
             // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(212, 13);
-            this.label1.TabIndex = 66;
-            this.label1.Text = "On-demand and Live archive are supported";
+            this.labelinfo.Location = new System.Drawing.Point(20, 9);
+            this.labelinfo.Name = "labelinfo";
+            this.labelinfo.Size = new System.Drawing.Size(752, 15);
+            this.labelinfo.TabIndex = 66;
+            this.labelinfo.Text = "{0} asset{1} selected.";
             // 
             // checkBoxDeleteSource
             // 
             this.checkBoxDeleteSource.AutoSize = true;
             this.checkBoxDeleteSource.Location = new System.Drawing.Point(19, 26);
             this.checkBoxDeleteSource.Name = "checkBoxDeleteSource";
-            this.checkBoxDeleteSource.Size = new System.Drawing.Size(131, 17);
+            this.checkBoxDeleteSource.Size = new System.Drawing.Size(134, 17);
             this.checkBoxDeleteSource.TabIndex = 67;
-            this.checkBoxDeleteSource.Text = "Delete source asset(s)";
+            this.checkBoxDeleteSource.Text = "Delete source asset{0}";
             this.checkBoxDeleteSource.UseVisualStyleBackColor = true;
             // 
             // groupBox2
@@ -235,15 +244,16 @@
             this.checkBoxTargetSingleAsset.Text = "Merge all files to\r\none single asset";
             this.checkBoxTargetSingleAsset.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // labelcdn
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(19, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 13);
-            this.label2.TabIndex = 69;
-            this.label2.Text = "Media Services Account :";
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(313, 34);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(459, 19);
+            this.labelcdn.TabIndex = 70;
+            this.labelcdn.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
+    "ed.";
+            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // CopyAsset
             // 
@@ -251,8 +261,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelcdn);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelinfo);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.copyassetname);
             this.Controls.Add(this.groupBox1);
@@ -281,7 +292,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox copyassetname;
-        public System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label labelinfo;
         private System.Windows.Forms.ListBox listBoxStorage;
         private System.Windows.Forms.RadioButton radioButtonSpecifyStorage;
         private System.Windows.Forms.RadioButton radioButtonDefaultStorage;
@@ -290,5 +301,6 @@
         private System.Windows.Forms.CheckBox checkBoxDeleteSource;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxTargetSingleAsset;
+        private System.Windows.Forms.Label labelcdn;
     }
 }

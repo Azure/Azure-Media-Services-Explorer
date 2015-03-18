@@ -103,11 +103,16 @@ namespace AMSExplorer
 
 
 
-        public CopyAsset(CloudMediaContext context)
+        public CopyAsset(CloudMediaContext context, int numberofassets)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            labelinfo.Text = string.Format(labelinfo.Text, numberofassets, numberofassets > 1 ? "s" : "");
+            buttonOk.Text = string.Format(buttonOk.Text, numberofassets > 1 ? "s" : "");
+            checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, numberofassets > 1 ? "s" : "");
+            checkBoxTargetSingleAsset.Enabled = numberofassets > 1;
+            
         }
 
 
