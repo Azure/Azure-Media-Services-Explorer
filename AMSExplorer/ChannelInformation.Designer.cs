@@ -36,6 +36,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
             this.textBoxKeyFrame = new System.Windows.Forms.TextBox();
             this.checkBoxInputSet = new System.Windows.Forms.CheckBox();
@@ -57,18 +59,18 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
-            this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
+            this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
+            this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -134,6 +136,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonAllowAllPreviewIP);
+            this.tabPage2.Controls.Add(this.buttonAllowAllInputIP);
             this.tabPage2.Controls.Add(this.numericUpDownHLSFragPerSeg);
             this.tabPage2.Controls.Add(this.checkBoxHLSFragPerSeg);
             this.tabPage2.Controls.Add(this.checkBoxKeyFrameIntDefined);
@@ -155,6 +159,30 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownHLSFragPerSeg
+            // 
+            this.numericUpDownHLSFragPerSeg.Enabled = false;
+            this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(19, 375);
+            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
+            this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownHLSFragPerSeg.TabIndex = 55;
+            this.numericUpDownHLSFragPerSeg.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
+            // checkBoxHLSFragPerSeg
+            // 
+            this.checkBoxHLSFragPerSeg.AutoSize = true;
+            this.checkBoxHLSFragPerSeg.Location = new System.Drawing.Point(19, 352);
+            this.checkBoxHLSFragPerSeg.Name = "checkBoxHLSFragPerSeg";
+            this.checkBoxHLSFragPerSeg.Size = new System.Drawing.Size(163, 17);
+            this.checkBoxHLSFragPerSeg.TabIndex = 54;
+            this.checkBoxHLSFragPerSeg.Text = "HLS fragments per segment :";
+            this.checkBoxHLSFragPerSeg.UseVisualStyleBackColor = true;
+            this.checkBoxHLSFragPerSeg.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSeg_CheckedChanged);
             // 
             // checkBoxKeyFrameIntDefined
             // 
@@ -390,29 +418,25 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 58;
             // 
-            // checkBoxHLSFragPerSeg
+            // buttonAllowAllInputIP
             // 
-            this.checkBoxHLSFragPerSeg.AutoSize = true;
-            this.checkBoxHLSFragPerSeg.Location = new System.Drawing.Point(19, 352);
-            this.checkBoxHLSFragPerSeg.Name = "checkBoxHLSFragPerSeg";
-            this.checkBoxHLSFragPerSeg.Size = new System.Drawing.Size(163, 17);
-            this.checkBoxHLSFragPerSeg.TabIndex = 54;
-            this.checkBoxHLSFragPerSeg.Text = "HLS fragments per segment :";
-            this.checkBoxHLSFragPerSeg.UseVisualStyleBackColor = true;
-            this.checkBoxHLSFragPerSeg.CheckedChanged += new System.EventHandler(this.checkBoxHLSFragPerSeg_CheckedChanged);
+            this.buttonAllowAllInputIP.Location = new System.Drawing.Point(223, 226);
+            this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
+            this.buttonAllowAllInputIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllInputIP.TabIndex = 56;
+            this.buttonAllowAllInputIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
             // 
-            // numericUpDownHLSFragPerSeg
+            // buttonAllowAllPreviewIP
             // 
-            this.numericUpDownHLSFragPerSeg.Enabled = false;
-            this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(19, 375);
-            this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
-            this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(120, 20);
-            this.numericUpDownHLSFragPerSeg.TabIndex = 55;
-            this.numericUpDownHLSFragPerSeg.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.buttonAllowAllPreviewIP.Location = new System.Drawing.Point(580, 226);
+            this.buttonAllowAllPreviewIP.Name = "buttonAllowAllPreviewIP";
+            this.buttonAllowAllPreviewIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllPreviewIP.TabIndex = 57;
+            this.buttonAllowAllPreviewIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllPreviewIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllPreviewIP.Click += new System.EventHandler(this.buttonAllowAllPreviewIP_Click);
             // 
             // ChannelInformation
             // 
@@ -434,12 +458,12 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -476,5 +500,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxHLSFragPerSeg;
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
+        private System.Windows.Forms.Button buttonAllowAllInputIP;
+        private System.Windows.Forms.Button buttonAllowAllPreviewIP;
     }
 }

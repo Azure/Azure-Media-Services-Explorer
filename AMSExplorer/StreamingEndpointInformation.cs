@@ -373,5 +373,11 @@ namespace AMSExplorer
         {
 
         }
+
+        private void buttonAllowAllStreamingIP_Click(object sender, EventArgs e)
+        {
+            checkBoxStreamingIPlistSet.Checked = false;
+            endpointSettingList.Clear();
+        }
     }
 }

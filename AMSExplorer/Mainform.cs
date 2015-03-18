@@ -5732,119 +5732,121 @@ typeof(FilterTime)
 
         private async void DoDisplayChannelInfo(IChannel channel)
         {
-
-            ChannelInformation form = new ChannelInformation()
+            if (channel != null)
             {
-                MyChannel = channel,
-                MyContext = _context
-            };
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                channel.Description = form.GetChannelDescription;
-
-                channel.Input.KeyFrameInterval = form.KeyframeInterval;
-
-                // HLS Fragment per segment
-                if (form.HLSFragPerSegment != null)
+                ChannelInformation form = new ChannelInformation()
                 {
-                    if (channel.Output == null)
+                    MyChannel = channel,
+                    MyContext = _context
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    channel.Description = form.GetChannelDescription;
+
+                    channel.Input.KeyFrameInterval = form.KeyframeInterval;
+
+                    // HLS Fragment per segment
+                    if (form.HLSFragPerSegment != null)
                     {
-                        channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                        if (channel.Output == null)
+                        {
+                            channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                        }
+                        else if (channel.Output.Hls == null)
+                        {
+                            channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                        }
+                        else
+                        {
+                            channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                        }
                     }
-                    else if (channel.Output.Hls == null)
+                    else // form.HLSFragPerSegment is null
                     {
-                        channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                        if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            channel.Output.Hls.FragmentsPerSegment = null;
+                        }
+                    }
+
+
+                    // Input allow list
+                    if (form.GetInputIPAllowList != null)
+                    {
+                        if (channel.Input.AccessControl == null)
+                        {
+                            channel.Input.AccessControl = new ChannelAccessControl();
+                        }
+                        channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
+
                     }
                     else
                     {
-                        channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                        if (channel.Input.AccessControl != null)
+                        {
+                            channel.Input.AccessControl.IPAllowList = null;
+                        }
                     }
-                }
-                else
-                {
-                    if (channel.Output.Hls.FragmentsPerSegment != null)
+
+
+                    // Preview allow list
+                    if (form.GetPreviewAllowList != null)
                     {
-                        channel.Output.Hls.FragmentsPerSegment = null;
+                        if (channel.Preview.AccessControl == null)
+                        {
+                            channel.Preview.AccessControl = new ChannelAccessControl();
+                        }
+                        channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
+
                     }
-                }
-
-
-                // Input allow list
-                if (form.GetInputIPAllowList != null)
-                {
-                    if (channel.Input.AccessControl == null)
+                    else
                     {
-                        channel.Input.AccessControl = new ChannelAccessControl();
+                        if (channel.Preview.AccessControl != null)
+                        {
+                            channel.Preview.AccessControl.IPAllowList = null;
+                        }
                     }
-                    channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
 
-                }
-                else
-                {
-                    if (channel.Input.AccessControl != null)
+
+                    // Client Access Policy
+                    if (form.GetChannelClientPolicy != null)
                     {
-                        channel.Input.AccessControl.IPAllowList = null;
+                        if (channel.CrossSiteAccessPolicies == null)
+                        {
+                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
+
                     }
-                }
-
-
-                // Preview allow list
-                if (form.GetPreviewAllowList != null)
-                {
-                    if (channel.Preview.AccessControl == null)
+                    else
                     {
-                        channel.Preview.AccessControl = new ChannelAccessControl();
+                        if (channel.CrossSiteAccessPolicies != null)
+                        {
+                            channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                        }
                     }
-                    channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
 
-                }
-                else
-                {
-                    if (channel.Preview.AccessControl != null)
+
+                    // Cross domain  Policy
+                    if (form.GetChannelCrossdomaintPolicy != null)
                     {
-                        channel.Preview.AccessControl.IPAllowList = null;
+                        if (channel.CrossSiteAccessPolicies == null)
+                        {
+                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomaintPolicy;
+
                     }
-                }
-
-
-                // Client Access Policy
-                if (form.GetChannelClientPolicy != null)
-                {
-                    if (channel.CrossSiteAccessPolicies == null)
+                    else
                     {
-                        channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        if (channel.CrossSiteAccessPolicies != null)
+                        {
+                            channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                        }
                     }
-                    channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
-
+                    await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
                 }
-                else
-                {
-                    if (channel.CrossSiteAccessPolicies != null)
-                    {
-                        channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
-                    }
-                }
-
-
-                // Cross domain  Policy
-                if (form.GetChannelCrossdomaintPolicy != null)
-                {
-                    if (channel.CrossSiteAccessPolicies == null)
-                    {
-                        channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                    }
-                    channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomaintPolicy;
-
-                }
-                else
-                {
-                    if (channel.CrossSiteAccessPolicies != null)
-                    {
-                        channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
-                    }
-                }
-                await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
             }
         }
 

@@ -36,6 +36,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelcdn = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
             this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
             this.buttonAddAkamai = new System.Windows.Forms.Button();
@@ -69,7 +70,7 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.labelcdn = new System.Windows.Forms.Label();
+            this.buttonAllowAllStreamingIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -177,6 +178,16 @@
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
+            // labelcdn
+            // 
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(375, 310);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(284, 64);
+            this.labelcdn.TabIndex = 69;
+            this.labelcdn.Text = "Allowed IP addresses, Akamai authentication and custom host names are disabled be" +
+    "cause Azure CDN is enabled";
+            // 
             // panelAkamai
             // 
             this.panelAkamai.Controls.Add(this.dataGridViewAkamai);
@@ -237,6 +248,7 @@
             // 
             // panelStreamingAllowedIP
             // 
+            this.panelStreamingAllowedIP.Controls.Add(this.buttonAllowAllStreamingIP);
             this.panelStreamingAllowedIP.Controls.Add(this.dataGridViewIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonAddIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonDelIP);
@@ -534,15 +546,15 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 64;
             // 
-            // labelcdn
+            // buttonAllowAllStreamingIP
             // 
-            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelcdn.Location = new System.Drawing.Point(375, 310);
-            this.labelcdn.Name = "labelcdn";
-            this.labelcdn.Size = new System.Drawing.Size(284, 64);
-            this.labelcdn.TabIndex = 69;
-            this.labelcdn.Text = "Allowed IP addresses, Akamai authentication and custom host names are disabled be" +
-    "cause Azure CDN is enabled";
+            this.buttonAllowAllStreamingIP.Location = new System.Drawing.Point(213, 147);
+            this.buttonAllowAllStreamingIP.Name = "buttonAllowAllStreamingIP";
+            this.buttonAllowAllStreamingIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllStreamingIP.TabIndex = 70;
+            this.buttonAllowAllStreamingIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllStreamingIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllStreamingIP.Click += new System.EventHandler(this.buttonAllowAllStreamingIP_Click);
             // 
             // StreamingEndpointInformation
             // 
@@ -642,5 +654,6 @@
         private System.Windows.Forms.Panel panelAkamai;
         private System.Windows.Forms.Panel panelStreamingAllowedIP;
         private System.Windows.Forms.Label labelcdn;
+        private System.Windows.Forms.Button buttonAllowAllStreamingIP;
     }
 }

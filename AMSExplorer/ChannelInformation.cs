@@ -32,6 +32,7 @@ using Microsoft.WindowsAzure.Storage.Auth;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
+using System.Net;
 
 namespace AMSExplorer
 {
@@ -322,6 +323,20 @@ namespace AMSExplorer
         {
             numericUpDownHLSFragPerSeg.Enabled = checkBoxHLSFragPerSeg.Checked;
 
+        }
+
+        private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
+        {
+          //  ip = new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+            InputEndpointSettingList.Clear();
+            InputEndpointSettingList.Add(new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
+            checkBoxInputSet.Checked = true;
+        }
+
+        private void buttonAllowAllPreviewIP_Click(object sender, EventArgs e)
+        {
+            checkBoxPreviewSet.Checked = false;
+            PreviewEndpointSettingList.Clear();
         }
     }
 }
