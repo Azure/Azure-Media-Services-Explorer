@@ -69,8 +69,6 @@ namespace AMSExplorer
         public static string Salt;
         private string _backuprootfolderupload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
-        private BindingList<TransferEntry> _MyListTransfer; // list of upload/download
-        private List<int> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
         private ILocator PlayBackLocator = null;
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
@@ -205,6 +203,9 @@ namespace AMSExplorer
 
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             bool Error = false;
             string ErrorMessage = string.Empty;
 
@@ -769,6 +770,8 @@ namespace AMSExplorer
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
+
+            // job progress restore
             dataGridViewJobsV.RestoreJobProgress();
         }
 
@@ -894,89 +897,12 @@ namespace AMSExplorer
 
 
 
-        private void DoGridTransferUpdateText(string progresstext, int index)
-        {
-            _MyListTransfer[index].Name = progresstext;
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-        private void DoGridTransferUpdateProgress(double progress, int index)
-        {
-            _MyListTransfer[index].Progress = progress;
-            if (progress > 3 && _MyListTransfer[index].StartTime != null)
-            {
-                TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)_MyListTransfer[index].StartTime).ToUniversalTime());
-                DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
-                _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString() + " ?";
-            }
-
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
-        {
-            _MyListTransfer[index].Progress = 100;
-            _MyListTransfer[index].State = TransferState.Finished;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].DestLocation = DestLocation;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-        private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
-        {
-            string message = e.Message;
-            if (e.InnerException != null)
-            {
-                message = message + Constants.endline + Program.GetErrorMessage(e);
-            }
-            DoGridTransferDeclareError(index, message);
-        }
-
-        private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
-        {
-            _MyListTransfer[index].Progress = 100;
-            _MyListTransfer[index].EndTime = DateTime.Now.ToString();
-            _MyListTransfer[index].State = TransferState.Error;
-            _MyListTransfer[index].ErrorDescription = ErrorDesc;
-            if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private void DoGridTransferDeclareTransferStarted(int index)  // Process is started
-        {
-            _MyListTransfer[index].Progress = 0;
-            _MyListTransfer[index].State = TransferState.Processing;
-            _MyListTransfer[index].StartTime = DateTime.Now;
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
-        }
-
-        private bool DoGridTransferQueueOurTurn(int index)  // Return true if this is out turn
-        {
-            return (_MyListTransferQueue.Count > 0) ? (_MyListTransferQueue[0] == index) : true;
-        }
-
-        private bool DoGridTransferIsQueueRequested(int index)  // Return true trasfer is managed in the queue
-        {
-            return (_MyListTransfer[index].processedinqueue);
-        }
-
-        private void DoGridTransferWaitIfNeeded(int index)
-        {
-            // If upload in the queue, let's wait our turn
-            if (DoGridTransferIsQueueRequested(index))
-            {
-                while (!DoGridTransferQueueOurTurn(index))
-                {
-                    Thread.Sleep(500);
-                }
-
-                DoGridTransferDeclareTransferStarted(index);
-            }
-        }
 
         private void ProcessDownloadAsset(List<IAsset> SelectedAssets, object folder, int index)
         {
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
+
             bool multipleassets = SelectedAssets.Count > 1;
             bool Error = false;
 
@@ -1129,43 +1055,11 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    int index = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, false);
+                    int index = DoGridTransferAddItem(string.Format("Import from Http of '{0}'", form.GetAssetFileName), TransferType.ImportFromHttp, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
-                }
-            }
-        }
-
-
-
-        private async void DoMergeAssetsToNewAsset()
-        {
-            IList<IAsset> SelectedAssets = ReturnSelectedAssets();
-            if (SelectedAssets.Count > 0)
-            {
-                if (SelectedAssets.Any(a => a.Options != AssetCreationOptions.None))
-                {
-                    MessageBox.Show("Assets cannot be merged as at least one asset is encrypted.", "Asset encrypted", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-                else
-                {
-                    string newassetname = string.Empty;
-                    if (Program.InputBox("Assets merging", "Enter the new asset name:", ref newassetname) == DialogResult.OK)
-                    {
-
-                        if (!havestoragecredentials)
-                        { // No blob credentials.
-                            MessageBox.Show("Please specifiy the account storage key in the login window to access this feature.");
-                        }
-                        else
-                        {
-                            await Task.Factory.StartNew(() => ProcessMergeAssetsInNewAsset(SelectedAssets, newassetname));
-                            // Refresh the assets.
-                            DoRefreshGridAssetV(false);
-                        }
-                    }
                 }
             }
         }
@@ -1238,116 +1132,6 @@ namespace AMSExplorer
 
         }
 
-
-        private void ProcessMergeAssetsInNewAsset(IList<IAsset> MyAssets, string newassetname)
-        {
-            bool Error = false;
-            try
-            {
-                TextBoxLogWriteLine("Merging assets to new asset '{0}'...", newassetname);
-                IAsset NewAsset = _context.Assets.Create(newassetname, AssetCreationOptions.None); // No encryption as we do storage copy
-                CloudStorageAccount storageAccount;
-                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
-                var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-                IAccessPolicy readPolicy = _context.AccessPolicies.Create("readPolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-
-                ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, NewAsset, writePolicy);
-                Uri uploadUri = new Uri(destinationLocator.Path);
-
-                // let's backup the primary file from the first asset to set it to the merged asset
-                var ismAssetFile = MyAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
-
-                foreach (IAsset MyAsset in MyAssets)
-                {
-                    if (MyAsset.StorageAccountName == _context.DefaultStorageAccount.Name) // asset is in default storage
-                    {
-                        ILocator sourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, MyAsset, readPolicy);
-                        Uri SourceUri = new Uri(sourceLocator.Path);
-                        foreach (IAssetFile MyAssetFile in MyAsset.AssetFiles)
-                        {
-                            TextBoxLogWriteLine("   Copying file '{0}' from asset '{1}'...", MyAssetFile.Name, MyAsset.Name);
-                            if (MyAssetFile.IsEncrypted)
-                            {
-                                TextBoxLogWriteLine("   Cannot copy file '{0}' because it is encrypted.", MyAssetFile.Name, true);
-                            }
-                            else
-                            {
-                                IAssetFile AssetFileTarget = NewAsset.AssetFiles.Where(f => f.Name == MyAssetFile.Name).FirstOrDefault();
-                                if (AssetFileTarget == null)
-                                {
-                                    AssetFileTarget = NewAsset.AssetFiles.Create(MyAssetFile.Name); // does not exist so we create it
-                                }
-                                else
-                                {
-                                    int i = 0;
-                                    while (NewAsset.AssetFiles.Where(f => f.Name == Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name)).FirstOrDefault() != null)
-                                    {
-                                        i++;
-                                    }
-                                    AssetFileTarget = NewAsset.AssetFiles.Create(Path.GetFileNameWithoutExtension(MyAssetFile.Name) + "#" + i.ToString() + Path.GetExtension(MyAssetFile.Name));// exist so we add a number
-                                }
-
-                                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                                string sourceTargetContainerName = SourceUri.Segments[1];
-                                string assetTargetContainerName = uploadUri.Segments[1];
-                                CloudBlobContainer mediaBlobContainer = cloudBlobClient.GetContainerReference(sourceTargetContainerName);
-                                CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-                                CloudBlockBlob sourceCloudBlob, destinationBlob;
-                                sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(MyAssetFile.Name);
-                                sourceCloudBlob.FetchAttributes();
-
-                                if (sourceCloudBlob.Properties.Length > 0)
-                                {
-
-                                    destinationBlob = assetTargetContainer.GetBlockBlobReference(AssetFileTarget.Name);
-
-                                    destinationBlob.DeleteIfExists();
-                                    destinationBlob.StartCopyFromBlob(sourceCloudBlob);
-
-                                    CloudBlockBlob blob;
-                                    blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AssetFileTarget.Name);
-
-                                    while (blob.CopyState.Status == CopyStatus.Pending)
-                                    {
-                                        Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    }
-                                    destinationBlob.FetchAttributes();
-                                    AssetFileTarget.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                    AssetFileTarget.Update();
-                                    TextBoxLogWriteLine("     File '{0}' copied as '{1}'...", MyAssetFile.Name, AssetFileTarget.Name);
-                                    //MyAsset.Update();
-                                }
-                            }
-                        }
-                        sourceLocator.Delete();
-                    }
-                    else // asset in not in the default storage
-                    {
-                        TextBoxLogWriteLine("Asset '{0}' has been ignored as this asset is not in the default storage account.", MyAsset.Name, true);
-                    }
-                }
-                destinationLocator.Delete();
-                readPolicy.Delete();
-                writePolicy.Delete();
-                if (ismAssetFile.Count() > 0)
-                {
-                    SetISMFileAsPrimary(NewAsset, ismAssetFile.FirstOrDefault().Name);
-                }
-                else
-                {
-                    SetISMFileAsPrimary(NewAsset);
-                }
-
-            }
-            catch
-            {
-                MessageBox.Show("Error when merging the assets.");
-                TextBoxLogWriteLine("Error when merging the assets.", true);
-                Error = true;
-            }
-            if (!Error) TextBoxLogWriteLine("Assets merged to new asset '{0}'.", newassetname);
-        }
 
 
         private void DotabControlMainSwitch(string tab)
@@ -1885,41 +1669,7 @@ namespace AMSExplorer
 
 
 
-        public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
-        {
-            TransferEntry myTE = new TransferEntry()
-                {
-                    Name = text,
-                    SubmitTime = DateTime.Now,
-                    Type = TType
-                };
 
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                _MyListTransfer.Add(myTE);
-
-            }
-                ));
-            int indexloc = _MyListTransfer.IndexOf(myTE);
-
-            if (PutInTheQueue)
-            {
-                _MyListTransferQueue.Add(indexloc);
-                myTE.processedinqueue = true;
-                myTE.State = TransferState.Queued;
-
-            }
-            else
-            {
-                myTE.processedinqueue = false;
-                myTE.State = TransferState.Processing;
-                myTE.StartTime = DateTime.Now;
-            }
-
-            // refresh number in tab
-            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", _MyListTransfer.Count())));
-            return indexloc;
-        }
 
 
 
@@ -1971,7 +1721,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    int index = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, false);
+                    int index = DoGridTransferAddItem("Import from Azure Storage " + (form.ImportCreateNewAsset ? "to a new asset" : "to an existing asset"), TransferType.ImportFromAzureStorage, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromAzureStorage(form.ImportUseDefaultStorage, form.SelectedBlobContainer, form.ImporOtherStorageName, form.ImportOtherStorageKey, form.SelectedBlobs, form.ImportCreateNewAsset, form.ImportNewAssetName, targetAssetID, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
@@ -1983,6 +1733,9 @@ namespace AMSExplorer
 
         private void ProcessImportFromAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IListBlobItem> SelectedBlobs, bool CreateNewAsset, string newassetname, string targetAssetID, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             IAsset asset;
             if (CreateNewAsset)
             {
@@ -2254,6 +2007,8 @@ namespace AMSExplorer
 
         private void ProcessExportAssetToAzureStorage(bool UseDefaultStorage, string containername, string otherstoragename, string otherstoragekey, List<IAssetFile> SelectedFiles, bool CreateNewContainer, int index)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
 
             bool Error = false;
             if (UseDefaultStorage) // The default storage is used
@@ -2503,14 +2258,16 @@ namespace AMSExplorer
             }
         }
 
-        private void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
+            // If upload in the queue, let's wait our turn
+            DoGridTransferWaitIfNeeded(index);
+
             CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
             IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
             // let's backup the primary file from the first asset to set it to the copied/merged asset
             var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
-
 
             bool ErrorCopyAsset = false;
 
@@ -2555,6 +2312,7 @@ namespace AMSExplorer
                     {
                         Length += file.ContentFileSize;
                     }
+                    if (Length == 0) Length = 1; // as this could happen with Live arhive
 
                     // do the copy
                     int nbblob = 0;
@@ -2592,7 +2350,7 @@ namespace AMSExplorer
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
                                             blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
-                                            DoGridTransferUpdateProgress((int)percentComplete, index);
+                                            DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, index);
                                         }
 
                                         if (blob.CopyState.Status == CopyStatus.Failed)
@@ -2646,22 +2404,21 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateText(string.Format("Copy asset '{0}' to account '{1}' - fragblobs", SourceAsset.Name, TargetCredentials.AccountName), index);
-                        DoGridTransferUpdateProgress(0, index);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, TargetCredentials.AccountName), 0, index);
                         try
                         {
                             var mediablobs = assetSourceContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
+                                List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+
                                 foreach (var blob in mediablobs)
                                 {
-
                                     if (blob.GetType() == typeof(CloudBlobDirectory))
                                     {
                                         CloudBlobDirectory blobdir = (CloudBlobDirectory)blob;
                                         ListDirectories.Add(blobdir);
                                         TextBoxLogWriteLine("Fragblobs detected (live archive) '{0}'.", blobdir.Prefix);
-
                                     }
                                     else if (blob.GetType() == typeof(CloudBlockBlob))
                                     {
@@ -2670,38 +2427,37 @@ namespace AMSExplorer
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
                                             CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
-                                            string blobToken = assetSourceContainer.GetSharedAccessSignature(
-                                            new SharedAccessBlobPolicy
-                                            {
-                                                Permissions = SharedAccessBlobPermissions.Read |
-                                                                SharedAccessBlobPermissions.Write,
-                                                SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
-                                            });
-
-
                                             // copy using src blob as SAS
-                                            targetBlob.BeginStartCopyFromBlob(new Uri(blob.Uri.AbsoluteUri + blobToken), null, null);
+                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + sourcelocator.ContentAccessComponent), null, null));
                                         }
                                     }
-
                                 }
                                 // let's launch the copy of fragblobs
-                                List<ICancellableAsyncResult> mylistresults = CopyBlobDirectory(ListDirectories, assetTargetContainer);
+                                double ind = 0;
+                                foreach (var dir in ListDirectories)
+                                {
+                                    TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
+                                    mylistresults.AddRange(CopyBlobDirectory(dir, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
                                 if (mylistresults.Count > 0)
                                 {
                                     while (!mylistresults.All(r => r.IsCompleted))
                                     {
                                         Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
-                                        percentComplete = (100d * Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count));
-                                        DoGridTransferUpdateProgress((int)percentComplete, index);
+                                            percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
+                                            DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, index);
+                                        }
                                     }
+                                    ind++;
+                                    mylistresults.Clear();
                                 }
+
                             }
                         }
                         catch (Exception ex)
                         {
                             TextBoxLogWriteLine("Failed to copy live fragblobs", true);
+                            TextBoxLogWriteLine(ex);
                             DoGridTransferDeclareError(index, ex);
                             ErrorCopyAsset = true;
                         }
@@ -2740,21 +2496,10 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        // copy the directories of the same container to another container
-        public static List<ICancellableAsyncResult> CopyBlobDirectory(List<CloudBlobDirectory> ListsrcDirectory, CloudBlobContainer destContainer)
+        // copy a directory of the same container to another container
+        public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
         {
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
-
-            foreach (var srcDirectory in ListsrcDirectory)
-            {
-                // get the SAS token to use for all blobs
-                string blobToken = srcDirectory.Container.GetSharedAccessSignature(
-                    new SharedAccessBlobPolicy
-                    {
-                        Permissions = SharedAccessBlobPermissions.Read |
-                                        SharedAccessBlobPermissions.Write,
-                        SharedAccessExpiryTime = DateTime.UtcNow + TimeSpan.FromDays(14)
-                    });
 
                 var srcBlobList = srcDirectory.ListBlobs(
                     useFlatBlobListing: true,
@@ -2772,8 +2517,7 @@ namespace AMSExplorer
                         destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
 
                     // copy using src blob as SAS
-                    mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + blobToken), null, null));
-                }
+                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
             }
 
             return mylistresults;
@@ -3005,43 +2749,12 @@ namespace AMSExplorer
 
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
+
         }
 
 
 
-        private void DoGridTransferInit()
-        {
-            const string labelProgress = "Progress";
 
-            _MyListTransfer = new BindingList<TransferEntry>();
-            _MyListTransferQueue = new List<int>();
-
-
-            DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn();
-            DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
-            col.Name = labelProgress;
-            col.DataPropertyName = labelProgress;
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.Columns.Add(col);
-            }
-            ));
-
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.DataSource = _MyListTransfer;
-            }
-          ));
-
-            dataGridViewTransfer.Invoke(new Action(() =>
-                {
-                    dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
-                    dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
-                    dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
-                    dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
-                }
-          ));
-        }
 
         private void oSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3694,6 +3407,9 @@ typeof(FilterTime)
             DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
 
+            // let's monitor channels or programs which are in "intermediate" state
+            RestoreChannelsAndProgramsStatusMonitoring();
+
             dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
             dateTimePickerEndDate.Value = DateTime.Now;
 
@@ -4188,7 +3904,7 @@ typeof(FilterTime)
             bool singleitem = (ReturnSelectedAssets().Count == 1);
             ContextMenuItemAssetDisplayInfo.Enabled = singleitem;
             ContextMenuItemAssetRename.Enabled = singleitem;
-            ContextMenuItemAssetExportAssetFilesToAzureStorage.Enabled = singleitem;
+            toolStripMenuItemExportFilesToStorage.Enabled = singleitem;
         }
 
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
@@ -4767,7 +4483,7 @@ typeof(FilterTime)
                     {
                         if (CopyAssetToAzure(ref UseDefaultStorage, ref containername, ref otherstoragename, ref otherstoragekey, ref SelectedFiles, ref CreateNewContainer, SelectedAssets.FirstOrDefault()) == DialogResult.OK)
                         {
-                            int index = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, false);
+                            int index = DoGridTransferAddItem("Export to Azure Storage " + (CreateNewContainer ? "to a new container" : "to an existing container"), TransferType.ExportToAzureStorage, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAzureStorage(UseDefaultStorage, containername, otherstoragename, otherstoragekey, SelectedFiles, CreateNewContainer, index));
                             DotabControlMainSwitch(Constants.TabTransfers);
@@ -5395,7 +5111,7 @@ typeof(FilterTime)
                             Parallel.ForEach(programqueryrunning, myP =>
                             {
                                 TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
-                                ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped");
+                                ProgramExecuteAsync(myP.StopAsync, myP, "stopped");
                             });
                         });
                         await yourForeachTask;
@@ -5509,6 +5225,48 @@ typeof(FilterTime)
                 TextBoxLogWriteLine("Deleting streaming endpoint '{0}'.", myO.Name);
                 await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
                 DoRefreshGridStreamingEndpointV(false);
+            }
+        }
+
+
+        // used to monitor program and channels in starting or stopping mode with AMS Explorer is launched
+        private async void RestoreChannelsAndProgramsStatusMonitoring()
+        {
+            var ProgramsToMonitor = _context.Programs.ToList().Where(p => p.State == ProgramState.Starting || p.State == ProgramState.Stopping).ToList();
+            foreach (var c in ProgramsToMonitor)
+                Task.Run(() => MonitorProgram(c));
+
+
+            var ChannelsToMonitor = _context.Channels.ToList().Where(c => c.State == ChannelState.Starting).ToList();
+            foreach (var c in ChannelsToMonitor)
+                Task.Run(() => MonitorChannel(c));
+        }
+
+        private void MonitorProgram(IProgram program)
+        {
+            if (program.State == ProgramState.Starting || program.State == ProgramState.Stopping)
+            {
+                ProgramState state = program.State;
+                while (program.State == state)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    program = _context.Programs.Where(p => p.Id == program.Id).FirstOrDefault();
+                }
+                dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
+            }
+        }
+
+        private void MonitorChannel(IChannel channel)
+        {
+            if (channel.State == ChannelState.Deleting || channel.State == ChannelState.Starting || channel.State == ChannelState.Stopping)
+            {
+                ChannelState state = channel.State;
+                while (channel.State == state)
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    channel = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                }
+                dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
             }
         }
 
@@ -5917,11 +5675,11 @@ typeof(FilterTime)
         private async void DoCreateChannel()
         {
             CreateLiveChannel form = new CreateLiveChannel()
- {
-     KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval,
-     HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
-     StartChannelNow = true
- };
+            {
+                KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval,
+                HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
+                StartChannelNow = true
+            };
             if (form.ShowDialog() == DialogResult.OK)
             {
                 TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
@@ -5989,7 +5747,8 @@ typeof(FilterTime)
 
         private async void DoDisplayChannelInfo(IChannel channel)
         {
-
+            if (channel != null)
+            {
             ChannelInformation form = new ChannelInformation()
             {
                 MyChannel = channel,
@@ -6018,9 +5777,9 @@ typeof(FilterTime)
                         channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
                     }
                 }
-                else
+                    else // form.HLSFragPerSegment is null
                 {
-                    if (channel.Output.Hls.FragmentsPerSegment != null)
+                        if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
                     {
                         channel.Output.Hls.FragmentsPerSegment = null;
                     }
@@ -6103,6 +5862,7 @@ typeof(FilterTime)
                 }
                 await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
             }
+        }
         }
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
@@ -6305,7 +6065,7 @@ typeof(FilterTime)
                                () =>
                                    channel.Programs.CreateAsync(options),
                                   form.ProgramName,
-                                   "created");
+                                  "created");
                         await STask;
 
                         DoRefreshGridProgramV(false);
@@ -6622,35 +6382,6 @@ typeof(FilterTime)
 
                 // Let's take actions now
 
-                if (streamingendpoint.CdnEnabled != form.EnableAzureCDN) // special case, user changes the CDN setting. We need to stop and restart the streaming endpoint
-                {
-                    if (streamingendpoint.State == StreamingEndpointState.Running)
-                    {
-                        Task.Run(async () =>
-                        {
-                            TextBoxLogWriteLine("Stopping the streaming endpoint in order to {0} Azure CDN...", form.EnableAzureCDN ? "enable" : "disable");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStopOperationAsync, streamingendpoint, "stopped");
-                            streamingendpoint.CdnEnabled = form.EnableAzureCDN;
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                            await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
-                            TextBoxLogWriteLine("Starting the streaming endpoint...");
-                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
-                        });
-                    }
-                    else
-                    {
-                        Task.Run(async () =>
-                    {
-                        streamingendpoint.CdnEnabled = form.EnableAzureCDN;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                        await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits); // if user also changed the number of unit... if se stopped, action is quick
-                        TextBoxLogWriteLine("Starting the streaming endpoint...");
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendStartOperationAsync, streamingendpoint, "started");
-                    });
-                    }
-                }
-                else
-                {
                     if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
                     {
                         Task.Run(async () =>
@@ -6667,7 +6398,7 @@ typeof(FilterTime)
                        });
 
                     }
-                }
+
             }
         }
 
@@ -7623,12 +7354,12 @@ typeof(FilterTime)
 
         private void mergeSelectedAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMergeAssetsToNewAsset();
+            DoCopyAssetToAnotherAMSAccount();
         }
 
         private void mergeAssetsToANewAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMergeAssetsToNewAsset();
+            DoCopyAssetToAnotherAMSAccount();
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8298,9 +8029,19 @@ typeof(FilterTime)
 
         private void azureManagementPortalToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
-                CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
-            Process.Start(PortalUrl);
+            //  string PortalUrl = (_credentials.UseOtherAPI == true.ToString() && _credentials.OtherAzureEndpoint.Equals(CredentialsEntry.OtherChinaAzureEndpoint)) ?
+            //     CredentialsEntry.ChinaManagementPortal : CredentialsEntry.GlobalManagementPortal;
+            string PortalUrl;
+            if (_credentials.UseOtherAPI == true.ToString())
+            {
+                PortalUrl = _credentials.OtherManagementPortal;
+            }
+            else
+            {
+                PortalUrl = CredentialsEntry.GlobalManagementPortal;
+            }
+
+            if (!string.IsNullOrEmpty(PortalUrl)) Process.Start(PortalUrl);
         }
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8849,7 +8590,7 @@ typeof(FilterTime)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            CopyAsset form = new CopyAsset(_context)
+            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count)
             {
                 CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
                 EnableSingleDestinationAsset = SelectedAssets.Count > 1
@@ -8865,7 +8606,7 @@ typeof(FilterTime)
                     {
                         foreach (IAsset asset in SelectedAssets)
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
                         }
@@ -8878,7 +8619,7 @@ typeof(FilterTime)
                         }
                         else
                         {
-                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, false);
+                            int index = DoGridTransferAddItem(string.Format("Copy several assets to account '{0}'", form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
                             Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, SelectedAssets, form.CopyAssetName.Replace(Constants.NameconvAsset, SelectedAssets.FirstOrDefault().Name), index, form.DeleteSourceAsset));
                         }
@@ -8959,9 +8700,12 @@ typeof(FilterTime)
                     }
                     else // key is provided
                     {
+                        if (!storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name))
+                        {
                         storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
                     }
                 }
+            }
             }
             usercanceled = canceled;
             return storagekeys;
@@ -8972,6 +8716,121 @@ typeof(FilterTime)
             DoCopyAssetToAnotherAMSAccount();
         }
 
+        private void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(true);
+        }
+
+        private void ChangeAzureCDN(bool enable)
+        {
+            IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
+
+
+            if (streamingendpoint.State == StreamingEndpointState.Stopped)
+            {
+                if (streamingendpoint.ScaleUnits > 0)
+                {
+                    Task.Run(async () =>
+                    {
+                        streamingendpoint.CdnEnabled = enable;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                    });
+                }
+                else if (enable) // 0 scale unit and user wants to enable cdn
+                {
+                    Task.Run(async () =>
+                    {
+                        TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
+                        await ScaleStreamingEndpoint(streamingendpoint, 1);
+                        streamingendpoint.CdnEnabled = enable;
+                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                    });
+                }
+            }
+        }
+
+        private void disableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(false);
+        }
+
+        private void contextMenuStripStreaminEndpoints_Opening(object sender, CancelEventArgs e)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
+
+        }
+
+        private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(true);
+        }
+
+        private void disableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            ChangeAzureCDN(false);
+        }
+
+        private void originToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem1, enableAzureCDNToolStripMenuItem1);
+        }
+
+        private void ManageMenuOptionsAzureCDN(ToolStripMenuItem disableAzureCDNToolStripMenuItem1, ToolStripMenuItem enableAzureCDNToolStripMenuItem1)
+        {
+            // enable Azure CDN operation if one se selected and in stopped state
+            List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
+            bool sestopped = (streamingendpoints.Count == 1 && streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
+            bool sesingle = (streamingendpoints.Count == 1);
+
+            disableAzureCDNToolStripMenuItem1.Enabled = sestopped && streamingendpoints.FirstOrDefault().CdnEnabled;
+            enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !streamingendpoints.FirstOrDefault().CdnEnabled;
+            enableAzureCDNToolStripMenuItem1.Visible = sesingle && !streamingendpoints.FirstOrDefault().CdnEnabled;
+            disableAzureCDNToolStripMenuItem1.Visible = sesingle && streamingendpoints.FirstOrDefault().CdnEnabled;
+        }
+
+        private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        {
+            DoCopyAssetToAnotherAMSAccount();
+        }
+
+        private void toolStripMenuItem12_Click(object sender, EventArgs e)
+        {
+            DoExportAssetToAzureStorage();
+
+        }
+
+        private void toolStripMenuItem16_Click(object sender, EventArgs e)
+        {
+            DoMenuDownloadToLocal();
+        }
+
+        private void toolStripMenuItem14_Click(object sender, EventArgs e)
+        {
+            DoMenuImportFromAzureStorage();
+
+        }
+
+        private void toolStripMenuItem18_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFromSingleFile_Step1();
+        }
+
+        private void toolStripMenuItem19_Click(object sender, EventArgs e)
+        {
+            DoMenuUploadFromFolder_Step1();
+        }
+
+        private void toolStripMenuItem20_Click(object sender, EventArgs e)
+        {
+            DoBatchUpload();
+        }
+
+        private void toolStripMenuItem21_Click(object sender, EventArgs e)
+        {
+            DoWatchFolder();
+        }
     }
 }
 

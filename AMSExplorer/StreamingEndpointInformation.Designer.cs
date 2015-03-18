@@ -36,6 +36,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labelcdn = new System.Windows.Forms.Label();
             this.panelAkamai = new System.Windows.Forms.Panel();
             this.dataGridViewAkamai = new System.Windows.Forms.DataGridView();
             this.buttonAddAkamai = new System.Windows.Forms.Button();
@@ -52,8 +53,6 @@
             this.buttonDelHostName = new System.Windows.Forms.Button();
             this.hostnamelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.checkBoxEnableAzureCDN = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textboxorigindesc = new System.Windows.Forms.TextBox();
             this.textBoxMaxCacheAge = new System.Windows.Forms.TextBox();
@@ -71,6 +70,7 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonAllowAllStreamingIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -159,11 +159,10 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.labelcdn);
             this.tabPage2.Controls.Add(this.panelAkamai);
             this.tabPage2.Controls.Add(this.panelStreamingAllowedIP);
             this.tabPage2.Controls.Add(this.panelCustomHostnames);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.checkBoxEnableAzureCDN);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textboxorigindesc);
             this.tabPage2.Controls.Add(this.textBoxMaxCacheAge);
@@ -177,6 +176,17 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // labelcdn
+            // 
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(375, 310);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(284, 64);
+            this.labelcdn.TabIndex = 69;
+            this.labelcdn.Text = "Azure CDN is enabled.\r\n\r\nAs a consequence, Allowed IP addresses, Akamai authentic" +
+    "ation and custom host names are disabled.";
             // 
             // panelAkamai
             // 
@@ -238,6 +248,7 @@
             // 
             // panelStreamingAllowedIP
             // 
+            this.panelStreamingAllowedIP.Controls.Add(this.buttonAllowAllStreamingIP);
             this.panelStreamingAllowedIP.Controls.Add(this.dataGridViewIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonAddIP);
             this.panelStreamingAllowedIP.Controls.Add(this.buttonDelIP);
@@ -361,29 +372,6 @@
             this.label3.Size = new System.Drawing.Size(105, 13);
             this.label3.TabIndex = 59;
             this.label3.Text = "Custom host names :";
-            // 
-            // label6
-            // 
-            this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(375, 330);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(359, 81);
-            this.label6.TabIndex = 62;
-            this.label6.Text = "To enable Azure CDN, the Streaming Endpoint must have at least one streaming unit" +
-    " and be in the stopped state. \r\nIf later you want to set Streaming Units to 0, y" +
-    "ou must first disable Azure CDN.\r\n";
-            // 
-            // checkBoxEnableAzureCDN
-            // 
-            this.checkBoxEnableAzureCDN.AutoSize = true;
-            this.checkBoxEnableAzureCDN.Location = new System.Drawing.Point(378, 310);
-            this.checkBoxEnableAzureCDN.Name = "checkBoxEnableAzureCDN";
-            this.checkBoxEnableAzureCDN.Size = new System.Drawing.Size(115, 17);
-            this.checkBoxEnableAzureCDN.TabIndex = 61;
-            this.checkBoxEnableAzureCDN.Text = "Enable Azure CDN";
-            this.toolTip1.SetToolTip(this.checkBoxEnableAzureCDN, "Not all data centers support the Azure CDN integration");
-            this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
-            this.checkBoxEnableAzureCDN.CheckedChanged += new System.EventHandler(this.checkBoxEnableAzureCDN_CheckedChanged);
             // 
             // label2
             // 
@@ -558,6 +546,16 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 64;
             // 
+            // buttonAllowAllStreamingIP
+            // 
+            this.buttonAllowAllStreamingIP.Location = new System.Drawing.Point(213, 147);
+            this.buttonAllowAllStreamingIP.Name = "buttonAllowAllStreamingIP";
+            this.buttonAllowAllStreamingIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllStreamingIP.TabIndex = 70;
+            this.buttonAllowAllStreamingIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllStreamingIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllStreamingIP.Click += new System.EventHandler(this.buttonAllowAllStreamingIP_Click);
+            // 
             // StreamingEndpointInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,10 +650,10 @@
         private System.Windows.Forms.Button buttonAddExampleCrossDomainPolicy;
         private System.Windows.Forms.Button buttonAddExampleClientPolicy;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.CheckBox checkBoxEnableAzureCDN;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panelCustomHostnames;
         private System.Windows.Forms.Panel panelAkamai;
         private System.Windows.Forms.Panel panelStreamingAllowedIP;
+        private System.Windows.Forms.Label labelcdn;
+        private System.Windows.Forms.Button buttonAllowAllStreamingIP;
     }
 }

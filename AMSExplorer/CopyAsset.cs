@@ -80,7 +80,7 @@ namespace AMSExplorer
             {
                 return checkBoxTargetSingleAsset.Checked;
             }
-           
+
         }
 
         public bool DeleteSourceAsset
@@ -103,11 +103,16 @@ namespace AMSExplorer
 
 
 
-        public CopyAsset(CloudMediaContext context)
+        public CopyAsset(CloudMediaContext context, int numberofassets)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            labelinfo.Text = string.Format(labelinfo.Text, numberofassets, numberofassets > 1 ? "s" : "");
+            buttonOk.Text = string.Format(buttonOk.Text, numberofassets > 1 ? "s" : "");
+            checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, numberofassets > 1 ? "s" : "");
+            checkBoxTargetSingleAsset.Enabled = numberofassets > 1;
+            
         }
 
 
@@ -127,12 +132,24 @@ namespace AMSExplorer
                         {
                             listBoxAccounts.SelectedIndex = index;
                         }
-                      
+
                     }
                 }
             }
             listBoxAccounts.SelectedItem = _context.DefaultStorageAccount.Name;
 
+        }
+
+        private string ReturnAzureEndpoint(string mystring)
+        {
+            return mystring.Split("|".ToCharArray())[0];
+
+        }
+
+        private string ReturnManagementPortal(string mystring)
+        {
+            string[] temp = mystring.Split("|".ToCharArray());
+            return temp.Count() > 1 ? temp[1] : string.Empty;
         }
 
 
@@ -141,6 +158,7 @@ namespace AMSExplorer
             if (listBoxAccounts.SelectedIndex > -1) // one selected
             {
                 int index = listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount;
+                string[] temp = CredentialsList[index + 9].Split("|".ToCharArray());
                 SelectedCredentials = new CredentialsEntry(
                    CredentialsList[index],
                    CredentialsList[index + 1],
@@ -151,7 +169,8 @@ namespace AMSExplorer
                    CredentialsList[index + 6],
                    CredentialsList[index + 7],
                    CredentialsList[index + 8],
-                   CredentialsList[index + 9]
+                   ReturnAzureEndpoint(CredentialsList[index + 9]),
+                   ReturnManagementPortal(CredentialsList[index + 9])
                     );
 
                 labelDescription.Text = CredentialsList[listBoxAccounts.SelectedIndex * CredentialsEntry.StringsCount + 3];

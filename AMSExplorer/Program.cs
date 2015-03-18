@@ -1683,13 +1683,9 @@ namespace AMSExplorer
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
-            // let's choose the default SE if it is running and use one RU minimum
-            IStreamingEndpoint SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault(); //default
-            if (SESelected == null || SESelected.ScaleUnits == 0 || SESelected.State != StreamingEndpointState.Running) //default is not there, or not running or has no scale unit
-            {
-                IStreamingEndpoint SESelected2 = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running).OrderBy(se => se.ScaleUnits).LastOrDefault();
-                if (SESelected2 != null) SESelected = SESelected2;
-            }
+            IStreamingEndpoint SESelected = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running && se.ScaleUnits > 0).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
+
             return SESelected;
         }
     }
@@ -1734,20 +1730,25 @@ namespace AMSExplorer
         public bool LocatorExpirationDateWarning { get; set; }
     }
 
-
-    public class TransferEntry
+    public class EndPointMapping
     {
         public string Name { get; set; }
-        public TransferType Type { get; set; }
-        public TransferState State { get; set; }
-        public double Progress { get; set; }
-        public Nullable<DateTime> SubmitTime { get; set; }
-        public Nullable<DateTime> StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string DestLocation { get; set; }
-        public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-        public string ErrorDescription { get; set; }
+        public string APIServer { get; set; }
+        public string Scope { get; set; }
+        public string ACSBaseAddress { get; set; }
+        public string AzureEndpoint { get; set; }
+        public string ManagementPortal { get; set; }
+
     }
+
+    public enum EndPointMappingName
+    {
+        AzureGlobal = 0,
+        AzureChina,
+        AzureGovernment
+    }
+
+
 
     public class CredentialsEntry
     {
@@ -1761,6 +1762,8 @@ namespace AMSExplorer
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
+        public string OtherManagementPortal { get; set; }
+
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
@@ -1768,25 +1771,14 @@ namespace AMSExplorer
         public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
         public static readonly string PartnerAzureEndpoint = "";
 
-        public static readonly string OtherGlobalAPIServer = "https://media.windows.net/API/";
-        public static readonly string OtherGlobalScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherGlobalACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
-        public static readonly string OtherGlobalAzureEndpoint = "windows.net";
-
-        public static readonly string OtherChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
-        public static readonly string OtherChinaScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string OtherChinaAzureEndpoint = "chinacloudapi.cn";
-
         public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
         public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
-        public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
 
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint)
+        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -1798,11 +1790,12 @@ namespace AMSExplorer
             OtherScope = scope;
             OtherACSBaseAddress = acsbaseaddress;
             OtherAzureEndpoint = azureendpoint;
+            OtherManagementPortal = managementportal;
         }
 
         public string[] ToArray()
         {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint };
+            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
             return myList;
         }
 
