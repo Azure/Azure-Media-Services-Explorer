@@ -2312,6 +2312,7 @@ namespace AMSExplorer
                     {
                         Length += file.ContentFileSize;
                     }
+                    if (Length == 0) Length = 1; // as this could happen with Live arhive
 
                     // do the copy
                     int nbblob = 0;
