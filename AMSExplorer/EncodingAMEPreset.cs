@@ -153,7 +153,8 @@ namespace AMSExplorer
 
         private void EncodingPreset_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://msdn.microsoft.com/en-us/library/dn535856.aspx"));
+            moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length,Constants.LinkMoreInfoAME));
+            moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsAME));
 
             // Populate the combo box with 
             // encoder task presets.

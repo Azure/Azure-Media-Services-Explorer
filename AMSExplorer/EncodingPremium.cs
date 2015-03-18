@@ -212,7 +212,7 @@ namespace AMSExplorer
 
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://aka.ms/amspremium"));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
 
             foreach (var storage in _context.StorageAccounts)
             {
