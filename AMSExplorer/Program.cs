@@ -380,6 +380,7 @@ namespace AMSExplorer
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
+        public const string NameconvAsset = "{Asset Name}";
 
         public const string endline = "\r\n";
 
@@ -392,7 +393,7 @@ namespace AMSExplorer
         public const string TabStorage = "Storage"; // name of the Origins tab
         public const string TabLog = "Log"; // name of the Jobs tab
 
-        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";  
+        public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
@@ -833,20 +834,31 @@ namespace AMSExplorer
         public const string Type_LiveArchive = "Live archive";
         public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
-        public const string _prog_down_https_SAS = "Progressive Download URIs (SAS)";
-        public const string _prog_down_http_streaming = "Progressive Download URIs (SE)";
-        public const string _hls_v4 = "HLS v4  URI";
-        public const string _hls_v3 = "HLS v3  URI";
-        public const string _dash = "MPEG-DASH URI";
-        public const string _smooth = "Smooth Streaming URI";
-        public const string _smooth_legacy = "Smooth Streaming (legacy) URI";
-        public const string _hls = "HLS URI";
+        public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
+        public const string _prog_down_http_streaming = "Progressive Download URLs (SE)";
+        public const string _hls_v4 = "HLS v4  URL";
+        public const string _hls_v3 = "HLS v3  URL";
+        public const string _dash = "MPEG-DASH URL";
+        public const string _smooth = "Smooth Streaming URL";
+        public const string _smooth_legacy = "Smooth Streaming (legacy) URL";
+        public const string _hls = "HLS URL";
 
         private const string format_smooth_legacy = "fmp4-v20";
         private const string format_hls_v4 = "m3u8-aapl";
         private const string format_hls_v3 = "m3u8-aapl-v3";
         private const string format_dash = "mpd-time-csf";
         private const string format_url = "(format={0})";
+
+
+
+        private const string ManifestFileExtension = ".ism";
+        private const string HlsStreamingParameter = "(format=m3u8-aapl)";
+        private const string Hlsv3StreamingParameter = "(format=m3u8-aapl-v3)";
+        private const string MpegDashStreamingParameter = "(format=mpd-time-csf)";
+        private const string SmoothStreamingLegacyParameter = "(format=fmp4-v20)";
+        private const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
+
+
 
         public AssetInfo(List<IAsset> MySelectedAssets)
         {
@@ -858,15 +870,110 @@ namespace AMSExplorer
             SelectedAssets.Add(asset);
         }
 
+        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, string.Empty, se, https);
+        }
+
+        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, SmoothStreamingLegacyParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, HlsStreamingParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, Hlsv3StreamingParameter, se, https);
+        }
+
+        /// <summary>
+        /// Returns the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.
+        /// </summary>
+        /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
+        /// <returns>A <see cref="System.Uri"/> representing the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
+        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        {
+            return GetStreamingUris(originLocator, MpegDashStreamingParameter, se, https);
+        }
+
+
+        public static IEnumerable<IAssetFile> GetManifestAssetFiles(IAsset asset)
+        {
+            if (asset == null)
+            {
+                throw new ArgumentNullException("asset", "The asset cannot be null.");
+            }
+
+
+            return asset
+                .AssetFiles
+                .ToList()
+                .Where(af => af.Name.EndsWith(ILocatorExtensions.ManifestFileExtension, StringComparison.OrdinalIgnoreCase))
+                  .ToList();
+        }
+
+        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, string streamingParameter, IStreamingEndpoint se = null, bool https = false)
+        {
+            const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
+
+            if (originLocator == null)
+            {
+                throw new ArgumentNullException("locator", "The locator cannot be null.");
+            }
+
+            if (originLocator.Type != LocatorType.OnDemandOrigin)
+            {
+                throw new ArgumentException("The locator type must be on-demand origin.", "originLocator");
+            }
+
+            IEnumerable<Uri> smoothStreamingUri = null;
+            IAsset asset = originLocator.Asset;
+            IEnumerable<IAssetFile> manifestAssetFiles = GetManifestAssetFiles(asset);
+            if (manifestAssetFiles != null)
+            {
+                smoothStreamingUri = manifestAssetFiles.Select(f => new Uri(
+                        string.Format(
+                            CultureInfo.InvariantCulture,
+                            BaseStreamingUrlTemplate,
+                            originLocator.Path.TrimEnd('/'),
+                            f.Name,
+                            streamingParameter),
+                        UriKind.Absolute));
+            }
+
+            if (se != null)
+            {
+                string hostname = se.HostName;
+                smoothStreamingUri = smoothStreamingUri.Select(u => new UriBuilder()
+                {
+                    Host = hostname,
+                    Scheme = https ? "https://" : "http://",
+                    Path = u.AbsolutePath,
+                }.Uri);
+            }
+
+            return smoothStreamingUri;
+        }
+
+
 
         public static string GetSmoothLegacy(string smooth_uri)
         {
             return string.Format("{0}(format={1})", smooth_uri, format_smooth_legacy);
-        }
-
-        public static string GetHLSv3(string hls_uri)
-        {
-            return hls_uri.Replace("(format=" + format_hls_v4, "(format=" + format_hls_v3);
         }
 
         // return the URL with hostname from streaming endpoint
@@ -884,6 +991,11 @@ namespace AMSExplorer
                 return urib.Uri;
             }
             else return null;
+        }
+
+        public static IEnumerable<Uri> rw(IEnumerable<Uri> urls, IStreamingEndpoint se, bool https = false)
+        {
+            return urls.Select(u => rw(u, se, https));
         }
 
         public static string rw(string path, IStreamingEndpoint se, bool https = false)
@@ -1571,13 +1683,9 @@ namespace AMSExplorer
 
         internal static IStreamingEndpoint GetBestStreamingEndpoint(CloudMediaContext _context)
         {
-            // let's choose the default SE if it is running and use one RU minimum
-            IStreamingEndpoint SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault(); //default
-            if (SESelected == null || SESelected.ScaleUnits == 0 || SESelected.State != StreamingEndpointState.Running) //default is not there, or not running or has no scale unit
-            {
-                IStreamingEndpoint SESelected2 = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running).OrderBy(se => se.ScaleUnits).LastOrDefault();
-                if (SESelected2 != null) SESelected = SESelected2;
-            }
+            IStreamingEndpoint SESelected = _context.StreamingEndpoints.ToList().Where(se => se.State == StreamingEndpointState.Running && se.ScaleUnits > 0).OrderBy(se => se.CdnEnabled).OrderBy(se => se.ScaleUnits).LastOrDefault();
+            if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
+
             return SESelected;
         }
     }
@@ -1618,22 +1726,29 @@ namespace AMSExplorer
         public string DynamicEncryptionMouseOver { get; set; }
         public Bitmap Publication { get; set; }
         public string PublicationMouseOver { get; set; }
+        public Nullable<DateTime> LocatorExpirationDate { get; set; }
+        public bool LocatorExpirationDateWarning { get; set; }
     }
 
-
-    public class TransferEntry
+    public class EndPointMapping
     {
         public string Name { get; set; }
-        public TransferType Type { get; set; }
-        public TransferState State { get; set; }
-        public double Progress { get; set; }
-        public Nullable<DateTime> SubmitTime { get; set; }
-        public Nullable<DateTime> StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string DestLocation { get; set; }
-        public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-        public string ErrorDescription { get; set; }
+        public string APIServer { get; set; }
+        public string Scope { get; set; }
+        public string ACSBaseAddress { get; set; }
+        public string AzureEndpoint { get; set; }
+        public string ManagementPortal { get; set; }
+
     }
+
+    public enum EndPointMappingName
+    {
+        AzureGlobal = 0,
+        AzureChina,
+        AzureGovernment
+    }
+
+
 
     public class CredentialsEntry
     {
@@ -1647,6 +1762,8 @@ namespace AMSExplorer
         public string OtherScope { get; set; }
         public string OtherACSBaseAddress { get; set; }
         public string OtherAzureEndpoint { get; set; }
+        public string OtherManagementPortal { get; set; }
+
 
         public static readonly int StringsCount = 10; // number of strings
         public static readonly string PartnerAPIServer = "https://nimbuspartners.cloudapp.net/API/";
@@ -1654,25 +1771,14 @@ namespace AMSExplorer
         public static readonly string PartnerACSBaseAddress = "https://mediaservices.accesscontrol.windows.net";
         public static readonly string PartnerAzureEndpoint = "";
 
-        public static readonly string OtherGlobalAPIServer = "https://media.windows.net/API/";
-        public static readonly string OtherGlobalScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherGlobalACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";
-        public static readonly string OtherGlobalAzureEndpoint = "windows.net";
-
-        public static readonly string OtherChinaAPIServer = "https://wamsbjbclus001rest-hs.chinacloudapp.cn/API/";
-        public static readonly string OtherChinaScope = "urn:WindowsAzureMediaServices";
-        public static readonly string OtherChinaACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.chinacloudapi.cn";
-        public static readonly string OtherChinaAzureEndpoint = "chinacloudapi.cn";
-
         public static readonly string CoreServiceManagement = "https://management.core."; // with Azure endpoint, that gives "https://management.core.windows.net" for Azure Global and "https://management.core.chinacloudapi.cn" for China
         public static readonly string CoreAttachStorageURL = "https://{0}.blob.core."; // with Azure endpoint, that gives "https://{0}.blob.core.windows.net" for Azure Global and "https://{0}.blob.core.chinacloudapi.cn/" for China
         public static readonly string CoreStorage = "core."; // with Azure endpoint, that gives "core.windows.net" for Azure Global and "core.chinacloudapi.cn" for China
 
         public static readonly string GlobalAzureEndpoint = "windows.net";
         public static readonly string GlobalManagementPortal = "http://manage.windowsazure.com";
-        public static readonly string ChinaManagementPortal = "http://manage.windowsazure.cn";
 
-        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint)
+        public CredentialsEntry(string accountname, string accountkey, string storagekey, string description, string usepartnerapi, string useotherapi, string apiserver, string scope, string acsbaseaddress, string azureendpoint, string managementportal)
         {
             AccountName = accountname;
             AccountKey = accountkey;
@@ -1684,11 +1790,12 @@ namespace AMSExplorer
             OtherScope = scope;
             OtherACSBaseAddress = acsbaseaddress;
             OtherAzureEndpoint = azureendpoint;
+            OtherManagementPortal = managementportal;
         }
 
         public string[] ToArray()
         {
-            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint };
+            string[] myList = new String[] { AccountName, AccountKey, StorageKey, Description, UsePartnerAPI, UseOtherAPI, OtherAPIServer, OtherScope, OtherACSBaseAddress, OtherAzureEndpoint + "|" + OtherManagementPortal };
             return myList;
         }
 

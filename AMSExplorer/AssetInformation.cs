@@ -493,11 +493,11 @@ namespace AMSExplorer
                             TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
                         indexn++;
 
-                        if (MyAssetType.StartsWith("HLS"))
+                        if (MyAsset.AssetType == AssetType.MediaServicesHLS)
                         // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetHLSv3(locator.GetHlsUri().ToString())));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(locator.GetHlsUri().ToString()));
                             indexn++;
                         }
                         else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
@@ -508,26 +508,40 @@ namespace AMSExplorer
                             {
                                 Color ColorSmooth = ((MyAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = ColorSmooth });
+                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = ColorSmooth });
+                                }
                                 indexn++;
 
-                                // legacy smooth streaming without repeat tag (manifest v2.0)
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.GetSmoothLegacy(AssetInfo.rw(locator.GetSmoothStreamingUri(), SelectedSE, checkBoxHttps.Checked).ToString())) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                }
                                 indexn++;
                             }
                             if (locator.GetMpegDashUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetMpegDashUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                }
                                 indexn++;
                             }
                             if (locator.GetHlsUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsUri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                }
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(AssetInfo.rw(locator.GetHlsv3Uri(), SelectedSE, checkBoxHttps.Checked).ToString()) { ForeColor = colornodeRU });
+                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, checkBoxHttps.Checked))
+                                {
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                }
                                 indexn = indexn + 2;
                             }
                         }
@@ -851,6 +865,7 @@ namespace AMSExplorer
         private void buttonDeleteFile_Click(object sender, EventArgs e)
         {
             DoDeleteFile();
+            BuildLocatorsTree();
         }
 
         private void DoDeleteFile()
@@ -883,6 +898,7 @@ namespace AMSExplorer
         private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteFile();
+            BuildLocatorsTree();
         }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
@@ -1053,6 +1069,7 @@ namespace AMSExplorer
         private void button1_Click_1(object sender, EventArgs e)
         {
             DoDuplicate();
+            BuildLocatorsTree();
         }
 
         private void DoDuplicate()
@@ -1186,6 +1203,7 @@ namespace AMSExplorer
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicate();
+            BuildLocatorsTree();
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -1254,11 +1272,13 @@ namespace AMSExplorer
         private void button2_Click(object sender, EventArgs e)
         {
             DoUpload();
+            BuildLocatorsTree();
         }
 
         private void uploadASmallFileInTheAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoUpload();
+            BuildLocatorsTree();
         }
 
         private void comboBoxStreamingEndpoint_SelectedIndexChanged(object sender, EventArgs e)

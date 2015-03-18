@@ -149,10 +149,7 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
+      
 
         private void EncodingPreset_Load(object sender, EventArgs e)
         {

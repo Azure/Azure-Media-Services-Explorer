@@ -136,9 +136,9 @@
             this.checkBoxOneUpDownload.AutoSize = true;
             this.checkBoxOneUpDownload.Location = new System.Drawing.Point(42, 69);
             this.checkBoxOneUpDownload.Name = "checkBoxOneUpDownload";
-            this.checkBoxOneUpDownload.Size = new System.Drawing.Size(243, 17);
+            this.checkBoxOneUpDownload.Size = new System.Drawing.Size(195, 17);
             this.checkBoxOneUpDownload.TabIndex = 10;
-            this.checkBoxOneUpDownload.Text = "One upload/download at a time (use a queue)";
+            this.checkBoxOneUpDownload.Text = "One transfer at a time (use a queue)";
             this.checkBoxOneUpDownload.UseVisualStyleBackColor = true;
             // 
             // label1

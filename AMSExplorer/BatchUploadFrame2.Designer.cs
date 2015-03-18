@@ -80,9 +80,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxFiles.CheckOnClick = true;
             this.checkedListBoxFiles.FormattingEnabled = true;
-            this.checkedListBoxFiles.Location = new System.Drawing.Point(6, 23);
+            this.checkedListBoxFiles.Location = new System.Drawing.Point(6, 28);
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
-            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 94);
+            this.checkedListBoxFiles.Size = new System.Drawing.Size(504, 109);
             this.checkedListBoxFiles.TabIndex = 2;
             // 
             // checkedListBoxFolders
@@ -92,15 +92,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxFolders.CheckOnClick = true;
             this.checkedListBoxFolders.FormattingEnabled = true;
-            this.checkedListBoxFolders.Location = new System.Drawing.Point(6, 16);
+            this.checkedListBoxFolders.Location = new System.Drawing.Point(6, 19);
             this.checkedListBoxFolders.Name = "checkedListBoxFolders";
-            this.checkedListBoxFolders.Size = new System.Drawing.Size(504, 154);
+            this.checkedListBoxFolders.Size = new System.Drawing.Size(504, 124);
             this.checkedListBoxFolders.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Location = new System.Drawing.Point(3, 2);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(189, 13);
             this.label1.TabIndex = 4;
@@ -109,7 +109,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 7);
+            this.label2.Location = new System.Drawing.Point(3, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(174, 13);
             this.label2.TabIndex = 5;
@@ -139,14 +139,14 @@
             this.splitContainer1.Panel2.Controls.Add(this.label2);
             this.splitContainer1.Panel2.Controls.Add(this.checkedListBoxFiles);
             this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
-            this.splitContainer1.Size = new System.Drawing.Size(520, 354);
-            this.splitContainer1.SplitterDistance = 197;
+            this.splitContainer1.Size = new System.Drawing.Size(520, 351);
+            this.splitContainer1.SplitterDistance = 172;
             this.splitContainer1.TabIndex = 6;
             // 
             // buttonFolderDeselAll
             // 
             this.buttonFolderDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 190);
+            this.buttonFolderDeselAll.Location = new System.Drawing.Point(87, 146);
             this.buttonFolderDeselAll.Name = "buttonFolderDeselAll";
             this.buttonFolderDeselAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderDeselAll.TabIndex = 6;
@@ -157,7 +157,7 @@
             // buttonFolderSelAll
             // 
             this.buttonFolderSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 190);
+            this.buttonFolderSelAll.Location = new System.Drawing.Point(6, 146);
             this.buttonFolderSelAll.Name = "buttonFolderSelAll";
             this.buttonFolderSelAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFolderSelAll.TabIndex = 5;
@@ -168,7 +168,7 @@
             // buttonFileDeselAll
             // 
             this.buttonFileDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileDeselAll.Location = new System.Drawing.Point(87, 152);
+            this.buttonFileDeselAll.Location = new System.Drawing.Point(87, 143);
             this.buttonFileDeselAll.Name = "buttonFileDeselAll";
             this.buttonFileDeselAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFileDeselAll.TabIndex = 8;
@@ -179,7 +179,7 @@
             // buttonFileSelAll
             // 
             this.buttonFileSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileSelAll.Location = new System.Drawing.Point(6, 152);
+            this.buttonFileSelAll.Location = new System.Drawing.Point(6, 143);
             this.buttonFileSelAll.Name = "buttonFileSelAll";
             this.buttonFileSelAll.Size = new System.Drawing.Size(75, 23);
             this.buttonFileSelAll.TabIndex = 7;
