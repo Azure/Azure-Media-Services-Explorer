@@ -42,12 +42,20 @@
             this.checkBoxDeleteFile = new System.Windows.Forms.CheckBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.checkBoxRunJobTemplate = new System.Windows.Forms.CheckBox();
-            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.checkBoxPublishOutputAssets = new System.Windows.Forms.CheckBox();
+            this.pictureBox4 = new System.Windows.Forms.PictureBox();
+            this.checkBoxSendEMail = new System.Windows.Forms.CheckBox();
+            this.textBoxRecipientEMail = new System.Windows.Forms.TextBox();
+            this.buttonTestEMailSend = new System.Windows.Forms.Button();
+            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -191,22 +199,6 @@
             this.checkBoxRunJobTemplate.UseVisualStyleBackColor = true;
             this.checkBoxRunJobTemplate.CheckedChanged += new System.EventHandler(this.checkBoxRunJobTemplate_CheckedChanged);
             // 
-            // listViewTemplates
-            // 
-            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewTemplates.Enabled = false;
-            this.listViewTemplates.FullRowSelect = true;
-            this.listViewTemplates.HideSelection = false;
-            this.listViewTemplates.Location = new System.Drawing.Point(52, 304);
-            this.listViewTemplates.MultiSelect = false;
-            this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(636, 145);
-            this.listViewTemplates.TabIndex = 61;
-            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
-            this.listViewTemplates.View = System.Windows.Forms.View.Details;
-            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -214,17 +206,107 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 475);
+            this.panel1.Location = new System.Drawing.Point(-2, 564);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(717, 48);
             this.panel1.TabIndex = 64;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
+            this.pictureBox3.Location = new System.Drawing.Point(22, 455);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 66;
+            this.pictureBox3.TabStop = false;
+            // 
+            // checkBoxPublishOutputAssets
+            // 
+            this.checkBoxPublishOutputAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxPublishOutputAssets.AutoSize = true;
+            this.checkBoxPublishOutputAssets.Location = new System.Drawing.Point(52, 455);
+            this.checkBoxPublishOutputAssets.Name = "checkBoxPublishOutputAssets";
+            this.checkBoxPublishOutputAssets.Size = new System.Drawing.Size(267, 17);
+            this.checkBoxPublishOutputAssets.TabIndex = 65;
+            this.checkBoxPublishOutputAssets.Text = "Publish output asset(s) (defaut locator duration: {0})";
+            this.checkBoxPublishOutputAssets.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox4
+            // 
+            this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
+            this.pictureBox4.Location = new System.Drawing.Point(22, 478);
+            this.pictureBox4.Name = "pictureBox4";
+            this.pictureBox4.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox4.TabIndex = 68;
+            this.pictureBox4.TabStop = false;
+            // 
+            // checkBoxSendEMail
+            // 
+            this.checkBoxSendEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxSendEMail.AutoSize = true;
+            this.checkBoxSendEMail.Location = new System.Drawing.Point(52, 478);
+            this.checkBoxSendEMail.Name = "checkBoxSendEMail";
+            this.checkBoxSendEMail.Size = new System.Drawing.Size(351, 17);
+            this.checkBoxSendEMail.TabIndex = 67;
+            this.checkBoxSendEMail.Text = "Send an email when last step is completed or in case of an error, To :";
+            this.checkBoxSendEMail.UseVisualStyleBackColor = true;
+            this.checkBoxSendEMail.CheckedChanged += new System.EventHandler(this.checkBoxSendEMail_CheckedChanged);
+            // 
+            // textBoxRecipientEMail
+            // 
+            this.textBoxRecipientEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxRecipientEMail.Location = new System.Drawing.Point(400, 478);
+            this.textBoxRecipientEMail.Name = "textBoxRecipientEMail";
+            this.textBoxRecipientEMail.Size = new System.Drawing.Size(197, 20);
+            this.textBoxRecipientEMail.TabIndex = 69;
+            this.textBoxRecipientEMail.TextChanged += new System.EventHandler(this.textBoxRecipientEMail_TextChanged);
+            // 
+            // buttonTestEMailSend
+            // 
+            this.buttonTestEMailSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonTestEMailSend.Enabled = false;
+            this.buttonTestEMailSend.Location = new System.Drawing.Point(613, 476);
+            this.buttonTestEMailSend.Name = "buttonTestEMailSend";
+            this.buttonTestEMailSend.Size = new System.Drawing.Size(75, 23);
+            this.buttonTestEMailSend.TabIndex = 70;
+            this.buttonTestEMailSend.Text = "Test now";
+            this.buttonTestEMailSend.UseVisualStyleBackColor = true;
+            this.buttonTestEMailSend.Click += new System.EventHandler(this.buttonTestEMailSend_Click);
+            // 
+            // listViewTemplates
+            // 
+            this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewTemplates.Enabled = false;
+            this.listViewTemplates.FullRowSelect = true;
+            this.listViewTemplates.GetSelectedJobTemplate = null;
+            this.listViewTemplates.HideSelection = false;
+            this.listViewTemplates.Location = new System.Drawing.Point(52, 304);
+            this.listViewTemplates.MultiSelect = false;
+            this.listViewTemplates.Name = "listViewTemplates";
+            this.listViewTemplates.Size = new System.Drawing.Size(636, 145);
+            this.listViewTemplates.TabIndex = 61;
+            this.listViewTemplates.Tag = -1;
+            this.listViewTemplates.UseCompatibleStateImageBehavior = false;
+            this.listViewTemplates.View = System.Windows.Forms.View.Details;
             // 
             // WatchFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(714, 523);
+            this.ClientSize = new System.Drawing.Size(714, 612);
+            this.Controls.Add(this.buttonTestEMailSend);
+            this.Controls.Add(this.textBoxRecipientEMail);
+            this.Controls.Add(this.pictureBox4);
+            this.Controls.Add(this.checkBoxSendEMail);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.checkBoxPublishOutputAssets);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listViewTemplates);
             this.Controls.Add(this.checkBoxRunJobTemplate);
@@ -244,6 +326,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -267,5 +351,11 @@
         private System.Windows.Forms.CheckBox checkBoxRunJobTemplate;
         private ListViewTemplates listViewTemplates;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.CheckBox checkBoxPublishOutputAssets;
+        private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.CheckBox checkBoxSendEMail;
+        private System.Windows.Forms.TextBox textBoxRecipientEMail;
+        private System.Windows.Forms.Button buttonTestEMailSend;
     }
 }

@@ -17,6 +17,7 @@ namespace AMSExplorer
         private System.Windows.Forms.ColumnHeader columnHeaderTemplateDate;
         private System.Windows.Forms.ColumnHeader columnHeaderNbInputAssets;
         private System.Windows.Forms.ColumnHeader columnHeaderJobTemplatetId;
+        private IJobTemplate PreSelectJobTemplate = null;
 
         public IJobTemplate GetSelectedJobTemplate
         {
@@ -32,6 +33,10 @@ namespace AMSExplorer
                 {
                     return null;
                 }
+            }
+            set
+            {
+                PreSelectJobTemplate = value;
             }
         }
 
@@ -101,6 +106,10 @@ namespace AMSExplorer
                 item.SubItems.Add(template.NumberofInputAssets.ToString());
                 item.SubItems.Add(template.TemplateType.ToString());
                 item.SubItems.Add(template.Id);
+                if (PreSelectJobTemplate != null)
+                {
+                    item.Selected = (PreSelectJobTemplate.Id == template.Id);
+                }
                 this.Items.Add(item);
             }
             this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

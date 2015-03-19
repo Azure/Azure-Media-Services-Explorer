@@ -354,6 +354,21 @@ namespace AMSExplorer
 
         }
 
+
+        public static void CreateAndSendOutlookMail(string RecipientEmailAddress, string Subject, string Body)
+        {
+            // Let's create the email with Outlook
+            Outlook.Application outlookApp = new Outlook.Application();
+            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+
+            mailItem.To = RecipientEmailAddress;
+            mailItem.Subject = Subject;
+            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+            mailItem.HTMLBody += Body.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+            mailItem.Display(false);
+            mailItem.Send();
+        }
+
     }
 
     public class Constants
@@ -419,6 +434,8 @@ namespace AMSExplorer
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
 
+        public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
+
     }
 
 
@@ -451,12 +468,10 @@ namespace AMSExplorer
                 string title = (SelectedJobs.FirstOrDefault().State == JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
 
                 mailItem.Subject = string.Format(title, SelectedJobs.FirstOrDefault().Name);
-
             }
             else
             {
                 mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == JobState.Error).Count());
-
             }
 
             mailItem.HTMLBody = "<FONT Face=\"Courier New\">";

@@ -82,12 +82,53 @@ namespace AMSExplorer
             {
                 return checkBoxRunJobTemplate.Checked;
             }
+            set
+            {
+                checkBoxRunJobTemplate.Checked = value;
+            }
         }
         public IJobTemplate WatchSelectedJobTemplate
         {
             get
             {
                 return listViewTemplates.GetSelectedJobTemplate;
+            }
+            set
+            {
+                listViewTemplates.GetSelectedJobTemplate = value;
+            }
+        }
+
+        public bool WatchPublishOutputAssets
+        {
+            get
+            {
+                return checkBoxPublishOutputAssets.Checked;
+            }
+            set
+            {
+                checkBoxPublishOutputAssets.Checked = value;
+            }
+        }
+
+        public string WatchSendEMail
+        {
+            get
+            {
+                return checkBoxSendEMail.Checked ? textBoxRecipientEMail.Text : null;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    checkBoxSendEMail.Checked = false;
+                    textBoxRecipientEMail.Text = string.Empty;
+                }
+                else
+                {
+                    checkBoxSendEMail.Checked = true;
+                    textBoxRecipientEMail.Text = value;
+                }
             }
         }
 
@@ -106,15 +147,14 @@ namespace AMSExplorer
         private void WatchFolder_Load(object sender, EventArgs e)
         {
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
+            checkBoxPublishOutputAssets.Text = string.Format(checkBoxPublishOutputAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
         }
 
         private void buttonSelFolder_Click(object sender, EventArgs e)
         {
-
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBoxFolder.Text = folderBrowserDialog1.SelectedPath;
-
             }
         }
 
@@ -134,12 +174,31 @@ namespace AMSExplorer
             {
                 listViewTemplates.Enabled = true;
                 listViewTemplates.LoadTemplates(_context);
+                checkBoxPublishOutputAssets.Enabled = true;
             }
             else
             {
                 listViewTemplates.Items.Clear();
                 listViewTemplates.Enabled = false;
+                checkBoxPublishOutputAssets.Checked = false;
+                checkBoxPublishOutputAssets.Enabled = false;
             }
+        }
+
+        private void buttonTestEMailSend_Click(object sender, EventArgs e)
+        {
+            Program.CreateAndSendOutlookMail(textBoxRecipientEMail.Text, "Explorer Watchfolder: test email message", "Test body");
+        }
+
+        private void textBoxRecipientEMail_TextChanged(object sender, EventArgs e)
+        {
+            buttonTestEMailSend.Enabled = !string.IsNullOrEmpty(textBoxRecipientEMail.Text);
+        }
+
+        private void checkBoxSendEMail_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxRecipientEMail.Enabled = checkBoxSendEMail.Checked;
+            buttonTestEMailSend.Enabled = checkBoxSendEMail.Checked && !string.IsNullOrEmpty(textBoxRecipientEMail.Text);
         }
     }
 }
