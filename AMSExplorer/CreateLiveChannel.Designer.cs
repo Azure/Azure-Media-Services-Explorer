@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CreateLiveChannel));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxRestrictIngestIP = new System.Windows.Forms.TextBox();
@@ -47,28 +49,39 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
+            this.labelWarningPreview = new System.Windows.Forms.Label();
+            this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
+            this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
             this.panelRTP = new System.Windows.Forms.Panel();
-            this.textBoxVideoStreamName = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxEncodingPreset = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
+            this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
+            this.buttonAddAudioStream = new System.Windows.Forms.Button();
+            this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabPageAdConfig = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxSlateImage = new System.Windows.Forms.TextBox();
             this.checkBoxAdInsertSlate = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxAdMarkerSource = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
-            this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
-            this.labelWarningPreview = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -76,6 +89,10 @@
             this.tabPageLiveEncoding.SuspendLayout();
             this.panelRTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
+            this.tabPageAudioOptions.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).BeginInit();
             this.tabPageAdConfig.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -282,6 +299,35 @@
             this.TabSettings.Text = "Channel Settings";
             this.TabSettings.UseVisualStyleBackColor = true;
             // 
+            // labelWarningPreview
+            // 
+            this.labelWarningPreview.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningPreview.Location = new System.Drawing.Point(263, 192);
+            this.labelWarningPreview.Name = "labelWarningPreview";
+            this.labelWarningPreview.Size = new System.Drawing.Size(152, 17);
+            this.labelWarningPreview.TabIndex = 50;
+            this.labelWarningPreview.Text = "Warning";
+            // 
+            // checkBoxRestrictPreviewIP
+            // 
+            this.checkBoxRestrictPreviewIP.AutoSize = true;
+            this.checkBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 169);
+            this.checkBoxRestrictPreviewIP.Name = "checkBoxRestrictPreviewIP";
+            this.checkBoxRestrictPreviewIP.Size = new System.Drawing.Size(192, 17);
+            this.checkBoxRestrictPreviewIP.TabIndex = 48;
+            this.checkBoxRestrictPreviewIP.Text = "Restrict preview to this IP address :";
+            this.checkBoxRestrictPreviewIP.UseVisualStyleBackColor = true;
+            this.checkBoxRestrictPreviewIP.CheckedChanged += new System.EventHandler(this.checkBoxRestrictPreviewIP_CheckedChanged);
+            // 
+            // textBoxRestrictPreviewIP
+            // 
+            this.textBoxRestrictPreviewIP.Enabled = false;
+            this.textBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 192);
+            this.textBoxRestrictPreviewIP.Name = "textBoxRestrictPreviewIP";
+            this.textBoxRestrictPreviewIP.Size = new System.Drawing.Size(239, 20);
+            this.textBoxRestrictPreviewIP.TabIndex = 49;
+            this.textBoxRestrictPreviewIP.TextChanged += new System.EventHandler(this.textBoxRestrictPreviewIP_TextChanged);
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -316,8 +362,6 @@
             // 
             // panelRTP
             // 
-            this.panelRTP.Controls.Add(this.textBoxVideoStreamName);
-            this.panelRTP.Controls.Add(this.label9);
             this.panelRTP.Controls.Add(this.numericUpDownVideoStreamIndex);
             this.panelRTP.Controls.Add(this.label7);
             this.panelRTP.Location = new System.Drawing.Point(7, 123);
@@ -325,30 +369,13 @@
             this.panelRTP.Size = new System.Drawing.Size(408, 100);
             this.panelRTP.TabIndex = 70;
             // 
-            // textBoxVideoStreamName
-            // 
-            this.textBoxVideoStreamName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxVideoStreamName.Location = new System.Drawing.Point(12, 77);
-            this.textBoxVideoStreamName.Name = "textBoxVideoStreamName";
-            this.textBoxVideoStreamName.Size = new System.Drawing.Size(393, 20);
-            this.textBoxVideoStreamName.TabIndex = 61;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(9, 64);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(153, 13);
-            this.label9.TabIndex = 73;
-            this.label9.Text = "Video Stream Name (optional) :";
-            // 
             // numericUpDownVideoStreamIndex
             // 
             this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(12, 31);
             this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
             this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(120, 20);
             this.numericUpDownVideoStreamIndex.TabIndex = 72;
+            this.toolTip1.SetToolTip(this.numericUpDownVideoStreamIndex, resources.GetString("numericUpDownVideoStreamIndex.ToolTip"));
             // 
             // label7
             // 
@@ -378,6 +405,17 @@
             // 
             // tabPageAudioOptions
             // 
+            this.tabPageAudioOptions.Controls.Add(this.dataGridViewAudioStreams);
+            this.tabPageAudioOptions.Controls.Add(this.buttonAddAudioStream);
+            this.tabPageAudioOptions.Controls.Add(this.numericUpDownAudioIndexAddition);
+            this.tabPageAudioOptions.Controls.Add(this.label12);
+            this.tabPageAudioOptions.Controls.Add(this.comboBoxAudioLanguageAddition);
+            this.tabPageAudioOptions.Controls.Add(this.label13);
+            this.tabPageAudioOptions.Controls.Add(this.checkBox1);
+            this.tabPageAudioOptions.Controls.Add(this.numericUpDownAudioIndexMain);
+            this.tabPageAudioOptions.Controls.Add(this.label11);
+            this.tabPageAudioOptions.Controls.Add(this.comboBoxAudioLanguageMain);
+            this.tabPageAudioOptions.Controls.Add(this.label9);
             this.tabPageAudioOptions.Location = new System.Drawing.Point(4, 22);
             this.tabPageAudioOptions.Name = "tabPageAudioOptions";
             this.tabPageAudioOptions.Padding = new System.Windows.Forms.Padding(3);
@@ -385,6 +423,110 @@
             this.tabPageAudioOptions.TabIndex = 2;
             this.tabPageAudioOptions.Text = "Audio Options";
             this.tabPageAudioOptions.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewAudioStreams
+            // 
+            this.dataGridViewAudioStreams.AllowUserToAddRows = false;
+            this.dataGridViewAudioStreams.AllowUserToDeleteRows = false;
+            this.dataGridViewAudioStreams.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAudioStreams.Location = new System.Drawing.Point(29, 165);
+            this.dataGridViewAudioStreams.Name = "dataGridViewAudioStreams";
+            this.dataGridViewAudioStreams.ReadOnly = true;
+            this.dataGridViewAudioStreams.RowHeadersVisible = false;
+            this.dataGridViewAudioStreams.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAudioStreams.Size = new System.Drawing.Size(311, 65);
+            this.dataGridViewAudioStreams.TabIndex = 83;
+            this.toolTip1.SetToolTip(this.dataGridViewAudioStreams, "Rule name / IP address, CIDR or subnet mask");
+            // 
+            // buttonAddAudioStream
+            // 
+            this.buttonAddAudioStream.Location = new System.Drawing.Point(346, 127);
+            this.buttonAddAudioStream.Name = "buttonAddAudioStream";
+            this.buttonAddAudioStream.Size = new System.Drawing.Size(59, 23);
+            this.buttonAddAudioStream.TabIndex = 82;
+            this.buttonAddAudioStream.Text = "Add";
+            this.buttonAddAudioStream.UseVisualStyleBackColor = true;
+            this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
+            // 
+            // numericUpDownAudioIndexAddition
+            // 
+            this.numericUpDownAudioIndexAddition.Location = new System.Drawing.Point(233, 130);
+            this.numericUpDownAudioIndexAddition.Name = "numericUpDownAudioIndexAddition";
+            this.numericUpDownAudioIndexAddition.Size = new System.Drawing.Size(102, 20);
+            this.numericUpDownAudioIndexAddition.TabIndex = 79;
+            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexAddition, resources.GetString("numericUpDownAudioIndexAddition.ToolTip"));
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(26, 113);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(61, 13);
+            this.label12.TabIndex = 81;
+            this.label12.Text = "Language :";
+            // 
+            // comboBoxAudioLanguageAddition
+            // 
+            this.comboBoxAudioLanguageAddition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAudioLanguageAddition.FormattingEnabled = true;
+            this.comboBoxAudioLanguageAddition.Location = new System.Drawing.Point(29, 129);
+            this.comboBoxAudioLanguageAddition.Name = "comboBoxAudioLanguageAddition";
+            this.comboBoxAudioLanguageAddition.Size = new System.Drawing.Size(180, 21);
+            this.comboBoxAudioLanguageAddition.TabIndex = 80;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(230, 113);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(105, 13);
+            this.label13.TabIndex = 78;
+            this.label13.Text = "Audio Stream Index :";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(29, 88);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(151, 17);
+            this.checkBox1.TabIndex = 77;
+            this.checkBox1.Text = "Use multiple audio streams";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownAudioIndexMain
+            // 
+            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(233, 44);
+            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
+            this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(102, 20);
+            this.numericUpDownAudioIndexMain.TabIndex = 74;
+            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(26, 27);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(61, 13);
+            this.label11.TabIndex = 76;
+            this.label11.Text = "Language :";
+            // 
+            // comboBoxAudioLanguageMain
+            // 
+            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
+            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(29, 43);
+            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
+            this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(180, 21);
+            this.comboBoxAudioLanguageMain.TabIndex = 75;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(230, 27);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(105, 13);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Audio Stream Index :";
             // 
             // tabPageAdConfig
             // 
@@ -403,6 +545,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.textBoxSlateImage);
             this.panel2.Location = new System.Drawing.Point(3, 96);
@@ -410,14 +553,23 @@
             this.panel2.Size = new System.Drawing.Size(415, 100);
             this.panel2.TabIndex = 76;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(337, 26);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 76;
+            this.button1.Text = "Upload";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(14, 16);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(117, 13);
+            this.label10.Size = new System.Drawing.Size(154, 13);
             this.label10.TabIndex = 75;
-            this.label10.Text = "Default Slate Asset ID :";
+            this.label10.Text = "Default Slate Asset ID or URL :";
             // 
             // textBoxSlateImage
             // 
@@ -425,7 +577,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSlateImage.Location = new System.Drawing.Point(17, 29);
             this.textBoxSlateImage.Name = "textBoxSlateImage";
-            this.textBoxSlateImage.Size = new System.Drawing.Size(385, 20);
+            this.textBoxSlateImage.Size = new System.Drawing.Size(314, 20);
             this.textBoxSlateImage.TabIndex = 74;
             // 
             // checkBoxAdInsertSlate
@@ -465,35 +617,6 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "Ad marker source :";
             // 
-            // checkBoxRestrictPreviewIP
-            // 
-            this.checkBoxRestrictPreviewIP.AutoSize = true;
-            this.checkBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 169);
-            this.checkBoxRestrictPreviewIP.Name = "checkBoxRestrictPreviewIP";
-            this.checkBoxRestrictPreviewIP.Size = new System.Drawing.Size(192, 17);
-            this.checkBoxRestrictPreviewIP.TabIndex = 48;
-            this.checkBoxRestrictPreviewIP.Text = "Restrict preview to this IP address :";
-            this.checkBoxRestrictPreviewIP.UseVisualStyleBackColor = true;
-            this.checkBoxRestrictPreviewIP.CheckedChanged += new System.EventHandler(this.checkBoxRestrictPreviewIP_CheckedChanged);
-            // 
-            // textBoxRestrictPreviewIP
-            // 
-            this.textBoxRestrictPreviewIP.Enabled = false;
-            this.textBoxRestrictPreviewIP.Location = new System.Drawing.Point(18, 192);
-            this.textBoxRestrictPreviewIP.Name = "textBoxRestrictPreviewIP";
-            this.textBoxRestrictPreviewIP.Size = new System.Drawing.Size(239, 20);
-            this.textBoxRestrictPreviewIP.TabIndex = 49;
-            this.textBoxRestrictPreviewIP.TextChanged += new System.EventHandler(this.textBoxRestrictPreviewIP_TextChanged);
-            // 
-            // labelWarningPreview
-            // 
-            this.labelWarningPreview.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningPreview.Location = new System.Drawing.Point(263, 192);
-            this.labelWarningPreview.Name = "labelWarningPreview";
-            this.labelWarningPreview.Size = new System.Drawing.Size(152, 17);
-            this.labelWarningPreview.TabIndex = 50;
-            this.labelWarningPreview.Text = "Warning";
-            // 
             // CreateLiveChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -520,6 +643,11 @@
             this.panelRTP.ResumeLayout(false);
             this.panelRTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
+            this.tabPageAudioOptions.ResumeLayout(false);
+            this.tabPageAudioOptions.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).EndInit();
             this.tabPageAdConfig.ResumeLayout(false);
             this.tabPageAdConfig.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -559,8 +687,6 @@
         private System.Windows.Forms.ComboBox comboBoxAdMarkerSource;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panelRTP;
-        private System.Windows.Forms.TextBox textBoxVideoStreamName;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownVideoStreamIndex;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TabPage tabPageAudioOptions;
@@ -572,5 +698,18 @@
         private System.Windows.Forms.CheckBox checkBoxRestrictPreviewIP;
         private System.Windows.Forms.TextBox textBoxRestrictPreviewIP;
         private System.Windows.Forms.Label labelWarningPreview;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button buttonAddAudioStream;
+        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexAddition;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.ComboBox comboBoxAudioLanguageAddition;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.NumericUpDown numericUpDownAudioIndexMain;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox comboBoxAudioLanguageMain;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridView dataGridViewAudioStreams;
     }
 }

@@ -26,6 +26,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Net;
+using System.Collections.ObjectModel;
+using System.Globalization;
+
 
 namespace AMSExplorer
 {
@@ -33,6 +36,8 @@ namespace AMSExplorer
     {
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
+        private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
+
 
         public string ChannelName
         {
@@ -65,7 +70,18 @@ namespace AMSExplorer
                     SystemPreset = comboBoxEncodingPreset.Text,
                     AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
                 };
+                if (comboBoxProtocolInput.Text == Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS))
+                { // RTP
+                    List<VideoStream> videostreams = new List<VideoStream>();
+                    videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
+                    encodingoption.VideoStreams = new ReadOnlyCollection<VideoStream>(videostreams);
 
+                    List<AudioStream> audiostreamsl = new List<AudioStream>();
+                    audiostreamsl.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageMain.SelectedItem).Value, Index = (int)numericUpDownAudioIndexMain.Value });
+                    audiostreamsl.AddRange(audiostreams);
+                    encodingoption.AudioStreams = new ReadOnlyCollection<AudioStream>(audiostreamsl);
+
+                }
 
                 return encodingoption;
             }
@@ -79,6 +95,7 @@ namespace AMSExplorer
                 {
                     InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
                     DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? textBoxSlateImage.Text : null
+
                 };
                 return myslate;
             }
@@ -198,7 +215,27 @@ namespace AMSExplorer
 
             labelWarningIngest.Text = string.Empty;
             labelWarningPreview.Text = string.Empty;
+
+            
+            
+            dataGridViewAudioStreams.DataSource = audiostreams;
+            dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
+
+            Item myitem = new Item("Undefined", "und");
+            comboBoxAudioLanguageMain.Items.Add(myitem);
+            comboBoxAudioLanguageAddition.Items.Add(myitem);
+            foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures))
+            {
+                myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
+                comboBoxAudioLanguageMain.Items.Add(myitem);
+                comboBoxAudioLanguageAddition.Items.Add(myitem);
+            }
             InitPhase = false;
+        }
+        void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+
+            MessageBox.Show("Wrong format");
         }
 
         private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
@@ -305,5 +342,11 @@ namespace AMSExplorer
                 labelWarningPreview.Text = string.Empty;
             }
         }
+
+        private void buttonAddAudioStream_Click(object sender, EventArgs e)
+        {
+            audiostreams.Add(new AudioStream() {Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+        }
+
     }
 }

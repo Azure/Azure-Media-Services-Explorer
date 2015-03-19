@@ -117,4 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="numericUpDownVideoStreamIndex.ToolTip" xml:space="preserve">
+    <value>The recommendation is to send in a single program transport stream (SPTS). If in case the input stream contains multiple programs, the Live Encoder parses the Program Map Table (PMT) in the input, identifies the inputs that have a stream type name of MPEG-2 Video or H.264, and arranges them in the order specified in the PMT. The zero-based index is then used to pick up the n-th entry in that arrangement.</value>
+  </data>
+  <data name="numericUpDownAudioIndexAddition.ToolTip" xml:space="preserve">
+    <value>The recommendation is to send in a single program transport stream (SPTS). If in case the input stream contains multiple programs, the Live Encoder parses the Program Map Table (PMT) in the input, identifies the inputs that have a stream type name of MPEG-2 AAC ADTS or AC-3 System-A or AC-3 System-B or MPEG-2 Private PES or MPEG-1 Audio or MPEG-2 Audio, and arranges them in the order specified in the PMT. The zero-based index is then used to pick up the n-th entry in that arrangement.</value>
+  </data>
+  <data name="numericUpDownAudioIndexMain.ToolTip" xml:space="preserve">
+    <value>The recommendation is to send in a single program transport stream (SPTS). If in case the input stream contains multiple programs, the Live Encoder parses the Program Map Table (PMT) in the input, identifies the inputs that have a stream type name of MPEG-2 AAC ADTS or AC-3 System-A or AC-3 System-B or MPEG-2 Private PES or MPEG-1 Audio or MPEG-2 Audio, and arranges them in the order specified in the PMT. The zero-based index is then used to pick up the n-th entry in that arrangement.</value>
+  </data>
 </root>
