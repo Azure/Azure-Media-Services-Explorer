@@ -704,6 +704,8 @@ namespace AMSExplorer
 
         private void EncodingCustom_Load(object sender, EventArgs e)
         {
+            moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreAMEAdvanced));
+        
             foreach (var storage in _context.StorageAccounts)
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));

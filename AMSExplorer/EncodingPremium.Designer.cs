@@ -119,12 +119,12 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(707, 61);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(673, 58);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(51, 13);
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
             this.moreinfoprofilelink.TabIndex = 7;
             this.moreinfoprofilelink.TabStop = true;
-            this.moreinfoprofilelink.Text = "More info";
+            this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // label3
