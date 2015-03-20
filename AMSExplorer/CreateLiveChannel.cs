@@ -28,6 +28,8 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Net;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
+
 
 
 namespace AMSExplorer
@@ -201,9 +203,10 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-            comboBoxProtocolInput.Items.AddRange(Enum.GetNames(typeof(StreamingProtocol)).ToArray()); // license type
-            comboBoxProtocolInput.SelectedItem = Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4);
+            WarningChannelName.Text = string.Empty;
 
+            FillComboProtocols(false);
+           
             comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // license type
             comboBoxEncodingType.SelectedItem = Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None);
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -216,14 +219,17 @@ namespace AMSExplorer
             labelWarningIngest.Text = string.Empty;
             labelWarningPreview.Text = string.Empty;
 
-            
-            
+
+
             dataGridViewAudioStreams.DataSource = audiostreams;
             dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
             Item myitem = new Item("Undefined", "und");
             comboBoxAudioLanguageMain.Items.Add(myitem);
+            comboBoxAudioLanguageMain.SelectedItem = myitem;
             comboBoxAudioLanguageAddition.Items.Add(myitem);
+            comboBoxAudioLanguageAddition.SelectedItem = myitem;
+
             foreach (CultureInfo ci in CultureInfo.GetCultures(CultureTypes.NeutralCultures))
             {
                 myitem = new Item(ci.DisplayName, ci.ThreeLetterISOLanguageName);
@@ -284,11 +290,11 @@ namespace AMSExplorer
             if (comboBoxProtocolInput.Text == Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS))
             { // RTP
                 comboBoxAdMarkerSource.Items.Add(new Item("SCTE-35 Cue Messages", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
-                panelRTP.Enabled = true;
+                panelRTP.Enabled = panelAudioControl.Enabled = true;
             }
             else
             {
-                panelRTP.Enabled = false;
+                panelRTP.Enabled = panelAudioControl.Enabled = false;
             }
             comboBoxAdMarkerSource.SelectedIndex = 0;
         }
@@ -304,6 +310,7 @@ namespace AMSExplorer
                     tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
                     tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
                     EncodingTabDisplayed = false;
+                    FillComboProtocols(false);
                 }
                 else if (!EncodingTabDisplayed)
                 {
@@ -311,8 +318,24 @@ namespace AMSExplorer
                     tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
                     tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
                     EncodingTabDisplayed = true;
+                    FillComboProtocols(true);
                 }
             }
+        }
+
+        private void FillComboProtocols(bool displayrtp)
+        {
+            comboBoxProtocolInput.Items.Clear();
+            if (displayrtp)
+            {
+                comboBoxProtocolInput.Items.AddRange(Enum.GetNames(typeof(StreamingProtocol)).ToArray()); // license type
+            }
+            else
+            {
+                comboBoxProtocolInput.Items.Add(Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4));
+                comboBoxProtocolInput.Items.Add(Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP));
+            }
+            comboBoxProtocolInput.SelectedItem = Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4);
         }
 
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
@@ -345,7 +368,29 @@ namespace AMSExplorer
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
         {
-            audiostreams.Add(new AudioStream() {Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+            audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+        }
+
+        private void textboxchannelname_TextChanged(object sender, EventArgs e)
+        {
+            if (textboxchannelname.TextLength > 0)
+            {
+                WarningChannelName.Text = (IsChannelNameValid(textboxchannelname.Text)) ? string.Empty : "Channel name is not valid";
+            }
+        }
+
+        internal static bool IsChannelNameValid(string name)
+        {
+            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
+            return (reg.IsMatch(name));
+        }
+
+        private void buttonDelAddOption_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewAudioStreams.SelectedRows.Count == 1)
+            {
+                audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
+            }
         }
 
     }
