@@ -812,7 +812,7 @@ namespace AMSExplorer
                 {
                     int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
@@ -827,7 +827,7 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFile(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun = null, string storageaccount = null, bool PublishOutputAsset = false)
+        private void ProcessUploadFileAndMore(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun = null, string storageaccount = null, bool PublishOutputAsset = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -868,9 +868,11 @@ namespace AMSExplorer
                         File.Delete(name as string);
                         TextBoxLogWriteLine("File '{0}' deleted.", name);
                     }
-                    catch
+                    catch (Exception e)
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
+                        if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+
                     }
                 }
 
@@ -894,6 +896,10 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
+                        if (WatchFolderSendEmailToRecipient != null)
+                        {
+                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
+                        }
                         return;
                     }
 
@@ -913,28 +919,57 @@ namespace AMSExplorer
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
-                                if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, oasset.GetSmoothStreamingUri().ToString());
+                                if (WatchFolderSendEmailToRecipient != null)
+                                {
+                                    IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
+                                    StringBuilder sb = new StringBuilder();
+                                    Uri SmoothUri = PlayBackLocator.GetSmoothStreamingUri();
+                                    if (SmoothUri != null)
+                                    {
+                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset);
+                                        sb.AppendLine("Link to playback the asset:");
+                                        sb.AppendLine(playbackurl);
+                                        sb.AppendLine();
+                                    }
+                                    sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
+                                }
                             }
-
                         }
                         else // no publication
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
-                                if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, oasset.Id);
+                                if (WatchFolderSendEmailToRecipient != null)
+                                {
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.Append(AssetInfo.GetStat(oasset));
+
+                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
+                                }
                             }
 
                         }
                     }
                     else  // not completed successfuly
                     {
-                        if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, job.Id);
+                        if (WatchFolderSendEmailToRecipient != null)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            sb.Append((new JobInfo(job).GetStats()));
+                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
+                        }
                     }
-
                 }
                 else // user selected no processing. Upload successfull
                 {
-                    if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, asset.Id);
+                    if (WatchFolderSendEmailToRecipient != null)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(AssetInfo.GetStat(asset));
+                        Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
+                    }
+
                 }
             }
             DoRefreshGridAssetV(false);
@@ -1462,7 +1497,6 @@ namespace AMSExplorer
             }
             if (locator == null) return;
 
-
             // let's choose a SE that running and with higher number of RU
             IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
             bool SESelectedHasRU = SESelected.ScaleUnits > 0;
@@ -1473,7 +1507,6 @@ namespace AMSExplorer
             }
 
             StringBuilder sbuilderThisAsset = new StringBuilder();
-
             sbuilderThisAsset.AppendLine("");
             sbuilderThisAsset.AppendLine("Asset:");
             sbuilderThisAsset.AppendLine(AssetToP.Name);
@@ -1487,7 +1520,6 @@ namespace AMSExplorer
 
             if (locatorType == LocatorType.OnDemandOrigin)
             {
-
                 // Get the MPEG-DASH URL of the asset for adaptive streaming.
                 Uri mpegDashUri = AssetInfo.rw(locator.GetMpegDashUri(), SESelected);
 
@@ -1511,7 +1543,6 @@ namespace AMSExplorer
                     {
                         sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                         sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
-
                     }
                     else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                     // Smooth or multi MP4, SE RU so dynamic packaging is possible
@@ -1522,8 +1553,6 @@ namespace AMSExplorer
                             sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.ToString())));
-
-
                         }
                         if (locator.GetMpegDashUri() != null)
                         {
@@ -4706,7 +4735,7 @@ typeof(FilterTime)
                     {
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate, null, WatchFolderPublishOutputAssets));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate, null, WatchFolderPublishOutputAssets));
 
                     }
                     catch (Exception e)
@@ -6743,7 +6772,7 @@ typeof(FilterTime)
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null, form2.StorageSelected));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null, form2.StorageSelected));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);

@@ -458,25 +458,51 @@ namespace AMSExplorer
 
         public void CreateOutlookMail()
         {
-            StringBuilder SB = GetStats();
-
-            // Let's create the email with Outlook
-            Outlook.Application outlookApp = new Outlook.Application();
-            Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
-            if (SelectedJobs.Count == 1)
+            Exception exception = null;
+            try
             {
-                string title = (SelectedJobs.FirstOrDefault().State == JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
+                StringBuilder SB = GetStats();
 
-                mailItem.Subject = string.Format(title, SelectedJobs.FirstOrDefault().Name);
+                // Let's create the email with Outlook
+                Outlook.Application outlookApp = new Outlook.Application();
+                Outlook.MailItem mailItem = (Outlook.MailItem)outlookApp.CreateItem(Outlook.OlItemType.olMailItem);
+                if (SelectedJobs.Count == 1)
+                {
+                    string title = (SelectedJobs.FirstOrDefault().State == JobState.Error) ? "ERROR Report: Job '{0}'" : "Report: Job '{0}'";
+
+                    mailItem.Subject = string.Format(title, SelectedJobs.FirstOrDefault().Name);
+                }
+                else
+                {
+                    mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == JobState.Error).Count());
+                }
+
+                mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
+                mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
+                mailItem.Display(false);
             }
-            else
+
+
+            catch (System.Runtime.InteropServices.COMException ce)
             {
-                mailItem.Subject = string.Format("Report: {0} jobs, {1} Error(s)", SelectedJobs.Count(), SelectedJobs.Where(j => j.State == JobState.Error).Count());
+                // 0x80040154 Class not registered
+                // This happen if outlook is not installed
+                if (ce.HResult == unchecked((int)0x80040154))
+                {
+                    MessageBox.Show("Please install Office Outlook to use this functionality.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                exception = ce;
+            }
+            catch (Exception e)
+            {
+                exception = e;
             }
 
-            mailItem.HTMLBody = "<FONT Face=\"Courier New\">";
-            mailItem.HTMLBody += SB.Replace(" ", "&nbsp;").Replace(Environment.NewLine, "<br />").ToString();
-            mailItem.Display(false);
+            if (exception != null)
+            {
+                MessageBox.Show("Exception while trying to compose the email." + exception, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void CopyStatsToClipBoard()
@@ -693,7 +719,7 @@ namespace AMSExplorer
             return Error ? null : processor;
         }
 
-        private StringBuilder GetStats()
+        public StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
             const string section = "==============================================================================";
@@ -1377,158 +1403,193 @@ namespace AMSExplorer
                 // Asset Stats
                 foreach (IAsset theAsset in SelectedAssets)
                 {
-                    string MyAssetType = AssetInfo.GetAssetType(theAsset);
-                    bool bfileinasset = (theAsset.AssetFiles.Count() == 0) ? false : true;
-                    long size = -1;
-                    if (bfileinasset)
-                    {
-                        size = 0;
-                        foreach (IAssetFile file in theAsset.AssetFiles)
-                        {
-                            size += file.ContentFileSize;
-                        }
-                    }
-                    sb.AppendLine("Asset Name          : " + theAsset.Name);
-                    sb.AppendLine("Asset Type          : " + theAsset.AssetType);
-                    sb.AppendLine("Asset Id            : " + theAsset.Id);
-                    sb.AppendLine("Alternate ID        : " + theAsset.AlternateId);
-                    if (size != -1)
-                        sb.AppendLine("Size                : " + FormatByteSize(size));
-                    sb.AppendLine("State               : " + theAsset.State);
-                    sb.AppendLine("Created (UTC)       : " + theAsset.Created.ToLongDateString() + " " + theAsset.Created.ToLongTimeString());
-                    sb.AppendLine("Last Modified (UTC) : " + theAsset.LastModified.ToLongDateString() + " " + theAsset.LastModified.ToLongTimeString());
-                    sb.AppendLine("Creations Options   : " + theAsset.Options);
+                    sb.Append(GetStat(theAsset));
+                }
+            }
+            return sb;
+        }
 
-                    if (theAsset.State != AssetState.Deleted)
-                    {
-                        sb.AppendLine("IsStreamable        : " + theAsset.IsStreamable);
-                        sb.AppendLine("SupportsDynEnc      : " + theAsset.SupportsDynamicEncryption);
-                        sb.AppendLine("Uri                 : " + theAsset.Uri.ToString());
-                        sb.AppendLine("");
-                        sb.AppendLine("Storage Name        : " + theAsset.StorageAccountName);
-                        sb.AppendLine("Storage Bytes used  : " + FormatByteSize(theAsset.StorageAccount.BytesUsed));
-                        sb.AppendLine("Storage IsDefault   : " + theAsset.StorageAccount.IsDefault);
-                        sb.AppendLine("");
+        public static StringBuilder GetStat(IAsset MyAsset, IStreamingEndpoint SelectedSE = null)
+        {
+            StringBuilder sb = new StringBuilder();
+            string MyAssetType = AssetInfo.GetAssetType(MyAsset);
+            bool bfileinasset = (MyAsset.AssetFiles.Count() == 0) ? false : true;
+            long size = -1;
+            if (bfileinasset)
+            {
+                size = 0;
+                foreach (IAssetFile file in MyAsset.AssetFiles)
+                {
+                    size += file.ContentFileSize;
+                }
+            }
+            sb.AppendLine("Asset Name          : " + MyAsset.Name);
+            sb.AppendLine("Asset Type          : " + MyAsset.AssetType);
+            sb.AppendLine("Asset Id            : " + MyAsset.Id);
+            sb.AppendLine("Alternate ID        : " + MyAsset.AlternateId);
+            if (size != -1)
+                sb.AppendLine("Size                : " + FormatByteSize(size));
+            sb.AppendLine("State               : " + MyAsset.State);
+            sb.AppendLine("Created (UTC)       : " + MyAsset.Created.ToLongDateString() + " " + MyAsset.Created.ToLongTimeString());
+            sb.AppendLine("Last Modified (UTC) : " + MyAsset.LastModified.ToLongDateString() + " " + MyAsset.LastModified.ToLongTimeString());
+            sb.AppendLine("Creations Options   : " + MyAsset.Options);
 
-                        foreach (IAsset p_asset in theAsset.ParentAssets)
-                        {
-                            sb.AppendLine("Parent asset Name   : " + p_asset.Name);
-                            sb.AppendLine("Parent asset Id     : " + p_asset.Id);
-                        }
-                        sb.AppendLine("");
-                        foreach (IContentKey key in theAsset.ContentKeys)
-                        {
-                            sb.AppendLine("Content key         : " + key.Name);
-                            sb.AppendLine("Content key Id      : " + key.Id);
-                            sb.AppendLine("Content key Type    : " + key.ContentKeyType);
-                        }
-                        sb.AppendLine("");
-                        foreach (var pol in theAsset.DeliveryPolicies)
-                        {
-                            sb.AppendLine("Deliv policy Name   : " + pol.Name);
-                            sb.AppendLine("Deliv policy Id     : " + pol.Id);
-                            sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
-                            sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
-                        }
-                        sb.AppendLine("");
+            if (MyAsset.State != AssetState.Deleted)
+            {
+                sb.AppendLine("IsStreamable        : " + MyAsset.IsStreamable);
+                sb.AppendLine("SupportsDynEnc      : " + MyAsset.SupportsDynamicEncryption);
+                sb.AppendLine("Uri                 : " + MyAsset.Uri.ToString());
+                sb.AppendLine("");
+                sb.AppendLine("Storage Name        : " + MyAsset.StorageAccountName);
+                sb.AppendLine("Storage Bytes used  : " + FormatByteSize(MyAsset.StorageAccount.BytesUsed));
+                sb.AppendLine("Storage IsDefault   : " + MyAsset.StorageAccount.IsDefault);
+                sb.AppendLine("");
 
-                        foreach (IAssetFile fileItem in theAsset.AssetFiles)
-                        {
-                            if (fileItem.IsPrimary) sb.AppendLine("Primary");
-                            sb.AppendLine("Name                 : " + fileItem.Name);
-                            sb.AppendLine("Id                   : " + fileItem.Id);
-                            sb.AppendLine("File size            : " + fileItem.ContentFileSize + " Bytes");
-                            sb.AppendLine("Mime type            : " + fileItem.MimeType);
-                            sb.AppendLine("Init vector          : " + fileItem.InitializationVector);
-                            sb.AppendLine("Created              : " + fileItem.Created);
-                            sb.AppendLine("Last modified        : " + fileItem.LastModified);
-                            sb.AppendLine("Encrypted            : " + fileItem.IsEncrypted);
-                            sb.AppendLine("EncryptionScheme     : " + fileItem.EncryptionScheme);
-                            sb.AppendLine("EncryptionVersion    : " + fileItem.EncryptionVersion);
-                            sb.AppendLine("Encryption key id    : " + fileItem.EncryptionKeyId);
-                            sb.AppendLine("InitializationVector : " + fileItem.InitializationVector);
-                            sb.AppendLine("ParentAssetId        : " + fileItem.ParentAssetId);
-                            sb.AppendLine("==============");
-                            sb.AppendLine("");
-                        }
+                foreach (IAsset p_asset in MyAsset.ParentAssets)
+                {
+                    sb.AppendLine("Parent asset Name   : " + p_asset.Name);
+                    sb.AppendLine("Parent asset Id     : " + p_asset.Id);
+                }
+                sb.AppendLine("");
+                foreach (IContentKey key in MyAsset.ContentKeys)
+                {
+                    sb.AppendLine("Content key         : " + key.Name);
+                    sb.AppendLine("Content key Id      : " + key.Id);
+                    sb.AppendLine("Content key Type    : " + key.ContentKeyType);
+                }
+                sb.AppendLine("");
+                foreach (var pol in MyAsset.DeliveryPolicies)
+                {
+                    sb.AppendLine("Deliv policy Name   : " + pol.Name);
+                    sb.AppendLine("Deliv policy Id     : " + pol.Id);
+                    sb.AppendLine("Deliv policy Type   : " + pol.AssetDeliveryPolicyType);
+                    sb.AppendLine("Deliv pol Protocol  : " + pol.AssetDeliveryProtocol);
+                }
+                sb.AppendLine("");
 
-                        foreach (ILocator locator in theAsset.Locators)
-                        {
-                            sb.AppendLine("Locator Name      : " + locator.Name);
-                            sb.AppendLine("Locator Type      : " + locator.Type.ToString());
-                            sb.AppendLine("Locator Id        : " + locator.Id);
-                            sb.AppendLine("Locator Path      : " + locator.Path);
-                            if (locator.StartTime != null) sb.AppendLine("Start Time        : " + ((DateTime)locator.StartTime).ToLongDateString() + " " + ((DateTime)locator.StartTime).ToLongTimeString());
-                            if (locator.ExpirationDateTime != null) sb.AppendLine("Expiration Time   : " + ((DateTime)locator.ExpirationDateTime).ToLongDateString() + " " + ((DateTime)locator.ExpirationDateTime).ToLongTimeString());
-                            sb.AppendLine("");
-
-                            if (locator.Type == LocatorType.OnDemandOrigin)
-                            {
-                                sb.AppendLine(_prog_down_http_streaming + " : ");
-                                foreach (IAssetFile IAF in theAsset.AssetFiles) sb.AppendLine(locator.Path + IAF.Name);
-                                sb.AppendLine("");
-
-                                if (MyAssetType.StartsWith("HLS")) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                                {
-                                    sb.AppendLine(AssetInfo._hls_v3 + " : ");
-                                    sb.AppendLine(locator.GetHlsUri().ToString().Replace("format=m3u8-aapl", "format=m3u8-aapl-v3"));
-                                    sb.AppendLine("");
-                                }
-                                else // It's not Static HLS
-                                {
-                                    if (locator.GetSmoothStreamingUri() != null)
-                                    {
-                                        sb.AppendLine(AssetInfo._smooth + " : ");
-                                        sb.AppendLine(locator.GetSmoothStreamingUri().ToString());
-                                        sb.AppendLine(AssetInfo._smooth_legacy + " : ");
-                                        sb.AppendLine(AssetInfo.GetSmoothLegacy(locator.GetSmoothStreamingUri().ToString()));
-                                    }
-
-                                    if (locator.GetMpegDashUri() != null)
-                                    {
-                                        sb.AppendLine(AssetInfo._dash + " : ");
-                                        sb.AppendLine(locator.GetMpegDashUri().ToString());
-                                    }
-
-                                    if (locator.GetHlsUri() != null)
-                                    {
-                                        sb.AppendLine(AssetInfo._hls_v4 + " : ");
-                                        sb.AppendLine(locator.GetHlsUri().ToString());
-                                        sb.AppendLine(AssetInfo._hls_v3 + " : ");
-                                        sb.AppendLine(locator.GetHlsv3Uri().ToString());
-                                        sb.AppendLine("");
-                                    }
-                                }
-                            }
-                            if (locator.Type == LocatorType.Sas)
-                            {
-                                List<Uri> ProgressiveDownloadUris;
-                                IEnumerable<IAssetFile> MyAssetFiles;
-                                sb.AppendLine(AssetInfo._prog_down_https_SAS + " : ");
-                                MyAssetFiles = theAsset.AssetFiles.ToList();
-                                // Generate the Progressive Download URLs for each file. 
-                                ProgressiveDownloadUris = MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                                ProgressiveDownloadUris.ForEach(uri => sb.AppendLine(uri.ToString()));
-                            }
-                            sb.AppendLine("");
-                            sb.AppendLine("==============================================================================");
-                            sb.AppendLine("");
-                        }
-                    }
-                    sb.AppendLine("");
-                    sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+                foreach (IAssetFile fileItem in MyAsset.AssetFiles)
+                {
+                    if (fileItem.IsPrimary) sb.AppendLine("Primary");
+                    sb.AppendLine("Name                 : " + fileItem.Name);
+                    sb.AppendLine("Id                   : " + fileItem.Id);
+                    sb.AppendLine("File size            : " + fileItem.ContentFileSize + " Bytes");
+                    sb.AppendLine("Mime type            : " + fileItem.MimeType);
+                    sb.AppendLine("Init vector          : " + fileItem.InitializationVector);
+                    sb.AppendLine("Created              : " + fileItem.Created);
+                    sb.AppendLine("Last modified        : " + fileItem.LastModified);
+                    sb.AppendLine("Encrypted            : " + fileItem.IsEncrypted);
+                    sb.AppendLine("EncryptionScheme     : " + fileItem.EncryptionScheme);
+                    sb.AppendLine("EncryptionVersion    : " + fileItem.EncryptionVersion);
+                    sb.AppendLine("Encryption key id    : " + fileItem.EncryptionKeyId);
+                    sb.AppendLine("InitializationVector : " + fileItem.InitializationVector);
+                    sb.AppendLine("ParentAssetId        : " + fileItem.ParentAssetId);
+                    sb.AppendLine("==============");
                     sb.AppendLine("");
                 }
+
+                sb.Append(GetDescriptionLocators(MyAsset, SelectedSE));
+
+
+            }
+            sb.AppendLine("");
+            sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+            sb.AppendLine("");
+
+            return sb;
+        }
+
+        public static StringBuilder GetDescriptionLocators(IAsset MyAsset, IStreamingEndpoint SelectedSE = null)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (ILocator locator in MyAsset.Locators)
+            {
+                sb.AppendLine("Locator Name      : " + locator.Name);
+                sb.AppendLine("Locator Type      : " + locator.Type.ToString());
+                sb.AppendLine("Locator Id        : " + locator.Id);
+                sb.AppendLine("Locator Path      : " + locator.Path);
+                if (locator.StartTime != null) sb.AppendLine("Start Time        : " + ((DateTime)locator.StartTime).ToLongDateString() + " " + ((DateTime)locator.StartTime).ToLongTimeString());
+                if (locator.ExpirationDateTime != null) sb.AppendLine("Expiration Time   : " + ((DateTime)locator.ExpirationDateTime).ToLongDateString() + " " + ((DateTime)locator.ExpirationDateTime).ToLongTimeString());
+                sb.AppendLine("");
+
+                if (locator.Type == LocatorType.OnDemandOrigin)
+                {
+                    sb.AppendLine(_prog_down_http_streaming + " : ");
+                    foreach (IAssetFile IAF in MyAsset.AssetFiles) sb.AppendLine(locator.Path + IAF.Name);
+                    sb.AppendLine("");
+
+                    if (MyAsset.AssetType == AssetType.MediaServicesHLS) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+                    {
+                        sb.AppendLine(AssetInfo._hls + " : ");
+                        sb.AppendLine(locator.GetHlsUri().ToString());
+                        sb.AppendLine("");
+                    }
+                    else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
+                    {
+                        // It's not Static HLS
+                        // Smooth or multi MP4
+                        if (locator.GetSmoothStreamingUri() != null)
+                        {
+                            foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE))
+                            {
+                                sb.AppendLine(AssetInfo._smooth + " : ");
+                                sb.AppendLine(uri.ToString());
+                            }
+
+                            foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE))
+                            {
+                                sb.AppendLine(AssetInfo._smooth_legacy + " : ");
+                                sb.AppendLine(uri.ToString());
+                            }
+                        }
+
+                        if (locator.GetMpegDashUri() != null)
+                        {
+                            foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE))
+                            {
+                                sb.AppendLine(AssetInfo._dash + " : ");
+                                sb.AppendLine(uri.ToString());
+                            }
+                        }
+
+                        if (locator.GetHlsUri() != null)
+                        {
+                            foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE))
+                            {
+                                sb.AppendLine(AssetInfo._hls_v4 + " : ");
+                                sb.AppendLine(uri.ToString());
+                            }
+                            foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE))
+                            {
+                                sb.AppendLine(AssetInfo._hls_v3 + " : ");
+                                sb.AppendLine(uri.ToString());
+                            }
+                            sb.AppendLine("");
+                        }
+                    }
+                }
+                if (locator.Type == LocatorType.Sas)
+                {
+                    List<Uri> ProgressiveDownloadUris;
+                    IEnumerable<IAssetFile> MyAssetFiles;
+                    sb.AppendLine(AssetInfo._prog_down_https_SAS + " : ");
+                    MyAssetFiles = MyAsset.AssetFiles.ToList();
+                    // Generate the Progressive Download URLs for each file. 
+                    ProgressiveDownloadUris = MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
+                    ProgressiveDownloadUris.ForEach(uri => sb.AppendLine(uri.ToString()));
+                }
+                sb.AppendLine("");
+                sb.AppendLine("==============================================================================");
+                sb.AppendLine("");
             }
             return sb;
         }
 
 
 
-
-
-        public static void DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
+        public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
         {
+            string FullPlayBackLink = null;
             if (!string.IsNullOrEmpty(Urlstr))
             {
 
@@ -1651,53 +1712,54 @@ namespace AMSExplorer
                             if (choosenSE.ScaleUnits == 0 && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
                                 playerurl += string.Format(formatsyntax, "smooth");
                         }
-                        Process.Start(string.Format(playerurl, Urlstr));
+                        FullPlayBackLink = string.Format(playerurl, Urlstr);
+
                         break;
 
                     case PlayerType.SilverlightMonitoring:
-                        Process.Start(@"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Urlstr);
+                        FullPlayBackLink = @"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Urlstr;
                         break;
 
                     case PlayerType.SilverlightPlayReadyToken:
-                        Process.Start(string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
+                        FullPlayBackLink = string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult);
                         break;
 
                     case PlayerType.DASHIFRefPlayer:
                         if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                        Process.Start(@"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Urlstr);
+                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHAzurePage:
-                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Urlstr);
+                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHLiveAzure:
                         if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                        Process.Start(@"http://dashplayer.azurewebsites.net?url=" + Urlstr);
+                        FullPlayBackLink = @"http://dashplayer.azurewebsites.net?url=" + Urlstr;
                         break;
 
                     case PlayerType.FlashAzurePage:
-                        Process.Start(@"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Urlstr);
+                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Urlstr;
                         break;
 
                     case PlayerType.FlashAESToken:
-                        Process.Start(string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult));
+                        FullPlayBackLink = string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult);
                         break;
 
                     case PlayerType.MP4AzurePage:
-                        Process.Start(string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Urlstr));
+                        FullPlayBackLink = string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Urlstr);
                         break;
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        Process.Start(myurl.Replace(Constants.NameconvManifestURL, Urlstr));
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, Urlstr);
                         break;
                 }
 
-
+                if (FullPlayBackLink != null) Process.Start(FullPlayBackLink);
             }
 
-
+            return FullPlayBackLink;
 
         }
 
