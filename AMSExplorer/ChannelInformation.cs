@@ -327,7 +327,7 @@ namespace AMSExplorer
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
-          //  ip = new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+            //  ip = new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
             InputEndpointSettingList.Clear();
             InputEndpointSettingList.Add(new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
@@ -338,5 +338,25 @@ namespace AMSExplorer
             checkBoxPreviewSet.Checked = false;
             PreviewEndpointSettingList.Clear();
         }
+
+        private void tabPage4_Click(object sender, EventArgs e)
+        {
+            webBrowserPreview.Url = new Uri(@"http://aka.ms/azuremediaplayeriframe?url=http%3A%2F%2Fxpouyatdemo.streaming.mediaservices.windows.net%2F9453a0f6-b59a-473c-9b82-5e1c9701b95b%2FWP_20121015_081924Z.ism%2Fmanifest&autoplay=false");
+        }
+
+        private void tabPage4_Enter(object sender, EventArgs e)
+        {
+            if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+            {
+                string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false );
+                webBrowserPreview.Url = new Uri(myurl);
+            }
+        }
+
+        private void tabPage4_Leave(object sender, EventArgs e)
+        {
+            webBrowserPreview.Url = null;
+        }
     }
+
 }

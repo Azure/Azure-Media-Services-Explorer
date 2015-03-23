@@ -57,12 +57,12 @@
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.labelChannelName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -72,8 +72,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -397,6 +397,27 @@
             this.textBoxClientPolicy.Size = new System.Drawing.Size(743, 189);
             this.textBoxClientPolicy.TabIndex = 63;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.webBrowserPreview);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(752, 441);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Preview";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Enter += new System.EventHandler(this.tabPage4_Enter);
+            this.tabPage4.Leave += new System.EventHandler(this.tabPage4_Leave);
+            // 
+            // webBrowserPreview
+            // 
+            this.webBrowserPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowserPreview.Location = new System.Drawing.Point(0, 0);
+            this.webBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.Size = new System.Drawing.Size(752, 441);
+            this.webBrowserPreview.TabIndex = 0;
+            // 
             // labelChannelName
             // 
             this.labelChannelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -442,25 +463,6 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 58;
             // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.webBrowser1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(752, 441);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Preview";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(752, 441);
-            this.webBrowser1.TabIndex = 0;
-            // 
             // ChannelInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -486,8 +488,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -527,6 +529,6 @@
         private System.Windows.Forms.Button buttonAllowAllInputIP;
         private System.Windows.Forms.Button buttonAllowAllPreviewIP;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.WebBrowser webBrowserPreview;
     }
 }

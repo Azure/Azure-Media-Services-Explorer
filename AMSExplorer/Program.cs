@@ -1587,7 +1587,10 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto)
+        public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, 
+            IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, 
+            AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto, 
+            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true)
         {
             string FullPlayBackLink = null;
             if (!string.IsNullOrEmpty(Urlstr))
@@ -1623,6 +1626,7 @@ namespace AMSExplorer
                             break;
 
                         case PlayerType.AzureMediaPlayer:
+                        case PlayerType.AzureMediaPlayerFrame:
                             keytype = AssetInfo.GetAssetProtection(myasset, context);
                             switch (keytype)
                             {
@@ -1653,10 +1657,14 @@ namespace AMSExplorer
                 switch (typeplayer)
                 {
                     case PlayerType.AzureMediaPlayer:
-                        string playerurl = "http://aka.ms/azuremediaplayer?url={0}";
+                    case PlayerType.AzureMediaPlayerFrame:
+                        string playerurl = typeplayer == PlayerType.AzureMediaPlayer ?
+                            "http://aka.ms/azuremediaplayer?url={0}"
+                            : "http://amsplayer.azurewebsites.net/azuremediaplayer/azuremediaplayer_iframe.html?autoplay=true&url={0}";
                         string protectionsyntax = "&protection={0}";
                         string tokensyntax = "&token={0}";
                         string formatsyntax = "&format={0}";
+                        string techsyntax = "&tech={0}";
 
                         if (keytype != AssetProtectionType.None)
                         {
@@ -1712,6 +1720,33 @@ namespace AMSExplorer
                             if (choosenSE.ScaleUnits == 0 && myasset != null && myasset.AssetType == AssetType.SmoothStreaming)
                                 playerurl += string.Format(formatsyntax, "smooth");
                         }
+
+
+                        if ( technology != AzureMediaPlayerTechnologies.Auto)
+                        {
+                            switch (technology)
+                            {
+                                case AzureMediaPlayerTechnologies.Flash:
+                                    playerurl += string.Format(techsyntax, "flash");
+                                    break;
+
+                                case AzureMediaPlayerTechnologies.JavaScript:
+                                    playerurl += string.Format(techsyntax, "js");
+                                    break;
+
+                                case AzureMediaPlayerTechnologies.NativeHTML5:
+                                    playerurl += string.Format(techsyntax, "html5");
+                                    break;
+
+                                case AzureMediaPlayerTechnologies.Silverlight:
+                                    playerurl += string.Format(techsyntax, "silverlight");
+                                    break;
+
+                                default: // auto or other
+                                    break;
+                            }
+                        }
+
                         FullPlayBackLink = string.Format(playerurl, Urlstr);
 
                         break;
@@ -1756,7 +1791,7 @@ namespace AMSExplorer
                         break;
                 }
 
-                if (FullPlayBackLink != null) Process.Start(FullPlayBackLink);
+                if (FullPlayBackLink != null && launchbrowser) Process.Start(FullPlayBackLink);
             }
 
             return FullPlayBackLink;
@@ -1896,16 +1931,17 @@ namespace AMSExplorer
     public enum PlayerType
     {
         AzureMediaPlayer = 0,
-        FlashAzurePage = 1,
-        SilverlightAzurePage = 2,
-        SilverlightMonitoring = 3,
-        SilverlightPlayReadyToken = 4,
-        FlashAESToken = 5,
-        DASHAzurePage = 6,
-        DASHLiveAzure = 7,
-        DASHIFRefPlayer = 8,
-        MP4AzurePage = 9,
-        CustomPlayer = 10
+        AzureMediaPlayerFrame,
+        FlashAzurePage,
+        SilverlightAzurePage,
+        SilverlightMonitoring,
+        SilverlightPlayReadyToken,
+        FlashAESToken,
+        DASHAzurePage,
+        DASHLiveAzure,
+        DASHIFRefPlayer,
+        MP4AzurePage,
+        CustomPlayer
     }
 
     public enum TaskJobCreationMode
@@ -1930,6 +1966,15 @@ namespace AMSExplorer
         Dash = 2,
         HLS = 3,
         VideoMP4 = 4
+    }
+
+    public enum AzureMediaPlayerTechnologies
+    {
+        Auto = 0,
+        JavaScript,
+        Flash,
+        Silverlight,
+        NativeHTML5
     }
 
 
