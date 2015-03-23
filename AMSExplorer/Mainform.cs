@@ -52,6 +52,7 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
 using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens;
+using Microsoft.WindowsAzure.Storage.Queue;
 
 
 namespace AMSExplorer
@@ -76,8 +77,13 @@ namespace AMSExplorer
         private string WatchFolderFolderPath = string.Empty;
         private bool WatchFolderIsOn = false;
         private bool WatchFolderDeleteFile = false;
+        private bool WatchFolderPublishOutputAssets = false;
+        private string WatchFolderSendEmailToRecipient = null;
         private IJobTemplate WatchFolderJobTemplate = null;
-        FileSystemWatcher WatchFolderWatcher;
+        private FileSystemWatcher WatchFolderWatcher;
+        private INotificationEndPoint WatchFolderNotificationEndPoint;
+
+
         private bool AMEPremiumWorkflowPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
@@ -807,7 +813,7 @@ namespace AMSExplorer
                 {
                     int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null));
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
@@ -822,7 +828,7 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFile(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun, string storageaccount = null)
+        private void ProcessUploadFileAndMore(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun = null, string storageaccount = null, bool PublishOutputAsset = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -849,6 +855,8 @@ namespace AMSExplorer
                 Error = true;
                 DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
+                if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload error " + asset.Name, e.Message);
+
             }
             if (!Error)
             {
@@ -861,9 +869,11 @@ namespace AMSExplorer
                         File.Delete(name as string);
                         TextBoxLogWriteLine("File '{0}' deleted.", name);
                     }
-                    catch
+                    catch (Exception e)
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
+                        if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+
                     }
                 }
 
@@ -873,8 +883,10 @@ namespace AMSExplorer
                     List<IAsset> assetlist = new List<IAsset>() { asset };
 
                     TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
+
                     // Submit the job
                     IJob job = _context.Jobs.Create(jobname, jobtemplatetorun, assetlist, Properties.Settings.Default.DefaultJobPriority);
+                    job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, WatchFolderNotificationEndPoint);
 
                     try
                     {
@@ -885,10 +897,80 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
+                        if (WatchFolderSendEmailToRecipient != null)
+                        {
+                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
+                        }
                         return;
                     }
 
                     DoRefreshGridJobV(false);
+
+                    IJob myjob = GetJob(job.Id);
+                    while (myjob.State == JobState.Processing || myjob.State == JobState.Queued || myjob.State == JobState.Scheduled)
+                    {
+                        System.Threading.Thread.Sleep(1000);
+                        myjob = GetJob(job.Id);
+                }
+                    if (myjob.State == JobState.Finished)
+                    {
+                        if (PublishOutputAsset) //user wants to publish the output asset when it has been processed by the job 
+                        {
+                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myjob.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+                            foreach (var oasset in myjob.OutputMediaAssets)
+                            {
+                                ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
+                                if (WatchFolderSendEmailToRecipient != null)
+                                {
+                                    IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
+                                    StringBuilder sb = new StringBuilder();
+                                    Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
+                                    if (SmoothUri != null)
+                                    {
+                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset);
+                                        sb.AppendLine("Link to playback the asset:");
+                                        sb.AppendLine(playbackurl);
+                                        sb.AppendLine();
+            }
+                                    sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
+                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
+                                }
+                            }
+                        }
+                        else // no publication
+                        {
+                            foreach (var oasset in myjob.OutputMediaAssets)
+                            {
+                                if (WatchFolderSendEmailToRecipient != null)
+                                {
+                                    StringBuilder sb = new StringBuilder();
+                                    sb.Append(AssetInfo.GetStat(oasset));
+
+                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
+                                }
+                            }
+
+                        }
+                    }
+                    else  // not completed successfuly
+                    {
+                        if (WatchFolderSendEmailToRecipient != null)
+                        {
+                            StringBuilder sb = new StringBuilder();
+                            sb.Append((new JobInfo(job).GetStats()));
+                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
+                        }
+                    }
+                }
+                else // user selected no processing. Upload successfull
+                {
+                    if (WatchFolderSendEmailToRecipient != null)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        sb.Append(AssetInfo.GetStat(asset));
+                        Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
+                    }
+
                 }
             }
             DoRefreshGridAssetV(false);
@@ -1416,7 +1498,6 @@ namespace AMSExplorer
             }
             if (locator == null) return;
 
-
             // let's choose a SE that running and with higher number of RU
             IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
             bool SESelectedHasRU = SESelected.ScaleUnits > 0;
@@ -1427,7 +1508,6 @@ namespace AMSExplorer
             }
 
             StringBuilder sbuilderThisAsset = new StringBuilder();
-
             sbuilderThisAsset.AppendLine("");
             sbuilderThisAsset.AppendLine("Asset:");
             sbuilderThisAsset.AppendLine(AssetToP.Name);
@@ -1441,7 +1521,6 @@ namespace AMSExplorer
 
             if (locatorType == LocatorType.OnDemandOrigin)
             {
-
                 // Get the MPEG-DASH URL of the asset for adaptive streaming.
                 Uri mpegDashUri = AssetInfo.rw(locator.GetMpegDashUri(), SESelected);
 
@@ -1465,7 +1544,6 @@ namespace AMSExplorer
                     {
                         sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                         sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
-
                     }
                     else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                     // Smooth or multi MP4, SE RU so dynamic packaging is possible
@@ -1476,8 +1554,6 @@ namespace AMSExplorer
                             sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.ToString())));
-
-
                         }
                         if (locator.GetMpegDashUri() != null)
                         {
@@ -2258,13 +2334,13 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry TargetCredentials, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
 
-            CloudMediaContext TargetContext = Program.ConnectAndGetNewContext(TargetCredentials);
-            IAsset TargetAsset = TargetContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
+            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
+            IAsset TargetAsset = DestinationContext.Assets.Create(TargetAssetName, DestinationStorageAccount, AssetCreationOptions.None);
 
             // let's backup the primary file from the first asset to set it to the copied/merged asset
             var ismAssetFile = SourceAssets.FirstOrDefault().AssetFiles.ToList().Where(f => f.IsPrimary).ToArray();
@@ -2274,35 +2350,35 @@ namespace AMSExplorer
             TextBoxLogWriteLine("Starting the asset copy process.");
 
             // let's get cloudblobcontainer for target
-            CloudStorageAccount TargetstorageAccount =
+            CloudStorageAccount DestinationCloudStorageAccount =
                 (DestinationStorageAccount == null) ?
-                new CloudStorageAccount(new StorageCredentials(TargetContext.DefaultStorageAccount.Name, storagekeys[TargetContext.DefaultStorageAccount.Name]), TargetCredentials.ReturnStorageSuffix(), true) :
-                new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), TargetCredentials.ReturnStorageSuffix(), true);
+                new CloudStorageAccount(new StorageCredentials(DestinationContext.DefaultStorageAccount.Name, storagekeys[DestinationContext.DefaultStorageAccount.Name]), DestinationCredentialsEntry.ReturnStorageSuffix(), true) :
+                new CloudStorageAccount(new StorageCredentials(DestinationStorageAccount, storagekeys[DestinationStorageAccount]), DestinationCredentialsEntry.ReturnStorageSuffix(), true);
 
-            var TargetcloudBlobClient = TargetstorageAccount.CreateCloudBlobClient();
-            IAccessPolicy writePolicy = TargetContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-            ILocator Targetlocator = TargetContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
+            var DestinationCloudBlobClient = DestinationCloudStorageAccount.CreateCloudBlobClient();
+            IAccessPolicy writePolicy = DestinationContext.AccessPolicies.Create("writepolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
+            ILocator DestinationLocator = DestinationContext.Locators.CreateLocator(LocatorType.Sas, TargetAsset, writePolicy);
 
             // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-            Uri targetUri = new Uri(Targetlocator.Path);
-            CloudBlobContainer assetTargetContainer = TargetcloudBlobClient.GetContainerReference(targetUri.Segments[1]);
+            Uri targetUri = new Uri(DestinationLocator.Path);
+            CloudBlobContainer DestinationCloudBlobContainer = DestinationCloudBlobClient.GetContainerReference(targetUri.Segments[1]);
 
-            foreach (IAsset SourceAsset in SourceAssets) // there are several assets if user wants to do a copy with merge
+            foreach (IAsset SourceAsset in SourceAssets) // there are several assets only if user wants to do a copy with merge
             {
                 if (storagekeys.ContainsKey(SourceAsset.StorageAccountName))
                 {
                     // let's get cloudblobcontainer for source
-                    CloudStorageAccount sourcestorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
-                    var SourceCloudBlobClient = sourcestorageAccount.CreateCloudBlobClient();
+                    CloudStorageAccount SourceCloudStorageAccount = new CloudStorageAccount(new StorageCredentials(SourceAsset.StorageAccountName, storagekeys[SourceAsset.StorageAccountName]), _credentials.ReturnStorageSuffix(), true);
+                    var SourceCloudBlobClient = SourceCloudStorageAccount.CreateCloudBlobClient();
                     IAccessPolicy readpolicy = _context.AccessPolicies.Create("readpolicy", TimeSpan.FromDays(1), AccessPermissions.Read);
-                    ILocator sourcelocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
+                    ILocator SourceLocator = _context.Locators.CreateLocator(LocatorType.Sas, SourceAsset, readpolicy);
 
                     // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                    Uri sourceUri = new Uri(sourcelocator.Path);
-                    CloudBlobContainer assetSourceContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
+                    Uri sourceUri = new Uri(SourceLocator.Path);
+                    CloudBlobContainer SourceCloudBlobContainer = SourceCloudBlobClient.GetContainerReference(sourceUri.Segments[1]);
 
                     ErrorCopyAsset = false;
-                    CloudBlockBlob sourceCloudBlockBlob, targetCloudBlockBlob;
+                    CloudBlockBlob sourceCloudBlockBlob, destinationCloudBlockBlob;
                     long Length = 0;
                     long BytesCopied = 0;
                     double percentComplete = 0;
@@ -2312,7 +2388,7 @@ namespace AMSExplorer
                     {
                         Length += file.ContentFileSize;
                     }
-                    if (Length == 0) Length = 1; // as this could happen with Live arhive
+                    if (Length == 0) Length = 1; // as this could happen with Live archive and create a divide error
 
                     // do the copy
                     int nbblob = 0;
@@ -2329,26 +2405,26 @@ namespace AMSExplorer
 
                             try
                             {
-                                sourceCloudBlockBlob = assetSourceContainer.GetBlockBlobReference(file.Name);
+                                sourceCloudBlockBlob = SourceCloudBlobContainer.GetBlockBlobReference(file.Name);
                                 sourceCloudBlockBlob.FetchAttributes();
 
                                 if (sourceCloudBlockBlob.Properties.Length > 0)
                                 {
                                     if (!TargetAsset.AssetFiles.ToList().Any(f => f.Name == file.Name))  // file does not exist in the target asset
                                     {
-                                        IAssetFile targetassetFile = TargetAsset.AssetFiles.Create(file.Name);
-                                        targetCloudBlockBlob = assetTargetContainer.GetBlockBlobReference(targetassetFile.Name);
+                                        IAssetFile destinationAssetFile = TargetAsset.AssetFiles.Create(file.Name);
+                                        destinationCloudBlockBlob = DestinationCloudBlobContainer.GetBlockBlobReference(destinationAssetFile.Name);
 
-                                        targetCloudBlockBlob.DeleteIfExists();
-                                        targetCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
+                                        destinationCloudBlockBlob.DeleteIfExists();
+                                        destinationCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
 
                                         CloudBlockBlob blob;
-                                        blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
+                                        blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
 
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
-                                            blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(file.Name);
+                                            blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                             DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, index);
                                         }
@@ -2363,11 +2439,11 @@ namespace AMSExplorer
                                             break;
                                         }
 
-                                        targetCloudBlockBlob.FetchAttributes();
-                                        targetassetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
-                                        targetassetFile.Update();
+                                        destinationCloudBlockBlob.FetchAttributes();
+                                        destinationAssetFile.ContentFileSize = sourceCloudBlockBlob.Properties.Length;
+                                        destinationAssetFile.Update();
 
-                                        if (sourceCloudBlockBlob.Properties.Length != targetCloudBlockBlob.Properties.Length)
+                                        if (sourceCloudBlockBlob.Properties.Length != destinationCloudBlockBlob.Properties.Length)
                                         {
                                             TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                             DoGridTransferDeclareError(index, "Error during blob copy.");
@@ -2404,10 +2480,10 @@ namespace AMSExplorer
                         List<CloudBlobDirectory> ListDirectories = new List<CloudBlobDirectory>();
                         // do the copy
                         nbblob = 0;
-                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, TargetCredentials.AccountName), 0, index);
+                        DoGridTransferUpdateProgressText(string.Format("fragblobs", SourceAsset.Name, DestinationCredentialsEntry.AccountName), 0, index);
                         try
                         {
-                            var mediablobs = assetSourceContainer.ListBlobs();
+                            var mediablobs = SourceCloudBlobContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
                                 List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
@@ -2426,9 +2502,9 @@ namespace AMSExplorer
                                         var blockblob = (CloudBlockBlob)blob;
                                         if (blockblob.Name.EndsWith(".ismc") && !SourceAsset.AssetFiles.ToList().Any(f => f.Name == blockblob.Name)) // if there is a .ismc in the blov and not in the asset files, then we need to copy it
                                         {
-                                            CloudBlockBlob targetBlob = assetTargetContainer.GetBlockBlobReference(blockblob.Name);
+                                            CloudBlockBlob targetBlob = DestinationCloudBlobContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
-                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + sourcelocator.ContentAccessComponent), null, null));
+                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent), null, null));
                                         }
                                     }
                                 }
@@ -2438,12 +2514,12 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                                    mylistresults.AddRange(CopyBlobDirectory(dir, assetTargetContainer, sourcelocator.ContentAccessComponent));//blobToken));
-                                if (mylistresults.Count > 0)
-                                {
-                                    while (!mylistresults.All(r => r.IsCompleted))
+                                    mylistresults.AddRange(CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent));//blobToken));
+                                    if (mylistresults.Count > 0)
                                     {
-                                        Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
+                                        while (!mylistresults.All(r => r.IsCompleted))
+                                        {
+                                            Task.Delay(TimeSpan.FromSeconds(3d)).Wait();
                                             percentComplete = 100d * (ind + Convert.ToDouble(mylistresults.Where(c => c.IsCompleted).Count()) / Convert.ToDouble(mylistresults.Count)) / Convert.ToDouble(ListDirectories.Count);
                                             DoGridTransferUpdateProgressText(string.Format("fragblobs directory '{0}' ({1}/{2})", dir.Prefix, mylistresults.Where(r => r.IsCompleted).Count(), mylistresults.Count), (int)percentComplete, index);
                                         }
@@ -2463,7 +2539,7 @@ namespace AMSExplorer
                         }
                     }
 
-                    sourcelocator.Delete();
+                    SourceLocator.Delete();
                     readpolicy.Delete();
                 }
                 else
@@ -2483,15 +2559,15 @@ namespace AMSExplorer
                 SetISMFileAsPrimary(TargetAsset);
             }
 
-            Targetlocator.Delete();
+            DestinationLocator.Delete();
             writePolicy.Delete();
 
             if (!ErrorCopyAsset)
             {
                 if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
-                TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", TargetCredentials.AccountName);
+                TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", DestinationCredentialsEntry.AccountName);
                 TextBoxLogWriteLine(TargetAsset.Id);
-                DoGridTransferDeclareCompleted(index, assetTargetContainer.Uri.ToString());
+                DoGridTransferDeclareCompleted(index, DestinationCloudBlobContainer.Uri.ToString());
             }
             DoRefreshGridAssetV(false);
         }
@@ -2501,22 +2577,22 @@ namespace AMSExplorer
         {
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
 
-                var srcBlobList = srcDirectory.ListBlobs(
-                    useFlatBlobListing: true,
-                    blobListingDetails: BlobListingDetails.None).ToList();
+            var srcBlobList = srcDirectory.ListBlobs(
+                useFlatBlobListing: true,
+                blobListingDetails: BlobListingDetails.None).ToList();
 
-                foreach (var src in srcBlobList)
-                {
-                    var srcBlob = src as ICloudBlob;
+            foreach (var src in srcBlobList)
+            {
+                var srcBlob = src as ICloudBlob;
 
-                    // Create appropriate destination blob type to match the source blob
-                    ICloudBlob destBlob;
-                    if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
-                        destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
-                    else
-                        destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
+                // Create appropriate destination blob type to match the source blob
+                ICloudBlob destBlob;
+                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                else
+                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
 
-                    // copy using src blob as SAS
+                // copy using src blob as SAS
                 mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
             }
 
@@ -4534,12 +4610,14 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context)
+            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
                 WatchOn = WatchFolderIsOn,
-                WatchUseQueue = Properties.Settings.Default.useTransferQueue
+                WatchUseQueue = Properties.Settings.Default.useTransferQueue,
+                WatchPublishOutputAssets = WatchFolderPublishOutputAssets,
+                WatchSendEMail = WatchFolderSendEmailToRecipient
             };
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -4549,7 +4627,9 @@ typeof(FilterTime)
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
                 Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
-                WatchFolderJobTemplate = form.WatchRunJobTemplate ? form.WatchSelectedJobTemplate : null; // let's save the job template to the main variable
+                WatchFolderJobTemplate = form.WatchRunJobTemplate; // let's save the job template to the main variable
+                WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
+                WatchFolderSendEmailToRecipient = form.WatchSendEMail;
 
                 if (!WatchFolderIsOn) // user want to stop the watch folder (if if exists)
                 {
@@ -4567,6 +4647,35 @@ typeof(FilterTime)
                     {
                         // Create a new FileSystemWatcher and set its properties.
                         WatchFolderWatcher = new FileSystemWatcher();
+
+                        //create notifcation queue
+                        //create the cloud storage account from name and private key
+
+
+                        // TO DO: check that storage key exist
+                        CloudStorageAccount cloudStorageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, _credentials.StorageKey), _credentials.ReturnStorageSuffix(), true);
+
+
+                        //create the cloud queue client from the storage connection string
+                        CloudQueueClient cloudQueueClient = cloudStorageAccount.CreateCloudQueueClient();
+
+                        //get a cloud queue reference
+                        CloudQueue notificationsQueue = cloudQueueClient.GetQueueReference(Constants.AzureNotificationNameWatchFolder);
+
+                        //create the queue if it does not exist
+                        notificationsQueue.CreateIfNotExists();
+                        /*
+                        if (!notificationsQueue.Exists())
+                        {
+                            notificationsQueue.Create();
+                        }
+                         * */
+
+                        //create a notification endpoint and store it the glbal variable
+                        WatchFolderNotificationEndPoint =
+                            _context.NotificationEndPoints
+                                .Create("notificationendpoint", NotificationEndPointType.AzureQueue, Constants.AzureNotificationNameWatchFolder);
+
                     }
 
                     WatchFolderWatcher.Path = WatchFolderFolderPath;
@@ -4625,7 +4734,7 @@ typeof(FilterTime)
                     {
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFile(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate, null, WatchFolderPublishOutputAssets));
 
                     }
                     catch (Exception e)
@@ -4664,7 +4773,7 @@ typeof(FilterTime)
                         lastLengthChange = DateTime.Now;
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                 }
 
@@ -4911,19 +5020,7 @@ typeof(FilterTime)
                 dataGridViewChannelsV.Init(_credentials);
             }
 
-            Debug.WriteLine("DoRefreshGridLiveVNotforsttime");
-            int backupindex = 0;
-            int pagecount = 0;
-            //comboBoxPageJobs.Invoke(new Action(() => backupindex = comboBoxPageJobs.SelectedIndex));
-            dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, backupindex + 1)));
-            //comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Clear()));
-            //dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
-
-            // add pages
-            //for (int i = 1; i <= pagecount; i++) comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i)));
-            //comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
-            //uodate tab nimber of jobs
-
+            dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
             tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0})", dataGridViewChannelsV.DisplayedCount)));
         }
 
@@ -5749,120 +5846,120 @@ typeof(FilterTime)
         {
             if (channel != null)
             {
-            ChannelInformation form = new ChannelInformation()
-            {
-                MyChannel = channel,
-                MyContext = _context
-            };
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                channel.Description = form.GetChannelDescription;
-
-                channel.Input.KeyFrameInterval = form.KeyframeInterval;
-
-                // HLS Fragment per segment
-                if (form.HLSFragPerSegment != null)
+                ChannelInformation form = new ChannelInformation()
                 {
-                    if (channel.Output == null)
+                    MyChannel = channel,
+                    MyContext = _context
+                };
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    channel.Description = form.GetChannelDescription;
+
+                    channel.Input.KeyFrameInterval = form.KeyframeInterval;
+
+                    // HLS Fragment per segment
+                    if (form.HLSFragPerSegment != null)
                     {
-                        channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                        if (channel.Output == null)
+                        {
+                            channel.Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment } };
+                        }
+                        else if (channel.Output.Hls == null)
+                        {
+                            channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                        }
+                        else
+                        {
+                            channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                        }
                     }
-                    else if (channel.Output.Hls == null)
+                    else // form.HLSFragPerSegment is null
                     {
-                        channel.Output.Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragPerSegment };
+                        if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+                        {
+                            channel.Output.Hls.FragmentsPerSegment = null;
+                        }
+                    }
+
+
+                    // Input allow list
+                    if (form.GetInputIPAllowList != null)
+                    {
+                        if (channel.Input.AccessControl == null)
+                        {
+                            channel.Input.AccessControl = new ChannelAccessControl();
+                        }
+                        channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
+
                     }
                     else
                     {
-                        channel.Output.Hls.FragmentsPerSegment = form.HLSFragPerSegment;
+                        if (channel.Input.AccessControl != null)
+                        {
+                            channel.Input.AccessControl.IPAllowList = null;
+                        }
                     }
-                }
-                    else // form.HLSFragPerSegment is null
-                {
-                        if (channel.Output != null && channel.Output.Hls != null && channel.Output.Hls.FragmentsPerSegment != null)
+
+
+                    // Preview allow list
+                    if (form.GetPreviewAllowList != null)
                     {
-                        channel.Output.Hls.FragmentsPerSegment = null;
+                        if (channel.Preview.AccessControl == null)
+                        {
+                            channel.Preview.AccessControl = new ChannelAccessControl();
+                        }
+                        channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
+
                     }
-                }
-
-
-                // Input allow list
-                if (form.GetInputIPAllowList != null)
-                {
-                    if (channel.Input.AccessControl == null)
+                    else
                     {
-                        channel.Input.AccessControl = new ChannelAccessControl();
+                        if (channel.Preview.AccessControl != null)
+                        {
+                            channel.Preview.AccessControl.IPAllowList = null;
+                        }
                     }
-                    channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
 
-                }
-                else
-                {
-                    if (channel.Input.AccessControl != null)
+
+                    // Client Access Policy
+                    if (form.GetChannelClientPolicy != null)
                     {
-                        channel.Input.AccessControl.IPAllowList = null;
+                        if (channel.CrossSiteAccessPolicies == null)
+                        {
+                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
+
                     }
-                }
-
-
-                // Preview allow list
-                if (form.GetPreviewAllowList != null)
-                {
-                    if (channel.Preview.AccessControl == null)
+                    else
                     {
-                        channel.Preview.AccessControl = new ChannelAccessControl();
+                        if (channel.CrossSiteAccessPolicies != null)
+                        {
+                            channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
+                        }
                     }
-                    channel.Preview.AccessControl.IPAllowList = form.GetPreviewAllowList;
 
-                }
-                else
-                {
-                    if (channel.Preview.AccessControl != null)
+
+                    // Cross domain  Policy
+                    if (form.GetChannelCrossdomaintPolicy != null)
                     {
-                        channel.Preview.AccessControl.IPAllowList = null;
+                        if (channel.CrossSiteAccessPolicies == null)
+                        {
+                            channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        }
+                        channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomaintPolicy;
+
                     }
-                }
-
-
-                // Client Access Policy
-                if (form.GetChannelClientPolicy != null)
-                {
-                    if (channel.CrossSiteAccessPolicies == null)
+                    else
                     {
-                        channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
+                        if (channel.CrossSiteAccessPolicies != null)
+                        {
+                            channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
+                        }
                     }
-                    channel.CrossSiteAccessPolicies.ClientAccessPolicy = form.GetChannelClientPolicy;
-
+                    await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
                 }
-                else
-                {
-                    if (channel.CrossSiteAccessPolicies != null)
-                    {
-                        channel.CrossSiteAccessPolicies.ClientAccessPolicy = null;
-                    }
-                }
-
-
-                // Cross domain  Policy
-                if (form.GetChannelCrossdomaintPolicy != null)
-                {
-                    if (channel.CrossSiteAccessPolicies == null)
-                    {
-                        channel.CrossSiteAccessPolicies = new CrossSiteAccessPolicies();
-                    }
-                    channel.CrossSiteAccessPolicies.CrossDomainPolicy = form.GetChannelCrossdomaintPolicy;
-
-                }
-                else
-                {
-                    if (channel.CrossSiteAccessPolicies != null)
-                    {
-                        channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
-                    }
-                }
-                await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
             }
-        }
         }
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
@@ -6382,22 +6479,22 @@ typeof(FilterTime)
 
                 // Let's take actions now
 
-                    if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
-                    {
-                        Task.Run(async () =>
-                       {
-                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                           await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
-                       });
-                    }
-                    else // no scaling
-                    {
-                        Task.Run(async () =>
-                       {
-                           await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                       });
+                if (streamingendpoint.ScaleUnits != form.GetScaleUnits)
+                {
+                    Task.Run(async () =>
+                   {
+                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                       await ScaleStreamingEndpoint(streamingendpoint, form.GetScaleUnits);
+                   });
+                }
+                else // no scaling
+                {
+                    Task.Run(async () =>
+                   {
+                       await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                   });
 
-                    }
+                }
 
             }
         }
@@ -6689,7 +6786,7 @@ typeof(FilterTime)
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFile(file, index, false, null, form2.StorageSelected));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null, form2.StorageSelected));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
@@ -8702,10 +8799,10 @@ typeof(FilterTime)
                     {
                         if (!storagekeys.ContainsKey(newcontext.DefaultStorageAccount.Name))
                         {
-                        storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                            storagekeys.Add(newcontext.DefaultStorageAccount.Name, DestinationCredentials.StorageKey);
+                        }
                     }
                 }
-            }
             }
             usercanceled = canceled;
             return storagekeys;
@@ -10266,7 +10363,7 @@ namespace AMSExplorer
         }
 
         // Used to restore job progress. 2 cases: when app is launched or when a job has been created by an external program
-        public void RestoreJobProgress()  // when app is launched, we want to restore job progress updates
+        public void RestoreJobProgress()  // when app is launched for example, we want to restore job progress updates
         {
             Task.Run(() =>
            {

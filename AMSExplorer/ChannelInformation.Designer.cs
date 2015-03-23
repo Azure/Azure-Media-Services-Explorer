@@ -36,6 +36,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
+            this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
@@ -55,12 +57,12 @@
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.labelChannelName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
-            this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -70,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,6 +120,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(12, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -159,6 +163,26 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonAllowAllPreviewIP
+            // 
+            this.buttonAllowAllPreviewIP.Location = new System.Drawing.Point(580, 226);
+            this.buttonAllowAllPreviewIP.Name = "buttonAllowAllPreviewIP";
+            this.buttonAllowAllPreviewIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllPreviewIP.TabIndex = 57;
+            this.buttonAllowAllPreviewIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllPreviewIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllPreviewIP.Click += new System.EventHandler(this.buttonAllowAllPreviewIP_Click);
+            // 
+            // buttonAllowAllInputIP
+            // 
+            this.buttonAllowAllInputIP.Location = new System.Drawing.Point(223, 226);
+            this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
+            this.buttonAllowAllInputIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllInputIP.TabIndex = 56;
+            this.buttonAllowAllInputIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
             // 
             // numericUpDownHLSFragPerSeg
             // 
@@ -373,6 +397,27 @@
             this.textBoxClientPolicy.Size = new System.Drawing.Size(743, 189);
             this.textBoxClientPolicy.TabIndex = 63;
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.webBrowserPreview);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(752, 441);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Preview";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tabPage4.Enter += new System.EventHandler(this.tabPage4_Enter);
+            this.tabPage4.Leave += new System.EventHandler(this.tabPage4_Leave);
+            // 
+            // webBrowserPreview
+            // 
+            this.webBrowserPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowserPreview.Location = new System.Drawing.Point(0, 0);
+            this.webBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.Size = new System.Drawing.Size(752, 441);
+            this.webBrowserPreview.TabIndex = 0;
+            // 
             // labelChannelName
             // 
             this.labelChannelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -418,26 +463,6 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 58;
             // 
-            // buttonAllowAllInputIP
-            // 
-            this.buttonAllowAllInputIP.Location = new System.Drawing.Point(223, 226);
-            this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
-            this.buttonAllowAllInputIP.Size = new System.Drawing.Size(132, 23);
-            this.buttonAllowAllInputIP.TabIndex = 56;
-            this.buttonAllowAllInputIP.Text = "Allow all IP addresses";
-            this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
-            this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
-            // 
-            // buttonAllowAllPreviewIP
-            // 
-            this.buttonAllowAllPreviewIP.Location = new System.Drawing.Point(580, 226);
-            this.buttonAllowAllPreviewIP.Name = "buttonAllowAllPreviewIP";
-            this.buttonAllowAllPreviewIP.Size = new System.Drawing.Size(132, 23);
-            this.buttonAllowAllPreviewIP.TabIndex = 57;
-            this.buttonAllowAllPreviewIP.Text = "Allow all IP addresses";
-            this.buttonAllowAllPreviewIP.UseVisualStyleBackColor = true;
-            this.buttonAllowAllPreviewIP.Click += new System.EventHandler(this.buttonAllowAllPreviewIP_Click);
-            // 
             // ChannelInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -463,6 +488,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -502,5 +528,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Button buttonAllowAllInputIP;
         private System.Windows.Forms.Button buttonAllowAllPreviewIP;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.WebBrowser webBrowserPreview;
     }
 }
