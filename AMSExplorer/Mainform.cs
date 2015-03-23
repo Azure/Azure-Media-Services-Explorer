@@ -83,6 +83,7 @@ namespace AMSExplorer
         private FileSystemWatcher WatchFolderWatcher;
         private INotificationEndPoint WatchFolderNotificationEndPoint;
 
+
         private bool AMEPremiumWorkflowPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
@@ -923,7 +924,7 @@ namespace AMSExplorer
                                 {
                                     IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
                                     StringBuilder sb = new StringBuilder();
-                                    Uri SmoothUri = PlayBackLocator.GetSmoothStreamingUri();
+                                    Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                     if (SmoothUri != null)
                                     {
                                         string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset);
@@ -4609,14 +4610,12 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context)
+            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
                 WatchOn = WatchFolderIsOn,
                 WatchUseQueue = Properties.Settings.Default.useTransferQueue,
-                WatchRunJobTemplate = WatchFolderJobTemplate != null,
-                WatchSelectedJobTemplate = WatchFolderJobTemplate,
                 WatchPublishOutputAssets = WatchFolderPublishOutputAssets,
                 WatchSendEMail = WatchFolderSendEmailToRecipient
             };
@@ -4628,7 +4627,7 @@ typeof(FilterTime)
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
                 Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
-                WatchFolderJobTemplate = form.WatchRunJobTemplate ? form.WatchSelectedJobTemplate : null; // let's save the job template to the main variable
+                WatchFolderJobTemplate = form.WatchRunJobTemplate; // let's save the job template to the main variable
                 WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
                 WatchFolderSendEmailToRecipient = form.WatchSendEMail;
 

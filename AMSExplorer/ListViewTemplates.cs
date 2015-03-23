@@ -12,6 +12,7 @@ namespace AMSExplorer
     class ListViewTemplates : ListView
     {
         private CloudMediaContext _context;
+        private IJobTemplate _selectedjobtemplate;
         private System.Windows.Forms.ColumnHeader columnHeaderType;
         private System.Windows.Forms.ColumnHeader columnHeaderTemplateName;
         private System.Windows.Forms.ColumnHeader columnHeaderTemplateDate;
@@ -83,9 +84,10 @@ namespace AMSExplorer
             this.columnHeaderJobTemplatetId.Text = "Id";
         }
 
-        public void LoadTemplates(CloudMediaContext context)
+        public void LoadTemplates(CloudMediaContext context, IJobTemplate selectedjobtemplate=null)
         {
             _context = context;
+            _selectedjobtemplate = selectedjobtemplate;
             LoadTemplates();
 
         }
@@ -101,6 +103,7 @@ namespace AMSExplorer
                 item.SubItems.Add(template.NumberofInputAssets.ToString());
                 item.SubItems.Add(template.TemplateType.ToString());
                 item.SubItems.Add(template.Id);
+                if (_selectedjobtemplate != null && _selectedjobtemplate.Id == template.Id) item.Selected = true;
                 this.Items.Add(item);
             }
             this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);

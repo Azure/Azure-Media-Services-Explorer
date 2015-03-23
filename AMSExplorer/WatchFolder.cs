@@ -31,6 +31,7 @@ namespace AMSExplorer
     public partial class WatchFolder : Form
     {
         private CloudMediaContext _context;
+        private IJobTemplate _jobtemplateselected=null;
 
         public string WatchFolderPath
         {
@@ -76,26 +77,47 @@ namespace AMSExplorer
                 checkBoxDeleteFile.Checked = value;
             }
         }
-        public bool WatchRunJobTemplate
+        public IJobTemplate WatchRunJobTemplate
         {
             get
             {
-                return checkBoxRunJobTemplate.Checked;
+                return checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null;
             }
+          
         }
-        public IJobTemplate WatchSelectedJobTemplate
+       
+        public string WatchSendEMail
         {
             get
             {
-                return listViewTemplates.GetSelectedJobTemplate;
+                return checkBoxSendEMail.Checked ?  textBoxEMail.Text:null;
+            }
+             set
+            {
+                checkBoxSendEMail.Checked = value != null;
+                textBoxEMail.Text = value;
             }
         }
 
-        public WatchFolder(CloudMediaContext context)
+        public bool WatchPublishOutputAssets
+        {
+            get
+            {
+                return checkBoxPublishOAssets.Checked;
+            }
+            set
+            {
+                checkBoxPublishOAssets.Checked = value;
+            }
+        }
+
+        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _jobtemplateselected = jobtemplate;
+            checkBoxRunJobTemplate.Checked = (jobtemplate != null);
         }
 
         private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)
@@ -133,13 +155,24 @@ namespace AMSExplorer
             if (checkBoxRunJobTemplate.Checked)
             {
                 listViewTemplates.Enabled = true;
-                listViewTemplates.LoadTemplates(_context);
+                listViewTemplates.LoadTemplates(_context, _jobtemplateselected);
             }
             else
             {
                 listViewTemplates.Items.Clear();
                 listViewTemplates.Enabled = false;
             }
+        }
+
+        private void buttonTestEmail_Click(object sender, EventArgs e)
+        {
+            Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body");
+
+        }
+
+        private void checkBoxSendEMail_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxEMail.Enabled = buttonTestEmail.Enabled = checkBoxSendEMail.Checked;
         }
     }
 }
