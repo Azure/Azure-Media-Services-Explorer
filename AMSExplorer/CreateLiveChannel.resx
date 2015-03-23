@@ -129,4 +129,7 @@
   <data name="numericUpDownAudioIndexMain.ToolTip" xml:space="preserve">
     <value>The recommendation is to send in a single program transport stream (SPTS). If in case the input stream contains multiple programs, the Live Encoder parses the Program Map Table (PMT) in the input, identifies the inputs that have a stream type name of MPEG-2 AAC ADTS or AC-3 System-A or AC-3 System-B or MPEG-2 Private PES or MPEG-1 Audio or MPEG-2 Audio, and arranges them in the order specified in the PMT. The zero-based index is then used to pick up the n-th entry in that arrangement.</value>
   </data>
+  <metadata name="openFileDialogSlate.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>203, 17</value>
+  </metadata>
 </root>

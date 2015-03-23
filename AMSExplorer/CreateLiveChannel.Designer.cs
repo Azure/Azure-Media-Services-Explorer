@@ -61,20 +61,23 @@
             this.comboBoxEncodingPreset = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
+            this.panelAudioControl = new System.Windows.Forms.Panel();
+            this.buttonDelAddOption = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.dataGridViewAudioStreams = new System.Windows.Forms.DataGridView();
+            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
             this.buttonAddAudioStream = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownAudioIndexAddition = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
+            this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
             this.comboBoxAudioLanguageAddition = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.numericUpDownAudioIndexMain = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxAudioLanguageMain = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
             this.tabPageAdConfig = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.progressBarUpload = new System.Windows.Forms.ProgressBar();
+            this.buttonUploadSlate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxSlateImage = new System.Windows.Forms.TextBox();
             this.checkBoxAdInsertSlate = new System.Windows.Forms.CheckBox();
@@ -83,8 +86,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.WarningChannelName = new System.Windows.Forms.Label();
-            this.panelAudioControl = new System.Windows.Forms.Panel();
-            this.buttonDelAddOption = new System.Windows.Forms.Button();
+            this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
+            this.label14 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -93,12 +96,12 @@
             this.panelRTP.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).BeginInit();
             this.tabPageAudioOptions.SuspendLayout();
+            this.panelAudioControl.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).BeginInit();
             this.tabPageAdConfig.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.panelAudioControl.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -419,6 +422,54 @@
             this.tabPageAudioOptions.Text = "Audio Options";
             this.tabPageAudioOptions.UseVisualStyleBackColor = true;
             // 
+            // panelAudioControl
+            // 
+            this.panelAudioControl.Controls.Add(this.buttonDelAddOption);
+            this.panelAudioControl.Controls.Add(this.label9);
+            this.panelAudioControl.Controls.Add(this.checkBox1);
+            this.panelAudioControl.Controls.Add(this.dataGridViewAudioStreams);
+            this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageMain);
+            this.panelAudioControl.Controls.Add(this.buttonAddAudioStream);
+            this.panelAudioControl.Controls.Add(this.label11);
+            this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexAddition);
+            this.panelAudioControl.Controls.Add(this.label12);
+            this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexMain);
+            this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageAddition);
+            this.panelAudioControl.Controls.Add(this.label13);
+            this.panelAudioControl.Location = new System.Drawing.Point(6, 6);
+            this.panelAudioControl.Name = "panelAudioControl";
+            this.panelAudioControl.Size = new System.Drawing.Size(409, 234);
+            this.panelAudioControl.TabIndex = 84;
+            // 
+            // buttonDelAddOption
+            // 
+            this.buttonDelAddOption.Location = new System.Drawing.Point(343, 198);
+            this.buttonDelAddOption.Name = "buttonDelAddOption";
+            this.buttonDelAddOption.Size = new System.Drawing.Size(59, 23);
+            this.buttonDelAddOption.TabIndex = 84;
+            this.buttonDelAddOption.Text = "Del";
+            this.buttonDelAddOption.UseVisualStyleBackColor = true;
+            this.buttonDelAddOption.Click += new System.EventHandler(this.buttonDelAddOption_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(227, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(105, 13);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "Audio Stream Index :";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(26, 70);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(151, 17);
+            this.checkBox1.TabIndex = 77;
+            this.checkBox1.Text = "Use multiple audio streams";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // dataGridViewAudioStreams
             // 
             this.dataGridViewAudioStreams.AllowUserToAddRows = false;
@@ -433,6 +484,15 @@
             this.dataGridViewAudioStreams.TabIndex = 83;
             this.toolTip1.SetToolTip(this.dataGridViewAudioStreams, "Rule name / IP address, CIDR or subnet mask");
             // 
+            // comboBoxAudioLanguageMain
+            // 
+            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
+            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(26, 34);
+            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
+            this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(180, 21);
+            this.comboBoxAudioLanguageMain.TabIndex = 75;
+            // 
             // buttonAddAudioStream
             // 
             this.buttonAddAudioStream.Location = new System.Drawing.Point(343, 106);
@@ -442,6 +502,15 @@
             this.buttonAddAudioStream.Text = "Add";
             this.buttonAddAudioStream.UseVisualStyleBackColor = true;
             this.buttonAddAudioStream.Click += new System.EventHandler(this.buttonAddAudioStream_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(23, 18);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(61, 13);
+            this.label11.TabIndex = 76;
+            this.label11.Text = "Language :";
             // 
             // numericUpDownAudioIndexAddition
             // 
@@ -459,6 +528,14 @@
             this.label12.Size = new System.Drawing.Size(61, 13);
             this.label12.TabIndex = 81;
             this.label12.Text = "Language :";
+            // 
+            // numericUpDownAudioIndexMain
+            // 
+            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(230, 35);
+            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
+            this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(102, 20);
+            this.numericUpDownAudioIndexMain.TabIndex = 74;
+            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
             // 
             // comboBoxAudioLanguageAddition
             // 
@@ -478,51 +555,6 @@
             this.label13.TabIndex = 78;
             this.label13.Text = "Audio Stream Index :";
             // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(26, 70);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(151, 17);
-            this.checkBox1.TabIndex = 77;
-            this.checkBox1.Text = "Use multiple audio streams";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // numericUpDownAudioIndexMain
-            // 
-            this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(230, 35);
-            this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
-            this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(102, 20);
-            this.numericUpDownAudioIndexMain.TabIndex = 74;
-            this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(23, 18);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(61, 13);
-            this.label11.TabIndex = 76;
-            this.label11.Text = "Language :";
-            // 
-            // comboBoxAudioLanguageMain
-            // 
-            this.comboBoxAudioLanguageMain.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxAudioLanguageMain.FormattingEnabled = true;
-            this.comboBoxAudioLanguageMain.Location = new System.Drawing.Point(26, 34);
-            this.comboBoxAudioLanguageMain.Name = "comboBoxAudioLanguageMain";
-            this.comboBoxAudioLanguageMain.Size = new System.Drawing.Size(180, 21);
-            this.comboBoxAudioLanguageMain.TabIndex = 75;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(227, 18);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(105, 13);
-            this.label9.TabIndex = 73;
-            this.label9.Text = "Audio Stream Index :";
-            // 
             // tabPageAdConfig
             // 
             this.tabPageAdConfig.Controls.Add(this.panel2);
@@ -540,7 +572,9 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.label14);
+            this.panel2.Controls.Add(this.progressBarUpload);
+            this.panel2.Controls.Add(this.buttonUploadSlate);
             this.panel2.Controls.Add(this.label10);
             this.panel2.Controls.Add(this.textBoxSlateImage);
             this.panel2.Location = new System.Drawing.Point(3, 96);
@@ -548,23 +582,34 @@
             this.panel2.Size = new System.Drawing.Size(415, 100);
             this.panel2.TabIndex = 76;
             // 
-            // button1
+            // progressBarUpload
             // 
-            this.button1.Location = new System.Drawing.Point(337, 26);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 76;
-            this.button1.Text = "Upload";
-            this.button1.UseVisualStyleBackColor = true;
+            this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarUpload.Location = new System.Drawing.Point(115, 67);
+            this.progressBarUpload.Name = "progressBarUpload";
+            this.progressBarUpload.Size = new System.Drawing.Size(287, 23);
+            this.progressBarUpload.TabIndex = 77;
+            this.progressBarUpload.Visible = false;
+            // 
+            // buttonUploadSlate
+            // 
+            this.buttonUploadSlate.Location = new System.Drawing.Point(17, 67);
+            this.buttonUploadSlate.Name = "buttonUploadSlate";
+            this.buttonUploadSlate.Size = new System.Drawing.Size(92, 23);
+            this.buttonUploadSlate.TabIndex = 76;
+            this.buttonUploadSlate.Text = "Upload a file...";
+            this.buttonUploadSlate.UseVisualStyleBackColor = true;
+            this.buttonUploadSlate.Click += new System.EventHandler(this.buttonUploadSlate_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(14, 16);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(154, 13);
+            this.label10.Size = new System.Drawing.Size(117, 13);
             this.label10.TabIndex = 75;
-            this.label10.Text = "Default Slate Asset ID or URL :";
+            this.label10.Text = "Default Slate Asset ID :";
             // 
             // textBoxSlateImage
             // 
@@ -572,7 +617,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSlateImage.Location = new System.Drawing.Point(17, 29);
             this.textBoxSlateImage.Name = "textBoxSlateImage";
-            this.textBoxSlateImage.Size = new System.Drawing.Size(314, 20);
+            this.textBoxSlateImage.Size = new System.Drawing.Size(385, 20);
             this.textBoxSlateImage.TabIndex = 74;
             // 
             // checkBoxAdInsertSlate
@@ -623,34 +668,18 @@
             this.WarningChannelName.TabIndex = 61;
             this.WarningChannelName.Text = "Warning";
             // 
-            // panelAudioControl
+            // openFileDialogSlate
             // 
-            this.panelAudioControl.Controls.Add(this.buttonDelAddOption);
-            this.panelAudioControl.Controls.Add(this.label9);
-            this.panelAudioControl.Controls.Add(this.checkBox1);
-            this.panelAudioControl.Controls.Add(this.dataGridViewAudioStreams);
-            this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageMain);
-            this.panelAudioControl.Controls.Add(this.buttonAddAudioStream);
-            this.panelAudioControl.Controls.Add(this.label11);
-            this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexAddition);
-            this.panelAudioControl.Controls.Add(this.label12);
-            this.panelAudioControl.Controls.Add(this.numericUpDownAudioIndexMain);
-            this.panelAudioControl.Controls.Add(this.comboBoxAudioLanguageAddition);
-            this.panelAudioControl.Controls.Add(this.label13);
-            this.panelAudioControl.Location = new System.Drawing.Point(6, 6);
-            this.panelAudioControl.Name = "panelAudioControl";
-            this.panelAudioControl.Size = new System.Drawing.Size(409, 234);
-            this.panelAudioControl.TabIndex = 84;
+            this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
-            // buttonDelAddOption
+            // label14
             // 
-            this.buttonDelAddOption.Location = new System.Drawing.Point(343, 198);
-            this.buttonDelAddOption.Name = "buttonDelAddOption";
-            this.buttonDelAddOption.Size = new System.Drawing.Size(59, 23);
-            this.buttonDelAddOption.TabIndex = 84;
-            this.buttonDelAddOption.Text = "Del";
-            this.buttonDelAddOption.UseVisualStyleBackColor = true;
-            this.buttonDelAddOption.Click += new System.EventHandler(this.buttonDelAddOption_Click);
+            this.label14.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label14.Location = new System.Drawing.Point(153, 13);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(249, 13);
+            this.label14.TabIndex = 69;
+            this.label14.Text = "nb:cid:UUID:96687412-6d...";
             // 
             // CreateLiveChannel
             // 
@@ -680,6 +709,8 @@
             this.panelRTP.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownVideoStreamIndex)).EndInit();
             this.tabPageAudioOptions.ResumeLayout(false);
+            this.panelAudioControl.ResumeLayout(false);
+            this.panelAudioControl.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAudioStreams)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexAddition)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAudioIndexMain)).EndInit();
@@ -687,8 +718,6 @@
             this.tabPageAdConfig.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.panelAudioControl.ResumeLayout(false);
-            this.panelAudioControl.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -746,10 +775,13 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox comboBoxAudioLanguageMain;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonUploadSlate;
         private System.Windows.Forms.DataGridView dataGridViewAudioStreams;
         private System.Windows.Forms.Label WarningChannelName;
         private System.Windows.Forms.Panel panelAudioControl;
         private System.Windows.Forms.Button buttonDelAddOption;
+        private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
+        private System.Windows.Forms.ProgressBar progressBarUpload;
+        private System.Windows.Forms.Label label14;
     }
 }

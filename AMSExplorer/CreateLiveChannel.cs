@@ -29,13 +29,14 @@ using System.Net;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
-
+using System.IO;
 
 
 namespace AMSExplorer
 {
     public partial class CreateLiveChannel : Form
     {
+        CloudMediaContext _context;
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
@@ -195,10 +196,11 @@ namespace AMSExplorer
             set { checkBoxStartChannel.Checked = value; }
         }
 
-        public CreateLiveChannel()
+        public CreateLiveChannel(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _context = context;
         }
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
@@ -206,7 +208,7 @@ namespace AMSExplorer
             WarningChannelName.Text = string.Empty;
 
             FillComboProtocols(false);
-           
+
             comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // license type
             comboBoxEncodingType.SelectedItem = Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None);
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
@@ -391,6 +393,56 @@ namespace AMSExplorer
             {
                 audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
             }
+        }
+
+        private async void buttonUploadSlate_Click(object sender, EventArgs e)
+        {
+
+            if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
+            {
+                IAsset asset;
+                progressBarUpload.Value = 0;
+                progressBarUpload.Visible = true;
+                buttonCancel.Enabled = false;
+                buttonUploadSlate.Enabled = false;
+                string file = openFileDialogSlate.FileName;
+                asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                progressBarUpload.Visible = false;
+                buttonCancel.Enabled = true;
+                buttonUploadSlate.Enabled = true;
+                if (asset != null)
+                {
+                    textBoxSlateImage.Text = asset.Id;
+                }
+
+            }
+        }
+
+        private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        {
+
+            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
+
+            IAsset asset = null;
+            try
+            {
+                asset = _context.Assets.CreateFromFile(
+                                                      FileName as string,
+                                                      storageaccount,
+                                                      AssetCreationOptions.None,
+                                                      (af, p) =>
+                                                      {
+                                                          progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
+                                                      }
+                                                      );
+            }
+            catch (Exception e)
+            {
+                asset = null;
+
+            }
+            return asset;
+
         }
 
     }

@@ -5771,7 +5771,7 @@ typeof(FilterTime)
 
         private async void DoCreateChannel()
         {
-            CreateLiveChannel form = new CreateLiveChannel()
+            CreateLiveChannel form = new CreateLiveChannel(_context)
             {
                 KeyframeInterval = Properties.Settings.Default.LiveKeyFrameInterval,
                 HLSFragmentPerSegment = Properties.Settings.Default.LiveHLSFragmentsPerSegment,
