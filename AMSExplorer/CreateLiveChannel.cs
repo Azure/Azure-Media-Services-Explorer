@@ -397,7 +397,6 @@ namespace AMSExplorer
 
         private async void buttonUploadSlate_Click(object sender, EventArgs e)
         {
-
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
                 IAsset asset;
@@ -414,13 +413,11 @@ namespace AMSExplorer
                 {
                     textBoxSlateImage.Text = asset.Id;
                 }
-
             }
         }
 
         private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
         {
-
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             IAsset asset = null;
@@ -439,11 +436,13 @@ namespace AMSExplorer
             catch (Exception e)
             {
                 asset = null;
-
             }
             return asset;
-
         }
 
+        private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)
+        {
+            panelInsertSlate.Enabled = checkBoxAdInsertSlate.Checked;
+        }
     }
 }
