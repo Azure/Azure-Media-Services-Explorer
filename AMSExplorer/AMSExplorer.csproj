@@ -92,10 +92,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\windowsazure.mediaservices.3.1.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer">
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer, Version=3.1.0.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\windowsazure.mediaservices.3.1.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption">
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption, Version=3.1.0.5, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\windowsazure.mediaservices.3.1.0.5\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
