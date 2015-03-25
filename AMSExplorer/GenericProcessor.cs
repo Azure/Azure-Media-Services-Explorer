@@ -46,6 +46,8 @@ namespace AMSExplorer
 
         private int numberoftasks = 1;
 
+        private new List<List<GenericTaskAsset>> listofinputassets;  // for each task
+
         public string EncodingJobName
         {
             get
@@ -138,6 +140,33 @@ namespace AMSExplorer
             }
         }
 
+        public List<GenericTask> GetGenericTasks
+        {
+            get
+            {
+                List<GenericTask> listtasks = new List<GenericTask>();
+                for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+                {
+
+                    ComboBox mycomboboxassetinput = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+                    ListView mylistviewprocessor = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
+                    TextBox textBoxConfiguration = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+
+                    GenericTask mytask = new GenericTask()
+                    {
+                        Processor = Procs[mylistviewprocessor.SelectedIndices[0]],
+                        ProcessorConfiguration = textBoxConfiguration.Text,
+                        InputAsset = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAsset,
+                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType
+                    };
+                    listtasks.Add(mytask);
+
+                }
+                return listtasks;
+
+            }
+        }
+
         public int EncodingPriority
         {
             get
@@ -155,25 +184,21 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonMultipleTasksMultipleJobs.Checked) return TaskJobCreationMode.MultipleTasks_MultipleJobs;
-                else if (radioButtonMultipleTasksSingleJob.Checked) return TaskJobCreationMode.MultipleTasks_SingleJob;
-                else return TaskJobCreationMode.SingleTask_SingleJob;
+                if (radioButtonOneJobPerInputAsset.Checked) return TaskJobCreationMode.OneJobPerInputAsset;
+                else return TaskJobCreationMode.SingleJobForAllInputAssets;
 
             }
             set
             {
                 switch (value)
                 {
-                    case TaskJobCreationMode.MultipleTasks_MultipleJobs:
-                        radioButtonMultipleTasksMultipleJobs.Checked = true;
+                    case TaskJobCreationMode.OneJobPerInputAsset:
+                        radioButtonOneJobPerInputAsset.Checked = true;
                         break;
 
-                    case TaskJobCreationMode.MultipleTasks_SingleJob:
-                        radioButtonMultipleTasksSingleJob.Checked = true;
-                        break;
 
-                    case TaskJobCreationMode.SingleTask_SingleJob:
-                        radioButtonSingleTaskSingleJob.Checked = true;
+                    case TaskJobCreationMode.SingleJobForAllInputAssets:
+                        radioButtonSingleJobForAllInputAssets.Checked = true;
                         break;
                 }
 
@@ -193,7 +218,7 @@ namespace AMSExplorer
             if (_myJob != null) // we are in resubmit mode
             {
                 textBoxConfiguration1.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
-                radioButtonSingleTaskSingleJob.Checked = true;
+                radioButtonSingleJobForAllInputAssets.Checked = true;
                 panelJobMode.Enabled = false;
             }
 
@@ -239,18 +264,19 @@ namespace AMSExplorer
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             UpdateJobSummary();
+            UpdateInputAssetsInTasks();
         }
 
         private void UpdateJobSummary()
         {
 
             labelsummaryjob.Text = "You are going to submit "
-                + (radioButtonSingleTaskSingleJob.Checked ? "1 task" : listViewInputAssets.Items.Count.ToString() + " tasks")
+                + (radioButtonSingleJobForAllInputAssets.Checked ? "1 task" : listViewInputAssets.Items.Count.ToString() + " tasks")
             + " in "
-            + (radioButtonMultipleTasksMultipleJobs.Checked ? listViewInputAssets.Items.Count.ToString() + " jobs" : "1 job")
+            + (radioButtonOneJobPerInputAsset.Checked ? listViewInputAssets.Items.Count.ToString() + " jobs" : "1 job")
             ;
 
-            pictureBoxJob.Image = radioButtonSingleTaskSingleJob.Checked ? bitmap_singletasksinglejob : radioButtonMultipleTasksMultipleJobs.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
+            pictureBoxJob.Image = radioButtonSingleJobForAllInputAssets.Checked ? bitmap_singletasksinglejob : radioButtonOneJobPerInputAsset.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -288,7 +314,57 @@ namespace AMSExplorer
             tabcontrolgeneric.TabPages.Remove(tabPageTask4);
             tabcontrolgeneric.TabPages.Remove(tabPageTask5);
 
+            UpdateInputAssetsInTasks();
 
+
+        }
+
+        private void UpdateInputAssetsInTasks()
+        {
+            listofinputassets = new List<List<GenericTaskAsset>>();
+
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+                List<GenericTaskAsset> listinputpertask = new List<GenericTaskAsset>();
+                ComboBox mycombobox = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+
+                mycombobox.Items.Clear();
+
+                // multiple input assets and one job only
+                if (SelectedAssets.Count > 1 && radioButtonSingleJobForAllInputAssets.Checked)
+                {
+                    //Item itemasset = new Item("All input assets", "allinput:");
+                    mycombobox.Items.Add("All input assets");
+                    listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
+
+                    foreach (IAsset asset in SelectedAssets)
+                    {
+                        //Item item = new Item("Input asset: " + asset.Name, "input:" + asset.Name);
+                        mycombobox.Items.Add("Input asset: " + asset.Name);
+                        listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.SpecificAssetID, InputAsset = asset.Id });
+                        //index_inputasset++;
+                    }
+                }
+                else // single input asset
+                {
+                    mycombobox.Items.Add("Input asset");
+                    listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
+
+                }
+
+                //let's propose the output asset of other tasks
+                for (int index2_task = 1; index2_task <= numericUpDownTasks.Value; index2_task++)
+                {
+                    if (index_task != index2_task) // because a task cannot a have it's own output asset as input
+                    {
+                        Item item = new Item("Output asset of task #" + index2_task.ToString(), "outputoftask:" + index2_task.ToString());
+                        mycombobox.Items.Add(item);
+                        listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.TaskOutputAsset, InputAsset = index2_task.ToString() });
+                    }
+                }
+                listofinputassets.Add(listinputpertask);
+                mycombobox.SelectedIndex = 0;
+            }
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -297,7 +373,7 @@ namespace AMSExplorer
             {
                 for (int i = numberoftasks + 1; i <= numericUpDownTasks.Value; i++)
                 {
-                    TabPage mytabpage=null;
+                    TabPage mytabpage = null;
                     switch (i)
                     {
                         case 2:
@@ -317,14 +393,14 @@ namespace AMSExplorer
 
                     }
                     if (mytabpage != null) tabcontrolgeneric.TabPages.Add(mytabpage);
-                 }
+                }
             }
             else // decrease
             {
-                for (int i = numberoftasks - 1; i >= numericUpDownTasks.Value; i--)
+                for (int i = numberoftasks; i > numericUpDownTasks.Value; i--)
                 {
                     TabPage mytabpage = null;
-              
+
                     switch (i)
                     {
                         case 2:
@@ -347,6 +423,7 @@ namespace AMSExplorer
                 }
             }
             numberoftasks = (int)numericUpDownTasks.Value;
+            UpdateInputAssetsInTasks();
         }
 
     }

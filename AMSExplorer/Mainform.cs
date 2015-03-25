@@ -3644,32 +3644,68 @@ typeof(FilterTime)
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 SelectedAssets = SelectedAssets,
-                EncodingCreationMode = TaskJobCreationMode.MultipleTasks_MultipleJobs,
+                EncodingCreationMode = TaskJobCreationMode.OneJobPerInputAsset,
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 // Read and update the configuration XML.
                 //
-                if (form.EncodingCreationMode == TaskJobCreationMode.MultipleTasks_MultipleJobs) // One task per input asset, each task in one job
+
+                var gentasks = form.GetGenericTasks;
+
+
+                if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset) // a job for each input asset
                 {
                     foreach (IAsset asset in SelectedAssets)
                     {
-                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-
+                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
                         IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+                        foreach (var usertask in gentasks)
+                        // let's create all tasks and output assets
+                        {
+                        
+                            string assetname=string.Empty;
+                            switch (usertask.InputAssetType)
+                            {
+                                case TypeInputAssetGeneric.InputJobAssets:
+                                    assetname = asset.Name;
+                                    break;
+                                case TypeInputAssetGeneric.SpecificAssetID:
+                                    assetname = AssetInfo.GetAsset(usertask.InputAsset, _context).Name;
+                                    break;
+                                case TypeInputAssetGeneric.TaskOutputAsset:
+                                    assetname = "output of task#" + usertask.InputAsset;
+                                       break;
+                            }
+                            string tasknameloc = taskname.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
+                            ITask task = job.Tasks.AddNew(
+                                  tasknameloc,
+                                 usertask.Processor,
+                                 usertask.ProcessorConfiguration,
+                                 Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
 
-                        ITask task = job.Tasks.AddNew(
-                                    tasknameloc,
-                                   form.EncodingProcessorSelected,
-                                   form.EncodingConfiguration,
-                                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-                        // Specify the graph asset to be encoded, followed by the input video asset to be used
-                        task.InputAssets.AddRange(SelectedAssets);
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
+                            task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        }
+                        // let(s branch the input assets
+                        foreach (var usertask in gentasks)
+                        {
+                            switch (usertask.InputAssetType)
+                            {
+                                case TypeInputAssetGeneric.InputJobAssets:
+                                    job.Tasks[gentasks.IndexOf(usertask)].InputAssets.Add(asset);
+                                    break;
+                                case TypeInputAssetGeneric.SpecificAssetID:
+                                    job.Tasks[gentasks.IndexOf(usertask)].InputAssets.Add(AssetInfo.GetAsset(usertask.InputAsset, _context));
+                                    break;
+                                case TypeInputAssetGeneric.TaskOutputAsset:
+                                    var oasset = job.Tasks[Convert.ToInt16(usertask.InputAsset)].OutputAssets;
+                                    job.Tasks[gentasks.IndexOf(usertask)].InputAssets.AddRange(oasset);
+                                    break;
+                            }
+                        }
 
                         TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                         // Submit the job and wait until it is completed. 
@@ -3687,24 +3723,55 @@ typeof(FilterTime)
                         dataGridViewJobsV.DoJobProgress(job);
                     }
                 }
-                else if (form.EncodingCreationMode == TaskJobCreationMode.MultipleTasks_SingleJob)  /////////////   Several tasks but all in one job
+                else if (form.EncodingCreationMode == TaskJobCreationMode.SingleJobForAllInputAssets) // Create one job for all inp
                 {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
+
                     IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
-                    foreach (IAsset asset in SelectedAssets)
+                    foreach (var usertask in gentasks)
+                    // let's create all tasks and output assets
                     {
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+                        string assetname = string.Empty;
+                        switch (usertask.InputAssetType)
+                        {
+                            case TypeInputAssetGeneric.InputJobAssets:
+                                assetname = "multiple assets";
+                                break;
+                            case TypeInputAssetGeneric.SpecificAssetID:
+                                assetname = AssetInfo.GetAsset(usertask.InputAsset, _context).Name;
+                                break;
+                            case TypeInputAssetGeneric.TaskOutputAsset:
+                                assetname = "output of task#" + usertask.InputAsset;
+                                break;
+                        }
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
 
                         ITask task = job.Tasks.AddNew(
-                                    tasknameloc,
-                                   form.EncodingProcessorSelected,
-                                   form.EncodingConfiguration,
-                                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-                        // Specify the graph asset to be encoded, followed by the input video asset to be used
-                        task.InputAssets.Add(asset);
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+                            tasknameloc,
+                           usertask.Processor,
+                           usertask.ProcessorConfiguration,
+                           Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
                         task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    }
+                    // let(s branch the input assets
+                    foreach (var usertask in gentasks)
+                    {
+                        switch (usertask.InputAssetType)
+                        {
+                            case TypeInputAssetGeneric.InputJobAssets:
+                                job.Tasks[gentasks.IndexOf(usertask)].InputAssets.AddRange(SelectedAssets);
+                                break;
+                            case TypeInputAssetGeneric.SpecificAssetID:
+                                job.Tasks[gentasks.IndexOf(usertask)].InputAssets.Add(AssetInfo.GetAsset(usertask.InputAsset, _context));
+                                break;
+                            case TypeInputAssetGeneric.TaskOutputAsset:
+                                var oasset = job.Tasks[Convert.ToInt16(usertask.InputAsset)].OutputAssets;
+                                job.Tasks[gentasks.IndexOf(usertask)].InputAssets.AddRange(oasset);
+                                break;
+                        }
                     }
 
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
@@ -3716,44 +3783,12 @@ typeof(FilterTime)
                     catch (Exception e)
                     {
                         // Add useful information to the exception
-                        MessageBox.Show("There has been a problem when submitting the job " + jobnameloc);
                         TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                         TextBoxLogWriteLine(e);
                         return;
                     }
                     dataGridViewJobsV.DoJobProgress(job);
-                }
-                else if (form.EncodingCreationMode == TaskJobCreationMode.SingleTask_SingleJob) // Create one single task in one job
-                {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-                    IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
 
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-
-                    ITask task = job.Tasks.AddNew(
-                                tasknameloc,
-                               form.EncodingProcessorSelected,
-                               form.EncodingConfiguration,
-                               Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
-                    // Specify the graph asset to be encoded, followed by the input video asset to be used
-                    task.InputAssets.AddRange(SelectedAssets);
-                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                    task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
-
-                    TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
-                    // Submit the job and wait until it is completed. 
-                    try
-                    {
-                        job.Submit();
-                    }
-                    catch (Exception e)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", jobnameloc, true);
-                        TextBoxLogWriteLine(e);
-                        return;
-                    }
-                    dataGridViewJobsV.DoJobProgress(job);
                 }
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);
@@ -8193,7 +8228,7 @@ typeof(FilterTime)
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()), // Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
                 EncodingPriority = myJob.Priority,
                 SelectedAssets = myJob.InputMediaAssets.ToList(),
-                EncodingCreationMode = TaskJobCreationMode.SingleTask_SingleJob,
+                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets,
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)

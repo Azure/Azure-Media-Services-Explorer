@@ -1587,9 +1587,9 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, 
-            IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None, 
-            AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto, 
+        public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context,
+            IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None,
+            AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true)
         {
             string FullPlayBackLink = null;
@@ -1722,7 +1722,7 @@ namespace AMSExplorer
                         }
 
 
-                        if ( technology != AzureMediaPlayerTechnologies.Auto)
+                        if (technology != AzureMediaPlayerTechnologies.Auto)
                         {
                             switch (technology)
                             {
@@ -1946,17 +1946,16 @@ namespace AMSExplorer
 
     public enum TaskJobCreationMode
     {
-        MultipleTasks_MultipleJobs = 0,
-        MultipleTasks_SingleJob = 1,
-        SingleTask_SingleJob = 2,
+        OneJobPerInputAsset = 0,
+        SingleJobForAllInputAssets
     }
 
     public enum PublishStatus
     {
         NotPublished = 0,
-        PublishedActive = 1,
-        PublishedFuture = 2,
-        PublishedExpired = 3,
+        PublishedActive,
+        PublishedFuture,
+        PublishedExpired
     }
 
     public enum AzureMediaPlayerFormats
@@ -2005,6 +2004,26 @@ namespace AMSExplorer
         }
     }
 
+    public class GenericTask
+    {
+        public IMediaProcessor Processor;
+        public string ProcessorConfiguration;
+        public TypeInputAssetGeneric InputAssetType;
+        public string InputAsset;
+    }
+
+    public class GenericTaskAsset
+    {
+        public TypeInputAssetGeneric InputAssetType;
+        public string InputAsset;
+    }
+
+    public enum TypeInputAssetGeneric
+    {
+        InputJobAssets = 0,
+        SpecificAssetID,
+        TaskOutputAsset
+    }
 
 
 
