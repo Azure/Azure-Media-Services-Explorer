@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Reflection;
 
 namespace AMSExplorer
 {
@@ -42,6 +43,8 @@ namespace AMSExplorer
         private List<IMediaProcessor> Procs;
         private CloudMediaContext _context;
         private IJob _myJob;
+
+        private int numberoftasks = 1;
 
         public string EncodingJobName
         {
@@ -67,17 +70,25 @@ namespace AMSExplorer
         {
             set
             {
-                listViewProcessors.BeginUpdate();
-                foreach (IMediaProcessor proc in value)
+                for (int i = 1; i < 6; i++)
                 {
-                    ListViewItem item = new ListViewItem(proc.Vendor, 0);
-                    item.SubItems.Add(proc.Name);
-                    item.SubItems.Add(proc.Version);
-                    item.SubItems.Add(proc.Description);
-                    listViewProcessors.Items.Add(item);
+                    ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + i.ToString(), true).FirstOrDefault();
+                    mylistview.BeginUpdate();
 
+                    foreach (IMediaProcessor proc in value)
+                    {
+                        ListViewItem item = new ListViewItem(proc.Vendor, 0);
+                        item.SubItems.Add(proc.Name);
+                        item.SubItems.Add(proc.Version);
+                        item.SubItems.Add(proc.Description);
+                        mylistview.Items.Add(item);
+
+                    }
+
+                    mylistview.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    mylistview.EndUpdate();
                 }
-                listViewProcessors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
                 Procs = value;
 
                 if (_myJob != null) // we are in resubmit mode
@@ -88,12 +99,13 @@ namespace AMSExplorer
                         int indexmp = Procs.IndexOf(mp);
                         if (indexmp > -1) // processor found
                         {
-                            listViewProcessors.Items[indexmp].Selected = true;
-                            listViewProcessors.Select();
+                            listViewProcessors1.Items[indexmp].Selected = true;
+                            listViewProcessors1.Select();
+
                         }
                     }
                 }
-                listViewProcessors.EndUpdate();
+
             }
         }
 
@@ -101,7 +113,7 @@ namespace AMSExplorer
         {
             get
             {
-                return Procs[listViewProcessors.SelectedIndices[0]];
+                return Procs[listViewProcessors1.SelectedIndices[0]];
             }
         }
 
@@ -122,7 +134,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxConfiguration.Text;
+                return textBoxConfiguration1.Text;
             }
         }
 
@@ -180,21 +192,24 @@ namespace AMSExplorer
 
             if (_myJob != null) // we are in resubmit mode
             {
-                textBoxConfiguration.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
+                textBoxConfiguration1.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
                 radioButtonSingleTaskSingleJob.Checked = true;
                 panelJobMode.Enabled = false;
             }
-           
+
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonload_Click(object sender, EventArgs e)
         {
             if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.ToString();
+                    Button button = (Button)sender;
+                    string index = button.Name.Substring(button.Name.Length - 1, 1);
+                    TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index, true).FirstOrDefault();
+                    mytextboxconfig.Text = doc.ToString();
                 }
                 catch (Exception ex)
                 {
@@ -218,7 +233,7 @@ namespace AMSExplorer
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonOk.Enabled = (listViewProcessors.SelectedItems.Count > 0);
+            buttonOk.Enabled = (listViewProcessors1.SelectedItems.Count > 0);
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -250,7 +265,7 @@ namespace AMSExplorer
 
         private void UpdateWarning()
         {
-            labelWarning.Text = (string.IsNullOrEmpty(textBoxConfiguration.Text)) ? "Note: the processor configuration string/XML is empty" : "";
+            labelWarning.Text = (string.IsNullOrEmpty(textBoxConfiguration1.Text)) ? "Note: the processor configuration string/XML is empty" : "";
         }
 
         private void GenericProcessor_Shown(object sender, EventArgs e)
@@ -268,6 +283,70 @@ namespace AMSExplorer
             listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewInputAssets.EndUpdate();
 
+            tabcontrolgeneric.TabPages.Remove(tabPageTask2);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask3);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask4);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask5);
+
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownTasks.Value > numberoftasks) // increase
+            {
+                for (int i = numberoftasks + 1; i <= numericUpDownTasks.Value; i++)
+                {
+                    TabPage mytabpage=null;
+                    switch (i)
+                    {
+                        case 2:
+                            mytabpage = tabPageTask2;
+                            break;
+                        case 3:
+                            mytabpage = tabPageTask3;
+                            break;
+                        case 4:
+                            mytabpage = tabPageTask4;
+                            break;
+                        case 5:
+                            mytabpage = tabPageTask5;
+                            break;
+                        default:
+                            break;
+
+                    }
+                    if (mytabpage != null) tabcontrolgeneric.TabPages.Add(mytabpage);
+                 }
+            }
+            else // decrease
+            {
+                for (int i = numberoftasks - 1; i >= numericUpDownTasks.Value; i--)
+                {
+                    TabPage mytabpage = null;
+              
+                    switch (i)
+                    {
+                        case 2:
+                            mytabpage = tabPageTask2;
+                            break;
+                        case 3:
+                            mytabpage = tabPageTask3;
+                            break;
+                        case 4:
+                            mytabpage = tabPageTask4;
+                            break;
+                        case 5:
+                            mytabpage = tabPageTask5;
+                            break;
+                        default:
+                            break;
+
+                    }
+                    if (mytabpage != null) tabcontrolgeneric.TabPages.Remove(mytabpage);
+                }
+            }
+            numberoftasks = (int)numericUpDownTasks.Value;
         }
 
     }
