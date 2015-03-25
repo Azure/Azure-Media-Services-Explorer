@@ -258,7 +258,14 @@ namespace AMSExplorer
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonOk.Enabled = (listViewProcessors1.SelectedItems.Count > 0);
+            bool allprocessorsselected = true;
+
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+                ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
+                if (mylistview.SelectedItems.Count == 0) allprocessorsselected = false;
+            }
+            buttonOk.Enabled = allprocessorsselected;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -269,12 +276,14 @@ namespace AMSExplorer
 
         private void UpdateJobSummary()
         {
+            int nbjobs = (radioButtonOneJobPerInputAsset.Checked ? SelectedAssets.Count : 1);
 
-            labelsummaryjob.Text = "You are going to submit "
-                + (radioButtonSingleJobForAllInputAssets.Checked ? "1 task" : listViewInputAssets.Items.Count.ToString() + " tasks")
-            + " in "
-            + (radioButtonOneJobPerInputAsset.Checked ? listViewInputAssets.Items.Count.ToString() + " jobs" : "1 job")
-            ;
+            labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}",
+                nbjobs,
+                nbjobs > 1 ? "s" : "",
+                numberoftasks,
+                 numberoftasks > 1 ? "s" : ""
+                 );
 
             pictureBoxJob.Image = radioButtonSingleJobForAllInputAssets.Checked ? bitmap_singletasksinglejob : radioButtonOneJobPerInputAsset.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
         }
@@ -291,7 +300,28 @@ namespace AMSExplorer
 
         private void UpdateWarning()
         {
-            labelWarning.Text = (string.IsNullOrEmpty(textBoxConfiguration1.Text)) ? "Note: the processor configuration string/XML is empty" : "";
+            int nbtaskwithemptyconfig = 0;
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+
+                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+                if (string.IsNullOrEmpty(mytextboxconfig.Text)) nbtaskwithemptyconfig++;
+
+            }
+            if (nbtaskwithemptyconfig > 1)
+            {
+                labelWarning.Text = "Note: several processors configuration string/XML are empty";
+            }
+            else if (nbtaskwithemptyconfig > 0)
+            {
+                labelWarning.Text = "Note: one processor configuration string/XML is empty";
+            }
+            else
+            {
+                labelWarning.Text = string.Empty;
+            }
+
+
         }
 
         private void GenericProcessor_Shown(object sender, EventArgs e)
@@ -424,6 +454,8 @@ namespace AMSExplorer
             }
             numberoftasks = (int)numericUpDownTasks.Value;
             UpdateInputAssetsInTasks();
+            UpdateJobSummary();
+            UpdateWarning();
         }
 
     }

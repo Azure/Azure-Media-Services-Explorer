@@ -180,7 +180,7 @@
             // 
             // processorlabel
             // 
-            this.processorlabel.Location = new System.Drawing.Point(10, 77);
+            this.processorlabel.Location = new System.Drawing.Point(10, 65);
             this.processorlabel.Name = "processorlabel";
             this.processorlabel.Size = new System.Drawing.Size(162, 13);
             this.processorlabel.TabIndex = 31;
@@ -206,7 +206,7 @@
             // 
             this.radioButtonSingleJobForAllInputAssets.AutoSize = true;
             this.radioButtonSingleJobForAllInputAssets.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonSingleJobForAllInputAssets.Location = new System.Drawing.Point(11, 47);
+            this.radioButtonSingleJobForAllInputAssets.Location = new System.Drawing.Point(27, 57);
             this.radioButtonSingleJobForAllInputAssets.Name = "radioButtonSingleJobForAllInputAssets";
             this.radioButtonSingleJobForAllInputAssets.Size = new System.Drawing.Size(331, 56);
             this.radioButtonSingleJobForAllInputAssets.TabIndex = 36;
@@ -221,7 +221,7 @@
             this.radioButtonOneJobPerInputAsset.AutoSize = true;
             this.radioButtonOneJobPerInputAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
             this.radioButtonOneJobPerInputAsset.Checked = true;
-            this.radioButtonOneJobPerInputAsset.Location = new System.Drawing.Point(12, 12);
+            this.radioButtonOneJobPerInputAsset.Location = new System.Drawing.Point(27, 21);
             this.radioButtonOneJobPerInputAsset.Name = "radioButtonOneJobPerInputAsset";
             this.radioButtonOneJobPerInputAsset.Size = new System.Drawing.Size(134, 17);
             this.radioButtonOneJobPerInputAsset.TabIndex = 35;
@@ -241,10 +241,10 @@
             this.ListViewDesc});
             this.listViewProcessors1.FullRowSelect = true;
             this.listViewProcessors1.HideSelection = false;
-            this.listViewProcessors1.Location = new System.Drawing.Point(13, 93);
+            this.listViewProcessors1.Location = new System.Drawing.Point(13, 81);
             this.listViewProcessors1.MultiSelect = false;
             this.listViewProcessors1.Name = "listViewProcessors1";
-            this.listViewProcessors1.Size = new System.Drawing.Size(711, 100);
+            this.listViewProcessors1.Size = new System.Drawing.Size(711, 151);
             this.listViewProcessors1.TabIndex = 38;
             this.listViewProcessors1.UseCompatibleStateImageBehavior = false;
             this.listViewProcessors1.View = System.Windows.Forms.View.Details;
@@ -279,7 +279,7 @@
             this.tabcontrolgeneric.Controls.Add(this.tabPageTask3);
             this.tabcontrolgeneric.Controls.Add(this.tabPageTask4);
             this.tabcontrolgeneric.Controls.Add(this.tabPageTask5);
-            this.tabcontrolgeneric.Location = new System.Drawing.Point(21, 24);
+            this.tabcontrolgeneric.Location = new System.Drawing.Point(21, 21);
             this.tabcontrolgeneric.Margin = new System.Windows.Forms.Padding(2);
             this.tabcontrolgeneric.Name = "tabcontrolgeneric";
             this.tabcontrolgeneric.SelectedIndex = 0;
@@ -494,7 +494,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(10, 248);
+            this.label2.Location = new System.Drawing.Point(10, 270);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(123, 13);
             this.label2.TabIndex = 38;
@@ -502,7 +502,7 @@
             // 
             // buttonLoadXML1
             // 
-            this.buttonLoadXML1.Location = new System.Drawing.Point(13, 210);
+            this.buttonLoadXML1.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML1.Name = "buttonLoadXML1";
             this.buttonLoadXML1.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML1.TabIndex = 25;
@@ -516,11 +516,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration1.Location = new System.Drawing.Point(13, 264);
+            this.textBoxConfiguration1.Location = new System.Drawing.Point(13, 286);
             this.textBoxConfiguration1.Multiline = true;
             this.textBoxConfiguration1.Name = "textBoxConfiguration1";
             this.textBoxConfiguration1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration1.Size = new System.Drawing.Size(711, 175);
+            this.textBoxConfiguration1.Size = new System.Drawing.Size(711, 153);
             this.textBoxConfiguration1.TabIndex = 27;
             this.textBoxConfiguration1.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -544,14 +544,14 @@
             // 
             this.comboBoxAssetInput2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAssetInput2.FormattingEnabled = true;
-            this.comboBoxAssetInput2.Location = new System.Drawing.Point(14, 38);
+            this.comboBoxAssetInput2.Location = new System.Drawing.Point(13, 28);
             this.comboBoxAssetInput2.Name = "comboBoxAssetInput2";
             this.comboBoxAssetInput2.Size = new System.Drawing.Size(711, 21);
             this.comboBoxAssetInput2.TabIndex = 45;
             // 
             // label16
             // 
-            this.label16.Location = new System.Drawing.Point(11, 21);
+            this.label16.Location = new System.Drawing.Point(10, 12);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(162, 13);
             this.label16.TabIndex = 44;
@@ -560,7 +560,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 265);
+            this.label7.Location = new System.Drawing.Point(10, 270);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(123, 13);
             this.label7.TabIndex = 42;
@@ -568,7 +568,7 @@
             // 
             // buttonLoadXML2
             // 
-            this.buttonLoadXML2.Location = new System.Drawing.Point(14, 223);
+            this.buttonLoadXML2.Location = new System.Drawing.Point(590, 257);
             this.buttonLoadXML2.Name = "buttonLoadXML2";
             this.buttonLoadXML2.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML2.TabIndex = 39;
@@ -582,16 +582,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration2.Location = new System.Drawing.Point(14, 281);
+            this.textBoxConfiguration2.Location = new System.Drawing.Point(14, 286);
             this.textBoxConfiguration2.Multiline = true;
             this.textBoxConfiguration2.Name = "textBoxConfiguration2";
             this.textBoxConfiguration2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration2.Size = new System.Drawing.Size(711, 157);
+            this.textBoxConfiguration2.Size = new System.Drawing.Size(711, 152);
             this.textBoxConfiguration2.TabIndex = 40;
+            this.textBoxConfiguration2.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(11, 93);
+            this.label8.Location = new System.Drawing.Point(10, 65);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(162, 13);
             this.label8.TabIndex = 41;
@@ -608,13 +609,14 @@
             this.columnHeader6});
             this.listViewProcessors2.FullRowSelect = true;
             this.listViewProcessors2.HideSelection = false;
-            this.listViewProcessors2.Location = new System.Drawing.Point(14, 109);
+            this.listViewProcessors2.Location = new System.Drawing.Point(13, 81);
             this.listViewProcessors2.MultiSelect = false;
             this.listViewProcessors2.Name = "listViewProcessors2";
-            this.listViewProcessors2.Size = new System.Drawing.Size(711, 100);
+            this.listViewProcessors2.Size = new System.Drawing.Size(711, 151);
             this.listViewProcessors2.TabIndex = 43;
             this.listViewProcessors2.UseCompatibleStateImageBehavior = false;
             this.listViewProcessors2.View = System.Windows.Forms.View.Details;
+            this.listViewProcessors2.SelectedIndexChanged += new System.EventHandler(this.listViewProcessors_SelectedIndexChanged);
             // 
             // columnHeader3
             // 
@@ -653,14 +655,14 @@
             // 
             this.comboBoxAssetInput3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAssetInput3.FormattingEnabled = true;
-            this.comboBoxAssetInput3.Location = new System.Drawing.Point(14, 37);
+            this.comboBoxAssetInput3.Location = new System.Drawing.Point(13, 28);
             this.comboBoxAssetInput3.Name = "comboBoxAssetInput3";
             this.comboBoxAssetInput3.Size = new System.Drawing.Size(711, 21);
             this.comboBoxAssetInput3.TabIndex = 47;
             // 
             // label17
             // 
-            this.label17.Location = new System.Drawing.Point(11, 20);
+            this.label17.Location = new System.Drawing.Point(10, 12);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(162, 13);
             this.label17.TabIndex = 46;
@@ -669,7 +671,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(11, 250);
+            this.label9.Location = new System.Drawing.Point(10, 270);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(123, 13);
             this.label9.TabIndex = 42;
@@ -677,7 +679,7 @@
             // 
             // buttonLoadXML3
             // 
-            this.buttonLoadXML3.Location = new System.Drawing.Point(14, 210);
+            this.buttonLoadXML3.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML3.Name = "buttonLoadXML3";
             this.buttonLoadXML3.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML3.TabIndex = 39;
@@ -691,16 +693,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration3.Location = new System.Drawing.Point(14, 275);
+            this.textBoxConfiguration3.Location = new System.Drawing.Point(14, 286);
             this.textBoxConfiguration3.Multiline = true;
             this.textBoxConfiguration3.Name = "textBoxConfiguration3";
             this.textBoxConfiguration3.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration3.Size = new System.Drawing.Size(711, 163);
+            this.textBoxConfiguration3.Size = new System.Drawing.Size(711, 152);
             this.textBoxConfiguration3.TabIndex = 40;
+            this.textBoxConfiguration3.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(11, 77);
+            this.label10.Location = new System.Drawing.Point(10, 65);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(162, 13);
             this.label10.TabIndex = 41;
@@ -717,13 +720,14 @@
             this.columnHeader10});
             this.listViewProcessors3.FullRowSelect = true;
             this.listViewProcessors3.HideSelection = false;
-            this.listViewProcessors3.Location = new System.Drawing.Point(14, 93);
+            this.listViewProcessors3.Location = new System.Drawing.Point(13, 81);
             this.listViewProcessors3.MultiSelect = false;
             this.listViewProcessors3.Name = "listViewProcessors3";
-            this.listViewProcessors3.Size = new System.Drawing.Size(711, 100);
+            this.listViewProcessors3.Size = new System.Drawing.Size(711, 151);
             this.listViewProcessors3.TabIndex = 43;
             this.listViewProcessors3.UseCompatibleStateImageBehavior = false;
             this.listViewProcessors3.View = System.Windows.Forms.View.Details;
+            this.listViewProcessors3.SelectedIndexChanged += new System.EventHandler(this.listViewProcessors_SelectedIndexChanged);
             // 
             // columnHeader7
             // 
@@ -762,14 +766,14 @@
             // 
             this.comboBoxAssetInput4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAssetInput4.FormattingEnabled = true;
-            this.comboBoxAssetInput4.Location = new System.Drawing.Point(24, 43);
+            this.comboBoxAssetInput4.Location = new System.Drawing.Point(13, 28);
             this.comboBoxAssetInput4.Name = "comboBoxAssetInput4";
             this.comboBoxAssetInput4.Size = new System.Drawing.Size(701, 21);
             this.comboBoxAssetInput4.TabIndex = 49;
             // 
             // label18
             // 
-            this.label18.Location = new System.Drawing.Point(21, 26);
+            this.label18.Location = new System.Drawing.Point(10, 12);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(162, 13);
             this.label18.TabIndex = 48;
@@ -778,7 +782,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(11, 289);
+            this.label11.Location = new System.Drawing.Point(10, 270);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(123, 13);
             this.label11.TabIndex = 42;
@@ -786,7 +790,7 @@
             // 
             // buttonLoadXML4
             // 
-            this.buttonLoadXML4.Location = new System.Drawing.Point(14, 232);
+            this.buttonLoadXML4.Location = new System.Drawing.Point(590, 257);
             this.buttonLoadXML4.Name = "buttonLoadXML4";
             this.buttonLoadXML4.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML4.TabIndex = 39;
@@ -800,16 +804,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration4.Location = new System.Drawing.Point(14, 305);
+            this.textBoxConfiguration4.Location = new System.Drawing.Point(14, 286);
             this.textBoxConfiguration4.Multiline = true;
             this.textBoxConfiguration4.Name = "textBoxConfiguration4";
             this.textBoxConfiguration4.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration4.Size = new System.Drawing.Size(711, 133);
+            this.textBoxConfiguration4.Size = new System.Drawing.Size(711, 152);
             this.textBoxConfiguration4.TabIndex = 40;
+            this.textBoxConfiguration4.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label12
             // 
-            this.label12.Location = new System.Drawing.Point(11, 101);
+            this.label12.Location = new System.Drawing.Point(10, 65);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(162, 13);
             this.label12.TabIndex = 41;
@@ -826,13 +831,14 @@
             this.columnHeader14});
             this.listViewProcessors4.FullRowSelect = true;
             this.listViewProcessors4.HideSelection = false;
-            this.listViewProcessors4.Location = new System.Drawing.Point(14, 117);
+            this.listViewProcessors4.Location = new System.Drawing.Point(13, 81);
             this.listViewProcessors4.MultiSelect = false;
             this.listViewProcessors4.Name = "listViewProcessors4";
-            this.listViewProcessors4.Size = new System.Drawing.Size(711, 100);
+            this.listViewProcessors4.Size = new System.Drawing.Size(711, 151);
             this.listViewProcessors4.TabIndex = 43;
             this.listViewProcessors4.UseCompatibleStateImageBehavior = false;
             this.listViewProcessors4.View = System.Windows.Forms.View.Details;
+            this.listViewProcessors4.SelectedIndexChanged += new System.EventHandler(this.listViewProcessors_SelectedIndexChanged);
             // 
             // columnHeader11
             // 
@@ -871,14 +877,14 @@
             // 
             this.comboBoxAssetInput5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAssetInput5.FormattingEnabled = true;
-            this.comboBoxAssetInput5.Location = new System.Drawing.Point(14, 37);
+            this.comboBoxAssetInput5.Location = new System.Drawing.Point(13, 28);
             this.comboBoxAssetInput5.Name = "comboBoxAssetInput5";
             this.comboBoxAssetInput5.Size = new System.Drawing.Size(711, 21);
             this.comboBoxAssetInput5.TabIndex = 51;
             // 
             // label19
             // 
-            this.label19.Location = new System.Drawing.Point(11, 20);
+            this.label19.Location = new System.Drawing.Point(10, 12);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(162, 13);
             this.label19.TabIndex = 50;
@@ -887,7 +893,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(11, 279);
+            this.label13.Location = new System.Drawing.Point(10, 270);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(123, 13);
             this.label13.TabIndex = 42;
@@ -895,7 +901,7 @@
             // 
             // buttonLoadXML5
             // 
-            this.buttonLoadXML5.Location = new System.Drawing.Point(14, 234);
+            this.buttonLoadXML5.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML5.Name = "buttonLoadXML5";
             this.buttonLoadXML5.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML5.TabIndex = 39;
@@ -909,16 +915,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration5.Location = new System.Drawing.Point(14, 320);
+            this.textBoxConfiguration5.Location = new System.Drawing.Point(14, 286);
             this.textBoxConfiguration5.Multiline = true;
             this.textBoxConfiguration5.Name = "textBoxConfiguration5";
             this.textBoxConfiguration5.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration5.Size = new System.Drawing.Size(711, 118);
+            this.textBoxConfiguration5.Size = new System.Drawing.Size(711, 152);
             this.textBoxConfiguration5.TabIndex = 40;
+            this.textBoxConfiguration5.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // label14
             // 
-            this.label14.Location = new System.Drawing.Point(11, 103);
+            this.label14.Location = new System.Drawing.Point(10, 65);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(162, 13);
             this.label14.TabIndex = 41;
@@ -935,13 +942,14 @@
             this.columnHeader18});
             this.listViewProcessors5.FullRowSelect = true;
             this.listViewProcessors5.HideSelection = false;
-            this.listViewProcessors5.Location = new System.Drawing.Point(14, 119);
+            this.listViewProcessors5.Location = new System.Drawing.Point(13, 81);
             this.listViewProcessors5.MultiSelect = false;
             this.listViewProcessors5.Name = "listViewProcessors5";
-            this.listViewProcessors5.Size = new System.Drawing.Size(711, 100);
+            this.listViewProcessors5.Size = new System.Drawing.Size(711, 151);
             this.listViewProcessors5.TabIndex = 43;
             this.listViewProcessors5.UseCompatibleStateImageBehavior = false;
             this.listViewProcessors5.View = System.Windows.Forms.View.Details;
+            this.listViewProcessors5.SelectedIndexChanged += new System.EventHandler(this.listViewProcessors_SelectedIndexChanged);
             // 
             // columnHeader15
             // 
@@ -1001,7 +1009,7 @@
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
             this.Name = "GenericProcessor";
-            this.Text = "Generic processor call";
+            this.Text = "Multiple processors job";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
             this.Shown += new System.EventHandler(this.GenericProcessor_Shown);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
