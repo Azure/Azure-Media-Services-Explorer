@@ -1761,7 +1761,7 @@ namespace AMSExplorer
 
                     case PlayerType.DASHIFRefPlayer:
                         if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
-                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.2.0/index.html?url=" + Urlstr;
+                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.3.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHAzurePage:
