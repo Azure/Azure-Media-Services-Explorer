@@ -115,7 +115,6 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.printPreviewControl1 = new System.Windows.Forms.PrintPreviewControl();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
@@ -991,20 +990,12 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 67;
             // 
-            // printPreviewControl1
-            // 
-            this.printPreviewControl1.Location = new System.Drawing.Point(779, 0);
-            this.printPreviewControl1.Name = "printPreviewControl1";
-            this.printPreviewControl1.Size = new System.Drawing.Size(100, 100);
-            this.printPreviewControl1.TabIndex = 68;
-            // 
             // GenericProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 576);
-            this.Controls.Add(this.printPreviewControl1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
@@ -1077,7 +1068,6 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown numericUpDownTasks;
-        private System.Windows.Forms.PrintPreviewControl printPreviewControl1;
         private System.Windows.Forms.TabPage tabPageTask2;
         private System.Windows.Forms.TabPage tabPageTask3;
         private System.Windows.Forms.TabPage tabPageTask4;

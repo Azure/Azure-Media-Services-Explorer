@@ -3665,8 +3665,8 @@ typeof(FilterTime)
                         foreach (var usertask in gentasks)
                         // let's create all tasks and output assets
                         {
-                        
-                            string assetname=string.Empty;
+
+                            string assetname = string.Empty;
                             switch (usertask.InputAssetType)
                             {
                                 case TypeInputAssetGeneric.InputJobAssets:
@@ -3677,7 +3677,7 @@ typeof(FilterTime)
                                     break;
                                 case TypeInputAssetGeneric.TaskOutputAsset:
                                     assetname = "output of task#" + usertask.InputAsset;
-                                       break;
+                                    break;
                             }
                             string tasknameloc = taskname.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
                             ITask task = job.Tasks.AddNew(
@@ -3768,7 +3768,7 @@ typeof(FilterTime)
                                 job.Tasks[gentasks.IndexOf(usertask)].InputAssets.Add(AssetInfo.GetAsset(usertask.InputAsset, _context));
                                 break;
                             case TypeInputAssetGeneric.TaskOutputAsset:
-                                var oasset = job.Tasks[Convert.ToInt16(usertask.InputAsset)].OutputAssets;
+                                var oasset = job.Tasks[Convert.ToInt16(usertask.InputAsset) - 1].OutputAssets;
                                 job.Tasks[gentasks.IndexOf(usertask)].InputAssets.AddRange(oasset);
                                 break;
                         }
@@ -8212,20 +8212,28 @@ typeof(FilterTime)
                 return;
             }
             IJob myJob = SelectedJobs.FirstOrDefault();
-            if (SelectedJobs.FirstOrDefault().Tasks.Count != 1)
+
+            if (myJob.Tasks.Count != 1)
             {
                 MessageBox.Show("This feature works only with a job that contains a single task");
                 return;
             }
 
-            string taskname = myJob.Tasks.FirstOrDefault().Name; //Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset;
+            if (myJob.InputMediaAssets == null)
+            {
+                MessageBox.Show("No input assets !");
+                return;
+            }
+
+            string taskname = myJob.Tasks.FirstOrDefault().Name;
+            var llll = myJob.InputMediaAssets.ToList();
 
             GenericProcessor form = new GenericProcessor(_context, myJob)
             {
                 Text = "Job re-submission",
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
-                EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()), // Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()), // Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
+                EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
+                EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
                 EncodingPriority = myJob.Priority,
                 SelectedAssets = myJob.InputMediaAssets.ToList(),
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets,

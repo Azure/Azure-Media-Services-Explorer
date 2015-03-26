@@ -36,6 +36,8 @@ namespace AMSExplorer
         public XDocument doc;
         public List<IAsset> SelectedAssets;
 
+        private bool init = true;
+
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modetaskjob1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modetaskjob2;
         private Bitmap bitmap_singletasksinglejob = Bitmaps.modetaskjob3;
@@ -84,7 +86,6 @@ namespace AMSExplorer
                         item.SubItems.Add(proc.Version);
                         item.SubItems.Add(proc.Description);
                         mylistview.Items.Add(item);
-
                     }
 
                     mylistview.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -103,7 +104,6 @@ namespace AMSExplorer
                         {
                             listViewProcessors1.Items[indexmp].Selected = true;
                             listViewProcessors1.Select();
-
                         }
                     }
                 }
@@ -163,7 +163,6 @@ namespace AMSExplorer
 
                 }
                 return listtasks;
-
             }
         }
 
@@ -186,7 +185,6 @@ namespace AMSExplorer
             {
                 if (radioButtonOneJobPerInputAsset.Checked) return TaskJobCreationMode.OneJobPerInputAsset;
                 else return TaskJobCreationMode.SingleJobForAllInputAssets;
-
             }
             set
             {
@@ -201,11 +199,8 @@ namespace AMSExplorer
                         radioButtonSingleJobForAllInputAssets.Checked = true;
                         break;
                 }
-
             }
-
         }
-
 
 
         public GenericProcessor(CloudMediaContext context, IJob myJob = null)
@@ -217,11 +212,12 @@ namespace AMSExplorer
 
             if (_myJob != null) // we are in resubmit mode
             {
-                textBoxConfiguration1.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
+                textBoxConfiguration1.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration();
                 radioButtonSingleJobForAllInputAssets.Checked = true;
                 panelJobMode.Enabled = false;
+                numericUpDownTasks.Enabled = false;
             }
-
+            init = false;
         }
 
         private void buttonload_Click(object sender, EventArgs e)
@@ -240,7 +236,6 @@ namespace AMSExplorer
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-
             }
         }
 
@@ -303,10 +298,8 @@ namespace AMSExplorer
             int nbtaskwithemptyconfig = 0;
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
-
                 TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
                 if (string.IsNullOrEmpty(mytextboxconfig.Text)) nbtaskwithemptyconfig++;
-
             }
             if (nbtaskwithemptyconfig > 1)
             {
@@ -320,13 +313,10 @@ namespace AMSExplorer
             {
                 labelWarning.Text = string.Empty;
             }
-
-
         }
 
         private void GenericProcessor_Shown(object sender, EventArgs e)
         {
-
             int i = 0;
             listViewInputAssets.BeginUpdate();
             foreach (IAsset asset in SelectedAssets)
@@ -345,12 +335,12 @@ namespace AMSExplorer
             tabcontrolgeneric.TabPages.Remove(tabPageTask5);
 
             UpdateInputAssetsInTasks();
-
-
         }
 
         private void UpdateInputAssetsInTasks()
         {
+            if (init) return; // we don't want to run the code below if the form is in init mode (no input assets defined)
+
             listofinputassets = new List<List<GenericTaskAsset>>();
 
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
