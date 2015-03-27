@@ -114,6 +114,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
@@ -150,6 +152,8 @@
             // 
             // textBoxFolder
             // 
+            this.textBoxFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolder.Enabled = false;
             this.textBoxFolder.Location = new System.Drawing.Point(142, 83);
             this.textBoxFolder.Name = "textBoxFolder";
@@ -228,9 +232,9 @@
             this.checkBoxPublishOAssets.AutoSize = true;
             this.checkBoxPublishOAssets.Location = new System.Drawing.Point(52, 436);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
-            this.checkBoxPublishOAssets.Size = new System.Drawing.Size(150, 17);
+            this.checkBoxPublishOAssets.Size = new System.Drawing.Size(320, 17);
             this.checkBoxPublishOAssets.TabIndex = 65;
-            this.checkBoxPublishOAssets.Text = "Publish the output asset(s)";
+            this.checkBoxPublishOAssets.Text = "Publish the output asset(s) - using the default value of {0} days";
             this.checkBoxPublishOAssets.UseVisualStyleBackColor = true;
             // 
             // pictureBox4
@@ -258,7 +262,9 @@
             // 
             // textBoxEMail
             // 
-            this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxEMail.Enabled = false;
             this.textBoxEMail.Location = new System.Drawing.Point(338, 457);
             this.textBoxEMail.Name = "textBoxEMail";
             this.textBoxEMail.Size = new System.Drawing.Size(259, 20);
@@ -266,7 +272,8 @@
             // 
             // buttonTestEmail
             // 
-            this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTestEmail.Enabled = false;
             this.buttonTestEmail.Location = new System.Drawing.Point(613, 455);
             this.buttonTestEmail.Name = "buttonTestEmail";
             this.buttonTestEmail.Size = new System.Drawing.Size(75, 23);

@@ -128,6 +128,7 @@ namespace AMSExplorer
         private void WatchFolder_Load(object sender, EventArgs e)
         {
             buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
+            checkBoxPublishOAssets.Text = string.Format(checkBoxPublishOAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
         }
 
         private void buttonSelFolder_Click(object sender, EventArgs e)

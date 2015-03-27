@@ -27,6 +27,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Linq;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Reflection;
 
 namespace AMSExplorer
 {
@@ -35,6 +36,8 @@ namespace AMSExplorer
         public XDocument doc;
         public List<IAsset> SelectedAssets;
 
+        private bool init = true;
+
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modetaskjob1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modetaskjob2;
         private Bitmap bitmap_singletasksinglejob = Bitmaps.modetaskjob3;
@@ -42,6 +45,10 @@ namespace AMSExplorer
         private List<IMediaProcessor> Procs;
         private CloudMediaContext _context;
         private IJob _myJob;
+
+        private int numberoftasks = 1;
+
+        private new List<List<GenericTaskAsset>> listofinputassets;  // for each task
 
         public string EncodingJobName
         {
@@ -67,17 +74,24 @@ namespace AMSExplorer
         {
             set
             {
-                listViewProcessors.BeginUpdate();
-                foreach (IMediaProcessor proc in value)
+                for (int i = 1; i < 6; i++)
                 {
-                    ListViewItem item = new ListViewItem(proc.Vendor, 0);
-                    item.SubItems.Add(proc.Name);
-                    item.SubItems.Add(proc.Version);
-                    item.SubItems.Add(proc.Description);
-                    listViewProcessors.Items.Add(item);
+                    ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + i.ToString(), true).FirstOrDefault();
+                    mylistview.BeginUpdate();
 
+                    foreach (IMediaProcessor proc in value)
+                    {
+                        ListViewItem item = new ListViewItem(proc.Vendor, 0);
+                        item.SubItems.Add(proc.Name);
+                        item.SubItems.Add(proc.Version);
+                        item.SubItems.Add(proc.Description);
+                        mylistview.Items.Add(item);
+                    }
+
+                    mylistview.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                    mylistview.EndUpdate();
                 }
-                listViewProcessors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
                 Procs = value;
 
                 if (_myJob != null) // we are in resubmit mode
@@ -88,12 +102,12 @@ namespace AMSExplorer
                         int indexmp = Procs.IndexOf(mp);
                         if (indexmp > -1) // processor found
                         {
-                            listViewProcessors.Items[indexmp].Selected = true;
-                            listViewProcessors.Select();
+                            listViewProcessors1.Items[indexmp].Selected = true;
+                            listViewProcessors1.Select();
                         }
                     }
                 }
-                listViewProcessors.EndUpdate();
+
             }
         }
 
@@ -101,7 +115,7 @@ namespace AMSExplorer
         {
             get
             {
-                return Procs[listViewProcessors.SelectedIndices[0]];
+                return Procs[listViewProcessors1.SelectedIndices[0]];
             }
         }
 
@@ -122,7 +136,33 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxConfiguration.Text;
+                return textBoxConfiguration1.Text;
+            }
+        }
+
+        public List<GenericTask> GetGenericTasks
+        {
+            get
+            {
+                List<GenericTask> listtasks = new List<GenericTask>();
+                for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+                {
+
+                    ComboBox mycomboboxassetinput = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+                    ListView mylistviewprocessor = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
+                    TextBox textBoxConfiguration = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+
+                    GenericTask mytask = new GenericTask()
+                    {
+                        Processor = Procs[mylistviewprocessor.SelectedIndices[0]],
+                        ProcessorConfiguration = textBoxConfiguration.Text,
+                        InputAsset = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAsset,
+                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType
+                    };
+                    listtasks.Add(mytask);
+
+                }
+                return listtasks;
             }
         }
 
@@ -143,32 +183,24 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonMultipleTasksMultipleJobs.Checked) return TaskJobCreationMode.MultipleTasks_MultipleJobs;
-                else if (radioButtonMultipleTasksSingleJob.Checked) return TaskJobCreationMode.MultipleTasks_SingleJob;
-                else return TaskJobCreationMode.SingleTask_SingleJob;
-
+                if (radioButtonOneJobPerInputAsset.Checked) return TaskJobCreationMode.OneJobPerInputAsset;
+                else return TaskJobCreationMode.SingleJobForAllInputAssets;
             }
             set
             {
                 switch (value)
                 {
-                    case TaskJobCreationMode.MultipleTasks_MultipleJobs:
-                        radioButtonMultipleTasksMultipleJobs.Checked = true;
+                    case TaskJobCreationMode.OneJobPerInputAsset:
+                        radioButtonOneJobPerInputAsset.Checked = true;
                         break;
 
-                    case TaskJobCreationMode.MultipleTasks_SingleJob:
-                        radioButtonMultipleTasksSingleJob.Checked = true;
-                        break;
 
-                    case TaskJobCreationMode.SingleTask_SingleJob:
-                        radioButtonSingleTaskSingleJob.Checked = true;
+                    case TaskJobCreationMode.SingleJobForAllInputAssets:
+                        radioButtonSingleJobForAllInputAssets.Checked = true;
                         break;
                 }
-
             }
-
         }
-
 
 
         public GenericProcessor(CloudMediaContext context, IJob myJob = null)
@@ -180,27 +212,30 @@ namespace AMSExplorer
 
             if (_myJob != null) // we are in resubmit mode
             {
-                textBoxConfiguration.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration(); // _myJob.Tasks.FirstOrDefault().Configuration;
-                radioButtonSingleTaskSingleJob.Checked = true;
+                textBoxConfiguration1.Text = _myJob.Tasks.FirstOrDefault().GetClearConfiguration();
+                radioButtonSingleJobForAllInputAssets.Checked = true;
                 panelJobMode.Enabled = false;
+                numericUpDownTasks.Enabled = false;
             }
-           
+            init = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonload_Click(object sender, EventArgs e)
         {
             if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.ToString();
+                    Button button = (Button)sender;
+                    string index = button.Name.Substring(button.Name.Length - 1, 1);
+                    TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index, true).FirstOrDefault();
+                    mytextboxconfig.Text = doc.ToString();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-
             }
         }
 
@@ -218,24 +253,56 @@ namespace AMSExplorer
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
         {
-            buttonOk.Enabled = (listViewProcessors.SelectedItems.Count > 0);
+            bool allprocessorsselected = true;
+
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+                ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
+                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+
+                if (mylistview.SelectedItems.Count == 0)
+                {
+                    allprocessorsselected = false;
+                }
+                else
+                {
+                    if (Procs[mylistview.SelectedIndices[0]].Name == Constants.AzureMediaEncoderPremiumWorkflow)
+                    {
+                        if (SelectedAssets.Count < 2)
+                        {
+                            MessageBox.Show("You must at least have two input assets : the workflow file and the video file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
+                        mytextboxconfig.Text = string.Empty;
+                        mytextboxconfig.Enabled = false;
+                    }
+                    else
+                    {
+                        mytextboxconfig.Enabled = true;
+                    }
+                }
+            }
+            buttonOk.Enabled = allprocessorsselected;
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             UpdateJobSummary();
+            UpdateInputAssetsInTasks();
         }
 
         private void UpdateJobSummary()
         {
+            int nbjobs = (radioButtonOneJobPerInputAsset.Checked ? SelectedAssets.Count : 1);
 
-            labelsummaryjob.Text = "You are going to submit "
-                + (radioButtonSingleTaskSingleJob.Checked ? "1 task" : listViewInputAssets.Items.Count.ToString() + " tasks")
-            + " in "
-            + (radioButtonMultipleTasksMultipleJobs.Checked ? listViewInputAssets.Items.Count.ToString() + " jobs" : "1 job")
-            ;
+            labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}",
+                nbjobs,
+                nbjobs > 1 ? "s" : "",
+                numberoftasks,
+                 numberoftasks > 1 ? "s" : ""
+                 );
 
-            pictureBoxJob.Image = radioButtonSingleTaskSingleJob.Checked ? bitmap_singletasksinglejob : radioButtonMultipleTasksMultipleJobs.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
+            pictureBoxJob.Image = radioButtonSingleJobForAllInputAssets.Checked ? bitmap_singletasksinglejob : radioButtonOneJobPerInputAsset.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -250,12 +317,28 @@ namespace AMSExplorer
 
         private void UpdateWarning()
         {
-            labelWarning.Text = (string.IsNullOrEmpty(textBoxConfiguration.Text)) ? "Note: the processor configuration string/XML is empty" : "";
+            int nbtaskwithemptyconfig = 0;
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+                if (string.IsNullOrEmpty(mytextboxconfig.Text)) nbtaskwithemptyconfig++;
+            }
+            if (nbtaskwithemptyconfig > 1)
+            {
+                labelWarning.Text = "Note: several processors configuration string/XML are empty";
+            }
+            else if (nbtaskwithemptyconfig > 0)
+            {
+                labelWarning.Text = "Note: one processor configuration string/XML is empty";
+            }
+            else
+            {
+                labelWarning.Text = string.Empty;
+            }
         }
 
         private void GenericProcessor_Shown(object sender, EventArgs e)
         {
-
             int i = 0;
             listViewInputAssets.BeginUpdate();
             foreach (IAsset asset in SelectedAssets)
@@ -268,6 +351,123 @@ namespace AMSExplorer
             listViewInputAssets.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewInputAssets.EndUpdate();
 
+            tabcontrolgeneric.TabPages.Remove(tabPageTask2);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask3);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask4);
+            tabcontrolgeneric.TabPages.Remove(tabPageTask5);
+
+            UpdateInputAssetsInTasks();
+        }
+
+        private void UpdateInputAssetsInTasks()
+        {
+            if (init) return; // we don't want to run the code below if the form is in init mode (no input assets defined)
+
+            listofinputassets = new List<List<GenericTaskAsset>>();
+
+            for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
+            {
+                List<GenericTaskAsset> listinputpertask = new List<GenericTaskAsset>();
+                ComboBox mycombobox = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+
+                mycombobox.Items.Clear();
+
+                // multiple input assets and one job only
+                if (SelectedAssets.Count > 1 && radioButtonSingleJobForAllInputAssets.Checked)
+                {
+                    //Item itemasset = new Item("All input assets", "allinput:");
+                    mycombobox.Items.Add("All input assets");
+                    listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
+
+                    foreach (IAsset asset in SelectedAssets)
+                    {
+                        //Item item = new Item("Input asset: " + asset.Name, "input:" + asset.Name);
+                        mycombobox.Items.Add("Input asset: " + asset.Name);
+                        listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.SpecificAssetID, InputAsset = asset.Id });
+                        //index_inputasset++;
+                    }
+                }
+                else // single input asset
+                {
+                    mycombobox.Items.Add("Input asset");
+                    listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
+
+                }
+
+                //let's propose the output asset of other tasks
+                for (int index2_task = 1; index2_task <= numericUpDownTasks.Value; index2_task++)
+                {
+                    if (index_task != index2_task) // because a task cannot a have it's own output asset as input
+                    {
+                        Item item = new Item("Output asset of task #" + index2_task.ToString(), "outputoftask:" + index2_task.ToString());
+                        mycombobox.Items.Add(item);
+                        listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.TaskOutputAsset, InputAsset = index2_task.ToString() });
+                    }
+                }
+                listofinputassets.Add(listinputpertask);
+                mycombobox.SelectedIndex = 0;
+            }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownTasks.Value > numberoftasks) // increase
+            {
+                for (int i = numberoftasks + 1; i <= numericUpDownTasks.Value; i++)
+                {
+                    TabPage mytabpage = null;
+                    switch (i)
+                    {
+                        case 2:
+                            mytabpage = tabPageTask2;
+                            break;
+                        case 3:
+                            mytabpage = tabPageTask3;
+                            break;
+                        case 4:
+                            mytabpage = tabPageTask4;
+                            break;
+                        case 5:
+                            mytabpage = tabPageTask5;
+                            break;
+                        default:
+                            break;
+
+                    }
+                    if (mytabpage != null) tabcontrolgeneric.TabPages.Add(mytabpage);
+                }
+            }
+            else // decrease
+            {
+                for (int i = numberoftasks; i > numericUpDownTasks.Value; i--)
+                {
+                    TabPage mytabpage = null;
+
+                    switch (i)
+                    {
+                        case 2:
+                            mytabpage = tabPageTask2;
+                            break;
+                        case 3:
+                            mytabpage = tabPageTask3;
+                            break;
+                        case 4:
+                            mytabpage = tabPageTask4;
+                            break;
+                        case 5:
+                            mytabpage = tabPageTask5;
+                            break;
+                        default:
+                            break;
+
+                    }
+                    if (mytabpage != null) tabcontrolgeneric.TabPages.Remove(mytabpage);
+                }
+            }
+            numberoftasks = (int)numericUpDownTasks.Value;
+            UpdateInputAssetsInTasks();
+            UpdateJobSummary();
+            UpdateWarning();
         }
 
     }
