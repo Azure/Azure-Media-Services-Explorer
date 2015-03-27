@@ -258,7 +258,29 @@ namespace AMSExplorer
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
                 ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
-                if (mylistview.SelectedItems.Count == 0) allprocessorsselected = false;
+                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+
+                if (mylistview.SelectedItems.Count == 0)
+                {
+                    allprocessorsselected = false;
+                }
+                else
+                {
+                    if (Procs[mylistview.SelectedIndices[0]].Name == Constants.AzureMediaEncoderPremiumWorkflow)
+                    {
+                        if (SelectedAssets.Count < 2)
+                        {
+                            MessageBox.Show("You must at least have two input assets : the workflow file and the video file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        }
+
+                        mytextboxconfig.Text = string.Empty;
+                        mytextboxconfig.Enabled = false;
+                    }
+                    else
+                    {
+                        mytextboxconfig.Enabled = true;
+                    }
+                }
             }
             buttonOk.Enabled = allprocessorsselected;
         }
