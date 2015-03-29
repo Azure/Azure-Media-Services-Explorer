@@ -80,6 +80,7 @@ namespace AMSExplorer
         private bool WatchFolderPublishOutputAssets = false;
         private string WatchFolderSendEmailToRecipient = null;
         private IJobTemplate WatchFolderJobTemplate = null;
+        private IAsset WatchFolderWorkflow = null;
         private FileSystemWatcher WatchFolderWatcher;
         private INotificationEndPoint WatchFolderNotificationEndPoint;
 
@@ -881,6 +882,8 @@ namespace AMSExplorer
                 {
                     string jobname = string.Format("Processing of {0} with template {1}", asset.Name, jobtemplatetorun.Name);
                     List<IAsset> assetlist = new List<IAsset>() { asset };
+                    // if user wants to insert a workflow as asset #0
+                    if (WatchFolderWorkflow != null) assetlist.Insert(0, WatchFolderWorkflow);
 
                     TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
 
@@ -927,7 +930,7 @@ namespace AMSExplorer
                                     Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                     if (SmoothUri != null)
                                     {
-                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset);
+                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset, launchbrowser: false);
                                         sb.AppendLine("Link to playback the asset:");
                                         sb.AppendLine(playbackurl);
                                         sb.AppendLine();
@@ -4645,7 +4648,7 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate)
+            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderWorkflow)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
@@ -4663,6 +4666,7 @@ typeof(FilterTime)
                 Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
                 WatchFolderJobTemplate = form.WatchRunJobTemplate; // let's save the job template to the main variable
+                WatchFolderWorkflow = form.WatchRunWorkflow; // let's save the job template to the main variable
                 WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
                 WatchFolderSendEmailToRecipient = form.WatchSendEMail;
 

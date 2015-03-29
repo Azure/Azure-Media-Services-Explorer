@@ -49,6 +49,8 @@
             this.checkBoxSendEMail = new System.Windows.Forms.CheckBox();
             this.textBoxEMail = new System.Windows.Forms.TextBox();
             this.buttonTestEmail = new System.Windows.Forms.Button();
+            this.checkBoxInsertWorkflowAsFirstAsset = new System.Windows.Forms.CheckBox();
+            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -210,7 +212,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 512);
+            this.panel1.Location = new System.Drawing.Point(-2, 573);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(717, 48);
             this.panel1.TabIndex = 64;
@@ -219,7 +221,7 @@
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(22, 436);
+            this.pictureBox3.Location = new System.Drawing.Point(22, 514);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -230,7 +232,7 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(52, 436);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(52, 514);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
             this.checkBoxPublishOAssets.Size = new System.Drawing.Size(320, 17);
             this.checkBoxPublishOAssets.TabIndex = 65;
@@ -241,7 +243,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.Image = global::AMSExplorer.Bitmaps.delete;
-            this.pictureBox4.Location = new System.Drawing.Point(22, 459);
+            this.pictureBox4.Location = new System.Drawing.Point(22, 537);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -252,7 +254,7 @@
             // 
             this.checkBoxSendEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSendEMail.AutoSize = true;
-            this.checkBoxSendEMail.Location = new System.Drawing.Point(52, 459);
+            this.checkBoxSendEMail.Location = new System.Drawing.Point(52, 537);
             this.checkBoxSendEMail.Name = "checkBoxSendEMail";
             this.checkBoxSendEMail.Size = new System.Drawing.Size(280, 17);
             this.checkBoxSendEMail.TabIndex = 67;
@@ -265,7 +267,7 @@
             this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEMail.Enabled = false;
-            this.textBoxEMail.Location = new System.Drawing.Point(338, 457);
+            this.textBoxEMail.Location = new System.Drawing.Point(338, 535);
             this.textBoxEMail.Name = "textBoxEMail";
             this.textBoxEMail.Size = new System.Drawing.Size(259, 20);
             this.textBoxEMail.TabIndex = 69;
@@ -274,13 +276,40 @@
             // 
             this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTestEmail.Enabled = false;
-            this.buttonTestEmail.Location = new System.Drawing.Point(613, 455);
+            this.buttonTestEmail.Location = new System.Drawing.Point(613, 533);
             this.buttonTestEmail.Name = "buttonTestEmail";
             this.buttonTestEmail.Size = new System.Drawing.Size(75, 23);
             this.buttonTestEmail.TabIndex = 70;
             this.buttonTestEmail.Text = "Test now";
             this.buttonTestEmail.UseVisualStyleBackColor = true;
             this.buttonTestEmail.Click += new System.EventHandler(this.buttonTestEmail_Click);
+            // 
+            // checkBoxInsertWorkflowAsFirstAsset
+            // 
+            this.checkBoxInsertWorkflowAsFirstAsset.AutoSize = true;
+            this.checkBoxInsertWorkflowAsFirstAsset.Location = new System.Drawing.Point(52, 404);
+            this.checkBoxInsertWorkflowAsFirstAsset.Name = "checkBoxInsertWorkflowAsFirstAsset";
+            this.checkBoxInsertWorkflowAsFirstAsset.Size = new System.Drawing.Size(183, 17);
+            this.checkBoxInsertWorkflowAsFirstAsset.TabIndex = 71;
+            this.checkBoxInsertWorkflowAsFirstAsset.Text = "Insert this workflow as first asset :";
+            this.checkBoxInsertWorkflowAsFirstAsset.UseVisualStyleBackColor = true;
+            this.checkBoxInsertWorkflowAsFirstAsset.CheckedChanged += new System.EventHandler(this.checkBoxInsertWorkflowAsFirstAsset_CheckedChanged);
+            // 
+            // listViewWorkflows1
+            // 
+            this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows1.Enabled = false;
+            this.listViewWorkflows1.FullRowSelect = true;
+            this.listViewWorkflows1.HideSelection = false;
+            this.listViewWorkflows1.Location = new System.Drawing.Point(52, 427);
+            this.listViewWorkflows1.MultiSelect = false;
+            this.listViewWorkflows1.Name = "listViewWorkflows1";
+            this.listViewWorkflows1.Size = new System.Drawing.Size(636, 81);
+            this.listViewWorkflows1.TabIndex = 61;
+            this.listViewWorkflows1.Tag = -1;
+            this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
+            this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
             // 
             // listViewTemplates
             // 
@@ -293,18 +322,21 @@
             this.listViewTemplates.Location = new System.Drawing.Point(52, 304);
             this.listViewTemplates.MultiSelect = false;
             this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(636, 112);
+            this.listViewTemplates.Size = new System.Drawing.Size(636, 94);
             this.listViewTemplates.TabIndex = 61;
             this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
+            this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
             // 
             // WatchFolder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(714, 560);
+            this.ClientSize = new System.Drawing.Size(714, 621);
+            this.Controls.Add(this.checkBoxInsertWorkflowAsFirstAsset);
+            this.Controls.Add(this.listViewWorkflows1);
             this.Controls.Add(this.buttonTestEmail);
             this.Controls.Add(this.textBoxEMail);
             this.Controls.Add(this.pictureBox4);
@@ -361,5 +393,7 @@
         private System.Windows.Forms.CheckBox checkBoxSendEMail;
         private System.Windows.Forms.TextBox textBoxEMail;
         private System.Windows.Forms.Button buttonTestEmail;
+        private ListViewWorkflows listViewWorkflows1;
+        private System.Windows.Forms.CheckBox checkBoxInsertWorkflowAsFirstAsset;
     }
 }

@@ -31,7 +31,8 @@ namespace AMSExplorer
     public partial class WatchFolder : Form
     {
         private CloudMediaContext _context;
-        private IJobTemplate _jobtemplateselected=null;
+        private IJobTemplate _jobtemplateselected = null;
+        private IAsset _workflowselected = null;
 
         public string WatchFolderPath
         {
@@ -83,16 +84,24 @@ namespace AMSExplorer
             {
                 return checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null;
             }
-          
+
         }
-       
+        public IAsset WatchRunWorkflow
+        {
+            get
+            {
+                return checkBoxInsertWorkflowAsFirstAsset.Checked ? listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault() : null;
+            }
+
+        }
+
         public string WatchSendEMail
         {
             get
             {
-                return checkBoxSendEMail.Checked ?  textBoxEMail.Text:null;
+                return checkBoxSendEMail.Checked ? textBoxEMail.Text : null;
             }
-             set
+            set
             {
                 checkBoxSendEMail.Checked = value != null;
                 textBoxEMail.Text = value;
@@ -111,12 +120,13 @@ namespace AMSExplorer
             }
         }
 
-        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate)
+        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate, IAsset workflow)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _jobtemplateselected = jobtemplate;
+            _workflowselected = workflow;
             checkBoxRunJobTemplate.Checked = (jobtemplate != null);
         }
 
@@ -137,7 +147,6 @@ namespace AMSExplorer
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
                 textBoxFolder.Text = folderBrowserDialog1.SelectedPath;
-
             }
         }
 
@@ -168,12 +177,42 @@ namespace AMSExplorer
         private void buttonTestEmail_Click(object sender, EventArgs e)
         {
             Program.CreateAndSendOutlookMail(textBoxEMail.Text, "Explorer Watchfolder: Test Message", "test message body");
-
         }
 
         private void checkBoxSendEMail_CheckedChanged(object sender, EventArgs e)
         {
             textBoxEMail.Enabled = buttonTestEmail.Enabled = checkBoxSendEMail.Checked;
+        }
+
+        private void checkBoxInsertWorkflowAsFirstAsset_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRunJobTemplate.Checked)
+            {
+                listViewWorkflows1.Enabled = true;
+                listViewWorkflows1.LoadWorkflows(_context, _workflowselected);
+            }
+            else
+            {
+                listViewWorkflows1.Items.Clear();
+                listViewWorkflows1.Enabled = false;
+            }
+        }
+
+        private void listViewTemplates_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewTemplates.GetSelectedJobTemplate.NumberofInputAssets == 2)
+            {
+                MessageBox.Show("You selected a job template that requires two input assets. If this is for a Premium encoder task, please select a workflow file.");
+                checkBoxInsertWorkflowAsFirstAsset.Checked = true;
+            }
+            else
+            {
+                checkBoxInsertWorkflowAsFirstAsset.Checked = false;
+                if (listViewTemplates.GetSelectedJobTemplate.NumberofInputAssets < 2)
+                {
+                    MessageBox.Show("You selected a job template that requires more than two input assets. This is not supported for this feature.");
+                }
+            }
         }
     }
 }
