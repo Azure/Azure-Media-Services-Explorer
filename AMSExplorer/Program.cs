@@ -1984,6 +1984,13 @@ namespace AMSExplorer
         PlayReady = 2
     }
 
+    public enum TypeInputExtraInput
+    {
+        None=0,
+        SelectedWorkflow,
+        SelectedAssets
+    }
+
     class HostNameClass
     {
         public string HostName { get; set; }

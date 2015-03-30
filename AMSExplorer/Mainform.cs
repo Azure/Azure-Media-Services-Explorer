@@ -81,6 +81,7 @@ namespace AMSExplorer
         private string WatchFolderSendEmailToRecipient = null;
         private IJobTemplate WatchFolderJobTemplate = null;
         private IEnumerable<IAsset> WatchFolderExtraInputAssets = null;
+        private TypeInputExtraInput WatchFolderTypeInputExtraInput = TypeInputExtraInput.None;
         private FileSystemWatcher WatchFolderWatcher;
         private INotificationEndPoint WatchFolderNotificationEndPoint;
 
@@ -882,9 +883,12 @@ namespace AMSExplorer
                 {
                     string jobname = string.Format("Processing of {0} with template {1}", asset.Name, jobtemplatetorun.Name);
                     List<IAsset> assetlist = new List<IAsset>() { asset };
-                    // if user wants to insert a workflow as asset #0
-                    if (WatchFolderExtraInputAssets != null) assetlist.InsertRange(0, WatchFolderExtraInputAssets);
-
+                    // if user wants to insert a workflow or other asstes as asset #0
+                    if (WatchFolderTypeInputExtraInput != TypeInputExtraInput.None)
+                    {
+                        if (WatchFolderExtraInputAssets != null) assetlist.InsertRange(0, WatchFolderExtraInputAssets);
+                    }
+                    
                     TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
 
                     // Submit the job
@@ -4648,7 +4652,7 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderExtraInputAssets)
+            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderExtraInputAssets, WatchFolderTypeInputExtraInput)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
@@ -4669,6 +4673,7 @@ typeof(FilterTime)
                 WatchFolderExtraInputAssets = form.WatchRunExtraInputAssets; // let's save the extra input asstes to the main variable
                 WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
                 WatchFolderSendEmailToRecipient = form.WatchSendEMail;
+                WatchFolderTypeInputExtraInput = form.WatchGetTypeExtraInputAssets;
 
                 if (!WatchFolderIsOn) // user want to stop the watch folder (if if exists)
                 {

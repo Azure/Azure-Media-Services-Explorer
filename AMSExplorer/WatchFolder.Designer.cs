@@ -54,6 +54,8 @@
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.labelWarning = new System.Windows.Forms.Label();
             this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
@@ -64,6 +66,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.groupBoxProcess.SuspendLayout();
             this.panelInsertAsset.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -249,7 +252,7 @@
             // pictureBox4
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.delete;
+            this.pictureBox4.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
             this.pictureBox4.Location = new System.Drawing.Point(22, 537);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
@@ -293,6 +296,7 @@
             // 
             // radioButtonInsertWorkflowAsset
             // 
+            this.radioButtonInsertWorkflowAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertWorkflowAsset.AutoSize = true;
             this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(14, 41);
             this.radioButtonInsertWorkflowAsset.Name = "radioButtonInsertWorkflowAsset";
@@ -304,6 +308,7 @@
             // 
             // radioButtonInsertSelectedAssets
             // 
+            this.radioButtonInsertSelectedAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertSelectedAssets.AutoSize = true;
             this.radioButtonInsertSelectedAssets.Checked = true;
             this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(14, 5);
@@ -313,9 +318,14 @@
             this.radioButtonInsertSelectedAssets.TabStop = true;
             this.radioButtonInsertSelectedAssets.Text = "Insert the selected assets\r\nbefore the uploaded asset";
             this.radioButtonInsertSelectedAssets.UseVisualStyleBackColor = true;
+            this.radioButtonInsertSelectedAssets.CheckedChanged += new System.EventHandler(this.radioButtonInsertSelectedAssets_CheckedChanged);
             // 
             // groupBoxProcess
             // 
+            this.groupBoxProcess.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxProcess.Controls.Add(this.labelWarning);
             this.groupBoxProcess.Controls.Add(this.panelInsertAsset);
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
@@ -329,9 +339,12 @@
             // 
             // panelInsertAsset
             // 
+            this.panelInsertAsset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelInsertAsset.Controls.Add(this.listViewWorkflows1);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertSelectedAssets);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertWorkflowAsset);
+            this.panelInsertAsset.Enabled = false;
             this.panelInsertAsset.Location = new System.Drawing.Point(16, 126);
             this.panelInsertAsset.Name = "panelInsertAsset";
             this.panelInsertAsset.Size = new System.Drawing.Size(620, 86);
@@ -339,6 +352,7 @@
             // 
             // checkBoAddAssetsToInput
             // 
+            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoAddAssetsToInput.AutoSize = true;
             this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(16, 108);
             this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
@@ -347,6 +361,26 @@
             this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
             this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
             this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.pictureBox5.Location = new System.Drawing.Point(22, 263);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox5.TabIndex = 75;
+            this.pictureBox5.TabStop = false;
+            // 
+            // labelWarning
+            // 
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(181, 104);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelWarning.TabIndex = 76;
+            this.labelWarning.Text = "Warning";
             // 
             // listViewWorkflows1
             // 
@@ -369,7 +403,6 @@
             this.listViewTemplates.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewTemplates.Enabled = false;
             this.listViewTemplates.FullRowSelect = true;
             this.listViewTemplates.HideSelection = false;
             this.listViewTemplates.Location = new System.Drawing.Point(16, 19);
@@ -388,6 +421,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(714, 621);
+            this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);
             this.Controls.Add(this.buttonTestEmail);
             this.Controls.Add(this.textBoxEMail);
@@ -419,6 +453,7 @@
             this.groupBoxProcess.PerformLayout();
             this.panelInsertAsset.ResumeLayout(false);
             this.panelInsertAsset.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox5)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -454,5 +489,7 @@
         private System.Windows.Forms.GroupBox groupBoxProcess;
         private System.Windows.Forms.CheckBox checkBoAddAssetsToInput;
         private System.Windows.Forms.Panel panelInsertAsset;
+        private System.Windows.Forms.PictureBox pictureBox5;
+        private System.Windows.Forms.Label labelWarning;
     }
 }
