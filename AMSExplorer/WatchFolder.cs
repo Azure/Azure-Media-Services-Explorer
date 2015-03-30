@@ -32,7 +32,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         private IJobTemplate _jobtemplateselected = null;
-        private IAsset _workflowselected = null;
+        private IEnumerable<IAsset> _SelectedAssets;
 
         public string WatchFolderPath
         {
@@ -86,11 +86,27 @@ namespace AMSExplorer
             }
 
         }
-        public IAsset WatchRunWorkflow
+        public IEnumerable<IAsset> WatchRunExtraInputAssets
         {
             get
             {
-                return checkBoxInsertWorkflowAsFirstAsset.Checked ? listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault() : null;
+                if (checkBoAddAssetsToInput.Checked)
+                {
+                    List<IAsset> listExtraAssets = new List<IAsset>();
+                    if (radioButtonInsertWorkflowAsset.Checked)
+                    {
+                        listExtraAssets.Add(listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault());
+                    }
+                    else // selected assets
+                    {
+                        listExtraAssets.InsertRange(0,_SelectedAssets);
+                    }
+                    return listExtraAssets;
+                }
+                else
+                {
+                    return null;
+                }
             }
 
         }
@@ -120,13 +136,13 @@ namespace AMSExplorer
             }
         }
 
-        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate, IAsset workflow)
+        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate, IEnumerable<IAsset> selectedassets)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _jobtemplateselected = jobtemplate;
-            _workflowselected = workflow;
+            _SelectedAssets = selectedassets;
             checkBoxRunJobTemplate.Checked = (jobtemplate != null);
         }
 
@@ -164,13 +180,13 @@ namespace AMSExplorer
         {
             if (checkBoxRunJobTemplate.Checked)
             {
-                listViewTemplates.Enabled = true;
+                groupBoxProcess.Enabled = true;
                 listViewTemplates.LoadTemplates(_context, _jobtemplateselected);
             }
             else
             {
                 listViewTemplates.Items.Clear();
-                listViewTemplates.Enabled = false;
+                groupBoxProcess.Enabled = false;
             }
         }
 
@@ -184,22 +200,11 @@ namespace AMSExplorer
             textBoxEMail.Enabled = buttonTestEmail.Enabled = checkBoxSendEMail.Checked;
         }
 
-        private void checkBoxInsertWorkflowAsFirstAsset_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxRunJobTemplate.Checked)
-            {
-                listViewWorkflows1.Enabled = true;
-                listViewWorkflows1.LoadWorkflows(_context, _workflowselected);
-            }
-            else
-            {
-                listViewWorkflows1.Items.Clear();
-                listViewWorkflows1.Enabled = false;
-            }
-        }
+       
 
         private void listViewTemplates_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             if (listViewTemplates.GetSelectedJobTemplate.NumberofInputAssets == 2)
             {
                 MessageBox.Show("You selected a job template that requires two input assets. If this is for a Premium encoder task, please select a workflow file.");
@@ -213,6 +218,26 @@ namespace AMSExplorer
                     MessageBox.Show("You selected a job template that requires more than two input assets. This is not supported for this feature.");
                 }
             }
+             * */
+        }
+
+        private void radioButtonInsertWorkflowAsset_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButtonInsertWorkflowAsset.Checked)
+            {
+                listViewWorkflows1.Enabled = true;
+                //listViewWorkflows1.LoadWorkflows(_context, _workflowselected);
+            }
+            else
+            {
+                listViewWorkflows1.Items.Clear();
+                listViewWorkflows1.Enabled = false;
+            }
+        }
+
+        private void checkBoAddAssetsToInput_CheckedChanged(object sender, EventArgs e)
+        {
+            panelInsertAsset.Enabled = checkBoAddAssetsToInput.Checked;
         }
     }
 }

@@ -80,7 +80,7 @@ namespace AMSExplorer
         private bool WatchFolderPublishOutputAssets = false;
         private string WatchFolderSendEmailToRecipient = null;
         private IJobTemplate WatchFolderJobTemplate = null;
-        private IAsset WatchFolderWorkflow = null;
+        private IEnumerable<IAsset> WatchFolderExtraInputAssets = null;
         private FileSystemWatcher WatchFolderWatcher;
         private INotificationEndPoint WatchFolderNotificationEndPoint;
 
@@ -883,7 +883,7 @@ namespace AMSExplorer
                     string jobname = string.Format("Processing of {0} with template {1}", asset.Name, jobtemplatetorun.Name);
                     List<IAsset> assetlist = new List<IAsset>() { asset };
                     // if user wants to insert a workflow as asset #0
-                    if (WatchFolderWorkflow != null) assetlist.Insert(0, WatchFolderWorkflow);
+                    if (WatchFolderExtraInputAssets != null) assetlist.InsertRange(0, WatchFolderExtraInputAssets);
 
                     TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
 
@@ -4648,7 +4648,7 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderWorkflow)
+            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderExtraInputAssets)
             {
                 WatchDeleteFile = WatchFolderDeleteFile,
                 WatchFolderPath = WatchFolderFolderPath,
@@ -4666,7 +4666,7 @@ typeof(FilterTime)
                 Program.SaveAndProtectUserConfig();
                 WatchFolderDeleteFile = form.WatchDeleteFile;
                 WatchFolderJobTemplate = form.WatchRunJobTemplate; // let's save the job template to the main variable
-                WatchFolderWorkflow = form.WatchRunWorkflow; // let's save the job template to the main variable
+                WatchFolderExtraInputAssets = form.WatchRunExtraInputAssets; // let's save the extra input asstes to the main variable
                 WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
                 WatchFolderSendEmailToRecipient = form.WatchSendEMail;
 
