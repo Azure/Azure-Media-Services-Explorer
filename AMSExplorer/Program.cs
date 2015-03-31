@@ -1279,7 +1279,31 @@ namespace AMSExplorer
             return string.Format("{0} ({1})", type, number);
         }
 
+        static public void SetISMFileAsPrimary(IAsset asset)
+        {
+            var ismAssetFiles = asset.AssetFiles.ToList().
+                Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
+            if (ismAssetFiles.Count() == 0)
+                return;
+
+            ismAssetFiles.First().IsPrimary = true;
+            ismAssetFiles.First().Update();
+        }
+
+        static public void SetFileAsPrimary(IAsset asset, string assetfilename)
+        {
+            var ismAssetFiles = asset.AssetFiles.ToList().
+                Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
+
+            if (ismAssetFiles.Count() != 1)
+                return;
+
+            ismAssetFiles.First().IsPrimary = true;
+            ismAssetFiles.First().Update();
+        }
+
+        
         public void CreateOutlookMail()
         {
             Exception exception = null;

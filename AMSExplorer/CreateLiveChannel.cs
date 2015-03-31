@@ -36,7 +36,7 @@ namespace AMSExplorer
 {
     public partial class CreateLiveChannel : Form
     {
-        CloudMediaContext _context;
+        CloudMediaContext MyContext;
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
@@ -94,12 +94,15 @@ namespace AMSExplorer
         {
             get
             {
-                ChannelSlate myslate = new ChannelSlate()
+                ChannelSlate myslate = null;
+                if (checkBoxAdInsertSlate.Checked)
                 {
-                    InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
-                    DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? textBoxSlateImage.Text : null
-
-                };
+                    myslate = new ChannelSlate()
+                                   {
+                                       InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
+                                       DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? textBoxSlateImage.Text : null,
+                                   };
+                }
                 return myslate;
             }
         }
@@ -200,7 +203,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _context = context;
+            MyContext = context;
         }
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
@@ -418,26 +421,41 @@ namespace AMSExplorer
 
         private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
         {
-            if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
+            if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             IAsset asset = null;
+            IAccessPolicy policy = null;
+            ILocator locator = null;
+
             try
             {
-                asset = _context.Assets.CreateFromFile(
-                                                      FileName as string,
-                                                      storageaccount,
-                                                      AssetCreationOptions.None,
-                                                      (af, p) =>
-                                                      {
-                                                          progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
-                                                      }
-                                                      );
+                asset = MyContext.Assets.Create(SafeFileName as string, storageaccount, AssetCreationOptions.None);
+                IAssetFile file = asset.AssetFiles.Create(SafeFileName);
+                policy = MyContext.AccessPolicies.Create(
+                                       SafeFileName,
+                                       TimeSpan.FromDays(30),
+                                       AccessPermissions.Write | AccessPermissions.List);
+
+                locator = MyContext.Locators.CreateLocator(LocatorType.Sas, asset, policy);
+                file.UploadProgressChanged += file_UploadProgressChanged;
+                file.Upload(FileName);
+                AssetInfo.SetFileAsPrimary(asset, SafeFileName);
             }
             catch (Exception e)
             {
                 asset = null;
             }
+            finally
+            {
+                if (locator != null) locator.Delete();
+                if (policy != null) policy.Delete();
+            }
             return asset;
+        }
+
+        private void file_UploadProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e)
+        {
+            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
         }
 
         private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)

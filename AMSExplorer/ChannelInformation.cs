@@ -34,6 +34,12 @@ using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using System.Net;
 
+
+using System.Collections.ObjectModel;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+
 namespace AMSExplorer
 {
     public partial class ChannelInformation : Form
@@ -155,10 +161,16 @@ namespace AMSExplorer
                 DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
                 DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
             }
+            else
+            {
+                // no encoding, let's remove the encoding tab
+                tabControl1.TabPages.Remove(tabPageEncoding);
+            }
+
             if (MyChannel.Slate != null)
             {
-                DGChannel.Rows.Add("Slate Insertion", MyChannel.Slate.InsertSlateOnAdMarker);
-                DGChannel.Rows.Add("Slate Default Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+                DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+                DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
             }
 
             if (MyChannel.Input.KeyFrameInterval != null)
@@ -363,7 +375,7 @@ namespace AMSExplorer
         {
             if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
             {
-                string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false );
+                string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
                 webBrowserPreview.Url = new Uri(myurl);
             }
         }
@@ -371,6 +383,150 @@ namespace AMSExplorer
         private void tabPage4_Leave(object sender, EventArgs e)
         {
             webBrowserPreview.Url = null;
+        }
+
+        private async void buttonUploadSlate_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
+            {
+                IAsset asset;
+                progressBarUpload.Value = 0;
+                progressBarUpload.Visible = true;
+
+                buttonUploadSlate.Enabled = false;
+                string file = openFileDialogSlate.FileName;
+                asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                progressBarUpload.Visible = false;
+
+                buttonUploadSlate.Enabled = true;
+                if (asset != null)
+                {
+                    textBoxSlateImageID.Text = asset.Id;
+                }
+            }
+        }
+
+        private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        {
+            if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
+
+            IAsset asset = null;
+            IAccessPolicy policy = null;
+            ILocator locator = null;
+
+            try
+            {
+                asset = MyContext.Assets.Create(SafeFileName as string, storageaccount, AssetCreationOptions.None);
+                IAssetFile file = asset.AssetFiles.Create(SafeFileName);
+                policy = MyContext.AccessPolicies.Create(
+                                       SafeFileName,
+                                       TimeSpan.FromDays(30),
+                                       AccessPermissions.Write | AccessPermissions.List);
+
+                locator = MyContext.Locators.CreateLocator(LocatorType.Sas, asset, policy);
+                file.UploadProgressChanged += file_UploadProgressChanged;
+                file.Upload(FileName);
+                AssetInfo.SetFileAsPrimary(asset, SafeFileName);
+
+            }
+            catch (Exception e)
+            {
+                asset = null;
+            }
+            finally
+            {
+                if (locator != null) locator.Delete();
+                if (policy != null) policy.Delete();
+            }
+            return asset;
+        }
+        private void file_UploadProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e)
+        {
+            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
+        }
+
+        private void buttonInsertAD_Click(object sender, EventArgs e)
+        {
+
+            InsertAd(false);
+        }
+
+        private void buttonInsertAdAndSlate_Click(object sender, EventArgs e)
+        {
+            InsertAd(true);
+        }
+        private   async void InsertAd(bool showslate)
+        {
+            bool Error = false;
+
+            try
+            {
+                TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text));
+                Convert.ToInt32(textBoxCueId.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (!Error)
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text)); ;
+                int cueid = Convert.ToInt32(textBoxCueId.Text);
+                try
+                {
+                    await Task.Run(() => MyChannel.StartAdvertisementAsync(ts, cueid, showslate));
+                }
+                catch
+                {
+                    Error = true;
+                }
+            }
+      
+        }
+
+        private async void ShowSlate()
+        {
+            bool Error = false;
+
+            try
+            {
+                TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
+
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (!Error)
+            {
+                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
+
+                try
+                {
+                    await Task.Run(() => MyChannel.ShowSlateAsync(ts, textBoxSlateImageID.Text));
+                    
+                }
+                catch
+                {
+                    Error = true;
+                }
+                
+            }
+        
+        }
+
+
+        private void buttonShowSLate_Click(object sender, EventArgs e)
+        {
+            ShowSlate();
+        }
+
+        private async void buttonHideSlate_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() => MyChannel.HideSlateAsync());
+                
         }
     }
 

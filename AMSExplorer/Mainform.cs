@@ -610,32 +610,6 @@ namespace AMSExplorer
         }
 
 
-        static void SetISMFileAsPrimary(IAsset asset)
-        {
-            var ismAssetFiles = asset.AssetFiles.ToList().
-                Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (ismAssetFiles.Count() == 0)
-                return;
-
-            ismAssetFiles.First().IsPrimary = true;
-            ismAssetFiles.First().Update();
-        }
-
-        static void SetISMFileAsPrimary(IAsset asset, string assetfilename)
-        {
-            var ismAssetFiles = asset.AssetFiles.ToList().
-                Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
-
-            if (ismAssetFiles.Count() != 1)
-                return;
-
-            ismAssetFiles.First().IsPrimary = true;
-            ismAssetFiles.First().Update();
-        }
-
-
-
         public void TextBoxLogWriteLine(string message, object o1, bool Error = false)
         {
             TextBoxLogWriteLine(string.Format(message, o1), Error);
@@ -1948,7 +1922,7 @@ namespace AMSExplorer
 
                 // Refresh the asset.
                 asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-                SetISMFileAsPrimary(asset);
+                AssetInfo.SetISMFileAsPrimary(asset);
                 if (!Error)
                 {
                     TextBoxLogWriteLine("Azure Storage copy completed.");
@@ -2077,7 +2051,7 @@ namespace AMSExplorer
 
                 // Refresh the asset.
                 asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
-                SetISMFileAsPrimary(asset);
+                AssetInfo.SetISMFileAsPrimary(asset);
 
                 if (!Error)
                 {
@@ -2561,11 +2535,11 @@ namespace AMSExplorer
             // let's set the primary file
             if (ismAssetFile.Count() > 0)
             {
-                SetISMFileAsPrimary(TargetAsset, ismAssetFile.FirstOrDefault().Name);
+                AssetInfo.SetFileAsPrimary(TargetAsset, ismAssetFile.FirstOrDefault().Name);
             }
             else
             {
-                SetISMFileAsPrimary(TargetAsset);
+                AssetInfo.SetISMFileAsPrimary(TargetAsset);
             }
 
             DestinationLocator.Delete();

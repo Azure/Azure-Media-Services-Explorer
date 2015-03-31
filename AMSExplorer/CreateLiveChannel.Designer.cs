@@ -88,6 +88,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.WarningChannelName = new System.Windows.Forms.Label();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
+            this.label15 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -572,6 +573,7 @@
             // 
             // panelInsertSlate
             // 
+            this.panelInsertSlate.Controls.Add(this.label15);
             this.panelInsertSlate.Controls.Add(this.label14);
             this.panelInsertSlate.Controls.Add(this.progressBarUpload);
             this.panelInsertSlate.Controls.Add(this.buttonUploadSlate);
@@ -684,6 +686,16 @@
             // 
             this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
+            // label15
+            // 
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Location = new System.Drawing.Point(153, 51);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(249, 13);
+            this.label15.TabIndex = 78;
+            this.label15.Text = "JPG 1920x1080";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // CreateLiveChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -786,5 +798,6 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
         private System.Windows.Forms.ProgressBar progressBarUpload;
         private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
     }
 }
