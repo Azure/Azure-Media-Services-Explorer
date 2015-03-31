@@ -31,32 +31,59 @@ namespace AMSExplorer
     public partial class WatchFolder : Form
     {
         private CloudMediaContext _context;
-        private IJobTemplate _jobtemplateselected = null;
         private IEnumerable<IAsset> _SelectedAssets;
-        private TypeInputExtraInput _TypeInputExtraInput;
+        private WatchFolderSettings _WatchFolderSettings;
 
-        public string WatchFolderPath
+        public WatchFolderSettings WatchFolderGetSettings
         {
             get
             {
-                return textBoxFolder.Text;
-            }
-            set
-            {
-                textBoxFolder.Text = value;
+                WatchFolderSettings settings = new WatchFolderSettings()
+                {
+                    FolderPath = textBoxFolder.Text,
+                    IsOn = radioButtonON.Checked,
+                    DeleteFile = checkBoxDeleteFile.Checked,
+                    JobTemplate = checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null,
+                    SendEmailToRecipient = checkBoxSendEMail.Checked ? textBoxEMail.Text : null,
+                    PublishOutputAssets = checkBoxPublishOAssets.Checked,
+                };
+
+
+
+                if (checkBoAddAssetsToInput.Checked)
+                {
+                    settings.ExtraInputAssets = new List<IAsset>();
+                    if (radioButtonInsertWorkflowAsset.Checked)
+                    {
+                        settings.ExtraInputAssets.Add(listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault());
+                    }
+                    else // selected assets
+                    {
+                        settings.ExtraInputAssets.AddRange(_SelectedAssets);
+                    }
+                }
+                else
+                {
+                    settings.ExtraInputAssets = null;
+                }
+
+
+                if (checkBoAddAssetsToInput.Checked)
+                {
+                    settings.TypeInputExtraInput = (radioButtonInsertSelectedAssets.Checked) ? TypeInputExtraInput.SelectedAssets : TypeInputExtraInput.SelectedWorkflow;
+                }
+                else
+                {
+                    settings.TypeInputExtraInput = TypeInputExtraInput.None;
+                }
+
+                return settings;
             }
         }
-        public bool WatchOn
-        {
-            get
-            {
-                return radioButtonON.Checked;
-            }
-            set
-            {
-                radioButtonON.Checked = value;
-            }
-        }
+
+
+
+
         public bool WatchUseQueue
         {
             get
@@ -68,115 +95,16 @@ namespace AMSExplorer
                 checkBoxUseQueue.Checked = value;
             }
         }
-        public bool WatchDeleteFile
-        {
-            get
-            {
-                return checkBoxDeleteFile.Checked;
-            }
-            set
-            {
-                checkBoxDeleteFile.Checked = value;
-            }
-        }
-        public IJobTemplate WatchRunJobTemplate
-        {
-            get
-            {
-                return checkBoxRunJobTemplate.Checked ? listViewTemplates.GetSelectedJobTemplate : null;
-            }
 
-        }
-        public IEnumerable<IAsset> WatchRunExtraInputAssets
-        {
-            get
-            {
-                List<IAsset> listExtraAssets = null;
-                if (checkBoAddAssetsToInput.Checked)
-                {
-                    listExtraAssets = new List<IAsset>();
-                    if (radioButtonInsertWorkflowAsset.Checked)
-                    {
-                        listExtraAssets.Add(listViewWorkflows1.GetSelectedWorkflow.FirstOrDefault());
-                    }
-                    else // selected assets
-                    {
-                        listExtraAssets.AddRange(_SelectedAssets);
-                    }
-                }
-                return listExtraAssets;
-            }
-        }
 
-        public string WatchSendEMail
-        {
-            get
-            {
-                return checkBoxSendEMail.Checked ? textBoxEMail.Text : null;
-            }
-            set
-            {
-                checkBoxSendEMail.Checked = value != null;
-                textBoxEMail.Text = value;
-            }
-        }
-
-        public bool WatchPublishOutputAssets
-        {
-            get
-            {
-                return checkBoxPublishOAssets.Checked;
-            }
-            set
-            {
-                checkBoxPublishOAssets.Checked = value;
-            }
-        }
-
-        public TypeInputExtraInput WatchGetTypeExtraInputAssets
-        {
-            get
-            {
-                if (checkBoAddAssetsToInput.Checked)
-                {
-                    return (radioButtonInsertSelectedAssets.Checked) ? TypeInputExtraInput.SelectedAssets : TypeInputExtraInput.SelectedWorkflow;
-                }
-                else
-                {
-                    return TypeInputExtraInput.None;
-                }
-            }
-        }
-
-        public WatchFolder(CloudMediaContext context, IJobTemplate jobtemplate, IEnumerable<IAsset> selectedassets, TypeInputExtraInput typeinputextrainput)
+        public WatchFolder(CloudMediaContext context, IEnumerable<IAsset> selectedassets, WatchFolderSettings watchfoldersettings)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            _jobtemplateselected = jobtemplate;
+            _WatchFolderSettings = watchfoldersettings;
             _SelectedAssets = selectedassets;
-            _TypeInputExtraInput = typeinputextrainput;
-
-            if (_jobtemplateselected != null)
-            {
-                checkBoxRunJobTemplate.Checked = true;
-            }
-
-
-            if (_TypeInputExtraInput != TypeInputExtraInput.None)
-            {
-                checkBoAddAssetsToInput.Checked = true;
-                if (_TypeInputExtraInput == TypeInputExtraInput.SelectedAssets)
-                {
-                    radioButtonInsertSelectedAssets.Checked = true;
-                }
-                else
-                {
-                    radioButtonInsertWorkflowAsset.Checked = true;
-                }
-            }
-
-            checkBoxRunJobTemplate.Checked = (jobtemplate != null);
+           
         }
 
         private void checkBoxParallel_CheckedChanged(object sender, EventArgs e)
@@ -186,8 +114,43 @@ namespace AMSExplorer
 
         private void WatchFolder_Load(object sender, EventArgs e)
         {
-            buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
+        
+            // folder
+            textBoxFolder.Text = _WatchFolderSettings.FolderPath;
+   
+            // activation
+            radioButtonON.Checked = _WatchFolderSettings.IsOn;
+
+            // delete file
+            checkBoxDeleteFile.Checked = _WatchFolderSettings.DeleteFile;
+
+            // process asset
+            checkBoxRunJobTemplate.Checked = (_WatchFolderSettings.JobTemplate != null);
+         
+            // add asset(s) to process
+            if (_WatchFolderSettings.TypeInputExtraInput != TypeInputExtraInput.None)
+            {
+                checkBoAddAssetsToInput.Checked = true;
+                if (_WatchFolderSettings.TypeInputExtraInput == TypeInputExtraInput.SelectedAssets)
+                {
+                    radioButtonInsertSelectedAssets.Checked = true;
+                }
+                else
+                {
+                    radioButtonInsertWorkflowAsset.Checked = true;
+                }
+            }
+
+            // publish
+            checkBoxPublishOAssets.Checked = _WatchFolderSettings.PublishOutputAssets;
             checkBoxPublishOAssets.Text = string.Format(checkBoxPublishOAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
+        
+            // send email
+            checkBoxSendEMail.Checked = _WatchFolderSettings.SendEmailToRecipient != null;
+            textBoxEMail.Text = _WatchFolderSettings.SendEmailToRecipient;
+
+            // other
+            buttonOk.Enabled = string.IsNullOrWhiteSpace(textBoxFolder.Text) ? false : true;
             labelWarning.Text = string.Empty;
         }
 
@@ -215,7 +178,7 @@ namespace AMSExplorer
             if (checkBoxRunJobTemplate.Checked)
             {
                 groupBoxProcess.Enabled = checkBoxPublishOAssets.Enabled = true;
-                listViewTemplates.LoadTemplates(_context, _jobtemplateselected);
+                listViewTemplates.LoadTemplates(_context, _WatchFolderSettings.JobTemplate);
             }
             else
             {
@@ -244,7 +207,7 @@ namespace AMSExplorer
         private void CheckCompatibilityTemplate()
         {
             int selectedassetcount = _SelectedAssets != null ? _SelectedAssets.Count() : 0;
-            int numberofinputassets = checkBoAddAssetsToInput.Checked ? (radioButtonInsertSelectedAssets.Checked ? selectedassetcount + 1 : 1) : 1;
+            int numberofinputassets = checkBoAddAssetsToInput.Checked ? (radioButtonInsertSelectedAssets.Checked ? selectedassetcount + 1 : 2) : 1;
             if (listViewTemplates.GetSelectedJobTemplate != null && listViewTemplates.GetSelectedJobTemplate.NumberofInputAssets != numberofinputassets)
             {
                 labelWarning.Text = string.Format("The number of input assets in the template ({0}) is incompatible with the input assets ({1})", listViewTemplates.GetSelectedJobTemplate.NumberofInputAssets, numberofinputassets);
@@ -260,7 +223,7 @@ namespace AMSExplorer
             if (radioButtonInsertWorkflowAsset.Checked)
             {
                 listViewWorkflows1.Enabled = true;
-                listViewWorkflows1.LoadWorkflows(_context, _TypeInputExtraInput == TypeInputExtraInput.SelectedWorkflow ? _SelectedAssets.FirstOrDefault() : null);
+                listViewWorkflows1.LoadWorkflows(_context, _WatchFolderSettings.TypeInputExtraInput == TypeInputExtraInput.SelectedWorkflow ? _WatchFolderSettings.ExtraInputAssets.FirstOrDefault() : null);
             }
             else
             {

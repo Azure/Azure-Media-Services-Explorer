@@ -74,6 +74,7 @@ namespace AMSExplorer
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
         private TimeSpan seenInterval = new TimeSpan();
+        /*
         private string WatchFolderFolderPath = string.Empty;
         private bool WatchFolderIsOn = false;
         private bool WatchFolderDeleteFile = false;
@@ -84,7 +85,8 @@ namespace AMSExplorer
         private TypeInputExtraInput WatchFolderTypeInputExtraInput = TypeInputExtraInput.None;
         private FileSystemWatcher WatchFolderWatcher;
         private INotificationEndPoint WatchFolderNotificationEndPoint;
-
+        */
+        WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
 
@@ -815,7 +817,7 @@ namespace AMSExplorer
                 {
                     int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                     // Start a worker thread that does uploading.
-                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null));
+                    Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
                 }
@@ -830,7 +832,7 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFileAndMore(object name, int index, bool bdeletefile, IJobTemplate jobtemplatetorun = null, string storageaccount = null, bool PublishOutputAsset = false)
+        private void ProcessUploadFileAndMore(object name, int index, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -857,14 +859,14 @@ namespace AMSExplorer
                 Error = true;
                 DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload error " + asset.Name, e.Message);
+                if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
 
             }
             if (!Error)
             {
                 TextBoxLogWriteLine(string.Format("Uploading of {0} done.", name));
                 DoGridTransferDeclareCompleted(index, asset.Id);
-                if (bdeletefile) //use checked the box "delete the file"
+                if (watchfoldersettings.DeleteFile) //use checked the box "delete the file"
                 {
                     try
                     {
@@ -874,26 +876,26 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         TextBoxLogWriteLine("Error when deleting '{0}'", name, true);
-                        if (WatchFolderSendEmailToRecipient != null) Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
+                        if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when deleting " + asset.Name, e.Message);
 
                     }
                 }
 
-                if (jobtemplatetorun != null) // option with watchfolder to run a job based on a job template
+                if (watchfoldersettings.JobTemplate != null) // option with watchfolder to run a job based on a job template
                 {
-                    string jobname = string.Format("Processing of {0} with template {1}", asset.Name, jobtemplatetorun.Name);
+                    string jobname = string.Format("Processing of {0} with template {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
                     List<IAsset> assetlist = new List<IAsset>() { asset };
                     // if user wants to insert a workflow or other asstes as asset #0
-                    if (WatchFolderTypeInputExtraInput != TypeInputExtraInput.None)
+                    if (watchfoldersettings.TypeInputExtraInput != TypeInputExtraInput.None)
                     {
-                        if (WatchFolderExtraInputAssets != null) assetlist.InsertRange(0, WatchFolderExtraInputAssets);
+                        if (watchfoldersettings.ExtraInputAssets != null) assetlist.InsertRange(0, watchfoldersettings.ExtraInputAssets);
                     }
-                    
+
                     TextBoxLogWriteLine(string.Format("Submitting job '{0}'", jobname));
 
                     // Submit the job
-                    IJob job = _context.Jobs.Create(jobname, jobtemplatetorun, assetlist, Properties.Settings.Default.DefaultJobPriority);
-                    job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, WatchFolderNotificationEndPoint);
+                    IJob job = _context.Jobs.Create(jobname, watchfoldersettings.JobTemplate, assetlist, Properties.Settings.Default.DefaultJobPriority);
+                    job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, watchfoldersettings.NotificationEndPoint);
 
                     try
                     {
@@ -904,9 +906,9 @@ namespace AMSExplorer
                         // Add useful information to the exception
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", job.Name, true);
                         TextBoxLogWriteLine(e);
-                        if (WatchFolderSendEmailToRecipient != null)
+                        if (watchfoldersettings.SendEmailToRecipient != null)
                         {
-                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
+                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Error when submitting job for asset " + asset.Name, e.Message);
                         }
                         return;
                     }
@@ -921,13 +923,13 @@ namespace AMSExplorer
                     }
                     if (myjob.State == JobState.Finished)
                     {
-                        if (PublishOutputAsset) //user wants to publish the output asset when it has been processed by the job 
+                        if (watchfoldersettings.PublishOutputAssets) //user wants to publish the output asset when it has been processed by the job 
                         {
                             IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myjob.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
                                 ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, oasset, policy, null);
-                                if (WatchFolderSendEmailToRecipient != null)
+                                if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
                                     IStreamingEndpoint SelectedSE = AssetInfo.GetBestStreamingEndpoint(_context);
                                     StringBuilder sb = new StringBuilder();
@@ -940,7 +942,7 @@ namespace AMSExplorer
                                         sb.AppendLine();
                                     }
                                     sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
-                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
+                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
                                 }
                             }
                         }
@@ -948,12 +950,12 @@ namespace AMSExplorer
                         {
                             foreach (var oasset in myjob.OutputMediaAssets)
                             {
-                                if (WatchFolderSendEmailToRecipient != null)
+                                if (watchfoldersettings.SendEmailToRecipient != null)
                                 {
                                     StringBuilder sb = new StringBuilder();
                                     sb.Append(AssetInfo.GetStat(oasset));
 
-                                    Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
+                                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: asset uploaded and processed " + asset.Name, sb.ToString());
                                 }
                             }
 
@@ -961,21 +963,21 @@ namespace AMSExplorer
                     }
                     else  // not completed successfuly
                     {
-                        if (WatchFolderSendEmailToRecipient != null)
+                        if (watchfoldersettings.SendEmailToRecipient != null)
                         {
                             StringBuilder sb = new StringBuilder();
                             sb.Append((new JobInfo(job).GetStats()));
-                            Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
+                            Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: job " + job.State.ToString() + " for asset " + asset.Name, sb.ToString());
                         }
                     }
                 }
                 else // user selected no processing. Upload successfull
                 {
-                    if (WatchFolderSendEmailToRecipient != null)
+                    if (watchfoldersettings.SendEmailToRecipient != null)
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(AssetInfo.GetStat(asset));
-                        Program.CreateAndSendOutlookMail(WatchFolderSendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
+                        Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
                     }
 
                 }
@@ -4652,45 +4654,34 @@ typeof(FilterTime)
 
         private void DoWatchFolder()
         {
-            WatchFolder form = new WatchFolder(_context, WatchFolderJobTemplate, WatchFolderExtraInputAssets, WatchFolderTypeInputExtraInput)
+            WatchFolder form = new WatchFolder(_context, ReturnSelectedAssets(), MyWatchFolderSettings)
             {
-                WatchDeleteFile = WatchFolderDeleteFile,
-                WatchFolderPath = WatchFolderFolderPath,
-                WatchOn = WatchFolderIsOn,
                 WatchUseQueue = Properties.Settings.Default.useTransferQueue,
-                WatchPublishOutputAssets = WatchFolderPublishOutputAssets,
-                WatchSendEMail = WatchFolderSendEmailToRecipient
             };
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                WatchFolderFolderPath = form.WatchFolderPath;
-                WatchFolderIsOn = form.WatchOn;
+                MyWatchFolderSettings = form.WatchFolderGetSettings;
                 Properties.Settings.Default.useTransferQueue = form.WatchUseQueue;
                 Program.SaveAndProtectUserConfig();
-                WatchFolderDeleteFile = form.WatchDeleteFile;
-                WatchFolderJobTemplate = form.WatchRunJobTemplate; // let's save the job template to the main variable
-                WatchFolderExtraInputAssets = form.WatchRunExtraInputAssets; // let's save the extra input asstes to the main variable
-                WatchFolderPublishOutputAssets = form.WatchPublishOutputAssets;
-                WatchFolderSendEmailToRecipient = form.WatchSendEMail;
-                WatchFolderTypeInputExtraInput = form.WatchGetTypeExtraInputAssets;
 
-                if (!WatchFolderIsOn) // user want to stop the watch folder (if if exists)
+
+                if (!MyWatchFolderSettings.IsOn) // user want to stop the watch folder (if if exists)
                 {
-                    if (WatchFolderWatcher != null)
+                    if (MyWatchFolderSettings.Watcher != null)
                     {
-                        WatchFolderWatcher.EnableRaisingEvents = false;
-                        WatchFolderWatcher = null;
+                        MyWatchFolderSettings.Watcher.EnableRaisingEvents = false;
+                        MyWatchFolderSettings.Watcher = null;
                     }
                     toolStripStatusLabelWatchFolder.Visible = false;
 
                 }
                 else // User wants to active the watch folder
                 {
-                    if (WatchFolderWatcher == null)
+                    if (MyWatchFolderSettings.Watcher == null)
                     {
                         // Create a new FileSystemWatcher and set its properties.
-                        WatchFolderWatcher = new FileSystemWatcher();
+                        MyWatchFolderSettings.Watcher = new FileSystemWatcher();
 
                         //create notifcation queue
                         //create the cloud storage account from name and private key
@@ -4716,26 +4707,26 @@ typeof(FilterTime)
                          * */
 
                         //create a notification endpoint and store it the glbal variable
-                        WatchFolderNotificationEndPoint =
+                        MyWatchFolderSettings.NotificationEndPoint =
                             _context.NotificationEndPoints
                                 .Create("notificationendpoint", NotificationEndPointType.AzureQueue, Constants.AzureNotificationNameWatchFolder);
 
                     }
 
-                    WatchFolderWatcher.Path = WatchFolderFolderPath;
+                    MyWatchFolderSettings.Watcher.Path = MyWatchFolderSettings.FolderPath;
                     /* Watch for changes in LastAccess and LastWrite times, and
                        the renaming of files or directories. */
-                    WatchFolderWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
+                    MyWatchFolderSettings.Watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                        | NotifyFilters.FileName; //| NotifyFilters.DirectoryName;
                     // Only watch text files.
-                    WatchFolderWatcher.Filter = "*.*";
-                    WatchFolderWatcher.IncludeSubdirectories = false;
+                    MyWatchFolderSettings.Watcher.Filter = "*.*";
+                    MyWatchFolderSettings.Watcher.IncludeSubdirectories = false;
 
                     // Begin watching.
-                    WatchFolderWatcher.EnableRaisingEvents = true;
+                    MyWatchFolderSettings.Watcher.EnableRaisingEvents = true;
                     toolStripStatusLabelWatchFolder.Visible = true;
 
-                    WatchFolderWatcher.Created += (s, e) =>
+                    MyWatchFolderSettings.Watcher.Created += (s, e) =>
                     {
                         if (!this.seen.ContainsKey(e.FullPath)
                             || (DateTime.Now - this.seen[e.FullPath]) > this.seenInterval)
@@ -4778,7 +4769,7 @@ typeof(FilterTime)
                     {
                         int index = DoGridTransferAddItem(string.Format("Watch folder: upload of file '{0}'", Path.GetFileName(path)), TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does uploading.
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(path, index, WatchFolderDeleteFile, WatchFolderJobTemplate, null, WatchFolderPublishOutputAssets));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(path, index, MyWatchFolderSettings));
 
                     }
                     catch (Exception e)
@@ -6815,7 +6806,7 @@ typeof(FilterTime)
                     foreach (string file in form2.BatchSelectedFiles)
                     {
                         index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, false, null, form2.StorageSelected));
+                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected));
                     }
                     DotabControlMainSwitch(Constants.TabTransfers);
                     DoRefreshGridAssetV(false);
@@ -8235,7 +8226,6 @@ typeof(FilterTime)
             }
 
             string taskname = myJob.Tasks.FirstOrDefault().Name;
-            var llll = myJob.InputMediaAssets.ToList();
 
             GenericProcessor form = new GenericProcessor(_context, myJob)
             {
@@ -8244,7 +8234,6 @@ typeof(FilterTime)
                 EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
                 EncodingPriority = myJob.Priority,
-                SelectedAssets = myJob.InputMediaAssets.ToList(),
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets,
             };
 
