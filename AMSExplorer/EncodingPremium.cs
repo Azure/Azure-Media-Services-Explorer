@@ -35,14 +35,9 @@ namespace AMSExplorer
     {
         private int numberofinputassets;
         private List<IMediaProcessor> Procs;
-
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
-
-        //private List<IAsset> listblueprints = new List<IAsset>();
         private CloudMediaContext _context;
-
-        private int sortColumn = -1;
         public string EncodingPremiumWorkflowPresetXMLFiles;
 
         public List<IMediaProcessor> EncodingProcessorsList
@@ -77,18 +72,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<IAsset> SelecBP = new List<IAsset>();
-                if (listViewWorkflows.SelectedItems.Count > 0)
-                {
-                    int indexid = columnHeaderAssetId.Index;
-
-                    foreach (ListViewItem itemw in listViewWorkflows.SelectedItems)
-                    {
-                        string sid = itemw.SubItems[indexid].Text;
-                        SelecBP.Add(AssetInfo.GetAsset(itemw.SubItems[indexid].Text, _context));
-                    }
-                }
-                return SelecBP;
+                return listViewWorkflows.GetSelectedWorkflow;
             }
         }
 
@@ -219,40 +203,8 @@ namespace AMSExplorer
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-            LoadWorkflows();
+            listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
-            listViewWorkflows.Tag = -1;
-            listViewWorkflows.ColumnClick += ListViewItemComparer.ListView_ColumnClick;
-
-        }
-
-        private void LoadWorkflows()
-        {
-            var query = _context.Files.ToList().Where(f => (
-                  f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-                  )).ToArray();
-
-            listViewWorkflows.BeginUpdate();
-            listViewWorkflows.Items.Clear();
-            foreach (IAssetFile file in query)
-            {
-                if (file.Asset.AssetFiles.Count() == 1)
-                {
-                    ListViewItem item = new ListViewItem(file.Name, 0);
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
-                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
-                    item.SubItems.Add(file.Asset.Name);
-                    item.SubItems.Add(file.Asset.Id);
-                    listViewWorkflows.Items.Add(item);
-                }
-            }
-            listViewWorkflows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewWorkflows.EndUpdate();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -296,7 +248,7 @@ namespace AMSExplorer
                 progressBarUpload.Visible = false;
                 buttonCancel.Enabled = true;
                 buttonUpload.Enabled = true;
-                LoadWorkflows();
+                listViewWorkflows.LoadWorkflows(_context);
             }
         }
 
@@ -330,11 +282,11 @@ namespace AMSExplorer
             {
 
             }
-
         }
 
-
+        private void listViewWorkflows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
+        }
     }
-
-
 }

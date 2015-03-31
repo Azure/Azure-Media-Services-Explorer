@@ -76,7 +76,7 @@ namespace AMSExplorer
             {
                 for (int i = 1; i < 6; i++)
                 {
-                    ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + i.ToString(), true).FirstOrDefault();
+                    ListView mylistview = ReturnListViewProcessor(i);
                     mylistview.BeginUpdate();
 
                     foreach (IMediaProcessor proc in value)
@@ -148,14 +148,12 @@ namespace AMSExplorer
                 for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
                 {
 
-                    ComboBox mycomboboxassetinput = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
-                    ListView mylistviewprocessor = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
-                    TextBox textBoxConfiguration = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+                    ComboBox mycomboboxassetinput = ReturnComboBoxAssetInput(index_task);
 
                     GenericTask mytask = new GenericTask()
                     {
-                        Processor = Procs[mylistviewprocessor.SelectedIndices[0]],
-                        ProcessorConfiguration = textBoxConfiguration.Text,
+                        Processor = Procs[ReturnListViewProcessor(index_task).SelectedIndices[0]],
+                        ProcessorConfiguration = ReturnTextBoxConfiguration(index_task).Text,
                         InputAsset = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAsset,
                         InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType
                     };
@@ -164,6 +162,21 @@ namespace AMSExplorer
                 }
                 return listtasks;
             }
+        }
+
+        private ListView ReturnListViewProcessor(int index_task)
+        {
+            return (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
+        }
+
+        private ComboBox ReturnComboBoxAssetInput(int index_task)
+        {
+            return (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+        }
+
+        private TextBox ReturnTextBoxConfiguration(int index_task)
+        {
+            return (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
         }
 
         public int EncodingPriority
@@ -216,6 +229,7 @@ namespace AMSExplorer
                 radioButtonSingleJobForAllInputAssets.Checked = true;
                 panelJobMode.Enabled = false;
                 numericUpDownTasks.Enabled = false;
+                SelectedAssets = myJob.InputMediaAssets.ToList();
             }
             init = false;
         }
@@ -229,7 +243,7 @@ namespace AMSExplorer
                     doc = XDocument.Load(openFileDialogPreset.FileName);
                     Button button = (Button)sender;
                     string index = button.Name.Substring(button.Name.Length - 1, 1);
-                    TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index, true).FirstOrDefault();
+                    TextBox mytextboxconfig = ReturnTextBoxConfiguration(Convert.ToInt16(index));
                     mytextboxconfig.Text = doc.ToString();
                 }
                 catch (Exception ex)
@@ -253,12 +267,14 @@ namespace AMSExplorer
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (init) return; // we don't want to run the code below if the form is in init mode (no input assets defined)
+
             bool allprocessorsselected = true;
 
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
-                ListView mylistview = (ListView)this.Controls.Find("listViewProcessors" + index_task.ToString(), true).FirstOrDefault();
-                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
+                ListView mylistview = ReturnListViewProcessor(index_task);
+                TextBox mytextboxconfig = ReturnTextBoxConfiguration(index_task);
 
                 if (mylistview.SelectedItems.Count == 0)
                 {
@@ -283,6 +299,7 @@ namespace AMSExplorer
                 }
             }
             buttonOk.Enabled = allprocessorsselected;
+            UpdateWarning();
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -317,11 +334,16 @@ namespace AMSExplorer
 
         private void UpdateWarning()
         {
+            if (init) return; // we don't want to run the code below if the form is in init mode
+
             int nbtaskwithemptyconfig = 0;
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
-                TextBox mytextboxconfig = (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
-                if (string.IsNullOrEmpty(mytextboxconfig.Text)) nbtaskwithemptyconfig++;
+                TextBox mytextboxconfig = ReturnTextBoxConfiguration(index_task);
+                var processorcontrol = ReturnListViewProcessor(index_task);
+
+                string processorname = processorcontrol.SelectedIndices.Count > 0 ? Procs[processorcontrol.SelectedIndices[0]].Name : string.Empty;
+                if (string.IsNullOrEmpty(mytextboxconfig.Text) && processorname != Constants.AzureMediaEncoderPremiumWorkflow) nbtaskwithemptyconfig++;
             }
             if (nbtaskwithemptyconfig > 1)
             {
@@ -368,23 +390,20 @@ namespace AMSExplorer
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
                 List<GenericTaskAsset> listinputpertask = new List<GenericTaskAsset>();
-                ComboBox mycombobox = (ComboBox)this.Controls.Find("comboBoxAssetInput" + index_task.ToString(), true).FirstOrDefault();
+                ComboBox mycombobox = ReturnComboBoxAssetInput(index_task);
 
                 mycombobox.Items.Clear();
 
                 // multiple input assets and one job only
                 if (SelectedAssets.Count > 1 && radioButtonSingleJobForAllInputAssets.Checked)
                 {
-                    //Item itemasset = new Item("All input assets", "allinput:");
                     mycombobox.Items.Add("All input assets");
                     listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
 
                     foreach (IAsset asset in SelectedAssets)
                     {
-                        //Item item = new Item("Input asset: " + asset.Name, "input:" + asset.Name);
                         mycombobox.Items.Add("Input asset: " + asset.Name);
                         listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.SpecificAssetID, InputAsset = asset.Id });
-                        //index_inputasset++;
                     }
                 }
                 else // single input asset

@@ -1984,6 +1984,39 @@ namespace AMSExplorer
         PlayReady = 2
     }
 
+    public enum TypeInputExtraInput
+    {
+        None = 0,
+        SelectedWorkflow,
+        SelectedAssets
+    }
+
+    public class WatchFolderSettings
+    {
+        public string FolderPath { get; set; }
+        public bool IsOn { get; set; }
+        public bool DeleteFile { get; set; }
+        public bool PublishOutputAssets { get; set; }
+        public string SendEmailToRecipient { get; set; }
+        public IJobTemplate JobTemplate { get; set; }
+        public List<IAsset> ExtraInputAssets { get; set; }
+        public TypeInputExtraInput TypeInputExtraInput { get; set; }
+        public FileSystemWatcher Watcher { get; set; }
+        public INotificationEndPoint NotificationEndPoint { get; set; }
+
+        public WatchFolderSettings()
+        {
+            FolderPath = string.Empty;
+            IsOn = false;
+            DeleteFile = false;
+            PublishOutputAssets = false;
+            SendEmailToRecipient = null;
+            JobTemplate = null;
+            ExtraInputAssets = null;
+            TypeInputExtraInput = TypeInputExtraInput.None;
+        }
+    }
+
     class HostNameClass
     {
         public string HostName { get; set; }
