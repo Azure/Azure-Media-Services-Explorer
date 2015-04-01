@@ -48,6 +48,7 @@ namespace AMSExplorer
         public CloudMediaContext MyContext;
         private BindingList<IPRange> InputEndpointSettingList = new BindingList<IPRange>();
         private BindingList<IPRange> PreviewEndpointSettingList = new BindingList<IPRange>();
+        private Mainform MyMainForm;
 
         public IList<IPRange> GetInputIPAllowList
         {
@@ -112,10 +113,11 @@ namespace AMSExplorer
             }
         }
 
-        public ChannelInformation()
+        public ChannelInformation(Mainform mainform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            MyMainForm = mainform;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -366,10 +368,7 @@ namespace AMSExplorer
             PreviewEndpointSettingList.Clear();
         }
 
-        private void tabPage4_Click(object sender, EventArgs e)
-        {
-            webBrowserPreview.Url = new Uri(@"http://aka.ms/azuremediaplayeriframe?url=http%3A%2F%2Fxpouyatdemo.streaming.mediaservices.windows.net%2F9453a0f6-b59a-473c-9b82-5e1c9701b95b%2FWP_20121015_081924Z.ism%2Fmanifest&autoplay=false");
-        }
+       
 
         private void tabPage4_Enter(object sender, EventArgs e)
         {
@@ -399,10 +398,7 @@ namespace AMSExplorer
                 progressBarUpload.Visible = false;
 
                 buttonUploadSlate.Enabled = true;
-                if (asset != null)
-                {
-                    textBoxSlateImageID.Text = asset.Id;
-                }
+                listViewJPG1.LoadJPGs(MyContext, asset);
             }
         }
 
@@ -455,7 +451,7 @@ namespace AMSExplorer
         {
             InsertAd(true);
         }
-        private   async void InsertAd(bool showslate)
+        private async void InsertAd(bool showslate)
         {
             bool Error = false;
 
@@ -475,14 +471,16 @@ namespace AMSExplorer
                 int cueid = Convert.ToInt32(textBoxCueId.Text);
                 try
                 {
-                    await Task.Run(() => MyChannel.StartAdvertisementAsync(ts, cueid, showslate));
+                    // await Task.Run(() => MyChannel.StartAdvertisementAsync(ts, cueid, showslate));
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
+
                 }
                 catch
                 {
                     Error = true;
                 }
             }
-      
+
         }
 
         private async void ShowSlate()
@@ -505,16 +503,16 @@ namespace AMSExplorer
 
                 try
                 {
-                    await Task.Run(() => MyChannel.ShowSlateAsync(ts, textBoxSlateImageID.Text));
-                    
+                    //await Task.Run(() => MyChannel.ShowSlateAsync(ts, textBoxSlateImageID.Text));
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, listViewJPG1.GetSelectedJPG.FirstOrDefault().Id, MyChannel, "slate shown", MyContext, MyMainForm));
                 }
                 catch
                 {
                     Error = true;
                 }
-                
+
             }
-        
+
         }
 
 
@@ -525,9 +523,18 @@ namespace AMSExplorer
 
         private async void buttonHideSlate_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => MyChannel.HideSlateAsync());
-                
+            // await Task.Run(() => MyChannel.HideSlateAsync());
+
+            await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
+
         }
+
+        private void tabPageEncoding_Enter(object sender, EventArgs e)
+        {
+            listViewJPG1.LoadJPGs(MyContext);
+        }
+
+
     }
 
 }

@@ -225,7 +225,7 @@ namespace AMSExplorer
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
             this.Columns[_encoded].HeaderText = _encoded;
-            
+
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
             WorkerRefreshChannels.DoWork += new System.ComponentModel.DoWorkEventHandler(this.WorkerRefreshChannels_DoWork);
@@ -778,6 +778,141 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+        }
+    }
+
+    public class ChannelInfo
+    {
+        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
+        {
+            IOperation operation = null;
+
+            try
+            {
+                var state = channel.State;
+                var STask = fCall();
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
+                {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
+                    // refresh the channel
+                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                    if (channelR != null && state != channelR.State)
+                    {
+                        state = channelR.State;
+                        if (dataGridViewChannelsV != null)
+                            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (operation.State == OperationState.Succeeded)
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                }
+                else
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
+                    mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
+                if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
+            }
+            catch (Exception ex)
+            {
+                mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+            }
+            return operation;
+        }
+
+
+
+
+        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<TimeSpan, int, bool, Task<IOperation>> fCall, TimeSpan ts, int i, bool b, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
+        {
+            IOperation operation = null;
+
+            try
+            {
+                var state = channel.State;
+                var STask = fCall(ts,i,b);
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
+                {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
+                    // refresh the channel
+                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                    if (channelR != null && state != channelR.State)
+                    {
+                        state = channelR.State;
+                        if (dataGridViewChannelsV != null)
+                            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (operation.State == OperationState.Succeeded)
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                }
+                else
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
+                    mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
+                if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
+            }
+            catch (Exception ex)
+            {
+                mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+            }
+            return operation;
+        }
+
+
+
+
+        public static async Task<IOperation> ChannelExecuteOperationAsync(Func<TimeSpan, string, Task<IOperation>> fCall, TimeSpan ts, string s, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
+        {
+            IOperation operation = null;
+
+            try
+            {
+                var state = channel.State;
+                var STask = fCall(ts, s);
+                operation = await STask;
+
+                while (operation.State == OperationState.InProgress)
+                {
+                    //refresh the operation
+                    operation = _context.Operations.GetOperation(operation.Id);
+                    // refresh the channel
+                    IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
+                    if (channelR != null && state != channelR.State)
+                    {
+                        state = channelR.State;
+                        if (dataGridViewChannelsV != null)
+                            dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channelR)), null);
+                    }
+                    System.Threading.Thread.Sleep(1000);
+                }
+                if (operation.State == OperationState.Succeeded)
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                }
+                else
+                {
+                    mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
+                    mainform.TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
+                }
+                if (dataGridViewChannelsV != null) dataGridViewChannelsV.BeginInvoke(new Action(() => dataGridViewChannelsV.RefreshChannel(channel)), null);
+            }
+            catch (Exception ex)
+            {
+                mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+            }
+            return operation;
         }
     }
 

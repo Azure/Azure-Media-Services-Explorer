@@ -241,4 +241,120 @@ namespace AMSExplorer
             this.EndUpdate();
         }
     }
+
+
+
+    class ListViewJPG : ListView
+    {
+        private CloudMediaContext _context;
+        private IAsset _selectedJPGAsset;
+        private System.Windows.Forms.ColumnHeader columnHeaderJPGFileName;
+        private System.Windows.Forms.ColumnHeader columnHeaderLastModified;
+        private System.Windows.Forms.ColumnHeader columnHeaderSize;
+        private System.Windows.Forms.ColumnHeader columnHeaderAssetName;
+        private System.Windows.Forms.ColumnHeader columnHeaderAssetId;
+
+        public List<IAsset> GetSelectedJPG
+        {
+            get
+            {
+                List<IAsset> SelecBP = new List<IAsset>();
+                if (this.SelectedItems.Count > 0)
+                {
+                    int indexid = columnHeaderAssetId.Index;
+
+                    foreach (ListViewItem itemw in this.SelectedItems)
+                    {
+                        string sid = itemw.SubItems[indexid].Text;
+                        SelecBP.Add(AssetInfo.GetAsset(itemw.SubItems[indexid].Text, _context));
+                    }
+                }
+                return SelecBP;
+            }
+        }
+
+        public ListViewJPG()
+        {
+            this.columnHeaderJPGFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderLastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAssetName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderAssetId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+
+            this.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderJPGFileName,
+            this.columnHeaderLastModified,
+            this.columnHeaderSize,
+            this.columnHeaderAssetName,
+            this.columnHeaderAssetId});
+            this.FullRowSelect = true;
+            this.HideSelection = false;
+            this.Location = new System.Drawing.Point(32, 89);
+            this.MultiSelect = true;
+            this.Name = "listViewWorkflows";
+            this.Size = new System.Drawing.Size(726, 194);
+            this.TabIndex = 61;
+            this.UseCompatibleStateImageBehavior = false;
+            this.View = System.Windows.Forms.View.Details;
+            this.Tag = -1;
+            this.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(ListViewItemComparer.ListView_ColumnClick);
+            // 
+            // columnHeaderWorkflowFileName
+            // 
+            this.columnHeaderJPGFileName.Text = "JPG File Name";
+            // 
+            // columnHeaderLastModified
+            // 
+            this.columnHeaderLastModified.Text = "Last modified";
+            // 
+            // columnHeaderSize
+            // 
+            this.columnHeaderSize.Text = "Size";
+            // 
+            // columnHeaderAssetName
+            // 
+            this.columnHeaderAssetName.Text = "Asset Name";
+            // 
+            // columnHeaderAssetId
+            // 
+            this.columnHeaderAssetId.Text = "Asset Id";
+        }
+
+        public void LoadJPGs(CloudMediaContext context, IAsset selectedJPG = null)
+        {
+            _context = context;
+            _selectedJPGAsset = selectedJPG;
+            LoadJPGs();
+        }
+
+        private void LoadJPGs()
+        {
+            this.BeginUpdate();
+            this.Items.Clear();
+
+            var query = _context.Files.ToList().Where(f => (
+          f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
+          || f.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
+                    )).ToArray();
+
+            foreach (IAssetFile file in query)
+            {
+                if (file.Asset.AssetFiles.Count() == 1)
+                {
+                    ListViewItem item = new ListViewItem(file.Name, 0);
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
+                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
+                    item.SubItems.Add(file.Asset.Name);
+                    item.SubItems.Add(file.Asset.Id);
+                    if (_selectedJPGAsset != null && _selectedJPGAsset.Id == file.Asset.Id) item.Selected = true;
+
+                    this.Items.Add(item);
+                }
+            }
+            this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            this.EndUpdate();
+        }
+    }
+
+
 }

@@ -894,7 +894,7 @@ namespace AMSExplorer
                     {
                         System.Threading.Thread.Sleep(1000);
                         myjob = GetJob(job.Id);
-                }
+                    }
                     if (myjob.State == JobState.Finished)
                     {
                         if (watchfoldersettings.PublishOutputAssets) //user wants to publish the output asset when it has been processed by the job 
@@ -914,7 +914,7 @@ namespace AMSExplorer
                                         sb.AppendLine("Link to playback the asset:");
                                         sb.AppendLine(playbackurl);
                                         sb.AppendLine();
-            }
+                                    }
                                     sb.Append(AssetInfo.GetStat(oasset, SelectedSE));
                                     Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: Output asset published for asset " + asset.Name, sb.ToString());
                                 }
@@ -5246,7 +5246,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
-                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started"));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started",  _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5255,7 +5255,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Stopping channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped"));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped",  _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5264,7 +5264,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset"));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset",  _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5273,7 +5273,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Deleting channel '{0}'...", myC.Name);
-                await Task.Run(() => ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted"));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted",  _context, this, dataGridViewChannelsV));
                 DoRefreshGridChannelV(false);
             }
         }
@@ -5413,7 +5413,7 @@ typeof(FilterTime)
             return operation;
         }
 
-
+        /*
         internal async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess) //used for all except creation 
         {
             IOperation operation = null;
@@ -5454,7 +5454,7 @@ typeof(FilterTime)
             }
             return operation;
         }
-
+        */
 
 
         //used for program update and delete as there is not operation mode for these actions
@@ -5855,7 +5855,7 @@ typeof(FilterTime)
         {
             if (channel != null)
             {
-                ChannelInformation form = new ChannelInformation()
+                ChannelInformation form = new ChannelInformation(this)
                 {
                     MyChannel = channel,
                     MyContext = _context
@@ -5864,7 +5864,6 @@ typeof(FilterTime)
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     channel.Description = form.GetChannelDescription;
-
                     channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
                     // HLS Fragment per segment
@@ -5891,7 +5890,6 @@ typeof(FilterTime)
                         }
                     }
 
-
                     // Input allow list
                     if (form.GetInputIPAllowList != null)
                     {
@@ -5900,7 +5898,6 @@ typeof(FilterTime)
                             channel.Input.AccessControl = new ChannelAccessControl();
                         }
                         channel.Input.AccessControl.IPAllowList = form.GetInputIPAllowList;
-
                     }
                     else
                     {
@@ -5966,7 +5963,7 @@ typeof(FilterTime)
                             channel.CrossSiteAccessPolicies.CrossDomainPolicy = null;
                         }
                     }
-                    await Task.Run(() => ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated"));
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(channel.SendUpdateOperationAsync, channel, "updated", _context, this, dataGridViewChannelsV));
                 }
             }
         }
