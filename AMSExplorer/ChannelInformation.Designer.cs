@@ -61,6 +61,7 @@
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.tabPageEncoding = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
             this.buttonHideSlate = new System.Windows.Forms.Button();
             this.buttonShowSLate = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
@@ -79,7 +80,8 @@
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
-            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -457,11 +459,13 @@
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.textBoxJPGSearch);
+            this.groupBox2.Controls.Add(this.progressBarUpload);
+            this.groupBox2.Controls.Add(this.buttonUploadSlate);
             this.groupBox2.Controls.Add(this.listViewJPG1);
             this.groupBox2.Controls.Add(this.buttonHideSlate);
             this.groupBox2.Controls.Add(this.buttonShowSLate);
-            this.groupBox2.Controls.Add(this.progressBarUpload);
-            this.groupBox2.Controls.Add(this.buttonUploadSlate);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBoxSlateDuration);
             this.groupBox2.Location = new System.Drawing.Point(14, 221);
@@ -470,6 +474,22 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
+            // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(29, 21);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(673, 95);
+            this.listViewJPG1.TabIndex = 61;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
             // 
             // buttonHideSlate
             // 
@@ -496,16 +516,17 @@
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBarUpload.Location = new System.Drawing.Point(127, 120);
+            this.progressBarUpload.Location = new System.Drawing.Point(390, 119);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(287, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(214, 23);
             this.progressBarUpload.TabIndex = 81;
             this.progressBarUpload.Visible = false;
+            this.progressBarUpload.Click += new System.EventHandler(this.progressBarUpload_Click);
             // 
             // buttonUploadSlate
             // 
             this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUploadSlate.Location = new System.Drawing.Point(29, 120);
+            this.buttonUploadSlate.Location = new System.Drawing.Point(610, 119);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
             this.buttonUploadSlate.Size = new System.Drawing.Size(92, 23);
             this.buttonUploadSlate.TabIndex = 80;
@@ -651,21 +672,26 @@
             // 
             this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
-            // listViewJPG1
+            // label8
             // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(26, 122);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.TabIndex = 83;
+            this.label8.Text = "Search in name or Id:";
+            this.label8.Click += new System.EventHandler(this.label8_Click);
+            // 
+            // textBoxJPGSearch
+            // 
+            this.textBoxJPGSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(29, 19);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(673, 95);
-            this.listViewJPG1.TabIndex = 61;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.textBoxJPGSearch.Location = new System.Drawing.Point(140, 119);
+            this.textBoxJPGSearch.Name = "textBoxJPGSearch";
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(244, 20);
+            this.textBoxJPGSearch.TabIndex = 82;
+            this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // ChannelInformation
             // 
@@ -756,5 +782,7 @@
         private System.Windows.Forms.Button buttonShowSLate;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
         private ListViewJPG listViewJPG1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxJPGSearch;
     }
 }

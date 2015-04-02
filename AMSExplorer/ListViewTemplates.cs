@@ -233,7 +233,7 @@ namespace AMSExplorer
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);
                     if (_selectedworkflow != null && _selectedworkflow.Id == file.Asset.Id) item.Selected = true;
-    
+
                     this.Items.Add(item);
                 }
             }
@@ -327,15 +327,22 @@ namespace AMSExplorer
             LoadJPGs();
         }
 
-        private void LoadJPGs()
+        public void LoadJPGs(string searchstring = "")
         {
             this.BeginUpdate();
             this.Items.Clear();
 
-            var query = _context.Files.ToList().Where(f => (
-          f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)
-                    )).ToArray();
+            string searchlower = searchstring.ToLower();
+            bool bsearchempty = string.IsNullOrEmpty(searchstring);
+            var query = _context.Files.ToList().Where(f =>
+                ((f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)) && f.IsPrimary)
+                &&
+                (
+                bsearchempty
+                ||
+                (f.Name.ToLower().Contains(searchlower) || f.Id.ToLower().Contains(searchlower) || f.Asset.Name.ToLower().Contains(searchlower) || f.Asset.Id.ToLower().Contains(searchlower)))
+                )
+                .ToArray();
 
             foreach (IAssetFile file in query)
             {

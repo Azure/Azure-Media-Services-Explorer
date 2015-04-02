@@ -504,7 +504,8 @@ namespace AMSExplorer
                 try
                 {
                     //await Task.Run(() => MyChannel.ShowSlateAsync(ts, textBoxSlateImageID.Text));
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, listViewJPG1.GetSelectedJPG.FirstOrDefault().Id, MyChannel, "slate shown", MyContext, MyMainForm));
+                    string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
+                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, "slate shown", MyContext, MyMainForm));
                 }
                 catch
                 {
@@ -532,6 +533,21 @@ namespace AMSExplorer
         private void tabPageEncoding_Enter(object sender, EventArgs e)
         {
             listViewJPG1.LoadJPGs(MyContext);
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
+        {
+            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
+        }
+
+        private void progressBarUpload_Click(object sender, EventArgs e)
+        {
+
         }
 
 
