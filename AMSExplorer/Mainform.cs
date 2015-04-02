@@ -5246,7 +5246,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started",  _context, this, dataGridViewChannelsV));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started", _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5255,7 +5255,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Stopping channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped",  _context, this, dataGridViewChannelsV));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped", _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5264,7 +5264,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset",  _context, this, dataGridViewChannelsV));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV));
             }
         }
 
@@ -5273,7 +5273,7 @@ typeof(FilterTime)
             if (myC != null)
             {
                 TextBoxLogWriteLine("Deleting channel '{0}'...", myC.Name);
-                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted",  _context, this, dataGridViewChannelsV));
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted", _context, this, dataGridViewChannelsV));
                 DoRefreshGridChannelV(false);
             }
         }
@@ -5854,21 +5854,21 @@ typeof(FilterTime)
         private void DoDisplayChannelAdSlateControl()
         {
             ReturnSelectedChannels().ForEach(c => DoDisplayChannelAdSlateControl(c));
-            
+
         }
 
-        private  void DoDisplayChannelAdSlateControl(IChannel channel)
+        private void DoDisplayChannelAdSlateControl(IChannel channel)
         {
-            if (channel != null)
+            if (channel != null && channel.Encoding != null)
             {
-                ChannelInformation form = new ChannelInformation(this)
+                ChannelAdSlateControl form = new ChannelAdSlateControl(this)
                 {
                     MyChannel = channel,
                     MyContext = _context
                 };
 
                 form.Show();
-                
+
             }
         }
 
@@ -5881,7 +5881,7 @@ typeof(FilterTime)
                     MyChannel = channel,
                     MyContext = _context
                 };
-               
+
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     channel.Description = form.GetChannelDescription;
@@ -8963,6 +8963,11 @@ typeof(FilterTime)
         }
 
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDisplayChannelAdSlateControl();
+        }
+
+        private void channelsAdAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayChannelAdSlateControl();
         }

@@ -163,11 +163,7 @@ namespace AMSExplorer
                 DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
                 DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
             }
-            else
-            {
-                // no encoding, let's remove the encoding tab
-                tabControl1.TabPages.Remove(tabPageAdSlate);
-            }
+            
 
             if (MyChannel.Slate != null)
             {
@@ -310,16 +306,7 @@ namespace AMSExplorer
 
         private void ChannelInformation_Shown(object sender, EventArgs e)
         {
-            if (!this.Modal)
-            // not in modal mode. User wants to operate the channel
-            {
-                buttonApplyClose.Visible = false;
-
-                tabControl1.TabPages.Remove(tabPageChannelInfo);
-                tabControl1.TabPages.Remove(tabPageSettings);
-                tabControl1.TabPages.Remove(tabPagePolicies);
-                tabControl1.SelectedTab = tabPageAdSlate;
-            }
+           
         }
 
         private void checkBoxPreviewSet_CheckedChanged(object sender, EventArgs e)
@@ -392,180 +379,7 @@ namespace AMSExplorer
             webBrowserPreview.Url = null;
         }
 
-        private async void buttonUploadSlate_Click(object sender, EventArgs e)
-        {
-            if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
-            {
-                IAsset asset;
-                progressBarUpload.Value = 0;
-                progressBarUpload.Visible = true;
-
-                buttonUploadSlate.Enabled = false;
-                string file = openFileDialogSlate.FileName;
-                asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
-                progressBarUpload.Visible = false;
-
-                buttonUploadSlate.Enabled = true;
-                listViewJPG1.LoadJPGs(MyContext, asset);
-            }
-        }
-
-        private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
-        {
-            if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
-            IAsset asset = null;
-            IAccessPolicy policy = null;
-            ILocator locator = null;
-
-            try
-            {
-                asset = MyContext.Assets.Create(SafeFileName as string, storageaccount, AssetCreationOptions.None);
-                IAssetFile file = asset.AssetFiles.Create(SafeFileName);
-                policy = MyContext.AccessPolicies.Create(
-                                       SafeFileName,
-                                       TimeSpan.FromDays(30),
-                                       AccessPermissions.Write | AccessPermissions.List);
-
-                locator = MyContext.Locators.CreateLocator(LocatorType.Sas, asset, policy);
-                file.UploadProgressChanged += file_UploadProgressChanged;
-                file.Upload(FileName);
-                AssetInfo.SetFileAsPrimary(asset, SafeFileName);
-
-            }
-            catch (Exception e)
-            {
-                asset = null;
-            }
-            finally
-            {
-                if (locator != null) locator.Delete();
-                if (policy != null) policy.Delete();
-            }
-            return asset;
-        }
-        private void file_UploadProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e)
-        {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
-        }
-
-        private void buttonInsertAD_Click(object sender, EventArgs e)
-        {
-
-            InsertAd(false);
-        }
-
-        private void buttonInsertAdAndSlate_Click(object sender, EventArgs e)
-        {
-            InsertAd(true);
-        }
-        private async void InsertAd(bool showslate)
-        {
-            bool Error = false;
-
-            try
-            {
-                TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text));
-                Convert.ToInt32(textBoxCueId.Text);
-            }
-            catch
-            {
-                Error = true;
-            }
-
-            if (!Error)
-            {
-                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text)); ;
-                int cueid = Convert.ToInt32(textBoxCueId.Text);
-                try
-                {
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
-                }
-                catch
-                {
-                    Error = true;
-                }
-            }
-
-        }
-
-        private async void ShowSlate()
-        {
-            bool Error = false;
-
-            try
-            {
-                TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
-
-            }
-            catch
-            {
-                Error = true;
-            }
-
-            if (!Error)
-            {
-                TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
-
-                try
-                {
-                    string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, "slate shown", MyContext, MyMainForm));
-                }
-                catch
-                {
-                    Error = true;
-                }
-            }
-        }
-
-
-        private void buttonShowSLate_Click(object sender, EventArgs e)
-        {
-            ShowSlate();
-        }
-
-        private async void buttonHideSlate_Click(object sender, EventArgs e)
-        {
-            await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
-        }
-
-        private void tabPageEncoding_Enter(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(MyContext);
-        }
-
-        private void label8_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
-        }
-
-        private void progressBarUpload_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkBoxPreview_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxPreview.Checked)
-            {
-                if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
-                {
-                    string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
-                    webBrowserPreview2.Url = new Uri(myurl);
-                }
-            }
-            else
-            {
-                webBrowserPreview2.Url = null;
-            }
-        }
-
+         
 
     }
 

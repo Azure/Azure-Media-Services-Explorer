@@ -396,6 +396,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.channelsAdAndSlateControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1800,6 +1801,7 @@
             // 
             this.liveChannelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.channToolStripMenuItem,
+            this.channelsAdAndSlateControlToolStripMenuItem,
             this.createChannelToolStripMenuItem,
             this.startChannelsToolStripMenuItem,
             this.stopChannelsToolStripMenuItem,
@@ -3002,7 +3004,7 @@
             // 
             this.adAndSlateControlToolStripMenuItem.Name = "adAndSlateControlToolStripMenuItem";
             this.adAndSlateControlToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.adAndSlateControlToolStripMenuItem.Text = "Ad and Slate control...";
+            this.adAndSlateControlToolStripMenuItem.Text = "Channel(s) Ad and Slate control...";
             this.adAndSlateControlToolStripMenuItem.Click += new System.EventHandler(this.adAndSlateControlToolStripMenuItem_Click);
             // 
             // createChannelToolStripMenuItem1
@@ -3982,6 +3984,13 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // channelsAdAndSlateControlToolStripMenuItem
+            // 
+            this.channelsAdAndSlateControlToolStripMenuItem.Name = "channelsAdAndSlateControlToolStripMenuItem";
+            this.channelsAdAndSlateControlToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.channelsAdAndSlateControlToolStripMenuItem.Text = "Channel(s) Ad and Slate control...";
+            this.channelsAdAndSlateControlToolStripMenuItem.Click += new System.EventHandler(this.channelsAdAndSlateControlToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4418,6 +4427,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem adAndSlateControlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem channelsAdAndSlateControlToolStripMenuItem;
     }
 }
 
