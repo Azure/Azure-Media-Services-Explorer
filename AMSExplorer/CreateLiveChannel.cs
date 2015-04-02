@@ -95,12 +95,12 @@ namespace AMSExplorer
             get
             {
                 ChannelSlate myslate = null;
-                if (checkBoxAdInsertSlate.Checked)
+                if (checkBoxAdInsertSlate.Checked && listViewJPG1.GetSelectedJPG.FirstOrDefault() != null)
                 {
                     myslate = new ChannelSlate()
                                    {
                                        InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
-                                       DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? textBoxSlateImage.Text : null,
+                                       DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
                                    };
                 }
                 return myslate;
@@ -208,7 +208,6 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-            WarningChannelName.Text = string.Empty;
 
             FillComboProtocols(false);
 
@@ -221,8 +220,6 @@ namespace AMSExplorer
             comboBoxEncodingPreset.Items.Add("Default720p");
             comboBoxEncodingPreset.SelectedIndex = 0;
 
-            labelWarningIngest.Text = string.Empty;
-            labelWarningPreview.Text = string.Empty;
 
 
 
@@ -252,29 +249,8 @@ namespace AMSExplorer
         private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
-            if (!textBoxRestrictIngestIP.Enabled)
-            {
-                labelWarningIngest.Text = string.Empty;
-            }
-        }
+            if (!checkBoxRestrictIngestIP.Checked) errorProvider1.SetError(textBoxRestrictIngestIP, String.Empty);
 
-        private void textBoxRestrictIngestIP_TextChanged(object sender, EventArgs e)
-        {
-            bool Error = false;
-
-            try
-            {
-                IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
-            }
-            catch
-            {
-                labelWarningIngest.Text = "IP address incorrect";
-                Error = true;
-            }
-            if (!Error)
-            {
-                labelWarningIngest.Text = string.Empty;
-            }
         }
 
         private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
@@ -346,42 +322,19 @@ namespace AMSExplorer
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
-            if (!textBoxRestrictPreviewIP.Enabled)
-            {
-                labelWarningPreview.Text = string.Empty;
-            }
+            if (!checkBoxRestrictPreviewIP.Checked) errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
+
+
         }
 
         private void textBoxRestrictPreviewIP_TextChanged(object sender, EventArgs e)
         {
-            bool Error = false;
 
-            try
-            {
-                IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
-            }
-            catch
-            {
-                labelWarningPreview.Text = "IP address incorrect";
-                Error = true;
-            }
-            if (!Error)
-            {
-                labelWarningPreview.Text = string.Empty;
-            }
         }
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
         {
             audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
-        }
-
-        private void textboxchannelname_TextChanged(object sender, EventArgs e)
-        {
-            if (textboxchannelname.TextLength > 0)
-            {
-                WarningChannelName.Text = (IsChannelNameValid(textboxchannelname.Text)) ? string.Empty : "Channel name is not valid";
-            }
         }
 
         internal static bool IsChannelNameValid(string name)
@@ -412,10 +365,7 @@ namespace AMSExplorer
                 progressBarUpload.Visible = false;
                 buttonCancel.Enabled = true;
                 buttonUploadSlate.Enabled = true;
-                if (asset != null)
-                {
-                    textBoxSlateImage.Text = asset.Id;
-                }
+                listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
             }
         }
 
@@ -461,6 +411,72 @@ namespace AMSExplorer
         private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)
         {
             panelInsertSlate.Enabled = checkBoxAdInsertSlate.Checked;
+
+            if (checkBoxAdInsertSlate.Checked)
+            {
+                listViewJPG1.LoadJPGs(MyContext);
+            }
+           
+        }
+
+        private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
+        {
+            listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
+        }
+
+        private void checkBoxAdInsertSlate_Validating(object sender, CancelEventArgs e)
+        {
+            if (checkBoxAdInsertSlate.Checked && listViewJPG1.GetSelectedJPG.Count == 0)
+            {
+                errorProvider1.SetError(checkBoxAdInsertSlate, "No JPG selected");
+            }
+            else
+            {
+                errorProvider1.SetError(checkBoxAdInsertSlate, String.Empty);
+            }
+        }
+
+     
+
+        private void textboxchannelname_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (!IsChannelNameValid(textboxchannelname.Text))
+            {
+                errorProvider1.SetError(tb, "Channel name is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxRestrictIP_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            bool Error = false;
+            try
+            {
+                IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(tb.Text) };
+            }
+            catch
+            {
+                errorProvider1.SetError(tb, "Incorrect IP address");
+                Error = true;
+
+            }
+            if (!Error)
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+
+        }
+
+        private void listViewJPG1_Validating(object sender, CancelEventArgs e)
+        {
+
         }
     }
 }

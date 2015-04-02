@@ -233,7 +233,6 @@ namespace AMSExplorer
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);
                     if (_selectedworkflow != null && _selectedworkflow.Id == file.Asset.Id) item.Selected = true;
-
                     this.Items.Add(item);
                 }
             }

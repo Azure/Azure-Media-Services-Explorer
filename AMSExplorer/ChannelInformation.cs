@@ -356,7 +356,6 @@ namespace AMSExplorer
 
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
-            //  ip = new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
             InputEndpointSettingList.Clear();
             InputEndpointSettingList.Add(new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
@@ -471,9 +470,7 @@ namespace AMSExplorer
                 int cueid = Convert.ToInt32(textBoxCueId.Text);
                 try
                 {
-                    // await Task.Run(() => MyChannel.StartAdvertisementAsync(ts, cueid, showslate));
                     await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
-
                 }
                 catch
                 {
@@ -503,7 +500,6 @@ namespace AMSExplorer
 
                 try
                 {
-                    //await Task.Run(() => MyChannel.ShowSlateAsync(ts, textBoxSlateImageID.Text));
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
                     await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, "slate shown", MyContext, MyMainForm));
                 }
@@ -511,9 +507,7 @@ namespace AMSExplorer
                 {
                     Error = true;
                 }
-
             }
-
         }
 
 
@@ -524,10 +518,7 @@ namespace AMSExplorer
 
         private async void buttonHideSlate_Click(object sender, EventArgs e)
         {
-            // await Task.Run(() => MyChannel.HideSlateAsync());
-
             await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
-
         }
 
         private void tabPageEncoding_Enter(object sender, EventArgs e)
