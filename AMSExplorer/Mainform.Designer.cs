@@ -296,6 +296,7 @@
             this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
+            this.adAndSlateControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelStop = new System.Windows.Forms.ToolStripMenuItem();
@@ -527,7 +528,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 430);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -2961,6 +2962,7 @@
             this.refreshToolStripMenuItem3,
             this.toolStripSeparator20,
             this.ContextMenuItemChannelDisplayInfomation,
+            this.adAndSlateControlToolStripMenuItem,
             this.createChannelToolStripMenuItem1,
             this.ContextMenuItemChannelStart,
             this.ContextMenuItemChannelStop,
@@ -2973,7 +2975,7 @@
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 264);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 286);
             // 
             // refreshToolStripMenuItem3
             // 
@@ -2995,6 +2997,13 @@
             this.ContextMenuItemChannelDisplayInfomation.Size = new System.Drawing.Size(256, 22);
             this.ContextMenuItemChannelDisplayInfomation.Text = "Channel infomation and settings...";
             this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
+            // 
+            // adAndSlateControlToolStripMenuItem
+            // 
+            this.adAndSlateControlToolStripMenuItem.Name = "adAndSlateControlToolStripMenuItem";
+            this.adAndSlateControlToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.adAndSlateControlToolStripMenuItem.Text = "Ad and Slate control...";
+            this.adAndSlateControlToolStripMenuItem.Click += new System.EventHandler(this.adAndSlateControlToolStripMenuItem_Click);
             // 
             // createChannelToolStripMenuItem1
             // 
@@ -4408,6 +4417,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem20;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
+        private System.Windows.Forms.ToolStripMenuItem adAndSlateControlToolStripMenuItem;
     }
 }
 

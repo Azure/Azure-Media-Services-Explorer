@@ -166,7 +166,7 @@ namespace AMSExplorer
             else
             {
                 // no encoding, let's remove the encoding tab
-                tabControl1.TabPages.Remove(tabPageEncoding);
+                tabControl1.TabPages.Remove(tabPageAdSlate);
             }
 
             if (MyChannel.Slate != null)
@@ -310,7 +310,16 @@ namespace AMSExplorer
 
         private void ChannelInformation_Shown(object sender, EventArgs e)
         {
+            if (!this.Modal)
+            // not in modal mode. User wants to operate the channel
+            {
+                buttonApplyClose.Visible = false;
 
+                tabControl1.TabPages.Remove(tabPageChannelInfo);
+                tabControl1.TabPages.Remove(tabPageSettings);
+                tabControl1.TabPages.Remove(tabPagePolicies);
+                tabControl1.SelectedTab = tabPageAdSlate;
+            }
         }
 
         private void checkBoxPreviewSet_CheckedChanged(object sender, EventArgs e)
@@ -367,7 +376,7 @@ namespace AMSExplorer
             PreviewEndpointSettingList.Clear();
         }
 
-       
+
 
         private void tabPage4_Enter(object sender, EventArgs e)
         {
@@ -539,6 +548,22 @@ namespace AMSExplorer
         private void progressBarUpload_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBoxPreview_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxPreview.Checked)
+            {
+                if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+                {
+                    string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
+                    webBrowserPreview2.Url = new Uri(myurl);
+                }
+            }
+            else
+            {
+                webBrowserPreview2.Url = null;
+            }
         }
 
 

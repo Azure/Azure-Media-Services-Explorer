@@ -5851,7 +5851,13 @@ typeof(FilterTime)
             DoDisplayChannelInfo(ReturnSelectedChannels().FirstOrDefault());
         }
 
-        private async void DoDisplayChannelInfo(IChannel channel)
+        private void DoDisplayChannelAdSlateControl()
+        {
+            ReturnSelectedChannels().ForEach(c => DoDisplayChannelAdSlateControl(c));
+            
+        }
+
+        private  void DoDisplayChannelAdSlateControl(IChannel channel)
         {
             if (channel != null)
             {
@@ -5861,6 +5867,21 @@ typeof(FilterTime)
                     MyContext = _context
                 };
 
+                form.Show();
+                
+            }
+        }
+
+        private async void DoDisplayChannelInfo(IChannel channel)
+        {
+            if (channel != null)
+            {
+                ChannelInformation form = new ChannelInformation(this)
+                {
+                    MyChannel = channel,
+                    MyContext = _context
+                };
+               
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     channel.Description = form.GetChannelDescription;
@@ -8939,6 +8960,11 @@ typeof(FilterTime)
         private void toolStripMenuItem21_Click(object sender, EventArgs e)
         {
             DoWatchFolder();
+        }
+
+        private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDisplayChannelAdSlateControl();
         }
     }
 }

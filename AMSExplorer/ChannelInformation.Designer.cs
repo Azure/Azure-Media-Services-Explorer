@@ -34,8 +34,8 @@
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageChannelInfo = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
             this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
             this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
@@ -52,20 +52,20 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.checkBoxcrossdomains = new System.Windows.Forms.CheckBox();
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
-            this.tabPageEncoding = new System.Windows.Forms.TabPage();
+            this.tabPageAdSlate = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
-            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
             this.buttonHideSlate = new System.Windows.Forms.Button();
             this.buttonShowSLate = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -82,21 +82,28 @@
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
-            this.label15 = new System.Windows.Forms.Label();
+            this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.checkBoxPreview = new System.Windows.Forms.CheckBox();
+            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageChannelInfo.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPageEncoding.SuspendLayout();
+            this.tabPagePolicies.SuspendLayout();
+            this.tabPagePreview.SuspendLayout();
+            this.tabPageAdSlate.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -140,53 +147,53 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPageEncoding);
+            this.tabControl1.Controls.Add(this.tabPageChannelInfo);
+            this.tabControl1.Controls.Add(this.tabPageSettings);
+            this.tabControl1.Controls.Add(this.tabPagePolicies);
+            this.tabControl1.Controls.Add(this.tabPagePreview);
+            this.tabControl1.Controls.Add(this.tabPageAdSlate);
             this.tabControl1.Location = new System.Drawing.Point(12, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(760, 467);
             this.tabControl1.TabIndex = 34;
             // 
-            // tabPage1
+            // tabPageChannelInfo
             // 
-            this.tabPage1.Controls.Add(this.DGChannel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 441);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Channel information";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageChannelInfo.Controls.Add(this.DGChannel);
+            this.tabPageChannelInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabPageChannelInfo.Name = "tabPageChannelInfo";
+            this.tabPageChannelInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageChannelInfo.Size = new System.Drawing.Size(752, 441);
+            this.tabPageChannelInfo.TabIndex = 0;
+            this.tabPageChannelInfo.Text = "Channel information";
+            this.tabPageChannelInfo.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPageSettings
             // 
-            this.tabPage2.Controls.Add(this.buttonAllowAllPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonAllowAllInputIP);
-            this.tabPage2.Controls.Add(this.numericUpDownHLSFragPerSeg);
-            this.tabPage2.Controls.Add(this.checkBoxHLSFragPerSeg);
-            this.tabPage2.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.tabPage2.Controls.Add(this.textBoxKeyFrame);
-            this.tabPage2.Controls.Add(this.checkBoxInputSet);
-            this.tabPage2.Controls.Add(this.checkBoxPreviewSet);
-            this.tabPage2.Controls.Add(this.dataGridViewInputIP);
-            this.tabPage2.Controls.Add(this.dataGridViewPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonDelPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonDelInputIP);
-            this.tabPage2.Controls.Add(this.buttonAddPreviewIP);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.buttonAddInputIP);
-            this.tabPage2.Controls.Add(this.textboxchannedesc);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 441);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
+            this.tabPageSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
+            this.tabPageSettings.Controls.Add(this.checkBoxHLSFragPerSeg);
+            this.tabPageSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.tabPageSettings.Controls.Add(this.textBoxKeyFrame);
+            this.tabPageSettings.Controls.Add(this.checkBoxInputSet);
+            this.tabPageSettings.Controls.Add(this.checkBoxPreviewSet);
+            this.tabPageSettings.Controls.Add(this.dataGridViewInputIP);
+            this.tabPageSettings.Controls.Add(this.dataGridViewPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonDelPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonDelInputIP);
+            this.tabPageSettings.Controls.Add(this.buttonAddPreviewIP);
+            this.tabPageSettings.Controls.Add(this.label2);
+            this.tabPageSettings.Controls.Add(this.buttonAddInputIP);
+            this.tabPageSettings.Controls.Add(this.textboxchannedesc);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettings.Size = new System.Drawing.Size(752, 441);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.UseVisualStyleBackColor = true;
             // 
             // buttonAllowAllPreviewIP
             // 
@@ -360,19 +367,19 @@
             this.textboxchannedesc.Size = new System.Drawing.Size(693, 20);
             this.textboxchannedesc.TabIndex = 46;
             // 
-            // tabPage3
+            // tabPagePolicies
             // 
-            this.tabPage3.Controls.Add(this.checkBoxcrossdomains);
-            this.tabPage3.Controls.Add(this.textBoxCrossDomPolicy);
-            this.tabPage3.Controls.Add(this.checkBoxclientpolicy);
-            this.tabPage3.Controls.Add(this.textBoxClientPolicy);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(752, 441);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Policies";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPagePolicies.Controls.Add(this.checkBoxcrossdomains);
+            this.tabPagePolicies.Controls.Add(this.textBoxCrossDomPolicy);
+            this.tabPagePolicies.Controls.Add(this.checkBoxclientpolicy);
+            this.tabPagePolicies.Controls.Add(this.textBoxClientPolicy);
+            this.tabPagePolicies.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePolicies.Name = "tabPagePolicies";
+            this.tabPagePolicies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePolicies.Size = new System.Drawing.Size(752, 441);
+            this.tabPagePolicies.TabIndex = 2;
+            this.tabPagePolicies.Text = "Policies";
+            this.tabPagePolicies.UseVisualStyleBackColor = true;
             // 
             // checkBoxcrossdomains
             // 
@@ -421,17 +428,17 @@
             this.textBoxClientPolicy.Size = new System.Drawing.Size(743, 189);
             this.textBoxClientPolicy.TabIndex = 63;
             // 
-            // tabPage4
+            // tabPagePreview
             // 
-            this.tabPage4.Controls.Add(this.webBrowserPreview);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(752, 441);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Preview";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Enter += new System.EventHandler(this.tabPage4_Enter);
-            this.tabPage4.Leave += new System.EventHandler(this.tabPage4_Leave);
+            this.tabPagePreview.Controls.Add(this.webBrowserPreview);
+            this.tabPagePreview.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePreview.Name = "tabPagePreview";
+            this.tabPagePreview.Size = new System.Drawing.Size(752, 441);
+            this.tabPagePreview.TabIndex = 3;
+            this.tabPagePreview.Text = "Preview";
+            this.tabPagePreview.UseVisualStyleBackColor = true;
+            this.tabPagePreview.Enter += new System.EventHandler(this.tabPage4_Enter);
+            this.tabPagePreview.Leave += new System.EventHandler(this.tabPage4_Leave);
             // 
             // webBrowserPreview
             // 
@@ -442,18 +449,17 @@
             this.webBrowserPreview.Size = new System.Drawing.Size(752, 441);
             this.webBrowserPreview.TabIndex = 0;
             // 
-            // tabPageEncoding
+            // tabPageAdSlate
             // 
-            this.tabPageEncoding.Controls.Add(this.groupBox2);
-            this.tabPageEncoding.Controls.Add(this.groupBox1);
-            this.tabPageEncoding.Location = new System.Drawing.Point(4, 22);
-            this.tabPageEncoding.Name = "tabPageEncoding";
-            this.tabPageEncoding.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageEncoding.Size = new System.Drawing.Size(752, 441);
-            this.tabPageEncoding.TabIndex = 4;
-            this.tabPageEncoding.Text = "Encoding";
-            this.tabPageEncoding.UseVisualStyleBackColor = true;
-            this.tabPageEncoding.Enter += new System.EventHandler(this.tabPageEncoding_Enter);
+            this.tabPageAdSlate.Controls.Add(this.splitContainer1);
+            this.tabPageAdSlate.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAdSlate.Name = "tabPageAdSlate";
+            this.tabPageAdSlate.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAdSlate.Size = new System.Drawing.Size(752, 441);
+            this.tabPageAdSlate.TabIndex = 4;
+            this.tabPageAdSlate.Text = "Advertising and Slate control";
+            this.tabPageAdSlate.UseVisualStyleBackColor = true;
+            this.tabPageAdSlate.Enter += new System.EventHandler(this.tabPageEncoding_Enter);
             // 
             // groupBox2
             // 
@@ -470,18 +476,32 @@
             this.groupBox2.Controls.Add(this.buttonShowSLate);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBoxSlateDuration);
-            this.groupBox2.Location = new System.Drawing.Point(14, 221);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(3, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(720, 199);
+            this.groupBox2.Size = new System.Drawing.Size(489, 287);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Location = new System.Drawing.Point(222, 199);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(249, 13);
+            this.label15.TabIndex = 84;
+            this.label15.Text = "Image should be a JPG 1920x1080";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(26, 122);
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(10, 176);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 13);
             this.label8.TabIndex = 83;
@@ -492,26 +512,28 @@
             // 
             this.textBoxJPGSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJPGSearch.Location = new System.Drawing.Point(140, 119);
+            this.textBoxJPGSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxJPGSearch.Location = new System.Drawing.Point(124, 173);
             this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.Size = new System.Drawing.Size(244, 20);
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(159, 20);
             this.textBoxJPGSearch.TabIndex = 82;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
-            this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBarUpload.Location = new System.Drawing.Point(390, 119);
+            this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarUpload.Location = new System.Drawing.Point(289, 173);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(214, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(84, 23);
             this.progressBarUpload.TabIndex = 81;
             this.progressBarUpload.Visible = false;
             this.progressBarUpload.Click += new System.EventHandler(this.progressBarUpload_Click);
             // 
             // buttonUploadSlate
             // 
-            this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonUploadSlate.Location = new System.Drawing.Point(610, 119);
+            this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUploadSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonUploadSlate.Location = new System.Drawing.Point(379, 173);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
             this.buttonUploadSlate.Size = new System.Drawing.Size(92, 23);
             this.buttonUploadSlate.TabIndex = 80;
@@ -519,26 +541,11 @@
             this.buttonUploadSlate.UseVisualStyleBackColor = true;
             this.buttonUploadSlate.Click += new System.EventHandler(this.buttonUploadSlate_Click);
             // 
-            // listViewJPG1
-            // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(29, 21);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(673, 95);
-            this.listViewJPG1.TabIndex = 61;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            // 
             // buttonHideSlate
             // 
-            this.buttonHideSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonHideSlate.Location = new System.Drawing.Point(296, 170);
+            this.buttonHideSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHideSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHideSlate.Location = new System.Drawing.Point(337, 258);
             this.buttonHideSlate.Name = "buttonHideSlate";
             this.buttonHideSlate.Size = new System.Drawing.Size(134, 23);
             this.buttonHideSlate.TabIndex = 59;
@@ -548,8 +555,9 @@
             // 
             // buttonShowSLate
             // 
-            this.buttonShowSLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonShowSLate.Location = new System.Drawing.Point(156, 171);
+            this.buttonShowSLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonShowSLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonShowSLate.Location = new System.Drawing.Point(337, 229);
             this.buttonShowSLate.Name = "buttonShowSLate";
             this.buttonShowSLate.Size = new System.Drawing.Size(134, 23);
             this.buttonShowSLate.TabIndex = 58;
@@ -561,7 +569,8 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 154);
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(13, 245);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 59;
@@ -570,7 +579,8 @@
             // textBoxSlateDuration
             // 
             this.textBoxSlateDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxSlateDuration.Location = new System.Drawing.Point(29, 173);
+            this.textBoxSlateDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSlateDuration.Location = new System.Drawing.Point(13, 261);
             this.textBoxSlateDuration.Name = "textBoxSlateDuration";
             this.textBoxSlateDuration.Size = new System.Drawing.Size(121, 20);
             this.textBoxSlateDuration.TabIndex = 58;
@@ -586,16 +596,19 @@
             this.groupBox1.Controls.Add(this.textBoxADSignalDuration);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxCueId);
-            this.groupBox1.Location = new System.Drawing.Point(14, 16);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(720, 187);
+            this.groupBox1.Size = new System.Drawing.Size(489, 126);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advertising";
             // 
             // buttonInsertAD
             // 
-            this.buttonInsertAD.Location = new System.Drawing.Point(181, 148);
+            this.buttonInsertAD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonInsertAD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInsertAD.Location = new System.Drawing.Point(337, 58);
             this.buttonInsertAD.Name = "buttonInsertAD";
             this.buttonInsertAD.Size = new System.Drawing.Size(134, 23);
             this.buttonInsertAD.TabIndex = 57;
@@ -605,7 +618,9 @@
             // 
             // buttonInsertAdAndSlate
             // 
-            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(29, 148);
+            this.buttonInsertAdAndSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(337, 87);
             this.buttonInsertAdAndSlate.Name = "buttonInsertAdAndSlate";
             this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(134, 23);
             this.buttonInsertAdAndSlate.TabIndex = 56;
@@ -616,7 +631,8 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 85);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(13, 74);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(115, 13);
             this.label3.TabIndex = 55;
@@ -624,16 +640,18 @@
             // 
             // textBoxADSignalDuration
             // 
-            this.textBoxADSignalDuration.Location = new System.Drawing.Point(29, 101);
+            this.textBoxADSignalDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxADSignalDuration.Location = new System.Drawing.Point(13, 90);
             this.textBoxADSignalDuration.Name = "textBoxADSignalDuration";
-            this.textBoxADSignalDuration.Size = new System.Drawing.Size(121, 20);
+            this.textBoxADSignalDuration.Size = new System.Drawing.Size(134, 20);
             this.textBoxADSignalDuration.TabIndex = 54;
             this.textBoxADSignalDuration.Text = "30";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 34);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(13, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(46, 13);
             this.label1.TabIndex = 53;
@@ -641,9 +659,10 @@
             // 
             // textBoxCueId
             // 
-            this.textBoxCueId.Location = new System.Drawing.Point(29, 50);
+            this.textBoxCueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCueId.Location = new System.Drawing.Point(16, 40);
             this.textBoxCueId.Name = "textBoxCueId";
-            this.textBoxCueId.Size = new System.Drawing.Size(121, 20);
+            this.textBoxCueId.Size = new System.Drawing.Size(131, 20);
             this.textBoxCueId.TabIndex = 52;
             // 
             // labelChannelName
@@ -695,15 +714,63 @@
             // 
             this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
-            // label15
+            // webBrowserPreview2
             // 
-            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(453, 145);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(249, 13);
-            this.label15.TabIndex = 84;
-            this.label15.Text = "Image should be a JPG 1920x1080";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserPreview2.Location = new System.Drawing.Point(3, 29);
+            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview2.Name = "webBrowserPreview2";
+            this.webBrowserPreview2.Size = new System.Drawing.Size(241, 403);
+            this.webBrowserPreview2.TabIndex = 2;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreview);
+            this.splitContainer1.Panel1.Controls.Add(this.webBrowserPreview2);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
+            this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
+            this.splitContainer1.Size = new System.Drawing.Size(746, 435);
+            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // checkBoxPreview
+            // 
+            this.checkBoxPreview.AutoSize = true;
+            this.checkBoxPreview.Location = new System.Drawing.Point(10, 6);
+            this.checkBoxPreview.Name = "checkBoxPreview";
+            this.checkBoxPreview.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxPreview.TabIndex = 3;
+            this.checkBoxPreview.Text = "Display preview stream";
+            this.checkBoxPreview.UseVisualStyleBackColor = true;
+            this.checkBoxPreview.CheckedChanged += new System.EventHandler(this.checkBoxPreview_CheckedChanged);
+            // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewJPG1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(13, 24);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(458, 143);
+            this.listViewJPG1.TabIndex = 61;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
             // 
             // ChannelInformation
             // 
@@ -722,21 +789,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPageChannelInfo.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPageEncoding.ResumeLayout(false);
+            this.tabPagePolicies.ResumeLayout(false);
+            this.tabPagePolicies.PerformLayout();
+            this.tabPagePreview.ResumeLayout(false);
+            this.tabPageAdSlate.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -748,9 +820,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageChannelInfo;
         private System.Windows.Forms.Label labelChannelName;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.DataGridView dataGridViewPreviewIP;
         private System.Windows.Forms.Button buttonDelPreviewIP;
         private System.Windows.Forms.Button buttonAddPreviewIP;
@@ -762,7 +834,7 @@
         private System.Windows.Forms.CheckBox checkBoxPreviewSet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textboxchannedesc;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPagePolicies;
         private System.Windows.Forms.CheckBox checkBoxcrossdomains;
         private System.Windows.Forms.TextBox textBoxCrossDomPolicy;
         private System.Windows.Forms.CheckBox checkBoxclientpolicy;
@@ -775,9 +847,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Button buttonAllowAllInputIP;
         private System.Windows.Forms.Button buttonAllowAllPreviewIP;
-        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TabPage tabPagePreview;
         private System.Windows.Forms.WebBrowser webBrowserPreview;
-        private System.Windows.Forms.TabPage tabPageEncoding;
+        private System.Windows.Forms.TabPage tabPageAdSlate;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxSlateDuration;
@@ -797,5 +869,8 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxJPGSearch;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.CheckBox checkBoxPreview;
+        private System.Windows.Forms.WebBrowser webBrowserPreview2;
     }
 }
