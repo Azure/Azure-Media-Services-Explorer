@@ -32,10 +32,10 @@
             this.contextMenuStripDG = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPageAdSlate = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.checkBoxPreview = new System.Windows.Forms.CheckBox();
+            this.checkBoxPreviewSlate = new System.Windows.Forms.CheckBox();
+            this.pictureBoxPreviewSlate = new System.Windows.Forms.PictureBox();
+            this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
             this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttonInsertAD = new System.Windows.Forms.Button();
@@ -59,13 +59,13 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
+            this.label2 = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
-            this.tabControl1.SuspendLayout();
-            this.tabPageAdSlate.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewSlate)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -87,59 +87,61 @@
             this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
             this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPageAdSlate);
-            this.tabControl1.Location = new System.Drawing.Point(12, 43);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 467);
-            this.tabControl1.TabIndex = 34;
-            // 
-            // tabPageAdSlate
-            // 
-            this.tabPageAdSlate.Controls.Add(this.splitContainer1);
-            this.tabPageAdSlate.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAdSlate.Name = "tabPageAdSlate";
-            this.tabPageAdSlate.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAdSlate.Size = new System.Drawing.Size(752, 441);
-            this.tabPageAdSlate.TabIndex = 4;
-            this.tabPageAdSlate.Text = "Advertising and Slate control";
-            this.tabPageAdSlate.UseVisualStyleBackColor = true;
-            this.tabPageAdSlate.Enter += new System.EventHandler(this.tabPageEncoding_Enter);
-            // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(16, 32);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreview);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreviewSlate);
+            this.splitContainer1.Panel1.Controls.Add(this.pictureBoxPreviewSlate);
+            this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreviewStream);
             this.splitContainer1.Panel1.Controls.Add(this.webBrowserPreview2);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox1);
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainer1.Size = new System.Drawing.Size(746, 435);
-            this.splitContainer1.SplitterDistance = 247;
+            this.splitContainer1.Size = new System.Drawing.Size(756, 466);
+            this.splitContainer1.SplitterDistance = 250;
             this.splitContainer1.TabIndex = 3;
             // 
-            // checkBoxPreview
+            // checkBoxPreviewSlate
             // 
-            this.checkBoxPreview.AutoSize = true;
-            this.checkBoxPreview.Location = new System.Drawing.Point(10, 6);
-            this.checkBoxPreview.Name = "checkBoxPreview";
-            this.checkBoxPreview.Size = new System.Drawing.Size(134, 17);
-            this.checkBoxPreview.TabIndex = 3;
-            this.checkBoxPreview.Text = "Display preview stream";
-            this.checkBoxPreview.UseVisualStyleBackColor = true;
-            this.checkBoxPreview.CheckedChanged += new System.EventHandler(this.checkBoxPreview_CheckedChanged);
+            this.checkBoxPreviewSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoxPreviewSlate.AutoSize = true;
+            this.checkBoxPreviewSlate.Location = new System.Drawing.Point(10, 303);
+            this.checkBoxPreviewSlate.Name = "checkBoxPreviewSlate";
+            this.checkBoxPreviewSlate.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxPreviewSlate.TabIndex = 5;
+            this.checkBoxPreviewSlate.Text = "Display selected slate";
+            this.checkBoxPreviewSlate.UseVisualStyleBackColor = true;
+            // 
+            // pictureBoxPreviewSlate
+            // 
+            this.pictureBoxPreviewSlate.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(3, 326);
+            this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(244, 137);
+            this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPreviewSlate.TabIndex = 4;
+            this.pictureBoxPreviewSlate.TabStop = false;
+            // 
+            // checkBoxPreviewStream
+            // 
+            this.checkBoxPreviewStream.AutoSize = true;
+            this.checkBoxPreviewStream.Location = new System.Drawing.Point(10, 6);
+            this.checkBoxPreviewStream.Name = "checkBoxPreviewStream";
+            this.checkBoxPreviewStream.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxPreviewStream.TabIndex = 3;
+            this.checkBoxPreviewStream.Text = "Display preview stream";
+            this.checkBoxPreviewStream.UseVisualStyleBackColor = true;
+            this.checkBoxPreviewStream.CheckedChanged += new System.EventHandler(this.checkBoxPreview_CheckedChanged);
             // 
             // webBrowserPreview2
             // 
@@ -149,13 +151,14 @@
             this.webBrowserPreview2.Location = new System.Drawing.Point(3, 29);
             this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowserPreview2.Name = "webBrowserPreview2";
-            this.webBrowserPreview2.Size = new System.Drawing.Size(241, 403);
+            this.webBrowserPreview2.Size = new System.Drawing.Size(244, 254);
             this.webBrowserPreview2.TabIndex = 2;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.buttonInsertAD);
             this.groupBox1.Controls.Add(this.buttonInsertAdAndSlate);
             this.groupBox1.Controls.Add(this.label3);
@@ -165,7 +168,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(489, 126);
+            this.groupBox1.Size = new System.Drawing.Size(496, 126);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advertising";
@@ -174,9 +177,11 @@
             // 
             this.buttonInsertAD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsertAD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInsertAD.Location = new System.Drawing.Point(337, 58);
+            this.buttonInsertAD.Image = global::AMSExplorer.Bitmaps.create;
+            this.buttonInsertAD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonInsertAD.Location = new System.Drawing.Point(296, 58);
             this.buttonInsertAD.Name = "buttonInsertAD";
-            this.buttonInsertAD.Size = new System.Drawing.Size(134, 23);
+            this.buttonInsertAD.Size = new System.Drawing.Size(182, 23);
             this.buttonInsertAD.TabIndex = 57;
             this.buttonInsertAD.Text = "Insert AD";
             this.buttonInsertAD.UseVisualStyleBackColor = true;
@@ -186,11 +191,13 @@
             // 
             this.buttonInsertAdAndSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(337, 87);
+            this.buttonInsertAdAndSlate.Image = global::AMSExplorer.Bitmaps.thumbnails;
+            this.buttonInsertAdAndSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(296, 87);
             this.buttonInsertAdAndSlate.Name = "buttonInsertAdAndSlate";
-            this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(134, 23);
+            this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(182, 23);
             this.buttonInsertAdAndSlate.TabIndex = 56;
-            this.buttonInsertAdAndSlate.Text = "Insert AD and Slate";
+            this.buttonInsertAdAndSlate.Text = "Insert AD and default Slate";
             this.buttonInsertAdAndSlate.UseVisualStyleBackColor = true;
             this.buttonInsertAdAndSlate.Click += new System.EventHandler(this.buttonInsertAdAndSlate_Click);
             // 
@@ -249,7 +256,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(3, 145);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(489, 287);
+            this.groupBox2.Size = new System.Drawing.Size(496, 318);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
@@ -259,7 +266,7 @@
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(222, 199);
+            this.label15.Location = new System.Drawing.Point(229, 230);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(249, 13);
             this.label15.TabIndex = 84;
@@ -271,7 +278,7 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 176);
+            this.label8.Location = new System.Drawing.Point(10, 207);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(108, 13);
             this.label8.TabIndex = 83;
@@ -283,16 +290,16 @@
             this.textBoxJPGSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxJPGSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxJPGSearch.Location = new System.Drawing.Point(124, 173);
+            this.textBoxJPGSearch.Location = new System.Drawing.Point(124, 204);
             this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.Size = new System.Drawing.Size(159, 20);
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(166, 20);
             this.textBoxJPGSearch.TabIndex = 82;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(289, 173);
+            this.progressBarUpload.Location = new System.Drawing.Point(296, 204);
             this.progressBarUpload.Name = "progressBarUpload";
             this.progressBarUpload.Size = new System.Drawing.Size(84, 23);
             this.progressBarUpload.TabIndex = 81;
@@ -303,7 +310,7 @@
             // 
             this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUploadSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUploadSlate.Location = new System.Drawing.Point(379, 173);
+            this.buttonUploadSlate.Location = new System.Drawing.Point(386, 204);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
             this.buttonUploadSlate.Size = new System.Drawing.Size(92, 23);
             this.buttonUploadSlate.TabIndex = 80;
@@ -322,19 +329,22 @@
             this.listViewJPG1.Location = new System.Drawing.Point(13, 24);
             this.listViewJPG1.MultiSelect = false;
             this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(458, 143);
+            this.listViewJPG1.Size = new System.Drawing.Size(465, 174);
             this.listViewJPG1.TabIndex = 61;
             this.listViewJPG1.Tag = -1;
             this.listViewJPG1.UseCompatibleStateImageBehavior = false;
             this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // buttonHideSlate
             // 
             this.buttonHideSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonHideSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonHideSlate.Location = new System.Drawing.Point(337, 258);
+            this.buttonHideSlate.Image = global::AMSExplorer.Bitmaps.cancel;
+            this.buttonHideSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonHideSlate.Location = new System.Drawing.Point(296, 289);
             this.buttonHideSlate.Name = "buttonHideSlate";
-            this.buttonHideSlate.Size = new System.Drawing.Size(134, 23);
+            this.buttonHideSlate.Size = new System.Drawing.Size(182, 23);
             this.buttonHideSlate.TabIndex = 59;
             this.buttonHideSlate.Text = "Hide Slate";
             this.buttonHideSlate.UseVisualStyleBackColor = true;
@@ -344,9 +354,11 @@
             // 
             this.buttonShowSLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonShowSLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonShowSLate.Location = new System.Drawing.Point(337, 229);
+            this.buttonShowSLate.Image = global::AMSExplorer.Bitmaps.thumbnails;
+            this.buttonShowSLate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonShowSLate.Location = new System.Drawing.Point(296, 260);
             this.buttonShowSLate.Name = "buttonShowSLate";
-            this.buttonShowSLate.Size = new System.Drawing.Size(134, 23);
+            this.buttonShowSLate.Size = new System.Drawing.Size(182, 23);
             this.buttonShowSLate.TabIndex = 58;
             this.buttonShowSLate.Text = "Show Slate";
             this.buttonShowSLate.UseVisualStyleBackColor = true;
@@ -357,7 +369,7 @@
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 245);
+            this.label4.Location = new System.Drawing.Point(13, 276);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 13);
             this.label4.TabIndex = 59;
@@ -367,7 +379,7 @@
             // 
             this.textBoxSlateDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.textBoxSlateDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSlateDuration.Location = new System.Drawing.Point(13, 261);
+            this.textBoxSlateDuration.Location = new System.Drawing.Point(13, 292);
             this.textBoxSlateDuration.Name = "textBoxSlateDuration";
             this.textBoxSlateDuration.Size = new System.Drawing.Size(121, 20);
             this.textBoxSlateDuration.TabIndex = 58;
@@ -410,28 +422,39 @@
             // 
             this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(153, 41);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 17);
+            this.label2.TabIndex = 85;
+            this.label2.Text = "(integer)";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // ChannelAdSlateControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
-            this.Controls.Add(this.tabControl1);
             this.Name = "ChannelAdSlateControl";
-            this.Text = "Channel Ad and Slate Control";
+            this.Text = "Advertising and Slate Control";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChannelAdSlateControl_FormClosed);
             this.Load += new System.EventHandler(this.ChannelAdSlateControl_Load);
             this.Shown += new System.EventHandler(this.ChannelInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
-            this.tabPageAdSlate.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewSlate)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -446,11 +469,9 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Label labelChannelName;
         private System.Windows.Forms.Button buttonDisregard;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabPage tabPageAdSlate;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxSlateDuration;
@@ -471,7 +492,10 @@
         private System.Windows.Forms.TextBox textBoxJPGSearch;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.CheckBox checkBoxPreview;
+        private System.Windows.Forms.CheckBox checkBoxPreviewStream;
         private System.Windows.Forms.WebBrowser webBrowserPreview2;
+        private System.Windows.Forms.CheckBox checkBoxPreviewSlate;
+        private System.Windows.Forms.PictureBox pictureBoxPreviewSlate;
+        private System.Windows.Forms.Label label2;
     }
 }

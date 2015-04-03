@@ -78,7 +78,7 @@ namespace AMSExplorer
         private void ChannelAdSlateControl_Load(object sender, EventArgs e)
         {
             labelChannelName.Text += MyChannel.Name;
-
+            listViewJPG1.LoadJPGs(MyContext);
         }
 
 
@@ -185,27 +185,49 @@ namespace AMSExplorer
             try
             {
                 TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text));
-                Convert.ToInt32(textBoxCueId.Text);
+
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
+                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with AD duration input", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
             {
                 TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text)); ;
-                int cueid = Convert.ToInt32(textBoxCueId.Text);
-                try
+                int cueid = 0;
+                if (!string.IsNullOrEmpty(textBoxCueId.Text))
                 {
-                    await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
+                    try
+                    {
+                        cueid = Convert.ToInt32(textBoxCueId.Text);
+
+                    }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with CueID input", MyChannel.Name, true);
+                        MyMainForm.TextBoxLogWriteLine(e);
+                    }
                 }
-                catch
+                if (!Error)
                 {
-                    Error = true;
+                    MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending AD signal", MyChannel.Name);
+    
+                    try
+                    {
+                        await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
+                    }
+                    catch (Exception e)
+                    {
+                        Error = true;
+                        MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when sending signal", MyChannel.Name, true);
+                        MyMainForm.TextBoxLogWriteLine(e);
+                    }
                 }
             }
-
         }
 
         private async void ShowSlate()
@@ -217,24 +239,45 @@ namespace AMSExplorer
                 TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
 
             }
-            catch
+            catch (Exception e)
             {
                 Error = true;
+                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error with slate duration input", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(e);
             }
 
             if (!Error)
             {
                 TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
-
+                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending show slate signal", MyChannel.Name);
+    
                 try
                 {
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
                     await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendShowSlateOperationAsync, ts, jpg_id, MyChannel, "slate shown", MyContext, MyMainForm));
                 }
-                catch
+                catch (Exception e)
                 {
                     Error = true;
+                    MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when showing slate", MyChannel.Name, true);
+                    MyMainForm.TextBoxLogWriteLine(e);
+
                 }
+            }
+        }
+
+        private async void HideSlate()
+        {
+            MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending hide slate signal", MyChannel.Name);
+
+            try
+            {
+                await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
+            }
+            catch (Exception e)
+            {
+                MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when hidding slate", MyChannel.Name, true);
+                MyMainForm.TextBoxLogWriteLine(e);
             }
         }
 
@@ -244,15 +287,11 @@ namespace AMSExplorer
             ShowSlate();
         }
 
-        private async void buttonHideSlate_Click(object sender, EventArgs e)
+        private void buttonHideSlate_Click(object sender, EventArgs e)
         {
-            await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendHideSlateOperationAsync, MyChannel, "slate hidden", MyContext, MyMainForm));
+            HideSlate();
         }
 
-        private void tabPageEncoding_Enter(object sender, EventArgs e)
-        {
-            listViewJPG1.LoadJPGs(MyContext);
-        }
 
         private void label8_Click(object sender, EventArgs e)
         {
@@ -271,7 +310,7 @@ namespace AMSExplorer
 
         private void checkBoxPreview_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxPreview.Checked)
+            if (checkBoxPreviewStream.Checked)
             {
                 if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                 {
@@ -284,5 +323,72 @@ namespace AMSExplorer
                 webBrowserPreview2.Url = null;
             }
         }
+
+        private void listViewJPG1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (checkBoxPreviewSlate.Checked)
+            {
+                IAsset JPGAsset = listViewJPG1.GetSelectedJPG.FirstOrDefault();
+                if (JPGAsset != null)
+                {
+                    IAssetFile AF = null;
+                    ILocator locator = CreateSASLocator(JPGAsset);
+                    try
+                    {
+                        if (locator != null)
+                        {
+                            AF = JPGAsset.AssetFiles.FirstOrDefault();
+                            pictureBoxPreviewSlate.Load(AF.GetSasUri(locator).ToString());
+                            DeleteSASLocator(locator);
+                        }
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error when accessing temporary SAS locator");
+                    }
+                }
+            }
+        }
+
+        private ILocator CreateSASLocator(IAsset MyAsset)
+        {
+            ILocator newlocator = null;
+
+            try
+            {
+                var locatorTask = Task.Factory.StartNew(() =>
+                {
+                    newlocator = MyContext.Locators.Create(LocatorType.Sas, MyAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                });
+                locatorTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error when creating the temporary SAS locator." + ex.Message);
+            }
+
+            return newlocator;
+        }
+
+        private void DeleteSASLocator(ILocator locator)
+        {
+            if (locator != null)
+            {
+                try
+                {
+                    var locatorTask = Task.Factory.StartNew(() =>
+                    {
+                        locator.Delete();
+                    });
+                    locatorTask.Wait();
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+
     }
 }
