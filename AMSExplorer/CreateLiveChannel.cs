@@ -95,12 +95,12 @@ namespace AMSExplorer
             get
             {
                 ChannelSlate myslate = null;
-                if (checkBoxAdInsertSlate.Checked && listViewJPG1.GetSelectedJPG.FirstOrDefault() != null)
+                if (checkBoxInsertSlateOnAdMarker.Checked)
                 {
                     myslate = new ChannelSlate()
                                    {
-                                       InsertSlateOnAdMarker = checkBoxAdInsertSlate.Checked,
-                                       DefaultSlateAssetId = checkBoxAdInsertSlate.Checked ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
+                                       InsertSlateOnAdMarker = checkBoxInsertSlateOnAdMarker.Checked,
+                                       DefaultSlateAssetId = listViewJPG1.GetSelectedJPG.FirstOrDefault() != null ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
                                    };
                 }
                 return myslate;
@@ -410,9 +410,9 @@ namespace AMSExplorer
 
         private void checkBoxAdInsertSlate_CheckedChanged(object sender, EventArgs e)
         {
-            panelInsertSlate.Enabled = checkBoxAdInsertSlate.Checked;
+            panelInsertSlate.Enabled = checkBoxInsertSlateOnAdMarker.Checked;
 
-            if (checkBoxAdInsertSlate.Checked)
+            if (checkBoxInsertSlateOnAdMarker.Checked)
             {
                 listViewJPG1.LoadJPGs(MyContext);
             }
@@ -426,13 +426,13 @@ namespace AMSExplorer
 
         private void checkBoxAdInsertSlate_Validating(object sender, CancelEventArgs e)
         {
-            if (checkBoxAdInsertSlate.Checked && listViewJPG1.GetSelectedJPG.Count == 0)
+            if (checkBoxInsertSlateOnAdMarker.Checked && listViewJPG1.GetSelectedJPG.Count == 0)
             {
-                errorProvider1.SetError(checkBoxAdInsertSlate, "No JPG selected");
+                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, "No JPG selected");
             }
             else
             {
-                errorProvider1.SetError(checkBoxAdInsertSlate, String.Empty);
+                errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
             }
         }
 

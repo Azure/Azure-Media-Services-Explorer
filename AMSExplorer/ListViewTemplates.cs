@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Drawing;
 
 
 namespace AMSExplorer
@@ -247,6 +248,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         private IAsset _selectedJPGAsset;
+        private ChannelSlate _channelslate;
         private System.Windows.Forms.ColumnHeader columnHeaderJPGFileName;
         private System.Windows.Forms.ColumnHeader columnHeaderLastModified;
         private System.Windows.Forms.ColumnHeader columnHeaderSize;
@@ -319,10 +321,11 @@ namespace AMSExplorer
             this.columnHeaderAssetId.Text = "Asset Id";
         }
 
-        public void LoadJPGs(CloudMediaContext context, IAsset selectedJPG = null)
+        public void LoadJPGs(CloudMediaContext context, IAsset selectedJPG = null, ChannelSlate channelslate = null)
         {
             _context = context;
             _selectedJPGAsset = selectedJPG;
+            _channelslate = channelslate;
             LoadJPGs();
         }
 
@@ -343,17 +346,26 @@ namespace AMSExplorer
                 )
                 .ToArray();
 
+            string defaultslateassetid = null;
+            if (_channelslate != null && _channelslate.DefaultSlateAssetId!=null)
+            {
+                defaultslateassetid = _channelslate.DefaultSlateAssetId;
+            }
+
+
             foreach (IAssetFile file in query)
             {
                 if (file.Asset.AssetFiles.Count() == 1)
                 {
-                    ListViewItem item = new ListViewItem(file.Name, 0);
+                    bool bdefaultchannelslate = defaultslateassetid == file.ParentAssetId;
+
+                    ListViewItem item = new ListViewItem(file.Name + ((bdefaultchannelslate) ? " (default channel slate)" : string.Empty), 0);
                     item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);
                     if (_selectedJPGAsset != null && _selectedJPGAsset.Id == file.Asset.Id) item.Selected = true;
-
+                    if (bdefaultchannelslate) item.ForeColor = Color.Blue;
                     this.Items.Add(item);
                 }
             }

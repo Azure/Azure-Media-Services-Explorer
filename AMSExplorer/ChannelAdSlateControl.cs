@@ -78,10 +78,15 @@ namespace AMSExplorer
         private void ChannelAdSlateControl_Load(object sender, EventArgs e)
         {
             labelChannelName.Text += MyChannel.Name;
-            listViewJPG1.LoadJPGs(MyContext);
+            listViewJPG1.LoadJPGs(MyContext, null, MyChannel.Slate);
+            textBoxCueId.Text = GenerateRandomCueId();
         }
 
-
+        private string GenerateRandomCueId()
+        {
+            return new Random().Next(int.MaxValue).ToString();
+        }
+           
 
         private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
         {
@@ -125,7 +130,7 @@ namespace AMSExplorer
                 progressBarUpload.Visible = false;
 
                 buttonUploadSlate.Enabled = true;
-                listViewJPG1.LoadJPGs(MyContext, asset);
+                listViewJPG1.LoadJPGs(MyContext, asset, MyChannel.Slate);
             }
         }
 
@@ -172,7 +177,7 @@ namespace AMSExplorer
         {
 
             InsertAd(false);
-        }
+         }
 
         private void buttonInsertAdAndSlate_Click(object sender, EventArgs e)
         {
@@ -215,7 +220,7 @@ namespace AMSExplorer
                 if (!Error)
                 {
                     MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending AD signal", MyChannel.Name);
-    
+       
                     try
                     {
                         await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
@@ -226,6 +231,8 @@ namespace AMSExplorer
                         MyMainForm.TextBoxLogWriteLine("Channel '{0}' : Error when sending signal", MyChannel.Name, true);
                         MyMainForm.TextBoxLogWriteLine(e);
                     }
+                    if (!Error) textBoxCueId.Text = GenerateRandomCueId();
+    
                 }
             }
         }
@@ -250,7 +257,7 @@ namespace AMSExplorer
             {
                 TimeSpan ts = TimeSpan.FromSeconds(Convert.ToDouble(textBoxSlateDuration.Text));
                 MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending show slate signal", MyChannel.Name);
-    
+
                 try
                 {
                     string jpg_id = listViewJPG1.GetSelectedJPG.FirstOrDefault().Id;
@@ -387,6 +394,11 @@ namespace AMSExplorer
 
                 }
             }
+        }
+
+        private void buttonDisregard_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
 

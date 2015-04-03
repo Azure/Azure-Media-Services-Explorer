@@ -399,13 +399,14 @@
             // buttonDisregard
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonDisregard.Location = new System.Drawing.Point(668, 10);
             this.buttonDisregard.Name = "buttonDisregard";
             this.buttonDisregard.Size = new System.Drawing.Size(106, 23);
             this.buttonDisregard.TabIndex = 41;
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
+            this.buttonDisregard.Click += new System.EventHandler(this.buttonDisregard_Click);
             // 
             // panel1
             // 

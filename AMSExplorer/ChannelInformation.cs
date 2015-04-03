@@ -162,14 +162,18 @@ namespace AMSExplorer
                 DGChannel.Rows.Add("Encoding Video Streams Count", MyChannel.Encoding.VideoStreams.Count);
                 DGChannel.Rows.Add("Encoding Audio Streams Count", MyChannel.Encoding.AudioStreams.Count);
                 DGChannel.Rows.Add("Encoding Ad Marker Source", (AdMarkerSource)MyChannel.Encoding.AdMarkerSource);
-            }
-            
 
-            if (MyChannel.Slate != null)
-            {
-                DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
-                DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                if (MyChannel.Slate != null)
+                {
+                    DGChannel.Rows.Add("Default Slate Asset Id", MyChannel.Slate.DefaultSlateAssetId);
+                    DGChannel.Rows.Add("Automatic Slate Insertion on AD signal", MyChannel.Slate.InsertSlateOnAdMarker);
+                }
+                else
+                {
+                    DGChannel.Rows.Add("Slate settings","(none)");
+                }
             }
+          
 
             if (MyChannel.Input.KeyFrameInterval != null)
             {

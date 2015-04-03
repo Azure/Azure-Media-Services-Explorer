@@ -81,7 +81,7 @@
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.checkBoxAdInsertSlate = new System.Windows.Forms.CheckBox();
+            this.checkBoxInsertSlateOnAdMarker = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxAdMarkerSource = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -542,7 +542,7 @@
             // tabPageAdConfig
             // 
             this.tabPageAdConfig.Controls.Add(this.panelInsertSlate);
-            this.tabPageAdConfig.Controls.Add(this.checkBoxAdInsertSlate);
+            this.tabPageAdConfig.Controls.Add(this.checkBoxInsertSlateOnAdMarker);
             this.tabPageAdConfig.Controls.Add(this.label8);
             this.tabPageAdConfig.Controls.Add(this.comboBoxAdMarkerSource);
             this.tabPageAdConfig.Controls.Add(this.label1);
@@ -648,15 +648,15 @@
             // 
             // checkBoxAdInsertSlate
             // 
-            this.checkBoxAdInsertSlate.AutoSize = true;
-            this.checkBoxAdInsertSlate.Location = new System.Drawing.Point(9, 73);
-            this.checkBoxAdInsertSlate.Name = "checkBoxAdInsertSlate";
-            this.checkBoxAdInsertSlate.Size = new System.Drawing.Size(142, 17);
-            this.checkBoxAdInsertSlate.TabIndex = 70;
-            this.checkBoxAdInsertSlate.Text = "Insert Slate on Ad Signal";
-            this.checkBoxAdInsertSlate.UseVisualStyleBackColor = true;
-            this.checkBoxAdInsertSlate.CheckedChanged += new System.EventHandler(this.checkBoxAdInsertSlate_CheckedChanged);
-            this.checkBoxAdInsertSlate.Validating += new System.ComponentModel.CancelEventHandler(this.checkBoxAdInsertSlate_Validating);
+            this.checkBoxInsertSlateOnAdMarker.AutoSize = true;
+            this.checkBoxInsertSlateOnAdMarker.Location = new System.Drawing.Point(9, 73);
+            this.checkBoxInsertSlateOnAdMarker.Name = "checkBoxAdInsertSlate";
+            this.checkBoxInsertSlateOnAdMarker.Size = new System.Drawing.Size(142, 17);
+            this.checkBoxInsertSlateOnAdMarker.TabIndex = 70;
+            this.checkBoxInsertSlateOnAdMarker.Text = "Insert Slate on Ad Signal";
+            this.checkBoxInsertSlateOnAdMarker.UseVisualStyleBackColor = true;
+            this.checkBoxInsertSlateOnAdMarker.CheckedChanged += new System.EventHandler(this.checkBoxAdInsertSlate_CheckedChanged);
+            this.checkBoxInsertSlateOnAdMarker.Validating += new System.ComponentModel.CancelEventHandler(this.checkBoxAdInsertSlate_Validating);
             // 
             // label8
             // 
@@ -770,7 +770,7 @@
         private System.Windows.Forms.TabPage tabPageAdConfig;
         private System.Windows.Forms.Panel panelInsertSlate;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.CheckBox checkBoxAdInsertSlate;
+        private System.Windows.Forms.CheckBox checkBoxInsertSlateOnAdMarker;
         private System.Windows.Forms.CheckBox checkBoxRestrictPreviewIP;
         private System.Windows.Forms.TextBox textBoxRestrictPreviewIP;
         private System.Windows.Forms.ToolTip toolTip1;
