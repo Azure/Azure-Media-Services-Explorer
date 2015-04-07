@@ -265,22 +265,6 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
-        {
-            TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.SWT);
-            template.PrimaryVerificationKey = mytokenverificationkey;
-            template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
-            template.Audience = _sampleAudience;
-            template.Issuer = _sampleIssuer;
-            if (AddContentKeyIdentifierClaim) template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
-            foreach (var t in tokenclaimslist)
-            {
-                template.RequiredClaims.Add(t);
-            }
-
-            return TokenRestrictionTemplateSerializer.Serialize(template);
-        }
-
         static private string GenerateTokenRequirements(TokenType mytokentype, Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype);
