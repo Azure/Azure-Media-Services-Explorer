@@ -33,8 +33,6 @@ using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.Blob.Protocol;
 using System.Web;
 using System.Net;
-
-
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -47,6 +45,7 @@ namespace AMSExplorer
         public IChannel MyChannel;
         public CloudMediaContext MyContext;
         private Mainform MyMainForm;
+        private Dictionary<IAsset, ILocator> ListLocators = new Dictionary<IAsset, ILocator>(); // to store locators for JPEG files
 
 
         public ChannelAdSlateControl(Mainform mainform)
@@ -86,7 +85,7 @@ namespace AMSExplorer
         {
             return new Random().Next(int.MaxValue).ToString();
         }
-           
+
 
         private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
         {
@@ -96,7 +95,7 @@ namespace AMSExplorer
 
         private void ChannelAdSlateControl_FormClosed(object sender, FormClosedEventArgs e)
         {
-
+            ListLocators.ToList().ForEach(entry => DeleteSASLocator(entry.Value));
         }
 
 
@@ -177,7 +176,7 @@ namespace AMSExplorer
         {
 
             InsertAd(false);
-         }
+        }
 
         private void buttonInsertAdAndSlate_Click(object sender, EventArgs e)
         {
@@ -220,7 +219,7 @@ namespace AMSExplorer
                 if (!Error)
                 {
                     MyMainForm.TextBoxLogWriteLine("Channel '{0}' : sending AD signal", MyChannel.Name);
-       
+
                     try
                     {
                         await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(MyChannel.SendStartAdvertisementOperationAsync, ts, cueid, showslate, MyChannel, "advertising " + cueid.ToString() + " sent", MyContext, MyMainForm));
@@ -232,7 +231,7 @@ namespace AMSExplorer
                         MyMainForm.TextBoxLogWriteLine(e);
                     }
                     if (!Error) textBoxCueId.Text = GenerateRandomCueId();
-    
+
                 }
             }
         }
@@ -339,14 +338,14 @@ namespace AMSExplorer
                 if (JPGAsset != null)
                 {
                     IAssetFile AF = null;
-                    ILocator locator = CreateSASLocator(JPGAsset);
+                    ILocator locator = GetOrCreateSASLocator(JPGAsset);
                     try
                     {
                         if (locator != null)
                         {
                             AF = JPGAsset.AssetFiles.FirstOrDefault();
-                            pictureBoxPreviewSlate.Load(AF.GetSasUri(locator).ToString());
-                            DeleteSASLocator(locator);
+                            Uri sasUri = BuildSasUri(AF, locator);
+                            pictureBoxPreviewSlate.Load(sasUri.ToString());
                         }
                     }
                     catch
@@ -356,6 +355,23 @@ namespace AMSExplorer
                 }
             }
         }
+
+        private static Uri BuildSasUri(IAssetFile assetFile, ILocator sasLocator)
+        {
+            UriBuilder builder = new UriBuilder(new Uri(sasLocator.Path, UriKind.Absolute));
+            builder.Path = Path.Combine(builder.Path, assetFile.Name);
+            return builder.Uri;
+        }
+
+        private ILocator GetOrCreateSASLocator(IAsset MyAsset)
+        {
+              if (!ListLocators.ContainsKey(MyAsset))
+            {
+                ListLocators.Add(MyAsset   , CreateSASLocator(MyAsset));
+            }
+            return ListLocators[MyAsset];
+        }
+
 
         private ILocator CreateSASLocator(IAsset MyAsset)
         {
@@ -400,7 +416,5 @@ namespace AMSExplorer
         {
             this.Close();
         }
-
-
     }
 }
