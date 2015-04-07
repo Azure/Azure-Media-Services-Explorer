@@ -189,7 +189,6 @@ namespace AMSExplorer
             try
             {
                 TimeSpan.FromSeconds(Convert.ToDouble(textBoxADSignalDuration.Text));
-
             }
             catch (Exception e)
             {
@@ -415,6 +414,56 @@ namespace AMSExplorer
         private void buttonDisregard_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void textBoxCueId_Validating(object sender, CancelEventArgs e)
+        {
+            bool Error = false;
+            TextBox tb = (TextBox)sender;
+
+            try
+            {
+                Convert.ToInt32(tb.Text);
+
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                errorProvider1.SetError(tb, "Advertising Cue Id is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxADSignalDuration_Validating(object sender, CancelEventArgs e)
+        {
+            bool Error = false;
+            TextBox tb = (TextBox)sender;
+
+            try
+            {
+                Convert.ToDouble(tb.Text);
+
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                errorProvider1.SetError(tb, "Duration value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
         }
     }
 }
