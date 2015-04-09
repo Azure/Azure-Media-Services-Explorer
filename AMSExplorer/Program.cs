@@ -1857,7 +1857,6 @@ namespace AMSExplorer
         public string ACSBaseAddress { get; set; }
         public string AzureEndpoint { get; set; }
         public string ManagementPortal { get; set; }
-
     }
 
     public enum EndPointMappingName
@@ -2058,6 +2057,14 @@ namespace AMSExplorer
         TaskOutputAsset
     }
 
+
+    public class LocalEncoder
+    {
+        public string Name { get; set; }
+        public string Program { get; set; }
+        public string Arguments { get; set; }
+        public StreamingProtocol Protocol { get; set; }
+    }
 
 
     public class ListViewItemComparer : IComparer

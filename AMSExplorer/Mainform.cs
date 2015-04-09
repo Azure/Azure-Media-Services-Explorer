@@ -8954,6 +8954,17 @@ typeof(FilterTime)
         {
             DoWatchFolder();
         }
+
+        private void runALocalEncoderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChannelRunLocalEncoder();
+        }
+
+        private void ChannelRunLocalEncoder()
+        {
+            ChannelRunLocalEncoder form = new ChannelRunLocalEncoder(_context, ReturnSelectedChannels());
+            form.ShowDialog();
+        }
     }
 }
 

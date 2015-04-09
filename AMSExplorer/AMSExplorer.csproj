@@ -146,6 +146,12 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChannelRunLocalEncoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChannelRunLocalEncoder.Designer.cs">
+      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
+    </Compile>
     <Compile Include="CopyAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -400,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelRunLocalEncoder.resx">
+      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
