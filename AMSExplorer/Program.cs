@@ -2061,8 +2061,8 @@ namespace AMSExplorer
     public class LocalEncoder
     {
         public string Name { get; set; }
-        public string Program { get; set; }
-        public string Arguments { get; set; }
+        public string Folder { get; set; }
+        public string Command { get; set; }
         public StreamingProtocol Protocol { get; set; }
     }
 
