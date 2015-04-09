@@ -43,6 +43,7 @@
             this.textBoxArguments = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxProgram = new System.Windows.Forms.TextBox();
+            this.labelChannel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -90,7 +91,7 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.comboBoxEncoder);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(15, 56);
+            this.groupBox1.Location = new System.Drawing.Point(15, 64);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(570, 183);
             this.groupBox1.TabIndex = 63;
@@ -155,18 +156,17 @@
             // labelcdn
             // 
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelcdn.Location = new System.Drawing.Point(24, 25);
+            this.labelcdn.Location = new System.Drawing.Point(12, 11);
             this.labelcdn.Name = "labelcdn";
             this.labelcdn.Size = new System.Drawing.Size(459, 19);
             this.labelcdn.TabIndex = 70;
-            this.labelcdn.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
-    "ed.";
-            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelcdn.Text = "Run a local encoder to push a live stream to a channel in Azure Media Services";
+            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 300);
+            this.label1.Location = new System.Drawing.Point(12, 308);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 74;
@@ -178,7 +178,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxArguments.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxArguments.Location = new System.Drawing.Point(15, 316);
+            this.textBoxArguments.Location = new System.Drawing.Point(15, 324);
             this.textBoxArguments.Multiline = true;
             this.textBoxArguments.Name = "textBoxArguments";
             this.textBoxArguments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -188,7 +188,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 252);
+            this.label3.Location = new System.Drawing.Point(12, 260);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 75;
@@ -196,10 +196,19 @@
             // 
             // textBoxProgram
             // 
-            this.textBoxProgram.Location = new System.Drawing.Point(15, 269);
+            this.textBoxProgram.Location = new System.Drawing.Point(15, 277);
             this.textBoxProgram.Name = "textBoxProgram";
             this.textBoxProgram.Size = new System.Drawing.Size(731, 20);
             this.textBoxProgram.TabIndex = 76;
+            // 
+            // labelChannel
+            // 
+            this.labelChannel.AutoSize = true;
+            this.labelChannel.Location = new System.Drawing.Point(15, 40);
+            this.labelChannel.Name = "labelChannel";
+            this.labelChannel.Size = new System.Drawing.Size(69, 13);
+            this.labelChannel.TabIndex = 77;
+            this.labelChannel.Text = "Channel : {0}";
             // 
             // ChannelRunLocalEncoder
             // 
@@ -207,6 +216,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelChannel);
             this.Controls.Add(this.textBoxProgram);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
@@ -242,5 +252,6 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxAudioDeviceName;
         public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label labelChannel;
     }
 }
