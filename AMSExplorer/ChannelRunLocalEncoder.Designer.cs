@@ -44,6 +44,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxProgram = new System.Windows.Forms.TextBox();
             this.labelChannel = new System.Windows.Forms.Label();
+            this.textBoxVideoBitRate = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxAudioBitRate = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +89,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBoxAudioBitRate);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBoxVideoBitRate);
+            this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.textBoxVideoDeviceName);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.textBoxAudioDeviceName);
@@ -93,7 +101,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(15, 64);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 183);
+            this.groupBox1.Size = new System.Drawing.Size(570, 224);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder";
@@ -166,7 +174,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 308);
+            this.label1.Location = new System.Drawing.Point(12, 351);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(106, 13);
             this.label1.TabIndex = 74;
@@ -178,7 +186,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxArguments.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxArguments.Location = new System.Drawing.Point(15, 324);
+            this.textBoxArguments.Location = new System.Drawing.Point(15, 367);
             this.textBoxArguments.Multiline = true;
             this.textBoxArguments.Name = "textBoxArguments";
             this.textBoxArguments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -188,7 +196,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 260);
+            this.label3.Location = new System.Drawing.Point(12, 303);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 13);
             this.label3.TabIndex = 75;
@@ -196,7 +204,7 @@
             // 
             // textBoxProgram
             // 
-            this.textBoxProgram.Location = new System.Drawing.Point(15, 277);
+            this.textBoxProgram.Location = new System.Drawing.Point(15, 320);
             this.textBoxProgram.Name = "textBoxProgram";
             this.textBoxProgram.Size = new System.Drawing.Size(731, 20);
             this.textBoxProgram.TabIndex = 76;
@@ -209,6 +217,42 @@
             this.labelChannel.Size = new System.Drawing.Size(69, 13);
             this.labelChannel.TabIndex = 77;
             this.labelChannel.Text = "Channel : {0}";
+            // 
+            // textBoxVideoBitRate
+            // 
+            this.textBoxVideoBitRate.Location = new System.Drawing.Point(22, 198);
+            this.textBoxVideoBitRate.Name = "textBoxVideoBitRate";
+            this.textBoxVideoBitRate.Size = new System.Drawing.Size(156, 20);
+            this.textBoxVideoBitRate.TabIndex = 81;
+            this.textBoxVideoBitRate.Text = "1500";
+            this.textBoxVideoBitRate.TextChanged += new System.EventHandler(this.EncoderSettings_Changed);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(19, 182);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(105, 13);
+            this.label6.TabIndex = 80;
+            this.label6.Text = "Video Bitrate (kbps) :";
+            // 
+            // textBoxAudioBitRate
+            // 
+            this.textBoxAudioBitRate.Location = new System.Drawing.Point(220, 198);
+            this.textBoxAudioBitRate.Name = "textBoxAudioBitRate";
+            this.textBoxAudioBitRate.Size = new System.Drawing.Size(156, 20);
+            this.textBoxAudioBitRate.TabIndex = 83;
+            this.textBoxAudioBitRate.Text = "96";
+            this.textBoxAudioBitRate.TextChanged += new System.EventHandler(this.EncoderSettings_Changed);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(217, 182);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(105, 13);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Audio Bitrate (kbps) :";
             // 
             // ChannelRunLocalEncoder
             // 
@@ -253,5 +297,9 @@
         private System.Windows.Forms.TextBox textBoxAudioDeviceName;
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelChannel;
+        private System.Windows.Forms.TextBox textBoxVideoBitRate;
+        public System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBoxAudioBitRate;
+        public System.Windows.Forms.Label label7;
     }
 }
