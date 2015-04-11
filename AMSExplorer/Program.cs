@@ -2063,8 +2063,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Folder { get; set; }
         public string Command { get; set; }
-        public StreamingProtocol Protocol { get; set; }
-    }
+     }
 
 
     public class ListViewItemComparer : IComparer

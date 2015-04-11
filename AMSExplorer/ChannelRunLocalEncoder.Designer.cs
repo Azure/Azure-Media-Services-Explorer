@@ -55,10 +55,11 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(576, 12);
+            this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonOk.Location = new System.Drawing.Point(532, 12);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(96, 23);
+            this.buttonOk.Size = new System.Drawing.Size(140, 23);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Launch encoder";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -72,7 +73,7 @@
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(96, 23);
             this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.Text = "Close";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // panel1
@@ -104,7 +105,7 @@
             this.groupBox1.Size = new System.Drawing.Size(570, 224);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Encoder";
+            this.groupBox1.Text = "Encoder settings";
             // 
             // textBoxAudioBitRate
             // 
@@ -202,9 +203,10 @@
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelcdn.Location = new System.Drawing.Point(12, 11);
             this.labelcdn.Name = "labelcdn";
-            this.labelcdn.Size = new System.Drawing.Size(459, 19);
+            this.labelcdn.Size = new System.Drawing.Size(734, 19);
             this.labelcdn.TabIndex = 70;
-            this.labelcdn.Text = "Run a local encoder to push a live stream to a channel in Azure Media Services";
+            this.labelcdn.Text = "Run a local encoder to push a live stream to a channel. Please install ffmpeg or " +
+    "VLC separately and define the installation path in options";
             this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1

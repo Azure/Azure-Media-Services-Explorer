@@ -40,15 +40,16 @@ namespace AMSExplorer
         IList<IChannel> _channels;
 
         public readonly IList<LocalEncoder> Encoders = new List<LocalEncoder> {
+            // ffmpg list devices
+            new LocalEncoder() {Name="ffmpeg - List devices",  Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg.exe -list_devices true -f dshow -i dummy"}, 
             // ffmpeg RTMP
-            new LocalEncoder() {Name="ffmpeg (RTMP)", Protocol=StreamingProtocol.RTMP, Folder=@"C:\temp\ffmpeg\bin\",Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1"}, 
+            new LocalEncoder() {Name="ffmpeg (RTMP)", Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1"}, 
             // ffmpeg RTP
-          // new LocalEncoder() {Name="ffmpeg (RTP TS)", Protocol=StreamingProtocol.RTMP,CommandLine= "ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=\"Integrated Camera\":audio=\"Microphone (Realtek High Definition Audio)\" -strict -2  -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %bitrate% -maxrate %bitrate% -minrate %bitrate% -c:v libx264 -c:a aac -b:a 96k -ar 44100  -f flv rtmp://johndertmp-livetranscode02.channel.mediaservices.windows.net:1935/live/3d834ca5a4ed400ba79f30a8f85366f5/johndeu1249"}, 
-             // Government
-         new LocalEncoder() {Name="VLC (RTMP) 32 bit", Protocol=StreamingProtocol.RTMP,Folder="%programfiles32%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} ,
-        new LocalEncoder() {Name="VLC (RTMP) 64 bit", Protocol=StreamingProtocol.RTMP,Folder="%programfiles64%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} 
-     
-        };
+            new LocalEncoder() {Name="ffmpeg (RTP MPEG-TS)", Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg -y -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -c:v libx264 -preset ultrafast -bf 0 -g 60  -vsync cfr -b:v %videobitrate%k -minrate %videobitrate%k -maxrate %videobitrate%k -bufsize %videobitrate%k -strict -2 -c:a aac -ac 2 -ar 44100 -b:a %audiobitrate%k -f mpegts %output%"}, 
+            // VLC
+            new LocalEncoder() {Name="VLC (RTMP) 32 bit", Folder="%programfiles32%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} ,
+            new LocalEncoder() {Name="VLC (RTMP) 64 bit", Folder="%programfiles64%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} 
+             };
 
 
         public ChannelRunLocalEncoder(CloudMediaContext context, IList<IChannel> channels)
@@ -78,7 +79,7 @@ namespace AMSExplorer
                 System.Diagnostics.ProcessStartInfo proc = new System.Diagnostics.ProcessStartInfo();
                 proc.WorkingDirectory = textBoxFolder.Text;
                 proc.FileName = @"cmd.exe";
-                proc.Arguments = "/K "+ textBoxCommand.Text;
+                proc.Arguments = "/K " + textBoxCommand.Text;
                 System.Diagnostics.Process.Start(proc);
                 //System.Diagnostics.Process.Start(textBoxProgram.Text, textBoxArguments.Text);
 
