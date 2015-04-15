@@ -57,6 +57,15 @@ namespace AMSExplorer
             }
         }
 
+        public string IndexerLanguage
+        {
+            get
+            {
+                return comboBoxLanguage.Text ;
+            }
+        
+        }
+
         public string StorageSelected
         {
             get
@@ -141,6 +150,7 @@ namespace AMSExplorer
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+            comboBoxLanguage.SelectedIndex = 0;
         }
     }
 }

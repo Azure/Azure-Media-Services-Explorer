@@ -3,10 +3,20 @@
   <input>
     <!-- [Optional] Metadata of the input media file(s) -->
     <!-- Format: <metadata key="..." value="..." /> -->
+    <!--  <metadata key="title" value="[Title of the media file]" /> -->
+    <!--  <metadata key="description" value="[Description of the media file]" /> -->
   </input>
   <settings>
-    <!-- [Optional] Settings of the indexing job -->
-    <!-- Format: <add key="..." value="..." /> -->
-    <!-- Reserved -->
   </settings>
+  <features>
+    <feature name="ASR">
+      <settings>
+         <!-- [Optional] settings -->
+        <!-- <add key="Language" value="English"/> -->
+        <!-- <add key="CaptionFormats" value="ttml;sami;webvtt"/> -->
+        <!-- <add key="GenerateAIB" value ="true" /> -->
+        <!-- <add key="GenerateKeywords" value ="true" /> -->
+      </settings>
+    </feature>
+  </features>
 </configuration>

@@ -3005,15 +3005,18 @@ namespace AMSExplorer
             return doc.ToString();
         }
 
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription)
+        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, string CaptionFormats, bool GenerateAIB, bool GenerateKeywords)
         {
             // Prepare the encryption task template
             XDocument doc = XDocument.Load(xmlFileName);
 
             var inputxml = doc.Element("configuration").Element("input");
-
             if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
             if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
+
+            var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
+            if (!string.IsNullOrEmpty(Language)) settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
+
 
             return doc.ToString();
         }
@@ -3324,16 +3327,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configIndexer = string.Empty;
-
-                if (!string.IsNullOrEmpty(form.IndexerTitle) || !string.IsNullOrEmpty(form.IndexerDescription))
-                {
-                    configIndexer = LoadAndUpdateIndexerConfiguration(
+               string configIndexer = LoadAndUpdateIndexerConfiguration(
                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
                form.IndexerTitle,
-               form.IndexerDescription
+               form.IndexerDescription,
+               form.IndexerLanguage,
+               "ttml;sami;webvtt",
+               true,
+               true
                );
-                }
+
 
                 LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
