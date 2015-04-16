@@ -167,6 +167,12 @@
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="IndexerOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerOptions.Designer.cs">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -416,6 +422,9 @@
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="IndexerOptions.resx">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -542,9 +551,6 @@
     <Content Include="BitmapsPNG\modetaskjob1.png" />
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
-    <Content Include="Configurations\PlayReadyCustomAttributes.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -553,6 +559,7 @@
     </Content>
     <Content Include="Configurations\MediaIndexer.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\Thumbnails.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

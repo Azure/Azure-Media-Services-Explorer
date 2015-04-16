@@ -2063,7 +2063,19 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Folder { get; set; }
         public string Command { get; set; }
-     }
+    }
+
+
+    public class IndexerOptionsVar
+    {
+        public bool WebVTT { get; set; }
+        public bool SAMI { get; set; }
+        public bool TTML { get; set; }
+        public bool AIB { get; set; }
+        public bool Keywords { get; set; }
+       
+    }
+   
 
 
     public class ListViewItemComparer : IComparer

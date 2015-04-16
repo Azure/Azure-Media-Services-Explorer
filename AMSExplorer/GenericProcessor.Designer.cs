@@ -501,6 +501,7 @@
             // 
             // buttonLoadXML1
             // 
+            this.buttonLoadXML1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadXML1.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML1.Name = "buttonLoadXML1";
             this.buttonLoadXML1.Size = new System.Drawing.Size(135, 23);
@@ -567,6 +568,7 @@
             // 
             // buttonLoadXML2
             // 
+            this.buttonLoadXML2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadXML2.Location = new System.Drawing.Point(590, 257);
             this.buttonLoadXML2.Name = "buttonLoadXML2";
             this.buttonLoadXML2.Size = new System.Drawing.Size(135, 23);
@@ -678,6 +680,7 @@
             // 
             // buttonLoadXML3
             // 
+            this.buttonLoadXML3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadXML3.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML3.Name = "buttonLoadXML3";
             this.buttonLoadXML3.Size = new System.Drawing.Size(135, 23);
@@ -789,6 +792,7 @@
             // 
             // buttonLoadXML4
             // 
+            this.buttonLoadXML4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadXML4.Location = new System.Drawing.Point(590, 257);
             this.buttonLoadXML4.Name = "buttonLoadXML4";
             this.buttonLoadXML4.Size = new System.Drawing.Size(135, 23);
@@ -900,6 +904,7 @@
             // 
             // buttonLoadXML5
             // 
+            this.buttonLoadXML5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLoadXML5.Location = new System.Drawing.Point(589, 257);
             this.buttonLoadXML5.Name = "buttonLoadXML5";
             this.buttonLoadXML5.Size = new System.Drawing.Size(135, 23);

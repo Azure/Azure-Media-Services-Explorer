@@ -51,6 +51,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.comboBoxLanguage = new System.Windows.Forms.ComboBox();
+            this.buttonGenOptions = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
@@ -290,6 +291,16 @@
             this.comboBoxLanguage.Size = new System.Drawing.Size(121, 21);
             this.comboBoxLanguage.TabIndex = 68;
             // 
+            // buttonGenOptions
+            // 
+            this.buttonGenOptions.Location = new System.Drawing.Point(394, 64);
+            this.buttonGenOptions.Name = "buttonGenOptions";
+            this.buttonGenOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonGenOptions.TabIndex = 69;
+            this.buttonGenOptions.Text = "Generation options...";
+            this.buttonGenOptions.UseVisualStyleBackColor = true;
+            this.buttonGenOptions.Click += new System.EventHandler(this.buttonGenOptions_Click);
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Key";
@@ -306,6 +317,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.buttonGenOptions);
             this.Controls.Add(this.comboBoxLanguage);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel1);
@@ -359,5 +371,6 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxLanguage;
+        private System.Windows.Forms.Button buttonGenOptions;
     }
 }

@@ -33,7 +33,17 @@ namespace AMSExplorer
     public partial class Indexer : Form
     {
         private CloudMediaContext _context;
+        private IndexerOptions formOptions = new IndexerOptions();
+        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
 
+        public IndexerOptionsVar IndexerGenerationOptions
+        {
+            get
+            {
+                return optionsVar;
+            }
+
+        }
         public string IndexerInputAssetName
         {
             get
@@ -61,9 +71,9 @@ namespace AMSExplorer
         {
             get
             {
-                return comboBoxLanguage.Text ;
+                return comboBoxLanguage.Text;
             }
-        
+
         }
 
         public string StorageSelected
@@ -151,6 +161,15 @@ namespace AMSExplorer
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
             comboBoxLanguage.SelectedIndex = 0;
+        }
+
+        private void buttonGenOptions_Click(object sender, EventArgs e)
+        {
+            formOptions.IndexerGenerationOptions = optionsVar;
+            if (formOptions.ShowDialog() == DialogResult.OK)
+            {
+                optionsVar = formOptions.IndexerGenerationOptions;
+            }
         }
     }
 }

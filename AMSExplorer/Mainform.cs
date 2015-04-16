@@ -866,7 +866,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(string.Format("Uploading of {0} done.", name));
                 DoGridTransferDeclareCompleted(index, asset.Id);
-                if (watchfoldersettings.DeleteFile) //use checked the box "delete the file"
+                if (watchfoldersettings!=null && watchfoldersettings.DeleteFile) //use checked the box "delete the file"
                 {
                     try
                     {
@@ -881,7 +881,7 @@ namespace AMSExplorer
                     }
                 }
 
-                if (watchfoldersettings.JobTemplate != null) // option with watchfolder to run a job based on a job template
+                if (watchfoldersettings != null && watchfoldersettings.JobTemplate != null) // option with watchfolder to run a job based on a job template
                 {
                     string jobname = string.Format("Processing of {0} with template {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
                     List<IAsset> assetlist = new List<IAsset>() { asset };
@@ -973,7 +973,7 @@ namespace AMSExplorer
                 }
                 else // user selected no processing. Upload successfull
                 {
-                    if (watchfoldersettings.SendEmailToRecipient != null)
+                    if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.Append(AssetInfo.GetStat(asset));
@@ -3005,7 +3005,7 @@ namespace AMSExplorer
             return doc.ToString();
         }
 
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, string CaptionFormats, bool GenerateAIB, bool GenerateKeywords)
+        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar)
         {
             // Prepare the encryption task template
             XDocument doc = XDocument.Load(xmlFileName);
@@ -3015,7 +3015,14 @@ namespace AMSExplorer
             if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
 
             var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
-            if (!string.IsNullOrEmpty(Language)) settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
+            settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
+            settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
+            settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
+
+            string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
+            cformats += optionsVar.SAMI ? "sami;" : string.Empty;
+            cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
+            settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
 
 
             return doc.ToString();
@@ -3327,15 +3334,14 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-               string configIndexer = LoadAndUpdateIndexerConfiguration(
-               Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
-               form.IndexerTitle,
-               form.IndexerDescription,
-               form.IndexerLanguage,
-               "ttml;sami;webvtt",
-               true,
-               true
-               );
+                string configIndexer = LoadAndUpdateIndexerConfiguration(
+                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
+                form.IndexerTitle,
+                form.IndexerDescription,
+                form.IndexerLanguage,
+               form.IndexerGenerationOptions
+
+                );
 
 
                 LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
