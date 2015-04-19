@@ -174,5 +174,11 @@ namespace AMSExplorer
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
         }
+
+        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
+        }
     }
 }

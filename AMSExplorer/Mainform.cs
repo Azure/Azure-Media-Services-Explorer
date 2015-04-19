@@ -3024,8 +3024,7 @@ namespace AMSExplorer
             cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
             settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
 
-
-            return doc.ToString();
+            return doc.Declaration.ToString() + doc.ToString();
         }
 
         /// <summary>
@@ -8966,13 +8965,18 @@ typeof(FilterTime)
 
         private void runALocalEncoderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ChannelRunLocalEncoder();
+            ChannelRunOnPremisesLiveEncoder();
         }
 
-        private void ChannelRunLocalEncoder()
+        private void ChannelRunOnPremisesLiveEncoder()
         {
             ChannelRunLocalEncoder form = new ChannelRunLocalEncoder(_context, ReturnSelectedChannels());
             form.ShowDialog();
+        }
+
+        private void runAnOnpremisesLiveEncoderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChannelRunOnPremisesLiveEncoder();
         }
     }
 }

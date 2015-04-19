@@ -41,15 +41,18 @@ namespace AMSExplorer
 
         public readonly IList<LocalEncoder> Encoders = new List<LocalEncoder> {
             // ffmpg list devices
-            new LocalEncoder() {Name="ffmpeg - List devices",  Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg.exe -list_devices true -f dshow -i dummy"}, 
+            new LocalEncoder() {Name="ffmpeg - List devices",  Folder=@"C:\temp\ffmpeg\bin\",InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, Command= @"ffmpeg.exe -list_devices true -f dshow -i dummy"}, 
             // ffmpeg RTMP
-            new LocalEncoder() {Name="ffmpeg (RTMP)", Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1"}, 
+            new LocalEncoder() {Name="ffmpeg (RTMP)", Folder=@"C:\temp\ffmpeg\bin\", InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1"}, 
             // ffmpeg RTP
-            new LocalEncoder() {Name="ffmpeg (RTP MPEG-TS)", Folder=@"C:\temp\ffmpeg\bin\", Command= @"ffmpeg -y -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -c:v libx264 -preset ultrafast -bf 0 -g 60  -vsync cfr -b:v %videobitrate%k -minrate %videobitrate%k -maxrate %videobitrate%k -bufsize %videobitrate%k -strict -2 -c:a aac -ac 2 -ar 44100 -b:a %audiobitrate%k -f mpegts %output%"}, 
+            new LocalEncoder() {Name="ffmpeg (RTP MPEG-TS)", Folder=@"C:\temp\ffmpeg\bin\",InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, Command= @"ffmpeg -y -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -c:v libx264 -preset ultrafast -bf 0 -g 60  -vsync cfr -b:v %videobitrate%k -minrate %videobitrate%k -maxrate %videobitrate%k -bufsize %videobitrate%k -strict -2 -c:a aac -ac 2 -ar 44100 -b:a %audiobitrate%k -f mpegts %output%"}, 
             // VLC
-            new LocalEncoder() {Name="VLC (RTMP) 32 bit", Folder="%programfiles32%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} ,
-            new LocalEncoder() {Name="VLC (RTMP) 64 bit", Folder="%programfiles64%\\VideoLAN\\VLC\\",Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} 
-             };
+            new LocalEncoder() {Name="VLC (RTMP) 32 bit", Folder="%programfiles32%\\VideoLAN\\VLC\\",InstallURL=new Uri("http://www.videolan.org/vlc/"), CanBeRunLocally=true, Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} ,
+            new LocalEncoder() {Name="VLC (RTMP) 64 bit", Folder="%programfiles64%\\VideoLAN\\VLC\\",InstallURL=new Uri("http://www.videolan.org/vlc/"), CanBeRunLocally=true, Command= @"vlc.exe dshow:// :dshow-vdev=""%videodevicename%"" :dshow-adev=""%audiodevicename%"" :dshow-size=320 :live-caching=3000  :sout=""#transcode{vcodec=h264,vb=%videobitrate%,scale=1,fps=30,venc=x264{keyint=60,preset=veryfast,level=-1,profile=baseline,cabac,slices=8,qcomp=0.4,vbv-maxrate=%videobitrate%,vbv-bufsize=400},acodec=aac,aenc=ffmpeg{strict=-2,b:a=%audiobitrate%k,ac=2,ar=44100}}:std{access=rtmp,mux=ffmpeg{mux=flv},dst=%output%/MyStream1}"" :sout-keep :sout-all :sout-mux-caching=5000"} ,
+            // Azure Media Capture
+            new LocalEncoder() {Name="Azure Media Services Capture (Windows Phone)", Folder="",InstallURL=new Uri("http://www.windowsphone.com/s?appid=12dc1fcc-c5bd-4af0-afd8-f30745f94b84"), CanBeRunLocally=false, Command= @"Install the app http://www.windowsphone.com/s?appid=12dc1fcc-c5bd-4af0-afd8-f30745f94b84 on Windows Phone and enter the input URL %output%"} 
+      
+        };
 
 
         public ChannelRunLocalEncoder(CloudMediaContext context, IList<IChannel> channels)
@@ -63,7 +66,8 @@ namespace AMSExplorer
 
         private void ChannelRunLocalEncoder_Load(object sender, EventArgs e)
         {
-            labelChannel.Text = string.Format(labelChannel.Text, _channels.FirstOrDefault().Name);
+            labelChannel.Text = string.Format(labelChannel.Text, _channels.FirstOrDefault().Name, _channels.FirstOrDefault().Input.StreamingProtocol.ToString());
+            labelURL.Text = string.Format(labelURL.Text, _channels.FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.ToString());
 
             foreach (var encoder in Encoders)
             {
@@ -81,8 +85,6 @@ namespace AMSExplorer
                 proc.FileName = @"cmd.exe";
                 proc.Arguments = "/K " + textBoxCommand.Text;
                 System.Diagnostics.Process.Start(proc);
-                //System.Diagnostics.Process.Start(textBoxProgram.Text, textBoxArguments.Text);
-
             }
             catch (Exception ex)
             {
@@ -98,21 +100,21 @@ namespace AMSExplorer
         private void BuildArguments(bool buildfolder = false)
         {
             LocalEncoder SelectedEncoder = Encoders.Where(m => m.Name == comboBoxEncoder.Text).FirstOrDefault();
-            string command = SelectedEncoder.Command.Replace("%output%", _channels.FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri)
+            textBoxCommand.Text = SelectedEncoder.Command.Replace("%output%", _channels.FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri)
                 .Replace("%audiodevicename%", textBoxAudioDeviceName.Text.Trim())
                 .Replace("%videodevicename%", textBoxVideoDeviceName.Text.Trim())
-             .Replace("%audiobitrate%", textBoxAudioBitRate.Text.Trim())
-             .Replace("%videobitrate%", textBoxVideoBitRate.Text.Trim());
-            textBoxCommand.Text = command;
+                .Replace("%audiobitrate%", textBoxAudioBitRate.Text.Trim())
+                .Replace("%videobitrate%", textBoxVideoBitRate.Text.Trim());
 
             if (buildfolder)
             {
-                textBoxFolder.Text = SelectedEncoder.Folder.Replace("%programfiles32%", Environment.GetFolderPath(Environment.Is64BitOperatingSystem ? Environment.SpecialFolder.ProgramFilesX86 : Environment.SpecialFolder.ProgramFiles))
-       .Replace("%programfiles64%", System.Environment.ExpandEnvironmentVariables("%systemdrive%\\Program Files"));
-
-
+                textBoxFolder.Text = SelectedEncoder.Folder
+                    .Replace("%programfiles32%", Environment.GetFolderPath(Environment.Is64BitOperatingSystem ? Environment.SpecialFolder.ProgramFilesX86 : Environment.SpecialFolder.ProgramFiles))
+                    .Replace("%programfiles64%", System.Environment.ExpandEnvironmentVariables("%systemdrive%\\Program Files"));
+                buttonOk.Enabled = SelectedEncoder.CanBeRunLocally;
+                linkLabelInstall.Links.Clear();
+                linkLabelInstall.Links.Add(new LinkLabel.Link(0, linkLabelInstall.Text.Length, SelectedEncoder.InstallURL.ToString()));
             }
-
         }
 
         private void comboBoxEncoder_SelectedIndexChanged(object sender, EventArgs e)
@@ -120,6 +122,9 @@ namespace AMSExplorer
             BuildArguments(true);
         }
 
-
+        private void linkLabelInstall_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
     }
 }

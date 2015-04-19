@@ -28,6 +28,8 @@ using System.Xml;
 using System.Xml.Linq;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Diagnostics;
+
 
 namespace AMSExplorer
 {
@@ -968,6 +970,12 @@ namespace AMSExplorer
 
         private void label34_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
 
         }
     }

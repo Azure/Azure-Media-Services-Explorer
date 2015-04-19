@@ -261,6 +261,7 @@
             this.moreinfoame.TabIndex = 66;
             this.moreinfoame.TabStop = true;
             this.moreinfoame.Text = "More information";
+            this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
             // EncodingAMEPreset
             // 

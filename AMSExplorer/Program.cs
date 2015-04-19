@@ -2063,6 +2063,8 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Folder { get; set; }
         public string Command { get; set; }
+        public Uri InstallURL { get; set; }
+        public bool CanBeRunLocally { get; set; }
     }
 
 

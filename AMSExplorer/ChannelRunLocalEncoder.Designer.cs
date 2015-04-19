@@ -48,6 +48,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxFolder = new System.Windows.Forms.TextBox();
             this.labelChannel = new System.Windows.Forms.Label();
+            this.labelURL = new System.Windows.Forms.Label();
+            this.linkLabelInstall = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -90,6 +92,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.linkLabelInstall);
             this.groupBox1.Controls.Add(this.textBoxAudioBitRate);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.textBoxVideoBitRate);
@@ -100,9 +103,9 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.comboBoxEncoder);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Location = new System.Drawing.Point(15, 64);
+            this.groupBox1.Location = new System.Drawing.Point(15, 88);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 224);
+            this.groupBox1.Size = new System.Drawing.Size(731, 224);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder settings";
@@ -147,7 +150,7 @@
             // 
             this.textBoxVideoDeviceName.Location = new System.Drawing.Point(22, 143);
             this.textBoxVideoDeviceName.Name = "textBoxVideoDeviceName";
-            this.textBoxVideoDeviceName.Size = new System.Drawing.Size(522, 20);
+            this.textBoxVideoDeviceName.Size = new System.Drawing.Size(354, 20);
             this.textBoxVideoDeviceName.TabIndex = 79;
             this.textBoxVideoDeviceName.Text = "USB2.0 HD UVC WebCam";
             this.textBoxVideoDeviceName.TextChanged += new System.EventHandler(this.EncoderSettings_Changed);
@@ -165,7 +168,7 @@
             // 
             this.textBoxAudioDeviceName.Location = new System.Drawing.Point(22, 97);
             this.textBoxAudioDeviceName.Name = "textBoxAudioDeviceName";
-            this.textBoxAudioDeviceName.Size = new System.Drawing.Size(522, 20);
+            this.textBoxAudioDeviceName.Size = new System.Drawing.Size(354, 20);
             this.textBoxAudioDeviceName.TabIndex = 77;
             this.textBoxAudioDeviceName.Text = "Microphone (High Definition Audio Device)";
             this.textBoxAudioDeviceName.TextChanged += new System.EventHandler(this.EncoderSettings_Changed);
@@ -201,7 +204,7 @@
             // labelcdn
             // 
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelcdn.Location = new System.Drawing.Point(12, 11);
+            this.labelcdn.Location = new System.Drawing.Point(34, 9);
             this.labelcdn.Name = "labelcdn";
             this.labelcdn.Size = new System.Drawing.Size(734, 19);
             this.labelcdn.TabIndex = 70;
@@ -212,7 +215,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 351);
+            this.label1.Location = new System.Drawing.Point(36, 375);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(103, 13);
             this.label1.TabIndex = 74;
@@ -224,17 +227,17 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCommand.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCommand.Location = new System.Drawing.Point(15, 367);
+            this.textBoxCommand.Location = new System.Drawing.Point(37, 391);
             this.textBoxCommand.Multiline = true;
             this.textBoxCommand.Name = "textBoxCommand";
             this.textBoxCommand.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxCommand.Size = new System.Drawing.Size(731, 101);
+            this.textBoxCommand.Size = new System.Drawing.Size(709, 101);
             this.textBoxCommand.TabIndex = 73;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 303);
+            this.label3.Location = new System.Drawing.Point(34, 328);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(138, 13);
             this.label3.TabIndex = 75;
@@ -242,19 +245,39 @@
             // 
             // textBoxFolder
             // 
-            this.textBoxFolder.Location = new System.Drawing.Point(15, 320);
+            this.textBoxFolder.Location = new System.Drawing.Point(37, 344);
             this.textBoxFolder.Name = "textBoxFolder";
-            this.textBoxFolder.Size = new System.Drawing.Size(731, 20);
+            this.textBoxFolder.Size = new System.Drawing.Size(709, 20);
             this.textBoxFolder.TabIndex = 76;
             // 
             // labelChannel
             // 
             this.labelChannel.AutoSize = true;
-            this.labelChannel.Location = new System.Drawing.Point(15, 40);
+            this.labelChannel.Location = new System.Drawing.Point(34, 40);
             this.labelChannel.Name = "labelChannel";
-            this.labelChannel.Size = new System.Drawing.Size(69, 13);
+            this.labelChannel.Size = new System.Drawing.Size(139, 13);
             this.labelChannel.TabIndex = 77;
-            this.labelChannel.Text = "Channel : {0}";
+            this.labelChannel.Text = "Channel : {0} (protocol : {1})";
+            // 
+            // labelURL
+            // 
+            this.labelURL.AutoSize = true;
+            this.labelURL.Location = new System.Drawing.Point(34, 62);
+            this.labelURL.Name = "labelURL";
+            this.labelURL.Size = new System.Drawing.Size(52, 13);
+            this.labelURL.TabIndex = 78;
+            this.labelURL.Text = "URL : {0}";
+            // 
+            // linkLabelInstall
+            // 
+            this.linkLabelInstall.AutoSize = true;
+            this.linkLabelInstall.Location = new System.Drawing.Point(300, 46);
+            this.linkLabelInstall.Name = "linkLabelInstall";
+            this.linkLabelInstall.Size = new System.Drawing.Size(76, 13);
+            this.linkLabelInstall.TabIndex = 84;
+            this.linkLabelInstall.TabStop = true;
+            this.linkLabelInstall.Text = "Installation link";
+            this.linkLabelInstall.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelInstall_LinkClicked);
             // 
             // ChannelRunLocalEncoder
             // 
@@ -262,6 +285,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelURL);
             this.Controls.Add(this.labelChannel);
             this.Controls.Add(this.textBoxFolder);
             this.Controls.Add(this.label3);
@@ -303,5 +327,7 @@
         public System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxAudioBitRate;
         public System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label labelURL;
+        private System.Windows.Forms.LinkLabel linkLabelInstall;
     }
 }
