@@ -996,6 +996,7 @@
             this.moreinfoame.TabIndex = 67;
             this.moreinfoame.TabStop = true;
             this.moreinfoame.Text = "More information on advanced encoding";
+            this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
             // EncodingAMEAdv
             // 

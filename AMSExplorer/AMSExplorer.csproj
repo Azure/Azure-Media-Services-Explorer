@@ -154,6 +154,12 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChannelRunLocalEncoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChannelRunLocalEncoder.Designer.cs">
+      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChannelAdSlateControl.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -174,6 +180,12 @@
     </Compile>
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerOptions.Designer.cs">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
@@ -415,6 +427,9 @@
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChannelRunLocalEncoder.resx">
+      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChannelAdSlateControl.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -423,6 +438,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexerOptions.resx">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
@@ -550,9 +568,6 @@
     <Content Include="BitmapsPNG\modetaskjob1.png" />
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
-    <Content Include="Configurations\PlayReadyCustomAttributes.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -561,6 +576,7 @@
     </Content>
     <Content Include="Configurations\MediaIndexer.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\Thumbnails.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

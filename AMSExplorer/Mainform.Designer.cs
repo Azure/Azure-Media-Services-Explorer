@@ -191,6 +191,7 @@
             this.copyInputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInputSSLURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyPreviewURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackThePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
@@ -303,6 +304,7 @@
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInputURLSSLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runALocalEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -1810,6 +1812,7 @@
             this.copyInputURLToClipboardToolStripMenuItem,
             this.copyInputSSLURLToClipboardToolStripMenuItem,
             this.copyPreviewURLToClipboardToolStripMenuItem,
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem,
             this.playbackThePreviewToolStripMenuItem,
             this.toolStripSeparator15,
             this.displayProgramInformationToolStripMenuItem,
@@ -1907,6 +1910,14 @@
             this.copyPreviewURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.copyPreviewURLToClipboardToolStripMenuItem.Text = "Copy Preview URL to clipboard";
             this.copyPreviewURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
+            // 
+            // runAnOnpremisesLiveEncoderToolStripMenuItem
+            // 
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem.Name = "runAnOnpremisesLiveEncoderToolStripMenuItem";
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem.Text = "Run an on-premises live encoder...";
+            this.runAnOnpremisesLiveEncoderToolStripMenuItem.Click += new System.EventHandler(this.runAnOnpremisesLiveEncoderToolStripMenuItem_Click);
             // 
             // playbackThePreviewToolStripMenuItem
             // 
@@ -2896,6 +2907,7 @@
             this.toolStripSeparator14,
             this.ContextMenuItemChannelCopyIngestURLToClipboard,
             this.copyInputURLSSLToClipboardToolStripMenuItem,
+            this.runALocalEncoderToolStripMenuItem,
             this.ContextMenuItemChannelCopyPreviewURLToClipboard,
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
@@ -2995,6 +3007,14 @@
             this.copyInputURLSSLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.copyInputURLSSLToClipboardToolStripMenuItem.Text = "Copy Input URL (SSL) to clipboard";
             this.copyInputURLSSLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInputURLSSLToClipboardToolStripMenuItem_Click);
+            // 
+            // runALocalEncoderToolStripMenuItem
+            // 
+            this.runALocalEncoderToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.runALocalEncoderToolStripMenuItem.Name = "runALocalEncoderToolStripMenuItem";
+            this.runALocalEncoderToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
+            this.runALocalEncoderToolStripMenuItem.Text = "Run an on-premises live encoder...";
+            this.runALocalEncoderToolStripMenuItem.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
             // 
             // ContextMenuItemChannelCopyPreviewURLToClipboard
             // 
@@ -4430,6 +4450,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem adAndSlateControlToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem channelsAdAndSlateControlToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runALocalEncoderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runAnOnpremisesLiveEncoderToolStripMenuItem;
     }
 }
 
