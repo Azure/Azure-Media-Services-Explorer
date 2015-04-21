@@ -204,7 +204,7 @@ namespace AMSExplorer
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
-            this.Columns["IngestUrl"].HeaderText = "Primary Input Url";
+            this.Columns["InputUrl"].HeaderText = "Primary Input Url";
             this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
 
             WorkerRefreshChannels = new BackgroundWorker();

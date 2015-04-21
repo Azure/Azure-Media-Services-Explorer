@@ -859,7 +859,8 @@ namespace AMSExplorer
                 Error = true;
                 DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
-                if (watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                TextBoxLogWriteLine(e);
+                if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
 
             }
             if (!Error)
