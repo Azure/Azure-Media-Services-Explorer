@@ -154,13 +154,17 @@ namespace AMSExplorer
                 textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
             }
 
+            string[] stringnameurl = new string[] { "Primary ", "Secondary " };
+
+            int i = 0;
             foreach (var endpoint in MyChannel.Input.Endpoints)
             {
-                DGChannel.Rows.Add(string.Format("Input URL ({0})", endpoint.Protocol), endpoint.Url);
+                DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
                 if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
                 {
-                    DGChannel.Rows.Add(string.Format("Input URL ({0}, SSL)", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                 }
+                i++;
             }
             foreach (var endpoint in MyChannel.Preview.Endpoints)
             {
@@ -348,7 +352,7 @@ namespace AMSExplorer
         {
             if (MyChannel.State == ChannelState.Running && MyChannel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
             {
-                string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false );
+                string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: MyChannel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: MyContext, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
                 webBrowserPreview.Url = new Uri(myurl);
             }
         }

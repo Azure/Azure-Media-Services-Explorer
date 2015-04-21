@@ -188,9 +188,12 @@
             this.resetChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyInputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyInputSSLURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyPreviewURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputURLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputSSLURLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.primaryInputURLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.secondaryInputURLToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.runAnOnpremisesLiveEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyPreviewURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackThePreviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator27 = new System.Windows.Forms.ToolStripSeparator();
@@ -304,7 +307,10 @@
             this.ContextMenuItemChannelDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyInputURLSSLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputSSLURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.primaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.secondaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.runALocalEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
@@ -1807,9 +1813,8 @@
             this.resetChannelsToolStripMenuItem,
             this.deleteChannelsToolStripMenuItem,
             this.copyInputURLToClipboardToolStripMenuItem,
-            this.copyInputSSLURLToClipboardToolStripMenuItem,
-            this.copyPreviewURLToClipboardToolStripMenuItem,
             this.runAnOnpremisesLiveEncoderToolStripMenuItem,
+            this.copyPreviewURLToClipboardToolStripMenuItem,
             this.playbackThePreviewToolStripMenuItem,
             this.toolStripSeparator15,
             this.displayProgramInformationToolStripMenuItem,
@@ -1881,24 +1886,44 @@
             // 
             // copyInputURLToClipboardToolStripMenuItem
             // 
+            this.copyInputURLToClipboardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputURLToolStripMenuItem1,
+            this.inputSSLURLToolStripMenuItem1,
+            this.primaryInputURLToolStripMenuItem1,
+            this.secondaryInputURLToolStripMenuItem1});
             this.copyInputURLToClipboardToolStripMenuItem.Name = "copyInputURLToClipboardToolStripMenuItem";
             this.copyInputURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.copyInputURLToClipboardToolStripMenuItem.Text = "Copy Input URL to clipboard";
+            this.copyInputURLToClipboardToolStripMenuItem.DropDownOpening += new System.EventHandler(this.copyInputURLToClipboardToolStripMenuItem_DropDownOpening);
             this.copyInputURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyIngestURLToClipboard_Click);
             // 
-            // copyInputSSLURLToClipboardToolStripMenuItem
+            // inputURLToolStripMenuItem1
             // 
-            this.copyInputSSLURLToClipboardToolStripMenuItem.Name = "copyInputSSLURLToClipboardToolStripMenuItem";
-            this.copyInputSSLURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.copyInputSSLURLToClipboardToolStripMenuItem.Text = "Copy Input URL (SSL) to clipboard";
-            this.copyInputSSLURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInputSSLURLToClipboardToolStripMenuItem_Click);
+            this.inputURLToolStripMenuItem1.Name = "inputURLToolStripMenuItem1";
+            this.inputURLToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.inputURLToolStripMenuItem1.Text = "Input URL";
+            this.inputURLToolStripMenuItem1.Click += new System.EventHandler(this.inputURLToolStripMenuItem1_Click);
             // 
-            // copyPreviewURLToClipboardToolStripMenuItem
+            // inputSSLURLToolStripMenuItem1
             // 
-            this.copyPreviewURLToClipboardToolStripMenuItem.Name = "copyPreviewURLToClipboardToolStripMenuItem";
-            this.copyPreviewURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.copyPreviewURLToClipboardToolStripMenuItem.Text = "Copy Preview URL to clipboard";
-            this.copyPreviewURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
+            this.inputSSLURLToolStripMenuItem1.Name = "inputSSLURLToolStripMenuItem1";
+            this.inputSSLURLToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.inputSSLURLToolStripMenuItem1.Text = "Input (SSL) URL";
+            this.inputSSLURLToolStripMenuItem1.Click += new System.EventHandler(this.inputSSLURLToolStripMenuItem1_Click);
+            // 
+            // primaryInputURLToolStripMenuItem1
+            // 
+            this.primaryInputURLToolStripMenuItem1.Name = "primaryInputURLToolStripMenuItem1";
+            this.primaryInputURLToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.primaryInputURLToolStripMenuItem1.Text = "Primary Input URL";
+            this.primaryInputURLToolStripMenuItem1.Click += new System.EventHandler(this.primaryInputURLToolStripMenuItem1_Click);
+            // 
+            // secondaryInputURLToolStripMenuItem1
+            // 
+            this.secondaryInputURLToolStripMenuItem1.Name = "secondaryInputURLToolStripMenuItem1";
+            this.secondaryInputURLToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
+            this.secondaryInputURLToolStripMenuItem1.Text = "Secondary Input URL";
+            this.secondaryInputURLToolStripMenuItem1.Click += new System.EventHandler(this.secondaryInputURLToolStripMenuItem1_Click);
             // 
             // runAnOnpremisesLiveEncoderToolStripMenuItem
             // 
@@ -1907,6 +1932,13 @@
             this.runAnOnpremisesLiveEncoderToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.runAnOnpremisesLiveEncoderToolStripMenuItem.Text = "Run an on-premises live encoder...";
             this.runAnOnpremisesLiveEncoderToolStripMenuItem.Click += new System.EventHandler(this.runAnOnpremisesLiveEncoderToolStripMenuItem_Click);
+            // 
+            // copyPreviewURLToClipboardToolStripMenuItem
+            // 
+            this.copyPreviewURLToClipboardToolStripMenuItem.Name = "copyPreviewURLToClipboardToolStripMenuItem";
+            this.copyPreviewURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.copyPreviewURLToClipboardToolStripMenuItem.Text = "Copy Preview URL to clipboard";
+            this.copyPreviewURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
             // 
             // playbackThePreviewToolStripMenuItem
             // 
@@ -2979,13 +3011,12 @@
             this.ContextMenuItemChannelDelete,
             this.toolStripSeparator14,
             this.ContextMenuItemChannelCopyIngestURLToClipboard,
-            this.copyInputURLSSLToClipboardToolStripMenuItem,
             this.runALocalEncoderToolStripMenuItem,
             this.ContextMenuItemChannelCopyPreviewURLToClipboard,
             this.toolStripSeparator19,
             this.playbackTheProgramToolStripMenuItem});
             this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 308);
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(257, 264);
             // 
             // refreshToolStripMenuItem3
             // 
@@ -3061,17 +3092,43 @@
             // 
             // ContextMenuItemChannelCopyIngestURLToClipboard
             // 
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputURLToolStripMenuItem,
+            this.inputSSLURLToolStripMenuItem,
+            this.primaryInputURLToolStripMenuItem,
+            this.secondaryInputURLToolStripMenuItem});
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Name = "ContextMenuItemChannelCopyIngestURLToClipboard";
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Size = new System.Drawing.Size(256, 22);
             this.ContextMenuItemChannelCopyIngestURLToClipboard.Text = "Copy Input URL to clipboard";
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.Click += new System.EventHandler(this.copyIngestURLToClipboard_Click);
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening);
             // 
-            // copyInputURLSSLToClipboardToolStripMenuItem
+            // inputURLToolStripMenuItem
             // 
-            this.copyInputURLSSLToClipboardToolStripMenuItem.Name = "copyInputURLSSLToClipboardToolStripMenuItem";
-            this.copyInputURLSSLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(256, 22);
-            this.copyInputURLSSLToClipboardToolStripMenuItem.Text = "Copy Input URL (SSL) to clipboard";
-            this.copyInputURLSSLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyInputURLSSLToClipboardToolStripMenuItem_Click);
+            this.inputURLToolStripMenuItem.Name = "inputURLToolStripMenuItem";
+            this.inputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.inputURLToolStripMenuItem.Text = "Input URL";
+            this.inputURLToolStripMenuItem.Click += new System.EventHandler(this.inputURLToolStripMenuItem_Click);
+            // 
+            // inputSSLURLToolStripMenuItem
+            // 
+            this.inputSSLURLToolStripMenuItem.Name = "inputSSLURLToolStripMenuItem";
+            this.inputSSLURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.inputSSLURLToolStripMenuItem.Text = "Input (SSL) URL";
+            this.inputSSLURLToolStripMenuItem.Click += new System.EventHandler(this.inputSSLURLToolStripMenuItem_Click);
+            // 
+            // primaryInputURLToolStripMenuItem
+            // 
+            this.primaryInputURLToolStripMenuItem.Name = "primaryInputURLToolStripMenuItem";
+            this.primaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.primaryInputURLToolStripMenuItem.Text = "Primary Input URL";
+            this.primaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.primaryInputURLToolStripMenuItem_Click);
+            // 
+            // secondaryInputURLToolStripMenuItem
+            // 
+            this.secondaryInputURLToolStripMenuItem.Name = "secondaryInputURLToolStripMenuItem";
+            this.secondaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.secondaryInputURLToolStripMenuItem.Text = "Secondary Input URL";
+            this.secondaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.secondaryInputURLToolStripMenuItem_Click);
             // 
             // runALocalEncoderToolStripMenuItem
             // 
@@ -4359,8 +4416,6 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerEndDate;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.DateTimePicker dateTimePickerStartDate;
-        private System.Windows.Forms.ToolStripMenuItem copyInputURLSSLToClipboardToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyInputSSLURLToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withFlashTokenPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withSilverlightPlayReadyTokenPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withFlashAESTokenPlayerToolStripMenuItem;
@@ -4429,6 +4484,14 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem21;
         private System.Windows.Forms.ToolStripMenuItem runALocalEncoderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runAnOnpremisesLiveEncoderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputSSLURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem primaryInputURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem secondaryInputURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem inputURLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem inputSSLURLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem primaryInputURLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem secondaryInputURLToolStripMenuItem1;
     }
 }
 

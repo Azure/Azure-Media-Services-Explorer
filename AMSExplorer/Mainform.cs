@@ -866,7 +866,7 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine(string.Format("Uploading of {0} done.", name));
                 DoGridTransferDeclareCompleted(index, asset.Id);
-                if (watchfoldersettings!=null && watchfoldersettings.DeleteFile) //use checked the box "delete the file"
+                if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //use checked the box "delete the file"
                 {
                     try
                     {
@@ -8362,25 +8362,14 @@ typeof(FilterTime)
 
         private void copyInputURLSSLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopySSLIngestURLToClipboard();
+            DoCopyChannelInputURLToClipboard(false, true, true);
         }
 
-        private void DoCopySSLIngestURLToClipboard()
-        {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-            if (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
-            {
-                System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri.ToString().Replace("http://", "https://"));
-            }
-            else
-            {
-                MessageBox.Show("SSL is not yet possible for live RTMP input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+
 
         private void copyInputSSLURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoCopySSLIngestURLToClipboard();
+            DoCopyChannelInputURLToClipboard(false, true, true);
         }
 
         private void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
@@ -8977,6 +8966,107 @@ typeof(FilterTime)
         private void runAnOnpremisesLiveEncoderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChannelRunOnPremisesLiveEncoder();
+        }
+
+        private void inputSSLURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, true, true);
+
+        }
+
+        private void inputURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, false, true);
+        }
+
+        private void DoCopyChannelInputURLToClipboard(bool secondary = false, bool https = false, bool UI = true)
+        {
+            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+            string absuri;
+            bool Error = false;
+
+            if (secondary && channel.Input.Endpoints.Count > 1) // secondary
+            {
+                absuri = channel.Input.Endpoints[1].Url.AbsoluteUri;
+            }
+            else // primary
+            {
+                absuri = channel.Input.Endpoints.FirstOrDefault().Url.AbsoluteUri;
+            }
+
+            if (https)
+            {
+                if (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
+                {
+                    absuri.Replace("http://", "https://");
+                }
+                else
+                {
+                    if (UI) MessageBox.Show("SSL is only possible for Smooth Streaming input.", "SSL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Error = true;
+                }
+            }
+
+            if (!Error) System.Windows.Forms.Clipboard.SetText(absuri);
+
+
+        }
+
+        private void primaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, false, true);
+
+        }
+
+        private void secondaryInputURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(true, false, true);
+
+        }
+
+        private void ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening(object sender, EventArgs e)
+        {
+            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+
+            inputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count == 1);
+            inputSSLURLToolStripMenuItem.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
+            primaryInputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count > 1);
+            secondaryInputURLToolStripMenuItem.Visible = (channel.Input.Endpoints.Count > 1);
+
+        }
+
+        private void copyInputURLToClipboardToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
+
+            inputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count == 1);
+            inputSSLURLToolStripMenuItem1.Visible = (channel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4);
+            primaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
+            secondaryInputURLToolStripMenuItem1.Visible = (channel.Input.Endpoints.Count > 1);
+
+        }
+
+        private void inputURLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, false, true);
+        }
+
+        private void inputSSLURLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, true, true);
+  
+        }
+
+        private void primaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(false, false, true);
+  
+        }
+
+        private void secondaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyChannelInputURLToClipboard(true, false, true);
+  
         }
     }
 }

@@ -192,8 +192,8 @@ namespace AMSExplorer
                                Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
-                               InputProtocol = c.Input.StreamingProtocol,
-                               IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                               InputProtocol = string.Format("{0} ({1})",  c.Input.StreamingProtocol.ToString() , c.Input.Endpoints.Count),
+                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
@@ -204,6 +204,8 @@ namespace AMSExplorer
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
+            this.Columns["IngestUrl"].HeaderText = "Primary Input Url";
+            this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -325,13 +327,13 @@ namespace AMSExplorer
                                Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
-                               InputProtocol = c.Input.StreamingProtocol,
-                               IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                               InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
+                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
-
                            };
+
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannelthisPage));
@@ -772,8 +774,8 @@ namespace AMSExplorer
         public ChannelState State { get; set; }
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
-        public StreamingProtocol InputProtocol { get; set; }
-        public Uri IngestUrl { get; set; }
+        public string InputProtocol { get; set; }
+        public Uri InputUrl { get; set; }
         public Uri PreviewUrl { get; set; }
     }
 
