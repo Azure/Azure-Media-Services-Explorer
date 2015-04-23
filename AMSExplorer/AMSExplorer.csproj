@@ -98,9 +98,9 @@
     <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption">
       <HintPath>..\packages\windowsazure.mediaservices.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.1.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
