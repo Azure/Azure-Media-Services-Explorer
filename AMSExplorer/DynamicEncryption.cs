@@ -202,7 +202,7 @@ namespace AMSExplorer
 
 
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
 
@@ -234,7 +234,7 @@ namespace AMSExplorer
 
         }
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
 
@@ -265,12 +265,14 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateTokenRequirements(TokenType mytokentype, Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
+        static private string GenerateTokenRequirements(TokenType mytokentype, string _sampleAudience, string _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
         {
-            TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype);
-            TokenrestrictionTemplate.PrimaryVerificationKey = mytokenverificationkey;
-            TokenrestrictionTemplate.Audience = _sampleAudience.AbsoluteUri;
-            TokenrestrictionTemplate.Issuer = _sampleIssuer.AbsoluteUri;
+            TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype)
+            {
+                PrimaryVerificationKey = mytokenverificationkey,
+                Audience = _sampleAudience,
+                Issuer = _sampleIssuer
+            };
             if (AddContentKeyIdentifierClaim) TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
             foreach (var t in tokenclaimslist)
             {

@@ -57,18 +57,18 @@ namespace AMSExplorer
         }
 
 
-        public Uri GetAudienceUri
+        public string GetAudience
         {
             get
             {
-                return new Uri(textBoxAudience.Text);
+                return textBoxAudience.Text;
             }
         }
-        public Uri GetIssuerUri
+        public string GetIssuer
         {
             get
             {
-                return new Uri(textBoxIssuer.Text);
+                return textBoxIssuer.Text;
             }
         }
 

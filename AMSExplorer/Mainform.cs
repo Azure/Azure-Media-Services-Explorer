@@ -7212,7 +7212,7 @@ typeof(FilterTime)
                                             {
                                                 mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
                                             }
-                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig);
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig);
                                             TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
@@ -7364,7 +7364,7 @@ typeof(FilterTime)
                                     {
                                         mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
                                     }
-                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudienceUri, form3.GetIssuerUri, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
+                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                     contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
