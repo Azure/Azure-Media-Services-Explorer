@@ -1623,57 +1623,60 @@ namespace AMSExplorer
                 IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
                 if (!DoNotRewriteURL) Urlstr = rw(Urlstr.ToString(), choosenSE);
 
-                //string token = null;
                 DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 
-                if (myasset != null && DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context))
+                if (myasset != null)
                 {
-                    // user wants perhaps to play an asset with a token, so let's try to generate it
-                    switch (typeplayer)
+                    keytype = AssetInfo.GetAssetProtection(myasset, context); // let's save the protection scheme (use by azure player)
+
+                    if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context)) // dynamic encryption with token
                     {
-                        case PlayerType.SilverlightPlayReadyToken:
-                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
-                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                            {
-                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                keytype = AssetProtectionType.PlayReady;
-                            }
-                            break;
+                        // user wants perhaps to play an asset with a token, so let's try to generate it
+                        switch (typeplayer)
+                        {
+                            case PlayerType.SilverlightPlayReadyToken:
+                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.CommonEncryption);
+                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                                {
+                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                    keytype = AssetProtectionType.PlayReady;
+                                }
+                                break;
 
-                        case PlayerType.FlashAESToken:
-                            tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
-                            if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                            {
-                                tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                keytype = AssetProtectionType.AES;
-                            }
-                            break;
+                            case PlayerType.FlashAESToken:
+                                tokenresult = DynamicEncryption.GetTestToken(myasset, context, ContentKeyType.EnvelopeEncryption);
+                                if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                                {
+                                    tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                    keytype = AssetProtectionType.AES;
+                                }
+                                break;
 
-                        case PlayerType.AzureMediaPlayer:
-                        case PlayerType.AzureMediaPlayerFrame:
-                            keytype = AssetInfo.GetAssetProtection(myasset, context);
-                            switch (keytype)
-                            {
-                                case AssetProtectionType.None:
-                                    break;
-                                case AssetProtectionType.AES:
-                                case AssetProtectionType.PlayReady:
-                                    tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
-                                    if (!string.IsNullOrEmpty(tokenresult.TokenString))
-                                    {
-                                        tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
-                                        // if the user selecteed an CENC key, let's assume that the content is protected with PlayReady, otherwise AES
-                                        keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
-                                    }
-                                    break;
-                            }
-                            break;
+                            case PlayerType.AzureMediaPlayer:
+                            case PlayerType.AzureMediaPlayerFrame:
+                                switch (keytype)
+                                {
+                                    case AssetProtectionType.None:
+                                        break;
+                                    case AssetProtectionType.AES:
+                                    case AssetProtectionType.PlayReady:
+                                        tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
+                                        if (!string.IsNullOrEmpty(tokenresult.TokenString))
+                                        {
+                                            tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
+                                            // if the user selecteed an CENC key, let's assume that the content is protected with PlayReady, otherwise AES
+                                            keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
+                                        }
+                                        break;
+                                }
+                                break;
 
-
-                        default:
-                            // no token enabled player
-                            break;
+                            default:
+                                // no token enabled player
+                                break;
+                        }
                     }
+
                 }
 
 
@@ -2099,9 +2102,9 @@ namespace AMSExplorer
         public bool TTML { get; set; }
         public bool AIB { get; set; }
         public bool Keywords { get; set; }
-       
+
     }
-   
+
 
 
     public class ListViewItemComparer : IComparer

@@ -194,8 +194,8 @@ namespace AMSExplorer
                                Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
-                               InputProtocol = c.Input.StreamingProtocol,
-                               IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                               InputProtocol = string.Format("{0} ({1})",  c.Input.StreamingProtocol.ToString() , c.Input.Endpoints.Count),
+                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
@@ -206,7 +206,7 @@ namespace AMSExplorer
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
-            };
+                           };
             DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
             {
                 DefaultCellStyle = cellstyle,
@@ -221,6 +221,8 @@ namespace AMSExplorer
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
+            this.Columns["InputUrl"].HeaderText = "Primary Input Url";
+            this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
 
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
@@ -343,14 +345,14 @@ namespace AMSExplorer
                                Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
-                               InputProtocol = c.Input.StreamingProtocol,
+                               InputProtocol = string.Format("{0} ({1})", c.Input.StreamingProtocol.ToString(), c.Input.Endpoints.Count),
                                Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
-                               IngestUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
-
                            };
+
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannelthisPage));
@@ -855,7 +857,7 @@ namespace AMSExplorer
                 if (operation.State == OperationState.Succeeded)
                 {
                     mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
-                }
+    }
                 else
                 {
                     mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
@@ -925,9 +927,9 @@ namespace AMSExplorer
         public ChannelState State { get; set; }
         public DateTime LastModified { get; set; }
         public string Description { get; set; }
-        public StreamingProtocol InputProtocol { get; set; }
+        public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
-        public Uri IngestUrl { get; set; }
+        public Uri InputUrl { get; set; }
         public Uri PreviewUrl { get; set; }
     }
 

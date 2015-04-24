@@ -173,7 +173,7 @@ namespace AMSExplorer
                     DGChannel.Rows.Add("Slate settings","(none)");
                 }
             }
-          
+
 
             if (MyChannel.Input.KeyFrameInterval != null)
             {
@@ -182,14 +182,17 @@ namespace AMSExplorer
                 textBoxKeyFrame.Text = ((TimeSpan)MyChannel.Input.KeyFrameInterval).TotalSeconds.ToString();
             }
 
+            string[] stringnameurl = new string[] { "Primary ", "Secondary " };
 
+            int i = 0;
             foreach (var endpoint in MyChannel.Input.Endpoints)
             {
-                DGChannel.Rows.Add(string.Format("Input URL ({0})", endpoint.Protocol), endpoint.Url);
+                DGChannel.Rows.Add(string.Format("{0}Input URL ({1})", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url);
                 if (MyChannel.Input.StreamingProtocol == StreamingProtocol.FragmentedMP4)
                 {
-                    DGChannel.Rows.Add(string.Format("Input URL ({0}, SSL)", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
+                    DGChannel.Rows.Add(string.Format("{0}Input URL ({1}, SSL)", MyChannel.Input.Endpoints.Count == 2 ? stringnameurl[i] : "", endpoint.Protocol), endpoint.Url.ToString().Replace("http://", "https://"));
                 }
+                i++;
             }
             foreach (var endpoint in MyChannel.Preview.Endpoints)
             {
@@ -310,7 +313,7 @@ namespace AMSExplorer
 
         private void ChannelInformation_Shown(object sender, EventArgs e)
         {
-           
+
         }
 
         private void checkBoxPreviewSet_CheckedChanged(object sender, EventArgs e)

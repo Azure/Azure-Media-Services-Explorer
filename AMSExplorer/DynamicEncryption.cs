@@ -269,8 +269,8 @@ namespace AMSExplorer
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype);
             TokenrestrictionTemplate.PrimaryVerificationKey = mytokenverificationkey;
-            TokenrestrictionTemplate.Audience = _sampleAudience;
-            TokenrestrictionTemplate.Issuer = _sampleIssuer;
+            TokenrestrictionTemplate.Audience = _sampleAudience.AbsoluteUri;
+            TokenrestrictionTemplate.Issuer = _sampleIssuer.AbsoluteUri;
             if (AddContentKeyIdentifierClaim) TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
             foreach (var t in tokenclaimslist)
             {
@@ -332,12 +332,12 @@ namespace AMSExplorer
 
         public static bool IsAssetHasAuthorizationPolicyWithToken(IAsset MyAsset, CloudMediaContext _context)
         {
-             var query = from key in MyAsset.ContentKeys
+            var query = from key in MyAsset.ContentKeys
                         join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
-                         select new { aupolid = autpol.Id };
+                        select new { aupolid = autpol.Id };
 
 
-            
+
             foreach (var key in query)
             {
                 var queryoptions = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.aupolid).FirstOrDefault().Options;
@@ -463,7 +463,7 @@ namespace AMSExplorer
                                             if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                         }
                                     }
-                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
+                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer, audience: tokenTemplate.Audience, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
                                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                                     MyResult.TokenString = handler.WriteToken(token);
                                 }
@@ -471,9 +471,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-
             }
-
             return MyResult;
         }
 
