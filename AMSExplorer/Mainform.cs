@@ -6752,12 +6752,14 @@ typeof(FilterTime)
 
         private void DoPlaybackChannelPreview(PlayerType ptype)
         {
-            IChannel channel = ReturnSelectedChannels().FirstOrDefault();
-            if (channel != null)
+            foreach (var channel in ReturnSelectedChannels())
             {
-                if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+                if (channel != null)
                 {
-                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
+                    if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
+                    {
+                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
+                    }
                 }
             }
         }
@@ -9062,19 +9064,19 @@ typeof(FilterTime)
         private void inputSSLURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCopyChannelInputURLToClipboard(false, true, true);
-  
+
         }
 
         private void primaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCopyChannelInputURLToClipboard(false, false, true);
-  
+
         }
 
         private void secondaryInputURLToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCopyChannelInputURLToClipboard(true, false, true);
-  
+
         }
         private void adAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -9084,6 +9086,46 @@ typeof(FilterTime)
         private void channelsAdAndSlateControlToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDisplayChannelAdSlateControl();
+        }
+
+        private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
+        {
+            var channels = ReturnSelectedChannels();
+
+            // channel info if only one channel
+            ContextMenuItemChannelDisplayInfomation.Enabled = channels.Count == 1;
+
+            // slate control if at least one channel with live transcoding
+            ContextMenuItemChannelAdAndSlateControl.Enabled = channels.Any(c => c.Encoding != null);
+
+            // copy input url if only one channel
+            ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = channels.Count == 1;
+
+            // on premises encoder if only one channel
+            ContextMenuItemChannelRunOnPremisesLiveEncoder.Enabled = channels.Count == 1;
+
+            // copy preview url if only one channel
+            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = channels.Count == 1;
+        }
+
+        private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var channels = ReturnSelectedChannels();
+
+            // channel info if only one channel
+            channInfoToolStripMenuItem.Enabled = channels.Count == 1;
+
+            // slate control if at least one channel with live transcoding
+            channelsAdAndSlateControlToolStripMenuItem.Enabled = channels.Any(c => c.Encoding != null);
+
+            // copy input url if only one channel
+            copyInputURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+
+            // on premises encoder if only one channel
+            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = channels.Count == 1;
+
+            // copy preview url if only one channel
+            copyPreviewURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
         }
     }
 }
