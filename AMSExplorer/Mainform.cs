@@ -65,33 +65,22 @@ namespace AMSExplorer
         private static string _HelpFiles;
         public static CredentialsEntry _credentials;
         public static bool havestoragecredentials = true;
+     
         // Field for service context.
         public static CloudMediaContext _context = null;
         public static string Salt;
         private string _backuprootfolderupload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
         private ILocator PlayBackLocator = null;
+     
         //Watch folder vars
         private Dictionary<string, DateTime> seen = new Dictionary<string, DateTime>();
         private TimeSpan seenInterval = new TimeSpan();
-        /*
-        private string WatchFolderFolderPath = string.Empty;
-        private bool WatchFolderIsOn = false;
-        private bool WatchFolderDeleteFile = false;
-        private bool WatchFolderPublishOutputAssets = false;
-        private string WatchFolderSendEmailToRecipient = null;
-        private IJobTemplate WatchFolderJobTemplate = null;
-        private IEnumerable<IAsset> WatchFolderExtraInputAssets = null;
-        private TypeInputExtraInput WatchFolderTypeInputExtraInput = TypeInputExtraInput.None;
-        private FileSystemWatcher WatchFolderWatcher;
-        private INotificationEndPoint WatchFolderNotificationEndPoint;
-        */
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
-
         bool DisplaySplashDuringLoading;
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
@@ -870,7 +859,7 @@ namespace AMSExplorer
 
                     // Submit the job
                     IJob job = _context.Jobs.Create(jobname, watchfoldersettings.JobTemplate, assetlist, Properties.Settings.Default.DefaultJobPriority);
-                    job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, watchfoldersettings.NotificationEndPoint);
+                    //job.JobNotificationSubscriptions.AddNew(NotificationJobState.FinalStatesOnly, watchfoldersettings.NotificationEndPoint);
 
                     try
                     {
@@ -954,13 +943,10 @@ namespace AMSExplorer
                         sb.Append(AssetInfo.GetStat(asset));
                         Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload successful " + asset.Name, sb.ToString());
                     }
-
                 }
             }
             DoRefreshGridAssetV(false);
         }
-
-
 
 
 
@@ -4666,6 +4652,8 @@ typeof(FilterTime)
                         // Create a new FileSystemWatcher and set its properties.
                         MyWatchFolderSettings.Watcher = new FileSystemWatcher();
 
+
+                        /* For later development : use notification queue
                         //create notifcation queue
                         //create the cloud storage account from name and private key
 
@@ -4682,17 +4670,13 @@ typeof(FilterTime)
 
                         //create the queue if it does not exist
                         notificationsQueue.CreateIfNotExists();
-                        /*
-                        if (!notificationsQueue.Exists())
-                        {
-                            notificationsQueue.Create();
-                        }
-                         * */
+                        
 
                         //create a notification endpoint and store it the glbal variable
                         MyWatchFolderSettings.NotificationEndPoint =
                             _context.NotificationEndPoints
                                 .Create("notificationendpoint", NotificationEndPointType.AzureQueue, Constants.AzureNotificationNameWatchFolder);
+                         */
 
                     }
 
