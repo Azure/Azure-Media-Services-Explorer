@@ -415,6 +415,7 @@ namespace AMSExplorer
         public const string NameconvProtocols = "{Protocols}";
         public const string NameconvContentKeyType = "{Content key type}";
         public const string NameconvManifestURL = "{manifest url}";
+        public const string NameconvToken = "{token}";
         public const string NameconvAsset = "{Asset Name}";
 
         public const string endline = "\r\n";
@@ -1674,6 +1675,7 @@ namespace AMSExplorer
 
                             case PlayerType.AzureMediaPlayer:
                             case PlayerType.AzureMediaPlayerFrame:
+                            case PlayerType.CustomPlayer:
                                 switch (keytype)
                                 {
                                     case AssetProtectionType.None:
@@ -1834,7 +1836,7 @@ namespace AMSExplorer
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, Urlstr);
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, Urlstr).Replace(Constants.NameconvToken, tokenresult.TokenString);
                         break;
                 }
 

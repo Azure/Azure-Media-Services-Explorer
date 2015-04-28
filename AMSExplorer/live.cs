@@ -191,15 +191,16 @@ namespace AMSExplorer
                            orderby c.LastModified descending
                            select new ChannelEntry
                            {
-                               Name = c.Name,
+                                 Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
-                               InputProtocol = string.Format("{0} ({1})",  Program.ReturnNameForProtocol(c.Input.StreamingProtocol) , c.Input.Endpoints.Count),
+                               InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                               Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
-                           };
+                               };
 
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
@@ -215,9 +216,6 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol);
 
-
-
-
             BindingList<ChannelEntry> MyObservJobInPage = new BindingList<ChannelEntry>(channelquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
@@ -226,7 +224,7 @@ namespace AMSExplorer
 
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
-            this.Columns[_encoded].HeaderText = _encoded;
+            this.Columns[_encoded].HeaderText = "Cloud Encoding";
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;

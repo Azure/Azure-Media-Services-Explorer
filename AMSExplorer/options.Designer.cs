@@ -77,10 +77,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.labelcdn = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -221,7 +222,7 @@
             this.groupBox1.Size = new System.Drawing.Size(480, 221);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Grids display";
+            this.groupBox1.Text = "Grids Display";
             // 
             // checkBoxDisplayAssetStorage
             // 
@@ -301,9 +302,9 @@
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
-            this.groupBox2.Location = new System.Drawing.Point(6, 257);
+            this.groupBox2.Location = new System.Drawing.Point(8, 233);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(496, 166);
+            this.groupBox2.Size = new System.Drawing.Size(480, 174);
             this.groupBox2.TabIndex = 50;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other settings";
@@ -413,11 +414,12 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.labelcdn);
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
-            this.groupBox3.Location = new System.Drawing.Point(6, 22);
+            this.groupBox3.Location = new System.Drawing.Point(6, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(482, 89);
+            this.groupBox3.Size = new System.Drawing.Size(482, 127);
             this.groupBox3.TabIndex = 51;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Custom player";
@@ -556,9 +558,9 @@
             this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Location = new System.Drawing.Point(15, 26);
+            this.groupBox4.Location = new System.Drawing.Point(6, 6);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(463, 202);
+            this.groupBox4.Size = new System.Drawing.Size(482, 202);
             this.groupBox4.TabIndex = 64;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Prices";
@@ -594,7 +596,7 @@
             // 
             this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.amspriceslink.AutoSize = true;
-            this.amspriceslink.Location = new System.Drawing.Point(40, 166);
+            this.amspriceslink.Location = new System.Drawing.Point(40, 167);
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.Size = new System.Drawing.Size(115, 13);
             this.amspriceslink.TabIndex = 62;
@@ -666,28 +668,12 @@
             this.groupBox5.Controls.Add(this.textBoxVLCPath);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBoxffmpegPath);
-            this.groupBox5.Location = new System.Drawing.Point(6, 134);
+            this.groupBox5.Location = new System.Drawing.Point(6, 148);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(482, 134);
             this.groupBox5.TabIndex = 52;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Software path";
-            // 
-            // textBoxffmpegPath
-            // 
-            this.textBoxffmpegPath.Location = new System.Drawing.Point(64, 47);
-            this.textBoxffmpegPath.Name = "textBoxffmpegPath";
-            this.textBoxffmpegPath.Size = new System.Drawing.Size(412, 20);
-            this.textBoxffmpegPath.TabIndex = 9;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(13, 47);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(45, 13);
-            this.label10.TabIndex = 62;
-            this.label10.Text = "ffmpeg :";
+            this.groupBox5.Text = "Software paths";
             // 
             // label11
             // 
@@ -704,6 +690,32 @@
             this.textBoxVLCPath.Name = "textBoxVLCPath";
             this.textBoxVLCPath.Size = new System.Drawing.Size(412, 20);
             this.textBoxVLCPath.TabIndex = 63;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(13, 47);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(45, 13);
+            this.label10.TabIndex = 62;
+            this.label10.Text = "ffmpeg :";
+            // 
+            // textBoxffmpegPath
+            // 
+            this.textBoxffmpegPath.Location = new System.Drawing.Point(64, 47);
+            this.textBoxffmpegPath.Name = "textBoxffmpegPath";
+            this.textBoxffmpegPath.Size = new System.Drawing.Size(412, 20);
+            this.textBoxffmpegPath.TabIndex = 9;
+            // 
+            // labelcdn
+            // 
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(13, 82);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(407, 19);
+            this.labelcdn.TabIndex = 71;
+            this.labelcdn.Text = "The following variables can be used : {manifest url} and {token}";
+            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Options
             // 
@@ -798,5 +810,6 @@
         private System.Windows.Forms.TextBox textBoxVLCPath;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxffmpegPath;
+        private System.Windows.Forms.Label labelcdn;
     }
 }
