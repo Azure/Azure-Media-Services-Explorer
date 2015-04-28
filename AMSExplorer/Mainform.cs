@@ -2663,7 +2663,7 @@ namespace AMSExplorer
             Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
 
             string taskname = "Premium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
-
+            this.Cursor = Cursors.WaitCursor;
             EncodingPremium form = new EncodingPremium(_context)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
@@ -2675,8 +2675,11 @@ namespace AMSExplorer
                 EncodingNumberInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder
             };
+            DialogResult dialogResult = form.ShowDialog();
 
-            if (form.ShowDialog() == DialogResult.OK)
+            this.Cursor = Cursors.Arrow;
+
+            if (dialogResult == DialogResult.OK)
             {
                 if (!form.EncodingMultipleJobs) // ONE job with all input assets
                 {
@@ -8086,16 +8089,6 @@ typeof(FilterTime)
         }
 
 
-        private void addADynamicEncryptionPolicyForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSetupDynEnc();
-        }
-
-        private void removeAllDynamicEncryptionPoliciesForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveDynEnc();
-        }
-
         private void displayErrorToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             DoDisplayJobError();
@@ -8353,17 +8346,6 @@ typeof(FilterTime)
             DoSaveJobAsTemplate();
         }
 
-        private void copyInputURLSSLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, true, true);
-        }
-
-
-
-        private void copyInputSSLURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyChannelInputURLToClipboard(false, true, true);
-        }
 
         private void dataGridViewAssetsV_DragDrop(object sender, DragEventArgs e)
         {
@@ -8532,10 +8514,6 @@ typeof(FilterTime)
             }
         }
 
-        private void dataGridViewAssetsV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-
-        }
 
         private void withAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {

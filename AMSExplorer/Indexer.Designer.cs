@@ -293,6 +293,8 @@
             // 
             // buttonGenOptions
             // 
+            this.buttonGenOptions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonGenOptions.Location = new System.Drawing.Point(394, 64);
             this.buttonGenOptions.Name = "buttonGenOptions";
             this.buttonGenOptions.Size = new System.Drawing.Size(137, 23);
