@@ -1,5 +1,5 @@
 ﻿//----------------------------------------------------------------------- 
-// <copyright file="GenericProcessor.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
+// <copyright file="MultipleProcessor.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.1
 // Licensed under the Apache License, Version 2.0 (the "License"); 
