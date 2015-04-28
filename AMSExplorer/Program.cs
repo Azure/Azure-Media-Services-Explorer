@@ -929,9 +929,9 @@ namespace AMSExplorer
 
 
 
-        public AssetInfo(List<IAsset> MySelectedAssets)
+        public AssetInfo(List<IAsset> mySelectedAssets)
         {
-            SelectedAssets = MySelectedAssets;
+            SelectedAssets = mySelectedAssets;
         }
         public AssetInfo(IAsset asset)
         {
@@ -1046,7 +1046,7 @@ namespace AMSExplorer
         }
 
         // return the URL with hostname from streaming endpoint
-        public static Uri rw(Uri url, IStreamingEndpoint se, bool https = false)
+        public static Uri RW(Uri url, IStreamingEndpoint se, bool https = false)
         {
             if (url != null)
             {
@@ -1064,12 +1064,12 @@ namespace AMSExplorer
 
         public static IEnumerable<Uri> rw(IEnumerable<Uri> urls, IStreamingEndpoint se, bool https = false)
         {
-            return urls.Select(u => rw(u, se, https));
+            return urls.Select(u => RW(u, se, https));
         }
 
-        public static string rw(string path, IStreamingEndpoint se, bool https = false)
+        public static string RW(string path, IStreamingEndpoint se, bool https = false)
         {
-            return rw(new Uri(path), se, https).ToString();
+            return RW(new Uri(path), se, https).ToString();
         }
 
 
@@ -1642,7 +1642,7 @@ namespace AMSExplorer
             {
 
                 IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
-                if (!DoNotRewriteURL) Urlstr = rw(Urlstr.ToString(), choosenSE);
+                if (!DoNotRewriteURL) Urlstr = RW(Urlstr.ToString(), choosenSE);
 
                 DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 

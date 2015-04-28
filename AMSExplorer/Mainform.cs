@@ -1214,9 +1214,9 @@ namespace AMSExplorer
                         this.Cursor = Cursors.WaitCursor;
                         AssetInformation form = new AssetInformation(this)
                         {
-                            MyAsset = asset,
-                            MyContext = _context,
-                            MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
+                            myAsset = asset,
+                            myContext = _context,
+                            myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
                         dialogResult = form.ShowDialog(this);
@@ -1486,20 +1486,20 @@ namespace AMSExplorer
             sbuilderThisAsset.AppendLine("Locator ID:");
             sbuilderThisAsset.AppendLine(locator.Id);
             sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
-            sbuilderThisAsset.AppendLine(AssetInfo.rw(locator.Path, SESelected));
+            sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
             sbuilderThisAsset.AppendLine("");
 
             if (locatorType == LocatorType.OnDemandOrigin)
             {
                 // Get the MPEG-DASH URL of the asset for adaptive streaming.
-                Uri mpegDashUri = AssetInfo.rw(locator.GetMpegDashUri(), SESelected);
+                Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
 
                 // Get the HLS URL of the asset for adaptive streaming.
-                Uri HLSUri = AssetInfo.rw(locator.GetHlsUri(), SESelected);
-                Uri HLSUriv3 = AssetInfo.rw(locator.GetHlsv3Uri(), SESelected);
+                Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected);
+                Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected);
 
                 // Get the Smooth URL of the asset for adaptive streaming.
-                Uri SmoothUri = AssetInfo.rw(locator.GetSmoothStreamingUri(), SESelected);
+                Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
 
                 if (AssetToP.AssetType == AssetType.MediaServicesHLS)
                 // It is a static HLS asset, so let's propose only the standard HLS V3 locator
@@ -1535,7 +1535,7 @@ namespace AMSExplorer
                             sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(HLSUri.ToString()));
                             sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.rw(locator.GetHlsv3Uri(), SESelected).ToString()));
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).ToString()));
                         }
                     }
                 }

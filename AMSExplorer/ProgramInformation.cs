@@ -103,9 +103,9 @@ namespace AMSExplorer
             {
                 AssetInformation form = new AssetInformation(MyMainForm)
                 {
-                    MyAsset = AssetToDisplayP,
-                    MyContext = MyContext,
-                    MyStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
+                    myAsset = AssetToDisplayP,
+                    myContext = MyContext,
+                    myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
                 };
                 DialogResult dialogResult = form.ShowDialog(this);
             }
