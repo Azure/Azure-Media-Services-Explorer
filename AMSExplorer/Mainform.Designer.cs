@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.butPrevPageAsset = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.butNextPageAsset = new System.Windows.Forms.Button();
@@ -202,13 +202,13 @@
             this.withSilverlightMonitoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.displayProgramInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayRelatedAssetInformationToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.recreateProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyTheOutputURLToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -336,7 +336,7 @@
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemProgramDisplayInformation = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recreateProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramStart = new System.Windows.Forms.ToolStripMenuItem();
@@ -352,7 +352,6 @@
             this.publishToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.copyTheOutputURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -405,6 +404,7 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1821,13 +1821,13 @@
             this.playbackThePreviewToolStripMenuItem,
             this.toolStripSeparator15,
             this.displayProgramInformationToolStripMenuItem,
-            this.displayRelatedAssetInformationToolStripMenuItem1,
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem,
             this.createProgramToolStripMenuItem1,
             this.recreateProgramsToolStripMenuItem,
             this.startProgramsToolStripMenuItem1,
             this.stopProgramsToolStripMenuItem,
             this.deleteProgramsToolStripMenuItem1,
-            this.copyTheOutputURLToClipboardToolStripMenuItem1});
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem});
             this.liveChannelToolStripMenuItem.Enabled = false;
             this.liveChannelToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
             this.liveChannelToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
@@ -2003,13 +2003,13 @@
             this.displayProgramInformationToolStripMenuItem.Text = "Program information and settings...";
             this.displayProgramInformationToolStripMenuItem.Click += new System.EventHandler(this.displayProgramInformationToolStripMenuItem_Click);
             // 
-            // displayRelatedAssetInformationToolStripMenuItem1
+            // ProgramDisplayRelatedAssetInformationToolStripMenuItem
             // 
-            this.displayRelatedAssetInformationToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.displayRelatedAssetInformationToolStripMenuItem1.Name = "displayRelatedAssetInformationToolStripMenuItem1";
-            this.displayRelatedAssetInformationToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
-            this.displayRelatedAssetInformationToolStripMenuItem1.Text = "Display related asset information...";
-            this.displayRelatedAssetInformationToolStripMenuItem1.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem1_Click);
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Name = "ProgramDisplayRelatedAssetInformationToolStripMenuItem";
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Text = "Display related asset information...";
+            this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem1_Click);
             // 
             // createProgramToolStripMenuItem1
             // 
@@ -2057,12 +2057,12 @@
             this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)...";
             this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
             // 
-            // copyTheOutputURLToClipboardToolStripMenuItem1
+            // ProgramCopyTheOutputURLToClipboardToolStripMenuItem
             // 
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Name = "copyTheOutputURLToClipboardToolStripMenuItem1";
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Text = "Copy the output URL to clipboard";
-            this.copyTheOutputURLToClipboardToolStripMenuItem1.Click += new System.EventHandler(this.copyTheOutputURLToClipboardToolStripMenuItem_Click);
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Name = "ProgramCopyTheOutputURLToClipboardToolStripMenuItem";
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Text = "Copy the output URL to clipboard";
+            this.ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyTheOutputURLToClipboardToolStripMenuItem_Click);
             // 
             // originToolStripMenuItem
             // 
@@ -3053,9 +3053,9 @@
             this.ContextMenuItemChannelDisplayInfomation.Text = "Channel infomation and settings...";
             this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
             // 
-            // adAndSlateControlToolStripMenuItem
+            // ContextMenuItemChannelAdAndSlateControl
             // 
-            this.ContextMenuItemChannelAdAndSlateControl.Name = "adAndSlateControlToolStripMenuItem";
+            this.ContextMenuItemChannelAdAndSlateControl.Name = "ContextMenuItemChannelAdAndSlateControl";
             this.ContextMenuItemChannelAdAndSlateControl.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.ContextMenuItemChannelAdAndSlateControl.Size = new System.Drawing.Size(292, 22);
             this.ContextMenuItemChannelAdAndSlateControl.Text = "Channel(s) Ad and Slate control...";
@@ -3152,10 +3152,10 @@
             this.secondaryInputURLToolStripMenuItem.Text = "Secondary Input URL";
             this.secondaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.secondaryInputURLToolStripMenuItem_Click);
             // 
-            // runALocalEncoderToolStripMenuItem
+            // ContextMenuItemChannelRunOnPremisesLiveEncoder
             // 
             this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Name = "runALocalEncoderToolStripMenuItem";
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Name = "ContextMenuItemChannelRunOnPremisesLiveEncoder";
             this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Size = new System.Drawing.Size(292, 22);
             this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Text = "Run an on-premises live encoder...";
             this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
@@ -3346,7 +3346,7 @@
             this.refreshToolStripMenuItem4,
             this.toolStripSeparator21,
             this.ContextMenuItemProgramDisplayInformation,
-            this.displayRelatedAssetInformationToolStripMenuItem,
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation,
             this.createProgramToolStripMenuItem,
             this.recreateProgramToolStripMenuItem,
             this.ContextMenuItemProgramStart,
@@ -3356,10 +3356,11 @@
             this.securityToolStripMenuItem,
             this.toolStripSeparator24,
             this.publishToolStripMenuItem2,
-            this.copyTheOutputURLToClipboardToolStripMenuItem,
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 286);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 308);
+            this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
             // 
@@ -3382,13 +3383,13 @@
             this.ContextMenuItemProgramDisplayInformation.Text = "Program information and settings...";
             this.ContextMenuItemProgramDisplayInformation.Click += new System.EventHandler(this.displayProgramInformationToolStripMenuItem1_Click);
             // 
-            // displayRelatedAssetInformationToolStripMenuItem
+            // ContextMenuItemProgramDisplayRelatedAssetInformation
             // 
-            this.displayRelatedAssetInformationToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
-            this.displayRelatedAssetInformationToolStripMenuItem.Name = "displayRelatedAssetInformationToolStripMenuItem";
-            this.displayRelatedAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.displayRelatedAssetInformationToolStripMenuItem.Text = "Display related asset information...";
-            this.displayRelatedAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem_Click);
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation.Name = "ContextMenuItemProgramDisplayRelatedAssetInformation";
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation.Size = new System.Drawing.Size(262, 22);
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation.Text = "Display related asset information...";
+            this.ContextMenuItemProgramDisplayRelatedAssetInformation.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem_Click);
             // 
             // createProgramToolStripMenuItem
             // 
@@ -3525,13 +3526,6 @@
             this.deleteAllLocatorsToolStripMenuItem1.Text = "Delete all locators...";
             this.deleteAllLocatorsToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem1_Click);
             // 
-            // copyTheOutputURLToClipboardToolStripMenuItem
-            // 
-            this.copyTheOutputURLToClipboardToolStripMenuItem.Name = "copyTheOutputURLToClipboardToolStripMenuItem";
-            this.copyTheOutputURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
-            this.copyTheOutputURLToClipboardToolStripMenuItem.Text = "Copy the output URL to clipboard";
-            this.copyTheOutputURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyTheOutputURLToClipboardToolStripMenuItem_Click);
-            // 
             // ContextMenuItemProgramPlayback
             // 
             this.ContextMenuItemProgramPlayback.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3546,7 +3540,7 @@
             this.ContextMenuItemProgramPlayback.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemProgramPlayback.Image")));
             this.ContextMenuItemProgramPlayback.Name = "ContextMenuItemProgramPlayback";
             this.ContextMenuItemProgramPlayback.Size = new System.Drawing.Size(262, 22);
-            this.ContextMenuItemProgramPlayback.Text = "Playback the program";
+            this.ContextMenuItemProgramPlayback.Text = "Playback the program(s)";
             // 
             // withAzureMediaPlayerToolStripMenuItem2
             // 
@@ -3966,10 +3960,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 404);
@@ -4071,6 +4065,13 @@
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // ContextMenuItemProgramCopyTheOutputURLToClipboard
+            // 
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Name = "ContextMenuItemProgramCopyTheOutputURLToClipboard";
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Size = new System.Drawing.Size(262, 22);
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Text = "Copy the output URL to clipboard";
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Click += new System.EventHandler(this.ContextMenuItemProgramCopyTheOutputURLToClipboard_Click);
             // 
             // Mainform
             // 
@@ -4378,7 +4379,6 @@
         private System.Windows.Forms.ToolStripMenuItem packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem encryptTheSmoothStreamingAssetsWithPlayReadystaticToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyTheOutputURLToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withDASHLiveAzurePlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem jwPlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSE;
@@ -4387,9 +4387,9 @@
         private System.Windows.Forms.ToolStripMenuItem publishToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem createALocatorToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem deleteAllLocatorsToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem displayRelatedAssetInformationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramDisplayRelatedAssetInformation;
         private System.Windows.Forms.ToolStripMenuItem withCustomPlayerToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem displayRelatedAssetInformationToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ProgramDisplayRelatedAssetInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withDASHLiveAzurePlayerToolStripMenuItem1;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.ComboBox comboBoxOrderStreamingEndpoints;
@@ -4422,7 +4422,7 @@
         private System.Windows.Forms.ToolStripMenuItem playbackThePreviewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withFlashOSMFAzurePlayerToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem withSilverlightMonitoringPlayerToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem copyTheOutputURLToClipboardToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ProgramCopyTheOutputURLToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem dASHLivePlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deprecatedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem packageTheMultiMP4AssetsToSmoothStreamingstaticToolStripMenuItem1;
@@ -4517,6 +4517,7 @@
         private System.Windows.Forms.ToolStripMenuItem inputSSLURLToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem primaryInputURLToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem secondaryInputURLToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
     }
 }
 

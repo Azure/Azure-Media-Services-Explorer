@@ -369,6 +369,26 @@ namespace AMSExplorer
             mailItem.Send();
         }
 
+        public static string ReturnNameForProtocol(StreamingProtocol protocol)
+        {
+            string name = "";
+            switch (protocol)
+            {
+                case StreamingProtocol.FragmentedMP4:
+                    name =  "Smooth Streaming";
+                    break;
+
+                case StreamingProtocol.RTMP:
+                    name = "RTMP";
+                    break;
+
+                case StreamingProtocol.RTPMPEG2TS:
+                    name =  "RTP (MPEG-TS)";
+                    break;
+            }
+            return name;
+        }
+
     }
 
     public class Constants
@@ -1303,7 +1323,7 @@ namespace AMSExplorer
             ismAssetFiles.First().Update();
         }
 
-        
+
         public void CreateOutlookMail()
         {
             Exception exception = null;
@@ -2090,8 +2110,11 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Folder { get; set; }
         public string Command { get; set; }
+        public StreamingProtocol? Protocol { get; set; }
         public Uri InstallURL { get; set; }
         public bool CanBeRunLocally { get; set; }
+        public bool EnableSettings { get; set; }
+        public string Comment { get; set; }
     }
 
 

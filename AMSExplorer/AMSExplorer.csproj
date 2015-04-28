@@ -152,11 +152,11 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChannelRunLocalEncoder.cs">
+    <Compile Include="ChannelRunOnPremisesEncoder.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ChannelRunLocalEncoder.Designer.cs">
-      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
+    <Compile Include="ChannelRunOnPremisesEncoder.Designer.cs">
+      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
     </Compile>
     <Compile Include="ChannelAdSlateControl.cs">
       <SubType>Form</SubType>
@@ -351,11 +351,11 @@
     <Compile Include="CreateLocator.Designer.cs">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericProcessor.cs">
+    <Compile Include="MultipleProcessor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericProcessor.Designer.cs">
-      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    <Compile Include="MultipleProcessor.Designer.cs">
+      <DependentUpon>MultipleProcessor.cs</DependentUpon>
     </Compile>
     <Compile Include="EncodingAMEAdv.cs">
       <SubType>Form</SubType>
@@ -425,8 +425,8 @@
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChannelRunLocalEncoder.resx">
-      <DependentUpon>ChannelRunLocalEncoder.cs</DependentUpon>
+    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
+      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelAdSlateControl.resx">
       <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
@@ -522,8 +522,8 @@
     <EmbeddedResource Include="CreateLocator.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericProcessor.resx">
-      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    <EmbeddedResource Include="MultipleProcessor.resx">
+      <DependentUpon>MultipleProcessor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEAdv.resx">

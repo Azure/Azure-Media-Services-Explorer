@@ -31,7 +31,7 @@ using System.Reflection;
 
 namespace AMSExplorer
 {
-    public partial class GenericProcessor : Form
+    public partial class MultipleProcessor : Form
     {
         public XDocument doc;
         public List<IAsset> SelectedAssets;
@@ -216,7 +216,7 @@ namespace AMSExplorer
         }
 
 
-        public GenericProcessor(CloudMediaContext context, IJob myJob = null)
+        public MultipleProcessor(CloudMediaContext context, IJob myJob = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

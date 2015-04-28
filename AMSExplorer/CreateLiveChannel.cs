@@ -73,7 +73,7 @@ namespace AMSExplorer
                     SystemPreset = comboBoxEncodingPreset.Text,
                     AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
                 };
-                if (comboBoxProtocolInput.Text == Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS))
+                if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP
                     List<VideoStream> videostreams = new List<VideoStream>();
                     videostreams.Add(new VideoStream() { Index = (int)numericUpDownVideoStreamIndex.Value });
@@ -111,7 +111,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (StreamingProtocol)(Enum.Parse(typeof(StreamingProtocol), (string)comboBoxProtocolInput.SelectedItem));
+                return (StreamingProtocol)(Enum.Parse(typeof(StreamingProtocol), (comboBoxProtocolInput.SelectedItem as Item).Value));
             }
         }
 
@@ -268,7 +268,7 @@ namespace AMSExplorer
             comboBoxAdMarkerSource.Items.Clear();
             comboBoxAdMarkerSource.Items.Add(new Item("API (default)", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Api)));
             // SCTE-35 only available or RTP input
-            if (comboBoxProtocolInput.Text == Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS))
+            if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
             { // RTP
                 comboBoxAdMarkerSource.Items.Add(new Item("SCTE-35 Cue Messages", Enum.GetName(typeof(AdMarkerSource), AdMarkerSource.Scte35)));
                 panelRTP.Enabled = panelAudioControl.Enabled = true;
@@ -307,16 +307,14 @@ namespace AMSExplorer
         private void FillComboProtocols(bool displayrtp)
         {
             comboBoxProtocolInput.Items.Clear();
+
+            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.FragmentedMP4), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4)));
+            comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTMP), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP)));
             if (displayrtp)
             {
-                comboBoxProtocolInput.Items.AddRange(Enum.GetNames(typeof(StreamingProtocol)).ToArray()); // license type
+                comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTPMPEG2TS), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS)));
             }
-            else
-            {
-                comboBoxProtocolInput.Items.Add(Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4));
-                comboBoxProtocolInput.Items.Add(Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP));
-            }
-            comboBoxProtocolInput.SelectedItem = Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4);
+            comboBoxProtocolInput.SelectedIndex = 0;
         }
 
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
@@ -416,7 +414,7 @@ namespace AMSExplorer
             {
                 listViewJPG1.LoadJPGs(MyContext);
             }
-           
+
         }
 
         private void textBoxJPGSearch_TextChanged(object sender, EventArgs e)
@@ -436,7 +434,7 @@ namespace AMSExplorer
             }
         }
 
-     
+
 
         private void textboxchannelname_Validating(object sender, CancelEventArgs e)
         {

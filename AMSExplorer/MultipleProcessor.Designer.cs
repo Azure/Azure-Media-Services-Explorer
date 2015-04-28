@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class GenericProcessor
+    partial class MultipleProcessor
     {
         /// <summary>
         /// Required designer variable.
@@ -205,10 +205,12 @@
             // 
             this.radioButtonSingleJobForAllInputAssets.AutoSize = true;
             this.radioButtonSingleJobForAllInputAssets.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonSingleJobForAllInputAssets.Location = new System.Drawing.Point(27, 57);
+            this.radioButtonSingleJobForAllInputAssets.Checked = true;
+            this.radioButtonSingleJobForAllInputAssets.Location = new System.Drawing.Point(27, 19);
             this.radioButtonSingleJobForAllInputAssets.Name = "radioButtonSingleJobForAllInputAssets";
             this.radioButtonSingleJobForAllInputAssets.Size = new System.Drawing.Size(331, 56);
             this.radioButtonSingleJobForAllInputAssets.TabIndex = 36;
+            this.radioButtonSingleJobForAllInputAssets.TabStop = true;
             this.radioButtonSingleJobForAllInputAssets.Text = "Single job\r\n(pass all selected assets as inputs to a single job)\r\nRequired for Pr" +
     "emium Encoder, and AME for multi asset stitching.\r\nThe order of the assets is im" +
     "portant.";
@@ -219,12 +221,10 @@
             // 
             this.radioButtonOneJobPerInputAsset.AutoSize = true;
             this.radioButtonOneJobPerInputAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonOneJobPerInputAsset.Checked = true;
-            this.radioButtonOneJobPerInputAsset.Location = new System.Drawing.Point(27, 21);
+            this.radioButtonOneJobPerInputAsset.Location = new System.Drawing.Point(27, 100);
             this.radioButtonOneJobPerInputAsset.Name = "radioButtonOneJobPerInputAsset";
             this.radioButtonOneJobPerInputAsset.Size = new System.Drawing.Size(134, 17);
             this.radioButtonOneJobPerInputAsset.TabIndex = 35;
-            this.radioButtonOneJobPerInputAsset.TabStop = true;
             this.radioButtonOneJobPerInputAsset.Text = "One job per input asset";
             this.radioButtonOneJobPerInputAsset.UseVisualStyleBackColor = true;
             this.radioButtonOneJobPerInputAsset.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);

@@ -3615,14 +3615,14 @@ typeof(FilterTime)
 
             string taskname = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset;
 
-            GenericProcessor form = new GenericProcessor(_context)
+            MultipleProcessor form = new MultipleProcessor(_context)
             {
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
                 EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 SelectedAssets = SelectedAssets,
-                EncodingCreationMode = TaskJobCreationMode.OneJobPerInputAsset,
+                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -8229,14 +8229,14 @@ typeof(FilterTime)
 
             string taskname = myJob.Tasks.FirstOrDefault().Name;
 
-            GenericProcessor form = new GenericProcessor(_context, myJob)
+            MultipleProcessor form = new MultipleProcessor(_context, myJob)
             {
                 Text = "Job re-submission",
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
                 EncodingPriority = myJob.Priority,
-                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets,
+                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -8953,7 +8953,7 @@ typeof(FilterTime)
 
         private void ChannelRunOnPremisesLiveEncoder()
         {
-            ChannelRunLocalEncoder form = new ChannelRunLocalEncoder(_context, ReturnSelectedChannels());
+            ChannelRunOnPremisesEncoder form = new ChannelRunOnPremisesEncoder(_context, ReturnSelectedChannels());
             form.ShowDialog();
         }
 
@@ -9110,6 +9110,40 @@ typeof(FilterTime)
 
             // copy preview url if only one channel
             copyPreviewURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+
+
+            ////////////
+
+            var programs = ReturnSelectedPrograms();
+
+            // program info if only one program
+            displayProgramInformationToolStripMenuItem.Enabled = programs.Count == 1;
+
+            // asset info if only one program
+            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = programs.Count == 1;
+
+            // copy program url if only one program
+            ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Enabled = programs.Count == 1;
+        }
+
+        private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
+        {
+            var programs = ReturnSelectedPrograms();
+
+            // program info if only one program
+            ContextMenuItemProgramDisplayInformation.Enabled = programs.Count == 1;
+
+            // asset info if only one program
+            ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = programs.Count == 1;
+
+            // copy program url if only one program
+            ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = programs.Count == 1;
+            
+        }
+
+        private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
+        {
+            DoCopyOutputURLToClipboard();
         }
     }
 }
