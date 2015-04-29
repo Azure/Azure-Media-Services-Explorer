@@ -2,7 +2,7 @@
 //----------------------------------------------------------------------- 
 // <copyright file="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
