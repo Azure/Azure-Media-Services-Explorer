@@ -157,7 +157,7 @@
             this.buttonLoadXML.TabIndex = 25;
             this.buttonLoadXML.Text = "Load a custom XML file";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
-            this.buttonLoadXML.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadXML_Click);
             // 
             // groupBox1
             // 

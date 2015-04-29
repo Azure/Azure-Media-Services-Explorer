@@ -153,7 +153,7 @@ namespace AMSExplorer
             _context = context;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLoadXML_Click(object sender, EventArgs e)
         {
 
             if (Directory.Exists(this.EncodingAMEPresetXMLFiles))
@@ -165,7 +165,7 @@ namespace AMSExplorer
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.ToString();
+                    textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
@@ -560,7 +560,7 @@ namespace AMSExplorer
                     doc = docbackup;
                     Error = true;
                 }
-                textBoxConfiguration.Text = doc.ToString();
+                textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
                 if (!Error) xmlOpenedNotYetStiched = false;
             }
         }
@@ -669,7 +669,7 @@ namespace AMSExplorer
                     doc = docbackup;
                     Error = true;
                 }
-                textBoxConfiguration.Text = doc.ToString();
+                textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
                 if (!Error) xmlOpenedNotYetNamedConvention = false;
             }
         }
@@ -699,7 +699,7 @@ namespace AMSExplorer
                     doc = docbackup;
                     Error = true;
                 }
-                textBoxConfiguration.Text = doc.ToString();
+                textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
                 if (!Error) xmlOpenedNotYetVSSRotation = false;
             }
         }
