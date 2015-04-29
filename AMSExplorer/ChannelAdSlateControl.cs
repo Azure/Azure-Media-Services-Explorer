@@ -125,7 +125,7 @@ namespace AMSExplorer
 
                 buttonUploadSlate.Enabled = false;
                 string file = openFileDialogSlate.FileName;
-                asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                asset = await Task.Factory.StartNew(() => ProcessUploadFile(file));
                 progressBarUpload.Visible = false;
 
                 buttonUploadSlate.Enabled = true;
@@ -133,44 +133,31 @@ namespace AMSExplorer
             }
         }
 
-        private IAsset ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        private IAsset ProcessUploadFile(string fileName, string storageAccount = null)
         {
-            if (storageaccount == null) storageaccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
+            string safeFileName = Path.GetFileName(fileName);
+            if (storageAccount == null) storageAccount = MyContext.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
             IAsset asset = null;
-            IAccessPolicy policy = null;
-            ILocator locator = null;
-
             try
             {
-                asset = MyContext.Assets.Create(SafeFileName as string, storageaccount, AssetCreationOptions.None);
-                IAssetFile file = asset.AssetFiles.Create(SafeFileName);
-                policy = MyContext.AccessPolicies.Create(
-                                       SafeFileName,
-                                       TimeSpan.FromDays(30),
-                                       AccessPermissions.Write | AccessPermissions.List);
-
-                locator = MyContext.Locators.CreateLocator(LocatorType.Sas, asset, policy);
-                file.UploadProgressChanged += file_UploadProgressChanged;
-                file.Upload(FileName);
-                AssetInfo.SetFileAsPrimary(asset, SafeFileName);
-
+                asset = MyContext.Assets.CreateFromFile(
+                                                      fileName,
+                                                      storageAccount,
+                                                      AssetCreationOptions.None,
+                                                      (af, p) =>
+                                                      {
+                                                          progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
+                                                      }
+                                                      );
+                AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(safeFileName));
             }
             catch (Exception e)
             {
                 asset = null;
             }
-            finally
-            {
-                if (locator != null) locator.Delete();
-                if (policy != null) policy.Delete();
-            }
             return asset;
         }
-        private void file_UploadProgressChanged(object sender, Microsoft.WindowsAzure.MediaServices.Client.UploadProgressChangedEventArgs e)
-        {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
-        }
+
 
         private void buttonInsertAD_Click(object sender, EventArgs e)
         {
@@ -344,7 +331,7 @@ namespace AMSExplorer
                         {
                             AF = JPGAsset.AssetFiles.FirstOrDefault();
                             Uri sasUri = BuildSasUri(AF, locator);
-                            pictureBoxPreviewSlate.Load(sasUri.ToString());
+                            pictureBoxPreviewSlate.Load(sasUri.AbsoluteUri);
                         }
                     }
                     catch
@@ -364,9 +351,9 @@ namespace AMSExplorer
 
         private ILocator GetOrCreateSASLocator(IAsset MyAsset)
         {
-              if (!ListLocators.ContainsKey(MyAsset))
+            if (!ListLocators.ContainsKey(MyAsset))
             {
-                ListLocators.Add(MyAsset   , CreateSASLocator(MyAsset));
+                ListLocators.Add(MyAsset, CreateSASLocator(MyAsset));
             }
             return ListLocators[MyAsset];
         }
@@ -388,7 +375,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Error when creating the temporary SAS locator." + ex.Message);
             }
-
             return newlocator;
         }
 

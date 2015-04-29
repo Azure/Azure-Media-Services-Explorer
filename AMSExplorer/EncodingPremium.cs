@@ -243,7 +243,7 @@ namespace AMSExplorer
                 buttonUpload.Enabled = false;
                 foreach (string file in openFileDialogWorkflow.FileNames)
                 {
-                    await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                    await Task.Factory.StartNew(() => ProcessUploadFile(file));
                 }
                 progressBarUpload.Visible = false;
                 buttonCancel.Enabled = true;
@@ -253,18 +253,16 @@ namespace AMSExplorer
         }
 
 
-        private void ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        private void ProcessUploadFile(string fileName, string storageaccount = null)
         {
-
+            string safeFileName = Path.GetFileName(fileName);
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
-
             bool Error = false;
             IAsset asset = null;
             try
             {
                 asset = _context.Assets.CreateFromFile(
-                                                      FileName as string,
+                                                      fileName as string,
                                                       storageaccount,
                                                       Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                       (af, p) =>
@@ -272,15 +270,11 @@ namespace AMSExplorer
                                                           progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
                                                       }
                                                       );
+                AssetInfo.SetFileAsPrimary(asset, safeFileName);
             }
             catch (Exception e)
             {
                 Error = true;
-
-            }
-            if (!Error)
-            {
-
             }
         }
 

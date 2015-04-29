@@ -816,6 +816,7 @@ namespace AMSExplorer
                                                           DoGridTransferUpdateProgress(p.Progress, index);
                                                       }
                                                       );
+                AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(name as string));
             }
             catch (Exception e)
             {
@@ -823,7 +824,10 @@ namespace AMSExplorer
                 DoGridTransferDeclareError(index, e);
                 TextBoxLogWriteLine("Error when uploading '{0}'", name, true);
                 TextBoxLogWriteLine(e);
-                if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null) Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                if (watchfoldersettings != null && watchfoldersettings.SendEmailToRecipient != null)
+                {
+                    Program.CreateAndSendOutlookMail(watchfoldersettings.SendEmailToRecipient, "Explorer Watchfolder: upload error " + name, e.Message);
+                }
 
             }
             if (!Error)
@@ -3993,10 +3997,22 @@ typeof(FilterTime)
 
         private void contextMenuStripAssets_Opening(object sender, CancelEventArgs e)
         {
-            bool singleitem = (ReturnSelectedAssets().Count == 1);
+            var assets = ReturnSelectedAssets();
+            bool singleitem = (assets.Count == 1);
             ContextMenuItemAssetDisplayInfo.Enabled = singleitem;
             ContextMenuItemAssetRename.Enabled = singleitem;
-            toolStripMenuItemExportFilesToStorage.Enabled = singleitem;
+            contextMenuExportFilesToStorage.Enabled = singleitem;
+
+            if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
+            {
+                var assetfile = assets.FirstOrDefault().AssetFiles.FirstOrDefault();
+                if (assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
+                {
+                    // live archive
+                    contextMenuExportFilesToStorage.Enabled=false;
+                    contextMenuExportDownloadToLocal.Enabled = false;
+                }
+            }
         }
 
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
@@ -4022,11 +4038,22 @@ typeof(FilterTime)
 
         private void toolStripMenuAsset_DropDownOpening(object sender, EventArgs e)
         {
-            bool singleitem = (ReturnSelectedAssets().Count == 1);
+            var assets = ReturnSelectedAssets();
+            bool singleitem = (assets.Count == 1);
             informationToolStripMenuItem.Enabled = singleitem;
             renameToolStripMenuItem.Enabled = singleitem;
             toAzureStorageToolStripMenuItem.Enabled = singleitem;
 
+            if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
+            {
+                var assetfile = assets.FirstOrDefault().AssetFiles.FirstOrDefault();
+                if (assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
+                {
+                    // live archive
+                    toAzureStorageToolStripMenuItem.Enabled = false;
+                    downloadToLocalToolStripMenuItem1.Enabled = false;
+                }
+            }
         }
 
         private void toolStripMenuJobDisplayInfo_Click(object sender, EventArgs e)
@@ -9124,6 +9151,12 @@ typeof(FilterTime)
         private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
         {
             DoCopyOutputURLToClipboard();
+        }
+
+        private void azureMediaServicesSamplesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"https://github.com/AzureMediaServicesSamples");
+
         }
     }
 }

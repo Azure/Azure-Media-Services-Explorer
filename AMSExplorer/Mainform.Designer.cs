@@ -52,9 +52,9 @@
             this.toolStripMenuItem14 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem15 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemExportFilesToStorage = new System.Windows.Forms.ToolStripMenuItem();
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExportFilesToStorage = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExportToAnotherMediaServicesAccount = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuExportDownloadToLocal = new System.Windows.Forms.ToolStripMenuItem();
             this.mergeAssetsToANewAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetRename = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetDelete = new System.Windows.Forms.ToolStripMenuItem();
@@ -239,6 +239,7 @@
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
             this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.azureMediaServicesSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -352,6 +353,7 @@
             this.publishToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -404,7 +406,6 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -648,38 +649,38 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemExportFilesToStorage,
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1,
-            this.toolStripMenuItem16});
+            this.contextMenuExportFilesToStorage,
+            this.contextMenuExportToAnotherMediaServicesAccount,
+            this.contextMenuExportDownloadToLocal});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
-            // toolStripMenuItemExportFilesToStorage
+            // contextMenuExportFilesToStorage
             // 
-            this.toolStripMenuItemExportFilesToStorage.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItemExportFilesToStorage.Image")));
-            this.toolStripMenuItemExportFilesToStorage.Name = "toolStripMenuItemExportFilesToStorage";
-            this.toolStripMenuItemExportFilesToStorage.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            this.contextMenuExportFilesToStorage.Image = ((System.Drawing.Image)(resources.GetObject("contextMenuExportFilesToStorage.Image")));
+            this.contextMenuExportFilesToStorage.Name = "contextMenuExportFilesToStorage";
+            this.contextMenuExportFilesToStorage.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.X)));
-            this.toolStripMenuItemExportFilesToStorage.Size = new System.Drawing.Size(340, 22);
-            this.toolStripMenuItemExportFilesToStorage.Text = "Export asset file(s) to Azure Storage...";
-            this.toolStripMenuItemExportFilesToStorage.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
+            this.contextMenuExportFilesToStorage.Size = new System.Drawing.Size(340, 22);
+            this.contextMenuExportFilesToStorage.Text = "Export asset file(s) to Azure Storage...";
+            this.contextMenuExportFilesToStorage.Click += new System.EventHandler(this.toolStripMenuItem12_Click);
             // 
-            // toAnotherAzureMediaServicesAccountToolStripMenuItem1
+            // contextMenuExportToAnotherMediaServicesAccount
             // 
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Name = "toAnotherAzureMediaServicesAccountToolStripMenuItem1";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Size = new System.Drawing.Size(340, 22);
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Text = "Export to another Azure Media Services Account...";
-            this.toAnotherAzureMediaServicesAccountToolStripMenuItem1.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1);
+            this.contextMenuExportToAnotherMediaServicesAccount.Name = "contextMenuExportToAnotherMediaServicesAccount";
+            this.contextMenuExportToAnotherMediaServicesAccount.Size = new System.Drawing.Size(340, 22);
+            this.contextMenuExportToAnotherMediaServicesAccount.Text = "Export to another Azure Media Services Account...";
+            this.contextMenuExportToAnotherMediaServicesAccount.Click += new System.EventHandler(this.toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1);
             // 
-            // toolStripMenuItem16
+            // contextMenuExportDownloadToLocal
             // 
-            this.toolStripMenuItem16.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem16.Image")));
-            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(340, 22);
-            this.toolStripMenuItem16.Text = "Download to local...";
-            this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click);
+            this.contextMenuExportDownloadToLocal.Image = ((System.Drawing.Image)(resources.GetObject("contextMenuExportDownloadToLocal.Image")));
+            this.contextMenuExportDownloadToLocal.Name = "contextMenuExportDownloadToLocal";
+            this.contextMenuExportDownloadToLocal.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
+            this.contextMenuExportDownloadToLocal.Size = new System.Drawing.Size(340, 22);
+            this.contextMenuExportDownloadToLocal.Text = "Download to local...";
+            this.contextMenuExportDownloadToLocal.Click += new System.EventHandler(this.toolStripMenuItem16_Click);
             // 
             // mergeAssetsToANewAssetToolStripMenuItem
             // 
@@ -2196,6 +2197,7 @@
             // 
             this.samplePlayersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureMediaBlogToolStripMenuItem,
+            this.azureMediaServicesSamplesToolStripMenuItem,
             this.toolStripSeparator1,
             this.azureMediaServicesPlayerPageToolStripMenuItem,
             this.silverlightMonitoringPlayerToolStripMenuItem,
@@ -2318,6 +2320,14 @@
             this.hTML5CaptionMakerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.hTML5CaptionMakerToolStripMenuItem.Text = "HTML5 Caption Maker";
             this.hTML5CaptionMakerToolStripMenuItem.Click += new System.EventHandler(this.hTML5CaptionMakerToolStripMenuItem_Click);
+            // 
+            // azureMediaServicesSamplesToolStripMenuItem
+            // 
+            this.azureMediaServicesSamplesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.azureMediaServicesSamplesToolStripMenuItem.Name = "azureMediaServicesSamplesToolStripMenuItem";
+            this.azureMediaServicesSamplesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.azureMediaServicesSamplesToolStripMenuItem.Text = "Azure Media Services Samples on GitHub";
+            this.azureMediaServicesSamplesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesSamplesToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -3359,7 +3369,7 @@
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 308);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 286);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -3525,6 +3535,13 @@
             this.deleteAllLocatorsToolStripMenuItem1.Size = new System.Drawing.Size(248, 22);
             this.deleteAllLocatorsToolStripMenuItem1.Text = "Delete all locators...";
             this.deleteAllLocatorsToolStripMenuItem1.Click += new System.EventHandler(this.deleteAllLocatorsToolStripMenuItem1_Click);
+            // 
+            // ContextMenuItemProgramCopyTheOutputURLToClipboard
+            // 
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Name = "ContextMenuItemProgramCopyTheOutputURLToClipboard";
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Size = new System.Drawing.Size(262, 22);
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Text = "Copy the output URL to clipboard";
+            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Click += new System.EventHandler(this.ContextMenuItemProgramCopyTheOutputURLToClipboard_Click);
             // 
             // ContextMenuItemProgramPlayback
             // 
@@ -4066,13 +4083,6 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
-            // ContextMenuItemProgramCopyTheOutputURLToClipboard
-            // 
-            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Name = "ContextMenuItemProgramCopyTheOutputURLToClipboard";
-            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Size = new System.Drawing.Size(262, 22);
-            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Text = "Copy the output URL to clipboard";
-            this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Click += new System.EventHandler(this.ContextMenuItemProgramCopyTheOutputURLToClipboard_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4495,11 +4505,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator34;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toAnotherAzureMediaServicesAccountToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemExportFilesToStorage;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuExportToAnotherMediaServicesAccount;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuExportFilesToStorage;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem14;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem15;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
+        private System.Windows.Forms.ToolStripMenuItem contextMenuExportDownloadToLocal;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem17;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem18;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem19;
@@ -4518,6 +4528,7 @@
         private System.Windows.Forms.ToolStripMenuItem primaryInputURLToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem secondaryInputURLToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
+        private System.Windows.Forms.ToolStripMenuItem azureMediaServicesSamplesToolStripMenuItem;
     }
 }
 
