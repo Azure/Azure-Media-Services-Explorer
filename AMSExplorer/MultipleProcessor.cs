@@ -244,7 +244,7 @@ namespace AMSExplorer
                     Button button = (Button)sender;
                     string index = button.Name.Substring(button.Name.Length - 1, 1);
                     TextBox mytextboxconfig = ReturnTextBoxConfiguration(Convert.ToInt16(index));
-                    mytextboxconfig.Text = doc.Declaration.ToString() + doc.ToString();
+                    mytextboxconfig.Text = doc.ToString();
                 }
                 catch (Exception ex)
                 {

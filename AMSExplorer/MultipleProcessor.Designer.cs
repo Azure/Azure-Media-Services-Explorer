@@ -398,17 +398,15 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(14, 327);
+            this.label6.Location = new System.Drawing.Point(14, 302);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(107, 13);
+            this.label6.Size = new System.Drawing.Size(90, 13);
             this.label6.TabIndex = 42;
             this.label6.Text = "Number of tasks :";
             // 
             // numericUpDownTasks
             // 
-            this.numericUpDownTasks.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownTasks.Location = new System.Drawing.Point(16, 344);
+            this.numericUpDownTasks.Location = new System.Drawing.Point(16, 319);
             this.numericUpDownTasks.Maximum = new decimal(new int[] {
             5,
             0,
@@ -997,7 +995,7 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 67;
             // 
-            // MultipleProcessor
+            // GenericProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1006,7 +1004,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
-            this.Name = "MultipleProcessor";
+            this.Name = "GenericProcessor";
             this.Text = "Multiple processors job";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
             this.Shown += new System.EventHandler(this.GenericProcessor_Shown);

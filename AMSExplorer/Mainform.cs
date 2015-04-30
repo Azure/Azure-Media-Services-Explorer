@@ -2950,7 +2950,7 @@ namespace AMSExplorer
                 if (keyEl != null)
                     keyEl.Attribute("value").SetValue(key);
             }
-            return doc.Declaration.ToString() + doc.ToString();
+            return doc.ToString();
         }
 
         public static string LoadAndUpdateThumbnailsConfiguration(string xmlFileName, string ThumbnailsSize, string ThumbnailsType, string ThumbnailsFileName, string ThumbnailsTimeValue, string ThumbnailsTimeStep, string ThumbnailsTimeStop)
@@ -2970,7 +2970,7 @@ namespace AMSExplorer
             if (ThumbnailsTimeStop != string.Empty)
                 TimeEl.Add(new XAttribute("Stop", ThumbnailsTimeStop));
 
-            return doc.Declaration.ToString() + doc.ToString();
+            return doc.ToString();
         }
 
         public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar)
@@ -4009,7 +4009,7 @@ typeof(FilterTime)
                 if (assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
                 {
                     // live archive
-                    contextMenuExportFilesToStorage.Enabled = false;
+                    contextMenuExportFilesToStorage.Enabled=false;
                     contextMenuExportDownloadToLocal.Enabled = false;
                 }
             }
@@ -4621,7 +4621,15 @@ typeof(FilterTime)
             DoMenuDownloadToLocal();
         }
 
+        private void copyAssetFilesToAzureStorageToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoExportAssetToAzureStorage();
+        }
 
+        private void setupAWatchFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoWatchFolder();
+        }
 
         private void DoWatchFolder()
         {
@@ -8940,6 +8948,11 @@ typeof(FilterTime)
             DoBatchUpload();
         }
 
+        private void toolStripMenuItem21_Click(object sender, EventArgs e)
+        {
+            DoWatchFolder();
+        }
+
         private void runALocalEncoderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChannelRunOnPremisesLiveEncoder();
@@ -9144,16 +9157,6 @@ typeof(FilterTime)
         {
             Process.Start(@"https://github.com/AzureMediaServicesSamples");
 
-        }
-
-        private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
-        {
-            DoWatchFolder();
-        }
-
-        private void toolStripMenuItem16_Click_1(object sender, EventArgs e)
-        {
-            DoWatchFolder();
         }
     }
 }
