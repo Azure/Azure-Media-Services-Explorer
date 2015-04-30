@@ -375,7 +375,7 @@ namespace AMSExplorer
             switch (protocol)
             {
                 case StreamingProtocol.FragmentedMP4:
-                    name =  "Smooth Streaming";
+                    name = "Smooth Streaming";
                     break;
 
                 case StreamingProtocol.RTMP:
@@ -383,7 +383,7 @@ namespace AMSExplorer
                     break;
 
                 case StreamingProtocol.RTPMPEG2TS:
-                    name =  "RTP (MPEG-TS)";
+                    name = "RTP (MPEG-TS)";
                     break;
             }
             return name;
@@ -1069,7 +1069,7 @@ namespace AMSExplorer
 
         public static string RW(string path, IStreamingEndpoint se, bool https = false)
         {
-            return RW(new Uri(path), se, https).ToString();
+            return RW(new Uri(path), se, https).AbsoluteUri;
         }
 
 
@@ -1483,7 +1483,7 @@ namespace AMSExplorer
             {
                 sb.AppendLine("IsStreamable        : " + MyAsset.IsStreamable);
                 sb.AppendLine("SupportsDynEnc      : " + MyAsset.SupportsDynamicEncryption);
-                sb.AppendLine("Uri                 : " + MyAsset.Uri.ToString());
+                sb.AppendLine("Uri                 : " + MyAsset.Uri.AbsoluteUri);
                 sb.AppendLine("");
                 sb.AppendLine("Storage Name        : " + MyAsset.StorageAccountName);
                 sb.AppendLine("Storage Bytes used  : " + FormatByteSize(MyAsset.StorageAccount.BytesUsed));
@@ -1560,13 +1560,13 @@ namespace AMSExplorer
                 if (locator.Type == LocatorType.OnDemandOrigin)
                 {
                     sb.AppendLine(_prog_down_http_streaming + " : ");
-                    foreach (IAssetFile IAF in MyAsset.AssetFiles) sb.AppendLine(locator.Path + IAF.Name);
+                    foreach (IAssetFile IAF in MyAsset.AssetFiles) sb.AppendLine((new Uri(locator.Path + IAF.Name)).AbsoluteUri);
                     sb.AppendLine("");
 
                     if (MyAsset.AssetType == AssetType.MediaServicesHLS) // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                     {
                         sb.AppendLine(AssetInfo._hls + " : ");
-                        sb.AppendLine(locator.GetHlsUri().ToString());
+                        sb.AppendLine(locator.GetHlsUri().AbsoluteUri);
                         sb.AppendLine("");
                     }
                     else if (MyAsset.AssetType == AssetType.SmoothStreaming || MyAsset.AssetType == AssetType.MultiBitrateMP4 || MyAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
@@ -1578,13 +1578,13 @@ namespace AMSExplorer
                             foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE))
                             {
                                 sb.AppendLine(AssetInfo._smooth + " : ");
-                                sb.AppendLine(uri.ToString());
+                                sb.AppendLine(uri.AbsoluteUri);
                             }
 
                             foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE))
                             {
                                 sb.AppendLine(AssetInfo._smooth_legacy + " : ");
-                                sb.AppendLine(uri.ToString());
+                                sb.AppendLine(uri.AbsoluteUri);
                             }
                         }
 
@@ -1593,7 +1593,7 @@ namespace AMSExplorer
                             foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE))
                             {
                                 sb.AppendLine(AssetInfo._dash + " : ");
-                                sb.AppendLine(uri.ToString());
+                                sb.AppendLine(uri.AbsoluteUri);
                             }
                         }
 
@@ -1602,12 +1602,12 @@ namespace AMSExplorer
                             foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE))
                             {
                                 sb.AppendLine(AssetInfo._hls_v4 + " : ");
-                                sb.AppendLine(uri.ToString());
+                                sb.AppendLine(uri.AbsoluteUri);
                             }
                             foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE))
                             {
                                 sb.AppendLine(AssetInfo._hls_v3 + " : ");
-                                sb.AppendLine(uri.ToString());
+                                sb.AppendLine(uri.AbsoluteUri);
                             }
                             sb.AppendLine("");
                         }
@@ -1621,7 +1621,7 @@ namespace AMSExplorer
                     MyAssetFiles = MyAsset.AssetFiles.ToList();
                     // Generate the Progressive Download URLs for each file. 
                     ProgressiveDownloadUris = MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                    ProgressiveDownloadUris.ForEach(uri => sb.AppendLine(uri.ToString()));
+                    ProgressiveDownloadUris.ForEach(uri => sb.AppendLine(uri.AbsoluteUri));
                 }
                 sb.AppendLine("");
                 sb.AppendLine("==============================================================================");
@@ -1642,7 +1642,7 @@ namespace AMSExplorer
             {
 
                 IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
-                if (!DoNotRewriteURL) Urlstr = RW(Urlstr.ToString(), choosenSE);
+                if (!DoNotRewriteURL) Urlstr = RW(Urlstr, choosenSE);
 
                 DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 

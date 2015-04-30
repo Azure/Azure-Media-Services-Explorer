@@ -904,7 +904,7 @@ namespace AMSExplorer
                                     Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                     if (SmoothUri != null)
                                     {
-                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.ToString(), _context, oasset, launchbrowser: false);
+                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, oasset, launchbrowser: false);
                                         sb.AppendLine("Link to playback the asset:");
                                         sb.AppendLine(playbackurl);
                                         sb.AppendLine();
@@ -1509,7 +1509,7 @@ namespace AMSExplorer
                 // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                 {
                     sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.ToString()));
+                    sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.AbsoluteUri));
                 }
                 else // It's not Static HLS
                 {
@@ -1517,7 +1517,7 @@ namespace AMSExplorer
                     // it's smooth streaming with no dynamic packaging
                     {
                         sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                        sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
+                        sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
                     }
                     else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
                     // Smooth or multi MP4, SE RU so dynamic packaging is possible
@@ -1525,21 +1525,21 @@ namespace AMSExplorer
                         if (locator.GetSmoothStreamingUri() != null)
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.ToString()));
+                            sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.ToString())));
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
                         }
                         if (locator.GetMpegDashUri() != null)
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.ToString()));
+                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
                         }
                         if (locator.GetHlsUri() != null)
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.ToString()));
+                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
                             sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).ToString()));
+                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).AbsoluteUri));
                         }
                     }
                 }
@@ -1556,7 +1556,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("You can progressively download the following files :");
                 ProgressiveDownloadUris.ForEach(uri =>
                                 {
-                                    sbuilderThisAsset.AppendLine(AddBracket(uri.ToString()));
+                                    sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
 
                                 }
                                     );
@@ -2173,7 +2173,7 @@ namespace AMSExplorer
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Blob copy completed.");
-                        DoGridTransferDeclareCompleted(index, TargetContainer.Uri.ToString());
+                        DoGridTransferDeclareCompleted(index, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -2301,7 +2301,7 @@ namespace AMSExplorer
                     if (!Error)
                     {
                         TextBoxLogWriteLine("Blob copy completed.");
-                        DoGridTransferDeclareCompleted(index, TargetContainer.Uri.ToString());
+                        DoGridTransferDeclareCompleted(index, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
                 }
@@ -2541,7 +2541,7 @@ namespace AMSExplorer
                 if (DeleteSourceAssets) SourceAssets.ForEach(a => a.Delete());
                 TextBoxLogWriteLine("Asset copy completed. The new asset in '{0}' has the Id :", DestinationCredentialsEntry.AccountName);
                 TextBoxLogWriteLine(TargetAsset.Id);
-                DoGridTransferDeclareCompleted(index, DestinationCloudBlobContainer.Uri.ToString());
+                DoGridTransferDeclareCompleted(index, DestinationCloudBlobContainer.Uri.AbsoluteUri);
             }
             DoRefreshGridAssetV(false);
         }
@@ -4009,7 +4009,7 @@ typeof(FilterTime)
                 if (assetfile.Name.EndsWith(".ism") && assetfile.ContentFileSize == 0)
                 {
                     // live archive
-                    contextMenuExportFilesToStorage.Enabled=false;
+                    contextMenuExportFilesToStorage.Enabled = false;
                     contextMenuExportDownloadToLocal.Enabled = false;
                 }
             }
@@ -6781,7 +6781,7 @@ typeof(FilterTime)
                 {
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
-                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
+                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
                     }
                 }
             }
@@ -7757,7 +7757,7 @@ typeof(FilterTime)
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    System.Windows.Forms.Clipboard.SetText(ValidURIs.FirstOrDefault().ToString());
+                    System.Windows.Forms.Clipboard.SetText(ValidURIs.FirstOrDefault().AbsoluteUri);
                 }
             }
         }
@@ -8580,7 +8580,7 @@ typeof(FilterTime)
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(playertype, MyUri.ToString(), _context, myAsset);
+                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset);
                     }
                     else
                     {

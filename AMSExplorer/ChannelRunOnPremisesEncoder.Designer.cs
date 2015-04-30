@@ -269,8 +269,8 @@
             this.labelcdn.Name = "labelcdn";
             this.labelcdn.Size = new System.Drawing.Size(734, 19);
             this.labelcdn.TabIndex = 70;
-            this.labelcdn.Text = "Run an on-premises live encoder to push a live stream to a channel. Please instal" +
-    "l ffmpeg or VLC and define the installation path in Options.";
+            this.labelcdn.Text = "Run an on-premises live encoder to push a live stream to a channel. You can defin" +
+    "e the ffmpeg or VLC installation path in Options.";
             this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label1

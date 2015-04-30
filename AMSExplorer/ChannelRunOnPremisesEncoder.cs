@@ -43,7 +43,7 @@ namespace AMSExplorer
             // ffmpg list devices
             new LocalEncoder() {Name="ffmpeg - List devices", Protocol=null,  Folder=@"%ffmpegpath%\",InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, EnableSettings=false, Command= @"ffmpeg.exe -list_devices true -f dshow -i dummy", Comment=""}, 
             // ffmpeg RTMP
-            new LocalEncoder() {Name="ffmpeg (RTMP)", Protocol=StreamingProtocol.RTMP, Folder=@"%ffmpegpath%\", InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, EnableSettings=true, Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1", Comment=""}, 
+            new LocalEncoder() {Name="ffmpeg (RTMP)", Protocol=StreamingProtocol.RTMP, Folder=@"%ffmpegpath%\", InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, EnableSettings=true, Command= @"ffmpeg.exe -y -loglevel verbose -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -strict -2 -c:v libx264 -preset faster -g 60 -keyint_min 60 -vsync cfr -b:v %videobitrate%k -maxrate %videobitrate%k -minrate %videobitrate%k -c:v libx264 -c:a aac -b:a %audiobitrate%k -ar 44100 -f flv %output%/MyStream1", Comment=@"Follow the instructions on http://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/"}, 
             // ffmpeg RTP
             new LocalEncoder() {Name="ffmpeg (RTP MPEG-TS)", Protocol=StreamingProtocol.RTPMPEG2TS ,Folder=@"%ffmpegpath%\",InstallURL=new Uri("https://www.ffmpeg.org/download.html"), CanBeRunLocally=true, EnableSettings=true, Command= @"ffmpeg -y -f dshow -video_size 1280x720 -r 30 -i video=""%videodevicename%"":audio=""%audiodevicename%"" -c:v libx264 -preset ultrafast -bf 0 -g 60  -vsync cfr -b:v %videobitrate%k -minrate %videobitrate%k -maxrate %videobitrate%k -bufsize %videobitrate%k -strict -2 -c:a aac -ac 2 -ar 44100 -b:a %audiobitrate%k -f mpegts %output%", Comment=""}, 
             // VLC
@@ -54,7 +54,6 @@ namespace AMSExplorer
             new LocalEncoder() {Name="Telestream Wirecast (RTMP)", Protocol=StreamingProtocol.RTMP, Folder=@"%programfiles64%\Telestream\Wirecast\",InstallURL=new Uri("http://www.telestream.net/wirecast"), CanBeRunLocally=true, EnableSettings=false, Command= "wirecast.exe", Comment= @"Follow the instructions on http://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/"}, 
           // Adobe Media Encoder
             new LocalEncoder() {Name="Adobe Flash Media Live Encoder 3.2 (RTMP)", Protocol=StreamingProtocol.RTMP, Folder=@"%programfiles32%\Adobe\Flash Media Live Encoder 3.2\",InstallURL=new Uri("http://www.adobe.com/products/flash-media-encoder.html"), CanBeRunLocally=true, EnableSettings=false, Command= @"FlashMediaLiveEncoder.exe", Comment= @"Follow the instructions on http://azure.microsoft.com/blog/2014/09/18/azure-media-services-rtmp-support-and-live-encoders/"} 
-     
         };
 
 
@@ -113,7 +112,7 @@ namespace AMSExplorer
             if (SelectedEncoder != null)
             {
                 labelWarning.Text = (_channels.FirstOrDefault().State != ChannelState.Running) ? "Channel is not running. " : "";
-                if (SelectedEncoder.Protocol != null && ((StreamingProtocol) SelectedEncoder.Protocol!= _channels.FirstOrDefault().Input.StreamingProtocol))
+                if (SelectedEncoder.Protocol != null && ((StreamingProtocol)SelectedEncoder.Protocol != _channels.FirstOrDefault().Input.StreamingProtocol))
                 {
                     labelWarning.Text += "Input protocol is not matching.";
                 }

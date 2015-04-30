@@ -490,14 +490,14 @@ namespace AMSExplorer
 
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
                         foreach (IAssetFile IAF in myAsset.AssetFiles)
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(AssetInfo.RW(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
                         indexn++;
 
                         if (myAsset.AssetType == AssetType.MediaServicesHLS)
                         // It is a static HLS asset, so let's propose only the standard HLS V3 locator
                         {
                             TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls));
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(locator.GetHlsUri().ToString()));
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(locator.GetHlsUri().AbsoluteUri));
                             indexn++;
                         }
                         else if (myAsset.AssetType == AssetType.SmoothStreaming || myAsset.AssetType == AssetType.MultiBitrateMP4 || myAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
@@ -510,14 +510,14 @@ namespace AMSExplorer
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
                                 foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = ColorSmooth });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = ColorSmooth });
                                 }
                                 indexn++;
 
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 indexn++;
                             }
@@ -526,7 +526,7 @@ namespace AMSExplorer
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 indexn++;
                             }
@@ -535,12 +535,12 @@ namespace AMSExplorer
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
                                 foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, checkBoxHttps.Checked))
                                 {
-                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.ToString()) { ForeColor = colornodeRU });
+                                    TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 indexn = indexn + 2;
                             }
@@ -562,7 +562,7 @@ namespace AMSExplorer
                         // Generate the Progressive Download URLs for each file. 
                         ProgressiveDownloadUris =
                             MyAssetFiles.Select(af => af.GetSasUri(locator)).ToList();
-                        ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.ToString())));
+                        ProgressiveDownloadUris.ForEach(uri => TreeViewLocators.Nodes[indexloc].Nodes[1].Nodes.Add(new TreeNode(uri.AbsoluteUri)));
                     }
                 }
                 TreeViewLocators.EndUpdate();
