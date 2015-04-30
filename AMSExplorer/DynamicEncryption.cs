@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="DynamicEncryption.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -202,7 +202,7 @@ namespace AMSExplorer
 
 
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
 
@@ -234,7 +234,7 @@ namespace AMSExplorer
 
         }
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, Uri Audience, Uri Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
 
@@ -265,28 +265,14 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateSWTTokenRequirements(Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
+        static private string GenerateTokenRequirements(TokenType mytokentype, string _sampleAudience, string _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
         {
-            TokenRestrictionTemplate template = new TokenRestrictionTemplate(TokenType.SWT);
-            template.PrimaryVerificationKey = mytokenverificationkey;
-            template.AlternateVerificationKeys.Add(new SymmetricVerificationKey());
-            template.Audience = _sampleAudience;
-            template.Issuer = _sampleIssuer;
-            if (AddContentKeyIdentifierClaim) template.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
-            foreach (var t in tokenclaimslist)
+            TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype)
             {
-                template.RequiredClaims.Add(t);
-            }
-
-            return TokenRestrictionTemplateSerializer.Serialize(template);
-        }
-
-        static private string GenerateTokenRequirements(TokenType mytokentype, Uri _sampleAudience, Uri _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
-        {
-            TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype);
-            TokenrestrictionTemplate.PrimaryVerificationKey = mytokenverificationkey;
-            TokenrestrictionTemplate.Audience = _sampleAudience;
-            TokenrestrictionTemplate.Issuer = _sampleIssuer;
+                PrimaryVerificationKey = mytokenverificationkey,
+                Audience = _sampleAudience,
+                Issuer = _sampleIssuer
+            };
             if (AddContentKeyIdentifierClaim) TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
             foreach (var t in tokenclaimslist)
             {
@@ -348,12 +334,12 @@ namespace AMSExplorer
 
         public static bool IsAssetHasAuthorizationPolicyWithToken(IAsset MyAsset, CloudMediaContext _context)
         {
-             var query = from key in MyAsset.ContentKeys
+            var query = from key in MyAsset.ContentKeys
                         join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
-                         select new { aupolid = autpol.Id };
+                        select new { aupolid = autpol.Id };
 
 
-            
+
             foreach (var key in query)
             {
                 var queryoptions = _context.ContentKeyAuthorizationPolicies.Where(a => a.Id == key.aupolid).FirstOrDefault().Options;
@@ -479,7 +465,7 @@ namespace AMSExplorer
                                             if (cert != null) signingcredentials = new X509SigningCredentials(cert);
                                         }
                                     }
-                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer.AbsoluteUri, audience: tokenTemplate.Audience.AbsoluteUri, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
+                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer, audience: tokenTemplate.Audience, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
                                     JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
                                     MyResult.TokenString = handler.WriteToken(token);
                                 }
@@ -487,9 +473,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-
             }
-
             return MyResult;
         }
 

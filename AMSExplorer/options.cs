@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="options.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -64,6 +64,11 @@ namespace AMSExplorer
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
             Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
+
+            Properties.Settings.Default.ffmpegPath = textBoxffmpegPath.Text;
+            Properties.Settings.Default.VLCPath = textBoxVLCPath.Text;
+
+
             Program.SaveAndProtectUserConfig();
         }
 
@@ -97,6 +102,9 @@ namespace AMSExplorer
             numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
             numericUpDownLegacyEncodingPrice.Value = ((decimal)1.39);
             numericUpDownIndexingPrice.Value = ((decimal)10);
+
+            textBoxffmpegPath.Text = @"%programfiles32%\ffmpeg\bin";
+            textBoxVLCPath.Text = @"%programfiles32%\VideoLAN\VLC";
 
             Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
@@ -136,6 +144,9 @@ namespace AMSExplorer
             numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.AMEPremiumWorkflowPreviewPrice;
             numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
             numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPrice;
+
+            textBoxffmpegPath.Text = Properties.Settings.Default.ffmpegPath;
+            textBoxVLCPath.Text = Properties.Settings.Default.VLCPath;
 
             amspriceslink.Links.Add(new LinkLabel.Link(0, amspriceslink.Text.Length, "http://azure.microsoft.com/en-us/pricing/details/media-services/"));
 

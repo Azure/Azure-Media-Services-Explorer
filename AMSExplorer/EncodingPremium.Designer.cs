@@ -48,16 +48,11 @@
             this.label32 = new System.Windows.Forms.Label();
             this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
-            this.listViewWorkflows = new System.Windows.Forms.ListView();
-            this.columnHeaderFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderFileDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderFileSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderAssetName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderAssetId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
@@ -119,12 +114,12 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(707, 61);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(673, 58);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(51, 13);
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
             this.moreinfoprofilelink.TabIndex = 7;
             this.moreinfoprofilelink.TabStop = true;
-            this.moreinfoprofilelink.Text = "More info";
+            this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // label3
@@ -279,48 +274,6 @@
             this.label31.Text = "Media Encoder Premium Workflow";
             this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // listViewWorkflows
-            // 
-            this.listViewWorkflows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewWorkflows.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderFileName,
-            this.columnHeaderFileDate,
-            this.columnHeaderFileSize,
-            this.columnHeaderAssetName,
-            this.columnHeaderAssetId});
-            this.listViewWorkflows.FullRowSelect = true;
-            this.listViewWorkflows.HideSelection = false;
-            this.listViewWorkflows.Location = new System.Drawing.Point(32, 153);
-            this.listViewWorkflows.Name = "listViewWorkflows";
-            this.listViewWorkflows.Size = new System.Drawing.Size(726, 126);
-            this.listViewWorkflows.TabIndex = 61;
-            this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
-            this.listViewWorkflows.View = System.Windows.Forms.View.Details;
-            this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
-            // 
-            // columnHeaderFileName
-            // 
-            this.columnHeaderFileName.Text = "Workflow File Name";
-            // 
-            // columnHeaderFileDate
-            // 
-            this.columnHeaderFileDate.Text = "Last modified";
-            // 
-            // columnHeaderFileSize
-            // 
-            this.columnHeaderFileSize.Text = "Size";
-            // 
-            // columnHeaderAssetName
-            // 
-            this.columnHeaderAssetName.Text = "Asset Name";
-            this.columnHeaderAssetName.Width = 55;
-            // 
-            // columnHeaderAssetId
-            // 
-            this.columnHeaderAssetId.Text = "Asset Id";
-            // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -357,6 +310,22 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 66;
             // 
+            // listViewWorkflows
+            // 
+            this.listViewWorkflows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewWorkflows.FullRowSelect = true;
+            this.listViewWorkflows.HideSelection = false;
+            this.listViewWorkflows.Location = new System.Drawing.Point(32, 155);
+            this.listViewWorkflows.Name = "listViewWorkflows";
+            this.listViewWorkflows.Size = new System.Drawing.Size(726, 124);
+            this.listViewWorkflows.TabIndex = 61;
+            this.listViewWorkflows.Tag = -1;
+            this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
+            this.listViewWorkflows.View = System.Windows.Forms.View.Details;
+            this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listViewWorkflows_SelectedIndexChanged);
+            // 
             // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
@@ -365,10 +334,10 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.progressBarUpload);
             this.Controls.Add(this.buttonUpload);
-            this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.label33);
@@ -420,16 +389,11 @@
         public System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox comboBoxProcessor;
         public System.Windows.Forms.Label label31;
-        private System.Windows.Forms.ListView listViewWorkflows;
-        private System.Windows.Forms.ColumnHeader columnHeaderAssetName;
-        private System.Windows.Forms.ColumnHeader columnHeaderFileName;
-        private System.Windows.Forms.ColumnHeader columnHeaderFileDate;
-        private System.Windows.Forms.ColumnHeader columnHeaderFileSize;
-        private System.Windows.Forms.ColumnHeader columnHeaderAssetId;
         private System.Windows.Forms.ProgressBar progressBarUpload;
         private System.Windows.Forms.Button buttonUpload;
         private System.Windows.Forms.OpenFileDialog openFileDialogWorkflow;
         private System.Windows.Forms.Panel panel1;
+        private ListViewWorkflows listViewWorkflows;
 
     }
 }

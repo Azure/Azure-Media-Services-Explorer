@@ -353,9 +353,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(18, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.Size = new System.Drawing.Size(102, 13);
             this.label3.TabIndex = 59;
-            this.label3.Text = "Audience or scope URL :";
+            this.label3.Text = "Audience or scope :";
             // 
             // textBoxAudience
             // 
@@ -372,9 +372,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(18, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(41, 13);
             this.label2.TabIndex = 58;
-            this.label2.Text = "Issuer URL :";
+            this.label2.Text = "Issuer :";
             // 
             // panel1
             // 

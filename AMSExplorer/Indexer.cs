@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="Indexer.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -33,7 +33,17 @@ namespace AMSExplorer
     public partial class Indexer : Form
     {
         private CloudMediaContext _context;
+        private IndexerOptions formOptions = new IndexerOptions();
+        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
 
+        public IndexerOptionsVar IndexerGenerationOptions
+        {
+            get
+            {
+                return optionsVar;
+            }
+
+        }
         public string IndexerInputAssetName
         {
             get
@@ -55,6 +65,15 @@ namespace AMSExplorer
             {
                 textboxoutputassetname.Text = value;
             }
+        }
+
+        public string IndexerLanguage
+        {
+            get
+            {
+                return comboBoxLanguage.Text;
+            }
+
         }
 
         public string StorageSelected
@@ -140,6 +159,16 @@ namespace AMSExplorer
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
+            comboBoxLanguage.SelectedIndex = 0;
+        }
+
+        private void buttonGenOptions_Click(object sender, EventArgs e)
+        {
+            formOptions.IndexerGenerationOptions = optionsVar;
+            if (formOptions.ShowDialog() == DialogResult.OK)
+            {
+                optionsVar = formOptions.IndexerGenerationOptions;
             }
         }
     }

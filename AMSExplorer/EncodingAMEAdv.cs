@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="EncodingAMEAdv.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -28,6 +28,8 @@ using System.Xml;
 using System.Xml.Linq;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Diagnostics;
+
 
 namespace AMSExplorer
 {
@@ -704,6 +706,8 @@ namespace AMSExplorer
 
         private void EncodingCustom_Load(object sender, EventArgs e)
         {
+            moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreAMEAdvanced));
+        
             foreach (var storage in _context.StorageAccounts)
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
@@ -966,6 +970,12 @@ namespace AMSExplorer
 
         private void label34_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
 
         }
     }

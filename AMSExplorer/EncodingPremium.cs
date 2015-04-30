@@ -1,7 +1,7 @@
 ﻿//----------------------------------------------------------------------- 
 // <copyright file="EncodingPremium.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
-// Azure Media Services Explorer Ver. 3.1
+// Azure Media Services Explorer Ver. 3.2
 // Licensed under the Apache License, Version 2.0 (the "License"); 
 // you may not use this file except in compliance with the License. 
 // You may obtain a copy of the License at 
@@ -35,14 +35,9 @@ namespace AMSExplorer
     {
         private int numberofinputassets;
         private List<IMediaProcessor> Procs;
-
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
-
-        //private List<IAsset> listblueprints = new List<IAsset>();
         private CloudMediaContext _context;
-
-        private int sortColumn = -1;
         public string EncodingPremiumWorkflowPresetXMLFiles;
 
         public List<IMediaProcessor> EncodingProcessorsList
@@ -77,18 +72,7 @@ namespace AMSExplorer
         {
             get
             {
-                List<IAsset> SelecBP = new List<IAsset>();
-                if (listViewWorkflows.SelectedItems.Count > 0)
-                {
-                    int indexid = columnHeaderAssetId.Index;
-
-                    foreach (ListViewItem itemw in listViewWorkflows.SelectedItems)
-                    {
-                        string sid = itemw.SubItems[indexid].Text;
-                        SelecBP.Add(AssetInfo.GetAsset(itemw.SubItems[indexid].Text, _context));
-                    }
-                }
-                return SelecBP;
+                return listViewWorkflows.GetSelectedWorkflow;
             }
         }
 
@@ -212,47 +196,15 @@ namespace AMSExplorer
 
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, "http://aka.ms/amspremium"));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
 
             foreach (var storage in _context.StorageAccounts)
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-            LoadWorkflows();
+            listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
-            listViewWorkflows.Tag = -1;
-            listViewWorkflows.ColumnClick += ListViewItemComparer.ListView_ColumnClick;
-
-        }
-
-        private void LoadWorkflows()
-        {
-            var query = _context.Files.ToList().Where(f => (
-                  f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-                  || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-                  )).ToArray();
-
-            listViewWorkflows.BeginUpdate();
-            listViewWorkflows.Items.Clear();
-            foreach (IAssetFile file in query)
-            {
-                if (file.Asset.AssetFiles.Count() == 1)
-                {
-                    ListViewItem item = new ListViewItem(file.Name, 0);
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
-                    item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
-                    item.SubItems.Add(file.Asset.Name);
-                    item.SubItems.Add(file.Asset.Id);
-                    listViewWorkflows.Items.Add(item);
-                }
-            }
-            listViewWorkflows.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            listViewWorkflows.EndUpdate();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -291,28 +243,26 @@ namespace AMSExplorer
                 buttonUpload.Enabled = false;
                 foreach (string file in openFileDialogWorkflow.FileNames)
                 {
-                    await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                    await Task.Factory.StartNew(() => ProcessUploadFile(file));
                 }
                 progressBarUpload.Visible = false;
                 buttonCancel.Enabled = true;
                 buttonUpload.Enabled = true;
-                LoadWorkflows();
+                listViewWorkflows.LoadWorkflows(_context);
             }
         }
 
 
-        private void ProcessUploadFile(string SafeFileName, string FileName, string storageaccount = null)
+        private void ProcessUploadFile(string fileName, string storageaccount = null)
         {
-
+            string safeFileName = Path.GetFileName(fileName);
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-
-
             bool Error = false;
             IAsset asset = null;
             try
             {
                 asset = _context.Assets.CreateFromFile(
-                                                      FileName as string,
+                                                      fileName as string,
                                                       storageaccount,
                                                       Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                       (af, p) =>
@@ -320,21 +270,17 @@ namespace AMSExplorer
                                                           progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)p.Progress), null);
                                                       }
                                                       );
+                AssetInfo.SetFileAsPrimary(asset, safeFileName);
             }
             catch (Exception e)
             {
                 Error = true;
-
             }
-            if (!Error)
-            {
-
-            }
-
         }
 
-
+        private void listViewWorkflows_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
+        }
     }
-
-
 }

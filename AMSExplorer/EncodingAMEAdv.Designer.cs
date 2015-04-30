@@ -83,6 +83,7 @@
             this.numericUpDownAOverlayGain = new System.Windows.Forms.NumericUpDown();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.checkBoxAddThumbnails = new System.Windows.Forms.CheckBox();
             this.checkBoxVSS = new System.Windows.Forms.CheckBox();
             this.checkBoxNamingConvention = new System.Windows.Forms.CheckBox();
             this.textBoxNamingConvention = new System.Windows.Forms.TextBox();
@@ -101,7 +102,7 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxAddThumbnails = new System.Windows.Forms.CheckBox();
+            this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -784,6 +785,16 @@
             this.tabPage3.Text = "Other settings";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // checkBoxAddThumbnails
+            // 
+            this.checkBoxAddThumbnails.AutoSize = true;
+            this.checkBoxAddThumbnails.Location = new System.Drawing.Point(19, 117);
+            this.checkBoxAddThumbnails.Name = "checkBoxAddThumbnails";
+            this.checkBoxAddThumbnails.Size = new System.Drawing.Size(260, 17);
+            this.checkBoxAddThumbnails.TabIndex = 65;
+            this.checkBoxAddThumbnails.Text = "add a Thumbnails generation task in the same job";
+            this.checkBoxAddThumbnails.UseVisualStyleBackColor = true;
+            // 
             // checkBoxVSS
             // 
             this.checkBoxVSS.AutoSize = true;
@@ -955,7 +966,7 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(558, 9);
+            this.label34.Location = new System.Drawing.Point(544, 9);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(214, 24);
             this.label34.TabIndex = 61;
@@ -975,15 +986,17 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 64;
             // 
-            // checkBoxAddThumbnails
+            // moreinfoame
             // 
-            this.checkBoxAddThumbnails.AutoSize = true;
-            this.checkBoxAddThumbnails.Location = new System.Drawing.Point(19, 117);
-            this.checkBoxAddThumbnails.Name = "checkBoxAddThumbnails";
-            this.checkBoxAddThumbnails.Size = new System.Drawing.Size(260, 17);
-            this.checkBoxAddThumbnails.TabIndex = 65;
-            this.checkBoxAddThumbnails.Text = "add a Thumbnails generation task in the same job";
-            this.checkBoxAddThumbnails.UseVisualStyleBackColor = true;
+            this.moreinfoame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoame.AutoSize = true;
+            this.moreinfoame.Location = new System.Drawing.Point(560, 42);
+            this.moreinfoame.Name = "moreinfoame";
+            this.moreinfoame.Size = new System.Drawing.Size(198, 13);
+            this.moreinfoame.TabIndex = 67;
+            this.moreinfoame.TabStop = true;
+            this.moreinfoame.Text = "More information on advanced encoding";
+            this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
             // EncodingAMEAdv
             // 
@@ -991,6 +1004,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
@@ -1108,5 +1122,6 @@
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxAddThumbnails;
+        private System.Windows.Forms.LinkLabel moreinfoame;
     }
 }

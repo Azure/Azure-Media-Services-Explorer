@@ -43,6 +43,7 @@
             this.buttonDelAkamai = new System.Windows.Forms.Button();
             this.checkBoxAkamai = new System.Windows.Forms.CheckBox();
             this.panelStreamingAllowedIP = new System.Windows.Forms.Panel();
+            this.buttonAllowAllStreamingIP = new System.Windows.Forms.Button();
             this.dataGridViewIP = new System.Windows.Forms.DataGridView();
             this.buttonAddIP = new System.Windows.Forms.Button();
             this.buttonDelIP = new System.Windows.Forms.Button();
@@ -70,7 +71,6 @@
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAllowAllStreamingIP = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -257,6 +257,16 @@
             this.panelStreamingAllowedIP.Name = "panelStreamingAllowedIP";
             this.panelStreamingAllowedIP.Size = new System.Drawing.Size(362, 173);
             this.panelStreamingAllowedIP.TabIndex = 64;
+            // 
+            // buttonAllowAllStreamingIP
+            // 
+            this.buttonAllowAllStreamingIP.Location = new System.Drawing.Point(213, 147);
+            this.buttonAllowAllStreamingIP.Name = "buttonAllowAllStreamingIP";
+            this.buttonAllowAllStreamingIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllStreamingIP.TabIndex = 70;
+            this.buttonAllowAllStreamingIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllStreamingIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllStreamingIP.Click += new System.EventHandler(this.buttonAllowAllStreamingIP_Click);
             // 
             // dataGridViewIP
             // 
@@ -545,16 +555,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 64;
-            // 
-            // buttonAllowAllStreamingIP
-            // 
-            this.buttonAllowAllStreamingIP.Location = new System.Drawing.Point(213, 147);
-            this.buttonAllowAllStreamingIP.Name = "buttonAllowAllStreamingIP";
-            this.buttonAllowAllStreamingIP.Size = new System.Drawing.Size(132, 23);
-            this.buttonAllowAllStreamingIP.TabIndex = 70;
-            this.buttonAllowAllStreamingIP.Text = "Allow all IP addresses";
-            this.buttonAllowAllStreamingIP.UseVisualStyleBackColor = true;
-            this.buttonAllowAllStreamingIP.Click += new System.EventHandler(this.buttonAllowAllStreamingIP_Click);
             // 
             // StreamingEndpointInformation
             // 

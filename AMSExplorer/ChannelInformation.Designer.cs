@@ -34,8 +34,10 @@
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPageChannelInfo = new System.Windows.Forms.TabPage();
+            this.tabPageSettings = new System.Windows.Forms.TabPage();
+            this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
+            this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
             this.numericUpDownHLSFragPerSeg = new System.Windows.Forms.NumericUpDown();
             this.checkBoxHLSFragPerSeg = new System.Windows.Forms.CheckBox();
             this.checkBoxKeyFrameIntDefined = new System.Windows.Forms.CheckBox();
@@ -50,26 +52,28 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonAddInputIP = new System.Windows.Forms.Button();
             this.textboxchannedesc = new System.Windows.Forms.TextBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tabPagePolicies = new System.Windows.Forms.TabPage();
             this.checkBoxcrossdomains = new System.Windows.Forms.CheckBox();
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
+            this.tabPagePreview = new System.Windows.Forms.TabPage();
+            this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.labelChannelName = new System.Windows.Forms.Label();
             this.buttonDisregard = new System.Windows.Forms.Button();
             this.buttonApplyClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonAllowAllInputIP = new System.Windows.Forms.Button();
-            this.buttonAllowAllPreviewIP = new System.Windows.Forms.Button();
+            this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
+            this.tabPageChannelInfo.SuspendLayout();
+            this.tabPageSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).BeginInit();
-            this.tabPage3.SuspendLayout();
+            this.tabPagePolicies.SuspendLayout();
+            this.tabPagePreview.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -114,51 +118,72 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPageChannelInfo);
+            this.tabControl1.Controls.Add(this.tabPageSettings);
+            this.tabControl1.Controls.Add(this.tabPagePolicies);
+            this.tabControl1.Controls.Add(this.tabPagePreview);
             this.tabControl1.Location = new System.Drawing.Point(12, 43);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(760, 467);
             this.tabControl1.TabIndex = 34;
             // 
-            // tabPage1
+            // tabPageChannelInfo
             // 
-            this.tabPage1.Controls.Add(this.DGChannel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 441);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Channel information";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageChannelInfo.Controls.Add(this.DGChannel);
+            this.tabPageChannelInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabPageChannelInfo.Name = "tabPageChannelInfo";
+            this.tabPageChannelInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageChannelInfo.Size = new System.Drawing.Size(752, 441);
+            this.tabPageChannelInfo.TabIndex = 0;
+            this.tabPageChannelInfo.Text = "Channel information";
+            this.tabPageChannelInfo.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tabPageSettings
             // 
-            this.tabPage2.Controls.Add(this.buttonAllowAllPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonAllowAllInputIP);
-            this.tabPage2.Controls.Add(this.numericUpDownHLSFragPerSeg);
-            this.tabPage2.Controls.Add(this.checkBoxHLSFragPerSeg);
-            this.tabPage2.Controls.Add(this.checkBoxKeyFrameIntDefined);
-            this.tabPage2.Controls.Add(this.textBoxKeyFrame);
-            this.tabPage2.Controls.Add(this.checkBoxInputSet);
-            this.tabPage2.Controls.Add(this.checkBoxPreviewSet);
-            this.tabPage2.Controls.Add(this.dataGridViewInputIP);
-            this.tabPage2.Controls.Add(this.dataGridViewPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonDelPreviewIP);
-            this.tabPage2.Controls.Add(this.buttonDelInputIP);
-            this.tabPage2.Controls.Add(this.buttonAddPreviewIP);
-            this.tabPage2.Controls.Add(this.label2);
-            this.tabPage2.Controls.Add(this.buttonAddInputIP);
-            this.tabPage2.Controls.Add(this.textboxchannedesc);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 441);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Settings";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabPageSettings.Controls.Add(this.buttonAllowAllPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonAllowAllInputIP);
+            this.tabPageSettings.Controls.Add(this.numericUpDownHLSFragPerSeg);
+            this.tabPageSettings.Controls.Add(this.checkBoxHLSFragPerSeg);
+            this.tabPageSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
+            this.tabPageSettings.Controls.Add(this.textBoxKeyFrame);
+            this.tabPageSettings.Controls.Add(this.checkBoxInputSet);
+            this.tabPageSettings.Controls.Add(this.checkBoxPreviewSet);
+            this.tabPageSettings.Controls.Add(this.dataGridViewInputIP);
+            this.tabPageSettings.Controls.Add(this.dataGridViewPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonDelPreviewIP);
+            this.tabPageSettings.Controls.Add(this.buttonDelInputIP);
+            this.tabPageSettings.Controls.Add(this.buttonAddPreviewIP);
+            this.tabPageSettings.Controls.Add(this.label2);
+            this.tabPageSettings.Controls.Add(this.buttonAddInputIP);
+            this.tabPageSettings.Controls.Add(this.textboxchannedesc);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettings.Name = "tabPageSettings";
+            this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSettings.Size = new System.Drawing.Size(752, 441);
+            this.tabPageSettings.TabIndex = 1;
+            this.tabPageSettings.Text = "Settings";
+            this.tabPageSettings.UseVisualStyleBackColor = true;
+            // 
+            // buttonAllowAllPreviewIP
+            // 
+            this.buttonAllowAllPreviewIP.Location = new System.Drawing.Point(580, 226);
+            this.buttonAllowAllPreviewIP.Name = "buttonAllowAllPreviewIP";
+            this.buttonAllowAllPreviewIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllPreviewIP.TabIndex = 57;
+            this.buttonAllowAllPreviewIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllPreviewIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllPreviewIP.Click += new System.EventHandler(this.buttonAllowAllPreviewIP_Click);
+            // 
+            // buttonAllowAllInputIP
+            // 
+            this.buttonAllowAllInputIP.Location = new System.Drawing.Point(223, 226);
+            this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
+            this.buttonAllowAllInputIP.Size = new System.Drawing.Size(132, 23);
+            this.buttonAllowAllInputIP.TabIndex = 56;
+            this.buttonAllowAllInputIP.Text = "Allow all IP addresses";
+            this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
+            this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
             // 
             // numericUpDownHLSFragPerSeg
             // 
@@ -312,19 +337,19 @@
             this.textboxchannedesc.Size = new System.Drawing.Size(693, 20);
             this.textboxchannedesc.TabIndex = 46;
             // 
-            // tabPage3
+            // tabPagePolicies
             // 
-            this.tabPage3.Controls.Add(this.checkBoxcrossdomains);
-            this.tabPage3.Controls.Add(this.textBoxCrossDomPolicy);
-            this.tabPage3.Controls.Add(this.checkBoxclientpolicy);
-            this.tabPage3.Controls.Add(this.textBoxClientPolicy);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(752, 441);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Policies";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPagePolicies.Controls.Add(this.checkBoxcrossdomains);
+            this.tabPagePolicies.Controls.Add(this.textBoxCrossDomPolicy);
+            this.tabPagePolicies.Controls.Add(this.checkBoxclientpolicy);
+            this.tabPagePolicies.Controls.Add(this.textBoxClientPolicy);
+            this.tabPagePolicies.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePolicies.Name = "tabPagePolicies";
+            this.tabPagePolicies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPagePolicies.Size = new System.Drawing.Size(752, 441);
+            this.tabPagePolicies.TabIndex = 2;
+            this.tabPagePolicies.Text = "Policies";
+            this.tabPagePolicies.UseVisualStyleBackColor = true;
             // 
             // checkBoxcrossdomains
             // 
@@ -373,6 +398,27 @@
             this.textBoxClientPolicy.Size = new System.Drawing.Size(743, 189);
             this.textBoxClientPolicy.TabIndex = 63;
             // 
+            // tabPagePreview
+            // 
+            this.tabPagePreview.Controls.Add(this.webBrowserPreview);
+            this.tabPagePreview.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePreview.Name = "tabPagePreview";
+            this.tabPagePreview.Size = new System.Drawing.Size(752, 441);
+            this.tabPagePreview.TabIndex = 3;
+            this.tabPagePreview.Text = "Preview";
+            this.tabPagePreview.UseVisualStyleBackColor = true;
+            this.tabPagePreview.Enter += new System.EventHandler(this.tabPage4_Enter);
+            this.tabPagePreview.Leave += new System.EventHandler(this.tabPage4_Leave);
+            // 
+            // webBrowserPreview
+            // 
+            this.webBrowserPreview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowserPreview.Location = new System.Drawing.Point(0, 0);
+            this.webBrowserPreview.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview.Name = "webBrowserPreview";
+            this.webBrowserPreview.Size = new System.Drawing.Size(752, 441);
+            this.webBrowserPreview.TabIndex = 0;
+            // 
             // labelChannelName
             // 
             this.labelChannelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -418,25 +464,9 @@
             this.panel1.Size = new System.Drawing.Size(790, 48);
             this.panel1.TabIndex = 58;
             // 
-            // buttonAllowAllInputIP
+            // openFileDialogSlate
             // 
-            this.buttonAllowAllInputIP.Location = new System.Drawing.Point(223, 226);
-            this.buttonAllowAllInputIP.Name = "buttonAllowAllInputIP";
-            this.buttonAllowAllInputIP.Size = new System.Drawing.Size(132, 23);
-            this.buttonAllowAllInputIP.TabIndex = 56;
-            this.buttonAllowAllInputIP.Text = "Allow all IP addresses";
-            this.buttonAllowAllInputIP.UseVisualStyleBackColor = true;
-            this.buttonAllowAllInputIP.Click += new System.EventHandler(this.buttonAllowAllInputIP_Click);
-            // 
-            // buttonAllowAllPreviewIP
-            // 
-            this.buttonAllowAllPreviewIP.Location = new System.Drawing.Point(580, 226);
-            this.buttonAllowAllPreviewIP.Name = "buttonAllowAllPreviewIP";
-            this.buttonAllowAllPreviewIP.Size = new System.Drawing.Size(132, 23);
-            this.buttonAllowAllPreviewIP.TabIndex = 57;
-            this.buttonAllowAllPreviewIP.Text = "Allow all IP addresses";
-            this.buttonAllowAllPreviewIP.UseVisualStyleBackColor = true;
-            this.buttonAllowAllPreviewIP.Click += new System.EventHandler(this.buttonAllowAllPreviewIP_Click);
+            this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
             // ChannelInformation
             // 
@@ -455,14 +485,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).EndInit();
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
+            this.tabPageChannelInfo.ResumeLayout(false);
+            this.tabPageSettings.ResumeLayout(false);
+            this.tabPageSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewInputIP)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPreviewIP)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            this.tabPagePolicies.ResumeLayout(false);
+            this.tabPagePolicies.PerformLayout();
+            this.tabPagePreview.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -475,9 +506,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPageChannelInfo;
         private System.Windows.Forms.Label labelChannelName;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPageSettings;
         private System.Windows.Forms.DataGridView dataGridViewPreviewIP;
         private System.Windows.Forms.Button buttonDelPreviewIP;
         private System.Windows.Forms.Button buttonAddPreviewIP;
@@ -489,7 +520,7 @@
         private System.Windows.Forms.CheckBox checkBoxPreviewSet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textboxchannedesc;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPagePolicies;
         private System.Windows.Forms.CheckBox checkBoxcrossdomains;
         private System.Windows.Forms.TextBox textBoxCrossDomPolicy;
         private System.Windows.Forms.CheckBox checkBoxclientpolicy;
@@ -502,5 +533,8 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHLSFragPerSeg;
         private System.Windows.Forms.Button buttonAllowAllInputIP;
         private System.Windows.Forms.Button buttonAllowAllPreviewIP;
+        private System.Windows.Forms.TabPage tabPagePreview;
+        private System.Windows.Forms.WebBrowser webBrowserPreview;
+        private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
     }
 }

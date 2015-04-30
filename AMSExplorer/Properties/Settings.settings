@@ -86,5 +86,17 @@
     <Setting Name="AMEPremiumWorkflowPreviewPrice" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">1.99</Value>
     </Setting>
+    <Setting Name="ffmpegPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
+    </Setting>
+    <Setting Name="VLCPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">%programfiles32%\VideoLAN\VLC</Value>
+    </Setting>
+    <Setting Name="DirectShowAudioDevice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Microphone (High Definition Audio Device)</Value>
+    </Setting>
+    <Setting Name="DirectShowVideoDevice" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Webcam (High Definition Audio Device)</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

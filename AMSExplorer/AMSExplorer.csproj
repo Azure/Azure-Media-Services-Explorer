@@ -88,13 +88,19 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.WindowsAzure.ConfigurationManager.2.0.3\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.1.0.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client, Version=3.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\windowsazure.mediaservices.3.1.0.2\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
+      <HintPath>..\packages\windowsazure.mediaservices.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer">
+      <HintPath>..\packages\windowsazure.mediaservices.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.BlobTransfer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption">
+      <HintPath>..\packages\windowsazure.mediaservices.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Common.FileEncryption.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.MediaServices.Client.Extensions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.1.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
+      <HintPath>..\packages\windowsazure.mediaservices.extensions.3.2.0.0\lib\net45\Microsoft.WindowsAzure.MediaServices.Client.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Storage, Version=4.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +152,18 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChannelRunOnPremisesEncoder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChannelRunOnPremisesEncoder.Designer.cs">
+      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChannelAdSlateControl.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChannelAdSlateControl.Designer.cs">
+      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CopyAsset.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +178,12 @@
     </Compile>
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexerOptions.Designer.cs">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </Compile>
     <Compile Include="Splash.cs">
       <SubType>Form</SubType>
@@ -327,11 +351,11 @@
     <Compile Include="CreateLocator.Designer.cs">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </Compile>
-    <Compile Include="GenericProcessor.cs">
+    <Compile Include="MultipleProcessor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenericProcessor.Designer.cs">
-      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    <Compile Include="MultipleProcessor.Designer.cs">
+      <DependentUpon>MultipleProcessor.cs</DependentUpon>
     </Compile>
     <Compile Include="EncodingAMEAdv.cs">
       <SubType>Form</SubType>
@@ -401,11 +425,20 @@
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
+      <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChannelAdSlateControl.resx">
+      <DependentUpon>ChannelAdSlateControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexerOptions.resx">
+      <DependentUpon>IndexerOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Splash.resx">
       <DependentUpon>Splash.cs</DependentUpon>
@@ -489,8 +522,8 @@
     <EmbeddedResource Include="CreateLocator.resx">
       <DependentUpon>CreateLocator.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenericProcessor.resx">
-      <DependentUpon>GenericProcessor.cs</DependentUpon>
+    <EmbeddedResource Include="MultipleProcessor.resx">
+      <DependentUpon>MultipleProcessor.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EncodingAMEAdv.resx">
@@ -533,9 +566,6 @@
     <Content Include="BitmapsPNG\modetaskjob1.png" />
     <Content Include="BitmapsPNG\modetaskjob2.png" />
     <Content Include="BitmapsPNG\modetaskjob3.png" />
-    <Content Include="Configurations\PlayReadyCustomAttributes.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\CrossDomainPolicy.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -544,6 +574,7 @@
     </Content>
     <Content Include="Configurations\MediaIndexer.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\Thumbnails.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
