@@ -46,12 +46,11 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCueId = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
-            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.buttonHideSlate = new System.Windows.Forms.Button();
             this.buttonShowSLate = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -61,6 +60,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.label15 = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -277,18 +277,6 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
             // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(211, 230);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(249, 13);
-            this.label15.TabIndex = 84;
-            this.label15.Text = "Image should be a JPG 1920x1080";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -444,6 +432,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Location = new System.Drawing.Point(13, 230);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(447, 13);
+            this.label15.TabIndex = 84;
+            this.label15.Text = "Image requirements: JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // ChannelAdSlateControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,10 +498,9 @@
         private System.Windows.Forms.Button buttonHideSlate;
         private System.Windows.Forms.Button buttonShowSLate;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
-        private ListViewJPG listViewJPG1;
+        private ListViewSlateJPG listViewJPG1;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxJPGSearch;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
         private System.Windows.Forms.WebBrowser webBrowserPreview2;
@@ -509,5 +508,6 @@
         private System.Windows.Forms.PictureBox pictureBoxPreviewSlate;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label15;
     }
 }

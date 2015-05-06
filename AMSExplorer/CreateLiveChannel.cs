@@ -353,17 +353,25 @@ namespace AMSExplorer
         {
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
-                IAsset asset;
-                progressBarUpload.Value = 0;
-                progressBarUpload.Visible = true;
-                buttonCancel.Enabled = false;
-                buttonUploadSlate.Enabled = false;
                 string file = openFileDialogSlate.FileName;
-                asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
-                progressBarUpload.Visible = false;
-                buttonCancel.Enabled = true;
-                buttonUploadSlate.Enabled = true;
-                listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
+                string errorString = listViewJPG1.CheckSlateFile(file);
+                if (!string.IsNullOrEmpty(errorString))
+                {
+                    MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else // file has been validated
+                {
+                    IAsset asset;
+                    progressBarUpload.Value = 0;
+                    progressBarUpload.Visible = true;
+                    buttonCancel.Enabled = false;
+                    buttonUploadSlate.Enabled = false;
+                    asset = await Task.Factory.StartNew(() => ProcessUploadFile(Path.GetFileName(file), file));
+                    progressBarUpload.Visible = false;
+                    buttonCancel.Enabled = true;
+                    buttonUploadSlate.Enabled = true;
+                    listViewJPG1.LoadJPGs(textBoxJPGSearch.Text);
+                }
             }
         }
 

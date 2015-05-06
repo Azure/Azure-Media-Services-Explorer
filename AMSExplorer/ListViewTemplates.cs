@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Drawing;
+using System.IO;
 
 
 namespace AMSExplorer
@@ -244,7 +245,7 @@ namespace AMSExplorer
 
 
 
-    class ListViewJPG : ListView
+    class ListViewSlateJPG : ListView
     {
         private CloudMediaContext _context;
         private IAsset _selectedJPGAsset;
@@ -274,7 +275,7 @@ namespace AMSExplorer
             }
         }
 
-        public ListViewJPG()
+        public ListViewSlateJPG()
         {
             this.columnHeaderJPGFileName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderLastModified = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -337,7 +338,9 @@ namespace AMSExplorer
             string searchlower = searchstring.ToLower();
             bool bsearchempty = string.IsNullOrEmpty(searchstring);
             var query = _context.Files.ToList().Where(f =>
-                ((f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase)) && f.IsPrimary)
+                (f.Name.EndsWith(Constants.SlateJPGExtension, StringComparison.OrdinalIgnoreCase) && f.IsPrimary)
+                &&
+                (f.ContentFileSize <= Constants.maxSlateJPGFileSize)
                 &&
                 (
                 bsearchempty
@@ -347,7 +350,7 @@ namespace AMSExplorer
                 .ToArray();
 
             string defaultslateassetid = null;
-            if (_channelslate != null && _channelslate.DefaultSlateAssetId!=null)
+            if (_channelslate != null && _channelslate.DefaultSlateAssetId != null)
             {
                 defaultslateassetid = _channelslate.DefaultSlateAssetId;
             }
@@ -371,6 +374,64 @@ namespace AMSExplorer
             }
             this.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             this.EndUpdate();
+        }
+
+        private static bool AreClose(double value1, double value2)
+        {
+            const double DBL_EPSILON = 1e-6;
+            //in case they are Infinities (then epsilon check does not work)
+            if (value1 == value2) return true;
+            // This computes (|value1-value2| / (|value1| + |value2| + 10.0)) < DBL_EPSILON
+            double eps = (Math.Abs(value1) + Math.Abs(value2) + 10.0) * DBL_EPSILON;
+            double delta = value1 - value2;
+            return (-eps < delta) && (eps > delta);
+        }
+
+        public string CheckSlateFile(string file) // return null if ok. Otherwise, error is the string.
+        {
+            string returnString = null;
+
+            bool Error = false;
+            FileInfo fileInfo = null;
+            Image fileImage = null;
+            double aspectRatioImage = 0d;
+
+            try
+            {
+                fileInfo = new FileInfo(file);
+                fileImage = Image.FromFile(file);
+                aspectRatioImage = (double)fileImage.Size.Width / (double)fileImage.Size.Height;
+            }
+            catch
+            {
+                Error = true;
+                returnString = string.Format("Error when accessing file '{0}'.", file);
+            }
+            if (!Error)
+            {
+                if (fileInfo.Extension.ToLower() != Constants.SlateJPGExtension)  // file has not an .jpg extension
+                {
+                    returnString = string.Format("File '{0}' has not a {1} extension", file, Constants.SlateJPGExtension);
+                }
+                else if (!fileImage.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))  // file is not a JPEG
+                {
+                    returnString = string.Format("File '{0}' is not a JPEG file", file);
+                }
+                else if (fileInfo.Length > Constants.maxSlateJPGFileSize)  // file size > 3 MB, not ok
+                {
+                    returnString = string.Format("File '{0}' has a size of {1} which is larger than {2}", file, AssetInfo.FormatByteSize(fileInfo.Length), AssetInfo.FormatByteSize(Constants.maxSlateJPGFileSize));
+                }
+                else if (fileImage.Size.Width > Constants.maxSlateJPGHorizontalResolution || fileImage.Size.Height > Constants.maxSlateJPGVerticalResolution)
+                {
+                    returnString = string.Format("File '{0}' has a resolution  of {1}x{2} which is larger than {3}x{4}", file, fileImage.Size.Width, fileImage.Size.Height, Constants.maxSlateJPGHorizontalResolution, Constants.maxSlateJPGVerticalResolution);
+                }
+                else if (!AreClose(aspectRatioImage, Constants.SlateJPGAspectRatio))
+                {
+                    returnString = string.Format("File '{0}' has an aspect ratio of {1} which is different from {2} (16:9)", file, aspectRatioImage, Constants.SlateJPGAspectRatio);
+                }
+                
+            }
+            return returnString;
         }
     }
 

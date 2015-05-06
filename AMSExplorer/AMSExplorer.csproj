@@ -419,6 +419,9 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="AddDynamicEncryptionFrame3.resx">
       <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
     </EmbeddedResource>

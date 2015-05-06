@@ -457,6 +457,11 @@ namespace AMSExplorer
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 
+        public const long maxSlateJPGFileSize = 3 * 1024 * 1024; // Max 3 MB
+        public const int maxSlateJPGHorizontalResolution = 1920;
+        public const int maxSlateJPGVerticalResolution = 1080;
+        public const double SlateJPGAspectRatio = 16d / 9d;
+        public const string SlateJPGExtension= ".jpg";
     }
 
 

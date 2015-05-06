@@ -76,7 +76,7 @@
             this.panelInsertSlate = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
-            this.listViewJPG1 = new AMSExplorer.ListViewJPG();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
@@ -609,11 +609,11 @@
             // label15
             // 
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(153, 206);
+            this.label15.Location = new System.Drawing.Point(6, 206);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(249, 13);
+            this.label15.Size = new System.Drawing.Size(396, 13);
             this.label15.TabIndex = 78;
-            this.label15.Text = "Image should be a JPG 1920x1080";
+            this.label15.Text = "Image requirements: JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
             this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // progressBarUpload
@@ -646,11 +646,11 @@
             this.label10.TabIndex = 75;
             this.label10.Text = "Default Slate Asset :";
             // 
-            // checkBoxAdInsertSlate
+            // checkBoxInsertSlateOnAdMarker
             // 
             this.checkBoxInsertSlateOnAdMarker.AutoSize = true;
             this.checkBoxInsertSlateOnAdMarker.Location = new System.Drawing.Point(9, 73);
-            this.checkBoxInsertSlateOnAdMarker.Name = "checkBoxAdInsertSlate";
+            this.checkBoxInsertSlateOnAdMarker.Name = "checkBoxInsertSlateOnAdMarker";
             this.checkBoxInsertSlateOnAdMarker.Size = new System.Drawing.Size(142, 17);
             this.checkBoxInsertSlateOnAdMarker.TabIndex = 70;
             this.checkBoxInsertSlateOnAdMarker.Text = "Insert Slate on Ad Signal";
@@ -793,7 +793,7 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox textBoxJPGSearch;
-        private ListViewJPG listViewJPG1;
+        private ListViewSlateJPG listViewJPG1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
