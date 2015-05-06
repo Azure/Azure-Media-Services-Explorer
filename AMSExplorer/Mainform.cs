@@ -106,6 +106,12 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             }
+
+            if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
+            {
+                Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
+            }
+        
             Program.SaveAndProtectUserConfig(); // to save settings 
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;

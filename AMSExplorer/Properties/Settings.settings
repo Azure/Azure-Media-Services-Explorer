@@ -98,5 +98,8 @@
     <Setting Name="DirectShowVideoDevice" Type="System.String" Scope="User">
       <Value Profile="(Default)">Webcam (High Definition Audio Device)</Value>
     </Setting>
+    <Setting Name="DefaultSlateCurrentFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

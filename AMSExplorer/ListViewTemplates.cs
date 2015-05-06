@@ -405,29 +405,29 @@ namespace AMSExplorer
             catch
             {
                 Error = true;
-                returnString = string.Format("Error when accessing file '{0}'.", file);
+                returnString = string.Format("Error when accessing the file\n'{0}'.", file);
             }
             if (!Error)
             {
                 if (fileInfo.Extension.ToLower() != Constants.SlateJPGExtension)  // file has not an .jpg extension
                 {
-                    returnString = string.Format("File '{0}' has not a {1} extension", file, Constants.SlateJPGExtension);
+                    returnString = string.Format("The file\n'{0}'\nhas not a {1} extension", file, Constants.SlateJPGExtension);
                 }
                 else if (!fileImage.RawFormat.Equals(System.Drawing.Imaging.ImageFormat.Jpeg))  // file is not a JPEG
                 {
-                    returnString = string.Format("File '{0}' is not a JPEG file", file);
+                    returnString = string.Format("The file\n'{0}'\nis not a JPEG file", file);
                 }
                 else if (fileInfo.Length > Constants.maxSlateJPGFileSize)  // file size > 3 MB, not ok
                 {
-                    returnString = string.Format("File '{0}' has a size of {1} which is larger than {2}", file, AssetInfo.FormatByteSize(fileInfo.Length), AssetInfo.FormatByteSize(Constants.maxSlateJPGFileSize));
+                    returnString = string.Format("The file\n'{0}'\nhas a size of {1} which is larger than {2}", file, AssetInfo.FormatByteSize(fileInfo.Length), AssetInfo.FormatByteSize(Constants.maxSlateJPGFileSize));
                 }
                 else if (fileImage.Size.Width > Constants.maxSlateJPGHorizontalResolution || fileImage.Size.Height > Constants.maxSlateJPGVerticalResolution)
                 {
-                    returnString = string.Format("File '{0}' has a resolution  of {1}x{2} which is larger than {3}x{4}", file, fileImage.Size.Width, fileImage.Size.Height, Constants.maxSlateJPGHorizontalResolution, Constants.maxSlateJPGVerticalResolution);
+                    returnString = string.Format("The file\n'{0}'\nhas a resolution  of {1}x{2} which is larger than {3}x{4}", file, fileImage.Size.Width, fileImage.Size.Height, Constants.maxSlateJPGHorizontalResolution, Constants.maxSlateJPGVerticalResolution);
                 }
                 else if (!AreClose(aspectRatioImage, Constants.SlateJPGAspectRatio))
                 {
-                    returnString = string.Format("File '{0}' has an aspect ratio of {1} which is different from {2} (16:9)", file, aspectRatioImage, Constants.SlateJPGAspectRatio);
+                    returnString = string.Format("The file\n'{0}'\nhas an aspect ratio of {1:0.000} which is different from {2:0.000} (16:9)", file, aspectRatioImage, Constants.SlateJPGAspectRatio);
                 }
                 
             }

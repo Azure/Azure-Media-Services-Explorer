@@ -375,7 +375,7 @@ namespace AMSExplorer
             switch (protocol)
             {
                 case StreamingProtocol.FragmentedMP4:
-                    name = "Smooth Streaming";
+                    name = "Fragmented MP4 (Smooth)";
                     break;
 
                 case StreamingProtocol.RTMP:
@@ -433,6 +433,7 @@ namespace AMSExplorer
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
+        public const string PathDefaultSlateJPG = @"\SlateJPG\";
 
         public const string PathLicense = @"\license\Azure Media Services Explorer.rtf";
 

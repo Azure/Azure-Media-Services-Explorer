@@ -120,8 +120,16 @@ namespace AMSExplorer
 
         private async void buttonUploadSlate_Click(object sender, EventArgs e)
         {
+            if (Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder))
+            {
+                openFileDialogSlate.InitialDirectory = Properties.Settings.Default.DefaultSlateCurrentFolder;
+            }
+
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
+                Properties.Settings.Default.DefaultSlateCurrentFolder = Path.GetDirectoryName(openFileDialogSlate.FileName); // let's save the folder
+                Program.SaveAndProtectUserConfig();
+
                 string file = openFileDialogSlate.FileName;
                 string errorString = ListViewSlateJPG.CheckSlateFile(file);
                 if (!string.IsNullOrEmpty(errorString))

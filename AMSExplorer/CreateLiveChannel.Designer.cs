@@ -604,7 +604,7 @@
             this.listViewJPG1.Tag = -1;
             this.listViewJPG1.UseCompatibleStateImageBehavior = false;
             this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.Validating += new System.ComponentModel.CancelEventHandler(this.checkBoxAdInsertSlate_Validating);
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // label15
             // 
