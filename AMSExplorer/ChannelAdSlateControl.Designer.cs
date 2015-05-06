@@ -46,6 +46,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxCueId = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
@@ -60,7 +61,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label15 = new System.Windows.Forms.Label();
+            this.labelSlatePreviewInfo = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.labelSlatePreviewInfo);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreviewSlate);
             this.splitContainer1.Panel1.Controls.Add(this.pictureBoxPreviewSlate);
             this.splitContainer1.Panel1.Controls.Add(this.checkBoxPreviewStream);
@@ -122,6 +124,7 @@
             this.checkBoxPreviewSlate.TabIndex = 5;
             this.checkBoxPreviewSlate.Text = "Display selected slate";
             this.checkBoxPreviewSlate.UseVisualStyleBackColor = true;
+            this.checkBoxPreviewSlate.CheckedChanged += new System.EventHandler(this.checkBoxPreviewSlate_CheckedChanged);
             // 
             // pictureBoxPreviewSlate
             // 
@@ -129,10 +132,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(3, 326);
             this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
-            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(241, 137);
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(241, 117);
             this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPreviewSlate.TabIndex = 4;
             this.pictureBoxPreviewSlate.TabStop = false;
+            this.pictureBoxPreviewSlate.Visible = false;
             // 
             // checkBoxPreviewStream
             // 
@@ -276,6 +280,18 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Location = new System.Drawing.Point(13, 230);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(447, 13);
+            this.label15.TabIndex = 84;
+            this.label15.Text = "Image requirements: JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label8
             // 
@@ -432,17 +448,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label15
+            // labelSlatePreviewInfo
             // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(13, 230);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(447, 13);
-            this.label15.TabIndex = 84;
-            this.label15.Text = "Image requirements: JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 446);
+            this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
+            this.labelSlatePreviewInfo.Size = new System.Drawing.Size(241, 15);
+            this.labelSlatePreviewInfo.TabIndex = 60;
+            this.labelSlatePreviewInfo.Text = "Resolution : {0}x{1}, Aspect Ratio : {2:0.000}";
+            this.labelSlatePreviewInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelSlatePreviewInfo.Visible = false;
             // 
             // ChannelAdSlateControl
             // 
@@ -509,5 +526,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label labelSlatePreviewInfo;
     }
 }

@@ -354,7 +354,7 @@ namespace AMSExplorer
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
                 string file = openFileDialogSlate.FileName;
-                string errorString = listViewJPG1.CheckSlateFile(file);
+                string errorString = ListViewSlateJPG.CheckSlateFile(file);
                 if (!string.IsNullOrEmpty(errorString))
                 {
                     MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

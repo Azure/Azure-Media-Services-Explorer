@@ -46,13 +46,16 @@ namespace AMSExplorer
         public CloudMediaContext MyContext;
         private Mainform MyMainForm;
         private Dictionary<IAsset, ILocator> ListLocators = new Dictionary<IAsset, ILocator>(); // to store locators for JPEG files
-
+        string labelSlatePreviewInfoText;
 
         public ChannelAdSlateControl(Mainform mainform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
+
+            labelSlatePreviewInfoText = labelSlatePreviewInfo.Text;
+            labelSlatePreviewInfo.Text = "";
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -120,7 +123,7 @@ namespace AMSExplorer
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
                 string file = openFileDialogSlate.FileName;
-                string errorString = listViewJPG1.CheckSlateFile(file);
+                string errorString = ListViewSlateJPG.CheckSlateFile(file);
                 if (!string.IsNullOrEmpty(errorString))
                 {
                     MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -343,6 +346,23 @@ namespace AMSExplorer
                             AF = JPGAsset.AssetFiles.FirstOrDefault();
                             Uri sasUri = BuildSasUri(AF, locator);
                             pictureBoxPreviewSlate.Load(sasUri.AbsoluteUri);
+
+                            Image fileImage = pictureBoxPreviewSlate.Image;
+                            double aspectRatioImage = (double)fileImage.Size.Width / (double)fileImage.Size.Height;
+                            labelSlatePreviewInfo.Text = string.Format(labelSlatePreviewInfoText, fileImage.Width, fileImage.Height, aspectRatioImage);
+
+                            if (
+                                fileImage.Width > Constants.maxSlateJPGHorizontalResolution
+                                || fileImage.Height > Constants.maxSlateJPGVerticalResolution
+                                || !ListViewSlateJPG.AreClose(aspectRatioImage, Constants.SlateJPGAspectRatio)
+                                )
+                            {
+                                labelSlatePreviewInfo.ForeColor = Color.Red;
+                            }
+                            else
+                            {
+                                labelSlatePreviewInfo.ForeColor = Color.Black;
+                            }
                         }
                     }
                     catch
@@ -460,6 +480,17 @@ namespace AMSExplorer
             else
             {
                 errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void checkBoxPreviewSlate_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBoxPreviewSlate.Visible = labelSlatePreviewInfo.Visible = checkBoxPreviewSlate.Checked;
+            if (!checkBoxPreviewSlate.Checked)
+            {
+                pictureBoxPreviewSlate.Image = null;
+                labelSlatePreviewInfo.Text = "";
+
             }
         }
     }

@@ -376,7 +376,7 @@ namespace AMSExplorer
             this.EndUpdate();
         }
 
-        private static bool AreClose(double value1, double value2)
+        public static bool AreClose(double value1, double value2)
         {
             const double DBL_EPSILON = 1e-6;
             //in case they are Infinities (then epsilon check does not work)
@@ -387,7 +387,7 @@ namespace AMSExplorer
             return (-eps < delta) && (eps > delta);
         }
 
-        public string CheckSlateFile(string file) // return null if ok. Otherwise, error is the string.
+        public static string CheckSlateFile(string file) // return null if ok. Otherwise, error is the string.
         {
             string returnString = null;
 
