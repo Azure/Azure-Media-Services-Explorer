@@ -179,6 +179,12 @@
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Hyperlapse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hyperlapse.Designer.cs">
+      <DependentUpon>Hyperlapse.cs</DependentUpon>
+    </Compile>
     <Compile Include="IndexerOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -419,6 +425,10 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <Content Include="Configurations\Hyperlapse.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -439,6 +449,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hyperlapse.resx">
+      <DependentUpon>Hyperlapse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerOptions.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>
