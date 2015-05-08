@@ -3001,27 +3001,7 @@ namespace AMSExplorer
             return doc.Declaration.ToString() + doc.ToString();
         }
 
-        public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar)
-        {
-            // Prepare the encryption task template
-            XDocument doc = XDocument.Load(xmlFileName);
-
-            var inputxml = doc.Element("configuration").Element("input");
-            if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
-            if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
-
-            var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
-            settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
-
-            string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
-            cformats += optionsVar.SAMI ? "sami;" : string.Empty;
-            cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
-            settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
-
-            return doc.Declaration.ToString() + doc.ToString();
-        }
+       
 
 
         /// <summary>
@@ -3358,31 +3338,29 @@ namespace AMSExplorer
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
+            //IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
 
             Hyperlapse form = new Hyperlapse(_context)
             {
-                IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
-                IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
+                HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
+                HyperlapseOutputAssetName = Constants.NameconvInputasset + "-Hyperlapsed",
+                HyperlapseProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                HyperlapseJobPriority = Properties.Settings.Default.DefaultJobPriority,
+                HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
             };
 
-            string taskname = "Indexing of " + Constants.NameconvInputasset;
+            string taskname = "Hyperlapse processing of " + Constants.NameconvInputasset;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configIndexer = LoadAndUpdateHyperlapseConfiguration(
+                string configIndexer = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
                 Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
-                form.IndexerTitle,
-                form.IndexerDescription,
-                form.IndexerLanguage,
-               form.IndexerGenerationOptions
-
+                form.HyperlapseStartFrame,
+                form.HyperlapseNumFrames,
+                form.HyperlapseSpeed
                 );
 
-
-                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.HyperlapseJobPriority, taskname, form.HyperlapseOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 
@@ -9231,6 +9209,11 @@ typeof(FilterTime)
         }
 
         private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoMenuHyperlapseAssets();
         }

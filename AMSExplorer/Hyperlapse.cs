@@ -26,6 +26,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Xml;
+using System.Xml.Linq;
 
 
 namespace AMSExplorer
@@ -33,18 +35,9 @@ namespace AMSExplorer
     public partial class Hyperlapse : Form
     {
         private CloudMediaContext _context;
-        private IndexerOptions formOptions = new IndexerOptions();
-        private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
+        private string labelspeedtext;
 
-        public IndexerOptionsVar IndexerGenerationOptions
-        {
-            get
-            {
-                return optionsVar;
-            }
-
-        }
-        public string IndexerInputAssetName
+        public string HyperlapseInputAssetName
         {
             get
             {
@@ -55,7 +48,7 @@ namespace AMSExplorer
                 labelAssetName.Text = value;
             }
         }
-        public string IndexerOutputAssetName
+        public string HyperlapseOutputAssetName
         {
             get
             {
@@ -67,14 +60,7 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerLanguage
-        {
-            get
-            {
-                return comboBoxLanguage.Text;
-            }
 
-        }
 
         public string StorageSelected
         {
@@ -84,7 +70,7 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerJobName
+        public string HyperlapseJobName
         {
             get
             {
@@ -96,7 +82,7 @@ namespace AMSExplorer
             }
         }
 
-        public int IndexerJobPriority
+        public int HyperlapseJobPriority
         {
             get
             {
@@ -108,32 +94,62 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerTitle
+        public int HyperlapseStartFrame
         {
             get
             {
-                return textBoxTitle.Text;
+                int start = 0;
+                try
+                {
+                    start = Convert.ToInt32(textBoxStartFrame.Text);
+                }
+                catch
+                {
+
+                }
+                return start;
             }
             set
             {
-                textBoxTitle.Text = value;
+                textBoxStartFrame.Text = value.ToString();
             }
         }
-        public string IndexerDescription
+
+        public int HyperlapseNumFrames
         {
             get
             {
-                return textBoxDescription.Text;
+                int num = 0;
+                try
+                {
+                    num = Convert.ToInt32(textBoxNumFrames.Text);
+                }
+                catch
+                {
+
+                }
+                return num;
             }
             set
             {
-                textBoxDescription.Text = value;
+                textBoxNumFrames.Text = value.ToString();
+            }
+        }
+
+        public int HyperlapseSpeed
+        {
+            get
+            {
+                return trackBarSpeed.Value;
+            }
+            set
+            {
+                trackBarSpeed.Value = value;
             }
         }
 
 
-
-        public string IndexerProcessorName
+        public string HyperlapseProcessorName
         {
             get
             {
@@ -162,16 +178,38 @@ namespace AMSExplorer
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
-            comboBoxLanguage.SelectedIndex = 0;
+
+            labelspeedtext = labelspeed.Text;
+            UpdateSpeedLabel();
         }
 
-        private void buttonGenOptions_Click(object sender, EventArgs e)
+        public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, int startFrame, int numFrames, int speed)
         {
-            formOptions.IndexerGenerationOptions = optionsVar;
-            if (formOptions.ShowDialog() == DialogResult.OK)
-            {
-                optionsVar = formOptions.IndexerGenerationOptions;
-            }
+            // Prepare the Hyperlapse xml
+            XDocument doc = XDocument.Load(xmlFileName);
+
+            XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
+
+            var presetxml = doc.Element(ns + "Preset");
+
+            var sourcexml = presetxml.Element(ns + "Sources").Element(ns + "Source");
+            sourcexml.Attribute("StartFrame").SetValue(startFrame);
+            sourcexml.Attribute("NumFrames").SetValue(numFrames);
+
+            var speedxml = presetxml.Element(ns + "Options").Element(ns + "Speed");
+            speedxml.SetValue(speed);
+
+            return doc.Declaration.ToString() + doc.ToString();
+        }
+
+        private void trackBarSpeed_Scroll(object sender, EventArgs e)
+        {
+            UpdateSpeedLabel();
+        }
+
+        private void UpdateSpeedLabel()
+        {
+            labelspeed.Text = string.Format(labelspeedtext, trackBarSpeed.Value);
         }
     }
 }
