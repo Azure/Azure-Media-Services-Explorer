@@ -79,6 +79,7 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
+        private bool HyperlapsePresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -160,9 +161,14 @@ namespace AMSExplorer
             {
                 AMEPremiumWorkflowPresent = false;
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                //encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-                //ContextMenuItemPremiumWorkflow.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
+            {
+                HyperlapsePresent = false;
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false;
             }
 
             // Timer Auto Refresh
@@ -3001,7 +3007,7 @@ namespace AMSExplorer
             return doc.Declaration.ToString() + doc.ToString();
         }
 
-       
+
 
 
         /// <summary>
@@ -3335,6 +3341,14 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
+                ||
+                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
+                ))
+            {
+                MessageBox.Show("Source asset must be a single MP4 or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
@@ -4902,6 +4916,13 @@ typeof(FilterTime)
             {
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+            }
+
+            // let's disable Hyperlapse if not present
+            if (!HyperlapsePresent)
+            {
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
             }
         }
 

@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hyperlapse));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.processorlabel = new System.Windows.Forms.Label();
@@ -51,12 +53,14 @@
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -101,7 +105,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(175, 90);
+            this.label2.Location = new System.Drawing.Point(203, 90);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 35;
@@ -117,6 +121,7 @@
             this.textBoxStartFrame.Size = new System.Drawing.Size(129, 20);
             this.textBoxStartFrame.TabIndex = 34;
             this.textBoxStartFrame.Text = "0";
+            this.textBoxStartFrame.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxStartFrame_Validating);
             // 
             // labelAssetName
             // 
@@ -189,7 +194,7 @@
             // trackBarSpeed
             // 
             this.trackBarSpeed.Location = new System.Drawing.Point(97, 144);
-            this.trackBarSpeed.Maximum = 16;
+            this.trackBarSpeed.Maximum = 32;
             this.trackBarSpeed.Minimum = 2;
             this.trackBarSpeed.Name = "trackBarSpeed";
             this.trackBarSpeed.Size = new System.Drawing.Size(410, 45);
@@ -203,12 +208,13 @@
             // 
             this.textBoxNumFrames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNumFrames.Location = new System.Drawing.Point(178, 106);
+            this.textBoxNumFrames.Location = new System.Drawing.Point(206, 106);
             this.textBoxNumFrames.MaxLength = 128;
             this.textBoxNumFrames.Name = "textBoxNumFrames";
             this.textBoxNumFrames.Size = new System.Drawing.Size(129, 20);
             this.textBoxNumFrames.TabIndex = 39;
             this.textBoxNumFrames.Text = "10000";
+            this.textBoxNumFrames.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNumFrames_Validating);
             // 
             // label4
             // 
@@ -217,7 +223,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(504, 44);
             this.label4.TabIndex = 38;
-            this.label4.Text = "Explanation of Hyperlapse. To do.";
+            this.label4.Text = resources.GetString("label4.Text");
             // 
             // label7
             // 
@@ -306,6 +312,10 @@
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.Text = "More information";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Key";
@@ -344,6 +354,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,5 +387,6 @@
         private System.Windows.Forms.TrackBar trackBarSpeed;
         public System.Windows.Forms.TextBox textBoxNumFrames;
         private System.Windows.Forms.Label labelspeed;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

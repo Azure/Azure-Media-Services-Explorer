@@ -66,6 +66,7 @@
             this.ContextMenuItemPremiumWorkflow = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithHyperlapseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.submitFromTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemGenericProcessor = new System.Windows.Forms.ToolStripMenuItem();
             this.packageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -407,7 +408,6 @@
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.processAssetsWithHyperlapseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -779,6 +779,14 @@
             this.ContextMenuItemIndexer.Size = new System.Drawing.Size(343, 22);
             this.ContextMenuItemIndexer.Text = "Index asset(s) with Azure Media Indexer...";
             this.ContextMenuItemIndexer.Click += new System.EventHandler(this.toolStripMenuItemIndex_Click);
+            // 
+            // processAssetsWithHyperlapseToolStripMenuItem1
+            // 
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Name = "processAssetsWithHyperlapseToolStripMenuItem1";
+            this.processAssetsWithHyperlapseToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Text = "Process asset(s) with Hyperlapse...";
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem1_Click);
             // 
             // submitFromTemplateToolStripMenuItem
             // 
@@ -1391,6 +1399,7 @@
             // processAssetsWithHyperlapseToolStripMenuItem
             // 
             this.processAssetsWithHyperlapseToolStripMenuItem.Name = "processAssetsWithHyperlapseToolStripMenuItem";
+            this.processAssetsWithHyperlapseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.processAssetsWithHyperlapseToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.processAssetsWithHyperlapseToolStripMenuItem.Text = "Process asset(s) with Hyperlapse...";
             this.processAssetsWithHyperlapseToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem_Click);
@@ -4093,13 +4102,6 @@
             this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // processAssetsWithHyperlapseToolStripMenuItem1
-            // 
-            this.processAssetsWithHyperlapseToolStripMenuItem1.Name = "processAssetsWithHyperlapseToolStripMenuItem1";
-            this.processAssetsWithHyperlapseToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
-            this.processAssetsWithHyperlapseToolStripMenuItem1.Text = "Process asset(s) with Hyperlapse...";
-            this.processAssetsWithHyperlapseToolStripMenuItem1.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem1_Click);
             // 
             // Mainform
             // 

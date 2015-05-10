@@ -211,5 +211,53 @@ namespace AMSExplorer
         {
             labelspeed.Text = string.Format(labelspeedtext, trackBarSpeed.Value);
         }
+
+        private void textBoxStartFrame_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            bool Error = false;
+            int val = 0;
+
+            try
+            {
+                val = Convert.ToInt32(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+            if (Error || val < 0)
+            {
+                errorProvider1.SetError(tb, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxNumFrames_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            bool Error = false;
+            int val = 0;
+
+            try
+            {
+                val = Convert.ToInt32(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+            if (Error || val < 1)
+            {
+                errorProvider1.SetError(tb, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
     }
 }
