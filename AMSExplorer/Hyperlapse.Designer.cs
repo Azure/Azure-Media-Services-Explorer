@@ -39,6 +39,8 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.linkLabelHowItWorks = new System.Windows.Forms.LinkLabel();
+            this.numericUpDownNumFrames = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownStartFrame = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
             this.labelspeed = new System.Windows.Forms.Label();
@@ -51,16 +53,16 @@
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.numericUpDownNumFrames = new System.Windows.Forms.NumericUpDown();
-            this.linkLabelHowItWorks = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -115,9 +117,9 @@
             // 
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetName.Location = new System.Drawing.Point(13, 59);
+            this.labelAssetName.Location = new System.Drawing.Point(97, 59);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(524, 30);
+            this.labelAssetName.Size = new System.Drawing.Size(440, 30);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
@@ -168,6 +170,35 @@
             this.groupBox1.TabIndex = 58;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // linkLabelHowItWorks
+            // 
+            this.linkLabelHowItWorks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelHowItWorks.AutoSize = true;
+            this.linkLabelHowItWorks.Location = new System.Drawing.Point(451, 56);
+            this.linkLabelHowItWorks.Name = "linkLabelHowItWorks";
+            this.linkLabelHowItWorks.Size = new System.Drawing.Size(68, 13);
+            this.linkLabelHowItWorks.TabIndex = 71;
+            this.linkLabelHowItWorks.TabStop = true;
+            this.linkLabelHowItWorks.Text = "How it works";
+            this.linkLabelHowItWorks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHowItWorks_LinkClicked);
+            // 
+            // numericUpDownNumFrames
+            // 
+            this.numericUpDownNumFrames.Location = new System.Drawing.Point(172, 171);
+            this.numericUpDownNumFrames.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownNumFrames.Name = "numericUpDownNumFrames";
+            this.numericUpDownNumFrames.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownNumFrames.TabIndex = 44;
+            this.numericUpDownNumFrames.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             // 
             // numericUpDownStartFrame
             // 
@@ -245,7 +276,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.index;
+            this.buttonOk.Image = global::AMSExplorer.Bitmaps.hyperlapse;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(292, 13);
             this.buttonOk.Name = "buttonOk";
@@ -311,34 +342,15 @@
             this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // numericUpDownNumFrames
+            // pictureBox1
             // 
-            this.numericUpDownNumFrames.Location = new System.Drawing.Point(172, 171);
-            this.numericUpDownNumFrames.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.numericUpDownNumFrames.Name = "numericUpDownNumFrames";
-            this.numericUpDownNumFrames.Size = new System.Drawing.Size(106, 20);
-            this.numericUpDownNumFrames.TabIndex = 44;
-            this.numericUpDownNumFrames.Value = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            // 
-            // linkLabelHowItWorks
-            // 
-            this.linkLabelHowItWorks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelHowItWorks.AutoSize = true;
-            this.linkLabelHowItWorks.Location = new System.Drawing.Point(440, 56);
-            this.linkLabelHowItWorks.Name = "linkLabelHowItWorks";
-            this.linkLabelHowItWorks.Size = new System.Drawing.Size(68, 13);
-            this.linkLabelHowItWorks.TabIndex = 71;
-            this.linkLabelHowItWorks.TabStop = true;
-            this.linkLabelHowItWorks.Text = "How it works";
-            this.linkLabelHowItWorks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHowItWorks_LinkClicked);
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.hyperlapse_large;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(79, 77);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 71;
+            this.pictureBox1.TabStop = false;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -356,6 +368,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
@@ -375,11 +388,12 @@
             this.Load += new System.EventHandler(this.Hyperlapse_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -413,5 +427,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownSpeed;
         private System.Windows.Forms.NumericUpDown numericUpDownNumFrames;
         private System.Windows.Forms.LinkLabel linkLabelHowItWorks;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
