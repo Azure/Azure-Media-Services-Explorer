@@ -263,6 +263,26 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hyperlapse {
+            get {
+                object obj = ResourceManager.GetObject("hyperlapse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap hyperlapse_large {
+            get {
+                object obj = ResourceManager.GetObject("hyperlapse_large", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap import {
             get {
                 object obj = ResourceManager.GetObject("import", resourceCulture);
