@@ -35,6 +35,7 @@ namespace AMSExplorer
     public partial class Hyperlapse : Form
     {
         private CloudMediaContext _context;
+        private string labelspeedtext;
 
         public string HyperlapseInputAssetName
         {
@@ -97,11 +98,20 @@ namespace AMSExplorer
         {
             get
             {
-                return (int) numericUpDownStartFrame.Value;
+                int start = 0;
+                try
+                {
+                    start = Convert.ToInt32(textBoxStartFrame.Text);
+                }
+                catch
+                {
+
+                }
+                return start;
             }
             set
             {
-                numericUpDownStartFrame.Value = value;
+                textBoxStartFrame.Text = value.ToString();
             }
         }
 
@@ -109,11 +119,20 @@ namespace AMSExplorer
         {
             get
             {
-                return (int)  numericUpDownNumFrames.Value;
+                int num = 0;
+                try
+                {
+                    num = Convert.ToInt32(textBoxNumFrames.Text);
+                }
+                catch
+                {
+
+                }
+                return num;
             }
             set
             {
-                numericUpDownNumFrames.Value = value;
+                textBoxNumFrames.Text = value.ToString();
             }
         }
 
@@ -121,11 +140,11 @@ namespace AMSExplorer
         {
             get
             {
-                return (int) numericUpDownSpeed.Value;
+                return trackBarSpeed.Value;
             }
             set
             {
-                numericUpDownSpeed.Value = value;
+                trackBarSpeed.Value = value;
             }
         }
 
@@ -152,14 +171,16 @@ namespace AMSExplorer
 
         private void Hyperlapse_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
-            linkLabelHowItWorks.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowItWorksHyperlapse));
-         
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
+
             foreach (var storage in _context.StorageAccounts)
             {
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+
+            labelspeedtext = labelspeed.Text;
+            UpdateSpeedLabel();
         }
 
         public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, int startFrame, int numFrames, int speed)
@@ -181,16 +202,62 @@ namespace AMSExplorer
             return doc.Declaration.ToString() + doc.ToString();
         }
 
-        private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void trackBarSpeed_Scroll(object sender, EventArgs e)
         {
-            // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            UpdateSpeedLabel();
         }
 
-        private void linkLabelHowItWorks_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void UpdateSpeedLabel()
         {
-            // Send the URL to the operating system.
-            Process.Start(e.Link.LinkData as string);
+            labelspeed.Text = string.Format(labelspeedtext, trackBarSpeed.Value);
+        }
+
+        private void textBoxStartFrame_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            bool Error = false;
+            int val = 0;
+
+            try
+            {
+                val = Convert.ToInt32(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+            if (Error || val < 0)
+            {
+                errorProvider1.SetError(tb, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxNumFrames_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            bool Error = false;
+            int val = 0;
+
+            try
+            {
+                val = Convert.ToInt32(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+            if (Error || val < 1)
+            {
+                errorProvider1.SetError(tb, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
         }
     }
 }

@@ -3334,11 +3334,13 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            if (SelectedAssets.Count == 0)
             {
                 MessageBox.Show("No asset was selected");
                 return;
             }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
 
             if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
                 ||
@@ -3350,6 +3352,7 @@ namespace AMSExplorer
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
+            //IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
 
             Hyperlapse form = new Hyperlapse(_context)
             {
@@ -3364,14 +3367,14 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configHyperlapse = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
+                string configIndexer = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
                 Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
                 form.HyperlapseStartFrame,
                 form.HyperlapseNumFrames,
                 form.HyperlapseSpeed
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.HyperlapseJobPriority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.HyperlapseJobPriority, taskname, form.HyperlapseOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
             }
         }
 
