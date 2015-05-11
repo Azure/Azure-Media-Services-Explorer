@@ -782,6 +782,7 @@
             // 
             // processAssetsWithHyperlapseToolStripMenuItem1
             // 
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.encoding;
             this.processAssetsWithHyperlapseToolStripMenuItem1.Name = "processAssetsWithHyperlapseToolStripMenuItem1";
             this.processAssetsWithHyperlapseToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.processAssetsWithHyperlapseToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
@@ -1398,6 +1399,7 @@
             // 
             // processAssetsWithHyperlapseToolStripMenuItem
             // 
+            this.processAssetsWithHyperlapseToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.processAssetsWithHyperlapseToolStripMenuItem.Name = "processAssetsWithHyperlapseToolStripMenuItem";
             this.processAssetsWithHyperlapseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
             this.processAssetsWithHyperlapseToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
