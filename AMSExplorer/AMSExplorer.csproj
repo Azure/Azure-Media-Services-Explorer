@@ -179,6 +179,12 @@
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="JobOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="JobOptions.Designer.cs">
+      <DependentUpon>JobOptions.cs</DependentUpon>
+    </Compile>
     <Compile Include="IndexerOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -439,6 +445,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="JobOptions.resx">
+      <DependentUpon>JobOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerOptions.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>

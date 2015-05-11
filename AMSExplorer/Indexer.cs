@@ -35,7 +35,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions();
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
-
+  
         public IndexerOptionsVar IndexerGenerationOptions
         {
             get
@@ -76,11 +76,11 @@ namespace AMSExplorer
 
         }
 
-        public string StorageSelected
+        public JobOptionsVar JobOptions
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return buttonJobOptions.GetSettings();
             }
         }
 
@@ -96,17 +96,7 @@ namespace AMSExplorer
             }
         }
 
-        public int IndexerJobPriority
-        {
-            get
-            {
-                return (int)numericUpDownPriority.Value;
-            }
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
-        }
+       
 
         public string IndexerTitle
         {
@@ -150,17 +140,14 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+
+            buttonJobOptions.SetContext(_context);
         }
 
 
         private void Indexer_Load(object sender, EventArgs e)
         {
-            foreach (var storage in _context.StorageAccounts)
-            {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
-            comboBoxLanguage.SelectedIndex = 0;
+              comboBoxLanguage.SelectedIndex = 0;
         }
 
         private void buttonGenOptions_Click(object sender, EventArgs e)
@@ -171,5 +158,7 @@ namespace AMSExplorer
                 optionsVar = formOptions.IndexerGenerationOptions;
             }
         }
+
+    
     }
 }

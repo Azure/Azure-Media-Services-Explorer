@@ -2798,7 +2798,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
-                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, form.EncodingOutputAssetName, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, form.EncodingOutputAssetName, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,Properties.Settings.Default.useProtectedConfiguration, form.StorageSelected);
             }
         }
 
@@ -3064,7 +3064,13 @@ namespace AMSExplorer
                 jobname = jobname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 taskname = taskname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 string outputassetname = form.HLSOutputAssetName.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configHLS }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor, 
+                    SelectedAssets,
+                    jobname,Properties.Settings.Default.DefaultJobPriority,
+                    taskname, outputassetname,
+                    new List<string> { configHLS },
+                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration);
             }
         }
 
@@ -3106,7 +3112,16 @@ namespace AMSExplorer
                                 _configurationXMLFiles,
                                 "MediaPackager_MP4toSmooth.xml"));
 
-                    LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    LaunchJobs(processor,
+                        SelectedAssets,
+                        jobname,
+                        Properties.Settings.Default.DefaultJobPriority,
+                        taskname,
+                        outputassetname,
+                        new List<string> { smoothConfig },
+                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                        Properties.Settings.Default.useProtectedConfiguration
+                        );
                 }
             }
         }
@@ -3169,16 +3184,21 @@ namespace AMSExplorer
                 form.PlayReadyServiceId,
                 form.PlayReadyCustomAttributes);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, new List<string> { configPlayReady }, AssetCreationOptions.CommonEncryptionProtected);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    form.PlayReadyOutputAssetName,
+                    new List<string> { configPlayReady },
+                    AssetCreationOptions.CommonEncryptionProtected,
+                    Properties.Settings.Default.useProtectedConfiguration);
             }
 
         }
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
-        {
-            LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions, storageaccountname);
-        }
+      
 
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions,  bool useProtectedConfiguration,string storageaccountname = "")
         {
             foreach (IAsset asset in selectedassets)
             {
@@ -3191,7 +3211,7 @@ namespace AMSExplorer
                            tasknameloc,
                           processor,
                           config,
-                          Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                          useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
 
                     myTask.InputAssets.Add(asset);
 
@@ -3200,7 +3220,6 @@ namespace AMSExplorer
                     if (storageaccountname == "")
                     {
                         myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, creationoptions); // let's use the same storage account than the input asset
-
                     }
                     else
                     {
@@ -3270,7 +3289,15 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configMp4Validation }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    outputassetname,
+                    new List<string> { configMp4Validation },
+                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration);
             }
         }
 
@@ -3299,7 +3326,6 @@ namespace AMSExplorer
                 IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
             };
 
@@ -3317,7 +3343,7 @@ namespace AMSExplorer
                 );
 
 
-                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.JobOptions.Priority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.JobOptions.TaskProtectedConfig, form.JobOptions.StorageSelected);
             }
         }
 
@@ -3352,7 +3378,15 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.StorageDecryption);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { "" }, AssetCreationOptions.None);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    outputassetname,
+                    new List<string> { "" },
+                    AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration);
             }
         }
 
@@ -6358,7 +6392,16 @@ typeof(FilterTime)
                 form.ThumbnailsTimeStop
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, new List<string> { configThumbnails }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    form.ThumbnailsJobName,
+                    form.ThumbnailsJobPriority,
+                    taskname,
+                    form.ThumbnailsOutputAssetName,
+                    new List<string> { configThumbnails },
+                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration,
+                    form.StorageSelected);
             }
         }
 

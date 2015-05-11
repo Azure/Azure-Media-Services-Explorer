@@ -2136,6 +2136,15 @@ namespace AMSExplorer
 
     }
 
+    public class JobOptionsVar
+    {
+        public int Priority { get; set; }
+        public string StorageSelected { get; set; }
+
+        public bool TaskProtectedConfig { get; set; }
+      
+    }
+
 
 
     public class ListViewItemComparer : IComparer
