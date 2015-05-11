@@ -120,7 +120,4 @@
   <data name="label4.Text" xml:space="preserve">
     <value>Hyperlapse converts first-person videos, for example, captured with a helmet camera during activities such as rock climbing or bicycling, into hyper-lapse videos, i.e., time-lapse videos with a smoothly moving camera.</value>
   </data>
-  <metadata name="errorProvider1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
 </root>

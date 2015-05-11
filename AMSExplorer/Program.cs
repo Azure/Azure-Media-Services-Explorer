@@ -456,7 +456,8 @@ namespace AMSExplorer
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
-        public const string LinkMoreInfoHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
+        public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/topics/media-services/";
+        public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 

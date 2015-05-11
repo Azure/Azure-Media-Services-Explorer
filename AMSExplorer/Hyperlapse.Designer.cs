@@ -28,22 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hyperlapse));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.processorlabel = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.textBoxStartFrame = new System.Windows.Forms.TextBox();
             this.labelAssetName = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numericUpDownStartFrame = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
             this.labelspeed = new System.Windows.Forms.Label();
-            this.trackBarSpeed = new System.Windows.Forms.TrackBar();
-            this.textBoxNumFrames = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
@@ -53,14 +51,16 @@
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.numericUpDownNumFrames = new System.Windows.Forms.NumericUpDown();
+            this.linkLabelHowItWorks = new System.Windows.Forms.LinkLabel();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
             this.SuspendLayout();
             // 
             // label3
@@ -105,38 +105,26 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(203, 90);
+            this.label2.Location = new System.Drawing.Point(169, 154);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 35;
             this.label2.Text = "Number of frames :";
             // 
-            // textBoxStartFrame
-            // 
-            this.textBoxStartFrame.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxStartFrame.Location = new System.Drawing.Point(18, 106);
-            this.textBoxStartFrame.MaxLength = 128;
-            this.textBoxStartFrame.Name = "textBoxStartFrame";
-            this.textBoxStartFrame.Size = new System.Drawing.Size(129, 20);
-            this.textBoxStartFrame.TabIndex = 34;
-            this.textBoxStartFrame.Text = "0";
-            this.textBoxStartFrame.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxStartFrame_Validating);
-            // 
             // labelAssetName
             // 
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetName.Location = new System.Drawing.Point(13, 50);
+            this.labelAssetName.Location = new System.Drawing.Point(13, 59);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(317, 30);
+            this.labelAssetName.Size = new System.Drawing.Size(524, 30);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 90);
+            this.label1.Location = new System.Drawing.Point(15, 154);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 36;
@@ -166,12 +154,13 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.linkLabelHowItWorks);
+            this.groupBox1.Controls.Add(this.numericUpDownNumFrames);
+            this.groupBox1.Controls.Add(this.numericUpDownStartFrame);
+            this.groupBox1.Controls.Add(this.numericUpDownSpeed);
             this.groupBox1.Controls.Add(this.labelspeed);
-            this.groupBox1.Controls.Add(this.trackBarSpeed);
-            this.groupBox1.Controls.Add(this.textBoxNumFrames);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.textBoxStartFrame);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 98);
             this.groupBox1.Name = "groupBox1";
@@ -180,41 +169,50 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
+            // numericUpDownStartFrame
+            // 
+            this.numericUpDownStartFrame.Location = new System.Drawing.Point(18, 171);
+            this.numericUpDownStartFrame.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownStartFrame.Name = "numericUpDownStartFrame";
+            this.numericUpDownStartFrame.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownStartFrame.TabIndex = 43;
+            // 
+            // numericUpDownSpeed
+            // 
+            this.numericUpDownSpeed.Location = new System.Drawing.Point(18, 100);
+            this.numericUpDownSpeed.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.numericUpDownSpeed.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericUpDownSpeed.Name = "numericUpDownSpeed";
+            this.numericUpDownSpeed.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownSpeed.TabIndex = 42;
+            this.numericUpDownSpeed.Value = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            // 
             // labelspeed
             // 
             this.labelspeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelspeed.AutoSize = true;
-            this.labelspeed.Location = new System.Drawing.Point(18, 157);
+            this.labelspeed.Location = new System.Drawing.Point(15, 84);
             this.labelspeed.Name = "labelspeed";
-            this.labelspeed.Size = new System.Drawing.Size(61, 13);
+            this.labelspeed.Size = new System.Drawing.Size(44, 13);
             this.labelspeed.TabIndex = 41;
             this.labelspeed.Tag = "";
-            this.labelspeed.Text = "Speed : {0}";
-            // 
-            // trackBarSpeed
-            // 
-            this.trackBarSpeed.Location = new System.Drawing.Point(97, 144);
-            this.trackBarSpeed.Maximum = 32;
-            this.trackBarSpeed.Minimum = 2;
-            this.trackBarSpeed.Name = "trackBarSpeed";
-            this.trackBarSpeed.Size = new System.Drawing.Size(410, 45);
-            this.trackBarSpeed.TabIndex = 40;
-            this.trackBarSpeed.TabStop = false;
-            this.trackBarSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarSpeed.Value = 8;
-            this.trackBarSpeed.Scroll += new System.EventHandler(this.trackBarSpeed_Scroll);
-            // 
-            // textBoxNumFrames
-            // 
-            this.textBoxNumFrames.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNumFrames.Location = new System.Drawing.Point(206, 106);
-            this.textBoxNumFrames.MaxLength = 128;
-            this.textBoxNumFrames.Name = "textBoxNumFrames";
-            this.textBoxNumFrames.Size = new System.Drawing.Size(129, 20);
-            this.textBoxNumFrames.TabIndex = 39;
-            this.textBoxNumFrames.Text = "10000";
-            this.textBoxNumFrames.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxNumFrames_Validating);
+            this.labelspeed.Text = "Speed :";
             // 
             // label4
             // 
@@ -253,7 +251,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(146, 23);
             this.buttonOk.TabIndex = 17;
-            this.buttonOk.Text = "Launch indexing";
+            this.buttonOk.Text = "Launch processing";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // label33
@@ -311,10 +309,36 @@
             this.moreinfoprofilelink.TabIndex = 70;
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.Text = "More information";
+            this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // errorProvider1
+            // numericUpDownNumFrames
             // 
-            this.errorProvider1.ContainerControl = this;
+            this.numericUpDownNumFrames.Location = new System.Drawing.Point(172, 171);
+            this.numericUpDownNumFrames.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownNumFrames.Name = "numericUpDownNumFrames";
+            this.numericUpDownNumFrames.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownNumFrames.TabIndex = 44;
+            this.numericUpDownNumFrames.Value = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            // 
+            // linkLabelHowItWorks
+            // 
+            this.linkLabelHowItWorks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelHowItWorks.AutoSize = true;
+            this.linkLabelHowItWorks.Location = new System.Drawing.Point(440, 56);
+            this.linkLabelHowItWorks.Name = "linkLabelHowItWorks";
+            this.linkLabelHowItWorks.Size = new System.Drawing.Size(68, 13);
+            this.linkLabelHowItWorks.TabIndex = 71;
+            this.linkLabelHowItWorks.TabStop = true;
+            this.linkLabelHowItWorks.Text = "How it works";
+            this.linkLabelHowItWorks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHowItWorks_LinkClicked);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -347,14 +371,15 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Name = "Hyperlapse";
-            this.Text = "Media Indexing";
+            this.Text = "Hyperlapse processing";
             this.Load += new System.EventHandler(this.Hyperlapse_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -368,7 +393,6 @@
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox textBoxStartFrame;
         public System.Windows.Forms.Label labelAssetName;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBoxJobName;
@@ -384,9 +408,10 @@
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
-        private System.Windows.Forms.TrackBar trackBarSpeed;
-        public System.Windows.Forms.TextBox textBoxNumFrames;
         private System.Windows.Forms.Label labelspeed;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.NumericUpDown numericUpDownStartFrame;
+        private System.Windows.Forms.NumericUpDown numericUpDownSpeed;
+        private System.Windows.Forms.NumericUpDown numericUpDownNumFrames;
+        private System.Windows.Forms.LinkLabel linkLabelHowItWorks;
     }
 }
