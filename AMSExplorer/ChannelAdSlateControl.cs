@@ -474,7 +474,6 @@ namespace AMSExplorer
             try
             {
                 Convert.ToDouble(tb.Text);
-
             }
             catch
             {
@@ -500,6 +499,16 @@ namespace AMSExplorer
                 labelSlatePreviewInfo.Text = "";
 
             }
+        }
+
+        private void buttongenerateContentKey_Click(object sender, EventArgs e)
+        {
+            textBoxCueId.Text = GenerateRandomCueId();
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
