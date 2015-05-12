@@ -46,11 +46,11 @@ namespace AMSExplorer
             }
         }
 
-        public string StorageSelected
+        public JobOptionsVar JobOptions
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return buttonJobOptions.GetSettings();
             }
         }
 
@@ -74,17 +74,7 @@ namespace AMSExplorer
             }
         }
 
-        public int EncodingJobPriority
-        {
-            get
-            {
-                return (int)numericUpDownPriority.Value;
-            }
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
-        }
+        
 
         public string EncodingLabel1
         {
@@ -125,7 +115,6 @@ namespace AMSExplorer
                 foreach (var item in listbox.SelectedItems)
                     ListOfPresets.Add(item.ToString());
 
-                //return (listbox.SelectedIndex > -1) ? listbox.Items[listbox.SelectedIndex].ToString() : null;
                 return ListOfPresets;
             }
         }
@@ -136,6 +125,7 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            buttonJobOptions.Initialize(_context);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -167,12 +157,7 @@ namespace AMSExplorer
 
             listbox.SelectedItem = listbox.Items.Cast<string>()
                 .SingleOrDefault(i => i == MediaEncoderTaskPresetStrings.H264AdaptiveBitrateMP4Set720p);
-
-            foreach (var storage in _context.StorageAccounts)
-            {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
+          
         }
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

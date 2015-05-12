@@ -72,13 +72,14 @@ namespace AMSExplorer
             }
         }
 
-        public string StorageSelected
+        public JobOptionsVar JobOptions
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return buttonJobOptions.GetSettings();
             }
         }
+       
 
 
         public List<IMediaProcessor> EncodingProcessorsList
@@ -133,24 +134,14 @@ namespace AMSExplorer
         }
 
 
-        public int EncodingPriority
-        {
-            get
-            {
-                return (int)numericUpDownPriority.Value;
-            }
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
-        }
-
+       
 
         public EncodingAMEAdv(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            buttonJobOptions.Initialize(_context);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -708,11 +699,7 @@ namespace AMSExplorer
         {
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreAMEAdvanced));
         
-            foreach (var storage in _context.StorageAccounts)
-            {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
+           
         }
 
         private void textBoxNamingConvention_TextChanged(object sender, EventArgs e)

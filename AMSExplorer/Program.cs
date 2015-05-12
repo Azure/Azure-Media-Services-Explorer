@@ -2140,8 +2140,8 @@ namespace AMSExplorer
     {
         public int Priority { get; set; }
         public string StorageSelected { get; set; }
-
-        public bool TaskProtectedConfig { get; set; }
+        public TaskOptions TasksOptionsSetting { get; set; }
+        public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
       
     }
 

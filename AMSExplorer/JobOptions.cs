@@ -33,10 +33,12 @@ namespace AMSExplorer
     public partial class JobOptions : Form
     {
         CloudMediaContext context;
-        JobOptionsVar defaultSettings = new JobOptionsVar() { 
+        JobOptionsVar defaultSettings = new JobOptionsVar()
+        {
             Priority = Properties.Settings.Default.DefaultJobPriority,
             StorageSelected = string.Empty,
-            TaskProtectedConfig = Properties.Settings.Default.useProtectedConfiguration
+            TasksOptionsSetting = Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+            OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
         };
         JobOptionsVar savedSettings;
 
@@ -47,8 +49,16 @@ namespace AMSExplorer
                 return new JobOptionsVar()
                 {
                     StorageSelected = ((Item)comboBoxStorage.SelectedItem).Value,
-                    Priority = (int)numericUpDownPriority.Value
+                    Priority = (int)numericUpDownPriority.Value,
+                    TasksOptionsSetting = checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+                    OutputAssetsCreationOptions = checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
                 };
+            }
+            set
+            {
+                defaultSettings = value;
+                savedSettings = value;
+                ControlsResetToDefault();
             }
         }
 
@@ -62,7 +72,7 @@ namespace AMSExplorer
             savedSettings = defaultSettings;
 
             ControlsResetToDefault();
-            
+
         }
 
         private void ControlsResetToDefault()
@@ -75,13 +85,14 @@ namespace AMSExplorer
             }
 
             numericUpDownPriority.Value = defaultSettings.Priority;
-            checkBoxUseProtectedConfig.Checked = defaultSettings.TaskProtectedConfig;
+            checkBoxUseProtectedConfig.Checked = defaultSettings.TasksOptionsSetting == TaskOptions.ProtectedConfiguration;
+            checkBoxUseStorageEncryption.Checked = defaultSettings.OutputAssetsCreationOptions == AssetCreationOptions.StorageEncrypted;
         }
 
 
         private void JobOptions_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         public DialogResult Display()
@@ -91,6 +102,8 @@ namespace AMSExplorer
             {
                 savedSettings.StorageSelected = ((Item)comboBoxStorage.SelectedItem).Value;
                 savedSettings.Priority = (int)numericUpDownPriority.Value;
+                savedSettings.TasksOptionsSetting = checkBoxUseProtectedConfig.Checked ? TaskOptions.ProtectedConfiguration : TaskOptions.None;
+                savedSettings.OutputAssetsCreationOptions = checkBoxUseStorageEncryption.Checked ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None;
             }
             else // let's reset the controls to default
             {
@@ -104,17 +117,17 @@ namespace AMSExplorer
     {
         JobOptions myjoboptions;
 
-        public ButtonJobOptions()         
+        public ButtonJobOptions()
         {
             this.Click += ButtonJobOptions_Click;
         }
 
-        
-        public void SetContext(CloudMediaContext mycontext)
+
+        public void Initialize(CloudMediaContext mycontext)
         {
-               myjoboptions = new JobOptions(mycontext);
+            myjoboptions = new JobOptions(mycontext);
         }
-        
+
         void ButtonJobOptions_Click(object sender, EventArgs e)
         {
             myjoboptions.Display();
@@ -123,6 +136,11 @@ namespace AMSExplorer
         public JobOptionsVar GetSettings()
         {
             return myjoboptions.Options;
+        }
+
+        public void SetSettings(JobOptionsVar settings)
+        {
+            myjoboptions.Options = settings;
         }
 
     }

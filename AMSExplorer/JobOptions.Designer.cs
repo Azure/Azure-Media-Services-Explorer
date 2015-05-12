@@ -38,8 +38,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.checkBoxUseProtectedConfig = new System.Windows.Forms.CheckBox();
+            this.checkBoxUseStorageEncryption = new System.Windows.Forms.CheckBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -91,7 +96,7 @@
             // 
             this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(21, 69);
+            this.label33.Location = new System.Drawing.Point(38, 63);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(83, 13);
             this.label33.TabIndex = 70;
@@ -102,7 +107,7 @@
             this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(22, 85);
+            this.comboBoxStorage.Location = new System.Drawing.Point(39, 79);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(190, 21);
             this.comboBoxStorage.TabIndex = 69;
@@ -111,7 +116,7 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(21, 21);
+            this.label7.Location = new System.Drawing.Point(38, 15);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(41, 13);
             this.label7.TabIndex = 68;
@@ -120,7 +125,7 @@
             // numericUpDownPriority
             // 
             this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(22, 38);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(39, 32);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
             this.numericUpDownPriority.TabIndex = 67;
@@ -128,12 +133,42 @@
             // checkBoxUseProtectedConfig
             // 
             this.checkBoxUseProtectedConfig.AutoSize = true;
-            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(22, 124);
+            this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(39, 113);
             this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
-            this.checkBoxUseProtectedConfig.Size = new System.Drawing.Size(200, 17);
+            this.checkBoxUseProtectedConfig.Size = new System.Drawing.Size(176, 17);
             this.checkBoxUseProtectedConfig.TabIndex = 71;
-            this.checkBoxUseProtectedConfig.Text = "Use protected configuration for tasks";
+            this.checkBoxUseProtectedConfig.Text = "Protect the task(s) configuration";
             this.checkBoxUseProtectedConfig.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxUseStorageEncryption
+            // 
+            this.checkBoxUseStorageEncryption.AutoSize = true;
+            this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(39, 138);
+            this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
+            this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(191, 17);
+            this.checkBoxUseStorageEncryption.TabIndex = 72;
+            this.checkBoxUseStorageEncryption.Text = "Storage encrypt the output asset(s)";
+            this.checkBoxUseStorageEncryption.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
+            this.pictureBox2.Location = new System.Drawing.Point(12, 32);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 74;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.storage_encryption;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 138);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 73;
+            this.pictureBox1.TabStop = false;
             // 
             // JobOptions
             // 
@@ -141,6 +176,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(356, 212);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.checkBoxUseStorageEncryption);
             this.Controls.Add(this.checkBoxUseProtectedConfig);
             this.Controls.Add(this.label33);
             this.Controls.Add(this.comboBoxStorage);
@@ -152,6 +190,8 @@
             this.Load += new System.EventHandler(this.JobOptions_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -169,5 +209,8 @@
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.CheckBox checkBoxUseProtectedConfig;
+        private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
