@@ -45,22 +45,18 @@
             this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
             this.labelspeed = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -255,24 +251,6 @@
             this.label4.TabIndex = 38;
             this.label4.Text = resources.GetString("label4.Text");
             // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(346, 336);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 13);
-            this.label7.TabIndex = 61;
-            this.label7.Text = "Priority:";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(347, 353);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDownPriority.TabIndex = 60;
-            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -285,26 +263,6 @@
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Launch processing";
             this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(346, 384);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 64;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(347, 400);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(190, 21);
-            this.comboBoxStorage.TabIndex = 63;
             // 
             // label34
             // 
@@ -363,20 +321,27 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(400, 352);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // Hyperlapse
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
-            this.Controls.Add(this.label33);
-            this.Controls.Add(this.comboBoxStorage);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label5);
@@ -392,7 +357,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -416,10 +380,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label4;
-        public System.Windows.Forms.Label label7;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox comboBoxStorage;
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
@@ -429,5 +389,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownNumFrames;
         private System.Windows.Forms.LinkLabel linkLabelHowItWorks;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private ButtonJobOptions buttonJobOptions;
     }
 }

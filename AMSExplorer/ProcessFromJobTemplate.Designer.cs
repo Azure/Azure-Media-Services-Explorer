@@ -33,8 +33,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
             this.label31 = new System.Windows.Forms.Label();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
@@ -42,7 +40,7 @@
             this.labelWarning = new System.Windows.Forms.Label();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,24 +94,6 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Job(s) name :";
             this.label1.Click += new System.EventHandler(this.label1_Click);
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(496, 319);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 36;
-            this.label5.Text = "Priority :";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(499, 335);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDownPriority.TabIndex = 35;
             // 
             // buttonOk
             // 
@@ -182,6 +162,7 @@
             this.listViewTemplates.Name = "listViewTemplates";
             this.listViewTemplates.Size = new System.Drawing.Size(723, 194);
             this.listViewTemplates.TabIndex = 61;
+            this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
             this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listbox_SelectedIndexChanged);
@@ -198,6 +179,16 @@
             this.panel1.Size = new System.Drawing.Size(786, 48);
             this.panel1.TabIndex = 65;
             // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(621, 331);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // ProcessFromJobTemplate
             // 
             this.AcceptButton = this.buttonOk;
@@ -206,12 +197,11 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 447);
+            this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.listViewTemplates);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.buttonDeleteTemplate);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxJobName);
@@ -220,7 +210,6 @@
             this.Name = "ProcessFromJobTemplate";
             this.Text = "Process from job template";
             this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -235,14 +224,13 @@
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         public System.Windows.Forms.Label label31;
         private System.Windows.Forms.OpenFileDialog openFileDialogWorkflow;
         private System.Windows.Forms.Button buttonDeleteTemplate;
         private System.Windows.Forms.Label labelWarning;
         private ListViewTemplates listViewTemplates;
         private System.Windows.Forms.Panel panel1;
+        private ButtonJobOptions buttonJobOptions;
 
     }
 }

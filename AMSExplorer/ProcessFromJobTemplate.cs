@@ -45,21 +45,21 @@ namespace AMSExplorer
             get
             {
                 return listViewTemplates.GetSelectedJobTemplate;
-                /*
-                if (listViewTemplatesOld.SelectedItems.Count > 0)
-                {
-                    int indexid = columnHeaderJobTemplatetId.Index;
-                    IJobTemplate jobtemplate = _context.JobTemplates.Where(j => j.Id == listViewTemplatesOld.SelectedItems[0].SubItems[indexid].Text).FirstOrDefault();
-                    return jobtemplate;
-                }
-                else
-                {
-                    return null;
-                }
-                                                                * */
+
             }
         }
 
+        public JobOptionsVar JobOptions
+        {
+            get
+            {
+                return buttonJobOptions.GetSettings();
+            }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
+            }
+        }
 
         public string ProcessingJobName
         {
@@ -82,17 +82,7 @@ namespace AMSExplorer
             }
         }
 
-        public int ProcessingPriority
-        {
-            get
-            {
-                return (int)numericUpDownPriority.Value;
-            }
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
-        }
+
 
         public ProcessFromJobTemplate(CloudMediaContext context, int numberselectedassets)
         {
@@ -101,6 +91,7 @@ namespace AMSExplorer
             _context = context;
             _numberselectedassets = numberselectedassets;
             labelWarning.Text = string.Empty;
+            buttonJobOptions.Initialize(_context);
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -125,7 +116,7 @@ namespace AMSExplorer
             listViewTemplates.LoadTemplates(_context);
         }
 
-     
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -136,22 +127,8 @@ namespace AMSExplorer
 
         private void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
-          /*  IJobTemplate jobtemp = SelectedJobTemplate;
-            if (jobtemp != null)
-            {
-                if (MessageBox.Show(string.Format("Do you want to delete the job template '{0}' ?", jobtemp.Name), "Job template deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    jobtemp.Delete();
-                    LoadTemplates();
-                }
-            }
-           * */
+
             listViewTemplates.DeleteSelectedTemplate();
         }
-
-
-
     }
-
-
 }

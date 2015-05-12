@@ -51,14 +51,10 @@
             this.textBoxTimeStop = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -268,24 +264,6 @@
             this.label12.Text = "example : {OriginalFilename}_{Size}_{ThumbnailTime}_{ThumbnailIndex}_{Date}_{Time" +
     "}.{DefaultExtension}";
             // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(342, 352);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(41, 13);
-            this.label13.TabIndex = 66;
-            this.label13.Text = "Priority:";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(345, 369);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDownPriority.TabIndex = 65;
-            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -298,26 +276,6 @@
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Launch thumbnails job(s)";
             this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(342, 400);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 68;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(343, 416);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(190, 21);
-            this.comboBoxStorage.TabIndex = 67;
             // 
             // label34
             // 
@@ -344,18 +302,25 @@
             this.panel1.Size = new System.Drawing.Size(554, 48);
             this.panel1.TabIndex = 70;
             // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(396, 368);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 73;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // Thumbnails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(553, 532);
+            this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
-            this.Controls.Add(this.label33);
-            this.Controls.Add(this.comboBoxStorage);
-            this.Controls.Add(this.label13);
-            this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBoxTimeStop);
@@ -381,7 +346,6 @@
             this.Name = "Thumbnails";
             this.Text = "Thumbnails generation";
             this.Load += new System.EventHandler(this.Thumbnails_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -414,11 +378,8 @@
         public System.Windows.Forms.TextBox textBoxTimeStop;
         public System.Windows.Forms.Label label11;
         public System.Windows.Forms.Label label12;
-        public System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox comboBoxStorage;
         public System.Windows.Forms.Label label34;
         private System.Windows.Forms.Panel panel1;
+        private ButtonJobOptions buttonJobOptions;
     }
 }
