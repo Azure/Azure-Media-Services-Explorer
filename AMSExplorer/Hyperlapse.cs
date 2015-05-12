@@ -59,7 +59,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
         public string HyperlapseJobName
         {
             get
@@ -71,13 +71,13 @@ namespace AMSExplorer
                 textBoxJobName.Text = value;
             }
         }
-              
+
 
         public int HyperlapseStartFrame
         {
             get
             {
-                return (int) numericUpDownStartFrame.Value;
+                return (int)numericUpDownStartFrame.Value;
             }
             set
             {
@@ -89,7 +89,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (int)  numericUpDownNumFrames.Value;
+                return (int)numericUpDownNumFrames.Value;
             }
             set
             {
@@ -101,7 +101,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (int) numericUpDownSpeed.Value;
+                return (int)numericUpDownSpeed.Value;
             }
             set
             {
@@ -148,6 +148,7 @@ namespace AMSExplorer
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
             linkLabelHowItWorks.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowItWorksHyperlapse));
+            comboBoxFrameRate.SelectedIndex = 2;
         }
 
         public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, int startFrame, int numFrames, int speed)
@@ -179,6 +180,50 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void checkBoxDisplayTime_CheckedChanged(object sender, EventArgs e)
+        {
+            comboBoxFrameRate.Visible = labelSourceFrameRate.Visible = panelTimes.Visible = checkBoxDisplayTime.Checked;
+        }
+
+        private void numericUpDownStartFrame_ValueChanged(object sender, EventArgs e)
+        {
+            DisplayTime();
+        }
+
+        private void DisplayTime()
+        {
+            if (checkBoxDisplayTime.Checked)
+            {
+                double framerate = Convert.ToDouble(comboBoxFrameRate.Text);
+                double speed = (double)numericUpDownSpeed.Value;
+
+                TimeSpan tsstart = TimeSpan.FromSeconds(((double)numericUpDownStartFrame.Value) / framerate);
+                TimeSpan tsduration = TimeSpan.FromSeconds(((double)numericUpDownNumFrames.Value) / framerate);
+                TimeSpan tsoutputduration = TimeSpan.FromSeconds(tsduration.TotalSeconds / speed);
+
+                textBoxSourceStartTime.Text = tsstart.ToString("g");
+                textBoxSourceDurationTime.Text = tsduration.ToString("g");
+                textBoxOutputDuration.Text = tsoutputduration.ToString("g"); ;
+            }
+
+
+        }
+
+        private void numericUpDownNumFrames_ValueChanged(object sender, EventArgs e)
+        {
+            DisplayTime();
+        }
+
+        private void comboBoxFrameRate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DisplayTime();
+        }
+
+        private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
+        {
+            DisplayTime();
         }
     }
 }

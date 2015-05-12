@@ -39,9 +39,19 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.linkLabelHowItWorks = new System.Windows.Forms.LinkLabel();
+            this.panelTimes = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSourceStartTime = new System.Windows.Forms.TextBox();
+            this.textBoxOutputDuration = new System.Windows.Forms.TextBox();
+            this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.labelSourceFrameRate = new System.Windows.Forms.Label();
             this.numericUpDownNumFrames = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownStartFrame = new System.Windows.Forms.NumericUpDown();
+            this.checkBoxDisplayTime = new System.Windows.Forms.CheckBox();
+            this.comboBoxFrameRate = new System.Windows.Forms.ComboBox();
+            this.linkLabelHowItWorks = new System.Windows.Forms.LinkLabel();
             this.numericUpDownSpeed = new System.Windows.Forms.NumericUpDown();
             this.labelspeed = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,10 +60,11 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
+            this.panelTimes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).BeginInit();
@@ -103,7 +114,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(169, 154);
+            this.label2.Location = new System.Drawing.Point(120, 151);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(96, 13);
             this.label2.TabIndex = 35;
@@ -122,7 +133,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 154);
+            this.label1.Location = new System.Drawing.Point(120, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 13);
             this.label1.TabIndex = 36;
@@ -152,36 +163,106 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.linkLabelHowItWorks);
+            this.groupBox1.Controls.Add(this.panelTimes);
+            this.groupBox1.Controls.Add(this.labelSourceFrameRate);
             this.groupBox1.Controls.Add(this.numericUpDownNumFrames);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.numericUpDownStartFrame);
+            this.groupBox1.Controls.Add(this.checkBoxDisplayTime);
+            this.groupBox1.Controls.Add(this.comboBoxFrameRate);
+            this.groupBox1.Controls.Add(this.linkLabelHowItWorks);
             this.groupBox1.Controls.Add(this.numericUpDownSpeed);
             this.groupBox1.Controls.Add(this.labelspeed);
             this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(12, 98);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(525, 213);
+            this.groupBox1.Size = new System.Drawing.Size(525, 223);
             this.groupBox1.TabIndex = 58;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
             // 
-            // linkLabelHowItWorks
+            // panelTimes
             // 
-            this.linkLabelHowItWorks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.linkLabelHowItWorks.AutoSize = true;
-            this.linkLabelHowItWorks.Location = new System.Drawing.Point(451, 56);
-            this.linkLabelHowItWorks.Name = "linkLabelHowItWorks";
-            this.linkLabelHowItWorks.Size = new System.Drawing.Size(68, 13);
-            this.linkLabelHowItWorks.TabIndex = 71;
-            this.linkLabelHowItWorks.TabStop = true;
-            this.linkLabelHowItWorks.Text = "How it works";
-            this.linkLabelHowItWorks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHowItWorks_LinkClicked);
+            this.panelTimes.Controls.Add(this.label6);
+            this.panelTimes.Controls.Add(this.label8);
+            this.panelTimes.Controls.Add(this.textBoxSourceStartTime);
+            this.panelTimes.Controls.Add(this.textBoxOutputDuration);
+            this.panelTimes.Controls.Add(this.textBoxSourceDurationTime);
+            this.panelTimes.Controls.Add(this.label7);
+            this.panelTimes.Location = new System.Drawing.Point(403, 85);
+            this.panelTimes.Name = "panelTimes";
+            this.panelTimes.Size = new System.Drawing.Size(116, 132);
+            this.panelTimes.TabIndex = 83;
+            this.panelTimes.Visible = false;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(2, 5);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(57, 13);
+            this.label6.TabIndex = 79;
+            this.label6.Text = "Start time :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(2, 92);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(86, 13);
+            this.label8.TabIndex = 82;
+            this.label8.Text = "Output duration :";
+            // 
+            // textBoxSourceStartTime
+            // 
+            this.textBoxSourceStartTime.Location = new System.Drawing.Point(5, 20);
+            this.textBoxSourceStartTime.Name = "textBoxSourceStartTime";
+            this.textBoxSourceStartTime.ReadOnly = true;
+            this.textBoxSourceStartTime.Size = new System.Drawing.Size(106, 20);
+            this.textBoxSourceStartTime.TabIndex = 72;
+            this.textBoxSourceStartTime.Text = "00:00:02";
+            // 
+            // textBoxOutputDuration
+            // 
+            this.textBoxOutputDuration.Location = new System.Drawing.Point(5, 108);
+            this.textBoxOutputDuration.Name = "textBoxOutputDuration";
+            this.textBoxOutputDuration.ReadOnly = true;
+            this.textBoxOutputDuration.Size = new System.Drawing.Size(106, 20);
+            this.textBoxOutputDuration.TabIndex = 81;
+            this.textBoxOutputDuration.Text = "00:00:02";
+            // 
+            // textBoxSourceDurationTime
+            // 
+            this.textBoxSourceDurationTime.Location = new System.Drawing.Point(5, 62);
+            this.textBoxSourceDurationTime.Name = "textBoxSourceDurationTime";
+            this.textBoxSourceDurationTime.ReadOnly = true;
+            this.textBoxSourceDurationTime.Size = new System.Drawing.Size(106, 20);
+            this.textBoxSourceDurationTime.TabIndex = 72;
+            this.textBoxSourceDurationTime.Text = "00:00:02";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(2, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 13);
+            this.label7.TabIndex = 80;
+            this.label7.Text = "Duration :";
+            // 
+            // labelSourceFrameRate
+            // 
+            this.labelSourceFrameRate.AutoSize = true;
+            this.labelSourceFrameRate.Location = new System.Drawing.Point(265, 151);
+            this.labelSourceFrameRate.Name = "labelSourceFrameRate";
+            this.labelSourceFrameRate.Size = new System.Drawing.Size(94, 13);
+            this.labelSourceFrameRate.TabIndex = 78;
+            this.labelSourceFrameRate.Text = "Source framerate :";
+            this.labelSourceFrameRate.Visible = false;
             // 
             // numericUpDownNumFrames
             // 
-            this.numericUpDownNumFrames.Location = new System.Drawing.Point(172, 171);
+            this.numericUpDownNumFrames.Location = new System.Drawing.Point(123, 168);
             this.numericUpDownNumFrames.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -195,10 +276,11 @@
             0,
             0,
             0});
+            this.numericUpDownNumFrames.ValueChanged += new System.EventHandler(this.numericUpDownNumFrames_ValueChanged);
             // 
             // numericUpDownStartFrame
             // 
-            this.numericUpDownStartFrame.Location = new System.Drawing.Point(18, 171);
+            this.numericUpDownStartFrame.Location = new System.Drawing.Point(123, 108);
             this.numericUpDownStartFrame.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -207,10 +289,51 @@
             this.numericUpDownStartFrame.Name = "numericUpDownStartFrame";
             this.numericUpDownStartFrame.Size = new System.Drawing.Size(106, 20);
             this.numericUpDownStartFrame.TabIndex = 43;
+            this.numericUpDownStartFrame.ValueChanged += new System.EventHandler(this.numericUpDownStartFrame_ValueChanged);
+            // 
+            // checkBoxDisplayTime
+            // 
+            this.checkBoxDisplayTime.AutoSize = true;
+            this.checkBoxDisplayTime.Location = new System.Drawing.Point(268, 109);
+            this.checkBoxDisplayTime.Name = "checkBoxDisplayTime";
+            this.checkBoxDisplayTime.Size = new System.Drawing.Size(87, 17);
+            this.checkBoxDisplayTime.TabIndex = 77;
+            this.checkBoxDisplayTime.Text = "Display times";
+            this.checkBoxDisplayTime.UseVisualStyleBackColor = true;
+            this.checkBoxDisplayTime.CheckedChanged += new System.EventHandler(this.checkBoxDisplayTime_CheckedChanged);
+            // 
+            // comboBoxFrameRate
+            // 
+            this.comboBoxFrameRate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFrameRate.FormattingEnabled = true;
+            this.comboBoxFrameRate.Items.AddRange(new object[] {
+            "24",
+            "25",
+            "30",
+            "50",
+            "60"});
+            this.comboBoxFrameRate.Location = new System.Drawing.Point(268, 167);
+            this.comboBoxFrameRate.Name = "comboBoxFrameRate";
+            this.comboBoxFrameRate.Size = new System.Drawing.Size(87, 21);
+            this.comboBoxFrameRate.TabIndex = 76;
+            this.comboBoxFrameRate.Visible = false;
+            this.comboBoxFrameRate.SelectedIndexChanged += new System.EventHandler(this.comboBoxFrameRate_SelectedIndexChanged);
+            // 
+            // linkLabelHowItWorks
+            // 
+            this.linkLabelHowItWorks.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.linkLabelHowItWorks.AutoSize = true;
+            this.linkLabelHowItWorks.Location = new System.Drawing.Point(451, 56);
+            this.linkLabelHowItWorks.Name = "linkLabelHowItWorks";
+            this.linkLabelHowItWorks.Size = new System.Drawing.Size(68, 13);
+            this.linkLabelHowItWorks.TabIndex = 71;
+            this.linkLabelHowItWorks.TabStop = true;
+            this.linkLabelHowItWorks.Text = "How it works";
+            this.linkLabelHowItWorks.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelHowItWorks_LinkClicked);
             // 
             // numericUpDownSpeed
             // 
-            this.numericUpDownSpeed.Location = new System.Drawing.Point(18, 100);
+            this.numericUpDownSpeed.Location = new System.Drawing.Point(18, 108);
             this.numericUpDownSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -222,18 +345,19 @@
             0,
             0});
             this.numericUpDownSpeed.Name = "numericUpDownSpeed";
-            this.numericUpDownSpeed.Size = new System.Drawing.Size(106, 20);
+            this.numericUpDownSpeed.Size = new System.Drawing.Size(69, 20);
             this.numericUpDownSpeed.TabIndex = 42;
             this.numericUpDownSpeed.Value = new decimal(new int[] {
             8,
             0,
             0,
             0});
+            this.numericUpDownSpeed.ValueChanged += new System.EventHandler(this.numericUpDownSpeed_ValueChanged);
             // 
             // labelspeed
             // 
             this.labelspeed.AutoSize = true;
-            this.labelspeed.Location = new System.Drawing.Point(15, 84);
+            this.labelspeed.Location = new System.Drawing.Point(15, 92);
             this.labelspeed.Name = "labelspeed";
             this.labelspeed.Size = new System.Drawing.Size(44, 13);
             this.labelspeed.TabIndex = 41;
@@ -311,16 +435,6 @@
             this.pictureBox1.TabIndex = 71;
             this.pictureBox1.TabStop = false;
             // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -330,6 +444,16 @@
             this.buttonJobOptions.TabIndex = 72;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Key";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Value";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
             // Hyperlapse
             // 
@@ -354,6 +478,8 @@
             this.Load += new System.EventHandler(this.Hyperlapse_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panelTimes.ResumeLayout(false);
+            this.panelTimes.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownStartFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSpeed)).EndInit();
@@ -390,5 +516,15 @@
         private System.Windows.Forms.LinkLabel linkLabelHowItWorks;
         private System.Windows.Forms.PictureBox pictureBox1;
         private ButtonJobOptions buttonJobOptions;
+        private System.Windows.Forms.TextBox textBoxSourceStartTime;
+        private System.Windows.Forms.CheckBox checkBoxDisplayTime;
+        private System.Windows.Forms.ComboBox comboBoxFrameRate;
+        private System.Windows.Forms.TextBox textBoxSourceDurationTime;
+        public System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxOutputDuration;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label labelSourceFrameRate;
+        private System.Windows.Forms.Panel panelTimes;
     }
 }
