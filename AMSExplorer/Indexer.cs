@@ -36,7 +36,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions();
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
-  
+
         public IndexerOptionsVar IndexerGenerationOptions
         {
             get
@@ -83,6 +83,10 @@ namespace AMSExplorer
             {
                 return buttonJobOptions.GetSettings();
             }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
+            }
         }
 
         public string IndexerJobName
@@ -97,7 +101,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
         public string IndexerTitle
         {
@@ -148,7 +152,7 @@ namespace AMSExplorer
 
         private void Indexer_Load(object sender, EventArgs e)
         {
-              comboBoxLanguage.SelectedIndex = 0;
+            comboBoxLanguage.SelectedIndex = 0;
         }
 
         private void buttonGenOptions_Click(object sender, EventArgs e)

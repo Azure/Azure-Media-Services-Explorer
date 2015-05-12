@@ -45,7 +45,7 @@ namespace AMSExplorer
             get
             {
                 return listViewTemplates.GetSelectedJobTemplate;
-               
+
             }
         }
 
@@ -54,6 +54,10 @@ namespace AMSExplorer
             get
             {
                 return buttonJobOptions.GetSettings();
+            }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
             }
         }
 
@@ -78,7 +82,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
         public ProcessFromJobTemplate(CloudMediaContext context, int numberselectedassets)
         {
@@ -112,7 +116,7 @@ namespace AMSExplorer
             listViewTemplates.LoadTemplates(_context);
         }
 
-     
+
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -123,7 +127,7 @@ namespace AMSExplorer
 
         private void buttonDeleteTemplate_Click(object sender, EventArgs e)
         {
-         
+
             listViewTemplates.DeleteSelectedTemplate();
         }
     }

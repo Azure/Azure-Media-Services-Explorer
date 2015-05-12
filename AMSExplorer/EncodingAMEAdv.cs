@@ -78,8 +78,12 @@ namespace AMSExplorer
             {
                 return buttonJobOptions.GetSettings();
             }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
+            }
         }
-       
+
 
 
         public List<IMediaProcessor> EncodingProcessorsList
@@ -134,7 +138,7 @@ namespace AMSExplorer
         }
 
 
-       
+
 
         public EncodingAMEAdv(CloudMediaContext context)
         {
@@ -698,8 +702,8 @@ namespace AMSExplorer
         private void EncodingCustom_Load(object sender, EventArgs e)
         {
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreAMEAdvanced));
-        
-           
+
+
         }
 
         private void textBoxNamingConvention_TextChanged(object sender, EventArgs e)

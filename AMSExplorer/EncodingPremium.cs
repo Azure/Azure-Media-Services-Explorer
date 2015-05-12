@@ -65,9 +65,13 @@ namespace AMSExplorer
             {
                 return buttonJobOptions.GetSettings();
             }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
+            }
         }
 
-       
+
 
         public List<IAsset> SelectedPremiumWorkflows
         {
@@ -142,7 +146,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
 
         public EncodingPremium(CloudMediaContext context)
         {
@@ -190,7 +194,7 @@ namespace AMSExplorer
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
 
-           
+
             listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
         }

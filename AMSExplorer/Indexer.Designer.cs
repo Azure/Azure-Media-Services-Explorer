@@ -263,6 +263,7 @@
             // 
             // buttonJobOptions
             // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonJobOptions.Location = new System.Drawing.Point(394, 349);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);

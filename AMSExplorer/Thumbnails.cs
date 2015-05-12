@@ -74,6 +74,10 @@ namespace AMSExplorer
             {
                 return buttonJobOptions.GetSettings();
             }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
+            }
         }
 
         public string ThumbnailsFileName
@@ -159,7 +163,7 @@ namespace AMSExplorer
                 processorlabel.Text = value;
             }
         }
-        
+
 
         public Thumbnails(CloudMediaContext context)
         {
@@ -172,7 +176,7 @@ namespace AMSExplorer
 
         private void Thumbnails_Load(object sender, EventArgs e)
         {
-           
+
         }
     }
 }
