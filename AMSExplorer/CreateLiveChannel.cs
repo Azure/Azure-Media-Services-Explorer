@@ -41,6 +41,29 @@ namespace AMSExplorer
         private bool InitPhase = true;
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
 
+        public readonly List<LiveProfile> Profiles = new List<LiveProfile>
+        {
+            new LiveProfile()
+            {
+                Name ="Default720p",
+                Video = new List<LiveVideoProfile>()
+                { 
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_30fps_3500kbps"}, 
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_30fps_2200kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_30fps_1350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_30fps_850kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_30fps_550kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_30fps_350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_30fps_200kbps"},
+                        },
+                Audio = new LiveAudioProfile()
+                    {
+                    Codec= "HE-AAC v1", Bitrate= 56, SamplingRate= 44.1, Channels= "Stereo" 
+                    }
+                
+            }
+        };
+
 
         public string ChannelName
         {
@@ -81,9 +104,11 @@ namespace AMSExplorer
 
                     List<AudioStream> audiostreamsl = new List<AudioStream>();
                     audiostreamsl.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageMain.SelectedItem).Value, Index = (int)numericUpDownAudioIndexMain.Value });
-                    audiostreamsl.AddRange(audiostreams);
+                    if (checkBoxEnableMultiAudio.Checked)
+                    {
+                        audiostreamsl.AddRange(audiostreams);
+                    }
                     encodingoption.AudioStreams = new ReadOnlyCollection<AudioStream>(audiostreamsl);
-
                 }
 
                 return encodingoption;
@@ -220,9 +245,6 @@ namespace AMSExplorer
             comboBoxEncodingPreset.Items.Add("Default720p");
             comboBoxEncodingPreset.SelectedIndex = 0;
 
-
-
-
             dataGridViewAudioStreams.DataSource = audiostreams;
             dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
@@ -333,6 +355,7 @@ namespace AMSExplorer
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
         {
             audiostreams.Add(new AudioStream() { Language = ((Item)comboBoxAudioLanguageAddition.SelectedItem).Value, Index = (int)numericUpDownAudioIndexAddition.Value });
+            UpdateProfileGrids();
         }
 
         internal static bool IsChannelNameValid(string name)
@@ -346,6 +369,7 @@ namespace AMSExplorer
             if (dataGridViewAudioStreams.SelectedRows.Count == 1)
             {
                 audiostreams.RemoveAt(dataGridViewAudioStreams.SelectedRows[0].Index);
+                UpdateProfileGrids();
             }
         }
 
@@ -493,5 +517,91 @@ namespace AMSExplorer
         {
             errorProvider1.SetError(checkBoxInsertSlateOnAdMarker, String.Empty);
         }
+
+
+
+        private void comboBoxEncodingPreset_SelectedValueChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+
+        }
+
+        private void UpdateProfileGrids()
+        {
+            var profileliveselected = Profiles.Where(p => p.Name == comboBoxEncodingPreset.Text).FirstOrDefault();
+            if (profileliveselected != null)
+            {
+                dataGridViewVideoProf.DataSource = profileliveselected.Video;
+
+
+
+                List<LiveAudioProfile> profmultiaudio = new List<LiveAudioProfile>();
+
+                var option = this.EncodingOptions;
+                if (option != null && option.AudioStreams != null)
+                {
+                    foreach (var audiostream in this.EncodingOptions.AudioStreams)
+                    {
+                        profmultiaudio.Add(new LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    }
+                }
+                else // no specific audio language specified
+                {
+                    profmultiaudio.Add(new LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                }
+
+                dataGridViewAudioProf.DataSource = profmultiaudio;
+            }
+            else
+            {
+                dataGridViewVideoProf.DataSource = null;
+                dataGridViewAudioProf.DataSource = null;
+            }
+        }
+
+        private void comboBoxAudioLanguageMain_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+        }
+
+        private void comboBoxEncodingPreset_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            panelMultiAudio.Enabled = checkBoxEnableMultiAudio.Checked;
+            UpdateProfileGrids();
+        }
+    }
+
+    public class LiveVideoProfile
+    {
+        public string Codec { get; set; }
+        public int Bitrate { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
+        public string Profile { get; set; }
+        public string OutputStreamName { get; set; }
+    }
+
+    public class LiveAudioProfile
+    {
+        public string Language { get; set; }
+        public string Codec { get; set; }
+        public int Bitrate { get; set; }
+        public double SamplingRate { get; set; }
+        public string Channels { get; set; }
+    }
+
+
+
+    public class LiveProfile
+    {
+        public string Name { get; set; }
+
+        public List<LiveVideoProfile> Video { get; set; }
+        public LiveAudioProfile Audio { get; set; }
     }
 }
