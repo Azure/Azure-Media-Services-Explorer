@@ -403,11 +403,11 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(301, 9);
+            this.label34.Location = new System.Drawing.Point(181, 12);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(240, 24);
+            this.label34.Size = new System.Drawing.Size(356, 24);
             this.label34.TabIndex = 65;
-            this.label34.Text = "Azure Media Hyperlapse";
+            this.label34.Text = "Hyperlapse for Azure Media Services";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // panel1
