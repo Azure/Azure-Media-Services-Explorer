@@ -205,10 +205,8 @@ namespace AMSExplorer
 
                 textBoxSourceStartTime.Text = tsstart.ToString("g");
                 textBoxSourceDurationTime.Text = tsduration.ToString("g");
-                textBoxOutputDuration.Text = tsoutputduration.ToString("g"); ;
+                textBoxOutputDuration.Text = tsoutputduration.ToString("g");
             }
-
-
         }
 
         private void numericUpDownNumFrames_ValueChanged(object sender, EventArgs e)
