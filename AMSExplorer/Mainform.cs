@@ -2797,7 +2797,6 @@ namespace AMSExplorer
                 Text = "Azure Media Encoding",
                 EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingJobName = "AME Encoding of " + Constants.NameconvInputasset,
-                EncodingLabel2 = "Select a encoding profile:",
                 EncodingProcessorsList = Encoders,
             };
 
