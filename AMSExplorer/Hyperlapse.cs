@@ -196,11 +196,12 @@ namespace AMSExplorer
         {
             if (checkBoxDisplayTime.Checked)
             {
+                const int maxframe = 10000; // In public preview, limited to 10 000 frames
                 double framerate = Convert.ToDouble(comboBoxFrameRate.Text);
                 double speed = (double)numericUpDownSpeed.Value;
 
                 TimeSpan tsstart = TimeSpan.FromSeconds(((double)numericUpDownStartFrame.Value) / framerate);
-                TimeSpan tsduration = TimeSpan.FromSeconds(((double)numericUpDownNumFrames.Value) / framerate);
+                TimeSpan tsduration = TimeSpan.FromSeconds((Math.Min(maxframe, (double)numericUpDownNumFrames.Value)) / framerate);
                 TimeSpan tsoutputduration = TimeSpan.FromSeconds(tsduration.TotalSeconds / speed);
 
                 textBoxSourceStartTime.Text = tsstart.ToString("g");

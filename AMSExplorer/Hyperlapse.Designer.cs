@@ -60,6 +60,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -163,6 +164,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label9);
             this.groupBox1.Controls.Add(this.panelTimes);
             this.groupBox1.Controls.Add(this.labelSourceFrameRate);
             this.groupBox1.Controls.Add(this.numericUpDownNumFrames);
@@ -265,6 +267,11 @@
             this.numericUpDownNumFrames.Location = new System.Drawing.Point(123, 168);
             this.numericUpDownNumFrames.Maximum = new decimal(new int[] {
             1000000,
+            0,
+            0,
+            0});
+            this.numericUpDownNumFrames.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -435,6 +442,17 @@
             this.pictureBox1.TabIndex = 71;
             this.pictureBox1.TabStop = false;
             // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(120, 196);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(277, 17);
+            this.label9.TabIndex = 84;
+            this.label9.Text = "In Preview, only the first 10000 frames will be processed";
+            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -526,5 +544,6 @@
         public System.Windows.Forms.Label label6;
         public System.Windows.Forms.Label labelSourceFrameRate;
         private System.Windows.Forms.Panel panelTimes;
+        private System.Windows.Forms.Label label9;
     }
 }
