@@ -35,6 +35,7 @@ namespace AMSExplorer
     public partial class Hyperlapse : Form
     {
         private CloudMediaContext _context;
+        const int maxframe = 10000; // In public preview, limited to 10 000 frames
 
         public string HyperlapseInputAssetName
         {
@@ -196,7 +197,6 @@ namespace AMSExplorer
         {
             if (checkBoxDisplayTime.Checked)
             {
-                const int maxframe = 10000; // In public preview, limited to 10 000 frames
                 double framerate = Convert.ToDouble(comboBoxFrameRate.Text);
                 double speed = (double)numericUpDownSpeed.Value;
 
@@ -223,6 +223,18 @@ namespace AMSExplorer
         private void numericUpDownSpeed_ValueChanged(object sender, EventArgs e)
         {
             DisplayTime();
+        }
+
+        private void numericUpDownNumFrames_Validating(object sender, CancelEventArgs e)
+        {
+            if (numericUpDownNumFrames.Value > maxframe)
+            {
+                errorProvider1.SetError(numericUpDownNumFrames, "In Preview, only the first 10000 frames will be processed");
+            }
+            else
+            {
+                errorProvider1.SetError(numericUpDownNumFrames, String.Empty);
+            }
         }
     }
 }
