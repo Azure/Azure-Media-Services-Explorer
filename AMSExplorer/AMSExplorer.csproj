@@ -182,9 +182,16 @@
     <Compile Include="JobOptions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="JobOptions.Designer.cs">
+	<Compile Include="JobOptions.Designer.cs">
       <DependentUpon>JobOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hyperlapse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Hyperlapse.Designer.cs">
+      <DependentUpon>Hyperlapse.cs</DependentUpon>
+    </Compile>
+    
     <Compile Include="IndexerOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -425,6 +432,12 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <None Include="BitmapsPNG\hyperlapse-large.png" />
+    <Content Include="Configurations\Hyperlapse.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="IconsPNG\hyperlapse.png" />
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -448,6 +461,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Hyperlapse.resx">
+      <DependentUpon>Hyperlapse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="IndexerOptions.resx">
       <DependentUpon>IndexerOptions.cs</DependentUpon>

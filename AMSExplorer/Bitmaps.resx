@@ -268,4 +268,10 @@
   <data name="DefaultAzurePortalSlate" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>SlateJPG\DefaultAzurePortalSlate.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="hyperlapse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\hyperlapse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hyperlapse_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\hyperlapse-large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

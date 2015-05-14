@@ -402,6 +402,7 @@ namespace AMSExplorer
         public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
         public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
+        public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
         public const string NameconvWorkflow = "{Workflow}";
@@ -455,6 +456,8 @@ namespace AMSExplorer
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
+        public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/topics/media-services/";
+        public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 

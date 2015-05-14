@@ -79,6 +79,7 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
+        private bool HyperlapsePresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -160,9 +161,14 @@ namespace AMSExplorer
             {
                 AMEPremiumWorkflowPresent = false;
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                //encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-                //ContextMenuItemPremiumWorkflow.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
+            {
+                HyperlapsePresent = false;
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false;
             }
 
             // Timer Auto Refresh
@@ -2990,6 +2996,9 @@ namespace AMSExplorer
 
 
 
+
+
+
         /// <summary>
         /// Converts Smooth Stream to HLS.
         /// </summary>
@@ -3341,6 +3350,50 @@ namespace AMSExplorer
                     form.JobOptions.TasksOptionsSetting,
                     form.JobOptions.StorageSelected
                     );
+            }
+        }
+
+        private void DoMenuHyperlapseAssets()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
+                ||
+                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
+                ))
+            {
+                MessageBox.Show("Source asset must be a single MP4 or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
+
+            Hyperlapse form = new Hyperlapse(_context)
+            {
+                HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
+                HyperlapseOutputAssetName = Constants.NameconvInputasset + "-Hyperlapsed",
+                HyperlapseProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
+            };
+
+            string taskname = "Hyperlapse processing of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                string configHyperlapse = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
+                Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
+                form.HyperlapseStartFrame,
+                form.HyperlapseNumFrames,
+                form.HyperlapseSpeed
+                );
+
+                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }
 
@@ -4891,6 +4944,13 @@ typeof(FilterTime)
             {
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+            }
+
+            // let's disable Hyperlapse if not present
+            if (!HyperlapsePresent)
+            {
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
             }
         }
 
@@ -9209,6 +9269,16 @@ typeof(FilterTime)
         {
             Process.Start(@"https://github.com/AzureMediaServicesSamples");
 
+        }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
         }
     }
 }
