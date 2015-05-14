@@ -39,12 +39,8 @@
             this.radioButtonMultipleJob = new System.Windows.Forms.RadioButton();
             this.radioButtonSingleJob = new System.Windows.Forms.RadioButton();
             this.labelsummaryjob = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonOk = new System.Windows.Forms.Button();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label32 = new System.Windows.Forms.Label();
             this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
@@ -53,7 +49,7 @@
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
             this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -178,24 +174,6 @@
             this.labelsummaryjob.TabIndex = 14;
             this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
             // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(489, 296);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 36;
-            this.label5.Text = "Priority :";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.numericUpDownPriority.Location = new System.Drawing.Point(489, 312);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDownPriority.TabIndex = 35;
-            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -220,26 +198,6 @@
             this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxJob.TabIndex = 41;
             this.pictureBoxJob.TabStop = false;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(489, 344);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 55;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(489, 360);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(269, 21);
-            this.comboBoxStorage.TabIndex = 54;
             // 
             // label32
             // 
@@ -326,6 +284,16 @@
             this.listViewWorkflows.View = System.Windows.Forms.View.Details;
             this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listViewWorkflows_SelectedIndexChanged);
             // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(621, 312);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
@@ -334,17 +302,14 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.progressBarUpload);
             this.Controls.Add(this.buttonUpload);
             this.Controls.Add(this.label32);
             this.Controls.Add(this.comboBoxProcessor);
-            this.Controls.Add(this.label33);
-            this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.pictureBoxJob);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.labelsummaryjob);
             this.Controls.Add(this.radioButtonSingleJob);
             this.Controls.Add(this.radioButtonMultipleJob);
@@ -359,7 +324,6 @@
             this.Name = "EncodingPremium";
             this.Text = "Media Encoder Premium Workflow";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -381,11 +345,7 @@
         private System.Windows.Forms.RadioButton radioButtonMultipleJob;
         private System.Windows.Forms.RadioButton radioButtonSingleJob;
         private System.Windows.Forms.Label labelsummaryjob;
-        public System.Windows.Forms.Label label5;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.PictureBox pictureBoxJob;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox comboBoxStorage;
         public System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox comboBoxProcessor;
         public System.Windows.Forms.Label label31;
@@ -394,6 +354,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogWorkflow;
         private System.Windows.Forms.Panel panel1;
         private ListViewWorkflows listViewWorkflows;
+        private ButtonJobOptions buttonJobOptions;
 
     }
 }

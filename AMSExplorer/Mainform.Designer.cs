@@ -66,6 +66,7 @@
             this.ContextMenuItemPremiumWorkflow = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithHyperlapseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.submitFromTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemGenericProcessor = new System.Windows.Forms.ToolStripMenuItem();
             this.packageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,6 +133,7 @@
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
             this.generateThumbnailsForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processAssetsWithHyperlapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithAJobTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsadvancedModeWithToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorBottomIndex = new System.Windows.Forms.ToolStripSeparator();
@@ -226,6 +228,7 @@
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.samplePlayersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaBlogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.azureMediaServicesSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.azureMediaServicesPlayerPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.silverlightMonitoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -239,7 +242,6 @@
             this.jwPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
             this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.azureMediaServicesSamplesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -528,6 +530,7 @@
             this.encodeToolStripMenuItem,
             this.ContextMenuItemThumbnails,
             this.ContextMenuItemIndexer,
+            this.processAssetsWithHyperlapseToolStripMenuItem1,
             this.submitFromTemplateToolStripMenuItem,
             this.ContextMenuItemGenericProcessor,
             this.packageToolStripMenuItem,
@@ -538,7 +541,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 430);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -776,6 +779,15 @@
             this.ContextMenuItemIndexer.Size = new System.Drawing.Size(343, 22);
             this.ContextMenuItemIndexer.Text = "Index asset(s) with Azure Media Indexer...";
             this.ContextMenuItemIndexer.Click += new System.EventHandler(this.toolStripMenuItemIndex_Click);
+            // 
+            // processAssetsWithHyperlapseToolStripMenuItem1
+            // 
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.hyperlapse;
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Name = "processAssetsWithHyperlapseToolStripMenuItem1";
+            this.processAssetsWithHyperlapseToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Text = "Process asset(s) with Hyperlapse...";
+            this.processAssetsWithHyperlapseToolStripMenuItem1.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem1_Click);
             // 
             // submitFromTemplateToolStripMenuItem
             // 
@@ -1316,6 +1328,7 @@
             this.toolStripSeparator17,
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
             this.indexAssetsToolStripMenuItem,
+            this.processAssetsWithHyperlapseToolStripMenuItem,
             this.processAssetsWithAJobTemplateToolStripMenuItem,
             this.processAssetsadvancedModeWithToolStripMenuItem,
             this.toolStripSeparatorBottomIndex,
@@ -1383,6 +1396,15 @@
             this.indexAssetsToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.indexAssetsToolStripMenuItem.Text = "Index asset(s) with Azure Media Indexer...";
             this.indexAssetsToolStripMenuItem.Click += new System.EventHandler(this.indexAssetsToolStripMenuItem_Click);
+            // 
+            // processAssetsWithHyperlapseToolStripMenuItem
+            // 
+            this.processAssetsWithHyperlapseToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.hyperlapse;
+            this.processAssetsWithHyperlapseToolStripMenuItem.Name = "processAssetsWithHyperlapseToolStripMenuItem";
+            this.processAssetsWithHyperlapseToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Y)));
+            this.processAssetsWithHyperlapseToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.processAssetsWithHyperlapseToolStripMenuItem.Text = "Process asset(s) with Hyperlapse...";
+            this.processAssetsWithHyperlapseToolStripMenuItem.Click += new System.EventHandler(this.processAssetsWithHyperlapseToolStripMenuItem_Click);
             // 
             // processAssetsWithAJobTemplateToolStripMenuItem
             // 
@@ -2223,6 +2245,14 @@
             this.azureMediaBlogToolStripMenuItem.Text = "Azure Media Blog";
             this.azureMediaBlogToolStripMenuItem.Click += new System.EventHandler(this.azureMediaBlogToolStripMenuItem_Click);
             // 
+            // azureMediaServicesSamplesToolStripMenuItem
+            // 
+            this.azureMediaServicesSamplesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.azureMediaServicesSamplesToolStripMenuItem.Name = "azureMediaServicesSamplesToolStripMenuItem";
+            this.azureMediaServicesSamplesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.azureMediaServicesSamplesToolStripMenuItem.Text = "Azure Media Services Samples on GitHub";
+            this.azureMediaServicesSamplesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesSamplesToolStripMenuItem_Click);
+            // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
@@ -2320,14 +2350,6 @@
             this.hTML5CaptionMakerToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.hTML5CaptionMakerToolStripMenuItem.Text = "HTML5 Caption Maker";
             this.hTML5CaptionMakerToolStripMenuItem.Click += new System.EventHandler(this.hTML5CaptionMakerToolStripMenuItem_Click);
-            // 
-            // azureMediaServicesSamplesToolStripMenuItem
-            // 
-            this.azureMediaServicesSamplesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
-            this.azureMediaServicesSamplesToolStripMenuItem.Name = "azureMediaServicesSamplesToolStripMenuItem";
-            this.azureMediaServicesSamplesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
-            this.azureMediaServicesSamplesToolStripMenuItem.Text = "Azure Media Services Samples on GitHub";
-            this.azureMediaServicesSamplesToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesSamplesToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -4529,6 +4551,8 @@
         private System.Windows.Forms.ToolStripMenuItem secondaryInputURLToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem ContextMenuItemProgramCopyTheOutputURLToClipboard;
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesSamplesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem1;
     }
 }
 

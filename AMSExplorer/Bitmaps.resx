@@ -256,7 +256,7 @@
   <data name="_8_12_2014_13_20_04" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\8-12-2014-13-20-04.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-   <data name="Azure_Explorer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="Azure_Explorer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\Azure Explorer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Azure_Explorer_ico" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -265,4 +265,13 @@
   <data name="AzureMedia_Full_Color_64_opaque" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\AzureMedia_Full-Color-64-opaque.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
- </root>
+  <data name="DefaultAzurePortalSlate" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>SlateJPG\DefaultAzurePortalSlate.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hyperlapse" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\hyperlapse.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hyperlapse_large" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>BitmapsPNG\hyperlapse-large.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

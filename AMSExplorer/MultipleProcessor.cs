@@ -61,14 +61,18 @@ namespace AMSExplorer
                 textBoxJobName.Text = value;
             }
         }
-        public string StorageSelected
+
+        public JobOptionsVar JobOptions
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return buttonJobOptions.GetSettings();
+            }
+            set
+            {
+                buttonJobOptions.SetSettings(value);
             }
         }
-
 
         public List<IMediaProcessor> EncodingProcessorsList
         {
@@ -179,18 +183,7 @@ namespace AMSExplorer
             return (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
         }
 
-        public int EncodingPriority
-        {
-            get
-            {
-                return (int)numericUpDownPriority.Value;
-            }
-            set
-            {
-                numericUpDownPriority.Value = value;
-            }
-
-        }
+       
 
         public TaskJobCreationMode EncodingCreationMode
         {
@@ -222,6 +215,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _myJob = myJob;
+            buttonJobOptions.Initialize(_context);
 
             if (_myJob != null) // we are in resubmit mode
             {
@@ -258,11 +252,7 @@ namespace AMSExplorer
         {
             UpdateJobSummary();
             UpdateWarning();
-            foreach (var storage in _context.StorageAccounts)
-            {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
-            }
+           
         }
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)

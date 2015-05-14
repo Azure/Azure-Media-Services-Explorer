@@ -46,13 +46,16 @@ namespace AMSExplorer
         public CloudMediaContext MyContext;
         private Mainform MyMainForm;
         private Dictionary<IAsset, ILocator> ListLocators = new Dictionary<IAsset, ILocator>(); // to store locators for JPEG files
-
+        string labelSlatePreviewInfoText;
 
         public ChannelAdSlateControl(Mainform mainform)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
+
+            labelSlatePreviewInfoText = labelSlatePreviewInfo.Text;
+            labelSlatePreviewInfo.Text = "";
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -117,21 +120,40 @@ namespace AMSExplorer
 
         private async void buttonUploadSlate_Click(object sender, EventArgs e)
         {
+            if (Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder))
+            {
+                openFileDialogSlate.InitialDirectory = Properties.Settings.Default.DefaultSlateCurrentFolder;
+            }
+
             if (openFileDialogSlate.ShowDialog() == DialogResult.OK)
             {
-                IAsset asset;
-                progressBarUpload.Value = 0;
-                progressBarUpload.Visible = true;
+                Properties.Settings.Default.DefaultSlateCurrentFolder = Path.GetDirectoryName(openFileDialogSlate.FileName); // let's save the folder
+                Program.SaveAndProtectUserConfig();
 
-                buttonUploadSlate.Enabled = false;
                 string file = openFileDialogSlate.FileName;
-                asset = await Task.Factory.StartNew(() => ProcessUploadFile(file));
-                progressBarUpload.Visible = false;
+                string errorString = ListViewSlateJPG.CheckSlateFile(file);
+                if (!string.IsNullOrEmpty(errorString))
+                {
+                    MessageBox.Show(errorString, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else // file has been validated
+                {
+                    IAsset asset;
+                    progressBarUpload.Value = 0;
+                    progressBarUpload.Visible = true;
 
-                buttonUploadSlate.Enabled = true;
-                listViewJPG1.LoadJPGs(MyContext, asset, MyChannel.Slate);
+                    buttonUploadSlate.Enabled = false;
+
+                    asset = await Task.Factory.StartNew(() => ProcessUploadFile(file));
+                    progressBarUpload.Visible = false;
+
+                    buttonUploadSlate.Enabled = true;
+                    listViewJPG1.LoadJPGs(MyContext, asset, MyChannel.Slate);
+                }
             }
         }
+
+
 
         private IAsset ProcessUploadFile(string fileName, string storageAccount = null)
         {
@@ -332,6 +354,23 @@ namespace AMSExplorer
                             AF = JPGAsset.AssetFiles.FirstOrDefault();
                             Uri sasUri = BuildSasUri(AF, locator);
                             pictureBoxPreviewSlate.Load(sasUri.AbsoluteUri);
+
+                            Image fileImage = pictureBoxPreviewSlate.Image;
+                            double aspectRatioImage = (double)fileImage.Size.Width / (double)fileImage.Size.Height;
+                            labelSlatePreviewInfo.Text = string.Format(labelSlatePreviewInfoText, fileImage.Width, fileImage.Height, aspectRatioImage);
+
+                            if (
+                                fileImage.Width > Constants.maxSlateJPGHorizontalResolution
+                                || fileImage.Height > Constants.maxSlateJPGVerticalResolution
+                                || !ListViewSlateJPG.AreClose(aspectRatioImage, Constants.SlateJPGAspectRatio)
+                                )
+                            {
+                                labelSlatePreviewInfo.ForeColor = Color.Red;
+                            }
+                            else
+                            {
+                                labelSlatePreviewInfo.ForeColor = Color.Black;
+                            }
                         }
                     }
                     catch
@@ -435,7 +474,6 @@ namespace AMSExplorer
             try
             {
                 Convert.ToDouble(tb.Text);
-
             }
             catch
             {
@@ -450,6 +488,27 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
+        }
+
+        private void checkBoxPreviewSlate_CheckedChanged(object sender, EventArgs e)
+        {
+            pictureBoxPreviewSlate.Visible = labelSlatePreviewInfo.Visible = checkBoxPreviewSlate.Checked;
+            if (!checkBoxPreviewSlate.Checked)
+            {
+                pictureBoxPreviewSlate.Image = null;
+                labelSlatePreviewInfo.Text = "";
+
+            }
+        }
+
+        private void buttongenerateContentKey_Click(object sender, EventArgs e)
+        {
+            textBoxCueId.Text = GenerateRandomCueId();
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

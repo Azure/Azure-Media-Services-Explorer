@@ -34,8 +34,6 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.processorlabel = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
             this.radioButtonSingleJobForAllInputAssets = new System.Windows.Forms.RadioButton();
             this.radioButtonOneJobPerInputAsset = new System.Windows.Forms.RadioButton();
             this.listViewProcessors1 = new System.Windows.Forms.ListView();
@@ -45,8 +43,6 @@
             this.ListViewDesc = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabcontrolgeneric = new System.Windows.Forms.TabControl();
             this.tabPageAssets = new System.Windows.Forms.TabPage();
-            this.label33 = new System.Windows.Forms.Label();
-            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
@@ -115,7 +111,7 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -184,22 +180,6 @@
             this.processorlabel.Size = new System.Drawing.Size(162, 13);
             this.processorlabel.TabIndex = 31;
             this.processorlabel.Text = "Select a processor :";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(16, 239);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(58, 20);
-            this.numericUpDownPriority.TabIndex = 33;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 222);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
-            this.label5.TabIndex = 34;
-            this.label5.Text = "Priority :";
             // 
             // radioButtonSingleJobForAllInputAssets
             // 
@@ -287,8 +267,6 @@
             // 
             // tabPageAssets
             // 
-            this.tabPageAssets.Controls.Add(this.label33);
-            this.tabPageAssets.Controls.Add(this.comboBoxStorage);
             this.tabPageAssets.Controls.Add(this.label4);
             this.tabPageAssets.Controls.Add(this.label3);
             this.tabPageAssets.Controls.Add(this.textboxoutputassetname);
@@ -300,26 +278,6 @@
             this.tabPageAssets.TabIndex = 2;
             this.tabPageAssets.Text = "Asset(s)";
             this.tabPageAssets.UseVisualStyleBackColor = true;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(438, 373);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(83, 13);
-            this.label33.TabIndex = 57;
-            this.label33.Text = "Output storage :";
-            // 
-            // comboBoxStorage
-            // 
-            this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(438, 389);
-            this.comboBoxStorage.Name = "comboBoxStorage";
-            this.comboBoxStorage.Size = new System.Drawing.Size(281, 21);
-            this.comboBoxStorage.TabIndex = 56;
             // 
             // label4
             // 
@@ -377,14 +335,13 @@
             // 
             // tabPageJobs
             // 
+            this.tabPageJobs.Controls.Add(this.buttonJobOptions);
             this.tabPageJobs.Controls.Add(this.label6);
             this.tabPageJobs.Controls.Add(this.numericUpDownTasks);
             this.tabPageJobs.Controls.Add(this.panelJobMode);
             this.tabPageJobs.Controls.Add(this.pictureBoxJob);
             this.tabPageJobs.Controls.Add(this.labelsummaryjob);
             this.tabPageJobs.Controls.Add(this.textBoxJobName);
-            this.tabPageJobs.Controls.Add(this.label5);
-            this.tabPageJobs.Controls.Add(this.numericUpDownPriority);
             this.tabPageJobs.Controls.Add(this.label1);
             this.tabPageJobs.Location = new System.Drawing.Point(4, 22);
             this.tabPageJobs.Margin = new System.Windows.Forms.Padding(2);
@@ -995,7 +952,16 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 67;
             // 
-            // GenericProcessor
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Location = new System.Drawing.Point(16, 229);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // MultipleProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -1004,11 +970,10 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
-            this.Name = "GenericProcessor";
+            this.Name = "MultipleProcessor";
             this.Text = "Multiple processors job";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
             this.Shown += new System.EventHandler(this.GenericProcessor_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.tabcontrolgeneric.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
             this.tabPageAssets.PerformLayout();
@@ -1041,8 +1006,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.Label processorlabel;
-        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
-        public System.Windows.Forms.Label label5;
         private System.Windows.Forms.RadioButton radioButtonSingleJobForAllInputAssets;
         private System.Windows.Forms.RadioButton radioButtonOneJobPerInputAsset;
         private System.Windows.Forms.ListView listViewProcessors1;
@@ -1067,8 +1030,6 @@
         private System.Windows.Forms.PictureBox pictureBoxJob;
         private System.Windows.Forms.TextBox textBoxJobName;
         private System.Windows.Forms.TextBox textboxoutputassetname;
-        private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.ComboBox comboBoxStorage;
         private System.Windows.Forms.Panel panelJobMode;
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Label label6;
@@ -1123,5 +1084,6 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox comboBoxAssetInput5;
         private System.Windows.Forms.Label label19;
+        private ButtonJobOptions buttonJobOptions;
     }
 }

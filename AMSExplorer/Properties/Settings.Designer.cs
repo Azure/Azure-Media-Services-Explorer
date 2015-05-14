@@ -406,5 +406,17 @@ namespace AMSExplorer.Properties {
                 this["DirectShowVideoDevice"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DefaultSlateCurrentFolder {
+            get {
+                return ((string)(this["DefaultSlateCurrentFolder"]));
+            }
+            set {
+                this["DefaultSlateCurrentFolder"] = value;
+            }
+        }
     }
 }

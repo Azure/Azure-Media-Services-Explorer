@@ -79,6 +79,7 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
+        private bool HyperlapsePresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -106,6 +107,12 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             }
+
+            if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
+            {
+                Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
+            }
+
             Program.SaveAndProtectUserConfig(); // to save settings 
 
             _HelpFiles = Application.StartupPath + Constants.PathHelpFiles;
@@ -154,9 +161,14 @@ namespace AMSExplorer
             {
                 AMEPremiumWorkflowPresent = false;
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
-                //encodeAssetWithPremiumWorkflowToolStripMenuItem.Visible = false;
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
-                //ContextMenuItemPremiumWorkflow.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
+            {
+                HyperlapsePresent = false;
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false;
             }
 
             // Timer Auto Refresh
@@ -2674,7 +2686,6 @@ namespace AMSExplorer
                 EncodingProcessorsList = Encoders,
                 EncodingJobName = "Premium Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
-                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder
@@ -2688,7 +2699,7 @@ namespace AMSExplorer
                 if (!form.EncodingMultipleJobs) // ONE job with all input assets
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                    IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                     foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each blueprint selected, we create a task
                     {
                         string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
@@ -2696,12 +2707,13 @@ namespace AMSExplorer
                                     tasknameloc,
                                    form.EncodingProcessorSelected,
                                    "",
-                                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                                   form.JobOptions.TasksOptionsSetting
+                                   );
                         // Specify the workflow asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.Add(graphAsset);
                         task.InputAssets.AddRange(SelectedAssets); // we add all assets
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                     }
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                     // Submit the job and wait until it is completed. 
@@ -2725,7 +2737,7 @@ namespace AMSExplorer
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
 
-                        IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                         foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
                         {
                             string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
@@ -2734,13 +2746,14 @@ namespace AMSExplorer
                                         tasknameloc,
                                        form.EncodingProcessorSelected,
                                        "",
-                                       Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                                       form.JobOptions.TasksOptionsSetting
+                                       );
                             // Specify the graph asset to be encoded, followed by the input video asset to be used
                             task.InputAssets.Add(graphAsset);
                             task.InputAssets.Add(asset); // we add one asset
                             string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
 
-                            task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                            task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                         }
                         TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                         // Submit the job and wait until it is completed. 
@@ -2784,15 +2797,23 @@ namespace AMSExplorer
                 Text = "Azure Media Encoding",
                 EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingJobName = "AME Encoding of " + Constants.NameconvInputasset,
-                EncodingLabel2 = "Select a encoding profile:",
                 EncodingProcessorsList = Encoders,
-                EncodingJobPriority = Properties.Settings.Default.DefaultJobPriority
             };
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
-                LaunchJobs(form.EncodingProcessorSelected, SelectedAssets, form.EncodingJobName, form.EncodingJobPriority, taskname, form.EncodingOutputAssetName, form.EncodingSelectedPreset, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(
+                    form.EncodingProcessorSelected,
+                    SelectedAssets,
+                    form.EncodingJobName,
+                    form.JobOptions.Priority,
+                    taskname,
+                    form.EncodingOutputAssetName,
+                    form.EncodingSelectedPreset,
+                    form.JobOptions.OutputAssetsCreationOptions,
+                    form.JobOptions.TasksOptionsSetting,
+                    form.JobOptions.StorageSelected);
             }
         }
 
@@ -2973,27 +2994,10 @@ namespace AMSExplorer
             return doc.ToString();
         }
 
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar)
-        {
-            // Prepare the encryption task template
-            XDocument doc = XDocument.Load(xmlFileName);
 
-            var inputxml = doc.Element("configuration").Element("input");
-            if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
-            if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
 
-            var settings = doc.Element("configuration").Element("features").Element("feature").Element("settings");
-            settings.Add(new XElement("add", new XAttribute("key", "Language"), new XAttribute("value", Language)));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateAIB"), new XAttribute("value", optionsVar.AIB.ToString())));
-            settings.Add(new XElement("add", new XAttribute("key", "GenerateKeywords"), new XAttribute("value", optionsVar.Keywords.ToString())));
 
-            string cformats = optionsVar.TTML ? "ttml;" : string.Empty;
-            cformats += optionsVar.SAMI ? "sami;" : string.Empty;
-            cformats += optionsVar.WebVTT ? "webvtt" : string.Empty;
-            settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
 
-            return doc.Declaration.ToString() + doc.ToString();
-        }
 
         /// <summary>
         /// Converts Smooth Stream to HLS.
@@ -3058,7 +3062,13 @@ namespace AMSExplorer
                 jobname = jobname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 taskname = taskname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 string outputassetname = form.HLSOutputAssetName.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configHLS }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname, Properties.Settings.Default.DefaultJobPriority,
+                    taskname, outputassetname,
+                    new List<string> { configHLS },
+                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
 
@@ -3100,7 +3110,16 @@ namespace AMSExplorer
                                 _configurationXMLFiles,
                                 "MediaPackager_MP4toSmooth.xml"));
 
-                    LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { smoothConfig }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    LaunchJobs(processor,
+                        SelectedAssets,
+                        jobname,
+                        Properties.Settings.Default.DefaultJobPriority,
+                        taskname,
+                        outputassetname,
+                        new List<string> { smoothConfig },
+                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                        Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
+                        );
                 }
             }
         }
@@ -3163,16 +3182,21 @@ namespace AMSExplorer
                 form.PlayReadyServiceId,
                 form.PlayReadyCustomAttributes);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, form.PlayReadyOutputAssetName, new List<string> { configPlayReady }, AssetCreationOptions.CommonEncryptionProtected);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    form.PlayReadyOutputAssetName,
+                    new List<string> { configPlayReady },
+                    AssetCreationOptions.CommonEncryptionProtected,
+                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
 
         }
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
-        {
-            LaunchJobs(processor, selectedassets, jobname, Properties.Settings.Default.DefaultJobPriority, taskname, outputassetname, configuration, creationoptions, storageaccountname);
-        }
 
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions creationoptions, string storageaccountname = "")
+
+        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
         {
             foreach (IAsset asset in selectedassets)
             {
@@ -3185,7 +3209,7 @@ namespace AMSExplorer
                            tasknameloc,
                           processor,
                           config,
-                          Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                          myTaskOptions);
 
                     myTask.InputAssets.Add(asset);
 
@@ -3193,12 +3217,11 @@ namespace AMSExplorer
                     string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                     if (storageaccountname == "")
                     {
-                        myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, creationoptions); // let's use the same storage account than the input asset
-
+                        myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions); // let's use the same storage account than the input asset
                     }
                     else
                     {
-                        myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, creationoptions);
+                        myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
                     }
                 }
 
@@ -3264,7 +3287,15 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { configMp4Validation }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    outputassetname,
+                    new List<string> { configMp4Validation },
+                    Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
 
@@ -3293,7 +3324,6 @@ namespace AMSExplorer
                 IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                IndexerJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
             };
 
@@ -3301,17 +3331,69 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configIndexer = LoadAndUpdateIndexerConfiguration(
+                string configIndexer = Indexer.LoadAndUpdateIndexerConfiguration(
                 Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
                 form.IndexerTitle,
                 form.IndexerDescription,
                 form.IndexerLanguage,
                form.IndexerGenerationOptions
-
                 );
 
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    form.IndexerJobName,
+                    form.JobOptions.Priority,
+                    taskname,
+                    form.IndexerOutputAssetName,
+                    new List<string> { configIndexer },
+                    form.JobOptions.OutputAssetsCreationOptions,
+                    form.JobOptions.TasksOptionsSetting,
+                    form.JobOptions.StorageSelected
+                    );
+            }
+        }
 
-                LaunchJobs(processor, SelectedAssets, form.IndexerJobName, form.IndexerJobPriority, taskname, form.IndexerOutputAssetName, new List<string> { configIndexer }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+        private void DoMenuHyperlapseAssets()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
+                ||
+                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
+                ))
+            {
+                MessageBox.Show("Source asset must be a single MP4 or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            // Get the SDK extension method to  get a reference to the Azure Media Indexer.
+            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
+
+            Hyperlapse form = new Hyperlapse(_context)
+            {
+                HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
+                HyperlapseOutputAssetName = Constants.NameconvInputasset + "-Hyperlapsed",
+                HyperlapseProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
+            };
+
+            string taskname = "Hyperlapse processing of " + Constants.NameconvInputasset;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                string configHyperlapse = Hyperlapse.LoadAndUpdateHyperlapseConfiguration(
+                Path.Combine(_configurationXMLFiles, @"Hyperlapse.xml"),
+                form.HyperlapseStartFrame,
+                form.HyperlapseNumFrames,
+                form.HyperlapseSpeed
+                );
+
+                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }
 
@@ -3346,7 +3428,15 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.StorageDecryption);
 
-                LaunchJobs(processor, SelectedAssets, jobname, taskname, outputassetname, new List<string> { "" }, AssetCreationOptions.None);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    jobname,
+                    Properties.Settings.Default.DefaultJobPriority,
+                    taskname,
+                    outputassetname,
+                    new List<string> { "" },
+                    AssetCreationOptions.None,
+                    Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
             }
         }
 
@@ -3362,7 +3452,7 @@ namespace AMSExplorer
 
         private void dynamicPackagingToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Please create an streaming locator in the Publish menu." + Constants.endline + Constants.endline + "Check that you have, at least, one Streaming endpoint scale Unit" + Constants.endline + "The asset should be:" + Constants.endline + "- a Smooth Streaming asset (Clear or PlayReady protected)," + Constants.endline + "- or a Clear Multi MP4 asset.", "Dynamic Packaging");
+            MessageBox.Show("Please create a streaming locator in the Publish menu." + Constants.endline + Constants.endline + "Check that you have, at least, one Streaming endpoint scale Unit" + Constants.endline + "The asset should be:" + Constants.endline + "- a Smooth Streaming asset (Clear or PlayReady protected)," + Constants.endline + "- or a Clear Multi MP4 asset.", "Dynamic Packaging");
         }
 
 
@@ -3539,7 +3629,6 @@ typeof(FilterTime)
             EncodingAMEAdv form = new EncodingAMEAdv(_context)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. One job will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 EncodingProcessorsList = Encoders,
                 EncodingJobName = "AME (adv) Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-AME (adv) encoded",
@@ -3555,19 +3644,19 @@ typeof(FilterTime)
                 Program.SaveAndProtectUserConfig();
 
                 string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                 string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvEncodername, form.EncodingProcessorSelected.Name + " v" + form.EncodingProcessorSelected.Version);
                 ITask AMETask = job.Tasks.AddNew(
                     tasknameloc,
                   form.EncodingProcessorSelected,// processor,
                    form.EncodingConfiguration,
-                   Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                   form.JobOptions.TasksOptionsSetting);
 
                 AMETask.InputAssets.AddRange(form.SelectedAssets);
 
                 // Add an output asset to contain the results of the job.  
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
-                AMETask.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                AMETask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                 // if UserControl wants also aboutToolStripMenuItem thumbnails task
                 if (form.EncodingGenerateThumbnails)
@@ -3576,13 +3665,14 @@ typeof(FilterTime)
                                        tasknameloc,
                                      form.EncodingProcessorSelected,// processor,
                                       "Thumbnails",
-                                      Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                                      form.JobOptions.TasksOptionsSetting
+                                      );
 
                     AMETaskThumbnails.InputAssets.AddRange(form.SelectedAssets);
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnamelocthumbnails = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name) + " (Thumbnails)";
-                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    AMETaskThumbnails.OutputAssets.AddNew(outputassetnamelocthumbnails, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                 }
                 // Submit the job and wait until it is completed. 
                 try
@@ -3627,7 +3717,6 @@ typeof(FilterTime)
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
-                EncodingPriority = Properties.Settings.Default.DefaultJobPriority,
                 SelectedAssets = SelectedAssets,
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
@@ -3645,7 +3734,7 @@ typeof(FilterTime)
                     foreach (IAsset asset in SelectedAssets)
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
-                        IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
 
                         foreach (var usertask in gentasks)
                         // let's create all tasks and output assets
@@ -3669,10 +3758,11 @@ typeof(FilterTime)
                                   tasknameloc,
                                  usertask.Processor,
                                  usertask.ProcessorConfiguration,
-                                 Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                                 form.JobOptions.TasksOptionsSetting
+                                 );
 
                             string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                            task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                            task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                         }
                         // let(s branch the input assets
                         foreach (var usertask in gentasks)
@@ -3712,7 +3802,7 @@ typeof(FilterTime)
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
 
-                    IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
 
                     foreach (var usertask in gentasks)
                     // let's create all tasks and output assets
@@ -3736,10 +3826,11 @@ typeof(FilterTime)
                             tasknameloc,
                            usertask.Processor,
                            usertask.ProcessorConfiguration,
-                           Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                           form.JobOptions.TasksOptionsSetting
+                           );
 
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                     }
                     // let(s branch the input assets
                     foreach (var usertask in gentasks)
@@ -4853,6 +4944,13 @@ typeof(FilterTime)
             {
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
+            }
+
+            // let's disable Hyperlapse if not present
+            if (!HyperlapsePresent)
+            {
+                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
+                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
             }
         }
 
@@ -6331,7 +6429,6 @@ typeof(FilterTime)
                 ThumbnailsOutputAssetName = Constants.NameconvInputasset + "-Thumbnails",
                 ThumbnailsProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 ThumbnailsJobName = "Thumbnails generation of " + Constants.NameconvInputasset,
-                ThumbnailsJobPriority = Properties.Settings.Default.DefaultJobPriority,
                 ThumbnailsTimeValue = "0:0:0",
                 ThumbnailsTimeStep = "0:0:5",
                 ThumbnailsTimeStop = string.Empty,
@@ -6352,7 +6449,16 @@ typeof(FilterTime)
                 form.ThumbnailsTimeStop
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.ThumbnailsJobName, form.ThumbnailsJobPriority, taskname, form.ThumbnailsOutputAssetName, new List<string> { configThumbnails }, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None, form.StorageSelected);
+                LaunchJobs(processor,
+                    SelectedAssets,
+                    form.ThumbnailsJobName,
+                    form.JobOptions.Priority,
+                    taskname,
+                    form.ThumbnailsOutputAssetName,
+                    new List<string> { configThumbnails },
+                    form.JobOptions.OutputAssetsCreationOptions,
+                    form.JobOptions.TasksOptionsSetting,
+                    form.JobOptions.StorageSelected);
             }
         }
 
@@ -8254,7 +8360,13 @@ typeof(FilterTime)
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
-                EncodingPriority = myJob.Priority,
+                JobOptions = new JobOptionsVar
+                {
+                    Priority = myJob.Priority,
+                    OutputAssetsCreationOptions = myJob.OutputMediaAssets.FirstOrDefault().Options,
+                    StorageSelected = myJob.OutputMediaAssets.FirstOrDefault().StorageAccountName,
+                    TasksOptionsSetting = myJob.Tasks.FirstOrDefault().Options
+                },
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
 
@@ -8262,7 +8374,7 @@ typeof(FilterTime)
             {
 
                 string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-                IJob job = _context.Jobs.Create(jobnameloc, form.EncodingPriority);
+                IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
 
                 string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
 
@@ -8270,11 +8382,12 @@ typeof(FilterTime)
                             tasknameloc,
                            form.EncodingProcessorSelected,
                            form.EncodingConfiguration,
-                           Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None);
+                           form.JobOptions.TasksOptionsSetting
+                           );
                 // Specify the graph asset to be encoded, followed by the input video asset to be used
                 task.InputAssets.AddRange(myJob.InputMediaAssets.ToList());
                 string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                task.OutputAssets.AddNew(outputassetnameloc, form.StorageSelected, Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
 
                 TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                 // Submit the job and wait until it is completed. 
@@ -8331,7 +8444,6 @@ typeof(FilterTime)
                 ProcessingPromptText = (SelectedAssets.Count > 1) ? string.Format("{0} assets have been selected. 1 job will be submitted.", SelectedAssets.Count) : string.Format("Asset '{0}' will be encoded.", SelectedAssets.FirstOrDefault().Name),
                 Text = "Template based processing",
                 ProcessingJobName = string.Format("Processing of {0} with template {1}", Constants.NameconvInputasset, Constants.NameconvTemplate),
-                ProcessingPriority = Properties.Settings.Default.DefaultJobPriority
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -8342,7 +8454,7 @@ typeof(FilterTime)
                 // Submit the job
                 try
                 {
-                    IJob job = _context.Jobs.Create(jobname, form.SelectedJobTemplate, SelectedAssets, form.ProcessingPriority);
+                    IJob job = _context.Jobs.Create(jobname, form.SelectedJobTemplate, SelectedAssets, form.JobOptions.Priority);
                     job.Submit();
                 }
                 catch (Exception e)
@@ -9158,6 +9270,16 @@ typeof(FilterTime)
             Process.Start(@"https://github.com/AzureMediaServicesSamples");
 
         }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
+
+        private void processAssetsWithHyperlapseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
     }
 }
 
@@ -9353,32 +9475,36 @@ namespace AMSExplorer
                 #endregion [Font Placement Calc]
             }
 
-            // Draw the background
-            System.Drawing.Rectangle backRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
-            using (SolidBrush backgroundBrush = new SolidBrush(Color.FromKnownColor(KnownColor.LightGray)))
+            if (progressVal <= 100) // because when job is done or in error, we set progress > 100 % to avoid displaying the progress bar
             {
-                g.FillRectangle(backgroundBrush, backRectangle);
-            }
-
-            // Draw the progress bar
-            if (progressWidth > 0)
-            {
-                System.Drawing.Rectangle progressRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
-                using (LinearGradientBrush progressGradientBrush = new LinearGradientBrush(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
+                // Draw the background
+                System.Drawing.Rectangle backRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
+                using (SolidBrush backgroundBrush = new SolidBrush(Color.FromKnownColor(KnownColor.LightGray)))
                 {
-                    progressGradientBrush.SetBlendTriangularShape((float).5);
-                    g.FillRectangle(progressGradientBrush, progressRectangle);
+                    g.FillRectangle(backgroundBrush, backRectangle);
+                }
+
+                // Draw the progress bar
+                if (progressWidth > 0)
+                {
+                    System.Drawing.Rectangle progressRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
+                    using (LinearGradientBrush progressGradientBrush = new LinearGradientBrush(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
+                    {
+                        progressGradientBrush.SetBlendTriangularShape((float).5);
+                        g.FillRectangle(progressGradientBrush, progressRectangle);
+                    }
+                }
+
+                // Draw the text
+                if (null != formattedValue && null != cellStyle)
+                {
+                    using (SolidBrush fontBrush = new SolidBrush(cellStyle.ForeColor))
+                    {
+                        g.DrawString(formattedValue.ToString(), cellStyle.Font, fontBrush, fontPlacement);
+                    }
                 }
             }
 
-            // Draw the text
-            if (null != formattedValue && null != cellStyle)
-            {
-                using (SolidBrush fontBrush = new SolidBrush(cellStyle.ForeColor))
-                {
-                    g.DrawString(formattedValue.ToString(), cellStyle.Font, fontBrush, fontPlacement);
-                }
-            }
         }
     }
 
@@ -10411,7 +10537,7 @@ namespace AMSExplorer
                                StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = j.GetOverallProgress()
+                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -10576,7 +10702,7 @@ namespace AMSExplorer
                                StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = j.GetOverallProgress()
+                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
                 _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             }
@@ -10643,7 +10769,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if ((JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
+                               if ((JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -10702,16 +10828,16 @@ namespace AMSExplorer
                                        }
                                    }
                                }
-                               else // no progress anymore (finished or failed)
+                               else // no progress anymore (cancelling, finished or failed)
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
-                                   _MyObservJob[index].Progress = progress;
+                                   _MyObservJob[index].Progress = 101d;// progress;  we don't want the progress bar to be displayed
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
                                    _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
                                    _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
-                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's removed from the list of monitored jobs
+                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
                                    this.BeginInvoke(new Action(() =>
                                    {
                                        this.Refresh();

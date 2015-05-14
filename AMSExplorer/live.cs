@@ -51,14 +51,6 @@ using System.Runtime.Serialization;
 
 namespace AMSExplorer
 {
-    public static class OrderPrograms
-    {
-        public const string LastModified = "Last modified";
-        public const string Name = "Name";
-        public const string State = "State";
-    }
-
-
     public class DataGridViewLiveChannel : DataGridView
     {
         public int ChannelsPerPage
@@ -191,7 +183,7 @@ namespace AMSExplorer
                            orderby c.LastModified descending
                            select new ChannelEntry
                            {
-                                 Name = c.Name,
+                               Name = c.Name,
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
@@ -200,14 +192,14 @@ namespace AMSExplorer
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
                                LastModified = c.LastModified.ToLocalTime()
-                               };
+                           };
 
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
                 NullValue = null,
                 Alignment = DataGridViewContentAlignment.MiddleCenter
-                           };
+            };
             DataGridViewImageColumn imageCol = new DataGridViewImageColumn()
             {
                 DefaultCellStyle = cellstyle,
@@ -781,6 +773,12 @@ namespace AMSExplorer
         }
     }
 
+    public static class OrderPrograms
+    {
+        public const string LastModified = "Last modified";
+        public const string Name = "Name";
+        public const string State = "State";
+    }
     public class ChannelInfo
     {
         public static async Task<IOperation> ChannelExecuteOperationAsync(Func<Task<IOperation>> fCall, IChannel channel, string strStatusSuccess, CloudMediaContext _context, Mainform mainform, DataGridViewLiveChannel dataGridViewChannelsV = null) //used for all except creation 
@@ -835,7 +833,7 @@ namespace AMSExplorer
             try
             {
                 var state = channel.State;
-                var STask = fCall(ts,i,b);
+                var STask = fCall(ts, i, b);
                 operation = await STask;
 
                 while (operation.State == OperationState.InProgress)
@@ -855,7 +853,7 @@ namespace AMSExplorer
                 if (operation.State == OperationState.Succeeded)
                 {
                     mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
-    }
+                }
                 else
                 {
                     mainform.TextBoxLogWriteLine("Channel '{0}' NOT {1}. (Error {2})", channel.Name, strStatusSuccess, operation.ErrorCode, true);
