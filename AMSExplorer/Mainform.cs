@@ -8301,9 +8301,9 @@ typeof(FilterTime)
                 EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
                 JobOptions = new JobOptionsVar
-                { 
-                    Priority= myJob.Priority,
-                    OutputAssetsCreationOptions =  myJob.OutputMediaAssets.FirstOrDefault().Options ,
+                {
+                    Priority = myJob.Priority,
+                    OutputAssetsCreationOptions = myJob.OutputMediaAssets.FirstOrDefault().Options,
                     StorageSelected = myJob.OutputMediaAssets.FirstOrDefault().StorageAccountName,
                     TasksOptionsSetting = myJob.Tasks.FirstOrDefault().Options
                 },
@@ -9405,32 +9405,36 @@ namespace AMSExplorer
                 #endregion [Font Placement Calc]
             }
 
-            // Draw the background
-            System.Drawing.Rectangle backRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
-            using (SolidBrush backgroundBrush = new SolidBrush(Color.FromKnownColor(KnownColor.LightGray)))
+            if (progressVal <= 100) // because when job is done or in error, we set progress > 100 % to avoid displaying the progress bar
             {
-                g.FillRectangle(backgroundBrush, backRectangle);
-            }
-
-            // Draw the progress bar
-            if (progressWidth > 0)
-            {
-                System.Drawing.Rectangle progressRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
-                using (LinearGradientBrush progressGradientBrush = new LinearGradientBrush(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
+                // Draw the background
+                System.Drawing.Rectangle backRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, imgWidth, imgHeight);
+                using (SolidBrush backgroundBrush = new SolidBrush(Color.FromKnownColor(KnownColor.LightGray)))
                 {
-                    progressGradientBrush.SetBlendTriangularShape((float).5);
-                    g.FillRectangle(progressGradientBrush, progressRectangle);
+                    g.FillRectangle(backgroundBrush, backRectangle);
+                }
+
+                // Draw the progress bar
+                if (progressWidth > 0)
+                {
+                    System.Drawing.Rectangle progressRectangle = new System.Drawing.Rectangle(cellBounds.X + leftMargin, cellBounds.Y + topMargin, progressWidth, imgHeight);
+                    using (LinearGradientBrush progressGradientBrush = new LinearGradientBrush(progressRectangle, Color.LightGreen, Color.MediumSeaGreen, LinearGradientMode.Vertical))
+                    {
+                        progressGradientBrush.SetBlendTriangularShape((float).5);
+                        g.FillRectangle(progressGradientBrush, progressRectangle);
+                    }
+                }
+
+                // Draw the text
+                if (null != formattedValue && null != cellStyle)
+                {
+                    using (SolidBrush fontBrush = new SolidBrush(cellStyle.ForeColor))
+                    {
+                        g.DrawString(formattedValue.ToString(), cellStyle.Font, fontBrush, fontPlacement);
+                    }
                 }
             }
 
-            // Draw the text
-            if (null != formattedValue && null != cellStyle)
-            {
-                using (SolidBrush fontBrush = new SolidBrush(cellStyle.ForeColor))
-                {
-                    g.DrawString(formattedValue.ToString(), cellStyle.Font, fontBrush, fontPlacement);
-                }
-            }
         }
     }
 
@@ -10463,7 +10467,7 @@ namespace AMSExplorer
                                StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = j.GetOverallProgress()
+                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -10628,7 +10632,7 @@ namespace AMSExplorer
                                StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
                                EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = j.GetOverallProgress()
+                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
                 _MyObservJob = new BindingList<JobEntry>(jobquery.ToList());
             }
@@ -10695,7 +10699,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if ((JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
+                               if ((JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -10754,16 +10758,16 @@ namespace AMSExplorer
                                        }
                                    }
                                }
-                               else // no progress anymore (finished or failed)
+                               else // no progress anymore (cancelling, finished or failed)
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
-                                   _MyObservJob[index].Progress = progress;
+                                   _MyObservJob[index].Progress = 101d;// progress;  we don't want the progress bar to be displayed
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
                                    _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
                                    _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
-                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's removed from the list of monitored jobs
+                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
                                    this.BeginInvoke(new Action(() =>
                                    {
                                        this.Refresh();
