@@ -3498,37 +3498,56 @@ namespace AMSExplorer
             comboBoxStateAssets.SelectedIndex = 0;
 
             comboBoxFilterAssetsTime.Items.AddRange(
-         typeof(FilterTime)
-         .GetFields()
-         .Select(i => i.GetValue(null) as string)
-         .ToArray()
-         );
+                 typeof(FilterTime)
+                 .GetFields()
+                 .Select(i => i.GetValue(null) as string)
+                 .ToArray()
+                 );
             comboBoxFilterAssetsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterJobsTime.Items.AddRange(
-         typeof(FilterTime)
-         .GetFields()
-         .Select(i => i.GetValue(null) as string)
-         .ToArray()
-         );
+                 typeof(FilterTime)
+                 .GetFields()
+                 .Select(i => i.GetValue(null) as string)
+                 .ToArray()
+                 );
             comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterTimeProgram.Items.AddRange(
-typeof(FilterTime)
-.GetFields()
-.Select(i => i.GetValue(null) as string)
-.ToArray()
-);
-            comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
+                typeof(FilterTime)
+                .GetFields()
+                .Select(i => i.GetValue(null) as string)
+                .ToArray()
+                );
+            comboBoxFilterTimeProgram.SelectedIndex = 0; 
 
+
+            comboBoxFilterTimeChannel.Items.AddRange(
+                typeof(FilterTime)
+                .GetFields()
+                .Select(i => i.GetValue(null) as string)
+                .ToArray()
+                );
+            comboBoxFilterTimeChannel.SelectedIndex = 0; 
+
+            
             comboBoxStatusProgram.Items.AddRange(
-            typeof(ProgramState)
-            .GetFields()
-            .Select(i => i.Name as string)
-            .ToArray()
-            );
+                typeof(ProgramState)
+                .GetFields()
+                .Select(i => i.Name as string)
+                .ToArray()
+                );
             comboBoxStatusProgram.Items[0] = "All";
             comboBoxStatusProgram.SelectedIndex = 0;
+
+            comboBoxStatusChannel.Items.AddRange(
+              typeof(ChannelState)
+              .GetFields()
+              .Select(i => i.Name as string)
+              .ToArray()
+              );
+            comboBoxStatusChannel.Items[0] = "All";
+            comboBoxStatusChannel.SelectedIndex = 0;
 
 
             comboBoxOrderProgram.Items.AddRange(
@@ -3538,6 +3557,15 @@ typeof(FilterTime)
           .ToArray()
           );
             comboBoxOrderProgram.SelectedIndex = 0;
+
+
+            comboBoxOrderChannel.Items.AddRange(
+        typeof(OrderChannels)
+        .GetFields()
+        .Select(i => i.GetValue(null) as string)
+        .ToArray()
+        );
+            comboBoxOrderChannel.SelectedIndex = 0;
 
             comboBoxOrderStreamingEndpoints.Items.AddRange(
           typeof(OrderStreamingEndpoints)
@@ -9280,6 +9308,42 @@ typeof(FilterTime)
         {
             DoMenuHyperlapseAssets();
         }
+
+        private void buttonSetFilterChannel_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.SearchInName = textBoxSearchNameChannel.Text;
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxFilterTimeChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridViewChannelsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            if (dataGridViewChannelsV.Initialized)
+            {
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxStatusChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxOrderChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.OrderItemsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+                DoRefreshGridChannelV(false);
+            }
+        }
     }
 }
 
@@ -9578,7 +9642,37 @@ namespace AMSExplorer
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
         public const string All = "All";
+
+        public static int ReturnNumberOfDays(string timeFilter)
+        {
+            int days = -1;
+            if (timeFilter != string.Empty && timeFilter != null && timeFilter != FilterTime.All)
+            {
+                switch (timeFilter)
+                {
+                    case FilterTime.LastDay:
+                        days = 1;
+                        break;
+                    case FilterTime.LastWeek:
+                        days = 7;
+                        break;
+                    case FilterTime.LastMonth:
+                        days = 30;
+                        break;
+                    case FilterTime.LastYear:
+                        days = 365;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return days;
+        }
     }
+
+    
+
     public enum TransferState
     {
         Queued = 0,
@@ -9906,28 +10000,7 @@ namespace AMSExplorer
             IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
-            int days = -1;
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
 
@@ -10585,29 +10658,7 @@ namespace AMSExplorer
 
             IEnumerable<JobEntry> jobquery;
 
-            int days = -1;
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    default:
-                        break;
-
-                }
-            }
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
             jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             if (_filterjobsstate != "All")

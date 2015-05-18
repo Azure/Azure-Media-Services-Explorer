@@ -32,12 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            this.butPrevPageAsset = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.butNextPageAsset = new System.Windows.Forms.Button();
-            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -248,12 +242,6 @@
             this.azureMediaServicesForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.butPrevPageJob = new System.Windows.Forms.Button();
-            this.butNextPageJob = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.comboBoxPageJobs = new System.Windows.Forms.ComboBox();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator18 = new System.Windows.Forms.ToolStripSeparator();
@@ -272,53 +260,9 @@
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelSE = new System.Windows.Forms.ToolStripStatusLabel();
-            this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.contextMenuStripTransfers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
             this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabControlMain = new System.Windows.Forms.TabControl();
-            this.tabPageAssets = new System.Windows.Forms.TabPage();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBoxStateAssets = new System.Windows.Forms.ComboBox();
-            this.buttonAssetSearch = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
-            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
-            this.tabPageTransfers = new System.Windows.Forms.TabPage();
-            this.tabPageJobs = new System.Windows.Forms.TabPage();
-            this.label11 = new System.Windows.Forms.Label();
-            this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
-            this.buttonJobSearch = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBoxJobSearch = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.comboBoxStateJobs = new System.Windows.Forms.ComboBox();
-            this.tabPageLive = new System.Windows.Forms.TabPage();
-            this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelAdAndSlateControl = new System.Windows.Forms.ToolStripMenuItem();
-            this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelStop = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelReset = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
-            this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inputSSLURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.primaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.secondaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder = new System.Windows.Forms.ToolStripMenuItem();
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
-            this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withAzureMediaPlayerToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
-            this.withFlashOSMFAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.withSilverlightMontoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripPrograms = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator21 = new System.Windows.Forms.ToolStripSeparator();
@@ -349,18 +293,32 @@
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.withDASHLiveAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPageProcessors = new System.Windows.Forms.TabPage();
-            this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
-            this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
-            this.labelnbunits = new System.Windows.Forms.Label();
-            this.comboBoxEncodingRU = new System.Windows.Forms.ComboBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripChannels = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator20 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextMenuItemChannelDisplayInfomation = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelAdAndSlateControl = new System.Windows.Forms.ToolStripMenuItem();
+            this.createChannelToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelStart = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelReset = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator14 = new System.Windows.Forms.ToolStripSeparator();
+            this.ContextMenuItemChannelCopyIngestURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inputSSLURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.primaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.secondaryInputURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder = new System.Windows.Forms.ToolStripMenuItem();
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator19 = new System.Windows.Forms.ToolStripSeparator();
+            this.playbackTheProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAzureMediaPlayerToolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator28 = new System.Windows.Forms.ToolStripSeparator();
+            this.withFlashOSMFAzurePlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withSilverlightMontoringPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripProcessors = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPageOrigins = new System.Windows.Forms.TabPage();
-            this.label19 = new System.Windows.Forms.Label();
-            this.comboBoxOrderStreamingEndpoints = new System.Windows.Forms.ComboBox();
             this.contextMenuStripStreaminEndpoints = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator25 = new System.Windows.Forms.ToolStripSeparator();
@@ -372,11 +330,84 @@
             this.ContextMenuItemOriginStart = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginStop = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemOriginDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabPageStorage = new System.Windows.Forms.TabPage();
-            this.dataGridViewStorage = new System.Windows.Forms.DataGridView();
             this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label12 = new System.Windows.Forms.Label();
+            this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonRefresh = new System.Windows.Forms.Button();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
+            this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabPageAssets = new System.Windows.Forms.TabPage();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxFilterAssetsTime = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.comboBoxStateAssets = new System.Windows.Forms.ComboBox();
+            this.buttonAssetSearch = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxAssetSearch = new System.Windows.Forms.TextBox();
+            this.butPrevPageAsset = new System.Windows.Forms.Button();
+            this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
+            this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
+            this.butNextPageAsset = new System.Windows.Forms.Button();
+            this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPageTransfers = new System.Windows.Forms.TabPage();
+            this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
+            this.tabPageJobs = new System.Windows.Forms.TabPage();
+            this.label11 = new System.Windows.Forms.Label();
+            this.comboBoxFilterJobsTime = new System.Windows.Forms.ComboBox();
+            this.buttonJobSearch = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxJobSearch = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBoxStateJobs = new System.Windows.Forms.ComboBox();
+            this.butPrevPageJob = new System.Windows.Forms.Button();
+            this.butNextPageJob = new System.Windows.Forms.Button();
+            this.comboBoxPageJobs = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
+            this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
+            this.tabPageLive = new System.Windows.Forms.TabPage();
+            this.label24 = new System.Windows.Forms.Label();
+            this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
+            this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
+            this.label25 = new System.Windows.Forms.Label();
+            this.comboBoxOrderChannel = new System.Windows.Forms.ComboBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.buttonSetFilterChannel = new System.Windows.Forms.Button();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBoxSearchNameChannel = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
+            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.comboBoxOrderProgram = new System.Windows.Forms.ComboBox();
+            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
+            this.label18 = new System.Windows.Forms.Label();
+            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
+            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
+            this.textBoxSearchNameProgram = new System.Windows.Forms.TextBox();
+            this.tabPageProcessors = new System.Windows.Forms.TabPage();
+            this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
+            this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
+            this.labelnbunits = new System.Windows.Forms.Label();
+            this.comboBoxEncodingRU = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.dataGridViewProcessors = new System.Windows.Forms.DataGridView();
+            this.tabPageOrigins = new System.Windows.Forms.TabPage();
+            this.label19 = new System.Windows.Forms.Label();
+            this.comboBoxOrderStreamingEndpoints = new System.Windows.Forms.ComboBox();
+            this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
+            this.tabPageStorage = new System.Windows.Forms.TabPage();
+            this.dataGridViewStorage = new System.Windows.Forms.DataGridView();
             this.tabPageChart = new System.Windows.Forms.TabPage();
             this.label21 = new System.Windows.Forms.Label();
             this.dateTimePickerEndDate = new System.Windows.Forms.DateTimePicker();
@@ -384,138 +415,42 @@
             this.dateTimePickerStartDate = new System.Windows.Forms.DateTimePicker();
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonbuildchart = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
-            this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clearTextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonRefresh = new System.Windows.Forms.Button();
-            this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
-            this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
-            this.splitContainerLive = new System.Windows.Forms.SplitContainer();
-            this.panelChannels = new System.Windows.Forms.Panel();
-            this.label13 = new System.Windows.Forms.Label();
-            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
-            this.panelProgram = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
-            this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
-            this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.comboBoxOrderProgram = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
-            this.buttonSetFilterProgram = new System.Windows.Forms.Button();
-            this.textBoxSearchNameProgram = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
             this.statusStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.contextMenuStripTransfers.SuspendLayout();
-            this.tabControlMain.SuspendLayout();
-            this.tabPageAssets.SuspendLayout();
-            this.tabPageTransfers.SuspendLayout();
-            this.tabPageJobs.SuspendLayout();
-            this.tabPageLive.SuspendLayout();
-            this.contextMenuStripChannels.SuspendLayout();
             this.contextMenuStripPrograms.SuspendLayout();
-            this.tabPageProcessors.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
+            this.contextMenuStripChannels.SuspendLayout();
             this.contextMenuStripProcessors.SuspendLayout();
-            this.tabPageOrigins.SuspendLayout();
             this.contextMenuStripStreaminEndpoints.SuspendLayout();
-            this.tabPageStorage.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
             this.contextMenuStripStorage.SuspendLayout();
-            this.tabPageChart.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            this.contextMenuStripLog.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
             this.splitContainerMain.SuspendLayout();
-            this.contextMenuStripLog.SuspendLayout();
+            this.tabControlMain.SuspendLayout();
+            this.tabPageAssets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
+            this.tabPageTransfers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
+            this.tabPageJobs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLive)).BeginInit();
-            this.splitContainerLive.Panel1.SuspendLayout();
-            this.splitContainerLive.Panel2.SuspendLayout();
-            this.splitContainerLive.SuspendLayout();
-            this.panelChannels.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).BeginInit();
-            this.panelProgram.SuspendLayout();
+            this.tabPageLive.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).BeginInit();
+            this.tabPageProcessors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
+            this.tabPageOrigins.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
+            this.tabPageStorage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
+            this.tabPageChart.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
-            // 
-            // butPrevPageAsset
-            // 
-            this.butPrevPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butPrevPageAsset.Enabled = false;
-            this.butPrevPageAsset.Location = new System.Drawing.Point(871, 414);
-            this.butPrevPageAsset.Name = "butPrevPageAsset";
-            this.butPrevPageAsset.Size = new System.Drawing.Size(28, 23);
-            this.butPrevPageAsset.TabIndex = 29;
-            this.butPrevPageAsset.Text = "<";
-            this.butPrevPageAsset.UseVisualStyleBackColor = true;
-            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(660, 419);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "Order by:";
-            // 
-            // butNextPageAsset
-            // 
-            this.butNextPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butNextPageAsset.Location = new System.Drawing.Point(972, 414);
-            this.butNextPageAsset.Name = "butNextPageAsset";
-            this.butNextPageAsset.Size = new System.Drawing.Size(28, 23);
-            this.butNextPageAsset.TabIndex = 28;
-            this.butNextPageAsset.Text = ">";
-            this.butNextPageAsset.UseVisualStyleBackColor = true;
-            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
-            // 
-            // comboBoxOrderAssets
-            // 
-            this.comboBoxOrderAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOrderAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderAssets.FormattingEnabled = true;
-            this.comboBoxOrderAssets.Location = new System.Drawing.Point(713, 415);
-            this.comboBoxOrderAssets.Name = "comboBoxOrderAssets";
-            this.comboBoxOrderAssets.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxOrderAssets.TabIndex = 13;
-            this.comboBoxOrderAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderAssets_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(830, 419);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
-            this.label1.TabIndex = 12;
-            this.label1.Text = "Page:";
-            // 
-            // comboBoxPageAssets
-            // 
-            this.comboBoxPageAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxPageAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPageAssets.FormattingEnabled = true;
-            this.comboBoxPageAssets.Location = new System.Drawing.Point(905, 415);
-            this.comboBoxPageAssets.Name = "comboBoxPageAssets";
-            this.comboBoxPageAssets.Size = new System.Drawing.Size(61, 21);
-            this.comboBoxPageAssets.TabIndex = 11;
-            this.comboBoxPageAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageAssets_SelectedIndexChanged);
             // 
             // contextMenuStripAssets
             // 
@@ -2408,72 +2343,6 @@
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // butPrevPageJob
-            // 
-            this.butPrevPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butPrevPageJob.Enabled = false;
-            this.butPrevPageJob.Location = new System.Drawing.Point(871, 414);
-            this.butPrevPageJob.Name = "butPrevPageJob";
-            this.butPrevPageJob.Size = new System.Drawing.Size(28, 23);
-            this.butPrevPageJob.TabIndex = 30;
-            this.butPrevPageJob.Text = "<";
-            this.butPrevPageJob.UseVisualStyleBackColor = true;
-            this.butPrevPageJob.Click += new System.EventHandler(this.butPrevPageJob_Click);
-            // 
-            // butNextPageJob
-            // 
-            this.butNextPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butNextPageJob.Enabled = false;
-            this.butNextPageJob.Location = new System.Drawing.Point(972, 414);
-            this.butNextPageJob.Name = "butNextPageJob";
-            this.butNextPageJob.Size = new System.Drawing.Size(28, 23);
-            this.butNextPageJob.TabIndex = 30;
-            this.butNextPageJob.Text = ">";
-            this.butNextPageJob.UseVisualStyleBackColor = true;
-            this.butNextPageJob.Click += new System.EventHandler(this.butNextPageJob_Click);
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(660, 419);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
-            this.label4.TabIndex = 15;
-            this.label4.Text = "Order by:";
-            // 
-            // comboBoxOrderJobs
-            // 
-            this.comboBoxOrderJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOrderJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderJobs.FormattingEnabled = true;
-            this.comboBoxOrderJobs.Location = new System.Drawing.Point(713, 415);
-            this.comboBoxOrderJobs.Name = "comboBoxOrderJobs";
-            this.comboBoxOrderJobs.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxOrderJobs.TabIndex = 14;
-            this.comboBoxOrderJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderJobs_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(830, 419);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 26;
-            this.label2.Text = "Page:";
-            // 
-            // comboBoxPageJobs
-            // 
-            this.comboBoxPageJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxPageJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxPageJobs.FormattingEnabled = true;
-            this.comboBoxPageJobs.Location = new System.Drawing.Point(905, 415);
-            this.comboBoxPageJobs.Name = "comboBoxPageJobs";
-            this.comboBoxPageJobs.Size = new System.Drawing.Size(61, 21);
-            this.comboBoxPageJobs.TabIndex = 25;
-            this.comboBoxPageJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageJobs_SelectedIndexChanged);
-            // 
             // contextMenuStripJobs
             // 
             this.contextMenuStripJobs.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2635,29 +2504,6 @@
             this.toolStripStatusLabelSE.Size = new System.Drawing.Size(211, 17);
             this.toolStripStatusLabelSE.Text = "New asset will be storage encrypted";
             // 
-            // dataGridViewTransfer
-            // 
-            this.dataGridViewTransfer.AllowUserToAddRows = false;
-            this.dataGridViewTransfer.AllowUserToDeleteRows = false;
-            this.dataGridViewTransfer.AllowUserToResizeRows = false;
-            this.dataGridViewTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewTransfer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewTransfer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTransfer.ContextMenuStrip = this.contextMenuStripTransfers;
-            this.dataGridViewTransfer.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewTransfer.MultiSelect = false;
-            this.dataGridViewTransfer.Name = "dataGridViewTransfer";
-            this.dataGridViewTransfer.ReadOnly = true;
-            this.dataGridViewTransfer.RowHeadersVisible = false;
-            this.dataGridViewTransfer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 431);
-            this.dataGridViewTransfer.TabIndex = 32;
-            this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
-            this.dataGridViewTransfer.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewTransfer.DoubleClick += new System.EventHandler(this.dataGridViewTransfer_DoubleClick);
-            // 
             // contextMenuStripTransfers
             // 
             this.contextMenuStripTransfers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2683,440 +2529,6 @@
             this.displayErrorToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.displayErrorToolStripMenuItem.Text = "Display error";
             this.displayErrorToolStripMenuItem.Click += new System.EventHandler(this.displayErrorToolStripMenuItem_Click);
-            // 
-            // tabControlMain
-            // 
-            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlMain.Controls.Add(this.tabPageAssets);
-            this.tabControlMain.Controls.Add(this.tabPageTransfers);
-            this.tabControlMain.Controls.Add(this.tabPageJobs);
-            this.tabControlMain.Controls.Add(this.tabPageLive);
-            this.tabControlMain.Controls.Add(this.tabPageProcessors);
-            this.tabControlMain.Controls.Add(this.tabPageOrigins);
-            this.tabControlMain.Controls.Add(this.tabPageStorage);
-            this.tabControlMain.Controls.Add(this.tabPageChart);
-            this.tabControlMain.Location = new System.Drawing.Point(3, 6);
-            this.tabControlMain.Name = "tabControlMain";
-            this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(1014, 469);
-            this.tabControlMain.TabIndex = 28;
-            this.tabControlMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlMain_Selected);
-            // 
-            // tabPageAssets
-            // 
-            this.tabPageAssets.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageAssets.Controls.Add(this.label10);
-            this.tabPageAssets.Controls.Add(this.comboBoxFilterAssetsTime);
-            this.tabPageAssets.Controls.Add(this.label9);
-            this.tabPageAssets.Controls.Add(this.comboBoxStateAssets);
-            this.tabPageAssets.Controls.Add(this.buttonAssetSearch);
-            this.tabPageAssets.Controls.Add(this.label8);
-            this.tabPageAssets.Controls.Add(this.textBoxAssetSearch);
-            this.tabPageAssets.Controls.Add(this.butPrevPageAsset);
-            this.tabPageAssets.Controls.Add(this.dataGridViewAssetsV);
-            this.tabPageAssets.Controls.Add(this.label3);
-            this.tabPageAssets.Controls.Add(this.comboBoxOrderAssets);
-            this.tabPageAssets.Controls.Add(this.butNextPageAsset);
-            this.tabPageAssets.Controls.Add(this.comboBoxPageAssets);
-            this.tabPageAssets.Controls.Add(this.label1);
-            this.tabPageAssets.Location = new System.Drawing.Point(4, 22);
-            this.tabPageAssets.Name = "tabPageAssets";
-            this.tabPageAssets.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAssets.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageAssets.TabIndex = 0;
-            this.tabPageAssets.Text = "Assets";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(327, 418);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(32, 13);
-            this.label10.TabIndex = 43;
-            this.label10.Text = "Filter:";
-            // 
-            // comboBoxFilterAssetsTime
-            // 
-            this.comboBoxFilterAssetsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
-            this.comboBoxFilterAssetsTime.Location = new System.Drawing.Point(363, 415);
-            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
-            this.comboBoxFilterAssetsTime.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxFilterAssetsTime.TabIndex = 42;
-            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
-            // 
-            // label9
-            // 
-            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(481, 419);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
-            this.label9.TabIndex = 41;
-            this.label9.Text = "Status:";
-            // 
-            // comboBoxStateAssets
-            // 
-            this.comboBoxStateAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStateAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStateAssets.FormattingEnabled = true;
-            this.comboBoxStateAssets.Location = new System.Drawing.Point(524, 415);
-            this.comboBoxStateAssets.Name = "comboBoxStateAssets";
-            this.comboBoxStateAssets.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxStateAssets.TabIndex = 40;
-            this.comboBoxStateAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateAssets_SelectedIndexChanged);
-            // 
-            // buttonAssetSearch
-            // 
-            this.buttonAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAssetSearch.Location = new System.Drawing.Point(241, 415);
-            this.buttonAssetSearch.Name = "buttonAssetSearch";
-            this.buttonAssetSearch.Size = new System.Drawing.Size(75, 23);
-            this.buttonAssetSearch.TabIndex = 39;
-            this.buttonAssetSearch.Text = "Set filter";
-            this.buttonAssetSearch.UseVisualStyleBackColor = true;
-            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 419);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
-            this.label8.TabIndex = 38;
-            this.label8.Text = "Search in name or Id:";
-            // 
-            // textBoxAssetSearch
-            // 
-            this.textBoxAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetSearch.Location = new System.Drawing.Point(125, 416);
-            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
-            this.textBoxAssetSearch.Size = new System.Drawing.Size(115, 20);
-            this.textBoxAssetSearch.TabIndex = 37;
-            // 
-            // tabPageTransfers
-            // 
-            this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
-            this.tabPageTransfers.Location = new System.Drawing.Point(4, 22);
-            this.tabPageTransfers.Name = "tabPageTransfers";
-            this.tabPageTransfers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTransfers.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageTransfers.TabIndex = 2;
-            this.tabPageTransfers.Text = "Transfers";
-            // 
-            // tabPageJobs
-            // 
-            this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageJobs.Controls.Add(this.label11);
-            this.tabPageJobs.Controls.Add(this.comboBoxFilterJobsTime);
-            this.tabPageJobs.Controls.Add(this.buttonJobSearch);
-            this.tabPageJobs.Controls.Add(this.label7);
-            this.tabPageJobs.Controls.Add(this.textBoxJobSearch);
-            this.tabPageJobs.Controls.Add(this.label6);
-            this.tabPageJobs.Controls.Add(this.comboBoxStateJobs);
-            this.tabPageJobs.Controls.Add(this.butPrevPageJob);
-            this.tabPageJobs.Controls.Add(this.butNextPageJob);
-            this.tabPageJobs.Controls.Add(this.comboBoxPageJobs);
-            this.tabPageJobs.Controls.Add(this.label4);
-            this.tabPageJobs.Controls.Add(this.label2);
-            this.tabPageJobs.Controls.Add(this.comboBoxOrderJobs);
-            this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
-            this.tabPageJobs.Location = new System.Drawing.Point(4, 22);
-            this.tabPageJobs.Name = "tabPageJobs";
-            this.tabPageJobs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageJobs.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageJobs.TabIndex = 1;
-            this.tabPageJobs.Text = "Jobs";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(327, 418);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
-            this.label11.TabIndex = 45;
-            this.label11.Text = "Filter:";
-            // 
-            // comboBoxFilterJobsTime
-            // 
-            this.comboBoxFilterJobsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxFilterJobsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterJobsTime.FormattingEnabled = true;
-            this.comboBoxFilterJobsTime.Location = new System.Drawing.Point(363, 415);
-            this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
-            this.comboBoxFilterJobsTime.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxFilterJobsTime.TabIndex = 44;
-            this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
-            // 
-            // buttonJobSearch
-            // 
-            this.buttonJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobSearch.Location = new System.Drawing.Point(241, 415);
-            this.buttonJobSearch.Name = "buttonJobSearch";
-            this.buttonJobSearch.Size = new System.Drawing.Size(75, 23);
-            this.buttonJobSearch.TabIndex = 36;
-            this.buttonJobSearch.Text = "Set filter";
-            this.buttonJobSearch.UseVisualStyleBackColor = true;
-            this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 419);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 13);
-            this.label7.TabIndex = 35;
-            this.label7.Text = "Search in name or Id:";
-            // 
-            // textBoxJobSearch
-            // 
-            this.textBoxJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobSearch.Location = new System.Drawing.Point(125, 416);
-            this.textBoxJobSearch.Name = "textBoxJobSearch";
-            this.textBoxJobSearch.Size = new System.Drawing.Size(115, 20);
-            this.textBoxJobSearch.TabIndex = 34;
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(481, 419);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
-            this.label6.TabIndex = 33;
-            this.label6.Text = "State:";
-            // 
-            // comboBoxStateJobs
-            // 
-            this.comboBoxStateJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStateJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStateJobs.FormattingEnabled = true;
-            this.comboBoxStateJobs.Location = new System.Drawing.Point(524, 415);
-            this.comboBoxStateJobs.Name = "comboBoxStateJobs";
-            this.comboBoxStateJobs.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxStateJobs.TabIndex = 32;
-            this.comboBoxStateJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateJobs_SelectedIndexChanged);
-            // 
-            // tabPageLive
-            // 
-            this.tabPageLive.Controls.Add(this.splitContainerLive);
-            this.tabPageLive.Location = new System.Drawing.Point(4, 22);
-            this.tabPageLive.Name = "tabPageLive";
-            this.tabPageLive.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLive.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageLive.TabIndex = 6;
-            this.tabPageLive.Text = "Live";
-            this.tabPageLive.UseVisualStyleBackColor = true;
-            // 
-            // contextMenuStripChannels
-            // 
-            this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem3,
-            this.toolStripSeparator20,
-            this.ContextMenuItemChannelDisplayInfomation,
-            this.ContextMenuItemChannelAdAndSlateControl,
-            this.createChannelToolStripMenuItem1,
-            this.ContextMenuItemChannelStart,
-            this.ContextMenuItemChannelStop,
-            this.ContextMenuItemChannelReset,
-            this.ContextMenuItemChannelDelete,
-            this.toolStripSeparator14,
-            this.ContextMenuItemChannelCopyIngestURLToClipboard,
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder,
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard,
-            this.toolStripSeparator19,
-            this.playbackTheProgramToolStripMenuItem});
-            this.contextMenuStripChannels.Name = "contextMenuStripChannels";
-            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 286);
-            this.contextMenuStripChannels.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripChannels_Opening);
-            // 
-            // refreshToolStripMenuItem3
-            // 
-            this.refreshToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.refresh;
-            this.refreshToolStripMenuItem3.Name = "refreshToolStripMenuItem3";
-            this.refreshToolStripMenuItem3.Size = new System.Drawing.Size(292, 22);
-            this.refreshToolStripMenuItem3.Text = "Refresh";
-            this.refreshToolStripMenuItem3.Click += new System.EventHandler(this.refreshToolStripMenuItem3_Click);
-            // 
-            // toolStripSeparator20
-            // 
-            this.toolStripSeparator20.Name = "toolStripSeparator20";
-            this.toolStripSeparator20.Size = new System.Drawing.Size(289, 6);
-            // 
-            // ContextMenuItemChannelDisplayInfomation
-            // 
-            this.ContextMenuItemChannelDisplayInfomation.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelDisplayInfomation.Image")));
-            this.ContextMenuItemChannelDisplayInfomation.Name = "ContextMenuItemChannelDisplayInfomation";
-            this.ContextMenuItemChannelDisplayInfomation.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelDisplayInfomation.Text = "Channel infomation and settings...";
-            this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
-            // 
-            // ContextMenuItemChannelAdAndSlateControl
-            // 
-            this.ContextMenuItemChannelAdAndSlateControl.Name = "ContextMenuItemChannelAdAndSlateControl";
-            this.ContextMenuItemChannelAdAndSlateControl.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.ContextMenuItemChannelAdAndSlateControl.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelAdAndSlateControl.Text = "Channel(s) Ad and Slate control...";
-            this.ContextMenuItemChannelAdAndSlateControl.Click += new System.EventHandler(this.adAndSlateControlToolStripMenuItem_Click);
-            // 
-            // createChannelToolStripMenuItem1
-            // 
-            this.createChannelToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createChannelToolStripMenuItem1.Image")));
-            this.createChannelToolStripMenuItem1.Name = "createChannelToolStripMenuItem1";
-            this.createChannelToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.createChannelToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
-            this.createChannelToolStripMenuItem1.Text = "Create channel...";
-            this.createChannelToolStripMenuItem1.Click += new System.EventHandler(this.createChannelToolStripMenuItem1_Click);
-            // 
-            // ContextMenuItemChannelStart
-            // 
-            this.ContextMenuItemChannelStart.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelStart.Image")));
-            this.ContextMenuItemChannelStart.Name = "ContextMenuItemChannelStart";
-            this.ContextMenuItemChannelStart.ShortcutKeys = System.Windows.Forms.Keys.F9;
-            this.ContextMenuItemChannelStart.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelStart.Text = "Start channel(s)";
-            this.ContextMenuItemChannelStart.Click += new System.EventHandler(this.startChannelsToolStripMenuItem1_Click);
-            // 
-            // ContextMenuItemChannelStop
-            // 
-            this.ContextMenuItemChannelStop.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelStop.Image")));
-            this.ContextMenuItemChannelStop.Name = "ContextMenuItemChannelStop";
-            this.ContextMenuItemChannelStop.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.ContextMenuItemChannelStop.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelStop.Text = "Stop channel(s)";
-            this.ContextMenuItemChannelStop.Click += new System.EventHandler(this.stopChannelsToolStripMenuItem1_Click);
-            // 
-            // ContextMenuItemChannelReset
-            // 
-            this.ContextMenuItemChannelReset.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelReset.Image")));
-            this.ContextMenuItemChannelReset.Name = "ContextMenuItemChannelReset";
-            this.ContextMenuItemChannelReset.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.H)));
-            this.ContextMenuItemChannelReset.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelReset.Text = "Reset channel(s)";
-            this.ContextMenuItemChannelReset.Click += new System.EventHandler(this.resetChannelsToolStripMenuItem1_Click);
-            // 
-            // ContextMenuItemChannelDelete
-            // 
-            this.ContextMenuItemChannelDelete.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelDelete.Image")));
-            this.ContextMenuItemChannelDelete.Name = "ContextMenuItemChannelDelete";
-            this.ContextMenuItemChannelDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
-            this.ContextMenuItemChannelDelete.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelDelete.Text = "Delete channel(s)...";
-            this.ContextMenuItemChannelDelete.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem1_Click);
-            // 
-            // toolStripSeparator14
-            // 
-            this.toolStripSeparator14.Name = "toolStripSeparator14";
-            this.toolStripSeparator14.Size = new System.Drawing.Size(289, 6);
-            // 
-            // ContextMenuItemChannelCopyIngestURLToClipboard
-            // 
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.inputURLToolStripMenuItem,
-            this.inputSSLURLToolStripMenuItem,
-            this.primaryInputURLToolStripMenuItem,
-            this.secondaryInputURLToolStripMenuItem});
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.Name = "ContextMenuItemChannelCopyIngestURLToClipboard";
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.Text = "Copy Input URL to clipboard";
-            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening);
-            // 
-            // inputURLToolStripMenuItem
-            // 
-            this.inputURLToolStripMenuItem.Name = "inputURLToolStripMenuItem";
-            this.inputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.inputURLToolStripMenuItem.Text = "Input URL";
-            this.inputURLToolStripMenuItem.Click += new System.EventHandler(this.inputURLToolStripMenuItem_Click);
-            // 
-            // inputSSLURLToolStripMenuItem
-            // 
-            this.inputSSLURLToolStripMenuItem.Name = "inputSSLURLToolStripMenuItem";
-            this.inputSSLURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.inputSSLURLToolStripMenuItem.Text = "Input (SSL) URL";
-            this.inputSSLURLToolStripMenuItem.Click += new System.EventHandler(this.inputSSLURLToolStripMenuItem_Click);
-            // 
-            // primaryInputURLToolStripMenuItem
-            // 
-            this.primaryInputURLToolStripMenuItem.Name = "primaryInputURLToolStripMenuItem";
-            this.primaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.primaryInputURLToolStripMenuItem.Text = "Primary Input URL";
-            this.primaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.primaryInputURLToolStripMenuItem_Click);
-            // 
-            // secondaryInputURLToolStripMenuItem
-            // 
-            this.secondaryInputURLToolStripMenuItem.Name = "secondaryInputURLToolStripMenuItem";
-            this.secondaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.secondaryInputURLToolStripMenuItem.Text = "Secondary Input URL";
-            this.secondaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.secondaryInputURLToolStripMenuItem_Click);
-            // 
-            // ContextMenuItemChannelRunOnPremisesLiveEncoder
-            // 
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Name = "ContextMenuItemChannelRunOnPremisesLiveEncoder";
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Text = "Run an on-premises live encoder...";
-            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
-            // 
-            // ContextMenuItemChannelCopyPreviewURLToClipboard
-            // 
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Name = "ContextMenuItemChannelCopyPreviewURLToClipboard";
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Size = new System.Drawing.Size(292, 22);
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Text = "Copy Preview URL to clipboard";
-            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
-            // 
-            // toolStripSeparator19
-            // 
-            this.toolStripSeparator19.Name = "toolStripSeparator19";
-            this.toolStripSeparator19.Size = new System.Drawing.Size(289, 6);
-            // 
-            // playbackTheProgramToolStripMenuItem
-            // 
-            this.playbackTheProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.withAzureMediaPlayerToolStripMenuItem4,
-            this.toolStripSeparator28,
-            this.withFlashOSMFAzurePlayerToolStripMenuItem,
-            this.withSilverlightMontoringPlayerToolStripMenuItem});
-            this.playbackTheProgramToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playbackTheProgramToolStripMenuItem.Image")));
-            this.playbackTheProgramToolStripMenuItem.Name = "playbackTheProgramToolStripMenuItem";
-            this.playbackTheProgramToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.playbackTheProgramToolStripMenuItem.Text = "Playback the Preview";
-            // 
-            // withAzureMediaPlayerToolStripMenuItem4
-            // 
-            this.withAzureMediaPlayerToolStripMenuItem4.Name = "withAzureMediaPlayerToolStripMenuItem4";
-            this.withAzureMediaPlayerToolStripMenuItem4.Size = new System.Drawing.Size(250, 22);
-            this.withAzureMediaPlayerToolStripMenuItem4.Text = "with Azure Media Player";
-            this.withAzureMediaPlayerToolStripMenuItem4.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem4_Click);
-            // 
-            // toolStripSeparator28
-            // 
-            this.toolStripSeparator28.Name = "toolStripSeparator28";
-            this.toolStripSeparator28.Size = new System.Drawing.Size(247, 6);
-            // 
-            // withFlashOSMFAzurePlayerToolStripMenuItem
-            // 
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Name = "withFlashOSMFAzurePlayerToolStripMenuItem";
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Text = "with Flash OSMF Azure Player";
-            this.withFlashOSMFAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithFlashOSMFAzurePlayer_Click);
-            // 
-            // withSilverlightMontoringPlayerToolStripMenuItem
-            // 
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Name = "withSilverlightMontoringPlayerToolStripMenuItem";
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Text = "with Silverlight Monitoring Player";
-            this.withSilverlightMontoringPlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithSilverlightMonitoringPlayer_Click);
             // 
             // contextMenuStripPrograms
             // 
@@ -3381,96 +2793,205 @@
             this.withCustomPlayerToolStripMenuItem2.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem2.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem2_Click);
             // 
-            // tabPageProcessors
+            // contextMenuStripChannels
             // 
-            this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageProcessors.Controls.Add(this.trackBarEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.buttonUpdateEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.labelnbunits);
-            this.tabPageProcessors.Controls.Add(this.comboBoxEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.label22);
-            this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
-            this.tabPageProcessors.Location = new System.Drawing.Point(4, 22);
-            this.tabPageProcessors.Name = "tabPageProcessors";
-            this.tabPageProcessors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProcessors.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageProcessors.TabIndex = 4;
-            this.tabPageProcessors.Text = "Processors";
+            this.contextMenuStripChannels.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem3,
+            this.toolStripSeparator20,
+            this.ContextMenuItemChannelDisplayInfomation,
+            this.ContextMenuItemChannelAdAndSlateControl,
+            this.createChannelToolStripMenuItem1,
+            this.ContextMenuItemChannelStart,
+            this.ContextMenuItemChannelStop,
+            this.ContextMenuItemChannelReset,
+            this.ContextMenuItemChannelDelete,
+            this.toolStripSeparator14,
+            this.ContextMenuItemChannelCopyIngestURLToClipboard,
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder,
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard,
+            this.toolStripSeparator19,
+            this.playbackTheProgramToolStripMenuItem});
+            this.contextMenuStripChannels.Name = "contextMenuStripChannels";
+            this.contextMenuStripChannels.Size = new System.Drawing.Size(293, 286);
+            this.contextMenuStripChannels.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripChannels_Opening);
             // 
-            // trackBarEncodingRU
+            // refreshToolStripMenuItem3
             // 
-            this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 398);
-            this.trackBarEncodingRU.Maximum = 25;
-            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
-            this.trackBarEncodingRU.TabIndex = 39;
-            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
-            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.trackBarEncodingRU_ValueChanged);
+            this.refreshToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.refreshToolStripMenuItem3.Name = "refreshToolStripMenuItem3";
+            this.refreshToolStripMenuItem3.Size = new System.Drawing.Size(292, 22);
+            this.refreshToolStripMenuItem3.Text = "Refresh";
+            this.refreshToolStripMenuItem3.Click += new System.EventHandler(this.refreshToolStripMenuItem3_Click);
             // 
-            // buttonUpdateEncodingRU
+            // toolStripSeparator20
             // 
-            this.buttonUpdateEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpdateEncodingRU.Location = new System.Drawing.Point(925, 406);
-            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
-            this.buttonUpdateEncodingRU.Size = new System.Drawing.Size(75, 23);
-            this.buttonUpdateEncodingRU.TabIndex = 38;
-            this.buttonUpdateEncodingRU.Text = "Update";
-            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
-            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.buttonUpdateEncodingRU_Click);
+            this.toolStripSeparator20.Name = "toolStripSeparator20";
+            this.toolStripSeparator20.Size = new System.Drawing.Size(289, 6);
             // 
-            // labelnbunits
+            // ContextMenuItemChannelDisplayInfomation
             // 
-            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelnbunits.AutoSize = true;
-            this.labelnbunits.Location = new System.Drawing.Point(239, 411);
-            this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Size = new System.Drawing.Size(55, 13);
-            this.labelnbunits.TabIndex = 36;
-            this.labelnbunits.Tag = "";
-            this.labelnbunits.Text = "{0} unit{1}";
+            this.ContextMenuItemChannelDisplayInfomation.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelDisplayInfomation.Image")));
+            this.ContextMenuItemChannelDisplayInfomation.Name = "ContextMenuItemChannelDisplayInfomation";
+            this.ContextMenuItemChannelDisplayInfomation.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelDisplayInfomation.Text = "Channel infomation and settings...";
+            this.ContextMenuItemChannelDisplayInfomation.Click += new System.EventHandler(this.displayChannelInfomationToolStripMenuItem_Click);
             // 
-            // comboBoxEncodingRU
+            // ContextMenuItemChannelAdAndSlateControl
             // 
-            this.comboBoxEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEncodingRU.FormattingEnabled = true;
-            this.comboBoxEncodingRU.Location = new System.Drawing.Point(118, 408);
-            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
-            this.comboBoxEncodingRU.Size = new System.Drawing.Size(104, 21);
-            this.comboBoxEncodingRU.TabIndex = 35;
+            this.ContextMenuItemChannelAdAndSlateControl.Name = "ContextMenuItemChannelAdAndSlateControl";
+            this.ContextMenuItemChannelAdAndSlateControl.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.ContextMenuItemChannelAdAndSlateControl.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelAdAndSlateControl.Text = "Channel(s) Ad and Slate control...";
+            this.ContextMenuItemChannelAdAndSlateControl.Click += new System.EventHandler(this.adAndSlateControlToolStripMenuItem_Click);
             // 
-            // label22
+            // createChannelToolStripMenuItem1
             // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(5, 411);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(102, 13);
-            this.label22.TabIndex = 34;
-            this.label22.Text = "Reserved unit type :";
+            this.createChannelToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createChannelToolStripMenuItem1.Image")));
+            this.createChannelToolStripMenuItem1.Name = "createChannelToolStripMenuItem1";
+            this.createChannelToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.createChannelToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
+            this.createChannelToolStripMenuItem1.Text = "Create channel...";
+            this.createChannelToolStripMenuItem1.Click += new System.EventHandler(this.createChannelToolStripMenuItem1_Click);
             // 
-            // dataGridViewProcessors
+            // ContextMenuItemChannelStart
             // 
-            this.dataGridViewProcessors.AllowUserToAddRows = false;
-            this.dataGridViewProcessors.AllowUserToDeleteRows = false;
-            this.dataGridViewProcessors.AllowUserToResizeRows = false;
-            this.dataGridViewProcessors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProcessors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
-            this.dataGridViewProcessors.Location = new System.Drawing.Point(5, 6);
-            this.dataGridViewProcessors.Name = "dataGridViewProcessors";
-            this.dataGridViewProcessors.ReadOnly = true;
-            this.dataGridViewProcessors.RowHeadersVisible = false;
-            this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 390);
-            this.dataGridViewProcessors.TabIndex = 33;
-            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.ContextMenuItemChannelStart.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelStart.Image")));
+            this.ContextMenuItemChannelStart.Name = "ContextMenuItemChannelStart";
+            this.ContextMenuItemChannelStart.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.ContextMenuItemChannelStart.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelStart.Text = "Start channel(s)";
+            this.ContextMenuItemChannelStart.Click += new System.EventHandler(this.startChannelsToolStripMenuItem1_Click);
+            // 
+            // ContextMenuItemChannelStop
+            // 
+            this.ContextMenuItemChannelStop.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelStop.Image")));
+            this.ContextMenuItemChannelStop.Name = "ContextMenuItemChannelStop";
+            this.ContextMenuItemChannelStop.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.ContextMenuItemChannelStop.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelStop.Text = "Stop channel(s)";
+            this.ContextMenuItemChannelStop.Click += new System.EventHandler(this.stopChannelsToolStripMenuItem1_Click);
+            // 
+            // ContextMenuItemChannelReset
+            // 
+            this.ContextMenuItemChannelReset.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelReset.Image")));
+            this.ContextMenuItemChannelReset.Name = "ContextMenuItemChannelReset";
+            this.ContextMenuItemChannelReset.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.H)));
+            this.ContextMenuItemChannelReset.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelReset.Text = "Reset channel(s)";
+            this.ContextMenuItemChannelReset.Click += new System.EventHandler(this.resetChannelsToolStripMenuItem1_Click);
+            // 
+            // ContextMenuItemChannelDelete
+            // 
+            this.ContextMenuItemChannelDelete.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemChannelDelete.Image")));
+            this.ContextMenuItemChannelDelete.Name = "ContextMenuItemChannelDelete";
+            this.ContextMenuItemChannelDelete.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.H)));
+            this.ContextMenuItemChannelDelete.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelDelete.Text = "Delete channel(s)...";
+            this.ContextMenuItemChannelDelete.Click += new System.EventHandler(this.deleteChannelsToolStripMenuItem1_Click);
+            // 
+            // toolStripSeparator14
+            // 
+            this.toolStripSeparator14.Name = "toolStripSeparator14";
+            this.toolStripSeparator14.Size = new System.Drawing.Size(289, 6);
+            // 
+            // ContextMenuItemChannelCopyIngestURLToClipboard
+            // 
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.inputURLToolStripMenuItem,
+            this.inputSSLURLToolStripMenuItem,
+            this.primaryInputURLToolStripMenuItem,
+            this.secondaryInputURLToolStripMenuItem});
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.Name = "ContextMenuItemChannelCopyIngestURLToClipboard";
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.Text = "Copy Input URL to clipboard";
+            this.ContextMenuItemChannelCopyIngestURLToClipboard.DropDownOpening += new System.EventHandler(this.ContextMenuItemChannelCopyIngestURLToClipboard_DropDownOpening);
+            // 
+            // inputURLToolStripMenuItem
+            // 
+            this.inputURLToolStripMenuItem.Name = "inputURLToolStripMenuItem";
+            this.inputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.inputURLToolStripMenuItem.Text = "Input URL";
+            this.inputURLToolStripMenuItem.Click += new System.EventHandler(this.inputURLToolStripMenuItem_Click);
+            // 
+            // inputSSLURLToolStripMenuItem
+            // 
+            this.inputSSLURLToolStripMenuItem.Name = "inputSSLURLToolStripMenuItem";
+            this.inputSSLURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.inputSSLURLToolStripMenuItem.Text = "Input (SSL) URL";
+            this.inputSSLURLToolStripMenuItem.Click += new System.EventHandler(this.inputSSLURLToolStripMenuItem_Click);
+            // 
+            // primaryInputURLToolStripMenuItem
+            // 
+            this.primaryInputURLToolStripMenuItem.Name = "primaryInputURLToolStripMenuItem";
+            this.primaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.primaryInputURLToolStripMenuItem.Text = "Primary Input URL";
+            this.primaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.primaryInputURLToolStripMenuItem_Click);
+            // 
+            // secondaryInputURLToolStripMenuItem
+            // 
+            this.secondaryInputURLToolStripMenuItem.Name = "secondaryInputURLToolStripMenuItem";
+            this.secondaryInputURLToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.secondaryInputURLToolStripMenuItem.Text = "Secondary Input URL";
+            this.secondaryInputURLToolStripMenuItem.Click += new System.EventHandler(this.secondaryInputURLToolStripMenuItem_Click);
+            // 
+            // ContextMenuItemChannelRunOnPremisesLiveEncoder
+            // 
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Name = "ContextMenuItemChannelRunOnPremisesLiveEncoder";
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Text = "Run an on-premises live encoder...";
+            this.ContextMenuItemChannelRunOnPremisesLiveEncoder.Click += new System.EventHandler(this.runALocalEncoderToolStripMenuItem_Click);
+            // 
+            // ContextMenuItemChannelCopyPreviewURLToClipboard
+            // 
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Name = "ContextMenuItemChannelCopyPreviewURLToClipboard";
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Size = new System.Drawing.Size(292, 22);
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Text = "Copy Preview URL to clipboard";
+            this.ContextMenuItemChannelCopyPreviewURLToClipboard.Click += new System.EventHandler(this.copyPreviewURLToClipboard_Click);
+            // 
+            // toolStripSeparator19
+            // 
+            this.toolStripSeparator19.Name = "toolStripSeparator19";
+            this.toolStripSeparator19.Size = new System.Drawing.Size(289, 6);
+            // 
+            // playbackTheProgramToolStripMenuItem
+            // 
+            this.playbackTheProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.withAzureMediaPlayerToolStripMenuItem4,
+            this.toolStripSeparator28,
+            this.withFlashOSMFAzurePlayerToolStripMenuItem,
+            this.withSilverlightMontoringPlayerToolStripMenuItem});
+            this.playbackTheProgramToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("playbackTheProgramToolStripMenuItem.Image")));
+            this.playbackTheProgramToolStripMenuItem.Name = "playbackTheProgramToolStripMenuItem";
+            this.playbackTheProgramToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
+            this.playbackTheProgramToolStripMenuItem.Text = "Playback the Preview";
+            // 
+            // withAzureMediaPlayerToolStripMenuItem4
+            // 
+            this.withAzureMediaPlayerToolStripMenuItem4.Name = "withAzureMediaPlayerToolStripMenuItem4";
+            this.withAzureMediaPlayerToolStripMenuItem4.Size = new System.Drawing.Size(250, 22);
+            this.withAzureMediaPlayerToolStripMenuItem4.Text = "with Azure Media Player";
+            this.withAzureMediaPlayerToolStripMenuItem4.Click += new System.EventHandler(this.withAzureMediaPlayerToolStripMenuItem4_Click);
+            // 
+            // toolStripSeparator28
+            // 
+            this.toolStripSeparator28.Name = "toolStripSeparator28";
+            this.toolStripSeparator28.Size = new System.Drawing.Size(247, 6);
+            // 
+            // withFlashOSMFAzurePlayerToolStripMenuItem
+            // 
+            this.withFlashOSMFAzurePlayerToolStripMenuItem.Name = "withFlashOSMFAzurePlayerToolStripMenuItem";
+            this.withFlashOSMFAzurePlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.withFlashOSMFAzurePlayerToolStripMenuItem.Text = "with Flash OSMF Azure Player";
+            this.withFlashOSMFAzurePlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithFlashOSMFAzurePlayer_Click);
+            // 
+            // withSilverlightMontoringPlayerToolStripMenuItem
+            // 
+            this.withSilverlightMontoringPlayerToolStripMenuItem.Name = "withSilverlightMontoringPlayerToolStripMenuItem";
+            this.withSilverlightMontoringPlayerToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.withSilverlightMontoringPlayerToolStripMenuItem.Text = "with Silverlight Monitoring Player";
+            this.withSilverlightMontoringPlayerToolStripMenuItem.Click += new System.EventHandler(this.PlaybackPreviewWithSilverlightMonitoringPlayer_Click);
             // 
             // contextMenuStripProcessors
             // 
@@ -3486,40 +3007,6 @@
             this.refreshToolStripMenuItem6.Size = new System.Drawing.Size(113, 22);
             this.refreshToolStripMenuItem6.Text = "Refresh";
             this.refreshToolStripMenuItem6.Click += new System.EventHandler(this.refreshToolStripMenuItem6_Click);
-            // 
-            // tabPageOrigins
-            // 
-            this.tabPageOrigins.Controls.Add(this.label19);
-            this.tabPageOrigins.Controls.Add(this.comboBoxOrderStreamingEndpoints);
-            this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
-            this.tabPageOrigins.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOrigins.Name = "tabPageOrigins";
-            this.tabPageOrigins.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOrigins.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageOrigins.TabIndex = 7;
-            this.tabPageOrigins.Text = "Streaming endpoints";
-            this.tabPageOrigins.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(660, 419);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 13);
-            this.label19.TabIndex = 16;
-            this.label19.Text = "Order by:";
-            // 
-            // comboBoxOrderStreamingEndpoints
-            // 
-            this.comboBoxOrderStreamingEndpoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOrderStreamingEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderStreamingEndpoints.FormattingEnabled = true;
-            this.comboBoxOrderStreamingEndpoints.Location = new System.Drawing.Point(713, 415);
-            this.comboBoxOrderStreamingEndpoints.Name = "comboBoxOrderStreamingEndpoints";
-            this.comboBoxOrderStreamingEndpoints.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxOrderStreamingEndpoints.TabIndex = 15;
-            this.comboBoxOrderStreamingEndpoints.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderStreamingEndpoints_SelectedIndexChanged);
             // 
             // contextMenuStripStreaminEndpoints
             // 
@@ -3611,6 +3098,977 @@
             this.ContextMenuItemOriginDelete.Text = "Delete streaming endpoint(s)";
             this.ContextMenuItemOriginDelete.Click += new System.EventHandler(this.deleteOriginsToolStripMenuItem1_Click);
             // 
+            // contextMenuStripStorage
+            // 
+            this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem2,
+            this.attachAnotherStorageAccountToolStripMenuItem});
+            this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
+            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 48);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(250, 22);
+            this.toolStripMenuItem2.Text = "Refresh";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // attachAnotherStorageAccountToolStripMenuItem
+            // 
+            this.attachAnotherStorageAccountToolStripMenuItem.Name = "attachAnotherStorageAccountToolStripMenuItem";
+            this.attachAnotherStorageAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.attachAnotherStorageAccountToolStripMenuItem.Text = "Attach another storage account...";
+            this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.DarkCyan;
+            this.label12.Location = new System.Drawing.Point(824, 30);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(174, 13);
+            this.label12.TabIndex = 29;
+            this.label12.Text = "(Use ctrl or shift to multiselect items)";
+            // 
+            // contextMenuStripLog
+            // 
+            this.contextMenuStripLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToClipboardToolStripMenuItem,
+            this.clearTextToolStripMenuItem});
+            this.contextMenuStripLog.Name = "contextMenuStripLog";
+            this.contextMenuStripLog.Size = new System.Drawing.Size(170, 48);
+            // 
+            // copyToClipboardToolStripMenuItem
+            // 
+            this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
+            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.copyToClipboardToolStripMenuItem.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
+            // 
+            // clearTextToolStripMenuItem
+            // 
+            this.clearTextToolStripMenuItem.Name = "clearTextToolStripMenuItem";
+            this.clearTextToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
+            this.clearTextToolStripMenuItem.Text = "Clear text";
+            this.clearTextToolStripMenuItem.Click += new System.EventHandler(this.clearTextToolStripMenuItem_Click);
+            // 
+            // buttonRefresh
+            // 
+            this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
+            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonRefresh.Location = new System.Drawing.Point(337, 30);
+            this.buttonRefresh.Name = "buttonRefresh";
+            this.buttonRefresh.Size = new System.Drawing.Size(100, 28);
+            this.buttonRefresh.TabIndex = 23;
+            this.buttonRefresh.Text = "Refresh all";
+            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonRefresh.UseVisualStyleBackColor = true;
+            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
+            // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainerMain.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 58);
+            this.splitContainerMain.Name = "splitContainerMain";
+            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerMain.Panel1.Controls.Add(this.tabControlMain);
+            // 
+            // splitContainerMain.Panel2
+            // 
+            this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerMain.Panel2.Controls.Add(this.richTextBoxLog);
+            this.splitContainerMain.Size = new System.Drawing.Size(1020, 556);
+            this.splitContainerMain.SplitterDistance = 478;
+            this.splitContainerMain.TabIndex = 33;
+            // 
+            // tabControlMain
+            // 
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlMain.Controls.Add(this.tabPageAssets);
+            this.tabControlMain.Controls.Add(this.tabPageTransfers);
+            this.tabControlMain.Controls.Add(this.tabPageJobs);
+            this.tabControlMain.Controls.Add(this.tabPageLive);
+            this.tabControlMain.Controls.Add(this.tabPageProcessors);
+            this.tabControlMain.Controls.Add(this.tabPageOrigins);
+            this.tabControlMain.Controls.Add(this.tabPageStorage);
+            this.tabControlMain.Controls.Add(this.tabPageChart);
+            this.tabControlMain.Location = new System.Drawing.Point(3, 6);
+            this.tabControlMain.Name = "tabControlMain";
+            this.tabControlMain.SelectedIndex = 0;
+            this.tabControlMain.Size = new System.Drawing.Size(1014, 469);
+            this.tabControlMain.TabIndex = 28;
+            this.tabControlMain.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControlMain_Selected);
+            // 
+            // tabPageAssets
+            // 
+            this.tabPageAssets.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageAssets.Controls.Add(this.label10);
+            this.tabPageAssets.Controls.Add(this.comboBoxFilterAssetsTime);
+            this.tabPageAssets.Controls.Add(this.label9);
+            this.tabPageAssets.Controls.Add(this.comboBoxStateAssets);
+            this.tabPageAssets.Controls.Add(this.buttonAssetSearch);
+            this.tabPageAssets.Controls.Add(this.label8);
+            this.tabPageAssets.Controls.Add(this.textBoxAssetSearch);
+            this.tabPageAssets.Controls.Add(this.butPrevPageAsset);
+            this.tabPageAssets.Controls.Add(this.dataGridViewAssetsV);
+            this.tabPageAssets.Controls.Add(this.label3);
+            this.tabPageAssets.Controls.Add(this.comboBoxOrderAssets);
+            this.tabPageAssets.Controls.Add(this.butNextPageAsset);
+            this.tabPageAssets.Controls.Add(this.comboBoxPageAssets);
+            this.tabPageAssets.Controls.Add(this.label1);
+            this.tabPageAssets.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAssets.Name = "tabPageAssets";
+            this.tabPageAssets.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageAssets.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageAssets.TabIndex = 0;
+            this.tabPageAssets.Text = "Assets";
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(327, 418);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(32, 13);
+            this.label10.TabIndex = 43;
+            this.label10.Text = "Filter:";
+            // 
+            // comboBoxFilterAssetsTime
+            // 
+            this.comboBoxFilterAssetsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterAssetsTime.FormattingEnabled = true;
+            this.comboBoxFilterAssetsTime.Location = new System.Drawing.Point(363, 415);
+            this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
+            this.comboBoxFilterAssetsTime.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterAssetsTime.TabIndex = 42;
+            this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
+            // 
+            // label9
+            // 
+            this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(481, 419);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.TabIndex = 41;
+            this.label9.Text = "Status:";
+            // 
+            // comboBoxStateAssets
+            // 
+            this.comboBoxStateAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStateAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStateAssets.FormattingEnabled = true;
+            this.comboBoxStateAssets.Location = new System.Drawing.Point(524, 415);
+            this.comboBoxStateAssets.Name = "comboBoxStateAssets";
+            this.comboBoxStateAssets.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStateAssets.TabIndex = 40;
+            this.comboBoxStateAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateAssets_SelectedIndexChanged);
+            // 
+            // buttonAssetSearch
+            // 
+            this.buttonAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAssetSearch.Location = new System.Drawing.Point(241, 415);
+            this.buttonAssetSearch.Name = "buttonAssetSearch";
+            this.buttonAssetSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonAssetSearch.TabIndex = 39;
+            this.buttonAssetSearch.Text = "Set filter";
+            this.buttonAssetSearch.UseVisualStyleBackColor = true;
+            this.buttonAssetSearch.Click += new System.EventHandler(this.buttonAssetSearch_Click);
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(11, 419);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.TabIndex = 38;
+            this.label8.Text = "Search in name or Id:";
+            // 
+            // textBoxAssetSearch
+            // 
+            this.textBoxAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxAssetSearch.Location = new System.Drawing.Point(125, 416);
+            this.textBoxAssetSearch.Name = "textBoxAssetSearch";
+            this.textBoxAssetSearch.Size = new System.Drawing.Size(115, 20);
+            this.textBoxAssetSearch.TabIndex = 37;
+            // 
+            // butPrevPageAsset
+            // 
+            this.butPrevPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butPrevPageAsset.Enabled = false;
+            this.butPrevPageAsset.Location = new System.Drawing.Point(871, 414);
+            this.butPrevPageAsset.Name = "butPrevPageAsset";
+            this.butPrevPageAsset.Size = new System.Drawing.Size(28, 23);
+            this.butPrevPageAsset.TabIndex = 29;
+            this.butPrevPageAsset.Text = "<";
+            this.butPrevPageAsset.UseVisualStyleBackColor = true;
+            this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
+            // 
+            // dataGridViewAssetsV
+            // 
+            this.dataGridViewAssetsV.AllowDrop = true;
+            this.dataGridViewAssetsV.AllowUserToAddRows = false;
+            this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
+            this.dataGridViewAssetsV.AllowUserToResizeRows = false;
+            this.dataGridViewAssetsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewAssetsV.AssetsPerPage = 50;
+            this.dataGridViewAssetsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
+            this.dataGridViewAssetsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
+            this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
+            this.dataGridViewAssetsV.ReadOnly = true;
+            this.dataGridViewAssetsV.RowHeadersVisible = false;
+            this.dataGridViewAssetsV.SearchInName = "";
+            this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 403);
+            this.dataGridViewAssetsV.StateFilter = "";
+            this.dataGridViewAssetsV.TabIndex = 30;
+            this.dataGridViewAssetsV.TimeFilter = "Last week";
+            this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
+            this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
+            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
+            this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(660, 419);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "Order by:";
+            // 
+            // comboBoxOrderAssets
+            // 
+            this.comboBoxOrderAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderAssets.FormattingEnabled = true;
+            this.comboBoxOrderAssets.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderAssets.Name = "comboBoxOrderAssets";
+            this.comboBoxOrderAssets.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderAssets.TabIndex = 13;
+            this.comboBoxOrderAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderAssets_SelectedIndexChanged);
+            // 
+            // butNextPageAsset
+            // 
+            this.butNextPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butNextPageAsset.Location = new System.Drawing.Point(972, 414);
+            this.butNextPageAsset.Name = "butNextPageAsset";
+            this.butNextPageAsset.Size = new System.Drawing.Size(28, 23);
+            this.butNextPageAsset.TabIndex = 28;
+            this.butNextPageAsset.Text = ">";
+            this.butNextPageAsset.UseVisualStyleBackColor = true;
+            this.butNextPageAsset.Click += new System.EventHandler(this.butNextPageAsset_Click);
+            // 
+            // comboBoxPageAssets
+            // 
+            this.comboBoxPageAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxPageAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPageAssets.FormattingEnabled = true;
+            this.comboBoxPageAssets.Location = new System.Drawing.Point(905, 415);
+            this.comboBoxPageAssets.Name = "comboBoxPageAssets";
+            this.comboBoxPageAssets.Size = new System.Drawing.Size(61, 21);
+            this.comboBoxPageAssets.TabIndex = 11;
+            this.comboBoxPageAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageAssets_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(830, 419);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Page:";
+            // 
+            // tabPageTransfers
+            // 
+            this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
+            this.tabPageTransfers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTransfers.Name = "tabPageTransfers";
+            this.tabPageTransfers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageTransfers.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageTransfers.TabIndex = 2;
+            this.tabPageTransfers.Text = "Transfers";
+            // 
+            // dataGridViewTransfer
+            // 
+            this.dataGridViewTransfer.AllowUserToAddRows = false;
+            this.dataGridViewTransfer.AllowUserToDeleteRows = false;
+            this.dataGridViewTransfer.AllowUserToResizeRows = false;
+            this.dataGridViewTransfer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewTransfer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewTransfer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTransfer.ContextMenuStrip = this.contextMenuStripTransfers;
+            this.dataGridViewTransfer.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewTransfer.MultiSelect = false;
+            this.dataGridViewTransfer.Name = "dataGridViewTransfer";
+            this.dataGridViewTransfer.ReadOnly = true;
+            this.dataGridViewTransfer.RowHeadersVisible = false;
+            this.dataGridViewTransfer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 431);
+            this.dataGridViewTransfer.TabIndex = 32;
+            this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
+            this.dataGridViewTransfer.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewTransfer.DoubleClick += new System.EventHandler(this.dataGridViewTransfer_DoubleClick);
+            // 
+            // tabPageJobs
+            // 
+            this.tabPageJobs.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageJobs.Controls.Add(this.label11);
+            this.tabPageJobs.Controls.Add(this.comboBoxFilterJobsTime);
+            this.tabPageJobs.Controls.Add(this.buttonJobSearch);
+            this.tabPageJobs.Controls.Add(this.label7);
+            this.tabPageJobs.Controls.Add(this.textBoxJobSearch);
+            this.tabPageJobs.Controls.Add(this.label6);
+            this.tabPageJobs.Controls.Add(this.comboBoxStateJobs);
+            this.tabPageJobs.Controls.Add(this.butPrevPageJob);
+            this.tabPageJobs.Controls.Add(this.butNextPageJob);
+            this.tabPageJobs.Controls.Add(this.comboBoxPageJobs);
+            this.tabPageJobs.Controls.Add(this.label4);
+            this.tabPageJobs.Controls.Add(this.label2);
+            this.tabPageJobs.Controls.Add(this.comboBoxOrderJobs);
+            this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
+            this.tabPageJobs.Location = new System.Drawing.Point(4, 22);
+            this.tabPageJobs.Name = "tabPageJobs";
+            this.tabPageJobs.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageJobs.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageJobs.TabIndex = 1;
+            this.tabPageJobs.Text = "Jobs";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(327, 418);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.TabIndex = 45;
+            this.label11.Text = "Filter:";
+            // 
+            // comboBoxFilterJobsTime
+            // 
+            this.comboBoxFilterJobsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterJobsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterJobsTime.FormattingEnabled = true;
+            this.comboBoxFilterJobsTime.Location = new System.Drawing.Point(363, 415);
+            this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
+            this.comboBoxFilterJobsTime.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterJobsTime.TabIndex = 44;
+            this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
+            // 
+            // buttonJobSearch
+            // 
+            this.buttonJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobSearch.Location = new System.Drawing.Point(241, 415);
+            this.buttonJobSearch.Name = "buttonJobSearch";
+            this.buttonJobSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonJobSearch.TabIndex = 36;
+            this.buttonJobSearch.Text = "Set filter";
+            this.buttonJobSearch.UseVisualStyleBackColor = true;
+            this.buttonJobSearch.Click += new System.EventHandler(this.buttonJobSearch_Click);
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 419);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(108, 13);
+            this.label7.TabIndex = 35;
+            this.label7.Text = "Search in name or Id:";
+            // 
+            // textBoxJobSearch
+            // 
+            this.textBoxJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxJobSearch.Location = new System.Drawing.Point(125, 416);
+            this.textBoxJobSearch.Name = "textBoxJobSearch";
+            this.textBoxJobSearch.Size = new System.Drawing.Size(115, 20);
+            this.textBoxJobSearch.TabIndex = 34;
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(481, 419);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 33;
+            this.label6.Text = "State:";
+            // 
+            // comboBoxStateJobs
+            // 
+            this.comboBoxStateJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStateJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStateJobs.FormattingEnabled = true;
+            this.comboBoxStateJobs.Location = new System.Drawing.Point(524, 415);
+            this.comboBoxStateJobs.Name = "comboBoxStateJobs";
+            this.comboBoxStateJobs.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStateJobs.TabIndex = 32;
+            this.comboBoxStateJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateJobs_SelectedIndexChanged);
+            // 
+            // butPrevPageJob
+            // 
+            this.butPrevPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butPrevPageJob.Enabled = false;
+            this.butPrevPageJob.Location = new System.Drawing.Point(871, 414);
+            this.butPrevPageJob.Name = "butPrevPageJob";
+            this.butPrevPageJob.Size = new System.Drawing.Size(28, 23);
+            this.butPrevPageJob.TabIndex = 30;
+            this.butPrevPageJob.Text = "<";
+            this.butPrevPageJob.UseVisualStyleBackColor = true;
+            this.butPrevPageJob.Click += new System.EventHandler(this.butPrevPageJob_Click);
+            // 
+            // butNextPageJob
+            // 
+            this.butNextPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butNextPageJob.Enabled = false;
+            this.butNextPageJob.Location = new System.Drawing.Point(972, 414);
+            this.butNextPageJob.Name = "butNextPageJob";
+            this.butNextPageJob.Size = new System.Drawing.Size(28, 23);
+            this.butNextPageJob.TabIndex = 30;
+            this.butNextPageJob.Text = ">";
+            this.butNextPageJob.UseVisualStyleBackColor = true;
+            this.butNextPageJob.Click += new System.EventHandler(this.butNextPageJob_Click);
+            // 
+            // comboBoxPageJobs
+            // 
+            this.comboBoxPageJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxPageJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPageJobs.FormattingEnabled = true;
+            this.comboBoxPageJobs.Location = new System.Drawing.Point(905, 415);
+            this.comboBoxPageJobs.Name = "comboBoxPageJobs";
+            this.comboBoxPageJobs.Size = new System.Drawing.Size(61, 21);
+            this.comboBoxPageJobs.TabIndex = 25;
+            this.comboBoxPageJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageJobs_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(660, 419);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Order by:";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(830, 419);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Page:";
+            // 
+            // comboBoxOrderJobs
+            // 
+            this.comboBoxOrderJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderJobs.FormattingEnabled = true;
+            this.comboBoxOrderJobs.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderJobs.Name = "comboBoxOrderJobs";
+            this.comboBoxOrderJobs.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderJobs.TabIndex = 14;
+            this.comboBoxOrderJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderJobs_SelectedIndexChanged);
+            // 
+            // dataGridViewJobsV
+            // 
+            this.dataGridViewJobsV.AllowUserToAddRows = false;
+            this.dataGridViewJobsV.AllowUserToDeleteRows = false;
+            this.dataGridViewJobsV.AllowUserToResizeRows = false;
+            this.dataGridViewJobsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewJobsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
+            this.dataGridViewJobsV.FilterJobsState = "All";
+            this.dataGridViewJobsV.JobssPerPage = 50;
+            this.dataGridViewJobsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewJobsV.Name = "dataGridViewJobsV";
+            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
+            this.dataGridViewJobsV.ReadOnly = true;
+            this.dataGridViewJobsV.RowHeadersVisible = false;
+            this.dataGridViewJobsV.SearchInName = null;
+            this.dataGridViewJobsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewJobsV.Size = new System.Drawing.Size(994, 403);
+            this.dataGridViewJobsV.TabIndex = 31;
+            this.dataGridViewJobsV.TimeFilter = "Last week";
+            this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
+            this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
+            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            // 
+            // tabPageLive
+            // 
+            this.tabPageLive.Controls.Add(this.label24);
+            this.tabPageLive.Controls.Add(this.comboBoxFilterTimeChannel);
+            this.tabPageLive.Controls.Add(this.comboBoxStatusChannel);
+            this.tabPageLive.Controls.Add(this.label25);
+            this.tabPageLive.Controls.Add(this.comboBoxOrderChannel);
+            this.tabPageLive.Controls.Add(this.label26);
+            this.tabPageLive.Controls.Add(this.buttonSetFilterChannel);
+            this.tabPageLive.Controls.Add(this.label23);
+            this.tabPageLive.Controls.Add(this.textBoxSearchNameChannel);
+            this.tabPageLive.Controls.Add(this.label15);
+            this.tabPageLive.Controls.Add(this.label14);
+            this.tabPageLive.Controls.Add(this.comboBoxFilterTimeProgram);
+            this.tabPageLive.Controls.Add(this.comboBoxStatusProgram);
+            this.tabPageLive.Controls.Add(this.label13);
+            this.tabPageLive.Controls.Add(this.label16);
+            this.tabPageLive.Controls.Add(this.comboBoxOrderProgram);
+            this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
+            this.tabPageLive.Controls.Add(this.label18);
+            this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
+            this.tabPageLive.Controls.Add(this.buttonSetFilterProgram);
+            this.tabPageLive.Controls.Add(this.label17);
+            this.tabPageLive.Controls.Add(this.textBoxSearchNameProgram);
+            this.tabPageLive.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLive.Name = "tabPageLive";
+            this.tabPageLive.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageLive.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageLive.TabIndex = 6;
+            this.tabPageLive.Text = "Live";
+            this.tabPageLive.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(384, 194);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(32, 13);
+            this.label24.TabIndex = 61;
+            this.label24.Text = "Filter:";
+            // 
+            // comboBoxFilterTimeChannel
+            // 
+            this.comboBoxFilterTimeChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterTimeChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeChannel.FormattingEnabled = true;
+            this.comboBoxFilterTimeChannel.Location = new System.Drawing.Point(420, 191);
+            this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
+            this.comboBoxFilterTimeChannel.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterTimeChannel.TabIndex = 60;
+            this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
+            // 
+            // comboBoxStatusChannel
+            // 
+            this.comboBoxStatusChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStatusChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusChannel.FormattingEnabled = true;
+            this.comboBoxStatusChannel.Location = new System.Drawing.Point(581, 191);
+            this.comboBoxStatusChannel.Name = "comboBoxStatusChannel";
+            this.comboBoxStatusChannel.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStatusChannel.TabIndex = 58;
+            this.comboBoxStatusChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusChannel_SelectedIndexChanged);
+            // 
+            // label25
+            // 
+            this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(538, 195);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(40, 13);
+            this.label25.TabIndex = 59;
+            this.label25.Text = "Status:";
+            // 
+            // comboBoxOrderChannel
+            // 
+            this.comboBoxOrderChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderChannel.FormattingEnabled = true;
+            this.comboBoxOrderChannel.Location = new System.Drawing.Point(770, 191);
+            this.comboBoxOrderChannel.Name = "comboBoxOrderChannel";
+            this.comboBoxOrderChannel.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderChannel.TabIndex = 56;
+            this.comboBoxOrderChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderChannel_SelectedIndexChanged);
+            // 
+            // label26
+            // 
+            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(717, 195);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(50, 13);
+            this.label26.TabIndex = 57;
+            this.label26.Text = "Order by:";
+            // 
+            // buttonSetFilterChannel
+            // 
+            this.buttonSetFilterChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterChannel.Location = new System.Drawing.Point(298, 189);
+            this.buttonSetFilterChannel.Name = "buttonSetFilterChannel";
+            this.buttonSetFilterChannel.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetFilterChannel.TabIndex = 55;
+            this.buttonSetFilterChannel.Text = "Set filter";
+            this.buttonSetFilterChannel.UseVisualStyleBackColor = true;
+            this.buttonSetFilterChannel.Click += new System.EventHandler(this.buttonSetFilterChannel_Click);
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 193);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(108, 13);
+            this.label23.TabIndex = 54;
+            this.label23.Text = "Search in name or Id:";
+            // 
+            // textBoxSearchNameChannel
+            // 
+            this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(114, 190);
+            this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
+            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(183, 20);
+            this.textBoxSearchNameChannel.TabIndex = 53;
+            // 
+            // label15
+            // 
+            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(384, 415);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.TabIndex = 52;
+            this.label15.Text = "Filter:";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(6, 236);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(59, 13);
+            this.label14.TabIndex = 32;
+            this.label14.Text = "Programs";
+            // 
+            // comboBoxFilterTimeProgram
+            // 
+            this.comboBoxFilterTimeProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
+            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(420, 412);
+            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
+            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterTimeProgram.TabIndex = 51;
+            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
+            // 
+            // comboBoxStatusProgram
+            // 
+            this.comboBoxStatusProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusProgram.FormattingEnabled = true;
+            this.comboBoxStatusProgram.Location = new System.Drawing.Point(581, 412);
+            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
+            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStatusProgram.TabIndex = 49;
+            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(2, 4);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(59, 13);
+            this.label13.TabIndex = 31;
+            this.label13.Text = "Channels";
+            // 
+            // label16
+            // 
+            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(538, 416);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(40, 13);
+            this.label16.TabIndex = 50;
+            this.label16.Text = "Status:";
+            // 
+            // comboBoxOrderProgram
+            // 
+            this.comboBoxOrderProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderProgram.FormattingEnabled = true;
+            this.comboBoxOrderProgram.Location = new System.Drawing.Point(770, 412);
+            this.comboBoxOrderProgram.Name = "comboBoxOrderProgram";
+            this.comboBoxOrderProgram.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderProgram.TabIndex = 44;
+            this.comboBoxOrderProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderProgram_SelectedIndexChanged);
+            // 
+            // dataGridViewProgramsV
+            // 
+            this.dataGridViewProgramsV.AllowUserToAddRows = false;
+            this.dataGridViewProgramsV.AllowUserToDeleteRows = false;
+            this.dataGridViewProgramsV.AllowUserToResizeRows = false;
+            this.dataGridViewProgramsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewProgramsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
+            this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
+            this.dataGridViewProgramsV.FilterState = "All";
+            this.dataGridViewProgramsV.ItemsPerPage = 50;
+            this.dataGridViewProgramsV.Location = new System.Drawing.Point(6, 252);
+            this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
+            this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
+            this.dataGridViewProgramsV.ReadOnly = true;
+            this.dataGridViewProgramsV.RowHeadersVisible = false;
+            this.dataGridViewProgramsV.SearchInName = "";
+            this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 154);
+            this.dataGridViewProgramsV.TabIndex = 31;
+            this.dataGridViewProgramsV.TimeFilter = "Last week";
+            this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
+            this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
+            this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(717, 416);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(50, 13);
+            this.label18.TabIndex = 45;
+            this.label18.Text = "Order by:";
+            // 
+            // dataGridViewChannelsV
+            // 
+            this.dataGridViewChannelsV.AllowUserToAddRows = false;
+            this.dataGridViewChannelsV.AllowUserToDeleteRows = false;
+            this.dataGridViewChannelsV.AllowUserToResizeRows = false;
+            this.dataGridViewChannelsV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewChannelsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewChannelsV.ChannelsPerPage = 50;
+            this.dataGridViewChannelsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewChannelsV.ContextMenuStrip = this.contextMenuStripChannels;
+            this.dataGridViewChannelsV.FilterState = "All";
+            this.dataGridViewChannelsV.Location = new System.Drawing.Point(6, 20);
+            this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
+            this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
+            this.dataGridViewChannelsV.ReadOnly = true;
+            this.dataGridViewChannelsV.RowHeadersVisible = false;
+            this.dataGridViewChannelsV.SearchInName = "";
+            this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
+            this.dataGridViewChannelsV.TabIndex = 30;
+            this.dataGridViewChannelsV.TimeFilter = "Last week";
+            this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
+            this.dataGridViewChannelsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewLiveV_CellFormatting);
+            this.dataGridViewChannelsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
+            // 
+            // buttonSetFilterProgram
+            // 
+            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 412);
+            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
+            this.buttonSetFilterProgram.Size = new System.Drawing.Size(75, 23);
+            this.buttonSetFilterProgram.TabIndex = 48;
+            this.buttonSetFilterProgram.Text = "Set filter";
+            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
+            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 416);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(108, 13);
+            this.label17.TabIndex = 47;
+            this.label17.Text = "Search in name or Id:";
+            // 
+            // textBoxSearchNameProgram
+            // 
+            this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(114, 413);
+            this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(183, 20);
+            this.textBoxSearchNameProgram.TabIndex = 46;
+            // 
+            // tabPageProcessors
+            // 
+            this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageProcessors.Controls.Add(this.trackBarEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.buttonUpdateEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.labelnbunits);
+            this.tabPageProcessors.Controls.Add(this.comboBoxEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.label22);
+            this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
+            this.tabPageProcessors.Location = new System.Drawing.Point(4, 22);
+            this.tabPageProcessors.Name = "tabPageProcessors";
+            this.tabPageProcessors.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProcessors.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageProcessors.TabIndex = 4;
+            this.tabPageProcessors.Text = "Processors";
+            // 
+            // trackBarEncodingRU
+            // 
+            this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 398);
+            this.trackBarEncodingRU.Maximum = 25;
+            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
+            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
+            this.trackBarEncodingRU.TabIndex = 39;
+            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
+            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.trackBarEncodingRU_ValueChanged);
+            // 
+            // buttonUpdateEncodingRU
+            // 
+            this.buttonUpdateEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpdateEncodingRU.Location = new System.Drawing.Point(925, 406);
+            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
+            this.buttonUpdateEncodingRU.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateEncodingRU.TabIndex = 38;
+            this.buttonUpdateEncodingRU.Text = "Update";
+            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
+            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.buttonUpdateEncodingRU_Click);
+            // 
+            // labelnbunits
+            // 
+            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelnbunits.AutoSize = true;
+            this.labelnbunits.Location = new System.Drawing.Point(239, 411);
+            this.labelnbunits.Name = "labelnbunits";
+            this.labelnbunits.Size = new System.Drawing.Size(55, 13);
+            this.labelnbunits.TabIndex = 36;
+            this.labelnbunits.Tag = "";
+            this.labelnbunits.Text = "{0} unit{1}";
+            // 
+            // comboBoxEncodingRU
+            // 
+            this.comboBoxEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEncodingRU.FormattingEnabled = true;
+            this.comboBoxEncodingRU.Location = new System.Drawing.Point(118, 408);
+            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
+            this.comboBoxEncodingRU.Size = new System.Drawing.Size(104, 21);
+            this.comboBoxEncodingRU.TabIndex = 35;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(5, 411);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(102, 13);
+            this.label22.TabIndex = 34;
+            this.label22.Text = "Reserved unit type :";
+            // 
+            // dataGridViewProcessors
+            // 
+            this.dataGridViewProcessors.AllowUserToAddRows = false;
+            this.dataGridViewProcessors.AllowUserToDeleteRows = false;
+            this.dataGridViewProcessors.AllowUserToResizeRows = false;
+            this.dataGridViewProcessors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewProcessors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
+            this.dataGridViewProcessors.Location = new System.Drawing.Point(5, 6);
+            this.dataGridViewProcessors.Name = "dataGridViewProcessors";
+            this.dataGridViewProcessors.ReadOnly = true;
+            this.dataGridViewProcessors.RowHeadersVisible = false;
+            this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 390);
+            this.dataGridViewProcessors.TabIndex = 33;
+            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            // 
+            // tabPageOrigins
+            // 
+            this.tabPageOrigins.Controls.Add(this.label19);
+            this.tabPageOrigins.Controls.Add(this.comboBoxOrderStreamingEndpoints);
+            this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
+            this.tabPageOrigins.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOrigins.Name = "tabPageOrigins";
+            this.tabPageOrigins.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOrigins.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageOrigins.TabIndex = 7;
+            this.tabPageOrigins.Text = "Streaming endpoints";
+            this.tabPageOrigins.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(660, 419);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 13);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Order by:";
+            // 
+            // comboBoxOrderStreamingEndpoints
+            // 
+            this.comboBoxOrderStreamingEndpoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderStreamingEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderStreamingEndpoints.FormattingEnabled = true;
+            this.comboBoxOrderStreamingEndpoints.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderStreamingEndpoints.Name = "comboBoxOrderStreamingEndpoints";
+            this.comboBoxOrderStreamingEndpoints.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderStreamingEndpoints.TabIndex = 15;
+            this.comboBoxOrderStreamingEndpoints.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderStreamingEndpoints_SelectedIndexChanged);
+            // 
+            // dataGridViewStreamingEndpointsV
+            // 
+            this.dataGridViewStreamingEndpointsV.AllowUserToAddRows = false;
+            this.dataGridViewStreamingEndpointsV.AllowUserToDeleteRows = false;
+            this.dataGridViewStreamingEndpointsV.AllowUserToResizeRows = false;
+            this.dataGridViewStreamingEndpointsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
+            this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
+            this.dataGridViewStreamingEndpointsV.ItemsPerPage = 50;
+            this.dataGridViewStreamingEndpointsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewStreamingEndpointsV.Name = "dataGridViewStreamingEndpointsV";
+            this.dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = "Last modified";
+            this.dataGridViewStreamingEndpointsV.ReadOnly = true;
+            this.dataGridViewStreamingEndpointsV.RowHeadersVisible = false;
+            this.dataGridViewStreamingEndpointsV.SearchInName = "";
+            this.dataGridViewStreamingEndpointsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStreamingEndpointsV.Size = new System.Drawing.Size(994, 403);
+            this.dataGridViewStreamingEndpointsV.TabIndex = 0;
+            this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
+            this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
+            this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
+            this.dataGridViewStreamingEndpointsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            // 
             // tabPageStorage
             // 
             this.tabPageStorage.Controls.Add(this.dataGridViewStorage);
@@ -3641,29 +4099,6 @@
             this.dataGridViewStorage.Size = new System.Drawing.Size(997, 390);
             this.dataGridViewStorage.TabIndex = 34;
             this.dataGridViewStorage.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            // 
-            // contextMenuStripStorage
-            // 
-            this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem2,
-            this.attachAnotherStorageAccountToolStripMenuItem});
-            this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 48);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(250, 22);
-            this.toolStripMenuItem2.Text = "Refresh";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // attachAnotherStorageAccountToolStripMenuItem
-            // 
-            this.attachAnotherStorageAccountToolStripMenuItem.Name = "attachAnotherStorageAccountToolStripMenuItem";
-            this.attachAnotherStorageAccountToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.attachAnotherStorageAccountToolStripMenuItem.Text = "Attach another storage account...";
-            this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
             // 
             // tabPageChart
             // 
@@ -3738,40 +4173,6 @@
             this.buttonbuildchart.UseVisualStyleBackColor = true;
             this.buttonbuildchart.Click += new System.EventHandler(this.buttonbuildchart_Click);
             // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.AutoSize = true;
-            this.label12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label12.Location = new System.Drawing.Point(824, 30);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(174, 13);
-            this.label12.TabIndex = 29;
-            this.label12.Text = "(Use ctrl or shift to multiselect items)";
-            // 
-            // splitContainerMain
-            // 
-            this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerMain.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.splitContainerMain.Location = new System.Drawing.Point(0, 58);
-            this.splitContainerMain.Name = "splitContainerMain";
-            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerMain.Panel1
-            // 
-            this.splitContainerMain.Panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerMain.Panel1.Controls.Add(this.tabControlMain);
-            // 
-            // splitContainerMain.Panel2
-            // 
-            this.splitContainerMain.Panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerMain.Panel2.Controls.Add(this.richTextBoxLog);
-            this.splitContainerMain.Size = new System.Drawing.Size(1020, 556);
-            this.splitContainerMain.SplitterDistance = 478;
-            this.splitContainerMain.TabIndex = 33;
-            // 
             // richTextBoxLog
             // 
             this.richTextBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -3787,345 +4188,6 @@
             this.richTextBoxLog.Text = "";
             this.richTextBoxLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBoxLog_LinkClicked);
             this.richTextBoxLog.TextChanged += new System.EventHandler(this.richTextBoxLog_TextChanged);
-            // 
-            // contextMenuStripLog
-            // 
-            this.contextMenuStripLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.copyToClipboardToolStripMenuItem,
-            this.clearTextToolStripMenuItem});
-            this.contextMenuStripLog.Name = "contextMenuStripLog";
-            this.contextMenuStripLog.Size = new System.Drawing.Size(170, 48);
-            // 
-            // copyToClipboardToolStripMenuItem
-            // 
-            this.copyToClipboardToolStripMenuItem.Name = "copyToClipboardToolStripMenuItem";
-            this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.copyToClipboardToolStripMenuItem.Text = "Copy to clipboard";
-            this.copyToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem_Click);
-            // 
-            // clearTextToolStripMenuItem
-            // 
-            this.clearTextToolStripMenuItem.Name = "clearTextToolStripMenuItem";
-            this.clearTextToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
-            this.clearTextToolStripMenuItem.Text = "Clear text";
-            this.clearTextToolStripMenuItem.Click += new System.EventHandler(this.clearTextToolStripMenuItem_Click);
-            // 
-            // buttonRefresh
-            // 
-            this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
-            this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonRefresh.Location = new System.Drawing.Point(337, 30);
-            this.buttonRefresh.Name = "buttonRefresh";
-            this.buttonRefresh.Size = new System.Drawing.Size(100, 28);
-            this.buttonRefresh.TabIndex = 23;
-            this.buttonRefresh.Text = "Refresh all";
-            this.buttonRefresh.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.buttonRefresh.UseVisualStyleBackColor = true;
-            this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // dataGridViewAssetsV
-            // 
-            this.dataGridViewAssetsV.AllowDrop = true;
-            this.dataGridViewAssetsV.AllowUserToAddRows = false;
-            this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
-            this.dataGridViewAssetsV.AllowUserToResizeRows = false;
-            this.dataGridViewAssetsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewAssetsV.AssetsPerPage = 50;
-            this.dataGridViewAssetsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
-            this.dataGridViewAssetsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
-            this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
-            this.dataGridViewAssetsV.ReadOnly = true;
-            this.dataGridViewAssetsV.RowHeadersVisible = false;
-            this.dataGridViewAssetsV.SearchInName = "";
-            this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 403);
-            this.dataGridViewAssetsV.StateFilter = "";
-            this.dataGridViewAssetsV.TabIndex = 30;
-            this.dataGridViewAssetsV.TimeFilter = "Last week";
-            this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
-            this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
-            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
-            this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
-            // 
-            // dataGridViewJobsV
-            // 
-            this.dataGridViewJobsV.AllowUserToAddRows = false;
-            this.dataGridViewJobsV.AllowUserToDeleteRows = false;
-            this.dataGridViewJobsV.AllowUserToResizeRows = false;
-            this.dataGridViewJobsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewJobsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
-            this.dataGridViewJobsV.FilterJobsState = "All";
-            this.dataGridViewJobsV.JobssPerPage = 50;
-            this.dataGridViewJobsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewJobsV.Name = "dataGridViewJobsV";
-            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
-            this.dataGridViewJobsV.ReadOnly = true;
-            this.dataGridViewJobsV.RowHeadersVisible = false;
-            this.dataGridViewJobsV.SearchInName = null;
-            this.dataGridViewJobsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewJobsV.Size = new System.Drawing.Size(994, 403);
-            this.dataGridViewJobsV.TabIndex = 31;
-            this.dataGridViewJobsV.TimeFilter = "Last week";
-            this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
-            this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
-            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            // 
-            // splitContainerLive
-            // 
-            this.splitContainerLive.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerLive.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.splitContainerLive.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerLive.Name = "splitContainerLive";
-            this.splitContainerLive.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerLive.Panel1
-            // 
-            this.splitContainerLive.Panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerLive.Panel1.Controls.Add(this.panelChannels);
-            // 
-            // splitContainerLive.Panel2
-            // 
-            this.splitContainerLive.Panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerLive.Panel2.Controls.Add(this.panelProgram);
-            this.splitContainerLive.Size = new System.Drawing.Size(1006, 443);
-            this.splitContainerLive.SplitterDistance = 221;
-            this.splitContainerLive.TabIndex = 32;
-            // 
-            // panelChannels
-            // 
-            this.panelChannels.Controls.Add(this.label13);
-            this.panelChannels.Controls.Add(this.dataGridViewChannelsV);
-            this.panelChannels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelChannels.Location = new System.Drawing.Point(0, 0);
-            this.panelChannels.Name = "panelChannels";
-            this.panelChannels.Size = new System.Drawing.Size(1006, 221);
-            this.panelChannels.TabIndex = 32;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(3, 3);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(51, 13);
-            this.label13.TabIndex = 31;
-            this.label13.Text = "Channels";
-            // 
-            // dataGridViewChannelsV
-            // 
-            this.dataGridViewChannelsV.AllowUserToAddRows = false;
-            this.dataGridViewChannelsV.AllowUserToDeleteRows = false;
-            this.dataGridViewChannelsV.AllowUserToResizeRows = false;
-            this.dataGridViewChannelsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewChannelsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewChannelsV.ChannelsPerPage = 50;
-            this.dataGridViewChannelsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewChannelsV.ContextMenuStrip = this.contextMenuStripChannels;
-            this.dataGridViewChannelsV.FilterJobsState = "All";
-            this.dataGridViewChannelsV.Location = new System.Drawing.Point(6, 19);
-            this.dataGridViewChannelsV.Name = "dataGridViewChannelsV";
-            this.dataGridViewChannelsV.OrderJobsInGrid = "Last modified";
-            this.dataGridViewChannelsV.ReadOnly = true;
-            this.dataGridViewChannelsV.RowHeadersVisible = false;
-            this.dataGridViewChannelsV.SearchInName = "";
-            this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewChannelsV.Size = new System.Drawing.Size(994, 199);
-            this.dataGridViewChannelsV.TabIndex = 30;
-            this.dataGridViewChannelsV.TimeFilter = "Last week";
-            this.dataGridViewChannelsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewLiveV_CellDoubleClick);
-            this.dataGridViewChannelsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewLiveV_CellFormatting);
-            this.dataGridViewChannelsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
-            // 
-            // panelProgram
-            // 
-            this.panelProgram.Controls.Add(this.label14);
-            this.panelProgram.Controls.Add(this.label15);
-            this.panelProgram.Controls.Add(this.dataGridViewProgramsV);
-            this.panelProgram.Controls.Add(this.comboBoxFilterTimeProgram);
-            this.panelProgram.Controls.Add(this.comboBoxStatusProgram);
-            this.panelProgram.Controls.Add(this.label16);
-            this.panelProgram.Controls.Add(this.comboBoxOrderProgram);
-            this.panelProgram.Controls.Add(this.label18);
-            this.panelProgram.Controls.Add(this.buttonSetFilterProgram);
-            this.panelProgram.Controls.Add(this.textBoxSearchNameProgram);
-            this.panelProgram.Controls.Add(this.label17);
-            this.panelProgram.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelProgram.Location = new System.Drawing.Point(0, 0);
-            this.panelProgram.Name = "panelProgram";
-            this.panelProgram.Size = new System.Drawing.Size(1006, 218);
-            this.panelProgram.TabIndex = 53;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(3, 5);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(51, 13);
-            this.label14.TabIndex = 32;
-            this.label14.Text = "Programs";
-            // 
-            // label15
-            // 
-            this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(385, 192);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 13);
-            this.label15.TabIndex = 52;
-            this.label15.Text = "Filter:";
-            // 
-            // dataGridViewProgramsV
-            // 
-            this.dataGridViewProgramsV.AllowUserToAddRows = false;
-            this.dataGridViewProgramsV.AllowUserToDeleteRows = false;
-            this.dataGridViewProgramsV.AllowUserToResizeRows = false;
-            this.dataGridViewProgramsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProgramsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
-            this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
-            this.dataGridViewProgramsV.FilterState = "All";
-            this.dataGridViewProgramsV.ItemsPerPage = 50;
-            this.dataGridViewProgramsV.Location = new System.Drawing.Point(3, 21);
-            this.dataGridViewProgramsV.Name = "dataGridViewProgramsV";
-            this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
-            this.dataGridViewProgramsV.ReadOnly = true;
-            this.dataGridViewProgramsV.RowHeadersVisible = false;
-            this.dataGridViewProgramsV.SearchInName = "";
-            this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProgramsV.Size = new System.Drawing.Size(997, 162);
-            this.dataGridViewProgramsV.TabIndex = 31;
-            this.dataGridViewProgramsV.TimeFilter = "Last week";
-            this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
-            this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
-            this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            // 
-            // comboBoxFilterTimeProgram
-            // 
-            this.comboBoxFilterTimeProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFilterTimeProgram.FormattingEnabled = true;
-            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(421, 189);
-            this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
-            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxFilterTimeProgram.TabIndex = 51;
-            this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
-            // 
-            // comboBoxStatusProgram
-            // 
-            this.comboBoxStatusProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxStatusProgram.FormattingEnabled = true;
-            this.comboBoxStatusProgram.Location = new System.Drawing.Point(582, 189);
-            this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
-            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxStatusProgram.TabIndex = 49;
-            this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
-            // 
-            // label16
-            // 
-            this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(539, 193);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(40, 13);
-            this.label16.TabIndex = 50;
-            this.label16.Text = "Status:";
-            // 
-            // comboBoxOrderProgram
-            // 
-            this.comboBoxOrderProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOrderProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderProgram.FormattingEnabled = true;
-            this.comboBoxOrderProgram.Location = new System.Drawing.Point(771, 189);
-            this.comboBoxOrderProgram.Name = "comboBoxOrderProgram";
-            this.comboBoxOrderProgram.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxOrderProgram.TabIndex = 44;
-            this.comboBoxOrderProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderProgram_SelectedIndexChanged);
-            // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(718, 193);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(50, 13);
-            this.label18.TabIndex = 45;
-            this.label18.Text = "Order by:";
-            // 
-            // buttonSetFilterProgram
-            // 
-            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetFilterProgram.Location = new System.Drawing.Point(299, 189);
-            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
-            this.buttonSetFilterProgram.Size = new System.Drawing.Size(75, 23);
-            this.buttonSetFilterProgram.TabIndex = 48;
-            this.buttonSetFilterProgram.Text = "Set filter";
-            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
-            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
-            // 
-            // textBoxSearchNameProgram
-            // 
-            this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(115, 190);
-            this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(183, 20);
-            this.textBoxSearchNameProgram.TabIndex = 46;
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 193);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(108, 13);
-            this.label17.TabIndex = 47;
-            this.label17.Text = "Search in name or Id:";
-            // 
-            // dataGridViewStreamingEndpointsV
-            // 
-            this.dataGridViewStreamingEndpointsV.AllowUserToAddRows = false;
-            this.dataGridViewStreamingEndpointsV.AllowUserToDeleteRows = false;
-            this.dataGridViewStreamingEndpointsV.AllowUserToResizeRows = false;
-            this.dataGridViewStreamingEndpointsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewStreamingEndpointsV.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewStreamingEndpointsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStreamingEndpointsV.ContextMenuStrip = this.contextMenuStripStreaminEndpoints;
-            this.dataGridViewStreamingEndpointsV.FilterStreamingEndpointsState = "All";
-            this.dataGridViewStreamingEndpointsV.ItemsPerPage = 50;
-            this.dataGridViewStreamingEndpointsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewStreamingEndpointsV.Name = "dataGridViewStreamingEndpointsV";
-            this.dataGridViewStreamingEndpointsV.OrderStreamingEndpointsInGrid = "Last modified";
-            this.dataGridViewStreamingEndpointsV.ReadOnly = true;
-            this.dataGridViewStreamingEndpointsV.RowHeadersVisible = false;
-            this.dataGridViewStreamingEndpointsV.SearchInName = "";
-            this.dataGridViewStreamingEndpointsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewStreamingEndpointsV.Size = new System.Drawing.Size(994, 403);
-            this.dataGridViewStreamingEndpointsV.TabIndex = 0;
-            this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
-            this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
-            this.dataGridViewStreamingEndpointsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewOriginsV_CellFormatting);
-            this.dataGridViewStreamingEndpointsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
             // Mainform
             // 
@@ -4151,49 +4213,42 @@
             this.contextMenuStripJobs.ResumeLayout(false);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.contextMenuStripTransfers.ResumeLayout(false);
-            this.tabControlMain.ResumeLayout(false);
-            this.tabPageAssets.ResumeLayout(false);
-            this.tabPageAssets.PerformLayout();
-            this.tabPageTransfers.ResumeLayout(false);
-            this.tabPageJobs.ResumeLayout(false);
-            this.tabPageJobs.PerformLayout();
-            this.tabPageLive.ResumeLayout(false);
-            this.contextMenuStripChannels.ResumeLayout(false);
             this.contextMenuStripPrograms.ResumeLayout(false);
-            this.tabPageProcessors.ResumeLayout(false);
-            this.tabPageProcessors.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
+            this.contextMenuStripChannels.ResumeLayout(false);
             this.contextMenuStripProcessors.ResumeLayout(false);
-            this.tabPageOrigins.ResumeLayout(false);
-            this.tabPageOrigins.PerformLayout();
             this.contextMenuStripStreaminEndpoints.ResumeLayout(false);
-            this.tabPageStorage.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).EndInit();
             this.contextMenuStripStorage.ResumeLayout(false);
-            this.tabPageChart.ResumeLayout(false);
-            this.tabPageChart.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            this.contextMenuStripLog.ResumeLayout(false);
             this.splitContainerMain.Panel1.ResumeLayout(false);
             this.splitContainerMain.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
             this.splitContainerMain.ResumeLayout(false);
-            this.contextMenuStripLog.ResumeLayout(false);
+            this.tabControlMain.ResumeLayout(false);
+            this.tabPageAssets.ResumeLayout(false);
+            this.tabPageAssets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
+            this.tabPageTransfers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
+            this.tabPageJobs.ResumeLayout(false);
+            this.tabPageJobs.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
-            this.splitContainerLive.Panel1.ResumeLayout(false);
-            this.splitContainerLive.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerLive)).EndInit();
-            this.splitContainerLive.ResumeLayout(false);
-            this.panelChannels.ResumeLayout(false);
-            this.panelChannels.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
-            this.panelProgram.ResumeLayout(false);
-            this.panelProgram.PerformLayout();
+            this.tabPageLive.ResumeLayout(false);
+            this.tabPageLive.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
+            this.tabPageProcessors.ResumeLayout(false);
+            this.tabPageProcessors.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
+            this.tabPageOrigins.ResumeLayout(false);
+            this.tabPageOrigins.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
+            this.tabPageStorage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).EndInit();
+            this.tabPageChart.ResumeLayout(false);
+            this.tabPageChart.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4342,7 +4397,6 @@
         private System.Windows.Forms.Button buttonbuildchart;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageLive;
-        private DataGridViewLiveChannel dataGridViewChannelsV;
         private System.Windows.Forms.ToolStripMenuItem liveChannelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startChannelsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem stopChannelsToolStripMenuItem;
@@ -4351,14 +4405,10 @@
         private System.Windows.Forms.ToolStripMenuItem createChannelToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator15;
         private System.Windows.Forms.ToolStripMenuItem channInfoToolStripMenuItem;
-        private DataGridViewLiveProgram dataGridViewProgramsV;
         private System.Windows.Forms.ToolStripMenuItem createProgramToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem startProgramsToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem stopProgramsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteProgramsToolStripMenuItem1;
-        private System.Windows.Forms.SplitContainer splitContainerLive;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ToolStripMenuItem displayProgramInformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem generateThumbnailsForTheAssetsToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPageOrigins;
@@ -4402,15 +4452,6 @@
         private System.Windows.Forms.ToolStripMenuItem playbackTheProgramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withFlashOSMFAzurePlayerToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem withSilverlightMontoringPlayerToolStripMenuItem;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ComboBox comboBoxStatusProgram;
-        private System.Windows.Forms.Button buttonSetFilterProgram;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBoxSearchNameProgram;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ComboBox comboBoxOrderProgram;
         private System.Windows.Forms.ToolStripMenuItem createStreamingEndpointToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.RichTextBox richTextBoxLog;
@@ -4577,8 +4618,28 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesSamplesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem1;
-        private System.Windows.Forms.Panel panelChannels;
-        private System.Windows.Forms.Panel panelProgram;
+        private System.Windows.Forms.Label label13;
+        private DataGridViewLiveChannel dataGridViewChannelsV;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private DataGridViewLiveProgram dataGridViewProgramsV;
+        private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;
+        private System.Windows.Forms.ComboBox comboBoxStatusProgram;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox comboBoxOrderProgram;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button buttonSetFilterProgram;
+        private System.Windows.Forms.TextBox textBoxSearchNameProgram;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Button buttonSetFilterChannel;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBoxSearchNameChannel;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.ComboBox comboBoxFilterTimeChannel;
+        private System.Windows.Forms.ComboBox comboBoxStatusChannel;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.ComboBox comboBoxOrderChannel;
+        private System.Windows.Forms.Label label26;
     }
 }
 
