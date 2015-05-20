@@ -35,46 +35,19 @@ namespace AMSExplorer
     class ManagementRESTAPIHelper
     {
         public string Endpoint { get; set; }
-        public string CertThumbprint { get; set; }
+        public string CertCertBody { get; set; }
         public string SubscriptionId { get; set; }
 
-        public ManagementRESTAPIHelper(string endpoint, string thumbprint, string subscriptionID)
+        public ManagementRESTAPIHelper(string endpoint, string certBody, string subscriptionID)
         {
             Endpoint = endpoint;
-            CertThumbprint = thumbprint;
+            CertCertBody = certBody;
             SubscriptionId = subscriptionID;
         }
 
         private X509Certificate2 GetClientCertificate()
         {
-            List<StoreLocation> locations = new List<StoreLocation> 
-        { 
-            StoreLocation.CurrentUser, 
-            StoreLocation.LocalMachine 
-        };
-
-            foreach (var location in locations)
-            {
-                X509Store store = new X509Store("My", location);
-                try
-                {
-                    store.Open(OpenFlags.ReadOnly | OpenFlags.OpenExistingOnly);
-                    X509Certificate2Collection certificates = store.Certificates.Find(
-                        X509FindType.FindByThumbprint, CertThumbprint, false);
-                    if (certificates.Count == 1)
-                    {
-                        return certificates[0];
-                    }
-                }
-                finally
-                {
-                    store.Close();
-                }
-            }
-
-            throw new ArgumentException(string.Format(
-                "A Certificate with thumbprint '{0}' could not be located.",
-                CertThumbprint));
+            return new X509Certificate2(Convert.FromBase64String(CertCertBody));
         }
 
 
