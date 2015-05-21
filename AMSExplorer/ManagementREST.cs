@@ -35,19 +35,21 @@ namespace AMSExplorer
     class ManagementRESTAPIHelper
     {
         public string Endpoint { get; set; }
-        public string CertCertBody { get; set; }
+        public string CertBody { get; set; }
         public string SubscriptionId { get; set; }
+
+        public StringBuilder stringBuilderLog = new StringBuilder();
 
         public ManagementRESTAPIHelper(string endpoint, string certBody, string subscriptionID)
         {
             Endpoint = endpoint;
-            CertCertBody = certBody;
+            CertBody = certBody;
             SubscriptionId = subscriptionID;
         }
 
         private X509Certificate2 GetClientCertificate()
         {
-            return new X509Certificate2(Convert.FromBase64String(CertCertBody));
+            return new X509Certificate2(Convert.FromBase64String(CertBody));
         }
 
 
@@ -156,6 +158,7 @@ namespace AMSExplorer
             try
             {
                 var clientCert = GetClientCertificate();
+                stringBuilderLog.AppendLine("..Called GetClientCertificate");
 
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format("{0}/{1}/services/mediaservices/Accounts/{2}/StorageAccounts", Endpoint, SubscriptionId, accountInfo.AccountName));
                 request.Method = "POST";
@@ -163,7 +166,9 @@ namespace AMSExplorer
                 request.Headers.Add("x-ms-version", "2011-10-01");
                 request.Headers.Add("Accept-Encoding: gzip, deflate");
                 request.ClientCertificates.Add(clientCert);
-
+                stringBuilderLog.AppendLine("..HttpWebRequest built");
+                stringBuilderLog.AppendLine("..HttpWebRequest Request Uri: " + request.RequestUri.ToString());
+                
                 string jsonString;
 
                 using (MemoryStream ms = new MemoryStream())
@@ -172,23 +177,39 @@ namespace AMSExplorer
                             = new DataContractJsonSerializer(typeof(AttachStorageAccountRequest));
 
                     serializer.WriteObject(ms, storageaccount);
+                    stringBuilderLog.AppendLine("..memorystream serialized");
 
                     jsonString = Encoding.Default.GetString(ms.ToArray());
+
+                    stringBuilderLog.AppendLine("..jsonString created");
                 }
 
                 using (Stream requestStream = request.GetRequestStream())
                 {
                     var requestBytes = System.Text.Encoding.ASCII.GetBytes(jsonString);
+                    stringBuilderLog.AppendLine("..jsonString to bytes");
+
                     requestStream.Write(requestBytes, 0, requestBytes.Length);
+                    stringBuilderLog.AppendLine("..requestStream.Write");
+
                     requestStream.Close();
+                    stringBuilderLog.AppendLine("..requestStream.Close");
+
                 }
 
                 using (var response = (HttpWebResponse)request.GetResponse())
                 {
                     if (response.StatusCode == HttpStatusCode.NoContent)
-                        Console.WriteLine("The primary key was regenerated.");
-                }
+                        stringBuilderLog.AppendLine("..Response NoContent Status code - The primary key was regenerated.");
 
+                    stringBuilderLog.AppendLine("..Response Status Code: " + response.StatusCode.ToString());
+                    stringBuilderLog.AppendLine("..Response Status Description: " + response.StatusDescription);
+                    stringBuilderLog.AppendLine("..Response Uri: " + response.ResponseUri);
+                    stringBuilderLog.AppendLine("..Response Server: " + response.Server);
+                    stringBuilderLog.AppendLine("..Response ContentType: " + response.ContentType);
+                    stringBuilderLog.AppendLine("..Response ContentLength: " + response.ContentLength);
+                    stringBuilderLog.AppendLine("..Response ContentEncoding: " + response.ContentEncoding);
+                }
             }
             catch (Exception ex)
             { throw ex; }

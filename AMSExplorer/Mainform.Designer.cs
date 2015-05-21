@@ -332,6 +332,7 @@
             this.ContextMenuItemOriginDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.setAsDefaultStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label12 = new System.Windows.Forms.Label();
             this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -3102,9 +3103,11 @@
             // 
             this.contextMenuStripStorage.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem2,
+            this.setAsDefaultStorageToolStripMenuItem,
             this.attachAnotherStorageAccountToolStripMenuItem});
             this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 48);
+            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 92);
+            this.contextMenuStripStorage.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripStorage_Opening);
             // 
             // toolStripMenuItem2
             // 
@@ -3113,6 +3116,14 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(250, 22);
             this.toolStripMenuItem2.Text = "Refresh";
             this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // setAsDefaultStorageToolStripMenuItem
+            // 
+            this.setAsDefaultStorageToolStripMenuItem.Enabled = false;
+            this.setAsDefaultStorageToolStripMenuItem.Name = "setAsDefaultStorageToolStripMenuItem";
+            this.setAsDefaultStorageToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.setAsDefaultStorageToolStripMenuItem.Text = "Set as default storage";
+            this.setAsDefaultStorageToolStripMenuItem.Click += new System.EventHandler(this.setAsDefaultStorageToolStripMenuItem_Click);
             // 
             // attachAnotherStorageAccountToolStripMenuItem
             // 
@@ -4640,6 +4651,7 @@
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.ComboBox comboBoxOrderChannel;
         private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.ToolStripMenuItem setAsDefaultStorageToolStripMenuItem;
     }
 }
 

@@ -42,7 +42,7 @@ namespace AMSExplorer
         }
 
 
-        public string GetCertThumbprint
+        public string GetCertBody
         {
             get
             {
@@ -90,7 +90,7 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "http://msdn.microsoft.com/en-US/library/azure/gg551722.aspx"));
+            linkLabelAttach.Links.Add(new LinkLabel.Link(0, linkLabelAttach.Text.Length, "https://manage.windowsazure.com/publishsettings"));
             _credentials = credentials;
 
 

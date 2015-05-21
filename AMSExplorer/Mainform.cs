@@ -1670,6 +1670,19 @@ namespace AMSExplorer
             return SelectedJobs;
         }
 
+        private IStorageAccount ReturnSelectedStorage()
+        {
+
+            IStorageAccount SelectedStorage = null;
+            if (dataGridViewStorage.SelectedRows.Count == 1)
+            {
+                var row = dataGridViewStorage.SelectedRows[0];
+                SelectedStorage = _context.StorageAccounts.Where(s => s.Name == row.Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString()).FirstOrDefault();
+            }
+
+            return SelectedStorage;
+        }
+
         private void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuDeleteSelectedAssets();
@@ -3519,7 +3532,7 @@ namespace AMSExplorer
                 .Select(i => i.GetValue(null) as string)
                 .ToArray()
                 );
-            comboBoxFilterTimeProgram.SelectedIndex = 0; 
+            comboBoxFilterTimeProgram.SelectedIndex = 0;
 
 
             comboBoxFilterTimeChannel.Items.AddRange(
@@ -3528,9 +3541,9 @@ namespace AMSExplorer
                 .Select(i => i.GetValue(null) as string)
                 .ToArray()
                 );
-            comboBoxFilterTimeChannel.SelectedIndex = 0; 
+            comboBoxFilterTimeChannel.SelectedIndex = 0;
 
-            
+
             comboBoxStatusProgram.Items.AddRange(
                 typeof(ProgramState)
                 .GetFields()
@@ -5234,9 +5247,12 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.ColumnCount = 3;
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[1].HeaderText = "Used space";
+                dataGridViewStorage.Columns[1].HeaderText = "StrictName";
+                dataGridViewStorage.Columns[1].Name = "StrictName";
+                dataGridViewStorage.Columns[1].Visible = false; // used to store the storage name so the code can use it
+                dataGridViewStorage.Columns[2].HeaderText = "Used space";
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5258,7 +5274,7 @@ namespace AMSExplorer
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
 
-                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), storage.Name, displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
                 if (storage.IsDefault)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
@@ -8217,7 +8233,7 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertBody, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
                 MediaServicesAccount accountInfo = new MediaServicesAccount()
@@ -8245,6 +8261,7 @@ namespace AMSExplorer
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
                     TextBoxLogWriteLine(ex);
+                    TextBoxLogWriteLine(helper.stringBuilderLog.ToString());
                 }
             }
         }
@@ -9344,6 +9361,27 @@ namespace AMSExplorer
                 DoRefreshGridChannelV(false);
             }
         }
+
+        private void setAsDefaultStorageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SetAsDefaultStorage();
+        }
+
+        private void SetAsDefaultStorage()
+        {
+            IStorageAccount selectedstorage = ReturnSelectedStorage();
+            if (selectedstorage != null
+                && MessageBox.Show(string.Format("Set storage '{0}' as default ?", selectedstorage.Name), "Default storage", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                selectedstorage.IsDefault = true;
+                DoRefreshGridStorageV(false);
+            }
+        }
+
+        private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
     }
 }
 
@@ -9671,7 +9709,7 @@ namespace AMSExplorer
         }
     }
 
-    
+
 
     public enum TransferState
     {

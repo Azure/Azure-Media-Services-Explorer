@@ -52,6 +52,7 @@
             // 
             // buttonUpdate
             // 
+            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpdate.Location = new System.Drawing.Point(460, 13);
             this.buttonUpdate.Name = "buttonUpdate";
@@ -59,10 +60,10 @@
             this.buttonUpdate.TabIndex = 5;
             this.buttonUpdate.Text = "Attach storage";
             this.buttonUpdate.UseVisualStyleBackColor = true;
-            
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Location = new System.Drawing.Point(569, 13);
             this.buttonCancel.Name = "buttonCancel";
@@ -134,7 +135,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.textBoxStorageEndPoint);
             this.groupBox1.Controls.Add(this.label5);
@@ -172,14 +173,15 @@
             // 
             // textBoxCertThumbprint
             // 
-            this.textBoxCertThumbprint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxCertThumbprint.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxCertThumbprint.BackColor = System.Drawing.Color.Pink;
             this.textBoxCertThumbprint.Location = new System.Drawing.Point(31, 104);
             this.textBoxCertThumbprint.Multiline = true;
             this.textBoxCertThumbprint.Name = "textBoxCertThumbprint";
             this.textBoxCertThumbprint.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.textBoxCertThumbprint.Size = new System.Drawing.Size(623, 89);
+            this.textBoxCertThumbprint.Size = new System.Drawing.Size(623, 142);
             this.textBoxCertThumbprint.TabIndex = 1;
             this.textBoxCertThumbprint.TextChanged += new System.EventHandler(this.textBoxTXT_Validation);
             // 
@@ -191,17 +193,18 @@
             this.label2.Size = new System.Drawing.Size(152, 13);
             this.label2.TabIndex = 49;
             this.label2.Text = "Management Certificate Body :";
-            
             // 
             // linkLabelAttach
             // 
+            this.linkLabelAttach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelAttach.AutoSize = true;
-            this.linkLabelAttach.Location = new System.Drawing.Point(22, 196);
+            this.linkLabelAttach.Location = new System.Drawing.Point(206, 88);
             this.linkLabelAttach.Name = "linkLabelAttach";
-            this.linkLabelAttach.Size = new System.Drawing.Size(272, 13);
+            this.linkLabelAttach.Size = new System.Drawing.Size(448, 13);
             this.linkLabelAttach.TabIndex = 50;
             this.linkLabelAttach.TabStop = true;
-            this.linkLabelAttach.Text = "See how to create and upload a management certificate";
+            this.linkLabelAttach.Text = "Get your subscription file and copy the value of the xml ManagementCertificate at" +
+    "tribute below";
             this.linkLabelAttach.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabelAttach_LinkClicked);
             // 
             // label6
@@ -227,10 +230,10 @@
             // 
             // textBoxServiceManagement
             // 
-            this.textBoxServiceManagement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.textBoxServiceManagement.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxServiceManagement.BackColor = System.Drawing.Color.Pink;
-            this.textBoxServiceManagement.Location = new System.Drawing.Point(25, 290);
+            this.textBoxServiceManagement.Location = new System.Drawing.Point(31, 281);
             this.textBoxServiceManagement.Name = "textBoxServiceManagement";
             this.textBoxServiceManagement.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBoxServiceManagement.Size = new System.Drawing.Size(623, 20);
@@ -239,8 +242,9 @@
             // 
             // label7
             // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(22, 256);
+            this.label7.Location = new System.Drawing.Point(28, 265);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(169, 13);
             this.label7.TabIndex = 55;
