@@ -409,7 +409,7 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
 
-      
+
     }
 
     public class DataGridViewLiveProgram : DataGridView
@@ -707,7 +707,7 @@ namespace AMSExplorer
             if (!string.IsNullOrEmpty(_searchinname))
             {
                 string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower)));
+                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower) || p.Asset.Id.ToLower().Contains(searchlower)  ));
             }
 
             if (FilterState != "All")

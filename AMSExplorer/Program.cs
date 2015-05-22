@@ -444,6 +444,7 @@ namespace AMSExplorer
         public const string AssetIdPrefix = "nb:cid:UUID:";
         public const string ContentKeyIdPrefix = "nb:kid:UUID:";
         public const string JobIdPrefix = "nb:jid:UUID:";
+        public const string ProgramIdPrefix = "nb:pid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
         public const string ProdACSBaseAddress = "https://wamsprodglobal001acs.accesscontrol.windows.net";

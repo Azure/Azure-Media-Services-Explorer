@@ -245,15 +245,6 @@
         AABJRU5ErkJggg==
 </value>
   </data>
-  <data name="createOutlookReportEmailToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
-        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
-        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
   <data name="setupAWatchFolderToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -270,6 +261,15 @@
         SMJWW7hwSFeNvS1pNlJKU4Q/P4MOZPFwLehANoIOZCPoQHrOyqWMM+hAyEnxoeNFE+hAZtryJz7LoAMp
         HBXLq/7bOS9BBxIx+l55Koc6O54fdR7RgZQHd2VvEfZ8IXzmOz1dX3BTdh4q7QLjuys6kIjBn4blAjOg
         A+n5toAdSM/fL0jxBjUnXpEbH9NCAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="createOutlookReportEmailToolStripMenuItem1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
+        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAACGSURBVDhPtZPLDYAgEEQ5WIJVWIBFeTL2Yi1WYhHG
+        InDGsEZgQfy95BE+wwQPGmvtKwnHJx54i0Kiggk2+yoPM8xGBQNc4QhrGMI9njHTw6iASGiBHaycnIfl
+        aoEgz5yd2udlC4TWeUmqIAXzRS9I8U9BTqLti0VoF8Xb+Be1P+yswpcFxmzqmasJD/KjJgAAAABJRU5E
+        rkJggg==
 </value>
   </data>
   <data name="importToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -947,6 +947,9 @@
         8wJr6+PBm8+6ADQSX8LMVdiLwygVgOxnOog/8S224kWwVyiEkF0A1di1vVgejOsAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>1119, 56</value>
+  </metadata>
   <data name="dataGridViewProgramsV.ChannelSourceIDs" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAJoBbXNjb3JsaWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1u

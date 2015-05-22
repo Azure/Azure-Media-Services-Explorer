@@ -633,7 +633,7 @@ namespace AMSExplorer
 
         public void TextBoxLogWriteLine(Exception e)
         {
-            TextBoxLogWriteLine(e.Message);
+            TextBoxLogWriteLine(e.Message, true);
             if (e.InnerException != null)
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
@@ -4262,7 +4262,6 @@ namespace AMSExplorer
 
         private void DoMenuDisplayJobInfoFromKnownID()
         {
-
             string JobId = "";
             string clipbs = Clipboard.GetText();
             if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
@@ -4270,6 +4269,10 @@ namespace AMSExplorer
 
             if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
             {
+                if (!JobId.StartsWith(Constants.JobIdPrefix))
+                {
+                    JobId = Constants.JobIdPrefix + JobId;
+                }
                 IJob KnownJob = GetJob(JobId);
                 if (KnownJob == null)
                 {
@@ -4279,8 +4282,8 @@ namespace AMSExplorer
                 {
                 }
             }
-
         }
+
         private void DoMenuDisplayAssetInfoFromKnownID()
         {
             string AssetId = string.Empty;
@@ -4292,6 +4295,10 @@ namespace AMSExplorer
 
             if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
             {
+                if (!AssetId.StartsWith(Constants.AssetIdPrefix))
+                {
+                    AssetId = Constants.AssetIdPrefix + AssetId;
+                }
                 IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
                 if (KnownAsset == null)
                 {
@@ -4301,6 +4308,93 @@ namespace AMSExplorer
                 {
                     DisplayInfo(KnownAsset);
                 }
+            }
+        }
+
+        private void DoMenuDisplayProgramInfoFromKnownID()
+        {
+            string programID = string.Empty;
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null && clipbs.StartsWith(Constants.ProgramIdPrefix))
+            {
+                programID = clipbs;
+            }
+
+            if (Program.InputBox("Program ID", "Please enter the known Program Id :", ref programID) == DialogResult.OK)
+            {
+                if (!programID.StartsWith(Constants.ProgramIdPrefix))
+                {
+                    programID = Constants.ProgramIdPrefix + programID;
+                }
+                IProgram knownProgram = _context.Programs.Where(p => p.Id == programID).FirstOrDefault();
+                if (knownProgram == null)
+                {
+                    MessageBox.Show("This program has not been found.");
+                }
+                else
+                {
+                    DoDisplayProgramInfo(knownProgram);
+                }
+            }
+        }
+
+        private void DoMenuDisplayAssetInfoFromLocatorID()
+        {
+            string locatorID = string.Empty;
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null && clipbs.StartsWith(Constants.LocatorIdPrefix))
+            {
+                locatorID = clipbs;
+            }
+
+            if (Program.InputBox("Locator ID/GUID", "Please enter the known Locator Id or GUID :", ref locatorID) == DialogResult.OK)
+            {
+                if (!locatorID.StartsWith(Constants.LocatorIdPrefix))
+                {
+                    locatorID = Constants.LocatorIdPrefix + locatorID;
+                }
+                ILocator knownLocator = _context.Locators.Where(l => l.Id == locatorID).FirstOrDefault();
+
+                if (knownLocator == null)
+                {
+                    MessageBox.Show("This locator has not been found.");
+                }
+                else if (knownLocator.Asset != null)
+                {
+                    DisplayInfo(knownLocator.Asset);
+                }
+
+            }
+        }
+
+        private void DoMenuDisplayProgramInfoFromLocatorID()
+        {
+            string locatorID = string.Empty;
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null && clipbs.StartsWith(Constants.LocatorIdPrefix))
+            {
+                locatorID = clipbs;
+            }
+
+            if (Program.InputBox("Locator ID/GUID", "Please enter the known Locator Id or GUID :", ref locatorID) == DialogResult.OK)
+            {
+                if (!locatorID.StartsWith(Constants.LocatorIdPrefix))
+                {
+                    locatorID = Constants.LocatorIdPrefix + locatorID;
+                }
+                ILocator knownLocator = _context.Locators.Where(l => l.Id == locatorID).FirstOrDefault();
+
+                if (knownLocator == null)
+                {
+                    MessageBox.Show("This locator has not been found.");
+                }
+                else if (knownLocator.Asset != null)
+                {
+                    IProgram knownProgram = _context.Programs.Where(p => p.Asset.Id == knownLocator.Asset.Id).FirstOrDefault();
+
+                    if (knownProgram != null) DoDisplayProgramInfo(knownProgram);
+                }
+
             }
         }
 
@@ -9362,25 +9456,36 @@ namespace AMSExplorer
             }
         }
 
-        private void setAsDefaultStorageToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SetAsDefaultStorage();
-        }
-
-        private void SetAsDefaultStorage()
-        {
-            IStorageAccount selectedstorage = ReturnSelectedStorage();
-            if (selectedstorage != null
-                && MessageBox.Show(string.Format("Set storage '{0}' as default ?", selectedstorage.Name), "Default storage", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
-            {
-                selectedstorage.IsDefault = true;
-                DoRefreshGridStorageV(false);
-            }
-        }
 
         private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
         {
 
+        }
+
+
+        private void displayInformationForAKnownAssetIdToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuDisplayAssetInfoFromKnownID();
+        }
+
+        private void searchLocatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayAssetInfoFromLocatorID();
+        }
+
+        private void displayInformationForAKnownJobIdToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            DoMenuDisplayJobInfoFromKnownID();
+        }
+
+        private void fromProgramIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayProgramInfoFromKnownID();
+        }
+
+        private void fromLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayProgramInfoFromLocatorID();
         }
     }
 }
@@ -9964,7 +10069,6 @@ namespace AMSExplorer
                         AE.StaticEncryption = ABR.bitmap;
                         AE.StaticEncryptionMouseOver = ABR.MouseOverDesc;
                         ABR = BuildBitmapPublication(asset);
-                        //ABR = BuildBitmapPublication(SASLoc, OrigLoc);
                         AE.Publication = ABR.bitmap;
                         AE.PublicationMouseOver = ABR.MouseOverDesc;
                         AE.Type = AssetInfo.GetAssetType(asset);
@@ -10032,15 +10136,11 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-
-            //  Task.Run(() =>
-            // {
             IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
 
             if (!string.IsNullOrEmpty(_searchinname))
             {
@@ -10173,7 +10273,6 @@ namespace AMSExplorer
 
             AnalyzeItemsInBackground();
 
-            //  });
             this.FindForm().Cursor = Cursors.Default;
         }
 
@@ -10343,90 +10442,7 @@ namespace AMSExplorer
         }
 
 
-        /*
-        private static AssetBitmapAndText BuildBitmapPublication(PublishStatus SASPub, PublishStatus OriginPub)
-        {
-            // optmized for speed
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
 
-            if ((SASPub == PublishStatus.NotPublished) && (OriginPub == PublishStatus.NotPublished)) // IF NOT PUBLISHED
-            {
-                ABT.MouseOverDesc = "Not published";
-                return ABT;
-            }
-
-
-            Bitmap MyPublishedImage;
-            Bitmap streami = null;
-            Bitmap downloadi = null;
-            string streams = string.Empty;
-            string downloads = string.Empty;
-
-            switch (SASPub)
-            {
-                case PublishStatus.PublishedActive:
-                    downloadi = SASlocatorimage;
-                    downloads = "Active SAS locator";
-                    break;
-
-                case PublishStatus.PublishedExpired:
-                    downloadi = Reddownloadimage;
-                    downloads = "Expired SAS locator";
-                    break;
-
-                case PublishStatus.PublishedFuture:
-                    downloadi = Bluedownloadimage;
-                    downloads = "Future SAS locator";
-                    break;
-
-                case PublishStatus.NotPublished:
-                    downloadi = null;
-                    break;
-
-            }
-
-            switch (OriginPub)
-            {
-                case PublishStatus.PublishedActive:
-                    streami = Streaminglocatorimage;
-                    streams = "Active Streaming locator";
-                    break;
-
-                case PublishStatus.PublishedExpired:
-                    streami = Redstreamimage;
-                    streams = "Expired Streaming locator";
-                    break;
-
-                case PublishStatus.PublishedFuture:
-                    streami = Bluestreamimage;
-                    streams = "Future Streaming locator";
-                    break;
-
-                case PublishStatus.NotPublished:
-                    streami = null;
-
-                    break;
-            }
-
-            // IF BOTH PUBLISHED
-            if ((SASPub != PublishStatus.NotPublished) && (OriginPub != PublishStatus.NotPublished)) // SAS and Origin
-            {
-                MyPublishedImage = new Bitmap((downloadi.Width + streami.Width), streami.Height);
-                using (Graphics graphicsObject = Graphics.FromImage(MyPublishedImage))
-                {
-                    graphicsObject.DrawImage(downloadi, new Point(0, 0));
-                    graphicsObject.DrawImage(streami, new Point(downloadi.Width, 0));
-                }
-            }
-            else //only one published
-            {
-                MyPublishedImage = (SASPub != PublishStatus.NotPublished) ? downloadi : streami;
-            }
-            ABT.bitmap = MyPublishedImage;
-            ABT.MouseOverDesc = downloads + (string.IsNullOrEmpty(downloads) ? string.Empty : Constants.endline) + streams;
-            return ABT;
-        }
-        */
 
         private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
         {
