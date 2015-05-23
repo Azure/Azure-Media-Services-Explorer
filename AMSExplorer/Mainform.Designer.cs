@@ -97,9 +97,6 @@
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
             this.assetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayInformationForAKnownAssetIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadFromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromMultipleFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -147,8 +144,6 @@
             this.displayErrorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.inputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.displayInformationForAKnownJobIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createReportEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.priorityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -167,6 +162,7 @@
             this.createALocatorForTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extendExistingStreamingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findTheAssetFromTheLocatorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -202,9 +198,6 @@
             this.toolStripSeparator15 = new System.Windows.Forms.ToolStripSeparator();
             this.displayProgramInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProgramDisplayRelatedAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.searchProgramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromProgramIdToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fromLocatorIdGUIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createProgramToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.recreateProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -423,6 +416,7 @@
             this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -487,7 +481,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 452);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -875,7 +869,8 @@
             this.publishToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createALocatorToolStripMenuItem,
             this.extendExistingLocatorsToolStripMenuItem,
-            this.deleteAllLocatorsToolStripMenuItem});
+            this.deleteAllLocatorsToolStripMenuItem,
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem});
             this.publishToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.publishToolStripMenuItem1.Name = "publishToolStripMenuItem1";
             this.publishToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
@@ -1039,7 +1034,6 @@
             // 
             this.assetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.informationToolStripMenuItem,
-            this.searchAssetToolStripMenuItem,
             this.uploadFromASingleFileToolStripMenuItem,
             this.createOutlookReportEmailToolStripMenuItem1,
             this.importToolStripMenuItem,
@@ -1061,32 +1055,6 @@
             this.informationToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.informationToolStripMenuItem.Text = "Display information";
             this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
-            // 
-            // searchAssetToolStripMenuItem
-            // 
-            this.searchAssetToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayInformationForAKnownAssetIdToolStripMenuItem,
-            this.searchLocatorToolStripMenuItem});
-            this.searchAssetToolStripMenuItem.Name = "searchAssetToolStripMenuItem";
-            this.searchAssetToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.searchAssetToolStripMenuItem.Text = "Search asset";
-            // 
-            // displayInformationForAKnownAssetIdToolStripMenuItem
-            // 
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("displayInformationForAKnownAssetIdToolStripMenuItem.Image")));
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.Name = "displayInformationForAKnownAssetIdToolStripMenuItem";
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.Text = "From Asset Id...";
-            this.displayInformationForAKnownAssetIdToolStripMenuItem.Click += new System.EventHandler(this.displayInformationForAKnownAssetIdToolStripMenuItem_Click_1);
-            // 
-            // searchLocatorToolStripMenuItem
-            // 
-            this.searchLocatorToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.known_asset;
-            this.searchLocatorToolStripMenuItem.Name = "searchLocatorToolStripMenuItem";
-            this.searchLocatorToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.searchLocatorToolStripMenuItem.Text = "From Locator Id/GUID...";
-            this.searchLocatorToolStripMenuItem.Click += new System.EventHandler(this.searchLocatorToolStripMenuItem_Click);
             // 
             // uploadFromASingleFileToolStripMenuItem
             // 
@@ -1465,7 +1433,6 @@
             this.displayErrorToolStripMenuItem2,
             this.inputAssetInformationToolStripMenuItem,
             this.outputAssetInformationToolStripMenuItem,
-            this.searchJobToolStripMenuItem,
             this.createReportEmailToolStripMenuItem,
             this.toolStripSeparator11,
             this.priorityToolStripMenuItem,
@@ -1513,23 +1480,6 @@
             this.outputAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.outputAssetInformationToolStripMenuItem.Text = "Output asset information";
             this.outputAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.outputAssetInformationToolStripMenuItem_Click);
-            // 
-            // searchJobToolStripMenuItem
-            // 
-            this.searchJobToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.displayInformationForAKnownJobIdToolStripMenuItem});
-            this.searchJobToolStripMenuItem.Name = "searchJobToolStripMenuItem";
-            this.searchJobToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
-            this.searchJobToolStripMenuItem.Text = "Search job";
-            // 
-            // displayInformationForAKnownJobIdToolStripMenuItem
-            // 
-            this.displayInformationForAKnownJobIdToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("displayInformationForAKnownJobIdToolStripMenuItem.Image")));
-            this.displayInformationForAKnownJobIdToolStripMenuItem.Name = "displayInformationForAKnownJobIdToolStripMenuItem";
-            this.displayInformationForAKnownJobIdToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
-            this.displayInformationForAKnownJobIdToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.displayInformationForAKnownJobIdToolStripMenuItem.Text = "Fom Job Id...";
-            this.displayInformationForAKnownJobIdToolStripMenuItem.Click += new System.EventHandler(this.displayInformationForAKnownJobIdToolStripMenuItem_Click_1);
             // 
             // createReportEmailToolStripMenuItem
             // 
@@ -1618,6 +1568,7 @@
             this.createALocatorForTheAssetToolStripMenuItem,
             this.extendExistingStreamingLocatorsToolStripMenuItem,
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem,
+            this.findTheAssetFromTheLocatorToolStripMenuItem,
             this.toolStripSeparator23,
             this.playbackToolStripMenuItem});
             this.publishToolStripMenuItem.Name = "publishToolStripMenuItem";
@@ -1695,6 +1646,13 @@
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem.Size = new System.Drawing.Size(467, 22);
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem.Text = "Delete all locators...";
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem.Click += new System.EventHandler(this.deleteAllLocatorsOfTheAssetToolStripMenuItem_Click);
+            // 
+            // findTheAssetFromTheLocatorToolStripMenuItem
+            // 
+            this.findTheAssetFromTheLocatorToolStripMenuItem.Name = "findTheAssetFromTheLocatorToolStripMenuItem";
+            this.findTheAssetFromTheLocatorToolStripMenuItem.Size = new System.Drawing.Size(467, 22);
+            this.findTheAssetFromTheLocatorToolStripMenuItem.Text = "Find the asset from the locator Id/GUID...";
+            this.findTheAssetFromTheLocatorToolStripMenuItem.Click += new System.EventHandler(this.findTheAssetFromTheLocatorToolStripMenuItem_Click);
             // 
             // toolStripSeparator23
             // 
@@ -1816,7 +1774,6 @@
             this.toolStripSeparator15,
             this.displayProgramInformationToolStripMenuItem,
             this.ProgramDisplayRelatedAssetInformationToolStripMenuItem,
-            this.searchProgramToolStripMenuItem,
             this.createProgramToolStripMenuItem1,
             this.recreateProgramsToolStripMenuItem,
             this.startProgramsToolStripMenuItem1,
@@ -2005,29 +1962,6 @@
             this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
             this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Text = "Display related asset information...";
             this.ProgramDisplayRelatedAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.displayRelatedAssetInformationToolStripMenuItem1_Click);
-            // 
-            // searchProgramToolStripMenuItem
-            // 
-            this.searchProgramToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fromProgramIdToolStripMenuItem,
-            this.fromLocatorIdGUIDToolStripMenuItem});
-            this.searchProgramToolStripMenuItem.Name = "searchProgramToolStripMenuItem";
-            this.searchProgramToolStripMenuItem.Size = new System.Drawing.Size(292, 22);
-            this.searchProgramToolStripMenuItem.Text = "Search program";
-            // 
-            // fromProgramIdToolStripMenuItem
-            // 
-            this.fromProgramIdToolStripMenuItem.Name = "fromProgramIdToolStripMenuItem";
-            this.fromProgramIdToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.fromProgramIdToolStripMenuItem.Text = "From Program Id";
-            this.fromProgramIdToolStripMenuItem.Click += new System.EventHandler(this.fromProgramIdToolStripMenuItem_Click);
-            // 
-            // fromLocatorIdGUIDToolStripMenuItem
-            // 
-            this.fromLocatorIdGUIDToolStripMenuItem.Name = "fromLocatorIdGUIDToolStripMenuItem";
-            this.fromLocatorIdGUIDToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
-            this.fromLocatorIdGUIDToolStripMenuItem.Text = "From Locator Id/GUID";
-            this.fromLocatorIdGUIDToolStripMenuItem.Click += new System.EventHandler(this.fromLocatorIdGUIDToolStripMenuItem_Click);
             // 
             // createProgramToolStripMenuItem1
             // 
@@ -4250,6 +4184,13 @@
             this.richTextBoxLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBoxLog_LinkClicked);
             this.richTextBoxLog.TextChanged += new System.EventHandler(this.richTextBoxLog_TextChanged);
             // 
+            // findTheAssetFromTheLocatorIdGUIDToolStripMenuItem
+            // 
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Name = "findTheAssetFromTheLocatorIdGUIDToolStripMenuItem";
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Text = "Find the asset from the locator Id/GUID...";
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Click += new System.EventHandler(this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4700,14 +4641,8 @@
         private System.Windows.Forms.ComboBox comboBoxOrderChannel;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolStripMenuItem searchAssetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem displayInformationForAKnownAssetIdToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchLocatorToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchJobToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem displayInformationForAKnownJobIdToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem searchProgramToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fromProgramIdToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fromLocatorIdGUIDToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findTheAssetFromTheLocatorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findTheAssetFromTheLocatorIdGUIDToolStripMenuItem;
     }
 }
 

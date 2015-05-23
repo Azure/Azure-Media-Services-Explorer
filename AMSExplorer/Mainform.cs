@@ -4255,89 +4255,9 @@ namespace AMSExplorer
             DoCreateJobReportEmail();
         }
 
-        private void displayInformationForAKnownJobIdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayJobInfoFromKnownID();
-        }
-
-        private void DoMenuDisplayJobInfoFromKnownID()
-        {
-            string JobId = "";
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
-
-
-            if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
-            {
-                if (!JobId.StartsWith(Constants.JobIdPrefix))
-                {
-                    JobId = Constants.JobIdPrefix + JobId;
-                }
-                IJob KnownJob = GetJob(JobId);
-                if (KnownJob == null)
-                {
-                    MessageBox.Show("This job has not been found.");
-                }
-                else if (DisplayInfo(KnownJob) == DialogResult.OK)
-                {
-                }
-            }
-        }
-
-        private void DoMenuDisplayAssetInfoFromKnownID()
-        {
-            string AssetId = string.Empty;
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null && clipbs.StartsWith(Constants.AssetIdPrefix))
-            {
-                AssetId = clipbs;
-            }
-
-            if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
-            {
-                if (!AssetId.StartsWith(Constants.AssetIdPrefix))
-                {
-                    AssetId = Constants.AssetIdPrefix + AssetId;
-                }
-                IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
-                if (KnownAsset == null)
-                {
-                    MessageBox.Show("This asset has not been found.");
-                }
-                else
-                {
-                    DisplayInfo(KnownAsset);
-                }
-            }
-        }
-
-        private void DoMenuDisplayProgramInfoFromKnownID()
-        {
-            string programID = string.Empty;
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null && clipbs.StartsWith(Constants.ProgramIdPrefix))
-            {
-                programID = clipbs;
-            }
-
-            if (Program.InputBox("Program ID", "Please enter the known Program Id :", ref programID) == DialogResult.OK)
-            {
-                if (!programID.StartsWith(Constants.ProgramIdPrefix))
-                {
-                    programID = Constants.ProgramIdPrefix + programID;
-                }
-                IProgram knownProgram = _context.Programs.Where(p => p.Id == programID).FirstOrDefault();
-                if (knownProgram == null)
-                {
-                    MessageBox.Show("This program has not been found.");
-                }
-                else
-                {
-                    DoDisplayProgramInfo(knownProgram);
-                }
-            }
-        }
-
+  
+ 
+  
         private void DoMenuDisplayAssetInfoFromLocatorID()
         {
             string locatorID = string.Empty;
@@ -4367,42 +4287,8 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuDisplayProgramInfoFromLocatorID()
-        {
-            string locatorID = string.Empty;
-            string clipbs = Clipboard.GetText();
-            if (clipbs != null && clipbs.StartsWith(Constants.LocatorIdPrefix))
-            {
-                locatorID = clipbs;
-            }
-
-            if (Program.InputBox("Locator ID/GUID", "Please enter the known Locator Id or GUID :", ref locatorID) == DialogResult.OK)
-            {
-                if (!locatorID.StartsWith(Constants.LocatorIdPrefix))
-                {
-                    locatorID = Constants.LocatorIdPrefix + locatorID;
-                }
-                ILocator knownLocator = _context.Locators.Where(l => l.Id == locatorID).FirstOrDefault();
-
-                if (knownLocator == null)
-                {
-                    MessageBox.Show("This locator has not been found.");
-                }
-                else if (knownLocator.Asset != null)
-                {
-                    IProgram knownProgram = _context.Programs.Where(p => p.Asset.Id == knownLocator.Asset.Id).FirstOrDefault();
-
-                    if (knownProgram != null) DoDisplayProgramInfo(knownProgram);
-                }
-
-            }
-        }
-
-        private void displayInformationForAKnownAssetIdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoFromKnownID();
-        }
-
+  
+  
         private void dataGridViewTransfer_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
@@ -9461,31 +9347,16 @@ namespace AMSExplorer
         {
 
         }
+               
 
-
-        private void displayInformationForAKnownAssetIdToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoFromKnownID();
-        }
-
-        private void searchLocatorToolStripMenuItem_Click(object sender, EventArgs e)
+        private void findTheAssetFromTheLocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuDisplayAssetInfoFromLocatorID();
         }
 
-        private void displayInformationForAKnownJobIdToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuDisplayJobInfoFromKnownID();
-        }
-
-        private void fromProgramIdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayProgramInfoFromKnownID();
-        }
-
-        private void fromLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayProgramInfoFromLocatorID();
+            DoMenuDisplayAssetInfoFromLocatorID();
         }
     }
 }

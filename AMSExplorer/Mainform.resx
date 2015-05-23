@@ -237,14 +237,6 @@
         aExVA8gB1DcARMMwCBDkj7qABi4gFcANIDcvHAEbACLIx/8ZAJTCHgMmLGJrAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="displayInformationForAKnownAssetIdToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABQSURBVDhPvZNLCgAgCAW9/7XyXtYLaiEJ/mhgKgoG
-        N5GIlAS8xCnqOAH94LY1kKE/gF0LzHtvwKJ/gijuAN614N8EFjeQ/Qu8A1gqPi/9Ck1pXiEAq7MVCAAA
-        AABJRU5ErkJggg==
-</value>
-  </data>
   <data name="setupAWatchFolderToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
@@ -380,14 +372,6 @@
         cWbjEiULAXzJi7t8BjzQOOd+aQ6WSHbIqtQNCtZkroI1kavgi1pKAmbI9YN0DxrA79sYGtJLB1KL24gL
         vGAHfYCerJJwLPSEUsSwTqe8Affxd3yApqoxRsh52UxSi0Mm+NlMSgJMat7CAVeIznhh+brmBviD9ng5
         vg6dAAAAAElFTkSuQmCC
-</value>
-  </data>
-  <data name="displayInformationForAKnownJobIdToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAABQSURBVDhPvZNLCgAgCAW9/7XyXtYLaiEJ/mhgKgoG
-        N5GIlAS8xCnqOAH94LY1kKE/gF0LzHtvwKJ/gijuAN614N8EFjeQ/Qu8A1gqPi/9Ck1pXiEAq7MVCAAA
-        AABJRU5ErkJggg==
 </value>
   </data>
   <data name="createReportEmailToolStripMenuItem.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
