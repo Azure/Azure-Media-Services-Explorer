@@ -10067,20 +10067,16 @@ namespace AMSExplorer
                 }
             }
 
-
-
-
             var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
 
             switch (_orderassets)
             {
                 case OrderAssets.LastModifiedDescending:
-                    //assets = from a in assets orderby a.LastModified descending select a;
+                    assets = from a in assets orderby a.LastModified descending select a;
                     break;
 
                 case OrderAssets.LastModifiedAscending:
-                    //assets = from a in assets orderby a.LastModified ascending select a;
+                    assets = from a in assets orderby a.LastModified ascending select a;
                     break;
 
                 case OrderAssets.NameAscending:
@@ -10108,7 +10104,7 @@ namespace AMSExplorer
                     break;
 
                 default:
-                    //assets = from a in assets orderby a.LastModified descending select a;
+                    assets = from a in assets orderby a.LastModified descending select a;
                     break;
             }
 
@@ -10600,11 +10596,11 @@ namespace AMSExplorer
             switch (_orderjobs)
             {
                 case OrderJobs.LastModifiedDescending:
-                    //jobs = from j in jobs orderby j.LastModified descending select j;
+                    jobs = from j in jobs orderby j.LastModified descending select j;
                     break;
 
                 case OrderJobs.LastModifiedAscending:
-                    //jobs = from j in jobs orderby j.LastModified ascending select j;
+                    jobs = from j in jobs orderby j.LastModified ascending select j;
                     break;
 
                 case OrderJobs.NameDescending:
@@ -10648,7 +10644,7 @@ namespace AMSExplorer
                     break;
 
                 default:
-                    //jobs = from j in jobs orderby j.LastModified descending select j;
+                    jobs = from j in jobs orderby j.LastModified descending select j;
                     break;
             }
 
