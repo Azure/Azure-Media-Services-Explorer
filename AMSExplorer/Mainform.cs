@@ -142,7 +142,12 @@ namespace AMSExplorer
 
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
+
+            // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
+
+            // notification title
+            notifyIcon1.Text = string.Format(notifyIcon1.Text, _context.Credentials.ClientId);
 
             // name of the ams acount in the title of the form - useful when several instances to navigate with icons
             this.Text = string.Format(this.Text, _context.Credentials.ClientId);
@@ -208,6 +213,11 @@ namespace AMSExplorer
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             DoRefresh();
+        }
+
+        public void Notify(string title, string text, bool Error = false)
+        {
+            notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
 
@@ -1242,6 +1252,26 @@ namespace AMSExplorer
                     {
                         this.Cursor = Cursors.Arrow;
                     }
+                }
+            }
+            return dialogResult;
+        }
+
+        public DialogResult? DisplayJobSource(IAsset asset)
+        {
+            DialogResult? dialogResult = null;
+            if (asset != null)
+            {
+                var job = _context.Jobs.AsEnumerable().Where(j => j.OutputMediaAssets.Select(o => o.Id).ToList().Contains(asset.Id)).FirstOrDefault();
+
+                if (job != null)
+                {
+                    DisplayInfo(job);
+                }
+
+                else
+                {
+                    MessageBox.Show("Source job was not found.");
                 }
             }
             return dialogResult;
@@ -4131,9 +4161,11 @@ namespace AMSExplorer
         {
             var assets = ReturnSelectedAssets();
             bool singleitem = (assets.Count == 1);
-            ContextMenuItemAssetDisplayInfo.Enabled = singleitem;
-            ContextMenuItemAssetRename.Enabled = singleitem;
-            contextMenuExportFilesToStorage.Enabled = singleitem;
+
+            ContextMenuItemAssetDisplayInfo.Enabled =
+            ContextMenuItemAssetRename.Enabled =
+            contextMenuExportFilesToStorage.Enabled =
+            displayParentJobToolStripMenuItem1.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -4146,6 +4178,8 @@ namespace AMSExplorer
                 }
             }
         }
+
+
 
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
         {
@@ -4172,9 +4206,10 @@ namespace AMSExplorer
         {
             var assets = ReturnSelectedAssets();
             bool singleitem = (assets.Count == 1);
-            informationToolStripMenuItem.Enabled = singleitem;
-            renameToolStripMenuItem.Enabled = singleitem;
-            toAzureStorageToolStripMenuItem.Enabled = singleitem;
+            informationToolStripMenuItem.Enabled =
+            renameToolStripMenuItem.Enabled =
+            toAzureStorageToolStripMenuItem.Enabled =
+            displayParentJobToolStripMenuItem.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -4255,9 +4290,9 @@ namespace AMSExplorer
             DoCreateJobReportEmail();
         }
 
-  
- 
-  
+
+
+
         private void DoMenuDisplayAssetInfoFromLocatorID()
         {
             string locatorID = string.Empty;
@@ -4287,8 +4322,57 @@ namespace AMSExplorer
             }
         }
 
-  
-  
+        private void displayInformationForAKnownJobIdToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayJobInfoFromKnownID();
+        }
+
+        private void DoMenuDisplayJobInfoFromKnownID()
+        {
+            string JobId = "";
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
+
+            if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
+            {
+                IJob KnownJob = GetJob(JobId);
+                if (KnownJob == null)
+                {
+                    MessageBox.Show("This job has not been found.");
+                }
+                else if (DisplayInfo(KnownJob) == DialogResult.OK)
+                {
+                }
+            }
+        }
+
+        private void DoMenuDisplayAssetInfoFromKnownID()
+        {
+            string AssetId = string.Empty;
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null && clipbs.StartsWith(Constants.AssetIdPrefix))
+            {
+                AssetId = clipbs;
+            }
+
+            if (Program.InputBox("Asset ID", "Please enter the known Asset Id :", ref AssetId) == DialogResult.OK)
+            {
+                IAsset KnownAsset = AssetInfo.GetAsset(AssetId, _context);
+                if (KnownAsset == null)
+                {
+                    MessageBox.Show("This asset has not been found.");
+                }
+                else
+                {
+                    DisplayInfo(KnownAsset);
+                }
+            }
+        }
+
+
+
+
+
         private void dataGridViewTransfer_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
 
@@ -5227,12 +5311,9 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 3;
+                dataGridViewStorage.ColumnCount = 2;
                 dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[1].HeaderText = "StrictName";
-                dataGridViewStorage.Columns[1].Name = "StrictName";
-                dataGridViewStorage.Columns[1].Visible = false; // used to store the storage name so the code can use it
-                dataGridViewStorage.Columns[2].HeaderText = "Used space";
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5254,7 +5335,7 @@ namespace AMSExplorer
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
 
-                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), storage.Name, displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
                 if (storage.IsDefault)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
@@ -5372,6 +5453,12 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
                 await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started", _context, this, dataGridViewChannelsV));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Channel started", string.Format("{0}", myC.Name), false);
+                }));
+
             }
         }
 
@@ -5390,6 +5477,12 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
                 await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Channel reset", string.Format("{0}", myC.Name), false);
+                }));
+
             }
         }
 
@@ -5437,7 +5530,12 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
                 await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
-                //await Task.Run(() => StreamingEndpointExecuteAsync(myO.StartAsync, myO, "started"));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Streaming endpoint started", string.Format("{0}", myO.Name), false);
+                }));
+
             }
         }
         private async void StopStreamingEndpoint(IStreamingEndpoint myO)
@@ -9347,7 +9445,7 @@ namespace AMSExplorer
         {
 
         }
-               
+
 
         private void findTheAssetFromTheLocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -9357,6 +9455,16 @@ namespace AMSExplorer
         private void findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuDisplayAssetInfoFromLocatorID();
+        }
+
+        private void displayParentJobToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void displayParentJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
         }
     }
 }
@@ -10809,15 +10917,29 @@ namespace AMSExplorer
                                    _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
                                    _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
-                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
-                                   this.BeginInvoke(new Action(() =>
+
+                                   if (_MyListJobsMonitored.Contains(JobRefreshed.Id)) // we want to display only one time
                                    {
-                                       this.Refresh();
-                                   }));
+                                       _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
+                                       Mainform myform = (Mainform)this.FindForm();
+                                       string status = Enum.GetName(typeof(JobState), JobRefreshed.State).ToLower();
+
+                                       myform.BeginInvoke(new Action(() =>
+                                       {
+                                           myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
+                                       }));
+                                       Debug.WriteLine("Job", string.Format("Job {0} {1}", _MyObservJob[index].Name, _MyObservJob[index].State));
+
+                                       this.BeginInvoke(new Action(() =>
+                                       {
+                                           this.Refresh();
+                                       }));
+                                   }
                                }
                            }
                        },
                        CancellationToken.None).Result;
+
                 }
                 catch (Exception e)
                 {
