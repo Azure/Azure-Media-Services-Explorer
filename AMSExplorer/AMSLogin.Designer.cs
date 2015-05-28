@@ -123,7 +123,7 @@
             this.buttonSaveToList.TabIndex = 14;
             this.buttonSaveToList.Text = "<-- Save to the list";
             this.toolTip1.SetToolTip(this.buttonSaveToList, "Credentials are saved in clear in your user profile. Use Bitlocker or do not save" +
-        " if your PC is unsecured.");
+        " them if your PC is unsecured.");
             this.buttonSaveToList.UseVisualStyleBackColor = true;
             this.buttonSaveToList.Click += new System.EventHandler(this.buttonSaveToList_Click);
             // 
