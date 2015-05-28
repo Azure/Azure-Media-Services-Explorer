@@ -81,6 +81,7 @@
             // 
             // buttonLogin
             // 
+            this.buttonLogin.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLogin.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonLogin.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogin.Location = new System.Drawing.Point(505, 13);
@@ -93,6 +94,7 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonCancel.Location = new System.Drawing.Point(601, 13);
@@ -104,6 +106,8 @@
             // 
             // listBoxAcounts
             // 
+            this.listBoxAcounts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxAcounts.FormattingEnabled = true;
             this.listBoxAcounts.Location = new System.Drawing.Point(15, 43);
             this.listBoxAcounts.Name = "listBoxAcounts";
@@ -125,6 +129,7 @@
             // 
             // buttonDeleteAccountEntry
             // 
+            this.buttonDeleteAccountEntry.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteAccountEntry.Enabled = false;
             this.buttonDeleteAccountEntry.Location = new System.Drawing.Point(15, 352);
             this.buttonDeleteAccountEntry.Name = "buttonDeleteAccountEntry";
@@ -435,6 +440,7 @@
             // 
             // buttonExportAll
             // 
+            this.buttonExportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonExportAll.Location = new System.Drawing.Point(96, 352);
             this.buttonExportAll.Name = "buttonExportAll";
             this.buttonExportAll.Size = new System.Drawing.Size(64, 23);
@@ -445,6 +451,7 @@
             // 
             // buttonImportAll
             // 
+            this.buttonImportAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonImportAll.Location = new System.Drawing.Point(166, 352);
             this.buttonImportAll.Name = "buttonImportAll";
             this.buttonImportAll.Size = new System.Drawing.Size(68, 23);
@@ -465,7 +472,6 @@
             // 
             // accountmgtlink
             // 
-            this.accountmgtlink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.accountmgtlink.AutoSize = true;
             this.accountmgtlink.Location = new System.Drawing.Point(221, 13);
             this.accountmgtlink.Name = "accountmgtlink";
