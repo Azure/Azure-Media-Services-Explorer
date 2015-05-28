@@ -25,6 +25,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace AMSExplorer
 {
@@ -46,7 +48,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxCertThumbprint.Text;
+                return textBoxCertBody.Text;
             }
         }
 
@@ -148,6 +150,37 @@ namespace AMSExplorer
         {
             TextBox mytextbox = (TextBox)sender;
             mytextbox.BackColor = (string.IsNullOrWhiteSpace(mytextbox.Text.Trim())) ? Color.Pink : Color.White;
+        }
+
+        private void buttonImportSubscriptionFile_Click(object sender, EventArgs e)
+        {
+            LoadSubscriptionFile();
+        }
+
+        private void LoadSubscriptionFile()
+        {
+            if (openFileDialogLoadSubFile.ShowDialog() == DialogResult.OK)
+            {
+               
+                bool Error = false;
+                try
+                {
+                    var doc = new XDocument();
+                    doc = XDocument.Load(openFileDialogLoadSubFile.FileName);
+
+                    var subscription = doc.Element("PublishData").Element("PublishProfile").Element("Subscription");
+
+                    textBoxServiceManagement.Text = subscription.Attribute("ServiceManagementUrl").Value;
+                    textBoxSubId.Text = subscription.Attribute("Id").Value;
+                    textBoxCertBody.Text = subscription.Attribute("ManagementCertificate").Value;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error when reading the file. Original error: " + ex.Message);
+                    Error = true;
+                }
+              
+            }
         }
     }
 }

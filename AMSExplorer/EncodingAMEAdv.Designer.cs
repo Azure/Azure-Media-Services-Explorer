@@ -867,7 +867,7 @@
             // 
             // openFileDialogPreset
             // 
-            this.openFileDialogPreset.FileName = "*.xml";
+            this.openFileDialogPreset.DefaultExt = "xml";
             this.openFileDialogPreset.Filter = "Preset files|*.xml|All files|*.*";
             // 
             // comboBoxProcessor
