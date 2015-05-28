@@ -393,11 +393,11 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.comboBoxOrderProgram = new System.Windows.Forms.ComboBox();
-            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
             this.label18 = new System.Windows.Forms.Label();
-            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.buttonSetFilterProgram = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
+            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
+            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
@@ -485,7 +485,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -513,6 +513,7 @@
             // displayParentJobToolStripMenuItem1
             // 
             this.displayParentJobToolStripMenuItem1.Name = "displayParentJobToolStripMenuItem1";
+            this.displayParentJobToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
             this.displayParentJobToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
             this.displayParentJobToolStripMenuItem1.Text = "Display parent job";
             this.displayParentJobToolStripMenuItem1.Click += new System.EventHandler(this.displayParentJobToolStripMenuItem1_Click);
@@ -1078,6 +1079,7 @@
             // displayParentJobToolStripMenuItem
             // 
             this.displayParentJobToolStripMenuItem.Name = "displayParentJobToolStripMenuItem";
+            this.displayParentJobToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F4)));
             this.displayParentJobToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.displayParentJobToolStripMenuItem.Text = "Display parent job";
             this.displayParentJobToolStripMenuItem.Click += new System.EventHandler(this.displayParentJobToolStripMenuItem_Click);
@@ -3682,12 +3684,12 @@
             this.tabPageLive.Controls.Add(this.label13);
             this.tabPageLive.Controls.Add(this.label16);
             this.tabPageLive.Controls.Add(this.comboBoxOrderProgram);
-            this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
             this.tabPageLive.Controls.Add(this.label18);
-            this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
             this.tabPageLive.Controls.Add(this.buttonSetFilterProgram);
             this.tabPageLive.Controls.Add(this.label17);
             this.tabPageLive.Controls.Add(this.textBoxSearchNameProgram);
+            this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
+            this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
             this.tabPageLive.Location = new System.Drawing.Point(4, 22);
             this.tabPageLive.Name = "tabPageLive";
             this.tabPageLive.Padding = new System.Windows.Forms.Padding(3);
@@ -3852,6 +3854,37 @@
             this.comboBoxOrderProgram.TabIndex = 44;
             this.comboBoxOrderProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderProgram_SelectedIndexChanged);
             // 
+            // label18
+            // 
+            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(717, 416);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(50, 13);
+            this.label18.TabIndex = 45;
+            this.label18.Text = "Order by:";
+            // 
+            // buttonSetFilterProgram
+            // 
+            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 412);
+            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
+            this.buttonSetFilterProgram.Size = new System.Drawing.Size(54, 23);
+            this.buttonSetFilterProgram.TabIndex = 48;
+            this.buttonSetFilterProgram.Text = "Apply";
+            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
+            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
+            // 
+            // label17
+            // 
+            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(6, 416);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(108, 13);
+            this.label17.TabIndex = 47;
+            this.label17.Text = "Search in name or Id:";
+            // 
             // dataGridViewProgramsV
             // 
             this.dataGridViewProgramsV.AllowUserToAddRows = false;
@@ -3880,16 +3913,6 @@
             this.dataGridViewProgramsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewProgramV_CellFormatting);
             this.dataGridViewProgramsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             // 
-            // label18
-            // 
-            this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(717, 416);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(50, 13);
-            this.label18.TabIndex = 45;
-            this.label18.Text = "Order by:";
-            // 
             // dataGridViewChannelsV
             // 
             this.dataGridViewChannelsV.AllowUserToAddRows = false;
@@ -3916,27 +3939,6 @@
             this.dataGridViewChannelsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewLiveV_CellFormatting);
             this.dataGridViewChannelsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewChannelsV.SelectionChanged += new System.EventHandler(this.dataGridViewLiveV_SelectionChanged);
-            // 
-            // buttonSetFilterProgram
-            // 
-            this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 412);
-            this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
-            this.buttonSetFilterProgram.Size = new System.Drawing.Size(54, 23);
-            this.buttonSetFilterProgram.TabIndex = 48;
-            this.buttonSetFilterProgram.Text = "Apply";
-            this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
-            this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
-            // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 416);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(108, 13);
-            this.label17.TabIndex = 47;
-            this.label17.Text = "Search in name or Id:";
             // 
             // tabPageProcessors
             // 
@@ -4216,7 +4218,7 @@
             this.notifyIcon1.BalloonTipText = "myText";
             this.notifyIcon1.BalloonTipTitle = "myTitle";
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "AMS Explorer {0}";
+            this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
             // Mainform

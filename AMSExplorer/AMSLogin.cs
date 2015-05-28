@@ -218,6 +218,10 @@ namespace AMSExplorer
 
                 // if not partner or other, then defaut
                 if (!radioButtonPartner.Checked && !radioButtonOther.Checked) radioButtonProd.Checked = true;
+
+                // to clear or set the error
+                CheckTextBox((object)textBoxAccountName);
+                CheckTextBox((object)textBoxAccountKey);
             }
         }
 
@@ -412,6 +416,30 @@ namespace AMSExplorer
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void textBoxAccountName_Validating(object sender, CancelEventArgs e)
+        {
+            CheckTextBox(sender);
+        }
+
+        private void CheckTextBox(object sender)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (string.IsNullOrEmpty(tb.Text))
+            {
+                errorProvider1.SetError(tb, "This field is mandatory");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxAccountKey_Validating(object sender, CancelEventArgs e)
+        {
+            CheckTextBox(sender);
         }
     }
 }

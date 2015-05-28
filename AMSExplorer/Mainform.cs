@@ -8103,31 +8103,37 @@ namespace AMSExplorer
 
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridAssetV(false);
         }
 
         private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridJobV(false);
         }
 
         private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridChannelV(false);
         }
 
         private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProgramV(false);
         }
 
         private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStreamingEndpointV(false);
         }
 
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProcessorV(false);
         }
 
@@ -8759,6 +8765,7 @@ namespace AMSExplorer
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStorageV(false);
         }
 

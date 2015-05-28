@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.listBoxAcounts = new System.Windows.Forms.ListBox();
@@ -68,11 +69,14 @@
             this.accountmgtlink = new System.Windows.Forms.LinkLabel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLogin
@@ -114,6 +118,8 @@
             this.buttonSaveToList.Size = new System.Drawing.Size(122, 23);
             this.buttonSaveToList.TabIndex = 14;
             this.buttonSaveToList.Text = "<-- Save to the list";
+            this.toolTip1.SetToolTip(this.buttonSaveToList, "Credentials are saved in clear in your user profile. Use Bitlocker or do not save" +
+        " if your PC is unsecured.");
             this.buttonSaveToList.UseVisualStyleBackColor = true;
             this.buttonSaveToList.Click += new System.EventHandler(this.buttonSaveToList_Click);
             // 
@@ -174,7 +180,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxDescription.Location = new System.Drawing.Point(17, 197);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(387, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(378, 20);
             this.textBoxDescription.TabIndex = 3;
             // 
             // label2
@@ -192,7 +198,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxBlobKey.Location = new System.Drawing.Point(17, 144);
             this.textBoxBlobKey.Name = "textBoxBlobKey";
-            this.textBoxBlobKey.Size = new System.Drawing.Size(387, 20);
+            this.textBoxBlobKey.Size = new System.Drawing.Size(378, 20);
             this.textBoxBlobKey.TabIndex = 2;
             this.textBoxBlobKey.UseSystemPasswordChar = true;
             // 
@@ -211,9 +217,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAccountKey.Location = new System.Drawing.Point(17, 91);
             this.textBoxAccountKey.Name = "textBoxAccountKey";
-            this.textBoxAccountKey.Size = new System.Drawing.Size(387, 20);
+            this.textBoxAccountKey.Size = new System.Drawing.Size(378, 20);
             this.textBoxAccountKey.TabIndex = 1;
             this.textBoxAccountKey.UseSystemPasswordChar = true;
+            this.textBoxAccountKey.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountKey_Validating);
             // 
             // label4
             // 
@@ -230,8 +237,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAccountName.Location = new System.Drawing.Point(17, 38);
             this.textBoxAccountName.Name = "textBoxAccountName";
-            this.textBoxAccountName.Size = new System.Drawing.Size(387, 20);
+            this.textBoxAccountName.Size = new System.Drawing.Size(378, 20);
             this.textBoxAccountName.TabIndex = 0;
+            this.textBoxAccountName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxAccountName_Validating);
             // 
             // label1
             // 
@@ -491,6 +499,10 @@
             this.panel1.TabIndex = 52;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // AMSLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -522,6 +534,7 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -569,5 +582,7 @@
         private System.Windows.Forms.Button buttonAddMapping;
         private System.Windows.Forms.TextBox textBoxManagementPortal;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

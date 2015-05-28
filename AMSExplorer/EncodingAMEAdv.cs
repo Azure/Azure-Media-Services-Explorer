@@ -148,7 +148,7 @@ namespace AMSExplorer
             buttonJobOptions.Initialize(_context);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonLoadXML_Click(object sender, EventArgs e)
         {
 
             if (Directory.Exists(this.EncodingAMEPresetXMLFiles))
@@ -160,10 +160,11 @@ namespace AMSExplorer
                 try
                 {
                     doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.ToString();
+                    textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
                     checkBoxNamingConvention.Enabled = true;
                     checkBoxVSS.Enabled = true;
                     tableLayoutPanelIAssets.Enabled = true;
+                    buttonSaveXML.Enabled = true;
                     UpdateControls();
                 }
                 catch (Exception ex)
@@ -968,6 +969,23 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
 
+        }
+
+        private void buttonSaveXML_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialogPreset.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    var tempdoc = XDocument.Parse(textBoxConfiguration.Text);
+                    tempdoc.Save(saveFileDialogPreset.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not save file to disk. Original error: " + ex.Message);
+                }
+                
+            }
         }
     }
 }
