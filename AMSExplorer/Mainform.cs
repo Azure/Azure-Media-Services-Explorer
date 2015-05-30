@@ -5306,7 +5306,7 @@ namespace AMSExplorer
         private void DoRefreshGridStorageV(bool firstime)
         {
             const long OneTBInByte = 1099511627776;
-            const long TotalStorageInBytes = OneTBInByte * 200;
+            const long TotalStorageInBytes = OneTBInByte * 500;
 
             if (firstime)
             {

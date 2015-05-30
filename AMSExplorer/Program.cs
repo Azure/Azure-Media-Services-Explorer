@@ -466,7 +466,7 @@ namespace AMSExplorer
         public const int maxSlateJPGHorizontalResolution = 1920;
         public const int maxSlateJPGVerticalResolution = 1080;
         public const double SlateJPGAspectRatio = 16d / 9d;
-        public const string SlateJPGExtension= ".jpg";
+        public const string SlateJPGExtension = ".jpg";
     }
 
 
@@ -1315,11 +1315,11 @@ namespace AMSExplorer
             var ismAssetFiles = asset.AssetFiles.ToList().
                 Where(f => f.Name.EndsWith(".ism", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (ismAssetFiles.Count() == 0)
-                return;
-
-            ismAssetFiles.First().IsPrimary = true;
-            ismAssetFiles.First().Update();
+            if (ismAssetFiles.Count() != 0)
+            {
+                ismAssetFiles.First().IsPrimary = true;
+                ismAssetFiles.First().Update();
+            }
         }
 
         static public void SetFileAsPrimary(IAsset asset, string assetfilename)
@@ -1327,11 +1327,11 @@ namespace AMSExplorer
             var ismAssetFiles = asset.AssetFiles.ToList().
                 Where(f => f.Name.Equals(assetfilename, StringComparison.OrdinalIgnoreCase)).ToArray();
 
-            if (ismAssetFiles.Count() != 1)
-                return;
-
-            ismAssetFiles.First().IsPrimary = true;
-            ismAssetFiles.First().Update();
+            if (ismAssetFiles.Count() == 1)
+            {
+                ismAssetFiles.First().IsPrimary = true;
+                ismAssetFiles.First().Update();
+            }
         }
 
 
@@ -2146,7 +2146,7 @@ namespace AMSExplorer
         public string StorageSelected { get; set; }
         public TaskOptions TasksOptionsSetting { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
-      
+
     }
 
 
