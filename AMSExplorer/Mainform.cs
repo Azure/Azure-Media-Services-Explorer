@@ -68,6 +68,7 @@ namespace AMSExplorer
 
         // Field for service context.
         public static CloudMediaContext _context = null;
+        public static MediaServiceContextForDynManifest _contextdynmanifest = null;
         public static string Salt;
         private string _backuprootfolderupload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
@@ -144,29 +145,30 @@ namespace AMSExplorer
 
 
             // Dynamic filter tests
+            _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials.AccountName, _credentials.AccountKey);
+            _contextdynmanifest.CheckForRedirection();
 
-            var cont = new MediaServiceContext(_credentials.AccountName, _credentials.AccountKey);
-            cont.CheckForRedirection();
-
-
-
-            DynamicFilter filter = new DynamicFilter(cont);
+           // Filter filter = new Filter();
+           // filter.SetContext(cont);
             //filter.CheckForRedirection(_context);
-            filter.List();
+            //filter.List();
 
+          //  Filter myFilter = cont.GetFilter("testfilter2");
+           // myFilter.Delete();
 
+            /*
             filter.Name = "testfilter2";
-            filter.PresentationTimeRange = new IFilterPresentationTimeRange()
-            { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
+
+            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-          
-            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect(){ PropertyConditions = conditions} };
+
+            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
 
             filter.Tracks = tracks;
             filter.Create();
-
+            */
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
@@ -737,6 +739,7 @@ namespace AMSExplorer
             DoRefreshGridStreamingEndpointV(false);
             DoRefreshGridProcessorV(false);
             DoRefreshGridStorageV(false);
+            DoRefreshGridFiltersV(false);
         }
 
         private void DoRefreshGridAssetV(bool firstime)
@@ -3653,6 +3656,7 @@ namespace AMSExplorer
             DoRefreshGridStreamingEndpointV(true);
             DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
+            DoRefreshGridFiltersV(true);
 
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
@@ -5372,6 +5376,34 @@ namespace AMSExplorer
                 }
             }
             tabPageStorage.Text = string.Format(Constants.TabStorage + " ({0})", Storages.Count());
+        }
+
+
+        private void DoRefreshGridFiltersV(bool firstime)
+        {
+         
+            if (firstime)
+            {
+                // Storage tab
+                dataGridViewFilters.ColumnCount = 2;
+                dataGridViewFilters.Columns[0].HeaderText = "Name";
+                dataGridViewFilters.Columns[1].HeaderText = "Test";
+            }
+            dataGridViewFilters.Rows.Clear();
+
+            List<Filter> filters = _contextdynmanifest.ListFilters();
+
+
+
+            foreach (var filter in filters)
+            {
+
+
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name);
+               
+            }
+
+            tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
         }
 
 
@@ -9497,6 +9529,34 @@ namespace AMSExplorer
         private void displayParentJobToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItem12_Click_1(object sender, EventArgs e)
+        {
+            DoRefreshGridFiltersV(false);
+        }
+
+        private void toolStripMenuItem16_Click_1(object sender, EventArgs e)
+        {
+            DoCreateFilter();
+        }
+
+        private void DoCreateFilter()
+        {
+            Filter filter = new Filter();
+            filter.SetContext(_contextdynmanifest);
+
+            filter.Name = "testfilter23";
+
+            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
+            var conditions = new List<FilterTrackPropertyCondition>();
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
+            filter.Tracks = tracks;
+            filter.Create();
+            DoRefreshGridFiltersV(false);
+           
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.MediaServices.Client;
-
 using System.IO;
 using System.Net;
 using System.Security.Cryptography.X509Certificates;
@@ -14,17 +13,10 @@ using System.Xml.Linq;
 using System.Runtime.Serialization.Json;
 using System.Globalization;
 using Newtonsoft.Json;
-
 using Newtonsoft.Json.Linq;
 using System.Runtime.Serialization;
 using System.Web.Script.Serialization;
-
-
-
 using System.Web;
-
-
-
 
 
 namespace AMSExplorer
@@ -58,7 +50,7 @@ namespace AMSExplorer
     }
 
 
-    public class MediaServiceContext
+    public class MediaServiceContextForDynManifest
     {
         private const string acsEndpoint = "https://wamsprodglobal001acs.accesscontrol.windows.net/v2/OAuth2-13";
 
@@ -75,7 +67,7 @@ namespace AMSExplorer
         private string _wamsEndpoint = "https://media.windows.net/";
 
         /// <summary>
-        /// Creates a new instance of <see cref="MediaServiceContext"/>
+        /// Creates a new instance of <see cref="MediaServiceContextForDynManifest"/>
         /// </summary>
         /// <param name="accountName">
         /// Media service account name.
@@ -83,7 +75,7 @@ namespace AMSExplorer
         /// <param name="accountKey">
         /// Media service account key.
         /// </param>
-        public MediaServiceContext(string accountName, string accountKey)
+        public MediaServiceContextForDynManifest(string accountName, string accountKey)
         {
             this._accountName = accountName;
             this._accountKey = accountKey;
@@ -174,7 +166,79 @@ namespace AMSExplorer
             }
         }
 
-       
+        public List<Filter> ListFilters()
+        {
+            List<Filter> returnFilters = new List<Filter>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters", WamsEndpoint));
+            request.Method = HttpVerbs.Get;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), true))
+                {
+                    var returnBody = streamReader.ReadToEnd();
+
+                    JObject responseJsonObject = JObject.Parse(returnBody);
+                    var value = responseJsonObject["value"];
+
+                    var serializer = new JavaScriptSerializer();
+                    returnFilters = (List<Filter>)serializer.Deserialize(value.ToString(), typeof(List<Filter>));
+                    returnFilters.ForEach(f => f.SetContext(this));
+                }
+            }
+
+            return returnFilters;
+        }
+
+        public Filter GetFilter(string filterName)
+        {
+            Filter returnFilter = new Filter();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters('{1}')", WamsEndpoint, filterName));
+            request.Method = HttpVerbs.Get;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), true))
+                    {
+                        var returnBody = streamReader.ReadToEnd();
+
+                        JObject responseJsonObject = JObject.Parse(returnBody);
+                        // var value = responseJsonObject["Element"];
+
+                        var serializer = new JavaScriptSerializer();
+                        FilterWithMetadata returnFilterm = (FilterWithMetadata)serializer.Deserialize(responseJsonObject.ToString(), typeof(FilterWithMetadata));
+
+                        returnFilter.Name = returnFilterm.Name;
+                        returnFilter.PresentationTimeRange = returnFilterm.PresentationTimeRange;
+                        returnFilter.Tracks = returnFilterm.Tracks;
+                        returnFilter.SetContext(this);
+                    }
+                }
+            }
+            catch
+            {
+                returnFilter = null;
+            }
+
+
+            return returnFilter;
+        }
+
+
     }
 
 
@@ -201,7 +265,7 @@ namespace AMSExplorer
         /// </summary>
         internal const string Authorization = "Bearer {0}";
 
-        
+
 
         /// <summary>
         /// Authorization request header format
@@ -240,7 +304,7 @@ namespace AMSExplorer
         /// x-ms-version request header
         /// </summary>
         internal const string XMsClientRequestId = "x-ms-client-request-id";
-       
+
     }
 
     /// <summary>
@@ -276,8 +340,8 @@ namespace AMSExplorer
         internal const string Atom = "application/atom+xml";
     }
 
-     [DataContract]
-    class IFilterPresentationTimeRange
+    [DataContract]
+    public class IFilterPresentationTimeRange
     {
         [DataMember]
         public string StartTimestamp
@@ -315,9 +379,8 @@ namespace AMSExplorer
         }
     }
 
-     [DataContract]
-     class IFilterTrackSelect
-
+    [DataContract]
+    public class IFilterTrackSelect
     {
         [DataMember]
         public List<FilterTrackPropertyCondition> PropertyConditions
@@ -325,7 +388,6 @@ namespace AMSExplorer
             get;
             set;
         }
-
     }
 
     public sealed class FilterProperty
@@ -350,23 +412,23 @@ namespace AMSExplorer
         public static readonly string notEqual = "notEqual";
     }
     [DataContract]
-    class FilterTrackPropertyCondition
+    public class FilterTrackPropertyCondition
     {
-          [DataMember]
+        [DataMember]
         public string Property
         {
             get;
             set;
         }
 
-          [DataMember]
+        [DataMember]
         public string Value
         {
             get;
             set;
         }
 
-          [DataMember]
+        [DataMember]
         public string Operator
         {
             get;
@@ -375,37 +437,23 @@ namespace AMSExplorer
 
     }
 
-
-    class Filter
+    public class FilterWithMetadata : Filter
     {
-
-        public string Name
-        {
-            get;
-            set;
-        }
-
-
-        public IFilterPresentationTimeRange PresentationTimeRange
-        {
-            get;
-            set;
-        }
-
-
-        public List<IFilterTrackSelect> Tracks
-        {
-            get;
-            set;
-        }
+        [JsonProperty("odata.metadata")]
+        public string Metadata { get; set; }
     }
 
-    [DataContract]
-    class DynamicFilter
-    {
-         private readonly MediaServiceContext _context;
 
-        internal DynamicFilter(MediaServiceContext context)
+    [DataContract]
+    public class Filter
+    {
+        private MediaServiceContextForDynManifest _context;
+
+        public Filter()
+        {
+        }
+
+        public void SetContext(MediaServiceContextForDynManifest context)
         {
             _context = context;
         }
@@ -441,13 +489,11 @@ namespace AMSExplorer
 
         public bool Create()  // return true if success
         {
-           bool Success = false;
-            
+            bool Success = false;
+
             var serializer = new JavaScriptSerializer();
             var serializedResult = serializer.Serialize(this);
-          
-            var requestBody = serializedResult;
-          
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters/", _context.WamsEndpoint));
             request.Method = HttpVerbs.Post;
             request.ContentType = RequestContentType.Json;
@@ -457,23 +503,65 @@ namespace AMSExplorer
             request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
             request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
             request.Headers.Add(RequestHeaders.XMsClientRequestId, RequestHeaderValues.ZeroID);
-            request.ContentLength = Encoding.UTF8.GetByteCount(requestBody);
+            request.ContentLength = Encoding.UTF8.GetByteCount(serializedResult);
 
             using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                streamWriter.Write(requestBody);
+                streamWriter.Write(serializedResult);
+            }
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        Success = true;
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+           
+            return Success;
+        }
+
+        public bool Delete()  // return true if success
+        {
+            bool Success = false;
+
+            var serializer = new JavaScriptSerializer();
+            var serializedResult = serializer.Serialize(this);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters('{1}')", _context.WamsEndpoint, Name));
+            request.Method = HttpVerbs.Delete;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, _context.AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+            request.Headers.Add(RequestHeaders.XMsClientRequestId, RequestHeaderValues.ZeroID);
+            request.ContentLength = Encoding.UTF8.GetByteCount(serializedResult);
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(serializedResult);
             }
             using (var response = (HttpWebResponse)request.GetResponse())
             {
                 if (response.StatusCode == HttpStatusCode.Created)
                 {
-                     Success = true;
+                    Success = true;
                 }
-                
+
             }
             return Success;
         }
 
+        /*
         public void List()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters", _context.WamsEndpoint));
@@ -499,5 +587,6 @@ namespace AMSExplorer
                 }
             }
         }
+         * */
     }
 }

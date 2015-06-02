@@ -361,6 +361,8 @@
             this.butNextPageAsset = new System.Windows.Forms.Button();
             this.comboBoxPageAssets = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tabPageFilters = new System.Windows.Forms.TabPage();
+            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
@@ -420,6 +422,9 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.contextMenuStripFilters = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -438,6 +443,8 @@
             this.tabControlMain.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
+            this.tabPageFilters.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.tabPageTransfers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.tabPageJobs.SuspendLayout();
@@ -454,6 +461,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            this.contextMenuStripFilters.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripAssets
@@ -485,7 +493,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 474);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -3256,6 +3264,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageAssets);
+            this.tabControlMain.Controls.Add(this.tabPageFilters);
             this.tabControlMain.Controls.Add(this.tabPageTransfers);
             this.tabControlMain.Controls.Add(this.tabPageJobs);
             this.tabControlMain.Controls.Add(this.tabPageLive);
@@ -3451,6 +3460,36 @@
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 12;
             this.label1.Text = "Page:";
+            // 
+            // tabPageFilters
+            // 
+            this.tabPageFilters.Controls.Add(this.dataGridViewFilters);
+            this.tabPageFilters.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFilters.Name = "tabPageFilters";
+            this.tabPageFilters.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageFilters.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageFilters.TabIndex = 9;
+            this.tabPageFilters.Text = "Filters";
+            this.tabPageFilters.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFilters
+            // 
+            this.dataGridViewFilters.AllowUserToAddRows = false;
+            this.dataGridViewFilters.AllowUserToDeleteRows = false;
+            this.dataGridViewFilters.AllowUserToResizeRows = false;
+            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilters;
+            this.dataGridViewFilters.Location = new System.Drawing.Point(5, 26);
+            this.dataGridViewFilters.Name = "dataGridViewFilters";
+            this.dataGridViewFilters.ReadOnly = true;
+            this.dataGridViewFilters.RowHeadersVisible = false;
+            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFilters.Size = new System.Drawing.Size(997, 390);
+            this.dataGridViewFilters.TabIndex = 35;
             // 
             // tabPageTransfers
             // 
@@ -4221,6 +4260,29 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // contextMenuStripFilters
+            // 
+            this.contextMenuStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem12,
+            this.toolStripMenuItem16});
+            this.contextMenuStripFilters.Name = "contextMenuStripStreamingEndpoints";
+            this.contextMenuStripFilters.Size = new System.Drawing.Size(145, 48);
+            // 
+            // toolStripMenuItem12
+            // 
+            this.toolStripMenuItem12.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.toolStripMenuItem12.Name = "toolStripMenuItem12";
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem12.Text = "Refresh";
+            this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
+            // 
+            // toolStripMenuItem16
+            // 
+            this.toolStripMenuItem16.Name = "toolStripMenuItem16";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(144, 22);
+            this.toolStripMenuItem16.Text = "Create a filter";
+            this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click_1);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4260,6 +4322,8 @@
             this.tabPageAssets.ResumeLayout(false);
             this.tabPageAssets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
+            this.tabPageFilters.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.tabPageTransfers.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.tabPageJobs.ResumeLayout(false);
@@ -4281,6 +4345,7 @@
             this.tabPageChart.ResumeLayout(false);
             this.tabPageChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            this.contextMenuStripFilters.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4676,6 +4741,11 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.ToolStripMenuItem displayParentJobToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem displayParentJobToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPageFilters;
+        private System.Windows.Forms.DataGridView dataGridViewFilters;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFilters;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
     }
 }
 
