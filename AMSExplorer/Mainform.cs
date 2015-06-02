@@ -139,9 +139,34 @@ namespace AMSExplorer
             });
 
 
-
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
+
+
+            // Dynamic filter tests
+
+            var cont = new MediaServiceContext(_credentials.AccountName, _credentials.AccountKey);
+            cont.CheckForRedirection();
+
+
+
+            DynamicFilter filter = new DynamicFilter(cont);
+            //filter.CheckForRedirection(_context);
+            filter.List();
+
+
+            filter.Name = "testfilter2";
+            filter.PresentationTimeRange = new IFilterPresentationTimeRange()
+            { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
+            var conditions = new List<FilterTrackPropertyCondition>();
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+          
+            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect(){ PropertyConditions = conditions} };
+
+            filter.Tracks = tracks;
+            filter.Create();
+
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;

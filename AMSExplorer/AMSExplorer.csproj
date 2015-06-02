@@ -177,6 +177,7 @@
     <Compile Include="CreateTestToken.Designer.cs">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="DynManifestREST.cs" />
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -385,9 +385,6 @@ namespace AMSExplorer
         {
             webBrowserPreview.Url = null;
         }
-
-         
-
     }
 
 }
