@@ -15,13 +15,15 @@ namespace AMSExplorer
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
+        private DataTable dataPropertyType;
+        private DataTable dataProperty;
+        private DataTable dataOperator;
 
         public DynManifestFilter(Filter filter)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _filter = filter;
-
         }
 
 
@@ -35,23 +37,65 @@ namespace AMSExplorer
             textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
             textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
 
+            RefreshTracks();
 
+            // dataPropertyType
+            dataPropertyType = new DataTable();
+            dataPropertyType.Columns.Add(new DataColumn("Value", typeof(string)));
+            dataPropertyType.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            var column = new DataGridViewComboBoxColumn();
-            DataTable data = new DataTable();
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.audio, FilterPropertyTypeValue.audio);
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.video, FilterPropertyTypeValue.video);
+            dataPropertyType.Rows.Add(FilterPropertyTypeValue.text, FilterPropertyTypeValue.text);
 
-            data.Columns.Add(new DataColumn("Value", typeof(string)));
-            data.Columns.Add(new DataColumn("Description", typeof(string)));
+            // dataProperty dataOperator
+            dataProperty = new DataTable();
+            dataOperator = new DataTable();
 
-            data.Rows.Add("5", "6");
-            data.Rows.Add("51", "26");
-            data.Rows.Add("531", "63");
+            dataProperty.Columns.Add(new DataColumn("Property", typeof(string)));
+            dataProperty.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            column.DataSource = data;
-            column.ValueMember = "Value";
-            column.DisplayMember = "Description";
+            dataOperator.Columns.Add(new DataColumn("Operator", typeof(string)));
+            dataOperator.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            dataGridViewTracks.Columns.Add(column); 
+            dataProperty.Rows.Add(FilterProperty.Type, FilterProperty.Type);
+            dataProperty.Rows.Add(FilterProperty.Bitrate, FilterProperty.Bitrate);
+            dataProperty.Rows.Add(FilterProperty.FourCC, FilterProperty.FourCC);
+            dataProperty.Rows.Add(FilterProperty.Language, FilterProperty.Language);
+            dataProperty.Rows.Add(FilterProperty.Name, FilterProperty.Name);
+
+            dataOperator.Rows.Add(IOperator.Equal, IOperator.Equal);
+            dataOperator.Rows.Add(IOperator.notEqual, IOperator.notEqual);
+
+            var columnProperty = new DataGridViewComboBoxColumn();
+            columnProperty.DataSource = dataProperty;
+            columnProperty.ValueMember = "Property";
+            columnProperty.DisplayMember = "Description";
+            dataGridViewTracks.Columns.Add(columnProperty);
+
+            var columnOperator = new DataGridViewComboBoxColumn();
+            columnOperator.DataSource = dataOperator;
+            columnOperator.ValueMember = "Operator";
+            columnOperator.DisplayMember = "Description";
+            dataGridViewTracks.Columns.Add(columnOperator);
+
+            var columnValue = new DataGridViewTextBoxColumn();
+
+            dataGridViewTracks.Columns.Add(columnValue);
+
+        }
+
+        private void RefreshTracks()
+        {
+            listBoxTracks.Items.Clear();
+            dataGridViewTracks.Rows.Clear();
+
+            int i = 1;
+            foreach (var track in _filter.Tracks)
+            {
+                listBoxTracks.Items.Add("Track" + i);
+                i++;
+            }
         }
 
         public Filter GetFilterData
@@ -67,11 +111,71 @@ namespace AMSExplorer
 
                 return _filter;
             }
-
         }
 
         private void label12_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridViewTracks.Rows.Clear();
+
+            var track = _filter.Tracks[listBoxTracks.SelectedIndex];
+            foreach (var condition in track.PropertyConditions)
+            {
+                dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
+
+            }
+        }
+
+        private void dataGridViewTracks_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridViewTracks_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+
+            if (dataGridViewTracks.CurrentCell.ColumnIndex == 0)
+            {
+                if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.Type) // property type
+                {
+                    var cellValue = new DataGridViewComboBoxCell();
+                    cellValue.DataSource = dataPropertyType;
+                    cellValue.ValueMember = "Value";
+                    cellValue.DisplayMember = "Description";
+                    dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
+                    dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                }
+                else
+                {
+                    var cellValue = new DataGridViewTextBoxCell();
+                    dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
+                    dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            
+                }
+            }
+        }
+
+        private void buttonAddTrack_Click(object sender, EventArgs e)
+        {
+            _filter.Tracks.Add(new IFilterTrackSelect() { PropertyConditions = new List<FilterTrackPropertyCondition>() });
+            RefreshTracks();
+
+        }
+
+        private void buttonDeleteTrack_Click(object sender, EventArgs e)
+        {
+            if (listBoxTracks.SelectedIndex > -1)
+            {
+                dataGridViewTracks.Rows.Clear();
+                _filter.Tracks.RemoveAt(listBoxTracks.SelectedIndex);
+                RefreshTracks();
+            }
+
+
 
         }
     }

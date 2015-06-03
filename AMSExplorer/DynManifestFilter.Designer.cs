@@ -55,6 +55,9 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridViewTracks = new System.Windows.Forms.DataGridView();
+            this.listBoxTracks = new System.Windows.Forms.ListBox();
+            this.buttonAddTrack = new System.Windows.Forms.Button();
+            this.buttonDeleteTrack = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -296,6 +299,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonDeleteTrack);
+            this.tabPage2.Controls.Add(this.buttonAddTrack);
+            this.tabPage2.Controls.Add(this.listBoxTracks);
             this.tabPage2.Controls.Add(this.dataGridViewTracks);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -307,11 +313,45 @@
             // 
             // dataGridViewTracks
             // 
+            this.dataGridViewTracks.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTracks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewTracks.Location = new System.Drawing.Point(7, 20);
+            this.dataGridViewTracks.Location = new System.Drawing.Point(145, 25);
             this.dataGridViewTracks.Name = "dataGridViewTracks";
-            this.dataGridViewTracks.Size = new System.Drawing.Size(666, 282);
+            this.dataGridViewTracks.Size = new System.Drawing.Size(524, 293);
             this.dataGridViewTracks.TabIndex = 0;
+            this.dataGridViewTracks.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTracks_CellValueChanged);
+            this.dataGridViewTracks.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewTracks_CurrentCellDirtyStateChanged);
+            // 
+            // listBoxTracks
+            // 
+            this.listBoxTracks.FormattingEnabled = true;
+            this.listBoxTracks.Location = new System.Drawing.Point(19, 23);
+            this.listBoxTracks.Name = "listBoxTracks";
+            this.listBoxTracks.Size = new System.Drawing.Size(120, 264);
+            this.listBoxTracks.TabIndex = 1;
+            this.listBoxTracks.SelectedIndexChanged += new System.EventHandler(this.listBoxTracks_SelectedIndexChanged);
+            // 
+            // buttonAddTrack
+            // 
+            this.buttonAddTrack.Location = new System.Drawing.Point(19, 295);
+            this.buttonAddTrack.Name = "buttonAddTrack";
+            this.buttonAddTrack.Size = new System.Drawing.Size(58, 23);
+            this.buttonAddTrack.TabIndex = 43;
+            this.buttonAddTrack.Text = "Add";
+            this.buttonAddTrack.UseVisualStyleBackColor = true;
+            this.buttonAddTrack.Click += new System.EventHandler(this.buttonAddTrack_Click);
+            // 
+            // buttonDeleteTrack
+            // 
+            this.buttonDeleteTrack.Location = new System.Drawing.Point(81, 295);
+            this.buttonDeleteTrack.Name = "buttonDeleteTrack";
+            this.buttonDeleteTrack.Size = new System.Drawing.Size(58, 23);
+            this.buttonDeleteTrack.TabIndex = 44;
+            this.buttonDeleteTrack.Text = "Delete";
+            this.buttonDeleteTrack.UseVisualStyleBackColor = true;
+            this.buttonDeleteTrack.Click += new System.EventHandler(this.buttonDeleteTrack_Click);
             // 
             // DynManifestFilter
             // 
@@ -365,5 +405,8 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.DataGridView dataGridViewTracks;
+        private System.Windows.Forms.ListBox listBoxTracks;
+        private System.Windows.Forms.Button buttonDeleteTrack;
+        private System.Windows.Forms.Button buttonAddTrack;
     }
 }
