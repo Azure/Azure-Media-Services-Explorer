@@ -487,9 +487,8 @@ namespace AMSExplorer
         }
 
 
-        public bool Create()  // return true if success
+        public void Create()  // return true if success
         {
-            bool Success = false;
 
             var serializer = new JavaScriptSerializer();
             var serializedResult = serializer.Serialize(this);
@@ -515,22 +514,21 @@ namespace AMSExplorer
                 {
                     if (response.StatusCode == HttpStatusCode.Created)
                     {
-                        Success = true;
+                        // success
                     }
 
                 }
             }
-            catch
+            catch (Exception e)
             {
-
+                throw e;
             }
-           
-            return Success;
+
+
         }
 
-        public bool Delete()  // return true if success
+        public void Delete()  // return true if success
         {
-            bool Success = false;
 
             var serializer = new JavaScriptSerializer();
             var serializedResult = serializer.Serialize(this);
@@ -550,15 +548,23 @@ namespace AMSExplorer
             {
                 streamWriter.Write(serializedResult);
             }
-            using (var response = (HttpWebResponse)request.GetResponse())
+            try
             {
-                if (response.StatusCode == HttpStatusCode.Created)
+                using (var response = (HttpWebResponse)request.GetResponse())
                 {
-                    Success = true;
-                }
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        // success
+                    }
 
+                }
             }
-            return Success;
+
+
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         /*

@@ -148,13 +148,13 @@ namespace AMSExplorer
             _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials.AccountName, _credentials.AccountKey);
             _contextdynmanifest.CheckForRedirection();
 
-           // Filter filter = new Filter();
-           // filter.SetContext(cont);
+            // Filter filter = new Filter();
+            // filter.SetContext(cont);
             //filter.CheckForRedirection(_context);
             //filter.List();
 
-          //  Filter myFilter = cont.GetFilter("testfilter2");
-           // myFilter.Delete();
+            //  Filter myFilter = cont.GetFilter("testfilter2");
+            // myFilter.Delete();
 
             /*
             filter.Name = "testfilter2";
@@ -1740,6 +1740,27 @@ namespace AMSExplorer
 
             return SelectedStorage;
         }
+
+        private List<Filter> ReturnSelectedFilters()
+        {
+
+            List<Filter> SelectedFilters = new List<Filter>();
+            foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
+            {
+                string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
+                Filter myfilter = _contextdynmanifest.GetFilter(filtername);
+                if (myfilter != null)
+                {
+                    SelectedFilters.Add(myfilter);
+
+                }
+
+            }
+
+            return SelectedFilters;
+        }
+
+
 
         private void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5381,12 +5402,13 @@ namespace AMSExplorer
 
         private void DoRefreshGridFiltersV(bool firstime)
         {
-         
+
             if (firstime)
             {
                 // Storage tab
                 dataGridViewFilters.ColumnCount = 2;
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
+                dataGridViewFilters.Columns[0].Name = "Name";
                 dataGridViewFilters.Columns[1].HeaderText = "Test";
             }
             dataGridViewFilters.Rows.Clear();
@@ -5400,7 +5422,7 @@ namespace AMSExplorer
 
 
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name);
-               
+
             }
 
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
@@ -9546,17 +9568,50 @@ namespace AMSExplorer
             Filter filter = new Filter();
             filter.SetContext(_contextdynmanifest);
 
-            filter.Name = "testfilter23";
-
-            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
+            filter.Name = "testfilter10s";
+            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
             filter.Tracks = tracks;
-            filter.Create();
+
+            DynManifestFilter form = new DynManifestFilter(filter)
+            {
+
+            };
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    form.GetFilterData.Create();
+
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine(e);
+                }
+                DoRefreshGridFiltersV(false);
+            }
+
+        }
+
+        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDeleteFilter();
+        }
+
+        private void DoDeleteFilter()
+        {
+            try
+            {
+                ReturnSelectedFilters().ForEach(f => f.Delete());
+            }
+            catch (Exception e)
+            {
+                TextBoxLogWriteLine(e);
+            }
             DoRefreshGridFiltersV(false);
-           
         }
     }
 }

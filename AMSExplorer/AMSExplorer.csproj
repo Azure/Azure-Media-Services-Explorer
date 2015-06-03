@@ -177,6 +177,12 @@
     <Compile Include="CreateTestToken.Designer.cs">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </Compile>
+    <Compile Include="DynManifestFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DynManifestFilter.Designer.cs">
+      <DependentUpon>DynManifestFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="DynManifestREST.cs" />
     <Compile Include="GridTransfer.cs">
       <SubType>Form</SubType>
@@ -459,6 +465,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DynManifestFilter.resx">
+      <DependentUpon>DynManifestFilter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="JobOptions.resx">
       <DependentUpon>JobOptions.cs</DependentUpon>
