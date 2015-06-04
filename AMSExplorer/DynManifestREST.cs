@@ -350,7 +350,8 @@ namespace AMSExplorer
             set;
         }
 
-        [DataMember]
+        //[DataMember]
+        [DataMember(Name = "EndTimestamp", IsRequired = false)]
         public string EndTimestamp
         {
             get;

@@ -104,7 +104,7 @@ namespace AMSExplorer
             {
                 _filter.Name = textBoxFilterName.Text;
                 _filter.PresentationTimeRange.StartTimestamp = textBoxStartTimestamp.Text;
-                _filter.PresentationTimeRange.EndTimestamp = textBoxEndTimestamp.Text;
+                _filter.PresentationTimeRange.EndTimestamp = null;// textBoxEndTimestamp.Text;
                 _filter.PresentationTimeRange.LiveBackoffDuration = textBoxLiveBackoffDuration.Text;
                 _filter.PresentationTimeRange.PresentationWindowDuration = textBoxPresentationWindowDuration.Text;
                 _filter.PresentationTimeRange.Timescale = textBoxTimescale.Text;
@@ -120,14 +120,7 @@ namespace AMSExplorer
 
         private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
         {
-            dataGridViewTracks.Rows.Clear();
-
-            var track = _filter.Tracks[listBoxTracks.SelectedIndex];
-            foreach (var condition in track.PropertyConditions)
-            {
-                dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
-
-            }
+            RefreshTracksConditions();
         }
 
         private void dataGridViewTracks_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -137,26 +130,52 @@ namespace AMSExplorer
 
         private void dataGridViewTracks_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-
-            if (dataGridViewTracks.CurrentCell.ColumnIndex == 0)
+            if (dataGridViewTracks.CurrentCell.Value != null)
             {
-                if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.Type) // property type
+                if (dataGridViewTracks.CurrentCell.ColumnIndex == 0) // if first column
                 {
-                    var cellValue = new DataGridViewComboBoxCell();
-                    cellValue.DataSource = dataPropertyType;
-                    cellValue.ValueMember = "Value";
-                    cellValue.DisplayMember = "Description";
-                    dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
-                    dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.Type) // property type
+                    {
+                        var cellValue = new DataGridViewComboBoxCell();
+                        cellValue.DataSource = dataPropertyType;
+                        cellValue.ValueMember = "Value";
+                        cellValue.DisplayMember = "Description";
+                        dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
+                        dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    }
+                    else
+                    {
+                        var cellValue = new DataGridViewTextBoxCell();
+                        dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
+                        dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+
+                    }
                 }
-                else
+
+
+                // let's update the filter
+                switch (dataGridViewTracks.CurrentCell.ColumnIndex)
                 {
-                    var cellValue = new DataGridViewTextBoxCell();
-                    dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
-                    dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
-            
+                    case 0: // propoerty
+                        _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Property = dataGridViewTracks.CurrentCell.Value.ToString();
+
+                        break;
+
+                    case 1: // operator
+                        _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Operator = dataGridViewTracks.CurrentCell.Value.ToString();
+
+                        break;
+
+                    case 2: // value
+                        _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Value = dataGridViewTracks.CurrentCell.Value.ToString();
+
+                        break;
+
                 }
             }
+
+
+
         }
 
         private void buttonAddTrack_Click(object sender, EventArgs e)
@@ -177,6 +196,50 @@ namespace AMSExplorer
 
 
 
+        }
+
+        private void buttonAddCondition_Click(object sender, EventArgs e)
+        {
+            if (listBoxTracks.SelectedIndex > -1)
+            {
+                _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions.Add(new FilterTrackPropertyCondition());
+                RefreshTracksConditions();
+            }
+        }
+
+        private void RefreshTracksConditions()
+        {
+            dataGridViewTracks.Rows.Clear();
+
+            var track = _filter.Tracks[listBoxTracks.SelectedIndex];
+            foreach (var condition in track.PropertyConditions)
+            {
+                dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
+
+            }
+        }
+
+        private void buttonDeleteCondition_Click(object sender, EventArgs e)
+        {
+            if (listBoxTracks.SelectedIndex > -1 && dataGridViewTracks.SelectedRows.Count > 0)
+            {
+                _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions.RemoveAt(dataGridViewTracks.SelectedRows[0].Index);
+                RefreshTracksConditions();
+            }
+        }
+
+        private void textBoxFilterName_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (string.IsNullOrEmpty(tb.Text))
+            {
+                errorProvider1.SetError(tb, "Please specify a filter name");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
         }
     }
 }

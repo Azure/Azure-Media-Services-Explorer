@@ -9591,7 +9591,6 @@ namespace AMSExplorer
                 try
                 {
                     form.GetFilterData.Create();
-
                 }
                 catch (Exception e)
                 {
