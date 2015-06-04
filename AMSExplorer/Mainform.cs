@@ -9565,8 +9565,9 @@ namespace AMSExplorer
 
         private void DoCreateFilter()
         {
+           /*
             Filter filter = new Filter();
-            filter.SetContext(_contextdynmanifest);
+            //filter.SetContext(_contextdynmanifest);
 
             filter.Name = "testfilter10s";
             filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
@@ -9581,16 +9582,15 @@ namespace AMSExplorer
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             filter.Tracks = tracks;
+            * */
 
-            DynManifestFilter form = new DynManifestFilter(filter)
-            {
-
-            };
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
+           
             if (form.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    form.GetFilterData.Create();
+                    form.DisplayedFilter.Create();
                 }
                 catch (Exception e)
                 {
@@ -9617,6 +9617,44 @@ namespace AMSExplorer
                 TextBoxLogWriteLine(e);
             }
             DoRefreshGridFiltersV(false);
+        }
+
+        private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoUpdateFilter();
+        }
+
+        private void DoUpdateFilter()
+        {
+            Filter filter = ReturnSelectedFilters().FirstOrDefault();
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest)
+            {
+                DisplayedFilter = filter
+            };
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Filter filtertoupdate = form.DisplayedFilter;
+                    filtertoupdate.Delete();
+                    filtertoupdate.Create();
+                    TextBoxLogWriteLine("Global filter '{0}' recreated.", filtertoupdate.Name);
+
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine(e);
+                }
+                DoRefreshGridFiltersV(false);
+            }
+        }
+
+        private void dataGridViewFilters_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                DoUpdateFilter();
+            }
         }
     }
 }

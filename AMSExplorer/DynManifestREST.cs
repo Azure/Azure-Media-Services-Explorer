@@ -343,36 +343,35 @@ namespace AMSExplorer
     [DataContract]
     public class IFilterPresentationTimeRange
     {
-        [DataMember]
+        [DataMember(Name = "StartTimestamp", IsRequired = false, EmitDefaultValue = false)]
         public string StartTimestamp
         {
             get;
             set;
         }
 
-        //[DataMember]
-        [DataMember(Name = "EndTimestamp", IsRequired = false)]
+        [DataMember(Name = "EndTimestamp", IsRequired = false, EmitDefaultValue = false)]
         public string EndTimestamp
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(Name = "PresentationWindowDuration", IsRequired = false, EmitDefaultValue = false)]
         public string PresentationWindowDuration
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(Name = "LiveBackoffDuration", IsRequired = false, EmitDefaultValue = false)]
         public string LiveBackoffDuration
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(Name = "Timescale", IsRequired = false, EmitDefaultValue = false)]
         public string Timescale
         {
             get;
@@ -380,10 +379,9 @@ namespace AMSExplorer
         }
     }
 
-    [DataContract]
     public class IFilterTrackSelect
     {
-        [DataMember]
+        [DataMember(Name = "PropertyConditions", IsRequired = false, EmitDefaultValue = false)]
         public List<FilterTrackPropertyCondition> PropertyConditions
         {
             get;
@@ -466,21 +464,21 @@ namespace AMSExplorer
         /// Friendly name for asset.
         /// </summary>
         /// 
-        [DataMember]
+        [DataMember(Name = "Name", IsRequired = true)]
         public string Name
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(Name = "PresentationTimeRange", IsRequired = false, EmitDefaultValue = false)]
         public IFilterPresentationTimeRange PresentationTimeRange
         {
             get;
             set;
         }
 
-        [DataMember]
+        [DataMember(Name = "Tracks", IsRequired = false, EmitDefaultValue = false)]
         public List<IFilterTrackSelect> Tracks
         {
             get;
@@ -490,9 +488,16 @@ namespace AMSExplorer
 
         public void Create()  // return true if success
         {
+           
 
-            var serializer = new JavaScriptSerializer();
-            var serializedResult = serializer.Serialize(this);
+            string serializedResult;
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(this.GetType());
+            using (MemoryStream ms = new MemoryStream())
+            {
+                serializer.WriteObject(ms, this);
+                serializedResult = Encoding.Default.GetString(ms.ToArray());
+            }
+
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters/", _context.WamsEndpoint));
             request.Method = HttpVerbs.Post;
@@ -527,6 +532,54 @@ namespace AMSExplorer
 
 
         }
+
+        public void Update()  // return true if success
+        {
+            // Not used. Issue to remvoe tracks.....
+
+            string serializedResult;
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(this.GetType());
+            using (MemoryStream ms = new MemoryStream())
+            {
+                serializer.WriteObject(ms, this);
+                serializedResult = Encoding.Default.GetString(ms.ToArray());
+            }
+
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters('{1}')", _context.WamsEndpoint));
+            request.Method = HttpVerbs.Merge;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, _context.AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+            request.Headers.Add(RequestHeaders.XMsClientRequestId, RequestHeaderValues.ZeroID);
+            request.ContentLength = Encoding.UTF8.GetByteCount(serializedResult);
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(serializedResult);
+            }
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        // success
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+
+        }
+     
 
         public void Delete()  // return true if success
         {
@@ -568,32 +621,6 @@ namespace AMSExplorer
             }
         }
 
-        /*
-        public void List()
-        {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters", _context.WamsEndpoint));
-            request.Method = HttpVerbs.Get;
-            request.ContentType = RequestContentType.Json;
-            request.Accept = RequestContentType.Json;
-            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
-            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, _context.AccessToken));
-            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
-            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
-
-            using (var response = (HttpWebResponse)request.GetResponse())
-            {
-                using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), true))
-                {
-                    var returnBody = streamReader.ReadToEnd();
-
-                    JObject responseJsonObject = JObject.Parse(returnBody);
-                    var value = responseJsonObject["value"];
-
-                    var serializer = new JavaScriptSerializer();
-                    var serializedResult = serializer.Deserialize(value.ToString(), typeof(List<Filter>));
-                }
-            }
-        }
-         * */
+      
     }
 }

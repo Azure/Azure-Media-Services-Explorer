@@ -365,7 +365,9 @@
             this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFilters = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem12 = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
@@ -425,7 +427,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -3470,7 +3471,7 @@
             this.tabPageFilters.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageFilters.Size = new System.Drawing.Size(1006, 443);
             this.tabPageFilters.TabIndex = 9;
-            this.tabPageFilters.Text = "Filters";
+            this.tabPageFilters.Text = "Global filters";
             this.tabPageFilters.UseVisualStyleBackColor = true;
             // 
             // dataGridViewFilters
@@ -3491,30 +3492,46 @@
             this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewFilters.Size = new System.Drawing.Size(997, 390);
             this.dataGridViewFilters.TabIndex = 35;
+            this.dataGridViewFilters.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellDoubleClick);
             // 
             // contextMenuStripFilters
             // 
             this.contextMenuStripFilters.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem12,
+            this.filterInfoupdateToolStripMenuItem,
             this.toolStripMenuItem16,
             this.deleteToolStripMenuItem1});
             this.contextMenuStripFilters.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripFilters.Size = new System.Drawing.Size(153, 92);
+            this.contextMenuStripFilters.Size = new System.Drawing.Size(167, 92);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Image = global::AMSExplorer.Bitmaps.refresh;
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem12.Text = "Refresh";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
+            // 
+            // filterInfoupdateToolStripMenuItem
+            // 
+            this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
+            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
             // toolStripMenuItem16
             // 
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem16.Text = "Create a filter";
             this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click_1);
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.deleteToolStripMenuItem1.Text = "Delete";
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
             // tabPageTransfers
             // 
@@ -4285,13 +4302,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // deleteToolStripMenuItem1
-            // 
-            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
-            this.deleteToolStripMenuItem1.Text = "Delete";
-            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4756,6 +4766,7 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem12;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
     }
 }
 

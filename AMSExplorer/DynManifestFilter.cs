@@ -15,28 +15,29 @@ namespace AMSExplorer
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
+        private MediaServiceContextForDynManifest _context;
         private DataTable dataPropertyType;
         private DataTable dataProperty;
         private DataTable dataOperator;
 
-        public DynManifestFilter(Filter filter)
+        public DynManifestFilter(MediaServiceContextForDynManifest context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            _filter = filter;
+            _context = context;
+           
+            _filter = new Filter();
+            _filter.SetContext(_context);
+            _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
+            _filter.Tracks = new List<IFilterTrackSelect>();
+                       
         }
 
 
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
-            textBoxFilterName.Text = _filter.Name;
-            textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
-            textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
-            textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
-            textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
-            textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
-
+            RefreshPresentationTimes();
             RefreshTracks();
 
             // dataPropertyType
@@ -98,18 +99,37 @@ namespace AMSExplorer
             }
         }
 
-        public Filter GetFilterData
+        public Filter DisplayedFilter
         {
             get
             {
                 _filter.Name = textBoxFilterName.Text;
-                _filter.PresentationTimeRange.StartTimestamp = textBoxStartTimestamp.Text;
-                _filter.PresentationTimeRange.EndTimestamp = null;// textBoxEndTimestamp.Text;
-                _filter.PresentationTimeRange.LiveBackoffDuration = textBoxLiveBackoffDuration.Text;
-                _filter.PresentationTimeRange.PresentationWindowDuration = textBoxPresentationWindowDuration.Text;
-                _filter.PresentationTimeRange.Timescale = textBoxTimescale.Text;
+                _filter.PresentationTimeRange.StartTimestamp = string.IsNullOrEmpty(textBoxStartTimestamp.Text.Trim()) ? null : textBoxStartTimestamp.Text;
+                _filter.PresentationTimeRange.EndTimestamp = string.IsNullOrEmpty(textBoxEndTimestamp.Text.Trim()) ? null : textBoxEndTimestamp.Text;
+                _filter.PresentationTimeRange.LiveBackoffDuration = string.IsNullOrEmpty(textBoxLiveBackoffDuration.Text.Trim()) ? null : textBoxLiveBackoffDuration.Text;
+                _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrEmpty(textBoxPresentationWindowDuration.Text.Trim()) ? null : textBoxPresentationWindowDuration.Text;
+                _filter.PresentationTimeRange.Timescale = string.IsNullOrEmpty(textBoxTimescale.Text.Trim()) ? null : textBoxTimescale.Text;
+
+
+                if (_filter.PresentationTimeRange.StartTimestamp == null
+                    && _filter.PresentationTimeRange.EndTimestamp == null
+                    && _filter.PresentationTimeRange.LiveBackoffDuration == null
+                    && _filter.PresentationTimeRange.PresentationWindowDuration == null
+                    && _filter.PresentationTimeRange.Timescale == null)
+                {
+                    _filter.PresentationTimeRange = null; // to make sure it is null to avoid puting data in JSON
+                }
+
+
+                // if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
 
                 return _filter;
+            }
+            set
+            {
+                // goal is to display an existing filer
+                _filter = value;
+                buttonOk.Text = "Update Filter";
             }
         }
 
@@ -148,7 +168,6 @@ namespace AMSExplorer
                         var cellValue = new DataGridViewTextBoxCell();
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
-
                     }
                 }
 
@@ -156,7 +175,7 @@ namespace AMSExplorer
                 // let's update the filter
                 switch (dataGridViewTracks.CurrentCell.ColumnIndex)
                 {
-                    case 0: // propoerty
+                    case 0: // property
                         _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Property = dataGridViewTracks.CurrentCell.Value.ToString();
 
                         break;
@@ -173,16 +192,12 @@ namespace AMSExplorer
 
                 }
             }
-
-
-
         }
 
         private void buttonAddTrack_Click(object sender, EventArgs e)
         {
             _filter.Tracks.Add(new IFilterTrackSelect() { PropertyConditions = new List<FilterTrackPropertyCondition>() });
             RefreshTracks();
-
         }
 
         private void buttonDeleteTrack_Click(object sender, EventArgs e)
@@ -210,13 +225,16 @@ namespace AMSExplorer
         private void RefreshTracksConditions()
         {
             dataGridViewTracks.Rows.Clear();
-
-            var track = _filter.Tracks[listBoxTracks.SelectedIndex];
-            foreach (var condition in track.PropertyConditions)
+            if (listBoxTracks.SelectedIndex > -1)
             {
-                dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
+                var track = _filter.Tracks[listBoxTracks.SelectedIndex];
+                foreach (var condition in track.PropertyConditions)
+                {
+                    dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
 
+                }
             }
+
         }
 
         private void buttonDeleteCondition_Click(object sender, EventArgs e)
@@ -240,6 +258,37 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
+        }
+
+
+        private void buttonInsertSample_Click(object sender, EventArgs e)
+        {
+            _filter.Name = "samplefilter";
+            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
+            var conditions = new List<FilterTrackPropertyCondition>();
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
+            conditions = new List<FilterTrackPropertyCondition>();
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
+            _filter.Tracks = tracks;
+
+            RefreshPresentationTimes();
+            RefreshTracks();
+            RefreshTracksConditions();
+
+        }
+
+        private void RefreshPresentationTimes()
+        {
+            textBoxFilterName.Text = _filter.Name;
+            textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
+            textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
+            textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
+            textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
+            textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
         }
     }
 }
