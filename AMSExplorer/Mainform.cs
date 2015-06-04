@@ -81,6 +81,8 @@ namespace AMSExplorer
 
         private bool AMEPremiumWorkflowPresent = true;
         private bool HyperlapsePresent = true;
+        private bool AMEStandardPresent = true;
+
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -99,16 +101,25 @@ namespace AMSExplorer
             }
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
+            // AME Standard preset folder
             if ((Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEFiles;
             }
 
+            // AME Premium Workflow preset folder
             if ((Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder)))
             {
                 Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             }
 
+            // AME Standard preset folder
+            if ((Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder)))
+            {
+                Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEStdFiles;
+            }
+
+            // Default Slate Image
             if ((Properties.Settings.Default.DefaultSlateCurrentFolder == string.Empty) || (!Directory.Exists(Properties.Settings.Default.DefaultSlateCurrentFolder)))
             {
                 Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
@@ -144,31 +155,10 @@ namespace AMSExplorer
             _context = Program.ConnectAndGetNewContext(_credentials);
 
 
-            // Dynamic filter tests
+            // Dynamic filter
             _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials.AccountName, _credentials.AccountKey);
             _contextdynmanifest.CheckForRedirection();
 
-            // Filter filter = new Filter();
-            // filter.SetContext(cont);
-            //filter.CheckForRedirection(_context);
-            //filter.List();
-
-            //  Filter myFilter = cont.GetFilter("testfilter2");
-            // myFilter.Delete();
-
-            /*
-            filter.Name = "testfilter2";
-
-            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "14000000000", EndTimestamp = "9223372036854775807", Timescale = "10000000" };
-            var conditions = new List<FilterTrackPropertyCondition>();
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-
-            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
-
-            filter.Tracks = tracks;
-            filter.Create();
-            */
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
@@ -195,6 +185,14 @@ namespace AMSExplorer
                 encodeAssetWithPremiumWorkflowToolStripMenuItem.Enabled = false;  //menu
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard) == null)
+            {
+                AMEStandardPresent = false;
+                encodeAssetsWithAMEStandardToolStripMenuItem.Enabled = false;
+                encodeAssetWithAMEStandardToolStripMenuItem.Enabled = false;
+            }
+
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
             {
@@ -5107,6 +5105,13 @@ namespace AMSExplorer
                 processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
                 processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
             }
+          
+            // let's disable AME Std if not present
+            if (!AMEStandardPresent)
+            {
+                encodeAssetsWithAMEStandardToolStripMenuItem.Enabled = false;
+                encodeAssetWithAMEStandardToolStripMenuItem.Enabled = false;
+            }
         }
 
         private void EnableChildItems(ref ToolStripMenuItem menuitem, bool bflag)
@@ -5449,7 +5454,7 @@ namespace AMSExplorer
                 }
 
 
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d,l);
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
             }
 
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
@@ -9682,6 +9687,85 @@ namespace AMSExplorer
             {
                 DoUpdateFilter();
             }
+        }
+
+        private void toolStripMenuItem22_Click(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMEStandard();
+        }
+
+        private void DoMenuEncodeWithAMEStandard()
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0)
+            {
+                MessageBox.Show("No asset was selected");
+                return;
+            }
+
+            if (SelectedAssets.FirstOrDefault() == null) return;
+
+            string taskname = "AME Standard encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+
+            List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
+
+            EncodingAMEStandard form = new EncodingAMEStandard(_context)
+            {
+                EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                EncodingProcessorsList = Procs,
+                EncodingJobName = "AME Standard encoding of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + "-AME Standard encoded",
+                EncodingAMEStdPresetXMLFiles = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                SelectedAssets = SelectedAssets
+            };
+
+
+
+            if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                foreach (IAsset asset in form.SelectedAssets)
+                {
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, form.EncodingProcessorSelected.Name + " v" + form.EncodingProcessorSelected.Version);
+                    ITask AMEPremiumTask = job.Tasks.AddNew(
+                        tasknameloc,
+                      form.EncodingProcessorSelected,// processor,
+                       form.EncodingConfiguration,
+                       form.JobOptions.TasksOptionsSetting
+                      );
+
+                    AMEPremiumTask.InputAssets.Add(asset);
+
+                    // Add an output asset to contain the results of the job.  
+                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                    AMEPremiumTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+
+                    // Submit the job  
+                    TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
+                    try
+                    {
+                        job.Submit();
+                    }
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
+                        TextBoxLogWriteLine(e);
+                        return;
+                    }
+                    Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                }
+                DotabControlMainSwitch(Constants.TabJobs);
+                DoRefreshGridJobV(false);
+            }
+        }
+
+        private void encodeAssetsWithAMEStandardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMEStandard();
+
         }
     }
 }

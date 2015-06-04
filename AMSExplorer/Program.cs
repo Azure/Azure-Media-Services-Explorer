@@ -399,6 +399,7 @@ namespace AMSExplorer
 
         public const string WindowsAzureMediaEncoder = "Windows Azure Media Encoder";
         public const string AzureMediaEncoder = "Azure Media Encoder";
+        public const string AzureMediaEncoderStandard = "Media Encoder Standard";
         public const string AzureMediaEncoderPremiumWorkflow = "Media Encoder Premium Workflow";
         public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
@@ -433,6 +434,7 @@ namespace AMSExplorer
 
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
+        public const string PathAMEStdFiles = @"\AMEStandardPresetFiles\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
         public const string PathDefaultSlateJPG = @"\SlateJPG\";

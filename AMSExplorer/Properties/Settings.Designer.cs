@@ -418,5 +418,17 @@ namespace AMSExplorer.Properties {
                 this["DefaultSlateCurrentFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AMEStandardPresetXMLFilesCurrentFolder {
+            get {
+                return ((string)(this["AMEStandardPresetXMLFilesCurrentFolder"]));
+            }
+            set {
+                this["AMEStandardPresetXMLFilesCurrentFolder"] = value;
+            }
+        }
     }
 }

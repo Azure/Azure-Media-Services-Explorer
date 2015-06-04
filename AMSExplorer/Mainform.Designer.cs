@@ -124,6 +124,8 @@
             this.processToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator35 = new System.Windows.Forms.ToolStripSeparator();
+            this.encodeAssetWithAMEStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
@@ -427,6 +429,8 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.encodeAssetsWithAMEStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -495,7 +499,7 @@
             this.toolStripSeparator8,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 474);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -685,6 +689,8 @@
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderadvancedModeWithCustomPresetToolStripMenuItem,
             this.toolStripSeparator32,
+            this.encodeAssetsWithAMEStandardToolStripMenuItem,
+            this.toolStripSeparator36,
             this.ContextMenuItemPremiumWorkflow});
             this.encodeToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
             this.encodeToolStripMenuItem.Name = "encodeToolStripMenuItem";
@@ -1292,6 +1298,8 @@
             this.processToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.encodeAssetWithAzureMediaEncoderToolStripMenuItem,
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2,
+            this.toolStripSeparator35,
+            this.encodeAssetWithAMEStandardToolStripMenuItem,
             this.toolStripSeparator26,
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem,
             this.toolStripSeparator17,
@@ -1328,6 +1336,20 @@
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Size = new System.Drawing.Size(544, 22);
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Text = "Encode asset(s) with Media Encoder (advanced mode with custom preset)...";
             this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2.Click += new System.EventHandler(this.encodeAssetsWithAzureMediaEncoderToolStripMenuItem2_Click);
+            // 
+            // toolStripSeparator35
+            // 
+            this.toolStripSeparator35.Name = "toolStripSeparator35";
+            this.toolStripSeparator35.Size = new System.Drawing.Size(541, 6);
+            // 
+            // encodeAssetWithAMEStandardToolStripMenuItem
+            // 
+            this.encodeAssetWithAMEStandardToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("encodeAssetWithAMEStandardToolStripMenuItem.Image")));
+            this.encodeAssetWithAMEStandardToolStripMenuItem.Name = "encodeAssetWithAMEStandardToolStripMenuItem";
+            this.encodeAssetWithAMEStandardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.encodeAssetWithAMEStandardToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetWithAMEStandardToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Standard...";
+            this.encodeAssetWithAMEStandardToolStripMenuItem.Click += new System.EventHandler(this.toolStripMenuItem22_Click);
             // 
             // toolStripSeparator26
             // 
@@ -4302,6 +4324,20 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // encodeAssetsWithAMEStandardToolStripMenuItem
+            // 
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Name = "encodeAssetsWithAMEStandardToolStripMenuItem";
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.R)));
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Text = "Encode asset(s) with Media Encoder Standard...";
+            this.encodeAssetsWithAMEStandardToolStripMenuItem.Click += new System.EventHandler(this.encodeAssetsWithAMEStandardToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator36
+            // 
+            this.toolStripSeparator36.Name = "toolStripSeparator36";
+            this.toolStripSeparator36.Size = new System.Drawing.Size(541, 6);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4767,6 +4803,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem16;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator35;
+        private System.Windows.Forms.ToolStripMenuItem encodeAssetWithAMEStandardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem encodeAssetsWithAMEStandardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator36;
     }
 }
 
