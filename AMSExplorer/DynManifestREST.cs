@@ -52,9 +52,11 @@ namespace AMSExplorer
 
     public class MediaServiceContextForDynManifest
     {
-        private const string acsEndpoint = "https://wamsprodglobal001acs.accesscontrol.windows.net/v2/OAuth2-13";
+        private string acsEndpoint = "https://wamsprodglobal001acs.accesscontrol.windows.net";
 
-        private const string acsRequestBodyFormat = "grant_type=client_credentials&client_id={0}&client_secret={1}&scope=urn%3aWindowsAzureMediaServices";
+        private string acsRequestBodyFormat = "grant_type=client_credentials&client_id={0}&client_secret={1}&scope={2}";
+
+        private string scope = "urn:WindowsAzureMediaServices";
 
         private string _accountName;
 
@@ -75,10 +77,28 @@ namespace AMSExplorer
         /// <param name="accountKey">
         /// Media service account key.
         /// </param>
-        public MediaServiceContextForDynManifest(string accountName, string accountKey)
+        public MediaServiceContextForDynManifest(CredentialsEntry credentials)
         {
-            this._accountName = accountName;
-            this._accountKey = accountKey;
+            this._accountName = credentials.AccountName;
+            this._accountKey = credentials.AccountKey;
+
+            if (credentials.UsePartnerAPI == true.ToString())
+            {
+                _wamsEndpoint = CredentialsEntry.PartnerAPIServer;
+                scope = CredentialsEntry.PartnerScope;
+                acsEndpoint = CredentialsEntry.PartnerACSBaseAddress;
+            }
+            else if (credentials.UseOtherAPI == true.ToString())
+            {
+                _wamsEndpoint = credentials.OtherAPIServer;
+                scope = credentials.OtherScope;
+                acsEndpoint = credentials.OtherACSBaseAddress;
+            }
+            else
+            {
+                // Global Azure
+
+            }
         }
 
         /// <summary>
@@ -108,6 +128,7 @@ namespace AMSExplorer
             {
                 return _wamsEndpoint;
             }
+
         }
 
         /// <summary>
@@ -120,9 +141,9 @@ namespace AMSExplorer
         /// </returns>
         private Tuple<string, DateTime> FetchAccessToken()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(acsEndpoint);
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(acsEndpoint+"/v2/OAuth2-13");
             request.Method = HttpVerbs.Post;
-            string requestBody = string.Format(CultureInfo.InvariantCulture, acsRequestBodyFormat, _accountName, HttpUtility.UrlEncode(_accountKey));
+            string requestBody = string.Format(CultureInfo.InvariantCulture, acsRequestBodyFormat, _accountName, HttpUtility.UrlEncode(_accountKey), HttpUtility.UrlEncode(scope));
             request.ContentLength = Encoding.UTF8.GetByteCount(requestBody);
             request.ContentType = "application/x-www-form-urlencoded";
             using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -488,7 +509,7 @@ namespace AMSExplorer
 
         public void Create()  // return true if success
         {
-           
+
 
             string serializedResult;
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(this.GetType());
@@ -579,7 +600,7 @@ namespace AMSExplorer
 
 
         }
-     
+
 
         public void Delete()  // return true if success
         {
@@ -621,6 +642,6 @@ namespace AMSExplorer
             }
         }
 
-      
+
     }
 }

@@ -156,7 +156,7 @@ namespace AMSExplorer
 
 
             // Dynamic filter
-            _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials.AccountName, _credentials.AccountKey);
+            _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials);
             _contextdynmanifest.CheckForRedirection();
 
 
