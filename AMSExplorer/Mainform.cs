@@ -189,8 +189,8 @@ namespace AMSExplorer
             if (GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard) == null)
             {
                 AMEStandardPresent = false;
-                encodeAssetsWithAMEStandardToolStripMenuItem.Enabled = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Enabled = false;
+                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
+                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
             }
 
 
@@ -5109,8 +5109,8 @@ namespace AMSExplorer
             // let's disable AME Std if not present
             if (!AMEStandardPresent)
             {
-                encodeAssetsWithAMEStandardToolStripMenuItem.Enabled = false;
-                encodeAssetWithAMEStandardToolStripMenuItem.Enabled = false;
+                encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
+                encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
             }
         }
 
