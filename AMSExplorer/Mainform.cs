@@ -5406,23 +5406,50 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewFilters.ColumnCount = 2;
+                dataGridViewFilters.ColumnCount = 6;
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
-                dataGridViewFilters.Columns[1].HeaderText = "Test";
+                dataGridViewFilters.Columns[1].HeaderText = "Tracks conditions groups";
+                dataGridViewFilters.Columns[1].Name = "Tracks conditions groups";
+                dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
+                dataGridViewFilters.Columns[2].Name = "Start";
+                dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
+                dataGridViewFilters.Columns[3].Name = "End";
+                dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
+                dataGridViewFilters.Columns[4].Name = "DVR";
+                dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
+                dataGridViewFilters.Columns[5].Name = "LiveDelay";
             }
             dataGridViewFilters.Rows.Clear();
-
             List<Filter> filters = _contextdynmanifest.ListFilters();
-
-
 
             foreach (var filter in filters)
             {
+                string s = null;
+                string e = null;
+                string d = null;
+                string l = null;
+
+                if (filter.PresentationTimeRange != null)
+                {
+                    long start = Convert.ToInt64(filter.PresentationTimeRange.StartTimestamp);
+                    long end = Convert.ToInt64(filter.PresentationTimeRange.EndTimestamp);
+                    long dvr = Convert.ToInt64(filter.PresentationTimeRange.PresentationWindowDuration);
+                    long live = Convert.ToInt64(filter.PresentationTimeRange.LiveBackoffDuration);
+
+                    double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
+                    e = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
+                    s = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
+                    d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
+                    l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
+
+                    //s = String.Format(f, (start / scale)); 
+                    // e = String.Format(f, (end / scale)); 
+                    // d = String.Format(f, (dvr / scale)); 
+                }
 
 
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name);
-
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d,l);
             }
 
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
@@ -9565,27 +9592,27 @@ namespace AMSExplorer
 
         private void DoCreateFilter()
         {
-           /*
-            Filter filter = new Filter();
-            //filter.SetContext(_contextdynmanifest);
+            /*
+             Filter filter = new Filter();
+             //filter.SetContext(_contextdynmanifest);
 
-            filter.Name = "testfilter10s";
-            filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
-            var conditions = new List<FilterTrackPropertyCondition>();
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-            var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
+             filter.Name = "testfilter10s";
+             filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
+             var conditions = new List<FilterTrackPropertyCondition>();
+             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
+             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
 
-            conditions = new List<FilterTrackPropertyCondition>();
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-            tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
+             conditions = new List<FilterTrackPropertyCondition>();
+             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
+             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
-            filter.Tracks = tracks;
-            * */
+             filter.Tracks = tracks;
+             * */
 
             DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
-           
+
             if (form.ShowDialog() == DialogResult.OK)
             {
                 try

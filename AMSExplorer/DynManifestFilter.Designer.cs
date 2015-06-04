@@ -169,9 +169,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(76, 13);
             this.label1.TabIndex = 79;
-            this.label1.Text = "Tracks :";
+            this.label1.Text = "Tracks group :";
             // 
             // buttonDeleteCondition
             // 
@@ -434,11 +434,12 @@
             // label9
             // 
             this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(6, 3);
+            this.label9.Location = new System.Drawing.Point(6, 6);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(323, 19);
+            this.label9.Size = new System.Drawing.Size(523, 16);
             this.label9.TabIndex = 87;
-            this.label9.Text = "Keep the field empty to no specify the settings";
+            this.label9.Text = "Keep the field empty to not specify the settings. Filter activation can take up t" +
+    "o 2 minutes.";
             // 
             // DynManifestFilter
             // 

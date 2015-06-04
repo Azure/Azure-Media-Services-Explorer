@@ -94,7 +94,7 @@ namespace AMSExplorer
             int i = 1;
             foreach (var track in _filter.Tracks)
             {
-                listBoxTracks.Items.Add("Track" + i);
+                listBoxTracks.Items.Add("Group" + i);
                 i++;
             }
         }
@@ -110,18 +110,7 @@ namespace AMSExplorer
                 _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrEmpty(textBoxPresentationWindowDuration.Text.Trim()) ? null : textBoxPresentationWindowDuration.Text;
                 _filter.PresentationTimeRange.Timescale = string.IsNullOrEmpty(textBoxTimescale.Text.Trim()) ? null : textBoxTimescale.Text;
 
-
-                if (_filter.PresentationTimeRange.StartTimestamp == null
-                    && _filter.PresentationTimeRange.EndTimestamp == null
-                    && _filter.PresentationTimeRange.LiveBackoffDuration == null
-                    && _filter.PresentationTimeRange.PresentationWindowDuration == null
-                    && _filter.PresentationTimeRange.Timescale == null)
-                {
-                    _filter.PresentationTimeRange = null; // to make sure it is null to avoid puting data in JSON
-                }
-
-
-                // if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
+                if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
 
                 return _filter;
             }
@@ -263,16 +252,23 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-            _filter.Name = "samplefilter";
+
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
+           
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
+            
+            conditions = new List<FilterTrackPropertyCondition>();
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
+      
             _filter.Tracks = tracks;
 
             RefreshPresentationTimes();
@@ -284,11 +280,23 @@ namespace AMSExplorer
         private void RefreshPresentationTimes()
         {
             textBoxFilterName.Text = _filter.Name;
-            textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
-            textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
-            textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
-            textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
-            textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
+            if (_filter.PresentationTimeRange!=null)
+            {
+                textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
+                textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
+                textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
+                textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
+                textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
+            }
+            else
+            {
+                textBoxStartTimestamp.Text = string.Empty;
+                textBoxEndTimestamp.Text = string.Empty;
+                textBoxLiveBackoffDuration.Text = string.Empty;
+                textBoxPresentationWindowDuration.Text = string.Empty;
+                textBoxTimescale.Text = string.Empty;
+            }
+            
         }
     }
 }
