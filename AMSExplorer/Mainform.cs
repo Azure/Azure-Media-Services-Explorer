@@ -9716,7 +9716,8 @@ namespace AMSExplorer
                 EncodingProcessorsList = Procs,
                 EncodingJobName = "AME Standard encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-AME Standard encoded",
-                EncodingAMEStdPresetXMLFiles = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
                 SelectedAssets = SelectedAssets
             };
 

@@ -18,11 +18,15 @@ namespace AMSExplorer
     public partial class EncodingAMEStandard : Form
     {
         public XDocument doc;
-        public string EncodingAMEStdPresetXMLFiles;
+        public string EncodingAMEStdPresetXMLFilesUserFolder;
+        public string EncodingAMEStdPresetXMLFilesFolder;
 
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private CloudMediaContext _context;
+
+        private const string defaultprofile = "H264 Multiple Bitrate 720p";
+        bool usereditmode = false;
 
         public string EncodingLabel
         {
@@ -119,35 +123,31 @@ namespace AMSExplorer
 
         private void EncodingAMEStandard_Load(object sender, EventArgs e)
         {
-          
+            // presets list
+            var filePaths = Directory.GetFiles(EncodingAMEStdPresetXMLFilesFolder, "*.xml").Select(f => Path.GetFileNameWithoutExtension(f));
+            listboxPresets.Items.AddRange(filePaths.ToArray());
+            listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
         }
 
 
-
-
-  
-
         private void buttonLoadXML_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(this.EncodingAMEStdPresetXMLFiles))
-                openFileDialogPreset.InitialDirectory = this.EncodingAMEStdPresetXMLFiles;
+            if (Directory.Exists(this.EncodingAMEStdPresetXMLFilesUserFolder))
+                openFileDialogPreset.InitialDirectory = this.EncodingAMEStdPresetXMLFilesUserFolder;
+            
             if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
             {
-                this.EncodingAMEStdPresetXMLFiles = Path.GetDirectoryName(openFileDialogPreset.FileName); // let's save the folder
-                bool Error = false;
+                this.EncodingAMEStdPresetXMLFilesUserFolder = Path.GetDirectoryName(openFileDialogPreset.FileName); // let's save the folder
                 try
                 {
-                    doc = XDocument.Load(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
-                    buttonSaveXML.Enabled = true;
-                   
+                    StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
+                    textBoxConfiguration.Text = streamReader.ReadToEnd();
+                    streamReader.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                    Error = true;
                 }
-                
             }
         }
 
@@ -157,8 +157,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    var tempdoc = XDocument.Parse(textBoxConfiguration.Text);
-                    tempdoc.Save(saveFileDialogPreset.FileName);
+                    File.WriteAllText(saveFileDialogPreset.FileName, textBoxConfiguration.Text);
                 }
                 catch (Exception ex)
                 {
@@ -166,6 +165,38 @@ namespace AMSExplorer
                 }
 
             }
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listboxPresets.SelectedItem!=null)
+            {
+                try
+                {
+                    string filePath = Path.Combine(EncodingAMEStdPresetXMLFilesFolder, listboxPresets.SelectedItem.ToString() + ".xml");
+                    StreamReader streamReader = new StreamReader(filePath);
+                    usereditmode = false;
+                    textBoxConfiguration.Text = streamReader.ReadToEnd();
+                    usereditmode = true;
+                    streamReader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    usereditmode = true;
+                }
+
+            }
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+           if (usereditmode)  listboxPresets.SelectedIndex = -1;
         }
     }
 

@@ -34,6 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.listboxPresets = new System.Windows.Forms.ListBox();
             this.buttonSaveXML = new System.Windows.Forms.Button();
             this.buttonLoadXML = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -45,9 +47,9 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +97,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.listboxPresets);
             this.groupBox1.Controls.Add(this.buttonSaveXML);
             this.groupBox1.Controls.Add(this.buttonLoadXML);
             this.groupBox1.Controls.Add(this.label2);
@@ -105,11 +109,32 @@
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder Configuration";
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(13, 16);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(159, 13);
+            this.label4.TabIndex = 44;
+            this.label4.Text = "Select a preset or load an XML :";
+            // 
+            // listboxPresets
+            // 
+            this.listboxPresets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listboxPresets.FormattingEnabled = true;
+            this.listboxPresets.Location = new System.Drawing.Point(16, 32);
+            this.listboxPresets.Name = "listboxPresets";
+            this.listboxPresets.Size = new System.Drawing.Size(413, 108);
+            this.listboxPresets.TabIndex = 43;
+            this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
             // buttonSaveXML
             // 
-            this.buttonSaveXML.Enabled = false;
-            this.buttonSaveXML.Location = new System.Drawing.Point(157, 19);
+            this.buttonSaveXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSaveXML.Location = new System.Drawing.Point(586, 117);
             this.buttonSaveXML.Name = "buttonSaveXML";
             this.buttonSaveXML.Size = new System.Drawing.Size(135, 23);
             this.buttonSaveXML.TabIndex = 42;
@@ -119,7 +144,8 @@
             // 
             // buttonLoadXML
             // 
-            this.buttonLoadXML.Location = new System.Drawing.Point(16, 19);
+            this.buttonLoadXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLoadXML.Location = new System.Drawing.Point(445, 117);
             this.buttonLoadXML.Name = "buttonLoadXML";
             this.buttonLoadXML.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML.TabIndex = 41;
@@ -130,7 +156,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 57);
+            this.label2.Location = new System.Drawing.Point(13, 146);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 38;
@@ -142,12 +168,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(16, 73);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(16, 162);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(705, 218);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(705, 129);
             this.textBoxConfiguration.TabIndex = 27;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // comboBoxProcessor
             // 
@@ -227,16 +254,6 @@
             this.panel1.Size = new System.Drawing.Size(786, 48);
             this.panel1.TabIndex = 66;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(622, 432);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // openFileDialogPreset
             // 
             this.openFileDialogPreset.DefaultExt = "xml";
@@ -246,6 +263,16 @@
             // 
             this.saveFileDialogPreset.DefaultExt = "xml";
             this.saveFileDialogPreset.Filter = "Preset file|*.xml|All files|*.*";
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(622, 432);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 
@@ -298,5 +325,7 @@
         private System.Windows.Forms.Button buttonLoadXML;
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.SaveFileDialog saveFileDialogPreset;
+        public System.Windows.Forms.ListBox listboxPresets;
+        public System.Windows.Forms.Label label4;
     }
 }

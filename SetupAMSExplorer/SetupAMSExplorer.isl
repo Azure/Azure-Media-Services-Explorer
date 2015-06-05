@@ -343,7 +343,7 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>AMSExplorer.Content_Files</td><td>{F61F7BA5-1E23-4C9A-92B1-0A298E753DEB}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AMSExplorer.Primary_output</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{DF322FAE-1CFE-448C-AC6F-C654B26930EE}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{8F57174C-616B-46B9-8424-17AE2C4BD93E}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -2035,7 +2035,7 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>AMSExplorer.Content_Files</td><td/><td/><td>_A081E9C2_47DC_4E59_9AE1_B0A1B3BBBEE3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AMSExplorer.Primary_output</td><td/><td/><td>_64934606_DE19_43F2_AF78_DFA794AB380C_FILTER</td><td/><td/><td/><td/></row>
-		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_349DC2CA_EAEA_49C8_8888_2B616306718E_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_3AA3BC7D_0430_4AC5_9880_37B7B58AEB98_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
@@ -4393,9 +4393,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{7FD757AB-02E5-41CE-8DD5-042FE3B62C56}</td><td/></row>
+		<row><td>ProductCode</td><td>{9330FA36-67AF-4F79-B2FC-394D711ED0BA}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
-		<row><td>ProductVersion</td><td>3.23.0.0</td><td/></row>
+		<row><td>ProductVersion</td><td>3.20.0.0</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
