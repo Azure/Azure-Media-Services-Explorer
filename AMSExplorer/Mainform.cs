@@ -5084,6 +5084,9 @@ namespace AMSExplorer
             EnableChildItems(ref assetToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
             EnableChildItems(ref contextMenuStripAssets, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabAssets)));
 
+            EnableChildItems(ref filterToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabFilters)));
+            EnableChildItems(ref contextMenuStripFilters, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabFilters)));
+
             EnableChildItems(ref encodingToolStripMenuItem, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabJobs)));
             EnableChildItems(ref contextMenuStripJobs, (tabcontrol.SelectedTab.Text.StartsWith(Constants.TabJobs)));
 
@@ -5110,7 +5113,7 @@ namespace AMSExplorer
                 processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
                 processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
             }
-          
+
             // let's disable AME Std if not present
             if (!AMEStandardPresent)
             {
@@ -5421,8 +5424,8 @@ namespace AMSExplorer
                 dataGridViewFilters.ColumnCount = 7;
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
-                dataGridViewFilters.Columns[1].HeaderText = "Tracks conditions groups";
-                dataGridViewFilters.Columns[1].Name = "Tracks conditions groups";
+                dataGridViewFilters.Columns[1].HeaderText = "Rules";
+                dataGridViewFilters.Columns[1].Name = "Rules";
                 dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
                 dataGridViewFilters.Columns[2].Name = "Start";
                 dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
@@ -5459,13 +5462,13 @@ namespace AMSExplorer
                 }
 
 
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l, selectedGlobalFilter==filter.Name ?"X":"");
-                if (selectedGlobalFilter==filter.Name)
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l, selectedGlobalFilter == filter.Name ? "X" : "");
+                if (selectedGlobalFilter == filter.Name)
                 {
                     dataGridViewFilters.Rows[rowi].DefaultCellStyle.ForeColor = Color.Blue;
                 }
             }
-          
+
 
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
         }
@@ -8091,13 +8094,8 @@ namespace AMSExplorer
             DoMenuProtectWithPlayReadyStatic();
         }
 
-        private void copyTheOutputURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCopyOutputURLToClipboard();
 
-        }
-
-        private void DoCopyOutputURLToClipboard()
+        private void DoCopyOutputURLProgramToClipboard()
         {
             IProgram program = ReturnSelectedPrograms().FirstOrDefault();
             if (program != null)
@@ -8107,7 +8105,7 @@ namespace AMSExplorer
                 if (ValidURIs.FirstOrDefault() != null)
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
-                    if (selectedGlobalFilter!=null)
+                    if (selectedGlobalFilter != null)
                     {
                         url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
                     }
@@ -8116,11 +8114,26 @@ namespace AMSExplorer
             }
         }
 
-        private void withDASHLiveAzurePlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DoCopyOutputURLAssetOrProgramToClipboard()
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHLiveAzure);
+            IAsset asset= ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            if (asset != null)
+            {
+                AssetInfo AI = new AssetInfo(asset);
+                IEnumerable<Uri> ValidURIs = AI.GetValidURIs();
+                if (ValidURIs.FirstOrDefault() != null)
+                {
+                    string url = ValidURIs.FirstOrDefault().AbsoluteUri;
+                    if (selectedGlobalFilter != null)
+                    {
+                        url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
+                    }
+                    System.Windows.Forms.Clipboard.SetText(url);
+                }
+            }
         }
 
+      
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://www.jwplayer.com/partners/azure/");
@@ -9497,9 +9510,7 @@ namespace AMSExplorer
             // asset info if only one program
             ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = programs.Count == 1;
 
-            // copy program url if only one program
-            ProgramCopyTheOutputURLToClipboardToolStripMenuItem.Enabled = programs.Count == 1;
-        }
+           }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
@@ -9518,7 +9529,7 @@ namespace AMSExplorer
 
         private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
         {
-            DoCopyOutputURLToClipboard();
+            DoCopyOutputURLAssetOrProgramToClipboard();
         }
 
         private void azureMediaServicesSamplesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9786,6 +9797,11 @@ namespace AMSExplorer
 
         private void useThisFilteWhenLanchingAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            DoSelectFilter();
+        }
+
+        private void DoSelectFilter()
+        {
             Filter filter = ReturnSelectedFilters().FirstOrDefault();
             if (filter != null)
             {
@@ -9796,6 +9812,10 @@ namespace AMSExplorer
 
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
+            var filters = ReturnSelectedFilters();
+            bool singleitem = (filters.Count == 1);
+            filterInfoupdateToolStripMenuItem.Enabled =
+            useThisFilteWhenLanchingAzureMediaPlayerToolStripMenuItem.Enabled = singleitem;
 
         }
 
@@ -9804,6 +9824,66 @@ namespace AMSExplorer
             selectedGlobalFilter = null;
             DoRefreshGridFiltersV(false);
         }
+
+        private void toolStripMenuItem23_Click(object sender, EventArgs e)
+        {
+            DoCreateFilter();
+        }
+
+        private void toolStripMenuItem22_Click_1(object sender, EventArgs e)
+        {
+            DoUpdateFilter();
+        }
+
+        private void toolStripMenuItem24_Click(object sender, EventArgs e)
+        {
+            DoDeleteFilter();
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+            DoSelectFilter();
+        }
+
+        private void toolStripMenuItem26_Click(object sender, EventArgs e)
+        {
+            selectedGlobalFilter = null;
+            DoRefreshGridFiltersV(false);
+        }
+
+        private void filterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var filters = ReturnSelectedFilters();
+            bool singleitem = (filters.Count == 1);
+            toolStripMenuItemFilterInfo.Enabled =
+            toolStripMenuItemSelectFilter.Enabled = singleitem;
+        }
+
+
+        private void toolStripMenuItem22_Click_2(object sender, EventArgs e)
+        {
+            DoCopyOutputURLAssetOrProgramToClipboard();
+        }
+
+        private void toolStripMenuItem25_Click_1(object sender, EventArgs e)
+        {
+            DoCopyOutputURLAssetOrProgramToClipboard();
+        }
+
+        private void publishToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var assets = ReturnSelectedAssetsFromProgramsOrAssets();
+
+            // get test token only if one asset
+            getATestTokenToolStripMenuItem.Enabled = assets.Count == 1;
+
+            // copy publish URL only if one asset
+            toolStripMenuItemPublishCopyPubURLToClipb.Enabled = assets.Count == 1;
+
+            
+        }
+
+       
     }
 }
 

@@ -397,9 +397,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.Size = new System.Drawing.Size(71, 13);
             this.label1.TabIndex = 79;
-            this.label1.Text = "Tracks group :";
+            this.label1.Text = "Tracks rules :";
             // 
             // buttonDeleteCondition
             // 

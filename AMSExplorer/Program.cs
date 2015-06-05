@@ -951,6 +951,37 @@ namespace AMSExplorer
             SelectedAssets.Add(asset);
         }
 
+        public IEnumerable<Uri> GetValidURIs()
+        {
+            var _context = SelectedAssets.FirstOrDefault().GetMediaContext();
+            IEnumerable<Uri> ValidURIs;
+            IAsset asset = SelectedAssets.FirstOrDefault();
+            var ismFile = asset.AssetFiles.AsEnumerable().FirstOrDefault(f => f.Name.EndsWith(".ism"));
+            if (ismFile != null)
+            {
+                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime> DateTime.UtcNow);
+
+                var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
+                ValidURIs = locators.SelectMany(l =>
+                    _context
+                        .StreamingEndpoints
+                        .AsEnumerable()
+                          .Where(o => (o.State == StreamingEndpointState.Running) && (o.ScaleUnits > 0))
+                          .OrderByDescending(o => o.CdnEnabled)
+                        .Select(
+                            o =>
+                                template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,
+                                    ismFile.Name)))
+                    .ToArray();
+
+                return ValidURIs;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
         {
             return GetStreamingUris(originLocator, string.Empty, se, https);
