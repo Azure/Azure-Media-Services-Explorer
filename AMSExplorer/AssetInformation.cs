@@ -497,7 +497,7 @@ namespace AMSExplorer
 
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
                         foreach (IAssetFile IAF in myAsset.AssetFiles)
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, checkBoxHttps.Checked) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
                         indexn++;
 
                         if (myAsset.AssetType == AssetType.MediaServicesHLS)

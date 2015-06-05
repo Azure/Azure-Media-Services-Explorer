@@ -88,6 +88,9 @@ namespace AMSExplorer
         bool DisplaySplashDuringLoading;
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
+        // selected global filter
+        public string selectedGlobalFilter = null;
+
         public Mainform()
         {
             InitializeComponent();
@@ -5411,7 +5414,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewFilters.ColumnCount = 6;
+                dataGridViewFilters.ColumnCount = 7;
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
                 dataGridViewFilters.Columns[1].HeaderText = "Tracks conditions groups";
@@ -5424,6 +5427,8 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[4].Name = "DVR";
                 dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
                 dataGridViewFilters.Columns[5].Name = "LiveDelay";
+                dataGridViewFilters.Columns[6].HeaderText = "Selected";
+                dataGridViewFilters.Columns[6].Name = "Selected";
             }
             dataGridViewFilters.Rows.Clear();
             List<Filter> filters = _contextdynmanifest.ListFilters();
@@ -5454,8 +5459,9 @@ namespace AMSExplorer
                 }
 
 
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l, selectedGlobalFilter==filter.Name ?"X":"");
             }
+          
 
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
         }
@@ -8096,7 +8102,12 @@ namespace AMSExplorer
                 IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
                 if (ValidURIs.FirstOrDefault() != null)
                 {
-                    System.Windows.Forms.Clipboard.SetText(ValidURIs.FirstOrDefault().AbsoluteUri);
+                    string url = ValidURIs.FirstOrDefault().AbsoluteUri;
+                    if (selectedGlobalFilter!=null)
+                    {
+                        url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
+                    }
+                    System.Windows.Forms.Clipboard.SetText(url);
                 }
             }
         }
@@ -8933,7 +8944,7 @@ namespace AMSExplorer
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset);
+                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset, false, selectedGlobalFilter);
                     }
                     else
                     {
@@ -9767,6 +9778,27 @@ namespace AMSExplorer
         {
             DoMenuEncodeWithAMEStandard();
 
+        }
+
+        private void useThisFilteWhenLanchingAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Filter filter = ReturnSelectedFilters().FirstOrDefault();
+            if (filter != null)
+            {
+                selectedGlobalFilter = filter.Name;
+            }
+            DoRefreshGridFiltersV(false);
+        }
+
+        private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void noFilterWithAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            selectedGlobalFilter = null;
+            DoRefreshGridFiltersV(false);
         }
     }
 }

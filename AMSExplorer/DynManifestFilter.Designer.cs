@@ -35,7 +35,29 @@
             this.textBoxFilterName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.textBoxLiveBackoffDuration = new System.Windows.Forms.TextBox();
+            this.textBoxPresentationWindowDuration = new System.Windows.Forms.TextBox();
+            this.textBoxEndTimestamp = new System.Windows.Forms.TextBox();
+            this.textBoxTimescale = new System.Windows.Forms.TextBox();
+            this.textBoxStartTimestamp = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxLabelLiveBackoff = new System.Windows.Forms.TextBox();
+            this.textBoxLabelDVR = new System.Windows.Forms.TextBox();
+            this.textBoxLabelEnd = new System.Windows.Forms.TextBox();
+            this.textBoxLabelStart = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,30 +69,13 @@
             this.dataGridViewTracks = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonInsertSample = new System.Windows.Forms.Button();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBoxLiveBackoffDuration = new System.Windows.Forms.TextBox();
-            this.textBoxPresentationWindowDuration = new System.Windows.Forms.TextBox();
-            this.textBoxEndTimestamp = new System.Windows.Forms.TextBox();
-            this.textBoxTimescale = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.textBoxStartTimestamp = new System.Windows.Forms.TextBox();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
+            this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -124,6 +129,55 @@
             this.label4.TabIndex = 61;
             this.label4.Text = "Filter name :";
             // 
+            // textBoxLiveBackoffDuration
+            // 
+            this.textBoxLiveBackoffDuration.Location = new System.Drawing.Point(9, 218);
+            this.textBoxLiveBackoffDuration.Name = "textBoxLiveBackoffDuration";
+            this.textBoxLiveBackoffDuration.Size = new System.Drawing.Size(239, 20);
+            this.textBoxLiveBackoffDuration.TabIndex = 70;
+            this.toolTip1.SetToolTip(this.textBoxLiveBackoffDuration, "Applies a live presentation backoff, or delay, to the media.");
+            this.textBoxLiveBackoffDuration.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxPresentationWindowDuration
+            // 
+            this.textBoxPresentationWindowDuration.Location = new System.Drawing.Point(9, 156);
+            this.textBoxPresentationWindowDuration.Name = "textBoxPresentationWindowDuration";
+            this.textBoxPresentationWindowDuration.Size = new System.Drawing.Size(239, 20);
+            this.textBoxPresentationWindowDuration.TabIndex = 68;
+            this.toolTip1.SetToolTip(this.textBoxPresentationWindowDuration, "Defines a sliding window at the live edge or end of the presentation. Media withi" +
+        "n this sliding window will be included in the playlist (manifest).");
+            this.textBoxPresentationWindowDuration.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxEndTimestamp
+            // 
+            this.textBoxEndTimestamp.Location = new System.Drawing.Point(9, 101);
+            this.textBoxEndTimestamp.Name = "textBoxEndTimestamp";
+            this.textBoxEndTimestamp.Size = new System.Drawing.Size(239, 20);
+            this.textBoxEndTimestamp.TabIndex = 66;
+            this.toolTip1.SetToolTip(this.textBoxEndTimestamp, "Media that ends before this timestamp will be included in the playlist (manifest)" +
+        ".");
+            this.textBoxEndTimestamp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxTimescale
+            // 
+            this.textBoxTimescale.Location = new System.Drawing.Point(9, 281);
+            this.textBoxTimescale.Name = "textBoxTimescale";
+            this.textBoxTimescale.Size = new System.Drawing.Size(239, 20);
+            this.textBoxTimescale.TabIndex = 76;
+            this.toolTip1.SetToolTip(this.textBoxTimescale, "The timescale used by the timestamps and durations specified above. The default t" +
+        "imescale is 10000000.  ");
+            this.textBoxTimescale.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
+            // textBoxStartTimestamp
+            // 
+            this.textBoxStartTimestamp.Location = new System.Drawing.Point(9, 49);
+            this.textBoxStartTimestamp.Name = "textBoxStartTimestamp";
+            this.textBoxStartTimestamp.Size = new System.Drawing.Size(239, 20);
+            this.textBoxStartTimestamp.TabIndex = 64;
+            this.toolTip1.SetToolTip(this.textBoxStartTimestamp, "Media that starts after this timestamp will be included in the playlist (manifest" +
+        ").");
+            this.textBoxStartTimestamp.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -136,6 +190,180 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(687, 350);
             this.tabControl1.TabIndex = 78;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.textBoxLabelLiveBackoff);
+            this.tabPage1.Controls.Add(this.textBoxLabelDVR);
+            this.tabPage1.Controls.Add(this.textBoxLabelEnd);
+            this.tabPage1.Controls.Add(this.textBoxLabelStart);
+            this.tabPage1.Controls.Add(this.label9);
+            this.tabPage1.Controls.Add(this.label8);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label21);
+            this.tabPage1.Controls.Add(this.label19);
+            this.tabPage1.Controls.Add(this.textBoxStartTimestamp);
+            this.tabPage1.Controls.Add(this.label18);
+            this.tabPage1.Controls.Add(this.label17);
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.textBoxTimescale);
+            this.tabPage1.Controls.Add(this.textBoxEndTimestamp);
+            this.tabPage1.Controls.Add(this.textBoxPresentationWindowDuration);
+            this.tabPage1.Controls.Add(this.textBoxLiveBackoffDuration);
+            this.tabPage1.Controls.Add(this.textBox7);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(679, 324);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Presentation Time Range";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBoxLabelLiveBackoff
+            // 
+            this.textBoxLabelLiveBackoff.Location = new System.Drawing.Point(254, 218);
+            this.textBoxLabelLiveBackoff.Name = "textBoxLabelLiveBackoff";
+            this.textBoxLabelLiveBackoff.ReadOnly = true;
+            this.textBoxLabelLiveBackoff.Size = new System.Drawing.Size(85, 20);
+            this.textBoxLabelLiveBackoff.TabIndex = 96;
+            // 
+            // textBoxLabelDVR
+            // 
+            this.textBoxLabelDVR.Location = new System.Drawing.Point(254, 156);
+            this.textBoxLabelDVR.Name = "textBoxLabelDVR";
+            this.textBoxLabelDVR.ReadOnly = true;
+            this.textBoxLabelDVR.Size = new System.Drawing.Size(85, 20);
+            this.textBoxLabelDVR.TabIndex = 95;
+            // 
+            // textBoxLabelEnd
+            // 
+            this.textBoxLabelEnd.Location = new System.Drawing.Point(254, 101);
+            this.textBoxLabelEnd.Name = "textBoxLabelEnd";
+            this.textBoxLabelEnd.ReadOnly = true;
+            this.textBoxLabelEnd.Size = new System.Drawing.Size(85, 20);
+            this.textBoxLabelEnd.TabIndex = 94;
+            // 
+            // textBoxLabelStart
+            // 
+            this.textBoxLabelStart.Location = new System.Drawing.Point(254, 49);
+            this.textBoxLabelStart.Name = "textBoxLabelStart";
+            this.textBoxLabelStart.ReadOnly = true;
+            this.textBoxLabelStart.Size = new System.Drawing.Size(85, 20);
+            this.textBoxLabelStart.TabIndex = 93;
+            // 
+            // label9
+            // 
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(6, 6);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(523, 16);
+            this.label9.TabIndex = 87;
+            this.label9.Text = "Keep the field empty to not specify the settings. Filter activation can take up t" +
+    "o 2 minutes.";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 265);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(61, 13);
+            this.label8.TabIndex = 86;
+            this.label8.Text = "Timescale :";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 202);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(180, 13);
+            this.label7.TabIndex = 85;
+            this.label7.Text = "Live Backoff Duration (live position) :";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 140);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(78, 13);
+            this.label5.TabIndex = 84;
+            this.label5.Text = "DVR Window :";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 85);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 83;
+            this.label3.Text = "End Timestamp :";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.TabIndex = 80;
+            this.label2.Text = "Start Timestamp :";
+            // 
+            // label21
+            // 
+            this.label21.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label21.Location = new System.Drawing.Point(345, 281);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(328, 32);
+            this.label21.TabIndex = 77;
+            this.label21.Text = "Live and VOD";
+            // 
+            // label19
+            // 
+            this.label19.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label19.Location = new System.Drawing.Point(345, 156);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(328, 38);
+            this.label19.TabIndex = 74;
+            this.label19.Text = "Live, but also applies to VOD to enable smooth transitions when the presentation " +
+    "ends. Min 120 seconds";
+            // 
+            // label18
+            // 
+            this.label18.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label18.Location = new System.Drawing.Point(345, 104);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(314, 36);
+            this.label18.TabIndex = 73;
+            this.label18.Text = "VOD (ignored for Live but applies to archive), Absolute time.\r\nValue rounded to t" +
+    "he closest next GOP start.";
+            // 
+            // label17
+            // 
+            this.label17.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label17.Location = new System.Drawing.Point(345, 49);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(262, 36);
+            this.label17.TabIndex = 72;
+            this.label17.Text = "Live and VOD. Absolute time.\r\nValue rounded to the closest next GOP start.";
+            // 
+            // label16
+            // 
+            this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label16.Location = new System.Drawing.Point(345, 221);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(328, 32);
+            this.label16.TabIndex = 71;
+            this.label16.Text = "Live only, but silently ignored for VOD to enable smooth transitions when the pre" +
+    "sentation ends. Max 60 seconds";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Enabled = false;
+            this.textBox7.Location = new System.Drawing.Point(9, 218);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(239, 20);
+            this.textBox7.TabIndex = 70;
             // 
             // tabPage2
             // 
@@ -251,7 +479,7 @@
             // 
             // buttonInsertSample
             // 
-            this.buttonInsertSample.Location = new System.Drawing.Point(573, 31);
+            this.buttonInsertSample.Location = new System.Drawing.Point(578, 35);
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(121, 23);
             this.buttonInsertSample.TabIndex = 79;
@@ -259,187 +487,16 @@
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
-            // textBox7
+            // moreinfoprofilelink
             // 
-            this.textBox7.Enabled = false;
-            this.textBox7.Location = new System.Drawing.Point(9, 218);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(239, 20);
-            this.textBox7.TabIndex = 70;
-            // 
-            // textBoxLiveBackoffDuration
-            // 
-            this.textBoxLiveBackoffDuration.Location = new System.Drawing.Point(9, 218);
-            this.textBoxLiveBackoffDuration.Name = "textBoxLiveBackoffDuration";
-            this.textBoxLiveBackoffDuration.Size = new System.Drawing.Size(239, 20);
-            this.textBoxLiveBackoffDuration.TabIndex = 70;
-            this.toolTip1.SetToolTip(this.textBoxLiveBackoffDuration, "Applies a live presentation backoff, or delay, to the media.");
-            // 
-            // textBoxPresentationWindowDuration
-            // 
-            this.textBoxPresentationWindowDuration.Location = new System.Drawing.Point(9, 156);
-            this.textBoxPresentationWindowDuration.Name = "textBoxPresentationWindowDuration";
-            this.textBoxPresentationWindowDuration.Size = new System.Drawing.Size(239, 20);
-            this.textBoxPresentationWindowDuration.TabIndex = 68;
-            this.toolTip1.SetToolTip(this.textBoxPresentationWindowDuration, "Defines a sliding window at the live edge or end of the presentation. Media withi" +
-        "n this sliding window will be included in the playlist (manifest).");
-            // 
-            // textBoxEndTimestamp
-            // 
-            this.textBoxEndTimestamp.Location = new System.Drawing.Point(9, 101);
-            this.textBoxEndTimestamp.Name = "textBoxEndTimestamp";
-            this.textBoxEndTimestamp.Size = new System.Drawing.Size(239, 20);
-            this.textBoxEndTimestamp.TabIndex = 66;
-            this.toolTip1.SetToolTip(this.textBoxEndTimestamp, "Media that ends before this timestamp will be included in the playlist (manifest)" +
-        ".");
-            // 
-            // textBoxTimescale
-            // 
-            this.textBoxTimescale.Location = new System.Drawing.Point(9, 281);
-            this.textBoxTimescale.Name = "textBoxTimescale";
-            this.textBoxTimescale.Size = new System.Drawing.Size(239, 20);
-            this.textBoxTimescale.TabIndex = 76;
-            this.toolTip1.SetToolTip(this.textBoxTimescale, "The timescale used by the timestamps and durations specified above. The default t" +
-        "imescale is 10000000.  ");
-            // 
-            // label16
-            // 
-            this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label16.Location = new System.Drawing.Point(254, 221);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(388, 32);
-            this.label16.TabIndex = 71;
-            this.label16.Text = "Live only, but silently ignored for VOD to enable smooth transitions when the pre" +
-    "sentation ends. Max 60 seconds";
-            // 
-            // label17
-            // 
-            this.label17.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label17.Location = new System.Drawing.Point(254, 52);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(323, 36);
-            this.label17.TabIndex = 72;
-            this.label17.Text = "Live and VOD. Absolute time.\r\nValue rounded to the closest next GOP start.";
-            // 
-            // label18
-            // 
-            this.label18.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label18.Location = new System.Drawing.Point(254, 104);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(297, 36);
-            this.label18.TabIndex = 73;
-            this.label18.Text = "VOD (ignored for Live but applies to archive), Absolute time.\r\nValue rounded to t" +
-    "he closest next GOP start.";
-            // 
-            // textBoxStartTimestamp
-            // 
-            this.textBoxStartTimestamp.Location = new System.Drawing.Point(9, 49);
-            this.textBoxStartTimestamp.Name = "textBoxStartTimestamp";
-            this.textBoxStartTimestamp.Size = new System.Drawing.Size(239, 20);
-            this.textBoxStartTimestamp.TabIndex = 64;
-            this.toolTip1.SetToolTip(this.textBoxStartTimestamp, "Media that starts after this timestamp will be included in the playlist (manifest" +
-        ").");
-            // 
-            // label19
-            // 
-            this.label19.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label19.Location = new System.Drawing.Point(254, 156);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(346, 38);
-            this.label19.TabIndex = 74;
-            this.label19.Text = "Live, but also applies to VOD to enable smooth transitions when the presentation " +
-    "ends. Min 120 seconds";
-            // 
-            // label21
-            // 
-            this.label21.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label21.Location = new System.Drawing.Point(254, 281);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(388, 32);
-            this.label21.TabIndex = 77;
-            this.label21.Text = "Live and VOD";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 33);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
-            this.label2.TabIndex = 80;
-            this.label2.Text = "Start Timestamp :";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(9, 85);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(86, 13);
-            this.label3.TabIndex = 83;
-            this.label3.Text = "End Timestamp :";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 140);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(78, 13);
-            this.label5.TabIndex = 84;
-            this.label5.Text = "DVR Window :";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 202);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(180, 13);
-            this.label7.TabIndex = 85;
-            this.label7.Text = "Live Backoff Duration (live position) :";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 265);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(61, 13);
-            this.label8.TabIndex = 86;
-            this.label8.Text = "Timescale :";
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.label9);
-            this.tabPage1.Controls.Add(this.label8);
-            this.tabPage1.Controls.Add(this.label7);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.textBoxStartTimestamp);
-            this.tabPage1.Controls.Add(this.label18);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.textBoxTimescale);
-            this.tabPage1.Controls.Add(this.textBoxEndTimestamp);
-            this.tabPage1.Controls.Add(this.textBoxPresentationWindowDuration);
-            this.tabPage1.Controls.Add(this.textBoxLiveBackoffDuration);
-            this.tabPage1.Controls.Add(this.textBox7);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(679, 324);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Presentation Time Range";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(6, 6);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(523, 16);
-            this.label9.TabIndex = 87;
-            this.label9.Text = "Keep the field empty to not specify the settings. Filter activation can take up t" +
-    "o 2 minutes.";
+            this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoprofilelink.AutoSize = true;
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(614, 74);
+            this.moreinfoprofilelink.Name = "moreinfoprofilelink";
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
+            this.moreinfoprofilelink.TabIndex = 80;
+            this.moreinfoprofilelink.TabStop = true;
+            this.moreinfoprofilelink.Text = "More information";
             // 
             // DynManifestFilter
             // 
@@ -447,6 +504,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(713, 502);
+            this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.textBoxFilterName);
@@ -457,12 +515,12 @@
             this.Load += new System.EventHandler(this.DynManifestFilter_Load);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -506,5 +564,10 @@
         private System.Windows.Forms.TextBox textBoxLiveBackoffDuration;
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxLabelLiveBackoff;
+        private System.Windows.Forms.TextBox textBoxLabelDVR;
+        private System.Windows.Forms.TextBox textBoxLabelEnd;
+        private System.Windows.Forms.TextBox textBoxLabelStart;
+        private System.Windows.Forms.LinkLabel moreinfoprofilelink;
     }
 }

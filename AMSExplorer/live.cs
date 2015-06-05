@@ -1055,6 +1055,7 @@ namespace AMSExplorer
                         .StreamingEndpoints
                         .AsEnumerable()
                           .Where(o => (o.State == StreamingEndpointState.Running) && (o.ScaleUnits > 0))
+                          .OrderByDescending(o => o.CdnEnabled)
                         .Select(
                             o =>
                                 template.BindByPosition(new Uri("http://" + o.HostName), l.ContentAccessComponent,

@@ -25,18 +25,21 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-           
+
             _filter = new Filter();
             _filter.SetContext(_context);
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
             _filter.Tracks = new List<IFilterTrackSelect>();
-                       
+
         }
 
 
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
+          
+
             RefreshPresentationTimes();
             RefreshTracks();
 
@@ -258,17 +261,17 @@ namespace AMSExplorer
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
-           
+
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
-            
+
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
-      
+
             _filter.Tracks = tracks;
 
             RefreshPresentationTimes();
@@ -280,7 +283,7 @@ namespace AMSExplorer
         private void RefreshPresentationTimes()
         {
             textBoxFilterName.Text = _filter.Name;
-            if (_filter.PresentationTimeRange!=null)
+            if (_filter.PresentationTimeRange != null)
             {
                 textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
                 textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
@@ -296,7 +299,65 @@ namespace AMSExplorer
                 textBoxPresentationWindowDuration.Text = string.Empty;
                 textBoxTimescale.Text = string.Empty;
             }
-            
+
+        }
+
+        private void textBox_TextChanged(object sender, EventArgs e)
+        {
+            double scale = 1;
+            try
+            {
+                scale = Convert.ToDouble(textBoxTimescale.Text) / 10000000;
+            }
+            catch
+            {
+
+            }
+
+            long start = 0;
+            try
+            {
+                start = Convert.ToInt64(textBoxStartTimestamp.Text);
+            }
+            catch
+            {
+
+            }
+
+            long end = long.MaxValue;
+            try
+            {
+                end = Convert.ToInt64(textBoxEndTimestamp.Text);
+            }
+            catch
+            {
+
+            }
+
+            long dvr = long.MaxValue;
+            try
+            {
+                dvr = Convert.ToInt64(textBoxPresentationWindowDuration.Text);
+            }
+            catch
+            {
+
+            }
+
+            long live = 0;
+            try
+            {
+                live = Convert.ToInt64(textBoxLiveBackoffDuration.Text);
+            }
+            catch
+            {
+
+            }
+
+            textBoxLabelStart.Text = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
+            textBoxLabelEnd.Text = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
+            textBoxLabelDVR.Text = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
+            textBoxLabelLiveBackoff.Text = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
         }
     }
 }

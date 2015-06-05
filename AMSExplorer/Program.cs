@@ -462,6 +462,7 @@ namespace AMSExplorer
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
         public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/2015/05/14/announcing-hyperlapse-for-azure-media-services/";
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
+        public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 
@@ -929,9 +930,8 @@ namespace AMSExplorer
         private const string format_hls_v4 = "m3u8-aapl";
         private const string format_hls_v3 = "m3u8-aapl-v3";
         private const string format_dash = "mpd-time-csf";
-        private const string format_url = "(format={0})";
-
-
+        private const string format_url = "format={0}";
+        private const string filter_url = "filter={0}";
 
         private const string ManifestFileExtension = ".ism";
         private const string HlsStreamingParameter = "(format=m3u8-aapl)";
@@ -939,7 +939,6 @@ namespace AMSExplorer
         private const string MpegDashStreamingParameter = "(format=mpd-time-csf)";
         private const string SmoothStreamingLegacyParameter = "(format=fmp4-v20)";
         private const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
-
 
 
         public AssetInfo(List<IAsset> mySelectedAssets)
@@ -1057,32 +1056,62 @@ namespace AMSExplorer
         {
             return string.Format("{0}(format={1})", smooth_uri, format_smooth_legacy);
         }
+        public static string AddFilterToUrlString(string urlstr, string filter)
+        {
+            // add a filter
+            return AddParameterToUrlString(urlstr, string.Format(AssetInfo.filter_url, filter));
+        }
+
+        public static string AddParameterToUrlString(string urlstr, string parameter)
+        {
+            // add a parameter (like "format=mpd-time-csf" or "filter=myfilter" to urlstr
+
+            const string querystr = "/manifest(";
+
+            if (urlstr.Contains(querystr)) // there is already a parameter
+            {
+                int pos = urlstr.IndexOf(querystr, 0);
+                urlstr = urlstr.Substring(0, pos + 10) + parameter + "," + urlstr.Substring(pos + 10);
+            }
+            else
+            {
+                urlstr += string.Format("({0})", parameter);
+            }
+                
+            return urlstr;
+        }
 
         // return the URL with hostname from streaming endpoint
-        public static Uri RW(Uri url, IStreamingEndpoint se, bool https = false)
+        public static Uri RW(Uri url, IStreamingEndpoint se, string filter = null, bool https = false)
         {
             if (url != null)
             {
                 string hostname = se.HostName;
+                string path = url.AbsolutePath;
+                if (filter != null) // we want to add filter
+                {
+                    path = AddParameterToUrlString(path, string.Format(AssetInfo.filter_url, filter));
+                }
+
                 UriBuilder urib = new UriBuilder()
                 {
                     Host = hostname,
                     Scheme = https ? "https://" : "http://",
-                    Path = url.AbsolutePath,
+                    Path = path,
                 };
                 return urib.Uri;
             }
             else return null;
         }
 
-        public static IEnumerable<Uri> rw(IEnumerable<Uri> urls, IStreamingEndpoint se, bool https = false)
+        public static IEnumerable<Uri> rw(IEnumerable<Uri> urls, IStreamingEndpoint se, string filter = null, bool https = false)
         {
-            return urls.Select(u => RW(u, se, https));
+            return urls.Select(u => RW(u, se, filter, https));
         }
 
-        public static string RW(string path, IStreamingEndpoint se, bool https = false)
+        public static string RW(string path, IStreamingEndpoint se, string filter = null, bool https = false)
         {
-            return RW(new Uri(path), se, https).AbsoluteUri;
+            return RW(new Uri(path), se, filter, https).AbsoluteUri;
         }
 
 
@@ -1646,7 +1675,7 @@ namespace AMSExplorer
 
 
         public static string DoPlayBackWithBestStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context,
-            IAsset myasset = null, bool DoNotRewriteURL = false, AssetProtectionType keytype = AssetProtectionType.None,
+            IAsset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true)
         {
@@ -1655,7 +1684,7 @@ namespace AMSExplorer
             {
 
                 IStreamingEndpoint choosenSE = GetBestStreamingEndpoint(context);
-                if (!DoNotRewriteURL) Urlstr = RW(Urlstr, choosenSE);
+                if (!DoNotRewriteURL) Urlstr = RW(Urlstr, choosenSE, filter);
 
                 DynamicEncryption.TokenResult tokenresult = new DynamicEncryption.TokenResult();
 
@@ -1809,47 +1838,53 @@ namespace AMSExplorer
                             }
                         }
 
-                        FullPlayBackLink = string.Format(playerurl, Urlstr);
+                        FullPlayBackLink = string.Format(playerurl, HttpUtility.UrlEncode(Urlstr));
 
                         break;
 
                     case PlayerType.SilverlightMonitoring:
-                        FullPlayBackLink = @"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + Urlstr;
+                        FullPlayBackLink = @"http://smf.cloudapp.net/healthmonitor?Autoplay=true&url=" + HttpUtility.UrlEncode(Urlstr);
                         break;
 
                     case PlayerType.SilverlightPlayReadyToken:
-                        FullPlayBackLink = string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult);
+                        FullPlayBackLink = string.Format(@"http://sltoken.azurewebsites.net/#/!?url={0}&token={1}", HttpUtility.UrlEncode(Urlstr), tokenresult);
                         break;
 
                     case PlayerType.DASHIFRefPlayer:
-                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
+                        {
+                            Urlstr=AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                        }
                         FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.3.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHAzurePage:
-                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + Urlstr;
+                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=silverlight&format=mpeg-dash&url=" + HttpUtility.UrlEncode(Urlstr);
                         break;
 
                     case PlayerType.DASHLiveAzure:
-                        if (!Urlstr.EndsWith(string.Format(AssetInfo.format_url, AssetInfo.format_dash))) Urlstr += string.Format(AssetInfo.format_url, AssetInfo.format_dash); // if not DASH extension, let's add it
+                        if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
+                        {
+                            Urlstr=AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                        }
                         FullPlayBackLink = @"http://dashplayer.azurewebsites.net?url=" + Urlstr;
                         break;
 
                     case PlayerType.FlashAzurePage:
-                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + Urlstr;
+                        FullPlayBackLink = @"http://amsplayer.azurewebsites.net/player.html?player=flash&format=smooth&url=" + HttpUtility.UrlEncode(Urlstr);
                         break;
 
                     case PlayerType.FlashAESToken:
-                        FullPlayBackLink = string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", Urlstr, tokenresult);
+                        FullPlayBackLink = string.Format(@"http://aestoken.azurewebsites.net/#/!?url={0}&token={1}", HttpUtility.UrlEncode(Urlstr), tokenresult);
                         break;
 
                     case PlayerType.MP4AzurePage:
-                        FullPlayBackLink = string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", Urlstr);
+                        FullPlayBackLink = string.Format(@"http://amsplayer.azurewebsites.net/player.html?player=html5&format=mp4&url={0}&mp4url={0}", HttpUtility.UrlEncode(Urlstr));
                         break;
 
                     case PlayerType.CustomPlayer:
                         string myurl = Properties.Settings.Default.CustomPlayerUrl;
-                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, Urlstr).Replace(Constants.NameconvToken, tokenresult.TokenString);
+                        FullPlayBackLink = myurl.Replace(Constants.NameconvManifestURL, HttpUtility.UrlEncode(Urlstr)).Replace(Constants.NameconvToken, tokenresult.TokenString);
                         break;
                 }
 
