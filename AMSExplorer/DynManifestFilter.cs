@@ -24,6 +24,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -51,7 +52,7 @@ namespace AMSExplorer
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
-          
+
 
             RefreshPresentationTimes();
             RefreshTracks();
@@ -134,6 +135,7 @@ namespace AMSExplorer
                 // goal is to display an existing filer
                 _filter = value;
                 buttonOk.Text = "Update Filter";
+                textBoxFilterName.Enabled = false; // no way to change the filter name
             }
         }
 
@@ -234,7 +236,25 @@ namespace AMSExplorer
                 var track = _filter.Tracks[listBoxTracks.SelectedIndex];
                 foreach (var condition in track.PropertyConditions)
                 {
-                    dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
+                    int index = dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
+
+
+
+
+
+                    if (condition.Property == FilterProperty.Type) // property type - we want to propose audio, video or text dropbox
+                    {
+                        var cellValue = new DataGridViewComboBoxCell();
+                        cellValue.DataSource = dataPropertyType;
+                        cellValue.ValueMember = "Value";
+                        cellValue.DisplayMember = "Description";
+                        cellValue.Value = condition.Value;
+                        dataGridViewTracks[2, index] = cellValue;
+                            //dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    }
+
+
+
 
                 }
             }
@@ -370,6 +390,11 @@ namespace AMSExplorer
             textBoxLabelEnd.Text = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelDVR.Text = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelLiveBackoff.Text = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
+        }
+
+        private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }

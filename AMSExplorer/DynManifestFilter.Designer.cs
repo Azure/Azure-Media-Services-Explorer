@@ -479,6 +479,7 @@
             // 
             // buttonInsertSample
             // 
+            this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonInsertSample.Location = new System.Drawing.Point(578, 35);
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(121, 23);
@@ -497,6 +498,7 @@
             this.moreinfoprofilelink.TabIndex = 80;
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.Text = "More information";
+            this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
             // DynManifestFilter
             // 
