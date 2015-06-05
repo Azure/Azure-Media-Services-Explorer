@@ -1,4 +1,4 @@
-﻿/----------------------------------------------------------------------- 
+﻿//----------------------------------------------------------------------- 
 // <copyright file="EncodingAMEStandard.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
 // <license>
 // Azure Media Services Explorer Ver. 3.2
@@ -34,7 +34,6 @@ namespace AMSExplorer
 {
     public partial class EncodingAMEStandard : Form
     {
-        public XDocument doc;
         public string EncodingAMEStdPresetXMLFilesUserFolder;
         public string EncodingAMEStdPresetXMLFilesFolder;
 
