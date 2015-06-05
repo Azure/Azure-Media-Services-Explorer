@@ -11,7 +11,6 @@ using System.Windows.Forms;
 namespace AMSExplorer
 {
 
-
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
@@ -30,10 +29,7 @@ namespace AMSExplorer
             _filter.SetContext(_context);
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
             _filter.Tracks = new List<IFilterTrackSelect>();
-
         }
-
-
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
@@ -86,7 +82,6 @@ namespace AMSExplorer
             var columnValue = new DataGridViewTextBoxColumn();
 
             dataGridViewTracks.Columns.Add(columnValue);
-
         }
 
         private void RefreshTracks()

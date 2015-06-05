@@ -194,6 +194,8 @@ namespace AMSExplorer
                 AMEStandardPresent = false;
                 encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
                 encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
+                toolStripSeparator35.Visible = false;
+                toolStripSeparator32.Visible = false;
             }
 
 
@@ -5114,6 +5116,8 @@ namespace AMSExplorer
             {
                 encodeAssetsWithAMEStandardToolStripMenuItem.Visible = false;
                 encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
+                toolStripSeparator35.Visible = false;
+                toolStripSeparator32.Visible = false;
             }
         }
 
@@ -5452,14 +5456,14 @@ namespace AMSExplorer
                     s = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
                     d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
                     l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
-
-                    //s = String.Format(f, (start / scale)); 
-                    // e = String.Format(f, (end / scale)); 
-                    // d = String.Format(f, (dvr / scale)); 
                 }
 
 
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l, selectedGlobalFilter==filter.Name ?"X":"");
+                if (selectedGlobalFilter==filter.Name)
+                {
+                    dataGridViewFilters.Rows[rowi].DefaultCellStyle.ForeColor = Color.Blue;
+                }
             }
           
 
