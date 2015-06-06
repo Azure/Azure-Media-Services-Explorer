@@ -158,7 +158,7 @@ namespace AMSExplorer
         /// </returns>
         private Tuple<string, DateTime> FetchAccessToken()
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(acsEndpoint+"/v2/OAuth2-13");
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(acsEndpoint + "/v2/OAuth2-13");
             request.Method = HttpVerbs.Post;
             string requestBody = string.Format(CultureInfo.InvariantCulture, acsRequestBodyFormat, _accountName, HttpUtility.UrlEncode(_accountKey), HttpUtility.UrlEncode(scope));
             request.ContentLength = Encoding.UTF8.GetByteCount(requestBody);
@@ -227,6 +227,36 @@ namespace AMSExplorer
 
                     var serializer = new JavaScriptSerializer();
                     returnFilters = (List<Filter>)serializer.Deserialize(value.ToString(), typeof(List<Filter>));
+                    returnFilters.ForEach(f => f.SetContext(this));
+                }
+            }
+
+            return returnFilters;
+        }
+
+        public List<AssetFilter> ListAssetFilters(IAsset asset)
+        {
+            List<AssetFilter> returnFilters = new List<AssetFilter>();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Assets('{1}')/AssetFilters", WamsEndpoint, asset.Id));
+            request.Method = HttpVerbs.Get;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+
+            using (var response = (HttpWebResponse)request.GetResponse())
+            {
+                using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), true))
+                {
+                    var returnBody = streamReader.ReadToEnd();
+
+                    JObject responseJsonObject = JObject.Parse(returnBody);
+                    var value = responseJsonObject["value"];
+
+                    var serializer = new JavaScriptSerializer();
+                    returnFilters = (List<AssetFilter>)serializer.Deserialize(value.ToString(), typeof(List<AssetFilter>));
                     returnFilters.ForEach(f => f.SetContext(this));
                 }
             }
@@ -484,7 +514,7 @@ namespace AMSExplorer
     [DataContract]
     public class Filter
     {
-        private MediaServiceContextForDynManifest _context;
+        internal MediaServiceContextForDynManifest _context;
 
         public Filter()
         {
@@ -526,8 +556,6 @@ namespace AMSExplorer
 
         public void Create()  // return true if success
         {
-
-
             string serializedResult;
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(this.GetType());
             using (MemoryStream ms = new MemoryStream())
@@ -535,7 +563,6 @@ namespace AMSExplorer
                 serializer.WriteObject(ms, this);
                 serializedResult = Encoding.Default.GetString(ms.ToArray());
             }
-
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters/", _context.WamsEndpoint));
             request.Method = HttpVerbs.Post;
@@ -567,8 +594,6 @@ namespace AMSExplorer
             {
                 throw e;
             }
-
-
         }
 
         public void Update()  // return true if success
@@ -660,5 +685,120 @@ namespace AMSExplorer
         }
 
 
+    }
+
+    [DataContract]
+    public class AssetFilter : Filter
+    {
+
+        [DataMember(Name = "Id", IsRequired = true)]
+        public string Id
+        {
+            get;
+            set;
+        }
+
+        [DataMember(Name = "ParentAssetId", IsRequired = true)]
+        public string ParentAssetId
+        {
+            get;
+            set;
+        }
+
+        public AssetFilter()
+        {
+        }
+
+         public AssetFilter(IAsset asset)
+        {
+            ParentAssetId = asset.Id;
+        }
+
+        public void SetParentAsset(IAsset parentasset)
+        {
+            ParentAssetId = parentasset.Id;
+        }
+
+
+        public void Create()  // return true if success
+        {
+            string serializedResult;
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(this.GetType());
+            using (MemoryStream ms = new MemoryStream())
+            {
+                serializer.WriteObject(ms, this);
+                serializedResult = Encoding.Default.GetString(ms.ToArray());
+            }
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}AssetFilters/", _context.WamsEndpoint));
+            request.Method = HttpVerbs.Post;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, _context.AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+            request.Headers.Add(RequestHeaders.XMsClientRequestId, RequestHeaderValues.ZeroID);
+            request.ContentLength = Encoding.UTF8.GetByteCount(serializedResult);
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(serializedResult);
+            }
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.Created)
+                    {
+                        // success
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void Delete()  // return true if success
+        {
+
+            var serializer = new JavaScriptSerializer();
+            var serializedResult = serializer.Serialize(this);
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}AssetFilters('{1}')", _context.WamsEndpoint, Id));
+            request.Method = HttpVerbs.Delete;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, _context.AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+            request.Headers.Add(RequestHeaders.XMsClientRequestId, RequestHeaderValues.ZeroID);
+            request.ContentLength = Encoding.UTF8.GetByteCount(serializedResult);
+
+            using (StreamWriter streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                streamWriter.Write(serializedResult);
+            }
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.NoContent)
+                    {
+                        // success
+                    }
+
+                }
+            }
+
+
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

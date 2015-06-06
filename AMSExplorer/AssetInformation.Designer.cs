@@ -110,6 +110,8 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -128,6 +130,8 @@
             this.contextMenuStripDelPol.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -473,6 +477,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -1018,6 +1023,35 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.dataGridViewFilters);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(752, 438);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Asset Filters";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFilters
+            // 
+            this.dataGridViewFilters.AllowUserToAddRows = false;
+            this.dataGridViewFilters.AllowUserToDeleteRows = false;
+            this.dataGridViewFilters.AllowUserToResizeRows = false;
+            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFilters.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewFilters.Name = "dataGridViewFilters";
+            this.dataGridViewFilters.ReadOnly = true;
+            this.dataGridViewFilters.RowHeadersVisible = false;
+            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFilters.Size = new System.Drawing.Size(740, 360);
+            this.dataGridViewFilters.TabIndex = 36;
+            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1052,6 +1086,8 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1139,5 +1175,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDelPol;
         private System.Windows.Forms.ToolStripMenuItem removeDeliveryPolicyToolStripMenuItem;
         private System.Windows.Forms.Button buttonRemoveAuthPol;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.DataGridView dataGridViewFilters;
     }
 }

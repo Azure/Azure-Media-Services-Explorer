@@ -88,9 +88,6 @@ namespace AMSExplorer
         bool DisplaySplashDuringLoading;
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
-        // selected global filter
-        public string selectedGlobalFilter = null;
-
         public Mainform()
         {
             InitializeComponent();
@@ -1273,6 +1270,7 @@ namespace AMSExplorer
                         {
                             myAsset = asset,
                             myContext = _context,
+                            _contextdynmanifest = _contextdynmanifest,
                             myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
@@ -4678,7 +4676,7 @@ namespace AMSExplorer
 
         private void withFlashOSMFToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-
+          
         }
 
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -5421,10 +5419,11 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewFilters.ColumnCount = 7;
+                dataGridViewFilters.ColumnCount = 6;
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
-                dataGridViewFilters.Columns[1].HeaderText = "Rules";
+                dataGridViewFilters.Columns[0].ReadOnly = true;
+                dataGridViewFilters.Columns[1].HeaderText = "Track Rules";
                 dataGridViewFilters.Columns[1].Name = "Rules";
                 dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
                 dataGridViewFilters.Columns[2].Name = "Start";
@@ -5434,8 +5433,6 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[4].Name = "DVR";
                 dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
                 dataGridViewFilters.Columns[5].Name = "LiveDelay";
-                dataGridViewFilters.Columns[6].HeaderText = "Selected";
-                dataGridViewFilters.Columns[6].Name = "Selected";
             }
             dataGridViewFilters.Rows.Clear();
             List<Filter> filters = _contextdynmanifest.ListFilters();
@@ -5460,16 +5457,8 @@ namespace AMSExplorer
                     d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
                     l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
                 }
-
-
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l, selectedGlobalFilter == filter.Name ? "X" : "");
-                if (selectedGlobalFilter == filter.Name)
-                {
-                    dataGridViewFilters.Rows[rowi].DefaultCellStyle.ForeColor = Color.Blue;
-                }
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
             }
-
-
             tabPageFilters.Text = string.Format(Constants.TabFilters + " ({0})", filters.Count());
         }
 
@@ -8094,29 +8083,9 @@ namespace AMSExplorer
             DoMenuProtectWithPlayReadyStatic();
         }
 
-
-        private void DoCopyOutputURLProgramToClipboard()
-        {
-            IProgram program = ReturnSelectedPrograms().FirstOrDefault();
-            if (program != null)
-            {
-                ProgramInfo PI = new ProgramInfo(program, _context);
-                IEnumerable<Uri> ValidURIs = PI.GetValidURIs();
-                if (ValidURIs.FirstOrDefault() != null)
-                {
-                    string url = ValidURIs.FirstOrDefault().AbsoluteUri;
-                    if (selectedGlobalFilter != null)
-                    {
-                        url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
-                    }
-                    System.Windows.Forms.Clipboard.SetText(url);
-                }
-            }
-        }
-
         private void DoCopyOutputURLAssetOrProgramToClipboard()
         {
-            IAsset asset= ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            IAsset asset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
             if (asset != null)
             {
                 AssetInfo AI = new AssetInfo(asset);
@@ -8124,16 +8093,18 @@ namespace AMSExplorer
                 if (ValidURIs.FirstOrDefault() != null)
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
+                    /*
                     if (selectedGlobalFilter != null)
                     {
                         url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
                     }
+                    */
                     System.Windows.Forms.Clipboard.SetText(url);
                 }
             }
         }
 
-      
+
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://www.jwplayer.com/partners/azure/");
@@ -8933,7 +8904,7 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
+        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
         {
             foreach (var myAsset in ReturnSelectedAssetsFromProgramsOrAssets())
             {
@@ -9510,7 +9481,7 @@ namespace AMSExplorer
             // asset info if only one program
             ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = programs.Count == 1;
 
-           }
+        }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
@@ -9623,25 +9594,6 @@ namespace AMSExplorer
 
         private void DoCreateFilter()
         {
-            /*
-             Filter filter = new Filter();
-             //filter.SetContext(_contextdynmanifest);
-
-             filter.Name = "testfilter10s";
-             filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
-             var conditions = new List<FilterTrackPropertyCondition>();
-             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
-             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
-
-             conditions = new List<FilterTrackPropertyCondition>();
-             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
-             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
-
-             filter.Tracks = tracks;
-             * */
-
             DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -9795,34 +9747,12 @@ namespace AMSExplorer
 
         }
 
-        private void useThisFilteWhenLanchingAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoSelectFilter();
-        }
-
-        private void DoSelectFilter()
-        {
-            Filter filter = ReturnSelectedFilters().FirstOrDefault();
-            if (filter != null)
-            {
-                selectedGlobalFilter = filter.Name;
-            }
-            DoRefreshGridFiltersV(false);
-        }
-
+    
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
             var filters = ReturnSelectedFilters();
             bool singleitem = (filters.Count == 1);
-            filterInfoupdateToolStripMenuItem.Enabled =
-            useThisFilteWhenLanchingAzureMediaPlayerToolStripMenuItem.Enabled = singleitem;
-
-        }
-
-        private void noFilterWithAzureMediaPlayerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            selectedGlobalFilter = null;
-            DoRefreshGridFiltersV(false);
+            filterInfoupdateToolStripMenuItem.Enabled = singleitem;
         }
 
         private void toolStripMenuItem23_Click(object sender, EventArgs e)
@@ -9840,23 +9770,12 @@ namespace AMSExplorer
             DoDeleteFilter();
         }
 
-        private void toolStripMenuItem25_Click(object sender, EventArgs e)
-        {
-            DoSelectFilter();
-        }
-
-        private void toolStripMenuItem26_Click(object sender, EventArgs e)
-        {
-            selectedGlobalFilter = null;
-            DoRefreshGridFiltersV(false);
-        }
 
         private void filterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             var filters = ReturnSelectedFilters();
             bool singleitem = (filters.Count == 1);
-            toolStripMenuItemFilterInfo.Enabled =
-            toolStripMenuItemSelectFilter.Enabled = singleitem;
+            toolStripMenuItemFilterInfo.Enabled = singleitem;
         }
 
 
@@ -9880,10 +9799,103 @@ namespace AMSExplorer
             // copy publish URL only if one asset
             toolStripMenuItemPublishCopyPubURLToClipb.Enabled = assets.Count == 1;
 
-            
+
+        }
+
+        private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+        }
+        public void DoLaunchAzureMediaPlayerWithFilter(object sender, System.EventArgs e)
+        {
+            // we launch AMP with a filter
+            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, sender.ToString());
+        }
+
+
+        private void withAzureMediaPlayerFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void withAzureMediaPlayerFilterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            AddFilterToAMPMenu((ToolStripMenuItem) sender, ReturnSelectedAssets());
+        }
+
+        private void AddFilterToAMPMenu(ToolStripMenuItem mytoolstripmenuitem, List<IAsset> ListAssets)
+        {
+            mytoolstripmenuitem.DropDownItems.Clear();
+            var Filters = _contextdynmanifest.ListFilters();
+            if (Filters.Count > 0)
+            {
+                ToolStripMenuItem SSMenuGF = new ToolStripMenuItem("with a global filter", null, DoLaunchAzureMediaPlayerWithFilter);
+                mytoolstripmenuitem.DropDownItems.Add(SSMenuGF);
+
+                foreach (var filter in Filters)
+                {
+                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
+                    SSMenuGF.DropDownItems.Add(SSMenu);
+                }
+            }
+            if (ListAssets.Count == 1)
+            {
+                var AssetFilters = _contextdynmanifest.ListAssetFilters(ListAssets.FirstOrDefault());
+                if (AssetFilters.Count > 0)
+                {
+                    ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter", null, DoLaunchAzureMediaPlayerWithFilter);
+                    mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
+
+                    foreach (var filter in AssetFilters)
+                    {
+                        ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
+                        SSMenuAF.DropDownItems.Add(SSMenu);
+                    }
+                }
+            }
+           
         }
 
        
+        private void withAzureMediaPlayerToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
+        {
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
+        }
+
+        private void createAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void DoCreateAssetFilter()
+        {
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                AssetFilter myassetfilter = new AssetFilter(ReturnSelectedAssets().FirstOrDefault());
+              
+                Filter filter = form.DisplayedFilter;
+                myassetfilter.Name = filter.Name;
+                myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
+                myassetfilter.Tracks = filter.Tracks;
+                myassetfilter._context = filter._context;
+                try
+                {
+                    myassetfilter.Create();
+                }
+                catch (Exception e)
+                {
+                    TextBoxLogWriteLine(e);
+                }
+                DoRefreshGridFiltersV(false);
+            }
+
+        }
     }
 }
 

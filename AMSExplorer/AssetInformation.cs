@@ -43,6 +43,7 @@ namespace AMSExplorer
         public IAsset myAsset;
         private string myAssetType;
         public CloudMediaContext myContext;
+        public MediaServiceContextForDynManifest _contextdynmanifest;
         public IEnumerable<IStreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
@@ -401,6 +402,53 @@ namespace AMSExplorer
                 }
                 BuildLocatorsTree();
                 buttonUpload.Enabled = true;
+            }
+
+            DisplayAssetFilters();
+        }
+
+        private void DisplayAssetFilters()
+        {
+           
+                dataGridViewFilters.ColumnCount = 6;
+                dataGridViewFilters.Columns[0].HeaderText = "Name";
+                dataGridViewFilters.Columns[0].Name = "Name";
+                dataGridViewFilters.Columns[0].ReadOnly = true;
+                dataGridViewFilters.Columns[1].HeaderText = "Track Rules";
+                dataGridViewFilters.Columns[1].Name = "Rules";
+                dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
+                dataGridViewFilters.Columns[2].Name = "Start";
+                dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
+                dataGridViewFilters.Columns[3].Name = "End";
+                dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
+                dataGridViewFilters.Columns[4].Name = "DVR";
+                dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
+                dataGridViewFilters.Columns[5].Name = "LiveDelay";
+           
+            dataGridViewFilters.Rows.Clear();
+            List<AssetFilter> filters = _contextdynmanifest.ListAssetFilters(myAsset);
+
+            foreach (var filter in filters)
+            {
+                string s = null;
+                string e = null;
+                string d = null;
+                string l = null;
+
+                if (filter.PresentationTimeRange != null)
+                {
+                    long start = Convert.ToInt64(filter.PresentationTimeRange.StartTimestamp);
+                    long end = Convert.ToInt64(filter.PresentationTimeRange.EndTimestamp);
+                    long dvr = Convert.ToInt64(filter.PresentationTimeRange.PresentationWindowDuration);
+                    long live = Convert.ToInt64(filter.PresentationTimeRange.LiveBackoffDuration);
+
+                    double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
+                    e = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
+                    s = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
+                    d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
+                    l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
+                }
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
             }
         }
 
