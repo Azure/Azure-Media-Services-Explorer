@@ -4676,7 +4676,7 @@ namespace AMSExplorer
 
         private void withFlashOSMFToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-          
+
         }
 
         private void playbackToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
@@ -9594,7 +9594,7 @@ namespace AMSExplorer
 
         private void DoCreateFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -9637,7 +9637,7 @@ namespace AMSExplorer
         private void DoUpdateFilter()
         {
             Filter filter = ReturnSelectedFilters().FirstOrDefault();
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest)
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context)
             {
                 DisplayedFilter = filter
             };
@@ -9747,7 +9747,7 @@ namespace AMSExplorer
 
         }
 
-    
+
         private void contextMenuStripFilters_Opening(object sender, CancelEventArgs e)
         {
             var filters = ReturnSelectedFilters();
@@ -9819,7 +9819,7 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerFilterToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem) sender, ReturnSelectedAssets());
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
         }
 
         private void AddFilterToAMPMenu(ToolStripMenuItem mytoolstripmenuitem, List<IAsset> ListAssets)
@@ -9852,10 +9852,10 @@ namespace AMSExplorer
                     }
                 }
             }
-           
+
         }
 
-       
+
         private void withAzureMediaPlayerToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
@@ -9873,12 +9873,12 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 AssetFilter myassetfilter = new AssetFilter(ReturnSelectedAssets().FirstOrDefault());
-              
+
                 Filter filter = form.DisplayedFilter;
                 myassetfilter.Name = filter.Name;
                 myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
@@ -9895,6 +9895,44 @@ namespace AMSExplorer
                 DoRefreshGridFiltersV(false);
             }
 
+        }
+
+        private void duplicateToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDuplicateFilter();
+        }
+
+        private void DoDuplicateFilter()
+        {
+            var filters = ReturnSelectedFilters();
+            if (filters.Count == 1)
+            {
+                Filter sourcefilter = filters.FirstOrDefault();
+
+                string newfiltername = sourcefilter.Name + "Copy";
+                if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
+                {
+                    Filter copyfilter = new Filter();
+                    copyfilter.Name = newfiltername;
+                    copyfilter.PresentationTimeRange = sourcefilter.PresentationTimeRange;
+                    copyfilter.Tracks = sourcefilter.Tracks;
+                    copyfilter._context = sourcefilter._context;
+                    try
+                    {
+                        copyfilter.Create();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error when duplicating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    DoRefreshGridFiltersV(false);
+                }
+            }
+        }
+
+        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDuplicateFilter();
         }
     }
 }

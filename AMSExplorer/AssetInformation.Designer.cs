@@ -72,6 +72,12 @@
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
@@ -110,8 +116,11 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -120,6 +129,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
+            this.contextMenuStripFilter.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).BeginInit();
             this.contextMenuStripAuthPol.SuspendLayout();
@@ -130,8 +142,6 @@
             this.contextMenuStripDelPol.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabPage6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.SuspendLayout();
             // 
             // DGAsset
@@ -583,6 +593,75 @@
             this.buttonDuplicate.UseVisualStyleBackColor = true;
             this.buttonDuplicate.Click += new System.EventHandler(this.button1_Click_1);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.button4);
+            this.tabPage6.Controls.Add(this.button3);
+            this.tabPage6.Controls.Add(this.button2);
+            this.tabPage6.Controls.Add(this.button1);
+            this.tabPage6.Controls.Add(this.dataGridViewFilters);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(752, 438);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Asset Filters";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFilters
+            // 
+            this.dataGridViewFilters.AllowUserToAddRows = false;
+            this.dataGridViewFilters.AllowUserToDeleteRows = false;
+            this.dataGridViewFilters.AllowUserToResizeRows = false;
+            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
+            this.dataGridViewFilters.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewFilters.Name = "dataGridViewFilters";
+            this.dataGridViewFilters.ReadOnly = true;
+            this.dataGridViewFilters.RowHeadersVisible = false;
+            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFilters.Size = new System.Drawing.Size(740, 397);
+            this.dataGridViewFilters.TabIndex = 36;
+            this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
+            // 
+            // contextMenuStripFilter
+            // 
+            this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterInfoupdateToolStripMenuItem,
+            this.createAnAssetFilterToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.duplicateToolStripMenuItem});
+            this.contextMenuStripFilter.Name = "contextMenuStripFilter";
+            this.contextMenuStripFilter.Size = new System.Drawing.Size(167, 92);
+            // 
+            // createAnAssetFilterToolStripMenuItem
+            // 
+            this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
+            this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
+            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.createAnAssetFilterToolStripMenuItem.Text = "Create...";
+            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
+            // 
+            // filterInfoupdateToolStripMenuItem
+            // 
+            this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
+            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
             // tabPage5
             // 
             this.tabPage5.Controls.Add(this.buttonRemoveAuthPol);
@@ -1023,34 +1102,53 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
-            // tabPage6
+            // button1
             // 
-            this.tabPage6.Controls.Add(this.dataGridViewFilters);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
-            this.tabPage6.Name = "tabPage6";
-            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(752, 438);
-            this.tabPage6.TabIndex = 5;
-            this.tabPage6.Text = "Asset Filters";
-            this.tabPage6.UseVisualStyleBackColor = true;
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(6, 409);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.TabIndex = 37;
+            this.button1.Text = "Filter info";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // dataGridViewFilters
+            // button2
             // 
-            this.dataGridViewFilters.AllowUserToAddRows = false;
-            this.dataGridViewFilters.AllowUserToDeleteRows = false;
-            this.dataGridViewFilters.AllowUserToResizeRows = false;
-            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewFilters.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewFilters.Name = "dataGridViewFilters";
-            this.dataGridViewFilters.ReadOnly = true;
-            this.dataGridViewFilters.RowHeadersVisible = false;
-            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFilters.Size = new System.Drawing.Size(740, 360);
-            this.dataGridViewFilters.TabIndex = 36;
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(100, 409);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(88, 23);
+            this.button2.TabIndex = 38;
+            this.button2.Text = "Create";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(194, 409);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(88, 23);
+            this.button3.TabIndex = 39;
+            this.button3.Text = "Delete";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(288, 409);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(88, 23);
+            this.button4.TabIndex = 40;
+            this.button4.Text = "Duplicate";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // duplicateToolStripMenuItem
+            // 
+            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem.Text = "Duplicate";
+            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // AssetInformation
             // 
@@ -1074,6 +1172,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
+            this.contextMenuStripFilter.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).EndInit();
@@ -1086,8 +1187,6 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.tabPage6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1177,5 +1276,14 @@
         private System.Windows.Forms.Button buttonRemoveAuthPol;
         private System.Windows.Forms.TabPage tabPage6;
         private System.Windows.Forms.DataGridView dataGridViewFilters;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFilter;
+        private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
     }
 }

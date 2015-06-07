@@ -124,6 +124,7 @@
             this.toolStripMenuItemFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem24 = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.transferToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openDestinationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayErrorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -373,6 +374,7 @@
             this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem16 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
@@ -501,7 +503,7 @@
             this.ContextMenuItemAssetPlayback,
             this.createAssetFilterToolStripMenuItem});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1290,7 +1292,8 @@
             this.filterToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilterInfo,
             this.toolStripMenuItem23,
-            this.toolStripMenuItem24});
+            this.toolStripMenuItem24,
+            this.duplicateToolStripMenuItem1});
             this.filterToolStripMenuItem.Enabled = false;
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
             this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
@@ -1310,7 +1313,7 @@
             this.toolStripMenuItem23.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
             this.toolStripMenuItem23.Size = new System.Drawing.Size(166, 22);
-            this.toolStripMenuItem23.Text = "Create a filter";
+            this.toolStripMenuItem23.Text = "Create a filter...";
             this.toolStripMenuItem23.Click += new System.EventHandler(this.toolStripMenuItem23_Click);
             // 
             // toolStripMenuItem24
@@ -1320,6 +1323,13 @@
             this.toolStripMenuItem24.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem24.Text = "Delete";
             this.toolStripMenuItem24.Click += new System.EventHandler(this.toolStripMenuItem24_Click);
+            // 
+            // duplicateToolStripMenuItem1
+            // 
+            this.duplicateToolStripMenuItem1.Name = "duplicateToolStripMenuItem1";
+            this.duplicateToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem1.Text = "Duplicate...";
+            this.duplicateToolStripMenuItem1.Click += new System.EventHandler(this.duplicateToolStripMenuItem1_Click);
             // 
             // transferToolStripMenuItem
             // 
@@ -3554,9 +3564,10 @@
             this.toolStripMenuItem12,
             this.filterInfoupdateToolStripMenuItem,
             this.toolStripMenuItem16,
-            this.deleteToolStripMenuItem1});
+            this.deleteToolStripMenuItem1,
+            this.duplicateToolStripMenuItem});
             this.contextMenuStripFilters.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripFilters.Size = new System.Drawing.Size(167, 92);
+            this.contextMenuStripFilters.Size = new System.Drawing.Size(167, 136);
             this.contextMenuStripFilters.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFilters_Opening);
             // 
             // toolStripMenuItem12
@@ -3580,7 +3591,7 @@
             this.toolStripMenuItem16.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
             this.toolStripMenuItem16.Size = new System.Drawing.Size(166, 22);
-            this.toolStripMenuItem16.Text = "Create a filter";
+            this.toolStripMenuItem16.Text = "Create a filter...";
             this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click_1);
             // 
             // deleteToolStripMenuItem1
@@ -3590,6 +3601,13 @@
             this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
+            // 
+            // duplicateToolStripMenuItem
+            // 
+            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem.Text = "Duplicate...";
+            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // tabPageTransfers
             // 
@@ -4830,6 +4848,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPublishCopyPubURLToClipb;
         private System.Windows.Forms.ToolStripMenuItem createAssetFilterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
     }
 }
 

@@ -307,6 +307,52 @@ namespace AMSExplorer
         }
 
 
+
+        public AssetFilter GetAssetFilter(string filterId)
+        {
+            AssetFilter returnFilter = new AssetFilter();
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}AssetFilters('{1}')", WamsEndpoint, HttpUtility.UrlEncode(filterId)));
+            request.Method = HttpVerbs.Get;
+            request.ContentType = RequestContentType.Json;
+            request.Accept = RequestContentType.Json;
+            request.Headers.Add(RequestHeaders.XMsVersion, RequestHeaderValues.XMsVersion);
+            request.Headers.Add(RequestHeaders.Authorization, string.Format(CultureInfo.InvariantCulture, RequestHeaderValues.Authorization, AccessToken));
+            request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
+            request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
+            request.Headers.Add(RequestHeaders.XMsClientRequestId, "00000000");
+
+
+            try
+            {
+                using (var response = (HttpWebResponse)request.GetResponse())
+                {
+                    using (StreamReader streamReader = new StreamReader(response.GetResponseStream(), true))
+                    {
+                        var returnBody = streamReader.ReadToEnd();
+
+                        JObject responseJsonObject = JObject.Parse(returnBody);
+                        // var value = responseJsonObject["Element"];
+
+                        var serializer = new JavaScriptSerializer();
+                        AssetFilterWithMetadata returnFilterm = (AssetFilterWithMetadata)serializer.Deserialize(responseJsonObject.ToString(), typeof(AssetFilterWithMetadata));
+
+                        returnFilter.Name = returnFilterm.Name;
+                        returnFilter.PresentationTimeRange = returnFilterm.PresentationTimeRange;
+                        returnFilter.Tracks = returnFilterm.Tracks;
+                        returnFilter.Id = returnFilterm.Id;
+                        returnFilter.ParentAssetId = returnFilterm.ParentAssetId;
+                        returnFilter.SetContext(this);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                returnFilter = null;
+            }
+            return returnFilter;
+        }
+
+
     }
 
 
@@ -505,6 +551,12 @@ namespace AMSExplorer
     }
 
     public class FilterWithMetadata : Filter
+    {
+        [JsonProperty("odata.metadata")]
+        public string Metadata { get; set; }
+    }
+
+    public class AssetFilterWithMetadata : AssetFilter
     {
         [JsonProperty("odata.metadata")]
         public string Metadata { get; set; }
@@ -709,7 +761,7 @@ namespace AMSExplorer
         {
         }
 
-         public AssetFilter(IAsset asset)
+        public AssetFilter(IAsset asset)
         {
             ParentAssetId = asset.Id;
         }
@@ -767,7 +819,7 @@ namespace AMSExplorer
             var serializer = new JavaScriptSerializer();
             var serializedResult = serializer.Serialize(this);
 
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}AssetFilters('{1}')", _context.WamsEndpoint, Id));
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}AssetFilters('{1}')", _context.WamsEndpoint, HttpUtility.UrlEncode(Id)));
             request.Method = HttpVerbs.Delete;
             request.ContentType = RequestContentType.Json;
             request.Accept = RequestContentType.Json;

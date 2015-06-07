@@ -70,6 +70,7 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
+            this.labelFilterTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -114,7 +115,7 @@
             // 
             // textBoxFilterName
             // 
-            this.textBoxFilterName.Location = new System.Drawing.Point(12, 35);
+            this.textBoxFilterName.Location = new System.Drawing.Point(12, 55);
             this.textBoxFilterName.Name = "textBoxFilterName";
             this.textBoxFilterName.Size = new System.Drawing.Size(239, 20);
             this.textBoxFilterName.TabIndex = 62;
@@ -123,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 19);
+            this.label4.Location = new System.Drawing.Point(12, 39);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(64, 13);
             this.label4.TabIndex = 61;
@@ -185,7 +186,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 74);
+            this.tabControl1.Location = new System.Drawing.Point(12, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(687, 350);
@@ -500,12 +501,24 @@
             this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
+            // labelFilterTitle
+            // 
+            this.labelFilterTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelFilterTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelFilterTitle.Location = new System.Drawing.Point(8, 9);
+            this.labelFilterTitle.Name = "labelFilterTitle";
+            this.labelFilterTitle.Size = new System.Drawing.Size(691, 18);
+            this.labelFilterTitle.TabIndex = 81;
+            this.labelFilterTitle.Text = "Global Filter";
+            // 
             // DynManifestFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(713, 502);
+            this.Controls.Add(this.labelFilterTitle);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.tabControl1);
@@ -571,5 +584,6 @@
         private System.Windows.Forms.TextBox textBoxLabelEnd;
         private System.Windows.Forms.TextBox textBoxLabelStart;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
+        private System.Windows.Forms.Label labelFilterTitle;
     }
 }

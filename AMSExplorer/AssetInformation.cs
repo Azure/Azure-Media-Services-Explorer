@@ -385,7 +385,7 @@ namespace AMSExplorer
                 DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
-                                
+
                 foreach (IAsset p_asset in myAsset.ParentAssets)
                 {
                     DGAsset.Rows.Add("Parent asset", p_asset.Name);
@@ -409,22 +409,23 @@ namespace AMSExplorer
 
         private void DisplayAssetFilters()
         {
-           
-                dataGridViewFilters.ColumnCount = 6;
-                dataGridViewFilters.Columns[0].HeaderText = "Name";
-                dataGridViewFilters.Columns[0].Name = "Name";
-                dataGridViewFilters.Columns[0].ReadOnly = true;
-                dataGridViewFilters.Columns[1].HeaderText = "Track Rules";
-                dataGridViewFilters.Columns[1].Name = "Rules";
-                dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
-                dataGridViewFilters.Columns[2].Name = "Start";
-                dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
-                dataGridViewFilters.Columns[3].Name = "End";
-                dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
-                dataGridViewFilters.Columns[4].Name = "DVR";
-                dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
-                dataGridViewFilters.Columns[5].Name = "LiveDelay";
-           
+
+            dataGridViewFilters.ColumnCount = 7;
+            dataGridViewFilters.Columns[0].HeaderText = "Name";
+            dataGridViewFilters.Columns[0].Name = "Name";
+            dataGridViewFilters.Columns[1].HeaderText = "Id";
+            dataGridViewFilters.Columns[1].Name = "Id";
+            dataGridViewFilters.Columns[2].HeaderText = "Track Rules";
+            dataGridViewFilters.Columns[2].Name = "Rules";
+            dataGridViewFilters.Columns[3].HeaderText = "Start (d.h:m:s)";
+            dataGridViewFilters.Columns[3].Name = "Start";
+            dataGridViewFilters.Columns[4].HeaderText = "End (d.h:m:s)";
+            dataGridViewFilters.Columns[4].Name = "End";
+            dataGridViewFilters.Columns[5].HeaderText = "DVR (d.h:m:s)";
+            dataGridViewFilters.Columns[5].Name = "DVR";
+            dataGridViewFilters.Columns[6].HeaderText = "Live delay (d.h:m:s)";
+            dataGridViewFilters.Columns[6].Name = "LiveDelay";
+
             dataGridViewFilters.Rows.Clear();
             List<AssetFilter> filters = _contextdynmanifest.ListAssetFilters(myAsset);
 
@@ -448,7 +449,7 @@ namespace AMSExplorer
                     d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
                     l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
                 }
-                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Tracks.Count, s, e, d, l);
+                int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
             }
         }
 
@@ -1800,6 +1801,147 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private void filterInfoupdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoFilterInfo();
+        }
+        private List<AssetFilter> ReturnSelectedFilters()
+        {
+
+            List<AssetFilter> SelectedFilters = new List<AssetFilter>();
+            foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
+            {
+                string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
+                AssetFilter myfilter = _contextdynmanifest.GetAssetFilter(filterid);
+                if (myfilter != null)
+                {
+                    SelectedFilters.Add(myfilter);
+                }
+            }
+            return SelectedFilters;
+        }
+        private void DoFilterInfo()
+        {
+            var filters = ReturnSelectedFilters();
+            if (filters.Count == 1)
+            {
+                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext);
+                form.DisplayedFilter = (Filter)filters.FirstOrDefault();
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        AssetFilter filtertoupdate = (AssetFilter)form.DisplayedFilter;
+                        filtertoupdate.Delete();
+                        filtertoupdate.Create();
+
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error when displaying asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+                    DisplayAssetFilters();
+                }
+            }
+        }
+
+        private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void DoCreateAssetFilter()
+        {
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext);
+            form.CreateAssetFilter = true;
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                AssetFilter myassetfilter = new AssetFilter(myAsset);
+
+                Filter filter = form.DisplayedFilter;
+                myassetfilter.Name = filter.Name;
+                myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
+                myassetfilter.Tracks = filter.Tracks;
+                myassetfilter._context = filter._context;
+                try
+                {
+                    myassetfilter.Create();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error when creating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                DisplayAssetFilters();
+            }
+        }
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssetFilter();
+        }
+
+        private void DoDeleteAssetFilter()
+        {
+            var filters = ReturnSelectedFilters();
+            try
+            {
+                filters.ForEach(f => f.Delete());
+            }
+
+            catch (Exception e)
+            {
+                MessageBox.Show("Error when deleting asset filter(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+            DisplayAssetFilters();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DoDuplicateFilter();
+        }
+
+        private void DoDuplicateFilter()
+        {
+            var filters = ReturnSelectedFilters();
+            if (filters.Count == 1)
+            {
+                AssetFilter sourcefilter = filters.FirstOrDefault();
+
+                string newfiltername = sourcefilter.Name+"Copy";
+                if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
+                {
+                    AssetFilter copyfilter = new AssetFilter(myAsset);
+                    copyfilter.Name = newfiltername;
+                    copyfilter.PresentationTimeRange = sourcefilter.PresentationTimeRange;
+                    copyfilter.Tracks = sourcefilter.Tracks;
+                    copyfilter._context = sourcefilter._context;
+                    try
+                    {
+                        copyfilter.Create();
+                    }
+                    catch (Exception e)
+                    {
+                        MessageBox.Show("Error when duplicating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    DisplayAssetFilters();
+                }
+            }
+        }
+
+        private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDuplicateFilter();
+        }
+
+        private void dataGridViewFilters_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DoFilterInfo();
         }
     }
 }

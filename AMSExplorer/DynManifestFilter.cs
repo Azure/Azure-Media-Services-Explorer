@@ -25,6 +25,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using Microsoft.WindowsAzure.MediaServices.Client;
+
 
 namespace AMSExplorer
 {
@@ -32,19 +34,21 @@ namespace AMSExplorer
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
-        private MediaServiceContextForDynManifest _context;
+        private MediaServiceContextForDynManifest _contextdynman;
+        CloudMediaContext _context;
         private DataTable dataPropertyType;
         private DataTable dataProperty;
         private DataTable dataOperator;
 
-        public DynManifestFilter(MediaServiceContextForDynManifest context)
+        public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
+            _contextdynman = contextdynman;
             _context = context;
 
             _filter = new Filter();
-            _filter.SetContext(_context);
+            _filter.SetContext(_contextdynman);
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
             _filter.Tracks = new List<IFilterTrackSelect>();
         }
@@ -136,7 +140,33 @@ namespace AMSExplorer
                 _filter = value;
                 buttonOk.Text = "Update Filter";
                 textBoxFilterName.Enabled = false; // no way to change the filter name
+                if (value.GetType() == typeof(AssetFilter))
+                {
+                    IAsset parentasset = AssetInfo.GetAsset(((AssetFilter)value).ParentAssetId, _context);
+                    string parentname = parentasset != null ? parentasset.Name : string.Empty;
+                    labelFilterTitle.Text = string.Format("Filter for asset '{0}'", parentname);
+                }
+
             }
+        }
+
+        public bool CreateAssetFilter
+        {
+            set
+            {
+                
+                if (value)
+                {
+                   
+                    labelFilterTitle.Text = string.Format("Asset Filter");
+                }
+                else
+                {
+                    labelFilterTitle.Text = string.Format("Global Filter");
+                }
+
+            }
+
         }
 
         private void label12_Click(object sender, EventArgs e)
@@ -250,7 +280,7 @@ namespace AMSExplorer
                         cellValue.DisplayMember = "Description";
                         cellValue.Value = condition.Value;
                         dataGridViewTracks[2, index] = cellValue;
-                            //dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                        //dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
 
 
