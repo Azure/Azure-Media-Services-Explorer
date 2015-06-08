@@ -1134,7 +1134,7 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + ex.Message);
+                MessageBox.Show("Error: Could not read file from disk. Original error: " + Constants.endline + Program.GetErrorMessage(ex));
                 TextBoxLogWriteLine("Error: Could not read file or folder '{0}' from disk.", SelectedPath, true);
                 TextBoxLogWriteLine(ex);
             }
@@ -2817,7 +2817,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         // Add useful information to the exception
-                        TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
+                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error); TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                         TextBoxLogWriteLine(e);
                         return;
                     }
@@ -2857,6 +2857,10 @@ namespace AMSExplorer
                         catch (Exception e)
                         {
                             // Add useful information to the exception
+                            if (SelectedAssets.Count < 5)
+                            {
+                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                             TextBoxLogWriteLine(e);
                             return;
@@ -3326,6 +3330,12 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
+                    // Add useful information to the exception
+                    if (selectedassets.Count < 5)  // only if 4 or less jobs submitted
+                    {
+                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                     TextBoxLogWriteLine(e);
@@ -3804,7 +3814,7 @@ namespace AMSExplorer
                 catch (Exception e)
                 {
                     // Add useful information to the exception
-                    MessageBox.Show("There has been a problem when submitting the job " + jobnameloc + Constants.endline + e.Message);
+                    MessageBox.Show("There has been a problem when submitting the job " + jobnameloc + Constants.endline + Program.GetErrorMessage(e));
                     TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobnameloc, true);
                     TextBoxLogWriteLine(e);
                     return;
@@ -3913,6 +3923,10 @@ namespace AMSExplorer
                         catch (Exception e)
                         {
                             // Add useful information to the exception
+                            if (SelectedAssets.Count < 5)
+                            {
+                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                             TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                             TextBoxLogWriteLine(e);
                             return;
@@ -3981,6 +3995,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         // Add useful information to the exception
+                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                         TextBoxLogWriteLine(e);
                         return;
@@ -8637,7 +8652,7 @@ namespace AMSExplorer
                 catch (Exception e)
                 {
                     // Add useful information to the exception
-                    TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", jobnameloc, true);
+                    MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error); TextBoxLogWriteLine("There has been a problem when submitting the job '{0}'", jobnameloc, true);
                     TextBoxLogWriteLine(e);
                     return;
                 }
@@ -8699,8 +8714,7 @@ namespace AMSExplorer
                 catch (Exception e)
                 {
                     // Add useful information to the exception
-                    MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobname) + Constants.endline + e.Message);
-                    TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobname, true);
+                    MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobname) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error); TextBoxLogWriteLine("There has been a problem when submitting the job {0}", jobname, true);
                     TextBoxLogWriteLine(e);
                     return;
                 }
@@ -9730,6 +9744,10 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         // Add useful information to the exception
+                        if (SelectedAssets.Count < 5)
+                        {
+                            MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
                         TextBoxLogWriteLine(e);
                         return;
@@ -9825,12 +9843,14 @@ namespace AMSExplorer
         private void AddFilterToAMPMenu(ToolStripMenuItem mytoolstripmenuitem, List<IAsset> ListAssets)
         {
             mytoolstripmenuitem.DropDownItems.Clear();
+            ToolStripMenuItem SSMenuGF = new ToolStripMenuItem("with a global filter");
+            mytoolstripmenuitem.DropDownItems.Add(SSMenuGF);
+            ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter");
+            mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
+
             var Filters = _contextdynmanifest.ListFilters();
             if (Filters.Count > 0)
             {
-                ToolStripMenuItem SSMenuGF = new ToolStripMenuItem("with a global filter", null, DoLaunchAzureMediaPlayerWithFilter);
-                mytoolstripmenuitem.DropDownItems.Add(SSMenuGF);
-
                 foreach (var filter in Filters)
                 {
                     ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
@@ -9842,9 +9862,6 @@ namespace AMSExplorer
                 var AssetFilters = _contextdynmanifest.ListAssetFilters(ListAssets.FirstOrDefault());
                 if (AssetFilters.Count > 0)
                 {
-                    ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter", null, DoLaunchAzureMediaPlayerWithFilter);
-                    mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
-
                     foreach (var filter in AssetFilters)
                     {
                         ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
@@ -9873,11 +9890,14 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
+            IAsset selasset = ReturnSelectedAssets().FirstOrDefault();
+
             DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context);
+            form.CreateAssetFilterFromAssetName = selasset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                AssetFilter myassetfilter = new AssetFilter(ReturnSelectedAssets().FirstOrDefault());
+                AssetFilter myassetfilter = new AssetFilter(selasset);
 
                 Filter filter = form.DisplayedFilter;
                 myassetfilter.Name = filter.Name;
@@ -9923,7 +9943,7 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when duplicating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error when duplicating asset filter." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     DoRefreshGridFiltersV(false);
                 }
@@ -10706,7 +10726,7 @@ namespace AMSExplorer
             }
             catch (Exception e)
             {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + e.Message);
+                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
                 Environment.Exit(0);
             }
 
@@ -11256,7 +11276,7 @@ namespace AMSExplorer
             }
             catch (Exception e)
             {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + e.Message);
+                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + Constants.endline + Program.GetErrorMessage(e));
                 Environment.Exit(0);
             }
 
@@ -11317,7 +11337,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if (JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued || JobRefreshed.State==JobState.Canceling) // in progress
+                               if (JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued || JobRefreshed.State == JobState.Canceling) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -11411,7 +11431,7 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show(e.Message, "Job Monitoring Error");
+                    MessageBox.Show(Program.GetErrorMessage(e), "Job Monitoring Error");
                 }
             });
         }

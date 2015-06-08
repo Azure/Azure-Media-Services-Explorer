@@ -71,6 +71,8 @@
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelFilterTitle = new System.Windows.Forms.Label();
+            this.textBoxAssetName = new System.Windows.Forms.TextBox();
+            this.labelassetname = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -512,12 +514,33 @@
             this.labelFilterTitle.TabIndex = 81;
             this.labelFilterTitle.Text = "Global Filter";
             // 
+            // textBoxAssetName
+            // 
+            this.textBoxAssetName.Enabled = false;
+            this.textBoxAssetName.Location = new System.Drawing.Point(267, 55);
+            this.textBoxAssetName.Name = "textBoxAssetName";
+            this.textBoxAssetName.Size = new System.Drawing.Size(239, 20);
+            this.textBoxAssetName.TabIndex = 83;
+            this.textBoxAssetName.Visible = false;
+            // 
+            // labelassetname
+            // 
+            this.labelassetname.AutoSize = true;
+            this.labelassetname.Location = new System.Drawing.Point(267, 39);
+            this.labelassetname.Name = "labelassetname";
+            this.labelassetname.Size = new System.Drawing.Size(68, 13);
+            this.labelassetname.TabIndex = 82;
+            this.labelassetname.Text = "Asset name :";
+            this.labelassetname.Visible = false;
+            // 
             // DynManifestFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(713, 502);
+            this.Controls.Add(this.textBoxAssetName);
+            this.Controls.Add(this.labelassetname);
             this.Controls.Add(this.labelFilterTitle);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.buttonInsertSample);
@@ -585,5 +608,7 @@
         private System.Windows.Forms.TextBox textBoxLabelStart;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         private System.Windows.Forms.Label labelFilterTitle;
+        private System.Windows.Forms.TextBox textBoxAssetName;
+        private System.Windows.Forms.Label labelassetname;
     }
 }

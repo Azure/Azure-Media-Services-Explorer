@@ -144,27 +144,23 @@ namespace AMSExplorer
                 {
                     IAsset parentasset = AssetInfo.GetAsset(((AssetFilter)value).ParentAssetId, _context);
                     string parentname = parentasset != null ? parentasset.Name : string.Empty;
-                    labelFilterTitle.Text = string.Format("Filter for asset '{0}'", parentname);
+                    labelFilterTitle.Text = "Asset Filter";
+                    textBoxAssetName.Text = parentasset.Name;
+                    textBoxAssetName.Visible = true;
+                    labelassetname.Visible = true;
                 }
 
             }
         }
 
-        public bool CreateAssetFilter
+        public string CreateAssetFilterFromAssetName
         {
             set
             {
-                
-                if (value)
-                {
-                   
-                    labelFilterTitle.Text = string.Format("Asset Filter");
-                }
-                else
-                {
-                    labelFilterTitle.Text = string.Format("Global Filter");
-                }
-
+                labelFilterTitle.Text = string.Format("Asset Filter");
+                textBoxAssetName.Text = value;
+                textBoxAssetName.Visible = true;
+                labelassetname.Visible = true;
             }
 
         }
@@ -321,17 +317,17 @@ namespace AMSExplorer
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
             var tracks = new List<IFilterTrackSelect>() { new IFilterTrackSelect() { PropertyConditions = conditions } };
 
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.FourCC, Value = "0-2147483647" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            //conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             _filter.Tracks = tracks;
