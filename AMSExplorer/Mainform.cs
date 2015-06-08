@@ -4105,7 +4105,7 @@ namespace AMSExplorer
                             mycolor = Color.Blue;
                             break;
                         case JobState.Canceling:
-                            mycolor = Color.LightBlue;
+                            mycolor = Color.Blue;
                             break;
                         case JobState.Processing:
                             mycolor = Color.DarkGreen;
@@ -11317,7 +11317,7 @@ namespace AMSExplorer
                            if (index >= 0) // we found it
                            { // we update the observation collection
 
-                               if ((JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued)) // in progress
+                               if (JobRefreshed.State == JobState.Scheduled || JobRefreshed.State == JobState.Processing || JobRefreshed.State == JobState.Queued || JobRefreshed.State==JobState.Canceling) // in progress
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
@@ -11376,7 +11376,7 @@ namespace AMSExplorer
                                        }
                                    }
                                }
-                               else // no progress anymore (cancelling, finished or failed)
+                               else // no progress anymore (cancelled, finished or failed)
                                {
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
