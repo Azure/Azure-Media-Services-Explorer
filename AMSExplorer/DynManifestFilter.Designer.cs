@@ -488,6 +488,7 @@
             this.buttonInsertSample.Size = new System.Drawing.Size(121, 23);
             this.buttonInsertSample.TabIndex = 79;
             this.buttonInsertSample.Text = "Insert sample";
+            this.toolTip1.SetToolTip(this.buttonInsertSample, "Sample filter : first 10s, video no more than 1 mbps, only english audio track");
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 

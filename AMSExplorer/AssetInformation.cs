@@ -49,6 +49,8 @@ namespace AMSExplorer
         private ILocator tempMetadaLocator = null;
         private IContentKeyAuthorizationPolicy myAuthPolicy = null;
         private Mainform myMainForm;
+        private List<Filter> globalFilters;
+        private bool oktobuildlocator = false;
 
         public AssetInformation(Mainform mainform)
         {
@@ -400,11 +402,16 @@ namespace AMSExplorer
                     i = comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 0 ? "s" : string.Empty), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
                 }
-                BuildLocatorsTree();
+                //BuildLocatorsTree(); anywy, it will be built when set the index for the filter drop list
                 buttonUpload.Enabled = true;
             }
 
+            globalFilters = _contextdynmanifest.ListFilters();
+
             DisplayAssetFilters();
+            oktobuildlocator = true;
+            BuildLocatorsTree();
+
         }
 
         private void DisplayAssetFilters()
@@ -427,6 +434,10 @@ namespace AMSExplorer
             dataGridViewFilters.Columns[6].Name = "LiveDelay";
 
             dataGridViewFilters.Rows.Clear();
+            comboBoxLocatorsFilters.Items.Clear(); //drop list in locator tab
+            comboBoxLocatorsFilters.BeginUpdate();
+            comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
+
             List<AssetFilter> filters = _contextdynmanifest.ListAssetFilters(myAsset);
 
             foreach (var filter in filters)
@@ -450,7 +461,14 @@ namespace AMSExplorer
                     l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
                 }
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
+
+                // droplist
+                comboBoxLocatorsFilters.Items.Add(new Item("Asset filter  : " + filter.Name, filter.Name));
             }
+
+            globalFilters.ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            comboBoxLocatorsFilters.SelectedIndex = 0;
+            comboBoxLocatorsFilters.EndUpdate();
         }
 
         private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
@@ -468,6 +486,7 @@ namespace AMSExplorer
         private void BuildLocatorsTree()
         {
             // LOCATORS TREE
+            if (!oktobuildlocator) return;
 
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
@@ -476,6 +495,7 @@ namespace AMSExplorer
             {
                 bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
                 Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
+                string filter = ((Item) comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();
                 TreeViewLocators.Nodes.Clear();
@@ -564,14 +584,14 @@ namespace AMSExplorer
                             {
                                 Color ColorSmooth = ((myAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = ColorSmooth });
                                 }
                                 indexn++;
 
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter,checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -580,7 +600,7 @@ namespace AMSExplorer
                             if (locator.GetMpegDashUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE,filter ,checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -589,12 +609,12 @@ namespace AMSExplorer
                             if (locator.GetHlsUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsUris(locator,  SelectedSE,filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator,  SelectedSE,filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -1913,7 +1933,7 @@ namespace AMSExplorer
             {
                 AssetFilter sourcefilter = filters.FirstOrDefault();
 
-                string newfiltername = sourcefilter.Name+"Copy";
+                string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
                     AssetFilter copyfilter = new AssetFilter(myAsset);
@@ -1942,6 +1962,11 @@ namespace AMSExplorer
         private void dataGridViewFilters_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             DoFilterInfo();
+        }
+
+        private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            BuildLocatorsTree();
         }
     }
 }

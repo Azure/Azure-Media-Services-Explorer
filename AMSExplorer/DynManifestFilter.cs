@@ -322,7 +322,7 @@ namespace AMSExplorer
 
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.FourCC, Value = "0-2147483647" });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Language, Value = "en" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             conditions = new List<FilterTrackPropertyCondition>();

@@ -959,7 +959,7 @@ namespace AMSExplorer
             var ismFile = asset.AssetFiles.AsEnumerable().FirstOrDefault(f => f.Name.EndsWith(".ism"));
             if (ismFile != null)
             {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime> DateTime.UtcNow);
+                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow);
 
                 var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
                 ValidURIs = locators.SelectMany(l =>
@@ -982,14 +982,14 @@ namespace AMSExplorer
             }
         }
 
-        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
-            return GetStreamingUris(originLocator, string.Empty, se, https);
+            return GetStreamingUris(originLocator, string.Empty, se, filter, https);
         }
 
-        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
-            return GetStreamingUris(originLocator, SmoothStreamingLegacyParameter, se, https);
+            return GetStreamingUris(originLocator, SmoothStreamingLegacyParameter, se, filter, https);
         }
 
         /// <summary>
@@ -997,9 +997,9 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
-            return GetStreamingUris(originLocator, HlsStreamingParameter, se, https);
+            return GetStreamingUris(originLocator, HlsStreamingParameter, se, filter, https);
         }
 
         /// <summary>
@@ -1007,9 +1007,9 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the HLS version 3 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        public static IEnumerable<Uri> GetHlsv3Uris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
-            return GetStreamingUris(originLocator, Hlsv3StreamingParameter, se, https);
+            return GetStreamingUris(originLocator, Hlsv3StreamingParameter, se, filter, https);
         }
 
         /// <summary>
@@ -1017,9 +1017,9 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the MPEG-DASH URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, bool https = false)
+        public static IEnumerable<Uri> GetMpegDashUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
-            return GetStreamingUris(originLocator, MpegDashStreamingParameter, se, https);
+            return GetStreamingUris(originLocator, MpegDashStreamingParameter, se, filter, https);
         }
 
 
@@ -1038,7 +1038,7 @@ namespace AMSExplorer
                   .ToList();
         }
 
-        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, string streamingParameter, IStreamingEndpoint se = null, bool https = false)
+        private static IEnumerable<Uri> GetStreamingUris(ILocator originLocator, string streamingParameter, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
             const string BaseStreamingUrlTemplate = "{0}/{1}/manifest{2}";
 
@@ -1074,7 +1074,7 @@ namespace AMSExplorer
                 {
                     Host = hostname,
                     Scheme = https ? "https://" : "http://",
-                    Path = u.AbsolutePath,
+                    Path = AddFilterToUrlString(u.AbsolutePath, filter)
                 }.Uri);
             }
 
@@ -1090,7 +1090,16 @@ namespace AMSExplorer
         public static string AddFilterToUrlString(string urlstr, string filter)
         {
             // add a filter
-            return AddParameterToUrlString(urlstr, string.Format(AssetInfo.filter_url, filter));
+            if (filter != null)
+            {
+                return AddParameterToUrlString(urlstr, string.Format(AssetInfo.filter_url, filter));
+
+            }
+            else
+            {
+                return urlstr;
+            }
+
         }
 
         public static string AddParameterToUrlString(string urlstr, string parameter)
@@ -1108,7 +1117,8 @@ namespace AMSExplorer
             {
                 urlstr += string.Format("({0})", parameter);
             }
-                
+
+
             return urlstr;
         }
 
@@ -1884,7 +1894,7 @@ namespace AMSExplorer
                     case PlayerType.DASHIFRefPlayer:
                         if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
                         {
-                            Urlstr=AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
                         FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.3.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
                         break;
@@ -1896,7 +1906,7 @@ namespace AMSExplorer
                     case PlayerType.DASHLiveAzure:
                         if (!Urlstr.Contains(string.Format(AssetInfo.format_url, AssetInfo.format_dash)))
                         {
-                            Urlstr=AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
+                            Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
                         FullPlayBackLink = @"http://dashplayer.azurewebsites.net?url=" + Urlstr;
                         break;
