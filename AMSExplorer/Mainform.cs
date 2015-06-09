@@ -2781,8 +2781,19 @@ namespace AMSExplorer
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
-                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder
+                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
+                
             };
+            form.JobOptions = new JobOptionsVar()
+            {
+                Priority = Properties.Settings.Default.DefaultJobPriority,
+                StorageSelected = string.Empty,
+                TasksOptionsSetting = TaskOptions.None, // we want to force this as encryption is not supported for empty string
+                TasksOptionsSettingReadOnly=true,
+                OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
+            };
+
+
             DialogResult dialogResult = form.ShowDialog();
 
             this.Cursor = Cursors.Arrow;
@@ -11153,6 +11164,14 @@ namespace AMSExplorer
             this.Columns["Tasks"].Width = 50;
             this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Priority"].Width = 50;
+            this.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["State"].Width = 100;
+            this.Columns["StartTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["StartTime"].Width = 150;
+            this.Columns["EndTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["EndTime"].Width = 150;
+            this.Columns["Duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Duration"].Width = 100;
 
             _initialized = true;
         }

@@ -64,11 +64,9 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.label28 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
@@ -101,6 +99,8 @@
             this.labelFilterTitle = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.labelassetname = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -506,11 +506,9 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 24.63054F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 39.40887F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 19.70443F));
-            this.tableLayoutPanel1.Controls.Add(this.label28, 0, 5);
             this.tableLayoutPanel1.Controls.Add(this.label10, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label11, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label12, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label13, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label14, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.label15, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.label20, 0, 4);
@@ -530,6 +528,8 @@
             this.tableLayoutPanel1.Controls.Add(this.label36, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.label37, 3, 4);
             this.tableLayoutPanel1.Controls.Add(this.label38, 3, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label13, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label28, 0, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(19, 244);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 6;
@@ -542,19 +542,6 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(712, 124);
             this.tableLayoutPanel1.TabIndex = 81;
             this.tableLayoutPanel1.CellPaint += new System.Windows.Forms.TableLayoutCellPaintEventHandler(this.tableLayoutPanel1_CellPaint);
-            // 
-            // label28
-            // 
-            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label28.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label28.Location = new System.Drawing.Point(3, 107);
-            this.label28.Margin = new System.Windows.Forms.Padding(3);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(109, 14);
-            this.label28.TabIndex = 96;
-            this.label28.Text = "Type";
             // 
             // label10
             // 
@@ -597,20 +584,6 @@
             this.label12.Size = new System.Drawing.Size(274, 16);
             this.label12.TabIndex = 85;
             this.label12.Text = "Constraints";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label13.Location = new System.Drawing.Point(3, 25);
-            this.label13.Margin = new System.Windows.Forms.Padding(3);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(109, 16);
-            this.label13.TabIndex = 86;
-            this.label13.Text = "Type";
-            this.label13.Visible = false;
             // 
             // label14
             // 
@@ -995,6 +968,32 @@
             this.labelassetname.Text = "Asset name :";
             this.labelassetname.Visible = false;
             // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label13.Location = new System.Drawing.Point(3, 25);
+            this.label13.Margin = new System.Windows.Forms.Padding(3);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(109, 16);
+            this.label13.TabIndex = 107;
+            this.label13.Text = "Type";
+            // 
+            // label28
+            // 
+            this.label28.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label28.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label28.Location = new System.Drawing.Point(3, 107);
+            this.label28.Margin = new System.Windows.Forms.Padding(3);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(109, 14);
+            this.label28.TabIndex = 108;
+            this.label28.Text = "Bitrate";
+            // 
             // DynManifestFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1084,12 +1083,10 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label26;
@@ -1105,5 +1102,7 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label28;
     }
 }

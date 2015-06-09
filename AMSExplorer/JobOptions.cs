@@ -38,6 +38,7 @@ namespace AMSExplorer
             Priority = Properties.Settings.Default.DefaultJobPriority,
             StorageSelected = string.Empty,
             TasksOptionsSetting = Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None,
+            TasksOptionsSettingReadOnly = false,
             OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
         };
         JobOptionsVar savedSettings;
@@ -92,7 +93,10 @@ namespace AMSExplorer
 
         private void JobOptions_Load(object sender, EventArgs e)
         {
-
+            if (defaultSettings.TasksOptionsSettingReadOnly)
+            {
+                checkBoxUseProtectedConfig.Enabled = false;
+            }
         }
 
         public DialogResult Display()

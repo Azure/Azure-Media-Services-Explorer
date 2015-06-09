@@ -237,7 +237,6 @@ namespace AMSExplorer
         public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
-
             string tname = ((IsJWTKeySymmetric) ? "Sym " : "Asym ") + ((tokentype == TokenType.SWT) ? "SWT " : " JWT ");
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>

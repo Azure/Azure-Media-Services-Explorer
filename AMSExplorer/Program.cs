@@ -2224,6 +2224,7 @@ namespace AMSExplorer
         public int Priority { get; set; }
         public string StorageSelected { get; set; }
         public TaskOptions TasksOptionsSetting { get; set; }
+        public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
 
     }
