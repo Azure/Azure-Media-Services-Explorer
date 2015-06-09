@@ -4231,6 +4231,7 @@ namespace AMSExplorer
             ContextMenuItemAssetDisplayInfo.Enabled =
             ContextMenuItemAssetRename.Enabled =
             contextMenuExportFilesToStorage.Enabled =
+            createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
@@ -9811,13 +9812,11 @@ namespace AMSExplorer
         {
             var assets = ReturnSelectedAssetsFromProgramsOrAssets();
 
-            // get test token only if one asset
-            getATestTokenToolStripMenuItem.Enabled = assets.Count == 1;
-
-            // copy publish URL only if one asset
-            toolStripMenuItemPublishCopyPubURLToClipb.Enabled = assets.Count == 1;
-
-
+            // get test token, create asset filter, or copy publish URL only if one asset
+            getATestTokenToolStripMenuItem.Enabled =
+            createAnAssetFilterToolStripMenuItem1.Enabled =
+            toolStripMenuItemPublishCopyPubURLToClipb.Enabled =
+            assets.Count == 1;
         }
 
         private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -9953,6 +9952,12 @@ namespace AMSExplorer
         private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicateFilter();
+        }
+
+        private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+
         }
     }
 }

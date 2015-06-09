@@ -85,6 +85,7 @@
             this.extendExistingLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -95,7 +96,6 @@
             this.withSilverlightPlayReadyTokenPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemPlaybackWithMPEGDASHIFReference = new System.Windows.Forms.ToolStripMenuItem();
             this.withCustomPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.createAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.label5 = new System.Windows.Forms.Label();
             this.menuStripMain = new System.Windows.Forms.MenuStrip();
@@ -434,6 +434,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.createAnAssetFilterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -500,10 +501,9 @@
             this.toolStripSeparator30,
             this.publishToolStripMenuItem1,
             this.toolStripMenuItem22,
-            this.ContextMenuItemAssetPlayback,
-            this.createAssetFilterToolStripMenuItem});
+            this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 490);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -916,7 +916,8 @@
             this.createALocatorToolStripMenuItem,
             this.extendExistingLocatorsToolStripMenuItem,
             this.deleteAllLocatorsToolStripMenuItem,
-            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem});
+            this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem,
+            this.createAnAssetFilterToolStripMenuItem});
             this.publishToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.publishToolStripMenuItem1.Name = "publishToolStripMenuItem1";
             this.publishToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
@@ -957,6 +958,14 @@
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Text = "Find the asset from the locator Id/GUID...";
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem.Click += new System.EventHandler(this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click);
+            // 
+            // createAnAssetFilterToolStripMenuItem
+            // 
+            this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
+            this.createAnAssetFilterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
+            this.createAnAssetFilterToolStripMenuItem.Text = "Create an asset filter...";
+            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
             // 
             // toolStripMenuItem22
             // 
@@ -999,7 +1008,6 @@
             // ContextMenuItemPlaybackWithFlashOSMFAzure
             // 
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Name = "ContextMenuItemPlaybackWithFlashOSMFAzure";
-            this.ContextMenuItemPlaybackWithFlashOSMFAzure.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Size = new System.Drawing.Size(356, 22);
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Text = "with Flash OSMF Azure Player";
             this.ContextMenuItemPlaybackWithFlashOSMFAzure.Click += new System.EventHandler(this.withFlashOSMFAzurePlayerToolStripMenuItem_Click);
@@ -1007,8 +1015,6 @@
             // withFlashTokenPlayerToolStripMenuItem
             // 
             this.withFlashTokenPlayerToolStripMenuItem.Name = "withFlashTokenPlayerToolStripMenuItem";
-            this.withFlashTokenPlayerToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.F)));
             this.withFlashTokenPlayerToolStripMenuItem.Size = new System.Drawing.Size(356, 22);
             this.withFlashTokenPlayerToolStripMenuItem.Text = "with Flash AES (Token) Player";
             this.withFlashTokenPlayerToolStripMenuItem.Click += new System.EventHandler(this.withFlashTokenPlayerToolStripMenuItem_Click);
@@ -1045,13 +1051,6 @@
             this.withCustomPlayerToolStripMenuItem1.Size = new System.Drawing.Size(356, 22);
             this.withCustomPlayerToolStripMenuItem1.Text = "with Custom Player";
             this.withCustomPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withCustomPlayerToolStripMenuItem1_Click);
-            // 
-            // createAssetFilterToolStripMenuItem
-            // 
-            this.createAssetFilterToolStripMenuItem.Name = "createAssetFilterToolStripMenuItem";
-            this.createAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.createAssetFilterToolStripMenuItem.Text = "Create asset filter";
-            this.createAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAssetFilterToolStripMenuItem_Click);
             // 
             // label5
             // 
@@ -1296,15 +1295,15 @@
             this.duplicateToolStripMenuItem1});
             this.filterToolStripMenuItem.Enabled = false;
             this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.filterToolStripMenuItem.Text = "Filter";
+            this.filterToolStripMenuItem.Size = new System.Drawing.Size(80, 20);
+            this.filterToolStripMenuItem.Text = "Global filter";
             this.filterToolStripMenuItem.DropDownOpening += new System.EventHandler(this.filterToolStripMenuItem_DropDownOpening);
             // 
             // toolStripMenuItemFilterInfo
             // 
             this.toolStripMenuItemFilterInfo.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.toolStripMenuItemFilterInfo.Name = "toolStripMenuItemFilterInfo";
-            this.toolStripMenuItemFilterInfo.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItemFilterInfo.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItemFilterInfo.Text = "Filter info/update";
             this.toolStripMenuItemFilterInfo.Click += new System.EventHandler(this.toolStripMenuItem22_Click_1);
             // 
@@ -1312,7 +1311,8 @@
             // 
             this.toolStripMenuItem23.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem23.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem23.Text = "Create a filter...";
             this.toolStripMenuItem23.Click += new System.EventHandler(this.toolStripMenuItem23_Click);
             // 
@@ -1320,14 +1320,14 @@
             // 
             this.toolStripMenuItem24.Image = global::AMSExplorer.Bitmaps.delete;
             this.toolStripMenuItem24.Name = "toolStripMenuItem24";
-            this.toolStripMenuItem24.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem24.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem24.Text = "Delete";
             this.toolStripMenuItem24.Click += new System.EventHandler(this.toolStripMenuItem24_Click);
             // 
             // duplicateToolStripMenuItem1
             // 
             this.duplicateToolStripMenuItem1.Name = "duplicateToolStripMenuItem1";
-            this.duplicateToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.duplicateToolStripMenuItem1.Text = "Duplicate...";
             this.duplicateToolStripMenuItem1.Click += new System.EventHandler(this.duplicateToolStripMenuItem1_Click);
             // 
@@ -1695,6 +1695,7 @@
             this.deleteAllLocatorsOfTheAssetToolStripMenuItem,
             this.findTheAssetFromTheLocatorToolStripMenuItem,
             this.toolStripSeparator23,
+            this.createAnAssetFilterToolStripMenuItem1,
             this.toolStripMenuItemPublishCopyPubURLToClipb,
             this.playbackToolStripMenuItem});
             this.publishToolStripMenuItem.Name = "publishToolStripMenuItem";
@@ -1827,7 +1828,6 @@
             // withFlashOSMFToolStripMenuItem
             // 
             this.withFlashOSMFToolStripMenuItem.Name = "withFlashOSMFToolStripMenuItem";
-            this.withFlashOSMFToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.withFlashOSMFToolStripMenuItem.Size = new System.Drawing.Size(348, 22);
             this.withFlashOSMFToolStripMenuItem.Text = "with Flash OSMF Azure Player";
             this.withFlashOSMFToolStripMenuItem.DropDownOpening += new System.EventHandler(this.withFlashOSMFToolStripMenuItem_DropDownOpening);
@@ -1836,8 +1836,6 @@
             // withFlashAESTokenPlayerToolStripMenuItem1
             // 
             this.withFlashAESTokenPlayerToolStripMenuItem1.Name = "withFlashAESTokenPlayerToolStripMenuItem1";
-            this.withFlashAESTokenPlayerToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.F)));
             this.withFlashAESTokenPlayerToolStripMenuItem1.Size = new System.Drawing.Size(348, 22);
             this.withFlashAESTokenPlayerToolStripMenuItem1.Text = "with Flash AES Token Player";
             this.withFlashAESTokenPlayerToolStripMenuItem1.Click += new System.EventHandler(this.withFlashAESTokenPlayerToolStripMenuItem1_Click);
@@ -3567,14 +3565,14 @@
             this.deleteToolStripMenuItem1,
             this.duplicateToolStripMenuItem});
             this.contextMenuStripFilters.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripFilters.Size = new System.Drawing.Size(167, 136);
+            this.contextMenuStripFilters.Size = new System.Drawing.Size(194, 136);
             this.contextMenuStripFilters.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFilters_Opening);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Image = global::AMSExplorer.Bitmaps.refresh;
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem12.Text = "Refresh";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
             // 
@@ -3582,7 +3580,7 @@
             // 
             this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
-            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
             this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
@@ -3590,7 +3588,8 @@
             // 
             this.toolStripMenuItem16.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem16.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItem16.Text = "Create a filter...";
             this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click_1);
             // 
@@ -3598,14 +3597,14 @@
             // 
             this.deleteToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
             // duplicateToolStripMenuItem
             // 
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
             this.duplicateToolStripMenuItem.Text = "Duplicate...";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
@@ -4378,6 +4377,13 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // createAnAssetFilterToolStripMenuItem1
+            // 
+            this.createAnAssetFilterToolStripMenuItem1.Name = "createAnAssetFilterToolStripMenuItem1";
+            this.createAnAssetFilterToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
+            this.createAnAssetFilterToolStripMenuItem1.Size = new System.Drawing.Size(467, 22);
+            this.createAnAssetFilterToolStripMenuItem1.Text = "Create an asset filter...";
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4847,9 +4853,10 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem24;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem22;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPublishCopyPubURLToClipb;
-        private System.Windows.Forms.ToolStripMenuItem createAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem1;
     }
 }
 
