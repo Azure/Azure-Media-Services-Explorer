@@ -30,6 +30,7 @@
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.labelConnecting = new System.Windows.Forms.Label();
             this.logoPictureBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,12 +45,12 @@
             // 
             // labelConnecting
             // 
-            this.labelConnecting.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConnecting.Location = new System.Drawing.Point(120, 12);
+            this.labelConnecting.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConnecting.Location = new System.Drawing.Point(120, 63);
             this.labelConnecting.Name = "labelConnecting";
-            this.labelConnecting.Size = new System.Drawing.Size(303, 112);
+            this.labelConnecting.Size = new System.Drawing.Size(303, 28);
             this.labelConnecting.TabIndex = 2;
-            this.labelConnecting.Text = "Connecting to the Media Services account :\r\n\r\n{0}";
+            this.labelConnecting.Text = "{0}";
             this.labelConnecting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // logoPictureBox
@@ -62,12 +63,23 @@
             this.logoPictureBox.TabIndex = 13;
             this.logoPictureBox.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(120, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(303, 34);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Connecting to the Media Services account :";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Splash
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(435, 184);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.labelConnecting);
             this.Controls.Add(this.progressBar1);
@@ -92,6 +104,7 @@
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label labelConnecting;
         private System.Windows.Forms.PictureBox logoPictureBox;
+        private System.Windows.Forms.Label label1;
 
     }
 }

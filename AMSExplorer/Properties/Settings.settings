@@ -101,5 +101,8 @@
     <Setting Name="DefaultSlateCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="AMEStandardPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

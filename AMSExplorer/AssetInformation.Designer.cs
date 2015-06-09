@@ -72,6 +72,17 @@
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
@@ -95,6 +106,8 @@
             this.contextMenuStripDelPol = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeDeliveryPolicyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.checkBoxHttps = new System.Windows.Forms.CheckBox();
             this.buttonDashLiveAzure = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -118,6 +131,9 @@
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
+            this.contextMenuStripFilter.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).BeginInit();
             this.contextMenuStripAuthPol.SuspendLayout();
@@ -473,6 +489,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
@@ -577,6 +594,123 @@
             this.toolTip1.SetToolTip(this.buttonDuplicate, "Duplicate the selected file");
             this.buttonDuplicate.UseVisualStyleBackColor = true;
             this.buttonDuplicate.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.button4);
+            this.tabPage6.Controls.Add(this.button3);
+            this.tabPage6.Controls.Add(this.button2);
+            this.tabPage6.Controls.Add(this.button1);
+            this.tabPage6.Controls.Add(this.dataGridViewFilters);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(752, 438);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "Asset Filters";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button4.Location = new System.Drawing.Point(288, 409);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(88, 23);
+            this.button4.TabIndex = 40;
+            this.button4.Text = "Duplicate";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button3.Location = new System.Drawing.Point(194, 409);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(88, 23);
+            this.button3.TabIndex = 39;
+            this.button3.Text = "Delete";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button2.Location = new System.Drawing.Point(100, 409);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(88, 23);
+            this.button2.TabIndex = 38;
+            this.button2.Text = "Create";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button1.Location = new System.Drawing.Point(6, 409);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(88, 23);
+            this.button1.TabIndex = 37;
+            this.button1.Text = "Filter info";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewFilters
+            // 
+            this.dataGridViewFilters.AllowUserToAddRows = false;
+            this.dataGridViewFilters.AllowUserToDeleteRows = false;
+            this.dataGridViewFilters.AllowUserToResizeRows = false;
+            this.dataGridViewFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
+            this.dataGridViewFilters.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewFilters.Name = "dataGridViewFilters";
+            this.dataGridViewFilters.ReadOnly = true;
+            this.dataGridViewFilters.RowHeadersVisible = false;
+            this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewFilters.Size = new System.Drawing.Size(740, 397);
+            this.dataGridViewFilters.TabIndex = 36;
+            this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
+            // 
+            // contextMenuStripFilter
+            // 
+            this.contextMenuStripFilter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.filterInfoupdateToolStripMenuItem,
+            this.createAnAssetFilterToolStripMenuItem,
+            this.deleteToolStripMenuItem,
+            this.duplicateToolStripMenuItem});
+            this.contextMenuStripFilter.Name = "contextMenuStripFilter";
+            this.contextMenuStripFilter.Size = new System.Drawing.Size(167, 92);
+            // 
+            // filterInfoupdateToolStripMenuItem
+            // 
+            this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
+            this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
+            // 
+            // createAnAssetFilterToolStripMenuItem
+            // 
+            this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
+            this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
+            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.createAnAssetFilterToolStripMenuItem.Text = "Create...";
+            this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // duplicateToolStripMenuItem
+            // 
+            this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem.Text = "Duplicate";
+            this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
             // tabPage5
             // 
@@ -838,6 +972,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Controls.Add(this.comboBoxLocatorsFilters);
             this.tabPage3.Controls.Add(this.checkBoxHttps);
             this.tabPage3.Controls.Add(this.buttonDashLiveAzure);
             this.tabPage3.Controls.Add(this.label2);
@@ -859,14 +995,37 @@
             this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(348, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.TabIndex = 34;
+            this.label5.Text = "Filter :";
+            // 
+            // comboBoxLocatorsFilters
+            // 
+            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxLocatorsFilters.FormattingEnabled = true;
+            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(389, 6);
+            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
+            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxLocatorsFilters.TabIndex = 33;
+            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
+            // 
             // checkBoxHttps
             // 
+            this.checkBoxHttps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxHttps.AutoSize = true;
-            this.checkBoxHttps.Location = new System.Drawing.Point(398, 6);
+            this.checkBoxHttps.Location = new System.Drawing.Point(562, 9);
             this.checkBoxHttps.Name = "checkBoxHttps";
-            this.checkBoxHttps.Size = new System.Drawing.Size(221, 17);
+            this.checkBoxHttps.Size = new System.Drawing.Size(184, 17);
             this.checkBoxHttps.TabIndex = 32;
-            this.checkBoxHttps.Text = "Display HTTPS streaming endpoint URLs";
+            this.checkBoxHttps.Text = "HTTPS streaming endpoint URLs";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
             this.checkBoxHttps.CheckedChanged += new System.EventHandler(this.checkBoxHttps_CheckedChanged);
             // 
@@ -885,7 +1044,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 7);
+            this.label2.Location = new System.Drawing.Point(7, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(104, 13);
             this.label2.TabIndex = 30;
@@ -896,9 +1055,9 @@
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStreamingEndpoint.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
-            this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 4);
+            this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 6);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(275, 21);
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(215, 21);
             this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
@@ -1040,6 +1199,9 @@
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
+            this.contextMenuStripFilter.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAutPolOption)).EndInit();
@@ -1139,5 +1301,18 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripDelPol;
         private System.Windows.Forms.ToolStripMenuItem removeDeliveryPolicyToolStripMenuItem;
         private System.Windows.Forms.Button buttonRemoveAuthPol;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.DataGridView dataGridViewFilters;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripFilter;
+        private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
     }
 }

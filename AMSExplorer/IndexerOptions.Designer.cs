@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -40,6 +41,7 @@
             this.checkBoxAIB = new System.Windows.Forms.CheckBox();
             this.checkBoxKeywords = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -148,6 +150,7 @@
             this.checkBoxAIB.Size = new System.Drawing.Size(132, 17);
             this.checkBoxAIB.TabIndex = 70;
             this.checkBoxAIB.Text = "Audio Index Blob (AIB)";
+            this.toolTip1.SetToolTip(this.checkBoxAIB, "For use with SQL Server and the customer Indexer IFilter");
             this.checkBoxAIB.UseVisualStyleBackColor = true;
             // 
             // checkBoxKeywords
@@ -208,5 +211,6 @@
         private System.Windows.Forms.CheckBox checkBoxAIB;
         private System.Windows.Forms.CheckBox checkBoxKeywords;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
