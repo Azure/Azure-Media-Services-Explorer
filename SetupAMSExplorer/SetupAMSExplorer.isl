@@ -343,6 +343,7 @@
 		<col def="S0">ISDotNetInstallerArgsRollback</col>
 		<row><td>AMSExplorer.Content_Files</td><td>{F61F7BA5-1E23-4C9A-92B1-0A298E753DEB}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.content_files</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 		<row><td>AMSExplorer.Primary_output</td><td>{58C9A3B9-57A2-4C4E-8314-9EE6E699E4B7}</td><td>INSTALLDIR</td><td>2</td><td/><td>amsexplorer.primary_output</td><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td>{AF646F6F-208B-49D0-8051-43F8DB7D2BB4}</td><td>INSTALLDIR</td><td>2</td><td/><td/><td>17</td><td/><td/><td/><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td><td>/LogFile=</td></row>
 	</table>
 
 	<table name="Condition">
@@ -1052,6 +1053,7 @@
 	<table name="CreateFolder">
 		<col key="yes" def="s72">Directory_</col>
 		<col key="yes" def="s72">Component_</col>
+		<row><td>INSTALLDIR</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="CustomAction">
@@ -1871,6 +1873,7 @@
 		<col key="yes" def="s72">Component_</col>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Content_Files</td></row>
 		<row><td>AlwaysInstall</td><td>AMSExplorer.Primary_output</td></row>
+		<row><td>AlwaysInstall</td><td>ISX_DEFAULTCOMPONENT1</td></row>
 	</table>
 
 	<table name="File">
@@ -2032,6 +2035,7 @@
 		<col def="S0">Miscellaneous</col>
 		<row><td>AMSExplorer.Content_Files</td><td/><td/><td>_A081E9C2_47DC_4E59_9AE1_B0A1B3BBBEE3_FILTER</td><td/><td/><td/><td/></row>
 		<row><td>AMSExplorer.Primary_output</td><td/><td/><td>_64934606_DE19_43F2_AF78_DFA794AB380C_FILTER</td><td/><td/><td/><td/></row>
+		<row><td>ISX_DEFAULTCOMPONENT1</td><td/><td/><td>_CEED99D2_1C48_4F57_BEC4_3289CF013B45_FILTER</td><td/><td/><td/><td/></row>
 	</table>
 
 	<table name="ISCustomActionReference">
