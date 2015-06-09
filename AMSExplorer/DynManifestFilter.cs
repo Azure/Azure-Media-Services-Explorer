@@ -30,7 +30,6 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
-
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
@@ -56,7 +55,6 @@ namespace AMSExplorer
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
-
 
             RefreshPresentationTimes();
             RefreshTracks();
@@ -149,7 +147,6 @@ namespace AMSExplorer
                     textBoxAssetName.Visible = true;
                     labelassetname.Visible = true;
                 }
-
             }
         }
 
@@ -165,10 +162,6 @@ namespace AMSExplorer
 
         }
 
-        private void label12_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -221,7 +214,6 @@ namespace AMSExplorer
                         _filter.Tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Value = dataGridViewTracks.CurrentCell.Value.ToString();
 
                         break;
-
                 }
             }
         }
@@ -240,9 +232,6 @@ namespace AMSExplorer
                 _filter.Tracks.RemoveAt(listBoxTracks.SelectedIndex);
                 RefreshTracks();
             }
-
-
-
         }
 
         private void buttonAddCondition_Click(object sender, EventArgs e)
@@ -263,11 +252,6 @@ namespace AMSExplorer
                 foreach (var condition in track.PropertyConditions)
                 {
                     int index = dataGridViewTracks.Rows.Add(condition.Property, condition.Operator, condition.Value);
-
-
-
-
-
                     if (condition.Property == FilterProperty.Type) // property type - we want to propose audio, video or text dropbox
                     {
                         var cellValue = new DataGridViewComboBoxCell();
@@ -278,13 +262,8 @@ namespace AMSExplorer
                         dataGridViewTracks[2, index] = cellValue;
                         //dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
-
-
-
-
                 }
             }
-
         }
 
         private void buttonDeleteCondition_Click(object sender, EventArgs e)
@@ -313,8 +292,8 @@ namespace AMSExplorer
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
-
-            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "100000000", Timescale = "10000000" };
+            // Filter sample
+            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "300000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
@@ -322,15 +301,16 @@ namespace AMSExplorer
 
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Language, Value = "en" });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.FourCC, Value = "mp4a" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
-            //conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-2147483647" });
+            conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Language, Value = "en" });
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             _filter.Tracks = tracks;
+            _filter.Name = textBoxFilterName.Text;
 
             RefreshPresentationTimes();
             RefreshTracks();
@@ -411,7 +391,6 @@ namespace AMSExplorer
             {
 
             }
-
             textBoxLabelStart.Text = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelEnd.Text = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelDVR.Text = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
@@ -421,6 +400,18 @@ namespace AMSExplorer
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+
+        private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
+        {
+           // e.Graphics.DrawRectangle(new Pen(Color.Gray), e.CellBounds);
+
+            var rectangle = e.CellBounds;
+            rectangle.Inflate(-1, -1);
+
+            //ControlPaint.DrawBorder3D(e.Graphics, rectangle, Border3DStyle.Flat, Border3DSide.All); // 3D border
+            ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Gray, ButtonBorderStyle.Dotted); // 
         }
     }
 }

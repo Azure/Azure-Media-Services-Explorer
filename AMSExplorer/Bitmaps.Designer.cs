@@ -323,6 +323,66 @@ namespace AMSExplorer {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap media_services_dvr_filter {
+            get {
+                object obj = ResourceManager.GetObject("media-services-dvr-filter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_services_livebackoff_filter {
+            get {
+                object obj = ResourceManager.GetObject("media-services-livebackoff-filter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_services_multiple_rules_filters {
+            get {
+                object obj = ResourceManager.GetObject("media-services-multiple-rules-filters", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_services_rendition_filter2 {
+            get {
+                object obj = ResourceManager.GetObject("media-services-rendition-filter2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_services_subclips_filter {
+            get {
+                object obj = ResourceManager.GetObject("media-services-subclips-filter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap media_services_trim_filter {
+            get {
+                object obj = ResourceManager.GetObject("media-services-trim-filter", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap modeltaskxenio1 {
             get {
                 object obj = ResourceManager.GetObject("modeltaskxenio1", resourceCulture);
