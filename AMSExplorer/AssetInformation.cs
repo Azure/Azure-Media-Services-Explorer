@@ -369,6 +369,13 @@ namespace AMSExplorer
             DGAsset.Rows.Add("Last Modified", ((DateTime)myAsset.LastModified).ToLocalTime());
             DGAsset.Rows.Add("Creation Options", (AssetCreationOptions)myAsset.Options);
 
+            var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
+            if (program != null) // Asset is linked to a Program
+            {
+                DGAsset.Rows.Add("Program Id", program.Id);
+            }
+
+
             if (myAsset.State != AssetState.Deleted)
             {
                 DGAsset.Rows.Add("IsStreamable", myAsset.IsStreamable);
@@ -377,7 +384,7 @@ namespace AMSExplorer
                 DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
-
+                                
                 foreach (IAsset p_asset in myAsset.ParentAssets)
                 {
                     DGAsset.Rows.Add("Parent asset", p_asset.Name);

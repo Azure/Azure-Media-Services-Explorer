@@ -80,27 +80,27 @@ namespace AMSExplorer
             }
 
         }
-        public string OrderJobsInGrid
+        public string OrderItemsInGrid
         {
             get
             {
-                return _orderjobs;
+                return _orderitems;
             }
             set
             {
-                _orderjobs = value;
+                _orderitems = value;
             }
 
         }
-        public string FilterJobsState
+        public string FilterState
         {
             get
             {
-                return _filterjobsstate;
+                return _statefilter;
             }
             set
             {
-                _filterjobsstate = value;
+                _statefilter = value;
             }
 
         }
@@ -163,8 +163,8 @@ namespace AMSExplorer
         static private int _currentpage = 1;
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
-        static string _orderjobs = OrderJobs.LastModifiedDescending;
-        static string _filterjobsstate = "All";
+        static string _orderitems = OrderJobs.LastModifiedDescending;
+        static string _statefilter = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
         static private string _searchinname = "";
@@ -308,40 +308,98 @@ namespace AMSExplorer
             _context = context;
 
             IEnumerable<ChannelEntry> channelquery;
-            channels = context.Channels;
 
-            _context = context;
-            _pagecount = (int)Math.Ceiling(((double)channels.Count()) / ((double)_channelsperpage));
-            if (_pagecount == 0) _pagecount = 1; // no asset but one page
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            channels = (days == -1) ? context.Channels : context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
-            if (pagetodisplay < 1) pagetodisplay = 1;
-            if (pagetodisplay > _pagecount) pagetodisplay = _pagecount;
-            _currentpage = pagetodisplay;
-
-            try
+            if (!string.IsNullOrEmpty(_searchinname))
             {
-                int c = channels.Count();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("There is a problem when connecting to Azure Media Services. Application will close. " + e.Message);
-                Environment.Exit(0);
+                string searchlower = _searchinname.ToLower();
+                channels = channels.Where(c => (c.Name.ToLower().Contains(searchlower) || c.Id.ToLower().Contains(searchlower)));
             }
 
-            channelquery = from c in channels
-                           orderby c.LastModified descending
-                           select new ChannelEntry
-                           {
-                               Name = c.Name,
-                               Id = c.Id,
-                               Description = c.Description,
-                               InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                               Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
-                               InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                               PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                               State = c.State,
-                               LastModified = c.LastModified.ToLocalTime()
-                           };
+            if (FilterState != "All")
+            {
+                channels = channels.Where(c => c.State == (ChannelState)Enum.Parse(typeof(ChannelState), _statefilter));
+            }
+
+
+            switch (_orderitems)
+            {
+                case OrderChannels.LastModified:
+                    channelquery = from c in channels
+                                   orderby c.LastModified descending
+                                   select new ChannelEntry
+                                   {
+                                       Name = c.Name,
+                                       Id = c.Id,
+                                       Description = c.Description,
+                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                                       State = c.State,
+                                       LastModified = c.LastModified.ToLocalTime()
+                                   };
+                    break;
+
+
+
+                case OrderChannels.Name:
+                    channelquery = from c in channels
+                                   orderby c.Name
+                                   select new ChannelEntry
+                                   {
+                                       Name = c.Name,
+                                       Id = c.Id,
+                                       Description = c.Description,
+                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                                       State = c.State,
+                                       LastModified = c.LastModified.ToLocalTime()
+                                   };
+                    break;
+
+                case OrderChannels.State:
+                    channelquery = from c in channels
+                                   orderby c.State
+                                   select new ChannelEntry
+                                   {
+                                       Name = c.Name,
+                                       Id = c.Id,
+                                       Description = c.Description,
+                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                                       State = c.State,
+                                       LastModified = c.LastModified.ToLocalTime()
+                                   };
+                    break;
+
+                default:
+                    channelquery = from c in channels
+                                   select new ChannelEntry
+                                   {
+                                       Name = c.Name,
+                                       Id = c.Id,
+                                       Description = c.Description,
+                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                                       State = c.State,
+                                       LastModified = c.LastModified.ToLocalTime()
+                                   };
+                    break;
+            }
+
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                channelquery = channelquery.Take(50);
+            }
 
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
@@ -350,6 +408,8 @@ namespace AMSExplorer
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
+
+
     }
 
     public class DataGridViewLiveProgram : DataGridView
@@ -640,38 +700,14 @@ namespace AMSExplorer
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
 
-            int days = -1;
-            if (_timefilter != string.Empty && _timefilter != null && _timefilter != FilterTime.All)
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    default:
-                        break;
-
-                }
-
-            }
-            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(30)))));
-
+            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             if (!string.IsNullOrEmpty(_searchinname))
             {
                 string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower)));
+                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower) || p.Asset.Id.ToLower().Contains(searchlower)));
             }
 
             if (FilterState != "All")
@@ -774,6 +810,13 @@ namespace AMSExplorer
     }
 
     public static class OrderPrograms
+    {
+        public const string LastModified = "Last modified";
+        public const string Name = "Name";
+        public const string State = "State";
+    }
+
+    public static class OrderChannels
     {
         public const string LastModified = "Last modified";
         public const string Name = "Name";

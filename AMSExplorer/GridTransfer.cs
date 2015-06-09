@@ -163,14 +163,21 @@ namespace AMSExplorer
 
         private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
         {
-            _MyListTransfer[index].Progress = 100;
+            _MyListTransfer[index].Progress = 101d;
             _MyListTransfer[index].State = TransferState.Finished;
             _MyListTransfer[index].EndTime = DateTime.Now.ToString();
             _MyListTransfer[index].DestLocation = DestLocation;
             _MyListTransfer[index].ProgressText = string.Empty;
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
+
+            this.BeginInvoke(new Action(() =>
+            {
+                this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
+            }));
+
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
+
         private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
         {
             string message = e.Message;
@@ -183,13 +190,18 @@ namespace AMSExplorer
 
         private void DoGridTransferDeclareError(int index, string ErrorDesc = "")  // Process is completed
         {
-            _MyListTransfer[index].Progress = 100;
+            _MyListTransfer[index].Progress = 101d;
             _MyListTransfer[index].EndTime = DateTime.Now.ToString();
             _MyListTransfer[index].State = TransferState.Error;
             _MyListTransfer[index].ProgressText = "Error: " + ErrorDesc;
             _MyListTransfer[index].ErrorDescription = ErrorDesc;
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+
+            this.BeginInvoke(new Action(() =>
+            {
+                this.Notify("Transfer Error", string.Format("{0}", _MyListTransfer[index].Name), true);
+            }));
         }
 
         private void DoGridTransferDeclareTransferStarted(int index)  // Process is started

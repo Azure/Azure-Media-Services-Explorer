@@ -113,7 +113,6 @@
             // 
             // buttonCopyStats
             // 
-            this.buttonCopyStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonCopyStats.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.buttonCopyStats.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonCopyStats.Location = new System.Drawing.Point(16, 42);
@@ -145,7 +144,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 403);
+            this.tabPage2.Size = new System.Drawing.Size(752, 400);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;

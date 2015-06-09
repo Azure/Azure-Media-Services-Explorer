@@ -142,7 +142,12 @@ namespace AMSExplorer
 
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
+
+            // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
+
+            // notification title
+            notifyIcon1.Text = string.Format(notifyIcon1.Text, _context.Credentials.ClientId);
 
             // name of the ams acount in the title of the form - useful when several instances to navigate with icons
             this.Text = string.Format(this.Text, _context.Credentials.ClientId);
@@ -208,6 +213,11 @@ namespace AMSExplorer
         private void OnTimedEvent(object sender, ElapsedEventArgs e)
         {
             DoRefresh();
+        }
+
+        public void Notify(string title, string text, bool Error = false)
+        {
+            notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
 
@@ -633,7 +643,7 @@ namespace AMSExplorer
 
         public void TextBoxLogWriteLine(Exception e)
         {
-            TextBoxLogWriteLine(e.Message);
+            TextBoxLogWriteLine(e.Message, true);
             if (e.InnerException != null)
             {
                 TextBoxLogWriteLine(Program.GetErrorMessage(e), true);
@@ -1247,6 +1257,26 @@ namespace AMSExplorer
             return dialogResult;
         }
 
+        public DialogResult? DisplayJobSource(IAsset asset)
+        {
+            DialogResult? dialogResult = null;
+            if (asset != null)
+            {
+                var job = _context.Jobs.AsEnumerable().Where(j => j.OutputMediaAssets.Select(o => o.Id).ToList().Contains(asset.Id)).FirstOrDefault();
+
+                if (job != null)
+                {
+                    DisplayInfo(job);
+                }
+
+                else
+                {
+                    MessageBox.Show("Source job was not found.");
+                }
+            }
+            return dialogResult;
+        }
+
 
         public static DialogResult CopyAssetToAzure(ref bool UseDefaultStorage, ref string containername, ref string otherstoragename, ref string otherstoragekey, ref List<IAssetFile> SelectedFiles, ref bool CreateNewContainer, IAsset sourceAsset)
         {
@@ -1668,6 +1698,19 @@ namespace AMSExplorer
                 SelectedJobs.Add(_context.Jobs.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
             SelectedJobs.Reverse();
             return SelectedJobs;
+        }
+
+        private IStorageAccount ReturnSelectedStorage()
+        {
+
+            IStorageAccount SelectedStorage = null;
+            if (dataGridViewStorage.SelectedRows.Count == 1)
+            {
+                var row = dataGridViewStorage.SelectedRows[0];
+                SelectedStorage = _context.StorageAccounts.Where(s => s.Name == row.Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString()).FirstOrDefault();
+            }
+
+            return SelectedStorage;
         }
 
         private void selectedAssetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3498,37 +3541,56 @@ namespace AMSExplorer
             comboBoxStateAssets.SelectedIndex = 0;
 
             comboBoxFilterAssetsTime.Items.AddRange(
-         typeof(FilterTime)
-         .GetFields()
-         .Select(i => i.GetValue(null) as string)
-         .ToArray()
-         );
+                 typeof(FilterTime)
+                 .GetFields()
+                 .Select(i => i.GetValue(null) as string)
+                 .ToArray()
+                 );
             comboBoxFilterAssetsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterJobsTime.Items.AddRange(
-         typeof(FilterTime)
-         .GetFields()
-         .Select(i => i.GetValue(null) as string)
-         .ToArray()
-         );
+                 typeof(FilterTime)
+                 .GetFields()
+                 .Select(i => i.GetValue(null) as string)
+                 .ToArray()
+                 );
             comboBoxFilterJobsTime.SelectedIndex = 0; // last 50 items
 
             comboBoxFilterTimeProgram.Items.AddRange(
-typeof(FilterTime)
-.GetFields()
-.Select(i => i.GetValue(null) as string)
-.ToArray()
-);
-            comboBoxFilterTimeProgram.SelectedIndex = 0; // last 50 items
+                typeof(FilterTime)
+                .GetFields()
+                .Select(i => i.GetValue(null) as string)
+                .ToArray()
+                );
+            comboBoxFilterTimeProgram.SelectedIndex = 0;
+
+
+            comboBoxFilterTimeChannel.Items.AddRange(
+                typeof(FilterTime)
+                .GetFields()
+                .Select(i => i.GetValue(null) as string)
+                .ToArray()
+                );
+            comboBoxFilterTimeChannel.SelectedIndex = 0;
+
 
             comboBoxStatusProgram.Items.AddRange(
-            typeof(ProgramState)
-            .GetFields()
-            .Select(i => i.Name as string)
-            .ToArray()
-            );
+                typeof(ProgramState)
+                .GetFields()
+                .Select(i => i.Name as string)
+                .ToArray()
+                );
             comboBoxStatusProgram.Items[0] = "All";
             comboBoxStatusProgram.SelectedIndex = 0;
+
+            comboBoxStatusChannel.Items.AddRange(
+              typeof(ChannelState)
+              .GetFields()
+              .Select(i => i.Name as string)
+              .ToArray()
+              );
+            comboBoxStatusChannel.Items[0] = "All";
+            comboBoxStatusChannel.SelectedIndex = 0;
 
 
             comboBoxOrderProgram.Items.AddRange(
@@ -3538,6 +3600,15 @@ typeof(FilterTime)
           .ToArray()
           );
             comboBoxOrderProgram.SelectedIndex = 0;
+
+
+            comboBoxOrderChannel.Items.AddRange(
+        typeof(OrderChannels)
+        .GetFields()
+        .Select(i => i.GetValue(null) as string)
+        .ToArray()
+        );
+            comboBoxOrderChannel.SelectedIndex = 0;
 
             comboBoxOrderStreamingEndpoints.Items.AddRange(
           typeof(OrderStreamingEndpoints)
@@ -4090,9 +4161,11 @@ typeof(FilterTime)
         {
             var assets = ReturnSelectedAssets();
             bool singleitem = (assets.Count == 1);
-            ContextMenuItemAssetDisplayInfo.Enabled = singleitem;
-            ContextMenuItemAssetRename.Enabled = singleitem;
-            contextMenuExportFilesToStorage.Enabled = singleitem;
+
+            ContextMenuItemAssetDisplayInfo.Enabled =
+            ContextMenuItemAssetRename.Enabled =
+            contextMenuExportFilesToStorage.Enabled =
+            displayParentJobToolStripMenuItem1.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -4105,6 +4178,8 @@ typeof(FilterTime)
                 }
             }
         }
+
+
 
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
         {
@@ -4131,9 +4206,10 @@ typeof(FilterTime)
         {
             var assets = ReturnSelectedAssets();
             bool singleitem = (assets.Count == 1);
-            informationToolStripMenuItem.Enabled = singleitem;
-            renameToolStripMenuItem.Enabled = singleitem;
-            toAzureStorageToolStripMenuItem.Enabled = singleitem;
+            informationToolStripMenuItem.Enabled =
+            renameToolStripMenuItem.Enabled =
+            toAzureStorageToolStripMenuItem.Enabled =
+            displayParentJobToolStripMenuItem.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -4214,6 +4290,38 @@ typeof(FilterTime)
             DoCreateJobReportEmail();
         }
 
+
+
+
+        private void DoMenuDisplayAssetInfoFromLocatorID()
+        {
+            string locatorID = string.Empty;
+            string clipbs = Clipboard.GetText();
+            if (clipbs != null && clipbs.StartsWith(Constants.LocatorIdPrefix))
+            {
+                locatorID = clipbs;
+            }
+
+            if (Program.InputBox("Locator ID/GUID", "Please enter the known Locator Id or GUID :", ref locatorID) == DialogResult.OK)
+            {
+                if (!locatorID.StartsWith(Constants.LocatorIdPrefix))
+                {
+                    locatorID = Constants.LocatorIdPrefix + locatorID;
+                }
+                ILocator knownLocator = _context.Locators.Where(l => l.Id == locatorID).FirstOrDefault();
+
+                if (knownLocator == null)
+                {
+                    MessageBox.Show("This locator has not been found.");
+                }
+                else if (knownLocator.Asset != null)
+                {
+                    DisplayInfo(knownLocator.Asset);
+                }
+
+            }
+        }
+
         private void displayInformationForAKnownJobIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuDisplayJobInfoFromKnownID();
@@ -4221,11 +4329,9 @@ typeof(FilterTime)
 
         private void DoMenuDisplayJobInfoFromKnownID()
         {
-
             string JobId = "";
             string clipbs = Clipboard.GetText();
             if (clipbs != null) if (clipbs.StartsWith(Constants.JobIdPrefix)) JobId = clipbs;
-
 
             if (Program.InputBox("Job ID", "Please enter the known Job Id :", ref JobId) == DialogResult.OK)
             {
@@ -4238,8 +4344,8 @@ typeof(FilterTime)
                 {
                 }
             }
-
         }
+
         private void DoMenuDisplayAssetInfoFromKnownID()
         {
             string AssetId = string.Empty;
@@ -4263,10 +4369,9 @@ typeof(FilterTime)
             }
         }
 
-        private void displayInformationForAKnownAssetIdToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoMenuDisplayAssetInfoFromKnownID();
-        }
+
+
+
 
         private void dataGridViewTransfer_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -5348,6 +5453,12 @@ typeof(FilterTime)
             {
                 TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
                 await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started", _context, this, dataGridViewChannelsV));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Channel started", string.Format("{0}", myC.Name), false);
+                }));
+
             }
         }
 
@@ -5366,6 +5477,12 @@ typeof(FilterTime)
             {
                 TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
                 await Task.Run(() => ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Channel reset", string.Format("{0}", myC.Name), false);
+                }));
+
             }
         }
 
@@ -5413,7 +5530,12 @@ typeof(FilterTime)
             {
                 TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
                 await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
-                //await Task.Run(() => StreamingEndpointExecuteAsync(myO.StartAsync, myO, "started"));
+
+                this.BeginInvoke(new Action(() =>
+                {
+                    this.Notify("Streaming endpoint started", string.Format("{0}", myO.Name), false);
+                }));
+
             }
         }
         private async void StopStreamingEndpoint(IStreamingEndpoint myO)
@@ -7981,31 +8103,37 @@ typeof(FilterTime)
 
         private void refreshToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridAssetV(false);
         }
 
         private void refreshToolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridJobV(false);
         }
 
         private void refreshToolStripMenuItem3_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridChannelV(false);
         }
 
         private void refreshToolStripMenuItem4_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProgramV(false);
         }
 
         private void refreshToolStripMenuItem5_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStreamingEndpointV(false);
         }
 
         private void refreshToolStripMenuItem6_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridProcessorV(false);
         }
 
@@ -8189,7 +8317,7 @@ typeof(FilterTime)
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertThumbprint, form.GetAzureSubscriptionID);
+                ManagementRESTAPIHelper helper = new ManagementRESTAPIHelper(form.GetAzureServiceManagementURL, form.GetCertBody, form.GetAzureSubscriptionID);
 
                 // Initialize the AccountInfo class.
                 MediaServicesAccount accountInfo = new MediaServicesAccount()
@@ -8217,6 +8345,7 @@ typeof(FilterTime)
                     // Add useful information to the exception
                     TextBoxLogWriteLine("There is a problem when attaching the storage account.", true);
                     TextBoxLogWriteLine(ex);
+                    TextBoxLogWriteLine(helper.stringBuilderLog.ToString());
                 }
             }
         }
@@ -8636,6 +8765,7 @@ typeof(FilterTime)
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
+            _context = Program.ConnectAndGetNewContext(_credentials);
             DoRefreshGridStorageV(false);
         }
 
@@ -9280,6 +9410,69 @@ typeof(FilterTime)
         {
             DoMenuHyperlapseAssets();
         }
+
+        private void buttonSetFilterChannel_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.SearchInName = textBoxSearchNameChannel.Text;
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxFilterTimeChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            dataGridViewChannelsV.TimeFilter = ((ComboBox)sender).SelectedItem.ToString();
+            if (dataGridViewChannelsV.Initialized)
+            {
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxStatusChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.FilterState = ((ComboBox)sender).SelectedItem.ToString();
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+        private void comboBoxOrderChannel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewChannelsV.Initialized)
+            {
+                dataGridViewChannelsV.OrderItemsInGrid = ((ComboBox)sender).SelectedItem.ToString();
+                DoRefreshGridChannelV(false);
+            }
+        }
+
+
+        private void contextMenuStripStorage_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+
+        private void findTheAssetFromTheLocatorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayAssetInfoFromLocatorID();
+        }
+
+        private void findTheAssetFromTheLocatorIdGUIDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDisplayAssetInfoFromLocatorID();
+        }
+
+        private void displayParentJobToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void displayParentJobToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DisplayJobSource(ReturnSelectedAssets().FirstOrDefault());
+        }
     }
 }
 
@@ -9578,7 +9771,37 @@ namespace AMSExplorer
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
         public const string All = "All";
+
+        public static int ReturnNumberOfDays(string timeFilter)
+        {
+            int days = -1;
+            if (timeFilter != string.Empty && timeFilter != null && timeFilter != FilterTime.All)
+            {
+                switch (timeFilter)
+                {
+                    case FilterTime.LastDay:
+                        days = 1;
+                        break;
+                    case FilterTime.LastWeek:
+                        days = 7;
+                        break;
+                    case FilterTime.LastMonth:
+                        days = 30;
+                        break;
+                    case FilterTime.LastYear:
+                        days = 365;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            return days;
+        }
     }
+
+
+
     public enum TransferState
     {
         Queued = 0,
@@ -9832,7 +10055,6 @@ namespace AMSExplorer
                         AE.StaticEncryption = ABR.bitmap;
                         AE.StaticEncryptionMouseOver = ABR.MouseOverDesc;
                         ABR = BuildBitmapPublication(asset);
-                        //ABR = BuildBitmapPublication(SASLoc, OrigLoc);
                         AE.Publication = ABR.bitmap;
                         AE.PublicationMouseOver = ABR.MouseOverDesc;
                         AE.Type = AssetInfo.GetAssetType(asset);
@@ -9900,36 +10122,11 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-
-            //  Task.Run(() =>
-            // {
             IEnumerable<IAsset> assets;
             IEnumerable<AssetEntry> assetquery;
 
-            int days = -1;
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    default:
-                        break;
-                }
-            }
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
 
             if (!string.IsNullOrEmpty(_searchinname))
             {
@@ -9985,11 +10182,7 @@ namespace AMSExplorer
                 }
             }
 
-
-
-
             var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
 
             switch (_orderassets)
             {
@@ -10062,7 +10255,6 @@ namespace AMSExplorer
 
             AnalyzeItemsInBackground();
 
-            //  });
             this.FindForm().Cursor = Cursors.Default;
         }
 
@@ -10232,90 +10424,7 @@ namespace AMSExplorer
         }
 
 
-        /*
-        private static AssetBitmapAndText BuildBitmapPublication(PublishStatus SASPub, PublishStatus OriginPub)
-        {
-            // optmized for speed
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
 
-            if ((SASPub == PublishStatus.NotPublished) && (OriginPub == PublishStatus.NotPublished)) // IF NOT PUBLISHED
-            {
-                ABT.MouseOverDesc = "Not published";
-                return ABT;
-            }
-
-
-            Bitmap MyPublishedImage;
-            Bitmap streami = null;
-            Bitmap downloadi = null;
-            string streams = string.Empty;
-            string downloads = string.Empty;
-
-            switch (SASPub)
-            {
-                case PublishStatus.PublishedActive:
-                    downloadi = SASlocatorimage;
-                    downloads = "Active SAS locator";
-                    break;
-
-                case PublishStatus.PublishedExpired:
-                    downloadi = Reddownloadimage;
-                    downloads = "Expired SAS locator";
-                    break;
-
-                case PublishStatus.PublishedFuture:
-                    downloadi = Bluedownloadimage;
-                    downloads = "Future SAS locator";
-                    break;
-
-                case PublishStatus.NotPublished:
-                    downloadi = null;
-                    break;
-
-            }
-
-            switch (OriginPub)
-            {
-                case PublishStatus.PublishedActive:
-                    streami = Streaminglocatorimage;
-                    streams = "Active Streaming locator";
-                    break;
-
-                case PublishStatus.PublishedExpired:
-                    streami = Redstreamimage;
-                    streams = "Expired Streaming locator";
-                    break;
-
-                case PublishStatus.PublishedFuture:
-                    streami = Bluestreamimage;
-                    streams = "Future Streaming locator";
-                    break;
-
-                case PublishStatus.NotPublished:
-                    streami = null;
-
-                    break;
-            }
-
-            // IF BOTH PUBLISHED
-            if ((SASPub != PublishStatus.NotPublished) && (OriginPub != PublishStatus.NotPublished)) // SAS and Origin
-            {
-                MyPublishedImage = new Bitmap((downloadi.Width + streami.Width), streami.Height);
-                using (Graphics graphicsObject = Graphics.FromImage(MyPublishedImage))
-                {
-                    graphicsObject.DrawImage(downloadi, new Point(0, 0));
-                    graphicsObject.DrawImage(streami, new Point(downloadi.Width, 0));
-                }
-            }
-            else //only one published
-            {
-                MyPublishedImage = (SASPub != PublishStatus.NotPublished) ? downloadi : streami;
-            }
-            ABT.bitmap = MyPublishedImage;
-            ABT.MouseOverDesc = downloads + (string.IsNullOrEmpty(downloads) ? string.Empty : Constants.endline) + streams;
-            return ABT;
-        }
-        */
 
         private AssetBitmapAndText ReturnStaticProtectedBitmap(IAsset asset)
         {
@@ -10585,29 +10694,7 @@ namespace AMSExplorer
 
             IEnumerable<JobEntry> jobquery;
 
-            int days = -1;
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
-                switch (_timefilter)
-                {
-                    case FilterTime.LastDay:
-                        days = 1;
-                        break;
-                    case FilterTime.LastWeek:
-                        days = 7;
-                        break;
-                    case FilterTime.LastMonth:
-                        days = 30;
-                        break;
-                    case FilterTime.LastYear:
-                        days = 365;
-                        break;
-
-                    default:
-                        break;
-
-                }
-            }
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
             jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             if (_filterjobsstate != "All")
@@ -10837,15 +10924,29 @@ namespace AMSExplorer
                                    _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
                                    _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
-                                   _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
-                                   this.BeginInvoke(new Action(() =>
+
+                                   if (_MyListJobsMonitored.Contains(JobRefreshed.Id)) // we want to display only one time
                                    {
-                                       this.Refresh();
-                                   }));
+                                       _MyListJobsMonitored.Remove(JobRefreshed.Id); // let's remove from the list of monitored jobs
+                                       Mainform myform = (Mainform)this.FindForm();
+                                       string status = Enum.GetName(typeof(JobState), JobRefreshed.State).ToLower();
+
+                                       myform.BeginInvoke(new Action(() =>
+                                       {
+                                           myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
+                                       }));
+                                       Debug.WriteLine("Job", string.Format("Job {0} {1}", _MyObservJob[index].Name, _MyObservJob[index].State));
+
+                                       this.BeginInvoke(new Action(() =>
+                                       {
+                                           this.Refresh();
+                                       }));
+                                   }
                                }
                            }
                        },
                        CancellationToken.None).Result;
+
                 }
                 catch (Exception e)
                 {

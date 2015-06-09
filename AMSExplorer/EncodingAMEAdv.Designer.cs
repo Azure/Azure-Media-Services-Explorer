@@ -33,6 +33,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonLoadXML = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.buttonSaveXML = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanelIAssets = new System.Windows.Forms.TableLayoutPanel();
@@ -99,6 +100,7 @@
             this.label34 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
+            this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -151,15 +153,16 @@
             this.buttonLoadXML.Name = "buttonLoadXML";
             this.buttonLoadXML.Size = new System.Drawing.Size(135, 23);
             this.buttonLoadXML.TabIndex = 25;
-            this.buttonLoadXML.Text = "Load a custom XML file";
+            this.buttonLoadXML.Text = "Load a preset XML file...";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
-            this.buttonLoadXML.Click += new System.EventHandler(this.button1_Click);
+            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadXML_Click);
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.buttonSaveXML);
             this.groupBox1.Controls.Add(this.tabControl1);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.buttonLoadXML);
@@ -170,6 +173,17 @@
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder Configuration";
+            // 
+            // buttonSaveXML
+            // 
+            this.buttonSaveXML.Enabled = false;
+            this.buttonSaveXML.Location = new System.Drawing.Point(157, 19);
+            this.buttonSaveXML.Name = "buttonSaveXML";
+            this.buttonSaveXML.Size = new System.Drawing.Size(135, 23);
+            this.buttonSaveXML.TabIndex = 40;
+            this.buttonSaveXML.Text = "Save edited XML...";
+            this.buttonSaveXML.UseVisualStyleBackColor = true;
+            this.buttonSaveXML.Click += new System.EventHandler(this.buttonSaveXML_Click);
             // 
             // tabControl1
             // 
@@ -853,7 +867,7 @@
             // 
             // openFileDialogPreset
             // 
-            this.openFileDialogPreset.FileName = "*.xml";
+            this.openFileDialogPreset.DefaultExt = "xml";
             this.openFileDialogPreset.Filter = "Preset files|*.xml|All files|*.*";
             // 
             // comboBoxProcessor
@@ -955,6 +969,11 @@
             this.moreinfoame.TabStop = true;
             this.moreinfoame.Text = "More information on advanced encoding";
             this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
+            // 
+            // saveFileDialogPreset
+            // 
+            this.saveFileDialogPreset.DefaultExt = "xml";
+            this.saveFileDialogPreset.Filter = "Preset file|*.xml|All files|*.*";
             // 
             // buttonJobOptions
             // 
@@ -1084,5 +1103,7 @@
         private System.Windows.Forms.CheckBox checkBoxAddThumbnails;
         private System.Windows.Forms.LinkLabel moreinfoame;
         private ButtonJobOptions buttonJobOptions;
+        private System.Windows.Forms.Button buttonSaveXML;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogPreset;
     }
 }
