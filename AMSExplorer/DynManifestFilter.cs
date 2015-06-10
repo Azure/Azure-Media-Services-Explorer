@@ -36,6 +36,7 @@ namespace AMSExplorer
         private MediaServiceContextForDynManifest _contextdynman;
         CloudMediaContext _context;
         private DataTable dataPropertyType;
+        private DataTable dataPropertyFourCC;
         private DataTable dataProperty;
         private DataTable dataOperator;
 
@@ -67,6 +68,19 @@ namespace AMSExplorer
             dataPropertyType.Rows.Add(FilterPropertyTypeValue.audio, FilterPropertyTypeValue.audio);
             dataPropertyType.Rows.Add(FilterPropertyTypeValue.video, FilterPropertyTypeValue.video);
             dataPropertyType.Rows.Add(FilterPropertyTypeValue.text, FilterPropertyTypeValue.text);
+
+
+            // FilterPropertyFourCCValue
+
+            dataPropertyFourCC = new DataTable();
+            dataPropertyFourCC.Columns.Add(new DataColumn("Value", typeof(string)));
+            dataPropertyFourCC.Columns.Add(new DataColumn("Description", typeof(string)));
+
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.avc1, FilterPropertyFourCCValue.avc1);
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
+            dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
+
 
             // dataProperty dataOperator
             dataProperty = new DataTable();
@@ -188,6 +202,15 @@ namespace AMSExplorer
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
+                    else if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.FourCC) // property FourCC
+                    {
+                        var cellValue = new DataGridViewComboBoxCell();
+                        cellValue.DataSource = dataPropertyFourCC;
+                        cellValue.ValueMember = "Value";
+                        cellValue.DisplayMember = "Description";
+                        dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
+                        dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    }
                     else
                     {
                         var cellValue = new DataGridViewTextBoxCell();
@@ -260,7 +283,15 @@ namespace AMSExplorer
                         cellValue.DisplayMember = "Description";
                         cellValue.Value = condition.Value;
                         dataGridViewTracks[2, index] = cellValue;
-                        //dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                    }
+                    else if (condition.Property == FilterProperty.FourCC) // property FourCC - we want to propose supported FourCC
+                    {
+                        var cellValue = new DataGridViewComboBoxCell();
+                        cellValue.DataSource = dataPropertyFourCC;
+                        cellValue.ValueMember = "Value";
+                        cellValue.DisplayMember = "Description";
+                        cellValue.Value = condition.Value;
+                        dataGridViewTracks[2, index] = cellValue;
                     }
                 }
             }
@@ -293,7 +324,7 @@ namespace AMSExplorer
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
             // Filter sample
-            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = "0", StartTimestamp = "0", PresentationWindowDuration = "1300000000", EndTimestamp = "300000000", Timescale = "10000000" };
+            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
@@ -405,7 +436,7 @@ namespace AMSExplorer
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-           // e.Graphics.DrawRectangle(new Pen(Color.Gray), e.CellBounds);
+            // e.Graphics.DrawRectangle(new Pen(Color.Gray), e.CellBounds);
 
             var rectangle = e.CellBounds;
             rectangle.Inflate(-1, -1);

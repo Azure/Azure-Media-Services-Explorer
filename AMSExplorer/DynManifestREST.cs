@@ -519,6 +519,15 @@ namespace AMSExplorer
         public static readonly string text = "text";
     }
 
+
+    public sealed class FilterPropertyFourCCValue
+    {
+        public static readonly string mp4a = "mp4a";
+        public static readonly string avc1 = "avc1";
+        public static readonly string mp4v = "mp4v";
+        public static readonly string ec3 = "ec-3";
+    }
+
     public sealed class IOperator
     {
         public static readonly string Equal = "Equal";
