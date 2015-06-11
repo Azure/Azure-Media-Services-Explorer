@@ -37,10 +37,12 @@
             this.numericUpDownDays = new System.Windows.Forms.NumericUpDown();
             this.label40 = new System.Windows.Forms.Label();
             this.checkBoxMax = new System.Windows.Forms.CheckBox();
+            this.trackBarTime = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDays)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTime)).BeginInit();
             this.SuspendLayout();
             // 
             // label42
@@ -141,11 +143,28 @@
             this.checkBoxMax.TabIndex = 118;
             this.checkBoxMax.Text = "Max";
             this.checkBoxMax.UseVisualStyleBackColor = true;
+            this.checkBoxMax.CheckedChanged += new System.EventHandler(this.checkBoxMax_CheckedChanged);
+            // 
+            // trackBarTime
+            // 
+            this.trackBarTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarTime.BackColor = System.Drawing.SystemColors.Window;
+            this.trackBarTime.Enabled = false;
+            this.trackBarTime.Location = new System.Drawing.Point(3, 42);
+            this.trackBarTime.Maximum = 1000;
+            this.trackBarTime.Name = "trackBarTime";
+            this.trackBarTime.Size = new System.Drawing.Size(286, 45);
+            this.trackBarTime.TabIndex = 119;
+            this.trackBarTime.Scroll += new System.EventHandler(this.trackBarStart_Scroll);
+            this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
             // 
             // TimeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.trackBarTime);
             this.Controls.Add(this.checkBoxMax);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.numericUpDownSeconds);
@@ -156,11 +175,12 @@
             this.Controls.Add(this.numericUpDownDays);
             this.Controls.Add(this.label40);
             this.Name = "TimeControl";
-            this.Size = new System.Drawing.Size(289, 42);
+            this.Size = new System.Drawing.Size(289, 95);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownDays)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarTime)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,5 +197,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDays;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.CheckBox checkBoxMax;
+        private System.Windows.Forms.TrackBar trackBarTime;
     }
 }

@@ -36,19 +36,20 @@
             this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.buttonInsertSample = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.trackBarEnd = new System.Windows.Forms.TrackBar();
-            this.label42 = new System.Windows.Forms.Label();
-            this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
             this.checkBoxLiveBackoff = new System.Windows.Forms.CheckBox();
             this.checkBoxDVRWindow = new System.Windows.Forms.CheckBox();
             this.checkBoxEndTime = new System.Windows.Forms.CheckBox();
             this.checkBoxStartTime = new System.Windows.Forms.CheckBox();
-            this.trackBarStart = new System.Windows.Forms.TrackBar();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.label42 = new System.Windows.Forms.Label();
+            this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
+            this.timeControlDVR = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -89,27 +90,20 @@
             this.labelFilterTitle = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.labelassetname = new System.Windows.Forms.Label();
-            this.trackBarDVR = new System.Windows.Forms.TrackBar();
             this.textBoxAssetDuration = new System.Windows.Forms.TextBox();
             this.labelassetduration = new System.Windows.Forms.Label();
-            this.timeControlDVR = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
-            this.timeControlStart = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEnd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarStart)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarDVR)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -178,81 +172,6 @@
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
-            // tabControl1
-            // 
-            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 91);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(982, 509);
-            this.tabControl1.TabIndex = 78;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.trackBarDVR);
-            this.tabPage1.Controls.Add(this.pictureBox3);
-            this.tabPage1.Controls.Add(this.trackBarEnd);
-            this.tabPage1.Controls.Add(this.label42);
-            this.tabPage1.Controls.Add(this.numericUpDownBackoffSeconds);
-            this.tabPage1.Controls.Add(this.checkBoxLiveBackoff);
-            this.tabPage1.Controls.Add(this.timeControlDVR);
-            this.tabPage1.Controls.Add(this.checkBoxDVRWindow);
-            this.tabPage1.Controls.Add(this.timeControlEnd);
-            this.tabPage1.Controls.Add(this.checkBoxEndTime);
-            this.tabPage1.Controls.Add(this.checkBoxStartTime);
-            this.tabPage1.Controls.Add(this.timeControlStart);
-            this.tabPage1.Controls.Add(this.trackBarStart);
-            this.tabPage1.Controls.Add(this.pictureBox2);
-            this.tabPage1.Controls.Add(this.pictureBox1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(974, 483);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Presentation Time Range";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // trackBarEnd
-            // 
-            this.trackBarEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBarEnd.Enabled = false;
-            this.trackBarEnd.Location = new System.Drawing.Point(172, 170);
-            this.trackBarEnd.Maximum = 1000;
-            this.trackBarEnd.Name = "trackBarEnd";
-            this.trackBarEnd.Size = new System.Drawing.Size(796, 45);
-            this.trackBarEnd.TabIndex = 120;
-            this.trackBarEnd.Visible = false;
-            this.trackBarEnd.Scroll += new System.EventHandler(this.trackBarEnd_Scroll_1);
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(173, 405);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(49, 13);
-            this.label42.TabIndex = 119;
-            this.label42.Text = "Seconds";
-            // 
-            // numericUpDownBackoffSeconds
-            // 
-            this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
-            this.numericUpDownBackoffSeconds.Enabled = false;
-            this.numericUpDownBackoffSeconds.Location = new System.Drawing.Point(176, 421);
-            this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-            this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
-            this.numericUpDownBackoffSeconds.Size = new System.Drawing.Size(63, 20);
-            this.numericUpDownBackoffSeconds.TabIndex = 118;
-            // 
             // checkBoxLiveBackoff
             // 
             this.checkBoxLiveBackoff.AutoSize = true;
@@ -304,52 +223,153 @@
             this.checkBoxStartTime.UseVisualStyleBackColor = true;
             this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
             // 
-            // trackBarStart
+            // tabControl1
             // 
-            this.trackBarStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarStart.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBarStart.Enabled = false;
-            this.trackBarStart.Location = new System.Drawing.Point(172, 62);
-            this.trackBarStart.Maximum = 1000;
-            this.trackBarStart.Name = "trackBarStart";
-            this.trackBarStart.Size = new System.Drawing.Size(796, 45);
-            this.trackBarStart.TabIndex = 100;
-            this.trackBarStart.Visible = false;
-            this.trackBarStart.Scroll += new System.EventHandler(this.trackBarStart_Scroll);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(12, 91);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(982, 509);
+            this.tabControl1.TabIndex = 78;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.pictureBox1);
+            this.tabPage1.Controls.Add(this.pictureBox3);
+            this.tabPage1.Controls.Add(this.timeControlStart);
+            this.tabPage1.Controls.Add(this.label42);
+            this.tabPage1.Controls.Add(this.numericUpDownBackoffSeconds);
+            this.tabPage1.Controls.Add(this.checkBoxLiveBackoff);
+            this.tabPage1.Controls.Add(this.timeControlDVR);
+            this.tabPage1.Controls.Add(this.checkBoxDVRWindow);
+            this.tabPage1.Controls.Add(this.timeControlEnd);
+            this.tabPage1.Controls.Add(this.checkBoxEndTime);
+            this.tabPage1.Controls.Add(this.checkBoxStartTime);
+            this.tabPage1.Controls.Add(this.pictureBox2);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(974, 483);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Presentation Time Range";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.media_services_dvr_filter;
+            this.pictureBox1.Location = new System.Drawing.Point(624, 253);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(309, 51);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 97;
+            this.pictureBox1.TabStop = false;
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
-            this.pictureBox3.Location = new System.Drawing.Point(657, 92);
+            this.pictureBox3.Location = new System.Drawing.Point(624, 95);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(309, 74);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox3.TabIndex = 99;
             this.pictureBox3.TabStop = false;
             // 
+            // timeControlStart
+            // 
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayCheckboxMax = true;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.DVRMode = false;
+            this.timeControlStart.Enabled = false;
+            this.timeControlStart.Location = new System.Drawing.Point(169, 22);
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.Size = new System.Drawing.Size(777, 95);
+            this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = ((long)(10000000));
+            this.timeControlStart.Timestamp = "0";
+            this.timeControlStart.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.TotalDuration = ((long)(-1));
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(173, 405);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(49, 13);
+            this.label42.TabIndex = 119;
+            this.label42.Text = "Seconds";
+            // 
+            // numericUpDownBackoffSeconds
+            // 
+            this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
+            this.numericUpDownBackoffSeconds.Enabled = false;
+            this.numericUpDownBackoffSeconds.Location = new System.Drawing.Point(176, 421);
+            this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
+            this.numericUpDownBackoffSeconds.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownBackoffSeconds.TabIndex = 118;
+            // 
+            // timeControlDVR
+            // 
+            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlDVR.DisplayCheckboxMax = true;
+            this.timeControlDVR.DisplayTrackBar = true;
+            this.timeControlDVR.DVRMode = true;
+            this.timeControlDVR.Enabled = false;
+            this.timeControlDVR.Location = new System.Drawing.Point(170, 262);
+            this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.Name = "timeControlDVR";
+            this.timeControlDVR.Size = new System.Drawing.Size(776, 70);
+            this.timeControlDVR.TabIndex = 107;
+            this.timeControlDVR.TimeScale = ((long)(10000000));
+            this.timeControlDVR.Timestamp = "1200000000";
+            this.timeControlDVR.TimestampAsTimeSpan = System.TimeSpan.Parse("00:02:00");
+            this.timeControlDVR.TotalDuration = ((long)(-1));
+            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
+            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
+            // 
+            // timeControlEnd
+            // 
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayCheckboxMax = true;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.DVRMode = false;
+            this.timeControlEnd.Enabled = false;
+            this.timeControlEnd.Location = new System.Drawing.Point(170, 125);
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.Size = new System.Drawing.Size(776, 80);
+            this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = ((long)(10000000));
+            this.timeControlEnd.Timestamp = "0";
+            this.timeControlEnd.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.TotalDuration = ((long)(-1));
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
             // pictureBox2
             // 
             this.pictureBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.media_services_livebackoff_filter;
-            this.pictureBox2.Location = new System.Drawing.Point(657, 403);
+            this.pictureBox2.Location = new System.Drawing.Point(624, 390);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(309, 51);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox2.TabIndex = 98;
             this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBox1.Image = global::AMSExplorer.Bitmaps.media_services_dvr_filter;
-            this.pictureBox1.Location = new System.Drawing.Point(657, 259);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(309, 51);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 97;
-            this.pictureBox1.TabStop = false;
             // 
             // tabPage2
             // 
@@ -879,20 +899,6 @@
             this.labelassetname.Text = "Asset name :";
             this.labelassetname.Visible = false;
             // 
-            // trackBarDVR
-            // 
-            this.trackBarDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.trackBarDVR.Enabled = false;
-            this.trackBarDVR.Location = new System.Drawing.Point(172, 310);
-            this.trackBarDVR.Maximum = 1000;
-            this.trackBarDVR.Name = "trackBarDVR";
-            this.trackBarDVR.Size = new System.Drawing.Size(796, 45);
-            this.trackBarDVR.TabIndex = 121;
-            this.trackBarDVR.Visible = false;
-            this.trackBarDVR.Scroll += new System.EventHandler(this.trackBarDVR_Scroll);
-            // 
             // textBoxAssetDuration
             // 
             this.textBoxAssetDuration.Enabled = false;
@@ -911,49 +917,6 @@
             this.labelassetduration.TabIndex = 84;
             this.labelassetduration.Text = "Asset duration :";
             this.labelassetduration.Visible = false;
-            // 
-            // timeControlDVR
-            // 
-            this.timeControlDVR.Enabled = false;
-            this.timeControlDVR.Location = new System.Drawing.Point(170, 262);
-            this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlDVR.Min = System.TimeSpan.Parse("00:02:00");
-            this.timeControlDVR.Name = "timeControlDVR";
-            this.timeControlDVR.Size = new System.Drawing.Size(288, 42);
-            this.timeControlDVR.TabIndex = 107;
-            this.timeControlDVR.TimeScale = ((long)(10000000));
-            this.timeControlDVR.Timestamp = "1200000000";
-            this.timeControlDVR.TimestampAsTimeSpan = System.TimeSpan.Parse("00:02:00");
-            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
-            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
-            // 
-            // timeControlEnd
-            // 
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Location = new System.Drawing.Point(170, 125);
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.Size = new System.Drawing.Size(288, 42);
-            this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = ((long)(10000000));
-            this.timeControlEnd.Timestamp = "0";
-            this.timeControlEnd.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
-            // timeControlStart
-            // 
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Location = new System.Drawing.Point(170, 22);
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.Size = new System.Drawing.Size(288, 42);
-            this.timeControlStart.TabIndex = 102;
-            this.timeControlStart.TimeScale = ((long)(10000000));
-            this.timeControlStart.Timestamp = "0";
-            this.timeControlStart.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // DynManifestFilter
             // 
@@ -975,23 +938,21 @@
             this.Name = "DynManifestFilter";
             this.Text = "Dynamic Manifest Filter";
             this.Load += new System.EventHandler(this.DynManifestFilter_Load);
+            this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarEnd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarStart)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackoffSeconds)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBarDVR)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1051,8 +1012,6 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.TrackBar trackBarStart;
-        private TimeControl timeControlStart;
         private System.Windows.Forms.CheckBox checkBoxLiveBackoff;
         private TimeControl timeControlDVR;
         private System.Windows.Forms.CheckBox checkBoxDVRWindow;
@@ -1061,9 +1020,8 @@
         private System.Windows.Forms.CheckBox checkBoxStartTime;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.NumericUpDown numericUpDownBackoffSeconds;
-        private System.Windows.Forms.TrackBar trackBarEnd;
-        private System.Windows.Forms.TrackBar trackBarDVR;
         private System.Windows.Forms.TextBox textBoxAssetDuration;
         private System.Windows.Forms.Label labelassetduration;
+        private TimeControl timeControlStart;
     }
 }

@@ -92,60 +92,7 @@ namespace AMSExplorer
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
-            if (!isGlobalFilter) // Asset Filter
-            {
-                labelFilterTitle.Text = "Asset Filter";
-                textBoxAssetName.Visible = true;
-                labelassetname.Visible = true;
-                isGlobalFilter = false;
 
-                bool Error = false;
-                try
-                {
-                    var locator = GetOnDemandLocator();
-                    var manifesturi = _parentAsset.GetSmoothStreamingUri();
-                    XDocument manifest = XDocument.Load(manifesturi.ToString());
-                    locator.Delete();
-
-                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
-                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    _parentAssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
-                    _parentAssetTimeScale = _timescale = long.Parse(timescalefrommanifest);
-                    _parentAssetDurationInTicks = (long)((double)_parentAssetDuration * (double)TimeSpan.TicksPerSecond / (double)_parentAssetTimeScale);
-                }
-                catch
-                {
-                    Error = true;
-                }
-
-                if (!Error && newfilter)
-                {
-                    timeControlStart.Max = timeControlEnd.Max = timeControlEnd.TimestampAsTimeSpan = new TimeSpan(_parentAssetDurationInTicks);
-                    trackBarEnd.Value = 1000;
-                    trackBarStart.Visible = true;
-                    trackBarEnd.Visible = true;
-
-                    trackBarDVR.Visible = true;
-                    trackBarDVR.Value = (int)(1000d - 1000d * (((double)TimeSpan.FromMinutes(2).Ticks) / (double)_parentAssetDurationInTicks));
-
-                    timeControlDVR.Min = TimeSpan.FromMinutes(2);
-                    timeControlDVR.Max = new TimeSpan(_parentAssetDurationInTicks);
-
-
-                }
-
-                if (!Error)
-                {
-                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                    textBoxAssetDuration.Text = new TimeSpan(_parentAssetDurationInTicks).ToString(@"d\.hh\:mm\:ss");
-                }
-
-            }
-
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
-
-            RefreshPresentationTimes();
-            RefreshTracks();
 
             // dataPropertyType
             dataPropertyType = new DataTable();
@@ -576,22 +523,10 @@ namespace AMSExplorer
          * 
          * */
 
-        private void trackBarStart_Scroll(object sender, EventArgs e)
-        {
-            timeControlStart.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_parentAssetDuration * ((double)trackBarStart.Value) / 1000d));
-            CheckIfErrorTimeControls();
-        }
 
 
-        private void timeControlStart_ValueChanged(object sender, EventArgs e)
-        {
-            if (trackBarStart.Enabled)
-            {
-                trackBarStart.Value = (int)(1000d * (((double)timeControlStart.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
-            }
 
-            CheckIfErrorTimeControls();
-        }
+
 
         private void CheckIfErrorTimeControls()
         {
@@ -629,11 +564,9 @@ namespace AMSExplorer
 
 
             // dvr
-            if (checkBoxStartTime.Checked && checkBoxEndTime.Checked & checkBoxDVRWindow.Checked &&
-                (_parentAssetDurationInTicks > 0 && (timeControlDVR.TimestampAsTimeSpan - TimeSpan.FromTicks(_parentAssetDurationInTicks) + timeControlEnd.TimestampAsTimeSpan) < TimeSpan.FromMinutes(2))
-            )
+            if (checkBoxDVRWindow.Checked && timeControlDVR.TimestampAsTimeSpan < TimeSpan.FromMinutes(2))
             {
-                errorProvider1.SetError(timeControlDVR, "DVR Window intersection must be at least 2 minutes (or more)");
+                errorProvider1.SetError(timeControlDVR, "The DVR Window must be at least 2 minutes (or more)");
             }
             else
             {
@@ -646,25 +579,16 @@ namespace AMSExplorer
 
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
-            if (trackBarEnd.Enabled)
-            {
-                trackBarEnd.Value = (int)(1000d * (((double)timeControlEnd.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
-            }
 
 
             CheckIfErrorTimeControls();
         }
 
-        private void trackBarEnd_Scroll_1(object sender, EventArgs e)
-        {
-            timeControlEnd.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_parentAssetDuration * ((double)trackBarEnd.Value) / 1000d));
-            CheckIfErrorTimeControls();
-        }
+
 
         private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
         {
             timeControlStart.Enabled = checkBoxStartTime.Checked;
-            trackBarStart.Enabled = checkBoxStartTime.Checked && trackBarStart.Visible == true;
             CheckIfErrorTimeControls();
 
         }
@@ -672,7 +596,6 @@ namespace AMSExplorer
         private void checkBoxEndTime_CheckedChanged(object sender, EventArgs e)
         {
             timeControlEnd.Enabled = checkBoxEndTime.Checked;
-            trackBarEnd.Enabled = checkBoxEndTime.Checked && trackBarEnd.Visible == true;
             CheckIfErrorTimeControls();
 
 
@@ -688,7 +611,6 @@ namespace AMSExplorer
         private void checkBoxDVRWindow_CheckedChanged(object sender, EventArgs e)
         {
             timeControlDVR.Enabled = checkBoxDVRWindow.Checked;
-            trackBarDVR.Enabled = checkBoxDVRWindow.Checked && trackBarDVR.Visible == true;
             CheckIfErrorTimeControls();
 
 
@@ -702,23 +624,60 @@ namespace AMSExplorer
 
         private void timeControlDVR_ValueChanged(object sender, EventArgs e)
         {
-            if (trackBarDVR.Enabled)
-            {
-                trackBarDVR.Value = (int)(1000d - 1000d * (((double)timeControlDVR.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
-            }
+
 
             CheckIfErrorTimeControls();
         }
 
-        private void trackBarDVR_Scroll(object sender, EventArgs e)
+        private void DynManifestFilter_Shown(object sender, EventArgs e)
         {
-            timeControlDVR.TimestampAsTimeSpan = new TimeSpan(
-                (long)((double)_parentAssetDurationInTicks * (1000d - (double)trackBarDVR.Value) / 1000d)
-                );
+            if (!isGlobalFilter) // Asset Filter
+            {
+                labelFilterTitle.Text = "Asset Filter";
+                textBoxAssetName.Visible = true;
+                labelassetname.Visible = true;
+                isGlobalFilter = false;
 
-            CheckIfErrorTimeControls();
+                bool Error = false;
+                try
+                {
+                    var locator = GetOnDemandLocator();
+                    var manifesturi = _parentAsset.GetSmoothStreamingUri();
+                    XDocument manifest = XDocument.Load(manifesturi.ToString());
+                    locator.Delete();
 
+                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    _parentAssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                    _parentAssetTimeScale = _timescale = long.Parse(timescalefrommanifest);
+                    _parentAssetDurationInTicks = (long)((double)_parentAssetDuration * (double)TimeSpan.TicksPerSecond / (double)_parentAssetTimeScale);
+                }
+                catch
+                {
+                    Error = true;
+                }
 
+                if (!Error && newfilter)
+                {
+                    timeControlStart.Max = timeControlEnd.Max = timeControlEnd.TimestampAsTimeSpan = timeControlDVR.Max = new TimeSpan(_parentAssetDurationInTicks);
+                    timeControlStart.TotalDuration = timeControlEnd.TotalDuration = timeControlDVR.TotalDuration = _parentAssetDuration;
+                    timeControlStart.TimeScale = timeControlEnd.TimeScale = _parentAssetTimeScale;
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = true;
+
+                }
+
+                if (!Error)
+                {
+                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                    textBoxAssetDuration.Text = new TimeSpan(_parentAssetDurationInTicks).ToString(@"d\.hh\:mm\:ss");
+                }
+
+            }
+
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
+
+            RefreshPresentationTimes();
+            RefreshTracks();
         }
 
 

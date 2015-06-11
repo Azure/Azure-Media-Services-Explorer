@@ -16,19 +16,19 @@ namespace AMSExplorer
         private TimeSpan min = new TimeSpan(0);
         private TimeSpan max = new TimeSpan(Int64.MaxValue);
         private bool donotfirechangeevent = false;
+        private long _totalDuration = -1;
+        private bool _dvrmode = false; // inversed mode for dvr
+
 
         public TimeControl()
         {
             InitializeComponent();
-
-
         }
 
         public event EventHandler ValueChanged;
 
         private void HandleValueChanged(object sender, EventArgs e)
         {
-
             if (TimestampAsTimeSpan > max)
             {
                 donotfirechangeevent = true;
@@ -44,8 +44,24 @@ namespace AMSExplorer
             }
 
             this.OnNumValueChanged(EventArgs.Empty);
+        }
 
 
+        private void HandleTrackBarValueChanged(object sender, EventArgs e)
+        {
+            donotfirechangeevent = true;
+            if (_dvrmode)
+            {
+                TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_totalDuration * (1000d - (double)trackBarTime.Value) / 1000d));
+      
+            }
+            else
+            {
+                TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_totalDuration * ((double)trackBarTime.Value) / 1000d));
+      
+            }
+            donotfirechangeevent = false;
+            this.OnNumValueChanged(EventArgs.Empty);
         }
 
         protected virtual void OnNumValueChanged(EventArgs e)
@@ -61,6 +77,48 @@ namespace AMSExplorer
         {
             get { return timescale; }
             set { timescale = value; }
+        }
+
+        public Int64 TotalDuration
+        {
+            get { return _totalDuration; }
+            set { _totalDuration = value; }
+        }
+
+        public bool DisplayTrackBar
+        {
+            get
+            {
+                return trackBarTime.Visible;
+            }
+            set
+            {
+                trackBarTime.Visible = trackBarTime.Enabled = value;
+            }
+        }
+
+        public bool DisplayCheckboxMax
+        {
+            get
+            {
+                return checkBoxMax.Visible;
+            }
+            set
+            {
+                checkBoxMax.Visible = checkBoxMax.Enabled = value;
+            }
+        }
+
+        public bool DVRMode
+        {
+            get
+            {
+                return _dvrmode;
+            }
+            set
+            {
+                _dvrmode = value;
+            }
         }
 
         public TimeSpan Min
@@ -144,6 +202,28 @@ namespace AMSExplorer
                 }
                 donotfirechangeevent = false;
             }
+        }
+
+        private void trackBarStart_Scroll(object sender, EventArgs e)
+        {
+            /*
+            if (_dvrmode)
+            {
+                this.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_totalDuration * (1000d - (double)trackBarTime.Value) / 1000d));
+
+            }
+            else
+            {
+                this.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_totalDuration * ((double)trackBarTime.Value) / 1000d));
+
+            }
+             * */
+        }
+
+        private void checkBoxMax_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownDays.Enabled = numericUpDownHours.Enabled = numericUpDownMinutes.Enabled = numericUpDownSeconds.Enabled = !checkBoxMax.Checked;
+            if (trackBarTime.Visible) trackBarTime.Enabled = !checkBoxMax.Checked;
         }
     }
 }
