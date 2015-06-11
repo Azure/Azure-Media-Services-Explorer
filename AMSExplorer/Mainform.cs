@@ -2782,14 +2782,14 @@ namespace AMSExplorer
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
-                
+
             };
             form.JobOptions = new JobOptionsVar()
             {
                 Priority = Properties.Settings.Default.DefaultJobPriority,
                 StorageSelected = string.Empty,
                 TasksOptionsSetting = TaskOptions.None, // we want to force this as encryption is not supported for empty string
-                TasksOptionsSettingReadOnly=true,
+                TasksOptionsSettingReadOnly = true,
                 OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
             };
 
@@ -9902,7 +9902,7 @@ namespace AMSExplorer
         {
             IAsset selasset = ReturnSelectedAssets().FirstOrDefault();
 
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, selasset);
             form.CreateAssetFilterFromAssetName = selasset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)

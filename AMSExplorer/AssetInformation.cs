@@ -1847,7 +1847,7 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext);
+                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, myAsset);
                 form.DisplayedFilter = (Filter)filters.FirstOrDefault();
 
                 if (form.ShowDialog() == DialogResult.OK)
@@ -1876,7 +1876,7 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, myAsset);
             form.CreateAssetFilterFromAssetName = myAsset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
@@ -1967,6 +1967,21 @@ namespace AMSExplorer
         private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             BuildLocatorsTree();
+        }
+
+        private void button1_Click_3(object sender, EventArgs e)
+        {
+            DoFilterInfo();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void buttonDeleteFilter_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssetFilter();
         }
     }
 }

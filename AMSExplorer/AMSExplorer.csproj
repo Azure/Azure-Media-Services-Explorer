@@ -367,6 +367,12 @@
     <Compile Include="options.Designer.cs">
       <DependentUpon>options.cs</DependentUpon>
     </Compile>
+    <Compile Include="TimeControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TimeControl.Designer.cs">
+      <DependentUpon>TimeControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="WatchFolder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -645,6 +651,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="options.resx">
       <DependentUpon>options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeControl.resx">
+      <DependentUpon>TimeControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WatchFolder.resx">
       <DependentUpon>WatchFolder.cs</DependentUpon>

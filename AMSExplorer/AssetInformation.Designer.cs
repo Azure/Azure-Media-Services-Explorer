@@ -73,10 +73,10 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonDuplicateFilter = new System.Windows.Forms.Button();
+            this.buttonDeleteFilter = new System.Windows.Forms.Button();
+            this.buttonCreateAssetFilter = new System.Windows.Forms.Button();
+            this.buttonFilterInfo = new System.Windows.Forms.Button();
             this.dataGridViewFilters = new System.Windows.Forms.DataGridView();
             this.contextMenuStripFilter = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.filterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -597,10 +597,10 @@
             // 
             // tabPage6
             // 
-            this.tabPage6.Controls.Add(this.button4);
-            this.tabPage6.Controls.Add(this.button3);
-            this.tabPage6.Controls.Add(this.button2);
-            this.tabPage6.Controls.Add(this.button1);
+            this.tabPage6.Controls.Add(this.buttonDuplicateFilter);
+            this.tabPage6.Controls.Add(this.buttonDeleteFilter);
+            this.tabPage6.Controls.Add(this.buttonCreateAssetFilter);
+            this.tabPage6.Controls.Add(this.buttonFilterInfo);
             this.tabPage6.Controls.Add(this.dataGridViewFilters);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
             this.tabPage6.Name = "tabPage6";
@@ -610,46 +610,49 @@
             this.tabPage6.Text = "Asset Filters";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // buttonDuplicateFilter
             // 
-            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button4.Location = new System.Drawing.Point(288, 409);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(88, 23);
-            this.button4.TabIndex = 40;
-            this.button4.Text = "Duplicate";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.buttonDuplicateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDuplicateFilter.Location = new System.Drawing.Point(288, 409);
+            this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
+            this.buttonDuplicateFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonDuplicateFilter.TabIndex = 40;
+            this.buttonDuplicateFilter.Text = "Duplicate";
+            this.buttonDuplicateFilter.UseVisualStyleBackColor = true;
+            this.buttonDuplicateFilter.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button3
+            // buttonDeleteFilter
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button3.Location = new System.Drawing.Point(194, 409);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(88, 23);
-            this.button3.TabIndex = 39;
-            this.button3.Text = "Delete";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonDeleteFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteFilter.Location = new System.Drawing.Point(194, 409);
+            this.buttonDeleteFilter.Name = "buttonDeleteFilter";
+            this.buttonDeleteFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonDeleteFilter.TabIndex = 39;
+            this.buttonDeleteFilter.Text = "Delete";
+            this.buttonDeleteFilter.UseVisualStyleBackColor = true;
+            this.buttonDeleteFilter.Click += new System.EventHandler(this.buttonDeleteFilter_Click);
             // 
-            // button2
+            // buttonCreateAssetFilter
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button2.Location = new System.Drawing.Point(100, 409);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(88, 23);
-            this.button2.TabIndex = 38;
-            this.button2.Text = "Create";
-            this.button2.UseVisualStyleBackColor = true;
+            this.buttonCreateAssetFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(100, 409);
+            this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
+            this.buttonCreateAssetFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonCreateAssetFilter.TabIndex = 38;
+            this.buttonCreateAssetFilter.Text = "Create";
+            this.buttonCreateAssetFilter.UseVisualStyleBackColor = true;
+            this.buttonCreateAssetFilter.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // button1
+            // buttonFilterInfo
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button1.Location = new System.Drawing.Point(6, 409);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(88, 23);
-            this.button1.TabIndex = 37;
-            this.button1.Text = "Filter info";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonFilterInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonFilterInfo.Location = new System.Drawing.Point(6, 409);
+            this.buttonFilterInfo.Name = "buttonFilterInfo";
+            this.buttonFilterInfo.Size = new System.Drawing.Size(88, 23);
+            this.buttonFilterInfo.TabIndex = 37;
+            this.buttonFilterInfo.Text = "Filter info";
+            this.buttonFilterInfo.UseVisualStyleBackColor = true;
+            this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3);
             // 
             // dataGridViewFilters
             // 
@@ -1307,10 +1310,10 @@
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem filterInfoupdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonDuplicateFilter;
+        private System.Windows.Forms.Button buttonDeleteFilter;
+        private System.Windows.Forms.Button buttonCreateAssetFilter;
+        private System.Windows.Forms.Button buttonFilterInfo;
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;

@@ -26,6 +26,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Xml;
+using System.Xml.Linq;
+
 
 
 namespace AMSExplorer
@@ -33,14 +36,21 @@ namespace AMSExplorer
     public partial class DynManifestFilter : Form
     {
         private Filter _filter;
+        private bool isGlobalFilter = true;
+        private bool newfilter = true;
         private MediaServiceContextForDynManifest _contextdynman;
         CloudMediaContext _context;
         private DataTable dataPropertyType;
         private DataTable dataPropertyFourCC;
         private DataTable dataProperty;
         private DataTable dataOperator;
+        private IAsset _parentAsset = null;
+        private long _parentAssetDuration = -1;
+        private long _parentAssetDurationInTicks = -1;
+        private long _parentAssetTimeScale = -1;
+        private long _timescale = Int64.MaxValue;
 
-        public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context)
+        public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, IAsset parentAsset = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -51,10 +61,87 @@ namespace AMSExplorer
             _filter.SetContext(_contextdynman);
             _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
             _filter.Tracks = new List<IFilterTrackSelect>();
+
+            if (parentAsset != null)
+            {
+                isGlobalFilter = false;
+                _parentAsset = parentAsset;
+            }
         }
+
+        private ILocator GetOnDemandLocator()
+        {
+            ILocator tempLocator = null;
+            try
+            {
+                var locatorTask = Task.Factory.StartNew(() =>
+                {
+                    tempLocator = _context.Locators.Create(LocatorType.OnDemandOrigin, _parentAsset, AccessPermissions.Read, TimeSpan.FromHours(1));
+
+                });
+                locatorTask.Wait();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error when creating the temporary on-demand locator." + ex.Message);
+            }
+
+            return tempLocator;
+        }
+
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
+            if (!isGlobalFilter) // Asset Filter
+            {
+                labelFilterTitle.Text = "Asset Filter";
+                textBoxAssetName.Visible = true;
+                labelassetname.Visible = true;
+                isGlobalFilter = false;
+
+                bool Error = false;
+                try
+                {
+                    var locator = GetOnDemandLocator();
+                    var manifesturi = _parentAsset.GetSmoothStreamingUri();
+                    XDocument manifest = XDocument.Load(manifesturi.ToString());
+                    locator.Delete();
+
+                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    _parentAssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                    _parentAssetTimeScale = _timescale = long.Parse(timescalefrommanifest);
+                    _parentAssetDurationInTicks = (long)((double)_parentAssetDuration * (double)TimeSpan.TicksPerSecond / (double)_parentAssetTimeScale);
+                }
+                catch
+                {
+                    Error = true;
+                }
+
+                if (!Error && newfilter)
+                {
+                    timeControlStart.Max = timeControlEnd.Max = timeControlEnd.TimestampAsTimeSpan = new TimeSpan(_parentAssetDurationInTicks);
+                    trackBarEnd.Value = 1000;
+                    trackBarStart.Visible = true;
+                    trackBarEnd.Visible = true;
+
+                    trackBarDVR.Visible = true;
+                    trackBarDVR.Value = (int)(1000d - 1000d * (((double)TimeSpan.FromMinutes(2).Ticks) / (double)_parentAssetDurationInTicks));
+
+                    timeControlDVR.Min = TimeSpan.FromMinutes(2);
+                    timeControlDVR.Max = new TimeSpan(_parentAssetDurationInTicks);
+
+
+                }
+
+                if (!Error)
+                {
+                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                    textBoxAssetDuration.Text = new TimeSpan(_parentAssetDurationInTicks).ToString(@"d\.hh\:mm\:ss");
+                }
+
+            }
+
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
 
             RefreshPresentationTimes();
@@ -136,11 +223,16 @@ namespace AMSExplorer
             get
             {
                 _filter.Name = textBoxFilterName.Text;
-                _filter.PresentationTimeRange.StartTimestamp = string.IsNullOrEmpty(textBoxStartTimestamp.Text.Trim()) ? null : textBoxStartTimestamp.Text;
-                _filter.PresentationTimeRange.EndTimestamp = string.IsNullOrEmpty(textBoxEndTimestamp.Text.Trim()) ? null : textBoxEndTimestamp.Text;
-                _filter.PresentationTimeRange.LiveBackoffDuration = string.IsNullOrEmpty(textBoxLiveBackoffDuration.Text.Trim()) ? null : textBoxLiveBackoffDuration.Text;
-                _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrEmpty(textBoxPresentationWindowDuration.Text.Trim()) ? null : textBoxPresentationWindowDuration.Text;
-                _filter.PresentationTimeRange.Timescale = string.IsNullOrEmpty(textBoxTimescale.Text.Trim()) ? null : textBoxTimescale.Text;
+                _filter.PresentationTimeRange.StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.Timestamp : null;
+                _filter.PresentationTimeRange.EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.Timestamp : null;
+                _filter.PresentationTimeRange.LiveBackoffDuration = checkBoxLiveBackoff.Checked ? ((long)((double)numericUpDownBackoffSeconds.Value * (double)_timescale)).ToString() : null;
+                _filter.PresentationTimeRange.PresentationWindowDuration = checkBoxDVRWindow.Checked ? timeControlDVR.Timestamp : null;
+                _filter.PresentationTimeRange.Timescale = _timescale.ToString();
+                // _filter.PresentationTimeRange.StartTimestamp = string.IsNullOrEmpty(textBoxStartTimestamp.Text.Trim()) ? null : textBoxStartTimestamp.Text;
+                // _filter.PresentationTimeRange.EndTimestamp = string.IsNullOrEmpty(textBoxEndTimestamp.Text.Trim()) ? null : textBoxEndTimestamp.Text;
+                // _filter.PresentationTimeRange.LiveBackoffDuration = string.IsNullOrEmpty(textBoxLiveBackoffDuration.Text.Trim()) ? null : textBoxLiveBackoffDuration.Text;
+                // _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrEmpty(textBoxPresentationWindowDuration.Text.Trim()) ? null : textBoxPresentationWindowDuration.Text;
+                //_filter.PresentationTimeRange.Timescale = string.IsNullOrEmpty(textBoxTimeScale.Text.Trim()) ? null : textBoxTimeScale.Text;
 
                 if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
 
@@ -148,18 +240,28 @@ namespace AMSExplorer
             }
             set
             {
-                // goal is to display an existing filer
+                // goal is to display an existing filter
+                newfilter = false;
                 _filter = value;
+                _timescale = long.Parse(_filter.PresentationTimeRange.Timescale);
                 buttonOk.Text = "Update Filter";
+                buttonOk.Enabled = true; // we can enable the button
                 textBoxFilterName.Enabled = false; // no way to change the filter name
+
+                checkBoxStartTime.Checked = checkBoxEndTime.Checked = checkBoxLiveBackoff.Checked = checkBoxDVRWindow.Checked = true;
+                timeControlStart.TimeScale = _timescale;
+                timeControlStart.Timestamp = _filter.PresentationTimeRange.StartTimestamp;
+                timeControlEnd.TimeScale = _timescale;
+                timeControlEnd.Timestamp = _filter.PresentationTimeRange.EndTimestamp;
+                timeControlDVR.TimeScale = _timescale;
+                timeControlDVR.Timestamp = _filter.PresentationTimeRange.PresentationWindowDuration;
+                numericUpDownBackoffSeconds.Value = (decimal)((double)(long.Parse(_filter.PresentationTimeRange.LiveBackoffDuration)) / (double)_timescale);
+
                 if (value.GetType() == typeof(AssetFilter))
                 {
                     IAsset parentasset = AssetInfo.GetAsset(((AssetFilter)value).ParentAssetId, _context);
                     string parentname = parentasset != null ? parentasset.Name : string.Empty;
-                    labelFilterTitle.Text = "Asset Filter";
                     textBoxAssetName.Text = parentasset.Name;
-                    textBoxAssetName.Visible = true;
-                    labelassetname.Visible = true;
                 }
             }
         }
@@ -172,6 +274,7 @@ namespace AMSExplorer
                 textBoxAssetName.Text = value;
                 textBoxAssetName.Visible = true;
                 labelassetname.Visible = true;
+                isGlobalFilter = false;
             }
 
         }
@@ -354,29 +457,34 @@ namespace AMSExplorer
             textBoxFilterName.Text = _filter.Name;
             if (_filter.PresentationTimeRange != null)
             {
+                /*
                 textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
                 textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
                 textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
                 textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
-                textBoxTimescale.Text = _filter.PresentationTimeRange.Timescale;
+                textBoxTimeScale.Text = _filter.PresentationTimeRange.Timescale;
+                 */
             }
             else
             {
+                /*
                 textBoxStartTimestamp.Text = string.Empty;
                 textBoxEndTimestamp.Text = string.Empty;
                 textBoxLiveBackoffDuration.Text = string.Empty;
                 textBoxPresentationWindowDuration.Text = string.Empty;
-                textBoxTimescale.Text = string.Empty;
+                textBoxTimeScale.Text = string.Empty;
+                */
             }
 
         }
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
+            /*
             double scale = 1;
             try
             {
-                scale = Convert.ToDouble(textBoxTimescale.Text) / 10000000;
+                scale = Convert.ToDouble(textBoxTimeScale.Text) / 10000000;
             }
             catch
             {
@@ -426,6 +534,7 @@ namespace AMSExplorer
             textBoxLabelEnd.Text = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelDVR.Text = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
             textBoxLabelLiveBackoff.Text = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
+             * */
         }
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -444,5 +553,175 @@ namespace AMSExplorer
             //ControlPaint.DrawBorder3D(e.Graphics, rectangle, Border3DStyle.Flat, Border3DSide.All); // 3D border
             ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Gray, ButtonBorderStyle.Dotted); // 
         }
+
+        private void textBoxFilterName_TextChanged(object sender, EventArgs e)
+        {
+            buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxFilterName.Text);
+        }
+
+        /*
+        private void textBoxTimestamp_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            if (isGlobalFilter && !string.IsNullOrWhiteSpace(textBoxStartTimestamp.Text))
+            {
+                errorProvider1.SetError(tb, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+         * 
+         * */
+
+        private void trackBarStart_Scroll(object sender, EventArgs e)
+        {
+            timeControlStart.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_parentAssetDuration * ((double)trackBarStart.Value) / 1000d));
+            CheckIfErrorTimeControls();
+        }
+
+
+        private void timeControlStart_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBarStart.Enabled)
+            {
+                trackBarStart.Value = (int)(1000d * (((double)timeControlStart.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
+            }
+
+            CheckIfErrorTimeControls();
+        }
+
+        private void CheckIfErrorTimeControls()
+        {
+
+            // time start control
+            if (checkBoxStartTime.Checked && isGlobalFilter)
+            {
+                errorProvider1.SetError(timeControlStart, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
+            }
+            else if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.TimestampAsTimeSpan > timeControlEnd.TimestampAsTimeSpan)
+            {
+                errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
+            }
+            else
+            {
+                errorProvider1.SetError(timeControlStart, String.Empty);
+            }
+
+
+
+
+            // time end control
+            if (checkBoxEndTime.Checked && isGlobalFilter)
+            {
+                errorProvider1.SetError(timeControlEnd, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
+            }
+            else if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.TimestampAsTimeSpan < timeControlStart.TimestampAsTimeSpan)
+            {
+                errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
+            }
+            else
+            {
+                errorProvider1.SetError(timeControlEnd, String.Empty);
+            }
+
+
+            // dvr
+            if (checkBoxStartTime.Checked && checkBoxEndTime.Checked & checkBoxDVRWindow.Checked &&
+                (_parentAssetDurationInTicks > 0 && (timeControlDVR.TimestampAsTimeSpan - TimeSpan.FromTicks(_parentAssetDurationInTicks) + timeControlEnd.TimestampAsTimeSpan) < TimeSpan.FromMinutes(2))
+            )
+            {
+                errorProvider1.SetError(timeControlDVR, "DVR Window intersection must be at least 2 minutes (or more)");
+            }
+            else
+            {
+                errorProvider1.SetError(timeControlDVR, String.Empty);
+            }
+
+        }
+
+
+
+        private void timeControlEnd_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBarEnd.Enabled)
+            {
+                trackBarEnd.Value = (int)(1000d * (((double)timeControlEnd.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
+            }
+
+
+            CheckIfErrorTimeControls();
+        }
+
+        private void trackBarEnd_Scroll_1(object sender, EventArgs e)
+        {
+            timeControlEnd.TimestampAsTimeSpan = new TimeSpan(Convert.ToInt64((double)_parentAssetDuration * ((double)trackBarEnd.Value) / 1000d));
+            CheckIfErrorTimeControls();
+        }
+
+        private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlStart.Enabled = checkBoxStartTime.Checked;
+            trackBarStart.Enabled = checkBoxStartTime.Checked && trackBarStart.Visible == true;
+            CheckIfErrorTimeControls();
+
+        }
+
+        private void checkBoxEndTime_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlEnd.Enabled = checkBoxEndTime.Checked;
+            trackBarEnd.Enabled = checkBoxEndTime.Checked && trackBarEnd.Visible == true;
+            CheckIfErrorTimeControls();
+
+
+        }
+
+        private void checkBoxLiveBackoff_CheckedChanged(object sender, EventArgs e)
+        {
+            numericUpDownBackoffSeconds.Enabled = checkBoxLiveBackoff.Checked;
+            CheckIfErrorTimeControls();
+
+        }
+
+        private void checkBoxDVRWindow_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlDVR.Enabled = checkBoxDVRWindow.Checked;
+            trackBarDVR.Enabled = checkBoxDVRWindow.Checked && trackBarDVR.Visible == true;
+            CheckIfErrorTimeControls();
+
+
+        }
+
+
+        private void timeControlDVR_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void timeControlDVR_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBarDVR.Enabled)
+            {
+                trackBarDVR.Value = (int)(1000d - 1000d * (((double)timeControlDVR.TimestampAsTimeSpan.Ticks) / (double)_parentAssetDurationInTicks));
+            }
+
+            CheckIfErrorTimeControls();
+        }
+
+        private void trackBarDVR_Scroll(object sender, EventArgs e)
+        {
+            timeControlDVR.TimestampAsTimeSpan = new TimeSpan(
+                (long)((double)_parentAssetDurationInTicks * (1000d - (double)trackBarDVR.Value) / 1000d)
+                );
+
+            CheckIfErrorTimeControls();
+
+
+        }
+
+
+
     }
 }
