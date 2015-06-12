@@ -4115,11 +4115,13 @@ namespace AMSExplorer
 
         private void dataGridViewJobsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewJobsV.Columns["State"].Index) // state column
+            if (e.ColumnIndex < dataGridViewJobsV.Columns["Progress"].Index)
             {
-                if (dataGridViewJobsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                var celljobstatevalue = dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["State"].Index].Value;
+
+                if (celljobstatevalue != null)
                 {
-                    JobState JS = (JobState)dataGridViewJobsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    JobState JS = (JobState)celljobstatevalue;
                     Color mycolor;
 
                     switch (JS)
@@ -4143,7 +4145,7 @@ namespace AMSExplorer
                             mycolor = Color.Black;
                             break;
                     }
-                    for (int i = 0; i < dataGridViewJobsV.Columns["Progress"].Index; i++) dataGridViewJobsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    e.CellStyle.ForeColor = mycolor;
                 }
             }
         }
@@ -4193,8 +4195,8 @@ namespace AMSExplorer
             {
                 string TypeStr = (string)cell.Value;
                 if (TypeStr.Equals(AssetInfo.Type_Empty)) e.CellStyle.ForeColor = Color.Red;
-                    else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
-                }
+                else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
+            }
 
 
             var cell2 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexsize];  //Size
@@ -6052,36 +6054,35 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewChannelsV.Columns["State"].Index) // state column
-            {
-                if (dataGridViewChannelsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-                {
-                    ChannelState CS = (ChannelState)dataGridViewChannelsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
+            var cellchannelstatevalue = dataGridViewChannelsV.Rows[e.RowIndex].Cells[dataGridViewChannelsV.Columns["State"].Index].Value;
 
-                    switch (CS)
-                    {
-                        case ChannelState.Deleting:
-                            mycolor = Color.Red;
-                            break;
-                        case ChannelState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case ChannelState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case ChannelState.Stopped:
-                            mycolor = Color.Blue;
-                            break;
-                        case ChannelState.Running:
-                            mycolor = Color.Green;
-                            break;
-                        default:
-                            mycolor = Color.Black;
-                            break;
-                    }
-                    for (int i = 0; i < dataGridViewChannelsV.Columns.Count; i++) dataGridViewChannelsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+            if (cellchannelstatevalue != null)
+            {
+                ChannelState CS = (ChannelState)cellchannelstatevalue;
+                Color mycolor;
+
+                switch (CS)
+                {
+                    case ChannelState.Deleting:
+                        mycolor = Color.Red;
+                        break;
+                    case ChannelState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case ChannelState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case ChannelState.Stopped:
+                        mycolor = Color.Blue;
+                        break;
+                    case ChannelState.Running:
+                        mycolor = Color.Green;
+                        break;
+                    default:
+                        mycolor = Color.Black;
+                        break;
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
@@ -6598,34 +6599,33 @@ namespace AMSExplorer
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewProgramsV.Columns["State"].Index) // state column
+            var cellprogramstatevalue = dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["State"].Index].Value;
+
+            if (cellprogramstatevalue != null)
             {
-                if (dataGridViewProgramsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                ProgramState PS = (ProgramState)cellprogramstatevalue;
+                Color mycolor;
+
+                switch (PS)
                 {
-                    ProgramState CS = (ProgramState)dataGridViewProgramsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
+                    case ProgramState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case ProgramState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case ProgramState.Stopped:
+                        mycolor = Color.Blue;
+                        break;
+                    case ProgramState.Running:
+                        mycolor = Color.Green;
+                        break;
 
-                    switch (CS)
-                    {
-                        case ProgramState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case ProgramState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case ProgramState.Stopped:
-                            mycolor = Color.Blue;
-                            break;
-                        case ProgramState.Running:
-                            mycolor = Color.Green;
-                            break;
-
-                        default:
-                            mycolor = Color.Black;
-                            break;
-                    }
-                    for (int i = 0; i < dataGridViewProgramsV.Columns.Count; i++) dataGridViewProgramsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    default:
+                        mycolor = Color.Black;
+                        break;
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
@@ -6730,38 +6730,37 @@ namespace AMSExplorer
 
         private void dataGridViewOriginsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewStreamingEndpointsV.Columns["State"].Index) // state column
+
+            var cellSEstatevalue = dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["State"].Index].Value;
+
+            if (cellSEstatevalue != null)
             {
-                if (dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                StreamingEndpointState SES = (StreamingEndpointState)cellSEstatevalue;
+                Color mycolor;
+
+                switch (SES)
                 {
-                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
-
-                    switch (OS)
-                    {
-                        case StreamingEndpointState.Deleting:
-                            mycolor = Color.Red;
-                            break;
-                        case StreamingEndpointState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case StreamingEndpointState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case StreamingEndpointState.Stopped:
-                            mycolor = Color.Red;
-                            break;
-                        case StreamingEndpointState.Running:
-                            mycolor = Color.Green;
-                            break;
-                        default:
-                            mycolor = Color.Black;
-                            break;
-
-                    }
-                    for (int i = 0; i < dataGridViewStreamingEndpointsV.Columns.Count; i++) dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    case StreamingEndpointState.Deleting:
+                        mycolor = Color.Red;
+                        break;
+                    case StreamingEndpointState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case StreamingEndpointState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case StreamingEndpointState.Stopped:
+                        mycolor = Color.Red;
+                        break;
+                    case StreamingEndpointState.Running:
+                        mycolor = Color.Green;
+                        break;
+                    default:
+                        mycolor = Color.Black;
+                        break;
 
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
