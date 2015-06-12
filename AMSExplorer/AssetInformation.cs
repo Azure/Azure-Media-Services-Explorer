@@ -430,8 +430,8 @@ namespace AMSExplorer
             dataGridViewFilters.Columns[4].Name = "End";
             dataGridViewFilters.Columns[5].HeaderText = "DVR (d.h:m:s)";
             dataGridViewFilters.Columns[5].Name = "DVR";
-            dataGridViewFilters.Columns[6].HeaderText = "Live delay (d.h:m:s)";
-            dataGridViewFilters.Columns[6].Name = "LiveDelay";
+            dataGridViewFilters.Columns[6].HeaderText = "Live backoff (d.h:m:s)";
+            dataGridViewFilters.Columns[6].Name = "LiveBackoff";
 
             dataGridViewFilters.Rows.Clear();
             comboBoxLocatorsFilters.Items.Clear(); //drop list in locator tab
@@ -495,7 +495,7 @@ namespace AMSExplorer
             {
                 bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
                 Color colornodeRU = CurrentStreamingEndpointHasRUs ? Color.Black : Color.Gray;
-                string filter = ((Item) comboBoxLocatorsFilters.SelectedItem).Value;
+                string filter = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
 
                 TreeViewLocators.BeginUpdate();
                 TreeViewLocators.Nodes.Clear();
@@ -591,7 +591,7 @@ namespace AMSExplorer
                                 indexn++;
 
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter,checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -600,7 +600,7 @@ namespace AMSExplorer
                             if (locator.GetMpegDashUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE,filter ,checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -609,12 +609,12 @@ namespace AMSExplorer
                             if (locator.GetHlsUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsUris(locator,  SelectedSE,filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator,  SelectedSE,filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, filter, checkBoxHttps.Checked))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -1847,22 +1847,22 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, myAsset);
-                form.DisplayedFilter = (Filter)filters.FirstOrDefault();
+                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, (Filter)filters.FirstOrDefault(), myAsset);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    AssetFilter filtertoupdate = (AssetFilter)form.GetFilter;
                     try
                     {
-                        AssetFilter filtertoupdate = (AssetFilter)form.DisplayedFilter;
                         filtertoupdate.Delete();
                         filtertoupdate.Create();
-
+                        myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when displaying asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                        MessageBox.Show("Error when updating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        myMainForm.TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
+                        myMainForm.TextBoxLogWriteLine(e);
                     }
                     DisplayAssetFilters();
                 }
@@ -1876,14 +1876,14 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, myAsset);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, null, myAsset);
             form.CreateAssetFilterFromAssetName = myAsset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 AssetFilter myassetfilter = new AssetFilter(myAsset);
 
-                Filter filter = form.DisplayedFilter;
+                Filter filter = form.GetFilter;
                 myassetfilter.Name = filter.Name;
                 myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
                 myassetfilter.Tracks = filter.Tracks;
@@ -1891,10 +1891,13 @@ namespace AMSExplorer
                 try
                 {
                     myassetfilter.Create();
+                    myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filter.Name);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("Error when creating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", filter.Name, true);
+                    myMainForm.TextBoxLogWriteLine(e);
                 }
                 DisplayAssetFilters();
             }

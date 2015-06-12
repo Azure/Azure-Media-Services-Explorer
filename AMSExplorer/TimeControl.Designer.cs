@@ -36,7 +36,6 @@
             this.numericUpDownHours = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownDays = new System.Windows.Forms.NumericUpDown();
             this.label40 = new System.Windows.Forms.Label();
-            this.checkBoxMax = new System.Windows.Forms.CheckBox();
             this.trackBarTime = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
@@ -116,8 +115,8 @@
             // 
             this.numericUpDownDays.Location = new System.Drawing.Point(8, 16);
             this.numericUpDownDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
+            1874919424,
+            2328306,
             0,
             0});
             this.numericUpDownDays.Name = "numericUpDownDays";
@@ -133,17 +132,6 @@
             this.label40.Size = new System.Drawing.Size(35, 13);
             this.label40.TabIndex = 114;
             this.label40.Text = "Hours";
-            // 
-            // checkBoxMax
-            // 
-            this.checkBoxMax.AutoSize = true;
-            this.checkBoxMax.Location = new System.Drawing.Point(236, 17);
-            this.checkBoxMax.Name = "checkBoxMax";
-            this.checkBoxMax.Size = new System.Drawing.Size(46, 17);
-            this.checkBoxMax.TabIndex = 118;
-            this.checkBoxMax.Text = "Max";
-            this.checkBoxMax.UseVisualStyleBackColor = true;
-            this.checkBoxMax.CheckedChanged += new System.EventHandler(this.checkBoxMax_CheckedChanged);
             // 
             // trackBarTime
             // 
@@ -165,7 +153,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.trackBarTime);
-            this.Controls.Add(this.checkBoxMax);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.numericUpDownSeconds);
             this.Controls.Add(this.label39);
@@ -196,7 +183,6 @@
         private System.Windows.Forms.NumericUpDown numericUpDownHours;
         private System.Windows.Forms.NumericUpDown numericUpDownDays;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.CheckBox checkBoxMax;
         private System.Windows.Forms.TrackBar trackBarTime;
     }
 }

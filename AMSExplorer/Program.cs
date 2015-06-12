@@ -982,6 +982,33 @@ namespace AMSExplorer
             }
         }
 
+
+        public static ILocator CreatedTemporaryOnDemandLocator(IAsset asset)
+        {
+            ILocator tempLocator = null;
+            try
+            {
+                var locatorTask = Task.Factory.StartNew(() =>
+                { 
+                    tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                });
+                locatorTask.Wait();
+            }
+            catch (Exception ex)
+            {
+             
+            }
+
+            return tempLocator;
+        }
+
+        public static Uri GetValidOnDemandURI(IAsset asset)
+        {
+            var ai= new AssetInfo(asset);
+            return ai.GetValidURIs().FirstOrDefault();
+        }
+
+
         public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
             return GetStreamingUris(originLocator, string.Empty, se, filter, https);

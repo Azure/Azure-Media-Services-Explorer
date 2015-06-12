@@ -42,6 +42,10 @@
             this.checkBoxStartTime = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.labelDefaultBakckoff = new System.Windows.Forms.Label();
+            this.labelDefaultDVR = new System.Windows.Forms.Label();
+            this.labelDefaultEnd = new System.Windows.Forms.Label();
+            this.labelStartTimeDefault = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.timeControlStart = new AMSExplorer.TimeControl();
@@ -92,6 +96,8 @@
             this.labelassetname = new System.Windows.Forms.Label();
             this.textBoxAssetDuration = new System.Windows.Forms.TextBox();
             this.labelassetduration = new System.Windows.Forms.Label();
+            this.textBoxFilterTimeScale = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -162,6 +168,7 @@
             // buttonInsertSample
             // 
             this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonInsertSample.Enabled = false;
             this.buttonInsertSample.Location = new System.Drawing.Point(888, 51);
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(106, 24);
@@ -238,6 +245,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.labelDefaultBakckoff);
+            this.tabPage1.Controls.Add(this.labelDefaultDVR);
+            this.tabPage1.Controls.Add(this.labelDefaultEnd);
+            this.tabPage1.Controls.Add(this.labelStartTimeDefault);
             this.tabPage1.Controls.Add(this.pictureBox1);
             this.tabPage1.Controls.Add(this.pictureBox3);
             this.tabPage1.Controls.Add(this.timeControlStart);
@@ -257,6 +268,47 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Presentation Time Range";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // labelDefaultBakckoff
+            // 
+            this.labelDefaultBakckoff.AutoSize = true;
+            this.labelDefaultBakckoff.Location = new System.Drawing.Point(38, 441);
+            this.labelDefaultBakckoff.Name = "labelDefaultBakckoff";
+            this.labelDefaultBakckoff.Size = new System.Drawing.Size(59, 13);
+            this.labelDefaultBakckoff.TabIndex = 125;
+            this.labelDefaultBakckoff.Tag = "(Default: 0)";
+            this.labelDefaultBakckoff.Text = "(Default: 0)";
+            // 
+            // labelDefaultDVR
+            // 
+            this.labelDefaultDVR.AutoSize = true;
+            this.labelDefaultDVR.Location = new System.Drawing.Point(35, 298);
+            this.labelDefaultDVR.Name = "labelDefaultDVR";
+            this.labelDefaultDVR.Size = new System.Drawing.Size(73, 13);
+            this.labelDefaultDVR.TabIndex = 124;
+            this.labelDefaultDVR.Tag = "(Default: Max)";
+            this.labelDefaultDVR.Text = "(Default: Max)";
+            // 
+            // labelDefaultEnd
+            // 
+            this.labelDefaultEnd.AutoSize = true;
+            this.labelDefaultEnd.Location = new System.Drawing.Point(35, 161);
+            this.labelDefaultEnd.Name = "labelDefaultEnd";
+            this.labelDefaultEnd.Size = new System.Drawing.Size(73, 13);
+            this.labelDefaultEnd.TabIndex = 123;
+            this.labelDefaultEnd.Tag = "(Default: Max)";
+            this.labelDefaultEnd.Text = "(Default: Max)";
+            // 
+            // labelStartTimeDefault
+            // 
+            this.labelStartTimeDefault.AutoSize = true;
+            this.labelStartTimeDefault.Location = new System.Drawing.Point(35, 59);
+            this.labelStartTimeDefault.Name = "labelStartTimeDefault";
+            this.labelStartTimeDefault.Size = new System.Drawing.Size(62, 13);
+            this.labelStartTimeDefault.TabIndex = 86;
+            this.labelStartTimeDefault.Tag = "(Default : 0)";
+            this.labelStartTimeDefault.Text = "(Default : 0)";
             // 
             // pictureBox1
             // 
@@ -283,7 +335,6 @@
             // timeControlStart
             // 
             this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayCheckboxMax = true;
             this.timeControlStart.DisplayTrackBar = true;
             this.timeControlStart.DVRMode = false;
             this.timeControlStart.Enabled = false;
@@ -291,12 +342,11 @@
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
             this.timeControlStart.Size = new System.Drawing.Size(777, 95);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
-            this.timeControlStart.Timestamp = "0";
-            this.timeControlStart.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.TotalDuration = ((long)(-1));
             // 
             // label42
             // 
@@ -324,7 +374,6 @@
             // timeControlDVR
             // 
             this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDVR.DisplayCheckboxMax = true;
             this.timeControlDVR.DisplayTrackBar = true;
             this.timeControlDVR.DVRMode = true;
             this.timeControlDVR.Enabled = false;
@@ -332,19 +381,17 @@
             this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.Name = "timeControlDVR";
+            this.timeControlDVR.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlDVR.ScaledTotalDuration = ((long)(-1));
             this.timeControlDVR.Size = new System.Drawing.Size(776, 70);
             this.timeControlDVR.TabIndex = 107;
-            this.timeControlDVR.TimeScale = ((long)(10000000));
-            this.timeControlDVR.Timestamp = "1200000000";
-            this.timeControlDVR.TimestampAsTimeSpan = System.TimeSpan.Parse("00:02:00");
-            this.timeControlDVR.TotalDuration = ((long)(-1));
+            this.timeControlDVR.TimeScale = ((long)(0));
             this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
             this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
             // 
             // timeControlEnd
             // 
             this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayCheckboxMax = true;
             this.timeControlEnd.DisplayTrackBar = true;
             this.timeControlEnd.DVRMode = false;
             this.timeControlEnd.Enabled = false;
@@ -352,12 +399,11 @@
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
             this.timeControlEnd.Size = new System.Drawing.Size(776, 80);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));
-            this.timeControlEnd.Timestamp = "0";
-            this.timeControlEnd.TimestampAsTimeSpan = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.TotalDuration = ((long)(-1));
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // pictureBox2
@@ -883,7 +929,7 @@
             // textBoxAssetName
             // 
             this.textBoxAssetName.Enabled = false;
-            this.textBoxAssetName.Location = new System.Drawing.Point(267, 55);
+            this.textBoxAssetName.Location = new System.Drawing.Point(460, 55);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.Size = new System.Drawing.Size(239, 20);
             this.textBoxAssetName.TabIndex = 83;
@@ -892,7 +938,7 @@
             // labelassetname
             // 
             this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(267, 39);
+            this.labelassetname.Location = new System.Drawing.Point(460, 39);
             this.labelassetname.Name = "labelassetname";
             this.labelassetname.Size = new System.Drawing.Size(68, 13);
             this.labelassetname.TabIndex = 82;
@@ -902,7 +948,7 @@
             // textBoxAssetDuration
             // 
             this.textBoxAssetDuration.Enabled = false;
-            this.textBoxAssetDuration.Location = new System.Drawing.Point(516, 55);
+            this.textBoxAssetDuration.Location = new System.Drawing.Point(709, 55);
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
             this.textBoxAssetDuration.Size = new System.Drawing.Size(80, 20);
             this.textBoxAssetDuration.TabIndex = 85;
@@ -911,12 +957,29 @@
             // labelassetduration
             // 
             this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(516, 39);
+            this.labelassetduration.Location = new System.Drawing.Point(709, 39);
             this.labelassetduration.Name = "labelassetduration";
             this.labelassetduration.Size = new System.Drawing.Size(80, 13);
             this.labelassetduration.TabIndex = 84;
             this.labelassetduration.Text = "Asset duration :";
             this.labelassetduration.Visible = false;
+            // 
+            // textBoxFilterTimeScale
+            // 
+            this.textBoxFilterTimeScale.Enabled = false;
+            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(257, 55);
+            this.textBoxFilterTimeScale.Name = "textBoxFilterTimeScale";
+            this.textBoxFilterTimeScale.Size = new System.Drawing.Size(168, 20);
+            this.textBoxFilterTimeScale.TabIndex = 87;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(257, 39);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 86;
+            this.label2.Text = "Filter timescale :";
             // 
             // DynManifestFilter
             // 
@@ -924,6 +987,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1008, 661);
+            this.Controls.Add(this.textBoxFilterTimeScale);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxAssetDuration);
             this.Controls.Add(this.labelassetduration);
             this.Controls.Add(this.textBoxAssetName);
@@ -1023,5 +1088,11 @@
         private System.Windows.Forms.TextBox textBoxAssetDuration;
         private System.Windows.Forms.Label labelassetduration;
         private TimeControl timeControlStart;
+        private System.Windows.Forms.Label labelDefaultEnd;
+        private System.Windows.Forms.Label labelStartTimeDefault;
+        private System.Windows.Forms.Label labelDefaultBakckoff;
+        private System.Windows.Forms.Label labelDefaultDVR;
+        private System.Windows.Forms.TextBox textBoxFilterTimeScale;
+        private System.Windows.Forms.Label label2;
     }
 }

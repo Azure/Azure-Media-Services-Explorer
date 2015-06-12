@@ -4754,11 +4754,6 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHAzurePage);
         }
 
-        private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-
-        }
-
         private void createOutlookReportEmailToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoCreateAssetReportEmail();
@@ -5458,8 +5453,8 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[3].Name = "End";
                 dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
                 dataGridViewFilters.Columns[4].Name = "DVR";
-                dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
-                dataGridViewFilters.Columns[5].Name = "LiveDelay";
+                dataGridViewFilters.Columns[5].HeaderText = "Live backoff (d.h:m:s)";
+                dataGridViewFilters.Columns[5].Name = "LiveBackoff";
             }
             dataGridViewFilters.Rows.Clear();
             List<Filter> filters = _contextdynmanifest.ListFilters();
@@ -9624,12 +9619,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+
+                var myfilter = form.GetFilter;
                 try
                 {
-                    form.DisplayedFilter.Create();
+                    myfilter.Create();
+                    TextBoxLogWriteLine("Global filter '{0}' created.", myfilter.Name);
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", myfilter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9663,22 +9662,20 @@ namespace AMSExplorer
         private void DoUpdateFilter()
         {
             Filter filter = ReturnSelectedFilters().FirstOrDefault();
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context)
-            {
-                DisplayedFilter = filter
-            };
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, filter);
+
             if (form.ShowDialog() == DialogResult.OK)
             {
+                Filter filtertoupdate = form.GetFilter;
                 try
                 {
-                    Filter filtertoupdate = form.DisplayedFilter;
                     filtertoupdate.Delete();
                     filtertoupdate.Create();
                     TextBoxLogWriteLine("Global filter '{0}' recreated.", filtertoupdate.Name);
-
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", filtertoupdate.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9890,7 +9887,7 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
         private void createAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9900,16 +9897,16 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            IAsset selasset = ReturnSelectedAssets().FirstOrDefault();
+            IAsset selasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
 
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, selasset);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, null, selasset);
             form.CreateAssetFilterFromAssetName = selasset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 AssetFilter myassetfilter = new AssetFilter(selasset);
 
-                Filter filter = form.DisplayedFilter;
+                Filter filter = form.GetFilter;
                 myassetfilter.Name = filter.Name;
                 myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
                 myassetfilter.Tracks = filter.Tracks;
@@ -9917,9 +9914,11 @@ namespace AMSExplorer
                 try
                 {
                     myassetfilter.Create();
+                    TextBoxLogWriteLine("Global filter '{0}' created.", myassetfilter.Name);
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9968,6 +9967,22 @@ namespace AMSExplorer
         private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateAssetFilter();
+
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void createAnAssetFilterToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
+        {
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
 
         }
     }
