@@ -135,7 +135,7 @@ namespace AMSExplorer
                         mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(_parentAsset);
                         myuri = AssetInfo.GetValidOnDemandURI(_parentAsset);
                     }
-                    if (myuri!=null)
+                    if (myuri != null)
                     {
                         XDocument manifest = XDocument.Load(myuri.ToString());
                         var smoothmedia = manifest.Element("SmoothStreamingMedia");
@@ -172,8 +172,12 @@ namespace AMSExplorer
 
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentAssetTimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = timeControlDVR.ScaledFirstTimestampOffset = offset;
+
+                    textBoxOffset.Text = offset.ToString();
+                    labelOffset.Visible = textBoxOffset.Visible = true;
+
                     timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(_parentAssetDurationInTicks);
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max); 
+                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = new TimeSpan(_parentAssetDurationInTicks).ToString(@"d\.hh\:mm\:ss");
                     // let set duration and active track bat
@@ -184,13 +188,11 @@ namespace AMSExplorer
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
 
                     timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
-                    timeControlStart.Max = timeControlEnd.Max =  timeControlDVR.Max = TimeSpan.MaxValue;
+                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = TimeSpan.MaxValue;
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
-                    // let set duration and active track bat
-                    //timeControlStart.TotalDuration = timeControlEnd.TotalDuration = timeControlDVR.TotalDuration = _parentAssetDuration;
                 }
- 
+
             }
 
             /////////////////////////////////////////////
@@ -232,21 +234,20 @@ namespace AMSExplorer
                         XDocument manifest = XDocument.Load(myuri.ToString());
                         var smoothmedia = manifest.Element("SmoothStreamingMedia");
                         string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                         _parentAssetTimeScale = _timescale = long.Parse(timescalefrommanifest);
+                        _parentAssetTimeScale = _timescale = long.Parse(timescalefrommanifest);
 
-                         var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
-                         offset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                        var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                        offset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
 
-                         if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value=="TRUE")
-                         { // Live asset.... No duration to read
-                             Error = true;
-                         }
-                         else
-                         {
-                             _parentAssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
-                             _parentAssetDurationInTicks = (long)((double)_parentAssetDuration * (double)TimeSpan.TicksPerSecond / (double)_parentAssetTimeScale);
-                         }
-                         
+                        if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                        { // Live asset.... No duration to read
+                            Error = true;
+                        }
+                        else
+                        {
+                            _parentAssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                            _parentAssetDurationInTicks = (long)((double)_parentAssetDuration * (double)TimeSpan.TicksPerSecond / (double)_parentAssetTimeScale);
+                        }
                     }
                     else
                     {
@@ -264,6 +265,9 @@ namespace AMSExplorer
                 if (!Error && _timescale == _parentAssetTimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
                 {
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = timeControlDVR.ScaledFirstTimestampOffset = offset;
+                    textBoxOffset.Text = offset.ToString();
+                    labelOffset.Visible = textBoxOffset.Visible = true;
+
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = new TimeSpan(_parentAssetDurationInTicks).ToString(@"d\.hh\:mm\:ss");
                     // let set duration and active track bat
@@ -272,7 +276,7 @@ namespace AMSExplorer
                 }
                 else // not able to read asset timings or mismatch in timescale
                 {
-                    timeControlStart.Max = timeControlEnd.Max =  timeControlDVR.Max = TimeSpan.MaxValue;
+                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = TimeSpan.MaxValue;
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
@@ -284,26 +288,18 @@ namespace AMSExplorer
                 checkBoxLiveBackoff.Checked = !IsMin(_filter.PresentationTimeRange.LiveBackoffDuration);
 
                 timeControlStart.SetScaledTimeStamp(_filter.PresentationTimeRange.StartTimestamp);
-                timeControlEnd.SetScaledTimeStamp(  IsMax(_filter.PresentationTimeRange.EndTimestamp) ? "0" : _filter.PresentationTimeRange.EndTimestamp);  // we don't want to pass the max value to the control (overflow)
-                timeControlDVR.SetScaledTimeStamp(  IsMax(_filter.PresentationTimeRange.PresentationWindowDuration) ? "0" : _filter.PresentationTimeRange.PresentationWindowDuration);  // we don't want to pass the max value to the control (overflow)
+                timeControlEnd.SetScaledTimeStamp(IsMax(_filter.PresentationTimeRange.EndTimestamp) ? "0" : _filter.PresentationTimeRange.EndTimestamp);  // we don't want to pass the max value to the control (overflow)
+                timeControlDVR.SetScaledTimeStamp(IsMax(_filter.PresentationTimeRange.PresentationWindowDuration) ? "0" : _filter.PresentationTimeRange.PresentationWindowDuration);  // we don't want to pass the max value to the control (overflow)
                 numericUpDownBackoffSeconds.Value = (decimal)((double)(long.Parse(_filter.PresentationTimeRange.LiveBackoffDuration)) / (double)_timescale);
-
             }
 
 
             // Common code
             textBoxFilterTimeScale.Text = _timescale.ToString();
-
-
         }
-
-       
-
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
-
-
             // dataPropertyType
             dataPropertyType = new DataTable();
             dataPropertyType.Columns.Add(new DataColumn("Value", typeof(string)));
@@ -388,7 +384,7 @@ namespace AMSExplorer
         {
             get
             {
-                _filter.Name = newfilter? textBoxFilterName.Text : _filter.Name;
+                _filter.Name = newfilter ? textBoxFilterName.Text : _filter.Name;
                 _filter.PresentationTimeRange.StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.GetScaledTimeStampWithOffset() : null;
                 _filter.PresentationTimeRange.EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.GetScaledTimeStampWithOffset() : null;
                 _filter.PresentationTimeRange.LiveBackoffDuration = checkBoxLiveBackoff.Checked ? ((long)((double)numericUpDownBackoffSeconds.Value * (double)_timescale)).ToString() : null;

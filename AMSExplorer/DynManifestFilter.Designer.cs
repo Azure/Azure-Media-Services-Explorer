@@ -98,6 +98,8 @@
             this.labelassetduration = new System.Windows.Forms.Label();
             this.textBoxFilterTimeScale = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.textBoxOffset = new System.Windows.Forms.TextBox();
+            this.labelOffset = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -929,16 +931,16 @@
             // textBoxAssetName
             // 
             this.textBoxAssetName.Enabled = false;
-            this.textBoxAssetName.Location = new System.Drawing.Point(460, 55);
+            this.textBoxAssetName.Location = new System.Drawing.Point(431, 55);
             this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(239, 20);
+            this.textBoxAssetName.Size = new System.Drawing.Size(215, 20);
             this.textBoxAssetName.TabIndex = 83;
             this.textBoxAssetName.Visible = false;
             // 
             // labelassetname
             // 
             this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(460, 39);
+            this.labelassetname.Location = new System.Drawing.Point(428, 39);
             this.labelassetname.Name = "labelassetname";
             this.labelassetname.Size = new System.Drawing.Size(68, 13);
             this.labelassetname.TabIndex = 82;
@@ -948,16 +950,16 @@
             // textBoxAssetDuration
             // 
             this.textBoxAssetDuration.Enabled = false;
-            this.textBoxAssetDuration.Location = new System.Drawing.Point(709, 55);
+            this.textBoxAssetDuration.Location = new System.Drawing.Point(652, 55);
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
-            this.textBoxAssetDuration.Size = new System.Drawing.Size(80, 20);
+            this.textBoxAssetDuration.Size = new System.Drawing.Size(114, 20);
             this.textBoxAssetDuration.TabIndex = 85;
             this.textBoxAssetDuration.Visible = false;
             // 
             // labelassetduration
             // 
             this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(709, 39);
+            this.labelassetduration.Location = new System.Drawing.Point(649, 39);
             this.labelassetduration.Name = "labelassetduration";
             this.labelassetduration.Size = new System.Drawing.Size(80, 13);
             this.labelassetduration.TabIndex = 84;
@@ -981,12 +983,33 @@
             this.label2.TabIndex = 86;
             this.label2.Text = "Filter timescale :";
             // 
+            // textBoxOffset
+            // 
+            this.textBoxOffset.Enabled = false;
+            this.textBoxOffset.Location = new System.Drawing.Point(772, 55);
+            this.textBoxOffset.Name = "textBoxOffset";
+            this.textBoxOffset.Size = new System.Drawing.Size(106, 20);
+            this.textBoxOffset.TabIndex = 89;
+            this.textBoxOffset.Visible = false;
+            // 
+            // labelOffset
+            // 
+            this.labelOffset.AutoSize = true;
+            this.labelOffset.Location = new System.Drawing.Point(769, 39);
+            this.labelOffset.Name = "labelOffset";
+            this.labelOffset.Size = new System.Drawing.Size(68, 13);
+            this.labelOffset.TabIndex = 88;
+            this.labelOffset.Text = "Asset offset :";
+            this.labelOffset.Visible = false;
+            // 
             // DynManifestFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1008, 661);
+            this.Controls.Add(this.textBoxOffset);
+            this.Controls.Add(this.labelOffset);
             this.Controls.Add(this.textBoxFilterTimeScale);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxAssetDuration);
@@ -1094,5 +1117,7 @@
         private System.Windows.Forms.Label labelDefaultDVR;
         private System.Windows.Forms.TextBox textBoxFilterTimeScale;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBoxOffset;
+        private System.Windows.Forms.Label labelOffset;
     }
 }
