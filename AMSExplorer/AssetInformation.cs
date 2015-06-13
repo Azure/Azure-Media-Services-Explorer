@@ -51,6 +51,7 @@ namespace AMSExplorer
         private Mainform myMainForm;
         private List<Filter> globalFilters;
         private bool oktobuildlocator = false;
+        private ManifestTimingData myassetmanifesttimingdata = null;
 
         public AssetInformation(Mainform mainform)
         {
@@ -440,6 +441,13 @@ namespace AMSExplorer
 
             List<AssetFilter> filters = _contextdynmanifest.ListAssetFilters(myAsset);
 
+            if (filters.Count > 0 && myassetmanifesttimingdata == null)
+            {
+                myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAsset);
+            }
+
+
+
             foreach (var filter in filters)
             {
                 string s = null;
@@ -449,10 +457,10 @@ namespace AMSExplorer
 
                 if (filter.PresentationTimeRange != null)
                 {
-                    long start = Convert.ToInt64(filter.PresentationTimeRange.StartTimestamp);
-                    long end = Convert.ToInt64(filter.PresentationTimeRange.EndTimestamp);
-                    long dvr = Convert.ToInt64(filter.PresentationTimeRange.PresentationWindowDuration);
-                    long live = Convert.ToInt64(filter.PresentationTimeRange.LiveBackoffDuration);
+                    long start = Int64.Parse(filter.PresentationTimeRange.StartTimestamp) - myassetmanifesttimingdata.TimestampOffset;
+                    long end = Int64.Parse(filter.PresentationTimeRange.EndTimestamp) - myassetmanifesttimingdata.TimestampOffset;
+                    long dvr = Int64.Parse(filter.PresentationTimeRange.PresentationWindowDuration);
+                    long live = Int64.Parse(filter.PresentationTimeRange.LiveBackoffDuration);
 
                     double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
                     e = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
@@ -1985,6 +1993,22 @@ namespace AMSExplorer
         private void buttonDeleteFilter_Click(object sender, EventArgs e)
         {
             DoDeleteAssetFilter();
+        }
+
+        private void button1_Click_4(object sender, EventArgs e)
+        {
+            DoPlayWithFilter();
+        }
+
+        private void DoPlayWithFilter()
+        {
+            myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<IAsset>() { myAsset }, ReturnSelectedFilters().FirstOrDefault().Name);
+
+        }
+
+        private void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoPlayWithFilter();
         }
     }
 }

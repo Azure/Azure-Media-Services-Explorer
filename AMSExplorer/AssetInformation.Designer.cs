@@ -123,6 +123,8 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonPlayFilter = new System.Windows.Forms.Button();
+            this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -597,6 +599,7 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.buttonPlayFilter);
             this.tabPage6.Controls.Add(this.buttonDuplicateFilter);
             this.tabPage6.Controls.Add(this.buttonDeleteFilter);
             this.tabPage6.Controls.Add(this.buttonCreateAssetFilter);
@@ -613,7 +616,7 @@
             // buttonDuplicateFilter
             // 
             this.buttonDuplicateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDuplicateFilter.Location = new System.Drawing.Point(288, 409);
+            this.buttonDuplicateFilter.Location = new System.Drawing.Point(316, 409);
             this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
             this.buttonDuplicateFilter.Size = new System.Drawing.Size(88, 23);
             this.buttonDuplicateFilter.TabIndex = 40;
@@ -624,7 +627,7 @@
             // buttonDeleteFilter
             // 
             this.buttonDeleteFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteFilter.Location = new System.Drawing.Point(194, 409);
+            this.buttonDeleteFilter.Location = new System.Drawing.Point(222, 409);
             this.buttonDeleteFilter.Name = "buttonDeleteFilter";
             this.buttonDeleteFilter.Size = new System.Drawing.Size(88, 23);
             this.buttonDeleteFilter.TabIndex = 39;
@@ -635,7 +638,7 @@
             // buttonCreateAssetFilter
             // 
             this.buttonCreateAssetFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(100, 409);
+            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(128, 409);
             this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
             this.buttonCreateAssetFilter.Size = new System.Drawing.Size(88, 23);
             this.buttonCreateAssetFilter.TabIndex = 38;
@@ -648,9 +651,9 @@
             this.buttonFilterInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFilterInfo.Location = new System.Drawing.Point(6, 409);
             this.buttonFilterInfo.Name = "buttonFilterInfo";
-            this.buttonFilterInfo.Size = new System.Drawing.Size(88, 23);
+            this.buttonFilterInfo.Size = new System.Drawing.Size(116, 23);
             this.buttonFilterInfo.TabIndex = 37;
-            this.buttonFilterInfo.Text = "Filter info";
+            this.buttonFilterInfo.Text = "Filter info/update";
             this.buttonFilterInfo.UseVisualStyleBackColor = true;
             this.buttonFilterInfo.Click += new System.EventHandler(this.button1_Click_3);
             // 
@@ -680,9 +683,10 @@
             this.filterInfoupdateToolStripMenuItem,
             this.createAnAssetFilterToolStripMenuItem,
             this.deleteToolStripMenuItem,
-            this.duplicateToolStripMenuItem});
+            this.duplicateToolStripMenuItem,
+            this.playWithThisFilterToolStripMenuItem});
             this.contextMenuStripFilter.Name = "contextMenuStripFilter";
-            this.contextMenuStripFilter.Size = new System.Drawing.Size(167, 92);
+            this.contextMenuStripFilter.Size = new System.Drawing.Size(172, 136);
             // 
             // filterInfoupdateToolStripMenuItem
             // 
@@ -1180,6 +1184,24 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
+            // buttonPlayFilter
+            // 
+            this.buttonPlayFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPlayFilter.Location = new System.Drawing.Point(410, 409);
+            this.buttonPlayFilter.Name = "buttonPlayFilter";
+            this.buttonPlayFilter.Size = new System.Drawing.Size(120, 23);
+            this.buttonPlayFilter.TabIndex = 41;
+            this.buttonPlayFilter.Text = "Play with this filter";
+            this.buttonPlayFilter.UseVisualStyleBackColor = true;
+            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
+            // 
+            // playWithThisFilterToolStripMenuItem
+            // 
+            this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
+            this.playWithThisFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.playWithThisFilterToolStripMenuItem.Text = "Play with this filter";
+            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
+            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1317,5 +1339,7 @@
         private System.Windows.Forms.ToolStripMenuItem duplicateToolStripMenuItem;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
+        private System.Windows.Forms.Button buttonPlayFilter;
+        private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
     }
 }

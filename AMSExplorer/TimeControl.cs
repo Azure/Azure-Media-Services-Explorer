@@ -202,7 +202,7 @@ namespace AMSExplorer
                 else
                 {
                     double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
-                    TimeSpan ts = new TimeSpan(Convert.ToInt64(((double)timestamp) * scale));
+                    TimeSpan ts = new TimeSpan(Convert.ToInt64((((double)timestamp) - (double)ScaledFirstTimestampOffset) * scale));
                     SetTimeStamp(ts);
                 }
             }
@@ -280,9 +280,7 @@ namespace AMSExplorer
                 double durationinticks = ((double)_scaledTotalDuration) * scale;
                 if (_dvrmode)
                 {
-
                     trackBarTime.Value = (int)(1000d - 1000d * value.TotalMilliseconds / (new TimeSpan(Convert.ToInt64(durationinticks))).TotalMilliseconds);
-
                 }
                 else
                 {

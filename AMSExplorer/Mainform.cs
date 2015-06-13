@@ -8935,9 +8935,9 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
+        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype,List<IAsset> listassets, string selectedGlobalFilter = null)
         {
-            foreach (var myAsset in ReturnSelectedAssetsFromProgramsOrAssets())
+            foreach (var myAsset in listassets)
             {
                 if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // No streaming locator valid
                 {
@@ -8981,6 +8981,11 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
+        {
+            DoPlaySelectedAssetsOrProgramsWithPlayer( playertype,ReturnSelectedAssetsFromProgramsOrAssets(),  selectedGlobalFilter );
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)

@@ -989,14 +989,14 @@ namespace AMSExplorer
             try
             {
                 var locatorTask = Task.Factory.StartNew(() =>
-                { 
+                {
                     tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
                 });
                 locatorTask.Wait();
             }
             catch (Exception ex)
             {
-             
+
             }
 
             return tempLocator;
@@ -1004,7 +1004,7 @@ namespace AMSExplorer
 
         public static Uri GetValidOnDemandURI(IAsset asset)
         {
-            var ai= new AssetInfo(asset);
+            var ai = new AssetInfo(asset);
             return ai.GetValidURIs().FirstOrDefault();
         }
 
@@ -1295,6 +1295,57 @@ namespace AMSExplorer
                 LocPubStatus = PublishStatus.PublishedExpired;
             }
             return LocPubStatus;
+        }
+
+
+        static public ManifestTimingData GetManifestTimingData(IAsset asset)
+        {
+            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0 };
+
+            try
+            {
+                ILocator mytemplocator = null;
+                Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
+                if (myuri == null)
+                {
+                    mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
+                    myuri = AssetInfo.GetValidOnDemandURI(asset);
+                }
+                if (myuri != null)
+                {
+                    XDocument manifest = XDocument.Load(myuri.ToString());
+                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    response.TimeScale = long.Parse(timescalefrommanifest);
+
+                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+
+                    if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                    { // Live asset.... No duration to read (but we can read scaling)
+                        response.IsLive = true;
+                    }
+                    else
+                    {
+                        response.AssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                    }
+                }
+                else
+                {
+                    response.Error = true;
+                }
+                if (mytemplocator != null) mytemplocator.Delete();
+            }
+            catch (Exception ex)
+            {
+                response.Error = true;
+            }
+            return response;
+        }
+
+        public static long ReturnTimestampInTicks(long timestamp, long timescale)
+        {
+            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / (double)timescale);
         }
 
         public static IAsset GetAsset(string assetId, CloudMediaContext _context)
@@ -2179,6 +2230,15 @@ namespace AMSExplorer
             ExtraInputAssets = null;
             TypeInputExtraInput = TypeInputExtraInput.None;
         }
+    }
+
+    public class ManifestTimingData
+    {
+        public long AssetDuration { get; set; }
+        public long TimestampOffset { get; set; }
+        public long TimeScale { get; set; }
+        public bool IsLive { get; set; }
+        public bool Error { get; set; }
     }
 
     class HostNameClass
