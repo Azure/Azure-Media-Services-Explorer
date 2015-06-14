@@ -60,6 +60,7 @@ namespace AMSExplorer
             _contextdynman = contextdynman;
             _context = context;
             _parentassetmanifestdata = new ManifestTimingData();
+            tabControl1.TabPages.Remove(tabPageTRRaw);
 
             /////////////////////////////////////////////
             // New Global Filter
@@ -158,7 +159,6 @@ namespace AMSExplorer
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                     labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
-
             }
 
             /////////////////////////////////////////////
@@ -226,14 +226,10 @@ namespace AMSExplorer
                 numericUpDownBackoffSeconds.Value = (decimal)((double)(long.Parse(_filter.PresentationTimeRange.LiveBackoffDuration)) / (double)_timescale);
             }
 
-
             // Common code
             textBoxFilterTimeScale.Text = _timescale.ToString();
         }
 
-       
-
-       
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
@@ -246,7 +242,6 @@ namespace AMSExplorer
             dataPropertyType.Rows.Add(FilterPropertyTypeValue.video, FilterPropertyTypeValue.video);
             dataPropertyType.Rows.Add(FilterPropertyTypeValue.text, FilterPropertyTypeValue.text);
 
-
             // FilterPropertyFourCCValue
 
             dataPropertyFourCC = new DataTable();
@@ -257,7 +252,6 @@ namespace AMSExplorer
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.ec3, FilterPropertyFourCCValue.ec3);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4a, FilterPropertyFourCCValue.mp4a);
             dataPropertyFourCC.Rows.Add(FilterPropertyFourCCValue.mp4v, FilterPropertyFourCCValue.mp4v);
-
 
             // dataProperty dataOperator
             dataProperty = new DataTable();
@@ -294,13 +288,8 @@ namespace AMSExplorer
 
             dataGridViewTracks.Columns.Add(columnValue);
 
-
-
-
-
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
 
-            RefreshPresentationTimes();
             RefreshTracks();
         }
 
@@ -322,15 +311,39 @@ namespace AMSExplorer
             get
             {
                 _filter.Name = newfilter ? textBoxFilterName.Text : _filter.Name;
-                _filter.PresentationTimeRange.StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.GetScaledTimeStampWithOffset() : null;
-                _filter.PresentationTimeRange.EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.GetScaledTimeStampWithOffset() : null;
-                _filter.PresentationTimeRange.LiveBackoffDuration = checkBoxLiveBackoff.Checked ? ((long)((double)numericUpDownBackoffSeconds.Value * (double)_timescale)).ToString() : null;
-                _filter.PresentationTimeRange.PresentationWindowDuration = checkBoxDVRWindow.Checked ? timeControlDVR.GetScaledTimeStamp() : null;
-                _filter.PresentationTimeRange.Timescale = _timescale.ToString();
+
+                if (checkBoxRawMode.Checked) // RAW Mode
+                {
+                    _filter.PresentationTimeRange.StartTimestamp = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : textBoxRawStart.Text;
+                    _filter.PresentationTimeRange.EndTimestamp = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : textBoxRawEnd.Text;
+                    _filter.PresentationTimeRange.LiveBackoffDuration = string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : textBoxRawBackoff.Text;
+                    _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : textBoxRawDVR.Text;
+                    _filter.PresentationTimeRange.Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : textBoxRawTimescale.Text;
+                }
+                else  // Default mode
+                {
+                    _filter.PresentationTimeRange = GetFilterPresenTationTRDefaultMode;
+                }
 
                 if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
 
                 return _filter;
+            }
+        }
+
+        private IFilterPresentationTimeRange GetFilterPresenTationTRDefaultMode
+        {
+            get
+            {
+                var ptr = new IFilterPresentationTimeRange()
+                {
+                    StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.GetScaledTimeStampWithOffset() : null,
+                    EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.GetScaledTimeStampWithOffset() : null,
+                    LiveBackoffDuration = checkBoxLiveBackoff.Checked ? ((long)((double)numericUpDownBackoffSeconds.Value * (double)_timescale)).ToString() : null,
+                    PresentationWindowDuration = checkBoxDVRWindow.Checked ? timeControlDVR.GetScaledTimeStamp() : null,
+                    Timescale = _timescale.ToString()
+                };
+                return ptr;
             }
         }
 
@@ -369,7 +382,6 @@ namespace AMSExplorer
                 labelassetname.Visible = true;
                 isGlobalFilter = false;
             }
-
         }
 
 
@@ -542,34 +554,9 @@ namespace AMSExplorer
             //RefreshPresentationTimes();
             RefreshTracks();
             RefreshTracksConditions();
-
         }
 
-        private void RefreshPresentationTimes()
-        {
-            /*
-            if (_filter.PresentationTimeRange != null)
-            {
-               
-                textBoxStartTimestamp.Text = _filter.PresentationTimeRange.StartTimestamp;
-                textBoxEndTimestamp.Text = _filter.PresentationTimeRange.EndTimestamp;
-                textBoxLiveBackoffDuration.Text = _filter.PresentationTimeRange.LiveBackoffDuration;
-                textBoxPresentationWindowDuration.Text = _filter.PresentationTimeRange.PresentationWindowDuration;
-                textBoxTimeScale.Text = _filter.PresentationTimeRange.Timescale;
-                
-            }
-            else
-            {
-                
-                textBoxStartTimestamp.Text = string.Empty;
-                textBoxEndTimestamp.Text = string.Empty;
-                textBoxLiveBackoffDuration.Text = string.Empty;
-                textBoxPresentationWindowDuration.Text = string.Empty;
-                textBoxTimeScale.Text = string.Empty;
-                
-            }
-        */
-        }
+
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
@@ -651,26 +638,6 @@ namespace AMSExplorer
         {
             buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxFilterName.Text);
         }
-
-        /*
-        private void textBoxTimestamp_Validating(object sender, CancelEventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-
-            if (isGlobalFilter && !string.IsNullOrWhiteSpace(textBoxStartTimestamp.Text))
-            {
-                errorProvider1.SetError(tb, "It is not recommended to use a Global Filter to do time trimming. Consider creating an asset filter instead.");
-            }
-            else
-            {
-                errorProvider1.SetError(tb, String.Empty);
-            }
-        }
-         * 
-         * */
-
-
-
 
 
 
@@ -784,7 +751,29 @@ namespace AMSExplorer
 
         }
 
+        private void checkBoxRawMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxRawMode.Checked)
+            {
+                var seltab = tabControl1.SelectedTab;
+                tabControl1.TabPages.Insert(0, tabPageTRRaw);
+                tabControl1.TabPages.Remove(tabPageTR);
+                if (seltab == tabPageTR) tabControl1.SelectedTab = tabPageTRRaw;
 
-
+                var ptr = GetFilterPresenTationTRDefaultMode;
+                textBoxRawTimescale.Text = ptr.Timescale;
+                textBoxRawStart.Text = ptr.StartTimestamp;
+                textBoxRawEnd.Text = ptr.EndTimestamp;
+                textBoxRawDVR.Text = ptr.PresentationWindowDuration;
+                textBoxRawBackoff.Text = ptr.LiveBackoffDuration;
+            }
+            else
+            {
+                var seltab = tabControl1.SelectedTab;
+                tabControl1.TabPages.Remove(tabPageTRRaw);
+                tabControl1.TabPages.Insert(0, tabPageTR);
+                if (seltab == tabPageTRRaw) tabControl1.SelectedTab = tabPageTR;
+            }
+        }
     }
 }
