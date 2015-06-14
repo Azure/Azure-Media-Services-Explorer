@@ -520,7 +520,7 @@ namespace AMSExplorer
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {
             // Filter sample
-            _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
+            // _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
             var conditions = new List<FilterTrackPropertyCondition>();
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
             conditions.Add(new FilterTrackPropertyCondition() { Operator = IOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
@@ -537,9 +537,9 @@ namespace AMSExplorer
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             _filter.Tracks = tracks;
-            _filter.Name = textBoxFilterName.Text;
+            //_filter.Name = textBoxFilterName.Text;
 
-            RefreshPresentationTimes();
+            //RefreshPresentationTimes();
             RefreshTracks();
             RefreshTracksConditions();
 
