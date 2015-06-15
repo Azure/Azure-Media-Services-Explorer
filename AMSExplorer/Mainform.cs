@@ -9929,7 +9929,7 @@ namespace AMSExplorer
                 try
                 {
                     myassetfilter.Create();
-                    TextBoxLogWriteLine("Global filter '{0}' created.", myassetfilter.Name);
+                    TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
                 }
                 catch (Exception e)
                 {
