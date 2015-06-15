@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -296,6 +296,7 @@
             this.createALocatorToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteAllLocatorsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemProgramAssetFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -438,7 +439,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.toolStripMenuItemProgramAssetFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem26 = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -966,7 +967,7 @@
             // 
             // createAnAssetFilterToolStripMenuItem
             // 
-            this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.filter;
+            this.createAnAssetFilterToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createAnAssetFilterToolStripMenuItem.Image")));
             this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
             this.createAnAssetFilterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
@@ -975,6 +976,7 @@
             // 
             // assetFilterInfoupdateToolStripMenuItem
             // 
+            this.assetFilterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
             this.assetFilterInfoupdateToolStripMenuItem.Name = "assetFilterInfoupdateToolStripMenuItem";
             this.assetFilterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
             this.assetFilterInfoupdateToolStripMenuItem.Text = "Asset filter info/update...";
@@ -1313,7 +1315,7 @@
             // 
             // toolStripMenuItemFilterInfo
             // 
-            this.toolStripMenuItemFilterInfo.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.toolStripMenuItemFilterInfo.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
             this.toolStripMenuItemFilterInfo.Name = "toolStripMenuItemFilterInfo";
             this.toolStripMenuItemFilterInfo.Size = new System.Drawing.Size(193, 22);
             this.toolStripMenuItemFilterInfo.Text = "Filter info/update";
@@ -1324,8 +1326,8 @@
             this.toolStripMenuItem23.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem23.Name = "toolStripMenuItem23";
             this.toolStripMenuItem23.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItem23.Size = new System.Drawing.Size(193, 22);
-            this.toolStripMenuItem23.Text = "Create a filter...";
+            this.toolStripMenuItem23.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItem23.Text = "Create a global filter...";
             this.toolStripMenuItem23.Click += new System.EventHandler(this.toolStripMenuItem23_Click);
             // 
             // toolStripMenuItem24
@@ -1708,6 +1710,7 @@
             this.toolStripMenuItemPublishCopyPubURLToClipb,
             this.findTheAssetFromTheLocatorToolStripMenuItem,
             this.toolStripSeparator23,
+            this.toolStripMenuItem26,
             this.createAnAssetFilterToolStripMenuItem1,
             this.toolStripMenuItemAssetInfo36,
             this.playbackToolStripMenuItem});
@@ -1809,7 +1812,7 @@
             // 
             // createAnAssetFilterToolStripMenuItem1
             // 
-            this.createAnAssetFilterToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.filter;
+            this.createAnAssetFilterToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createAnAssetFilterToolStripMenuItem1.Image")));
             this.createAnAssetFilterToolStripMenuItem1.Name = "createAnAssetFilterToolStripMenuItem1";
             this.createAnAssetFilterToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.createAnAssetFilterToolStripMenuItem1.Size = new System.Drawing.Size(467, 22);
@@ -1818,6 +1821,7 @@
             // 
             // toolStripMenuItemAssetInfo36
             // 
+            this.toolStripMenuItemAssetInfo36.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
             this.toolStripMenuItemAssetInfo36.Name = "toolStripMenuItemAssetInfo36";
             this.toolStripMenuItemAssetInfo36.Size = new System.Drawing.Size(467, 22);
             this.toolStripMenuItemAssetInfo36.Text = "Asset filter info/update...";
@@ -2676,7 +2680,7 @@
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 308);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(263, 286);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -2847,11 +2851,20 @@
             // 
             // toolStripMenuItem25
             // 
+            this.toolStripMenuItem25.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem25.Image")));
             this.toolStripMenuItem25.Name = "toolStripMenuItem25";
             this.toolStripMenuItem25.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F)));
             this.toolStripMenuItem25.Size = new System.Drawing.Size(248, 22);
             this.toolStripMenuItem25.Text = "Create an asset filter...";
             this.toolStripMenuItem25.Click += new System.EventHandler(this.toolStripMenuItem25_Click);
+            // 
+            // toolStripMenuItemProgramAssetFilterInfo
+            // 
+            this.toolStripMenuItemProgramAssetFilterInfo.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
+            this.toolStripMenuItemProgramAssetFilterInfo.Name = "toolStripMenuItemProgramAssetFilterInfo";
+            this.toolStripMenuItemProgramAssetFilterInfo.Size = new System.Drawing.Size(248, 22);
+            this.toolStripMenuItemProgramAssetFilterInfo.Text = "Asset filter info/update...";
+            this.toolStripMenuItemProgramAssetFilterInfo.DropDownOpening += new System.EventHandler(this.toolStripMenuItemProgramAssetFilterInfo_DropDownOpening);
             // 
             // ContextMenuItemProgramCopyTheOutputURLToClipboard
             // 
@@ -3605,22 +3618,22 @@
             this.deleteToolStripMenuItem1,
             this.duplicateToolStripMenuItem});
             this.contextMenuStripFilters.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripFilters.Size = new System.Drawing.Size(194, 114);
+            this.contextMenuStripFilters.Size = new System.Drawing.Size(230, 114);
             this.contextMenuStripFilters.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFilters_Opening);
             // 
             // toolStripMenuItem12
             // 
             this.toolStripMenuItem12.Image = global::AMSExplorer.Bitmaps.refresh;
             this.toolStripMenuItem12.Name = "toolStripMenuItem12";
-            this.toolStripMenuItem12.Size = new System.Drawing.Size(193, 22);
+            this.toolStripMenuItem12.Size = new System.Drawing.Size(229, 22);
             this.toolStripMenuItem12.Text = "Refresh";
             this.toolStripMenuItem12.Click += new System.EventHandler(this.toolStripMenuItem12_Click_1);
             // 
             // filterInfoupdateToolStripMenuItem
             // 
-            this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
+            this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
             this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
-            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
             this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
@@ -3629,22 +3642,22 @@
             this.toolStripMenuItem16.Image = global::AMSExplorer.Bitmaps.create;
             this.toolStripMenuItem16.Name = "toolStripMenuItem16";
             this.toolStripMenuItem16.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.toolStripMenuItem16.Size = new System.Drawing.Size(193, 22);
-            this.toolStripMenuItem16.Text = "Create a filter...";
+            this.toolStripMenuItem16.Size = new System.Drawing.Size(229, 22);
+            this.toolStripMenuItem16.Text = "Create a global filter...";
             this.toolStripMenuItem16.Click += new System.EventHandler(this.toolStripMenuItem16_Click_1);
             // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
-            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(193, 22);
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(229, 22);
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
             // 
             // duplicateToolStripMenuItem
             // 
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(193, 22);
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
             this.duplicateToolStripMenuItem.Text = "Duplicate...";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
             // 
@@ -4372,10 +4385,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea4.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart.Legends.Add(legend4);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 404);
@@ -4417,12 +4430,14 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // toolStripMenuItemProgramAssetFilterInfo
+            // toolStripMenuItem26
             // 
-            this.toolStripMenuItemProgramAssetFilterInfo.Name = "toolStripMenuItemProgramAssetFilterInfo";
-            this.toolStripMenuItemProgramAssetFilterInfo.Size = new System.Drawing.Size(248, 22);
-            this.toolStripMenuItemProgramAssetFilterInfo.Text = "Asset filter info/update...";
-            this.toolStripMenuItemProgramAssetFilterInfo.DropDownOpening += new System.EventHandler(this.toolStripMenuItemProgramAssetFilterInfo_DropDownOpening);
+            this.toolStripMenuItem26.Image = global::AMSExplorer.Bitmaps.create;
+            this.toolStripMenuItem26.Name = "toolStripMenuItem26";
+            this.toolStripMenuItem26.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
+            this.toolStripMenuItem26.Size = new System.Drawing.Size(467, 22);
+            this.toolStripMenuItem26.Text = "Create a global filter...";
+            this.toolStripMenuItem26.Click += new System.EventHandler(this.toolStripMenuItem26_Click);
             // 
             // Mainform
             // 
@@ -4901,6 +4916,7 @@
         private System.Windows.Forms.ToolStripMenuItem assetFilterInfoupdateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAssetInfo36;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProgramAssetFilterInfo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem26;
     }
 }
 

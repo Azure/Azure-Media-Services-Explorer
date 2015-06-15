@@ -914,7 +914,7 @@ namespace AMSExplorer
     {
         private List<IAsset> SelectedAssets;
         public const string Type_Workflow = "Workflow";
-        public const string Type_LiveArchive = "Live archive";
+        public const string Type_LiveArchive = "Live Archive";
         public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
@@ -1396,6 +1396,11 @@ namespace AMSExplorer
                     type = "Smooth Streaming";
                     var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = cfffiles.Count();
+                    if (number == 0 && asset.AssetFiles.Count() > 2)
+                    {
+                        number = asset.AssetFiles.Count() - 2;  // tracks - 2 manifest files
+                        type = Type_LiveArchive;
+                    }
                     break;
 
                 case AssetType.Unknown:
@@ -2060,8 +2065,8 @@ namespace AMSExplorer
         public Bitmap DynamicEncryption { get; set; }
         public string DynamicEncryptionMouseOver { get; set; }
         public Bitmap Publication { get; set; }
-        public Bitmap Filter { get; set; }
-        public string FilterMouseOver { get; set; }
+        public Bitmap Filters { get; set; }
+        public string FiltersMouseOver { get; set; }
         public string PublicationMouseOver { get; set; }
         public Nullable<DateTime> LocatorExpirationDate { get; set; }
         public bool LocatorExpirationDateWarning { get; set; }

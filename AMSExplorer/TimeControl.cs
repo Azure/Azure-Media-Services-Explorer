@@ -268,11 +268,7 @@ namespace AMSExplorer
         public void SetTimeStamp(TimeSpan value)
         {
             donotfirechangeevent = true;
-            numericUpDownDays.Value = value.Days;
-            numericUpDownHours.Value = value.Hours;
-            numericUpDownMinutes.Value = value.Minutes;
-            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
-
+            
             // trackbar update
             if (trackBarTime.Enabled)
             {
@@ -287,8 +283,15 @@ namespace AMSExplorer
                     trackBarTime.Value = (int)(1000d * value.TotalMilliseconds / (new TimeSpan(Convert.ToInt64(durationinticks))).TotalMilliseconds);
                 }
             }
-
+            
+            numericUpDownDays.Value = value.Days;
+            numericUpDownHours.Value = value.Hours;
+            numericUpDownMinutes.Value = value.Minutes;
             donotfirechangeevent = false;
+            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
+                      
+
+            
         }
 
         private void trackBarStart_Scroll(object sender, EventArgs e)

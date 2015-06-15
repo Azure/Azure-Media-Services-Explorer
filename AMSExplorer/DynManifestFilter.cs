@@ -74,6 +74,10 @@ namespace AMSExplorer
                 _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
                 _filter.Tracks = new List<IFilterTrackSelect>();
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = false;
+
+                timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
+                textBoxFilterTimeScale.Text = _filter.PresentationTimeRange.Timescale;
+
             }
 
 
@@ -291,6 +295,8 @@ namespace AMSExplorer
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
 
             RefreshTracks();
+
+            CheckIfErrorTimeControls();
         }
 
         private void RefreshTracks()
@@ -556,66 +562,7 @@ namespace AMSExplorer
             RefreshTracksConditions();
         }
 
-
-
-        private void textBox_TextChanged(object sender, EventArgs e)
-        {
-            /*
-            double scale = 1;
-            try
-            {
-                scale = Convert.ToDouble(textBoxTimeScale.Text) / 10000000;
-            }
-            catch
-            {
-
-            }
-
-            long start = 0;
-            try
-            {
-                start = Convert.ToInt64(textBoxStartTimestamp.Text);
-            }
-            catch
-            {
-
-            }
-
-            long end = long.MaxValue;
-            try
-            {
-                end = Convert.ToInt64(textBoxEndTimestamp.Text);
-            }
-            catch
-            {
-
-            }
-
-            long dvr = long.MaxValue;
-            try
-            {
-                dvr = Convert.ToInt64(textBoxPresentationWindowDuration.Text);
-            }
-            catch
-            {
-
-            }
-
-            long live = 0;
-            try
-            {
-                live = Convert.ToInt64(textBoxLiveBackoffDuration.Text);
-            }
-            catch
-            {
-
-            }
-            textBoxLabelStart.Text = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
-            textBoxLabelEnd.Text = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
-            textBoxLabelDVR.Text = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
-            textBoxLabelLiveBackoff.Text = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
-             * */
-        }
+       
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -692,8 +639,6 @@ namespace AMSExplorer
 
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
-
-
             CheckIfErrorTimeControls();
         }
 
@@ -717,14 +662,14 @@ namespace AMSExplorer
         private void checkBoxLiveBackoff_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownBackoffSeconds.Enabled = checkBoxLiveBackoff.Checked;
-            labelDefaultBakckoff.Text = checkBoxEndTime.Checked ? string.Empty : (string)labelDefaultBakckoff.Tag;
+            labelDefaultBakckoff.Text = checkBoxLiveBackoff.Checked ? string.Empty : (string)labelDefaultBakckoff.Tag;
             CheckIfErrorTimeControls();
         }
 
         private void checkBoxDVRWindow_CheckedChanged(object sender, EventArgs e)
         {
             timeControlDVR.Enabled = checkBoxDVRWindow.Checked;
-            labelDefaultDVR.Text = checkBoxEndTime.Checked ? string.Empty : (string)labelDefaultDVR.Tag;
+            labelDefaultDVR.Text = checkBoxDVRWindow.Checked ? string.Empty : (string)labelDefaultDVR.Tag;
             CheckIfErrorTimeControls();
         }
 
@@ -774,6 +719,11 @@ namespace AMSExplorer
                 tabControl1.TabPages.Insert(0, tabPageTR);
                 if (seltab == tabPageTRRaw) tabControl1.SelectedTab = tabPageTR;
             }
+        }
+
+        private void timeControlStart_ValueChanged(object sender, EventArgs e)
+        {
+            CheckIfErrorTimeControls();
         }
     }
 }

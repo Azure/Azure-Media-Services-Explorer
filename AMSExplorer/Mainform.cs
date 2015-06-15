@@ -10073,6 +10073,11 @@ namespace AMSExplorer
         {
             AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
+
+        private void toolStripMenuItem26_Click(object sender, EventArgs e)
+        {
+            DoCreateFilter();
+        }
     }
 }
 
@@ -10427,11 +10432,11 @@ namespace AMSExplorer
         public string _statEnc = "StaticEncryption";
         public string _publication = "Publication";
         public string _dynEnc = "DynamicEncryption";
-        public string _filter = "Filter";
+        public string _filter = "Filters";
         public string _statEncMouseOver = "StaticEncryptionMouseOver";
         public string _publicationMouseOver = "PublicationMouseOver";
         public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
-        public string _filterMouseOver = "FilterMouseOver";
+        public string _filterMouseOver = "FiltersMouseOver";
 
         public string _locatorexpirationdate = "LocatorExpirationDate";
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
@@ -10688,8 +10693,8 @@ namespace AMSExplorer
                         AE.LocatorExpirationDate = LocDate;
                         AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
                         ABR = BuildBitmapAssetFilters(asset);
-                        AE.Filter = ABR.bitmap;
-                        AE.FilterMouseOver = ABR.MouseOverDesc;
+                        AE.Filters = ABR.bitmap;
+                        AE.FiltersMouseOver = ABR.MouseOverDesc;
                         i++;
                         if (i % 5 == 0)
                         {
