@@ -747,7 +747,7 @@ namespace AMSExplorer
             if (firstime)
             {
 
-                dataGridViewAssetsV.Init(_context);
+                dataGridViewAssetsV.Init(_context, _contextdynmanifest);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
@@ -4237,6 +4237,12 @@ namespace AMSExplorer
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value != null)
                     cell5.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
             }
+            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._filter].Index)// Mouseover for icon filter
+            {
+                var cell6 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._filterMouseOver].Value != null)
+                    cell6.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._filterMouseOver].Value.ToString();
+            }
 
         }
 
@@ -4255,6 +4261,7 @@ namespace AMSExplorer
             contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
+            assetFilterInfoupdateToolStripMenuItem.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -8935,7 +8942,7 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype,List<IAsset> listassets, string selectedGlobalFilter = null)
+        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<IAsset> listassets, string selectedGlobalFilter = null)
         {
             foreach (var myAsset in listassets)
             {
@@ -8985,7 +8992,7 @@ namespace AMSExplorer
 
         private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer( playertype,ReturnSelectedAssetsFromProgramsOrAssets(),  selectedGlobalFilter );
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssets(), selectedGlobalFilter);
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -9490,47 +9497,53 @@ namespace AMSExplorer
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             var channels = ReturnSelectedChannels();
+            bool single = channels.Count == 1;
 
             // channel info if only one channel
-            channInfoToolStripMenuItem.Enabled = channels.Count == 1;
+            channInfoToolStripMenuItem.Enabled = single;
 
             // slate control if at least one channel with live transcoding
             channelsAdAndSlateControlToolStripMenuItem.Enabled = channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
-            copyInputURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+            copyInputURLToClipboardToolStripMenuItem.Enabled = single;
 
             // on premises encoder if only one channel
-            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = channels.Count == 1;
+            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = single;
 
             // copy preview url if only one channel
-            copyPreviewURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+            copyPreviewURLToClipboardToolStripMenuItem.Enabled = single;
 
 
             ////////////
 
             var programs = ReturnSelectedPrograms();
+            single = programs.Count == 1;
 
             // program info if only one program
-            displayProgramInformationToolStripMenuItem.Enabled = programs.Count == 1;
+            displayProgramInformationToolStripMenuItem.Enabled = single;
 
             // asset info if only one program
-            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = programs.Count == 1;
+            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
 
         }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
             var programs = ReturnSelectedPrograms();
+            bool single = programs.Count == 1;
 
             // program info if only one program
-            ContextMenuItemProgramDisplayInformation.Enabled = programs.Count == 1;
+            ContextMenuItemProgramDisplayInformation.Enabled = single;
 
             // asset info if only one program
-            ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = programs.Count == 1;
+            ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = single;
 
             // copy program url if only one program
-            ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = programs.Count == 1;
+            ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = single;
+
+            // edit asset filter if only one program
+            toolStripMenuItemProgramAssetFilterInfo.Enabled = single;
 
         }
 
@@ -9839,6 +9852,7 @@ namespace AMSExplorer
             getATestTokenToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem1.Enabled =
             toolStripMenuItemPublishCopyPubURLToClipb.Enabled =
+            toolStripMenuItemAssetInfo36.Enabled =
             assets.Count == 1;
         }
 
@@ -9849,6 +9863,34 @@ namespace AMSExplorer
         {
             // we launch AMP with a filter
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, sender.ToString());
+        }
+
+        public void DoDisplayFilter(object sender, System.EventArgs e)
+        {
+            IAsset myasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            var myassetfilters = _contextdynmanifest.ListAssetFilters(myasset);
+            var myassetfilter = myassetfilters.Where(f => f.Name == sender.ToString()).FirstOrDefault();
+            if (myassetfilter != null)
+            {
+                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, (Filter)myassetfilter, myasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    AssetFilter filtertoupdate = (AssetFilter)form.GetFilter;
+                    try
+                    {
+                        filtertoupdate.Delete();
+                        filtertoupdate.Create();
+                        TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error when updating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+            }
         }
 
 
@@ -9892,6 +9934,22 @@ namespace AMSExplorer
                 }
             }
 
+        }
+
+
+        private void AddAssetFilterInfoToMenu(ToolStripMenuItem mytoolstripmenuitem, IAsset asset)
+        {
+            mytoolstripmenuitem.DropDownItems.Clear();
+
+            var Filters = _contextdynmanifest.ListAssetFilters(asset);
+            if (Filters.Count > 0)
+            {
+                foreach (var filter in Filters)
+                {
+                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoDisplayFilter);
+                    mytoolstripmenuitem.DropDownItems.Add(SSMenu);
+                }
+            }
         }
 
 
@@ -9999,6 +10057,21 @@ namespace AMSExplorer
         {
             AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
 
+        }
+
+        private void assetFilterInfoupdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItemAssetInfo36_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
     }
 }
@@ -10351,6 +10424,48 @@ namespace AMSExplorer
 
     public class DataGridViewAssets : DataGridView
     {
+        public string _statEnc = "StaticEncryption";
+        public string _publication = "Publication";
+        public string _dynEnc = "DynamicEncryption";
+        public string _filter = "Filter";
+        public string _statEncMouseOver = "StaticEncryptionMouseOver";
+        public string _publicationMouseOver = "PublicationMouseOver";
+        public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
+        public string _filterMouseOver = "FilterMouseOver";
+
+        public string _locatorexpirationdate = "LocatorExpirationDate";
+        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
+
+        static BindingList<AssetEntry> _MyObservAsset;
+        static private int _assetsperpage = 50; //nb of items per page
+        static private int _pagecount = 1;
+        static private int _currentpage = 1;
+        static private bool _initialized = false;
+        static private bool _refreshedatleastonetime = false;
+        static private bool _neveranalyzed = true;
+        static private string _searchinname = "";
+        static private string _statefilter = "";
+        static private string _timefilter = FilterTime.First50Items;
+
+        static string _orderassets = OrderAssets.LastModifiedDescending;
+        static BackgroundWorker WorkerAnalyzeAssets;
+        static CloudMediaContext _context;
+        static MediaServiceContextForDynManifest _contextDynManifest;
+        static Bitmap cancelimage = Bitmaps.cancel;
+        static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
+        static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
+        static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
+        static Bitmap commonencryptedimage = Bitmaps.DRM_protection;
+        static Bitmap unsupportedencryptedimage = Bitmaps.help;
+        static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
+        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+        static Bitmap AssetFilterImage = Bitmaps.filter;
+        static Bitmap AssetFiltersImage = Bitmaps.filters;
+        static Bitmap Redstreamimage = MakeRed(Streaminglocatorimage);
+        static Bitmap Reddownloadimage = MakeRed(SASlocatorimage);
+        static Bitmap Bluestreamimage = MakeBlue(Streaminglocatorimage);
+        static Bitmap Bluedownloadimage = MakeBlue(SASlocatorimage);
+
         public int AssetsPerPage
         {
             get
@@ -10438,48 +10553,15 @@ namespace AMSExplorer
                 return _MyObservAsset.Count();
             }
         }
-        public string _statEnc = "StaticEncryption";
-        public string _publication = "Publication";
-        public string _dynEnc = "DynamicEncryption";
-        public string _statEncMouseOver = "StaticEncryptionMouseOver";
-        public string _publicationMouseOver = "PublicationMouseOver";
-        public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
-        public string _locatorexpirationdate = "LocatorExpirationDate";
-        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
 
-        static BindingList<AssetEntry> _MyObservAsset;
-        static private int _assetsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
-        static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
-        static private bool _neveranalyzed = true;
-        static private string _searchinname = "";
-        static private string _statefilter = "";
-        static private string _timefilter = FilterTime.First50Items;
 
-        static string _orderassets = OrderAssets.LastModifiedDescending;
-        static BackgroundWorker WorkerAnalyzeAssets;
-        static CloudMediaContext _context;
-        static Bitmap cancelimage = Bitmaps.cancel;
-        static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
-        static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
-        static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
-        static Bitmap commonencryptedimage = Bitmaps.DRM_protection;
-        static Bitmap unsupportedencryptedimage = Bitmaps.help;
-        static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
-        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
-        static Bitmap Redstreamimage = MakeRed(Streaminglocatorimage);
-        static Bitmap Reddownloadimage = MakeRed(SASlocatorimage);
-        static Bitmap Bluestreamimage = MakeBlue(Streaminglocatorimage);
-        static Bitmap Bluedownloadimage = MakeBlue(SASlocatorimage);
-
-        public void Init(CloudMediaContext context)
+        public void Init(CloudMediaContext context, MediaServiceContextForDynManifest contextDynManifest)
         {
             Debug.WriteLine("AssetsInit");
 
             IEnumerable<AssetEntry> assetquery;
             _context = context;
+            _contextDynManifest = contextDynManifest;
 
             assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
@@ -10514,6 +10596,14 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol3);
 
+            DataGridViewImageColumn imageCol4 = new DataGridViewImageColumn()
+            {
+                DefaultCellStyle = cellstyle,
+                Name = _filter,
+                DataPropertyName = _filter,
+            };
+            this.Columns.Add(imageCol4);
+
             BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
             this.DataSource = MyObservAssethisPage;
 
@@ -10521,6 +10611,8 @@ namespace AMSExplorer
             this.Columns[_statEncMouseOver].Visible = false;
             this.Columns[_dynEncMouseOver].Visible = false;
             this.Columns[_publicationMouseOver].Visible = false;
+            this.Columns[_filterMouseOver].Visible = false;
+
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
@@ -10528,11 +10620,13 @@ namespace AMSExplorer
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
-            this.Columns[_publication].DisplayIndex = lastColumn_sIndex;
+            this.Columns[_filter].DisplayIndex = lastColumn_sIndex;
+            this.Columns[_filter].DefaultCellStyle.NullValue = null;
+            this.Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
             this.Columns[_publication].DefaultCellStyle.NullValue = null;
-            this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 1;
+            this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 2;
             this.Columns[_dynEnc].DefaultCellStyle.NullValue = null;
-            this.Columns[_statEnc].DisplayIndex = lastColumn_sIndex - 2;
+            this.Columns[_statEnc].DisplayIndex = lastColumn_sIndex - 3;
             this.Columns[_statEnc].DefaultCellStyle.NullValue = null;
 
             this.Columns[_statEnc].HeaderText = "Static Encryption";
@@ -10541,9 +10635,9 @@ namespace AMSExplorer
             this.Columns[_statEnc].Width = 70;
             this.Columns[_dynEnc].Width = 70;
             this.Columns[_publication].Width = 70;
+            this.Columns[_filter].Width = 50;
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
-
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -10593,6 +10687,9 @@ namespace AMSExplorer
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate;
                         AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
+                        ABR = BuildBitmapAssetFilters(asset);
+                        AE.Filter = ABR.bitmap;
+                        AE.FilterMouseOver = ABR.MouseOverDesc;
                         i++;
                         if (i % 5 == 0)
                         {
@@ -10980,6 +11077,24 @@ namespace AMSExplorer
             return ABT;
         }
 
+
+        private static AssetBitmapAndText BuildBitmapAssetFilters(IAsset asset)
+        {
+            AssetBitmapAndText ABT = new AssetBitmapAndText();
+            var filters = _contextDynManifest.ListAssetFilters(asset);
+
+            if (filters.Count > 1)
+            {
+                ABT.bitmap = AssetFiltersImage;
+                ABT.MouseOverDesc = string.Format("{0} filters", filters.Count);
+            }
+            else if (filters.Count == 1)
+            {
+                ABT.bitmap = AssetFilterImage;
+                ABT.MouseOverDesc = string.Format("1 filter");
+            }
+            return ABT;
+        }
 
 
         private static AssetBitmapAndText BuildBitmapDynEncryption(IAsset asset)

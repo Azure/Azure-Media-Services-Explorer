@@ -73,6 +73,7 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonDuplicate = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.buttonPlayFilter = new System.Windows.Forms.Button();
             this.buttonDuplicateFilter = new System.Windows.Forms.Button();
             this.buttonDeleteFilter = new System.Windows.Forms.Button();
             this.buttonCreateAssetFilter = new System.Windows.Forms.Button();
@@ -83,6 +84,7 @@
             this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.buttonRemoveAuthPol = new System.Windows.Forms.Button();
             this.buttonRemoveKey = new System.Windows.Forms.Button();
@@ -123,8 +125,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonPlayFilter = new System.Windows.Forms.Button();
-            this.playWithThisFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -613,6 +613,17 @@
             this.tabPage6.Text = "Asset Filters";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
+            // buttonPlayFilter
+            // 
+            this.buttonPlayFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPlayFilter.Location = new System.Drawing.Point(410, 409);
+            this.buttonPlayFilter.Name = "buttonPlayFilter";
+            this.buttonPlayFilter.Size = new System.Drawing.Size(120, 23);
+            this.buttonPlayFilter.TabIndex = 41;
+            this.buttonPlayFilter.Text = "Play with this filter";
+            this.buttonPlayFilter.UseVisualStyleBackColor = true;
+            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
+            // 
             // buttonDuplicateFilter
             // 
             this.buttonDuplicateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -692,7 +703,7 @@
             // 
             this.filterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.filterInfoupdateToolStripMenuItem.Name = "filterInfoupdateToolStripMenuItem";
-            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.filterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.filterInfoupdateToolStripMenuItem.Text = "Filter info/update";
             this.filterInfoupdateToolStripMenuItem.Click += new System.EventHandler(this.filterInfoupdateToolStripMenuItem_Click);
             // 
@@ -700,7 +711,7 @@
             // 
             this.createAnAssetFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.create;
             this.createAnAssetFilterToolStripMenuItem.Name = "createAnAssetFilterToolStripMenuItem";
-            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.createAnAssetFilterToolStripMenuItem.Text = "Create...";
             this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
             // 
@@ -708,16 +719,24 @@
             // 
             this.deleteToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.delete;
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.deleteToolStripMenuItem.Text = "Delete";
             this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
             // 
             // duplicateToolStripMenuItem
             // 
             this.duplicateToolStripMenuItem.Name = "duplicateToolStripMenuItem";
-            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.duplicateToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
             this.duplicateToolStripMenuItem.Text = "Duplicate";
             this.duplicateToolStripMenuItem.Click += new System.EventHandler(this.duplicateToolStripMenuItem_Click);
+            // 
+            // playWithThisFilterToolStripMenuItem
+            // 
+            this.playWithThisFilterToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.play;
+            this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
+            this.playWithThisFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
+            this.playWithThisFilterToolStripMenuItem.Text = "Play with this filter";
+            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
             // 
             // tabPage5
             // 
@@ -1183,24 +1202,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
-            // 
-            // buttonPlayFilter
-            // 
-            this.buttonPlayFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonPlayFilter.Location = new System.Drawing.Point(410, 409);
-            this.buttonPlayFilter.Name = "buttonPlayFilter";
-            this.buttonPlayFilter.Size = new System.Drawing.Size(120, 23);
-            this.buttonPlayFilter.TabIndex = 41;
-            this.buttonPlayFilter.Text = "Play with this filter";
-            this.buttonPlayFilter.UseVisualStyleBackColor = true;
-            this.buttonPlayFilter.Click += new System.EventHandler(this.button1_Click_4);
-            // 
-            // playWithThisFilterToolStripMenuItem
-            // 
-            this.playWithThisFilterToolStripMenuItem.Name = "playWithThisFilterToolStripMenuItem";
-            this.playWithThisFilterToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.playWithThisFilterToolStripMenuItem.Text = "Play with this filter";
-            this.playWithThisFilterToolStripMenuItem.Click += new System.EventHandler(this.playWithThisFilterToolStripMenuItem_Click);
             // 
             // AssetInformation
             // 

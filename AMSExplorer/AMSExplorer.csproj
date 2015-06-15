@@ -533,6 +533,8 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="IconsPNG\filter.png" />
+    <None Include="IconsPNG\filters.png" />
     <Content Include="IconsPNG\hyperlapse.png" />
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />

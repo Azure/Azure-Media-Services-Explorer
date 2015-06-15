@@ -2060,6 +2060,8 @@ namespace AMSExplorer
         public Bitmap DynamicEncryption { get; set; }
         public string DynamicEncryptionMouseOver { get; set; }
         public Bitmap Publication { get; set; }
+        public Bitmap Filter { get; set; }
+        public string FilterMouseOver { get; set; }
         public string PublicationMouseOver { get; set; }
         public Nullable<DateTime> LocatorExpirationDate { get; set; }
         public bool LocatorExpirationDateWarning { get; set; }
