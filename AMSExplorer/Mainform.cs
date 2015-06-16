@@ -5087,14 +5087,14 @@ namespace AMSExplorer
         }
 
 
-        private void azureMediaServicesMSDNToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/wamsmsdn");
+            Process.Start(@"https://azure.microsoft.com/en-us/documentation/services/media-services/");
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/wamshelp");
+            Process.Start(@"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices");
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10085,6 +10085,11 @@ namespace AMSExplorer
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
             }
 
+        }
+
+        private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://aka.ms/ampdiagnostics");
         }
     }
 }
