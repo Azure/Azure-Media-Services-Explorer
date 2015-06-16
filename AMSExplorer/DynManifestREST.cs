@@ -134,6 +134,10 @@ namespace AMSExplorer
                 }
                 return _accessToken;
             }
+            set
+            {
+                _accessToken = value;
+            }
         }
 
         /// <summary>
@@ -320,7 +324,6 @@ namespace AMSExplorer
             request.Headers.Add(RequestHeaders.DataServiceVersion, RequestHeaderValues.DataServiceVersion);
             request.Headers.Add(RequestHeaders.MaxDataServiceVersion, RequestHeaderValues.MaxDataServiceVersion);
             request.Headers.Add(RequestHeaders.XMsClientRequestId, "00000000");
-
 
             try
             {

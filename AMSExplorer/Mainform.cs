@@ -150,15 +150,13 @@ namespace AMSExplorer
                 }
             });
 
-
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
 
-
             // Dynamic filter
             _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials);
+            _contextdynmanifest.AccessToken = _context.Credentials.AccessToken;
             _contextdynmanifest.CheckForRedirection();
-
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
@@ -8922,8 +8920,7 @@ namespace AMSExplorer
 
         private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-
-
+            // on line on two is blue
             Debug.Print("rowpostpaint" + e.RowIndex);
             if (e.RowIndex % 2 == 0)
             {
@@ -10078,6 +10075,17 @@ namespace AMSExplorer
         {
             DoCreateFilter();
         }
+
+        private void dataGridViewFilters_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // on line on two is blue
+            Debug.Print("rowpostpaint" + e.RowIndex);
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
+
+        }
     }
 }
 
@@ -10636,13 +10644,32 @@ namespace AMSExplorer
 
             this.Columns[_statEnc].HeaderText = "Static Encryption";
             this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
-            this.Columns["Size"].Width = 70;
-            this.Columns[_statEnc].Width = 70;
-            this.Columns[_dynEnc].Width = 70;
-            this.Columns[_publication].Width = 70;
+
+            this.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Type"].Width = 140;
+
+            this.Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Size"].Width = 80;
+
+            this.Columns[_statEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_statEnc].Width = 80;
+
+            this.Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_dynEnc].Width = 80;
+
+            this.Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_publication].Width = 90;
+
+            this.Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_filter].Width = 50;
+
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
+
+            this.Columns[_locatorexpirationdate].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            this.Columns["LastModified"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["LastModified"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
