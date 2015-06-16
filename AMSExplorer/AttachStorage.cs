@@ -162,7 +162,6 @@ namespace AMSExplorer
             if (openFileDialogLoadSubFile.ShowDialog() == DialogResult.OK)
             {
                
-                bool Error = false;
                 try
                 {
                     var doc = new XDocument();
@@ -177,7 +176,6 @@ namespace AMSExplorer
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error when reading the file. Original error: " + ex.Message);
-                    Error = true;
                 }
               
             }

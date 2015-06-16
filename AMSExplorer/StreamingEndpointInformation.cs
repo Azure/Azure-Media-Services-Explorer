@@ -48,7 +48,6 @@ namespace AMSExplorer
         {
             AllowNew = true
         };
-        private bool InitTime = true;
 
         public int GetScaleUnits
         {
@@ -239,7 +238,6 @@ namespace AMSExplorer
                 }
             }
             textboxorigindesc.Text = MyOrigin.Description;
-            InitTime = false;
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)

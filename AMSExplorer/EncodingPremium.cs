@@ -249,7 +249,6 @@ namespace AMSExplorer
         {
             string safeFileName = Path.GetFileName(fileName);
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
-            bool Error = false;
             IAsset asset = null;
             try
             {
@@ -266,7 +265,6 @@ namespace AMSExplorer
             }
             catch (Exception e)
             {
-                Error = true;
             }
         }
 

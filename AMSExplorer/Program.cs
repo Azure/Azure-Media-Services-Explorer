@@ -914,7 +914,7 @@ namespace AMSExplorer
     {
         private List<IAsset> SelectedAssets;
         public const string Type_Workflow = "Workflow";
-        public const string Type_LiveArchive = "Live archive";
+        public const string Type_LiveArchive = "Live Archive";
         public const string Type_Thumbnails = "Thumbnails";
         public const string Type_Empty = "(empty)";
         public const string _prog_down_https_SAS = "Progressive Download URLs (SAS)";
@@ -981,6 +981,33 @@ namespace AMSExplorer
                 return null;
             }
         }
+
+
+        public static ILocator CreatedTemporaryOnDemandLocator(IAsset asset)
+        {
+            ILocator tempLocator = null;
+            try
+            {
+                var locatorTask = Task.Factory.StartNew(() =>
+                {
+                    tempLocator = asset.GetMediaContext().Locators.Create(LocatorType.OnDemandOrigin, asset, AccessPermissions.Read, TimeSpan.FromHours(1));
+                });
+                locatorTask.Wait();
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            return tempLocator;
+        }
+
+        public static Uri GetValidOnDemandURI(IAsset asset)
+        {
+            var ai = new AssetInfo(asset);
+            return ai.GetValidURIs().FirstOrDefault();
+        }
+
 
         public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false)
         {
@@ -1270,6 +1297,57 @@ namespace AMSExplorer
             return LocPubStatus;
         }
 
+
+        static public ManifestTimingData GetManifestTimingData(IAsset asset)
+        {
+            ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0 };
+
+            try
+            {
+                ILocator mytemplocator = null;
+                Uri myuri = AssetInfo.GetValidOnDemandURI(asset);
+                if (myuri == null)
+                {
+                    mytemplocator = AssetInfo.CreatedTemporaryOnDemandLocator(asset);
+                    myuri = AssetInfo.GetValidOnDemandURI(asset);
+                }
+                if (myuri != null)
+                {
+                    XDocument manifest = XDocument.Load(myuri.ToString());
+                    var smoothmedia = manifest.Element("SmoothStreamingMedia");
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    response.TimeScale = long.Parse(timescalefrommanifest);
+
+                    var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+                    response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+
+                    if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
+                    { // Live asset.... No duration to read (but we can read scaling)
+                        response.IsLive = true;
+                    }
+                    else
+                    {
+                        response.AssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                    }
+                }
+                else
+                {
+                    response.Error = true;
+                }
+                if (mytemplocator != null) mytemplocator.Delete();
+            }
+            catch (Exception ex)
+            {
+                response.Error = true;
+            }
+            return response;
+        }
+
+        public static long ReturnTimestampInTicks(long timestamp, long timescale)
+        {
+            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / (double)timescale);
+        }
+
         public static IAsset GetAsset(string assetId, CloudMediaContext _context)
         {
             IAsset asset;
@@ -1318,6 +1396,11 @@ namespace AMSExplorer
                     type = "Smooth Streaming";
                     var cfffiles = asset.AssetFiles.ToList().Where(f => f.Name.EndsWith(".ismv", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".isma", StringComparison.OrdinalIgnoreCase)).ToArray();
                     number = cfffiles.Count();
+                    if (number == 0 && asset.AssetFiles.Count() > 2)
+                    {
+                        number = asset.AssetFiles.Count() - 2;  // tracks - 2 manifest files
+                        type = Type_LiveArchive;
+                    }
                     break;
 
                 case AssetType.Unknown:
@@ -1982,6 +2065,8 @@ namespace AMSExplorer
         public Bitmap DynamicEncryption { get; set; }
         public string DynamicEncryptionMouseOver { get; set; }
         public Bitmap Publication { get; set; }
+        public Bitmap Filters { get; set; }
+        public string FiltersMouseOver { get; set; }
         public string PublicationMouseOver { get; set; }
         public Nullable<DateTime> LocatorExpirationDate { get; set; }
         public bool LocatorExpirationDateWarning { get; set; }
@@ -2154,6 +2239,15 @@ namespace AMSExplorer
         }
     }
 
+    public class ManifestTimingData
+    {
+        public long AssetDuration { get; set; }
+        public long TimestampOffset { get; set; }
+        public long TimeScale { get; set; }
+        public bool IsLive { get; set; }
+        public bool Error { get; set; }
+    }
+
     class HostNameClass
     {
         public string HostName { get; set; }
@@ -2224,6 +2318,7 @@ namespace AMSExplorer
         public int Priority { get; set; }
         public string StorageSelected { get; set; }
         public TaskOptions TasksOptionsSetting { get; set; }
+        public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
 
     }

@@ -150,15 +150,13 @@ namespace AMSExplorer
                 }
             });
 
-
             // Get the service context.
             _context = Program.ConnectAndGetNewContext(_credentials);
 
-
             // Dynamic filter
             _contextdynmanifest = new MediaServiceContextForDynManifest(_credentials);
+            _contextdynmanifest.AccessToken = _context.Credentials.AccessToken;
             _contextdynmanifest.CheckForRedirection();
-
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;
@@ -747,7 +745,7 @@ namespace AMSExplorer
             if (firstime)
             {
 
-                dataGridViewAssetsV.Init(_context);
+                dataGridViewAssetsV.Init(_context, _contextdynmanifest);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
                 Debug.WriteLine("DoRefreshGridAssetforsttime");
@@ -2781,8 +2779,19 @@ namespace AMSExplorer
                 EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
-                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder
+                EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
+
             };
+            form.JobOptions = new JobOptionsVar()
+            {
+                Priority = Properties.Settings.Default.DefaultJobPriority,
+                StorageSelected = string.Empty,
+                TasksOptionsSetting = TaskOptions.None, // we want to force this as encryption is not supported for empty string
+                TasksOptionsSettingReadOnly = true,
+                OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
+            };
+
+
             DialogResult dialogResult = form.ShowDialog();
 
             this.Cursor = Cursors.Arrow;
@@ -4104,11 +4113,13 @@ namespace AMSExplorer
 
         private void dataGridViewJobsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewJobsV.Columns["State"].Index) // state column
+            if (e.ColumnIndex < dataGridViewJobsV.Columns["Progress"].Index)
             {
-                if (dataGridViewJobsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                var celljobstatevalue = dataGridViewJobsV.Rows[e.RowIndex].Cells[dataGridViewJobsV.Columns["State"].Index].Value;
+
+                if (celljobstatevalue != null)
                 {
-                    JobState JS = (JobState)dataGridViewJobsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                    JobState JS = (JobState)celljobstatevalue;
                     Color mycolor;
 
                     switch (JS)
@@ -4132,7 +4143,7 @@ namespace AMSExplorer
                             mycolor = Color.Black;
                             break;
                     }
-                    for (int i = 0; i < dataGridViewJobsV.Columns["Progress"].Index; i++) dataGridViewJobsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    e.CellStyle.ForeColor = mycolor;
                 }
             }
         }
@@ -4171,49 +4182,64 @@ namespace AMSExplorer
 
         private void dataGridViewAssetsV_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            int indextype = dataGridViewAssetsV.Columns["Type"].Index;//2
+            int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
+            int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
 
-            if (e.ColumnIndex == dataGridViewAssetsV.Columns["Type"].Index) // state column
+            Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
+
+            var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
+            if (cell.Value != null)
             {
-                if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-                {
-                    string TypeStr = (string)dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    if (TypeStr.Equals(AssetInfo.Type_Empty)) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
-                    else if (TypeStr.Contains(AssetInfo.Type_Workflow)) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Blue;
-                }
+                string TypeStr = (string)cell.Value;
+                if (TypeStr.Equals(AssetInfo.Type_Empty)) e.CellStyle.ForeColor = Color.Red;
+                else if (TypeStr.Contains(AssetInfo.Type_Workflow)) e.CellStyle.ForeColor = Color.Blue;
             }
-            else if (e.ColumnIndex == dataGridViewAssetsV.Columns["Size"].Index) // size column
+
+
+            var cell2 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indexsize];  //Size
+            if (cell2.Value != null)
             {
-                if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-                {
-                    string TypeStr = (string)dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    if (TypeStr.Equals("0 B")) foreach (DataGridViewCell c in dataGridViewAssetsV.Rows[e.RowIndex].Cells) c.Style.ForeColor = Color.Red;
-                }
+                string TypeStr = (string)cell2.Value;
+                if (TypeStr.Equals("0 B")) e.CellStyle.ForeColor = Color.Red;
             }
-            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index)  // locator expiration,
+
+            if (e.ColumnIndex == indexlocalexp)  // locator expiration,
             {
-                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 var value = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._locatorexpirationdatewarning].Value;
                 if (value != null && (((bool)value) == true))
-                    cell.Style.ForeColor = Color.Red;
+                    e.CellStyle.ForeColor = Color.Red;
+            }
+            else if (e.ColumnIndex == indexlocalexp)  // locator expiration,
+            {
+                var value = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._locatorexpirationdatewarning].Value;
+                if (value != null && (((bool)value) == true))
+                    e.CellStyle.ForeColor = Color.Red;
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._statEnc].Index)  // Mouseover for icons
             {
 
-                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var cell3 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value != null)
-                    cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value.ToString();
+                    cell3.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._statEncMouseOver].Value.ToString();
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._dynEnc].Index)// Mouseover for icons
             {
-                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var cell4 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._dynEncMouseOver].Value != null)
-                    cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._dynEncMouseOver].Value.ToString();
+                    cell4.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._dynEncMouseOver].Value.ToString();
             }
             else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._publication].Index)// Mouseover for icons
             {
-                var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                var cell5 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
                 if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value != null)
-                    cell.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
+                    cell5.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._publicationMouseOver].Value.ToString();
+            }
+            else if (e.ColumnIndex == dataGridViewAssetsV.Columns[dataGridViewAssetsV._filter].Index)// Mouseover for icon filter
+            {
+                var cell6 = dataGridViewAssetsV.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._filterMouseOver].Value != null)
+                    cell6.ToolTipText = dataGridViewAssetsV.Rows[e.RowIndex].Cells[dataGridViewAssetsV._filterMouseOver].Value.ToString();
             }
 
         }
@@ -4233,6 +4259,7 @@ namespace AMSExplorer
             contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
+            assetFilterInfoupdateToolStripMenuItem.Enabled = singleitem;
 
             if (singleitem && (assets.FirstOrDefault().AssetFiles.Count() == 1))
             {
@@ -4741,11 +4768,6 @@ namespace AMSExplorer
         private void withMPEGDASHAzurePlayerToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.DASHAzurePage);
-        }
-
-        private void playbackTheAssetToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-
         }
 
         private void createOutlookReportEmailToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5447,8 +5469,8 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[3].Name = "End";
                 dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
                 dataGridViewFilters.Columns[4].Name = "DVR";
-                dataGridViewFilters.Columns[5].HeaderText = "Live delay (d.h:m:s)";
-                dataGridViewFilters.Columns[5].Name = "LiveDelay";
+                dataGridViewFilters.Columns[5].HeaderText = "Live backoff (d.h:m:s)";
+                dataGridViewFilters.Columns[5].Name = "LiveBackoff";
             }
             dataGridViewFilters.Rows.Clear();
             List<Filter> filters = _contextdynmanifest.ListFilters();
@@ -6037,36 +6059,35 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewChannelsV.Columns["State"].Index) // state column
-            {
-                if (dataGridViewChannelsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
-                {
-                    ChannelState CS = (ChannelState)dataGridViewChannelsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
+            var cellchannelstatevalue = dataGridViewChannelsV.Rows[e.RowIndex].Cells[dataGridViewChannelsV.Columns["State"].Index].Value;
 
-                    switch (CS)
-                    {
-                        case ChannelState.Deleting:
-                            mycolor = Color.Red;
-                            break;
-                        case ChannelState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case ChannelState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case ChannelState.Stopped:
-                            mycolor = Color.Blue;
-                            break;
-                        case ChannelState.Running:
-                            mycolor = Color.Green;
-                            break;
-                        default:
-                            mycolor = Color.Black;
-                            break;
-                    }
-                    for (int i = 0; i < dataGridViewChannelsV.Columns.Count; i++) dataGridViewChannelsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+            if (cellchannelstatevalue != null)
+            {
+                ChannelState CS = (ChannelState)cellchannelstatevalue;
+                Color mycolor;
+
+                switch (CS)
+                {
+                    case ChannelState.Deleting:
+                        mycolor = Color.Red;
+                        break;
+                    case ChannelState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case ChannelState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case ChannelState.Stopped:
+                        mycolor = Color.Blue;
+                        break;
+                    case ChannelState.Running:
+                        mycolor = Color.Green;
+                        break;
+                    default:
+                        mycolor = Color.Black;
+                        break;
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
@@ -6583,34 +6604,33 @@ namespace AMSExplorer
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewProgramsV.Columns["State"].Index) // state column
+            var cellprogramstatevalue = dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["State"].Index].Value;
+
+            if (cellprogramstatevalue != null)
             {
-                if (dataGridViewProgramsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                ProgramState PS = (ProgramState)cellprogramstatevalue;
+                Color mycolor;
+
+                switch (PS)
                 {
-                    ProgramState CS = (ProgramState)dataGridViewProgramsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
+                    case ProgramState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case ProgramState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case ProgramState.Stopped:
+                        mycolor = Color.Blue;
+                        break;
+                    case ProgramState.Running:
+                        mycolor = Color.Green;
+                        break;
 
-                    switch (CS)
-                    {
-                        case ProgramState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case ProgramState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case ProgramState.Stopped:
-                            mycolor = Color.Blue;
-                            break;
-                        case ProgramState.Running:
-                            mycolor = Color.Green;
-                            break;
-
-                        default:
-                            mycolor = Color.Black;
-                            break;
-                    }
-                    for (int i = 0; i < dataGridViewProgramsV.Columns.Count; i++) dataGridViewProgramsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    default:
+                        mycolor = Color.Black;
+                        break;
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
@@ -6715,38 +6735,37 @@ namespace AMSExplorer
 
         private void dataGridViewOriginsV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewStreamingEndpointsV.Columns["State"].Index) // state column
+
+            var cellSEstatevalue = dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[dataGridViewStreamingEndpointsV.Columns["State"].Index].Value;
+
+            if (cellSEstatevalue != null)
             {
-                if (dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value != null)
+                StreamingEndpointState SES = (StreamingEndpointState)cellSEstatevalue;
+                Color mycolor;
+
+                switch (SES)
                 {
-                    StreamingEndpointState OS = (StreamingEndpointState)dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                    Color mycolor;
-
-                    switch (OS)
-                    {
-                        case StreamingEndpointState.Deleting:
-                            mycolor = Color.Red;
-                            break;
-                        case StreamingEndpointState.Stopping:
-                            mycolor = Color.OrangeRed;
-                            break;
-                        case StreamingEndpointState.Starting:
-                            mycolor = Color.DarkCyan;
-                            break;
-                        case StreamingEndpointState.Stopped:
-                            mycolor = Color.Red;
-                            break;
-                        case StreamingEndpointState.Running:
-                            mycolor = Color.Green;
-                            break;
-                        default:
-                            mycolor = Color.Black;
-                            break;
-
-                    }
-                    for (int i = 0; i < dataGridViewStreamingEndpointsV.Columns.Count; i++) dataGridViewStreamingEndpointsV.Rows[e.RowIndex].Cells[i].Style.ForeColor = mycolor;
+                    case StreamingEndpointState.Deleting:
+                        mycolor = Color.Red;
+                        break;
+                    case StreamingEndpointState.Stopping:
+                        mycolor = Color.OrangeRed;
+                        break;
+                    case StreamingEndpointState.Starting:
+                        mycolor = Color.DarkCyan;
+                        break;
+                    case StreamingEndpointState.Stopped:
+                        mycolor = Color.Red;
+                        break;
+                    case StreamingEndpointState.Running:
+                        mycolor = Color.Green;
+                        break;
+                    default:
+                        mycolor = Color.Black;
+                        break;
 
                 }
+                e.CellStyle.ForeColor = mycolor;
             }
         }
 
@@ -8901,7 +8920,8 @@ namespace AMSExplorer
 
         private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
-
+            // on line on two is blue
+            Debug.Print("rowpostpaint" + e.RowIndex);
             if (e.RowIndex % 2 == 0)
             {
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
@@ -8919,9 +8939,9 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
+        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<IAsset> listassets, string selectedGlobalFilter = null)
         {
-            foreach (var myAsset in ReturnSelectedAssetsFromProgramsOrAssets())
+            foreach (var myAsset in listassets)
             {
                 if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // No streaming locator valid
                 {
@@ -8965,6 +8985,11 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
+        {
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssets(), selectedGlobalFilter);
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -9469,47 +9494,53 @@ namespace AMSExplorer
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             var channels = ReturnSelectedChannels();
+            bool single = channels.Count == 1;
 
             // channel info if only one channel
-            channInfoToolStripMenuItem.Enabled = channels.Count == 1;
+            channInfoToolStripMenuItem.Enabled = single;
 
             // slate control if at least one channel with live transcoding
             channelsAdAndSlateControlToolStripMenuItem.Enabled = channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
-            copyInputURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+            copyInputURLToClipboardToolStripMenuItem.Enabled = single;
 
             // on premises encoder if only one channel
-            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = channels.Count == 1;
+            runAnOnpremisesLiveEncoderToolStripMenuItem.Enabled = single;
 
             // copy preview url if only one channel
-            copyPreviewURLToClipboardToolStripMenuItem.Enabled = channels.Count == 1;
+            copyPreviewURLToClipboardToolStripMenuItem.Enabled = single;
 
 
             ////////////
 
             var programs = ReturnSelectedPrograms();
+            single = programs.Count == 1;
 
             // program info if only one program
-            displayProgramInformationToolStripMenuItem.Enabled = programs.Count == 1;
+            displayProgramInformationToolStripMenuItem.Enabled = single;
 
             // asset info if only one program
-            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = programs.Count == 1;
+            ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
 
         }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
             var programs = ReturnSelectedPrograms();
+            bool single = programs.Count == 1;
 
             // program info if only one program
-            ContextMenuItemProgramDisplayInformation.Enabled = programs.Count == 1;
+            ContextMenuItemProgramDisplayInformation.Enabled = single;
 
             // asset info if only one program
-            ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = programs.Count == 1;
+            ContextMenuItemProgramDisplayRelatedAssetInformation.Enabled = single;
 
             // copy program url if only one program
-            ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = programs.Count == 1;
+            ContextMenuItemProgramCopyTheOutputURLToClipboard.Enabled = single;
+
+            // edit asset filter if only one program
+            toolStripMenuItemProgramAssetFilterInfo.Enabled = single;
 
         }
 
@@ -9613,12 +9644,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+
+                var myfilter = form.GetFilter;
                 try
                 {
-                    form.DisplayedFilter.Create();
+                    myfilter.Create();
+                    TextBoxLogWriteLine("Global filter '{0}' created.", myfilter.Name);
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", myfilter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9652,22 +9687,20 @@ namespace AMSExplorer
         private void DoUpdateFilter()
         {
             Filter filter = ReturnSelectedFilters().FirstOrDefault();
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context)
-            {
-                DisplayedFilter = filter
-            };
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, filter);
+
             if (form.ShowDialog() == DialogResult.OK)
             {
+                Filter filtertoupdate = form.GetFilter;
                 try
                 {
-                    Filter filtertoupdate = form.DisplayedFilter;
                     filtertoupdate.Delete();
                     filtertoupdate.Create();
                     TextBoxLogWriteLine("Global filter '{0}' recreated.", filtertoupdate.Name);
-
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", filtertoupdate.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9816,6 +9849,7 @@ namespace AMSExplorer
             getATestTokenToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem1.Enabled =
             toolStripMenuItemPublishCopyPubURLToClipb.Enabled =
+            toolStripMenuItemAssetInfo36.Enabled =
             assets.Count == 1;
         }
 
@@ -9826,6 +9860,34 @@ namespace AMSExplorer
         {
             // we launch AMP with a filter
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, sender.ToString());
+        }
+
+        public void DoDisplayFilter(object sender, System.EventArgs e)
+        {
+            IAsset myasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
+            var myassetfilters = _contextdynmanifest.ListAssetFilters(myasset);
+            var myassetfilter = myassetfilters.Where(f => f.Name == sender.ToString()).FirstOrDefault();
+            if (myassetfilter != null)
+            {
+                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, (Filter)myassetfilter, myasset);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    AssetFilter filtertoupdate = (AssetFilter)form.GetFilter;
+                    try
+                    {
+                        filtertoupdate.Delete();
+                        filtertoupdate.Create();
+                        TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error when updating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+            }
         }
 
 
@@ -9872,6 +9934,22 @@ namespace AMSExplorer
         }
 
 
+        private void AddAssetFilterInfoToMenu(ToolStripMenuItem mytoolstripmenuitem, IAsset asset)
+        {
+            mytoolstripmenuitem.DropDownItems.Clear();
+
+            var Filters = _contextdynmanifest.ListAssetFilters(asset);
+            if (Filters.Count > 0)
+            {
+                foreach (var filter in Filters)
+                {
+                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoDisplayFilter);
+                    mytoolstripmenuitem.DropDownItems.Add(SSMenu);
+                }
+            }
+        }
+
+
         private void withAzureMediaPlayerToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
@@ -9879,7 +9957,7 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
         private void createAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9889,16 +9967,16 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            IAsset selasset = ReturnSelectedAssets().FirstOrDefault();
+            IAsset selasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
 
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context);
+            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, _context, null, selasset);
             form.CreateAssetFilterFromAssetName = selasset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 AssetFilter myassetfilter = new AssetFilter(selasset);
 
-                Filter filter = form.DisplayedFilter;
+                Filter filter = form.GetFilter;
                 myassetfilter.Name = filter.Name;
                 myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
                 myassetfilter.Tracks = filter.Tracks;
@@ -9906,9 +9984,11 @@ namespace AMSExplorer
                 try
                 {
                     myassetfilter.Create();
+                    TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
                 }
                 catch (Exception e)
                 {
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -9957,6 +10037,53 @@ namespace AMSExplorer
         private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateAssetFilter();
+
+        }
+
+        private void toolStripMenuItem25_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void createAnAssetFilterToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetFilter();
+        }
+
+        private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
+        {
+            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
+
+        }
+
+        private void assetFilterInfoupdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItemAssetInfo36_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
+        {
+            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
+        }
+
+        private void toolStripMenuItem26_Click(object sender, EventArgs e)
+        {
+            DoCreateFilter();
+        }
+
+        private void dataGridViewFilters_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
+        {
+            // on line on two is blue
+            Debug.Print("rowpostpaint" + e.RowIndex);
+            if (e.RowIndex % 2 == 0)
+            {
+                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
+            }
 
         }
     }
@@ -10310,6 +10437,48 @@ namespace AMSExplorer
 
     public class DataGridViewAssets : DataGridView
     {
+        public string _statEnc = "StaticEncryption";
+        public string _publication = "Publication";
+        public string _dynEnc = "DynamicEncryption";
+        public string _filter = "Filters";
+        public string _statEncMouseOver = "StaticEncryptionMouseOver";
+        public string _publicationMouseOver = "PublicationMouseOver";
+        public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
+        public string _filterMouseOver = "FiltersMouseOver";
+
+        public string _locatorexpirationdate = "LocatorExpirationDate";
+        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
+
+        static BindingList<AssetEntry> _MyObservAsset;
+        static private int _assetsperpage = 50; //nb of items per page
+        static private int _pagecount = 1;
+        static private int _currentpage = 1;
+        static private bool _initialized = false;
+        static private bool _refreshedatleastonetime = false;
+        static private bool _neveranalyzed = true;
+        static private string _searchinname = "";
+        static private string _statefilter = "";
+        static private string _timefilter = FilterTime.First50Items;
+
+        static string _orderassets = OrderAssets.LastModifiedDescending;
+        static BackgroundWorker WorkerAnalyzeAssets;
+        static CloudMediaContext _context;
+        static MediaServiceContextForDynManifest _contextDynManifest;
+        static Bitmap cancelimage = Bitmaps.cancel;
+        static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
+        static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
+        static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
+        static Bitmap commonencryptedimage = Bitmaps.DRM_protection;
+        static Bitmap unsupportedencryptedimage = Bitmaps.help;
+        static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
+        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+        static Bitmap AssetFilterImage = Bitmaps.filter;
+        static Bitmap AssetFiltersImage = Bitmaps.filters;
+        static Bitmap Redstreamimage = MakeRed(Streaminglocatorimage);
+        static Bitmap Reddownloadimage = MakeRed(SASlocatorimage);
+        static Bitmap Bluestreamimage = MakeBlue(Streaminglocatorimage);
+        static Bitmap Bluedownloadimage = MakeBlue(SASlocatorimage);
+
         public int AssetsPerPage
         {
             get
@@ -10397,48 +10566,15 @@ namespace AMSExplorer
                 return _MyObservAsset.Count();
             }
         }
-        public string _statEnc = "StaticEncryption";
-        public string _publication = "Publication";
-        public string _dynEnc = "DynamicEncryption";
-        public string _statEncMouseOver = "StaticEncryptionMouseOver";
-        public string _publicationMouseOver = "PublicationMouseOver";
-        public string _dynEncMouseOver = "DynamicEncryptionMouseOver";
-        public string _locatorexpirationdate = "LocatorExpirationDate";
-        public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
 
-        static BindingList<AssetEntry> _MyObservAsset;
-        static private int _assetsperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
-        static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
-        static private bool _neveranalyzed = true;
-        static private string _searchinname = "";
-        static private string _statefilter = "";
-        static private string _timefilter = FilterTime.First50Items;
 
-        static string _orderassets = OrderAssets.LastModifiedDescending;
-        static BackgroundWorker WorkerAnalyzeAssets;
-        static CloudMediaContext _context;
-        static Bitmap cancelimage = Bitmaps.cancel;
-        static Bitmap envelopeencryptedimage = Bitmaps.envelope_encryption;
-        static Bitmap storageencryptedimage = Bitmaps.storage_encryption;
-        static Bitmap storagedecryptedimage = Bitmaps.storage_decryption;
-        static Bitmap commonencryptedimage = Bitmaps.DRM_protection;
-        static Bitmap unsupportedencryptedimage = Bitmaps.help;
-        static Bitmap SASlocatorimage = Bitmaps.SAS_locator;
-        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
-        static Bitmap Redstreamimage = MakeRed(Streaminglocatorimage);
-        static Bitmap Reddownloadimage = MakeRed(SASlocatorimage);
-        static Bitmap Bluestreamimage = MakeBlue(Streaminglocatorimage);
-        static Bitmap Bluedownloadimage = MakeBlue(SASlocatorimage);
-
-        public void Init(CloudMediaContext context)
+        public void Init(CloudMediaContext context, MediaServiceContextForDynManifest contextDynManifest)
         {
             Debug.WriteLine("AssetsInit");
 
             IEnumerable<AssetEntry> assetquery;
             _context = context;
+            _contextDynManifest = contextDynManifest;
 
             assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
@@ -10473,6 +10609,14 @@ namespace AMSExplorer
             };
             this.Columns.Add(imageCol3);
 
+            DataGridViewImageColumn imageCol4 = new DataGridViewImageColumn()
+            {
+                DefaultCellStyle = cellstyle,
+                Name = _filter,
+                DataPropertyName = _filter,
+            };
+            this.Columns.Add(imageCol4);
+
             BindingList<AssetEntry> MyObservAssethisPage = new BindingList<AssetEntry>(assetquery.Take(0).ToList()); // just to create columns
             this.DataSource = MyObservAssethisPage;
 
@@ -10480,6 +10624,8 @@ namespace AMSExplorer
             this.Columns[_statEncMouseOver].Visible = false;
             this.Columns[_dynEncMouseOver].Visible = false;
             this.Columns[_publicationMouseOver].Visible = false;
+            this.Columns[_filterMouseOver].Visible = false;
+
             this.Columns[_locatorexpirationdatewarning].Visible = false; // used to store warning and put color in red
 
             this.Columns["Type"].HeaderText = "Type (streams nb)";
@@ -10487,22 +10633,43 @@ namespace AMSExplorer
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayAssetIDinGrid;
             this.Columns["Storage"].Visible = Properties.Settings.Default.DisplayAssetStorageinGrid;
             this.Columns["SizeLong"].Visible = false;
-            this.Columns[_publication].DisplayIndex = lastColumn_sIndex;
+            this.Columns[_filter].DisplayIndex = lastColumn_sIndex;
+            this.Columns[_filter].DefaultCellStyle.NullValue = null;
+            this.Columns[_publication].DisplayIndex = lastColumn_sIndex - 1;
             this.Columns[_publication].DefaultCellStyle.NullValue = null;
-            this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 1;
+            this.Columns[_dynEnc].DisplayIndex = lastColumn_sIndex - 2;
             this.Columns[_dynEnc].DefaultCellStyle.NullValue = null;
-            this.Columns[_statEnc].DisplayIndex = lastColumn_sIndex - 2;
+            this.Columns[_statEnc].DisplayIndex = lastColumn_sIndex - 3;
             this.Columns[_statEnc].DefaultCellStyle.NullValue = null;
 
             this.Columns[_statEnc].HeaderText = "Static Encryption";
             this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
-            this.Columns["Size"].Width = 70;
-            this.Columns[_statEnc].Width = 70;
-            this.Columns[_dynEnc].Width = 70;
-            this.Columns[_publication].Width = 70;
+
+            this.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Type"].Width = 140;
+
+            this.Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Size"].Width = 80;
+
+            this.Columns[_statEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_statEnc].Width = 80;
+
+            this.Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_dynEnc].Width = 80;
+
+            this.Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_publication].Width = 90;
+
+            this.Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_filter].Width = 50;
+
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
 
+            this.Columns[_locatorexpirationdate].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
+
+            this.Columns["LastModified"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["LastModified"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -10552,6 +10719,9 @@ namespace AMSExplorer
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate;
                         AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
+                        ABR = BuildBitmapAssetFilters(asset);
+                        AE.Filters = ABR.bitmap;
+                        AE.FiltersMouseOver = ABR.MouseOverDesc;
                         i++;
                         if (i % 5 == 0)
                         {
@@ -10940,6 +11110,24 @@ namespace AMSExplorer
         }
 
 
+        private static AssetBitmapAndText BuildBitmapAssetFilters(IAsset asset)
+        {
+            AssetBitmapAndText ABT = new AssetBitmapAndText();
+            var filters = _contextDynManifest.ListAssetFilters(asset);
+
+            if (filters.Count > 1)
+            {
+                ABT.bitmap = AssetFiltersImage;
+                ABT.MouseOverDesc = string.Format("{0} filters", filters.Count);
+            }
+            else if (filters.Count == 1)
+            {
+                ABT.bitmap = AssetFilterImage;
+                ABT.MouseOverDesc = string.Format("1 filter");
+            }
+            return ABT;
+        }
+
 
         private static AssetBitmapAndText BuildBitmapDynEncryption(IAsset asset)
         {
@@ -11153,6 +11341,14 @@ namespace AMSExplorer
             this.Columns["Tasks"].Width = 50;
             this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Priority"].Width = 50;
+            this.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["State"].Width = 100;
+            this.Columns["StartTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["StartTime"].Width = 150;
+            this.Columns["EndTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["EndTime"].Width = 150;
+            this.Columns["Duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Duration"].Width = 100;
 
             _initialized = true;
         }
