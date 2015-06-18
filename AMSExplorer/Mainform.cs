@@ -939,6 +939,30 @@ namespace AMSExplorer
                     }
                     if (myjob.State == JobState.Finished)
                     {
+                        // job template does not rename the outout assets. As a fix, we do this:
+                        int taskind = 1;
+                        foreach (var task in myjob.Tasks)
+                        {
+                            int outputind = 1;
+                            foreach (var outputasset in task.OutputAssets)
+                            {
+                                IAsset oasset = AssetInfo.GetAsset(outputasset.Id, _context);
+                                oasset.Name = string.Format("{0} processed with {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
+                                if (myjob.Tasks.Count > 1)
+                                {
+                                    oasset.Name += string.Format(" - task {0}", taskind);
+                                }
+                                if (task.OutputAssets.Count > 1)
+                                {
+                                    oasset.Name += string.Format(" - output asset {0}", outputind);
+                                }
+                                oasset.Update();
+                                outputind++;
+                            }
+                            taskind++;
+                        }
+
+
                         if (watchfoldersettings.PublishOutputAssets) //user wants to publish the output asset when it has been processed by the job 
                         {
                             IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myjob.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
@@ -10675,6 +10699,12 @@ namespace AMSExplorer
 
             this.Columns["LastModified"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["LastModified"].Width = 140;
+
+            this.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Id"].Width = 300;
+
+            this.Columns["Storage"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Storage"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
