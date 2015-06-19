@@ -2504,6 +2504,7 @@ namespace AMSExplorer
                             try
                             {
                                 sourceCloudBlockBlob = SourceCloudBlobContainer.GetBlockBlobReference(file.Name);
+                                // TO DO: chek if this is a folder or a file
                                 sourceCloudBlockBlob.FetchAttributes();
 
                                 if (sourceCloudBlockBlob.Properties.Length > 0)

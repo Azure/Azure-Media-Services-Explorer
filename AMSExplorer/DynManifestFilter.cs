@@ -46,11 +46,6 @@ namespace AMSExplorer
         private DataTable dataOperator;
         private IAsset _parentAsset = null;
         private ManifestTimingData _parentassetmanifestdata;
-        /*
-         private long _parentAssetDuration = -1;
-         private long _parentAssetDurationInTicks = -1;
-         private long _parentAssetTimeScale = -1;
-         */
         private long _timescale = TimeSpan.TicksPerSecond;
 
         public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, Filter filterToDisplay = null, IAsset parentAsset = null)
@@ -135,24 +130,26 @@ namespace AMSExplorer
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = true;
-
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentassetmanifestdata.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
-
-                    if (!_parentassetmanifestdata.IsLive)
+                    // let's disable trackbars if this is live (duration is not fixed)
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
+  
+                    if (!_parentassetmanifestdata.IsLive)  // Not a live content
                     {
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                        timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+
                         labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                         textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
+                    
                 }
 
                 else // not able to read asset timings
@@ -192,18 +189,19 @@ namespace AMSExplorer
 
                 _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = long.Parse(_filter.PresentationTimeRange.Timescale);
 
-                if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match and not live
+                if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
                 {
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = true;
+                    // let's disable trackbars if this is live (duration is not fixed)
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar =  !_parentassetmanifestdata.IsLive;
+                 
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-
                     if (!_parentassetmanifestdata.IsLive)
                     {
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
                         labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                         textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
