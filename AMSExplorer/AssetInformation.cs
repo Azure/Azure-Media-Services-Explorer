@@ -42,8 +42,8 @@ namespace AMSExplorer
     {
         public IAsset myAsset;
         private string myAssetType;
-        public CloudMediaContext myContext;
-        public MediaServiceContextForDynManifest _contextdynmanifest;
+        private CloudMediaContext myContext;
+        private MediaServiceContextForDynManifest myDynManifestContext;
         public IEnumerable<IStreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
@@ -53,11 +53,13 @@ namespace AMSExplorer
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
 
-        public AssetInformation(Mainform mainform)
+        public AssetInformation(Mainform mainform, CloudMediaContext context, MediaServiceContextForDynManifest contextdynman)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
+            myContext = context;
+            myDynManifestContext = contextdynman;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -407,7 +409,7 @@ namespace AMSExplorer
                 buttonUpload.Enabled = true;
             }
 
-            globalFilters = _contextdynmanifest.ListFilters();
+            globalFilters = myDynManifestContext.ListFilters();
 
             DisplayAssetFilters();
             oktobuildlocator = true;
@@ -439,7 +441,7 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.BeginUpdate();
             comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
 
-            List<AssetFilter> filters = _contextdynmanifest.ListAssetFilters(myAsset);
+            List<AssetFilter> filters = myDynManifestContext.ListAssetFilters(myAsset);
 
             if (filters.Count > 0 && myassetmanifesttimingdata == null)
             {
@@ -1842,7 +1844,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
-                AssetFilter myfilter = _contextdynmanifest.GetAssetFilter(filterid);
+                AssetFilter myfilter = myDynManifestContext.GetAssetFilter(filterid);
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -1855,7 +1857,7 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, (Filter)filters.FirstOrDefault(), myAsset);
+                DynManifestFilter form = new DynManifestFilter(myDynManifestContext, myContext, (Filter)filters.FirstOrDefault(), myAsset);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -1884,7 +1886,7 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(_contextdynmanifest, myContext, null, myAsset);
+            DynManifestFilter form = new DynManifestFilter(myDynManifestContext, myContext, null, myAsset);
             form.CreateAssetFilterFromAssetName = myAsset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)

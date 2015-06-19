@@ -39,8 +39,8 @@ namespace AMSExplorer
     public partial class ProgramInformation : Form
     {
         public IProgram MyProgram;
-
-        public CloudMediaContext MyContext;
+        private CloudMediaContext MyContext;
+        private MediaServiceContextForDynManifest MyDynManifestContext;
 
         private IEnumerable<Uri> ValidURIs;
         private IEnumerable<Uri> NotValidURIs;
@@ -62,11 +62,13 @@ namespace AMSExplorer
         }
 
 
-        public ProgramInformation(Mainform mainform)
+        public ProgramInformation(Mainform mainform, CloudMediaContext context, MediaServiceContextForDynManifest contextdynman)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
+            MyContext = context;
+            MyDynManifestContext = contextdynman;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -101,10 +103,9 @@ namespace AMSExplorer
             IAsset AssetToDisplayP = MyProgram.Asset;
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm)
+                AssetInformation form = new AssetInformation(MyMainForm, MyContext, MyDynManifestContext)
                 {
                     myAsset = AssetToDisplayP,
-                    myContext = MyContext,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
                 };
                 DialogResult dialogResult = form.ShowDialog(this);

@@ -1287,11 +1287,9 @@ namespace AMSExplorer
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        AssetInformation form = new AssetInformation(this)
+                        AssetInformation form = new AssetInformation(this, _context, _contextdynmanifest)
                         {
                             myAsset = asset,
-                            myContext = _context,
-                            _contextdynmanifest = _contextdynmanifest,
                             myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
@@ -6675,10 +6673,9 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    ProgramInformation form = new ProgramInformation(this)
+                    ProgramInformation form = new ProgramInformation(this, _context, _contextdynmanifest)
                     {
                         MyProgram = program,
-                        MyContext = _context,
                         MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
                     };
 
@@ -10114,6 +10111,16 @@ namespace AMSExplorer
         {
             Process.Start(@"http://aka.ms/ampdiagnostics");
         }
+
+        private void dataGridViewAssetsV_Resize(object sender, EventArgs e)
+        {
+            // let's resize the column name to fill the space
+            DataGridView grid = (DataGridView)sender;
+            grid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            int colw = grid.Columns[0].Width;
+            grid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            grid.Columns[0].Width = colw;
+        }
     }
 }
 
@@ -10606,7 +10613,6 @@ namespace AMSExplorer
 
             assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
-
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
                 NullValue = null,
@@ -10673,37 +10679,23 @@ namespace AMSExplorer
             this.Columns[_statEnc].HeaderText = "Static Encryption";
             this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
-            this.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Type"].Width = 140;
-
-            this.Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Size"].Width = 80;
-
-            this.Columns[_statEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_statEnc].Width = 80;
-
-            this.Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_dynEnc].Width = 80;
-
-            this.Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_publication].Width = 90;
-
-            this.Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_filter].Width = 50;
-
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
-
-            this.Columns[_locatorexpirationdate].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
-            this.Columns["LastModified"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["LastModified"].Width = 140;
-
-            this.Columns["Id"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Id"].Width = 300;
-
-            this.Columns["Storage"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Storage"].Width = 140;
+          
+            // let's resize the column Name
+            this.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            int colw = this.Columns[0].Width;
+            this.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[0].Width = colw;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
