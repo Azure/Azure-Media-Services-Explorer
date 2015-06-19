@@ -2699,6 +2699,161 @@ namespace AMSExplorer
         }
 
 
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool doNotRewriteURL)
+        {
+            TextBoxLogWriteLine("Starting the program cloning process.");
+            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
+
+            IChannel clonedchannel = DestinationContext.Channels.Where(c => c.Name == sourceProgram.Channel.Name).FirstOrDefault();
+            if (clonedchannel == null)
+            {
+                TextBoxLogWriteLine(string.Format("Cloned channel {0} not found in destination account!", sourceProgram.Channel.Name), true);
+                return;
+            }
+
+
+            // Cloned asset creation
+            IAsset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
+            TextBoxLogWriteLine(string.Format("Cloned asset {0} created.", sourceProgram.Asset.Name));
+
+            // TO DO: SETUP DYN ENCRYPTION
+
+            // let's copy the keys
+            foreach (var key in sourceProgram.Asset.ContentKeys)
+            {
+                IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
+                if (clonedkey == null) // key does not exist in target account
+                {
+                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                }
+                clonedAsset.ContentKeys.Add(clonedkey);
+
+                if (key.AuthorizationPolicyId != null)
+                {
+                    IContentKeyAuthorizationPolicy sourcepolicy = _context.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (sourcepolicy != null) // there is one
+                    {
+                        IContentKeyAuthorizationPolicy clonedpolicy = (clonedkey.AuthorizationPolicyId != null) ? DestinationContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == clonedkey.AuthorizationPolicyId).FirstOrDefault() : null;
+                        if (clonedpolicy == null)
+                        {
+                            clonedpolicy = await DestinationContext.ContentKeyAuthorizationPolicies.CreateAsync(sourcepolicy.Name);
+
+                            foreach (var opt in sourcepolicy.Options)
+                            {
+                                IContentKeyAuthorizationPolicyOption policyOption =
+                                    DestinationContext.ContentKeyAuthorizationPolicyOptions.Create(opt.Name, opt.KeyDeliveryType, opt.Restrictions, opt.KeyDeliveryConfiguration);
+
+                                clonedpolicy.Options.Add(policyOption);
+                            }
+                            clonedpolicy.Update();
+                        }
+                        clonedkey.AuthorizationPolicyId = clonedpolicy.Id;
+                    }
+                }
+                clonedkey.Update();
+            }
+
+            //let's copy the policies
+            foreach (var delpol in sourceProgram.Asset.DeliveryPolicies)
+            {
+                Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
+                foreach (var s in delpol.AssetDeliveryConfiguration)
+                {
+                    string val = s.Value;
+                    string ff = AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString();
+
+                    if (!doNotRewriteURL &&
+                        (s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString())
+                        ||
+                        s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl.ToString())
+                        ))
+                    {
+                        // let's change the LA URL to use the account in the other datacenter
+                        val = val.Replace(_context.Credentials.ClientId, DestinationContext.Credentials.ClientId);
+                    }
+                    assetDeliveryPolicyConfiguration.Add(s.Key, val);
+                }
+
+                var clonetargetpolicy = DestinationContext.AssetDeliveryPolicies.Create(delpol.Name, delpol.AssetDeliveryPolicyType, delpol.AssetDeliveryProtocol, assetDeliveryPolicyConfiguration);
+                clonedAsset.DeliveryPolicies.Add(clonetargetpolicy);
+            }
+
+
+
+            try
+            {
+                TextBoxLogWriteLine("Creating locator for cloned asset '{0}'", sourceProgram.Asset.Name);
+                IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+
+                foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
+                {
+                    DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, null);
+                    TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
+                }
+            }
+            catch (Exception ex)
+            {
+                // Add useful information to the exception
+                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", clonedAsset.Name, true);
+                TextBoxLogWriteLine(ex);
+            }
+
+            var options = new ProgramCreationOptions()
+            {
+                Name = sourceProgram.Name,
+                Description = sourceProgram.Description,
+                ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
+                AssetId = clonedAsset.Id,
+                ManifestName = sourceProgram.ManifestName
+            };
+
+
+
+            var STask = ProgramExecuteAsync(
+              () =>
+                  clonedchannel.Programs.CreateAsync(options),
+                 sourceProgram.Name,
+                 "created");
+            await STask;
+
+            TextBoxLogWriteLine(string.Format("Cloned program {0} created.", sourceProgram.Name));
+
+
+
+        }
+
+
+        private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
+        {
+            TextBoxLogWriteLine("Starting the channel cloning process...");
+            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
+
+            var options = new ChannelCreationOptions()
+                {
+                    Name = sourceChannel.Name,
+                    Description = sourceChannel.Description,
+                    EncodingType = sourceChannel.EncodingType,
+                    Input = sourceChannel.Input,
+                    Output = sourceChannel.Output,
+                    Preview = sourceChannel.Preview
+                };
+
+            if (sourceChannel.EncodingType != ChannelEncodingType.None)
+            {
+                options.Encoding = sourceChannel.Encoding;
+                options.Slate = sourceChannel.Slate;
+            }
+
+            await Task.Run(() => IObjectExecuteOperationAsync(
+                 () =>
+                     DestinationContext.Channels.SendCreateOperationAsync(
+                     options),
+                     sourceChannel.Name,
+                     "Cloned channel",
+                     "created",
+                     DestinationContext));
+
+        }
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5674,7 +5829,8 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Deleting program '{0}'...", myP.Name);
-                await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
+                await ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"); // we need to wait for deletion because if asset is deleted the program must b deleted completely before
+                //await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
                 DoRefreshGridProgramV(false);
             }
         }
@@ -5981,7 +6137,7 @@ namespace AMSExplorer
         }
 
 
-        internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess) // used for creation 
+        internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
         // used for Streaming Endpoint and Channel creation
         {
             IOperation operation = null;
@@ -5991,7 +6147,7 @@ namespace AMSExplorer
                 while (operation.State == OperationState.InProgress)
                 {
                     //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
+                    operation = context.Operations.GetOperation(operation.Id);
                     System.Threading.Thread.Sleep(1000);
                 }
                 if (operation.State == OperationState.Succeeded)
@@ -6014,7 +6170,7 @@ namespace AMSExplorer
 
 
 
-        private void DoDeleteChannels()
+        private async void DoDeleteChannels()
         {
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
             string hannelstr = SelectedChannels.Count > 1 ? "hannels" : "hannel";
@@ -6046,7 +6202,8 @@ namespace AMSExplorer
                         foreach (IProgram myP in Programs)
                         {
                             IAsset asset = myP.Asset;
-                            DeleteProgram(myP);
+                            await Task.Run(() => DeleteProgram(myP));
+                            //DeleteProgram(myP);
                             if (form.DeleteAsset)
                             {
                                 if (myP.Asset != null)
@@ -6067,6 +6224,11 @@ namespace AMSExplorer
                                 }
                             }
                         }
+                        if (form.DeleteAsset)
+                        {
+                            DoRefreshGridAssetV(false);
+                        }
+
                         foreach (IChannel myC in ReturnSelectedChannels())
                         {
                             DeleteChannel(myC);
@@ -6221,7 +6383,8 @@ namespace AMSExplorer
                          options),
                          form.ChannelName,
                          "Channel",
-                         "created"));
+                         "created",
+                         _context));
 
                 DoRefreshGridChannelV(false);
                 IChannel channel = GetChannelFromName(form.ChannelName);
@@ -6402,7 +6565,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeletePrograms()
+        private async void DoDeletePrograms()
         {
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
@@ -6419,7 +6582,7 @@ namespace AMSExplorer
                         foreach (IProgram myP in SelectedPrograms)
                         {
                             IAsset asset = myP.Asset;
-                            DeleteProgram(myP);
+                            await Task.Run(() => DeleteProgram(myP));
                             if (form.DeleteAsset)
                             {
                                 if (myP.Asset != null)
@@ -6429,7 +6592,10 @@ namespace AMSExplorer
                                     try
                                     {
                                         DeleteAsset(asset);
-                                        if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                        if (AssetInfo.GetAsset(asset.Id, _context) == null)
+                                        {
+                                            TextBoxLogWriteLine("Deletion done.");
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
@@ -6439,6 +6605,10 @@ namespace AMSExplorer
                                     }
                                 }
                             }
+                        }
+                        if (form.DeleteAsset)
+                        {
+                            DoRefreshGridAssetV(false);
                         }
                     }
                 }
@@ -6529,6 +6699,8 @@ namespace AMSExplorer
             }
             return Error ? null : newAsset;
         }
+
+
 
 
         private async void DoCreateProgram()
@@ -6999,7 +7171,8 @@ namespace AMSExplorer
                            _context.StreamingEndpoints.SendCreateOperationAsync(options),
                            form.StreamingEndpointName,
                            "Streaming Endpoint",
-                           "created"));
+                           "created",
+                           _context));
 
                 DoRefreshGridStreamingEndpointV(false);
             }
@@ -9124,7 +9297,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count)
+            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count, CopyAssetBoxMode.CopyAsset)
             {
                 CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
                 EnableSingleDestinationAsset = SelectedAssets.Count > 1
@@ -10122,6 +10295,56 @@ namespace AMSExplorer
             grid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             grid.Columns[0].Width = colw;
         }
+
+        private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoClonePrograms();
+        }
+
+        private void DoClonePrograms()
+        {
+            var SelectedPrograms = ReturnSelectedPrograms();
+
+            CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneProgram);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
+                {
+                    foreach (IProgram program in SelectedPrograms)
+                    {
+                        // Start a worker thread that does asset copy.
+                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.DoNotRewriteLURL));
+                    }
+                }
+            }
+        }
+
+        private void cloneChannelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCloneChannels();
+        }
+
+        private void DoCloneChannels()
+        {
+            var SelectedChannels = ReturnSelectedChannels();
+            CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneChannel);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
+                {
+                    foreach (IChannel channel in SelectedChannels)
+                    {
+                        //int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                        // Start a worker thread that does asset copy.
+                        Task.Factory.StartNew(() => ProcessCloneChannelToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, channel));
+                    }
+                }
+
+            }
+        }
     }
 }
 
@@ -10691,7 +10914,7 @@ namespace AMSExplorer
             this.Columns["LastModified"].Width = 140;
             this.Columns["Id"].Width = 300;
             this.Columns["Storage"].Width = 140;
-          
+
             // let's resize the column Name
             this.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             int colw = this.Columns[0].Width;

@@ -40,13 +40,14 @@
             this.listBoxStorage = new System.Windows.Forms.ListBox();
             this.radioButtonDefaultStorage = new System.Windows.Forms.RadioButton();
             this.radioButtonSpecifyStorage = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelnewassetname = new System.Windows.Forms.Label();
             this.copyassetname = new System.Windows.Forms.TextBox();
             this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
-            this.labelcdn = new System.Windows.Forms.Label();
+            this.labelExplanation = new System.Windows.Forms.Label();
+            this.checkBoxDoNotRewriteURL = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -186,15 +187,15 @@
             this.radioButtonSpecifyStorage.UseVisualStyleBackColor = true;
             this.radioButtonSpecifyStorage.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // label3
+            // labelnewassetname
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 451);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(95, 13);
-            this.label3.TabIndex = 65;
-            this.label3.Text = "New Asset Name :";
+            this.labelnewassetname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelnewassetname.AutoSize = true;
+            this.labelnewassetname.Location = new System.Drawing.Point(20, 451);
+            this.labelnewassetname.Name = "labelnewassetname";
+            this.labelnewassetname.Size = new System.Drawing.Size(95, 13);
+            this.labelnewassetname.TabIndex = 65;
+            this.labelnewassetname.Text = "New Asset Name :";
             // 
             // copyassetname
             // 
@@ -225,6 +226,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.checkBoxDoNotRewriteURL);
             this.groupBox2.Controls.Add(this.checkBoxTargetSingleAsset);
             this.groupBox2.Controls.Add(this.checkBoxDeleteSource);
             this.groupBox2.Location = new System.Drawing.Point(603, 56);
@@ -244,16 +246,27 @@
             this.checkBoxTargetSingleAsset.Text = "Merge all files to\r\none single asset";
             this.checkBoxTargetSingleAsset.UseVisualStyleBackColor = true;
             // 
-            // labelcdn
+            // labelExplanation
             // 
-            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelcdn.Location = new System.Drawing.Point(313, 34);
-            this.labelcdn.Name = "labelcdn";
-            this.labelcdn.Size = new System.Drawing.Size(459, 19);
-            this.labelcdn.TabIndex = 70;
-            this.labelcdn.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
+            this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelExplanation.Location = new System.Drawing.Point(313, 9);
+            this.labelExplanation.Name = "labelExplanation";
+            this.labelExplanation.Size = new System.Drawing.Size(459, 44);
+            this.labelExplanation.TabIndex = 70;
+            this.labelExplanation.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
     "ed.";
-            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.labelExplanation.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // checkBoxDoNotRewriteURL
+            // 
+            this.checkBoxDoNotRewriteURL.AutoSize = true;
+            this.checkBoxDoNotRewriteURL.Location = new System.Drawing.Point(19, 99);
+            this.checkBoxDoNotRewriteURL.Name = "checkBoxDoNotRewriteURL";
+            this.checkBoxDoNotRewriteURL.Size = new System.Drawing.Size(143, 30);
+            this.checkBoxDoNotRewriteURL.TabIndex = 69;
+            this.checkBoxDoNotRewriteURL.Text = "Do not rewrite\r\nLicence Acquisition URL";
+            this.checkBoxDoNotRewriteURL.UseVisualStyleBackColor = true;
+            this.checkBoxDoNotRewriteURL.Visible = false;
             // 
             // CopyAsset
             // 
@@ -261,10 +274,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.labelcdn);
+            this.Controls.Add(this.labelExplanation);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelinfo);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.labelnewassetname);
             this.Controls.Add(this.copyassetname);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -290,7 +303,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.ListBox listBoxAccounts;
         private System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label labelnewassetname;
         public System.Windows.Forms.TextBox copyassetname;
         public System.Windows.Forms.Label labelinfo;
         private System.Windows.Forms.ListBox listBoxStorage;
@@ -301,6 +314,7 @@
         private System.Windows.Forms.CheckBox checkBoxDeleteSource;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxTargetSingleAsset;
-        private System.Windows.Forms.Label labelcdn;
+        private System.Windows.Forms.CheckBox checkBoxDoNotRewriteURL;
+        private System.Windows.Forms.Label labelExplanation;
     }
 }
