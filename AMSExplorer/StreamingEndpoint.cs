@@ -181,12 +181,12 @@ namespace AMSExplorer
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshStreamingEndpoints;
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<StreamingEndpointEntry> originquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;
             originquery = from o in _context.StreamingEndpoints
                           orderby o.LastModified descending
                           select new StreamingEndpointEntry

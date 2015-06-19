@@ -173,12 +173,12 @@ namespace AMSExplorer
         static Bitmap EncodingImage = Bitmaps.encoding;
         public string _encoded = "Encoding";
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<ChannelEntry> channelquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;
             channelquery = from c in _context.Channels
                            orderby c.LastModified descending
                            select new ChannelEntry
@@ -552,12 +552,12 @@ namespace AMSExplorer
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<ProgramEntry> programquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;
             programquery = from c in _context.Programs
                            orderby c.LastModified descending
                            select new ProgramEntry

@@ -744,7 +744,6 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-
                 dataGridViewAssetsV.Init(_context, _contextdynmanifest);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
@@ -771,7 +770,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewJobsV.Init(_credentials);
+                dataGridViewJobsV.Init(_credentials, _context);
                 for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
                 comboBoxPageJobs.SelectedIndex = 0;
             }
@@ -5357,7 +5356,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewChannelsV.Init(_credentials);
+                dataGridViewChannelsV.Init(_credentials, _context);
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
@@ -5368,7 +5367,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewProgramsV.Init(_credentials);
+                dataGridViewProgramsV.Init(_credentials, _context);
             }
 
             Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
@@ -5380,7 +5379,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewStreamingEndpointsV.Init(_credentials);
+                dataGridViewStreamingEndpointsV.Init(_credentials, _context);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
@@ -11337,12 +11336,12 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<JobEntry> jobquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;// Program.ConnectAndGetNewContext(_credentials);
             jobquery = from j in _context.Jobs
                        orderby j.LastModified descending
                        select new JobEntry
