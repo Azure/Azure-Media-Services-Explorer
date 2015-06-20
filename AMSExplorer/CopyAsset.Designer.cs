@@ -45,9 +45,12 @@
             this.labelinfo = new System.Windows.Forms.Label();
             this.checkBoxDeleteSource = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxRewriteURL = new System.Windows.Forms.CheckBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
-            this.checkBoxDoNotRewriteURL = new System.Windows.Forms.CheckBox();
+            this.checkBoxCopyDynEnc = new System.Windows.Forms.CheckBox();
+            this.checkBoxCloneLocators = new System.Windows.Forms.CheckBox();
+            this.labelCloneLocators = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -109,6 +112,9 @@
             // 
             // listBoxAccounts
             // 
+            this.listBoxAccounts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxAccounts.FormattingEnabled = true;
             this.listBoxAccounts.Location = new System.Drawing.Point(22, 47);
             this.listBoxAccounts.Name = "listBoxAccounts";
@@ -118,6 +124,9 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.labelWarningStorage);
             this.groupBox1.Controls.Add(this.listBoxStorage);
@@ -128,7 +137,7 @@
             this.groupBox1.Controls.Add(this.labelWarning);
             this.groupBox1.Location = new System.Drawing.Point(15, 56);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(570, 357);
+            this.groupBox1.Size = new System.Drawing.Size(554, 357);
             this.groupBox1.TabIndex = 63;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Destination";
@@ -145,7 +154,7 @@
             // 
             // labelWarningStorage
             // 
-            this.labelWarningStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarningStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningStorage.AutoSize = true;
             this.labelWarningStorage.ForeColor = System.Drawing.Color.Red;
             this.labelWarningStorage.Location = new System.Drawing.Point(285, 321);
@@ -156,16 +165,19 @@
             // 
             // listBoxStorage
             // 
+            this.listBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxStorage.Enabled = false;
             this.listBoxStorage.FormattingEnabled = true;
             this.listBoxStorage.Location = new System.Drawing.Point(266, 99);
             this.listBoxStorage.Name = "listBoxStorage";
-            this.listBoxStorage.Size = new System.Drawing.Size(283, 186);
+            this.listBoxStorage.Size = new System.Drawing.Size(269, 186);
             this.listBoxStorage.TabIndex = 64;
             this.listBoxStorage.SelectedIndexChanged += new System.EventHandler(this.listBoxStorage_SelectedIndexChanged);
             // 
             // radioButtonDefaultStorage
             // 
+            this.radioButtonDefaultStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonDefaultStorage.AutoSize = true;
             this.radioButtonDefaultStorage.Checked = true;
             this.radioButtonDefaultStorage.Location = new System.Drawing.Point(266, 47);
@@ -178,6 +190,7 @@
             // 
             // radioButtonSpecifyStorage
             // 
+            this.radioButtonSpecifyStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonSpecifyStorage.AutoSize = true;
             this.radioButtonSpecifyStorage.Location = new System.Drawing.Point(266, 70);
             this.radioButtonSpecifyStorage.Name = "radioButtonSpecifyStorage";
@@ -208,9 +221,9 @@
             // 
             // labelinfo
             // 
-            this.labelinfo.Location = new System.Drawing.Point(20, 9);
+            this.labelinfo.Location = new System.Drawing.Point(20, 22);
             this.labelinfo.Name = "labelinfo";
-            this.labelinfo.Size = new System.Drawing.Size(752, 15);
+            this.labelinfo.Size = new System.Drawing.Size(327, 17);
             this.labelinfo.TabIndex = 66;
             this.labelinfo.Text = "{0} asset{1} selected.";
             // 
@@ -226,15 +239,33 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBoxDoNotRewriteURL);
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.labelCloneLocators);
+            this.groupBox2.Controls.Add(this.checkBoxCloneLocators);
+            this.groupBox2.Controls.Add(this.checkBoxCopyDynEnc);
+            this.groupBox2.Controls.Add(this.checkBoxRewriteURL);
             this.groupBox2.Controls.Add(this.checkBoxTargetSingleAsset);
             this.groupBox2.Controls.Add(this.checkBoxDeleteSource);
-            this.groupBox2.Location = new System.Drawing.Point(603, 56);
+            this.groupBox2.Location = new System.Drawing.Point(575, 56);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(169, 357);
+            this.groupBox2.Size = new System.Drawing.Size(197, 357);
             this.groupBox2.TabIndex = 68;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // checkBoxRewriteURL
+            // 
+            this.checkBoxRewriteURL.AutoSize = true;
+            this.checkBoxRewriteURL.Checked = true;
+            this.checkBoxRewriteURL.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRewriteURL.Location = new System.Drawing.Point(39, 122);
+            this.checkBoxRewriteURL.Name = "checkBoxRewriteURL";
+            this.checkBoxRewriteURL.Size = new System.Drawing.Size(143, 30);
+            this.checkBoxRewriteURL.TabIndex = 69;
+            this.checkBoxRewriteURL.Text = "Rewrite\r\nLicence Acquisition URL";
+            this.checkBoxRewriteURL.UseVisualStyleBackColor = true;
+            this.checkBoxRewriteURL.Visible = false;
             // 
             // checkBoxTargetSingleAsset
             // 
@@ -249,24 +280,46 @@
             // labelExplanation
             // 
             this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelExplanation.Location = new System.Drawing.Point(313, 9);
+            this.labelExplanation.Location = new System.Drawing.Point(353, 24);
             this.labelExplanation.Name = "labelExplanation";
-            this.labelExplanation.Size = new System.Drawing.Size(459, 44);
+            this.labelExplanation.Size = new System.Drawing.Size(419, 29);
             this.labelExplanation.TabIndex = 70;
             this.labelExplanation.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
     "ed.";
             this.labelExplanation.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // checkBoxDoNotRewriteURL
+            // checkBoxCopyDynEnc
             // 
-            this.checkBoxDoNotRewriteURL.AutoSize = true;
-            this.checkBoxDoNotRewriteURL.Location = new System.Drawing.Point(19, 99);
-            this.checkBoxDoNotRewriteURL.Name = "checkBoxDoNotRewriteURL";
-            this.checkBoxDoNotRewriteURL.Size = new System.Drawing.Size(143, 30);
-            this.checkBoxDoNotRewriteURL.TabIndex = 69;
-            this.checkBoxDoNotRewriteURL.Text = "Do not rewrite\r\nLicence Acquisition URL";
-            this.checkBoxDoNotRewriteURL.UseVisualStyleBackColor = true;
-            this.checkBoxDoNotRewriteURL.Visible = false;
+            this.checkBoxCopyDynEnc.AutoSize = true;
+            this.checkBoxCopyDynEnc.Checked = true;
+            this.checkBoxCopyDynEnc.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxCopyDynEnc.Location = new System.Drawing.Point(19, 99);
+            this.checkBoxCopyDynEnc.Name = "checkBoxCopyDynEnc";
+            this.checkBoxCopyDynEnc.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxCopyDynEnc.TabIndex = 70;
+            this.checkBoxCopyDynEnc.Text = "Copy dynamic encryption";
+            this.checkBoxCopyDynEnc.UseVisualStyleBackColor = true;
+            this.checkBoxCopyDynEnc.Visible = false;
+            this.checkBoxCopyDynEnc.CheckedChanged += new System.EventHandler(this.checkBoxCopyDynEnc_CheckedChanged);
+            // 
+            // checkBoxCloneLocators
+            // 
+            this.checkBoxCloneLocators.Location = new System.Drawing.Point(19, 171);
+            this.checkBoxCloneLocators.Name = "checkBoxCloneLocators";
+            this.checkBoxCloneLocators.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxCloneLocators.TabIndex = 71;
+            this.checkBoxCloneLocators.Text = "Clone streaming locators";
+            this.checkBoxCloneLocators.UseVisualStyleBackColor = true;
+            this.checkBoxCloneLocators.Visible = false;
+            // 
+            // labelCloneLocators
+            // 
+            this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneLocators.Location = new System.Drawing.Point(16, 191);
+            this.labelCloneLocators.Name = "labelCloneLocators";
+            this.labelCloneLocators.Size = new System.Drawing.Size(175, 32);
+            this.labelCloneLocators.TabIndex = 71;
+            this.labelCloneLocators.Text = "Requires that destination account is in a different datacenter";
             // 
             // CopyAsset
             // 
@@ -314,7 +367,10 @@
         private System.Windows.Forms.CheckBox checkBoxDeleteSource;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxTargetSingleAsset;
-        private System.Windows.Forms.CheckBox checkBoxDoNotRewriteURL;
+        private System.Windows.Forms.CheckBox checkBoxRewriteURL;
         private System.Windows.Forms.Label labelExplanation;
+        private System.Windows.Forms.CheckBox checkBoxCopyDynEnc;
+        private System.Windows.Forms.Label labelCloneLocators;
+        private System.Windows.Forms.CheckBox checkBoxCloneLocators;
     }
 }

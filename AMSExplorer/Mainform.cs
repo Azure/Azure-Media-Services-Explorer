@@ -2699,7 +2699,7 @@ namespace AMSExplorer
         }
 
 
-        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool doNotRewriteURL)
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
@@ -2711,22 +2711,71 @@ namespace AMSExplorer
                 return;
             }
 
-
             // Cloned asset creation
             IAsset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
             TextBoxLogWriteLine(string.Format("Cloned asset {0} created.", sourceProgram.Asset.Name));
 
-            // TO DO: SETUP DYN ENCRYPTION
+            if (CopyDynEnc)
+            {
+                await CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL);
+            }
+
+            if (CloneLocators)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Creating locator for cloned asset '{0}'", sourceProgram.Asset.Name);
+                    IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
+
+                    foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
+                    {
+                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, null);
+                        TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", clonedAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+            var options = new ProgramCreationOptions()
+{
+    Name = sourceProgram.Name,
+    Description = sourceProgram.Description,
+    ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
+    AssetId = clonedAsset.Id,
+    ManifestName = sourceProgram.ManifestName
+};
+
+
+
+            var STask = ProgramExecuteAsync(
+              () =>
+                  clonedchannel.Programs.CreateAsync(options),
+                 sourceProgram.Name,
+                 "created");
+            await STask;
+
+            TextBoxLogWriteLine(string.Format("Cloned program {0} created.", sourceProgram.Name));
+
+        }
+
+        private static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL)
+        {
+
+            var DestinationContext = destinationAsset.GetMediaContext();
 
             // let's copy the keys
-            foreach (var key in sourceProgram.Asset.ContentKeys)
+            foreach (var key in sourceAsset.ContentKeys)
             {
                 IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
                 if (clonedkey == null) // key does not exist in target account
                 {
                     clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
                 }
-                clonedAsset.ContentKeys.Add(clonedkey);
+                destinationAsset.ContentKeys.Add(clonedkey);
 
                 if (key.AuthorizationPolicyId != null)
                 {
@@ -2754,7 +2803,7 @@ namespace AMSExplorer
             }
 
             //let's copy the policies
-            foreach (var delpol in sourceProgram.Asset.DeliveryPolicies)
+            foreach (var delpol in sourceAsset.DeliveryPolicies)
             {
                 Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
                 foreach (var s in delpol.AssetDeliveryConfiguration)
@@ -2762,7 +2811,7 @@ namespace AMSExplorer
                     string val = s.Value;
                     string ff = AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString();
 
-                    if (!doNotRewriteURL &&
+                    if (RewriteLAURL &&
                         (s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString())
                         ||
                         s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl.ToString())
@@ -2775,51 +2824,8 @@ namespace AMSExplorer
                 }
 
                 var clonetargetpolicy = DestinationContext.AssetDeliveryPolicies.Create(delpol.Name, delpol.AssetDeliveryPolicyType, delpol.AssetDeliveryProtocol, assetDeliveryPolicyConfiguration);
-                clonedAsset.DeliveryPolicies.Add(clonetargetpolicy);
+                destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
             }
-
-
-
-            try
-            {
-                TextBoxLogWriteLine("Creating locator for cloned asset '{0}'", sourceProgram.Asset.Name);
-                IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
-
-                foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
-                {
-                    DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, null);
-                    TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
-                }
-            }
-            catch (Exception ex)
-            {
-                // Add useful information to the exception
-                TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", clonedAsset.Name, true);
-                TextBoxLogWriteLine(ex);
-            }
-
-            var options = new ProgramCreationOptions()
-            {
-                Name = sourceProgram.Name,
-                Description = sourceProgram.Description,
-                ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
-                AssetId = clonedAsset.Id,
-                ManifestName = sourceProgram.ManifestName
-            };
-
-
-
-            var STask = ProgramExecuteAsync(
-              () =>
-                  clonedchannel.Programs.CreateAsync(options),
-                 sourceProgram.Name,
-                 "created");
-            await STask;
-
-            TextBoxLogWriteLine(string.Format("Cloned program {0} created.", sourceProgram.Name));
-
-
-
         }
 
 
@@ -5829,7 +5835,7 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Deleting program '{0}'...", myP.Name);
-                await ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"); // we need to wait for deletion because if asset is deleted the program must b deleted completely before
+                await ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"); // we need to wait for deletion because if asset is deleted the program must be deleted completely before
                 //await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
                 DoRefreshGridProgramV(false);
             }
@@ -10314,7 +10320,7 @@ namespace AMSExplorer
                     foreach (IProgram program in SelectedPrograms)
                     {
                         // Start a worker thread that does asset copy.
-                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.DoNotRewriteLURL));
+                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators));
                     }
                 }
             }
