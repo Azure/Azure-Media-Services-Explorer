@@ -143,26 +143,25 @@ namespace AMSExplorer
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:
-                    labelExplanation.Text = "The channels(s) will be cloned to the selected account which MUST be in another datacenter\nThe channel settings will be cloned.";
+                    labelExplanation.Text = "The channels(s) will be cloned with the same name and settings to the selected account.";
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
                     labelinfo.Text = string.Format("{0} channel{1} selected", numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
                     buttonOk.Text = this.Text = string.Format("Clone channel{0}", numberofobjectselected > 1 ? "s" : "");
-                    checkBoxCopyDynEnc.Visible = true;
-                     checkBoxDeleteSource.Visible = false;
-                    checkBoxTargetSingleAsset.Visible = false;
+                    panelStorageAccount.Visible = false;
+                    groupBoxOptions.Visible = false;
                     break;
 
                 case CopyAssetBoxMode.CloneProgram:
-                    labelExplanation.Text = "The program(s) will be cloned to the same channel name in the selected account";
-                    labelnewassetname.Text = "New Program Name :";
+                    labelExplanation.Text = "The program(s) will be cloned to the same channel name in the selected account.";
                     labelinfo.Text = string.Format("{0} program{1} selected", numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
                     buttonOk.Text = this.Text = string.Format("Clone program{0}", numberofobjectselected > 1 ? "s" : "");
                     labelnewassetname.Visible = false;
                     copyassetname.Visible = false;
-                    checkBoxCopyDynEnc .Visible = true;
+                    checkBoxCopyDynEnc.Visible = true;
                     checkBoxRewriteURL.Visible = true;
                     checkBoxCloneLocators.Visible = true;
+                    labelCloneLocators.Visible = true;
                     labelCloneLocators.Visible = true;
                     checkBoxDeleteSource.Visible = false;
                     checkBoxTargetSingleAsset.Visible = false;
@@ -172,8 +171,6 @@ namespace AMSExplorer
                     break;
 
             }
-
-
         }
 
 
@@ -182,6 +179,7 @@ namespace AMSExplorer
             CredentialsList = Properties.Settings.Default.LoginList;
             labelWarning.Text = "";
             labelWarningStorage.Text = "";
+
 
             if (CredentialsList != null)
             {
@@ -198,7 +196,6 @@ namespace AMSExplorer
                 }
             }
             listBoxAccounts.SelectedItem = _context.DefaultStorageAccount.Name;
-
         }
 
         private string ReturnAzureEndpoint(string mystring)
@@ -288,6 +285,11 @@ namespace AMSExplorer
         private void checkBoxCopyDynEnc_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxRewriteURL.Enabled = checkBoxCopyDynEnc.Checked;
+        }
+
+        private void checkBoxTargetSingleAsset_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxCopyDynEnc.Enabled = checkBoxRewriteURL.Enabled = !checkBoxTargetSingleAsset.Checked;
         }
     }
 

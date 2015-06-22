@@ -2432,7 +2432,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -2490,7 +2490,29 @@ namespace AMSExplorer
 
                     // do the copy
                     int nbblob = 0;
-                    foreach (IAssetFile file in SourceAsset.AssetFiles)
+
+
+                    // foreach (IAssetFile file in SourceAsset.AssetFiles) 
+                    // For LIve archive, the folder for chiks are returnbed as files. So we detect this case and don't try to copy the folders as asset files
+                    IEnumerable<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
+                    if (
+                        assetFilesToCopy.Where(af => af.Name.Contains(".")).Count() == 2
+                        && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISMC")).Count() == 1
+                        && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISM")).Count() == 1
+                        ) // only 2 files with extensions, and these files are ISMC and ISM
+                    {
+                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_"));
+                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_"));
+
+                        foreach (IAssetFile sourcefolder in assetFilesLiveFolders)
+                        {
+                            var folder = TargetAsset.AssetFiles.Create(sourcefolder.Name);
+                            folder.ContentFileSize = sourcefolder.ContentFileSize;
+                            folder.MimeType = sourcefolder.MimeType;
+                            folder.Update();
+                        }
+                    }
+                    foreach (IAssetFile file in assetFilesToCopy)
                     {
                         if (file.IsEncrypted)
                         {
@@ -2658,6 +2680,24 @@ namespace AMSExplorer
                 AssetInfo.SetISMFileAsPrimary(TargetAsset);
             }
 
+
+            // Copy Dynamic Encryption
+            if (CopyDynEnc && !ErrorCopyAsset)
+            {
+                TextBoxLogWriteLine("Dynamic encryption settings copy...");
+                try
+                {
+                    await CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL);
+                    TextBoxLogWriteLine("Dynamic encryption settings copied.");
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when copying Dynamic encryption", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
             DestinationLocator.Delete();
             writePolicy.Delete();
 
@@ -2725,11 +2765,11 @@ namespace AMSExplorer
                 try
                 {
                     TextBoxLogWriteLine("Creating locator for cloned asset '{0}'", sourceProgram.Asset.Name);
-                    IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
 
                     foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
                     {
-                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, null);
+                        IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, (streamlocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
+                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime);
                         TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
                     }
                 }
@@ -2748,8 +2788,6 @@ namespace AMSExplorer
     AssetId = clonedAsset.Id,
     ManifestName = sourceProgram.ManifestName
 };
-
-
 
             var STask = ProgramExecuteAsync(
               () =>
@@ -9321,7 +9359,7 @@ namespace AMSExplorer
                         {
                             int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL));
                         }
                     }
                     else // merge all assets into a single asset
@@ -10350,6 +10388,16 @@ namespace AMSExplorer
                 }
 
             }
+        }
+
+        private void toolStripMenuItem27_Click(object sender, EventArgs e)
+        {
+            DoClonePrograms();
+        }
+
+        private void toolStripMenuItem28_Click(object sender, EventArgs e)
+        {
+            DoCloneChannels();
         }
     }
 }
