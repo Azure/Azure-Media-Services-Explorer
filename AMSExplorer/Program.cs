@@ -2016,7 +2016,6 @@ namespace AMSExplorer
             }
 
             return FullPlayBackLink;
-
         }
 
 
@@ -2027,6 +2026,34 @@ namespace AMSExplorer
             if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
 
             return SESelected;
+        }
+
+        // copy a directory of the same container to another container
+          public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+        {
+  
+            List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+
+            var srcBlobList = srcDirectory.ListBlobs(
+                useFlatBlobListing: true,
+                blobListingDetails: BlobListingDetails.None).ToList();
+
+            foreach (var src in srcBlobList)
+            {
+                var srcBlob = src as ICloudBlob;
+
+                // Create appropriate destination blob type to match the source blob
+                ICloudBlob destBlob;
+                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                else
+                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
+
+                // copy using src blob as SAS
+                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
+            }
+
+            return mylistresults;
         }
     }
 

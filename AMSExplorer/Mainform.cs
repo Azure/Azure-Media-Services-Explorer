@@ -2635,7 +2635,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                                    mylistresults.AddRange(CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent));//blobToken));
+                                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent));//blobToken));
                                     if (mylistresults.Count > 0)
                                     {
                                         while (!mylistresults.All(r => r.IsCompleted))
@@ -2687,7 +2687,7 @@ namespace AMSExplorer
                 TextBoxLogWriteLine("Dynamic encryption settings copy...");
                 try
                 {
-                    await CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL);
+                    await DynamicEncryption.CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL);
                     TextBoxLogWriteLine("Dynamic encryption settings copied.");
 
                 }
@@ -2711,43 +2711,24 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        // copy a directory of the same container to another container
-        public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
-        {
-            List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
-
-            var srcBlobList = srcDirectory.ListBlobs(
-                useFlatBlobListing: true,
-                blobListingDetails: BlobListingDetails.None).ToList();
-
-            foreach (var src in srcBlobList)
-            {
-                var srcBlob = src as ICloudBlob;
-
-                // Create appropriate destination blob type to match the source blob
-                ICloudBlob destBlob;
-                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
-                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
-                else
-                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
-
-                // copy using src blob as SAS
-                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
-            }
-
-            return mylistresults;
-        }
-
-
+      
         private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
+            // let's check that target channel exists
             IChannel clonedchannel = DestinationContext.Channels.Where(c => c.Name == sourceProgram.Channel.Name).FirstOrDefault();
             if (clonedchannel == null)
             {
-                TextBoxLogWriteLine(string.Format("Cloned channel {0} not found in destination account!", sourceProgram.Channel.Name), true);
+                TextBoxLogWriteLine(string.Format("Cloned channel '{0}' not found in destination account!", sourceProgram.Channel.Name), true);
+                return;
+            }
+
+            // let's check that a program with same name does not already exist for the channel
+            if (DestinationContext.Programs.Where(p => p.Name == sourceProgram.Name && p.ChannelId == clonedchannel.Id).FirstOrDefault() != null)
+            {
+                TextBoxLogWriteLine(string.Format("A program '{0}' has been already found in destination account for channel '{1}'. A new one cannot be created.", sourceProgram.Name, clonedchannel.Name), true);
                 return;
             }
 
@@ -2757,7 +2738,17 @@ namespace AMSExplorer
 
             if (CopyDynEnc)
             {
-                await CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL);
+                TextBoxLogWriteLine("Dynamic encryption settings copy...");
+                try
+                {
+                    await DynamicEncryption.CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL);
+                    TextBoxLogWriteLine("Dynamic encryption settings copied.");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when copying Dynamic encryption", true);
+                    TextBoxLogWriteLine(ex);
+                }
             }
 
             if (CloneLocators)
@@ -2800,73 +2791,7 @@ namespace AMSExplorer
 
         }
 
-        private static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL)
-        {
-
-            var DestinationContext = destinationAsset.GetMediaContext();
-
-            // let's copy the keys
-            foreach (var key in sourceAsset.ContentKeys)
-            {
-                IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
-                if (clonedkey == null) // key does not exist in target account
-                {
-                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
-                }
-                destinationAsset.ContentKeys.Add(clonedkey);
-
-                if (key.AuthorizationPolicyId != null)
-                {
-                    IContentKeyAuthorizationPolicy sourcepolicy = _context.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == key.AuthorizationPolicyId).FirstOrDefault();
-                    if (sourcepolicy != null) // there is one
-                    {
-                        IContentKeyAuthorizationPolicy clonedpolicy = (clonedkey.AuthorizationPolicyId != null) ? DestinationContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == clonedkey.AuthorizationPolicyId).FirstOrDefault() : null;
-                        if (clonedpolicy == null)
-                        {
-                            clonedpolicy = await DestinationContext.ContentKeyAuthorizationPolicies.CreateAsync(sourcepolicy.Name);
-
-                            foreach (var opt in sourcepolicy.Options)
-                            {
-                                IContentKeyAuthorizationPolicyOption policyOption =
-                                    DestinationContext.ContentKeyAuthorizationPolicyOptions.Create(opt.Name, opt.KeyDeliveryType, opt.Restrictions, opt.KeyDeliveryConfiguration);
-
-                                clonedpolicy.Options.Add(policyOption);
-                            }
-                            clonedpolicy.Update();
-                        }
-                        clonedkey.AuthorizationPolicyId = clonedpolicy.Id;
-                    }
-                }
-                clonedkey.Update();
-            }
-
-            //let's copy the policies
-            foreach (var delpol in sourceAsset.DeliveryPolicies)
-            {
-                Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
-                foreach (var s in delpol.AssetDeliveryConfiguration)
-                {
-                    string val = s.Value;
-                    string ff = AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString();
-
-                    if (RewriteLAURL &&
-                        (s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString())
-                        ||
-                        s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl.ToString())
-                        ))
-                    {
-                        // let's change the LA URL to use the account in the other datacenter
-                        val = val.Replace(_context.Credentials.ClientId, DestinationContext.Credentials.ClientId);
-                    }
-                    assetDeliveryPolicyConfiguration.Add(s.Key, val);
-                }
-
-                var clonetargetpolicy = DestinationContext.AssetDeliveryPolicies.Create(delpol.Name, delpol.AssetDeliveryPolicyType, delpol.AssetDeliveryProtocol, assetDeliveryPolicyConfiguration);
-                destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
-            }
-        }
-
-
+      
         private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
         {
             TextBoxLogWriteLine("Starting the channel cloning process...");
@@ -7685,7 +7610,7 @@ namespace AMSExplorer
                         catch (Exception e)
                         {
                             // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the content key '{0}'.", formerkey.Id, true);
+                            TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
                             TextBoxLogWriteLine(e);
                             TextBoxLogWriteLine("The former key will be reused.", true);
                             reusekey = true;
@@ -7726,7 +7651,7 @@ namespace AMSExplorer
                             }
                             if (!ErrorCreationKey)
                             {
-                                TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                             }
 
                         }
@@ -7765,13 +7690,13 @@ namespace AMSExplorer
                                     catch (Exception e)
                                     {
                                         // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for asset '{0}'.", AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         ErrorCreationKey = true;
                                     }
                                     if (!ErrorCreationKey)
                                     {
-                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                        TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                                     }
 
                                 }
@@ -7794,7 +7719,7 @@ namespace AMSExplorer
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
-                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                     }
                     if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // PlayReady license and delivery from Azure Media Services
                     {
@@ -7814,7 +7739,8 @@ namespace AMSExplorer
                             ErrorCreationKey = false;
                             try
                             {
-                                PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
+                                PlayReadyLicenseDeliveryConfig = form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate;
+                               // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
                             }
                             catch (Exception e)
                             {
@@ -7859,7 +7785,7 @@ namespace AMSExplorer
 
                                             _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
                                             DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
+                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
                                             System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                             break;
 
@@ -7897,7 +7823,7 @@ namespace AMSExplorer
                                 DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
                             }
 
-                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                            TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                         }
                         catch (Exception e)
                         {

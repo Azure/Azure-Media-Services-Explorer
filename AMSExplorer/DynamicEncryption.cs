@@ -629,6 +629,70 @@ namespace AMSExplorer
             return contentKey;
         }
 
+        public static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL)
+        {
+            var SourceContext = sourceAsset.GetMediaContext();
+            var DestinationContext = destinationAsset.GetMediaContext();
+
+            // let's copy the keys
+            foreach (var key in sourceAsset.ContentKeys)
+            {
+                IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
+                if (clonedkey == null) // key does not exist in target account
+                {
+                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                }
+                destinationAsset.ContentKeys.Add(clonedkey);
+
+                if (key.AuthorizationPolicyId != null)
+                {
+                    IContentKeyAuthorizationPolicy sourcepolicy = SourceContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (sourcepolicy != null) // there is one
+                    {
+                        IContentKeyAuthorizationPolicy clonedpolicy = (clonedkey.AuthorizationPolicyId != null) ? DestinationContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == clonedkey.AuthorizationPolicyId).FirstOrDefault() : null;
+                        if (clonedpolicy == null)
+                        {
+                            clonedpolicy = await DestinationContext.ContentKeyAuthorizationPolicies.CreateAsync(sourcepolicy.Name);
+
+                            foreach (var opt in sourcepolicy.Options)
+                            {
+                                IContentKeyAuthorizationPolicyOption policyOption =
+                                    DestinationContext.ContentKeyAuthorizationPolicyOptions.Create(opt.Name, opt.KeyDeliveryType, opt.Restrictions, opt.KeyDeliveryConfiguration);
+
+                                clonedpolicy.Options.Add(policyOption);
+                            }
+                            clonedpolicy.Update();
+                        }
+                        clonedkey.AuthorizationPolicyId = clonedpolicy.Id;
+                    }
+                }
+                clonedkey.Update();
+            }
+
+            //let's copy the policies
+            foreach (var delpol in sourceAsset.DeliveryPolicies)
+            {
+                Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
+                foreach (var s in delpol.AssetDeliveryConfiguration)
+                {
+                    string val = s.Value;
+                    string ff = AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString();
+
+                    if (RewriteLAURL &&
+                        (s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString())
+                        ||
+                        s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl.ToString())
+                        ))
+                    {
+                        // let's change the LA URL to use the account in the other datacenter
+                        val = val.Replace(SourceContext.Credentials.ClientId, DestinationContext.Credentials.ClientId);
+                    }
+                    assetDeliveryPolicyConfiguration.Add(s.Key, val);
+                }
+                var clonetargetpolicy = DestinationContext.AssetDeliveryPolicies.Create(delpol.Name, delpol.AssetDeliveryPolicyType, delpol.AssetDeliveryProtocol, assetDeliveryPolicyConfiguration);
+                destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
+            }
+        }
 
     }
 }
