@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -55,19 +56,21 @@
             this.panelJWTX509Cert = new System.Windows.Forms.Panel();
             this.buttonImportPFX = new System.Windows.Forms.Button();
             this.labelCertificateFile = new System.Windows.Forms.Label();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBoxStartDate.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelJWTX509Cert.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(338, 12);
+            this.buttonOk.Location = new System.Drawing.Point(326, 12);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(134, 23);
             this.buttonOk.TabIndex = 4;
@@ -346,6 +349,10 @@
             this.labelCertificateFile.TabIndex = 67;
             this.labelCertificateFile.Text = "(no file selected)";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // CreateTestToken
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,6 +375,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTokenClaims)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panelJWTX509Cert.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -401,5 +409,6 @@
         private System.Windows.Forms.CheckBox checkBoxAddContentKeyIdentifierClaim;
         private System.Windows.Forms.ColumnHeader columnHeaderKeyType;
         private System.Windows.Forms.ColumnHeader columnHeaderContentKeyType;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

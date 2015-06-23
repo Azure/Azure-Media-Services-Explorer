@@ -1494,7 +1494,14 @@ namespace AMSExplorer
                             dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
                             dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
-                            dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                            if (tokenTemplate.PrimaryVerificationKey!=null)
+                            {
+                                dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                            }
+                            if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
+                            {
+                                dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
+                            }
                             dataGridViewAutPolOption.Rows.Add("Token Audience", tokenTemplate.Audience);
                             dataGridViewAutPolOption.Rows.Add("Token Issuer", tokenTemplate.Issuer);
                             foreach (var claim in tokenTemplate.RequiredClaims)

@@ -208,14 +208,14 @@ namespace AMSExplorer
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
                             item.SubItems.Add(tokenTemplate.TokenType == TokenType.JWT ? "JWT" : "SWT");
-                            if (tokenTemplate.PrimaryVerificationKey!=null)
+                            if (tokenTemplate.PrimaryVerificationKey != null)
                             {
                                 item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
                             }
                             else if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                             {
                                 item.SubItems.Add("OpenID");
-          
+
                             }
                         }
                         listViewAutOptions.Items.Add(item);
@@ -273,6 +273,7 @@ namespace AMSExplorer
 
         private void listViewAutOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool NoVerifKey = false;
             if (listViewAutOptions.SelectedIndices.Count > 0)
             {
                 var it = listViewAutOptions.SelectedItems[0];
@@ -293,6 +294,10 @@ namespace AMSExplorer
                     {
                         panelJWTX509Cert.Enabled = !(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
                     }
+                    else
+                    {
+                        NoVerifKey = true; // Case for OpenId for example. No way to create a test token....
+                    }
                     TokenClaimsList.Clear();
                     foreach (var claim in tokenTemplate.RequiredClaims)
                     {
@@ -310,7 +315,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-                UpdateButtonOk();
+                UpdateButtonOk(NoVerifKey);
             }
         }
 
@@ -334,14 +339,22 @@ namespace AMSExplorer
             UpdateButtonOk();
         }
 
-        private void UpdateButtonOk()
+        private void UpdateButtonOk(bool forceDisableButton = false)
         {
-            buttonOk.Enabled = (!panelJWTX509Cert.Enabled || (panelJWTX509Cert.Enabled && cert != null));
+            if (forceDisableButton)
+                buttonOk.Enabled = false;
+            else
+                buttonOk.Enabled = (!panelJWTX509Cert.Enabled || (panelJWTX509Cert.Enabled && cert != null));
 
+
+            if (!buttonOk.Enabled)
+            {
+                errorProvider1.SetError(buttonOk, "Test token cannot be generated (OpenID or no X509 Certificate loaded");
+            }
+            else
+            {
+                errorProvider1.SetError(buttonOk, String.Empty);
+            }
         }
-
-
-
-
     }
 }
