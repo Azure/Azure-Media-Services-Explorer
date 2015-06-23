@@ -1115,8 +1115,6 @@ namespace AMSExplorer
                     DoGridTransferDeclareCompleted(index, folder.ToString());
                 }
             });
-
-            MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
         }
 
 

@@ -841,24 +841,23 @@ namespace AMSExplorer
 
         private void toolStripMenuItemOpenFile_Click(object sender, EventArgs e)
         {
-            DoOpenFile();
+            DoOpenFiles();
         }
 
-        private void DoOpenFile()
+        private void DoOpenFiles()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
-            {
-                if (listViewFiles.SelectedItems[0] != null)
-                {
-                    IAssetFile AF = null;
-                    ILocator locator = GetTemporaryLocator();
+            var SelectedAssetFiles = ReturnSelectedAssetFiles();
 
+            if (SelectedAssetFiles.Count > 0)
+            {
+                ILocator locator = GetTemporaryLocator();
+                if (locator != null)
+                {
                     try
                     {
-                        if (locator != null)
+                        foreach (var assetfile in SelectedAssetFiles)
                         {
-                            AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                            Process.Start(AF.GetSasUri(locator).ToString());
+                            Process.Start(assetfile.GetSasUri(locator).ToString());
                         }
                     }
                     catch
@@ -867,26 +866,37 @@ namespace AMSExplorer
                     }
                 }
             }
+
         }
 
         private void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
         {
-            DoDownloadFile();
+            DoDownloadFiles();
         }
 
-        private void DoDownloadFile()
+        private void DoDownloadFiles()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
-            {
-                IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                if (AF == null) return;
+            var SelectedAssetFiles = ReturnSelectedAssetFiles();
 
+            if (SelectedAssetFiles.Count > 0)
+            {
                 if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
                 {
-                    int index = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", AF.Name, myAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                    try
+                    {
+                        foreach (var assetfile in SelectedAssetFiles)
+                        {
+                            int index = myMainForm.DoGridTransferAddItem(string.Format("Download of file '{0}' from asset '{1}'", assetfile.Name, myAsset.Name), TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                            // Start a worker thread that does downloading.
+                            myMainForm.DoDownloadFileFromAsset(myAsset, assetfile, folderBrowserDialogDownload.SelectedPath, index);
+                        }
+                        MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
 
-                    // Start a worker thread that does downloading.
-                    myMainForm.DoDownloadFileFromAsset(myAsset, AF, folderBrowserDialogDownload.SelectedPath, index);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Error when downloading file(s)");
+                    }
                 }
             }
         }
@@ -922,24 +932,22 @@ namespace AMSExplorer
 
         private void MakeItAsPrimary()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
+            var SelectedAssetFile = ReturnSelectedAssetFiles().FirstOrDefault();
+
+            if (SelectedAssetFile != null)
             {
-                if (listViewFiles.SelectedItems[0] != null)
+                try
                 {
-                    try
-                    {
-                        myAsset.AssetFiles.ToList().ForEach(af => { af.IsPrimary = false; af.Update(); });
-                        IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                        AF.IsPrimary = true;
-                        AF.Update();
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Error when making this file primary");
-                    }
-                    ListAssetFiles();
-                    DoDisplayFileProperties();
+                    myAsset.AssetFiles.ToList().ForEach(af => { af.IsPrimary = false; af.Update(); });
+                    SelectedAssetFile.IsPrimary = true;
+                    SelectedAssetFile.Update();
                 }
+                catch
+                {
+                    MessageBox.Show("Error when making this file primary");
+                }
+                ListAssetFiles();
+                DoDisplayFileProperties();
             }
         }
 
@@ -950,64 +958,68 @@ namespace AMSExplorer
 
         private void buttonDeleteFile_Click(object sender, EventArgs e)
         {
-            DoDeleteFile();
-            BuildLocatorsTree();
+            DoDeleteFiles();
         }
 
-        private void DoDeleteFile()
+        private void DoDeleteFiles()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
+            var SelectedAssetFiles = ReturnSelectedAssetFiles();
+
+            if (SelectedAssetFiles.Count > 0)
             {
-                if (listViewFiles.SelectedItems[0] != null)
+                string question = SelectedAssetFiles.Count == 1 ? string.Format("Delete the file '{0}' ?", SelectedAssetFiles.FirstOrDefault().Name) : string.Format("Delete these {0} files ?", SelectedAssetFiles.Count);
+
+                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
                     try
                     {
-                        IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                        string question = "Delete the file " + AF.Name + " ?";
-
-                        if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                        foreach (var assetfile in SelectedAssetFiles)
                         {
-                            AF.Delete();
-                            ListAssetFiles();
+                            assetfile.Delete();
                         }
+                        ListAssetFiles();
+                        BuildLocatorsTree();
+
                     }
                     catch
                     {
-                        MessageBox.Show("Error when deleting this file");
+                        MessageBox.Show("Error when deleting file(s)");
                         ListAssetFiles();
+                        BuildLocatorsTree();
                     }
-
                 }
             }
         }
 
         private void deleteFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteFile();
+            DoDeleteFiles();
             BuildLocatorsTree();
         }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
         {
-            DoOpenFile();
+            DoOpenFiles();
         }
 
         private void buttonDownloadFile_Click(object sender, EventArgs e)
         {
-            DoDownloadFile();
+            DoDownloadFiles();
         }
 
         private void listViewFiles_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool bSelect = listViewFiles.SelectedItems.Count > 0 ? true : false;
+            bool bSelect = listViewFiles.SelectedItems.Count > 0;
+            bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
             bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None);
             buttonDeleteFile.Enabled = bSelect;
-            buttonSetPrimary.Enabled = bSelect;
+            buttonDeleteAll.Enabled = bSelect;
+            buttonSetPrimary.Enabled = bSelect && !bMultiSelect;
             buttonDownloadFile.Enabled = bSelect;
             buttonOpenFile.Enabled = bSelect;
-            buttonDuplicate.Enabled = bSelect & NonEncrypted;
+            buttonDuplicate.Enabled = bSelect & NonEncrypted && !bMultiSelect;
             buttonUpload.Enabled = true;
-            buttonFileMetadata.Enabled = bSelect;
+            buttonFileMetadata.Enabled = bSelect && !bMultiSelect;
             DoDisplayFileProperties();
         }
 
@@ -1155,89 +1167,86 @@ namespace AMSExplorer
         private void button1_Click_1(object sender, EventArgs e)
         {
             DoDuplicate();
-            BuildLocatorsTree();
         }
 
         private void DoDuplicate()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
+            var SelectedAssetFile = ReturnSelectedAssetFiles().FirstOrDefault();
+
+            if (SelectedAssetFile != null)
             {
-                if (listViewFiles.SelectedItems[0] != null)
+                try
                 {
-                    try
-                    {
-                        IAssetFile AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
 
-                        if (!Mainform.havestoragecredentials)
-                        { // No blob credentials.
-                            MessageBox.Show("Please specify the account storage key in the login window.");
-                        }
-                        else
-                        {
-                            string newfilename = "Copy of " + AF.Name;
-                            if (Program.InputBox("New name", "Enter the name of the new duplicate file:", ref newfilename) == DialogResult.OK)
-                            {
-                                IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
-                                CloudMediaContext _context = Mainform._context;
-                                CloudStorageAccount storageAccount;
-                                storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), Mainform._credentials.ReturnStorageSuffix(), true);
-                                var cloudBlobClient = storageAccount.CreateCloudBlobClient();
-                                IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
-                                ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, myAsset, writePolicy);
-
-                                // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
-                                Uri uploadUri = new Uri(destinationLocator.Path);
-                                string assetTargetContainerName = uploadUri.Segments[1];
-                                CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
-                                var mediaBlobContainer = assetTargetContainer; // same container
-
-                                CloudBlockBlob sourceCloudBlob, destinationBlob;
-
-                                sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(AF.Name);
-                                sourceCloudBlob.FetchAttributes();
-
-                                if (sourceCloudBlob.Properties.Length > 0)
-                                {
-
-                                    destinationBlob = assetTargetContainer.GetBlockBlobReference(AFDup.Name);
-
-                                    destinationBlob.DeleteIfExists();
-                                    destinationBlob.StartCopyFromBlob(sourceCloudBlob);
-
-                                    CloudBlockBlob blob;
-                                    blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AFDup.Name);
-
-                                    while (blob.CopyState.Status == CopyStatus.Pending)
-                                    {
-                                        Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    }
-                                    destinationBlob.FetchAttributes();
-                                    AFDup.ContentFileSize = sourceCloudBlob.Properties.Length;
-                                    AFDup.Update();
-
-                                    myAsset.Update();
-
-                                    destinationLocator.Delete();
-                                    writePolicy.Delete();
-
-                                    // Refresh the asset.
-                                    myAsset = _context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
-
-                                }
-                            }
-
-                            ListAssetFiles();
-                        }
-
+                    if (!Mainform.havestoragecredentials)
+                    { // No blob credentials.
+                        MessageBox.Show("Please specify the account storage key in the login window.");
                     }
-                    catch
+                    else
                     {
-                        MessageBox.Show("Error when duplicating this file");
+                        string newfilename = "Copy of " + SelectedAssetFile.Name;
+                        if (Program.InputBox("New name", "Enter the name of the new duplicate file:", ref newfilename) == DialogResult.OK)
+                        {
+                            IAssetFile AFDup = myAsset.AssetFiles.Create(newfilename);
+                            CloudMediaContext _context = Mainform._context;
+                            CloudStorageAccount storageAccount;
+                            storageAccount = new CloudStorageAccount(new StorageCredentials(_context.DefaultStorageAccount.Name, Mainform._credentials.StorageKey), Mainform._credentials.ReturnStorageSuffix(), true);
+                            var cloudBlobClient = storageAccount.CreateCloudBlobClient();
+                            IAccessPolicy writePolicy = _context.AccessPolicies.Create("writePolicy", TimeSpan.FromDays(1), AccessPermissions.Write);
+                            ILocator destinationLocator = _context.Locators.CreateLocator(LocatorType.Sas, myAsset, writePolicy);
+
+                            // Get the asset container URI and copy blobs from mediaContainer to assetContainer.
+                            Uri uploadUri = new Uri(destinationLocator.Path);
+                            string assetTargetContainerName = uploadUri.Segments[1];
+                            CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
+                            var mediaBlobContainer = assetTargetContainer; // same container
+
+                            CloudBlockBlob sourceCloudBlob, destinationBlob;
+
+                            sourceCloudBlob = mediaBlobContainer.GetBlockBlobReference(SelectedAssetFile.Name);
+                            sourceCloudBlob.FetchAttributes();
+
+                            if (sourceCloudBlob.Properties.Length > 0)
+                            {
+
+                                destinationBlob = assetTargetContainer.GetBlockBlobReference(AFDup.Name);
+
+                                destinationBlob.DeleteIfExists();
+                                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+
+                                CloudBlockBlob blob;
+                                blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AFDup.Name);
+
+                                while (blob.CopyState.Status == CopyStatus.Pending)
+                                {
+                                    Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                }
+                                destinationBlob.FetchAttributes();
+                                AFDup.ContentFileSize = sourceCloudBlob.Properties.Length;
+                                AFDup.Update();
+
+                                myAsset.Update();
+
+                                destinationLocator.Delete();
+                                writePolicy.Delete();
+
+                                // Refresh the asset.
+                                myAsset = _context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+
+                            }
+                        }
+
                         ListAssetFiles();
+                        BuildLocatorsTree();
                     }
 
                 }
-
+                catch
+                {
+                    MessageBox.Show("Error when duplicating this file");
+                    ListAssetFiles();
+                    BuildLocatorsTree();
+                }
             }
         }
 
@@ -1289,7 +1298,6 @@ namespace AMSExplorer
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicate();
-            BuildLocatorsTree();
         }
 
         private void buttonOpen_Click(object sender, EventArgs e)
@@ -1613,38 +1621,54 @@ namespace AMSExplorer
             ShowFileMetadata();
         }
 
+
+        private List<IAssetFile> ReturnSelectedAssetFiles()
+        {
+            List<IAssetFile> Selection = new List<IAssetFile>();
+
+            foreach (int selectedindex in listViewFiles.SelectedIndices)
+            {
+                IAssetFile AF = myAsset.AssetFiles.Skip(selectedindex).Take(1).FirstOrDefault();
+                if (AF != null)
+                {
+                    Selection.Add(AF);
+                }
+            }
+
+            return Selection;
+
+
+        }
+
         private void ShowFileMetadata()
         {
-            if (listViewFiles.SelectedItems.Count > 0)
+            var SelectedAssetFile = ReturnSelectedAssetFiles().FirstOrDefault();
+
+            if (SelectedAssetFile != null)
             {
-                if (listViewFiles.SelectedItems[0] != null)
+                ILocator locator = GetTemporaryLocator();
+
+                if (locator != null)
                 {
-                    IAssetFile AF = null;
-                    ILocator locator = GetTemporaryLocator();
-
-                    if (locator != null)
+                    AssetFileMetadata manifestAssetFile = null;
+                    try
                     {
-                        AssetFileMetadata manifestAssetFile = null;
-                        try
-                        {
-                            AF = myAsset.AssetFiles.Skip(listViewFiles.SelectedIndices[0]).Take(1).FirstOrDefault();
-                            // Get the metadata for the asset file.
-                            manifestAssetFile = AF.GetMetadata(locator);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Error when accessing metadata." + ex.Message);
-                        }
+                        // Get the metadata for the asset file.
+                        manifestAssetFile = SelectedAssetFile.GetMetadata(locator);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error when accessing metadata." + ex.Message);
+                    }
 
-                        if (manifestAssetFile != null)
-                        {
-                            MetadataInformation form = new MetadataInformation(manifestAssetFile);
-                            form.ShowDialog();
-                        }
-                        else
-                        {
-                            MessageBox.Show("There is no metadata for this file.");
-                        }
+                    if (manifestAssetFile != null)
+                    {
+                        MetadataInformation form = new MetadataInformation(manifestAssetFile);
+                        form.ShowDialog();
+                    }
+                    else
+                    {
+                        MessageBox.Show("There is no metadata for this file.");
                     }
                 }
             }
@@ -1774,13 +1798,16 @@ namespace AMSExplorer
 
         private void contextMenuStripFiles_Opening(object sender, CancelEventArgs e)
         {
-            bool selected = (listViewFiles.SelectedItems.Count > 0);
-            makeItPrimaryToolStripMenuItem.Enabled = selected;
-            showMetadataToolStripMenuItem.Enabled = selected;
+            bool selected = listViewFiles.SelectedItems.Count > 0;
+            bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
+
+            makeItPrimaryToolStripMenuItem.Enabled = selected && !bMultiSelect;
+            showMetadataToolStripMenuItem.Enabled = selected && !bMultiSelect;
             toolStripMenuItemOpenFile.Enabled = selected;
             toolStripMenuItemDownloadFile.Enabled = selected;
             deleteFileToolStripMenuItem.Enabled = selected;
-            duplicateFileToolStripMenuItem.Enabled = selected;
+            duplicateFileToolStripMenuItem.Enabled = selected && !bMultiSelect;
+            deleteAllFilesToolStripMenuItem.Enabled = selected;
         }
 
         private void button1_Click_2(object sender, EventArgs e)
@@ -1967,6 +1994,32 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDeleteAllFiles()
+        {
+            try
+            {
+                string question = "Delete all files?";
+                if (System.Windows.Forms.MessageBox.Show(question, "File deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    var assetArray = myAsset.AssetFiles.ToArray();
+                    for (int i = 0; i < assetArray.Length; i++)
+                    {
+                        IAssetFile AF = assetArray[i];
+                        AF.Delete();
+                    }
+                    ListAssetFiles();
+                    BuildLocatorsTree();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Error when deleting the files");
+                ListAssetFiles();
+                BuildLocatorsTree();
+            }
+
+        }
+
         private void duplicateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDuplicateFilter();
@@ -2005,12 +2058,21 @@ namespace AMSExplorer
         private void DoPlayWithFilter()
         {
             myMainForm.DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, new List<IAsset>() { myAsset }, ReturnSelectedFilters().FirstOrDefault().Name);
-
         }
 
         private void playWithThisFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoPlayWithFilter();
+        }
+
+        private void buttonDeleteAll_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllFiles();
+        }
+
+        private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllFiles();
         }
     }
 }
