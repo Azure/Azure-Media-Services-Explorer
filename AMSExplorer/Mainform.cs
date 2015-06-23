@@ -2711,7 +2711,7 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-      
+
         private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators)
         {
             TextBoxLogWriteLine("Starting the program cloning process.");
@@ -2791,7 +2791,7 @@ namespace AMSExplorer
 
         }
 
-      
+
         private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
         {
             TextBoxLogWriteLine("Starting the channel cloning process...");
@@ -7740,7 +7740,7 @@ namespace AMSExplorer
                             try
                             {
                                 PlayReadyLicenseDeliveryConfig = form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate;
-                               // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
+                                // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
                             }
                             catch (Exception e)
                             {
@@ -7763,30 +7763,42 @@ namespace AMSExplorer
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            TokenVerificationKey mytokenverifkey;
-                                            if (form3.IsKeySymmetric)
+                                            TokenVerificationKey mytokenverifkey = null;
+                                            string OpenIdDoc = null;
+                                            switch (form3.GetDetailedTokenType)
                                             {
-                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.JWTSym:
+                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                    break;
+
+                                                case ExplorerTokenType.JWTOpenID:
+                                                    OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                                    break;
+
+                                                case ExplorerTokenType.JWTX509:
+                                                    mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                                    break;
                                             }
-                                            else
-                                            {
-                                                mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
-                                            }
-                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig);
+
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
                                             TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                            // let display a test token
-                                            X509SigningCredentials signingcred = null;
-                                            if (!form3.IsKeySymmetric)
+                                            if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                             {
-                                                signingcred = new X509SigningCredentials(form3.GetX509Certificate);
-                                            }
+                                                // let display a test token
+                                                X509SigningCredentials signingcred = null;
+                                                if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                                {
+                                                    signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                                }
 
-                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
-                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                                _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                            }
                                             break;
 
 
@@ -7915,30 +7927,43 @@ namespace AMSExplorer
                                     break;
 
                                 case ContentKeyRestrictionType.TokenRestricted:
-                                    TokenVerificationKey mytokenverifkey;
-                                    if (form3.IsKeySymmetric)
+                                    TokenVerificationKey mytokenverifkey = null;
+                                    string OpenIdDoc = null;
+                                    switch (form3.GetDetailedTokenType)
                                     {
-                                        mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                        case ExplorerTokenType.SWT:
+                                        case ExplorerTokenType.JWTSym:
+                                            mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                            break;
+
+                                        case ExplorerTokenType.JWTOpenID:
+                                            OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                            break;
+
+                                        case ExplorerTokenType.JWTX509:
+                                            mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                            break;
                                     }
-                                    else
-                                    {
-                                        mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
-                                    }
-                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
+
+                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, OpenIdDoc);
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                     contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                    // let display a test token
-                                    X509SigningCredentials signingcred = null;
-                                    if (!form3.IsKeySymmetric)
+                                    if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                     {
-                                        signingcred = new X509SigningCredentials(form3.GetX509Certificate);
-                                    }
+                                        // let display a test token
+                                        X509SigningCredentials signingcred = null;
+                                        if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                        {
+                                            signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                        }
 
-                                    _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                    DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                    TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
-                                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                        _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                        DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                        TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+
+                                    }
                                     break;
 
                                 default:

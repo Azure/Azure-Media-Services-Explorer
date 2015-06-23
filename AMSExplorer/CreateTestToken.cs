@@ -206,8 +206,17 @@ namespace AMSExplorer
                         if (!string.IsNullOrEmpty(tokenTemplateString))
                         {
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
                             item.SubItems.Add(tokenTemplate.TokenType == TokenType.JWT ? "JWT" : "SWT");
-                            item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                            if (tokenTemplate.PrimaryVerificationKey!=null)
+                            {
+                                item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                            }
+                            else if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
+                            {
+                                item.SubItems.Add("OpenID");
+          
+                            }
                         }
                         listViewAutOptions.Items.Add(item);
                         if (optionid == option.Id) listViewAutOptions.Items[listViewAutOptions.Items.IndexOf(item)].Selected = true;
@@ -280,7 +289,10 @@ namespace AMSExplorer
                     textBoxIssuer.Text = tokenTemplate.Issuer.ToString();
                     checkBoxAddContentKeyIdentifierClaim.Checked = false;
                     groupBoxStartDate.Enabled = (tokenTemplate.TokenType == TokenType.JWT);
-                    panelJWTX509Cert.Enabled = !(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                    if (tokenTemplate.PrimaryVerificationKey != null)
+                    {
+                        panelJWTX509Cert.Enabled = !(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                    }
                     TokenClaimsList.Clear();
                     foreach (var claim in tokenTemplate.RequiredClaims)
                     {

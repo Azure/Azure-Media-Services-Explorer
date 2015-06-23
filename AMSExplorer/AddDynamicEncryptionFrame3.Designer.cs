@@ -68,6 +68,11 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.radioButtonJWTOpenId = new System.Windows.Forms.RadioButton();
+            this.tabPageOpenId = new System.Windows.Forms.TabPage();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxOpenIdDocument = new System.Windows.Forms.TextBox();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelSymKey.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -81,6 +86,7 @@
             this.tabControlTokenProperties.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPageOpenId.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -235,14 +241,13 @@
             // 
             this.radioButtonJWTSymmetric.AutoSize = true;
             this.radioButtonJWTSymmetric.Checked = true;
-            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(21, 47);
+            this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(21, 36);
             this.radioButtonJWTSymmetric.Name = "radioButtonJWTSymmetric";
             this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(145, 17);
             this.radioButtonJWTSymmetric.TabIndex = 69;
             this.radioButtonJWTSymmetric.TabStop = true;
             this.radioButtonJWTSymmetric.Text = "JWT - JSON Web Token";
             this.radioButtonJWTSymmetric.UseVisualStyleBackColor = true;
-            this.radioButtonJWTSymmetric.CheckedChanged += new System.EventHandler(this.radioButtonJWTSymmetric_CheckedChanged);
             // 
             // panelJWT
             // 
@@ -286,7 +291,7 @@
             // radioButtonJWTX509
             // 
             this.radioButtonJWTX509.AutoSize = true;
-            this.radioButtonJWTX509.Location = new System.Drawing.Point(21, 70);
+            this.radioButtonJWTX509.Location = new System.Drawing.Point(21, 59);
             this.radioButtonJWTX509.Name = "radioButtonJWTX509";
             this.radioButtonJWTX509.Size = new System.Drawing.Size(145, 17);
             this.radioButtonJWTX509.TabIndex = 65;
@@ -297,13 +302,12 @@
             // radioButtonSWT
             // 
             this.radioButtonSWT.AutoSize = true;
-            this.radioButtonSWT.Location = new System.Drawing.Point(21, 24);
+            this.radioButtonSWT.Location = new System.Drawing.Point(21, 13);
             this.radioButtonSWT.Name = "radioButtonSWT";
             this.radioButtonSWT.Size = new System.Drawing.Size(150, 17);
             this.radioButtonSWT.TabIndex = 64;
             this.radioButtonSWT.Text = "SWT - Simple Web Token";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
-            this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonSWT_CheckedChanged);
             // 
             // dataGridViewTokenClaims
             // 
@@ -403,6 +407,7 @@
             this.tabControlTokenType.Controls.Add(this.tabPageTokenType);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenSymmetric);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenX509);
+            this.tabControlTokenType.Controls.Add(this.tabPageOpenId);
             this.tabControlTokenType.Location = new System.Drawing.Point(12, 172);
             this.tabControlTokenType.Name = "tabControlTokenType";
             this.tabControlTokenType.SelectedIndex = 0;
@@ -411,6 +416,8 @@
             // 
             // tabPageTokenType
             // 
+            this.tabPageTokenType.Controls.Add(this.label8);
+            this.tabPageTokenType.Controls.Add(this.radioButtonJWTOpenId);
             this.tabPageTokenType.Controls.Add(this.label7);
             this.tabPageTokenType.Controls.Add(this.label6);
             this.tabPageTokenType.Controls.Add(this.label5);
@@ -428,7 +435,7 @@
             // label7
             // 
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(177, 72);
+            this.label7.Location = new System.Drawing.Point(177, 61);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(252, 19);
             this.label7.TabIndex = 72;
@@ -437,7 +444,7 @@
             // label6
             // 
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(177, 49);
+            this.label6.Location = new System.Drawing.Point(177, 38);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(252, 19);
             this.label6.TabIndex = 71;
@@ -446,7 +453,7 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(177, 26);
+            this.label5.Location = new System.Drawing.Point(177, 15);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(252, 19);
             this.label5.TabIndex = 70;
@@ -521,6 +528,56 @@
             this.label4.TabIndex = 73;
             this.label4.Text = "Other claims :";
             // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(177, 84);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(252, 19);
+            this.label8.TabIndex = 74;
+            this.label8.Text = "with OpenId (JSON Web Keys)";
+            // 
+            // radioButtonJWTOpenId
+            // 
+            this.radioButtonJWTOpenId.AutoSize = true;
+            this.radioButtonJWTOpenId.Location = new System.Drawing.Point(21, 82);
+            this.radioButtonJWTOpenId.Name = "radioButtonJWTOpenId";
+            this.radioButtonJWTOpenId.Size = new System.Drawing.Size(145, 17);
+            this.radioButtonJWTOpenId.TabIndex = 73;
+            this.radioButtonJWTOpenId.Text = "JWT - JSON Web Token";
+            this.radioButtonJWTOpenId.UseVisualStyleBackColor = true;
+            // 
+            // tabPageOpenId
+            // 
+            this.tabPageOpenId.Controls.Add(this.label9);
+            this.tabPageOpenId.Controls.Add(this.textBoxOpenIdDocument);
+            this.tabPageOpenId.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOpenId.Name = "tabPageOpenId";
+            this.tabPageOpenId.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOpenId.Size = new System.Drawing.Size(552, 112);
+            this.tabPageOpenId.TabIndex = 3;
+            this.tabPageOpenId.Text = "OpenId";
+            this.tabPageOpenId.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 23);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(193, 13);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "OpenId Connect Discovery Document :";
+            // 
+            // textBoxOpenIdDocument
+            // 
+            this.textBoxOpenIdDocument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxOpenIdDocument.Location = new System.Drawing.Point(21, 39);
+            this.textBoxOpenIdDocument.Name = "textBoxOpenIdDocument";
+            this.textBoxOpenIdDocument.Size = new System.Drawing.Size(513, 20);
+            this.textBoxOpenIdDocument.TabIndex = 59;
+            this.textBoxOpenIdDocument.Text = "https://login.windows.net/common/.well-known/openid-configuration";
+            // 
             // AddDynamicEncryptionFrame3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -556,6 +613,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPageOpenId.ResumeLayout(false);
+            this.tabPageOpenId.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -603,5 +662,10 @@
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.RadioButton radioButtonJWTOpenId;
+        private System.Windows.Forms.TabPage tabPageOpenId;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBoxOpenIdDocument;
     }
 }

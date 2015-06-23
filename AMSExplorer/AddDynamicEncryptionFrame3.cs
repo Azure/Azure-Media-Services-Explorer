@@ -105,11 +105,36 @@ namespace AMSExplorer
             }
         }
 
+        /*
         public bool IsKeySymmetric
         {
             get
             {
                 return (radioButtonJWTSymmetric.Checked || radioButtonSWT.Checked) ? true : false;
+            }
+        }
+        */
+
+        public ExplorerTokenType GetDetailedTokenType
+        {
+            get
+            {
+                if (radioButtonSWT.Checked)
+                {
+                    return ExplorerTokenType.SWT;
+                }
+                else if(radioButtonJWTSymmetric.Checked)
+                {
+                    return ExplorerTokenType.JWTSym;
+                }
+                else if (radioButtonJWTX509.Checked)
+                {
+                    return ExplorerTokenType.JWTX509;
+                }
+                else
+                {
+                    return ExplorerTokenType.JWTOpenID;
+                }
             }
         }
 
@@ -133,6 +158,15 @@ namespace AMSExplorer
             get
             {
                 return radioButtonJWTX509.Checked ? cert : null;
+            }
+        }
+
+
+        public string GetOpenIdDiscoveryDocument
+        {
+            get
+            {
+                return radioButtonJWTOpenId.Checked ? textBoxOpenIdDocument.Text : null;
             }
         }
 
@@ -169,6 +203,7 @@ namespace AMSExplorer
             dataGridViewTokenClaims.DataSource = TokenClaimsList;
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
             tabControlTokenType.TabPages.Remove(tabPageTokenX509);
+            tabControlTokenType.TabPages.Remove(tabPageOpenId);
         }
 
 
@@ -221,40 +256,28 @@ namespace AMSExplorer
             if (radioButtonJWTX509.Checked)
             {
                 tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Remove(tabPageOpenId);
                 tabControlTokenType.TabPages.Add(tabPageTokenX509);
+            }
+            else if (radioButtonJWTOpenId.Checked)
+            {
+                tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Add(tabPageOpenId);
+                tabControlTokenType.TabPages.Remove(tabPageTokenX509);
             }
             else
             {
                 tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
+                tabControlTokenType.TabPages.Remove(tabPageOpenId);
                 tabControlTokenType.TabPages.Remove(tabPageTokenX509);
             }
-
-
             UpdateButtonOk();
-
-
-            /*            //
-                        tabControl.TabPages.Remove(tabPage);
-
-            To put it back:
-            tabControl.TabPages.Insert(index, tabPage);
-             * */
-
-        }
-
-        private void radioButtonSWT_CheckedChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void UpdateButtonOk()
         {
-            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || (radioButtonJWTX509.Checked && cert != null))));
-        }
-
-        private void radioButtonJWTSymmetric_CheckedChanged(object sender, EventArgs e)
-        {
-
+            buttonOk.Enabled = (!radioButtonTokenAuthPolicy.Checked
+                || (radioButtonTokenAuthPolicy.Checked && (radioButtonSWT.Checked || radioButtonJWTSymmetric.Checked || radioButtonJWTOpenId.Checked || (radioButtonJWTX509.Checked && cert != null))));
         }
 
         private void buttongenerateContentKey_Click(object sender, EventArgs e)
