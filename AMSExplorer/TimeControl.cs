@@ -195,9 +195,9 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                if (timestamp == Int64.MaxValue)
+                if (timestamp == Int64.MaxValue || timestamp == 0)
                 {
-                    SetTimeStamp(new TimeSpan(Int64.MaxValue));
+                    SetTimeStamp(new TimeSpan(timestamp));
                 }
                 else
                 {

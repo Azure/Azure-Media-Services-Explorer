@@ -448,37 +448,43 @@ namespace AMSExplorer
                 myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAsset);
             }
 
-
-
             foreach (var filter in filters)
             {
                 string s = null;
                 string e = null;
                 string d = null;
                 string l = null;
-
+                
                 if (filter.PresentationTimeRange != null)
                 {
-                    long start = Int64.Parse(filter.PresentationTimeRange.StartTimestamp) - myassetmanifesttimingdata.TimestampOffset;
-                    long end = Int64.Parse(filter.PresentationTimeRange.EndTimestamp) - myassetmanifesttimingdata.TimestampOffset;
-                    long dvr = Int64.Parse(filter.PresentationTimeRange.PresentationWindowDuration);
-                    long live = Int64.Parse(filter.PresentationTimeRange.LiveBackoffDuration);
-
-                    double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000;
-                    e = (end == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(end / scale)).ToString(@"d\.hh\:mm\:ss");
-                    s = (start == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(start / scale)).ToString(@"d\.hh\:mm\:ss");
-                    d = (dvr == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(dvr / scale)).ToString(@"d\.hh\:mm\:ss");
-                    l = (live == long.MaxValue) ? "max" : TimeSpan.FromTicks((long)(live / scale)).ToString(@"d\.hh\:mm\:ss");
+                    double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000d;
+                    s = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.StartTimestamp, myassetmanifesttimingdata.TimestampOffset, scale);
+                    e = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.EndTimestamp, myassetmanifesttimingdata.TimestampOffset, scale);
+                    d = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.PresentationWindowDuration, 0, scale);
+                    l = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.LiveBackoffDuration, 0, scale);
                 }
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
 
                 // droplist
                 comboBoxLocatorsFilters.Items.Add(new Item("Asset filter  : " + filter.Name, filter.Name));
             }
-
             globalFilters.ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
             comboBoxLocatorsFilters.SelectedIndex = 0;
             comboBoxLocatorsFilters.EndUpdate();
+        }
+
+        private static string ReturnFilterTextWithOffSet(string value, Int64 offset, double scale)
+        {
+            Int64 valueint = Int64.Parse(value);
+            if (valueint == long.MaxValue)
+            {
+                return "max";
+            }
+            else
+            {
+                valueint -= offset;
+                return TimeSpan.FromTicks((long)(valueint / scale)).ToString(@"d\.hh\:mm\:ss");
+            }
         }
 
         private IStreamingEndpoint ReturnSelectedStreamingEndpoint()
