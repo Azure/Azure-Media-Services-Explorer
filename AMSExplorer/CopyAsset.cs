@@ -140,6 +140,7 @@ namespace AMSExplorer
                     labelinfo.Text = string.Format(labelinfo.Text, numberofobjectselected, numberofobjectselected > 1 ? "s" : "");
                     checkBoxDeleteSource.Text = string.Format(checkBoxDeleteSource.Text, numberofobjectselected > 1 ? "s" : "");
                     checkBoxTargetSingleAsset.Enabled = numberofobjectselected > 1;
+                    checkBoxCopyDynEnc.Checked = false;
                     break;
 
                 case CopyAssetBoxMode.CloneChannel:

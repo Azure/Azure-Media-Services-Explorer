@@ -2109,6 +2109,13 @@ namespace AMSExplorer
         public string ManagementPortal { get; set; }
     }
 
+    public class ExplorerOpenIDSample
+    {
+        public string Name { get; set; }
+        public string Uri { get; set; }
+       
+    }
+
     public enum EndPointMappingName
     {
         AzureGlobal = 0,

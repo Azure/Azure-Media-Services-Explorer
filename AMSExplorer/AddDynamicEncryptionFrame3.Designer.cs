@@ -59,20 +59,22 @@
             this.labelStep = new System.Windows.Forms.Label();
             this.tabControlTokenType = new System.Windows.Forms.TabControl();
             this.tabPageTokenType = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.radioButtonJWTOpenId = new System.Windows.Forms.RadioButton();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.tabPageTokenSymmetric = new System.Windows.Forms.TabPage();
             this.tabPageTokenX509 = new System.Windows.Forms.TabPage();
+            this.tabPageOpenId = new System.Windows.Forms.TabPage();
+            this.comboBoxMappingList = new System.Windows.Forms.ComboBox();
+            this.buttonAddMapping = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxOpenIdDocument = new System.Windows.Forms.TextBox();
             this.tabControlTokenProperties = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.radioButtonJWTOpenId = new System.Windows.Forms.RadioButton();
-            this.tabPageOpenId = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxOpenIdDocument = new System.Windows.Forms.TextBox();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelSymKey.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -83,10 +85,10 @@
             this.tabPageTokenType.SuspendLayout();
             this.tabPageTokenSymmetric.SuspendLayout();
             this.tabPageTokenX509.SuspendLayout();
+            this.tabPageOpenId.SuspendLayout();
             this.tabControlTokenProperties.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.tabPageOpenId.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -248,6 +250,7 @@
             this.radioButtonJWTSymmetric.TabStop = true;
             this.radioButtonJWTSymmetric.Text = "JWT - JSON Web Token";
             this.radioButtonJWTSymmetric.UseVisualStyleBackColor = true;
+            this.radioButtonJWTSymmetric.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
             // 
             // panelJWT
             // 
@@ -297,7 +300,7 @@
             this.radioButtonJWTX509.TabIndex = 65;
             this.radioButtonJWTX509.Text = "JWT - JSON Web Token";
             this.radioButtonJWTX509.UseVisualStyleBackColor = true;
-            this.radioButtonJWTX509.CheckedChanged += new System.EventHandler(this.radioButtonJWT_CheckedChanged);
+            this.radioButtonJWTX509.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
             // 
             // radioButtonSWT
             // 
@@ -308,6 +311,7 @@
             this.radioButtonSWT.TabIndex = 64;
             this.radioButtonSWT.Text = "SWT - Simple Web Token";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
+            this.radioButtonSWT.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
             // 
             // dataGridViewTokenClaims
             // 
@@ -432,6 +436,26 @@
             this.tabPageTokenType.Text = "Token Type";
             this.tabPageTokenType.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(177, 84);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(252, 19);
+            this.label8.TabIndex = 74;
+            this.label8.Text = "with OpenId (JSON Web Keys)";
+            // 
+            // radioButtonJWTOpenId
+            // 
+            this.radioButtonJWTOpenId.AutoSize = true;
+            this.radioButtonJWTOpenId.Location = new System.Drawing.Point(21, 82);
+            this.radioButtonJWTOpenId.Name = "radioButtonJWTOpenId";
+            this.radioButtonJWTOpenId.Size = new System.Drawing.Size(145, 17);
+            this.radioButtonJWTOpenId.TabIndex = 73;
+            this.radioButtonJWTOpenId.Text = "JWT - JSON Web Token";
+            this.radioButtonJWTOpenId.UseVisualStyleBackColor = true;
+            this.radioButtonJWTOpenId.CheckedChanged += new System.EventHandler(this.radioButtonTokenType_CheckedChanged);
+            // 
             // label7
             // 
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -479,6 +503,57 @@
             this.tabPageTokenX509.TabIndex = 2;
             this.tabPageTokenX509.Text = "X509 Certificate";
             this.tabPageTokenX509.UseVisualStyleBackColor = true;
+            // 
+            // tabPageOpenId
+            // 
+            this.tabPageOpenId.Controls.Add(this.comboBoxMappingList);
+            this.tabPageOpenId.Controls.Add(this.buttonAddMapping);
+            this.tabPageOpenId.Controls.Add(this.label9);
+            this.tabPageOpenId.Controls.Add(this.textBoxOpenIdDocument);
+            this.tabPageOpenId.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOpenId.Name = "tabPageOpenId";
+            this.tabPageOpenId.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOpenId.Size = new System.Drawing.Size(552, 112);
+            this.tabPageOpenId.TabIndex = 3;
+            this.tabPageOpenId.Text = "OpenId";
+            this.tabPageOpenId.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxMappingList
+            // 
+            this.comboBoxMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMappingList.FormattingEnabled = true;
+            this.comboBoxMappingList.Location = new System.Drawing.Point(288, 30);
+            this.comboBoxMappingList.Name = "comboBoxMappingList";
+            this.comboBoxMappingList.Size = new System.Drawing.Size(151, 21);
+            this.comboBoxMappingList.TabIndex = 62;
+            // 
+            // buttonAddMapping
+            // 
+            this.buttonAddMapping.Location = new System.Drawing.Point(445, 28);
+            this.buttonAddMapping.Name = "buttonAddMapping";
+            this.buttonAddMapping.Size = new System.Drawing.Size(89, 23);
+            this.buttonAddMapping.TabIndex = 61;
+            this.buttonAddMapping.Text = "Insert Url";
+            this.buttonAddMapping.UseVisualStyleBackColor = true;
+            this.buttonAddMapping.Click += new System.EventHandler(this.buttonAddMapping_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 41);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(193, 13);
+            this.label9.TabIndex = 60;
+            this.label9.Text = "OpenId Connect Discovery Document :";
+            // 
+            // textBoxOpenIdDocument
+            // 
+            this.textBoxOpenIdDocument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxOpenIdDocument.Location = new System.Drawing.Point(21, 57);
+            this.textBoxOpenIdDocument.Name = "textBoxOpenIdDocument";
+            this.textBoxOpenIdDocument.Size = new System.Drawing.Size(513, 20);
+            this.textBoxOpenIdDocument.TabIndex = 59;
             // 
             // tabControlTokenProperties
             // 
@@ -528,56 +603,6 @@
             this.label4.TabIndex = 73;
             this.label4.Text = "Other claims :";
             // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(177, 84);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(252, 19);
-            this.label8.TabIndex = 74;
-            this.label8.Text = "with OpenId (JSON Web Keys)";
-            // 
-            // radioButtonJWTOpenId
-            // 
-            this.radioButtonJWTOpenId.AutoSize = true;
-            this.radioButtonJWTOpenId.Location = new System.Drawing.Point(21, 82);
-            this.radioButtonJWTOpenId.Name = "radioButtonJWTOpenId";
-            this.radioButtonJWTOpenId.Size = new System.Drawing.Size(145, 17);
-            this.radioButtonJWTOpenId.TabIndex = 73;
-            this.radioButtonJWTOpenId.Text = "JWT - JSON Web Token";
-            this.radioButtonJWTOpenId.UseVisualStyleBackColor = true;
-            // 
-            // tabPageOpenId
-            // 
-            this.tabPageOpenId.Controls.Add(this.label9);
-            this.tabPageOpenId.Controls.Add(this.textBoxOpenIdDocument);
-            this.tabPageOpenId.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOpenId.Name = "tabPageOpenId";
-            this.tabPageOpenId.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOpenId.Size = new System.Drawing.Size(552, 112);
-            this.tabPageOpenId.TabIndex = 3;
-            this.tabPageOpenId.Text = "OpenId";
-            this.tabPageOpenId.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(18, 23);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(193, 13);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "OpenId Connect Discovery Document :";
-            // 
-            // textBoxOpenIdDocument
-            // 
-            this.textBoxOpenIdDocument.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxOpenIdDocument.Location = new System.Drawing.Point(21, 39);
-            this.textBoxOpenIdDocument.Name = "textBoxOpenIdDocument";
-            this.textBoxOpenIdDocument.Size = new System.Drawing.Size(513, 20);
-            this.textBoxOpenIdDocument.TabIndex = 59;
-            this.textBoxOpenIdDocument.Text = "https://login.windows.net/common/.well-known/openid-configuration";
-            // 
             // AddDynamicEncryptionFrame3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -608,13 +633,13 @@
             this.tabPageTokenType.PerformLayout();
             this.tabPageTokenSymmetric.ResumeLayout(false);
             this.tabPageTokenX509.ResumeLayout(false);
+            this.tabPageOpenId.ResumeLayout(false);
+            this.tabPageOpenId.PerformLayout();
             this.tabControlTokenProperties.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPageOpenId.ResumeLayout(false);
-            this.tabPageOpenId.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -667,5 +692,7 @@
         private System.Windows.Forms.TabPage tabPageOpenId;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBoxOpenIdDocument;
+        private System.Windows.Forms.ComboBox comboBoxMappingList;
+        private System.Windows.Forms.Button buttonAddMapping;
     }
 }

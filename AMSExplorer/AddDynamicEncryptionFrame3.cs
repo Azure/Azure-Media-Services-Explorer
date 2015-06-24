@@ -40,6 +40,11 @@ namespace AMSExplorer
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
 
+        public readonly List<ExplorerOpenIDSample> ListOpenIDSampleUris = new List<ExplorerOpenIDSample> {
+            new ExplorerOpenIDSample() {Name= "Azure Active Directory", Uri="https://login.windows.net/common/discovery/keys"},
+             new ExplorerOpenIDSample() {Name= "Google", Uri="https://accounts.google.com/.well-known/openid-configuration"}
+              };
+
         public ContentKeyRestrictionType GetKeyRestrictionType
         {
             get
@@ -105,15 +110,6 @@ namespace AMSExplorer
             }
         }
 
-        /*
-        public bool IsKeySymmetric
-        {
-            get
-            {
-                return (radioButtonJWTSymmetric.Checked || radioButtonSWT.Checked) ? true : false;
-            }
-        }
-        */
 
         public ExplorerTokenType GetDetailedTokenType
         {
@@ -123,7 +119,7 @@ namespace AMSExplorer
                 {
                     return ExplorerTokenType.SWT;
                 }
-                else if(radioButtonJWTSymmetric.Checked)
+                else if (radioButtonJWTSymmetric.Checked)
                 {
                     return ExplorerTokenType.JWTSym;
                 }
@@ -149,9 +145,7 @@ namespace AMSExplorer
                 else
                     return textBoxSymKey.Text;
             }
-
         }
-
 
         public X509Certificate2 GetX509Certificate
         {
@@ -204,6 +198,12 @@ namespace AMSExplorer
             moreinfocGenX509.Links.Add(new LinkLabel.Link(0, moreinfocGenX509.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/gg185932.aspx"));
             tabControlTokenType.TabPages.Remove(tabPageTokenX509);
             tabControlTokenType.TabPages.Remove(tabPageOpenId);
+
+            foreach (var map in ListOpenIDSampleUris)
+            {
+                comboBoxMappingList.Items.Add(map.Name);
+            }
+            comboBoxMappingList.SelectedIndex = 0;
         }
 
 
@@ -247,31 +247,40 @@ namespace AMSExplorer
             UpdateButtonOk();
         }
 
-        private void radioButtonJWT_CheckedChanged(object sender, EventArgs e)
+        private void radioButtonTokenType_CheckedChanged(object sender, EventArgs e)
         {
-            panelJWT.Enabled = radioButtonJWTX509.Checked;
-            panelSymKey.Enabled = !radioButtonJWTX509.Checked;
+
+            RadioButton rb = sender as RadioButton;
+            if (rb != null)
+            {
+                if (rb.Checked)
+                {
+
+                    panelJWT.Enabled = radioButtonJWTX509.Checked;
+                    panelSymKey.Enabled = !radioButtonJWTX509.Checked;
 
 
-            if (radioButtonJWTX509.Checked)
-            {
-                tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
-                tabControlTokenType.TabPages.Remove(tabPageOpenId);
-                tabControlTokenType.TabPages.Add(tabPageTokenX509);
+                    if (radioButtonJWTX509.Checked)
+                    {
+                        tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                        tabControlTokenType.TabPages.Remove(tabPageOpenId);
+                        tabControlTokenType.TabPages.Add(tabPageTokenX509);
+                    }
+                    else if (radioButtonJWTOpenId.Checked)
+                    {
+                        tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
+                        tabControlTokenType.TabPages.Add(tabPageOpenId);
+                        tabControlTokenType.TabPages.Remove(tabPageTokenX509);
+                    }
+                    else
+                    {
+                        tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
+                        tabControlTokenType.TabPages.Remove(tabPageOpenId);
+                        tabControlTokenType.TabPages.Remove(tabPageTokenX509);
+                    }
+                    UpdateButtonOk();
+                }
             }
-            else if (radioButtonJWTOpenId.Checked)
-            {
-                tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
-                tabControlTokenType.TabPages.Add(tabPageOpenId);
-                tabControlTokenType.TabPages.Remove(tabPageTokenX509);
-            }
-            else
-            {
-                tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
-                tabControlTokenType.TabPages.Remove(tabPageOpenId);
-                tabControlTokenType.TabPages.Remove(tabPageTokenX509);
-            }
-            UpdateButtonOk();
         }
 
         private void UpdateButtonOk()
@@ -321,6 +330,12 @@ namespace AMSExplorer
                     textBoxSymKey.Text = string.Empty;
                 }
             }
+        }
+
+        private void buttonAddMapping_Click(object sender, EventArgs e)
+        {
+            var entry = ListOpenIDSampleUris.Where(m => m.Name == comboBoxMappingList.Text).FirstOrDefault();
+            textBoxOpenIdDocument.Text = entry.Uri;
         }
     }
 }
