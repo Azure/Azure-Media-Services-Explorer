@@ -58,7 +58,7 @@ namespace AMSExplorer
                         },
                 Audio = new LiveAudioProfile()
                     {
-                    Codec= "HE-AAC v1", Bitrate= 56, SamplingRate= 44.1, Channels= "Stereo" 
+                    Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo" 
                     }
                 
             }
