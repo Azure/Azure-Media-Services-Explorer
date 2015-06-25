@@ -47,6 +47,7 @@ namespace AMSExplorer
         private IAsset _parentAsset = null;
         private ManifestTimingData _parentassetmanifestdata;
         private long _timescale = TimeSpan.TicksPerSecond;
+        private List<Filter> globalFilters;
 
         public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, Filter filterToDisplay = null, IAsset parentAsset = null)
         {
@@ -56,6 +57,7 @@ namespace AMSExplorer
             _context = context;
             _parentassetmanifestdata = new ManifestTimingData();
             tabControl1.TabPages.Remove(tabPageTRRaw);
+            FillComboBoxImportFilters(parentAsset);
 
             /////////////////////////////////////////////
             // New Global Filter
@@ -72,7 +74,6 @@ namespace AMSExplorer
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 textBoxFilterTimeScale.Text = _filter.PresentationTimeRange.Timescale;
-
             }
 
 
@@ -138,7 +139,7 @@ namespace AMSExplorer
 
                     // let's disable trackbars if this is live (duration is not fixed)
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
-  
+
                     if (!_parentassetmanifestdata.IsLive)  // Not a live content
                     {
                         timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
@@ -149,7 +150,7 @@ namespace AMSExplorer
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
-                    
+
                 }
 
                 else // not able to read asset timings
@@ -192,8 +193,8 @@ namespace AMSExplorer
                 if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
                 {
                     // let's disable trackbars if this is live (duration is not fixed)
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar =  !_parentassetmanifestdata.IsLive;
-                 
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
+
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
@@ -232,6 +233,28 @@ namespace AMSExplorer
             textBoxFilterTimeScale.Text = _timescale.ToString();
         }
 
+        private void FillComboBoxImportFilters(IAsset asset)
+        {
+            // combobox for filters
+
+            comboBoxLocatorsFilters.BeginUpdate();
+
+            comboBoxLocatorsFilters.Items.Add(new Item("Import tracks filtering from :", null));
+
+            if (asset != null)
+            {
+                List<AssetFilter> filters = _contextdynman.ListAssetFilters(asset);
+                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
+            }
+            globalFilters = _contextdynman.ListFilters();
+            globalFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            if (comboBoxLocatorsFilters.Items.Count > 0)
+            {
+                comboBoxLocatorsFilters.SelectedIndex = 0;
+                comboBoxLocatorsFilters.Enabled = true;
+            }
+            comboBoxLocatorsFilters.EndUpdate();
+        }
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
@@ -295,6 +318,9 @@ namespace AMSExplorer
             RefreshTracks();
 
             CheckIfErrorTimeControls();
+
+
+
         }
 
         private void RefreshTracks()
@@ -307,6 +333,10 @@ namespace AMSExplorer
             {
                 listBoxTracks.Items.Add("Rule" + i);
                 i++;
+            }
+            if (listBoxTracks.SelectedIndex == -1 && listBoxTracks.Items.Count > 0)
+            {
+                listBoxTracks.SelectedIndex = 0;
             }
         }
 
@@ -553,14 +583,13 @@ namespace AMSExplorer
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             _filter.Tracks = tracks;
-            //_filter.Name = textBoxFilterName.Text;
 
             //RefreshPresentationTimes();
             RefreshTracks();
             RefreshTracksConditions();
         }
 
-       
+
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -722,6 +751,30 @@ namespace AMSExplorer
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+        }
+
+        private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
+            if (filtername!=null)
+            {
+                Filter importfilter = null;
+                if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
+                {
+                    importfilter = _contextdynman.GetAssetFilter(filtername);
+
+                }
+                else // global filter
+                {
+                    importfilter = _contextdynman.GetFilter(filtername);
+                }
+                if (importfilter != null)
+                {
+                    _filter.Tracks = importfilter.Tracks;
+                    RefreshTracks();
+                    RefreshTracksConditions();
+                }
+            }
         }
     }
 }
