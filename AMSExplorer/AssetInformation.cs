@@ -409,7 +409,7 @@ namespace AMSExplorer
                 buttonUpload.Enabled = true;
             }
 
-            globalFilters = myDynManifestContext.ListFilters();
+            globalFilters = myDynManifestContext.ListGlobalFilters();
 
             DisplayAssetFilters();
             oktobuildlocator = true;

@@ -208,7 +208,7 @@ namespace AMSExplorer
             }
         }
 
-        public List<Filter> ListFilters()
+        public List<Filter> ListGlobalFilters()
         {
             List<Filter> returnFilters = new List<Filter>();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters", WamsEndpoint));
@@ -268,7 +268,7 @@ namespace AMSExplorer
             return returnFilters;
         }
 
-        public Filter GetFilter(string filterName)
+        public Filter GetGlobalFilter(string filterName)
         {
             Filter returnFilter = new Filter();
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(string.Format(CultureInfo.InvariantCulture, "{0}Filters('{1}')", WamsEndpoint, filterName));

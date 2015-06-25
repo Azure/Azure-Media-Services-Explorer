@@ -1766,7 +1766,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                Filter myfilter = _contextdynmanifest.GetFilter(filtername);
+                Filter myfilter = _contextdynmanifest.GetGlobalFilter(filtername);
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -5605,7 +5605,7 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
                 dataGridViewFilters.Columns[0].ReadOnly = true;
-                dataGridViewFilters.Columns[1].HeaderText = "Track Rules";
+                dataGridViewFilters.Columns[1].HeaderText = "Track Filtering Rules";
                 dataGridViewFilters.Columns[1].Name = "Rules";
                 dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
                 dataGridViewFilters.Columns[2].Name = "Start";
@@ -5617,7 +5617,7 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[5].Name = "LiveBackoff";
             }
             dataGridViewFilters.Rows.Clear();
-            List<Filter> filters = _contextdynmanifest.ListFilters();
+            List<Filter> filters = _contextdynmanifest.ListGlobalFilters();
 
             foreach (var filter in filters)
             {
@@ -10096,7 +10096,7 @@ namespace AMSExplorer
             ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter");
             mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
 
-            var Filters = _contextdynmanifest.ListFilters();
+            var Filters = _contextdynmanifest.ListGlobalFilters();
             if (Filters.Count > 0)
             {
                 foreach (var filter in Filters)

@@ -188,7 +188,7 @@
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(184, 24);
             this.buttonInsertSample.TabIndex = 79;
-            this.buttonInsertSample.Text = "Insert tracks filtering example";
+            this.buttonInsertSample.Text = "Insert a track filtering example";
             this.toolTip1.SetToolTip(this.buttonInsertSample, "Video no more than 1 mbps, only audio tracks with AAC codec, and text tracks limi" +
         "ted to english");
             this.buttonInsertSample.UseVisualStyleBackColor = true;
@@ -507,7 +507,7 @@
             this.tabPageTF.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageTF.Size = new System.Drawing.Size(974, 483);
             this.tabPageTF.TabIndex = 1;
-            this.tabPageTF.Text = "Tracks filtering";
+            this.tabPageTF.Text = "Track filtering";
             this.tabPageTF.UseVisualStyleBackColor = true;
             // 
             // pictureBox4
@@ -896,9 +896,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(16, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 13);
+            this.label1.Size = new System.Drawing.Size(40, 13);
             this.label1.TabIndex = 79;
-            this.label1.Text = "Tracks rules :";
+            this.label1.Text = "Rules :";
             // 
             // buttonDeleteCondition
             // 

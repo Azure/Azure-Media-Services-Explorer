@@ -239,20 +239,20 @@ namespace AMSExplorer
 
             comboBoxLocatorsFilters.BeginUpdate();
 
-            comboBoxLocatorsFilters.Items.Add(new Item("Import tracks filtering from :", null));
+            comboBoxLocatorsFilters.Items.Add(new Item("Import track filtering from :", null));
 
             if (asset != null)
             {
                 List<AssetFilter> filters = _contextdynman.ListAssetFilters(asset);
                 filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
             }
-            globalFilters = _contextdynman.ListFilters();
+            globalFilters = _contextdynman.ListGlobalFilters();
             globalFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
-            if (comboBoxLocatorsFilters.Items.Count > 0)
+            if (comboBoxLocatorsFilters.Items.Count > 1)
             {
-                comboBoxLocatorsFilters.SelectedIndex = 0;
                 comboBoxLocatorsFilters.Enabled = true;
             }
+            comboBoxLocatorsFilters.SelectedIndex = 0;
             comboBoxLocatorsFilters.EndUpdate();
         }
 
@@ -599,12 +599,8 @@ namespace AMSExplorer
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            // e.Graphics.DrawRectangle(new Pen(Color.Gray), e.CellBounds);
-
             var rectangle = e.CellBounds;
             rectangle.Inflate(-1, -1);
-
-            //ControlPaint.DrawBorder3D(e.Graphics, rectangle, Border3DStyle.Flat, Border3DSide.All); // 3D border
             ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Gray, ButtonBorderStyle.Dotted); // 
         }
 
@@ -756,7 +752,7 @@ namespace AMSExplorer
         private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
         {
             string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
-            if (filtername!=null)
+            if (filtername != null)
             {
                 Filter importfilter = null;
                 if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
@@ -766,7 +762,7 @@ namespace AMSExplorer
                 }
                 else // global filter
                 {
-                    importfilter = _contextdynman.GetFilter(filtername);
+                    importfilter = _contextdynman.GetGlobalFilter(filtername);
                 }
                 if (importfilter != null)
                 {
