@@ -1,20 +1,18 @@
-﻿
-//----------------------------------------------------------------------- 
-// <copyright file="Program.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -63,6 +61,29 @@ namespace AMSExplorer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform());
+        }
+
+        public static void dataGridViewV_Resize(object sender)
+        {
+            // let's resize the column name to fill the space
+            DataGridView grid = (DataGridView)sender;
+            int indexname = -1;
+            for (int i = 0; i < grid.Columns.Count; i++)
+            {
+                if (grid.Columns[i].HeaderText == "Name")
+                {
+                    indexname = i;
+                    break;
+                }
+            }
+
+            if (indexname != -1)
+            {
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                int colw = grid.Columns[indexname].Width;
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                grid.Columns[indexname].Width = colw;
+            }
         }
 
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials)

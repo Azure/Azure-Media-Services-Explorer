@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="Mainform.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//--------------------------------------------------------------------------------------------- 
 
 using System;
 using System.Collections.Generic;
@@ -3070,10 +3069,8 @@ namespace AMSExplorer
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
-
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
-
         }
 
 
@@ -5516,12 +5513,15 @@ namespace AMSExplorer
                 // Processors tab
                 dataGridViewProcessors.ColumnCount = 5;
                 dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
+                dataGridViewProcessors.Columns[0].Width = 82;
                 dataGridViewProcessors.Columns[1].HeaderText = "Name";
+                dataGridViewProcessors.Columns[1].Width = 222;
                 dataGridViewProcessors.Columns[2].HeaderText = "Version";
+                dataGridViewProcessors.Columns[2].Width = 65;
                 dataGridViewProcessors.Columns[3].HeaderText = "Id";
+                dataGridViewProcessors.Columns[3].Width = 230;
                 dataGridViewProcessors.Columns[4].HeaderText = "Description";
-                dataGridViewProcessors.Columns[0].Width = 110;
-                dataGridViewProcessors.Columns[2].Width = 70;
+                dataGridViewProcessors.Columns[4].Width = 390;
             }
             dataGridViewProcessors.Rows.Clear();
             List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
@@ -5545,7 +5545,6 @@ namespace AMSExplorer
             {
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
             }
-
         }
 
         private void DoRefreshGridStorageV(bool firstime)
@@ -5557,8 +5556,6 @@ namespace AMSExplorer
             {
                 // Storage tab
                 dataGridViewStorage.ColumnCount = 2;
-                dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[1].HeaderText = "Used space";
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5567,6 +5564,13 @@ namespace AMSExplorer
                     HeaderText = "% used"
                 };
                 dataGridViewStorage.Columns.Add(col);
+
+                dataGridViewStorage.Columns[0].HeaderText = "Name";
+                dataGridViewStorage.Columns[0].Width = 280;
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
+                dataGridViewStorage.Columns[1].Width = 100;
+                dataGridViewStorage.Columns[2].Width = 600;
+
             }
             dataGridViewStorage.Rows.Clear();
             List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
@@ -5605,16 +5609,23 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
                 dataGridViewFilters.Columns[0].ReadOnly = true;
+                dataGridViewFilters.Columns[0].Width = 100;
                 dataGridViewFilters.Columns[1].HeaderText = "Track Filtering Rules";
                 dataGridViewFilters.Columns[1].Name = "Rules";
+                dataGridViewFilters.Columns[1].Width = 135;
                 dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
                 dataGridViewFilters.Columns[2].Name = "Start";
+                dataGridViewFilters.Columns[2].Width = 110;
                 dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
                 dataGridViewFilters.Columns[3].Name = "End";
+                dataGridViewFilters.Columns[3].Width = 110;
                 dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
                 dataGridViewFilters.Columns[4].Name = "DVR";
+                dataGridViewFilters.Columns[4].Width = 110;
                 dataGridViewFilters.Columns[5].HeaderText = "Live backoff (d.h:m:s)";
                 dataGridViewFilters.Columns[5].Name = "LiveBackoff";
+                dataGridViewFilters.Columns[5].Width = 144;
+
             }
             dataGridViewFilters.Rows.Clear();
             List<Filter> filters = _contextdynmanifest.ListGlobalFilters();
@@ -10279,15 +10290,11 @@ namespace AMSExplorer
             Process.Start(@"http://aka.ms/ampdiagnostics");
         }
 
-        private void dataGridViewAssetsV_Resize(object sender, EventArgs e)
+        private void dataGridViewV_Resize(object sender, EventArgs e)
         {
-            // let's resize the column name to fill the space
-            DataGridView grid = (DataGridView)sender;
-            grid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            int colw = grid.Columns[0].Width;
-            grid.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            grid.Columns[0].Width = colw;
+            Program.dataGridViewV_Resize(sender);
         }
+
 
         private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10347,6 +10354,12 @@ namespace AMSExplorer
         private void toolStripMenuItem28_Click(object sender, EventArgs e)
         {
             DoCloneChannels();
+        }
+
+
+        private void dataGridViewV_VisibleChanged(object sender, EventArgs e)
+        {
+            Program.dataGridViewV_Resize(sender);
         }
     }
 }
@@ -10914,15 +10927,10 @@ namespace AMSExplorer
             this.Columns[_filter].Width = 50;
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
+            this.Columns[_locatorexpirationdate].Width = 130;
             this.Columns["LastModified"].Width = 140;
             this.Columns["Id"].Width = 300;
             this.Columns["Storage"].Width = 140;
-
-            // let's resize the column Name
-            this.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            int colw = this.Columns[0].Width;
-            this.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns[0].Width = colw;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -11590,18 +11598,14 @@ namespace AMSExplorer
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
             this.Columns["Progress"].DisplayIndex = 5;
-            this.Columns["Tasks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Progress"].Width = 150;
             this.Columns["Tasks"].Width = 50;
-            this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Priority"].Width = 50;
-            this.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["State"].Width = 100;
-            this.Columns["StartTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["State"].Width = 80;
             this.Columns["StartTime"].Width = 150;
-            this.Columns["EndTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["EndTime"].Width = 150;
-            this.Columns["Duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Duration"].Width = 100;
+            this.Columns["Duration"].Width = 90;
+     
 
             _initialized = true;
         }
