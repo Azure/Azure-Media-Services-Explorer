@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="ProgramInformation.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 
 using System;
@@ -39,8 +38,8 @@ namespace AMSExplorer
     public partial class ProgramInformation : Form
     {
         public IProgram MyProgram;
-
-        public CloudMediaContext MyContext;
+        private CloudMediaContext MyContext;
+        private MediaServiceContextForDynManifest MyDynManifestContext;
 
         private IEnumerable<Uri> ValidURIs;
         private IEnumerable<Uri> NotValidURIs;
@@ -62,11 +61,13 @@ namespace AMSExplorer
         }
 
 
-        public ProgramInformation(Mainform mainform)
+        public ProgramInformation(Mainform mainform, CloudMediaContext context, MediaServiceContextForDynManifest contextdynman)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
+            MyContext = context;
+            MyDynManifestContext = contextdynman;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -101,10 +102,9 @@ namespace AMSExplorer
             IAsset AssetToDisplayP = MyProgram.Asset;
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm)
+                AssetInformation form = new AssetInformation(MyMainForm, MyContext, MyDynManifestContext)
                 {
                     myAsset = AssetToDisplayP,
-                    myContext = MyContext,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
                 };
                 DialogResult dialogResult = form.ShowDialog(this);

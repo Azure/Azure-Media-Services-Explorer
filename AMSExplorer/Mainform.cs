@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="Mainform.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//--------------------------------------------------------------------------------------------- 
 
 using System;
 using System.Collections.Generic;
@@ -744,7 +743,6 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-
                 dataGridViewAssetsV.Init(_context, _contextdynmanifest);
                 for (int i = 1; i <= dataGridViewAssetsV.PageCount; i++) comboBoxPageAssets.Items.Add(i);
                 comboBoxPageAssets.SelectedIndex = 0;
@@ -771,7 +769,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewJobsV.Init(_credentials);
+                dataGridViewJobsV.Init(_credentials, _context);
                 for (int i = 1; i <= dataGridViewJobsV.PageCount; i++) comboBoxPageJobs.Items.Add(i);
                 comboBoxPageJobs.SelectedIndex = 0;
             }
@@ -939,6 +937,30 @@ namespace AMSExplorer
                     }
                     if (myjob.State == JobState.Finished)
                     {
+                        // job template does not rename the outout assets. As a fix, we do this:
+                        int taskind = 1;
+                        foreach (var task in myjob.Tasks)
+                        {
+                            int outputind = 1;
+                            foreach (var outputasset in task.OutputAssets)
+                            {
+                                IAsset oasset = AssetInfo.GetAsset(outputasset.Id, _context);
+                                oasset.Name = string.Format("{0} processed with {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
+                                if (myjob.Tasks.Count > 1)
+                                {
+                                    oasset.Name += string.Format(" - task {0}", taskind);
+                                }
+                                if (task.OutputAssets.Count > 1)
+                                {
+                                    oasset.Name += string.Format(" - output asset {0}", outputind);
+                                }
+                                oasset.Update();
+                                outputind++;
+                            }
+                            taskind++;
+                        }
+
+
                         if (watchfoldersettings.PublishOutputAssets) //user wants to publish the output asset when it has been processed by the job 
                         {
                             IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myjob.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDays), AccessPermissions.Read);
@@ -1092,8 +1114,6 @@ namespace AMSExplorer
                     DoGridTransferDeclareCompleted(index, folder.ToString());
                 }
             });
-
-            MessageBox.Show("Download process has been initiated. See the Transfers tab to check the progress.");
         }
 
 
@@ -1264,11 +1284,9 @@ namespace AMSExplorer
                     try
                     {
                         this.Cursor = Cursors.WaitCursor;
-                        AssetInformation form = new AssetInformation(this)
+                        AssetInformation form = new AssetInformation(this, _context, _contextdynmanifest)
                         {
                             myAsset = asset,
-                            myContext = _context,
-                            _contextdynmanifest = _contextdynmanifest,
                             myStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we want to keep the same sorting
                         };
 
@@ -1747,7 +1765,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filtername = Row.Cells[dataGridViewFilters.Columns["Name"].Index].Value.ToString();
-                Filter myfilter = _contextdynmanifest.GetFilter(filtername);
+                Filter myfilter = _contextdynmanifest.GetGlobalFilter(filtername);
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -2411,7 +2429,7 @@ namespace AMSExplorer
             }
         }
 
-        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false)
+        private async void ProcessExportAssetToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, Dictionary<string, string> storagekeys, List<IAsset> SourceAssets, string TargetAssetName, int index, bool DeleteSourceAssets = false, bool CopyDynEnc = false, bool ReWriteLAURL = false)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -2469,7 +2487,29 @@ namespace AMSExplorer
 
                     // do the copy
                     int nbblob = 0;
-                    foreach (IAssetFile file in SourceAsset.AssetFiles)
+
+
+                    // foreach (IAssetFile file in SourceAsset.AssetFiles) 
+                    // For LIve archive, the folder for chiks are returnbed as files. So we detect this case and don't try to copy the folders as asset files
+                    IEnumerable<IAssetFile> assetFilesToCopy = SourceAsset.AssetFiles.ToList();
+                    if (
+                        assetFilesToCopy.Where(af => af.Name.Contains(".")).Count() == 2
+                        && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISMC")).Count() == 1
+                        && assetFilesToCopy.Where(af => af.Name.ToUpper().EndsWith(".ISM")).Count() == 1
+                        ) // only 2 files with extensions, and these files are ISMC and ISM
+                    {
+                        assetFilesToCopy = SourceAsset.AssetFiles.ToList().Where(af => !af.Name.StartsWith("audio_") && !af.Name.StartsWith("video_"));
+                        var assetFilesLiveFolders = SourceAsset.AssetFiles.ToList().Where(af => af.Name.StartsWith("audio_") || af.Name.StartsWith("video_"));
+
+                        foreach (IAssetFile sourcefolder in assetFilesLiveFolders)
+                        {
+                            var folder = TargetAsset.AssetFiles.Create(sourcefolder.Name);
+                            folder.ContentFileSize = sourcefolder.ContentFileSize;
+                            folder.MimeType = sourcefolder.MimeType;
+                            folder.Update();
+                        }
+                    }
+                    foreach (IAssetFile file in assetFilesToCopy)
                     {
                         if (file.IsEncrypted)
                         {
@@ -2483,6 +2523,7 @@ namespace AMSExplorer
                             try
                             {
                                 sourceCloudBlockBlob = SourceCloudBlobContainer.GetBlockBlobReference(file.Name);
+                                // TO DO: chek if this is a folder or a file
                                 sourceCloudBlockBlob.FetchAttributes();
 
                                 if (sourceCloudBlockBlob.Properties.Length > 0)
@@ -2591,7 +2632,7 @@ namespace AMSExplorer
                                 {
                                     TextBoxLogWriteLine("Copying fragblobs directory '{0}'....", dir.Prefix);
 
-                                    mylistresults.AddRange(CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent));//blobToken));
+                                    mylistresults.AddRange(AssetInfo.CopyBlobDirectory(dir, DestinationCloudBlobContainer, SourceLocator.ContentAccessComponent));//blobToken));
                                     if (mylistresults.Count > 0)
                                     {
                                         while (!mylistresults.All(r => r.IsCompleted))
@@ -2636,6 +2677,24 @@ namespace AMSExplorer
                 AssetInfo.SetISMFileAsPrimary(TargetAsset);
             }
 
+
+            // Copy Dynamic Encryption
+            if (CopyDynEnc && !ErrorCopyAsset)
+            {
+                TextBoxLogWriteLine("Dynamic encryption settings copy...");
+                try
+                {
+                    await DynamicEncryption.CopyDynamicEncryption(SourceAssets.FirstOrDefault(), TargetAsset, ReWriteLAURL);
+                    TextBoxLogWriteLine("Dynamic encryption settings copied.");
+
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when copying Dynamic encryption", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
             DestinationLocator.Delete();
             writePolicy.Delete();
 
@@ -2649,34 +2708,118 @@ namespace AMSExplorer
             DoRefreshGridAssetV(false);
         }
 
-        // copy a directory of the same container to another container
-        public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+
+        private async void ProcessCloneProgramToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IProgram sourceProgram, bool CopyDynEnc, bool RewriteLAURL, bool CloneLocators)
         {
-            List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+            TextBoxLogWriteLine("Starting the program cloning process.");
+            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
-            var srcBlobList = srcDirectory.ListBlobs(
-                useFlatBlobListing: true,
-                blobListingDetails: BlobListingDetails.None).ToList();
-
-            foreach (var src in srcBlobList)
+            // let's check that target channel exists
+            IChannel clonedchannel = DestinationContext.Channels.Where(c => c.Name == sourceProgram.Channel.Name).FirstOrDefault();
+            if (clonedchannel == null)
             {
-                var srcBlob = src as ICloudBlob;
-
-                // Create appropriate destination blob type to match the source blob
-                ICloudBlob destBlob;
-                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
-                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
-                else
-                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
-
-                // copy using src blob as SAS
-                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
+                TextBoxLogWriteLine(string.Format("Cloned channel '{0}' not found in destination account!", sourceProgram.Channel.Name), true);
+                return;
             }
 
-            return mylistresults;
+            // let's check that a program with same name does not already exist for the channel
+            if (DestinationContext.Programs.Where(p => p.Name == sourceProgram.Name && p.ChannelId == clonedchannel.Id).FirstOrDefault() != null)
+            {
+                TextBoxLogWriteLine(string.Format("A program '{0}' has been already found in destination account for channel '{1}'. A new one cannot be created.", sourceProgram.Name, clonedchannel.Name), true);
+                return;
+            }
+
+            // Cloned asset creation
+            IAsset clonedAsset = DestinationContext.Assets.Create(sourceProgram.Asset.Name, DestinationStorageAccount, AssetCreationOptions.None);
+            TextBoxLogWriteLine(string.Format("Cloned asset {0} created.", sourceProgram.Asset.Name));
+
+            if (CopyDynEnc)
+            {
+                TextBoxLogWriteLine("Dynamic encryption settings copy...");
+                try
+                {
+                    await DynamicEncryption.CopyDynamicEncryption(sourceProgram.Asset, clonedAsset, RewriteLAURL);
+                    TextBoxLogWriteLine("Dynamic encryption settings copied.");
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error when copying Dynamic encryption", true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+
+            if (CloneLocators)
+            {
+                try
+                {
+                    TextBoxLogWriteLine("Creating locator for cloned asset '{0}'", sourceProgram.Asset.Name);
+
+                    foreach (var streamlocator in sourceProgram.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin))
+                    {
+                        IAccessPolicy policy = DestinationContext.AccessPolicies.Create("AP:" + sourceProgram.Asset.Name, (streamlocator.ExpirationDateTime - DateTime.UtcNow), AccessPermissions.Read);
+                        DestinationContext.Locators.CreateLocator(streamlocator.Id, LocatorType.OnDemandOrigin, clonedAsset, policy, streamlocator.StartTime);
+                        TextBoxLogWriteLine(string.Format("Cloned locator {0} created.", streamlocator.Id));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when creating the locator for the asset '{0}'.", clonedAsset.Name, true);
+                    TextBoxLogWriteLine(ex);
+                }
+            }
+            var options = new ProgramCreationOptions()
+{
+    Name = sourceProgram.Name,
+    Description = sourceProgram.Description,
+    ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
+    AssetId = clonedAsset.Id,
+    ManifestName = sourceProgram.ManifestName
+};
+
+            var STask = ProgramExecuteAsync(
+              () =>
+                  clonedchannel.Programs.CreateAsync(options),
+                 sourceProgram.Name,
+                 "created");
+            await STask;
+
+            TextBoxLogWriteLine(string.Format("Cloned program {0} created.", sourceProgram.Name));
+
         }
 
 
+        private async void ProcessCloneChannelToAnotherAMSAccount(CredentialsEntry DestinationCredentialsEntry, string DestinationStorageAccount, IChannel sourceChannel)
+        {
+            TextBoxLogWriteLine("Starting the channel cloning process...");
+            CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
+
+            var options = new ChannelCreationOptions()
+                {
+                    Name = sourceChannel.Name,
+                    Description = sourceChannel.Description,
+                    EncodingType = sourceChannel.EncodingType,
+                    Input = sourceChannel.Input,
+                    Output = sourceChannel.Output,
+                    Preview = sourceChannel.Preview
+                };
+
+            if (sourceChannel.EncodingType != ChannelEncodingType.None)
+            {
+                options.Encoding = sourceChannel.Encoding;
+                options.Slate = sourceChannel.Slate;
+            }
+
+            await Task.Run(() => IObjectExecuteOperationAsync(
+                 () =>
+                     DestinationContext.Channels.SendCreateOperationAsync(
+                     options),
+                     sourceChannel.Name,
+                     "Cloned channel",
+                     "created",
+                     DestinationContext));
+
+        }
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2926,10 +3069,8 @@ namespace AMSExplorer
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
-
             // display the update message if a new version is available
             if (!string.IsNullOrEmpty(Program.MessageNewVersion)) TextBoxLogWriteLine(Program.MessageNewVersion);
-
         }
 
 
@@ -5087,14 +5228,14 @@ namespace AMSExplorer
         }
 
 
-        private void azureMediaServicesMSDNToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/wamsmsdn");
+            Process.Start(@"https://azure.microsoft.com/en-us/documentation/services/media-services/");
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/wamshelp");
+            Process.Start(@"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices");
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5333,7 +5474,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewChannelsV.Init(_credentials);
+                dataGridViewChannelsV.Init(_credentials, _context);
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
@@ -5344,7 +5485,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewProgramsV.Init(_credentials);
+                dataGridViewProgramsV.Init(_credentials, _context);
             }
 
             Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
@@ -5356,7 +5497,7 @@ namespace AMSExplorer
         {
             if (firstime)
             {
-                dataGridViewStreamingEndpointsV.Init(_credentials);
+                dataGridViewStreamingEndpointsV.Init(_credentials, _context);
 
             }
             Debug.WriteLine("DoRefreshGridOriginsVNotforsttime");
@@ -5372,12 +5513,15 @@ namespace AMSExplorer
                 // Processors tab
                 dataGridViewProcessors.ColumnCount = 5;
                 dataGridViewProcessors.Columns[0].HeaderText = "Vendor";
+                dataGridViewProcessors.Columns[0].Width = 82;
                 dataGridViewProcessors.Columns[1].HeaderText = "Name";
+                dataGridViewProcessors.Columns[1].Width = 222;
                 dataGridViewProcessors.Columns[2].HeaderText = "Version";
+                dataGridViewProcessors.Columns[2].Width = 65;
                 dataGridViewProcessors.Columns[3].HeaderText = "Id";
+                dataGridViewProcessors.Columns[3].Width = 230;
                 dataGridViewProcessors.Columns[4].HeaderText = "Description";
-                dataGridViewProcessors.Columns[0].Width = 110;
-                dataGridViewProcessors.Columns[2].Width = 70;
+                dataGridViewProcessors.Columns[4].Width = 390;
             }
             dataGridViewProcessors.Rows.Clear();
             List<IMediaProcessor> Procs = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList();
@@ -5401,7 +5545,6 @@ namespace AMSExplorer
             {
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
             }
-
         }
 
         private void DoRefreshGridStorageV(bool firstime)
@@ -5413,8 +5556,6 @@ namespace AMSExplorer
             {
                 // Storage tab
                 dataGridViewStorage.ColumnCount = 2;
-                dataGridViewStorage.Columns[0].HeaderText = "Name";
-                dataGridViewStorage.Columns[1].HeaderText = "Used space";
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5423,6 +5564,13 @@ namespace AMSExplorer
                     HeaderText = "% used"
                 };
                 dataGridViewStorage.Columns.Add(col);
+
+                dataGridViewStorage.Columns[0].HeaderText = "Name";
+                dataGridViewStorage.Columns[0].Width = 280;
+                dataGridViewStorage.Columns[1].HeaderText = "Used space";
+                dataGridViewStorage.Columns[1].Width = 100;
+                dataGridViewStorage.Columns[2].Width = 600;
+
             }
             dataGridViewStorage.Rows.Clear();
             List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
@@ -5461,19 +5609,26 @@ namespace AMSExplorer
                 dataGridViewFilters.Columns[0].HeaderText = "Name";
                 dataGridViewFilters.Columns[0].Name = "Name";
                 dataGridViewFilters.Columns[0].ReadOnly = true;
-                dataGridViewFilters.Columns[1].HeaderText = "Track Rules";
+                dataGridViewFilters.Columns[0].Width = 100;
+                dataGridViewFilters.Columns[1].HeaderText = "Track Filtering Rules";
                 dataGridViewFilters.Columns[1].Name = "Rules";
+                dataGridViewFilters.Columns[1].Width = 135;
                 dataGridViewFilters.Columns[2].HeaderText = "Start (d.h:m:s)";
                 dataGridViewFilters.Columns[2].Name = "Start";
+                dataGridViewFilters.Columns[2].Width = 110;
                 dataGridViewFilters.Columns[3].HeaderText = "End (d.h:m:s)";
                 dataGridViewFilters.Columns[3].Name = "End";
+                dataGridViewFilters.Columns[3].Width = 110;
                 dataGridViewFilters.Columns[4].HeaderText = "DVR (d.h:m:s)";
                 dataGridViewFilters.Columns[4].Name = "DVR";
+                dataGridViewFilters.Columns[4].Width = 110;
                 dataGridViewFilters.Columns[5].HeaderText = "Live backoff (d.h:m:s)";
                 dataGridViewFilters.Columns[5].Name = "LiveBackoff";
+                dataGridViewFilters.Columns[5].Width = 144;
+
             }
             dataGridViewFilters.Rows.Clear();
-            List<Filter> filters = _contextdynmanifest.ListFilters();
+            List<Filter> filters = _contextdynmanifest.ListGlobalFilters();
 
             foreach (var filter in filters)
             {
@@ -5652,7 +5807,8 @@ namespace AMSExplorer
             if (myP != null)
             {
                 TextBoxLogWriteLine("Deleting program '{0}'...", myP.Name);
-                await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
+                await ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"); // we need to wait for deletion because if asset is deleted the program must be deleted completely before
+                //await Task.Run(() => ProgramExecuteAsync(myP.DeleteAsync, myP, "deleted"));
                 DoRefreshGridProgramV(false);
             }
         }
@@ -5959,7 +6115,7 @@ namespace AMSExplorer
         }
 
 
-        internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess) // used for creation 
+        internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
         // used for Streaming Endpoint and Channel creation
         {
             IOperation operation = null;
@@ -5969,7 +6125,7 @@ namespace AMSExplorer
                 while (operation.State == OperationState.InProgress)
                 {
                     //refresh the operation
-                    operation = _context.Operations.GetOperation(operation.Id);
+                    operation = context.Operations.GetOperation(operation.Id);
                     System.Threading.Thread.Sleep(1000);
                 }
                 if (operation.State == OperationState.Succeeded)
@@ -5992,7 +6148,7 @@ namespace AMSExplorer
 
 
 
-        private void DoDeleteChannels()
+        private async void DoDeleteChannels()
         {
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
             string hannelstr = SelectedChannels.Count > 1 ? "hannels" : "hannel";
@@ -6024,7 +6180,8 @@ namespace AMSExplorer
                         foreach (IProgram myP in Programs)
                         {
                             IAsset asset = myP.Asset;
-                            DeleteProgram(myP);
+                            await Task.Run(() => DeleteProgram(myP));
+                            //DeleteProgram(myP);
                             if (form.DeleteAsset)
                             {
                                 if (myP.Asset != null)
@@ -6045,6 +6202,11 @@ namespace AMSExplorer
                                 }
                             }
                         }
+                        if (form.DeleteAsset)
+                        {
+                            DoRefreshGridAssetV(false);
+                        }
+
                         foreach (IChannel myC in ReturnSelectedChannels())
                         {
                             DeleteChannel(myC);
@@ -6199,7 +6361,8 @@ namespace AMSExplorer
                          options),
                          form.ChannelName,
                          "Channel",
-                         "created"));
+                         "created",
+                         _context));
 
                 DoRefreshGridChannelV(false);
                 IChannel channel = GetChannelFromName(form.ChannelName);
@@ -6380,7 +6543,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeletePrograms()
+        private async void DoDeletePrograms()
         {
 
             List<IProgram> SelectedPrograms = ReturnSelectedPrograms();
@@ -6397,7 +6560,7 @@ namespace AMSExplorer
                         foreach (IProgram myP in SelectedPrograms)
                         {
                             IAsset asset = myP.Asset;
-                            DeleteProgram(myP);
+                            await Task.Run(() => DeleteProgram(myP));
                             if (form.DeleteAsset)
                             {
                                 if (myP.Asset != null)
@@ -6407,7 +6570,10 @@ namespace AMSExplorer
                                     try
                                     {
                                         DeleteAsset(asset);
-                                        if (AssetInfo.GetAsset(asset.Id, _context) == null) TextBoxLogWriteLine("Deletion done.");
+                                        if (AssetInfo.GetAsset(asset.Id, _context) == null)
+                                        {
+                                            TextBoxLogWriteLine("Deletion done.");
+                                        }
                                     }
                                     catch (Exception ex)
                                     {
@@ -6417,6 +6583,10 @@ namespace AMSExplorer
                                     }
                                 }
                             }
+                        }
+                        if (form.DeleteAsset)
+                        {
+                            DoRefreshGridAssetV(false);
                         }
                     }
                 }
@@ -6507,6 +6677,8 @@ namespace AMSExplorer
             }
             return Error ? null : newAsset;
         }
+
+
 
 
         private async void DoCreateProgram()
@@ -6652,10 +6824,9 @@ namespace AMSExplorer
                 try
                 {
                     this.Cursor = Cursors.WaitCursor;
-                    ProgramInformation form = new ProgramInformation(this)
+                    ProgramInformation form = new ProgramInformation(this, _context, _contextdynmanifest)
                     {
                         MyProgram = program,
-                        MyContext = _context,
                         MyStreamingEndpoints = dataGridViewStreamingEndpointsV.DisplayedStreamingEndpoints // we pass this information if user open asset info from the program info dialog box
                     };
 
@@ -6978,7 +7149,8 @@ namespace AMSExplorer
                            _context.StreamingEndpoints.SendCreateOperationAsync(options),
                            form.StreamingEndpointName,
                            "Streaming Endpoint",
-                           "created"));
+                           "created",
+                           _context));
 
                 DoRefreshGridStreamingEndpointV(false);
             }
@@ -7447,7 +7619,7 @@ namespace AMSExplorer
                         catch (Exception e)
                         {
                             // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when deleting the content key '{0}'.", formerkey.Id, true);
+                            TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
                             TextBoxLogWriteLine(e);
                             TextBoxLogWriteLine("The former key will be reused.", true);
                             reusekey = true;
@@ -7488,7 +7660,7 @@ namespace AMSExplorer
                             }
                             if (!ErrorCreationKey)
                             {
-                                TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                             }
 
                         }
@@ -7527,13 +7699,13 @@ namespace AMSExplorer
                                     catch (Exception e)
                                     {
                                         // Add useful information to the exception
-                                        TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                        TextBoxLogWriteLine("There is a problem when creating the content key for asset '{0}'.", AssetToProcess.Name, true);
                                         TextBoxLogWriteLine(e);
                                         ErrorCreationKey = true;
                                     }
                                     if (!ErrorCreationKey)
                                     {
-                                        TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                                        TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                                     }
 
                                 }
@@ -7556,7 +7728,7 @@ namespace AMSExplorer
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
-                        TextBoxLogWriteLine("Existing key {0} will be used for asset {1}.", contentKey.Id, AssetToProcess.Name);
+                        TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                     }
                     if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // PlayReady license and delivery from Azure Media Services
                     {
@@ -7576,7 +7748,8 @@ namespace AMSExplorer
                             ErrorCreationKey = false;
                             try
                             {
-                                PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
+                                PlayReadyLicenseDeliveryConfig = form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate;
+                                // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
                             }
                             catch (Exception e)
                             {
@@ -7599,30 +7772,42 @@ namespace AMSExplorer
                                             break;
 
                                         case ContentKeyRestrictionType.TokenRestricted:
-                                            TokenVerificationKey mytokenverifkey;
-                                            if (form3.IsKeySymmetric)
+                                            TokenVerificationKey mytokenverifkey = null;
+                                            string OpenIdDoc = null;
+                                            switch (form3.GetDetailedTokenType)
                                             {
-                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.JWTSym:
+                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                    break;
+
+                                                case ExplorerTokenType.JWTOpenID:
+                                                    OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                                    break;
+
+                                                case ExplorerTokenType.JWTX509:
+                                                    mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                                    break;
                                             }
-                                            else
-                                            {
-                                                mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
-                                            }
-                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig);
+
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
                                             TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                            // let display a test token
-                                            X509SigningCredentials signingcred = null;
-                                            if (!form3.IsKeySymmetric)
+                                            if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                             {
-                                                signingcred = new X509SigningCredentials(form3.GetX509Certificate);
-                                            }
+                                                // let display a test token
+                                                X509SigningCredentials signingcred = null;
+                                                if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                                {
+                                                    signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                                }
 
-                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
-                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                                _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                            }
                                             break;
 
 
@@ -7659,7 +7844,7 @@ namespace AMSExplorer
                                 DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
                             }
 
-                            TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
+                            TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                         }
                         catch (Exception e)
                         {
@@ -7751,30 +7936,43 @@ namespace AMSExplorer
                                     break;
 
                                 case ContentKeyRestrictionType.TokenRestricted:
-                                    TokenVerificationKey mytokenverifkey;
-                                    if (form3.IsKeySymmetric)
+                                    TokenVerificationKey mytokenverifkey = null;
+                                    string OpenIdDoc = null;
+                                    switch (form3.GetDetailedTokenType)
                                     {
-                                        mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                        case ExplorerTokenType.SWT:
+                                        case ExplorerTokenType.JWTSym:
+                                            mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                            break;
+
+                                        case ExplorerTokenType.JWTOpenID:
+                                            OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                            break;
+
+                                        case ExplorerTokenType.JWTX509:
+                                            mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                            break;
                                     }
-                                    else
-                                    {
-                                        mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
-                                    }
-                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.IsKeySymmetric, mytokenverifkey, _context);
+
+                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, OpenIdDoc);
                                     TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                     contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                    // let display a test token
-                                    X509SigningCredentials signingcred = null;
-                                    if (!form3.IsKeySymmetric)
+                                    if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                     {
-                                        signingcred = new X509SigningCredentials(form3.GetX509Certificate);
-                                    }
+                                        // let display a test token
+                                        X509SigningCredentials signingcred = null;
+                                        if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                        {
+                                            signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                        }
 
-                                    _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                    DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                    TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken);
-                                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                        _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                        DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                        TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+
+                                    }
                                     break;
 
                                 default:
@@ -9103,7 +9301,7 @@ namespace AMSExplorer
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
-            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count)
+            CopyAsset form = new CopyAsset(_context, SelectedAssets.Count, CopyAssetBoxMode.CopyAsset)
             {
                 CopyAssetName = string.Format("Copy of {0}", Constants.NameconvAsset),
                 EnableSingleDestinationAsset = SelectedAssets.Count > 1
@@ -9121,7 +9319,7 @@ namespace AMSExplorer
                         {
                             int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                             // Start a worker thread that does asset copy.
-                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset));
+                            Task.Factory.StartNew(() => ProcessExportAssetToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, storagekeys, new List<IAsset>() { asset }, form.CopyAssetName.Replace(Constants.NameconvAsset, asset.Name), index, form.DeleteSourceAsset, form.CopyDynEnc, form.RewriteLAURL));
                         }
                     }
                     else // merge all assets into a single asset
@@ -9909,7 +10107,7 @@ namespace AMSExplorer
             ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter");
             mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
 
-            var Filters = _contextdynmanifest.ListFilters();
+            var Filters = _contextdynmanifest.ListGlobalFilters();
             if (Filters.Count > 0)
             {
                 foreach (var filter in Filters)
@@ -10085,6 +10283,83 @@ namespace AMSExplorer
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
             }
 
+        }
+
+        private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(@"http://aka.ms/ampdiagnostics");
+        }
+
+        private void dataGridViewV_Resize(object sender, EventArgs e)
+        {
+            Program.dataGridViewV_Resize(sender);
+        }
+
+
+        private void cloneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoClonePrograms();
+        }
+
+        private void DoClonePrograms()
+        {
+            var SelectedPrograms = ReturnSelectedPrograms();
+
+            CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneProgram);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
+                {
+                    foreach (IProgram program in SelectedPrograms)
+                    {
+                        // Start a worker thread that does asset copy.
+                        Task.Factory.StartNew(() => ProcessCloneProgramToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, program, form.CopyDynEnc, form.RewriteLAURL, form.CloneLocators));
+                    }
+                }
+            }
+        }
+
+        private void cloneChannelsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCloneChannels();
+        }
+
+        private void DoCloneChannels()
+        {
+            var SelectedChannels = ReturnSelectedChannels();
+            CopyAsset form = new CopyAsset(_context, 1, CopyAssetBoxMode.CloneChannel);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+
+                if (!form.SingleDestinationAsset) // standard mode: 1:1 asset copy
+                {
+                    foreach (IChannel channel in SelectedChannels)
+                    {
+                        //int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
+                        // Start a worker thread that does asset copy.
+                        Task.Factory.StartNew(() => ProcessCloneChannelToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, channel));
+                    }
+                }
+
+            }
+        }
+
+        private void toolStripMenuItem27_Click(object sender, EventArgs e)
+        {
+            DoClonePrograms();
+        }
+
+        private void toolStripMenuItem28_Click(object sender, EventArgs e)
+        {
+            DoCloneChannels();
+        }
+
+
+        private void dataGridViewV_VisibleChanged(object sender, EventArgs e)
+        {
+            Program.dataGridViewV_Resize(sender);
         }
     }
 }
@@ -10578,7 +10853,6 @@ namespace AMSExplorer
 
             assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
-
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
                 NullValue = null,
@@ -10645,31 +10919,18 @@ namespace AMSExplorer
             this.Columns[_statEnc].HeaderText = "Static Encryption";
             this.Columns[_dynEnc].HeaderText = "Dynamic Encryption";
 
-            this.Columns["Type"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Type"].Width = 140;
-
-            this.Columns["Size"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Size"].Width = 80;
-
-            this.Columns[_statEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_statEnc].Width = 80;
-
-            this.Columns[_dynEnc].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_dynEnc].Width = 80;
-
-            this.Columns[_publication].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_publication].Width = 90;
-
-            this.Columns[_filter].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns[_filter].Width = 50;
-
             this.Columns[_locatorexpirationdate].HeaderText = "Publication Expiration";
             this.Columns[_locatorexpirationdate].DisplayIndex = this.Columns.Count - 1;
-
-            this.Columns[_locatorexpirationdate].AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells;
-
-            this.Columns["LastModified"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns[_locatorexpirationdate].Width = 130;
             this.Columns["LastModified"].Width = 140;
+            this.Columns["Id"].Width = 300;
+            this.Columns["Storage"].Width = 140;
 
             WorkerAnalyzeAssets = new BackgroundWorker()
             {
@@ -11302,12 +11563,12 @@ namespace AMSExplorer
         static private string _searchinname = "";
         static private string _timefilter = FilterTime.LastWeek;
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<JobEntry> jobquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;// Program.ConnectAndGetNewContext(_credentials);
             jobquery = from j in _context.Jobs
                        orderby j.LastModified descending
                        select new JobEntry
@@ -11337,18 +11598,14 @@ namespace AMSExplorer
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
             this.Columns["Progress"].DisplayIndex = 5;
-            this.Columns["Tasks"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["Progress"].Width = 150;
             this.Columns["Tasks"].Width = 50;
-            this.Columns["Priority"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["Priority"].Width = 50;
-            this.Columns["State"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["State"].Width = 100;
-            this.Columns["StartTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            this.Columns["State"].Width = 80;
             this.Columns["StartTime"].Width = 150;
-            this.Columns["EndTime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             this.Columns["EndTime"].Width = 150;
-            this.Columns["Duration"].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            this.Columns["Duration"].Width = 100;
+            this.Columns["Duration"].Width = 90;
+     
 
             _initialized = true;
         }

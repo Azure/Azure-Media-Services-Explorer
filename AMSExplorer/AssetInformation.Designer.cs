@@ -68,6 +68,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonFileMetadata = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUpload = new System.Windows.Forms.Button();
@@ -125,6 +126,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -318,10 +320,11 @@
             this.toolStripMenuItemOpenFile,
             this.toolStripMenuItemDownloadFile,
             this.deleteFileToolStripMenuItem,
+            this.deleteAllFilesToolStripMenuItem,
             this.duplicateFileToolStripMenuItem,
             this.uploadASmallFileInTheAssetToolStripMenuItem});
             this.contextMenuStripFiles.Name = "contextMenuStripFiles";
-            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 158);
+            this.contextMenuStripFiles.Size = new System.Drawing.Size(235, 180);
             this.contextMenuStripFiles.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripFiles_Opening);
             // 
             // makeItPrimaryToolStripMenuItem
@@ -467,7 +470,6 @@
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
             this.listViewFiles.Location = new System.Drawing.Point(9, 6);
-            this.listViewFiles.MultiSelect = false;
             this.listViewFiles.Name = "listViewFiles";
             this.listViewFiles.Size = new System.Drawing.Size(315, 397);
             this.listViewFiles.TabIndex = 31;
@@ -530,6 +532,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonDeleteAll);
             this.tabPage2.Controls.Add(this.buttonFileMetadata);
             this.tabPage2.Controls.Add(this.progressBarUpload);
             this.tabPage2.Controls.Add(this.buttonUpload);
@@ -548,6 +551,19 @@
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // buttonDeleteAll
+            // 
+            this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonDeleteAll.Enabled = false;
+            this.buttonDeleteAll.Location = new System.Drawing.Point(542, 408);
+            this.buttonDeleteAll.Name = "buttonDeleteAll";
+            this.buttonDeleteAll.Size = new System.Drawing.Size(77, 23);
+            this.buttonDeleteAll.TabIndex = 36;
+            this.buttonDeleteAll.Text = "Delete All";
+            this.toolTip1.SetToolTip(this.buttonDeleteAll, "Delete the selected file");
+            this.buttonDeleteAll.UseVisualStyleBackColor = true;
+            this.buttonDeleteAll.Click += new System.EventHandler(this.buttonDeleteAll_Click);
+            // 
             // buttonFileMetadata
             // 
             this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -565,9 +581,9 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(542, 408);
+            this.progressBarUpload.Location = new System.Drawing.Point(625, 408);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(198, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(115, 23);
             this.progressBarUpload.TabIndex = 34;
             this.progressBarUpload.Visible = false;
             // 
@@ -697,7 +713,7 @@
             this.duplicateToolStripMenuItem,
             this.playWithThisFilterToolStripMenuItem});
             this.contextMenuStripFilter.Name = "contextMenuStripFilter";
-            this.contextMenuStripFilter.Size = new System.Drawing.Size(172, 136);
+            this.contextMenuStripFilter.Size = new System.Drawing.Size(172, 114);
             // 
             // filterInfoupdateToolStripMenuItem
             // 
@@ -1203,6 +1219,13 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
+            // deleteAllFilesToolStripMenuItem
+            // 
+            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
+            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
+            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
+            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1342,5 +1365,7 @@
         private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
         private System.Windows.Forms.Button buttonPlayFilter;
         private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
+        private System.Windows.Forms.Button buttonDeleteAll;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
     }
 }

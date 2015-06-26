@@ -1,20 +1,18 @@
-﻿
-//----------------------------------------------------------------------- 
-// <copyright file="Program.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -63,6 +61,29 @@ namespace AMSExplorer
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Mainform());
+        }
+
+        public static void dataGridViewV_Resize(object sender)
+        {
+            // let's resize the column name to fill the space
+            DataGridView grid = (DataGridView)sender;
+            int indexname = -1;
+            for (int i = 0; i < grid.Columns.Count; i++)
+            {
+                if (grid.Columns[i].HeaderText == "Name")
+                {
+                    indexname = i;
+                    break;
+                }
+            }
+
+            if (indexname != -1)
+            {
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                int colw = grid.Columns[indexname].Width;
+                grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                grid.Columns[indexname].Width = colw;
+            }
         }
 
         public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials)
@@ -1452,7 +1473,7 @@ namespace AMSExplorer
                         var AssetFiles = asset.AssetFiles.ToList();
                         var JPGAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-                        if ((JPGAssetFiles.Count() > 1) && (JPGAssetFiles.Count() == AssetFiles.Count))
+                        if ((JPGAssetFiles.Count() > 1) && (JPGAssetFiles.Count() >= (AssetFiles.Count - 1)))
                         {
                             type = Type_Thumbnails;
                             number = JPGAssetFiles.Count();
@@ -2016,7 +2037,6 @@ namespace AMSExplorer
             }
 
             return FullPlayBackLink;
-
         }
 
 
@@ -2027,6 +2047,34 @@ namespace AMSExplorer
             if (SESelected == null) SESelected = _context.StreamingEndpoints.Where(se => se.Name == "default").FirstOrDefault();
 
             return SESelected;
+        }
+
+        // copy a directory of the same container to another container
+          public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+        {
+  
+            List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+
+            var srcBlobList = srcDirectory.ListBlobs(
+                useFlatBlobListing: true,
+                blobListingDetails: BlobListingDetails.None).ToList();
+
+            foreach (var src in srcBlobList)
+            {
+                var srcBlob = src as ICloudBlob;
+
+                // Create appropriate destination blob type to match the source blob
+                ICloudBlob destBlob;
+                if (srcBlob.Properties.BlobType == BlobType.BlockBlob)
+                    destBlob = destContainer.GetBlockBlobReference(srcBlob.Name);
+                else
+                    destBlob = destContainer.GetPageBlobReference(srcBlob.Name);
+
+                // copy using src blob as SAS
+                mylistresults.Add(destBlob.BeginStartCopyFromBlob(new Uri(srcBlob.Uri.AbsoluteUri + sourceblobToken), null, null));
+            }
+
+            return mylistresults;
         }
     }
 
@@ -2080,6 +2128,13 @@ namespace AMSExplorer
         public string ACSBaseAddress { get; set; }
         public string AzureEndpoint { get; set; }
         public string ManagementPortal { get; set; }
+    }
+
+    public class ExplorerOpenIDSample
+    {
+        public string Name { get; set; }
+        public string Uri { get; set; }
+       
     }
 
     public enum EndPointMappingName

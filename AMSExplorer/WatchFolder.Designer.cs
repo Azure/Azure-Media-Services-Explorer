@@ -52,10 +52,10 @@
             this.radioButtonInsertWorkflowAsset = new System.Windows.Forms.RadioButton();
             this.radioButtonInsertSelectedAssets = new System.Windows.Forms.RadioButton();
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
+            this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
-            this.labelWarning = new System.Windows.Forms.Label();
             this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
@@ -298,7 +298,7 @@
             // 
             this.radioButtonInsertWorkflowAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertWorkflowAsset.AutoSize = true;
-            this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(14, 41);
+            this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(14, 43);
             this.radioButtonInsertWorkflowAsset.Name = "radioButtonInsertWorkflowAsset";
             this.radioButtonInsertWorkflowAsset.Size = new System.Drawing.Size(133, 30);
             this.radioButtonInsertWorkflowAsset.TabIndex = 72;
@@ -311,7 +311,7 @@
             this.radioButtonInsertSelectedAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertSelectedAssets.AutoSize = true;
             this.radioButtonInsertSelectedAssets.Checked = true;
-            this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(14, 5);
+            this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(14, 7);
             this.radioButtonInsertSelectedAssets.Name = "radioButtonInsertSelectedAssets";
             this.radioButtonInsertSelectedAssets.Size = new System.Drawing.Size(148, 30);
             this.radioButtonInsertSelectedAssets.TabIndex = 73;
@@ -337,6 +337,17 @@
             this.groupBoxProcess.TabStop = false;
             this.groupBoxProcess.Text = "Job template and input assets";
             // 
+            // labelWarning
+            // 
+            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(181, 92);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelWarning.TabIndex = 76;
+            this.labelWarning.Text = "Warning";
+            // 
             // panelInsertAsset
             // 
             this.panelInsertAsset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -345,16 +356,16 @@
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertSelectedAssets);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertWorkflowAsset);
             this.panelInsertAsset.Enabled = false;
-            this.panelInsertAsset.Location = new System.Drawing.Point(16, 126);
+            this.panelInsertAsset.Location = new System.Drawing.Point(16, 108);
             this.panelInsertAsset.Name = "panelInsertAsset";
-            this.panelInsertAsset.Size = new System.Drawing.Size(620, 86);
+            this.panelInsertAsset.Size = new System.Drawing.Size(620, 109);
             this.panelInsertAsset.TabIndex = 75;
             // 
             // checkBoAddAssetsToInput
             // 
             this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoAddAssetsToInput.AutoSize = true;
-            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(16, 108);
+            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(16, 91);
             this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
             this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(150, 17);
             this.checkBoAddAssetsToInput.TabIndex = 74;
@@ -372,16 +383,6 @@
             this.pictureBox5.TabIndex = 75;
             this.pictureBox5.TabStop = false;
             // 
-            // labelWarning
-            // 
-            this.labelWarning.AutoSize = true;
-            this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(181, 104);
-            this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
-            this.labelWarning.TabIndex = 76;
-            this.labelWarning.Text = "Warning";
-            // 
             // listViewWorkflows1
             // 
             this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -392,7 +393,7 @@
             this.listViewWorkflows1.Location = new System.Drawing.Point(168, 5);
             this.listViewWorkflows1.MultiSelect = false;
             this.listViewWorkflows1.Name = "listViewWorkflows1";
-            this.listViewWorkflows1.Size = new System.Drawing.Size(446, 78);
+            this.listViewWorkflows1.Size = new System.Drawing.Size(446, 101);
             this.listViewWorkflows1.TabIndex = 61;
             this.listViewWorkflows1.Tag = -1;
             this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
@@ -408,7 +409,7 @@
             this.listViewTemplates.Location = new System.Drawing.Point(16, 19);
             this.listViewTemplates.MultiSelect = false;
             this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(614, 82);
+            this.listViewTemplates.Size = new System.Drawing.Size(614, 65);
             this.listViewTemplates.TabIndex = 61;
             this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;

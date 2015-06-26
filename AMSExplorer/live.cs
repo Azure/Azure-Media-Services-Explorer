@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="live.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -173,12 +172,12 @@ namespace AMSExplorer
         static Bitmap EncodingImage = Bitmaps.encoding;
         public string _encoded = "Encoding";
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<ChannelEntry> channelquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;
             channelquery = from c in _context.Channels
                            orderby c.LastModified descending
                            select new ChannelEntry
@@ -212,11 +211,18 @@ namespace AMSExplorer
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
+            this.Columns["InputUrl"].Width = 140;
             this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
+            this.Columns["InputProtocol"].Width = 160;
+            this.Columns["PreviewUrl"].Width = 120;
 
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_encoded].DefaultCellStyle.NullValue = null;
             this.Columns[_encoded].HeaderText = "Cloud Encoding";
+            this.Columns[_encoded].Width = 100;
+            this.Columns["LastModified"].Width = 140;
+            this.Columns["State"].Width = 75;
+            this.Columns["Description"].Width = 110;
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;
@@ -552,12 +558,12 @@ namespace AMSExplorer
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
 
-        public void Init(CredentialsEntry credentials)
+        public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
             IEnumerable<ProgramEntry> programquery;
             _credentials = credentials;
 
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = context;
             programquery = from c in _context.Programs
                            orderby c.LastModified descending
                            select new ProgramEntry
@@ -594,6 +600,9 @@ namespace AMSExplorer
             this.Columns[_published].DisplayIndex = this.ColumnCount - 3;
             this.Columns[_published].DefaultCellStyle.NullValue = null;
             this.Columns[_published].HeaderText = _published;
+            this.Columns["LastModified"].Width = 130;
+            this.Columns["Description"].Width = 150;
+            this.Columns["ArchiveWindowLength"].Width = 130;
 
             WorkerRefreshChannels = new BackgroundWorker();
             WorkerRefreshChannels.WorkerSupportsCancellation = true;

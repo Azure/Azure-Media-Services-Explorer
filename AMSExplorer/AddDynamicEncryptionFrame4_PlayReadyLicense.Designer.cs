@@ -30,7 +30,7 @@
         {
             this.moreinfocompliance = new System.Windows.Forms.LinkLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabControlPlayReadySettings = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBoxEndDate = new System.Windows.Forms.GroupBox();
             this.panelEndDateAbsolute = new System.Windows.Forms.Panel();
@@ -69,8 +69,6 @@
             this.numericUpDownFPExpHours = new System.Windows.Forms.NumericUpDown();
             this.numericUpDownFPExpDays = new System.Windows.Forms.NumericUpDown();
             this.checkBoxFPExp = new System.Windows.Forms.CheckBox();
-            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -90,11 +88,17 @@
             this.checkBoxDigitalVideoOnlyContentRestriction = new System.Windows.Forms.CheckBox();
             this.labelAllowPassingVideoContentToUnknownOuput = new System.Windows.Forms.Label();
             this.comboBoxAllowPassingVideoContentUnknownOutput = new System.Windows.Forms.ComboBox();
+            this.textBoxPolicyName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelstep = new System.Windows.Forms.Label();
-            this.tabControl1.SuspendLayout();
+            this.checkBoxImportPolicyFile = new System.Windows.Forms.CheckBox();
+            this.buttonImportXML = new System.Windows.Forms.Button();
+            this.linkLabelPlayReadyPolicy = new System.Windows.Forms.LinkLabel();
+            this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
+            this.tabControlPlayReadySettings.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBoxEndDate.SuspendLayout();
             this.panelEndDateAbsolute.SuspendLayout();
@@ -131,7 +135,7 @@
             this.moreinfocompliance.TabIndex = 19;
             this.moreinfocompliance.TabStop = true;
             this.moreinfocompliance.Text = "PlayReady compliance and robustness rules";
-            this.moreinfocompliance.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfotestserver_LinkClicked);
+            this.moreinfocompliance.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.action_LinkClicked);
             // 
             // buttonCancel
             // 
@@ -144,28 +148,26 @@
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
-            // tabControl1
+            // tabControlPlayReadySettings
             // 
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(23, 80);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(549, 495);
-            this.tabControl1.TabIndex = 33;
+            this.tabControlPlayReadySettings.Controls.Add(this.tabPage3);
+            this.tabControlPlayReadySettings.Controls.Add(this.tabPage1);
+            this.tabControlPlayReadySettings.Location = new System.Drawing.Point(23, 133);
+            this.tabControlPlayReadySettings.Name = "tabControlPlayReadySettings";
+            this.tabControlPlayReadySettings.SelectedIndex = 0;
+            this.tabControlPlayReadySettings.Size = new System.Drawing.Size(549, 442);
+            this.tabControlPlayReadySettings.TabIndex = 33;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBoxEndDate);
             this.tabPage3.Controls.Add(this.groupBoxStartDate);
             this.tabPage3.Controls.Add(this.groupBoxFirstPlay);
-            this.tabPage3.Controls.Add(this.textBoxPolicyName);
-            this.tabPage3.Controls.Add(this.label13);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.comboBoxType);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(541, 469);
+            this.tabPage3.Size = new System.Drawing.Size(541, 416);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Common settings";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -177,7 +179,7 @@
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateRelative);
             this.groupBoxEndDate.Controls.Add(this.radioButtonEndDateAbsolute);
             this.groupBoxEndDate.Controls.Add(this.checkBoxEndDate);
-            this.groupBoxEndDate.Location = new System.Drawing.Point(275, 119);
+            this.groupBoxEndDate.Location = new System.Drawing.Point(275, 74);
             this.groupBoxEndDate.Name = "groupBoxEndDate";
             this.groupBoxEndDate.Size = new System.Drawing.Size(252, 218);
             this.groupBoxEndDate.TabIndex = 58;
@@ -340,7 +342,7 @@
             this.groupBoxStartDate.Controls.Add(this.radioButtonStartDateAbsolute);
             this.groupBoxStartDate.Controls.Add(this.panelStartDateRelative);
             this.groupBoxStartDate.Controls.Add(this.radioButtonStartDateRelative);
-            this.groupBoxStartDate.Location = new System.Drawing.Point(11, 119);
+            this.groupBoxStartDate.Location = new System.Drawing.Point(11, 74);
             this.groupBoxStartDate.Name = "groupBoxStartDate";
             this.groupBoxStartDate.Size = new System.Drawing.Size(252, 218);
             this.groupBoxStartDate.TabIndex = 57;
@@ -495,7 +497,7 @@
             // 
             this.groupBoxFirstPlay.Controls.Add(this.panelFirstPlayExpiration);
             this.groupBoxFirstPlay.Controls.Add(this.checkBoxFPExp);
-            this.groupBoxFirstPlay.Location = new System.Drawing.Point(11, 355);
+            this.groupBoxFirstPlay.Location = new System.Drawing.Point(11, 310);
             this.groupBoxFirstPlay.Name = "groupBoxFirstPlay";
             this.groupBoxFirstPlay.Size = new System.Drawing.Size(252, 91);
             this.groupBoxFirstPlay.TabIndex = 56;
@@ -598,27 +600,10 @@
             this.checkBoxFPExp.UseVisualStyleBackColor = true;
             this.checkBoxFPExp.CheckedChanged += new System.EventHandler(this.checkBoxFPExp_CheckedChanged);
             // 
-            // textBoxPolicyName
-            // 
-            this.textBoxPolicyName.Location = new System.Drawing.Point(12, 32);
-            this.textBoxPolicyName.Name = "textBoxPolicyName";
-            this.textBoxPolicyName.Size = new System.Drawing.Size(132, 20);
-            this.textBoxPolicyName.TabIndex = 55;
-            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(9, 16);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(192, 13);
-            this.label13.TabIndex = 54;
-            this.label13.Text = "Content key authorization policy name :";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(10, 64);
+            this.label8.Location = new System.Drawing.Point(10, 19);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(73, 13);
             this.label8.TabIndex = 42;
@@ -628,7 +613,7 @@
             // 
             this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(11, 80);
+            this.comboBoxType.Location = new System.Drawing.Point(11, 35);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(133, 21);
             this.comboBoxType.TabIndex = 41;
@@ -655,7 +640,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(541, 469);
+            this.tabPage1.Size = new System.Drawing.Size(541, 416);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Advanced settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -873,6 +858,23 @@
             this.comboBoxAllowPassingVideoContentUnknownOutput.TabIndex = 43;
             this.comboBoxAllowPassingVideoContentUnknownOutput.SelectedIndexChanged += new System.EventHandler(this.value_SelectedIndexChanged);
             // 
+            // textBoxPolicyName
+            // 
+            this.textBoxPolicyName.Location = new System.Drawing.Point(26, 100);
+            this.textBoxPolicyName.Name = "textBoxPolicyName";
+            this.textBoxPolicyName.Size = new System.Drawing.Size(189, 20);
+            this.textBoxPolicyName.TabIndex = 55;
+            this.textBoxPolicyName.TextChanged += new System.EventHandler(this.value_SelectedIndexChanged);
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(23, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(192, 13);
+            this.label13.TabIndex = 54;
+            this.label13.Text = "Content key authorization policy name :";
+            // 
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -919,22 +921,65 @@
             this.labelstep.TabIndex = 85;
             this.labelstep.Text = "Step {0}\r\nSpecify the PlayReady license template for option #{1}";
             // 
+            // checkBoxImportPolicyFile
+            // 
+            this.checkBoxImportPolicyFile.AutoSize = true;
+            this.checkBoxImportPolicyFile.Location = new System.Drawing.Point(266, 100);
+            this.checkBoxImportPolicyFile.Name = "checkBoxImportPolicyFile";
+            this.checkBoxImportPolicyFile.Size = new System.Drawing.Size(154, 17);
+            this.checkBoxImportPolicyFile.TabIndex = 86;
+            this.checkBoxImportPolicyFile.Text = "Use a PlayReady policy file";
+            this.checkBoxImportPolicyFile.UseVisualStyleBackColor = true;
+            this.checkBoxImportPolicyFile.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // buttonImportXML
+            // 
+            this.buttonImportXML.Enabled = false;
+            this.buttonImportXML.Location = new System.Drawing.Point(424, 97);
+            this.buttonImportXML.Name = "buttonImportXML";
+            this.buttonImportXML.Size = new System.Drawing.Size(93, 23);
+            this.buttonImportXML.TabIndex = 87;
+            this.buttonImportXML.Text = "Import XML...";
+            this.buttonImportXML.UseVisualStyleBackColor = true;
+            this.buttonImportXML.Click += new System.EventHandler(this.buttonImportXML_Click);
+            // 
+            // linkLabelPlayReadyPolicy
+            // 
+            this.linkLabelPlayReadyPolicy.AutoSize = true;
+            this.linkLabelPlayReadyPolicy.Location = new System.Drawing.Point(521, 102);
+            this.linkLabelPlayReadyPolicy.Name = "linkLabelPlayReadyPolicy";
+            this.linkLabelPlayReadyPolicy.Size = new System.Drawing.Size(51, 13);
+            this.linkLabelPlayReadyPolicy.TabIndex = 88;
+            this.linkLabelPlayReadyPolicy.TabStop = true;
+            this.linkLabelPlayReadyPolicy.Text = "More info";
+            this.linkLabelPlayReadyPolicy.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.action_LinkClicked);
+            // 
+            // openFileDialogPreset
+            // 
+            this.openFileDialogPreset.DefaultExt = "xml";
+            this.openFileDialogPreset.Filter = "XML files|*.xml|All files|*.*";
+            // 
             // AddDynamicEncryptionFrame4_PlayReadyLicense
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(584, 661);
+            this.Controls.Add(this.linkLabelPlayReadyPolicy);
+            this.Controls.Add(this.buttonImportXML);
+            this.Controls.Add(this.checkBoxImportPolicyFile);
             this.Controls.Add(this.labelstep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
-            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.textBoxPolicyName);
+            this.Controls.Add(this.tabControlPlayReadySettings);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.moreinfocompliance);
             this.Name = "AddDynamicEncryptionFrame4_PlayReadyLicense";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
-            this.tabControl1.ResumeLayout(false);
+            this.tabControlPlayReadySettings.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBoxEndDate.ResumeLayout(false);
@@ -978,7 +1023,7 @@
         private System.Windows.Forms.LinkLabel moreinfocompliance;
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabControl tabControlPlayReadySettings;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.CheckBox checkBoxEndDate;
         private System.Windows.Forms.DateTimePicker dateTimePickerEndTime;
@@ -1041,5 +1086,9 @@
         private System.Windows.Forms.Panel panelStartDateAbsolute;
         private System.Windows.Forms.Panel panelFirstPlayExpiration;
         private System.Windows.Forms.Label labelstep;
+        private System.Windows.Forms.CheckBox checkBoxImportPolicyFile;
+        private System.Windows.Forms.Button buttonImportXML;
+        private System.Windows.Forms.LinkLabel linkLabelPlayReadyPolicy;
+        private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
     }
 }

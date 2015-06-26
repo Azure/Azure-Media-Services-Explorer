@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="DynManifestFilter.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -46,12 +45,8 @@ namespace AMSExplorer
         private DataTable dataOperator;
         private IAsset _parentAsset = null;
         private ManifestTimingData _parentassetmanifestdata;
-        /*
-         private long _parentAssetDuration = -1;
-         private long _parentAssetDurationInTicks = -1;
-         private long _parentAssetTimeScale = -1;
-         */
         private long _timescale = TimeSpan.TicksPerSecond;
+        private List<Filter> globalFilters;
 
         public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, Filter filterToDisplay = null, IAsset parentAsset = null)
         {
@@ -61,6 +56,7 @@ namespace AMSExplorer
             _context = context;
             _parentassetmanifestdata = new ManifestTimingData();
             tabControl1.TabPages.Remove(tabPageTRRaw);
+            FillComboBoxImportFilters(parentAsset);
 
             /////////////////////////////////////////////
             // New Global Filter
@@ -77,7 +73,6 @@ namespace AMSExplorer
 
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 textBoxFilterTimeScale.Text = _filter.PresentationTimeRange.Timescale;
-
             }
 
 
@@ -135,24 +130,26 @@ namespace AMSExplorer
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = true;
-
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentassetmanifestdata.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+                    // let's disable trackbars if this is live (duration is not fixed)
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
 
-                    if (!_parentassetmanifestdata.IsLive)
+                    if (!_parentassetmanifestdata.IsLive)  // Not a live content
                     {
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                        timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+
                         labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                         textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
+
                 }
 
                 else // not able to read asset timings
@@ -192,18 +189,19 @@ namespace AMSExplorer
 
                 _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = long.Parse(_filter.PresentationTimeRange.Timescale);
 
-                if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match and not live
+                if (!_parentassetmanifestdata.Error && _timescale == _parentassetmanifestdata.TimeScale)  // we were able to read asset timings and timescale between manifest and existing asset match
                 {
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = true;
+                    // let's disable trackbars if this is live (duration is not fixed)
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
+
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-
                     if (!_parentassetmanifestdata.IsLive)
                     {
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
                         labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                         textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
@@ -234,6 +232,28 @@ namespace AMSExplorer
             textBoxFilterTimeScale.Text = _timescale.ToString();
         }
 
+        private void FillComboBoxImportFilters(IAsset asset)
+        {
+            // combobox for filters
+
+            comboBoxLocatorsFilters.BeginUpdate();
+
+            comboBoxLocatorsFilters.Items.Add(new Item("Import track filtering from :", null));
+
+            if (asset != null)
+            {
+                List<AssetFilter> filters = _contextdynman.ListAssetFilters(asset);
+                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
+            }
+            globalFilters = _contextdynman.ListGlobalFilters();
+            globalFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            if (comboBoxLocatorsFilters.Items.Count > 1)
+            {
+                comboBoxLocatorsFilters.Enabled = true;
+            }
+            comboBoxLocatorsFilters.SelectedIndex = 0;
+            comboBoxLocatorsFilters.EndUpdate();
+        }
 
         private void DynManifestFilter_Load(object sender, EventArgs e)
         {
@@ -297,6 +317,9 @@ namespace AMSExplorer
             RefreshTracks();
 
             CheckIfErrorTimeControls();
+
+
+
         }
 
         private void RefreshTracks()
@@ -309,6 +332,10 @@ namespace AMSExplorer
             {
                 listBoxTracks.Items.Add("Rule" + i);
                 i++;
+            }
+            if (listBoxTracks.SelectedIndex == -1 && listBoxTracks.Items.Count > 0)
+            {
+                listBoxTracks.SelectedIndex = 0;
             }
         }
 
@@ -555,14 +582,13 @@ namespace AMSExplorer
             tracks.Add(new IFilterTrackSelect() { PropertyConditions = conditions });
 
             _filter.Tracks = tracks;
-            //_filter.Name = textBoxFilterName.Text;
 
             //RefreshPresentationTimes();
             RefreshTracks();
             RefreshTracksConditions();
         }
 
-       
+
 
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -572,12 +598,8 @@ namespace AMSExplorer
 
         private void tableLayoutPanel1_CellPaint(object sender, TableLayoutCellPaintEventArgs e)
         {
-            // e.Graphics.DrawRectangle(new Pen(Color.Gray), e.CellBounds);
-
             var rectangle = e.CellBounds;
             rectangle.Inflate(-1, -1);
-
-            //ControlPaint.DrawBorder3D(e.Graphics, rectangle, Border3DStyle.Flat, Border3DSide.All); // 3D border
             ControlPaint.DrawBorder(e.Graphics, rectangle, Color.Gray, ButtonBorderStyle.Dotted); // 
         }
 
@@ -724,6 +746,30 @@ namespace AMSExplorer
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+        }
+
+        private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string filtername = ((Item)comboBoxLocatorsFilters.SelectedItem).Value;
+            if (filtername != null)
+            {
+                Filter importfilter = null;
+                if (filtername.StartsWith(Constants.AssetIdPrefix)) // asset filter
+                {
+                    importfilter = _contextdynman.GetAssetFilter(filtername);
+
+                }
+                else // global filter
+                {
+                    importfilter = _contextdynman.GetGlobalFilter(filtername);
+                }
+                if (importfilter != null)
+                {
+                    _filter.Tracks = importfilter.Tracks;
+                    RefreshTracks();
+                    RefreshTracksConditions();
+                }
+            }
         }
     }
 }

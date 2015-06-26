@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="CreateTestToken.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -206,8 +205,17 @@ namespace AMSExplorer
                         if (!string.IsNullOrEmpty(tokenTemplateString))
                         {
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
+
                             item.SubItems.Add(tokenTemplate.TokenType == TokenType.JWT ? "JWT" : "SWT");
-                            item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                            if (tokenTemplate.PrimaryVerificationKey != null)
+                            {
+                                item.SubItems.Add(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey) ? "Symmetric" : "Asymmetric X509");
+                            }
+                            else if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
+                            {
+                                item.SubItems.Add("OpenID");
+
+                            }
                         }
                         listViewAutOptions.Items.Add(item);
                         if (optionid == option.Id) listViewAutOptions.Items[listViewAutOptions.Items.IndexOf(item)].Selected = true;
@@ -264,6 +272,7 @@ namespace AMSExplorer
 
         private void listViewAutOptions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            bool NoVerifKey = false;
             if (listViewAutOptions.SelectedIndices.Count > 0)
             {
                 var it = listViewAutOptions.SelectedItems[0];
@@ -280,7 +289,14 @@ namespace AMSExplorer
                     textBoxIssuer.Text = tokenTemplate.Issuer.ToString();
                     checkBoxAddContentKeyIdentifierClaim.Checked = false;
                     groupBoxStartDate.Enabled = (tokenTemplate.TokenType == TokenType.JWT);
-                    panelJWTX509Cert.Enabled = !(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                    if (tokenTemplate.PrimaryVerificationKey != null)
+                    {
+                        panelJWTX509Cert.Enabled = !(tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                    }
+                    else
+                    {
+                        NoVerifKey = true; // Case for OpenId for example. No way to create a test token....
+                    }
                     TokenClaimsList.Clear();
                     foreach (var claim in tokenTemplate.RequiredClaims)
                     {
@@ -298,7 +314,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-                UpdateButtonOk();
+                UpdateButtonOk(NoVerifKey);
             }
         }
 
@@ -322,14 +338,22 @@ namespace AMSExplorer
             UpdateButtonOk();
         }
 
-        private void UpdateButtonOk()
+        private void UpdateButtonOk(bool forceDisableButton = false)
         {
-            buttonOk.Enabled = (!panelJWTX509Cert.Enabled || (panelJWTX509Cert.Enabled && cert != null));
+            if (forceDisableButton)
+                buttonOk.Enabled = false;
+            else
+                buttonOk.Enabled = (!panelJWTX509Cert.Enabled || (panelJWTX509Cert.Enabled && cert != null));
 
+
+            if (!buttonOk.Enabled)
+            {
+                errorProvider1.SetError(buttonOk, "Test token cannot be generated (OpenID or no X509 Certificate loaded");
+            }
+            else
+            {
+                errorProvider1.SetError(buttonOk, String.Empty);
+            }
         }
-
-
-
-
     }
 }

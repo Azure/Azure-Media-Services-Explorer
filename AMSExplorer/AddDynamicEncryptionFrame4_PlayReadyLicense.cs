@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="AddDynamicEncryptionFrame4_PlayReadyLicense.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license> 
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -27,12 +26,24 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.Xml;
+using System.IO;
 
 namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame4_PlayReadyLicense : Form
     {
-        public PlayReadyLicenseTemplate GetLicenseTemplate
+        private string PlayReadyPolicyImportedfromXML = null;
+
+
+        public string GetLicenseTemplate
+        {
+            get
+            {
+                return checkBoxImportPolicyFile.Checked ? PlayReadyPolicyImportedfromXML : DynamicEncryption.ConfigurePlayReadyLicenseTemplate(GetLicenseTemplateFromControls);
+            }
+        }
+        private PlayReadyLicenseTemplate GetLicenseTemplateFromControls
         {
             get
             {
@@ -116,7 +127,7 @@ namespace AMSExplorer
         }
 
 
-        private void moreinfotestserver_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void action_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
@@ -124,6 +135,7 @@ namespace AMSExplorer
         private void PlayReadyLicense_Load(object sender, EventArgs e)
         {
             moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, "http://www.microsoft.com/playready/licensing/compliance/"));
+            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/dn783459.aspx"));
 
             comboBoxType.Items.AddRange(Enum.GetNames(typeof(PlayReadyLicenseType)).ToArray()); // license type
             comboBoxType.SelectedItem = Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent);
@@ -182,7 +194,7 @@ namespace AMSExplorer
             bool Error = false;
             try
             {
-                PlayReadyLicenseTemplate plt = this.GetLicenseTemplate;
+                PlayReadyLicenseTemplate plt = this.GetLicenseTemplateFromControls;
             }
             catch (Exception ex)
             {
@@ -260,6 +272,38 @@ namespace AMSExplorer
         {
             panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
             panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            tabControlPlayReadySettings.Enabled = !checkBoxImportPolicyFile.Checked;
+            buttonImportXML.Enabled = checkBoxImportPolicyFile.Checked;
+            if (checkBoxImportPolicyFile.Checked && PlayReadyPolicyImportedfromXML==null)
+            {
+                buttonOk.Enabled = false;
+            }
+            else
+            {
+                buttonOk.Enabled = true;
+            }
+        }
+
+        private void buttonImportXML_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
+                    PlayReadyPolicyImportedfromXML = streamReader.ReadToEnd();
+                    streamReader.Close();
+                    buttonOk.Enabled = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read XML from disk. Original error: " + ex.Message);
+                }
+            }
         }
     }
 }

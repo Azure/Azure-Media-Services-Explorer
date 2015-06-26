@@ -1,19 +1,18 @@
-﻿//----------------------------------------------------------------------- 
-// <copyright file="DynamicEncryption.cs" company="Microsoft">Copyright (c) Microsoft Corporation. All rights reserved.</copyright> 
-// <license>
-// Azure Media Services Explorer Ver. 3.2
-// Licensed under the Apache License, Version 2.0 (the "License"); 
-// you may not use this file except in compliance with the License. 
-// You may obtain a copy of the License at 
-//  
-// http://www.apache.org/licenses/LICENSE-2.0 
-//  
-// Unless required by applicable law or agreed to in writing, software 
-// distributed under the License is distributed on an "AS IS" BASIS, 
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
-// See the License for the specific language governing permissions and 
-// limitations under the License. 
-// </license>
+﻿//----------------------------------------------------------------------------------------------
+//    Copyright 2015 Microsoft Corporation
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//---------------------------------------------------------------------------------------------
 
 using System;
 using System.Collections.Generic;
@@ -47,6 +46,14 @@ namespace AMSExplorer
     {
         public string Type { get; set; }
         public string Value { get; set; }
+    }
+
+    public enum ExplorerTokenType
+    {
+        SWT = 0,
+        JWTSym,
+        JWTX509,
+        JWTOpenID
     }
 
     class DynamicEncryption
@@ -202,11 +209,11 @@ namespace AMSExplorer
 
 
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyAES(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string openIdDiscoveryPath = null)
         {
-            string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
+            string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey, openIdDiscoveryPath);
 
-            string tname = ((IsJWTKeySymmetric) ? "Sym " : "Asym ") + ((tokentype == TokenType.SWT) ? "SWT " : "JWT ");
+            string tname = detailedtokentype.ToString();
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions =
                     new List<ContentKeyAuthorizationPolicyRestriction>();
@@ -214,7 +221,7 @@ namespace AMSExplorer
             ContentKeyAuthorizationPolicyRestriction restriction =
                     new ContentKeyAuthorizationPolicyRestriction
                     {
-                        Name = "Token Authorization Policy",
+                        Name = tname + " Token Authorization Policy",
                         KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
                         Requirements = tokenTemplateString
                     };
@@ -234,16 +241,16 @@ namespace AMSExplorer
 
         }
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, bool IsJWTKeySymmetric, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
         {
-            string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey);
-            string tname = ((IsJWTKeySymmetric) ? "Sym " : "Asym ") + ((tokentype == TokenType.SWT) ? "SWT " : " JWT ");
+            string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey, openIdDiscoveryPath);
+            string tname = detailedtokentype.ToString();
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
     {
         new ContentKeyAuthorizationPolicyRestriction 
         { 
-            Name = tname+ "Token Authorization Policy", 
+            Name = tname+ " Token Authorization Policy", 
             KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
             Requirements = tokenTemplateString, 
         }
@@ -264,15 +271,28 @@ namespace AMSExplorer
         }
 
 
-        static private string GenerateTokenRequirements(TokenType mytokentype, string _sampleAudience, string _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey)
+        static private string GenerateTokenRequirements(TokenType mytokentype, string _sampleAudience, string _sampleIssuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenVerificationKey mytokenverificationkey, string openIdDiscoveryURL = null)
         {
             TokenRestrictionTemplate TokenrestrictionTemplate = new TokenRestrictionTemplate(mytokentype)
             {
-                PrimaryVerificationKey = mytokenverificationkey,
                 Audience = _sampleAudience,
-                Issuer = _sampleIssuer
+                Issuer = _sampleIssuer,
             };
-            if (AddContentKeyIdentifierClaim) TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+
+            if (AddContentKeyIdentifierClaim)
+            {
+                TokenrestrictionTemplate.RequiredClaims.Add(TokenClaim.ContentKeyIdentifierClaim);
+            }
+
+            if (openIdDiscoveryURL != null)
+            {
+                TokenrestrictionTemplate.OpenIdConnectDiscoveryDocument = new OpenIdConnectDiscoveryDocument(openIdDiscoveryURL);
+            }
+            else
+            {
+                TokenrestrictionTemplate.PrimaryVerificationKey = mytokenverificationkey;
+            }
+
             foreach (var t in tokenclaimslist)
             {
                 TokenrestrictionTemplate.RequiredClaims.Add(t);
@@ -375,35 +395,38 @@ namespace AMSExplorer
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
-                            MyResult.TokenType = tokenTemplate.TokenType;
-                            MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
-                            MyResult.ContentKeyType = form.GetContentKeyFromSelectedOption.ContentKeyType;
-
-                            if (tokenTemplate.TokenType == TokenType.SWT) //SWT
+                            if (tokenTemplate.OpenIdConnectDiscoveryDocument==null)
                             {
-                                MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
+                                MyResult.TokenType = tokenTemplate.TokenType;
+                                MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                                MyResult.ContentKeyType = form.GetContentKeyFromSelectedOption.ContentKeyType;
 
-                            }
-                            else // JWT
-                            {
-                                IList<Claim> myclaims = null;
-                                myclaims = form.GetTokenRequiredClaims;
-                                if (form.PutContentKeyIdentifier)
-                                    myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+                                if (tokenTemplate.TokenType == TokenType.SWT) //SWT
+                                {
+                                    MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, form.EndDate);
 
-                                if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
-                                {
-                                    InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
-                                    signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
                                 }
-                                else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                else // JWT
                                 {
-                                    X509Certificate2 cert = form.GetX509Certificate;
-                                    if (cert != null) signingcredentials = new X509SigningCredentials(cert);
+                                    IList<Claim> myclaims = null;
+                                    myclaims = form.GetTokenRequiredClaims;
+                                    if (form.PutContentKeyIdentifier)
+                                        myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+
+                                    if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                    {
+                                        InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
+                                        signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+                                    }
+                                    else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                    {
+                                        X509Certificate2 cert = form.GetX509Certificate;
+                                        if (cert != null) signingcredentials = new X509SigningCredentials(cert);
+                                    }
+                                    JwtSecurityToken token = new JwtSecurityToken(issuer: form.GetIssuerUri, audience: form.GetAudienceUri, notBefore: form.StartDate, expires: form.EndDate, signingCredentials: signingcredentials, claims: myclaims);
+                                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                                    MyResult.TokenString = handler.WriteToken(token);
                                 }
-                                JwtSecurityToken token = new JwtSecurityToken(issuer: form.GetIssuerUri, audience: form.GetAudienceUri, notBefore: form.StartDate, expires: form.EndDate, signingCredentials: signingcredentials, claims: myclaims);
-                                JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                MyResult.TokenString = handler.WriteToken(token);
                             }
                         }
                     }
@@ -437,36 +460,39 @@ namespace AMSExplorer
                                 Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(key.Id);
                                 TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
-                                MyResult.TokenType = tokenTemplate.TokenType;
-                                MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
-                                MyResult.ContentKeyType = (ContentKeyType)keytype;
-
-                                if (tokenTemplate.TokenType == TokenType.SWT) //SWT
+                                if (tokenTemplate.OpenIdConnectDiscoveryDocument == null)
                                 {
-                                    MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
-                                }
-                                else // JWT
-                                {
-                                    List<Claim> myclaims = null;
-                                    myclaims = new List<Claim>();
-                                    myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+                                    MyResult.TokenType = tokenTemplate.TokenType;
+                                    MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
+                                    MyResult.ContentKeyType = (ContentKeyType)keytype;
 
-                                    if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                    if (tokenTemplate.TokenType == TokenType.SWT) //SWT
                                     {
-                                        InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
-                                        signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
+                                        MyResult.TokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenTemplate, null, rawkey, DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration));
                                     }
-                                    else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                    else // JWT
                                     {
-                                        if (signingcredentials == null)
+                                        List<Claim> myclaims = null;
+                                        myclaims = new List<Claim>();
+                                        myclaims.Add(new Claim(TokenClaim.ContentKeyIdentifierClaimType, rawkey.ToString()));
+
+                                        if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
                                         {
-                                            X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
-                                            if (cert != null) signingcredentials = new X509SigningCredentials(cert);
+                                            InMemorySymmetricSecurityKey tokenSigningKey = new InMemorySymmetricSecurityKey((tokenTemplate.PrimaryVerificationKey as SymmetricVerificationKey).KeyValue);
+                                            signingcredentials = new SigningCredentials(tokenSigningKey, SecurityAlgorithms.HmacSha256Signature, SecurityAlgorithms.Sha256Digest);
                                         }
+                                        else if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(X509CertTokenVerificationKey))
+                                        {
+                                            if (signingcredentials == null)
+                                            {
+                                                X509Certificate2 cert = DynamicEncryption.GetCertificateFromFile(true);
+                                                if (cert != null) signingcredentials = new X509SigningCredentials(cert);
+                                            }
+                                        }
+                                        JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer, audience: tokenTemplate.Audience, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
+                                        JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
+                                        MyResult.TokenString = handler.WriteToken(token);
                                     }
-                                    JwtSecurityToken token = new JwtSecurityToken(issuer: tokenTemplate.Issuer, audience: tokenTemplate.Audience, notBefore: DateTime.Now.AddMinutes(-5), expires: DateTime.Now.AddMinutes(Properties.Settings.Default.DefaultTokenDuration), signingCredentials: signingcredentials, claims: myclaims);
-                                    JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-                                    MyResult.TokenString = handler.WriteToken(token);
                                 }
                             }
                         }
@@ -629,6 +655,70 @@ namespace AMSExplorer
             return contentKey;
         }
 
+        public static async Task CopyDynamicEncryption(IAsset sourceAsset, IAsset destinationAsset, bool RewriteLAURL)
+        {
+            var SourceContext = sourceAsset.GetMediaContext();
+            var DestinationContext = destinationAsset.GetMediaContext();
+
+            // let's copy the keys
+            foreach (var key in sourceAsset.ContentKeys)
+            {
+                IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
+                if (clonedkey == null) // key does not exist in target account
+                {
+                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                }
+                destinationAsset.ContentKeys.Add(clonedkey);
+
+                if (key.AuthorizationPolicyId != null)
+                {
+                    IContentKeyAuthorizationPolicy sourcepolicy = SourceContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == key.AuthorizationPolicyId).FirstOrDefault();
+                    if (sourcepolicy != null) // there is one
+                    {
+                        IContentKeyAuthorizationPolicy clonedpolicy = (clonedkey.AuthorizationPolicyId != null) ? DestinationContext.ContentKeyAuthorizationPolicies.Where(ap => ap.Id == clonedkey.AuthorizationPolicyId).FirstOrDefault() : null;
+                        if (clonedpolicy == null)
+                        {
+                            clonedpolicy = await DestinationContext.ContentKeyAuthorizationPolicies.CreateAsync(sourcepolicy.Name);
+
+                            foreach (var opt in sourcepolicy.Options)
+                            {
+                                IContentKeyAuthorizationPolicyOption policyOption =
+                                    DestinationContext.ContentKeyAuthorizationPolicyOptions.Create(opt.Name, opt.KeyDeliveryType, opt.Restrictions, opt.KeyDeliveryConfiguration);
+
+                                clonedpolicy.Options.Add(policyOption);
+                            }
+                            clonedpolicy.Update();
+                        }
+                        clonedkey.AuthorizationPolicyId = clonedpolicy.Id;
+                    }
+                }
+                clonedkey.Update();
+            }
+
+            //let's copy the policies
+            foreach (var delpol in sourceAsset.DeliveryPolicies)
+            {
+                Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
+                foreach (var s in delpol.AssetDeliveryConfiguration)
+                {
+                    string val = s.Value;
+                    string ff = AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString();
+
+                    if (RewriteLAURL &&
+                        (s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl.ToString())
+                        ||
+                        s.Key.ToString().Equals(AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl.ToString())
+                        ))
+                    {
+                        // let's change the LA URL to use the account in the other datacenter
+                        val = val.Replace(SourceContext.Credentials.ClientId, DestinationContext.Credentials.ClientId);
+                    }
+                    assetDeliveryPolicyConfiguration.Add(s.Key, val);
+                }
+                var clonetargetpolicy = DestinationContext.AssetDeliveryPolicies.Create(delpol.Name, delpol.AssetDeliveryPolicyType, delpol.AssetDeliveryProtocol, assetDeliveryPolicyConfiguration);
+                destinationAsset.DeliveryPolicies.Add(clonetargetpolicy);
+            }
+        }
 
     }
 }
