@@ -405,19 +405,6 @@ namespace AMSExplorer
         }
 
 
-        public string CreateAssetFilterFromAssetName
-        {
-            set
-            {
-                labelFilterTitle.Text = string.Format("Asset Filter");
-                textBoxAssetName.Text = value;
-                textBoxAssetName.Visible = true;
-                labelassetname.Visible = true;
-                isGlobalFilter = false;
-            }
-        }
-
-
         private void listBoxTracks_SelectedIndexChanged(object sender, EventArgs e)
         {
             RefreshTracksConditions();

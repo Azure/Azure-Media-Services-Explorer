@@ -1926,7 +1926,6 @@ namespace AMSExplorer
         private void DoCreateAssetFilter()
         {
             DynManifestFilter form = new DynManifestFilter(myDynManifestContext, myContext, null, myAsset);
-            form.CreateAssetFilterFromAssetName = myAsset.Name;
 
             if (form.ShowDialog() == DialogResult.OK)
             {

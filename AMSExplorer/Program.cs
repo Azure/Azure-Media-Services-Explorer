@@ -456,6 +456,7 @@ namespace AMSExplorer
         public const string PathPremiumWorkflowFiles = @"\PremiumWorkflowSamples\";
         public const string PathAMEFiles = @"\AMEPresetFiles\";
         public const string PathAMEStdFiles = @"\AMEStandardPresetFiles\";
+        public const string PathAMEStdSubclip = @"\AMEStandardSubclipping\";
         public const string PathConfigFiles = @"\configurations\";
         public const string PathHelpFiles = @"\HelpFiles\";
         public const string PathDefaultSlateJPG = @"\SlateJPG\";
