@@ -149,6 +149,11 @@ namespace AMSExplorer
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
+                    else
+                    {
+                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                        textBoxAssetDuration.Text = "LIVE";
+                    }
 
                 }
 
@@ -206,6 +211,11 @@ namespace AMSExplorer
                         textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
+                    }
+                    else
+                    {
+                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                        textBoxAssetDuration.Text = "LIVE";
                     }
                 }
 

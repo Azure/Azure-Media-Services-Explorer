@@ -293,7 +293,7 @@
             this.Controls.Add(this.textBoxJobName);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncodingAMEStandard";
-            this.Text = "AME Standard Encoding";
+            this.Text = "Media Encoder Standard";
             this.Load += new System.EventHandler(this.EncodingAMEStandard_Load);
             this.Shown += new System.EventHandler(this.EncodingAMEStandard_Shown);
             this.groupBox1.ResumeLayout(false);

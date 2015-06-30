@@ -36,6 +36,8 @@ namespace AMSExplorer
         public string EncodingAMEStdPresetXMLFilesUserFolder;
         public string EncodingAMEStdPresetXMLFilesFolder;
 
+        private SubClipConfiguration _subclipConfig;
+
         private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private CloudMediaContext _context;
@@ -122,11 +124,12 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context)
+        public EncodingAMEStandard(CloudMediaContext context, SubClipConfiguration subclipConfig = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
         }
 
@@ -149,20 +152,62 @@ namespace AMSExplorer
         {
             if (Directory.Exists(this.EncodingAMEStdPresetXMLFilesUserFolder))
                 openFileDialogPreset.InitialDirectory = this.EncodingAMEStdPresetXMLFilesUserFolder;
-            
+
             if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
             {
                 this.EncodingAMEStdPresetXMLFilesUserFolder = Path.GetDirectoryName(openFileDialogPreset.FileName); // let's save the folder
                 try
                 {
                     StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
-                    textBoxConfiguration.Text = streamReader.ReadToEnd();
+                    UpdateTextBoxXML(streamReader.ReadToEnd());
+                    //textBoxConfiguration.Text = streamReader.ReadToEnd();
                     streamReader.Close();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
+            }
+        }
+
+        private void UpdateTextBoxXML(string xmldata)
+        {
+            if (_subclipConfig == null || !_subclipConfig.Trimming)
+            {
+                textBoxConfiguration.Text = xmldata;
+            }
+            else
+            {
+                // Update the xml with trimming
+                XDocument doc = XDocument.Parse(xmldata);
+                XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
+
+                var presetxml = doc.Element(ns + "Preset");
+                var encodingxml = presetxml.Element(ns + "Encoding");
+
+                if (presetxml != null)
+                {
+                    if (presetxml.Element(ns + "Sources") == null)
+                    {
+                        if (encodingxml != null)
+                        {
+                            encodingxml.AddBeforeSelf(new XElement(ns + "Sources", new XElement(ns + "Source"))); // order is important !
+                        }
+                        else
+                        {
+                            presetxml.AddFirst(new XElement(ns + "Sources", new XElement(ns + "Source")));
+                        }
+                    }
+                    var sourcesxml = presetxml.Element(ns + "Sources");
+                    if (sourcesxml.Element(ns + "Source") == null)
+                    {
+                        sourcesxml.Add(new XElement(ns + "Source"));
+                    }
+                    var sourcexml = sourcesxml.Element(ns + "Source");
+                    sourcexml.SetAttributeValue("StartTime", _subclipConfig.StartTimeForReencode);
+                    sourcexml.SetAttributeValue("Duration", _subclipConfig.DurationForReencode);
+                }
+                textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
             }
         }
 
@@ -189,14 +234,15 @@ namespace AMSExplorer
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listboxPresets.SelectedItem!=null)
+            if (listboxPresets.SelectedItem != null)
             {
                 try
                 {
                     string filePath = Path.Combine(EncodingAMEStdPresetXMLFilesFolder, listboxPresets.SelectedItem.ToString() + ".xml");
                     StreamReader streamReader = new StreamReader(filePath);
                     usereditmode = false;
-                    textBoxConfiguration.Text = streamReader.ReadToEnd();
+                    UpdateTextBoxXML(streamReader.ReadToEnd());
+                    //textBoxConfiguration.Text = streamReader.ReadToEnd();
                     usereditmode = true;
                     streamReader.Close();
                 }
@@ -211,7 +257,7 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
-           if (usereditmode)  listboxPresets.SelectedIndex = -1;
+            if (usereditmode) listboxPresets.SelectedIndex = -1;
         }
     }
 

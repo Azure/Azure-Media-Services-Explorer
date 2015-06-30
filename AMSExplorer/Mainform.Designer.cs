@@ -61,6 +61,7 @@
             this.encodeAssetsWithAMEStandardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator36 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemPremiumWorkflow = new System.Windows.Forms.ToolStripMenuItem();
+            this.subclipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemThumbnails = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemIndexer = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithHyperlapseToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -137,6 +138,7 @@
             this.toolStripSeparator26 = new System.Windows.Forms.ToolStripSeparator();
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator17 = new System.Windows.Forms.ToolStripSeparator();
+            this.subclipLiveStreamsarchivesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateThumbnailsForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.processAssetsWithHyperlapseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,6 +222,7 @@
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.subclipLiveStreamsarchivesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.displayOriginInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.enableAzureCDNToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -445,7 +448,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.subclipToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.subclipProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -500,8 +503,8 @@
             this.ContextMenuItemAssetRename,
             this.ContextMenuItemAssetDelete,
             this.toolStripSeparator5,
-            this.subclipToolStripMenuItem,
             this.encodeToolStripMenuItem,
+            this.subclipToolStripMenuItem,
             this.ContextMenuItemThumbnails,
             this.ContextMenuItemIndexer,
             this.processAssetsWithHyperlapseToolStripMenuItem1,
@@ -515,7 +518,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -759,6 +762,13 @@
             this.ContextMenuItemPremiumWorkflow.Size = new System.Drawing.Size(544, 22);
             this.ContextMenuItemPremiumWorkflow.Text = "Encode asset(s) with Media Encoder Premium Workflow...";
             this.ContextMenuItemPremiumWorkflow.Click += new System.EventHandler(this.encodeAssetsWithPremiumWorkflowToolStripMenuItem_Click);
+            // 
+            // subclipToolStripMenuItem
+            // 
+            this.subclipToolStripMenuItem.Name = "subclipToolStripMenuItem";
+            this.subclipToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.subclipToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
+            this.subclipToolStripMenuItem.Click += new System.EventHandler(this.subclipToolStripMenuItem_Click);
             // 
             // ContextMenuItemThumbnails
             // 
@@ -1389,6 +1399,7 @@
             this.toolStripSeparator26,
             this.encodeAssetWithPremiumWorkflowToolStripMenuItem,
             this.toolStripSeparator17,
+            this.subclipLiveStreamsarchivesToolStripMenuItem,
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
             this.indexAssetsToolStripMenuItem,
             this.processAssetsWithHyperlapseToolStripMenuItem,
@@ -1455,6 +1466,13 @@
             // 
             this.toolStripSeparator17.Name = "toolStripSeparator17";
             this.toolStripSeparator17.Size = new System.Drawing.Size(541, 6);
+            // 
+            // subclipLiveStreamsarchivesToolStripMenuItem
+            // 
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Name = "subclipLiveStreamsarchivesToolStripMenuItem";
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Click += new System.EventHandler(this.subclipLiveStreamsarchivesToolStripMenuItem_Click);
             // 
             // generateThumbnailsForTheAssetsToolStripMenuItem
             // 
@@ -1945,7 +1963,8 @@
             this.startProgramsToolStripMenuItem1,
             this.stopProgramsToolStripMenuItem,
             this.toolStripMenuItem27,
-            this.deleteProgramsToolStripMenuItem1});
+            this.deleteProgramsToolStripMenuItem1,
+            this.subclipLiveStreamsarchivesToolStripMenuItem1});
             this.liveChannelToolStripMenuItem.Enabled = false;
             this.liveChannelToolStripMenuItem.Name = "liveChannelToolStripMenuItem";
             this.liveChannelToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
@@ -2188,6 +2207,12 @@
             this.deleteProgramsToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
             this.deleteProgramsToolStripMenuItem1.Text = "Delete program(s)...";
             this.deleteProgramsToolStripMenuItem1.Click += new System.EventHandler(this.deleteProgramsToolStripMenuItem1_Click);
+            // 
+            // subclipLiveStreamsarchivesToolStripMenuItem1
+            // 
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.Name = "subclipLiveStreamsarchivesToolStripMenuItem1";
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.Text = "Subclip program(s)...";
             // 
             // originToolStripMenuItem
             // 
@@ -2720,9 +2745,10 @@
             this.toolStripSeparator24,
             this.publishToolStripMenuItem2,
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard,
+            this.subclipProgramsToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 308);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 352);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -4498,12 +4524,12 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // subclipToolStripMenuItem
+            // subclipProgramsToolStripMenuItem
             // 
-            this.subclipToolStripMenuItem.Name = "subclipToolStripMenuItem";
-            this.subclipToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.subclipToolStripMenuItem.Text = "Subclip...";
-            this.subclipToolStripMenuItem.Click += new System.EventHandler(this.subclipToolStripMenuItem_Click);
+            this.subclipProgramsToolStripMenuItem.Name = "subclipProgramsToolStripMenuItem";
+            this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.subclipProgramsToolStripMenuItem.Text = "Subclip program(s)...";
+            this.subclipProgramsToolStripMenuItem.Click += new System.EventHandler(this.subclipProgramsToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -4989,6 +5015,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem28;
         private System.Windows.Forms.ToolStripMenuItem subclipToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem subclipProgramsToolStripMenuItem;
     }
 }
 

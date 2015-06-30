@@ -35,13 +35,13 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.labelFilterTitle = new System.Windows.Forms.Label();
+            this.labelSubclipTitle = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.labelassetname = new System.Windows.Forms.Label();
             this.textBoxAssetDuration = new System.Windows.Forms.TextBox();
             this.labelassetduration = new System.Windows.Forms.Label();
             this.textBoxFilterTimeScale = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelAssetTimescale = new System.Windows.Forms.Label();
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.tabPageXML = new System.Windows.Forms.TabPage();
@@ -58,7 +58,7 @@
             this.radioButtonArchiveTopBitrate = new System.Windows.Forms.RadioButton();
             this.radioButtonArchiveAllBitrate = new System.Windows.Forms.RadioButton();
             this.radioButtonClipWithReencode = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
@@ -67,18 +67,21 @@
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
+            this.panelJob = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.panelAssetInfo = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
-            this.panelJob = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
             this.tabPageTR.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxTrimming.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.panelJob.SuspendLayout();
+            this.panelAssetInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -90,14 +93,14 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(0, 613);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1008, 48);
+            this.panel1.Size = new System.Drawing.Size(784, 48);
             this.panel1.TabIndex = 60;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(896, 12);
+            this.buttonCancel.Location = new System.Drawing.Point(672, 12);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(98, 23);
             this.buttonCancel.TabIndex = 5;
@@ -108,7 +111,7 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(792, 12);
+            this.buttonOk.Location = new System.Drawing.Point(568, 12);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(98, 23);
             this.buttonOk.TabIndex = 4;
@@ -124,7 +127,7 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(911, 14);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(685, 75);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
             this.moreinfoprofilelink.TabIndex = 80;
@@ -132,39 +135,37 @@
             this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // labelFilterTitle
+            // labelSubclipTitle
             // 
-            this.labelFilterTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelSubclipTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelFilterTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFilterTitle.Location = new System.Drawing.Point(8, 9);
-            this.labelFilterTitle.Name = "labelFilterTitle";
-            this.labelFilterTitle.Size = new System.Drawing.Size(882, 18);
-            this.labelFilterTitle.TabIndex = 81;
-            this.labelFilterTitle.Text = "Rendered subclipping";
+            this.labelSubclipTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSubclipTitle.Location = new System.Drawing.Point(9, 9);
+            this.labelSubclipTitle.Name = "labelSubclipTitle";
+            this.labelSubclipTitle.Size = new System.Drawing.Size(426, 24);
+            this.labelSubclipTitle.TabIndex = 81;
+            this.labelSubclipTitle.Text = "Rendered subclipping for live stream or archive";
             // 
             // textBoxAssetName
             // 
-            this.textBoxAssetName.Location = new System.Drawing.Point(116, 54);
+            this.textBoxAssetName.Location = new System.Drawing.Point(117, 22);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.ReadOnly = true;
             this.textBoxAssetName.Size = new System.Drawing.Size(215, 20);
             this.textBoxAssetName.TabIndex = 83;
-            this.textBoxAssetName.Visible = false;
             // 
             // labelassetname
             // 
             this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(113, 38);
+            this.labelassetname.Location = new System.Drawing.Point(114, 6);
             this.labelassetname.Name = "labelassetname";
             this.labelassetname.Size = new System.Drawing.Size(68, 13);
             this.labelassetname.TabIndex = 82;
             this.labelassetname.Text = "Asset name :";
-            this.labelassetname.Visible = false;
             // 
             // textBoxAssetDuration
             // 
-            this.textBoxAssetDuration.Location = new System.Drawing.Point(337, 54);
+            this.textBoxAssetDuration.Location = new System.Drawing.Point(338, 22);
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
             this.textBoxAssetDuration.ReadOnly = true;
             this.textBoxAssetDuration.Size = new System.Drawing.Size(114, 20);
@@ -174,7 +175,7 @@
             // labelassetduration
             // 
             this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(334, 38);
+            this.labelassetduration.Location = new System.Drawing.Point(335, 6);
             this.labelassetduration.Name = "labelassetduration";
             this.labelassetduration.Size = new System.Drawing.Size(80, 13);
             this.labelassetduration.TabIndex = 84;
@@ -183,24 +184,26 @@
             // 
             // textBoxFilterTimeScale
             // 
-            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(12, 54);
+            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(13, 22);
             this.textBoxFilterTimeScale.Name = "textBoxFilterTimeScale";
             this.textBoxFilterTimeScale.ReadOnly = true;
             this.textBoxFilterTimeScale.Size = new System.Drawing.Size(98, 20);
             this.textBoxFilterTimeScale.TabIndex = 87;
+            this.textBoxFilterTimeScale.Visible = false;
             // 
-            // label2
+            // labelAssetTimescale
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(86, 13);
-            this.label2.TabIndex = 86;
-            this.label2.Text = "Asset timescale :";
+            this.labelAssetTimescale.AutoSize = true;
+            this.labelAssetTimescale.Location = new System.Drawing.Point(13, 6);
+            this.labelAssetTimescale.Name = "labelAssetTimescale";
+            this.labelAssetTimescale.Size = new System.Drawing.Size(86, 13);
+            this.labelAssetTimescale.TabIndex = 86;
+            this.labelAssetTimescale.Text = "Asset timescale :";
+            this.labelAssetTimescale.Visible = false;
             // 
             // textBoxOffset
             // 
-            this.textBoxOffset.Location = new System.Drawing.Point(457, 54);
+            this.textBoxOffset.Location = new System.Drawing.Point(458, 22);
             this.textBoxOffset.Name = "textBoxOffset";
             this.textBoxOffset.ReadOnly = true;
             this.textBoxOffset.Size = new System.Drawing.Size(106, 20);
@@ -210,7 +213,7 @@
             // labelOffset
             // 
             this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(454, 38);
+            this.labelOffset.Location = new System.Drawing.Point(455, 6);
             this.labelOffset.Name = "labelOffset";
             this.labelOffset.Size = new System.Drawing.Size(68, 13);
             this.labelOffset.TabIndex = 88;
@@ -224,9 +227,9 @@
             this.tabPageXML.Location = new System.Drawing.Point(4, 22);
             this.tabPageXML.Name = "tabPageXML";
             this.tabPageXML.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXML.Size = new System.Drawing.Size(974, 380);
+            this.tabPageXML.Size = new System.Drawing.Size(750, 380);
             this.tabPageXML.TabIndex = 2;
-            this.tabPageXML.Text = "XML data";
+            this.tabPageXML.Text = "Generated Configuration";
             this.tabPageXML.UseVisualStyleBackColor = true;
             this.tabPageXML.Enter += new System.EventHandler(this.tabPageXML_Enter);
             // 
@@ -249,17 +252,17 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(933, 327);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(709, 327);
             this.textBoxConfiguration.TabIndex = 39;
             // 
             // tabPageTR
             // 
             this.tabPageTR.Controls.Add(this.groupBox2);
-            this.tabPageTR.Controls.Add(this.groupBox1);
+            this.tabPageTR.Controls.Add(this.groupBoxTrimming);
             this.tabPageTR.Location = new System.Drawing.Point(4, 22);
             this.tabPageTR.Name = "tabPageTR";
             this.tabPageTR.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTR.Size = new System.Drawing.Size(974, 380);
+            this.tabPageTR.Size = new System.Drawing.Size(750, 380);
             this.tabPageTR.TabIndex = 0;
             this.tabPageTR.Text = "Settings";
             this.tabPageTR.UseVisualStyleBackColor = true;
@@ -267,6 +270,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label13);
@@ -278,7 +283,7 @@
             this.groupBox2.Controls.Add(this.radioButtonClipWithReencode);
             this.groupBox2.Location = new System.Drawing.Point(20, 13);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(683, 110);
+            this.groupBox2.Size = new System.Drawing.Size(712, 110);
             this.groupBox2.TabIndex = 133;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Subclipping mode";
@@ -372,24 +377,27 @@
             this.radioButtonClipWithReencode.UseVisualStyleBackColor = true;
             this.radioButtonClipWithReencode.CheckedChanged += new System.EventHandler(this.radioButtonClipWithReencode_CheckedChanged);
             // 
-            // groupBox1
+            // groupBoxTrimming
             // 
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.timeControlStart);
-            this.groupBox1.Controls.Add(this.timeControlEnd);
-            this.groupBox1.Controls.Add(this.checkBoxTrimming);
-            this.groupBox1.Location = new System.Drawing.Point(20, 136);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(936, 233);
-            this.groupBox1.TabIndex = 131;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Trimming";
+            this.groupBoxTrimming.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTrimming.Controls.Add(this.label6);
+            this.groupBoxTrimming.Controls.Add(this.label1);
+            this.groupBoxTrimming.Controls.Add(this.timeControlStart);
+            this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
+            this.groupBoxTrimming.Controls.Add(this.checkBoxTrimming);
+            this.groupBoxTrimming.Location = new System.Drawing.Point(20, 136);
+            this.groupBoxTrimming.Name = "groupBoxTrimming";
+            this.groupBoxTrimming.Size = new System.Drawing.Size(712, 233);
+            this.groupBoxTrimming.TabIndex = 131;
+            this.groupBoxTrimming.TabStop = false;
+            this.groupBoxTrimming.Text = "Trimming";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 152);
+            this.label6.Location = new System.Drawing.Point(15, 169);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(54, 13);
             this.label6.TabIndex = 124;
@@ -398,7 +406,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 52);
+            this.label1.Location = new System.Drawing.Point(12, 68);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(57, 13);
             this.label1.TabIndex = 123;
@@ -425,7 +433,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 91);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(982, 406);
+            this.tabControl1.Size = new System.Drawing.Size(758, 406);
             this.tabControl1.TabIndex = 78;
             // 
             // label4
@@ -444,7 +452,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textboxoutputassetname.Location = new System.Drawing.Point(30, 68);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(384, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(421, 20);
             this.textboxoutputassetname.TabIndex = 133;
             // 
             // label5
@@ -463,13 +471,55 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxJobName.Location = new System.Drawing.Point(29, 24);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(385, 20);
+            this.textBoxJobName.Size = new System.Drawing.Size(422, 20);
             this.textBoxJobName.TabIndex = 131;
+            // 
+            // panelJob
+            // 
+            this.panelJob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelJob.Controls.Add(this.textboxoutputassetname);
+            this.panelJob.Controls.Add(this.label4);
+            this.panelJob.Controls.Add(this.textBoxJobName);
+            this.panelJob.Controls.Add(this.buttonJobOptions);
+            this.panelJob.Controls.Add(this.label5);
+            this.panelJob.Location = new System.Drawing.Point(0, 507);
+            this.panelJob.Name = "panelJob";
+            this.panelJob.Size = new System.Drawing.Size(784, 100);
+            this.panelJob.TabIndex = 135;
+            // 
+            // label34
+            // 
+            this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
+            this.label34.Location = new System.Drawing.Point(467, 9);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(303, 24);
+            this.label34.TabIndex = 136;
+            this.label34.Text = "Azure Media Encoder Standard";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // panelAssetInfo
+            // 
+            this.panelAssetInfo.Controls.Add(this.textBoxOffset);
+            this.panelAssetInfo.Controls.Add(this.labelassetname);
+            this.panelAssetInfo.Controls.Add(this.textBoxAssetName);
+            this.panelAssetInfo.Controls.Add(this.labelassetduration);
+            this.panelAssetInfo.Controls.Add(this.labelOffset);
+            this.panelAssetInfo.Controls.Add(this.textBoxAssetDuration);
+            this.panelAssetInfo.Controls.Add(this.textBoxFilterTimeScale);
+            this.panelAssetInfo.Controls.Add(this.labelAssetTimescale);
+            this.panelAssetInfo.Location = new System.Drawing.Point(0, 36);
+            this.panelAssetInfo.Name = "panelAssetInfo";
+            this.panelAssetInfo.Size = new System.Drawing.Size(594, 49);
+            this.panelAssetInfo.TabIndex = 137;
             // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(859, 21);
+            this.buttonJobOptions.Location = new System.Drawing.Point(635, 21);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
             this.buttonJobOptions.TabIndex = 130;
@@ -490,7 +540,7 @@
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlStart.ScaledTotalDuration = ((long)(-1));
-            this.timeControlStart.Size = new System.Drawing.Size(818, 80);
+            this.timeControlStart.Size = new System.Drawing.Size(594, 80);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
@@ -509,46 +559,27 @@
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
-            this.timeControlEnd.Size = new System.Drawing.Size(818, 75);
+            this.timeControlEnd.Size = new System.Drawing.Size(594, 75);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
-            // panelJob
-            // 
-            this.panelJob.Controls.Add(this.textboxoutputassetname);
-            this.panelJob.Controls.Add(this.label4);
-            this.panelJob.Controls.Add(this.textBoxJobName);
-            this.panelJob.Controls.Add(this.buttonJobOptions);
-            this.panelJob.Controls.Add(this.label5);
-            this.panelJob.Location = new System.Drawing.Point(0, 507);
-            this.panelJob.Name = "panelJob";
-            this.panelJob.Size = new System.Drawing.Size(1008, 100);
-            this.panelJob.TabIndex = 135;
             // 
             // Subclipping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(1008, 661);
+            this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.panelAssetInfo);
+            this.Controls.Add(this.label34);
             this.Controls.Add(this.panelJob);
-            this.Controls.Add(this.textBoxOffset);
-            this.Controls.Add(this.labelOffset);
-            this.Controls.Add(this.textBoxFilterTimeScale);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBoxAssetDuration);
-            this.Controls.Add(this.labelassetduration);
-            this.Controls.Add(this.textBoxAssetName);
-            this.Controls.Add(this.labelassetname);
-            this.Controls.Add(this.labelFilterTitle);
+            this.Controls.Add(this.labelSubclipTitle);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Subclipping";
             this.Text = "Rendered Subclip";
             this.Load += new System.EventHandler(this.Subclipping_Load);
-            this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabPageXML.ResumeLayout(false);
@@ -556,11 +587,13 @@
             this.tabPageTR.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxTrimming.ResumeLayout(false);
+            this.groupBoxTrimming.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.panelJob.ResumeLayout(false);
             this.panelJob.PerformLayout();
+            this.panelAssetInfo.ResumeLayout(false);
+            this.panelAssetInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -574,13 +607,13 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
-        private System.Windows.Forms.Label labelFilterTitle;
+        private System.Windows.Forms.Label labelSubclipTitle;
         private System.Windows.Forms.TextBox textBoxAssetName;
         private System.Windows.Forms.Label labelassetname;
         private System.Windows.Forms.TextBox textBoxAssetDuration;
         private System.Windows.Forms.Label labelassetduration;
         private System.Windows.Forms.TextBox textBoxFilterTimeScale;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelAssetTimescale;
         private System.Windows.Forms.TextBox textBoxOffset;
         private System.Windows.Forms.Label labelOffset;
         private System.Windows.Forms.TabControl tabControl1;
@@ -594,7 +627,7 @@
         private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox checkBoxTrimming;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxTrimming;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label15;
@@ -610,5 +643,7 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox textBoxJobName;
         private System.Windows.Forms.Panel panelJob;
+        public System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Panel panelAssetInfo;
     }
 }

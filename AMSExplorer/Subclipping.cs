@@ -28,9 +28,6 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
-using System.Xml.Serialization;
-using System.Runtime.Serialization;
-
 
 
 namespace AMSExplorer
@@ -54,6 +51,30 @@ namespace AMSExplorer
             }
         }
 
+        public string EncodingJobName
+        {
+            get
+            {
+                return textBoxJobName.Text;
+            }
+            set
+            {
+                textBoxJobName.Text = value;
+            }
+        }
+
+        public string EncodingOutputAssetName
+        {
+            get
+            {
+                return textboxoutputassetname.Text;
+            }
+            set
+            {
+                textboxoutputassetname.Text = value;
+            }
+        }
+
         public Subclipping(CloudMediaContext context, List<IAsset> assetlist)
         {
             InitializeComponent();
@@ -63,17 +84,11 @@ namespace AMSExplorer
             _parentassetmanifestdata = new ManifestTimingData();
             _listAssets = assetlist;
 
-            var myAsset = assetlist.FirstOrDefault();
-            /////////////////////////////////////////////
-            // New Asset Filter
-            /////////////////////////////////////////////
-            if (myAsset != null)
+     
+            if (_listAssets.Count == 1 && _listAssets.FirstOrDefault() != null)
             {
-                labelFilterTitle.Text = "Asset Filter";
-                textBoxAssetName.Visible = true;
-                labelassetname.Visible = true;
-                textBoxAssetName.Text = _listAssets != null ? myAsset.Name : string.Empty;
-                checkBoxTrimming.Enabled = _listAssets.Count == 1; // only trimming for one asset selected
+                var myAsset = assetlist.FirstOrDefault();
+                textBoxAssetName.Text = myAsset.Name;
 
                 // let's try to read asset timing
                 _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset);
@@ -85,6 +100,9 @@ namespace AMSExplorer
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
+                    
+                    textBoxFilterTimeScale.Text = _timescale.ToString();
+                    textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
                     // let's disable trackbars if this is live (duration is not fixed)
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
@@ -99,36 +117,38 @@ namespace AMSExplorer
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
+                    else
+                    {
+                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                        textBoxAssetDuration.Text = "LIVE";
+                    }
                 }
 
-                else // not able to read asset timings
+                else // one asset but not able to read asset timings
                 {
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
                     timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
                     timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);
-                    labelassetduration.Visible = textBoxAssetDuration.Visible = false;
                 }
             }
-
-            /////////////////////////////////////////////
-            // Existing Asset Filter
-            /////////////////////////////////////////////
-
-
-            // Common code
-            textBoxFilterTimeScale.Text = _timescale.ToString();
+            else // several assets
+            {
+                groupBoxTrimming.Enabled = panelAssetInfo.Visible = false; // no trimming and no asset info
+                
+                timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
+                timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
+                timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
+                timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+            }
         }
-
 
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoDynamicManifest));
-
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoSubclipping));
             CheckIfErrorTimeControls();
         }
-
 
 
         private SubClipTrimmingData GetSubClipTrimmingData()
@@ -153,7 +173,7 @@ namespace AMSExplorer
         }
 
 
-        internal SubClipConfiguration GetSubclippingInternalConfiguration()
+        private SubClipConfiguration GetSubclippingInternalConfiguration()
         {
             if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
             {
@@ -176,8 +196,8 @@ namespace AMSExplorer
                 if (checkBoxTrimming.Checked)
                 {
                     var subdata = GetSubClipTrimmingData();
-                    sourcexml.Add(new XAttribute("StartTime", subdata.StartTime));
-                    sourcexml.Add(new XAttribute("Duration", subdata.Duration));
+                    sourcexml.SetAttributeValue("StartTime", subdata.StartTime);
+                    sourcexml.SetAttributeValue("Duration", subdata.Duration);
                 }
 
                 return new SubClipConfiguration()
@@ -207,57 +227,14 @@ namespace AMSExplorer
         }
 
 
-
-        private bool IsMax(string timestamp)
-        {
-            if (string.IsNullOrWhiteSpace(timestamp))
-            {
-                return false;
-            }
-            else
-            {
-                return Int64.MaxValue == Int64.Parse(timestamp);
-            }
-        }
-
-        private bool IsMin(string timestamp)
-        {
-            if (string.IsNullOrWhiteSpace(timestamp))
-            {
-                return false;
-            }
-            else
-            {
-                return 0 == Int64.Parse(timestamp);
-            }
-        }
-
-
-        private void textBoxFilterName_Validating(object sender, CancelEventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-
-            if (string.IsNullOrEmpty(tb.Text))
-            {
-                errorProvider1.SetError(tb, "Please specify a filter name");
-            }
-            else
-            {
-                errorProvider1.SetError(tb, String.Empty);
-            }
-        }
-
-
         private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
 
 
-
         private void CheckIfErrorTimeControls()
         {
-
             // time start control
             if (checkBoxTrimming.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
             {
@@ -267,9 +244,6 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(timeControlStart, String.Empty);
             }
-
-
-
 
             // time end control
             if (checkBoxTrimming.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
@@ -283,19 +257,12 @@ namespace AMSExplorer
         }
 
 
-
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
             ResetConfigXML();
         }
 
-
-
-        private void DynManifestFilter_Shown(object sender, EventArgs e)
-        {
-
-        }
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
@@ -306,7 +273,6 @@ namespace AMSExplorer
         {
             CheckIfErrorTimeControls();
             ResetConfigXML();
-
         }
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
@@ -315,7 +281,6 @@ namespace AMSExplorer
             timeControlEnd.Enabled = checkBoxTrimming.Checked;
             CheckIfErrorTimeControls();
             ResetConfigXML();
-
         }
 
         private void UpdateXMLData()

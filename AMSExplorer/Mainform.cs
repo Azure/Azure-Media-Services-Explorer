@@ -190,6 +190,12 @@ namespace AMSExplorer
                 encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
                 toolStripSeparator35.Visible = false;
                 toolStripSeparator32.Visible = false;
+
+                // subclipping
+                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
+                subclipProgramsToolStripMenuItem.Visible = false;
+                subclipToolStripMenuItem.Visible = false;
+
             }
 
 
@@ -739,7 +745,7 @@ namespace AMSExplorer
             DoRefreshGridFiltersV(false);
         }
 
-        private void DoRefreshGridAssetV(bool firstime)
+        public void DoRefreshGridAssetV(bool firstime)
         {
             if (firstime)
             {
@@ -5298,6 +5304,11 @@ namespace AMSExplorer
                 encodeAssetWithAMEStandardToolStripMenuItem.Visible = false;
                 toolStripSeparator35.Visible = false;
                 toolStripSeparator32.Visible = false;
+
+                // subclipping
+                subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
+                subclipProgramsToolStripMenuItem.Visible = false;
+                subclipToolStripMenuItem.Visible = false;
             }
         }
 
@@ -5808,7 +5819,7 @@ namespace AMSExplorer
 
 
         internal async Task ProgramExecuteAsync(Func<Task> fCall, string strObjectName, string strStatusSuccess)
-            // for program update and deletion
+        // for program update and deletion
         {
             try
             {
@@ -5827,8 +5838,8 @@ namespace AMSExplorer
 
         private async Task<IOperation> StartStreamingEndpoint(IStreamingEndpoint myO)
         {
-                TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
-               return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
+            TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
+            return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
         }
         private async Task<IOperation> StopStreamingEndpointAsync(IStreamingEndpoint mySE)
         {
@@ -5921,7 +5932,7 @@ namespace AMSExplorer
             return operation;
         }
 
-      
+
 
 
         //used for program update and delete as there is not operation mode for these actions
@@ -5995,11 +6006,11 @@ namespace AMSExplorer
         }
 
 
-       
 
 
-        internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess) 
-            //used for all except creation 
+
+        internal async Task<IOperation> StreamingEndpointExecuteOperationAsync(Func<Task<IOperation>> fCall, IStreamingEndpoint myO, string strStatusSuccess)
+        //used for all except creation 
         {
             IOperation operation = null;
 
@@ -9998,8 +10009,8 @@ namespace AMSExplorer
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingProcessorsList = Procs,
-                EncodingJobName = "AME Standard encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-AME Standard encoded",
+                EncodingJobName = "Media Encoder Standard encoding of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Encoder Standard encoded",
                 EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
                 EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
                 SelectedAssets = SelectedAssets
@@ -10014,18 +10025,18 @@ namespace AMSExplorer
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
                     string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, form.EncodingProcessorSelected.Name + " v" + form.EncodingProcessorSelected.Version);
-                    ITask AMEPremiumTask = job.Tasks.AddNew(
+                    ITask AMEStandardTask = job.Tasks.AddNew(
                         tasknameloc,
                       form.EncodingProcessorSelected,// processor,
                        form.EncodingConfiguration,
                        form.JobOptions.TasksOptionsSetting
                       );
 
-                    AMEPremiumTask.InputAssets.Add(asset);
+                    AMEStandardTask.InputAssets.Add(asset);
 
                     // Add an output asset to contain the results of the job.  
                     string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                    AMEPremiumTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
 
                     // Submit the job  
                     TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
@@ -10422,56 +10433,76 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
-                Subclipping form = new Subclipping(_context, selectedAssets);
+                Subclipping form = new Subclipping(_context, selectedAssets)
+                {
+                    EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
+                    EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
+                };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    string taskname = "AME Standard subclippng of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                    var subclipConfig = form.GetSubclippingConfiguration();
 
-                    IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-                    foreach (IAsset asset in selectedAssets)
+                    if (!subclipConfig.Reencode) // no reencode but stream copy
                     {
-                        string jobnameloc = "subclip";//form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
-                        IJob job = _context.Jobs.Create(jobnameloc, 10/*form.JobOptions.Priority*/);
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, Proc.Name);
-                        ITask AMEPremiumTask = job.Tasks.AddNew(
-                            tasknameloc,
-                          Proc,// processor,
-                           form.GetSubclippingConfiguration().Configuration,
-                           form.JobOptions.TasksOptionsSetting
-                          );
+                        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-                        AMEPremiumTask.InputAssets.Add(asset);
-
-                        // Add an output asset to contain the results of the job.  
-                        string outputassetnameloc = asset.Name + " subclipped";//form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
-                        AMEPremiumTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
-
-                        // Submit the job  
-                        TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
-                        try
-                        {
-                            job.Submit();
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            if (selectedAssets.Count < 5)
-                            {
-                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
-                            TextBoxLogWriteLine(e);
-                            return;
-                        }
-                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                        LaunchJobs(
+                            Proc,
+                            selectedAssets,
+                            form.EncodingJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.EncodingOutputAssetName,
+                            new List<string>() { form.GetSubclippingConfiguration().Configuration },
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected);
                     }
-                    DotabControlMainSwitch(Constants.TabJobs);
-                    DoRefreshGridJobV(false);
-                }
+                    else // reencode the clip
+                    {
+                        List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
+                        EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
+                        {
+                            EncodingLabel = (selectedAssets.Count > 1) ? selectedAssets.Count + " assets have been selected. " + selectedAssets.Count + " jobs will be submitted." : "Asset '" + selectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                            EncodingProcessorsList = Procs,
+                            EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
+                            EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
+                            EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                            EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                            SelectedAssets = selectedAssets
+                        };
 
+                        if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                        {
+                            string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                            LaunchJobs(
+                               form2.EncodingProcessorSelected,
+                               selectedAssets,
+                               form2.EncodingJobName,
+                               form2.JobOptions.Priority,
+                               taskname,
+                               form2.EncodingOutputAssetName,
+                               new List<string>() { form2.EncodingConfiguration },
+                               form2.JobOptions.OutputAssetsCreationOptions,
+                               form2.JobOptions.TasksOptionsSetting,
+                               form2.JobOptions.StorageSelected);
+                        }
+                    }
+                }
             }
+        }
+
+        private void subclipLiveStreamsarchivesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSubClip();
+        }
+
+        private void subclipProgramsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoSubClip();
         }
     }
 }
@@ -11993,6 +12024,11 @@ namespace AMSExplorer
                                        this.BeginInvoke(new Action(() =>
                                        {
                                            this.Refresh();
+                                       }));
+
+                                       myform.BeginInvoke(new Action(() =>
+                                       {
+                                           myform.DoRefreshGridAssetV(false);
                                        }));
                                    }
                                }
