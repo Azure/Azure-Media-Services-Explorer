@@ -28,6 +28,8 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 
 
@@ -68,11 +70,11 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             if (myAsset != null)
             {
-
                 labelFilterTitle.Text = "Asset Filter";
                 textBoxAssetName.Visible = true;
                 labelassetname.Visible = true;
                 textBoxAssetName.Text = _listAssets != null ? myAsset.Name : string.Empty;
+                checkBoxTrimming.Enabled = _listAssets.Count == 1; // only trimming for one asset selected
 
                 // let's try to read asset timing
                 _parentassetmanifestdata = AssetInfo.GetManifestTimingData(myAsset);
@@ -98,7 +100,6 @@ namespace AMSExplorer
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
-
                 }
 
                 else // not able to read asset timings
@@ -129,85 +130,96 @@ namespace AMSExplorer
             CheckIfErrorTimeControls();
         }
 
-        /*
-        public Filter GetFilter
+
+        public SubClipTrimmingData GetSubClipTrimmingData()
+        {
+
+            var data = new SubClipTrimmingData();
+            if (checkBoxRawMode.Checked) // RAW Mode
+            {
+                data.StartTime = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : textBoxRawStart.Text;
+                // data.Duration = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : textBoxRawEnd.Text;
+                //                  _filter.PresentationTimeRange.Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : textBoxRawTimescale.Text;
+            }
+            else  // Default mode
+            {
+                data = GetSubClipTrimmingDataDefaultMode;
+            }
+            return data;
+        }
+
+        private SubClipTrimmingData GetSubClipTrimmingDataDefaultMode
         {
             get
             {
-                _filter.Name = newfilter ? textBoxFilterName.Text : _filter.Name;
-
-                if (checkBoxRawMode.Checked) // RAW Mode
+                var trimmingdata = new SubClipTrimmingData();
+                if (checkBoxTrimming.Checked)
                 {
-                    _filter.PresentationTimeRange.StartTimestamp = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : textBoxRawStart.Text;
-                    _filter.PresentationTimeRange.EndTimestamp = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : textBoxRawEnd.Text;
-                    _filter.PresentationTimeRange.LiveBackoffDuration = string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : textBoxRawBackoff.Text;
-                    _filter.PresentationTimeRange.PresentationWindowDuration = string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : textBoxRawDVR.Text;
-                    _filter.PresentationTimeRange.Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : textBoxRawTimescale.Text;
+                    trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
+                    trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
                 }
-                else  // Default mode
-                {
-                    _filter.PresentationTimeRange = GetFilterPresenTationTRDefaultMode;
-                }
-
-                if (_filter.Tracks.Count == 0) _filter.Tracks = null; // to make sure it is null to avoid puting data in JSON
-
-                return _filter;
+                return trimmingdata;
             }
         }
-         * */
 
-        public string GetESubclippingConfiguration()
+        public SubClipConfiguration GetSubclippingConfiguration()
         {
+            if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
             {
-                
-                string config = "";
-                string xmlpreset = "";
+                // Prepare the Subclipping xml
+                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "RenderedSubclip.xml"));
+                XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
 
-                if (radioButtonArchiveTopBitrate.Checked)
-                {
-                    xmlpreset = "ArchiveTopBitrate.xml";
-                }
-                else if (radioButtonClipTopBitrate.Checked)
-                {
-                    xmlpreset = "ClipTopBitrate.xml";
-                }
-                else if (radioButtonClipAllBitrates.Checked)
-                {
-                    xmlpreset = "ClipAllBitrates.xml";
-                }
-                else if (radioButtonClipWithReencode.Checked)
-                {
-                    xmlpreset = null;
-                }
+                var presetxml = doc.Element(ns + "Preset");
+                var sourcexml = presetxml.Element(ns + "Sources").Element(ns + "Source");
+                var streamsxml = sourcexml.Element(ns + "Streams");
+                var output = presetxml.Element(ns + "Outputs").Element(ns + "Output"); ;
 
-                try
+                string filter = "TopBitrate";
+                string mode = "ArchiveTopBitrate";
+                if (radioButtonArchiveAllBitrate.Checked)
                 {
-                    StreamReader streamReader = new StreamReader(Path.Combine(Application.StartupPath + Constants.PathAMEStdSubclip, xmlpreset));
-                    config = streamReader.ReadToEnd();
-                    streamReader.Close();
+                    filter = "*";
+                    mode = "ArchiveAllBitrates";
                 }
-                catch (Exception ex)
-                {
+                streamsxml.Add(new XElement(ns + "VideoStream", filter));
+                streamsxml.Add(new XElement(ns + "AudioStream", filter));
+                output.Attribute("FileName").SetValue(mode + "_{Basename}.mp4");
 
+                if (checkBoxTrimming.Checked)
+                {
+                    var subdata = GetSubClipTrimmingData();
+                    sourcexml.Add(new XAttribute("StartTime", subdata.StartTime));
+                    sourcexml.Add(new XAttribute("Duration", subdata.Duration));
                 }
 
+                return new SubClipConfiguration()
+                {
+                    Configuration = doc.Declaration.ToString() + doc.ToString(),
+                    Reencode = false,
+                    Trimming = false
+                };
+            }
+            else //  (radioButtonClipWithReencode.Checked) means Reencoding
+            {
+                var subdata = GetSubClipTrimmingData();
+                var config = new SubClipConfiguration()
+                {
+                    Reencode = true,
+                    Trimming = false
+                };
+
+                if (checkBoxTrimming.Checked)
+                {
+                    config.Trimming = true;
+                    config.StartTimeForReencode = subdata.StartTime;
+                    config.DurationForReencode = subdata.Duration;
+                }
                 return config;
             }
         }
 
-        private IFilterPresentationTimeRange GetFilterPresenTationTRDefaultMode
-        {
-            get
-            {
-                var ptr = new IFilterPresentationTimeRange()
-                {
-                    StartTimestamp = checkBoxStartTime.Checked ? timeControlStart.GetScaledTimeStampWithOffset() : null,
-                    EndTimestamp = checkBoxEndTime.Checked ? timeControlEnd.GetScaledTimeStampWithOffset() : null,
-                    Timescale = _timescale.ToString()
-                };
-                return ptr;
-            }
-        }
+
 
         private bool IsMax(string timestamp)
         {
@@ -256,18 +268,11 @@ namespace AMSExplorer
 
 
 
-        private void textBoxFilterName_TextChanged(object sender, EventArgs e)
-        {
-            buttonOk.Enabled = !string.IsNullOrWhiteSpace(textBoxFilterName.Text);
-        }
-
-
-
         private void CheckIfErrorTimeControls()
         {
 
             // time start control
-            if (checkBoxStartTime.Checked && checkBoxEndTime.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
+            if (checkBoxTrimming.Checked && timeControlStart.GetTimeStampAsTimeSpanWitoutOffset() > timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset())
             {
                 errorProvider1.SetError(timeControlStart, "Start time must be lower than end time");
             }
@@ -280,7 +285,7 @@ namespace AMSExplorer
 
 
             // time end control
-            if (checkBoxEndTime.Checked && checkBoxStartTime.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
+            if (checkBoxTrimming.Checked && timeControlEnd.GetTimeStampAsTimeSpanWitoutOffset() < timeControlStart.GetTimeStampAsTimeSpanWitoutOffset())
             {
                 errorProvider1.SetError(timeControlEnd, "End time must be higher than start time");
             }
@@ -299,20 +304,7 @@ namespace AMSExplorer
 
 
 
-        private void checkBoxStartTime_CheckedChanged(object sender, EventArgs e)
-        {
-            timeControlStart.Enabled = checkBoxStartTime.Checked;
-            labelStartTimeDefault.Text = checkBoxStartTime.Checked ? string.Empty : (string)labelStartTimeDefault.Tag;
-            CheckIfErrorTimeControls();
 
-        }
-
-        private void checkBoxEndTime_CheckedChanged(object sender, EventArgs e)
-        {
-            timeControlEnd.Enabled = checkBoxEndTime.Checked;
-            labelDefaultEnd.Text = checkBoxEndTime.Checked ? string.Empty : (string)labelDefaultEnd.Tag;
-            CheckIfErrorTimeControls();
-        }
 
         private void DynManifestFilter_Shown(object sender, EventArgs e)
         {
@@ -333,12 +325,10 @@ namespace AMSExplorer
                 tabControl1.TabPages.Remove(tabPageTR);
                 if (seltab == tabPageTR) tabControl1.SelectedTab = tabPageTRRaw;
 
-                var ptr = GetFilterPresenTationTRDefaultMode;
-                textBoxRawTimescale.Text = ptr.Timescale;
-                textBoxRawStart.Text = ptr.StartTimestamp;
-                textBoxRawEnd.Text = ptr.EndTimestamp;
-                textBoxRawDVR.Text = ptr.PresentationWindowDuration;
-                textBoxRawBackoff.Text = ptr.LiveBackoffDuration;
+                var ptr = GetSubClipTrimmingDataDefaultMode;
+                //textBoxRawTimescale.Text = ptr.Timescale;
+                textBoxRawStart.Text = ptr.StartTime;
+                textBoxRawEnd.Text = ptr.Duration;
             }
             else
             {
@@ -353,5 +343,62 @@ namespace AMSExplorer
         {
             CheckIfErrorTimeControls();
         }
+
+        private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlStart.Enabled = checkBoxTrimming.Checked;
+            timeControlEnd.Enabled = checkBoxTrimming.Checked;
+            CheckIfErrorTimeControls();
+        }
     }
+    public struct MyTimeSpan : IXmlSerializable
+    {
+        TimeSpan value;
+
+        public MyTimeSpan(TimeSpan timeSpan)
+        {
+            this.value = timeSpan;
+        }
+
+        public System.Xml.Schema.XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(System.Xml.XmlReader reader)
+        {
+            this.value = TimeSpan.Parse(reader.ReadElementContentAsString());
+        }
+
+        public void WriteXml(System.Xml.XmlWriter writer)
+        {
+            writer.WriteValue(this.value.ToString());
+        }
+    }
+
+
+    /*
+    [Serializable]
+    public class MyClass
+    {
+        // Local Variable
+        private TimeSpan m_TimeSinceLastEvent;
+
+        // Public Property - XmlIgnore as it doesn't serialize anyway
+        [XmlIgnore]
+        public TimeSpan TimeSinceLastEvent
+        {
+            get { return m_TimeSinceLastEvent; }
+            set { m_TimeSinceLastEvent = value; }
+        }
+
+        // Pretend property for serialization
+        [XmlElement("TimeSinceLastEvent")]
+        public long TimeSinceLastEventTicks
+        {
+            get { return m_TimeSinceLastEvent.Ticks; }
+            set { m_TimeSinceLastEvent = new TimeSpan(value); }
+        }
+    }
+     * */
 }

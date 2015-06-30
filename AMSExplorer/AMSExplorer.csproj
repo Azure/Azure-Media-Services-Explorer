@@ -535,6 +535,9 @@
     <Content Include="AMEStandardPresetFiles\H264 Single Bitrate Low Quality SD for Android.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Configurations\RenderedSubclip.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="AMEStandardSubclipping\ArchiveTopBitrate.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

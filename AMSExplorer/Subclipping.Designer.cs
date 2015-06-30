@@ -32,11 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
-            this.textBoxFilterName = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.checkBoxStartTime = new System.Windows.Forms.CheckBox();
-            this.checkBoxEndTime = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelFilterTitle = new System.Windows.Forms.Label();
@@ -51,32 +47,36 @@
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
             this.tabPageTRRaw = new System.Windows.Forms.TabPage();
             this.textBoxRawTimescale = new System.Windows.Forms.TextBox();
-            this.textBoxRawBackoff = new System.Windows.Forms.TextBox();
-            this.textBoxRawDVR = new System.Windows.Forms.TextBox();
             this.textBoxRawEnd = new System.Windows.Forms.TextBox();
             this.textBoxRawStart = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageTR = new System.Windows.Forms.TabPage();
-            this.radioButtonClipWithReencode = new System.Windows.Forms.RadioButton();
-            this.radioButtonClipAllBitrates = new System.Windows.Forms.RadioButton();
-            this.radioButtonClipTopBitrate = new System.Windows.Forms.RadioButton();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.radioButtonArchiveTopBitrate = new System.Windows.Forms.RadioButton();
-            this.labelDefaultEnd = new System.Windows.Forms.Label();
-            this.labelStartTimeDefault = new System.Windows.Forms.Label();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.radioButtonArchiveAllBitrate = new System.Windows.Forms.RadioButton();
+            this.radioButtonClipWithReencode = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageTRRaw.SuspendLayout();
             this.tabPageTR.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,58 +107,12 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Enabled = false;
             this.buttonOk.Location = new System.Drawing.Point(792, 12);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(98, 23);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Create Filter";
+            this.buttonOk.Text = "Subclip";
             this.buttonOk.UseVisualStyleBackColor = true;
-            // 
-            // textBoxFilterName
-            // 
-            this.textBoxFilterName.Location = new System.Drawing.Point(12, 55);
-            this.textBoxFilterName.Name = "textBoxFilterName";
-            this.textBoxFilterName.Size = new System.Drawing.Size(239, 20);
-            this.textBoxFilterName.TabIndex = 62;
-            this.textBoxFilterName.TextChanged += new System.EventHandler(this.textBoxFilterName_TextChanged);
-            this.textBoxFilterName.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxFilterName_Validating);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 39);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(64, 13);
-            this.label4.TabIndex = 61;
-            this.label4.Text = "Filter name :";
-            // 
-            // checkBoxStartTime
-            // 
-            this.checkBoxStartTime.AutoSize = true;
-            this.checkBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStartTime.Location = new System.Drawing.Point(334, 160);
-            this.checkBoxStartTime.Name = "checkBoxStartTime";
-            this.checkBoxStartTime.Size = new System.Drawing.Size(88, 17);
-            this.checkBoxStartTime.TabIndex = 103;
-            this.checkBoxStartTime.Text = "Start time :\r";
-            this.toolTip1.SetToolTip(this.checkBoxStartTime, "Live and VOD. Value rounded to the closest next GOP start.");
-            this.checkBoxStartTime.UseVisualStyleBackColor = true;
-            this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
-            // 
-            // checkBoxEndTime
-            // 
-            this.checkBoxEndTime.AutoSize = true;
-            this.checkBoxEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEndTime.Location = new System.Drawing.Point(334, 262);
-            this.checkBoxEndTime.Name = "checkBoxEndTime";
-            this.checkBoxEndTime.Size = new System.Drawing.Size(83, 17);
-            this.checkBoxEndTime.TabIndex = 104;
-            this.checkBoxEndTime.Text = "End time :\r\n";
-            this.toolTip1.SetToolTip(this.checkBoxEndTime, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
-        "GOP start.");
-            this.checkBoxEndTime.UseVisualStyleBackColor = true;
-            this.checkBoxEndTime.CheckedChanged += new System.EventHandler(this.checkBoxEndTime_CheckedChanged);
             // 
             // errorProvider1
             // 
@@ -185,7 +139,7 @@
             this.labelFilterTitle.Name = "labelFilterTitle";
             this.labelFilterTitle.Size = new System.Drawing.Size(882, 18);
             this.labelFilterTitle.TabIndex = 81;
-            this.labelFilterTitle.Text = "Global Filter";
+            this.labelFilterTitle.Text = "Rendered subclipping";
             // 
             // textBoxAssetName
             // 
@@ -238,9 +192,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(280, 39);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.Size = new System.Drawing.Size(86, 13);
             this.label2.TabIndex = 86;
-            this.label2.Text = "Filter timescale :";
+            this.label2.Text = "Asset timescale :";
             // 
             // textBoxOffset
             // 
@@ -275,13 +229,9 @@
             // tabPageTRRaw
             // 
             this.tabPageTRRaw.Controls.Add(this.textBoxRawTimescale);
-            this.tabPageTRRaw.Controls.Add(this.textBoxRawBackoff);
-            this.tabPageTRRaw.Controls.Add(this.textBoxRawDVR);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawEnd);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawStart);
             this.tabPageTRRaw.Controls.Add(this.label9);
-            this.tabPageTRRaw.Controls.Add(this.label8);
-            this.tabPageTRRaw.Controls.Add(this.label7);
             this.tabPageTRRaw.Controls.Add(this.label5);
             this.tabPageTRRaw.Controls.Add(this.label3);
             this.tabPageTRRaw.Location = new System.Drawing.Point(4, 22);
@@ -298,20 +248,6 @@
             this.textBoxRawTimescale.Name = "textBoxRawTimescale";
             this.textBoxRawTimescale.Size = new System.Drawing.Size(239, 20);
             this.textBoxRawTimescale.TabIndex = 120;
-            // 
-            // textBoxRawBackoff
-            // 
-            this.textBoxRawBackoff.Location = new System.Drawing.Point(186, 251);
-            this.textBoxRawBackoff.Name = "textBoxRawBackoff";
-            this.textBoxRawBackoff.Size = new System.Drawing.Size(239, 20);
-            this.textBoxRawBackoff.TabIndex = 118;
-            // 
-            // textBoxRawDVR
-            // 
-            this.textBoxRawDVR.Location = new System.Drawing.Point(186, 195);
-            this.textBoxRawDVR.Name = "textBoxRawDVR";
-            this.textBoxRawDVR.Size = new System.Drawing.Size(239, 20);
-            this.textBoxRawDVR.TabIndex = 117;
             // 
             // textBoxRawEnd
             // 
@@ -337,35 +273,15 @@
             this.label9.TabIndex = 119;
             this.label9.Text = "Timescale :";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(23, 254);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(87, 13);
-            this.label8.TabIndex = 115;
-            this.label8.Text = "Live Backoff :";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(23, 198);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(90, 13);
-            this.label7.TabIndex = 114;
-            this.label7.Text = "DVR Window :";
-            // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(23, 142);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(102, 13);
+            this.label5.Size = new System.Drawing.Size(64, 13);
             this.label5.TabIndex = 113;
-            this.label5.Text = "End time (VOD) :";
+            this.label5.Text = "End time :";
             // 
             // label3
             // 
@@ -373,24 +289,15 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(20, 86);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(160, 13);
+            this.label3.Size = new System.Drawing.Size(69, 13);
             this.label3.TabIndex = 91;
-            this.label3.Text = "Start time (Live and VOD) :";
+            this.label3.Text = "Start time :";
             // 
             // tabPageTR
             // 
+            this.tabPageTR.Controls.Add(this.groupBox2);
+            this.tabPageTR.Controls.Add(this.groupBox1);
             this.tabPageTR.Controls.Add(this.buttonJobOptions);
-            this.tabPageTR.Controls.Add(this.radioButtonClipWithReencode);
-            this.tabPageTR.Controls.Add(this.radioButtonClipAllBitrates);
-            this.tabPageTR.Controls.Add(this.radioButtonClipTopBitrate);
-            this.tabPageTR.Controls.Add(this.radioButtonArchiveTopBitrate);
-            this.tabPageTR.Controls.Add(this.labelDefaultEnd);
-            this.tabPageTR.Controls.Add(this.labelStartTimeDefault);
-            this.tabPageTR.Controls.Add(this.pictureBox3);
-            this.tabPageTR.Controls.Add(this.timeControlStart);
-            this.tabPageTR.Controls.Add(this.timeControlEnd);
-            this.tabPageTR.Controls.Add(this.checkBoxEndTime);
-            this.tabPageTR.Controls.Add(this.checkBoxStartTime);
             this.tabPageTR.Location = new System.Drawing.Point(4, 22);
             this.tabPageTR.Name = "tabPageTR";
             this.tabPageTR.Padding = new System.Windows.Forms.Padding(3);
@@ -400,77 +307,141 @@
             this.tabPageTR.UseVisualStyleBackColor = true;
             this.tabPageTR.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // radioButtonClipWithReencode
+            // groupBox2
             // 
-            this.radioButtonClipWithReencode.AutoSize = true;
-            this.radioButtonClipWithReencode.Location = new System.Drawing.Point(73, 92);
-            this.radioButtonClipWithReencode.Name = "radioButtonClipWithReencode";
-            this.radioButtonClipWithReencode.Size = new System.Drawing.Size(112, 17);
-            this.radioButtonClipWithReencode.TabIndex = 129;
-            this.radioButtonClipWithReencode.Text = "Clip with reencode";
-            this.radioButtonClipWithReencode.UseVisualStyleBackColor = true;
+            this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label13);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.radioButtonArchiveTopBitrate);
+            this.groupBox2.Controls.Add(this.radioButtonArchiveAllBitrate);
+            this.groupBox2.Controls.Add(this.radioButtonClipWithReencode);
+            this.groupBox2.Location = new System.Drawing.Point(20, 13);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(683, 110);
+            this.groupBox2.TabIndex = 133;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Subclipping mode";
             // 
-            // radioButtonClipAllBitrates
+            // label15
             // 
-            this.radioButtonClipAllBitrates.AutoSize = true;
-            this.radioButtonClipAllBitrates.Location = new System.Drawing.Point(73, 69);
-            this.radioButtonClipAllBitrates.Name = "radioButtonClipAllBitrates";
-            this.radioButtonClipAllBitrates.Size = new System.Drawing.Size(94, 17);
-            this.radioButtonClipAllBitrates.TabIndex = 128;
-            this.radioButtonClipAllBitrates.Text = "Clip All Bitrates";
-            this.radioButtonClipAllBitrates.UseVisualStyleBackColor = true;
+            this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label15.Location = new System.Drawing.Point(522, 74);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(133, 19);
+            this.label15.TabIndex = 138;
+            this.label15.Text = "Trimming is frame accurate";
             // 
-            // radioButtonClipTopBitrate
+            // label14
             // 
-            this.radioButtonClipTopBitrate.AutoSize = true;
-            this.radioButtonClipTopBitrate.Location = new System.Drawing.Point(73, 46);
-            this.radioButtonClipTopBitrate.Name = "radioButtonClipTopBitrate";
-            this.radioButtonClipTopBitrate.Size = new System.Drawing.Size(97, 17);
-            this.radioButtonClipTopBitrate.TabIndex = 127;
-            this.radioButtonClipTopBitrate.Text = "Clip Top Bitrate";
-            this.radioButtonClipTopBitrate.UseVisualStyleBackColor = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label14.Location = new System.Drawing.Point(522, 51);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(133, 19);
+            this.label14.TabIndex = 137;
+            this.label14.Text = "Trimming is GOP accurate";
+            // 
+            // label13
+            // 
+            this.label13.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label13.Location = new System.Drawing.Point(522, 28);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(133, 19);
+            this.label13.TabIndex = 136;
+            this.label13.Text = "Trimming is GOP accurate";
+            // 
+            // label12
+            // 
+            this.label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label12.Location = new System.Drawing.Point(151, 74);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(339, 19);
+            this.label12.TabIndex = 135;
+            this.label12.Text = "Reencode the top bitrate with any Media Encoder Standard preset";
+            // 
+            // label11
+            // 
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label11.Location = new System.Drawing.Point(151, 51);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(284, 19);
+            this.label11.TabIndex = 134;
+            this.label11.Text = "Generate multiple MP4 files";
+            // 
+            // label10
+            // 
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(151, 28);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(245, 19);
+            this.label10.TabIndex = 133;
+            this.label10.Text = "Generate a single MP4 file from the top bitrate";
             // 
             // radioButtonArchiveTopBitrate
             // 
             this.radioButtonArchiveTopBitrate.AutoSize = true;
             this.radioButtonArchiveTopBitrate.Checked = true;
-            this.radioButtonArchiveTopBitrate.Location = new System.Drawing.Point(73, 23);
+            this.radioButtonArchiveTopBitrate.Location = new System.Drawing.Point(18, 26);
             this.radioButtonArchiveTopBitrate.Name = "radioButtonArchiveTopBitrate";
-            this.radioButtonArchiveTopBitrate.Size = new System.Drawing.Size(114, 17);
+            this.radioButtonArchiveTopBitrate.Size = new System.Drawing.Size(116, 17);
             this.radioButtonArchiveTopBitrate.TabIndex = 126;
             this.radioButtonArchiveTopBitrate.TabStop = true;
-            this.radioButtonArchiveTopBitrate.Text = "Archve Top Bitrate";
+            this.radioButtonArchiveTopBitrate.Text = "Archive Top Bitrate";
             this.radioButtonArchiveTopBitrate.UseVisualStyleBackColor = true;
             // 
-            // labelDefaultEnd
+            // radioButtonArchiveAllBitrate
             // 
-            this.labelDefaultEnd.AutoSize = true;
-            this.labelDefaultEnd.Location = new System.Drawing.Point(353, 295);
-            this.labelDefaultEnd.Name = "labelDefaultEnd";
-            this.labelDefaultEnd.Size = new System.Drawing.Size(73, 13);
-            this.labelDefaultEnd.TabIndex = 123;
-            this.labelDefaultEnd.Tag = "(Default: Max)";
-            this.labelDefaultEnd.Text = "(Default: Max)";
+            this.radioButtonArchiveAllBitrate.AutoSize = true;
+            this.radioButtonArchiveAllBitrate.Location = new System.Drawing.Point(18, 49);
+            this.radioButtonArchiveAllBitrate.Name = "radioButtonArchiveAllBitrate";
+            this.radioButtonArchiveAllBitrate.Size = new System.Drawing.Size(113, 17);
+            this.radioButtonArchiveAllBitrate.TabIndex = 128;
+            this.radioButtonArchiveAllBitrate.Text = "Archive All Bitrates";
+            this.radioButtonArchiveAllBitrate.UseVisualStyleBackColor = true;
             // 
-            // labelStartTimeDefault
+            // radioButtonClipWithReencode
             // 
-            this.labelStartTimeDefault.AutoSize = true;
-            this.labelStartTimeDefault.Location = new System.Drawing.Point(354, 193);
-            this.labelStartTimeDefault.Name = "labelStartTimeDefault";
-            this.labelStartTimeDefault.Size = new System.Drawing.Size(62, 13);
-            this.labelStartTimeDefault.TabIndex = 86;
-            this.labelStartTimeDefault.Tag = "(Default : 0)";
-            this.labelStartTimeDefault.Text = "(Default : 0)";
+            this.radioButtonClipWithReencode.AutoSize = true;
+            this.radioButtonClipWithReencode.Location = new System.Drawing.Point(18, 72);
+            this.radioButtonClipWithReencode.Name = "radioButtonClipWithReencode";
+            this.radioButtonClipWithReencode.Size = new System.Drawing.Size(75, 17);
+            this.radioButtonClipWithReencode.TabIndex = 129;
+            this.radioButtonClipWithReencode.Text = "Reencode";
+            this.radioButtonClipWithReencode.UseVisualStyleBackColor = true;
             // 
-            // pictureBox3
+            // groupBox1
             // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.media_services_subclips_filter;
-            this.pictureBox3.Location = new System.Drawing.Point(14, 188);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(309, 74);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox3.TabIndex = 99;
-            this.pictureBox3.TabStop = false;
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.timeControlStart);
+            this.groupBox1.Controls.Add(this.timeControlEnd);
+            this.groupBox1.Controls.Add(this.checkBoxTrimming);
+            this.groupBox1.Location = new System.Drawing.Point(20, 150);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(936, 267);
+            this.groupBox1.TabIndex = 131;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Trimming";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(15, 165);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(54, 13);
+            this.label6.TabIndex = 124;
+            this.label6.Text = "End time :";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 52);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 123;
+            this.label1.Text = "Start time :";
             // 
             // timeControlStart
             // 
@@ -480,13 +451,13 @@
             this.timeControlStart.DisplayTrackBar = false;
             this.timeControlStart.DVRMode = false;
             this.timeControlStart.Enabled = false;
-            this.timeControlStart.Location = new System.Drawing.Point(453, 145);
+            this.timeControlStart.Location = new System.Drawing.Point(6, 68);
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlStart.ScaledTotalDuration = ((long)(-1));
-            this.timeControlStart.Size = new System.Drawing.Size(503, 95);
+            this.timeControlStart.Size = new System.Drawing.Size(897, 80);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
@@ -499,16 +470,37 @@
             this.timeControlEnd.DisplayTrackBar = false;
             this.timeControlEnd.DVRMode = false;
             this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Location = new System.Drawing.Point(453, 247);
+            this.timeControlEnd.Location = new System.Drawing.Point(6, 181);
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
-            this.timeControlEnd.Size = new System.Drawing.Size(503, 80);
+            this.timeControlEnd.Size = new System.Drawing.Size(897, 80);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
+            // checkBoxTrimming
+            // 
+            this.checkBoxTrimming.AutoSize = true;
+            this.checkBoxTrimming.Location = new System.Drawing.Point(18, 19);
+            this.checkBoxTrimming.Name = "checkBoxTrimming";
+            this.checkBoxTrimming.Size = new System.Drawing.Size(228, 17);
+            this.checkBoxTrimming.TabIndex = 132;
+            this.checkBoxTrimming.Text = "Select a start and end time from the source";
+            this.checkBoxTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxTrimming.CheckedChanged += new System.EventHandler(this.checkBoxTrimming_CheckedChanged);
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(819, 23);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 130;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // tabControl1
             // 
@@ -522,16 +514,6 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(982, 509);
             this.tabControl1.TabIndex = 78;
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(819, 23);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
-            this.buttonJobOptions.TabIndex = 130;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // Subclipping
             // 
@@ -551,11 +533,9 @@
             this.Controls.Add(this.labelFilterTitle);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.textBoxFilterName);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
             this.Name = "Subclipping";
-            this.Text = "Dynamic Manifest Filter";
+            this.Text = "Rendered Subclip";
             this.Load += new System.EventHandler(this.Subclipping_Load);
             this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);
             this.panel1.ResumeLayout(false);
@@ -563,8 +543,10 @@
             this.tabPageTRRaw.ResumeLayout(false);
             this.tabPageTRRaw.PerformLayout();
             this.tabPageTR.ResumeLayout(false);
-            this.tabPageTR.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -576,8 +558,6 @@
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxFilterName;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
@@ -594,27 +574,28 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPageTR;
         private System.Windows.Forms.RadioButton radioButtonClipWithReencode;
-        private System.Windows.Forms.RadioButton radioButtonClipAllBitrates;
-        private System.Windows.Forms.RadioButton radioButtonClipTopBitrate;
+        private System.Windows.Forms.RadioButton radioButtonArchiveAllBitrate;
         private System.Windows.Forms.RadioButton radioButtonArchiveTopBitrate;
-        private System.Windows.Forms.Label labelDefaultEnd;
-        private System.Windows.Forms.Label labelStartTimeDefault;
-        private System.Windows.Forms.PictureBox pictureBox3;
         private TimeControl timeControlStart;
         private TimeControl timeControlEnd;
-        private System.Windows.Forms.CheckBox checkBoxEndTime;
-        private System.Windows.Forms.CheckBox checkBoxStartTime;
         private System.Windows.Forms.TabPage tabPageTRRaw;
         private System.Windows.Forms.TextBox textBoxRawTimescale;
-        private System.Windows.Forms.TextBox textBoxRawBackoff;
-        private System.Windows.Forms.TextBox textBoxRawDVR;
         private System.Windows.Forms.TextBox textBoxRawEnd;
         private System.Windows.Forms.TextBox textBoxRawStart;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private ButtonJobOptions buttonJobOptions;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox checkBoxTrimming;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

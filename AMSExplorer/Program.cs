@@ -43,6 +43,7 @@ using System.Xml.Linq;
 using System.Runtime.ExceptionServices;
 using System.Collections;
 using System.Reflection;
+using System.Runtime.Serialization;
 
 
 namespace AMSExplorer
@@ -2051,9 +2052,9 @@ namespace AMSExplorer
         }
 
         // copy a directory of the same container to another container
-          public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
+        public static List<ICancellableAsyncResult> CopyBlobDirectory(CloudBlobDirectory srcDirectory, CloudBlobContainer destContainer, string sourceblobToken)
         {
-  
+
             List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
 
             var srcBlobList = srcDirectory.ListBlobs(
@@ -2076,6 +2077,22 @@ namespace AMSExplorer
             }
 
             return mylistresults;
+        }
+
+
+        public static string GetXMLSerializedTimeSpan(TimeSpan timespan)
+        // return TimeSpan as a XML string: P28DT15H50M58.348S
+        {
+            DataContractSerializer serialize = new DataContractSerializer(typeof(TimeSpan));
+            XNamespace ns = "http://schemas.microsoft.com/2003/10/Serialization/";
+
+            using (MemoryStream ms = new MemoryStream())
+            {
+                serialize.WriteObject(ms, timespan);
+                string xmlstart = Encoding.Default.GetString(ms.ToArray());
+                // serialization is : <duration xmlns="http://schemas.microsoft.com/2003/10/Serialization/">P28DT15H50M58.348S</duration>
+                return XDocument.Parse(xmlstart).Element(ns + "duration").Value.ToString();
+            }
         }
     }
 
@@ -2135,7 +2152,7 @@ namespace AMSExplorer
     {
         public string Name { get; set; }
         public string Uri { get; set; }
-       
+
     }
 
     public enum EndPointMappingName
@@ -2302,6 +2319,23 @@ namespace AMSExplorer
         public long TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
+    }
+
+    public class SubClipTrimmingData
+    {
+        public string StartTime { get; set; }
+        public string Duration { get; set; }
+
+    }
+
+    public class SubClipConfiguration
+    {
+        public string Configuration { get; set; }  // contains the full configuration for subclipping
+        public bool Reencode { get; set; }
+        public bool Trimming { get; set; }
+        public string StartTimeForReencode { get; set; }
+        public string DurationForReencode { get; set; }
+
     }
 
     class HostNameClass

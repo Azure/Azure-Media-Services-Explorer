@@ -10438,7 +10438,7 @@ namespace AMSExplorer
                         ITask AMEPremiumTask = job.Tasks.AddNew(
                             tasknameloc,
                           Proc,// processor,
-                           form.GetESubclippingConfiguration(),
+                           form.GetSubclippingConfiguration().Configuration,
                            form.JobOptions.TasksOptionsSetting
                           );
 
