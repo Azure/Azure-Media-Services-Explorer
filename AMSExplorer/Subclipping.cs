@@ -61,7 +61,6 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _parentassetmanifestdata = new ManifestTimingData();
-            tabControl1.TabPages.Remove(tabPageTRRaw);
             _listAssets = assetlist;
 
             var myAsset = assetlist.FirstOrDefault();
@@ -131,38 +130,30 @@ namespace AMSExplorer
         }
 
 
-        public SubClipTrimmingData GetSubClipTrimmingData()
-        {
 
-            var data = new SubClipTrimmingData();
-            if (checkBoxRawMode.Checked) // RAW Mode
-            {
-                data.StartTime = string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : textBoxRawStart.Text;
-                // data.Duration = string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : textBoxRawEnd.Text;
-                //                  _filter.PresentationTimeRange.Timescale = string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : textBoxRawTimescale.Text;
-            }
-            else  // Default mode
-            {
-                data = GetSubClipTrimmingDataDefaultMode;
-            }
-            return data;
-        }
-
-        private SubClipTrimmingData GetSubClipTrimmingDataDefaultMode
+        private SubClipTrimmingData GetSubClipTrimmingData()
         {
-            get
+            var trimmingdata = new SubClipTrimmingData();
+            if (checkBoxTrimming.Checked)
             {
-                var trimmingdata = new SubClipTrimmingData();
-                if (checkBoxTrimming.Checked)
-                {
-                    trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
-                    trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
-                }
-                return trimmingdata;
+                trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
+                trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
             }
+            return trimmingdata;
         }
 
         public SubClipConfiguration GetSubclippingConfiguration()
+        {
+            var config = GetSubclippingInternalConfiguration();
+            if (!radioButtonClipWithReencode.Checked && !string.IsNullOrEmpty(textBoxConfiguration.Text))
+            {
+                config.Configuration = textBoxConfiguration.Text;
+            }
+            return config;
+        }
+
+
+        internal SubClipConfiguration GetSubclippingInternalConfiguration()
         {
             if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
             {
@@ -175,13 +166,9 @@ namespace AMSExplorer
                 var streamsxml = sourcexml.Element(ns + "Streams");
                 var output = presetxml.Element(ns + "Outputs").Element(ns + "Output"); ;
 
-                string filter = "TopBitrate";
-                string mode = "ArchiveTopBitrate";
-                if (radioButtonArchiveAllBitrate.Checked)
-                {
-                    filter = "*";
-                    mode = "ArchiveAllBitrates";
-                }
+                string filter = radioButtonArchiveAllBitrate.Checked ? "*" : "TopBitrate";
+                string mode = radioButtonArchiveAllBitrate.Checked ? "ArchiveAllBitrates" : "ArchiveTopBitrate";
+
                 streamsxml.Add(new XElement(ns + "VideoStream", filter));
                 streamsxml.Add(new XElement(ns + "AudioStream", filter));
                 output.Attribute("FileName").SetValue(mode + "_{Basename}.mp4");
@@ -202,7 +189,6 @@ namespace AMSExplorer
             }
             else //  (radioButtonClipWithReencode.Checked) means Reencoding
             {
-                var subdata = GetSubClipTrimmingData();
                 var config = new SubClipConfiguration()
                 {
                     Reencode = true,
@@ -211,6 +197,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
+                    var subdata = GetSubClipTrimmingData();
                     config.Trimming = true;
                     config.StartTimeForReencode = subdata.StartTime;
                     config.DurationForReencode = subdata.Duration;
@@ -300,9 +287,8 @@ namespace AMSExplorer
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+            ResetConfigXML();
         }
-
-
 
 
 
@@ -316,32 +302,11 @@ namespace AMSExplorer
 
         }
 
-        private void checkBoxRawMode_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBoxRawMode.Checked)
-            {
-                var seltab = tabControl1.SelectedTab;
-                tabControl1.TabPages.Insert(0, tabPageTRRaw);
-                tabControl1.TabPages.Remove(tabPageTR);
-                if (seltab == tabPageTR) tabControl1.SelectedTab = tabPageTRRaw;
-
-                var ptr = GetSubClipTrimmingDataDefaultMode;
-                //textBoxRawTimescale.Text = ptr.Timescale;
-                textBoxRawStart.Text = ptr.StartTime;
-                textBoxRawEnd.Text = ptr.Duration;
-            }
-            else
-            {
-                var seltab = tabControl1.SelectedTab;
-                tabControl1.TabPages.Remove(tabPageTRRaw);
-                tabControl1.TabPages.Insert(0, tabPageTR);
-                if (seltab == tabPageTRRaw) tabControl1.SelectedTab = tabPageTR;
-            }
-        }
-
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+            ResetConfigXML();
+
         }
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
@@ -349,56 +314,40 @@ namespace AMSExplorer
             timeControlStart.Enabled = checkBoxTrimming.Checked;
             timeControlEnd.Enabled = checkBoxTrimming.Checked;
             CheckIfErrorTimeControls();
+            ResetConfigXML();
+
+        }
+
+        private void UpdateXMLData()
+        {
+            textBoxConfiguration.Text = GetSubclippingConfiguration().Configuration;
+        }
+
+        private void tabPageXML_Enter(object sender, EventArgs e)
+        {
+            UpdateXMLData();
+        }
+
+        private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxConfiguration.Enabled = panelJob.Visible = !radioButtonClipWithReencode.Checked; // if reencode, xml data is dsplayed in the next box
+            buttonOk.Text = radioButtonClipWithReencode.Checked ? "Next" : (string)buttonOk.Tag;
+            ResetConfigXML();
+        }
+
+        private void radioButtonArchiveTopBitrate_CheckedChanged(object sender, EventArgs e)
+        {
+            ResetConfigXML();
+        }
+
+        private void ResetConfigXML()
+        {
+            textBoxConfiguration.Text = string.Empty;
+        }
+
+        private void radioButtonArchiveAllBitrate_CheckedChanged(object sender, EventArgs e)
+        {
+            ResetConfigXML();
         }
     }
-    public struct MyTimeSpan : IXmlSerializable
-    {
-        TimeSpan value;
-
-        public MyTimeSpan(TimeSpan timeSpan)
-        {
-            this.value = timeSpan;
-        }
-
-        public System.Xml.Schema.XmlSchema GetSchema()
-        {
-            return null;
-        }
-
-        public void ReadXml(System.Xml.XmlReader reader)
-        {
-            this.value = TimeSpan.Parse(reader.ReadElementContentAsString());
-        }
-
-        public void WriteXml(System.Xml.XmlWriter writer)
-        {
-            writer.WriteValue(this.value.ToString());
-        }
-    }
-
-
-    /*
-    [Serializable]
-    public class MyClass
-    {
-        // Local Variable
-        private TimeSpan m_TimeSinceLastEvent;
-
-        // Public Property - XmlIgnore as it doesn't serialize anyway
-        [XmlIgnore]
-        public TimeSpan TimeSinceLastEvent
-        {
-            get { return m_TimeSinceLastEvent; }
-            set { m_TimeSinceLastEvent = value; }
-        }
-
-        // Pretend property for serialization
-        [XmlElement("TimeSinceLastEvent")]
-        public long TimeSinceLastEventTicks
-        {
-            get { return m_TimeSinceLastEvent.Ticks; }
-            set { m_TimeSinceLastEvent = new TimeSpan(value); }
-        }
-    }
-     * */
 }
