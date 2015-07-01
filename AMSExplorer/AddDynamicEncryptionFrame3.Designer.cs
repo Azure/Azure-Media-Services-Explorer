@@ -75,6 +75,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBoxAuthPol.SuspendLayout();
             this.panelSymKey.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -317,6 +319,9 @@
             // 
             this.dataGridViewTokenClaims.AllowUserToAddRows = false;
             this.dataGridViewTokenClaims.AllowUserToDeleteRows = false;
+            this.dataGridViewTokenClaims.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTokenClaims.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewTokenClaims.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTokenClaims.Location = new System.Drawing.Point(21, 61);
@@ -328,6 +333,7 @@
             // 
             // buttonDelClaim
             // 
+            this.buttonDelClaim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDelClaim.Location = new System.Drawing.Point(102, 160);
             this.buttonDelClaim.Name = "buttonDelClaim";
             this.buttonDelClaim.Size = new System.Drawing.Size(75, 23);
@@ -338,6 +344,7 @@
             // 
             // buttonAddClaim
             // 
+            this.buttonAddClaim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddClaim.Location = new System.Drawing.Point(21, 160);
             this.buttonAddClaim.Name = "buttonAddClaim";
             this.buttonAddClaim.Size = new System.Drawing.Size(75, 23);
@@ -354,7 +361,6 @@
             this.textBoxIssuer.Name = "textBoxIssuer";
             this.textBoxIssuer.Size = new System.Drawing.Size(513, 20);
             this.textBoxIssuer.TabIndex = 56;
-            this.textBoxIssuer.Text = "http://testacs.com";
             // 
             // label3
             // 
@@ -373,7 +379,6 @@
             this.textBoxAudience.Name = "textBoxAudience";
             this.textBoxAudience.Size = new System.Drawing.Size(513, 20);
             this.textBoxAudience.TabIndex = 57;
-            this.textBoxAudience.Text = "urn:test";
             // 
             // label2
             // 
@@ -408,6 +413,8 @@
             // 
             // tabControlTokenType
             // 
+            this.tabControlTokenType.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlTokenType.Controls.Add(this.tabPageTokenType);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenSymmetric);
             this.tabControlTokenType.Controls.Add(this.tabPageTokenX509);
@@ -520,6 +527,7 @@
             // 
             // comboBoxMappingList
             // 
+            this.comboBoxMappingList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMappingList.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMappingList.FormattingEnabled = true;
             this.comboBoxMappingList.Location = new System.Drawing.Point(288, 30);
@@ -529,6 +537,7 @@
             // 
             // buttonAddMapping
             // 
+            this.buttonAddMapping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddMapping.Location = new System.Drawing.Point(445, 28);
             this.buttonAddMapping.Name = "buttonAddMapping";
             this.buttonAddMapping.Size = new System.Drawing.Size(89, 23);
@@ -557,6 +566,9 @@
             // 
             // tabControlTokenProperties
             // 
+            this.tabControlTokenProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlTokenProperties.Controls.Add(this.tabPage2);
             this.tabControlTokenProperties.Controls.Add(this.tabPage3);
             this.tabControlTokenProperties.Location = new System.Drawing.Point(12, 330);
@@ -567,6 +579,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.label10);
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textBoxAudience);
             this.tabPage2.Controls.Add(this.label3);
@@ -602,6 +616,26 @@
             this.label4.Size = new System.Drawing.Size(252, 19);
             this.label4.TabIndex = 73;
             this.label4.Text = "Other claims :";
+            // 
+            // label10
+            // 
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(282, 64);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(252, 19);
+            this.label10.TabIndex = 74;
+            this.label10.Text = "Example : http://testacs.com";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label11
+            // 
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label11.Location = new System.Drawing.Point(282, 125);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(252, 19);
+            this.label11.TabIndex = 75;
+            this.label11.Text = "Example : urn:test";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AddDynamicEncryptionFrame3
             // 
@@ -694,5 +728,7 @@
         private System.Windows.Forms.TextBox textBoxOpenIdDocument;
         private System.Windows.Forms.ComboBox comboBoxMappingList;
         private System.Windows.Forms.Button buttonAddMapping;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
     }
 }

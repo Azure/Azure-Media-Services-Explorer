@@ -430,5 +430,29 @@ namespace AMSExplorer.Properties {
                 this["AMEStandardPresetXMLFilesCurrentFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://testacs")]
+        public string DynEncTokenIssuer {
+            get {
+                return ((string)(this["DynEncTokenIssuer"]));
+            }
+            set {
+                this["DynEncTokenIssuer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("urn:test")]
+        public string DynEncTokenAudience {
+            get {
+                return ((string)(this["DynEncTokenAudience"]));
+            }
+            set {
+                this["DynEncTokenAudience"] = value;
+            }
+        }
     }
 }

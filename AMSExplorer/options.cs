@@ -109,7 +109,10 @@ namespace AMSExplorer
             Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEStdFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
-      
+
+            Properties.Settings.Default.DynEncTokenIssuer = "http://testacs";
+            Properties.Settings.Default.DynEncTokenAudience = "urn:test";
+
             Program.SaveAndProtectUserConfig();
         }
 

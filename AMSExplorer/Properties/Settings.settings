@@ -104,5 +104,11 @@
     <Setting Name="AMEStandardPresetXMLFilesCurrentFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="DynEncTokenIssuer" Type="System.String" Scope="User">
+      <Value Profile="(Default)">http://testacs</Value>
+    </Setting>
+    <Setting Name="DynEncTokenAudience" Type="System.String" Scope="User">
+      <Value Profile="(Default)">urn:test</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
