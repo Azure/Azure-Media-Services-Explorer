@@ -119,7 +119,7 @@ namespace AMSExplorer
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
                     timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
                     timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+                    //timeControlEnd.SetTimeStamp(timeControlEnd.Max);
                 }
             }
             else // several assets
@@ -129,7 +129,7 @@ namespace AMSExplorer
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
                 timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
-                timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+                //timeControlEnd.SetTimeStamp(timeControlEnd.Max);
             }
         }
 
