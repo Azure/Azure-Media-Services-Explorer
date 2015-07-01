@@ -84,7 +84,7 @@ namespace AMSExplorer
             _parentassetmanifestdata = new ManifestTimingData();
             _listAssets = assetlist;
 
-     
+
             if (_listAssets.Count == 1 && _listAssets.FirstOrDefault() != null)
             {
                 var myAsset = assetlist.FirstOrDefault();
@@ -100,28 +100,18 @@ namespace AMSExplorer
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
-                    
+
                     textBoxFilterTimeScale.Text = _timescale.ToString();
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
-                    // let's disable trackbars if this is live (duration is not fixed)
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
+                    timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
 
-                    if (!_parentassetmanifestdata.IsLive)  // Not a live content
-                    {
-                        timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-                        timeControlEnd.SetTimeStamp(timeControlEnd.Max);
-
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
-                        // let set duration and active track bat
-                        timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
-                    }
-                    else
-                    {
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = "LIVE";
-                    }
+                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                    textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
+                    // let set duration and active track bat
+                    timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
+                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = true;
                 }
 
                 else // one asset but not able to read asset timings
@@ -135,7 +125,7 @@ namespace AMSExplorer
             else // several assets
             {
                 groupBoxTrimming.Enabled = panelAssetInfo.Visible = false; // no trimming and no asset info
-                
+
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
                 timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;

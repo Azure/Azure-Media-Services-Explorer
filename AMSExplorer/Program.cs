@@ -1341,11 +1341,34 @@ namespace AMSExplorer
                     response.TimeScale = long.Parse(timescalefrommanifest);
 
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
-                    response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+
+                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                    {
+                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                    }
+                    else
+                    {
+                        response.TimestampOffset = 0; // no timestamp, so it should be 0
+                    }
+
 
                     if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
-                    { // Live asset.... No duration to read (but we can read scaling)
+                    { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)
                         response.IsLive = true;
+
+                        long duration = 0;
+                        long r, d;
+                        foreach (var chunk in videotrack.Elements("c"))
+                        {
+                            if (chunk.Attribute("t") != null)
+                            {
+                                duration = long.Parse(chunk.Attribute("t").Value) - response.TimestampOffset  ; // new timestamp, perhaps gap in live stream....
+                            }
+                            d = chunk.Attribute("d") != null ? long.Parse(chunk.Attribute("d").Value) : 0;
+                            r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;
+                            duration += d * r;
+                        }
+                        response.AssetDuration = duration;
                     }
                     else
                     {

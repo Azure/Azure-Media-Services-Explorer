@@ -136,23 +136,25 @@ namespace AMSExplorer
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
+
                     // let's disable trackbars if this is live (duration is not fixed)
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
 
+                    TimeSpan duration = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                    textBoxAssetDuration.Text = duration.ToString(@"d\.hh\:mm\:ss");
+                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+
                     if (!_parentassetmanifestdata.IsLive)  // Not a live content
                     {
-                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = duration;
                         timeControlEnd.SetTimeStamp(timeControlEnd.Max);
 
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
                     else
                     {
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = "LIVE";
+                        textBoxAssetDuration.Text += " (LIVE)";
                     }
 
                 }
@@ -204,18 +206,19 @@ namespace AMSExplorer
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
 
+                    TimeSpan duration = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                    textBoxAssetDuration.Text = duration.ToString(@"d\.hh\:mm\:ss");
+                    labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+
                     if (!_parentassetmanifestdata.IsLive)
                     {
-                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss");
+                        timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = duration;
                         // let set duration and active track bat
                         timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
                     }
                     else
                     {
-                        labelassetduration.Visible = textBoxAssetDuration.Visible = true;
-                        textBoxAssetDuration.Text = "LIVE";
+                        textBoxAssetDuration.Text += " (LIVE)";
                     }
                 }
 

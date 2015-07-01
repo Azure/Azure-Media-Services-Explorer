@@ -11097,35 +11097,34 @@ namespace AMSExplorer
 
             foreach (AssetEntry AE in _MyObservAsset)
             {
-
                 asset = null;
                 try
                 {
                     asset = _context.Assets.Where(a => a.Id == AE.Id).FirstOrDefault();
                     if (asset != null)
                     {
-                        AssetInfo AR = new AssetInfo(asset);
+                        AssetInfo myAssetInfo = new AssetInfo(asset);
 
-                        SASLoc = AR.GetPublishedStatus(LocatorType.Sas);
-                        OrigLoc = AR.GetPublishedStatus(LocatorType.OnDemandOrigin);
-                        AssetBitmapAndText ABR = ReturnStaticProtectedBitmap(asset);
-                        AE.StaticEncryption = ABR.bitmap;
-                        AE.StaticEncryptionMouseOver = ABR.MouseOverDesc;
-                        ABR = BuildBitmapPublication(asset);
-                        AE.Publication = ABR.bitmap;
-                        AE.PublicationMouseOver = ABR.MouseOverDesc;
+                        SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
+                        OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
+                        AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
+                        AE.StaticEncryption = assetBitmapAndText.bitmap;
+                        AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+                        assetBitmapAndText = BuildBitmapPublication(asset);
+                        AE.Publication = assetBitmapAndText.bitmap;
+                        AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
                         AE.Type = AssetInfo.GetAssetType(asset);
-                        AE.SizeLong = AR.GetSize();
+                        AE.SizeLong = myAssetInfo.GetSize();
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
-                        ABR = BuildBitmapDynEncryption(asset);
-                        AE.DynamicEncryption = ABR.bitmap;
-                        AE.DynamicEncryptionMouseOver = ABR.MouseOverDesc;
+                        assetBitmapAndText = BuildBitmapDynEncryption(asset);
+                        AE.DynamicEncryption = assetBitmapAndText.bitmap;
+                        AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate;
                         AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
-                        ABR = BuildBitmapAssetFilters(asset);
-                        AE.Filters = ABR.bitmap;
-                        AE.FiltersMouseOver = ABR.MouseOverDesc;
+                        assetBitmapAndText = BuildBitmapAssetFilters(asset);
+                        AE.Filters = assetBitmapAndText.bitmap;
+                        AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
                         i++;
                         if (i % 5 == 0)
                         {
@@ -11188,10 +11187,20 @@ namespace AMSExplorer
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
+            // search
             if (!string.IsNullOrEmpty(_searchinname))
             {
-                string searchlower = _searchinname.ToLower();
-                assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
+                //string searchlower = _searchinname.ToLower();
+                //assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
+                assets = assets.Where(a =>
+                    (a.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+                    ||
+                    (a.Id.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)
+                   // ||
+                    //(a.AssetFiles.ToList().Any(f => f.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1))
+                );
+              
+
             }
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)

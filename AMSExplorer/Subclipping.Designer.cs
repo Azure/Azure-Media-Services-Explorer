@@ -148,7 +148,7 @@
             // 
             // textBoxAssetName
             // 
-            this.textBoxAssetName.Location = new System.Drawing.Point(117, 22);
+            this.textBoxAssetName.Location = new System.Drawing.Point(16, 22);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.ReadOnly = true;
             this.textBoxAssetName.Size = new System.Drawing.Size(215, 20);
@@ -157,7 +157,7 @@
             // labelassetname
             // 
             this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(114, 6);
+            this.labelassetname.Location = new System.Drawing.Point(13, 6);
             this.labelassetname.Name = "labelassetname";
             this.labelassetname.Size = new System.Drawing.Size(68, 13);
             this.labelassetname.TabIndex = 82;
@@ -165,7 +165,7 @@
             // 
             // textBoxAssetDuration
             // 
-            this.textBoxAssetDuration.Location = new System.Drawing.Point(338, 22);
+            this.textBoxAssetDuration.Location = new System.Drawing.Point(237, 22);
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
             this.textBoxAssetDuration.ReadOnly = true;
             this.textBoxAssetDuration.Size = new System.Drawing.Size(114, 20);
@@ -175,7 +175,7 @@
             // labelassetduration
             // 
             this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(335, 6);
+            this.labelassetduration.Location = new System.Drawing.Point(234, 6);
             this.labelassetduration.Name = "labelassetduration";
             this.labelassetduration.Size = new System.Drawing.Size(80, 13);
             this.labelassetduration.TabIndex = 84;
@@ -184,7 +184,7 @@
             // 
             // textBoxFilterTimeScale
             // 
-            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(13, 22);
+            this.textBoxFilterTimeScale.Location = new System.Drawing.Point(357, 22);
             this.textBoxFilterTimeScale.Name = "textBoxFilterTimeScale";
             this.textBoxFilterTimeScale.ReadOnly = true;
             this.textBoxFilterTimeScale.Size = new System.Drawing.Size(98, 20);
@@ -194,7 +194,7 @@
             // labelAssetTimescale
             // 
             this.labelAssetTimescale.AutoSize = true;
-            this.labelAssetTimescale.Location = new System.Drawing.Point(13, 6);
+            this.labelAssetTimescale.Location = new System.Drawing.Point(354, 6);
             this.labelAssetTimescale.Name = "labelAssetTimescale";
             this.labelAssetTimescale.Size = new System.Drawing.Size(86, 13);
             this.labelAssetTimescale.TabIndex = 86;
@@ -203,7 +203,7 @@
             // 
             // textBoxOffset
             // 
-            this.textBoxOffset.Location = new System.Drawing.Point(458, 22);
+            this.textBoxOffset.Location = new System.Drawing.Point(461, 22);
             this.textBoxOffset.Name = "textBoxOffset";
             this.textBoxOffset.ReadOnly = true;
             this.textBoxOffset.Size = new System.Drawing.Size(106, 20);
@@ -213,7 +213,7 @@
             // labelOffset
             // 
             this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(455, 6);
+            this.labelOffset.Location = new System.Drawing.Point(458, 6);
             this.labelOffset.Name = "labelOffset";
             this.labelOffset.Size = new System.Drawing.Size(68, 13);
             this.labelOffset.TabIndex = 88;
@@ -513,7 +513,7 @@
             this.panelAssetInfo.Controls.Add(this.labelAssetTimescale);
             this.panelAssetInfo.Location = new System.Drawing.Point(0, 36);
             this.panelAssetInfo.Name = "panelAssetInfo";
-            this.panelAssetInfo.Size = new System.Drawing.Size(594, 49);
+            this.panelAssetInfo.Size = new System.Drawing.Size(666, 49);
             this.panelAssetInfo.TabIndex = 137;
             // 
             // buttonJobOptions
