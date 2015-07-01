@@ -566,6 +566,7 @@
             this.Controls.Add(this.labelOriginName);
             this.Controls.Add(this.tabControl1);
             this.Name = "StreamingEndpointInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Streaming endpoint information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
             this.Load += new System.EventHandler(this.StreamingEndpointInformation_Load);

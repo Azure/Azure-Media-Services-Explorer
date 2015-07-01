@@ -230,6 +230,7 @@
             this.Controls.Add(this.comboBoxStorage);
             this.Controls.Add(this.splitContainer1);
             this.Name = "BatchUploadFrame2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame2_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);

@@ -322,6 +322,7 @@
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
             this.Name = "EncodingPremium";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Media Encoder Premium Workflow";
             this.Load += new System.EventHandler(this.EncodingPremiumWorkflow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();

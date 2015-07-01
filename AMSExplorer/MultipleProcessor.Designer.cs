@@ -50,6 +50,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageJobs = new System.Windows.Forms.TabPage();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTasks = new System.Windows.Forms.NumericUpDown();
             this.panelJobMode = new System.Windows.Forms.Panel();
@@ -111,7 +112,6 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -351,6 +351,15 @@
             this.tabPageJobs.TabIndex = 0;
             this.tabPageJobs.Text = "Job(s)";
             this.tabPageJobs.UseVisualStyleBackColor = true;
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Location = new System.Drawing.Point(16, 229);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -952,15 +961,6 @@
             this.panel1.Size = new System.Drawing.Size(788, 48);
             this.panel1.TabIndex = 67;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Location = new System.Drawing.Point(16, 229);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // MultipleProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -971,6 +971,7 @@
             this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabcontrolgeneric);
             this.Name = "MultipleProcessor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Multiple processors job";
             this.Load += new System.EventHandler(this.GenericProcessor_Load);
             this.Shown += new System.EventHandler(this.GenericProcessor_Shown);

@@ -57,6 +57,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.labelcdn = new System.Windows.Forms.Label();
             this.textBoxCustomPlayer = new System.Windows.Forms.TextBox();
             this.checkBoxEnableCustomPlayer = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -81,7 +82,6 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
-            this.labelcdn = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -424,6 +424,16 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Custom player";
             // 
+            // labelcdn
+            // 
+            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelcdn.Location = new System.Drawing.Point(13, 82);
+            this.labelcdn.Name = "labelcdn";
+            this.labelcdn.Size = new System.Drawing.Size(407, 19);
+            this.labelcdn.TabIndex = 71;
+            this.labelcdn.Text = "The following variables can be used : {manifest url} and {token}";
+            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // textBoxCustomPlayer
             // 
             this.textBoxCustomPlayer.Location = new System.Drawing.Point(16, 47);
@@ -707,16 +717,6 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(412, 20);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
-            // labelcdn
-            // 
-            this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelcdn.Location = new System.Drawing.Point(13, 82);
-            this.labelcdn.Name = "labelcdn";
-            this.labelcdn.Size = new System.Drawing.Size(407, 19);
-            this.labelcdn.TabIndex = 71;
-            this.labelcdn.Text = "The following variables can be used : {manifest url} and {token}";
-            this.labelcdn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -726,6 +726,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Options";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
             this.Load += new System.EventHandler(this.options_Load);
             this.groupBox1.ResumeLayout(false);

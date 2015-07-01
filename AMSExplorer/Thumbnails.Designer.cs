@@ -348,6 +348,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Name = "Thumbnails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Thumbnails generation";
             this.Load += new System.EventHandler(this.Thumbnails_Load);
             this.panel1.ResumeLayout(false);

@@ -48,8 +48,11 @@
             this.labelStartTimeDefault = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.timeControlStart = new AMSExplorer.TimeControl();
             this.label42 = new System.Windows.Forms.Label();
             this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
+            this.timeControlDVR = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPageTRRaw = new System.Windows.Forms.TabPage();
             this.textBoxRawTimescale = new System.Windows.Forms.TextBox();
@@ -63,6 +66,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPageTF = new System.Windows.Forms.TabPage();
+            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
@@ -109,10 +113,6 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
-            this.comboBoxLocatorsFilters = new System.Windows.Forms.ComboBox();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlDVR = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -350,6 +350,25 @@
             this.pictureBox3.TabIndex = 99;
             this.pictureBox3.TabStop = false;
             // 
+            // timeControlStart
+            // 
+            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = false;
+            this.timeControlStart.DVRMode = false;
+            this.timeControlStart.Enabled = false;
+            this.timeControlStart.Location = new System.Drawing.Point(453, 23);
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
+            this.timeControlStart.Size = new System.Drawing.Size(503, 95);
+            this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = ((long)(10000000));
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
             // label42
             // 
             this.label42.AutoSize = true;
@@ -372,6 +391,45 @@
             this.numericUpDownBackoffSeconds.Name = "numericUpDownBackoffSeconds";
             this.numericUpDownBackoffSeconds.Size = new System.Drawing.Size(63, 20);
             this.numericUpDownBackoffSeconds.TabIndex = 118;
+            // 
+            // timeControlDVR
+            // 
+            this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlDVR.DisplayTrackBar = false;
+            this.timeControlDVR.DVRMode = true;
+            this.timeControlDVR.Enabled = false;
+            this.timeControlDVR.Location = new System.Drawing.Point(453, 264);
+            this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.Name = "timeControlDVR";
+            this.timeControlDVR.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlDVR.ScaledTotalDuration = ((long)(-1));
+            this.timeControlDVR.Size = new System.Drawing.Size(503, 70);
+            this.timeControlDVR.TabIndex = 107;
+            this.timeControlDVR.TimeScale = ((long)(0));
+            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
+            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
+            // 
+            // timeControlEnd
+            // 
+            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = false;
+            this.timeControlEnd.DVRMode = false;
+            this.timeControlEnd.Enabled = false;
+            this.timeControlEnd.Location = new System.Drawing.Point(453, 125);
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
+            this.timeControlEnd.Size = new System.Drawing.Size(503, 80);
+            this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = ((long)(10000000));
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // pictureBox2
             // 
@@ -509,6 +567,19 @@
             this.tabPageTF.TabIndex = 1;
             this.tabPageTF.Text = "Track filtering";
             this.tabPageTF.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxLocatorsFilters
+            // 
+            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxLocatorsFilters.Enabled = false;
+            this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.comboBoxLocatorsFilters.FormattingEnabled = true;
+            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(772, 262);
+            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
+            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(183, 21);
+            this.comboBoxLocatorsFilters.TabIndex = 101;
+            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
             // pictureBox4
             // 
@@ -1084,77 +1155,6 @@
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
             // 
-            // comboBoxLocatorsFilters
-            // 
-            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxLocatorsFilters.Enabled = false;
-            this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(772, 262);
-            this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
-            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(183, 21);
-            this.comboBoxLocatorsFilters.TabIndex = 101;
-            this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
-            // 
-            // timeControlStart
-            // 
-            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = false;
-            this.timeControlStart.DVRMode = false;
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Location = new System.Drawing.Point(453, 23);
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
-            this.timeControlStart.Size = new System.Drawing.Size(503, 95);
-            this.timeControlStart.TabIndex = 122;
-            this.timeControlStart.TimeScale = ((long)(10000000));
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlDVR
-            // 
-            this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDVR.DisplayTrackBar = false;
-            this.timeControlDVR.DVRMode = true;
-            this.timeControlDVR.Enabled = false;
-            this.timeControlDVR.Location = new System.Drawing.Point(453, 264);
-            this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDVR.Name = "timeControlDVR";
-            this.timeControlDVR.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlDVR.ScaledTotalDuration = ((long)(-1));
-            this.timeControlDVR.Size = new System.Drawing.Size(503, 70);
-            this.timeControlDVR.TabIndex = 107;
-            this.timeControlDVR.TimeScale = ((long)(0));
-            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
-            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
-            // 
-            // timeControlEnd
-            // 
-            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = false;
-            this.timeControlEnd.DVRMode = false;
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Location = new System.Drawing.Point(453, 125);
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
-            this.timeControlEnd.Size = new System.Drawing.Size(503, 80);
-            this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = ((long)(10000000));
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
             // DynManifestFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1177,6 +1177,7 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);
             this.Name = "DynManifestFilter";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dynamic Manifest Filter";
             this.Load += new System.EventHandler(this.DynManifestFilter_Load);
             this.Shown += new System.EventHandler(this.DynManifestFilter_Shown);

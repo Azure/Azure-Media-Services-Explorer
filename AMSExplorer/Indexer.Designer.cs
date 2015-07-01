@@ -304,6 +304,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Name = "Indexer";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Media Indexing";
             this.Load += new System.EventHandler(this.Indexer_Load);
             this.groupBox1.ResumeLayout(false);

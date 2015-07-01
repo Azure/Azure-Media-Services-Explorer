@@ -394,6 +394,7 @@
             this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.moreinfotestserver);
             this.Name = "PlayReadyStaticEnc";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PlayReady Static Encryption";
             this.Load += new System.EventHandler(this.PlayReadyStaticEnc_Load);
             this.tabControl1.ResumeLayout(false);

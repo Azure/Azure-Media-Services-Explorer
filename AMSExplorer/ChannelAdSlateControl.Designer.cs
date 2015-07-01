@@ -33,11 +33,12 @@
             this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.splitContainerBox = new System.Windows.Forms.SplitContainer();
-            this.labelSlatePreviewInfo = new System.Windows.Forms.Label();
-            this.checkBoxPreviewSlate = new System.Windows.Forms.CheckBox();
-            this.pictureBoxPreviewSlate = new System.Windows.Forms.PictureBox();
+            this.splitContainerPreviews = new System.Windows.Forms.SplitContainer();
             this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
             this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
+            this.checkBoxPreviewSlate = new System.Windows.Forms.CheckBox();
+            this.labelSlatePreviewInfo = new System.Windows.Forms.Label();
+            this.pictureBoxPreviewSlate = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.buttongenerateContentKey = new System.Windows.Forms.Button();
             this.buttonInsertAD = new System.Windows.Forms.Button();
@@ -63,21 +64,20 @@
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.splitContainerPreviews = new System.Windows.Forms.SplitContainer();
             this.contextMenuStripDG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerBox)).BeginInit();
             this.splitContainerBox.Panel1.SuspendLayout();
             this.splitContainerBox.Panel2.SuspendLayout();
             this.splitContainerBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerPreviews)).BeginInit();
+            this.splitContainerPreviews.Panel1.SuspendLayout();
+            this.splitContainerPreviews.Panel2.SuspendLayout();
+            this.splitContainerPreviews.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewSlate)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerPreviews)).BeginInit();
-            this.splitContainerPreviews.Panel1.SuspendLayout();
-            this.splitContainerPreviews.Panel2.SuspendLayout();
-            this.splitContainerPreviews.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripDG
@@ -119,42 +119,30 @@
             this.splitContainerBox.SplitterDistance = 250;
             this.splitContainerBox.TabIndex = 3;
             // 
-            // labelSlatePreviewInfo
+            // splitContainerPreviews
             // 
-            this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 162);
-            this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
-            this.labelSlatePreviewInfo.Size = new System.Drawing.Size(248, 14);
-            this.labelSlatePreviewInfo.TabIndex = 60;
-            this.labelSlatePreviewInfo.Text = "Resolution : {0}x{1}, Aspect Ratio : {2:0.000}";
-            this.labelSlatePreviewInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.labelSlatePreviewInfo.Visible = false;
+            this.splitContainerPreviews.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.splitContainerPreviews.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerPreviews.Location = new System.Drawing.Point(0, 0);
+            this.splitContainerPreviews.Name = "splitContainerPreviews";
+            this.splitContainerPreviews.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
-            // checkBoxPreviewSlate
+            // splitContainerPreviews.Panel1
             // 
-            this.checkBoxPreviewSlate.AutoSize = true;
-            this.checkBoxPreviewSlate.Location = new System.Drawing.Point(6, 3);
-            this.checkBoxPreviewSlate.Name = "checkBoxPreviewSlate";
-            this.checkBoxPreviewSlate.Size = new System.Drawing.Size(128, 17);
-            this.checkBoxPreviewSlate.TabIndex = 5;
-            this.checkBoxPreviewSlate.Text = "Display selected slate";
-            this.checkBoxPreviewSlate.UseVisualStyleBackColor = true;
-            this.checkBoxPreviewSlate.CheckedChanged += new System.EventHandler(this.checkBoxPreviewSlate_CheckedChanged);
+            this.splitContainerPreviews.Panel1.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerPreviews.Panel1.Controls.Add(this.checkBoxPreviewStream);
+            this.splitContainerPreviews.Panel1.Controls.Add(this.webBrowserPreview2);
+            this.splitContainerPreviews.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
             // 
-            // pictureBoxPreviewSlate
+            // splitContainerPreviews.Panel2
             // 
-            this.pictureBoxPreviewSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(6, 20);
-            this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
-            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(241, 139);
-            this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBoxPreviewSlate.TabIndex = 4;
-            this.pictureBoxPreviewSlate.TabStop = false;
-            this.pictureBoxPreviewSlate.Visible = false;
+            this.splitContainerPreviews.Panel2.BackColor = System.Drawing.SystemColors.Window;
+            this.splitContainerPreviews.Panel2.Controls.Add(this.checkBoxPreviewSlate);
+            this.splitContainerPreviews.Panel2.Controls.Add(this.labelSlatePreviewInfo);
+            this.splitContainerPreviews.Panel2.Controls.Add(this.pictureBoxPreviewSlate);
+            this.splitContainerPreviews.Size = new System.Drawing.Size(250, 466);
+            this.splitContainerPreviews.SplitterDistance = 283;
+            this.splitContainerPreviews.TabIndex = 61;
             // 
             // checkBoxPreviewStream
             // 
@@ -177,6 +165,43 @@
             this.webBrowserPreview2.Name = "webBrowserPreview2";
             this.webBrowserPreview2.Size = new System.Drawing.Size(241, 254);
             this.webBrowserPreview2.TabIndex = 2;
+            // 
+            // checkBoxPreviewSlate
+            // 
+            this.checkBoxPreviewSlate.AutoSize = true;
+            this.checkBoxPreviewSlate.Location = new System.Drawing.Point(6, 3);
+            this.checkBoxPreviewSlate.Name = "checkBoxPreviewSlate";
+            this.checkBoxPreviewSlate.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxPreviewSlate.TabIndex = 5;
+            this.checkBoxPreviewSlate.Text = "Display selected slate";
+            this.checkBoxPreviewSlate.UseVisualStyleBackColor = true;
+            this.checkBoxPreviewSlate.CheckedChanged += new System.EventHandler(this.checkBoxPreviewSlate_CheckedChanged);
+            // 
+            // labelSlatePreviewInfo
+            // 
+            this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 162);
+            this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
+            this.labelSlatePreviewInfo.Size = new System.Drawing.Size(248, 14);
+            this.labelSlatePreviewInfo.TabIndex = 60;
+            this.labelSlatePreviewInfo.Text = "Resolution : {0}x{1}, Aspect Ratio : {2:0.000}";
+            this.labelSlatePreviewInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelSlatePreviewInfo.Visible = false;
+            // 
+            // pictureBoxPreviewSlate
+            // 
+            this.pictureBoxPreviewSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(6, 20);
+            this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(241, 139);
+            this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxPreviewSlate.TabIndex = 4;
+            this.pictureBoxPreviewSlate.TabStop = false;
+            this.pictureBoxPreviewSlate.Visible = false;
             // 
             // groupBox1
             // 
@@ -474,31 +499,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // splitContainerPreviews
-            // 
-            this.splitContainerPreviews.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.splitContainerPreviews.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerPreviews.Location = new System.Drawing.Point(0, 0);
-            this.splitContainerPreviews.Name = "splitContainerPreviews";
-            this.splitContainerPreviews.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainerPreviews.Panel1
-            // 
-            this.splitContainerPreviews.Panel1.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerPreviews.Panel1.Controls.Add(this.checkBoxPreviewStream);
-            this.splitContainerPreviews.Panel1.Controls.Add(this.webBrowserPreview2);
-            this.splitContainerPreviews.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer2_Panel1_Paint);
-            // 
-            // splitContainerPreviews.Panel2
-            // 
-            this.splitContainerPreviews.Panel2.BackColor = System.Drawing.SystemColors.Window;
-            this.splitContainerPreviews.Panel2.Controls.Add(this.checkBoxPreviewSlate);
-            this.splitContainerPreviews.Panel2.Controls.Add(this.labelSlatePreviewInfo);
-            this.splitContainerPreviews.Panel2.Controls.Add(this.pictureBoxPreviewSlate);
-            this.splitContainerPreviews.Size = new System.Drawing.Size(250, 466);
-            this.splitContainerPreviews.SplitterDistance = 283;
-            this.splitContainerPreviews.TabIndex = 61;
-            // 
             // ChannelAdSlateControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -509,6 +509,7 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
             this.Name = "ChannelAdSlateControl";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Advertising and Slate Control";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChannelAdSlateControl_FormClosed);
             this.Load += new System.EventHandler(this.ChannelAdSlateControl_Load);
@@ -518,6 +519,12 @@
             this.splitContainerBox.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerBox)).EndInit();
             this.splitContainerBox.ResumeLayout(false);
+            this.splitContainerPreviews.Panel1.ResumeLayout(false);
+            this.splitContainerPreviews.Panel1.PerformLayout();
+            this.splitContainerPreviews.Panel2.ResumeLayout(false);
+            this.splitContainerPreviews.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainerPreviews)).EndInit();
+            this.splitContainerPreviews.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxPreviewSlate)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -525,12 +532,6 @@
             this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.splitContainerPreviews.Panel1.ResumeLayout(false);
-            this.splitContainerPreviews.Panel1.PerformLayout();
-            this.splitContainerPreviews.Panel2.ResumeLayout(false);
-            this.splitContainerPreviews.Panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainerPreviews)).EndInit();
-            this.splitContainerPreviews.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -320,6 +320,7 @@
             this.Controls.Add(this.labelJobNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Name = "JobInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Job Information";
             this.Load += new System.EventHandler(this.JobInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).EndInit();

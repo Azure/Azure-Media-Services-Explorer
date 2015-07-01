@@ -478,6 +478,7 @@
             this.Controls.Add(this.labelChannelName);
             this.Controls.Add(this.tabControl1);
             this.Name = "ChannelInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Channel Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChanneltInformation_FormClosed);
             this.Load += new System.EventHandler(this.ChannelInformation_Load);

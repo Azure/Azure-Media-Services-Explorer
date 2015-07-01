@@ -365,6 +365,7 @@
             this.Controls.Add(this.groupBoxStartDate);
             this.Controls.Add(this.groupBox1);
             this.Name = "CreateTestToken";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create a Test Token";
             this.Load += new System.EventHandler(this.CreateTestToken_Load);
             this.groupBox1.ResumeLayout(false);

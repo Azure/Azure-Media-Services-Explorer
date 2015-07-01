@@ -348,6 +348,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "CopyAsset";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Copy asset(s)";
             this.Load += new System.EventHandler(this.CopyAsset_Load);
             this.panel1.ResumeLayout(false);

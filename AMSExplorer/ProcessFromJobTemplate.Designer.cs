@@ -208,6 +208,7 @@
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
             this.Name = "ProcessFromJobTemplate";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Process from job template";
             this.Load += new System.EventHandler(this.ProcessFromJobTemplate_Load);
             this.panel1.ResumeLayout(false);

@@ -61,6 +61,8 @@
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label4 = new System.Windows.Forms.Label();
@@ -68,11 +70,9 @@
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.panelJob = new System.Windows.Forms.Panel();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label34 = new System.Windows.Forms.Label();
             this.panelAssetInfo = new System.Windows.Forms.Panel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -412,6 +412,44 @@
             this.label1.TabIndex = 123;
             this.label1.Text = "Start time :";
             // 
+            // timeControlStart
+            // 
+            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = false;
+            this.timeControlStart.DVRMode = false;
+            this.timeControlStart.Enabled = false;
+            this.timeControlStart.Location = new System.Drawing.Point(85, 52);
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
+            this.timeControlStart.Size = new System.Drawing.Size(594, 80);
+            this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = ((long)(10000000));
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
+            // 
+            // timeControlEnd
+            // 
+            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = false;
+            this.timeControlEnd.DVRMode = false;
+            this.timeControlEnd.Enabled = false;
+            this.timeControlEnd.Location = new System.Drawing.Point(85, 152);
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
+            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
+            this.timeControlEnd.Size = new System.Drawing.Size(594, 75);
+            this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = ((long)(10000000));
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
+            // 
             // checkBoxTrimming
             // 
             this.checkBoxTrimming.AutoSize = true;
@@ -488,6 +526,16 @@
             this.panelJob.Size = new System.Drawing.Size(784, 100);
             this.panelJob.TabIndex = 135;
             // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(635, 21);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.TabIndex = 130;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // label34
             // 
             this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -516,54 +564,6 @@
             this.panelAssetInfo.Size = new System.Drawing.Size(666, 49);
             this.panelAssetInfo.TabIndex = 137;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(635, 21);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
-            this.buttonJobOptions.TabIndex = 130;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // timeControlStart
-            // 
-            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = false;
-            this.timeControlStart.DVRMode = false;
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Location = new System.Drawing.Point(85, 52);
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
-            this.timeControlStart.Size = new System.Drawing.Size(594, 80);
-            this.timeControlStart.TabIndex = 122;
-            this.timeControlStart.TimeScale = ((long)(10000000));
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlEnd
-            // 
-            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = false;
-            this.timeControlEnd.DVRMode = false;
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Location = new System.Drawing.Point(85, 152);
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
-            this.timeControlEnd.Size = new System.Drawing.Size(594, 75);
-            this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = ((long)(10000000));
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
-            // 
             // Subclipping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -578,6 +578,7 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.panel1);
             this.Name = "Subclipping";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Rendered Subclip";
             this.Load += new System.EventHandler(this.Subclipping_Load);
             this.panel1.ResumeLayout(false);

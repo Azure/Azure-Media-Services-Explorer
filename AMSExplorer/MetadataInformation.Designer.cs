@@ -256,6 +256,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Name = "MetadataInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Metadata";
             this.Load += new System.EventHandler(this.MetadataInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGMetadataVideo)).EndInit();

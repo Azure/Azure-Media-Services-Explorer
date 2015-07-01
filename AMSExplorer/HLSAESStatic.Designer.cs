@@ -277,6 +277,7 @@
             this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.label3);
             this.Name = "HLSAESStatic";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Packaging to HLS v3 (static)";
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();

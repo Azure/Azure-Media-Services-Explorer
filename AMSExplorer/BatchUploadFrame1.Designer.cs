@@ -185,6 +185,7 @@
             this.Controls.Add(this.textBoxFolder);
             this.Controls.Add(this.buttonSelectFolder);
             this.Name = "BatchUploadFrame1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Batch Upload";
             this.Load += new System.EventHandler(this.BathUploadFrame1_Load);
             this.groupBox1.ResumeLayout(false);

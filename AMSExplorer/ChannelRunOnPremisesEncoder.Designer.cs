@@ -347,6 +347,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "ChannelRunOnPremisesEncoder";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Run an on-premises live encoder";
             this.Load += new System.EventHandler(this.ChannelRunLocalEncoder_Load);
             this.panel1.ResumeLayout(false);

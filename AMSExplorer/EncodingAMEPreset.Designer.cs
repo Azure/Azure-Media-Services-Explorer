@@ -271,6 +271,7 @@
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
             this.Name = "EncodingAMEPreset";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AME System Preset Encoding";
             this.Load += new System.EventHandler(this.EncodingPreset_Load);
             this.panel1.ResumeLayout(false);

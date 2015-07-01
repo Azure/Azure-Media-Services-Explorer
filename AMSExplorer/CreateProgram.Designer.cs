@@ -477,6 +477,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxprogramname);
             this.Name = "CreateProgram";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create a new program for channel {0}";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).EndInit();

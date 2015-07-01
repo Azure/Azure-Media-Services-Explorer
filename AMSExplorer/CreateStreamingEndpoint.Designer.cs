@@ -31,6 +31,7 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBoxEnableAzureCDN = new System.Windows.Forms.CheckBox();
             this.numericUpDownRU = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -38,7 +39,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxOriginDescription = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.checkBoxEnableAzureCDN = new System.Windows.Forms.CheckBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.panel1.SuspendLayout();
@@ -79,6 +79,16 @@
             this.groupBox4.TabIndex = 2;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Settings";
+            // 
+            // checkBoxEnableAzureCDN
+            // 
+            this.checkBoxEnableAzureCDN.AutoSize = true;
+            this.checkBoxEnableAzureCDN.Location = new System.Drawing.Point(10, 57);
+            this.checkBoxEnableAzureCDN.Name = "checkBoxEnableAzureCDN";
+            this.checkBoxEnableAzureCDN.Size = new System.Drawing.Size(115, 17);
+            this.checkBoxEnableAzureCDN.TabIndex = 63;
+            this.checkBoxEnableAzureCDN.Text = "Enable Azure CDN";
+            this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
             // 
             // numericUpDownRU
             // 
@@ -156,16 +166,6 @@
             this.panel1.Size = new System.Drawing.Size(494, 48);
             this.panel1.TabIndex = 62;
             // 
-            // checkBoxEnableAzureCDN
-            // 
-            this.checkBoxEnableAzureCDN.AutoSize = true;
-            this.checkBoxEnableAzureCDN.Location = new System.Drawing.Point(10, 57);
-            this.checkBoxEnableAzureCDN.Name = "checkBoxEnableAzureCDN";
-            this.checkBoxEnableAzureCDN.Size = new System.Drawing.Size(115, 17);
-            this.checkBoxEnableAzureCDN.TabIndex = 63;
-            this.checkBoxEnableAzureCDN.Text = "Enable Azure CDN";
-            this.checkBoxEnableAzureCDN.UseVisualStyleBackColor = true;
-            // 
             // CreateStreamingEndpoint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +179,7 @@
             this.Controls.Add(this.textboxoriginname);
             this.Controls.Add(this.groupBox4);
             this.Name = "CreateStreamingEndpoint";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create a streaming endpoint";
             this.Load += new System.EventHandler(this.CreateOrigin_Load);
             this.groupBox4.ResumeLayout(false);

@@ -7451,7 +7451,7 @@ namespace AMSExplorer
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context);
+                BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context) { Left = form.Left, Top = form.Top };
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
                     int index;

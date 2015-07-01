@@ -51,6 +51,7 @@
             this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
@@ -126,7 +127,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -361,6 +361,13 @@
             this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
             this.deleteFileToolStripMenuItem.Text = "Delete file";
             this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
+            // 
+            // deleteAllFilesToolStripMenuItem
+            // 
+            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
+            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
+            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
             // duplicateFileToolStripMenuItem
             // 
@@ -1219,13 +1226,6 @@
             this.panel1.Size = new System.Drawing.Size(785, 48);
             this.panel1.TabIndex = 36;
             // 
-            // deleteAllFilesToolStripMenuItem
-            // 
-            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
-            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
-            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
-            // 
             // AssetInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1236,6 +1236,7 @@
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
             this.Name = "AssetInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
             this.Load += new System.EventHandler(this.AssetInformation_Load);

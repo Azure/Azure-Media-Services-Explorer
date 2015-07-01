@@ -299,6 +299,7 @@
             this.Controls.Add(this.linkLabelAttach);
             this.Controls.Add(this.groupBox1);
             this.Name = "AttachStorage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Attach another storage account";
             this.Load += new System.EventHandler(this.AttachStorage_Load);
             this.groupBox1.ResumeLayout(false);

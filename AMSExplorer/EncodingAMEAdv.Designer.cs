@@ -1004,6 +1004,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Name = "EncodingAMEAdv";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AME Advanced Encoding";
             this.Load += new System.EventHandler(this.EncodingCustom_Load);
             this.Shown += new System.EventHandler(this.EncodingCustom_Shown);

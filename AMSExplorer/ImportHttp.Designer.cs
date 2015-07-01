@@ -184,6 +184,7 @@
             this.Controls.Add(this.textBoxURL);
             this.Controls.Add(this.label1);
             this.Name = "ImportHttp";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import from HTTP/HTTPS/FTP";
             this.Load += new System.EventHandler(this.ImportHttp_Load);
             this.groupBox1.ResumeLayout(false);

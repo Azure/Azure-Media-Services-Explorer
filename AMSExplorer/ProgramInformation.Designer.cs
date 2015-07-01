@@ -323,6 +323,7 @@
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
             this.Name = "ProgramInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Program Information";
             this.Load += new System.EventHandler(this.ProgramInformation_Load_1);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);

@@ -33,6 +33,7 @@
             this.radioButtonEnvelope = new System.Windows.Forms.RadioButton();
             this.radioButtonCENCKey = new System.Windows.Forms.RadioButton();
             this.groupBoxKeyType = new System.Windows.Forms.GroupBox();
+            this.radioButtonNoDynEnc = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.radioButtonDecryptStorage = new System.Windows.Forms.RadioButton();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -49,7 +50,6 @@
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
-            this.radioButtonNoDynEnc = new System.Windows.Forms.RadioButton();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -122,6 +122,17 @@
             this.groupBoxKeyType.TabIndex = 43;
             this.groupBoxKeyType.TabStop = false;
             this.groupBoxKeyType.Text = "Dynamic Encryption mode";
+            // 
+            // radioButtonNoDynEnc
+            // 
+            this.radioButtonNoDynEnc.AutoSize = true;
+            this.radioButtonNoDynEnc.Location = new System.Drawing.Point(35, 93);
+            this.radioButtonNoDynEnc.Name = "radioButtonNoDynEnc";
+            this.radioButtonNoDynEnc.Size = new System.Drawing.Size(205, 17);
+            this.radioButtonNoDynEnc.TabIndex = 62;
+            this.radioButtonNoDynEnc.Text = "None - Asset already CENC encrypted";
+            this.radioButtonNoDynEnc.UseVisualStyleBackColor = true;
+            this.radioButtonNoDynEnc.CheckedChanged += new System.EventHandler(this.radioButtonNoDynEnc_CheckedChanged);
             // 
             // pictureBox1
             // 
@@ -314,17 +325,6 @@
             this.radioButtonNoAuthPolicy.Text = "None - An external PlayReady server is used to deliver the licenses\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
-            // radioButtonNoDynEnc
-            // 
-            this.radioButtonNoDynEnc.AutoSize = true;
-            this.radioButtonNoDynEnc.Location = new System.Drawing.Point(35, 93);
-            this.radioButtonNoDynEnc.Name = "radioButtonNoDynEnc";
-            this.radioButtonNoDynEnc.Size = new System.Drawing.Size(205, 17);
-            this.radioButtonNoDynEnc.TabIndex = 62;
-            this.radioButtonNoDynEnc.Text = "None - Asset already CENC encrypted";
-            this.radioButtonNoDynEnc.UseVisualStyleBackColor = true;
-            this.radioButtonNoDynEnc.CheckedChanged += new System.EventHandler(this.radioButtonNoDynEnc_CheckedChanged);
-            // 
             // AddDynamicEncryptionFrame1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -337,6 +337,7 @@
             this.Controls.Add(this.groupBoxDelPolProtocols);
             this.Controls.Add(this.groupBoxKeyType);
             this.Name = "AddDynamicEncryptionFrame1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dynamic Encryption - Step 1";
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);
             this.groupBoxKeyType.ResumeLayout(false);

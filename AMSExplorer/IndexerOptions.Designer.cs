@@ -186,6 +186,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Name = "IndexerOptions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Generation Options";
             this.Load += new System.EventHandler(this.IndexerOptions_Load);
             this.panel1.ResumeLayout(false);

@@ -116,6 +116,7 @@
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.label1);
             this.Name = "Priority";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change Job Priority";
             this.Load += new System.EventHandler(this.Priority_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();

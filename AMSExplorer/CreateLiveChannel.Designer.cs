@@ -81,6 +81,7 @@
             this.panelInsertSlate = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
@@ -92,7 +93,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -669,6 +669,23 @@
             this.textBoxJPGSearch.TabIndex = 85;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(17, 32);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(385, 114);
+            this.listViewJPG1.TabIndex = 84;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
+            // 
             // label15
             // 
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -756,23 +773,6 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // listViewJPG1
-            // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(17, 32);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(385, 114);
-            this.listViewJPG1.TabIndex = 84;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
-            // 
             // CreateLiveChannel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -787,6 +787,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxchannelname);
             this.Name = "CreateLiveChannel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create a live channel";
             this.Load += new System.EventHandler(this.CreateLiveChannel_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).EndInit();

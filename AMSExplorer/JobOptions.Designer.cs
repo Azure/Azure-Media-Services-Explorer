@@ -182,6 +182,7 @@
             this.Controls.Add(this.numericUpDownPriority);
             this.Controls.Add(this.panel1);
             this.Name = "JobOptions";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Job Options";
             this.Load += new System.EventHandler(this.JobOptions_Load);
             this.panel1.ResumeLayout(false);

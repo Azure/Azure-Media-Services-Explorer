@@ -110,6 +110,7 @@
             this.Controls.Add(this.checkBoxDeleteAsset);
             this.Controls.Add(this.labelmain);
             this.Name = "DeleteProgramChannel";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete program(s)";
             this.Load += new System.EventHandler(this.DeleteProgramChannel_Load);
             this.panel1.ResumeLayout(false);

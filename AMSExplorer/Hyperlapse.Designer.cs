@@ -487,6 +487,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Name = "Hyperlapse";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Hyperlapse processing";
             this.Load += new System.EventHandler(this.Hyperlapse_Load);
             this.groupBox1.ResumeLayout(false);

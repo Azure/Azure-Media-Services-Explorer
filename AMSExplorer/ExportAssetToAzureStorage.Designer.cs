@@ -428,6 +428,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "ExportAssetToAzureStorage";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Export Asset File(s) to Azure Storage";
             this.Load += new System.EventHandler(this.UploadFromBlob_Load);
             this.SizeChanged += new System.EventHandler(this.UploadFromBlob_SizeChanged);
