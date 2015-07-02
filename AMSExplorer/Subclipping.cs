@@ -271,8 +271,10 @@ namespace AMSExplorer
         {
             timeControlStart.Enabled = checkBoxTrimming.Checked;
             timeControlEnd.Enabled = checkBoxTrimming.Checked;
+            checkBoxPreviewStream.Enabled = checkBoxTrimming.Checked;
             CheckIfErrorTimeControls();
             ResetConfigXML();
+            PlaybackAsset();
         }
 
         private void UpdateXMLData()
@@ -339,6 +341,11 @@ namespace AMSExplorer
 
         private void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
         {
+            PlaybackAsset();
+        }
+
+        private void PlaybackAsset()
+        {
             if (checkBoxPreviewStream.Checked)
             {
                 IAsset myAsset = _listAssets.FirstOrDefault();
@@ -351,7 +358,7 @@ namespace AMSExplorer
                 }
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
+                    string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false);
                     webBrowserPreview2.Url = new Uri(myurl);
                 }
             }
@@ -359,6 +366,11 @@ namespace AMSExplorer
             {
                 webBrowserPreview2.Url = null;
             }
+        }
+
+        private void panelAssetInfo_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
