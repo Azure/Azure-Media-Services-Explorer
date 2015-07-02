@@ -38,6 +38,7 @@ namespace AMSExplorer
         private List<IAsset> _listAssets;
         private ManifestTimingData _parentassetmanifestdata;
         private long _timescale = TimeSpan.TicksPerSecond;
+        ILocator _tempLocator = null; // for preview
 
         public JobOptionsVar JobOptions
         {
@@ -85,7 +86,7 @@ namespace AMSExplorer
             _listAssets = assetlist;
 
 
-            if (_listAssets.Count == 1 && _listAssets.FirstOrDefault() != null)
+            if (_listAssets.Count == 1 && _listAssets.FirstOrDefault() != null)  // one asset only
             {
                 var myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
@@ -138,6 +139,7 @@ namespace AMSExplorer
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoSubclipping));
             CheckIfErrorTimeControls();
+            DisplayAccuracy();
         }
 
 
@@ -288,11 +290,18 @@ namespace AMSExplorer
             textBoxConfiguration.Enabled = panelJob.Visible = !radioButtonClipWithReencode.Checked; // if reencode, xml data is dsplayed in the next box
             buttonOk.Text = radioButtonClipWithReencode.Checked ? "Next" : (string)buttonOk.Tag;
             ResetConfigXML();
+            DisplayAccuracy();
+        }
+
+        private void DisplayAccuracy()
+        {
+            labelAccurate.Text = string.Format((labelAccurate.Tag as string), radioButtonClipWithReencode.Checked ? "frame" : "GOP");
         }
 
         private void radioButtonArchiveTopBitrate_CheckedChanged(object sender, EventArgs e)
         {
             ResetConfigXML();
+            DisplayAccuracy();
         }
 
         private void ResetConfigXML()
@@ -303,6 +312,53 @@ namespace AMSExplorer
         private void radioButtonArchiveAllBitrate_CheckedChanged(object sender, EventArgs e)
         {
             ResetConfigXML();
+            DisplayAccuracy();
+        }
+
+     
+
+        private void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (_tempLocator != null)
+            {
+                try
+                {
+                    _tempLocator.Delete();
+                }
+                catch
+                {
+
+                }
+            }
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void checkBoxPreviewStream_CheckedChanged_1(object sender, EventArgs e)
+        {
+            if (checkBoxPreviewStream.Checked)
+            {
+                IAsset myAsset = _listAssets.FirstOrDefault();
+
+                Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                if (myuri == null)
+                {
+                    _tempLocator = AssetInfo.CreatedTemporaryOnDemandLocator(myAsset);
+                    myuri = AssetInfo.GetValidOnDemandURI(myAsset);
+                }
+                if (myuri != null)
+                {
+                    string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, technology: AzureMediaPlayerTechnologies.Silverlight, launchbrowser: false);
+                    webBrowserPreview2.Url = new Uri(myurl);
+                }
+            }
+            else
+            {
+                webBrowserPreview2.Url = null;
+            }
         }
     }
 }

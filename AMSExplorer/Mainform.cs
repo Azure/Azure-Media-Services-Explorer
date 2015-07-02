@@ -682,13 +682,19 @@ namespace AMSExplorer
 
         public void TextBoxLogWriteLine(string text, bool Error = false)
         {
-
             text += Environment.NewLine;
+            string date = string.Format("[{0}] ", String.Format("{0:G}", DateTime.Now));
 
             if (richTextBoxLog.InvokeRequired)
             {
                 richTextBoxLog.BeginInvoke(new Action(() =>
                 {
+                    richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
+                    richTextBoxLog.SelectionLength = 0;
+
+                    richTextBoxLog.SelectionColor = Color.Gray;
+                    richTextBoxLog.AppendText(date);
+
                     richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
                     richTextBoxLog.SelectionLength = 0;
 
@@ -699,6 +705,12 @@ namespace AMSExplorer
             }
             else
             {
+                richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
+                richTextBoxLog.SelectionLength = 0;
+
+                richTextBoxLog.SelectionColor = Color.Gray;
+                richTextBoxLog.AppendText(date);
+
                 richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
                 richTextBoxLog.SelectionLength = 0;
 
@@ -8143,11 +8155,11 @@ namespace AMSExplorer
         {
             if (richTextBoxLog.SelectionLength > 0)
             {
-                System.Windows.Forms.Clipboard.SetText(richTextBoxLog.SelectedText);
+                System.Windows.Forms.Clipboard.SetText(richTextBoxLog.SelectedText.Replace("\n", "\r\n"));
             }
             else
             {
-                System.Windows.Forms.Clipboard.SetText(richTextBoxLog.Text);
+                System.Windows.Forms.Clipboard.SetText(richTextBoxLog.Text.Replace("\n", "\r\n"));
             }
 
         }
@@ -11196,10 +11208,10 @@ namespace AMSExplorer
                     (a.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
                     ||
                     (a.Id.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)
-                   // ||
+                    // ||
                     //(a.AssetFiles.ToList().Any(f => f.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1))
                 );
-              
+
 
             }
 

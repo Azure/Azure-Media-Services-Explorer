@@ -509,5 +509,10 @@ namespace AMSExplorer
         {
 
         }
+
+        private void webBrowserPreview2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
     }
 }

@@ -165,6 +165,7 @@
             this.webBrowserPreview2.Name = "webBrowserPreview2";
             this.webBrowserPreview2.Size = new System.Drawing.Size(241, 254);
             this.webBrowserPreview2.TabIndex = 2;
+            this.webBrowserPreview2.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserPreview2_DocumentCompleted);
             // 
             // checkBoxPreviewSlate
             // 
