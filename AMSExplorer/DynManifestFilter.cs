@@ -47,21 +47,53 @@ namespace AMSExplorer
         private ManifestTimingData _parentassetmanifestdata;
         private long _timescale = TimeSpan.TicksPerSecond;
         private List<Filter> globalFilters;
+        private SubClipConfiguration _subclipconfig;
+        private Filter _filterToDisplay;
 
-        public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, Filter filterToDisplay = null, IAsset parentAsset = null)
+        public DynManifestFilter(MediaServiceContextForDynManifest contextdynman, CloudMediaContext context, Filter filterToDisplay = null, IAsset parentAsset = null, SubClipConfiguration subclipconfig = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _contextdynman = contextdynman;
             _context = context;
+            _filterToDisplay = filterToDisplay;
+            _parentAsset = parentAsset;
+            _subclipconfig = subclipconfig;
+        }
+
+        private void FillComboBoxImportFilters(IAsset asset)
+        {
+            // combobox for filters
+
+            comboBoxLocatorsFilters.BeginUpdate();
+
+            comboBoxLocatorsFilters.Items.Add(new Item("Import track filtering from :", null));
+
+            if (asset != null)
+            {
+                List<AssetFilter> filters = _contextdynman.ListAssetFilters(asset);
+                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
+            }
+            globalFilters = _contextdynman.ListGlobalFilters();
+            globalFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+            if (comboBoxLocatorsFilters.Items.Count > 1)
+            {
+                comboBoxLocatorsFilters.Enabled = true;
+            }
+            comboBoxLocatorsFilters.SelectedIndex = 0;
+            comboBoxLocatorsFilters.EndUpdate();
+        }
+
+        private void DynManifestFilter_Load(object sender, EventArgs e)
+        {
             _parentassetmanifestdata = new ManifestTimingData();
             tabControl1.TabPages.Remove(tabPageTRRaw);
-            FillComboBoxImportFilters(parentAsset);
+            FillComboBoxImportFilters(_parentAsset);
 
             /////////////////////////////////////////////
             // New Global Filter
             /////////////////////////////////////////////
-            if (filterToDisplay == null && parentAsset == null)
+            if (_filterToDisplay == null && _parentAsset == null)
             {
                 newfilter = true;
                 isGlobalFilter = true;
@@ -79,11 +111,11 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // Existing Global Filter
             /////////////////////////////////////////////
-            else if (filterToDisplay != null && parentAsset == null)
+            else if (_filterToDisplay != null && _parentAsset == null)
             {
                 newfilter = false;
                 isGlobalFilter = true;
-                _filter = filterToDisplay;
+                _filter = _filterToDisplay;
                 _timescale = long.Parse(_filter.PresentationTimeRange.Timescale);
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _timescale;
                 buttonOk.Text = "Update Filter";
@@ -111,11 +143,10 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // New Asset Filter
             /////////////////////////////////////////////
-            else if (filterToDisplay == null && parentAsset != null)
+            else if (_filterToDisplay == null && _parentAsset != null)
             {
                 newfilter = true;
                 isGlobalFilter = false;
-                _parentAsset = parentAsset;
                 _filter = new Filter();
                 _filter.SetContext(_contextdynman);
                 _filter.PresentationTimeRange = new IFilterPresentationTimeRange();
@@ -130,12 +161,12 @@ namespace AMSExplorer
 
                 if (!_parentassetmanifestdata.Error)  // we were able to read asset timings and not live
                 {
+                    // timescale
                     _timescale = timeControlStart.TimeScale = timeControlEnd.TimeScale = timeControlDVR.TimeScale = _parentassetmanifestdata.TimeScale;
                     timeControlStart.ScaledFirstTimestampOffset = timeControlEnd.ScaledFirstTimestampOffset = _parentassetmanifestdata.TimestampOffset;
 
                     textBoxOffset.Text = _parentassetmanifestdata.TimestampOffset.ToString();
                     labelOffset.Visible = textBoxOffset.Visible = true;
-
 
                     // let's disable trackbars if this is live (duration is not fixed)
                     timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = timeControlDVR.DisplayTrackBar = !_parentassetmanifestdata.IsLive;
@@ -145,16 +176,24 @@ namespace AMSExplorer
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
 
                     if (!_parentassetmanifestdata.IsLive)  // Not a live content
-                    {
+                    { 
+                        // let set duration and active track bat
+                        timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
+                
                         timeControlStart.Max = timeControlEnd.Max = timeControlDVR.Max = duration;
                         timeControlEnd.SetTimeStamp(timeControlEnd.Max);
 
-                        // let set duration and active track bat
-                        timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = timeControlDVR.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
-                    }
+                        }
                     else
                     {
                         textBoxAssetDuration.Text += " (LIVE)";
+                    }
+
+                    if (_subclipconfig != null) // user used the subclip UI before and timings are passed
+                    {
+                        timeControlStart.SetTimeStamp(_subclipconfig.StartTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
+                        timeControlEnd.SetTimeStamp(_subclipconfig.EndTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
+                        checkBoxStartTime.Checked = checkBoxEndTime.Checked = true;
                     }
 
                 }
@@ -172,12 +211,11 @@ namespace AMSExplorer
             /////////////////////////////////////////////
             // Existing Asset Filter
             /////////////////////////////////////////////
-            else if (filterToDisplay != null && parentAsset != null)
+            else if (_filterToDisplay != null && _parentAsset != null)
             {
                 newfilter = false;
                 isGlobalFilter = false;
-                _parentAsset = parentAsset;
-                _filter = filterToDisplay;
+                _filter = _filterToDisplay;
                 _timescale = long.Parse(_filter.PresentationTimeRange.Timescale);
                 buttonOk.Text = "Update Filter";
                 buttonOk.Enabled = true; // we can enable the button
@@ -243,33 +281,7 @@ namespace AMSExplorer
 
             // Common code
             textBoxFilterTimeScale.Text = _timescale.ToString();
-        }
-
-        private void FillComboBoxImportFilters(IAsset asset)
-        {
-            // combobox for filters
-
-            comboBoxLocatorsFilters.BeginUpdate();
-
-            comboBoxLocatorsFilters.Items.Add(new Item("Import track filtering from :", null));
-
-            if (asset != null)
-            {
-                List<AssetFilter> filters = _contextdynman.ListAssetFilters(asset);
-                filters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Asset filter : " + g.Name, g.Id)));
-            }
-            globalFilters = _contextdynman.ListGlobalFilters();
-            globalFilters.Where(g => g.Tracks.Count > 0).ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
-            if (comboBoxLocatorsFilters.Items.Count > 1)
-            {
-                comboBoxLocatorsFilters.Enabled = true;
-            }
-            comboBoxLocatorsFilters.SelectedIndex = 0;
-            comboBoxLocatorsFilters.EndUpdate();
-        }
-
-        private void DynManifestFilter_Load(object sender, EventArgs e)
-        {
+            
             // dataPropertyType
             dataPropertyType = new DataTable();
             dataPropertyType.Columns.Add(new DataColumn("Value", typeof(string)));
@@ -330,9 +342,6 @@ namespace AMSExplorer
             RefreshTracks();
 
             CheckIfErrorTimeControls();
-
-
-
         }
 
         private void RefreshTracks()

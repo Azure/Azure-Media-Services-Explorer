@@ -106,13 +106,15 @@ namespace AMSExplorer
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
                     timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
-
+              
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
                     // let set duration and active track bat
                     timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
-                    timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = true;
+                    timeControlStart.DisplayTrackBar = true;
+                    timeControlEnd.DisplayTrackBar = true;
+                    timeControlEnd.SetTimeStamp(timeControlEnd.Max);
+
                 }
 
                 else // one asset but not able to read asset timings
@@ -126,7 +128,7 @@ namespace AMSExplorer
             else // several assets
             {
                 groupBoxTrimming.Enabled = panelAssetInfo.Visible = false; // no trimming and no asset info
-
+                radioButtonAssetFilter.Enabled = false; // no asset filter option
                 timeControlStart.DisplayTrackBar = timeControlEnd.DisplayTrackBar = false;
                 timeControlStart.TimeScale = timeControlEnd.TimeScale = _timescale;
                 timeControlStart.Max = timeControlEnd.Max = TimeSpan.MaxValue;
@@ -143,13 +145,25 @@ namespace AMSExplorer
         }
 
 
-        private SubClipTrimmingData GetSubClipTrimmingData()
+        private SubClipTrimmingDataXMLSerialized GetSubClipTrimmingDataXMLSerialized()
         {
-            var trimmingdata = new SubClipTrimmingData();
+            var trimmingdata = new SubClipTrimmingDataXMLSerialized();
             if (checkBoxTrimming.Checked)
             {
                 trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
                 trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
+            }
+            return trimmingdata;
+        }
+
+
+        private SubClipTrimmingDataTimeSpan GetSubClipTrimmingDataTimeSpan()
+        {
+            var trimmingdata = new SubClipTrimmingDataTimeSpan();
+            if (checkBoxTrimming.Checked)
+            {
+                trimmingdata.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
+                trimmingdata.EndTime = timeControlEnd.GetTimeStampAsTimeSpanWithOffset();
             }
             return trimmingdata;
         }
@@ -187,7 +201,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
-                    var subdata = GetSubClipTrimmingData();
+                    var subdata = GetSubClipTrimmingDataXMLSerialized();
                     sourcexml.SetAttributeValue("StartTime", subdata.StartTime);
                     sourcexml.SetAttributeValue("Duration", subdata.Duration);
                 }
@@ -196,23 +210,44 @@ namespace AMSExplorer
                 {
                     Configuration = doc.Declaration.ToString() + doc.ToString(),
                     Reencode = false,
-                    Trimming = false
+                    Trimming = false,
+                    CreateAssetFilter = false
                 };
             }
-            else //  (radioButtonClipWithReencode.Checked) means Reencoding
+            else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
                 var config = new SubClipConfiguration()
                 {
                     Reencode = true,
-                    Trimming = false
+                    Trimming = false,
+                    CreateAssetFilter = false
                 };
 
                 if (checkBoxTrimming.Checked)
                 {
-                    var subdata = GetSubClipTrimmingData();
+                    var subdata = GetSubClipTrimmingDataXMLSerialized();
                     config.Trimming = true;
                     config.StartTimeForReencode = subdata.StartTime;
                     config.DurationForReencode = subdata.Duration;
+                }
+                return config;
+            }
+            else  // means asset filter
+            {
+                var config = new SubClipConfiguration()
+                {
+                    Reencode = false,
+                    Trimming = false,
+                    CreateAssetFilter=true
+                };
+
+                if (checkBoxTrimming.Checked)
+                {
+                    var subdata = GetSubClipTrimmingDataTimeSpan();
+                    config.CreateAssetFilter = true;
+                    config.Trimming = true;
+                    config.StartTimeForAssetFilter = subdata.StartTime;
+                    config.EndTimeForAssetFilter = subdata.EndTime;
                 }
                 return config;
             }
@@ -289,15 +324,15 @@ namespace AMSExplorer
 
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxConfiguration.Enabled = panelJob.Visible = !radioButtonClipWithReencode.Checked; // if reencode, xml data is dsplayed in the next box
-            buttonOk.Text = radioButtonClipWithReencode.Checked ? "Next" : (string)buttonOk.Tag;
+            textBoxConfiguration.Enabled = panelJob.Visible = (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked); // if reencode, xml data is dsplayed in the next box
+            buttonOk.Text = (radioButtonClipWithReencode.Checked || radioButtonAssetFilter.Checked) ? "Next" : (string)buttonOk.Tag;
             ResetConfigXML();
             DisplayAccuracy();
         }
 
         private void DisplayAccuracy()
         {
-            labelAccurate.Text = string.Format((labelAccurate.Tag as string), radioButtonClipWithReencode.Checked ? "frame" : "GOP");
+            labelAccurate.Text = string.Format((labelAccurate.Tag as string), radioButtonClipWithReencode.Checked ? "Frame" : "GOP");
         }
 
         private void radioButtonArchiveTopBitrate_CheckedChanged(object sender, EventArgs e)
@@ -346,7 +381,7 @@ namespace AMSExplorer
 
         private void PlaybackAsset()
         {
-            if (checkBoxPreviewStream.Checked)
+            if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked)
             {
                 IAsset myAsset = _listAssets.FirstOrDefault();
 
@@ -371,6 +406,16 @@ namespace AMSExplorer
         private void panelAssetInfo_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxConfiguration.Enabled = panelJob.Visible = (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked); // if reencode, xml data is dsplayed in the next box
+            buttonOk.Text = (radioButtonClipWithReencode.Checked || radioButtonAssetFilter.Checked )? "Next" : (string)buttonOk.Tag;
+            checkBoxTrimming.Checked = radioButtonAssetFilter.Checked;
+            ResetConfigXML();
+            DisplayAccuracy();
+   
         }
     }
 }

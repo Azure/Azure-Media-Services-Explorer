@@ -73,6 +73,8 @@
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radioButtonAssetFilter = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -271,6 +273,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.radioButtonAssetFilter);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
@@ -280,7 +284,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(277, 172);
+            this.groupBox2.Size = new System.Drawing.Size(277, 213);
             this.groupBox2.TabIndex = 133;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Subclipping mode";
@@ -290,7 +294,7 @@
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label12.Location = new System.Drawing.Point(37, 132);
+            this.label12.Location = new System.Drawing.Point(37, 138);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(199, 13);
             this.label12.TabIndex = 135;
@@ -301,7 +305,7 @@
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label11.Location = new System.Drawing.Point(37, 89);
+            this.label11.Location = new System.Drawing.Point(37, 92);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(100, 13);
             this.label11.TabIndex = 134;
@@ -336,7 +340,7 @@
             // 
             this.radioButtonArchiveAllBitrate.AutoSize = true;
             this.radioButtonArchiveAllBitrate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonArchiveAllBitrate.Location = new System.Drawing.Point(18, 69);
+            this.radioButtonArchiveAllBitrate.Location = new System.Drawing.Point(18, 72);
             this.radioButtonArchiveAllBitrate.Name = "radioButtonArchiveAllBitrate";
             this.radioButtonArchiveAllBitrate.Size = new System.Drawing.Size(113, 17);
             this.radioButtonArchiveAllBitrate.TabIndex = 128;
@@ -348,7 +352,7 @@
             // 
             this.radioButtonClipWithReencode.AutoSize = true;
             this.radioButtonClipWithReencode.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonClipWithReencode.Location = new System.Drawing.Point(18, 112);
+            this.radioButtonClipWithReencode.Location = new System.Drawing.Point(18, 118);
             this.radioButtonClipWithReencode.Name = "radioButtonClipWithReencode";
             this.radioButtonClipWithReencode.Size = new System.Drawing.Size(130, 17);
             this.radioButtonClipWithReencode.TabIndex = 129;
@@ -537,9 +541,9 @@
             this.panelAssetInfo.Controls.Add(this.textBoxAssetName);
             this.panelAssetInfo.Controls.Add(this.labelassetduration);
             this.panelAssetInfo.Controls.Add(this.labelAssetTimescale);
-            this.panelAssetInfo.Location = new System.Drawing.Point(1, 184);
+            this.panelAssetInfo.Location = new System.Drawing.Point(1, 225);
             this.panelAssetInfo.Name = "panelAssetInfo";
-            this.panelAssetInfo.Size = new System.Drawing.Size(282, 230);
+            this.panelAssetInfo.Size = new System.Drawing.Size(282, 208);
             this.panelAssetInfo.TabIndex = 134;
             // 
             // timeControlStart
@@ -591,6 +595,29 @@
             this.buttonJobOptions.TabIndex = 130;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(37, 184);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.TabIndex = 137;
+            this.label2.Text = "create an asset filter";
+            // 
+            // radioButtonAssetFilter
+            // 
+            this.radioButtonAssetFilter.AutoSize = true;
+            this.radioButtonAssetFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonAssetFilter.Location = new System.Drawing.Point(18, 164);
+            this.radioButtonAssetFilter.Name = "radioButtonAssetFilter";
+            this.radioButtonAssetFilter.Size = new System.Drawing.Size(67, 17);
+            this.radioButtonAssetFilter.TabIndex = 136;
+            this.radioButtonAssetFilter.Text = "Trim only";
+            this.radioButtonAssetFilter.UseVisualStyleBackColor = true;
+            this.radioButtonAssetFilter.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // Subclipping
             // 
@@ -674,5 +701,7 @@
         private System.Windows.Forms.CheckBox checkBoxPreviewStream;
         private System.Windows.Forms.WebBrowser webBrowserPreview2;
         private System.Windows.Forms.Panel panelAssetInfo;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton radioButtonAssetFilter;
     }
 }

@@ -10454,26 +10454,8 @@ namespace AMSExplorer
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     var subclipConfig = form.GetSubclippingConfiguration();
-
-
-                    if (!subclipConfig.Reencode) // no reencode but stream copy
-                    {
-                        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-
-                        LaunchJobs(
-                            Proc,
-                            selectedAssets,
-                            form.EncodingJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.EncodingOutputAssetName,
-                            new List<string>() { form.GetSubclippingConfiguration().Configuration },
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected);
-                    }
-                    else // reencode the clip
+                    
+                    if (subclipConfig.Reencode) // reencode the clip
                     {
                         List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
                         EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
@@ -10502,6 +10484,51 @@ namespace AMSExplorer
                                form2.JobOptions.TasksOptionsSetting,
                                form2.JobOptions.StorageSelected);
                         }
+                    }
+                    else if (subclipConfig.CreateAssetFilter) // create a asset filter
+                    {
+                        IAsset selasset = selectedAssets.FirstOrDefault();
+                        DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
+
+                        if (formAF.ShowDialog() == DialogResult.OK)
+                        {
+                            AssetFilter myassetfilter = new AssetFilter(selasset);
+
+                            Filter filter = formAF.GetFilter;
+                            myassetfilter.Name = filter.Name;
+                            myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
+                            myassetfilter.Tracks = filter.Tracks;
+                            myassetfilter._context = filter._context;
+                            try
+                            {
+                                myassetfilter.Create();
+                                TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
+                            }
+                            catch (Exception e)
+                            {
+                                TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
+                                TextBoxLogWriteLine(e);
+                            }
+                            DoRefreshGridFiltersV(false);
+                        }
+
+                    }
+                    else // no reencode or asset filter but stream copy
+                    {
+                        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+
+                        LaunchJobs(
+                            Proc,
+                            selectedAssets,
+                            form.EncodingJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.EncodingOutputAssetName,
+                            new List<string>() { form.GetSubclippingConfiguration().Configuration },
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected);
                     }
                 }
             }

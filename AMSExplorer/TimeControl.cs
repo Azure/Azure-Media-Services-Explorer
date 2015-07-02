@@ -34,7 +34,8 @@ namespace AMSExplorer
         private TimeSpan max = new TimeSpan(Int64.MaxValue);
         private bool donotfirechangeevent = false;
         private long _scaledTotalDuration = -1;
-         private bool _dvrmode = false; // inversed mode for dvr
+        private bool _dvrmode = false; // inversed mode for dvr
+        private bool _displaytrackbar = false;
 
 
         public TimeControl()
@@ -68,15 +69,15 @@ namespace AMSExplorer
         {
             donotfirechangeevent = true;
             double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
-                
+
             if (_dvrmode)
             {
-                SetTimeStamp( new TimeSpan(Convert.ToInt64((double)_scaledTotalDuration *scale * (1000d - (double)trackBarTime.Value) / 1000d)));
+                SetTimeStamp(new TimeSpan(Convert.ToInt64((double)_scaledTotalDuration * scale * (1000d - (double)trackBarTime.Value) / 1000d)));
 
             }
             else
             {
-                SetTimeStamp( new TimeSpan(Convert.ToInt64((double)_scaledTotalDuration *scale* ((double)trackBarTime.Value) / 1000d)));
+                SetTimeStamp(new TimeSpan(Convert.ToInt64((double)_scaledTotalDuration * scale * ((double)trackBarTime.Value) / 1000d)));
 
             }
             donotfirechangeevent = false;
@@ -114,11 +115,13 @@ namespace AMSExplorer
         {
             get
             {
-                return trackBarTime.Visible;
+                return _displaytrackbar;
             }
             set
             {
-                trackBarTime.Visible = trackBarTime.Enabled = value;
+                trackBarTime.Visible = value;
+                trackBarTime.Enabled = value;
+                _displaytrackbar = value;
             }
         }
 
@@ -148,42 +151,6 @@ namespace AMSExplorer
             set { max = value; }
         }
 
-        /*
-        public string Timestamp
-        {
-            get
-            {
-                TimeSpan ts = TimestampAsTimeSpan;
-                return Math.Truncate(((double)ts.Ticks) * ((double)timescale / (double)TimeSpan.TicksPerSecond)).ToString();
-            }
-            set
-            {
-                bool Error = false;
-                long timestamp = -1;
-                try
-                {
-                    timestamp = long.Parse(value);
-                }
-                catch
-                {
-                    Error = true;
-                }
-                if (!Error)
-                {
-                    if (timestamp == Int64.MaxValue)
-                    {
-                        TimestampAsTimeSpan = new TimeSpan(Int64.MaxValue);
-                    }
-                    else
-                    {
-                        double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
-                        TimeSpan ts = new TimeSpan(Convert.ToInt64(((double)timestamp) * scale));
-                        TimestampAsTimeSpan = ts;
-                    }
-                }
-            }
-        }
-        */
 
         public string GetScaledTimeStamp()
         {
@@ -224,69 +191,29 @@ namespace AMSExplorer
             }
         }
 
-        /*
-        public TimeSpan TimestampAsTimeSpan
-        {
-            get
-            {
-                return new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
-            }
-            set
-            {
-                donotfirechangeevent = true;
-                numericUpDownDays.Value = value.Days;
-                numericUpDownHours.Value = value.Hours;
-                numericUpDownMinutes.Value = value.Minutes;
-                numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
-
-                // trackbar update
-                if (trackBarTime.Enabled)
-                {
-                    double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
-                    double durationinticks = ((double)_totalDuration) * scale;
-                    if (_dvrmode)
-                    {
-
-                        trackBarTime.Value = (int)(1000d - 1000d * value.TotalMilliseconds / (new TimeSpan(Convert.ToInt64(durationinticks))).TotalMilliseconds);
-
-                    }
-                    else
-                    {
-                        trackBarTime.Value = (int)(1000d * value.TotalMilliseconds / (new TimeSpan(Convert.ToInt64(durationinticks))).TotalMilliseconds);
-                    }
-                }
-
-                donotfirechangeevent = false;
-            }
-        }
-         * */
 
         public TimeSpan GetTimeStampAsTimeSpanWitoutOffset()
         {
-            
-            return  new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
-      
+
+            return new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
+
         }
 
         public TimeSpan GetTimeStampAsTimeSpanWithOffset()
         {
-
             return GetOffSetAsTimeSpan() + new TimeSpan((int)numericUpDownDays.Value, (int)numericUpDownHours.Value, (int)numericUpDownMinutes.Value, (int)Math.Truncate(numericUpDownSeconds.Value), (int)(1000 * (numericUpDownSeconds.Value - Math.Truncate(numericUpDownSeconds.Value))));
-
         }
 
         public TimeSpan GetOffSetAsTimeSpan()
         {
-           return new TimeSpan((long) ((double)TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / ((double)timescale)));
-         
+            return new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)ScaledFirstTimestampOffset / ((double)timescale)));
         }
 
         public void SetTimeStamp(TimeSpan value)
         {
             donotfirechangeevent = true;
-            
             // trackbar update
-            if (trackBarTime.Enabled)
+            if (this.DisplayTrackBar)
             {
                 double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
                 double durationinticks = ((double)_scaledTotalDuration) * scale;
@@ -299,15 +226,15 @@ namespace AMSExplorer
                     trackBarTime.Value = (int)(1000d * value.TotalMilliseconds / (new TimeSpan(Convert.ToInt64(durationinticks))).TotalMilliseconds);
                 }
             }
-            
+
             numericUpDownDays.Value = value.Days;
             numericUpDownHours.Value = value.Hours;
             numericUpDownMinutes.Value = value.Minutes;
             donotfirechangeevent = false;
             numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
-                      
 
-            
+
+
         }
 
         private void trackBarStart_Scroll(object sender, EventArgs e)
