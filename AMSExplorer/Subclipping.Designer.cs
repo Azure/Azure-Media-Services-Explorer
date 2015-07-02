@@ -35,7 +35,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
-            this.labelSubclipTitle = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.labelassetname = new System.Windows.Forms.Label();
             this.textBoxAssetDuration = new System.Windows.Forms.TextBox();
@@ -48,18 +47,23 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.tabPageTR = new System.Windows.Forms.TabPage();
+            this.panelAssetInfo = new System.Windows.Forms.Panel();
+            this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
+            this.labelAccurate = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
+            this.label1 = new System.Windows.Forms.Label();
+            this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
+            this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.radioButtonAssetFilter = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.radioButtonArchiveTopBitrate = new System.Windows.Forms.RadioButton();
             this.radioButtonArchiveAllBitrate = new System.Windows.Forms.RadioButton();
             this.radioButtonClipWithReencode = new System.Windows.Forms.RadioButton();
-            this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
-            this.labelAccurate = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.checkBoxTrimming = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.label4 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
@@ -67,23 +71,18 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.panelJob = new System.Windows.Forms.Panel();
             this.label34 = new System.Windows.Forms.Label();
-            this.checkBoxPreviewStream = new System.Windows.Forms.CheckBox();
-            this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
-            this.panelAssetInfo = new System.Windows.Forms.Panel();
             this.timeControlStart = new AMSExplorer.TimeControl();
             this.timeControlEnd = new AMSExplorer.TimeControl();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButtonAssetFilter = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
             this.tabPageTR.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.panelAssetInfo.SuspendLayout();
             this.groupBoxTrimming.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.panelJob.SuspendLayout();
-            this.panelAssetInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -129,7 +128,7 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(366, 14);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(12, 12);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
             this.moreinfoprofilelink.TabIndex = 80;
@@ -137,29 +136,19 @@
             this.moreinfoprofilelink.Text = "More information";
             this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
             // 
-            // labelSubclipTitle
-            // 
-            this.labelSubclipTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSubclipTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSubclipTitle.Location = new System.Drawing.Point(9, 9);
-            this.labelSubclipTitle.Name = "labelSubclipTitle";
-            this.labelSubclipTitle.Size = new System.Drawing.Size(351, 24);
-            this.labelSubclipTitle.TabIndex = 81;
-            this.labelSubclipTitle.Text = "Rendered subclipping for live stream or archive";
-            // 
             // textBoxAssetName
             // 
             this.textBoxAssetName.Location = new System.Drawing.Point(23, 39);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.ReadOnly = true;
-            this.textBoxAssetName.Size = new System.Drawing.Size(182, 20);
+            this.textBoxAssetName.Size = new System.Drawing.Size(218, 20);
             this.textBoxAssetName.TabIndex = 83;
             // 
             // labelassetname
             // 
             this.labelassetname.AutoSize = true;
-            this.labelassetname.Location = new System.Drawing.Point(20, 20);
+            this.labelassetname.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelassetname.Location = new System.Drawing.Point(24, 23);
             this.labelassetname.Name = "labelassetname";
             this.labelassetname.Size = new System.Drawing.Size(68, 13);
             this.labelassetname.TabIndex = 82;
@@ -170,14 +159,15 @@
             this.textBoxAssetDuration.Location = new System.Drawing.Point(23, 84);
             this.textBoxAssetDuration.Name = "textBoxAssetDuration";
             this.textBoxAssetDuration.ReadOnly = true;
-            this.textBoxAssetDuration.Size = new System.Drawing.Size(182, 20);
+            this.textBoxAssetDuration.Size = new System.Drawing.Size(218, 20);
             this.textBoxAssetDuration.TabIndex = 85;
             this.textBoxAssetDuration.Visible = false;
             // 
             // labelassetduration
             // 
             this.labelassetduration.AutoSize = true;
-            this.labelassetduration.Location = new System.Drawing.Point(24, 65);
+            this.labelassetduration.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelassetduration.Location = new System.Drawing.Point(24, 68);
             this.labelassetduration.Name = "labelassetduration";
             this.labelassetduration.Size = new System.Drawing.Size(80, 13);
             this.labelassetduration.TabIndex = 84;
@@ -189,14 +179,15 @@
             this.textBoxFilterTimeScale.Location = new System.Drawing.Point(23, 129);
             this.textBoxFilterTimeScale.Name = "textBoxFilterTimeScale";
             this.textBoxFilterTimeScale.ReadOnly = true;
-            this.textBoxFilterTimeScale.Size = new System.Drawing.Size(182, 20);
+            this.textBoxFilterTimeScale.Size = new System.Drawing.Size(218, 20);
             this.textBoxFilterTimeScale.TabIndex = 87;
             this.textBoxFilterTimeScale.Visible = false;
             // 
             // labelAssetTimescale
             // 
             this.labelAssetTimescale.AutoSize = true;
-            this.labelAssetTimescale.Location = new System.Drawing.Point(24, 110);
+            this.labelAssetTimescale.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelAssetTimescale.Location = new System.Drawing.Point(24, 113);
             this.labelAssetTimescale.Name = "labelAssetTimescale";
             this.labelAssetTimescale.Size = new System.Drawing.Size(86, 13);
             this.labelAssetTimescale.TabIndex = 86;
@@ -208,14 +199,15 @@
             this.textBoxOffset.Location = new System.Drawing.Point(23, 174);
             this.textBoxOffset.Name = "textBoxOffset";
             this.textBoxOffset.ReadOnly = true;
-            this.textBoxOffset.Size = new System.Drawing.Size(182, 20);
+            this.textBoxOffset.Size = new System.Drawing.Size(218, 20);
             this.textBoxOffset.TabIndex = 89;
             this.textBoxOffset.Visible = false;
             // 
             // labelOffset
             // 
             this.labelOffset.AutoSize = true;
-            this.labelOffset.Location = new System.Drawing.Point(24, 155);
+            this.labelOffset.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelOffset.Location = new System.Drawing.Point(24, 158);
             this.labelOffset.Name = "labelOffset";
             this.labelOffset.Size = new System.Drawing.Size(68, 13);
             this.labelOffset.TabIndex = 88;
@@ -229,7 +221,7 @@
             this.tabPageXML.Location = new System.Drawing.Point(4, 22);
             this.tabPageXML.Name = "tabPageXML";
             this.tabPageXML.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageXML.Size = new System.Drawing.Size(752, 420);
+            this.tabPageXML.Size = new System.Drawing.Size(752, 439);
             this.tabPageXML.TabIndex = 2;
             this.tabPageXML.Text = "Generated Configuration";
             this.tabPageXML.UseVisualStyleBackColor = true;
@@ -271,6 +263,114 @@
             this.tabPageTR.UseVisualStyleBackColor = true;
             this.tabPageTR.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // panelAssetInfo
+            // 
+            this.panelAssetInfo.Controls.Add(this.labelassetname);
+            this.panelAssetInfo.Controls.Add(this.textBoxAssetDuration);
+            this.panelAssetInfo.Controls.Add(this.textBoxOffset);
+            this.panelAssetInfo.Controls.Add(this.labelOffset);
+            this.panelAssetInfo.Controls.Add(this.textBoxFilterTimeScale);
+            this.panelAssetInfo.Controls.Add(this.textBoxAssetName);
+            this.panelAssetInfo.Controls.Add(this.labelassetduration);
+            this.panelAssetInfo.Controls.Add(this.labelAssetTimescale);
+            this.panelAssetInfo.Location = new System.Drawing.Point(1, 225);
+            this.panelAssetInfo.Name = "panelAssetInfo";
+            this.panelAssetInfo.Size = new System.Drawing.Size(282, 208);
+            this.panelAssetInfo.TabIndex = 134;
+            // 
+            // groupBoxTrimming
+            // 
+            this.groupBoxTrimming.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTrimming.Controls.Add(this.labelAccurate);
+            this.groupBoxTrimming.Controls.Add(this.label6);
+            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview2);
+            this.groupBoxTrimming.Controls.Add(this.label1);
+            this.groupBoxTrimming.Controls.Add(this.timeControlStart);
+            this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
+            this.groupBoxTrimming.Controls.Add(this.checkBoxPreviewStream);
+            this.groupBoxTrimming.Controls.Add(this.checkBoxTrimming);
+            this.groupBoxTrimming.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxTrimming.Location = new System.Drawing.Point(289, 6);
+            this.groupBoxTrimming.Name = "groupBoxTrimming";
+            this.groupBoxTrimming.Size = new System.Drawing.Size(460, 427);
+            this.groupBoxTrimming.TabIndex = 131;
+            this.groupBoxTrimming.TabStop = false;
+            this.groupBoxTrimming.Text = "Trimming";
+            // 
+            // labelAccurate
+            // 
+            this.labelAccurate.AutoSize = true;
+            this.labelAccurate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAccurate.Location = new System.Drawing.Point(178, 20);
+            this.labelAccurate.Name = "labelAccurate";
+            this.labelAccurate.Size = new System.Drawing.Size(72, 13);
+            this.labelAccurate.TabIndex = 133;
+            this.labelAccurate.Tag = "({0} accurate)";
+            this.labelAccurate.Text = "({0} accurate)";
+            // 
+            // label6
+            // 
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(260, 362);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(56, 13);
+            this.label6.TabIndex = 124;
+            this.label6.Text = "End time";
+            // 
+            // webBrowserPreview2
+            // 
+            this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowserPreview2.Location = new System.Drawing.Point(15, 36);
+            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview2.Name = "webBrowserPreview2";
+            this.webBrowserPreview2.Size = new System.Drawing.Size(429, 190);
+            this.webBrowserPreview2.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(260, 262);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(61, 13);
+            this.label1.TabIndex = 123;
+            this.label1.Text = "Start time";
+            // 
+            // checkBoxPreviewStream
+            // 
+            this.checkBoxPreviewStream.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxPreviewStream.AutoSize = true;
+            this.checkBoxPreviewStream.Checked = true;
+            this.checkBoxPreviewStream.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPreviewStream.Enabled = false;
+            this.checkBoxPreviewStream.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxPreviewStream.Location = new System.Drawing.Point(346, 20);
+            this.checkBoxPreviewStream.Name = "checkBoxPreviewStream";
+            this.checkBoxPreviewStream.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxPreviewStream.TabIndex = 5;
+            this.checkBoxPreviewStream.Text = "Playback asset";
+            this.checkBoxPreviewStream.UseVisualStyleBackColor = true;
+            this.checkBoxPreviewStream.CheckedChanged += new System.EventHandler(this.checkBoxPreviewStream_CheckedChanged_1);
+            // 
+            // checkBoxTrimming
+            // 
+            this.checkBoxTrimming.AutoSize = true;
+            this.checkBoxTrimming.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxTrimming.Location = new System.Drawing.Point(15, 19);
+            this.checkBoxTrimming.Name = "checkBoxTrimming";
+            this.checkBoxTrimming.Size = new System.Drawing.Size(157, 17);
+            this.checkBoxTrimming.TabIndex = 132;
+            this.checkBoxTrimming.Text = "Trim the live archive/stream";
+            this.checkBoxTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxTrimming.CheckedChanged += new System.EventHandler(this.checkBoxTrimming_CheckedChanged);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.label2);
@@ -288,6 +388,29 @@
             this.groupBox2.TabIndex = 133;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Subclipping mode";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(37, 184);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 13);
+            this.label2.TabIndex = 137;
+            this.label2.Text = "create an asset filter";
+            // 
+            // radioButtonAssetFilter
+            // 
+            this.radioButtonAssetFilter.AutoSize = true;
+            this.radioButtonAssetFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonAssetFilter.Location = new System.Drawing.Point(18, 164);
+            this.radioButtonAssetFilter.Name = "radioButtonAssetFilter";
+            this.radioButtonAssetFilter.Size = new System.Drawing.Size(67, 17);
+            this.radioButtonAssetFilter.TabIndex = 136;
+            this.radioButtonAssetFilter.Text = "Trim only";
+            this.radioButtonAssetFilter.UseVisualStyleBackColor = true;
+            this.radioButtonAssetFilter.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // label12
             // 
@@ -360,72 +483,6 @@
             this.radioButtonClipWithReencode.UseVisualStyleBackColor = true;
             this.radioButtonClipWithReencode.CheckedChanged += new System.EventHandler(this.radioButtonClipWithReencode_CheckedChanged);
             // 
-            // groupBoxTrimming
-            // 
-            this.groupBoxTrimming.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxTrimming.Controls.Add(this.labelAccurate);
-            this.groupBoxTrimming.Controls.Add(this.label6);
-            this.groupBoxTrimming.Controls.Add(this.webBrowserPreview2);
-            this.groupBoxTrimming.Controls.Add(this.label1);
-            this.groupBoxTrimming.Controls.Add(this.timeControlStart);
-            this.groupBoxTrimming.Controls.Add(this.timeControlEnd);
-            this.groupBoxTrimming.Controls.Add(this.checkBoxPreviewStream);
-            this.groupBoxTrimming.Controls.Add(this.checkBoxTrimming);
-            this.groupBoxTrimming.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxTrimming.Location = new System.Drawing.Point(289, 6);
-            this.groupBoxTrimming.Name = "groupBoxTrimming";
-            this.groupBoxTrimming.Size = new System.Drawing.Size(460, 427);
-            this.groupBoxTrimming.TabIndex = 131;
-            this.groupBoxTrimming.TabStop = false;
-            this.groupBoxTrimming.Text = "Trimming";
-            // 
-            // labelAccurate
-            // 
-            this.labelAccurate.AutoSize = true;
-            this.labelAccurate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAccurate.Location = new System.Drawing.Point(178, 20);
-            this.labelAccurate.Name = "labelAccurate";
-            this.labelAccurate.Size = new System.Drawing.Size(72, 13);
-            this.labelAccurate.TabIndex = 133;
-            this.labelAccurate.Tag = "({0} accurate)";
-            this.labelAccurate.Text = "({0} accurate)";
-            // 
-            // label6
-            // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(260, 362);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(56, 13);
-            this.label6.TabIndex = 124;
-            this.label6.Text = "End time";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(260, 262);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 13);
-            this.label1.TabIndex = 123;
-            this.label1.Text = "Start time";
-            // 
-            // checkBoxTrimming
-            // 
-            this.checkBoxTrimming.AutoSize = true;
-            this.checkBoxTrimming.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxTrimming.Location = new System.Drawing.Point(15, 19);
-            this.checkBoxTrimming.Name = "checkBoxTrimming";
-            this.checkBoxTrimming.Size = new System.Drawing.Size(157, 17);
-            this.checkBoxTrimming.TabIndex = 132;
-            this.checkBoxTrimming.Text = "Trim the live archive/stream";
-            this.checkBoxTrimming.UseVisualStyleBackColor = true;
-            this.checkBoxTrimming.CheckedChanged += new System.EventHandler(this.checkBoxTrimming_CheckedChanged);
-            // 
             // tabControl1
             // 
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -497,54 +554,12 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(647, 6);
+            this.label34.Location = new System.Drawing.Point(463, 12);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(121, 24);
+            this.label34.Size = new System.Drawing.Size(307, 24);
             this.label34.TabIndex = 136;
-            this.label34.Text = "Subclipping";
+            this.label34.Text = "Live stream/archive Subclipping";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // checkBoxPreviewStream
-            // 
-            this.checkBoxPreviewStream.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxPreviewStream.AutoSize = true;
-            this.checkBoxPreviewStream.Checked = true;
-            this.checkBoxPreviewStream.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPreviewStream.Enabled = false;
-            this.checkBoxPreviewStream.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxPreviewStream.Location = new System.Drawing.Point(346, 20);
-            this.checkBoxPreviewStream.Name = "checkBoxPreviewStream";
-            this.checkBoxPreviewStream.Size = new System.Drawing.Size(98, 17);
-            this.checkBoxPreviewStream.TabIndex = 5;
-            this.checkBoxPreviewStream.Text = "Playback asset";
-            this.checkBoxPreviewStream.UseVisualStyleBackColor = true;
-            this.checkBoxPreviewStream.CheckedChanged += new System.EventHandler(this.checkBoxPreviewStream_CheckedChanged_1);
-            // 
-            // webBrowserPreview2
-            // 
-            this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserPreview2.Location = new System.Drawing.Point(15, 36);
-            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowserPreview2.Name = "webBrowserPreview2";
-            this.webBrowserPreview2.Size = new System.Drawing.Size(429, 190);
-            this.webBrowserPreview2.TabIndex = 4;
-            // 
-            // panelAssetInfo
-            // 
-            this.panelAssetInfo.Controls.Add(this.labelassetname);
-            this.panelAssetInfo.Controls.Add(this.textBoxAssetDuration);
-            this.panelAssetInfo.Controls.Add(this.textBoxOffset);
-            this.panelAssetInfo.Controls.Add(this.labelOffset);
-            this.panelAssetInfo.Controls.Add(this.textBoxFilterTimeScale);
-            this.panelAssetInfo.Controls.Add(this.textBoxAssetName);
-            this.panelAssetInfo.Controls.Add(this.labelassetduration);
-            this.panelAssetInfo.Controls.Add(this.labelAssetTimescale);
-            this.panelAssetInfo.Location = new System.Drawing.Point(1, 225);
-            this.panelAssetInfo.Name = "panelAssetInfo";
-            this.panelAssetInfo.Size = new System.Drawing.Size(282, 208);
-            this.panelAssetInfo.TabIndex = 134;
             // 
             // timeControlStart
             // 
@@ -596,29 +611,6 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Location = new System.Drawing.Point(37, 184);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(102, 13);
-            this.label2.TabIndex = 137;
-            this.label2.Text = "create an asset filter";
-            // 
-            // radioButtonAssetFilter
-            // 
-            this.radioButtonAssetFilter.AutoSize = true;
-            this.radioButtonAssetFilter.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonAssetFilter.Location = new System.Drawing.Point(18, 164);
-            this.radioButtonAssetFilter.Name = "radioButtonAssetFilter";
-            this.radioButtonAssetFilter.Size = new System.Drawing.Size(67, 17);
-            this.radioButtonAssetFilter.TabIndex = 136;
-            this.radioButtonAssetFilter.Text = "Trim only";
-            this.radioButtonAssetFilter.UseVisualStyleBackColor = true;
-            this.radioButtonAssetFilter.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
             // Subclipping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -628,12 +620,11 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.panelJob);
-            this.Controls.Add(this.labelSubclipTitle);
             this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.panel1);
             this.Name = "Subclipping";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Rendered Subclip";
+            this.Text = "Live Subclipping";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Subclipping_FormClosed);
             this.Load += new System.EventHandler(this.Subclipping_Load);
             this.panel1.ResumeLayout(false);
@@ -641,15 +632,15 @@
             this.tabPageXML.ResumeLayout(false);
             this.tabPageXML.PerformLayout();
             this.tabPageTR.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.panelAssetInfo.ResumeLayout(false);
+            this.panelAssetInfo.PerformLayout();
             this.groupBoxTrimming.ResumeLayout(false);
             this.groupBoxTrimming.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.panelJob.ResumeLayout(false);
             this.panelJob.PerformLayout();
-            this.panelAssetInfo.ResumeLayout(false);
-            this.panelAssetInfo.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -663,7 +654,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
-        private System.Windows.Forms.Label labelSubclipTitle;
         private System.Windows.Forms.TextBox textBoxAssetName;
         private System.Windows.Forms.Label labelassetname;
         private System.Windows.Forms.TextBox textBoxAssetDuration;
