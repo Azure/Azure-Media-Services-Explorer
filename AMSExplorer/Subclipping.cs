@@ -35,10 +35,12 @@ namespace AMSExplorer
     public partial class Subclipping : Form
     {
         CloudMediaContext _context;
-        private List<IAsset> _listAssets;
+        MediaServiceContextForDynManifest _contextdynmanifest;
+        private List<IAsset> _selectedAssets;
         private ManifestTimingData _parentassetmanifestdata;
         private long _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
+        Mainform _mainform;
 
         public JobOptionsVar JobOptions
         {
@@ -76,17 +78,19 @@ namespace AMSExplorer
             }
         }
 
-        public Subclipping(CloudMediaContext context, List<IAsset> assetlist)
+        public Subclipping(CloudMediaContext context, MediaServiceContextForDynManifest contextdynmanifest, List<IAsset> assetlist, Mainform mainform)
         {
             InitializeComponent();
             buttonJobOptions.Initialize(context);
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _contextdynmanifest = contextdynmanifest;
             _parentassetmanifestdata = new ManifestTimingData();
-            _listAssets = assetlist;
+            _selectedAssets = assetlist;
+            _mainform = mainform;
 
 
-            if (_listAssets.Count == 1 && _listAssets.FirstOrDefault() != null)  // one asset only
+            if (_selectedAssets.Count == 1 && _selectedAssets.FirstOrDefault() != null)  // one asset only
             {
                 var myAsset = assetlist.FirstOrDefault();
                 textBoxAssetName.Text = myAsset.Name;
@@ -106,7 +110,7 @@ namespace AMSExplorer
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
                     timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
-              
+
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
                     // let set duration and active track bat
@@ -238,13 +242,12 @@ namespace AMSExplorer
                 {
                     Reencode = false,
                     Trimming = false,
-                    CreateAssetFilter=true
+                    CreateAssetFilter = true,
                 };
 
                 if (checkBoxTrimming.Checked)
                 {
                     var subdata = GetSubClipTrimmingDataTimeSpan();
-                    config.CreateAssetFilter = true;
                     config.Trimming = true;
                     config.StartTimeForAssetFilter = subdata.StartTime;
                     config.EndTimeForAssetFilter = subdata.EndTime;
@@ -324,35 +327,59 @@ namespace AMSExplorer
 
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxConfiguration.Enabled = panelJob.Visible = (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked); // if reencode, xml data is dsplayed in the next box
-            buttonOk.Text = (radioButtonClipWithReencode.Checked || radioButtonAssetFilter.Checked) ? "Next" : (string)buttonOk.Tag;
-            ResetConfigXML();
-            DisplayAccuracy();
+            if (radioButtonClipWithReencode.Checked)  // reencoding
+            {
+                textBoxConfiguration.Enabled = panelJob.Visible = false;
+                UpdateButtonOk();
+                ResetConfigXML();
+                DisplayAccuracy();
+            }
+            else if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked)  // archive
+            {
+                textBoxConfiguration.Enabled = panelJob.Visible = true;
+                UpdateButtonOk();
+                ResetConfigXML();
+                DisplayAccuracy();
+            }
+            else if (radioButtonAssetFilter.Checked) // asset filter
+            {
+                textBoxConfiguration.Enabled = panelJob.Visible = false;
+                UpdateButtonOk();
+                ResetConfigXML();
+                DisplayAccuracy();
+            }
+
+        }
+
+        private void UpdateButtonOk()
+        {
+
+            buttonOk.Text =((string)buttonOk.Tag)+ ((radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) ? "" : "...");
+
         }
 
         private void DisplayAccuracy()
         {
             labelAccurate.Text = string.Format((labelAccurate.Tag as string), radioButtonClipWithReencode.Checked ? "Frame" : "GOP");
+
+            if (radioButtonAssetFilter.Checked)
+            {
+                labeloutoutputasset.Text = "Asset Filter Name :";
+            }
+            else
+            {
+                labeloutoutputasset.Text = (string)labeloutoutputasset.Tag;
+            }
+
         }
 
-        private void radioButtonArchiveTopBitrate_CheckedChanged(object sender, EventArgs e)
-        {
-            ResetConfigXML();
-            DisplayAccuracy();
-        }
 
         private void ResetConfigXML()
         {
             textBoxConfiguration.Text = string.Empty;
         }
 
-        private void radioButtonArchiveAllBitrate_CheckedChanged(object sender, EventArgs e)
-        {
-            ResetConfigXML();
-            DisplayAccuracy();
-        }
 
-     
 
         private void Subclipping_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -383,7 +410,7 @@ namespace AMSExplorer
         {
             if (checkBoxPreviewStream.Checked && checkBoxTrimming.Checked)
             {
-                IAsset myAsset = _listAssets.FirstOrDefault();
+                IAsset myAsset = _selectedAssets.FirstOrDefault();
 
                 Uri myuri = AssetInfo.GetValidOnDemandURI(myAsset);
                 if (myuri == null)
@@ -403,19 +430,94 @@ namespace AMSExplorer
             }
         }
 
-        private void panelAssetInfo_Paint(object sender, PaintEventArgs e)
-        {
 
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            DoSubClip();
         }
 
-        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        private void DoSubClip()
         {
-            textBoxConfiguration.Enabled = panelJob.Visible = (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked); // if reencode, xml data is dsplayed in the next box
-            buttonOk.Text = (radioButtonClipWithReencode.Checked || radioButtonAssetFilter.Checked )? "Next" : (string)buttonOk.Tag;
-            checkBoxTrimming.Checked = radioButtonAssetFilter.Checked;
-            ResetConfigXML();
-            DisplayAccuracy();
-   
+            var subclipConfig = this.GetSubclippingConfiguration();
+
+            if (subclipConfig.Reencode) // reencode the clip
+            {
+                List<IMediaProcessor> Procs = Mainform.GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
+                {
+                    EncodingLabel = (_selectedAssets.Count > 1) ? _selectedAssets.Count + " assets have been selected. " + _selectedAssets.Count + " jobs will be submitted." : "Asset '" + _selectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                    EncodingProcessorsList = Procs,
+                    EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
+                    EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
+                    EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                    EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                    SelectedAssets = _selectedAssets
+                };
+
+                if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                    _mainform.LaunchJobs(
+                       form2.EncodingProcessorSelected,
+                       _selectedAssets,
+                       form2.EncodingJobName,
+                       form2.JobOptions.Priority,
+                       taskname,
+                       form2.EncodingOutputAssetName,
+                       new List<string>() { form2.EncodingConfiguration },
+                       form2.JobOptions.OutputAssetsCreationOptions,
+                       form2.JobOptions.TasksOptionsSetting,
+                       form2.JobOptions.StorageSelected);
+
+                }
+            }
+            else if (subclipConfig.CreateAssetFilter) // create a asset filter
+            {
+                IAsset selasset = _selectedAssets.FirstOrDefault();
+                DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
+                if (formAF.ShowDialog() == DialogResult.OK)
+                {
+                    AssetFilter myassetfilter = new AssetFilter(selasset);
+
+                    Filter filter = formAF.GetFilter;
+                    myassetfilter.Name = filter.Name;
+                    myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
+                    myassetfilter.Tracks = filter.Tracks;
+                    myassetfilter._context = filter._context;
+                    try
+                    {
+                        myassetfilter.Create();
+                        _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
+                    }
+                    catch (Exception ex)
+                    {
+                        _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
+                        _mainform.TextBoxLogWriteLine(ex);
+                    }
+
+                    _mainform.DoRefreshGridFiltersV(false);
+                }
+
+            }
+            else // no reencode or asset filter but stream copy
+            {
+                string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                IMediaProcessor Proc = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+
+                _mainform.LaunchJobs(
+                    Proc,
+                    _selectedAssets,
+                    this.EncodingJobName,
+                    this.JobOptions.Priority,
+                    taskname,
+                    this.EncodingOutputAssetName,
+                    new List<string>() { this.GetSubclippingConfiguration().Configuration },
+                    this.JobOptions.OutputAssetsCreationOptions,
+                    this.JobOptions.TasksOptionsSetting,
+                    this.JobOptions.StorageSelected);
+
+                MessageBox.Show("Subclipping job(s) submitted", "Sublipping", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

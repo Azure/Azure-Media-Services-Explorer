@@ -464,7 +464,7 @@ namespace AMSExplorer
         }
 
 
-        private static IMediaProcessor GetLatestMediaProcessorByName(string mediaProcessorName)
+        public static IMediaProcessor GetLatestMediaProcessorByName(string mediaProcessorName)
         {
             // The possible strings that can be passed into the 
             // method for the mediaProcessor parameter:
@@ -479,9 +479,8 @@ namespace AMSExplorer
             return processor;
         }
 
-        private static List<IMediaProcessor> GetMediaProcessorsByName(string mediaProcessorName)
+        public static List<IMediaProcessor> GetMediaProcessorsByName(string mediaProcessorName)
         {
-
             var processors = _context.MediaProcessors.Where(p => p.Name == mediaProcessorName).
                 ToList().OrderBy(p => new Version(p.Version)).Reverse();
 
@@ -3461,7 +3460,7 @@ namespace AMSExplorer
         }
 
 
-        private void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
+        public void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
         {
             foreach (IAsset asset in selectedassets)
             {
@@ -5622,7 +5621,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoRefreshGridFiltersV(bool firstime)
+        public void DoRefreshGridFiltersV(bool firstime)
         {
 
             if (firstime)
@@ -10445,92 +10444,94 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
-                Subclipping form = new Subclipping(_context, selectedAssets)
+                Subclipping form = new Subclipping(_context, _contextdynmanifest, selectedAssets, this)
                 {
                     EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
                 };
 
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    var subclipConfig = form.GetSubclippingConfiguration();
-                    
-                    if (subclipConfig.Reencode) // reencode the clip
-                    {
-                        List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
-                        EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
-                        {
-                            EncodingLabel = (selectedAssets.Count > 1) ? selectedAssets.Count + " assets have been selected. " + selectedAssets.Count + " jobs will be submitted." : "Asset '" + selectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                            EncodingProcessorsList = Procs,
-                            EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
-                            EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
-                            EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                            EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
-                            SelectedAssets = selectedAssets
-                        };
+                form.ShowDialog();
 
-                        if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                        {
-                            string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                            LaunchJobs(
-                               form2.EncodingProcessorSelected,
-                               selectedAssets,
-                               form2.EncodingJobName,
-                               form2.JobOptions.Priority,
-                               taskname,
-                               form2.EncodingOutputAssetName,
-                               new List<string>() { form2.EncodingConfiguration },
-                               form2.JobOptions.OutputAssetsCreationOptions,
-                               form2.JobOptions.TasksOptionsSetting,
-                               form2.JobOptions.StorageSelected);
-                        }
-                    }
-                    else if (subclipConfig.CreateAssetFilter) // create a asset filter
-                    {
-                        IAsset selasset = selectedAssets.FirstOrDefault();
-                        DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
+                //if (form.Show() == DialogResult.OK)
+                //{
+                //    var subclipConfig = form.GetSubclippingConfiguration();
 
-                        if (formAF.ShowDialog() == DialogResult.OK)
-                        {
-                            AssetFilter myassetfilter = new AssetFilter(selasset);
+                //    if (subclipConfig.Reencode) // reencode the clip
+                //    {
+                //        List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
+                //        EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
+                //        {
+                //            EncodingLabel = (selectedAssets.Count > 1) ? selectedAssets.Count + " assets have been selected. " + selectedAssets.Count + " jobs will be submitted." : "Asset '" + selectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                //            EncodingProcessorsList = Procs,
+                //            EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
+                //            EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
+                //            EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                //            EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                //            SelectedAssets = selectedAssets
+                //        };
 
-                            Filter filter = formAF.GetFilter;
-                            myassetfilter.Name = filter.Name;
-                            myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
-                            myassetfilter.Tracks = filter.Tracks;
-                            myassetfilter._context = filter._context;
-                            try
-                            {
-                                myassetfilter.Create();
-                                TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
-                            }
-                            catch (Exception e)
-                            {
-                                TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
-                                TextBoxLogWriteLine(e);
-                            }
-                            DoRefreshGridFiltersV(false);
-                        }
+                //        if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                //        {
+                //            string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                //            LaunchJobs(
+                //               form2.EncodingProcessorSelected,
+                //               selectedAssets,
+                //               form2.EncodingJobName,
+                //               form2.JobOptions.Priority,
+                //               taskname,
+                //               form2.EncodingOutputAssetName,
+                //               new List<string>() { form2.EncodingConfiguration },
+                //               form2.JobOptions.OutputAssetsCreationOptions,
+                //               form2.JobOptions.TasksOptionsSetting,
+                //               form2.JobOptions.StorageSelected);
+                //        }
+                //    }
+                //    else if (subclipConfig.CreateAssetFilter) // create a asset filter
+                //    {
+                //        IAsset selasset = selectedAssets.FirstOrDefault();
+                //        DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
 
-                    }
-                    else // no reencode or asset filter but stream copy
-                    {
-                        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+                //        if (formAF.ShowDialog() == DialogResult.OK)
+                //        {
+                //            AssetFilter myassetfilter = new AssetFilter(selasset);
 
-                        LaunchJobs(
-                            Proc,
-                            selectedAssets,
-                            form.EncodingJobName,
-                            form.JobOptions.Priority,
-                            taskname,
-                            form.EncodingOutputAssetName,
-                            new List<string>() { form.GetSubclippingConfiguration().Configuration },
-                            form.JobOptions.OutputAssetsCreationOptions,
-                            form.JobOptions.TasksOptionsSetting,
-                            form.JobOptions.StorageSelected);
-                    }
-                }
+                //            Filter filter = formAF.GetFilter;
+                //            myassetfilter.Name = filter.Name;
+                //            myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
+                //            myassetfilter.Tracks = filter.Tracks;
+                //            myassetfilter._context = filter._context;
+                //            try
+                //            {
+                //                myassetfilter.Create();
+                //                TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
+                //            }
+                //            catch (Exception e)
+                //            {
+                //                TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
+                //                TextBoxLogWriteLine(e);
+                //            }
+                //            DoRefreshGridFiltersV(false);
+                //        }
+
+                //    }
+                //    else // no reencode or asset filter but stream copy
+                //    {
+                //        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                //        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+
+                //        LaunchJobs(
+                //            Proc,
+                //            selectedAssets,
+                //            form.EncodingJobName,
+                //            form.JobOptions.Priority,
+                //            taskname,
+                //            form.EncodingOutputAssetName,
+                //            new List<string>() { form.GetSubclippingConfiguration().Configuration },
+                //            form.JobOptions.OutputAssetsCreationOptions,
+                //            form.JobOptions.TasksOptionsSetting,
+                //            form.JobOptions.StorageSelected);
+                //    }
+                
             }
         }
 

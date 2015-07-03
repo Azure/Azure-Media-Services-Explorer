@@ -198,7 +198,7 @@
             // 
             this.checkBoxLiveBackoff.AutoSize = true;
             this.checkBoxLiveBackoff.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxLiveBackoff.Location = new System.Drawing.Point(334, 415);
+            this.checkBoxLiveBackoff.Location = new System.Drawing.Point(334, 414);
             this.checkBoxLiveBackoff.Name = "checkBoxLiveBackoff";
             this.checkBoxLiveBackoff.Size = new System.Drawing.Size(106, 17);
             this.checkBoxLiveBackoff.TabIndex = 108;
@@ -212,11 +212,10 @@
             // 
             this.checkBoxDVRWindow.AutoSize = true;
             this.checkBoxDVRWindow.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxDVRWindow.Location = new System.Drawing.Point(334, 279);
+            this.checkBoxDVRWindow.Location = new System.Drawing.Point(334, 281);
             this.checkBoxDVRWindow.Name = "checkBoxDVRWindow";
-            this.checkBoxDVRWindow.Size = new System.Drawing.Size(109, 17);
+            this.checkBoxDVRWindow.Size = new System.Drawing.Size(15, 14);
             this.checkBoxDVRWindow.TabIndex = 106;
-            this.checkBoxDVRWindow.Text = "DVR Window :";
             this.toolTip1.SetToolTip(this.checkBoxDVRWindow, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
         "20s");
             this.checkBoxDVRWindow.UseVisualStyleBackColor = true;
@@ -226,11 +225,10 @@
             // 
             this.checkBoxEndTime.AutoSize = true;
             this.checkBoxEndTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEndTime.Location = new System.Drawing.Point(334, 140);
+            this.checkBoxEndTime.Location = new System.Drawing.Point(334, 135);
             this.checkBoxEndTime.Name = "checkBoxEndTime";
-            this.checkBoxEndTime.Size = new System.Drawing.Size(83, 30);
+            this.checkBoxEndTime.Size = new System.Drawing.Size(15, 14);
             this.checkBoxEndTime.TabIndex = 104;
-            this.checkBoxEndTime.Text = "End time :\r\n(VOD)";
             this.toolTip1.SetToolTip(this.checkBoxEndTime, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
         "GOP start.");
             this.checkBoxEndTime.UseVisualStyleBackColor = true;
@@ -240,11 +238,10 @@
             // 
             this.checkBoxStartTime.AutoSize = true;
             this.checkBoxStartTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxStartTime.Location = new System.Drawing.Point(334, 38);
+            this.checkBoxStartTime.Location = new System.Drawing.Point(334, 33);
             this.checkBoxStartTime.Name = "checkBoxStartTime";
-            this.checkBoxStartTime.Size = new System.Drawing.Size(113, 30);
+            this.checkBoxStartTime.Size = new System.Drawing.Size(15, 14);
             this.checkBoxStartTime.TabIndex = 103;
-            this.checkBoxStartTime.Text = "Start time :\r\n(Live and VOD)";
             this.toolTip1.SetToolTip(this.checkBoxStartTime, "Live and VOD. Value rounded to the closest next GOP start.");
             this.checkBoxStartTime.UseVisualStyleBackColor = true;
             this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
@@ -303,7 +300,7 @@
             // labelDefaultDVR
             // 
             this.labelDefaultDVR.AutoSize = true;
-            this.labelDefaultDVR.Location = new System.Drawing.Point(353, 299);
+            this.labelDefaultDVR.Location = new System.Drawing.Point(354, 335);
             this.labelDefaultDVR.Name = "labelDefaultDVR";
             this.labelDefaultDVR.Size = new System.Drawing.Size(73, 13);
             this.labelDefaultDVR.TabIndex = 124;
@@ -313,7 +310,7 @@
             // labelDefaultEnd
             // 
             this.labelDefaultEnd.AutoSize = true;
-            this.labelDefaultEnd.Location = new System.Drawing.Point(353, 173);
+            this.labelDefaultEnd.Location = new System.Drawing.Point(354, 197);
             this.labelDefaultEnd.Name = "labelDefaultEnd";
             this.labelDefaultEnd.Size = new System.Drawing.Size(73, 13);
             this.labelDefaultEnd.TabIndex = 123;
@@ -323,7 +320,7 @@
             // labelStartTimeDefault
             // 
             this.labelStartTimeDefault.AutoSize = true;
-            this.labelStartTimeDefault.Location = new System.Drawing.Point(354, 71);
+            this.labelStartTimeDefault.Location = new System.Drawing.Point(354, 95);
             this.labelStartTimeDefault.Name = "labelStartTimeDefault";
             this.labelStartTimeDefault.Size = new System.Drawing.Size(62, 13);
             this.labelStartTimeDefault.TabIndex = 86;
@@ -355,24 +352,27 @@
             this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = false;
+            this.timeControlStart.DisplayTrackBar = true;
             this.timeControlStart.DVRMode = false;
             this.timeControlStart.Enabled = false;
-            this.timeControlStart.Location = new System.Drawing.Point(453, 23);
+            this.timeControlStart.Label1 = "Start time";
+            this.timeControlStart.Label2 = "(Live and VOD)";
+            this.timeControlStart.Location = new System.Drawing.Point(350, 23);
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlStart.ScaledTotalDuration = ((long)(-1));
-            this.timeControlStart.Size = new System.Drawing.Size(503, 95);
+            this.timeControlStart.Size = new System.Drawing.Size(590, 95);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
+            this.toolTip1.SetToolTip(this.timeControlStart, "Live and VOD. Value rounded to the closest next GOP start.");
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(463, 398);
+            this.label42.Location = new System.Drawing.Point(488, 397);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(49, 13);
             this.label42.TabIndex = 119;
@@ -382,7 +382,7 @@
             // 
             this.numericUpDownBackoffSeconds.DecimalPlaces = 2;
             this.numericUpDownBackoffSeconds.Enabled = false;
-            this.numericUpDownBackoffSeconds.Location = new System.Drawing.Point(466, 414);
+            this.numericUpDownBackoffSeconds.Location = new System.Drawing.Point(491, 413);
             this.numericUpDownBackoffSeconds.Maximum = new decimal(new int[] {
             60,
             0,
@@ -397,18 +397,22 @@
             this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDVR.DisplayTrackBar = false;
+            this.timeControlDVR.DisplayTrackBar = true;
             this.timeControlDVR.DVRMode = true;
             this.timeControlDVR.Enabled = false;
-            this.timeControlDVR.Location = new System.Drawing.Point(453, 264);
+            this.timeControlDVR.Label1 = "";
+            this.timeControlDVR.Label2 = "DVR Window";
+            this.timeControlDVR.Location = new System.Drawing.Point(350, 263);
             this.timeControlDVR.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.Name = "timeControlDVR";
             this.timeControlDVR.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlDVR.ScaledTotalDuration = ((long)(-1));
-            this.timeControlDVR.Size = new System.Drawing.Size(503, 70);
+            this.timeControlDVR.Size = new System.Drawing.Size(590, 70);
             this.timeControlDVR.TabIndex = 107;
             this.timeControlDVR.TimeScale = ((long)(0));
+            this.toolTip1.SetToolTip(this.timeControlDVR, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
+        "20s");
             this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
             this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
             // 
@@ -417,18 +421,22 @@
             this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = false;
+            this.timeControlEnd.DisplayTrackBar = true;
             this.timeControlEnd.DVRMode = false;
             this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Location = new System.Drawing.Point(453, 125);
+            this.timeControlEnd.Label1 = "End time";
+            this.timeControlEnd.Label2 = "(VOD)";
+            this.timeControlEnd.Location = new System.Drawing.Point(350, 125);
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
             this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
-            this.timeControlEnd.Size = new System.Drawing.Size(503, 80);
+            this.timeControlEnd.Size = new System.Drawing.Size(590, 80);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));
+            this.toolTip1.SetToolTip(this.timeControlEnd, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
+        "GOP start.");
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // pictureBox2

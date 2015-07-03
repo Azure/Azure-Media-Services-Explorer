@@ -111,6 +111,18 @@ namespace AMSExplorer
             set { _scaledTotalDuration = value; }
         }
 
+        public string Label1
+        {
+            get { return label1.Text; }
+            set { label1.Text = value; }
+        }
+
+        public string Label2
+        {
+            get { return label2.Text; }
+            set { label2.Text = value; }
+        }
+
         public bool DisplayTrackBar
         {
             get

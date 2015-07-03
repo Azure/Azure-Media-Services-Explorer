@@ -174,6 +174,7 @@ namespace AMSExplorer
                     TimeSpan duration = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
                     textBoxAssetDuration.Text = duration.ToString(@"d\.hh\:mm\:ss");
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
+                    textBoxFilterName.Text = "filter" + new Random().Next(9999).ToString();
 
                     if (!_parentassetmanifestdata.IsLive)  // Not a live content
                     { 
@@ -189,11 +190,12 @@ namespace AMSExplorer
                         textBoxAssetDuration.Text += " (LIVE)";
                     }
 
-                    if (_subclipconfig != null) // user used the subclip UI before and timings are passed
+                    if (_subclipconfig != null && _subclipconfig.Trimming) // user used the subclip UI before and timings are passed
                     {
                         timeControlStart.SetTimeStamp(_subclipconfig.StartTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
                         timeControlEnd.SetTimeStamp(_subclipconfig.EndTimeForAssetFilter - timeControlStart.GetOffSetAsTimeSpan());
                         checkBoxStartTime.Checked = checkBoxEndTime.Checked = true;
+                        textBoxFilterName.Text = "subclip" + new Random().Next(9999).ToString();
                     }
 
                 }
