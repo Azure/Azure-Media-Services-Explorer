@@ -72,8 +72,8 @@ namespace AMSExplorer
 
     public partial class Mainform : Form
     {
-        private BindingList<TransferEntry> _MyListTransfer; // list of upload/download
-        private List<int> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
+        private static BindingList<TransferEntry> _MyListTransfer; // list of upload/download
+        private static List<int> _MyListTransferQueue; // List of transfers in the queue. It contains the index in the order of schedule
 
         private void DoGridTransferInit()
         {
@@ -229,6 +229,7 @@ namespace AMSExplorer
             {
                 while (!DoGridTransferQueueOurTurn(index))
                 {
+                    Debug.Print("wait "+index);
                     Thread.Sleep(500);
                 }
 

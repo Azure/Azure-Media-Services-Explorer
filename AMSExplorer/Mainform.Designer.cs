@@ -306,6 +306,7 @@
             this.toolStripMenuItem25 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemProgramAssetFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.subclipProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemProgramPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
@@ -375,7 +376,6 @@
             this.buttonAssetSearch = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.butPrevPageAsset = new System.Windows.Forms.Button();
-            this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxOrderAssets = new System.Windows.Forms.ComboBox();
             this.butNextPageAsset = new System.Windows.Forms.Button();
@@ -404,7 +404,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
-            this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.tabPageLive = new System.Windows.Forms.TabPage();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
@@ -424,8 +423,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.buttonSetFilterProgram = new System.Windows.Forms.Button();
             this.label17 = new System.Windows.Forms.Label();
-            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
-            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
             this.trackBarEncodingRU = new System.Windows.Forms.TrackBar();
             this.buttonUpdateEncodingRU = new System.Windows.Forms.Button();
@@ -436,7 +433,6 @@
             this.tabPageOrigins = new System.Windows.Forms.TabPage();
             this.label19 = new System.Windows.Forms.Label();
             this.comboBoxOrderStreamingEndpoints = new System.Windows.Forms.ComboBox();
-            this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.tabPageStorage = new System.Windows.Forms.TabPage();
             this.dataGridViewStorage = new System.Windows.Forms.DataGridView();
             this.tabPageChart = new System.Windows.Forms.TabPage();
@@ -448,7 +444,11 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.subclipProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewAssetsV = new AMSExplorer.DataGridViewAssets();
+            this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
+            this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
+            this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
+            this.dataGridViewStreamingEndpointsV = new AMSExplorer.DataGridViewStreamingEndpoints();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -466,26 +466,26 @@
             this.splitContainerMain.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
             this.tabPageFilters.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilters.SuspendLayout();
             this.tabPageTransfers.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.tabPageJobs.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
             this.tabPageLive.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).BeginInit();
             this.tabPageProcessors.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).BeginInit();
             this.tabPageOrigins.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
             this.tabPageStorage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).BeginInit();
             this.tabPageChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).BeginInit();
             this.SuspendLayout();
             // 
             // contextMenuStripAssets
@@ -1086,11 +1086,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(167)))), ((int)(((byte)(223)))));
-            this.label5.Location = new System.Drawing.Point(11, 30);
+            this.label5.Location = new System.Drawing.Point(11, 27);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(308, 25);
+            this.label5.Size = new System.Drawing.Size(302, 30);
             this.label5.TabIndex = 10;
             this.label5.Text = "Azure Media Services Explorer";
             // 
@@ -2748,7 +2748,7 @@
             this.subclipProgramsToolStripMenuItem,
             this.ContextMenuItemProgramPlayback});
             this.contextMenuStripPrograms.Name = "contextMenuStripPrograms";
-            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 352);
+            this.contextMenuStripPrograms.Size = new System.Drawing.Size(281, 330);
             this.contextMenuStripPrograms.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripPrograms_Opening);
             // 
             // refreshToolStripMenuItem4
@@ -2947,6 +2947,13 @@
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Size = new System.Drawing.Size(280, 22);
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Text = "Copy the output URL to clipboard";
             this.ContextMenuItemProgramCopyTheOutputURLToClipboard.Click += new System.EventHandler(this.ContextMenuItemProgramCopyTheOutputURLToClipboard_Click);
+            // 
+            // subclipProgramsToolStripMenuItem
+            // 
+            this.subclipProgramsToolStripMenuItem.Name = "subclipProgramsToolStripMenuItem";
+            this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
+            this.subclipProgramsToolStripMenuItem.Text = "Subclip program(s)...";
+            this.subclipProgramsToolStripMenuItem.Click += new System.EventHandler(this.subclipProgramsToolStripMenuItem_Click);
             // 
             // ContextMenuItemProgramPlayback
             // 
@@ -3352,10 +3359,11 @@
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.DarkCyan;
-            this.label12.Location = new System.Drawing.Point(824, 30);
+            this.label12.Location = new System.Drawing.Point(815, 37);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(174, 13);
+            this.label12.Size = new System.Drawing.Size(193, 13);
             this.label12.TabIndex = 29;
             this.label12.Text = "(Use ctrl or shift to multiselect items)";
             // 
@@ -3383,7 +3391,7 @@
             // 
             // buttonRefresh
             // 
-            this.buttonRefresh.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonRefresh.Image = ((System.Drawing.Image)(resources.GetObject("buttonRefresh.Image")));
             this.buttonRefresh.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonRefresh.Location = new System.Drawing.Point(337, 30);
@@ -3399,9 +3407,10 @@
             // 
             this.textBoxAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetSearch.Location = new System.Drawing.Point(125, 416);
+            this.textBoxAssetSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxAssetSearch.Location = new System.Drawing.Point(133, 413);
             this.textBoxAssetSearch.Name = "textBoxAssetSearch";
-            this.textBoxAssetSearch.Size = new System.Drawing.Size(131, 20);
+            this.textBoxAssetSearch.Size = new System.Drawing.Size(97, 23);
             this.textBoxAssetSearch.TabIndex = 37;
             this.toolTip1.SetToolTip(this.textBoxAssetSearch, "Search in asset name and asset Id");
             // 
@@ -3409,9 +3418,10 @@
             // 
             this.textBoxJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobSearch.Location = new System.Drawing.Point(125, 416);
+            this.textBoxJobSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxJobSearch.Location = new System.Drawing.Point(138, 413);
             this.textBoxJobSearch.Name = "textBoxJobSearch";
-            this.textBoxJobSearch.Size = new System.Drawing.Size(131, 20);
+            this.textBoxJobSearch.Size = new System.Drawing.Size(118, 23);
             this.textBoxJobSearch.TabIndex = 34;
             this.toolTip1.SetToolTip(this.textBoxJobSearch, "Search in job name and job Id");
             // 
@@ -3419,9 +3429,10 @@
             // 
             this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(114, 190);
+            this.textBoxSearchNameChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(130, 189);
             this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
-            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(183, 20);
+            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(167, 23);
             this.textBoxSearchNameChannel.TabIndex = 53;
             this.toolTip1.SetToolTip(this.textBoxSearchNameChannel, "Search in channel name and channel Id");
             // 
@@ -3429,9 +3440,10 @@
             // 
             this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(114, 413);
+            this.textBoxSearchNameProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(130, 410);
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(183, 20);
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(167, 23);
             this.textBoxSearchNameProgram.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, "Search in program name, program Id and asset Id");
             // 
@@ -3472,6 +3484,7 @@
             this.tabControlMain.Controls.Add(this.tabPageOrigins);
             this.tabControlMain.Controls.Add(this.tabPageStorage);
             this.tabControlMain.Controls.Add(this.tabPageChart);
+            this.tabControlMain.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControlMain.Location = new System.Drawing.Point(3, 6);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -3496,10 +3509,10 @@
             this.tabPageAssets.Controls.Add(this.butNextPageAsset);
             this.tabPageAssets.Controls.Add(this.comboBoxPageAssets);
             this.tabPageAssets.Controls.Add(this.label1);
-            this.tabPageAssets.Location = new System.Drawing.Point(4, 22);
+            this.tabPageAssets.Location = new System.Drawing.Point(4, 24);
             this.tabPageAssets.Name = "tabPageAssets";
             this.tabPageAssets.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAssets.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageAssets.Size = new System.Drawing.Size(1006, 441);
             this.tabPageAssets.TabIndex = 0;
             this.tabPageAssets.Text = "Assets";
             // 
@@ -3507,20 +3520,22 @@
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(327, 418);
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(307, 417);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(32, 13);
+            this.label10.Size = new System.Drawing.Size(39, 15);
             this.label10.TabIndex = 43;
-            this.label10.Text = "Filter:";
+            this.label10.Text = "Filter :";
             // 
             // comboBoxFilterAssetsTime
             // 
             this.comboBoxFilterAssetsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFilterAssetsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterAssetsTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFilterAssetsTime.FormattingEnabled = true;
-            this.comboBoxFilterAssetsTime.Location = new System.Drawing.Point(363, 415);
+            this.comboBoxFilterAssetsTime.Location = new System.Drawing.Point(352, 413);
             this.comboBoxFilterAssetsTime.Name = "comboBoxFilterAssetsTime";
-            this.comboBoxFilterAssetsTime.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterAssetsTime.Size = new System.Drawing.Size(102, 23);
             this.comboBoxFilterAssetsTime.TabIndex = 42;
             this.comboBoxFilterAssetsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTime_SelectedIndexChanged);
             // 
@@ -3528,27 +3543,30 @@
             // 
             this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(481, 419);
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(460, 417);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(40, 13);
+            this.label9.Size = new System.Drawing.Size(45, 15);
             this.label9.TabIndex = 41;
-            this.label9.Text = "Status:";
+            this.label9.Text = "Status :";
             // 
             // comboBoxStateAssets
             // 
             this.comboBoxStateAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStateAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStateAssets.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStateAssets.FormattingEnabled = true;
-            this.comboBoxStateAssets.Location = new System.Drawing.Point(524, 415);
+            this.comboBoxStateAssets.Location = new System.Drawing.Point(511, 413);
             this.comboBoxStateAssets.Name = "comboBoxStateAssets";
-            this.comboBoxStateAssets.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStateAssets.Size = new System.Drawing.Size(121, 23);
             this.comboBoxStateAssets.TabIndex = 40;
             this.comboBoxStateAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateAssets_SelectedIndexChanged);
             // 
             // buttonAssetSearch
             // 
             this.buttonAssetSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAssetSearch.Location = new System.Drawing.Point(258, 415);
+            this.buttonAssetSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAssetSearch.Location = new System.Drawing.Point(236, 413);
             this.buttonAssetSearch.Name = "buttonAssetSearch";
             this.buttonAssetSearch.Size = new System.Drawing.Size(54, 23);
             this.buttonAssetSearch.TabIndex = 39;
@@ -3560,17 +3578,19 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(11, 419);
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(6, 417);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.Size = new System.Drawing.Size(121, 15);
             this.label8.TabIndex = 38;
-            this.label8.Text = "Search in name or Id:";
+            this.label8.Text = "Search in name or Id :";
             // 
             // butPrevPageAsset
             // 
             this.butPrevPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butPrevPageAsset.Enabled = false;
-            this.butPrevPageAsset.Location = new System.Drawing.Point(871, 414);
+            this.butPrevPageAsset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butPrevPageAsset.Location = new System.Drawing.Point(871, 413);
             this.butPrevPageAsset.Name = "butPrevPageAsset";
             this.butPrevPageAsset.Size = new System.Drawing.Size(28, 23);
             this.butPrevPageAsset.TabIndex = 29;
@@ -3578,62 +3598,34 @@
             this.butPrevPageAsset.UseVisualStyleBackColor = true;
             this.butPrevPageAsset.Click += new System.EventHandler(this.butPrevPageAsset_Click);
             // 
-            // dataGridViewAssetsV
-            // 
-            this.dataGridViewAssetsV.AllowDrop = true;
-            this.dataGridViewAssetsV.AllowUserToAddRows = false;
-            this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
-            this.dataGridViewAssetsV.AllowUserToResizeRows = false;
-            this.dataGridViewAssetsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewAssetsV.AssetsPerPage = 50;
-            this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
-            this.dataGridViewAssetsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
-            this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
-            this.dataGridViewAssetsV.ReadOnly = true;
-            this.dataGridViewAssetsV.RowHeadersVisible = false;
-            this.dataGridViewAssetsV.SearchInName = "";
-            this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 403);
-            this.dataGridViewAssetsV.StateFilter = "";
-            this.dataGridViewAssetsV.TabIndex = 30;
-            this.dataGridViewAssetsV.TimeFilter = "Last week";
-            this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
-            this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
-            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewAssetsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
-            this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
-            this.dataGridViewAssetsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
-            // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(660, 419);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(638, 417);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.Size = new System.Drawing.Size(59, 15);
             this.label3.TabIndex = 14;
-            this.label3.Text = "Order by:";
+            this.label3.Text = "Order by :";
             // 
             // comboBoxOrderAssets
             // 
             this.comboBoxOrderAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOrderAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderAssets.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxOrderAssets.FormattingEnabled = true;
-            this.comboBoxOrderAssets.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderAssets.Location = new System.Drawing.Point(703, 413);
             this.comboBoxOrderAssets.Name = "comboBoxOrderAssets";
-            this.comboBoxOrderAssets.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderAssets.Size = new System.Drawing.Size(121, 23);
             this.comboBoxOrderAssets.TabIndex = 13;
             this.comboBoxOrderAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderAssets_SelectedIndexChanged);
             // 
             // butNextPageAsset
             // 
             this.butNextPageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.butNextPageAsset.Location = new System.Drawing.Point(972, 414);
+            this.butNextPageAsset.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butNextPageAsset.Location = new System.Drawing.Point(972, 413);
             this.butNextPageAsset.Name = "butNextPageAsset";
             this.butNextPageAsset.Size = new System.Drawing.Size(28, 23);
             this.butNextPageAsset.TabIndex = 28;
@@ -3645,10 +3637,11 @@
             // 
             this.comboBoxPageAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxPageAssets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPageAssets.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPageAssets.FormattingEnabled = true;
-            this.comboBoxPageAssets.Location = new System.Drawing.Point(905, 415);
+            this.comboBoxPageAssets.Location = new System.Drawing.Point(905, 413);
             this.comboBoxPageAssets.Name = "comboBoxPageAssets";
-            this.comboBoxPageAssets.Size = new System.Drawing.Size(61, 21);
+            this.comboBoxPageAssets.Size = new System.Drawing.Size(61, 23);
             this.comboBoxPageAssets.TabIndex = 11;
             this.comboBoxPageAssets.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageAssets_SelectedIndexChanged);
             // 
@@ -3656,19 +3649,20 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(830, 419);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(830, 417);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.Size = new System.Drawing.Size(39, 15);
             this.label1.TabIndex = 12;
-            this.label1.Text = "Page:";
+            this.label1.Text = "Page :";
             // 
             // tabPageFilters
             // 
             this.tabPageFilters.Controls.Add(this.dataGridViewFilters);
-            this.tabPageFilters.Location = new System.Drawing.Point(4, 22);
+            this.tabPageFilters.Location = new System.Drawing.Point(4, 24);
             this.tabPageFilters.Name = "tabPageFilters";
             this.tabPageFilters.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFilters.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageFilters.Size = new System.Drawing.Size(1006, 441);
             this.tabPageFilters.TabIndex = 9;
             this.tabPageFilters.Text = "Global filters";
             this.tabPageFilters.UseVisualStyleBackColor = true;
@@ -3688,7 +3682,7 @@
             this.dataGridViewFilters.ReadOnly = true;
             this.dataGridViewFilters.RowHeadersVisible = false;
             this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFilters.Size = new System.Drawing.Size(997, 431);
+            this.dataGridViewFilters.Size = new System.Drawing.Size(997, 429);
             this.dataGridViewFilters.TabIndex = 35;
             this.dataGridViewFilters.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellDoubleClick);
             this.dataGridViewFilters.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
@@ -3751,10 +3745,10 @@
             // 
             this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
             this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
-            this.tabPageTransfers.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTransfers.Location = new System.Drawing.Point(4, 24);
             this.tabPageTransfers.Name = "tabPageTransfers";
             this.tabPageTransfers.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTransfers.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageTransfers.Size = new System.Drawing.Size(1006, 441);
             this.tabPageTransfers.TabIndex = 2;
             this.tabPageTransfers.Text = "Transfers";
             // 
@@ -3774,7 +3768,7 @@
             this.dataGridViewTransfer.ReadOnly = true;
             this.dataGridViewTransfer.RowHeadersVisible = false;
             this.dataGridViewTransfer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 431);
+            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 429);
             this.dataGridViewTransfer.TabIndex = 32;
             this.dataGridViewTransfer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransfer_CellContentClick);
             this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
@@ -3800,10 +3794,10 @@
             this.tabPageJobs.Controls.Add(this.label2);
             this.tabPageJobs.Controls.Add(this.comboBoxOrderJobs);
             this.tabPageJobs.Controls.Add(this.dataGridViewJobsV);
-            this.tabPageJobs.Location = new System.Drawing.Point(4, 22);
+            this.tabPageJobs.Location = new System.Drawing.Point(4, 24);
             this.tabPageJobs.Name = "tabPageJobs";
             this.tabPageJobs.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageJobs.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageJobs.Size = new System.Drawing.Size(1006, 441);
             this.tabPageJobs.TabIndex = 1;
             this.tabPageJobs.Text = "Jobs";
             // 
@@ -3811,27 +3805,30 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(327, 418);
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(327, 417);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 13);
+            this.label11.Size = new System.Drawing.Size(39, 15);
             this.label11.TabIndex = 45;
-            this.label11.Text = "Filter:";
+            this.label11.Text = "Filter :";
             // 
             // comboBoxFilterJobsTime
             // 
             this.comboBoxFilterJobsTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFilterJobsTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterJobsTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFilterJobsTime.FormattingEnabled = true;
-            this.comboBoxFilterJobsTime.Location = new System.Drawing.Point(363, 415);
+            this.comboBoxFilterJobsTime.Location = new System.Drawing.Point(369, 413);
             this.comboBoxFilterJobsTime.Name = "comboBoxFilterJobsTime";
-            this.comboBoxFilterJobsTime.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterJobsTime.Size = new System.Drawing.Size(102, 23);
             this.comboBoxFilterJobsTime.TabIndex = 44;
             this.comboBoxFilterJobsTime.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterJobsTime_SelectedIndexChanged);
             // 
             // buttonJobSearch
             // 
             this.buttonJobSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobSearch.Location = new System.Drawing.Point(258, 415);
+            this.buttonJobSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonJobSearch.Location = new System.Drawing.Point(262, 413);
             this.buttonJobSearch.Name = "buttonJobSearch";
             this.buttonJobSearch.Size = new System.Drawing.Size(54, 23);
             this.buttonJobSearch.TabIndex = 36;
@@ -3843,30 +3840,33 @@
             // 
             this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(11, 419);
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(11, 417);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(108, 13);
+            this.label7.Size = new System.Drawing.Size(121, 15);
             this.label7.TabIndex = 35;
-            this.label7.Text = "Search in name or Id:";
+            this.label7.Text = "Search in name or Id :";
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(481, 419);
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(482, 417);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(39, 15);
             this.label6.TabIndex = 33;
-            this.label6.Text = "State:";
+            this.label6.Text = "State :";
             // 
             // comboBoxStateJobs
             // 
             this.comboBoxStateJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStateJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStateJobs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStateJobs.FormattingEnabled = true;
-            this.comboBoxStateJobs.Location = new System.Drawing.Point(524, 415);
+            this.comboBoxStateJobs.Location = new System.Drawing.Point(524, 413);
             this.comboBoxStateJobs.Name = "comboBoxStateJobs";
-            this.comboBoxStateJobs.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStateJobs.Size = new System.Drawing.Size(121, 23);
             this.comboBoxStateJobs.TabIndex = 32;
             this.comboBoxStateJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxStateJobs_SelectedIndexChanged);
             // 
@@ -3874,7 +3874,8 @@
             // 
             this.butPrevPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butPrevPageJob.Enabled = false;
-            this.butPrevPageJob.Location = new System.Drawing.Point(871, 414);
+            this.butPrevPageJob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butPrevPageJob.Location = new System.Drawing.Point(871, 413);
             this.butPrevPageJob.Name = "butPrevPageJob";
             this.butPrevPageJob.Size = new System.Drawing.Size(28, 23);
             this.butPrevPageJob.TabIndex = 30;
@@ -3886,7 +3887,8 @@
             // 
             this.butNextPageJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.butNextPageJob.Enabled = false;
-            this.butNextPageJob.Location = new System.Drawing.Point(972, 414);
+            this.butNextPageJob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.butNextPageJob.Location = new System.Drawing.Point(972, 413);
             this.butNextPageJob.Name = "butNextPageJob";
             this.butNextPageJob.Size = new System.Drawing.Size(28, 23);
             this.butNextPageJob.TabIndex = 30;
@@ -3898,10 +3900,11 @@
             // 
             this.comboBoxPageJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxPageJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPageJobs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxPageJobs.FormattingEnabled = true;
-            this.comboBoxPageJobs.Location = new System.Drawing.Point(905, 415);
+            this.comboBoxPageJobs.Location = new System.Drawing.Point(905, 413);
             this.comboBoxPageJobs.Name = "comboBoxPageJobs";
-            this.comboBoxPageJobs.Size = new System.Drawing.Size(61, 21);
+            this.comboBoxPageJobs.Size = new System.Drawing.Size(61, 23);
             this.comboBoxPageJobs.TabIndex = 25;
             this.comboBoxPageJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxPageJobs_SelectedIndexChanged);
             // 
@@ -3909,60 +3912,35 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(660, 419);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(651, 417);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(50, 13);
+            this.label4.Size = new System.Drawing.Size(59, 15);
             this.label4.TabIndex = 15;
-            this.label4.Text = "Order by:";
+            this.label4.Text = "Order by :";
             // 
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(830, 419);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(829, 417);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.Size = new System.Drawing.Size(39, 15);
             this.label2.TabIndex = 26;
-            this.label2.Text = "Page:";
+            this.label2.Text = "Page :";
             // 
             // comboBoxOrderJobs
             // 
             this.comboBoxOrderJobs.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOrderJobs.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderJobs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxOrderJobs.FormattingEnabled = true;
-            this.comboBoxOrderJobs.Location = new System.Drawing.Point(713, 415);
+            this.comboBoxOrderJobs.Location = new System.Drawing.Point(713, 413);
             this.comboBoxOrderJobs.Name = "comboBoxOrderJobs";
-            this.comboBoxOrderJobs.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderJobs.Size = new System.Drawing.Size(102, 23);
             this.comboBoxOrderJobs.TabIndex = 14;
             this.comboBoxOrderJobs.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderJobs_SelectedIndexChanged);
-            // 
-            // dataGridViewJobsV
-            // 
-            this.dataGridViewJobsV.AllowUserToAddRows = false;
-            this.dataGridViewJobsV.AllowUserToDeleteRows = false;
-            this.dataGridViewJobsV.AllowUserToResizeRows = false;
-            this.dataGridViewJobsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
-            this.dataGridViewJobsV.FilterJobsState = "All";
-            this.dataGridViewJobsV.JobssPerPage = 50;
-            this.dataGridViewJobsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewJobsV.Name = "dataGridViewJobsV";
-            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
-            this.dataGridViewJobsV.ReadOnly = true;
-            this.dataGridViewJobsV.RowHeadersVisible = false;
-            this.dataGridViewJobsV.SearchInName = null;
-            this.dataGridViewJobsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewJobsV.Size = new System.Drawing.Size(994, 403);
-            this.dataGridViewJobsV.TabIndex = 31;
-            this.dataGridViewJobsV.TimeFilter = "Last week";
-            this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
-            this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
-            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewJobsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewJobsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
             // tabPageLive
             // 
@@ -3988,10 +3966,10 @@
             this.tabPageLive.Controls.Add(this.textBoxSearchNameProgram);
             this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
             this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
-            this.tabPageLive.Location = new System.Drawing.Point(4, 22);
+            this.tabPageLive.Location = new System.Drawing.Point(4, 24);
             this.tabPageLive.Name = "tabPageLive";
             this.tabPageLive.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageLive.Size = new System.Drawing.Size(1006, 443);
+            this.tabPageLive.Size = new System.Drawing.Size(1006, 441);
             this.tabPageLive.TabIndex = 6;
             this.tabPageLive.Text = "Live";
             this.tabPageLive.UseVisualStyleBackColor = true;
@@ -4000,20 +3978,22 @@
             // 
             this.label24.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(384, 194);
+            this.label24.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(384, 193);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(32, 13);
+            this.label24.Size = new System.Drawing.Size(39, 15);
             this.label24.TabIndex = 61;
-            this.label24.Text = "Filter:";
+            this.label24.Text = "Filter :";
             // 
             // comboBoxFilterTimeChannel
             // 
             this.comboBoxFilterTimeChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFilterTimeChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFilterTimeChannel.FormattingEnabled = true;
-            this.comboBoxFilterTimeChannel.Location = new System.Drawing.Point(420, 191);
+            this.comboBoxFilterTimeChannel.Location = new System.Drawing.Point(429, 189);
             this.comboBoxFilterTimeChannel.Name = "comboBoxFilterTimeChannel";
-            this.comboBoxFilterTimeChannel.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterTimeChannel.Size = new System.Drawing.Size(102, 23);
             this.comboBoxFilterTimeChannel.TabIndex = 60;
             this.comboBoxFilterTimeChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxFilterTimeChannel_SelectedIndexChanged);
             // 
@@ -4021,10 +4001,11 @@
             // 
             this.comboBoxStatusChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStatusChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStatusChannel.FormattingEnabled = true;
-            this.comboBoxStatusChannel.Location = new System.Drawing.Point(581, 191);
+            this.comboBoxStatusChannel.Location = new System.Drawing.Point(589, 189);
             this.comboBoxStatusChannel.Name = "comboBoxStatusChannel";
-            this.comboBoxStatusChannel.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStatusChannel.Size = new System.Drawing.Size(121, 23);
             this.comboBoxStatusChannel.TabIndex = 58;
             this.comboBoxStatusChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusChannel_SelectedIndexChanged);
             // 
@@ -4032,20 +4013,22 @@
             // 
             this.label25.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(538, 195);
+            this.label25.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(538, 193);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(40, 13);
+            this.label25.Size = new System.Drawing.Size(45, 15);
             this.label25.TabIndex = 59;
-            this.label25.Text = "Status:";
+            this.label25.Text = "Status :";
             // 
             // comboBoxOrderChannel
             // 
             this.comboBoxOrderChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOrderChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxOrderChannel.FormattingEnabled = true;
-            this.comboBoxOrderChannel.Location = new System.Drawing.Point(770, 191);
+            this.comboBoxOrderChannel.Location = new System.Drawing.Point(782, 189);
             this.comboBoxOrderChannel.Name = "comboBoxOrderChannel";
-            this.comboBoxOrderChannel.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderChannel.Size = new System.Drawing.Size(102, 23);
             this.comboBoxOrderChannel.TabIndex = 56;
             this.comboBoxOrderChannel.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderChannel_SelectedIndexChanged);
             // 
@@ -4053,15 +4036,17 @@
             // 
             this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(717, 195);
+            this.label26.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.Location = new System.Drawing.Point(717, 193);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(50, 13);
+            this.label26.Size = new System.Drawing.Size(59, 15);
             this.label26.TabIndex = 57;
-            this.label26.Text = "Order by:";
+            this.label26.Text = "Order by :";
             // 
             // buttonSetFilterChannel
             // 
             this.buttonSetFilterChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSetFilterChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSetFilterChannel.Location = new System.Drawing.Point(298, 189);
             this.buttonSetFilterChannel.Name = "buttonSetFilterChannel";
             this.buttonSetFilterChannel.Size = new System.Drawing.Size(54, 23);
@@ -4073,29 +4058,31 @@
             // label23
             // 
             this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label23.Location = new System.Drawing.Point(6, 193);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(108, 13);
+            this.label23.Size = new System.Drawing.Size(121, 15);
             this.label23.TabIndex = 54;
-            this.label23.Text = "Search in name or Id:";
+            this.label23.Text = "Search in name or Id :";
             // 
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(384, 415);
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(384, 414);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 13);
+            this.label15.Size = new System.Drawing.Size(39, 15);
             this.label15.TabIndex = 52;
-            this.label15.Text = "Filter:";
+            this.label15.Text = "Filter :";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label14.Location = new System.Drawing.Point(6, 236);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(59, 13);
+            this.label14.Size = new System.Drawing.Size(57, 13);
             this.label14.TabIndex = 32;
             this.label14.Text = "Programs";
             // 
@@ -4103,10 +4090,11 @@
             // 
             this.comboBoxFilterTimeProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxFilterTimeProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFilterTimeProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFilterTimeProgram.FormattingEnabled = true;
-            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(420, 412);
+            this.comboBoxFilterTimeProgram.Location = new System.Drawing.Point(429, 410);
             this.comboBoxFilterTimeProgram.Name = "comboBoxFilterTimeProgram";
-            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxFilterTimeProgram.Size = new System.Drawing.Size(102, 23);
             this.comboBoxFilterTimeProgram.TabIndex = 51;
             this.comboBoxFilterTimeProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxTimeProgram_SelectedIndexChanged);
             // 
@@ -4114,20 +4102,21 @@
             // 
             this.comboBoxStatusProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStatusProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStatusProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxStatusProgram.FormattingEnabled = true;
-            this.comboBoxStatusProgram.Location = new System.Drawing.Point(581, 412);
+            this.comboBoxStatusProgram.Location = new System.Drawing.Point(589, 410);
             this.comboBoxStatusProgram.Name = "comboBoxStatusProgram";
-            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxStatusProgram.Size = new System.Drawing.Size(121, 23);
             this.comboBoxStatusProgram.TabIndex = 49;
             this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label13.Location = new System.Drawing.Point(2, 4);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(59, 13);
+            this.label13.Size = new System.Drawing.Size(55, 13);
             this.label13.TabIndex = 31;
             this.label13.Text = "Channels";
             // 
@@ -4135,20 +4124,22 @@
             // 
             this.label16.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(538, 416);
+            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.Location = new System.Drawing.Point(538, 414);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(40, 13);
+            this.label16.Size = new System.Drawing.Size(45, 15);
             this.label16.TabIndex = 50;
-            this.label16.Text = "Status:";
+            this.label16.Text = "Status :";
             // 
             // comboBoxOrderProgram
             // 
             this.comboBoxOrderProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOrderProgram.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxOrderProgram.FormattingEnabled = true;
-            this.comboBoxOrderProgram.Location = new System.Drawing.Point(770, 412);
+            this.comboBoxOrderProgram.Location = new System.Drawing.Point(782, 410);
             this.comboBoxOrderProgram.Name = "comboBoxOrderProgram";
-            this.comboBoxOrderProgram.Size = new System.Drawing.Size(102, 21);
+            this.comboBoxOrderProgram.Size = new System.Drawing.Size(102, 23);
             this.comboBoxOrderProgram.TabIndex = 44;
             this.comboBoxOrderProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderProgram_SelectedIndexChanged);
             // 
@@ -4156,16 +4147,18 @@
             // 
             this.label18.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(717, 416);
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(717, 414);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(50, 13);
+            this.label18.Size = new System.Drawing.Size(59, 15);
             this.label18.TabIndex = 45;
-            this.label18.Text = "Order by:";
+            this.label18.Text = "Order by :";
             // 
             // buttonSetFilterProgram
             // 
             this.buttonSetFilterProgram.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 412);
+            this.buttonSetFilterProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSetFilterProgram.Location = new System.Drawing.Point(298, 410);
             this.buttonSetFilterProgram.Name = "buttonSetFilterProgram";
             this.buttonSetFilterProgram.Size = new System.Drawing.Size(54, 23);
             this.buttonSetFilterProgram.TabIndex = 48;
@@ -4177,11 +4170,338 @@
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 416);
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(6, 414);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(108, 13);
+            this.label17.Size = new System.Drawing.Size(121, 15);
             this.label17.TabIndex = 47;
-            this.label17.Text = "Search in name or Id:";
+            this.label17.Text = "Search in name or Id :";
+            // 
+            // tabPageProcessors
+            // 
+            this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageProcessors.Controls.Add(this.trackBarEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.buttonUpdateEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.labelnbunits);
+            this.tabPageProcessors.Controls.Add(this.comboBoxEncodingRU);
+            this.tabPageProcessors.Controls.Add(this.label22);
+            this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
+            this.tabPageProcessors.Location = new System.Drawing.Point(4, 24);
+            this.tabPageProcessors.Name = "tabPageProcessors";
+            this.tabPageProcessors.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageProcessors.Size = new System.Drawing.Size(1006, 441);
+            this.tabPageProcessors.TabIndex = 4;
+            this.tabPageProcessors.Text = "Processors";
+            // 
+            // trackBarEncodingRU
+            // 
+            this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 396);
+            this.trackBarEncodingRU.Maximum = 25;
+            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
+            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
+            this.trackBarEncodingRU.TabIndex = 39;
+            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
+            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.trackBarEncodingRU_ValueChanged);
+            // 
+            // buttonUpdateEncodingRU
+            // 
+            this.buttonUpdateEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpdateEncodingRU.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonUpdateEncodingRU.Location = new System.Drawing.Point(925, 404);
+            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
+            this.buttonUpdateEncodingRU.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdateEncodingRU.TabIndex = 38;
+            this.buttonUpdateEncodingRU.Text = "Update";
+            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
+            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.buttonUpdateEncodingRU_Click);
+            // 
+            // labelnbunits
+            // 
+            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelnbunits.AutoSize = true;
+            this.labelnbunits.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelnbunits.Location = new System.Drawing.Point(239, 409);
+            this.labelnbunits.Name = "labelnbunits";
+            this.labelnbunits.Size = new System.Drawing.Size(59, 15);
+            this.labelnbunits.TabIndex = 36;
+            this.labelnbunits.Tag = "";
+            this.labelnbunits.Text = "{0} unit{1}";
+            // 
+            // comboBoxEncodingRU
+            // 
+            this.comboBoxEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxEncodingRU.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxEncodingRU.FormattingEnabled = true;
+            this.comboBoxEncodingRU.Location = new System.Drawing.Point(118, 406);
+            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
+            this.comboBoxEncodingRU.Size = new System.Drawing.Size(104, 23);
+            this.comboBoxEncodingRU.TabIndex = 35;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label22.Location = new System.Drawing.Point(5, 409);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(110, 15);
+            this.label22.TabIndex = 34;
+            this.label22.Text = "Reserved unit type :";
+            // 
+            // dataGridViewProcessors
+            // 
+            this.dataGridViewProcessors.AllowUserToAddRows = false;
+            this.dataGridViewProcessors.AllowUserToDeleteRows = false;
+            this.dataGridViewProcessors.AllowUserToResizeRows = false;
+            this.dataGridViewProcessors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
+            this.dataGridViewProcessors.Location = new System.Drawing.Point(5, 6);
+            this.dataGridViewProcessors.Name = "dataGridViewProcessors";
+            this.dataGridViewProcessors.ReadOnly = true;
+            this.dataGridViewProcessors.RowHeadersVisible = false;
+            this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 388);
+            this.dataGridViewProcessors.TabIndex = 33;
+            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewProcessors.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewProcessors.Resize += new System.EventHandler(this.dataGridViewV_Resize);
+            // 
+            // tabPageOrigins
+            // 
+            this.tabPageOrigins.Controls.Add(this.label19);
+            this.tabPageOrigins.Controls.Add(this.comboBoxOrderStreamingEndpoints);
+            this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
+            this.tabPageOrigins.Location = new System.Drawing.Point(4, 24);
+            this.tabPageOrigins.Name = "tabPageOrigins";
+            this.tabPageOrigins.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageOrigins.Size = new System.Drawing.Size(1006, 441);
+            this.tabPageOrigins.TabIndex = 7;
+            this.tabPageOrigins.Text = "Streaming endpoints";
+            this.tabPageOrigins.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(651, 416);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(56, 15);
+            this.label19.TabIndex = 16;
+            this.label19.Text = "Order by:";
+            // 
+            // comboBoxOrderStreamingEndpoints
+            // 
+            this.comboBoxOrderStreamingEndpoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxOrderStreamingEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOrderStreamingEndpoints.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxOrderStreamingEndpoints.FormattingEnabled = true;
+            this.comboBoxOrderStreamingEndpoints.Location = new System.Drawing.Point(713, 412);
+            this.comboBoxOrderStreamingEndpoints.Name = "comboBoxOrderStreamingEndpoints";
+            this.comboBoxOrderStreamingEndpoints.Size = new System.Drawing.Size(102, 23);
+            this.comboBoxOrderStreamingEndpoints.TabIndex = 15;
+            this.comboBoxOrderStreamingEndpoints.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderStreamingEndpoints_SelectedIndexChanged);
+            // 
+            // tabPageStorage
+            // 
+            this.tabPageStorage.Controls.Add(this.dataGridViewStorage);
+            this.tabPageStorage.Location = new System.Drawing.Point(4, 24);
+            this.tabPageStorage.Name = "tabPageStorage";
+            this.tabPageStorage.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageStorage.Size = new System.Drawing.Size(1006, 441);
+            this.tabPageStorage.TabIndex = 8;
+            this.tabPageStorage.Text = "Storage";
+            this.tabPageStorage.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewStorage
+            // 
+            this.dataGridViewStorage.AllowUserToAddRows = false;
+            this.dataGridViewStorage.AllowUserToDeleteRows = false;
+            this.dataGridViewStorage.AllowUserToResizeRows = false;
+            this.dataGridViewStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewStorage.ContextMenuStrip = this.contextMenuStripStorage;
+            this.dataGridViewStorage.Location = new System.Drawing.Point(5, 6);
+            this.dataGridViewStorage.Name = "dataGridViewStorage";
+            this.dataGridViewStorage.ReadOnly = true;
+            this.dataGridViewStorage.RowHeadersVisible = false;
+            this.dataGridViewStorage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewStorage.Size = new System.Drawing.Size(997, 388);
+            this.dataGridViewStorage.TabIndex = 34;
+            this.dataGridViewStorage.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewStorage.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewStorage.Resize += new System.EventHandler(this.dataGridViewV_Resize);
+            // 
+            // tabPageChart
+            // 
+            this.tabPageChart.Controls.Add(this.label21);
+            this.tabPageChart.Controls.Add(this.dateTimePickerEndDate);
+            this.tabPageChart.Controls.Add(this.label20);
+            this.tabPageChart.Controls.Add(this.dateTimePickerStartDate);
+            this.tabPageChart.Controls.Add(this.chart);
+            this.tabPageChart.Controls.Add(this.buttonbuildchart);
+            this.tabPageChart.Location = new System.Drawing.Point(4, 24);
+            this.tabPageChart.Name = "tabPageChart";
+            this.tabPageChart.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageChart.Size = new System.Drawing.Size(1006, 441);
+            this.tabPageChart.TabIndex = 5;
+            this.tabPageChart.Text = "Chart";
+            this.tabPageChart.UseVisualStyleBackColor = true;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label21.Location = new System.Drawing.Point(261, 9);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(27, 15);
+            this.label21.TabIndex = 42;
+            this.label21.Text = "To :";
+            // 
+            // dateTimePickerEndDate
+            // 
+            this.dateTimePickerEndDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(293, 5);
+            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePickerEndDate.TabIndex = 41;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(6, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(41, 15);
+            this.label20.TabIndex = 40;
+            this.label20.Text = "From :";
+            // 
+            // dateTimePickerStartDate
+            // 
+            this.dateTimePickerStartDate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(48, 5);
+            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 23);
+            this.dateTimePickerStartDate.TabIndex = 39;
+            // 
+            // chart
+            // 
+            this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(5, 33);
+            this.chart.Name = "chart";
+            this.chart.Size = new System.Drawing.Size(997, 402);
+            this.chart.TabIndex = 37;
+            this.chart.Text = "chartJobs";
+            // 
+            // buttonbuildchart
+            // 
+            this.buttonbuildchart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonbuildchart.Location = new System.Drawing.Point(512, 5);
+            this.buttonbuildchart.Name = "buttonbuildchart";
+            this.buttonbuildchart.Size = new System.Drawing.Size(105, 23);
+            this.buttonbuildchart.TabIndex = 36;
+            this.buttonbuildchart.Text = "Build jobs chart";
+            this.buttonbuildchart.UseVisualStyleBackColor = true;
+            this.buttonbuildchart.Click += new System.EventHandler(this.buttonbuildchart_Click);
+            // 
+            // richTextBoxLog
+            // 
+            this.richTextBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxLog.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.richTextBoxLog.ContextMenuStrip = this.contextMenuStripLog;
+            this.richTextBoxLog.Location = new System.Drawing.Point(3, 3);
+            this.richTextBoxLog.Name = "richTextBoxLog";
+            this.richTextBoxLog.ReadOnly = true;
+            this.richTextBoxLog.Size = new System.Drawing.Size(1014, 68);
+            this.richTextBoxLog.TabIndex = 6;
+            this.richTextBoxLog.Text = "";
+            this.richTextBoxLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBoxLog_LinkClicked);
+            this.richTextBoxLog.TextChanged += new System.EventHandler(this.richTextBoxLog_TextChanged);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "myText";
+            this.notifyIcon1.BalloonTipTitle = "myTitle";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "{0} - AMS Explorer";
+            this.notifyIcon1.Visible = true;
+            // 
+            // dataGridViewAssetsV
+            // 
+            this.dataGridViewAssetsV.AllowDrop = true;
+            this.dataGridViewAssetsV.AllowUserToAddRows = false;
+            this.dataGridViewAssetsV.AllowUserToDeleteRows = false;
+            this.dataGridViewAssetsV.AllowUserToResizeRows = false;
+            this.dataGridViewAssetsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewAssetsV.AssetsPerPage = 50;
+            this.dataGridViewAssetsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAssetsV.ContextMenuStrip = this.contextMenuStripAssets;
+            this.dataGridViewAssetsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewAssetsV.Name = "dataGridViewAssetsV";
+            this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
+            this.dataGridViewAssetsV.ReadOnly = true;
+            this.dataGridViewAssetsV.RowHeadersVisible = false;
+            this.dataGridViewAssetsV.SearchInName = "";
+            this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
+            this.dataGridViewAssetsV.StateFilter = "";
+            this.dataGridViewAssetsV.TabIndex = 30;
+            this.dataGridViewAssetsV.TimeFilter = "Last week";
+            this.dataGridViewAssetsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAssetsV_CellDoubleClick_1);
+            this.dataGridViewAssetsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewAssetsV_CellFormatting_1);
+            this.dataGridViewAssetsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewAssetsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewAssetsV.DragDrop += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragDrop);
+            this.dataGridViewAssetsV.DragEnter += new System.Windows.Forms.DragEventHandler(this.dataGridViewAssetsV_DragEnter);
+            this.dataGridViewAssetsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
+            // 
+            // dataGridViewJobsV
+            // 
+            this.dataGridViewJobsV.AllowUserToAddRows = false;
+            this.dataGridViewJobsV.AllowUserToDeleteRows = false;
+            this.dataGridViewJobsV.AllowUserToResizeRows = false;
+            this.dataGridViewJobsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewJobsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewJobsV.ContextMenuStrip = this.contextMenuStripJobs;
+            this.dataGridViewJobsV.FilterJobsState = "All";
+            this.dataGridViewJobsV.JobssPerPage = 50;
+            this.dataGridViewJobsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewJobsV.Name = "dataGridViewJobsV";
+            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
+            this.dataGridViewJobsV.ReadOnly = true;
+            this.dataGridViewJobsV.RowHeadersVisible = false;
+            this.dataGridViewJobsV.SearchInName = null;
+            this.dataGridViewJobsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewJobsV.Size = new System.Drawing.Size(994, 401);
+            this.dataGridViewJobsV.TabIndex = 31;
+            this.dataGridViewJobsV.TimeFilter = "Last week";
+            this.dataGridViewJobsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobsV_CellDoubleClick);
+            this.dataGridViewJobsV.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewJobsV_CellFormatting);
+            this.dataGridViewJobsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
+            this.dataGridViewJobsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
+            this.dataGridViewJobsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
             // dataGridViewProgramsV
             // 
@@ -4203,7 +4523,7 @@
             this.dataGridViewProgramsV.RowHeadersVisible = false;
             this.dataGridViewProgramsV.SearchInName = "";
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 154);
+            this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
             this.dataGridViewProgramsV.TimeFilter = "Last week";
             this.dataGridViewProgramsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewProgramV_CellDoubleClick);
@@ -4240,132 +4560,6 @@
             this.dataGridViewChannelsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
             this.dataGridViewChannelsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
             // 
-            // tabPageProcessors
-            // 
-            this.tabPageProcessors.BackColor = System.Drawing.SystemColors.Window;
-            this.tabPageProcessors.Controls.Add(this.trackBarEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.buttonUpdateEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.labelnbunits);
-            this.tabPageProcessors.Controls.Add(this.comboBoxEncodingRU);
-            this.tabPageProcessors.Controls.Add(this.label22);
-            this.tabPageProcessors.Controls.Add(this.dataGridViewProcessors);
-            this.tabPageProcessors.Location = new System.Drawing.Point(4, 22);
-            this.tabPageProcessors.Name = "tabPageProcessors";
-            this.tabPageProcessors.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProcessors.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageProcessors.TabIndex = 4;
-            this.tabPageProcessors.Text = "Processors";
-            // 
-            // trackBarEncodingRU
-            // 
-            this.trackBarEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBarEncodingRU.Location = new System.Drawing.Point(310, 398);
-            this.trackBarEncodingRU.Maximum = 25;
-            this.trackBarEncodingRU.Name = "trackBarEncodingRU";
-            this.trackBarEncodingRU.Size = new System.Drawing.Size(596, 45);
-            this.trackBarEncodingRU.TabIndex = 39;
-            this.trackBarEncodingRU.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackBarEncodingRU.Scroll += new System.EventHandler(this.trackBarEncodingRU_Scroll);
-            this.trackBarEncodingRU.ValueChanged += new System.EventHandler(this.trackBarEncodingRU_ValueChanged);
-            // 
-            // buttonUpdateEncodingRU
-            // 
-            this.buttonUpdateEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpdateEncodingRU.Location = new System.Drawing.Point(925, 406);
-            this.buttonUpdateEncodingRU.Name = "buttonUpdateEncodingRU";
-            this.buttonUpdateEncodingRU.Size = new System.Drawing.Size(75, 23);
-            this.buttonUpdateEncodingRU.TabIndex = 38;
-            this.buttonUpdateEncodingRU.Text = "Update";
-            this.buttonUpdateEncodingRU.UseVisualStyleBackColor = true;
-            this.buttonUpdateEncodingRU.Click += new System.EventHandler(this.buttonUpdateEncodingRU_Click);
-            // 
-            // labelnbunits
-            // 
-            this.labelnbunits.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelnbunits.AutoSize = true;
-            this.labelnbunits.Location = new System.Drawing.Point(239, 411);
-            this.labelnbunits.Name = "labelnbunits";
-            this.labelnbunits.Size = new System.Drawing.Size(55, 13);
-            this.labelnbunits.TabIndex = 36;
-            this.labelnbunits.Tag = "";
-            this.labelnbunits.Text = "{0} unit{1}";
-            // 
-            // comboBoxEncodingRU
-            // 
-            this.comboBoxEncodingRU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.comboBoxEncodingRU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxEncodingRU.FormattingEnabled = true;
-            this.comboBoxEncodingRU.Location = new System.Drawing.Point(118, 408);
-            this.comboBoxEncodingRU.Name = "comboBoxEncodingRU";
-            this.comboBoxEncodingRU.Size = new System.Drawing.Size(104, 21);
-            this.comboBoxEncodingRU.TabIndex = 35;
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(5, 411);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(102, 13);
-            this.label22.TabIndex = 34;
-            this.label22.Text = "Reserved unit type :";
-            // 
-            // dataGridViewProcessors
-            // 
-            this.dataGridViewProcessors.AllowUserToAddRows = false;
-            this.dataGridViewProcessors.AllowUserToDeleteRows = false;
-            this.dataGridViewProcessors.AllowUserToResizeRows = false;
-            this.dataGridViewProcessors.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewProcessors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewProcessors.ContextMenuStrip = this.contextMenuStripProcessors;
-            this.dataGridViewProcessors.Location = new System.Drawing.Point(5, 6);
-            this.dataGridViewProcessors.Name = "dataGridViewProcessors";
-            this.dataGridViewProcessors.ReadOnly = true;
-            this.dataGridViewProcessors.RowHeadersVisible = false;
-            this.dataGridViewProcessors.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewProcessors.Size = new System.Drawing.Size(997, 390);
-            this.dataGridViewProcessors.TabIndex = 33;
-            this.dataGridViewProcessors.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewProcessors.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewProcessors.Resize += new System.EventHandler(this.dataGridViewV_Resize);
-            // 
-            // tabPageOrigins
-            // 
-            this.tabPageOrigins.Controls.Add(this.label19);
-            this.tabPageOrigins.Controls.Add(this.comboBoxOrderStreamingEndpoints);
-            this.tabPageOrigins.Controls.Add(this.dataGridViewStreamingEndpointsV);
-            this.tabPageOrigins.Location = new System.Drawing.Point(4, 22);
-            this.tabPageOrigins.Name = "tabPageOrigins";
-            this.tabPageOrigins.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOrigins.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageOrigins.TabIndex = 7;
-            this.tabPageOrigins.Text = "Streaming endpoints";
-            this.tabPageOrigins.UseVisualStyleBackColor = true;
-            // 
-            // label19
-            // 
-            this.label19.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(660, 419);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 13);
-            this.label19.TabIndex = 16;
-            this.label19.Text = "Order by:";
-            // 
-            // comboBoxOrderStreamingEndpoints
-            // 
-            this.comboBoxOrderStreamingEndpoints.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxOrderStreamingEndpoints.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxOrderStreamingEndpoints.FormattingEnabled = true;
-            this.comboBoxOrderStreamingEndpoints.Location = new System.Drawing.Point(713, 415);
-            this.comboBoxOrderStreamingEndpoints.Name = "comboBoxOrderStreamingEndpoints";
-            this.comboBoxOrderStreamingEndpoints.Size = new System.Drawing.Size(102, 21);
-            this.comboBoxOrderStreamingEndpoints.TabIndex = 15;
-            this.comboBoxOrderStreamingEndpoints.SelectedIndexChanged += new System.EventHandler(this.comboBoxOrderStreamingEndpoints_SelectedIndexChanged);
-            // 
             // dataGridViewStreamingEndpointsV
             // 
             this.dataGridViewStreamingEndpointsV.AllowUserToAddRows = false;
@@ -4385,7 +4579,7 @@
             this.dataGridViewStreamingEndpointsV.RowHeadersVisible = false;
             this.dataGridViewStreamingEndpointsV.SearchInName = "";
             this.dataGridViewStreamingEndpointsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewStreamingEndpointsV.Size = new System.Drawing.Size(994, 403);
+            this.dataGridViewStreamingEndpointsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewStreamingEndpointsV.TabIndex = 0;
             this.dataGridViewStreamingEndpointsV.TimeFilter = "Last week";
             this.dataGridViewStreamingEndpointsV.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewOriginsV_CellDoubleClick);
@@ -4393,143 +4587,6 @@
             this.dataGridViewStreamingEndpointsV.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
             this.dataGridViewStreamingEndpointsV.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
             this.dataGridViewStreamingEndpointsV.Resize += new System.EventHandler(this.dataGridViewV_Resize);
-            // 
-            // tabPageStorage
-            // 
-            this.tabPageStorage.Controls.Add(this.dataGridViewStorage);
-            this.tabPageStorage.Location = new System.Drawing.Point(4, 22);
-            this.tabPageStorage.Name = "tabPageStorage";
-            this.tabPageStorage.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStorage.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageStorage.TabIndex = 8;
-            this.tabPageStorage.Text = "Storage";
-            this.tabPageStorage.UseVisualStyleBackColor = true;
-            // 
-            // dataGridViewStorage
-            // 
-            this.dataGridViewStorage.AllowUserToAddRows = false;
-            this.dataGridViewStorage.AllowUserToDeleteRows = false;
-            this.dataGridViewStorage.AllowUserToResizeRows = false;
-            this.dataGridViewStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridViewStorage.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewStorage.ContextMenuStrip = this.contextMenuStripStorage;
-            this.dataGridViewStorage.Location = new System.Drawing.Point(5, 6);
-            this.dataGridViewStorage.Name = "dataGridViewStorage";
-            this.dataGridViewStorage.ReadOnly = true;
-            this.dataGridViewStorage.RowHeadersVisible = false;
-            this.dataGridViewStorage.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewStorage.Size = new System.Drawing.Size(997, 390);
-            this.dataGridViewStorage.TabIndex = 34;
-            this.dataGridViewStorage.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dataGridViewV_RowPostPaint);
-            this.dataGridViewStorage.VisibleChanged += new System.EventHandler(this.dataGridViewV_VisibleChanged);
-            this.dataGridViewStorage.Resize += new System.EventHandler(this.dataGridViewV_Resize);
-            // 
-            // tabPageChart
-            // 
-            this.tabPageChart.Controls.Add(this.label21);
-            this.tabPageChart.Controls.Add(this.dateTimePickerEndDate);
-            this.tabPageChart.Controls.Add(this.label20);
-            this.tabPageChart.Controls.Add(this.dateTimePickerStartDate);
-            this.tabPageChart.Controls.Add(this.chart);
-            this.tabPageChart.Controls.Add(this.buttonbuildchart);
-            this.tabPageChart.Location = new System.Drawing.Point(4, 22);
-            this.tabPageChart.Name = "tabPageChart";
-            this.tabPageChart.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageChart.Size = new System.Drawing.Size(1006, 443);
-            this.tabPageChart.TabIndex = 5;
-            this.tabPageChart.Text = "Chart";
-            this.tabPageChart.UseVisualStyleBackColor = true;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(261, 9);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(26, 13);
-            this.label21.TabIndex = 42;
-            this.label21.Text = "To :";
-            // 
-            // dateTimePickerEndDate
-            // 
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(293, 6);
-            this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerEndDate.TabIndex = 41;
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(6, 9);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(36, 13);
-            this.label20.TabIndex = 40;
-            this.label20.Text = "From :";
-            // 
-            // dateTimePickerStartDate
-            // 
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(48, 6);
-            this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePickerStartDate.TabIndex = 39;
-            // 
-            // chart
-            // 
-            this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
-            this.chart.Location = new System.Drawing.Point(5, 33);
-            this.chart.Name = "chart";
-            this.chart.Size = new System.Drawing.Size(997, 404);
-            this.chart.TabIndex = 37;
-            this.chart.Text = "chartJobs";
-            // 
-            // buttonbuildchart
-            // 
-            this.buttonbuildchart.Location = new System.Drawing.Point(512, 4);
-            this.buttonbuildchart.Name = "buttonbuildchart";
-            this.buttonbuildchart.Size = new System.Drawing.Size(105, 23);
-            this.buttonbuildchart.TabIndex = 36;
-            this.buttonbuildchart.Text = "Build jobs chart";
-            this.buttonbuildchart.UseVisualStyleBackColor = true;
-            this.buttonbuildchart.Click += new System.EventHandler(this.buttonbuildchart_Click);
-            // 
-            // richTextBoxLog
-            // 
-            this.richTextBoxLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxLog.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.richTextBoxLog.ContextMenuStrip = this.contextMenuStripLog;
-            this.richTextBoxLog.Location = new System.Drawing.Point(3, 3);
-            this.richTextBoxLog.Name = "richTextBoxLog";
-            this.richTextBoxLog.ReadOnly = true;
-            this.richTextBoxLog.Size = new System.Drawing.Size(1014, 68);
-            this.richTextBoxLog.TabIndex = 6;
-            this.richTextBoxLog.Text = "";
-            this.richTextBoxLog.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.richTextBoxLog_LinkClicked);
-            this.richTextBoxLog.TextChanged += new System.EventHandler(this.richTextBoxLog_TextChanged);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon1.BalloonTipText = "myText";
-            this.notifyIcon1.BalloonTipTitle = "myTitle";
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Text = "{0} - AMS Explorer";
-            this.notifyIcon1.Visible = true;
-            // 
-            // subclipProgramsToolStripMenuItem
-            // 
-            this.subclipProgramsToolStripMenuItem.Name = "subclipProgramsToolStripMenuItem";
-            this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.subclipProgramsToolStripMenuItem.Text = "Subclip program(s)...";
-            this.subclipProgramsToolStripMenuItem.Click += new System.EventHandler(this.subclipProgramsToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -4569,7 +4626,6 @@
             this.tabControlMain.ResumeLayout(false);
             this.tabPageAssets.ResumeLayout(false);
             this.tabPageAssets.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
             this.tabPageFilters.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilters.ResumeLayout(false);
@@ -4577,23 +4633,24 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.tabPageJobs.ResumeLayout(false);
             this.tabPageJobs.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
             this.tabPageLive.ResumeLayout(false);
             this.tabPageLive.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
             this.tabPageProcessors.ResumeLayout(false);
             this.tabPageProcessors.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarEncodingRU)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProcessors)).EndInit();
             this.tabPageOrigins.ResumeLayout(false);
             this.tabPageOrigins.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
             this.tabPageStorage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStorage)).EndInit();
             this.tabPageChart.ResumeLayout(false);
             this.tabPageChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAssetsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewProgramsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewChannelsV)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStreamingEndpointsV)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

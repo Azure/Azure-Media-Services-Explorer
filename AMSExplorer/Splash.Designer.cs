@@ -36,19 +36,19 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(12, 143);
+            this.progressBar1.Location = new System.Drawing.Point(14, 165);
             this.progressBar1.MarqueeAnimationSpeed = 30;
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(411, 23);
+            this.progressBar1.Size = new System.Drawing.Size(479, 27);
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 1;
             // 
             // labelConnecting
             // 
-            this.labelConnecting.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelConnecting.Location = new System.Drawing.Point(120, 63);
+            this.labelConnecting.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConnecting.Location = new System.Drawing.Point(140, 73);
             this.labelConnecting.Name = "labelConnecting";
-            this.labelConnecting.Size = new System.Drawing.Size(303, 28);
+            this.labelConnecting.Size = new System.Drawing.Size(353, 32);
             this.labelConnecting.TabIndex = 2;
             this.labelConnecting.Text = "{0}";
             this.labelConnecting.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -56,38 +56,39 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Image = global::AMSExplorer.Bitmaps.Azure_Explorer;
-            this.logoPictureBox.Location = new System.Drawing.Point(12, 12);
+            this.logoPictureBox.Location = new System.Drawing.Point(14, 14);
             this.logoPictureBox.Name = "logoPictureBox";
-            this.logoPictureBox.Size = new System.Drawing.Size(102, 112);
+            this.logoPictureBox.Size = new System.Drawing.Size(119, 129);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logoPictureBox.TabIndex = 13;
             this.logoPictureBox.TabStop = false;
             // 
             // label1
             // 
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(120, 29);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(140, 33);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 34);
+            this.label1.Size = new System.Drawing.Size(353, 39);
             this.label1.TabIndex = 14;
             this.label1.Text = "Connecting to the Media Services account :";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Splash
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(435, 184);
+            this.ClientSize = new System.Drawing.Size(507, 212);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.logoPictureBox);
             this.Controls.Add(this.labelConnecting);
             this.Controls.Add(this.progressBar1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Splash";
-            this.Padding = new System.Windows.Forms.Padding(9);
+            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

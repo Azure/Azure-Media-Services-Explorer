@@ -66,9 +66,9 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(282, 12);
+            this.buttonOk.Location = new System.Drawing.Point(329, 14);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(96, 23);
+            this.buttonOk.Size = new System.Drawing.Size(112, 27);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Create Locator";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -77,9 +77,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(384, 12);
+            this.buttonCancel.Location = new System.Drawing.Point(448, 14);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(96, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(112, 27);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -87,9 +87,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 429);
+            this.label1.Location = new System.Drawing.Point(37, 495);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(410, 13);
+            this.label1.Size = new System.Drawing.Size(455, 15);
             this.label1.TabIndex = 35;
             this.label1.Text = "Locators URL will be copied to the clipboard and can be seen in the asset informa" +
     "tion";
@@ -101,9 +101,9 @@
             this.groupBox1.Controls.Add(this.radioButtonEndCustom);
             this.groupBox1.Controls.Add(this.dateTimePickerEndTime);
             this.groupBox1.Controls.Add(this.dateTimePickerEndDate);
-            this.groupBox1.Location = new System.Drawing.Point(245, 154);
+            this.groupBox1.Location = new System.Drawing.Point(286, 178);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(220, 180);
+            this.groupBox1.Size = new System.Drawing.Size(257, 208);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "End date/time";
@@ -111,9 +111,9 @@
             // radioButtonEndUnlimited
             // 
             this.radioButtonEndUnlimited.AutoSize = true;
-            this.radioButtonEndUnlimited.Location = new System.Drawing.Point(9, 157);
+            this.radioButtonEndUnlimited.Location = new System.Drawing.Point(10, 181);
             this.radioButtonEndUnlimited.Name = "radioButtonEndUnlimited";
-            this.radioButtonEndUnlimited.Size = new System.Drawing.Size(71, 17);
+            this.radioButtonEndUnlimited.Size = new System.Drawing.Size(73, 19);
             this.radioButtonEndUnlimited.TabIndex = 4;
             this.radioButtonEndUnlimited.Text = "100 years";
             this.radioButtonEndUnlimited.UseVisualStyleBackColor = true;
@@ -121,9 +121,9 @@
             // radioButtonEndYear
             // 
             this.radioButtonEndYear.AutoSize = true;
-            this.radioButtonEndYear.Location = new System.Drawing.Point(9, 128);
+            this.radioButtonEndYear.Location = new System.Drawing.Point(10, 148);
             this.radioButtonEndYear.Name = "radioButtonEndYear";
-            this.radioButtonEndYear.Size = new System.Drawing.Size(54, 17);
+            this.radioButtonEndYear.Size = new System.Drawing.Size(56, 19);
             this.radioButtonEndYear.TabIndex = 3;
             this.radioButtonEndYear.Text = "1 year";
             this.radioButtonEndYear.UseVisualStyleBackColor = true;
@@ -132,9 +132,9 @@
             // 
             this.radioButtonEndCustom.AutoSize = true;
             this.radioButtonEndCustom.Checked = true;
-            this.radioButtonEndCustom.Location = new System.Drawing.Point(9, 26);
+            this.radioButtonEndCustom.Location = new System.Drawing.Point(10, 30);
             this.radioButtonEndCustom.Name = "radioButtonEndCustom";
-            this.radioButtonEndCustom.Size = new System.Drawing.Size(87, 17);
+            this.radioButtonEndCustom.Size = new System.Drawing.Size(96, 19);
             this.radioButtonEndCustom.TabIndex = 0;
             this.radioButtonEndCustom.TabStop = true;
             this.radioButtonEndCustom.Text = "Custom date:";
@@ -145,21 +145,21 @@
             // 
             this.dateTimePickerEndTime.CustomFormat = "";
             this.dateTimePickerEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerEndTime.Location = new System.Drawing.Point(9, 86);
+            this.dateTimePickerEndTime.Location = new System.Drawing.Point(10, 99);
             this.dateTimePickerEndTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndTime.Name = "dateTimePickerEndTime";
             this.dateTimePickerEndTime.ShowUpDown = true;
-            this.dateTimePickerEndTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEndTime.Size = new System.Drawing.Size(233, 23);
             this.dateTimePickerEndTime.TabIndex = 2;
             this.dateTimePickerEndTime.ValueChanged += new System.EventHandler(this.dateTimePickerEndTime_ValueChanged);
             // 
             // dateTimePickerEndDate
             // 
             this.dateTimePickerEndDate.CustomFormat = "";
-            this.dateTimePickerEndDate.Location = new System.Drawing.Point(9, 60);
+            this.dateTimePickerEndDate.Location = new System.Drawing.Point(10, 69);
             this.dateTimePickerEndDate.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEndDate.Name = "dateTimePickerEndDate";
-            this.dateTimePickerEndDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerEndDate.Size = new System.Drawing.Size(233, 23);
             this.dateTimePickerEndDate.TabIndex = 1;
             this.dateTimePickerEndDate.ValueChanged += new System.EventHandler(this.dateTimePickerEndDate_ValueChanged);
             // 
@@ -168,9 +168,9 @@
             this.groupBox2.Controls.Add(this.checkBoxStartDate);
             this.groupBox2.Controls.Add(this.dateTimePickerStartTime);
             this.groupBox2.Controls.Add(this.dateTimePickerStartDate);
-            this.groupBox2.Location = new System.Drawing.Point(12, 154);
+            this.groupBox2.Location = new System.Drawing.Point(14, 178);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(220, 180);
+            this.groupBox2.Size = new System.Drawing.Size(257, 208);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Start date/time";
@@ -178,9 +178,9 @@
             // checkBoxStartDate
             // 
             this.checkBoxStartDate.AutoSize = true;
-            this.checkBoxStartDate.Location = new System.Drawing.Point(10, 26);
+            this.checkBoxStartDate.Location = new System.Drawing.Point(12, 30);
             this.checkBoxStartDate.Name = "checkBoxStartDate";
-            this.checkBoxStartDate.Size = new System.Drawing.Size(144, 17);
+            this.checkBoxStartDate.Size = new System.Drawing.Size(157, 19);
             this.checkBoxStartDate.TabIndex = 0;
             this.checkBoxStartDate.Text = "Specify a start date/time:";
             this.checkBoxStartDate.UseVisualStyleBackColor = true;
@@ -191,28 +191,28 @@
             this.dateTimePickerStartTime.CustomFormat = "";
             this.dateTimePickerStartTime.Enabled = false;
             this.dateTimePickerStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePickerStartTime.Location = new System.Drawing.Point(11, 86);
+            this.dateTimePickerStartTime.Location = new System.Drawing.Point(13, 99);
             this.dateTimePickerStartTime.MinDate = new System.DateTime(2014, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStartTime.Name = "dateTimePickerStartTime";
             this.dateTimePickerStartTime.ShowUpDown = true;
-            this.dateTimePickerStartTime.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartTime.Size = new System.Drawing.Size(233, 23);
             this.dateTimePickerStartTime.TabIndex = 2;
             this.dateTimePickerStartTime.ValueChanged += new System.EventHandler(this.dateTimePickerStartTime_ValueChanged);
             // 
             // dateTimePickerStartDate
             // 
             this.dateTimePickerStartDate.Enabled = false;
-            this.dateTimePickerStartDate.Location = new System.Drawing.Point(11, 60);
+            this.dateTimePickerStartDate.Location = new System.Drawing.Point(13, 69);
             this.dateTimePickerStartDate.Name = "dateTimePickerStartDate";
-            this.dateTimePickerStartDate.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerStartDate.Size = new System.Drawing.Size(233, 23);
             this.dateTimePickerStartDate.TabIndex = 1;
             this.dateTimePickerStartDate.ValueChanged += new System.EventHandler(this.dateTimePickerStartDate_ValueChanged);
             // 
             // labelAssetName
             // 
-            this.labelAssetName.Location = new System.Drawing.Point(13, 13);
+            this.labelAssetName.Location = new System.Drawing.Point(15, 15);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(452, 13);
+            this.labelAssetName.Size = new System.Drawing.Size(527, 15);
             this.labelAssetName.TabIndex = 42;
             this.labelAssetName.Text = "label2";
             // 
@@ -220,9 +220,9 @@
             // 
             this.radioButtonOrigin.AutoSize = true;
             this.radioButtonOrigin.Checked = true;
-            this.radioButtonOrigin.Location = new System.Drawing.Point(35, 29);
+            this.radioButtonOrigin.Location = new System.Drawing.Point(41, 33);
             this.radioButtonOrigin.Name = "radioButtonOrigin";
-            this.radioButtonOrigin.Size = new System.Drawing.Size(205, 17);
+            this.radioButtonOrigin.Size = new System.Drawing.Size(231, 19);
             this.radioButtonOrigin.TabIndex = 0;
             this.radioButtonOrigin.TabStop = true;
             this.radioButtonOrigin.Text = "Streaming locator (adaptive streaming)";
@@ -232,9 +232,9 @@
             // radioButtonSAS
             // 
             this.radioButtonSAS.AutoSize = true;
-            this.radioButtonSAS.Location = new System.Drawing.Point(35, 53);
+            this.radioButtonSAS.Location = new System.Drawing.Point(41, 61);
             this.radioButtonSAS.Name = "radioButtonSAS";
-            this.radioButtonSAS.Size = new System.Drawing.Size(193, 17);
+            this.radioButtonSAS.Size = new System.Drawing.Size(212, 19);
             this.radioButtonSAS.TabIndex = 1;
             this.radioButtonSAS.Text = "SAS locator (progressive download)";
             this.radioButtonSAS.UseVisualStyleBackColor = true;
@@ -245,9 +245,9 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonSAS);
             this.groupBox4.Controls.Add(this.radioButtonOrigin);
-            this.groupBox4.Location = new System.Drawing.Point(12, 48);
+            this.groupBox4.Location = new System.Drawing.Point(14, 55);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(453, 86);
+            this.groupBox4.Size = new System.Drawing.Size(528, 99);
             this.groupBox4.TabIndex = 0;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Locator type";
@@ -255,7 +255,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.SAS_locator;
-            this.pictureBox2.Location = new System.Drawing.Point(9, 54);
+            this.pictureBox2.Location = new System.Drawing.Point(10, 62);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -265,7 +265,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox1.Location = new System.Drawing.Point(9, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(10, 35);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -277,9 +277,9 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(32, 454);
+            this.labelWarning.Location = new System.Drawing.Point(37, 524);
             this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelWarning.Size = new System.Drawing.Size(52, 15);
             this.labelWarning.TabIndex = 44;
             this.labelWarning.Text = "Warning";
             // 
@@ -290,9 +290,9 @@
             this.groupBoxForceLocator.Controls.Add(this.label8);
             this.groupBoxForceLocator.Controls.Add(this.textBoxLocatorGUID);
             this.groupBoxForceLocator.Controls.Add(this.checkBoxForLocatorGUID);
-            this.groupBoxForceLocator.Location = new System.Drawing.Point(12, 340);
+            this.groupBoxForceLocator.Location = new System.Drawing.Point(14, 392);
             this.groupBoxForceLocator.Name = "groupBoxForceLocator";
-            this.groupBoxForceLocator.Size = new System.Drawing.Size(453, 79);
+            this.groupBoxForceLocator.Size = new System.Drawing.Size(528, 91);
             this.groupBoxForceLocator.TabIndex = 3;
             this.groupBoxForceLocator.TabStop = false;
             this.groupBoxForceLocator.Text = "Advanced user only";
@@ -300,9 +300,9 @@
             // label8
             // 
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(158, 21);
+            this.label8.Location = new System.Drawing.Point(184, 24);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(284, 16);
+            this.label8.Size = new System.Drawing.Size(331, 18);
             this.label8.TabIndex = 68;
             this.label8.Text = "format: nb:lid:UUID:96687412-6d...  or 96687412-6d...";
             // 
@@ -311,17 +311,17 @@
             this.textBoxLocatorGUID.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxLocatorGUID.Enabled = false;
-            this.textBoxLocatorGUID.Location = new System.Drawing.Point(11, 45);
+            this.textBoxLocatorGUID.Location = new System.Drawing.Point(13, 52);
             this.textBoxLocatorGUID.Name = "textBoxLocatorGUID";
-            this.textBoxLocatorGUID.Size = new System.Drawing.Size(431, 20);
+            this.textBoxLocatorGUID.Size = new System.Drawing.Size(502, 23);
             this.textBoxLocatorGUID.TabIndex = 1;
             // 
             // checkBoxForLocatorGUID
             // 
             this.checkBoxForLocatorGUID.AutoSize = true;
-            this.checkBoxForLocatorGUID.Location = new System.Drawing.Point(11, 20);
+            this.checkBoxForLocatorGUID.Location = new System.Drawing.Point(13, 23);
             this.checkBoxForLocatorGUID.Name = "checkBoxForLocatorGUID";
-            this.checkBoxForLocatorGUID.Size = new System.Drawing.Size(149, 17);
+            this.checkBoxForLocatorGUID.Size = new System.Drawing.Size(156, 19);
             this.checkBoxForLocatorGUID.TabIndex = 0;
             this.checkBoxForLocatorGUID.Text = "Force a locator ID/GUID :";
             this.checkBoxForLocatorGUID.UseVisualStyleBackColor = true;
@@ -334,17 +334,17 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 479);
+            this.panel1.Location = new System.Drawing.Point(-2, 553);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(493, 48);
+            this.panel1.Size = new System.Drawing.Size(575, 55);
             this.panel1.TabIndex = 60;
             // 
             // CreateLocator
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 526);
+            this.ClientSize = new System.Drawing.Size(572, 607);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxForceLocator);
             this.Controls.Add(this.labelWarning);
@@ -353,6 +353,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "CreateLocator";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Publish an asset";

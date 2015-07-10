@@ -860,7 +860,7 @@ namespace AMSExplorer
                     }
                     if (operation.State == OperationState.Succeeded)
                     {
-                        mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                        mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
                         IChannel channelR = _context.Channels.Where(c => c.Id == channel.Id).FirstOrDefault();
                         // we display a notification is taskbar for channel started or reset
                         if (channelR != null && (strStatusSuccess == "started" || strStatusSuccess == "reset"))
@@ -880,7 +880,7 @@ namespace AMSExplorer
                 }
                 catch (Exception ex)
                 {
-                    mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+                    mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
                 }
             }
             return operation;
@@ -915,7 +915,7 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                    mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
                 }
                 else
                 {
@@ -926,7 +926,7 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+                mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
@@ -960,7 +960,7 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    mainform.TextBoxLogWriteLine("Channel '{0}' {1}.", channel.Name, strStatusSuccess);
+                    mainform.TextBoxLogWriteLine("Channel '{0}' : {1}.", channel.Name, strStatusSuccess);
                 }
                 else
                 {
@@ -971,7 +971,7 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                mainform.TextBoxLogWriteLine("Error with channel '{0}' : {1}", channel.Name, Program.GetErrorMessage(ex), true);
+                mainform.TextBoxLogWriteLine("Channel '{0}' : Error! {1}", channel.Name, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }

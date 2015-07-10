@@ -90,10 +90,15 @@ namespace AMSExplorer
         public Mainform()
         {
             InitializeComponent();
+
+            // for player control embedded in UI
+            Program.SetWebBrowserFeatures();
+
             this.Icon = Bitmaps.Azure_Explorer_ico;
 
             // USER SETTINSG CHECKS & UPDATES
-            if (Properties.Settings.Default.CallUpgrade) // upgrade settings from previous version
+            // upgrade settings from previous version
+            if (Properties.Settings.Default.CallUpgrade)
             {
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.CallUpgrade = false;
@@ -195,9 +200,7 @@ namespace AMSExplorer
                 subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
                 subclipProgramsToolStripMenuItem.Visible = false;
                 subclipToolStripMenuItem.Visible = false;
-
             }
-
 
             if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
             {
@@ -249,8 +252,6 @@ namespace AMSExplorer
         {
             notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
-
-
 
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
@@ -357,8 +358,6 @@ namespace AMSExplorer
                         writePolicy.Delete();
                     }
                     catch { }
-
-
                 }
 
             }
@@ -391,20 +390,15 @@ namespace AMSExplorer
                     {
 
                     }
-
                 }
-
             }
-
         }
 
 
-
-        private void ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
+        private async Task ProcessUploadFromFolder(object folderPath, int index, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
-
             if (storageaccount == null) storageaccount = _context.DefaultStorageAccount.Name; // no storage account or null, then let's take the default one
 
             var filePaths = Directory.EnumerateFiles(folderPath as string);
@@ -460,7 +454,6 @@ namespace AMSExplorer
                 DoGridTransferDeclareCompleted(index, asset.Id);
             }
             DoRefreshGridAssetV(false);
-
         }
 
 
@@ -511,7 +504,6 @@ namespace AMSExplorer
         }
 
 
-
         static IChannel GetChannel(string channelId)
         {
             IChannel channel;
@@ -531,7 +523,6 @@ namespace AMSExplorer
 
                 channel = null;
             }
-
             return channel;
         }
 
@@ -551,10 +542,8 @@ namespace AMSExplorer
             }
             catch
             {
-
                 channel = null;
             }
-
             return channel;
         }
 
@@ -574,10 +563,8 @@ namespace AMSExplorer
             }
             catch
             {
-
                 program = null;
             }
-
             return program;
         }
 
@@ -599,7 +586,6 @@ namespace AMSExplorer
             {
                 origin = null;
             }
-
             return origin;
         }
 
@@ -646,7 +632,6 @@ namespace AMSExplorer
 
             TextBoxLogWriteLine("Deleting policy {0}", existingPolicyId);
             policy.Delete();
-
         }
 
 
@@ -767,16 +752,19 @@ namespace AMSExplorer
             }
 
             Debug.WriteLine("DoRefreshGridAssetNotforsttime");
-            int backupindex = 0;
-            int pagecount = 0;
+            int ComboBackupindex = 0;
+            int DGpagecount = 0;
 
             dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.AssetsPerPage = Properties.Settings.Default.NbItemsDisplayedInGrid));
-            comboBoxPageAssets.Invoke(new Action(() => backupindex = comboBoxPageAssets.SelectedIndex));
-            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(_context, backupindex + 1)));
+            comboBoxPageAssets.Invoke(new Action(() => ComboBackupindex = comboBoxPageAssets.SelectedIndex));
+            dataGridViewAssetsV.Invoke(new Action(() => dataGridViewAssetsV.RefreshAssets(_context, ComboBackupindex + 1)));
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Clear()));
-            dataGridViewAssetsV.Invoke(new Action(() => pagecount = dataGridViewAssetsV.PageCount));
+            dataGridViewAssetsV.Invoke(new Action(() => DGpagecount = dataGridViewAssetsV.PageCount));
 
-            for (int i = 1; i <= pagecount; i++) comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i)));
+            for (int i = 0; i < DGpagecount; i++)
+            {
+                comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.Items.Add(i + 1)));
+            }
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
             tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
@@ -802,7 +790,10 @@ namespace AMSExplorer
             dataGridViewJobsV.Invoke(new Action(() => pagecount = dataGridViewJobsV.PageCount));
 
             // add pages
-            for (int i = 1; i <= pagecount; i++) comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i)));
+            for (int i = 0; i < pagecount; i++)
+            {
+                comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.Items.Add(i + 1)));
+            }
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
             tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
@@ -845,7 +836,7 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
-                    DoRefreshGridAssetV(false);
+                    //DoRefreshGridAssetV(false);
                 }
                 catch (Exception ex)
                 {
@@ -858,7 +849,7 @@ namespace AMSExplorer
 
 
 
-        private void ProcessUploadFileAndMore(object name, int index, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
+        private async Task ProcessUploadFileAndMore(object name, int index, WatchFolderSettings watchfoldersettings = null, string storageaccount = null)
         {
             // If upload in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -5791,25 +5782,25 @@ namespace AMSExplorer
 
         private async Task<IOperation> StartChannelAsync(IChannel myC)
         {
-            TextBoxLogWriteLine("Starting channel '{0}' ", myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : starting...", myC.Name);
             return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStartOperationAsync, myC, "started", _context, this, dataGridViewChannelsV);
         }
 
         private async Task<IOperation> StopChannelAsync(IChannel myC)
         {
-            TextBoxLogWriteLine("Stopping channel '{0}'", myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : stopping...", myC.Name);
             return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendStopOperationAsync, myC, "stopped", _context, this, dataGridViewChannelsV);
         }
 
         private async Task<IOperation> ResetChannelAsync(IChannel myC)
         {
-            TextBoxLogWriteLine("Reseting channel '{0}'", myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : reseting...", myC.Name);
             return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendResetOperationAsync, myC, "reset", _context, this, dataGridViewChannelsV);
         }
 
         private async Task<IOperation> DeleteChannelAsync(IChannel myC)
         {
-            TextBoxLogWriteLine("Deleting channel '{0}'", myC.Name);
+            TextBoxLogWriteLine("Channel '{0}' : deleting...", myC.Name);
             return await ChannelInfo.ChannelExecuteOperationAsync(myC.SendDeleteOperationAsync, myC, "deleted", _context, this, dataGridViewChannelsV);
         }
 
@@ -5818,13 +5809,13 @@ namespace AMSExplorer
 
         private async Task<IOperation> StopProgramASync(IProgram myP)
         {
-            TextBoxLogWriteLine("Stopping program '{0}'...", myP.Name);
+            TextBoxLogWriteLine("Program '{0}' : stopping...", myP.Name);
             return await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStopOperationAsync, myP, "stopped"));
         }
 
         private async Task<IOperation> StartProgramASync(IProgram myP)
         {
-            TextBoxLogWriteLine("Starting program '{0}'...", myP.Name);
+            TextBoxLogWriteLine("Program '{0}' : starting...", myP.Name);
             return await Task.Run(() => ProgramExecuteOperationAsync(myP.SendStartOperationAsync, myP, "started"));
         }
 
@@ -5835,11 +5826,11 @@ namespace AMSExplorer
             try
             {
                 await fCall();
-                TextBoxLogWriteLine("Program '{0}' {1}.", strObjectName, strStatusSuccess);
+                TextBoxLogWriteLine("Program '{0}' : {1}.", strObjectName, strStatusSuccess);
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with program '{0}' : {1}", strObjectName, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Program '{0}' : Error! {1}", strObjectName, Program.GetErrorMessage(ex), true);
             }
         }
 
@@ -5849,18 +5840,18 @@ namespace AMSExplorer
 
         private async Task<IOperation> StartStreamingEndpoint(IStreamingEndpoint myO)
         {
-            TextBoxLogWriteLine("Starting streaming endpoint '{0}'...", myO.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}': starting...", myO.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
         }
         private async Task<IOperation> StopStreamingEndpointAsync(IStreamingEndpoint mySE)
         {
-            TextBoxLogWriteLine("Stopping streaming endpoint '{0}'...", mySE.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}': stopping...", mySE.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(mySE.SendStopOperationAsync, mySE, "stopped"));
         }
 
         private async Task<IOperation> DeleteStreamingEndpointAsync(IStreamingEndpoint myO)
         {
-            TextBoxLogWriteLine("Deleting streaming endpoint '{0}'.", myO.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}': deleting...", myO.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
         }
 
@@ -5914,7 +5905,7 @@ namespace AMSExplorer
             {
                 try
                 {
-                    TextBoxLogWriteLine("Scaling streaming endpoint '{0}' to {1} unit(s)...", myO.Name, unit.ToString());
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' : scaling to {1} unit(s)...", myO.Name, unit.ToString());
                     //await Task.Run(() => myO.ScaleAsync(unit));
                     operation = await myO.SendScaleOperationAsync(unit);
                     while (operation.State == OperationState.InProgress)
@@ -5925,11 +5916,11 @@ namespace AMSExplorer
                     }
                     if (operation.State == OperationState.Succeeded)
                     {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' scaled.", myO.Name);
+                        TextBoxLogWriteLine("Streaming endpoint '{0}': scaled.", myO.Name);
                     }
                     else
                     {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' did NOT scaled. (Error {1})", myO.Name, operation.ErrorCode, true);
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' : did NOT scaled. (Error {1})", myO.Name, operation.ErrorCode, true);
                         TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                     }
                     dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
@@ -5937,7 +5928,7 @@ namespace AMSExplorer
 
                 catch (Exception ex)
                 {
-                    TextBoxLogWriteLine("Error when scaling streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' : Error when scaling. {1}", myO.Name, Program.GetErrorMessage(ex), true);
                 }
             }
             return operation;
@@ -5965,12 +5956,12 @@ namespace AMSExplorer
                     System.Threading.Thread.Sleep(1000);
                 }
                 await STask;
-                TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
+                TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
                 dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with program '{0}' : {1}", program.Name, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
             }
         }
 
@@ -6000,18 +5991,18 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    TextBoxLogWriteLine("Program '{0}' {1}.", program.Name, strStatusSuccess);
+                    TextBoxLogWriteLine("Program '{0}' : {1}.", program.Name, strStatusSuccess);
                 }
                 else
                 {
-                    TextBoxLogWriteLine("Program '{0}' NOT {1}. (Error {2})", program.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Program '{0}' : NOT {1}. (Error {2})", program.Name, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
                 dataGridViewProgramsV.BeginInvoke(new Action(() => dataGridViewProgramsV.RefreshProgram(program)), null);
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with program '{0}' : {1}", program.Name, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Program '{0}' : Error {1}", program.Name, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
@@ -6046,7 +6037,7 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' {1}.", myO.Name, strStatusSuccess);
+                    TextBoxLogWriteLine("Streaming endpoint '{0}' : {1}.", myO.Name, strStatusSuccess);
                     IStreamingEndpoint myse = _context.StreamingEndpoints.Where(se => se.Id == myO.Id).FirstOrDefault();
                     // we display a notification is taskbar for channel started or reset
                     if (myse != null && strStatusSuccess == "started")
@@ -6059,14 +6050,14 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    TextBoxLogWriteLine("Streaming endpoint '{0}' NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("Streaming endpoint '{0}': NOT {1}. (Error {2})", myO.Name, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
                 dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with streaming endpoint '{0}' : {1}", myO.Name, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("Streaming endpoint '{0}' : Error {1}", myO.Name, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
@@ -6087,17 +6078,17 @@ namespace AMSExplorer
                 }
                 if (operation.State == OperationState.Succeeded)
                 {
-                    TextBoxLogWriteLine("{0} '{1}' {2}.", objectlogname, objectname, strStatusSuccess);
+                    TextBoxLogWriteLine("{0} '{1}': {2}.", objectlogname, objectname, strStatusSuccess);
                 }
                 else
                 {
-                    TextBoxLogWriteLine("{0} '{1}' NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
+                    TextBoxLogWriteLine("{0} '{1}': NOT {2}. (Error {3})", objectlogname, objectname, strStatusSuccess, operation.ErrorCode, true);
                     TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                 }
             }
             catch (Exception ex)
             {
-                TextBoxLogWriteLine("Error with {0} '{1}' : {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
+                TextBoxLogWriteLine("{0} '{1}': Error {2}", objectlogname, objectname, Program.GetErrorMessage(ex), true);
             }
             return operation;
         }
@@ -6180,7 +6171,7 @@ namespace AMSExplorer
                             }
 
                             // delete programs
-                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Deleting program '{0}'...", p.Name));
+                            Programs.ToList().ForEach(p => TextBoxLogWriteLine("Program '{0}': deleting...", p.Name));
                             var tasks = Programs.Select(p => ProgramExecuteAsync(p.DeleteAsync, p, "deleted")).ToArray();
                             bool Error = false;
                             try
@@ -6199,7 +6190,7 @@ namespace AMSExplorer
 
                             if (form.DeleteAsset && Error == false)
                             {
-                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Deleting asset '{0}'", a.Name));
+                                assets.ToList().ForEach(a => TextBoxLogWriteLine("Asset '{0}': deleting...", a.Name));
                                 var tasksassets = assets.Select(a => a.DeleteAsync()).ToArray();
                                 try
                                 {
@@ -6235,7 +6226,7 @@ namespace AMSExplorer
                             }
 
                             // delete the channels
-                            SelectedChannels.ToList().ForEach(c => TextBoxLogWriteLine("Deleting channel '{0}'", c.Name));
+                            SelectedChannels.ToList().ForEach(c => TextBoxLogWriteLine("Channel '{0}': deleting...", c.Name));
                             var taskcdel = SelectedChannels.Select(c => c.DeleteAsync()).ToArray();
                             try
                             {
@@ -7457,7 +7448,7 @@ namespace AMSExplorer
             DoBatchUpload();
         }
 
-        private void DoBatchUpload()
+        private async void DoBatchUpload()
         {
             BatchUploadFrame1 form = new BatchUploadFrame1();
             if (form.ShowDialog() == DialogResult.OK)
@@ -7465,19 +7456,29 @@ namespace AMSExplorer
                 BatchUploadFrame2 form2 = new BatchUploadFrame2(form.BatchFolder, form.BatchProcessFiles, form.BatchProcessSubFolders, _context) { Left = form.Left, Top = form.Top };
                 if (form2.ShowDialog() == DialogResult.OK)
                 {
-                    int index;
-                    foreach (string folder in form2.BatchSelectedFolders)
-                    {
-                        index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected));
-                    }
-                    foreach (string file in form2.BatchSelectedFiles)
-                    {
-                        index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
-                        Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected));
-                    }
                     DotabControlMainSwitch(Constants.TabTransfers);
-                    DoRefreshGridAssetV(false);
+
+                    Task.Run(async () =>
+                    {
+                        List<Task> MyTasks = new List<Task>();
+                        foreach (string folder in form2.BatchSelectedFolders)
+                        {
+                            int index = DoGridTransferAddItem(string.Format("Upload of folder '{0}'", Path.GetFileName(folder)), TransferType.UploadFromFolder, Properties.Settings.Default.useTransferQueue);
+                            //Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected));
+                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFromFolder(folder, index, form2.StorageSelected)));
+                        }
+
+                        foreach (string file in form2.BatchSelectedFiles)
+                        {
+                            int index = DoGridTransferAddItem("Upload of file '" + Path.GetFileName(file) + "'", TransferType.UploadFromFile, Properties.Settings.Default.useTransferQueue);
+                            //Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected));
+                            MyTasks.Add(Task.Factory.StartNew(() => ProcessUploadFileAndMore(file, index, null, form2.StorageSelected)));
+                        }
+                        await Task.WhenAll(MyTasks);
+
+                        // DoRefreshGridAssetV(false);
+                    }
+                       );
                 }
             }
         }
@@ -9201,7 +9202,6 @@ namespace AMSExplorer
         private void dataGridViewV_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             // on line on two is blue
-            Debug.Print("rowpostpaint" + e.RowIndex);
             if (e.RowIndex % 2 == 0)
             {
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
@@ -10348,7 +10348,6 @@ namespace AMSExplorer
         private void dataGridViewFilters_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             // on line on two is blue
-            Debug.Print("rowpostpaint" + e.RowIndex);
             if (e.RowIndex % 2 == 0)
             {
                 foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
@@ -10531,7 +10530,7 @@ namespace AMSExplorer
                 //            form.JobOptions.TasksOptionsSetting,
                 //            form.JobOptions.StorageSelected);
                 //    }
-                
+
             }
         }
 

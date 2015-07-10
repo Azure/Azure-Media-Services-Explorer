@@ -243,7 +243,7 @@ namespace AMSExplorer
             numericUpDownHours.Value = value.Hours;
             numericUpDownMinutes.Value = value.Minutes;
             donotfirechangeevent = false;
-            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + value.Milliseconds / 1000d);
+            numericUpDownSeconds.Value = Convert.ToDecimal(value.Seconds + ((double)value.Milliseconds) / 1000d);
 
 
 

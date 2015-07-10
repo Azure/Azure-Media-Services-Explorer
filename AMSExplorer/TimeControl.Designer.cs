@@ -60,10 +60,10 @@
             this.numericUpDownSeconds.DecimalPlaces = 2;
             this.numericUpDownSeconds.Location = new System.Drawing.Point(302, 16);
             this.numericUpDownSeconds.Maximum = new decimal(new int[] {
-            5999,
-            0,
-            0,
-            131072});
+            1610612735,
+            1960709702,
+            -1042360779,
+            1769472});
             this.numericUpDownSeconds.Name = "numericUpDownSeconds";
             this.numericUpDownSeconds.Size = new System.Drawing.Size(63, 20);
             this.numericUpDownSeconds.TabIndex = 116;
