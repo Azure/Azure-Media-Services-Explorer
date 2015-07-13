@@ -78,6 +78,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.Services.Client.5.6.4\lib\net40\Microsoft.Data.Services.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
@@ -172,6 +175,12 @@
     </Compile>
     <Compile Include="CopyAsset.Designer.cs">
       <DependentUpon>CopyAsset.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExportToExcel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ExportToExcel.Designer.cs">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
     </Compile>
     <Compile Include="CreateTestToken.cs">
       <SubType>Form</SubType>
@@ -569,6 +578,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ExportToExcel.resx">
+      <DependentUpon>ExportToExcel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>

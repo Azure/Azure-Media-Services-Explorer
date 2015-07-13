@@ -413,7 +413,7 @@ namespace AMSExplorer
             return name;
         }
 
-     
+
         // set WebBrowser features, more info: http://stackoverflow.com/a/18333982/1768303
         public static void SetWebBrowserFeatures()
         {
@@ -1059,10 +1059,10 @@ namespace AMSExplorer
             var _context = SelectedAssets.FirstOrDefault().GetMediaContext();
             IEnumerable<Uri> ValidURIs;
             IAsset asset = SelectedAssets.FirstOrDefault();
-            var ismFile = asset.AssetFiles.AsEnumerable().FirstOrDefault(f => f.Name.EndsWith(".ism"));
+            var ismFile = asset.AssetFiles.AsEnumerable().Where(f => f.Name.EndsWith(".ism")).OrderByDescending(f => f.IsPrimary).FirstOrDefault();
             if (ismFile != null)
             {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow);
+                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow).OrderByDescending(l=>l.ExpirationDateTime);
 
                 var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
                 ValidURIs = locators.SelectMany(l =>
@@ -1107,8 +1107,15 @@ namespace AMSExplorer
 
         public static Uri GetValidOnDemandURI(IAsset asset)
         {
-            var ai = new AssetInfo(asset);
-            return ai.GetValidURIs().FirstOrDefault();
+            var aivalidurls = new AssetInfo(asset).GetValidURIs();
+            if (aivalidurls != null)
+            {
+                return aivalidurls.FirstOrDefault();
+            }
+            else
+            {
+                return null;
+            }
         }
 
 
@@ -1443,7 +1450,7 @@ namespace AMSExplorer
                         {
                             if (chunk.Attribute("t") != null)
                             {
-                                duration = long.Parse(chunk.Attribute("t").Value) - response.TimestampOffset  ; // new timestamp, perhaps gap in live stream....
+                                duration = long.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
                             }
                             d = chunk.Attribute("d") != null ? long.Parse(chunk.Attribute("d").Value) : 0;
                             r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;

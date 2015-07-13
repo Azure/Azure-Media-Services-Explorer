@@ -54,6 +54,7 @@ using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Queue;
 
 
+
 namespace AMSExplorer
 {
 
@@ -10543,6 +10544,26 @@ namespace AMSExplorer
         {
             DoSubClip();
         }
+
+        private void exportMetadataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoExportMetadata();
+        }
+
+        private void DoExportMetadata()
+        {
+            ExportToExcel form = new ExportToExcel(_context, ReturnSelectedAssets(), dataGridViewAssetsV.assets);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+              
+            }
+
+        }
+
+     
+
+     
+
     }
 }
 
@@ -10907,6 +10928,7 @@ namespace AMSExplorer
         public string _locatorexpirationdatewarning = "LocatorExpirationDateWarning";
 
         static BindingList<AssetEntry> _MyObservAsset;
+        public IEnumerable<IAsset> assets;
         static private int _assetsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -11220,7 +11242,7 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-            IEnumerable<IAsset> assets;
+
             IEnumerable<AssetEntry> assetquery;
 
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
