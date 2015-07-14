@@ -80,8 +80,10 @@ namespace AMSExplorer
                 xlWorkSheet.Cells[row, 7] = asset.AlternateId;
                 xlWorkSheet.Cells[row, 8] = asset.StorageAccount.Name;
                 xlWorkSheet.Cells[row, 9] = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count();
-                xlWorkSheet.Cells[row, 10] = asset.Locators.Where(l => l.Type == LocatorType.Sas).Count();
-                xlWorkSheet.Cells[row, 11] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
+                xlWorkSheet.Cells[row, 10] = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                xlWorkSheet.Cells[row, 11] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                xlWorkSheet.Cells[row, 12] = asset.Locators.Where(l => l.Type == LocatorType.Sas).Count();
+                xlWorkSheet.Cells[row, 13] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
             }
         }
 
@@ -113,7 +115,6 @@ namespace AMSExplorer
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
             bool detailed = radioButtonDetailledMode.Checked;
             Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
 
@@ -130,24 +131,45 @@ namespace AMSExplorer
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-            int row = 1;
+            xlWorkSheet.get_Range("a1", "f1").Merge(false);
+            Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
+            chartRange.FormulaR1C1 = "Assets information";
+            //chartRange.HorizontalAlignment = 3;
+            chartRange.VerticalAlignment = 3;
+            chartRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            chartRange.Font.Size = 20;
+
+            xlWorkSheet.get_Range("a2", "f2").Merge(false);
+            Excel.Range chartRange2 = xlWorkSheet.get_Range("a2", "f2");
+            chartRange2.FormulaR1C1 = string.Format("Exported with Azure Media Services Explorer on {0}, media account '{1}'", DateTime.Now.ToString(), _context.Credentials.ClientId);
+            //chartRange2.HorizontalAlignment = 3;
+            chartRange2.VerticalAlignment = 3;
+            chartRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            chartRange2.Font.Size = 12;
+
+
+            int row = 4;
             xlWorkSheet.Cells[row, 1] = "Asset Name";
             xlWorkSheet.Cells[row, 2] = "Asset Id";
             xlWorkSheet.Cells[row, 3] = "Last Modified";
             xlWorkSheet.Cells[row, 4] = "Asset Type";
             xlWorkSheet.Cells[row, 5] = "Asset Size";
-            xlWorkSheet.Cells[row, 6] = "Asset URL";
+            xlWorkSheet.Cells[row, 6] = "Asset Best URL";
             if (detailed)
             {
                 xlWorkSheet.Cells[row, 7] = "Alternate Id";
                 xlWorkSheet.Cells[row, 8] = "Storage Account";
                 xlWorkSheet.Cells[row, 9] = "Streaming Locators Count";
-                xlWorkSheet.Cells[row, 10] = "SAS Locators Count";
-                xlWorkSheet.Cells[row, 11] = "Dynamic encryption";
+                xlWorkSheet.Cells[row, 10] = "Streaming Locators Max Expiration time";
+                xlWorkSheet.Cells[row, 11] = "Streaming Locators Min Expiration time";
+                xlWorkSheet.Cells[row, 12] = "SAS Locators Count";
+                xlWorkSheet.Cells[row, 13] = "Dynamic encryption";
             }
 
             Excel.Range formatRange;
-            formatRange = xlWorkSheet.get_Range("a1");
+            formatRange = xlWorkSheet.get_Range("a4");
             formatRange.EntireRow.Font.Bold = true;
 
             if (radioButtonAllAssets.Checked)
@@ -172,15 +194,16 @@ namespace AMSExplorer
                         //if cancellation is pending, cancel work.  
                         if (backgroundWorker1.CancellationPending)
                         {
-                            e.Cancel = true;
+                            xlApp.DisplayAlerts = false;
+                            xlWorkBook.Close();
                             xlApp.Quit();
                             releaseObject(xlWorkSheet);
                             releaseObject(xlWorkBook);
                             releaseObject(xlApp);
+                            e.Cancel = true;
                             return;
                         }
                         index++;
-
                     }
 
                     if (currentBatch == batchSize)
@@ -217,38 +240,43 @@ namespace AMSExplorer
                     //if cancellation is pending, cancel work.  
                     if (backgroundWorker1.CancellationPending)
                     {
-                        e.Cancel = true;
+                        xlApp.DisplayAlerts = false;
+                        xlWorkBook.Close();
                         xlApp.Quit();
                         releaseObject(xlWorkSheet);
                         releaseObject(xlWorkBook);
                         releaseObject(xlApp);
+                        e.Cancel = true;
                         return;
                     }
                     index++;
                 }
-
             }
 
             // Set the range to fill.
             var aRange = xlWorkSheet.get_Range("A1", "E100");
             aRange.EntireColumn.AutoFit();
 
-            xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-            xlWorkBook.Close(true, misValue, misValue);
+            try
+            {
+                xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+                releaseObject(xlWorkSheet);
+                releaseObject(xlWorkBook);
+                releaseObject(xlApp);
+            }
+            catch
+            {
+                MessageBox.Show("Error when saving the Excel file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
-            xlApp.Quit();
-
-            releaseObject(xlWorkSheet);
-            releaseObject(xlWorkBook);
-            releaseObject(xlApp);
-
-            System.Diagnostics.Process.Start(filename);
+            if (checkBoxOpenFileAfterExport.Checked) System.Diagnostics.Process.Start(filename);
         }
 
         private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             progressBarExport.Value = e.ProgressPercentage; //update progress bar  
-
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

@@ -10545,11 +10545,7 @@ namespace AMSExplorer
             DoSubClip();
         }
 
-        private void exportMetadataToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoExportMetadata();
-        }
-
+   
         private void DoExportMetadata()
         {
             ExportToExcel form = new ExportToExcel(_context, ReturnSelectedAssets(), dataGridViewAssetsV.assets);
@@ -10557,13 +10553,18 @@ namespace AMSExplorer
             {
               
             }
+        }
+
+        private void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoExportMetadata();
 
         }
 
-     
-
-     
-
+        private void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoExportMetadata();
+        }
     }
 }
 

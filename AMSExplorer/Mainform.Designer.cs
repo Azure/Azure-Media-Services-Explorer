@@ -114,6 +114,8 @@
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.copyAssetFilesToAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.informationToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.downloadToLocalToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -449,7 +451,8 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.exportMetadataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportAssetsInformationToExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator37 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -519,7 +522,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -638,6 +641,8 @@
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportAssetsInformationToExcelToolStripMenuItem,
+            this.toolStripSeparator37,
             this.contextMenuExportFilesToStorage,
             this.contextMenuExportToAnotherMediaServicesAccount,
             this.contextMenuExportDownloadToLocal});
@@ -1128,8 +1133,7 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.mergeSelectedAssetsToolStripMenuItem,
-            this.deleteToolStripMenuItem,
-            this.exportMetadataToolStripMenuItem});
+            this.deleteToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             this.assetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.assetToolStripMenuItem.Text = "Asset";
@@ -1240,6 +1244,8 @@
             // copyAssetFilesToAzureStorageToolStripMenuItem
             // 
             this.copyAssetFilesToAzureStorageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.informationToExcelToolStripMenuItem,
+            this.toolStripSeparator8,
             this.toAnotherAzureMediaServicesAccountToolStripMenuItem,
             this.toAzureStorageToolStripMenuItem,
             this.downloadToLocalToolStripMenuItem1});
@@ -1247,6 +1253,18 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Name = "copyAssetFilesToAzureStorageToolStripMenuItem";
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.copyAssetFilesToAzureStorageToolStripMenuItem.Text = "Export";
+            // 
+            // informationToExcelToolStripMenuItem
+            // 
+            this.informationToExcelToolStripMenuItem.Name = "informationToExcelToolStripMenuItem";
+            this.informationToExcelToolStripMenuItem.Size = new System.Drawing.Size(377, 22);
+            this.informationToExcelToolStripMenuItem.Text = "Information to Excel...";
+            this.informationToExcelToolStripMenuItem.Click += new System.EventHandler(this.informationToExcelToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator8
+            // 
+            this.toolStripSeparator8.Name = "toolStripSeparator8";
+            this.toolStripSeparator8.Size = new System.Drawing.Size(374, 6);
             // 
             // toAnotherAzureMediaServicesAccountToolStripMenuItem
             // 
@@ -4590,12 +4608,17 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // exportMetadataToolStripMenuItem
+            // exportAssetsInformationToExcelToolStripMenuItem
             // 
-            this.exportMetadataToolStripMenuItem.Name = "exportMetadataToolStripMenuItem";
-            this.exportMetadataToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.exportMetadataToolStripMenuItem.Text = "Export metadata...";
-            this.exportMetadataToolStripMenuItem.Click += new System.EventHandler(this.exportMetadataToolStripMenuItem_Click);
+            this.exportAssetsInformationToExcelToolStripMenuItem.Name = "exportAssetsInformationToExcelToolStripMenuItem";
+            this.exportAssetsInformationToExcelToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
+            this.exportAssetsInformationToExcelToolStripMenuItem.Text = "Export asset(s) information to Excel...";
+            this.exportAssetsInformationToExcelToolStripMenuItem.Click += new System.EventHandler(this.exportAssetsInformationToExcelToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator37
+            // 
+            this.toolStripSeparator37.Name = "toolStripSeparator37";
+            this.toolStripSeparator37.Size = new System.Drawing.Size(337, 6);
             // 
             // Mainform
             // 
@@ -5084,7 +5107,10 @@
         private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem subclipProgramsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exportMetadataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem informationToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripMenuItem exportAssetsInformationToExcelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator37;
     }
 }
 

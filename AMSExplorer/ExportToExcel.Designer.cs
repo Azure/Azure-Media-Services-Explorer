@@ -46,6 +46,9 @@
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.checkBoxOpenFileAfterExport = new System.Windows.Forms.CheckBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -77,6 +80,10 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.radioButtonDetailledMode);
             this.groupBox2.Controls.Add(this.radioButtonNormalMode);
             this.groupBox2.Location = new System.Drawing.Point(14, 178);
@@ -102,10 +109,10 @@
             this.radioButtonNormalMode.Checked = true;
             this.radioButtonNormalMode.Location = new System.Drawing.Point(26, 22);
             this.radioButtonNormalMode.Name = "radioButtonNormalMode";
-            this.radioButtonNormalMode.Size = new System.Drawing.Size(99, 19);
+            this.radioButtonNormalMode.Size = new System.Drawing.Size(97, 19);
             this.radioButtonNormalMode.TabIndex = 3;
             this.radioButtonNormalMode.TabStop = true;
-            this.radioButtonNormalMode.Text = "Normal mode";
+            this.radioButtonNormalMode.Text = "Default mode";
             this.radioButtonNormalMode.UseVisualStyleBackColor = true;
             // 
             // labelAssetName
@@ -114,7 +121,7 @@
             this.labelAssetName.Name = "labelAssetName";
             this.labelAssetName.Size = new System.Drawing.Size(527, 15);
             this.labelAssetName.TabIndex = 42;
-            this.labelAssetName.Text = "Exports asset metadata to an Excel file";
+            this.labelAssetName.Text = "Export asset(s) metadata to an Excel file";
             // 
             // radioButtonSelectedAssets
             // 
@@ -140,6 +147,8 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.radioButtonAllAssets);
             this.groupBox4.Controls.Add(this.radioButtonDisplayedAssets);
             this.groupBox4.Controls.Add(this.radioButtonSelectedAssets);
@@ -178,17 +187,21 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkBoxOpenFileAfterExport);
             this.groupBox1.Controls.Add(this.buttonBrowseFile);
             this.groupBox1.Controls.Add(this.textBoxExcelFile);
             this.groupBox1.Location = new System.Drawing.Point(13, 293);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(545, 100);
+            this.groupBox1.Size = new System.Drawing.Size(545, 107);
             this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Export to file";
             // 
             // buttonBrowseFile
             // 
+            this.buttonBrowseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowseFile.Location = new System.Drawing.Point(433, 33);
             this.buttonBrowseFile.Name = "buttonBrowseFile";
             this.buttonBrowseFile.Size = new System.Drawing.Size(95, 23);
@@ -199,6 +212,8 @@
             // 
             // textBoxExcelFile
             // 
+            this.textBoxExcelFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExcelFile.Location = new System.Drawing.Point(16, 34);
             this.textBoxExcelFile.Name = "textBoxExcelFile";
             this.textBoxExcelFile.Size = new System.Drawing.Size(410, 23);
@@ -206,6 +221,8 @@
             // 
             // progressBarExport
             // 
+            this.progressBarExport.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBarExport.Location = new System.Drawing.Point(29, 464);
             this.progressBarExport.Name = "progressBarExport";
             this.progressBarExport.Size = new System.Drawing.Size(513, 23);
@@ -225,6 +242,36 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // checkBoxOpenFileAfterExport
+            // 
+            this.checkBoxOpenFileAfterExport.AutoSize = true;
+            this.checkBoxOpenFileAfterExport.Checked = true;
+            this.checkBoxOpenFileAfterExport.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOpenFileAfterExport.Location = new System.Drawing.Point(16, 75);
+            this.checkBoxOpenFileAfterExport.Name = "checkBoxOpenFileAfterExport";
+            this.checkBoxOpenFileAfterExport.Size = new System.Drawing.Size(129, 19);
+            this.checkBoxOpenFileAfterExport.TabIndex = 2;
+            this.checkBoxOpenFileAfterExport.Text = "Open file with Excel";
+            this.checkBoxOpenFileAfterExport.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(152, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(331, 18);
+            this.label8.TabIndex = 69;
+            this.label8.Text = "Name, ID, Last modified, Type, Size, URL";
+            // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(152, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(386, 18);
+            this.label1.TabIndex = 70;
+            this.label1.Text = "+ locators count, expiration date,  storage account, dyn enc....";
             // 
             // ExportToExcel
             // 
@@ -276,5 +323,8 @@
         private System.Windows.Forms.ProgressBar progressBarExport;
         private System.Windows.Forms.Label label2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label1;
     }
 }
