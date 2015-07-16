@@ -58,9 +58,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 463);
+            this.label3.Location = new System.Drawing.Point(20, 448);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.Size = new System.Drawing.Size(126, 15);
             this.label3.TabIndex = 22;
             this.label3.Text = "Output asset(s) name :";
             // 
@@ -68,18 +68,18 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(20, 479);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(23, 467);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(573, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(537, 23);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 416);
+            this.label1.Location = new System.Drawing.Point(20, 394);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 18;
             this.label1.Text = "Job(s) name :";
             // 
@@ -87,9 +87,9 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(19, 435);
+            this.textBoxJobName.Location = new System.Drawing.Point(22, 416);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(574, 20);
+            this.textBoxJobName.Size = new System.Drawing.Size(538, 23);
             this.textBoxJobName.TabIndex = 13;
             // 
             // groupBox1
@@ -103,9 +103,9 @@
             this.groupBox1.Controls.Add(this.buttonLoadXML);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxConfiguration);
-            this.groupBox1.Location = new System.Drawing.Point(21, 102);
+            this.groupBox1.Location = new System.Drawing.Point(24, 118);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(738, 297);
+            this.groupBox1.Size = new System.Drawing.Size(730, 257);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Encoder Configuration";
@@ -114,9 +114,9 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 16);
+            this.label4.Location = new System.Drawing.Point(15, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(159, 13);
+            this.label4.Size = new System.Drawing.Size(171, 15);
             this.label4.TabIndex = 44;
             this.label4.Text = "Select a preset or load an XML :";
             // 
@@ -125,18 +125,19 @@
             this.listboxPresets.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listboxPresets.FormattingEnabled = true;
-            this.listboxPresets.Location = new System.Drawing.Point(16, 32);
+            this.listboxPresets.ItemHeight = 15;
+            this.listboxPresets.Location = new System.Drawing.Point(19, 37);
             this.listboxPresets.Name = "listboxPresets";
-            this.listboxPresets.Size = new System.Drawing.Size(413, 108);
+            this.listboxPresets.Size = new System.Drawing.Size(350, 124);
             this.listboxPresets.TabIndex = 43;
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
             // buttonSaveXML
             // 
             this.buttonSaveXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveXML.Location = new System.Drawing.Point(586, 117);
+            this.buttonSaveXML.Location = new System.Drawing.Point(553, 135);
             this.buttonSaveXML.Name = "buttonSaveXML";
-            this.buttonSaveXML.Size = new System.Drawing.Size(135, 23);
+            this.buttonSaveXML.Size = new System.Drawing.Size(157, 27);
             this.buttonSaveXML.TabIndex = 42;
             this.buttonSaveXML.Text = "Save edited XML...";
             this.buttonSaveXML.UseVisualStyleBackColor = true;
@@ -145,9 +146,9 @@
             // buttonLoadXML
             // 
             this.buttonLoadXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML.Location = new System.Drawing.Point(445, 117);
+            this.buttonLoadXML.Location = new System.Drawing.Point(388, 135);
             this.buttonLoadXML.Name = "buttonLoadXML";
-            this.buttonLoadXML.Size = new System.Drawing.Size(135, 23);
+            this.buttonLoadXML.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML.TabIndex = 41;
             this.buttonLoadXML.Text = "Load a preset XML file...";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
@@ -156,9 +157,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 146);
+            this.label2.Location = new System.Drawing.Point(15, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(78, 13);
+            this.label2.Size = new System.Drawing.Size(87, 15);
             this.label2.TabIndex = 38;
             this.label2.Text = "XML (editable):";
             // 
@@ -168,11 +169,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(16, 162);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(19, 187);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(705, 129);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 62);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -182,16 +183,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxProcessor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProcessor.FormattingEnabled = true;
-            this.comboBoxProcessor.Location = new System.Drawing.Point(20, 59);
+            this.comboBoxProcessor.Location = new System.Drawing.Point(23, 68);
             this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(739, 21);
+            this.comboBoxProcessor.Size = new System.Drawing.Size(730, 23);
             this.comboBoxProcessor.TabIndex = 32;
             // 
             // processorlabel
             // 
-            this.processorlabel.Location = new System.Drawing.Point(17, 44);
+            this.processorlabel.Location = new System.Drawing.Point(20, 51);
             this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(63, 22);
+            this.processorlabel.Size = new System.Drawing.Size(73, 25);
             this.processorlabel.TabIndex = 31;
             this.processorlabel.Text = "Processor:";
             // 
@@ -199,9 +200,9 @@
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(18, 11);
+            this.label.Location = new System.Drawing.Point(21, 13);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(432, 20);
+            this.label.Size = new System.Drawing.Size(373, 23);
             this.label.TabIndex = 41;
             this.label.Text = "label1";
             // 
@@ -209,22 +210,22 @@
             // 
             this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(456, 11);
+            this.label34.Location = new System.Drawing.Point(521, 13);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(303, 24);
+            this.label34.Size = new System.Drawing.Size(232, 25);
             this.label34.TabIndex = 63;
-            this.label34.Text = "Azure Media Encoder Standard";
+            this.label34.Text = "Media Encoder Standard";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(674, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(655, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -235,9 +236,9 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(528, 13);
+            this.buttonOk.Location = new System.Drawing.Point(485, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(140, 23);
+            this.buttonOk.Size = new System.Drawing.Size(163, 27);
             this.buttonOk.TabIndex = 5;
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -249,9 +250,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 513);
+            this.panel1.Location = new System.Drawing.Point(-2, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 48);
+            this.panel1.Size = new System.Drawing.Size(786, 55);
             this.panel1.TabIndex = 66;
             // 
             // openFileDialogPreset
@@ -267,16 +268,16 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(622, 432);
+            this.buttonJobOptions.Location = new System.Drawing.Point(595, 412);
             this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
@@ -291,6 +292,7 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxJobName);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncodingAMEStandard";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

@@ -54,10 +54,10 @@
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
-            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
-            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
+            this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -73,9 +73,9 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(500, 13);
+            this.buttonOk.Location = new System.Drawing.Point(583, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(99, 23);
+            this.buttonOk.Size = new System.Drawing.Size(115, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Apply";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -84,9 +84,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(605, 12);
+            this.buttonCancel.Location = new System.Drawing.Point(706, 14);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -94,9 +94,9 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 22);
+            this.label1.Location = new System.Drawing.Point(22, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(625, 39);
+            this.label1.Size = new System.Drawing.Size(693, 45);
             this.label1.TabIndex = 35;
             this.label1.Text = "Specify a watch folder.\r\nAny file copied to this folder will be uploaded to Azure" +
     " Media Services as a new asset and the specified operations will be executed.\r\nY" +
@@ -105,9 +105,9 @@
             // radioButtonON
             // 
             this.radioButtonON.AutoSize = true;
-            this.radioButtonON.Location = new System.Drawing.Point(35, 29);
+            this.radioButtonON.Location = new System.Drawing.Point(41, 33);
             this.radioButtonON.Name = "radioButtonON";
-            this.radioButtonON.Size = new System.Drawing.Size(41, 17);
+            this.radioButtonON.Size = new System.Drawing.Size(43, 19);
             this.radioButtonON.TabIndex = 44;
             this.radioButtonON.Text = "ON";
             this.radioButtonON.UseVisualStyleBackColor = true;
@@ -116,9 +116,9 @@
             // 
             this.radioButtonOFF.AutoSize = true;
             this.radioButtonOFF.Checked = true;
-            this.radioButtonOFF.Location = new System.Drawing.Point(35, 53);
+            this.radioButtonOFF.Location = new System.Drawing.Point(41, 61);
             this.radioButtonOFF.Name = "radioButtonOFF";
-            this.radioButtonOFF.Size = new System.Drawing.Size(45, 17);
+            this.radioButtonOFF.Size = new System.Drawing.Size(46, 19);
             this.radioButtonOFF.TabIndex = 46;
             this.radioButtonOFF.TabStop = true;
             this.radioButtonOFF.Text = "OFF";
@@ -131,9 +131,9 @@
             this.groupBox4.Controls.Add(this.pictureBox1);
             this.groupBox4.Controls.Add(this.radioButtonOFF);
             this.groupBox4.Controls.Add(this.radioButtonON);
-            this.groupBox4.Location = new System.Drawing.Point(17, 124);
+            this.groupBox4.Location = new System.Drawing.Point(20, 143);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(671, 86);
+            this.groupBox4.Size = new System.Drawing.Size(783, 99);
             this.groupBox4.TabIndex = 43;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Activation";
@@ -141,7 +141,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.watch_folder;
-            this.pictureBox1.Location = new System.Drawing.Point(13, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(15, 33);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -154,9 +154,9 @@
             // 
             // buttonSelFolder
             // 
-            this.buttonSelFolder.Location = new System.Drawing.Point(22, 81);
+            this.buttonSelFolder.Location = new System.Drawing.Point(26, 93);
             this.buttonSelFolder.Name = "buttonSelFolder";
-            this.buttonSelFolder.Size = new System.Drawing.Size(113, 23);
+            this.buttonSelFolder.Size = new System.Drawing.Size(132, 27);
             this.buttonSelFolder.TabIndex = 44;
             this.buttonSelFolder.Text = "Select folder...";
             this.buttonSelFolder.UseVisualStyleBackColor = true;
@@ -167,18 +167,18 @@
             this.textBoxFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolder.Enabled = false;
-            this.textBoxFolder.Location = new System.Drawing.Point(142, 83);
+            this.textBoxFolder.Location = new System.Drawing.Point(166, 96);
             this.textBoxFolder.Name = "textBoxFolder";
-            this.textBoxFolder.Size = new System.Drawing.Size(546, 20);
+            this.textBoxFolder.Size = new System.Drawing.Size(636, 23);
             this.textBoxFolder.TabIndex = 45;
             this.textBoxFolder.TextChanged += new System.EventHandler(this.textBoxFolder_TextChanged);
             // 
             // checkBoxUseQueue
             // 
             this.checkBoxUseQueue.AutoSize = true;
-            this.checkBoxUseQueue.Location = new System.Drawing.Point(52, 216);
+            this.checkBoxUseQueue.Location = new System.Drawing.Point(61, 249);
             this.checkBoxUseQueue.Name = "checkBoxUseQueue";
-            this.checkBoxUseQueue.Size = new System.Drawing.Size(192, 17);
+            this.checkBoxUseQueue.Size = new System.Drawing.Size(211, 19);
             this.checkBoxUseQueue.TabIndex = 48;
             this.checkBoxUseQueue.Text = "One upload at a time (use a queue)";
             this.checkBoxUseQueue.UseVisualStyleBackColor = true;
@@ -187,9 +187,9 @@
             // checkBoxDeleteFile
             // 
             this.checkBoxDeleteFile.AutoSize = true;
-            this.checkBoxDeleteFile.Location = new System.Drawing.Point(52, 239);
+            this.checkBoxDeleteFile.Location = new System.Drawing.Point(61, 276);
             this.checkBoxDeleteFile.Name = "checkBoxDeleteFile";
-            this.checkBoxDeleteFile.Size = new System.Drawing.Size(147, 17);
+            this.checkBoxDeleteFile.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteFile.TabIndex = 49;
             this.checkBoxDeleteFile.Text = "Delete file once uploaded";
             this.checkBoxDeleteFile.UseVisualStyleBackColor = true;
@@ -197,7 +197,7 @@
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.delete;
-            this.pictureBox2.Location = new System.Drawing.Point(22, 239);
+            this.pictureBox2.Location = new System.Drawing.Point(26, 276);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -207,9 +207,9 @@
             // checkBoxRunJobTemplate
             // 
             this.checkBoxRunJobTemplate.AutoSize = true;
-            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(52, 262);
+            this.checkBoxRunJobTemplate.Location = new System.Drawing.Point(61, 302);
             this.checkBoxRunJobTemplate.Name = "checkBoxRunJobTemplate";
-            this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(110, 17);
+            this.checkBoxRunJobTemplate.Size = new System.Drawing.Size(115, 19);
             this.checkBoxRunJobTemplate.TabIndex = 51;
             this.checkBoxRunJobTemplate.Text = "Process the asset";
             this.checkBoxRunJobTemplate.UseVisualStyleBackColor = true;
@@ -222,16 +222,16 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 573);
+            this.panel1.Location = new System.Drawing.Point(-2, 661);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(717, 48);
+            this.panel1.Size = new System.Drawing.Size(836, 55);
             this.panel1.TabIndex = 64;
             // 
             // pictureBox3
             // 
             this.pictureBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox3.Image = global::AMSExplorer.Bitmaps.streaming_locator;
-            this.pictureBox3.Location = new System.Drawing.Point(22, 514);
+            this.pictureBox3.Location = new System.Drawing.Point(26, 593);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(16, 16);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -242,9 +242,9 @@
             // 
             this.checkBoxPublishOAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxPublishOAssets.AutoSize = true;
-            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(52, 514);
+            this.checkBoxPublishOAssets.Location = new System.Drawing.Point(61, 594);
             this.checkBoxPublishOAssets.Name = "checkBoxPublishOAssets";
-            this.checkBoxPublishOAssets.Size = new System.Drawing.Size(320, 17);
+            this.checkBoxPublishOAssets.Size = new System.Drawing.Size(355, 19);
             this.checkBoxPublishOAssets.TabIndex = 65;
             this.checkBoxPublishOAssets.Text = "Publish the output asset(s) - using the default value of {0} days";
             this.checkBoxPublishOAssets.UseVisualStyleBackColor = true;
@@ -253,7 +253,7 @@
             // 
             this.pictureBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox4.Image = global::AMSExplorer.Bitmaps.create_outlook_report;
-            this.pictureBox4.Location = new System.Drawing.Point(22, 537);
+            this.pictureBox4.Location = new System.Drawing.Point(26, 620);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(16, 16);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -264,9 +264,9 @@
             // 
             this.checkBoxSendEMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.checkBoxSendEMail.AutoSize = true;
-            this.checkBoxSendEMail.Location = new System.Drawing.Point(52, 537);
+            this.checkBoxSendEMail.Location = new System.Drawing.Point(61, 621);
             this.checkBoxSendEMail.Name = "checkBoxSendEMail";
-            this.checkBoxSendEMail.Size = new System.Drawing.Size(280, 17);
+            this.checkBoxSendEMail.Size = new System.Drawing.Size(310, 19);
             this.checkBoxSendEMail.TabIndex = 67;
             this.checkBoxSendEMail.Text = "Send an email when completed or in case of error, to :";
             this.checkBoxSendEMail.UseVisualStyleBackColor = true;
@@ -277,18 +277,18 @@
             this.textBoxEMail.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxEMail.Enabled = false;
-            this.textBoxEMail.Location = new System.Drawing.Point(338, 535);
+            this.textBoxEMail.Location = new System.Drawing.Point(394, 617);
             this.textBoxEMail.Name = "textBoxEMail";
-            this.textBoxEMail.Size = new System.Drawing.Size(259, 20);
+            this.textBoxEMail.Size = new System.Drawing.Size(301, 23);
             this.textBoxEMail.TabIndex = 69;
             // 
             // buttonTestEmail
             // 
             this.buttonTestEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonTestEmail.Enabled = false;
-            this.buttonTestEmail.Location = new System.Drawing.Point(613, 533);
+            this.buttonTestEmail.Location = new System.Drawing.Point(715, 615);
             this.buttonTestEmail.Name = "buttonTestEmail";
-            this.buttonTestEmail.Size = new System.Drawing.Size(75, 23);
+            this.buttonTestEmail.Size = new System.Drawing.Size(87, 27);
             this.buttonTestEmail.TabIndex = 70;
             this.buttonTestEmail.Text = "Test now";
             this.buttonTestEmail.UseVisualStyleBackColor = true;
@@ -298,9 +298,9 @@
             // 
             this.radioButtonInsertWorkflowAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertWorkflowAsset.AutoSize = true;
-            this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(14, 43);
+            this.radioButtonInsertWorkflowAsset.Location = new System.Drawing.Point(16, 51);
             this.radioButtonInsertWorkflowAsset.Name = "radioButtonInsertWorkflowAsset";
-            this.radioButtonInsertWorkflowAsset.Size = new System.Drawing.Size(133, 30);
+            this.radioButtonInsertWorkflowAsset.Size = new System.Drawing.Size(144, 34);
             this.radioButtonInsertWorkflowAsset.TabIndex = 72;
             this.radioButtonInsertWorkflowAsset.Text = "Insert a workflow asset\r\nas first asset";
             this.radioButtonInsertWorkflowAsset.UseVisualStyleBackColor = true;
@@ -311,9 +311,9 @@
             this.radioButtonInsertSelectedAssets.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonInsertSelectedAssets.AutoSize = true;
             this.radioButtonInsertSelectedAssets.Checked = true;
-            this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(14, 7);
+            this.radioButtonInsertSelectedAssets.Location = new System.Drawing.Point(16, 9);
             this.radioButtonInsertSelectedAssets.Name = "radioButtonInsertSelectedAssets";
-            this.radioButtonInsertSelectedAssets.Size = new System.Drawing.Size(148, 30);
+            this.radioButtonInsertSelectedAssets.Size = new System.Drawing.Size(161, 34);
             this.radioButtonInsertSelectedAssets.TabIndex = 73;
             this.radioButtonInsertSelectedAssets.TabStop = true;
             this.radioButtonInsertSelectedAssets.Text = "Insert the selected assets\r\nbefore the uploaded asset";
@@ -330,9 +330,9 @@
             this.groupBoxProcess.Controls.Add(this.checkBoAddAssetsToInput);
             this.groupBoxProcess.Controls.Add(this.listViewTemplates);
             this.groupBoxProcess.Enabled = false;
-            this.groupBoxProcess.Location = new System.Drawing.Point(52, 285);
+            this.groupBoxProcess.Location = new System.Drawing.Point(61, 329);
             this.groupBoxProcess.Name = "groupBoxProcess";
-            this.groupBoxProcess.Size = new System.Drawing.Size(636, 223);
+            this.groupBoxProcess.Size = new System.Drawing.Size(742, 257);
             this.groupBoxProcess.TabIndex = 74;
             this.groupBoxProcess.TabStop = false;
             this.groupBoxProcess.Text = "Job template and input assets";
@@ -342,9 +342,9 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(181, 92);
+            this.labelWarning.Location = new System.Drawing.Point(211, 106);
             this.labelWarning.Name = "labelWarning";
-            this.labelWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelWarning.Size = new System.Drawing.Size(52, 15);
             this.labelWarning.TabIndex = 76;
             this.labelWarning.Text = "Warning";
             // 
@@ -356,10 +356,32 @@
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertSelectedAssets);
             this.panelInsertAsset.Controls.Add(this.radioButtonInsertWorkflowAsset);
             this.panelInsertAsset.Enabled = false;
-            this.panelInsertAsset.Location = new System.Drawing.Point(16, 108);
+            this.panelInsertAsset.Location = new System.Drawing.Point(19, 125);
             this.panelInsertAsset.Name = "panelInsertAsset";
-            this.panelInsertAsset.Size = new System.Drawing.Size(620, 109);
+            this.panelInsertAsset.Size = new System.Drawing.Size(723, 126);
             this.panelInsertAsset.TabIndex = 75;
+            // 
+            // checkBoAddAssetsToInput
+            // 
+            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoAddAssetsToInput.AutoSize = true;
+            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(19, 106);
+            this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
+            this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(164, 19);
+            this.checkBoAddAssetsToInput.TabIndex = 74;
+            this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
+            this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
+            this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
+            // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox5.TabIndex = 75;
+            this.pictureBox5.TabStop = false;
             // 
             // listViewWorkflows1
             // 
@@ -368,26 +390,14 @@
             this.listViewWorkflows1.Enabled = false;
             this.listViewWorkflows1.FullRowSelect = true;
             this.listViewWorkflows1.HideSelection = false;
-            this.listViewWorkflows1.Location = new System.Drawing.Point(168, 5);
+            this.listViewWorkflows1.Location = new System.Drawing.Point(196, 6);
             this.listViewWorkflows1.MultiSelect = false;
             this.listViewWorkflows1.Name = "listViewWorkflows1";
-            this.listViewWorkflows1.Size = new System.Drawing.Size(446, 101);
+            this.listViewWorkflows1.Size = new System.Drawing.Size(520, 116);
             this.listViewWorkflows1.TabIndex = 61;
             this.listViewWorkflows1.Tag = -1;
             this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
             this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
-            // 
-            // checkBoAddAssetsToInput
-            // 
-            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoAddAssetsToInput.AutoSize = true;
-            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(16, 91);
-            this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
-            this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(150, 17);
-            this.checkBoAddAssetsToInput.TabIndex = 74;
-            this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
-            this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
-            this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
             // 
             // listViewTemplates
             // 
@@ -396,32 +406,22 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewTemplates.FullRowSelect = true;
             this.listViewTemplates.HideSelection = false;
-            this.listViewTemplates.Location = new System.Drawing.Point(16, 19);
+            this.listViewTemplates.Location = new System.Drawing.Point(19, 22);
             this.listViewTemplates.MultiSelect = false;
             this.listViewTemplates.Name = "listViewTemplates";
-            this.listViewTemplates.Size = new System.Drawing.Size(614, 65);
+            this.listViewTemplates.Size = new System.Drawing.Size(716, 74);
             this.listViewTemplates.TabIndex = 61;
             this.listViewTemplates.Tag = -1;
             this.listViewTemplates.UseCompatibleStateImageBehavior = false;
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
             this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
             // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(22, 263);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox5.TabIndex = 75;
-            this.pictureBox5.TabStop = false;
-            // 
             // WatchFolder
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(714, 621);
+            this.ClientSize = new System.Drawing.Size(833, 717);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);
             this.Controls.Add(this.buttonTestEmail);
@@ -439,6 +439,7 @@
             this.Controls.Add(this.buttonSelFolder);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "WatchFolder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Watch Folder";

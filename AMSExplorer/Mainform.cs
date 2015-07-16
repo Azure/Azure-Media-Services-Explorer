@@ -347,11 +347,9 @@ namespace AMSExplorer
                     asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
 
                     DoGridTransferDeclareCompleted(index, asset.Id);
-                    TextBoxLogWriteLine("You are ready to use asset '{0}'", asset.Name);
                 }
                 else // Error!
                 {
-                    TextBoxLogWriteLine("Error during file import.", true);
                     DoGridTransferDeclareError(index, "Error during import. " + ErrorMessage);
                     try
                     {
@@ -360,7 +358,6 @@ namespace AMSExplorer
                     }
                     catch { }
                 }
-
             }
 
             catch (Exception ex)
@@ -451,7 +448,6 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                TextBoxLogWriteLine(string.Format("Uploading of the file(s) in {0} done.", folderPath));
                 DoGridTransferDeclareCompleted(index, asset.Id);
             }
             DoRefreshGridAssetV(false);
@@ -887,9 +883,8 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                TextBoxLogWriteLine(string.Format("Uploading of {0} done.", name));
                 DoGridTransferDeclareCompleted(index, asset.Id);
-                if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //use checked the box "delete the file"
+                if (watchfoldersettings != null && watchfoldersettings.DeleteFile) //user checked the box "delete the file"
                 {
                     try
                     {
@@ -946,7 +941,7 @@ namespace AMSExplorer
                     }
                     if (myjob.State == JobState.Finished)
                     {
-                        // job template does not rename the outout assets. As a fix, we do this:
+                        // job template does not rename the output assets. As a fix, we do this:
                         int taskind = 1;
                         foreach (var task in myjob.Tasks)
                         {
@@ -954,16 +949,26 @@ namespace AMSExplorer
                             foreach (var outputasset in task.OutputAssets)
                             {
                                 IAsset oasset = AssetInfo.GetAsset(outputasset.Id, _context);
-                                oasset.Name = string.Format("{0} processed with {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
-                                if (myjob.Tasks.Count > 1)
+                                try
                                 {
-                                    oasset.Name += string.Format(" - task {0}", taskind);
+                                    oasset.Name = string.Format("{0} processed with {1}", asset.Name, watchfoldersettings.JobTemplate.Name);
+                                    if (myjob.Tasks.Count > 1)
+                                    {
+                                        oasset.Name += string.Format(" - task {0}", taskind);
+                                    }
+                                    if (task.OutputAssets.Count > 1)
+                                    {
+                                        oasset.Name += string.Format(" - output asset {0}", outputind);
+                                    }
+                                    oasset.Update();
+                                    TextBoxLogWriteLine("Output asset {0} renamed.", oasset.Name);
                                 }
-                                if (task.OutputAssets.Count > 1)
+                                catch (Exception e)
                                 {
-                                    oasset.Name += string.Format(" - output asset {0}", outputind);
+                                    TextBoxLogWriteLine("Error when renaming an output asset", true);
+                                    TextBoxLogWriteLine(e);
                                 }
-                                oasset.Update();
+
                                 outputind++;
                             }
                             taskind++;
@@ -1074,7 +1079,6 @@ namespace AMSExplorer
             }
             if (!Error)
             {
-                TextBoxLogWriteLine("Download finished.");
                 DoGridTransferDeclareCompleted(index, folder.ToString());
             }
         }
@@ -1117,7 +1121,6 @@ namespace AMSExplorer
                 }
                 if (!Error)
                 {
-                    TextBoxLogWriteLine(string.Format("Download of file '{0}' is finished.", File.Name));
                     DoGridTransferDeclareCompleted(index, folder.ToString());
                 }
             });
@@ -1579,8 +1582,6 @@ namespace AMSExplorer
             sbuilderThisAsset.AppendLine("");
             sbuilderThisAsset.AppendLine("Asset:");
             sbuilderThisAsset.AppendLine(AssetToP.Name);
-            sbuilderThisAsset.AppendLine("Asset ID:");
-            sbuilderThisAsset.AppendLine(AssetToP.Id);
             sbuilderThisAsset.AppendLine("Locator ID:");
             sbuilderThisAsset.AppendLine(locator.Id);
             sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
@@ -1998,8 +1999,6 @@ namespace AMSExplorer
 
                             if (blob.CopyState.Status == CopyStatus.Failed)
                             {
-                                TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
-                                TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
                                 DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
@@ -2011,7 +2010,6 @@ namespace AMSExplorer
 
                             if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                             {
-                                TextBoxLogWriteLine("Failed to copy file '{0}'", fileName, true);
                                 DoGridTransferDeclareError(index, "Error during blob copy.");
                                 Error = true;
                                 break;
@@ -2044,7 +2042,6 @@ namespace AMSExplorer
                 AssetInfo.SetISMFileAsPrimary(asset);
                 if (!Error)
                 {
-                    TextBoxLogWriteLine("Azure Storage copy completed.");
                     DoGridTransferDeclareCompleted(index, asset.Id);
                 }
                 DoRefreshGridAssetV(false);
@@ -2137,8 +2134,6 @@ namespace AMSExplorer
 
                             if (blob.CopyState.Status == CopyStatus.Failed)
                             {
-                                TextBoxLogWriteLine("Failed to copy file '{0}'.", fileName, true);
-                                TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
                                 DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
@@ -2175,7 +2170,6 @@ namespace AMSExplorer
                 if (!Error)
                 {
                     DoGridTransferDeclareCompleted(index, asset.Id);
-                    TextBoxLogWriteLine("Azure Storage copy completed.");
                 }
                 DoRefreshGridAssetV(false);
 
@@ -2214,7 +2208,6 @@ namespace AMSExplorer
                     }
                     catch (Exception ex)
                     {
-                        TextBoxLogWriteLine("Failed to create container '{0}'", TargetContainer.Name, true);
                         DoGridTransferDeclareError(index, string.Format("Failed to create container '{0}'. {1}", TargetContainer.Name, ex.Message));
                         Error = true;
                     }
@@ -2265,8 +2258,6 @@ namespace AMSExplorer
 
                                 if (blob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
-                                    TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
                                     DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
@@ -2276,7 +2267,6 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                     DoGridTransferDeclareError(index, "Error during blob copy.");
                                     Error = true;
                                     break;
@@ -2300,7 +2290,6 @@ namespace AMSExplorer
 
                     if (!Error)
                     {
-                        TextBoxLogWriteLine("Blob copy completed.");
                         DoGridTransferDeclareCompleted(index, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
@@ -2394,8 +2383,6 @@ namespace AMSExplorer
 
                                 if (blob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
-                                    TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
                                     DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
@@ -2405,7 +2392,6 @@ namespace AMSExplorer
 
                                 if (sourceCloudBlob.Properties.Length != destinationBlob.Properties.Length)
                                 {
-                                    TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                     DoGridTransferDeclareError(index, string.Format("Failed to copy file '{0}'", file.Name));
                                     Error = true;
                                     break;
@@ -2428,7 +2414,6 @@ namespace AMSExplorer
 
                     if (!Error)
                     {
-                        TextBoxLogWriteLine("Blob copy completed.");
                         DoGridTransferDeclareCompleted(index, TargetContainer.Uri.AbsoluteUri);
                     }
                     DoRefreshGridAssetV(false);
@@ -2556,8 +2541,6 @@ namespace AMSExplorer
 
                                         if (blob.CopyState.Status == CopyStatus.Failed)
                                         {
-                                            TextBoxLogWriteLine("Failed to copy '{0}'", file.Name, true);
-                                            TextBoxLogWriteLine("({0})", blob.CopyState.StatusDescription, true);
                                             DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
@@ -2570,7 +2553,6 @@ namespace AMSExplorer
 
                                         if (sourceCloudBlockBlob.Properties.Length != destinationCloudBlockBlob.Properties.Length)
                                         {
-                                            TextBoxLogWriteLine("Failed to copy file '{0}'", file.Name, true);
                                             DoGridTransferDeclareError(index, "Error during blob copy.");
                                             ErrorCopyAssetFile = true;
                                             ErrorCopyAsset = true;
@@ -2919,14 +2901,14 @@ namespace AMSExplorer
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoderPremiumWorkflow);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.ZeniumEncoder));
 
-            string taskname = "Premium Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
+            string taskname = "Premium Workflow Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvWorkflow;
             this.Cursor = Cursors.WaitCursor;
             EncodingPremium form = new EncodingPremium(_context)
             {
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
                 EncodingProcessorsList = Encoders,
-                EncodingJobName = "Premium Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-Premium encoded with " + Constants.NameconvWorkflow,
+                EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded with " + Constants.NameconvWorkflow,
                 EncodingMultipleJobs = true,
                 EncodingNumberInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
@@ -3049,16 +3031,16 @@ namespace AMSExplorer
 
             EncodingAMEPreset form = new EncodingAMEPreset(_context)
             {
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-AME encoded with " + Constants.NameconvAMEpreset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",// with " + Constants.NameconvAMEpreset,
                 Text = "Azure Media Encoding",
                 EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                EncodingJobName = "AME Encoding of " + Constants.NameconvInputasset,
+                EncodingJobName = "Azure Media Encoding of " + Constants.NameconvInputasset,
                 EncodingProcessorsList = Encoders,
             };
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string taskname = "AME Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
+                string taskname = "Azure Media Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
                 LaunchJobs(
                     form.EncodingProcessorSelected,
                     SelectedAssets,
@@ -3350,7 +3332,7 @@ namespace AMSExplorer
 
                 string jobname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
                 string taskname = "MP4 to Smooth Packaging of " + Constants.NameconvInputasset;
-                string outputassetname = Constants.NameconvInputasset + "-Packaged to Smooth";
+                string outputassetname = Constants.NameconvInputasset + " - Packaged to Smooth";
 
                 if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 to Smooth", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
@@ -3387,7 +3369,6 @@ namespace AMSExplorer
             {
                 MessageBox.Show("No asset was selected");
                 return;
-
             }
             if (SelectedAssets.FirstOrDefault() == null) return;
 
@@ -3416,7 +3397,7 @@ namespace AMSExplorer
                 PlayReadyContentKey = string.Empty,
                 PlayReadyServiceId = string.Empty,
                 PlayReadyCustomAttributes = string.Empty,
-                PlayReadyOutputAssetName = Constants.NameconvInputasset + "-PlayReady protected",
+                PlayReadyOutputAssetName = Constants.NameconvInputasset + " - PlayReady protected",
                 PlayReadyAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected as an input. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encrypted with PlayReady."
             };
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
@@ -3533,7 +3514,7 @@ namespace AMSExplorer
             }
             string jobname = "Validate Multi MP4 of " + Constants.NameconvInputasset;
             string taskname = "Validate Multi MP4 of " + Constants.NameconvInputasset;
-            string outputassetname = Constants.NameconvInputasset + "-Multi MP4 validated";
+            string outputassetname = Constants.NameconvInputasset + " - Multi MP4 validated";
 
 
             if (System.Windows.Forms.MessageBox.Show(labeldb, "Multi MP4 Validation", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
@@ -3581,13 +3562,13 @@ namespace AMSExplorer
 
             Indexer form = new Indexer(_context)
             {
-                IndexerJobName = "Indexing of " + Constants.NameconvInputasset,
-                IndexerOutputAssetName = Constants.NameconvInputasset + "-Indexed",
+                IndexerJobName = "Media Indexing of " + Constants.NameconvInputasset,
+                IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
                 IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
             };
 
-            string taskname = "Indexing of " + Constants.NameconvInputasset;
+            string taskname = "Media Indexing of " + Constants.NameconvInputasset;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -3637,7 +3618,7 @@ namespace AMSExplorer
             Hyperlapse form = new Hyperlapse(_context)
             {
                 HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
-                HyperlapseOutputAssetName = Constants.NameconvInputasset + "-Hyperlapsed",
+                HyperlapseOutputAssetName = Constants.NameconvInputasset + " - Hyperlapsed",
                 HyperlapseProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
             };
@@ -3678,7 +3659,7 @@ namespace AMSExplorer
 
             string labeldb = (SelectedAssets.Count > 1) ? "Decrypt these " + SelectedAssets.Count + " assets  ?" : "Decrypt '" + mediaAsset.Name + "'  ?";
 
-            string outputassetname = Constants.NameconvInputasset + "-Storage decrypted";
+            string outputassetname = Constants.NameconvInputasset + " - Storage decrypted";
             string jobname = "Storage Decryption of " + Constants.NameconvInputasset;
             string taskname = "Storage Decryption of " + Constants.NameconvInputasset;
 
@@ -3911,7 +3892,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            string taskname = "AME (adv) Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+            string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
             Encoders.AddRange(GetMediaProcessorsByName(Constants.WindowsAzureMediaEncoder));
 
@@ -3919,8 +3900,8 @@ namespace AMSExplorer
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. One job will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingProcessorsList = Encoders,
-                EncodingJobName = "AME (adv) Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-AME (adv) encoded",
+                EncodingJobName = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",
                 EncodingAMEPresetXMLFiles = Properties.Settings.Default.WAMEPresetXMLFilesCurrentFolder,
                 SelectedAssets = SelectedAssets
             };
@@ -4005,7 +3986,7 @@ namespace AMSExplorer
             {
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + "-" + Constants.NameconvProcessorname + " processed",
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - " + Constants.NameconvProcessorname + " processed",
                 SelectedAssets = SelectedAssets,
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
@@ -6938,7 +6919,7 @@ namespace AMSExplorer
             {
                 ThumbnailsFileName = "{OriginalFilename}_{ThumbnailIndex}.{DefaultExtension}",
                 ThumbnailsInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for thumbnails generation." : "Generate thumbnails for '" + SelectedAssets.FirstOrDefault().Name + "'  ?",
-                ThumbnailsOutputAssetName = Constants.NameconvInputasset + "-Thumbnails",
+                ThumbnailsOutputAssetName = Constants.NameconvInputasset + " - Thumbnails",
                 ThumbnailsProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 ThumbnailsJobName = "Thumbnails generation of " + Constants.NameconvInputasset,
                 ThumbnailsTimeValue = "0:0:0",
@@ -8407,16 +8388,14 @@ namespace AMSExplorer
             {
                 AssetInfo AI = new AssetInfo(asset);
                 IEnumerable<Uri> ValidURIs = AI.GetValidURIs();
-                if (ValidURIs.FirstOrDefault() != null)
+                if (ValidURIs != null && ValidURIs.FirstOrDefault() != null)
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
-                    /*
-                    if (selectedGlobalFilter != null)
-                    {
-                        url = AssetInfo.AddFilterToUrlString(url, selectedGlobalFilter);
-                    }
-                    */
                     System.Windows.Forms.Clipboard.SetText(url);
+                }
+                else
+                {
+                    MessageBox.Show(string.Format("No valid URL is available for asset '{0}'.", asset.Name), "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
         }
@@ -10011,7 +9990,7 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            string taskname = "AME Standard encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+            string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
             List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
 
@@ -10019,8 +9998,8 @@ namespace AMSExplorer
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingProcessorsList = Procs,
-                EncodingJobName = "Media Encoder Standard encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Encoder Standard encoded",
+                EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Encoded",
                 EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
                 EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
                 SelectedAssets = SelectedAssets
@@ -12087,18 +12066,15 @@ namespace AMSExplorer
                                        myform.BeginInvoke(new Action(() =>
                                        {
                                            myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
+                                           myform.TextBoxLogWriteLine(string.Format("Job '{0}': {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
+                                           myform.DoRefreshGridAssetV(false);
                                        }));
-                                       Debug.WriteLine("Job", string.Format("Job {0} {1}", _MyObservJob[index].Name, _MyObservJob[index].State));
 
                                        this.BeginInvoke(new Action(() =>
                                        {
                                            this.Refresh();
                                        }));
 
-                                       myform.BeginInvoke(new Action(() =>
-                                       {
-                                           myform.DoRefreshGridAssetV(false);
-                                       }));
                                    }
                                }
                            }

@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
+using System.Reflection;
 
 
 namespace AMSExplorer
@@ -64,26 +65,56 @@ namespace AMSExplorer
             backgroundWorker1.RunWorkerAsync();
         }
 
-        private void ExportAssetExcel(IAsset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed)
+        private void ExportAssetExcel(IAsset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime)
         {
             xlWorkSheet.Cells[row, 1] = asset.Name;
             xlWorkSheet.Cells[row, 2] = asset.Id;
-            xlWorkSheet.Cells[row, 3] = asset.LastModified.ToLocalTime();
+            xlWorkSheet.Cells[row, 3] = localtime ? asset.LastModified.ToLocalTime() : asset.LastModified;
             xlWorkSheet.Cells[row, 4] = AssetInfo.GetAssetType(asset);
             xlWorkSheet.Cells[row, 5] = AssetInfo.GetSize(asset);
-
             var url = AssetInfo.GetValidOnDemandURI(asset);
             xlWorkSheet.Cells[row, 6] = url != null ? url.ToString() : string.Empty;
 
+            if (localtime)
+            {
+                xlWorkSheet.Cells[row, 7] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+            }
+            else
+            {
+                xlWorkSheet.Cells[row, 7] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime) : null;
+            }
+
             if (detailed)
             {
-                xlWorkSheet.Cells[row, 7] = asset.AlternateId;
-                xlWorkSheet.Cells[row, 8] = asset.StorageAccount.Name;
-                xlWorkSheet.Cells[row, 9] = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count();
-                xlWorkSheet.Cells[row, 10] = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                xlWorkSheet.Cells[row, 11] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
-                xlWorkSheet.Cells[row, 12] = asset.Locators.Where(l => l.Type == LocatorType.Sas).Count();
-                xlWorkSheet.Cells[row, 13] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
+                xlWorkSheet.Cells[row, 8] = asset.AlternateId;
+                xlWorkSheet.Cells[row, 9] = asset.StorageAccount.Name;
+                var streamingloc = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
+                xlWorkSheet.Cells[row, 10] = streamingloc.Count();
+                if (localtime)
+                {
+                    xlWorkSheet.Cells[row, 11] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, 12] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                }
+                else
+                {
+                    xlWorkSheet.Cells[row, 11] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, 12] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime) : null;
+                }
+
+                var sasloc = asset.Locators.Where(l => l.Type == LocatorType.Sas);
+                xlWorkSheet.Cells[row, 13] = sasloc.Count();
+                if (localtime)
+                {
+                    xlWorkSheet.Cells[row, 14] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, 15] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                }
+                else
+                {
+                    xlWorkSheet.Cells[row, 14] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, 15] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime) : null;
+                }
+
+                xlWorkSheet.Cells[row, 16] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
             }
         }
 
@@ -133,43 +164,48 @@ namespace AMSExplorer
 
             xlWorkSheet.get_Range("a1", "f1").Merge(false);
             Excel.Range chartRange = xlWorkSheet.get_Range("a1", "f1");
-            chartRange.FormulaR1C1 = "Assets information";
-            //chartRange.HorizontalAlignment = 3;
+            chartRange.FormulaR1C1 = string.Format("{0} assets information, media account '{1}'", radioButtonAllAssets.Checked ? "All" : "Selected", _context.Credentials.ClientId);
             chartRange.VerticalAlignment = 3;
-            //chartRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
             chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
             chartRange.Font.Size = 20;
 
             xlWorkSheet.get_Range("a2", "f2").Merge(false);
             Excel.Range chartRange2 = xlWorkSheet.get_Range("a2", "f2");
-            chartRange2.FormulaR1C1 = string.Format("Exported with Azure Media Services Explorer on {0}, media account '{1}'", DateTime.Now.ToString(), _context.Credentials.ClientId);
-            //chartRange2.HorizontalAlignment = 3;
+            chartRange2.FormulaR1C1 = string.Format("Exported with Azure Media Services Explorer v{0} on {1}. Dates are {2}.",
+                Assembly.GetExecutingAssembly().GetName().Version.ToString(),
+                checkBoxLocalTime.Checked ? DateTime.Now.ToString() : DateTime.UtcNow.ToString(),
+                checkBoxLocalTime.Checked ? "local" : "UTC based"
+                );
             chartRange2.VerticalAlignment = 3;
-            //chartRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
             chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
             chartRange2.Font.Size = 12;
 
             int row = 4;
             xlWorkSheet.Cells[row, 1] = "Asset Name";
-            xlWorkSheet.Cells[row, 2] = "Asset Id";
+            xlWorkSheet.Cells[row, 2] = "Id";
             xlWorkSheet.Cells[row, 3] = "Last Modified";
-            xlWorkSheet.Cells[row, 4] = "Asset Type";
-            xlWorkSheet.Cells[row, 5] = "Asset Size";
-            xlWorkSheet.Cells[row, 6] = "Asset Best URL";
+            xlWorkSheet.Cells[row, 4] = "Type";
+            xlWorkSheet.Cells[row, 5] = "Size";
+            xlWorkSheet.Cells[row, 6] = "Streaming URL";
+            xlWorkSheet.Cells[row, 7] = "Expiration time";
             if (detailed)
             {
-                xlWorkSheet.Cells[row, 7] = "Alternate Id";
-                xlWorkSheet.Cells[row, 8] = "Storage Account";
-                xlWorkSheet.Cells[row, 9] = "Streaming Locators Count";
-                xlWorkSheet.Cells[row, 10] = "Streaming Locators Max Expiration time";
-                xlWorkSheet.Cells[row, 11] = "Streaming Locators Min Expiration time";
-                xlWorkSheet.Cells[row, 12] = "SAS Locators Count";
-                xlWorkSheet.Cells[row, 13] = "Dynamic encryption";
+                xlWorkSheet.Cells[row, 8] = "Alternate Id";
+                xlWorkSheet.Cells[row, 9] = "Storage Account";
+                xlWorkSheet.Cells[row, 10] = "Streaming Locators Count";
+                xlWorkSheet.Cells[row, 11] = "Streaming Max Expiration time";
+                xlWorkSheet.Cells[row, 12] = "Streaming Min Expiration time";
+                xlWorkSheet.Cells[row, 13] = "SAS Locators Count";
+                xlWorkSheet.Cells[row, 14] = "SAS Max Expiration time";
+                xlWorkSheet.Cells[row, 15] = "SAS Min Expiration time";
+                xlWorkSheet.Cells[row, 16] = "Dynamic encryption";
             }
 
             Excel.Range formatRange;
             formatRange = xlWorkSheet.get_Range("a4");
             formatRange.EntireRow.Font.Bold = true;
+            formatRange.EntireRow.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightBlue);
+
 
             if (radioButtonAllAssets.Checked)
             {
@@ -187,7 +223,7 @@ namespace AMSExplorer
                     {
                         row++;
                         currentBatch++;
-                        ExportAssetExcel(asset, xlWorkSheet, row, detailed);
+                        ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
 
                         backgroundWorker1.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
                         //if cancellation is pending, cancel work.  
@@ -234,7 +270,7 @@ namespace AMSExplorer
                 foreach (IAsset asset in myassets)
                 {
                     row++;
-                    ExportAssetExcel(asset, xlWorkSheet, row, detailed);
+                    ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
                     backgroundWorker1.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
                     //if cancellation is pending, cancel work.  
                     if (backgroundWorker1.CancellationPending)
@@ -253,9 +289,17 @@ namespace AMSExplorer
             }
 
             // Set the range to fill.
-            var aRange = xlWorkSheet.get_Range("A1", "E100");
-            aRange.EntireColumn.AutoFit();
-
+            if (detailed)
+            {
+                var aRange = xlWorkSheet.get_Range("A4", "P100");
+                aRange.EntireColumn.AutoFit();
+            }
+            else
+            {
+                var aRange = xlWorkSheet.get_Range("A4", "F100");
+                aRange.EntireColumn.AutoFit();
+            }
+          
             try
             {
                 xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);

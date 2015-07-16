@@ -50,6 +50,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.label8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -58,9 +59,9 @@
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(32, 41);
+            this.label.Location = new System.Drawing.Point(37, 47);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(606, 17);
+            this.label.Size = new System.Drawing.Size(576, 20);
             this.label.TabIndex = 0;
             this.label.Text = "label1";
             // 
@@ -68,17 +69,17 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(32, 312);
+            this.textBoxJobName.Location = new System.Drawing.Point(37, 374);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(443, 20);
+            this.textBoxJobName.Size = new System.Drawing.Size(385, 23);
             this.textBoxJobName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 124);
+            this.label2.Location = new System.Drawing.Point(37, 143);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(340, 26);
+            this.label2.Size = new System.Drawing.Size(376, 30);
             this.label2.TabIndex = 2;
             this.label2.Text = "Please select one or several workflows.\r\nFor each workflow selected, one parallel" +
     " task will be created in the job.";
@@ -87,9 +88,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(676, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(658, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -99,9 +100,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 296);
+            this.label1.Location = new System.Drawing.Point(37, 356);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(70, 13);
+            this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 6;
             this.label1.Text = "Job(s) name :";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -110,9 +111,9 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(673, 58);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(654, 67);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
-            this.moreinfoprofilelink.Size = new System.Drawing.Size(85, 13);
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(101, 15);
             this.moreinfoprofilelink.TabIndex = 7;
             this.moreinfoprofilelink.TabStop = true;
             this.moreinfoprofilelink.Text = "More information";
@@ -122,9 +123,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(32, 344);
+            this.label3.Location = new System.Drawing.Point(37, 411);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(113, 13);
+            this.label3.Size = new System.Drawing.Size(126, 15);
             this.label3.TabIndex = 11;
             this.label3.Text = "Output asset(s) name :";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -133,9 +134,9 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(32, 360);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(37, 429);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(443, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(385, 23);
             this.textboxoutputassetname.TabIndex = 9;
             this.textboxoutputassetname.TextChanged += new System.EventHandler(this.outputassetname_TextChanged);
             // 
@@ -144,9 +145,9 @@
             this.radioButtonMultipleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonMultipleJob.AutoSize = true;
             this.radioButtonMultipleJob.Checked = true;
-            this.radioButtonMultipleJob.Location = new System.Drawing.Point(32, 412);
+            this.radioButtonMultipleJob.Location = new System.Drawing.Point(37, 490);
             this.radioButtonMultipleJob.Name = "radioButtonMultipleJob";
-            this.radioButtonMultipleJob.Size = new System.Drawing.Size(211, 17);
+            this.radioButtonMultipleJob.Size = new System.Drawing.Size(237, 19);
             this.radioButtonMultipleJob.TabIndex = 12;
             this.radioButtonMultipleJob.TabStop = true;
             this.radioButtonMultipleJob.Text = "Multiple jobs (a job for each input asset)";
@@ -157,20 +158,19 @@
             // 
             this.radioButtonSingleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonSingleJob.AutoSize = true;
-            this.radioButtonSingleJob.Location = new System.Drawing.Point(32, 435);
+            this.radioButtonSingleJob.Location = new System.Drawing.Point(37, 517);
             this.radioButtonSingleJob.Name = "radioButtonSingleJob";
-            this.radioButtonSingleJob.Size = new System.Drawing.Size(400, 17);
+            this.radioButtonSingleJob.Size = new System.Drawing.Size(322, 19);
             this.radioButtonSingleJob.TabIndex = 13;
-            this.radioButtonSingleJob.Text = "Single job (Not supported today - one job and pass all selected assets as inputs)" +
-    "";
+            this.radioButtonSingleJob.Text = "Single job (one job and pass all selected assets as inputs)";
             this.radioButtonSingleJob.UseVisualStyleBackColor = true;
             // 
             // labelsummaryjob
             // 
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(32, 469);
+            this.labelsummaryjob.Location = new System.Drawing.Point(34, 578);
             this.labelsummaryjob.Name = "labelsummaryjob";
-            this.labelsummaryjob.Size = new System.Drawing.Size(228, 22);
+            this.labelsummaryjob.Size = new System.Drawing.Size(266, 25);
             this.labelsummaryjob.TabIndex = 14;
             this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
             // 
@@ -181,9 +181,9 @@
             this.buttonOk.Enabled = false;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(529, 13);
+            this.buttonOk.Location = new System.Drawing.Point(486, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(141, 23);
+            this.buttonOk.Size = new System.Drawing.Size(164, 27);
             this.buttonOk.TabIndex = 5;
             this.buttonOk.Text = "Launch encoding";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -192,9 +192,9 @@
             // 
             this.pictureBoxJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.modeltaskxenio2;
-            this.pictureBoxJob.Location = new System.Drawing.Point(489, 397);
+            this.pictureBoxJob.Location = new System.Drawing.Point(441, 429);
             this.pictureBoxJob.Name = "pictureBoxJob";
-            this.pictureBoxJob.Size = new System.Drawing.Size(269, 110);
+            this.pictureBoxJob.Size = new System.Drawing.Size(314, 151);
             this.pictureBoxJob.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBoxJob.TabIndex = 41;
             this.pictureBoxJob.TabStop = false;
@@ -202,9 +202,9 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(32, 68);
+            this.label32.Location = new System.Drawing.Point(37, 78);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(60, 13);
+            this.label32.Size = new System.Drawing.Size(64, 15);
             this.label32.TabIndex = 57;
             this.label32.Text = "Processor :";
             // 
@@ -214,20 +214,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxProcessor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxProcessor.FormattingEnabled = true;
-            this.comboBoxProcessor.Location = new System.Drawing.Point(32, 84);
+            this.comboBoxProcessor.Location = new System.Drawing.Point(37, 97);
             this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(726, 21);
+            this.comboBoxProcessor.Size = new System.Drawing.Size(715, 23);
             this.comboBoxProcessor.TabIndex = 56;
             // 
             // label31
             // 
             this.label31.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label31.Location = new System.Drawing.Point(425, 9);
+            this.label31.Location = new System.Drawing.Point(429, 9);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(333, 24);
+            this.label31.Size = new System.Drawing.Size(324, 25);
             this.label31.TabIndex = 60;
             this.label31.Text = "Media Encoder Premium Workflow";
             this.label31.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -236,17 +236,17 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(529, 124);
+            this.progressBarUpload.Location = new System.Drawing.Point(617, 143);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(229, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(136, 27);
             this.progressBarUpload.TabIndex = 63;
             this.progressBarUpload.Visible = false;
             // 
             // buttonUpload
             // 
-            this.buttonUpload.Location = new System.Drawing.Point(384, 125);
+            this.buttonUpload.Location = new System.Drawing.Point(448, 144);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(139, 23);
+            this.buttonUpload.Size = new System.Drawing.Size(162, 27);
             this.buttonUpload.TabIndex = 62;
             this.buttonUpload.Text = "Upload a new Workflow";
             this.buttonUpload.UseVisualStyleBackColor = true;
@@ -263,9 +263,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-3, 513);
+            this.panel1.Location = new System.Drawing.Point(-3, 606);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(788, 48);
+            this.panel1.Size = new System.Drawing.Size(788, 55);
             this.panel1.TabIndex = 66;
             // 
             // listViewWorkflows
@@ -275,9 +275,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listViewWorkflows.FullRowSelect = true;
             this.listViewWorkflows.HideSelection = false;
-            this.listViewWorkflows.Location = new System.Drawing.Point(32, 155);
+            this.listViewWorkflows.Location = new System.Drawing.Point(37, 179);
             this.listViewWorkflows.Name = "listViewWorkflows";
-            this.listViewWorkflows.Size = new System.Drawing.Size(726, 124);
+            this.listViewWorkflows.Size = new System.Drawing.Size(715, 156);
             this.listViewWorkflows.TabIndex = 61;
             this.listViewWorkflows.Tag = -1;
             this.listViewWorkflows.UseCompatibleStateImageBehavior = false;
@@ -287,21 +287,32 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(621, 312);
+            this.buttonJobOptions.Location = new System.Drawing.Point(592, 370);
             this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(137, 23);
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 72;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(53, 537);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(103, 15);
+            this.label8.TabIndex = 73;
+            this.label8.Text = "Not yet supported";
+            // 
             // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.panel1);
@@ -321,6 +332,7 @@
             this.Controls.Add(this.textBoxJobName);
             this.Controls.Add(this.label);
             this.Controls.Add(this.label31);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "EncodingPremium";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Media Encoder Premium Workflow";
@@ -356,6 +368,7 @@
         private System.Windows.Forms.Panel panel1;
         private ListViewWorkflows listViewWorkflows;
         private ButtonJobOptions buttonJobOptions;
+        private System.Windows.Forms.Label label8;
 
     }
 }

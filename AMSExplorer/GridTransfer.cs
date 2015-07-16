@@ -86,27 +86,35 @@ namespace AMSExplorer
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle();
             col.Name = labelProgress;
             col.DataPropertyName = labelProgress;
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.Columns.Add(col);
-            }
-            ));
 
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.DataSource = _MyListTransfer;
-            }
-          ));
+            dataGridViewTransfer.Columns.Add(col);
 
-            dataGridViewTransfer.Invoke(new Action(() =>
-            {
-                dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
-                dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
-                dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
-                dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
+            dataGridViewTransfer.DataSource = _MyListTransfer;
 
-            }
-          ));
+            dataGridViewTransfer.Columns[labelProgress].DisplayIndex = 3;
+            dataGridViewTransfer.Columns[labelProgress].HeaderText = labelProgress;
+            dataGridViewTransfer.Columns["processedinqueue"].Visible = false;
+            dataGridViewTransfer.Columns["ErrorDescription"].Visible = false;
+
+            dataGridViewTransfer.Columns["SubmitTime"].Width = 140;
+            dataGridViewTransfer.Columns["SubmitTime"].HeaderText = "Submit time";
+
+            dataGridViewTransfer.Columns["StartTime"].Width = 140;
+            dataGridViewTransfer.Columns["StartTime"].HeaderText = "Start time";
+
+
+            dataGridViewTransfer.Columns["EndTime"].Width = 140;
+            dataGridViewTransfer.Columns["EndTime"].HeaderText = "End time";
+
+            dataGridViewTransfer.Columns["ProgressText"].Width = 140;
+            dataGridViewTransfer.Columns["ProgressText"].HeaderText = "Progress detail";
+
+            dataGridViewTransfer.Columns["DestLocation"].Width = 140;
+            dataGridViewTransfer.Columns["DestLocation"].HeaderText = "Destination";
+
+
+
+
         }
         public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
         {
@@ -173,6 +181,7 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() =>
             {
                 this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.",  _MyListTransfer[index].Name));
             }));
 
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
@@ -201,6 +210,9 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() =>
             {
                 this.Notify("Transfer Error", string.Format("{0}", _MyListTransfer[index].Name), true);
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}': Error", _MyListTransfer[index].Name), true);
+                this.TextBoxLogWriteLine(ErrorDesc, true);
+
             }));
         }
 
@@ -210,6 +222,7 @@ namespace AMSExplorer
             _MyListTransfer[index].State = TransferState.Processing;
             _MyListTransfer[index].StartTime = DateTime.Now;
             dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            this.TextBoxLogWriteLine(string.Format("Transfer '{0}': started", _MyListTransfer[index].Name));
         }
 
         private bool DoGridTransferQueueOurTurn(int index)  // Return true if this is out turn
@@ -229,10 +242,9 @@ namespace AMSExplorer
             {
                 while (!DoGridTransferQueueOurTurn(index))
                 {
-                    Debug.Print("wait "+index);
+                    Debug.Print("wait " + index);
                     Thread.Sleep(500);
                 }
-
                 DoGridTransferDeclareTransferStarted(index);
             }
         }

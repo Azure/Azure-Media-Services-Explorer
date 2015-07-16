@@ -83,10 +83,10 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.DGChannel);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 400);
+            this.tabPage1.Size = new System.Drawing.Size(748, 378);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Program information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -103,21 +103,21 @@
             this.DGChannel.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGChannel.ColumnHeadersVisible = false;
             this.DGChannel.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGChannel.Location = new System.Drawing.Point(6, 6);
+            this.DGChannel.Location = new System.Drawing.Point(7, 7);
             this.DGChannel.MultiSelect = false;
             this.DGChannel.Name = "DGChannel";
             this.DGChannel.ReadOnly = true;
             this.DGChannel.RowHeadersVisible = false;
-            this.DGChannel.Size = new System.Drawing.Size(740, 388);
+            this.DGChannel.Size = new System.Drawing.Size(732, 360);
             this.DGChannel.TabIndex = 0;
             // 
             // buttonCopyStats
             // 
             this.buttonCopyStats.Image = global::AMSExplorer.Bitmaps.Display_information;
             this.buttonCopyStats.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonCopyStats.Location = new System.Drawing.Point(16, 42);
+            this.buttonCopyStats.Location = new System.Drawing.Point(19, 48);
             this.buttonCopyStats.Name = "buttonCopyStats";
-            this.buttonCopyStats.Size = new System.Drawing.Size(216, 23);
+            this.buttonCopyStats.Size = new System.Drawing.Size(252, 27);
             this.buttonCopyStats.TabIndex = 24;
             this.buttonCopyStats.Text = "Display related asset information";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
@@ -130,10 +130,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 81);
+            this.tabControl1.Location = new System.Drawing.Point(14, 93);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 426);
+            this.tabControl1.Size = new System.Drawing.Size(756, 406);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage2
@@ -141,10 +141,10 @@
             this.tabPage2.Controls.Add(this.label2);
             this.tabPage2.Controls.Add(this.textBoxDescription);
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 400);
+            this.tabPage2.Size = new System.Drawing.Size(748, 378);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -152,9 +152,9 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 18);
+            this.label2.Location = new System.Drawing.Point(20, 21);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 13);
+            this.label2.Size = new System.Drawing.Size(73, 15);
             this.label2.TabIndex = 52;
             this.label2.Text = "Description :";
             // 
@@ -162,9 +162,9 @@
             // 
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(20, 34);
+            this.textBoxDescription.Location = new System.Drawing.Point(23, 39);
             this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(449, 20);
+            this.textBoxDescription.Size = new System.Drawing.Size(699, 23);
             this.textBoxDescription.TabIndex = 51;
             // 
             // groupBox4
@@ -177,80 +177,80 @@
             this.groupBox4.Controls.Add(this.numericUpDownArchiveDays);
             this.groupBox4.Controls.Add(this.pictureBox2);
             this.groupBox4.Controls.Add(this.label3);
-            this.groupBox4.Location = new System.Drawing.Point(19, 96);
+            this.groupBox4.Location = new System.Drawing.Point(23, 110);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(449, 128);
+            this.groupBox4.Size = new System.Drawing.Size(699, 148);
             this.groupBox4.TabIndex = 50;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Settings";
+            this.groupBox4.Text = "DVR / Archive Settings";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(284, 21);
+            this.label11.Location = new System.Drawing.Point(331, 24);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(44, 13);
+            this.label11.Size = new System.Drawing.Size(50, 15);
             this.label11.TabIndex = 63;
             this.label11.Text = "Minutes";
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(287, 37);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(335, 43);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
-            this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveMinutes.TabIndex = 62;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(231, 21);
+            this.label10.Location = new System.Drawing.Point(269, 24);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(35, 13);
+            this.label10.Size = new System.Drawing.Size(39, 15);
             this.label10.TabIndex = 61;
             this.label10.Text = "Hours";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(178, 21);
+            this.label9.Location = new System.Drawing.Point(208, 24);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(31, 13);
+            this.label9.Size = new System.Drawing.Size(32, 15);
             this.label9.TabIndex = 60;
             this.label9.Text = "Days";
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(234, 37);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(273, 43);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
             23,
             0,
             0,
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
-            this.numericUpDownArchiveHours.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveHours.TabIndex = 59;
             // 
             // numericUpDownArchiveDays
             // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(181, 37);
+            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(211, 43);
             this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
             this.numericUpDownArchiveDays.Name = "numericUpDownArchiveDays";
-            this.numericUpDownArchiveDays.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownArchiveDays.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveDays.TabIndex = 58;
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox2.Location = new System.Drawing.Point(16, 34);
+            this.pictureBox2.Location = new System.Drawing.Point(19, 39);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(16, 16);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -260,9 +260,9 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(48, 37);
+            this.label3.Location = new System.Drawing.Point(56, 43);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(127, 13);
+            this.label3.Size = new System.Drawing.Size(140, 15);
             this.label3.TabIndex = 0;
             this.label3.Text = "Archive Window Length :";
             // 
@@ -270,10 +270,10 @@
             // 
             this.labelProgramName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgramName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelProgramName.Location = new System.Drawing.Point(18, 9);
+            this.labelProgramName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.labelProgramName.Location = new System.Drawing.Point(21, 10);
             this.labelProgramName.Name = "labelProgramName";
-            this.labelProgramName.Size = new System.Drawing.Size(744, 20);
+            this.labelProgramName.Size = new System.Drawing.Size(737, 23);
             this.labelProgramName.TabIndex = 38;
             this.labelProgramName.Text = "Program : ";
             this.labelProgramName.Click += new System.EventHandler(this.labelProgramName_Click);
@@ -282,9 +282,9 @@
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(677, 13);
+            this.buttonDisregard.Location = new System.Drawing.Point(659, 15);
             this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(99, 23);
+            this.buttonDisregard.Size = new System.Drawing.Size(115, 27);
             this.buttonDisregard.TabIndex = 41;
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
@@ -293,9 +293,9 @@
             // 
             this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(512, 13);
+            this.buttonApplyClose.Location = new System.Drawing.Point(466, 15);
             this.buttonApplyClose.Name = "buttonApplyClose";
-            this.buttonApplyClose.Size = new System.Drawing.Size(159, 23);
+            this.buttonApplyClose.Size = new System.Drawing.Size(185, 27);
             this.buttonApplyClose.TabIndex = 40;
             this.buttonApplyClose.Text = "Update settings and close";
             this.buttonApplyClose.UseVisualStyleBackColor = true;
@@ -307,14 +307,14 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonApplyClose);
             this.panel1.Controls.Add(this.buttonDisregard);
-            this.panel1.Location = new System.Drawing.Point(-4, 513);
+            this.panel1.Location = new System.Drawing.Point(-5, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(790, 48);
+            this.panel1.Size = new System.Drawing.Size(791, 55);
             this.panel1.TabIndex = 63;
             // 
             // ProgramInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
@@ -322,6 +322,7 @@
             this.Controls.Add(this.buttonCopyStats);
             this.Controls.Add(this.labelProgramName);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ProgramInformation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Program Information";

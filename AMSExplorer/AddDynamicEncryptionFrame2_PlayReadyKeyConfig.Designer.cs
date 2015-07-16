@@ -84,9 +84,9 @@
             // moreinfotestserver
             // 
             this.moreinfotestserver.AutoSize = true;
-            this.moreinfotestserver.Location = new System.Drawing.Point(178, 26);
+            this.moreinfotestserver.Location = new System.Drawing.Point(208, 30);
             this.moreinfotestserver.Name = "moreinfotestserver";
-            this.moreinfotestserver.Size = new System.Drawing.Size(152, 13);
+            this.moreinfotestserver.Size = new System.Drawing.Size(163, 15);
             this.moreinfotestserver.TabIndex = 19;
             this.moreinfotestserver.TabStop = true;
             this.moreinfotestserver.Text = "PlayReady test server web site";
@@ -96,9 +96,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(486, 11);
+            this.buttonCancel.Location = new System.Drawing.Point(567, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(92, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(107, 27);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -106,17 +106,17 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(176, 8);
+            this.label.Location = new System.Drawing.Point(205, 9);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(264, 13);
+            this.label.Size = new System.Drawing.Size(293, 15);
             this.label.TabIndex = 28;
             this.label.Text = "You can specifiy your own data or use the test settings";
             // 
             // buttonPlayReadyTestSettings
             // 
-            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(11, 9);
+            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(13, 10);
             this.buttonPlayReadyTestSettings.Name = "buttonPlayReadyTestSettings";
-            this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(159, 32);
+            this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(185, 37);
             this.buttonPlayReadyTestSettings.TabIndex = 29;
             this.buttonPlayReadyTestSettings.Text = "Use PlayReady Test Settings";
             this.buttonPlayReadyTestSettings.UseVisualStyleBackColor = true;
@@ -126,18 +126,18 @@
             // 
             this.textBoxLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAurl.Location = new System.Drawing.Point(11, 179);
+            this.textBoxLAurl.Location = new System.Drawing.Point(13, 207);
             this.textBoxLAurl.Name = "textBoxLAurl";
-            this.textBoxLAurl.Size = new System.Drawing.Size(382, 20);
+            this.textBoxLAurl.Size = new System.Drawing.Size(445, 23);
             this.textBoxLAurl.TabIndex = 37;
             this.textBoxLAurl.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(466, 38);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(544, 44);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(64, 25);
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
             this.buttongenerateContentKey.TabIndex = 40;
             this.buttongenerateContentKey.Text = "Generate";
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
@@ -146,18 +146,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(8, 206);
+            this.label1.Location = new System.Drawing.Point(9, 238);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.Size = new System.Drawing.Size(57, 15);
             this.label1.TabIndex = 36;
             this.label1.Text = "Key Seed:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 163);
+            this.label2.Location = new System.Drawing.Point(9, 188);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 13);
+            this.label2.Size = new System.Drawing.Size(130, 15);
             this.label2.TabIndex = 35;
             this.label2.Text = "License Acquisition Url:";
             // 
@@ -165,18 +165,18 @@
             // 
             this.textBoxkeyseed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxkeyseed.Location = new System.Drawing.Point(11, 222);
+            this.textBoxkeyseed.Location = new System.Drawing.Point(13, 256);
             this.textBoxkeyseed.Name = "textBoxkeyseed";
-            this.textBoxkeyseed.Size = new System.Drawing.Size(382, 20);
+            this.textBoxkeyseed.Size = new System.Drawing.Size(445, 23);
             this.textBoxkeyseed.TabIndex = 34;
             this.textBoxkeyseed.TextChanged += new System.EventHandler(this.textBoxkeyseed_TextChanged);
             // 
             // buttonGenKeyID
             // 
             this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGenKeyID.Location = new System.Drawing.Point(466, 26);
+            this.buttonGenKeyID.Location = new System.Drawing.Point(544, 30);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
-            this.buttonGenKeyID.Size = new System.Drawing.Size(64, 25);
+            this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
             this.buttonGenKeyID.TabIndex = 33;
             this.buttonGenKeyID.Text = "Generate";
             this.buttonGenKeyID.UseVisualStyleBackColor = true;
@@ -186,9 +186,9 @@
             // 
             this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxkeyid.Location = new System.Drawing.Point(5, 29);
+            this.textBoxkeyid.Location = new System.Drawing.Point(6, 33);
             this.textBoxkeyid.Name = "textBoxkeyid";
-            this.textBoxkeyid.Size = new System.Drawing.Size(377, 20);
+            this.textBoxkeyid.Size = new System.Drawing.Size(439, 23);
             this.textBoxkeyid.TabIndex = 32;
             this.textBoxkeyid.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
@@ -196,27 +196,27 @@
             // 
             this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxcontentkey.Location = new System.Drawing.Point(6, 22);
+            this.textBoxcontentkey.Location = new System.Drawing.Point(7, 25);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
-            this.textBoxcontentkey.Size = new System.Drawing.Size(376, 20);
+            this.textBoxcontentkey.Size = new System.Drawing.Size(438, 23);
             this.textBoxcontentkey.TabIndex = 35;
             this.textBoxcontentkey.TextChanged += new System.EventHandler(this.textBoxcontentkey_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(3, 13);
+            this.label5.Location = new System.Drawing.Point(3, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 31;
             this.label5.Text = "Key ID:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(3, 6);
+            this.label4.Location = new System.Drawing.Point(3, 7);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.Size = new System.Drawing.Size(74, 15);
             this.label4.TabIndex = 34;
             this.label4.Text = "Content key:";
             // 
@@ -226,9 +226,9 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(329, 11);
+            this.buttonOk.Location = new System.Drawing.Point(384, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(151, 23);
+            this.buttonOk.Size = new System.Drawing.Size(176, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
             this.buttonOk.Text = "OK";
@@ -239,9 +239,9 @@
             this.panelPlayReadyTest.Controls.Add(this.label);
             this.panelPlayReadyTest.Controls.Add(this.moreinfotestserver);
             this.panelPlayReadyTest.Controls.Add(this.buttonPlayReadyTestSettings);
-            this.panelPlayReadyTest.Location = new System.Drawing.Point(11, 24);
+            this.panelPlayReadyTest.Location = new System.Drawing.Point(13, 28);
             this.panelPlayReadyTest.Name = "panelPlayReadyTest";
-            this.panelPlayReadyTest.Size = new System.Drawing.Size(455, 49);
+            this.panelPlayReadyTest.Size = new System.Drawing.Size(531, 57);
             this.panelPlayReadyTest.TabIndex = 41;
             // 
             // panel1
@@ -251,9 +251,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 615);
+            this.panel1.Location = new System.Drawing.Point(-1, 710);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(586, 48);
+            this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
             // 
             // label8
@@ -261,9 +261,9 @@
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(399, 182);
+            this.label8.Location = new System.Drawing.Point(465, 210);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(26, 13);
+            this.label8.Size = new System.Drawing.Size(30, 15);
             this.label8.TabIndex = 67;
             this.label8.Text = "(Url)";
             // 
@@ -273,9 +273,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyBase64.AutoSize = true;
             this.radioButtonContentKeyBase64.Checked = true;
-            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(8, 6);
+            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(9, 7);
             this.radioButtonContentKeyBase64.Name = "radioButtonContentKeyBase64";
-            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonContentKeyBase64.TabIndex = 68;
             this.radioButtonContentKeyBase64.TabStop = true;
             this.radioButtonContentKeyBase64.Text = "Base64";
@@ -287,9 +287,9 @@
             this.radioButtonContentKeyHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyHex.AutoSize = true;
-            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(8, 28);
+            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(9, 32);
             this.radioButtonContentKeyHex.Name = "radioButtonContentKeyHex";
-            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(44, 17);
+            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(45, 19);
             this.radioButtonContentKeyHex.TabIndex = 69;
             this.radioButtonContentKeyHex.Text = "Hex";
             this.radioButtonContentKeyHex.UseVisualStyleBackColor = true;
@@ -300,9 +300,9 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel2.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel2.Location = new System.Drawing.Point(388, 22);
+            this.panel2.Location = new System.Drawing.Point(453, 25);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(75, 48);
+            this.panel2.Size = new System.Drawing.Size(87, 55);
             this.panel2.TabIndex = 70;
             // 
             // panel3
@@ -310,9 +310,9 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.radioButtonKeySeedBase64);
             this.panel3.Controls.Add(this.radioButtonKeySeedHex);
-            this.panel3.Location = new System.Drawing.Point(399, 206);
+            this.panel3.Location = new System.Drawing.Point(465, 238);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(75, 48);
+            this.panel3.Size = new System.Drawing.Size(87, 55);
             this.panel3.TabIndex = 71;
             // 
             // radioButtonKeySeedBase64
@@ -321,9 +321,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeySeedBase64.AutoSize = true;
             this.radioButtonKeySeedBase64.Checked = true;
-            this.radioButtonKeySeedBase64.Location = new System.Drawing.Point(8, 3);
+            this.radioButtonKeySeedBase64.Location = new System.Drawing.Point(9, 3);
             this.radioButtonKeySeedBase64.Name = "radioButtonKeySeedBase64";
-            this.radioButtonKeySeedBase64.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonKeySeedBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonKeySeedBase64.TabIndex = 68;
             this.radioButtonKeySeedBase64.TabStop = true;
             this.radioButtonKeySeedBase64.Text = "Base64";
@@ -335,9 +335,9 @@
             this.radioButtonKeySeedHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeySeedHex.AutoSize = true;
-            this.radioButtonKeySeedHex.Location = new System.Drawing.Point(8, 25);
+            this.radioButtonKeySeedHex.Location = new System.Drawing.Point(9, 29);
             this.radioButtonKeySeedHex.Name = "radioButtonKeySeedHex";
-            this.radioButtonKeySeedHex.Size = new System.Drawing.Size(44, 17);
+            this.radioButtonKeySeedHex.Size = new System.Drawing.Size(45, 19);
             this.radioButtonKeySeedHex.TabIndex = 69;
             this.radioButtonKeySeedHex.Text = "Hex";
             this.radioButtonKeySeedHex.UseVisualStyleBackColor = true;
@@ -348,9 +348,9 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.radioButtonKeyIDGuid);
             this.panel4.Controls.Add(this.radioButtonKeyIDBase64);
-            this.panel4.Location = new System.Drawing.Point(388, 13);
+            this.panel4.Location = new System.Drawing.Point(453, 15);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(75, 48);
+            this.panel4.Size = new System.Drawing.Size(87, 55);
             this.panel4.TabIndex = 72;
             // 
             // radioButtonKeyIDGuid
@@ -359,9 +359,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeyIDGuid.AutoSize = true;
             this.radioButtonKeyIDGuid.Checked = true;
-            this.radioButtonKeyIDGuid.Location = new System.Drawing.Point(8, 3);
+            this.radioButtonKeyIDGuid.Location = new System.Drawing.Point(9, 3);
             this.radioButtonKeyIDGuid.Name = "radioButtonKeyIDGuid";
-            this.radioButtonKeyIDGuid.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonKeyIDGuid.Size = new System.Drawing.Size(50, 19);
             this.radioButtonKeyIDGuid.TabIndex = 68;
             this.radioButtonKeyIDGuid.TabStop = true;
             this.radioButtonKeyIDGuid.Text = "Guid";
@@ -373,9 +373,9 @@
             this.radioButtonKeyIDBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeyIDBase64.AutoSize = true;
-            this.radioButtonKeyIDBase64.Location = new System.Drawing.Point(8, 25);
+            this.radioButtonKeyIDBase64.Location = new System.Drawing.Point(9, 29);
             this.radioButtonKeyIDBase64.Name = "radioButtonKeyIDBase64";
-            this.radioButtonKeyIDBase64.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonKeyIDBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonKeyIDBase64.TabIndex = 69;
             this.radioButtonKeyIDBase64.Text = "Base64";
             this.radioButtonKeyIDBase64.UseVisualStyleBackColor = true;
@@ -388,9 +388,9 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
-            this.groupBox2.Location = new System.Drawing.Point(12, 71);
+            this.groupBox2.Location = new System.Drawing.Point(14, 82);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(552, 100);
+            this.groupBox2.Size = new System.Drawing.Size(644, 115);
             this.groupBox2.TabIndex = 73;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "CENC Content key\'s generation";
@@ -398,9 +398,9 @@
             // label3
             // 
             this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label3.Location = new System.Drawing.Point(31, 25);
+            this.label3.Location = new System.Drawing.Point(36, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(493, 19);
+            this.label3.Size = new System.Drawing.Size(575, 22);
             this.label3.TabIndex = 68;
             this.label3.Text = "Explorer will use the existing CENC key attached to the asset. If there is none, " +
     "a key must be created :";
@@ -408,9 +408,9 @@
             // radioButtonKeySpecifiedByUser
             // 
             this.radioButtonKeySpecifiedByUser.AutoSize = true;
-            this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(34, 70);
+            this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(40, 81);
             this.radioButtonKeySpecifiedByUser.Name = "radioButtonKeySpecifiedByUser";
-            this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(124, 17);
+            this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(134, 19);
             this.radioButtonKeySpecifiedByUser.TabIndex = 1;
             this.radioButtonKeySpecifiedByUser.Text = "Specified by the user";
             this.radioButtonKeySpecifiedByUser.UseVisualStyleBackColor = true;
@@ -420,9 +420,9 @@
             // 
             this.radioButtonKeyRandomGeneration.AutoSize = true;
             this.radioButtonKeyRandomGeneration.Checked = true;
-            this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(34, 47);
+            this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(40, 54);
             this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
-            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(118, 17);
+            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(130, 19);
             this.radioButtonKeyRandomGeneration.TabIndex = 0;
             this.radioButtonKeyRandomGeneration.TabStop = true;
             this.radioButtonKeyRandomGeneration.Text = "Random generation";
@@ -443,9 +443,9 @@
             this.groupBoxCrypto.Controls.Add(this.textBoxkeyseed);
             this.groupBoxCrypto.Controls.Add(this.textBoxLAurl);
             this.groupBoxCrypto.Enabled = false;
-            this.groupBoxCrypto.Location = new System.Drawing.Point(15, 185);
+            this.groupBoxCrypto.Location = new System.Drawing.Point(17, 213);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(549, 362);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 418);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
@@ -455,9 +455,9 @@
             this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxEncodingSL.AutoSize = true;
             this.checkBoxEncodingSL.Enabled = false;
-            this.checkBoxEncodingSL.Location = new System.Drawing.Point(428, 181);
+            this.checkBoxEncodingSL.Location = new System.Drawing.Point(509, 209);
             this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
-            this.checkBoxEncodingSL.Size = new System.Drawing.Size(102, 17);
+            this.checkBoxEncodingSL.Size = new System.Drawing.Size(109, 19);
             this.checkBoxEncodingSL.TabIndex = 76;
             this.checkBoxEncodingSL.Text = "Encoding for SL";
             this.toolTip1.SetToolTip(this.checkBoxEncodingSL, "& will encoded as %26 for compatibility with Silverlight (breaks compatibility wi" +
@@ -473,9 +473,9 @@
             this.panelContentKey.Controls.Add(this.textBoxcontentkey);
             this.panelContentKey.Controls.Add(this.buttongenerateContentKey);
             this.panelContentKey.Controls.Add(this.panel2);
-            this.panelContentKey.Location = new System.Drawing.Point(6, 260);
+            this.panelContentKey.Location = new System.Drawing.Point(7, 300);
             this.panelContentKey.Name = "panelContentKey";
-            this.panelContentKey.Size = new System.Drawing.Size(538, 81);
+            this.panelContentKey.Size = new System.Drawing.Size(628, 93);
             this.panelContentKey.TabIndex = 75;
             // 
             // textBoxContentKeyCalculated
@@ -483,10 +483,10 @@
             this.textBoxContentKeyCalculated.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxContentKeyCalculated.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.textBoxContentKeyCalculated.Location = new System.Drawing.Point(6, 48);
+            this.textBoxContentKeyCalculated.Location = new System.Drawing.Point(7, 55);
             this.textBoxContentKeyCalculated.Name = "textBoxContentKeyCalculated";
             this.textBoxContentKeyCalculated.ReadOnly = true;
-            this.textBoxContentKeyCalculated.Size = new System.Drawing.Size(376, 20);
+            this.textBoxContentKeyCalculated.Size = new System.Drawing.Size(438, 23);
             this.textBoxContentKeyCalculated.TabIndex = 73;
             // 
             // panelKeyId
@@ -497,17 +497,17 @@
             this.panelKeyId.Controls.Add(this.buttonGenKeyID);
             this.panelKeyId.Controls.Add(this.label5);
             this.panelKeyId.Controls.Add(this.panel4);
-            this.panelKeyId.Location = new System.Drawing.Point(6, 93);
+            this.panelKeyId.Location = new System.Drawing.Point(7, 107);
             this.panelKeyId.Name = "panelKeyId";
-            this.panelKeyId.Size = new System.Drawing.Size(538, 67);
+            this.panelKeyId.Size = new System.Drawing.Size(628, 77);
             this.panelKeyId.TabIndex = 74;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(23, 560);
+            this.label7.Location = new System.Drawing.Point(27, 646);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(91, 13);
+            this.label7.Size = new System.Drawing.Size(105, 15);
             this.label7.TabIndex = 82;
             this.label7.Text = "Custom attributes:";
             // 
@@ -516,9 +516,9 @@
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(414, 579);
+            this.label6.Location = new System.Drawing.Point(483, 668);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(144, 13);
+            this.label6.Size = new System.Drawing.Size(156, 15);
             this.label6.TabIndex = 81;
             this.label6.Text = "name1:value1,name2:value2";
             // 
@@ -526,27 +526,27 @@
             // 
             this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(21, 576);
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(24, 665);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
-            this.textBoxCustomAttributes.Size = new System.Drawing.Size(387, 20);
+            this.textBoxCustomAttributes.Size = new System.Drawing.Size(451, 23);
             this.textBoxCustomAttributes.TabIndex = 80;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(22, 18);
+            this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.Location = new System.Drawing.Point(26, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(258, 40);
+            this.label9.Size = new System.Drawing.Size(264, 42);
             this.label9.TabIndex = 83;
             this.label9.Text = "Step 2\r\nSpecify the PlayReady Content Key";
             // 
             // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
@@ -554,6 +554,7 @@
             this.Controls.Add(this.textBoxCustomAttributes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AddDynamicEncryptionFrame2_PlayReadyKeyConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 2";

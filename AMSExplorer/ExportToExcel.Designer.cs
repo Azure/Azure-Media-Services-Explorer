@@ -49,6 +49,7 @@
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.checkBoxLocalTime = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -82,13 +83,14 @@
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.checkBoxLocalTime);
             this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.radioButtonDetailledMode);
             this.groupBox2.Controls.Add(this.radioButtonNormalMode);
             this.groupBox2.Location = new System.Drawing.Point(14, 178);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(544, 89);
+            this.groupBox2.Size = new System.Drawing.Size(544, 117);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
@@ -210,7 +212,7 @@
             this.groupBox1.Controls.Add(this.checkBoxOpenFileAfterExport);
             this.groupBox1.Controls.Add(this.buttonBrowseFile);
             this.groupBox1.Controls.Add(this.textBoxExcelFile);
-            this.groupBox1.Location = new System.Drawing.Point(13, 293);
+            this.groupBox1.Location = new System.Drawing.Point(13, 311);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(545, 107);
             this.groupBox1.TabIndex = 61;
@@ -273,6 +275,18 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // checkBoxLocalTime
+            // 
+            this.checkBoxLocalTime.AutoSize = true;
+            this.checkBoxLocalTime.Checked = true;
+            this.checkBoxLocalTime.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxLocalTime.Location = new System.Drawing.Point(27, 88);
+            this.checkBoxLocalTime.Name = "checkBoxLocalTime";
+            this.checkBoxLocalTime.Size = new System.Drawing.Size(205, 19);
+            this.checkBoxLocalTime.TabIndex = 3;
+            this.checkBoxLocalTime.Text = "Use local time (UTC if unchecked)";
+            this.checkBoxLocalTime.UseVisualStyleBackColor = true;
+            // 
             // ExportToExcel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -326,5 +340,6 @@
         private System.Windows.Forms.CheckBox checkBoxOpenFileAfterExport;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox checkBoxLocalTime;
     }
 }

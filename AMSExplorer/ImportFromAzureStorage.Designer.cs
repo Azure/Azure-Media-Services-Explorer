@@ -67,9 +67,9 @@
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(564, 12);
+            this.buttonUpload.Location = new System.Drawing.Point(527, 14);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(99, 23);
+            this.buttonUpload.Size = new System.Drawing.Size(115, 27);
             this.buttonUpload.TabIndex = 2;
             this.buttonUpload.Text = "Upload";
             this.buttonUpload.UseVisualStyleBackColor = true;
@@ -79,9 +79,9 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(675, 12);
+            this.buttonClose.Location = new System.Drawing.Point(656, 14);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(99, 23);
+            this.buttonClose.Size = new System.Drawing.Size(115, 27);
             this.buttonClose.TabIndex = 10;
             this.buttonClose.Text = "Cancel";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -95,9 +95,9 @@
             this.groupBox1.Controls.Add(this.textBoxNewAssetName);
             this.groupBox1.Controls.Add(this.radioButtonSelectedAsset);
             this.groupBox1.Controls.Add(this.radioButtonNewAsset);
-            this.groupBox1.Location = new System.Drawing.Point(25, 438);
+            this.groupBox1.Location = new System.Drawing.Point(29, 401);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(735, 77);
+            this.groupBox1.Size = new System.Drawing.Size(726, 89);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Copy to Azure Media Services";
@@ -107,9 +107,9 @@
             this.labelSelectedAssetWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelSelectedAssetWarning.AutoSize = true;
             this.labelSelectedAssetWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelSelectedAssetWarning.Location = new System.Drawing.Point(475, 45);
+            this.labelSelectedAssetWarning.Location = new System.Drawing.Point(554, 52);
             this.labelSelectedAssetWarning.Name = "labelSelectedAssetWarning";
-            this.labelSelectedAssetWarning.Size = new System.Drawing.Size(47, 13);
+            this.labelSelectedAssetWarning.Size = new System.Drawing.Size(52, 15);
             this.labelSelectedAssetWarning.TabIndex = 45;
             this.labelSelectedAssetWarning.Text = "Warning";
             // 
@@ -117,29 +117,29 @@
             // 
             this.labelExistingAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelExistingAssetName.AutoSize = true;
-            this.labelExistingAssetName.Location = new System.Drawing.Point(146, 45);
+            this.labelExistingAssetName.Location = new System.Drawing.Point(170, 52);
             this.labelExistingAssetName.Name = "labelExistingAssetName";
-            this.labelExistingAssetName.Size = new System.Drawing.Size(58, 13);
+            this.labelExistingAssetName.Size = new System.Drawing.Size(63, 15);
             this.labelExistingAssetName.TabIndex = 18;
             this.labelExistingAssetName.Text = "assetname";
             // 
             // textBoxNewAssetName
             // 
             this.textBoxNewAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxNewAssetName.Location = new System.Drawing.Point(149, 19);
+            this.textBoxNewAssetName.Location = new System.Drawing.Point(174, 22);
             this.textBoxNewAssetName.Name = "textBoxNewAssetName";
-            this.textBoxNewAssetName.Size = new System.Drawing.Size(317, 20);
+            this.textBoxNewAssetName.Size = new System.Drawing.Size(369, 23);
             this.textBoxNewAssetName.TabIndex = 13;
             // 
             // radioButtonSelectedAsset
             // 
             this.radioButtonSelectedAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonSelectedAsset.AutoSize = true;
-            this.radioButtonSelectedAsset.Location = new System.Drawing.Point(23, 43);
+            this.radioButtonSelectedAsset.Location = new System.Drawing.Point(27, 51);
             this.radioButtonSelectedAsset.Name = "radioButtonSelectedAsset";
-            this.radioButtonSelectedAsset.Size = new System.Drawing.Size(129, 17);
+            this.radioButtonSelectedAsset.Size = new System.Drawing.Size(137, 19);
             this.radioButtonSelectedAsset.TabIndex = 1;
-            this.radioButtonSelectedAsset.Text = "to the selected asset: ";
+            this.radioButtonSelectedAsset.Text = "to the selected asset :";
             this.radioButtonSelectedAsset.UseVisualStyleBackColor = true;
             this.radioButtonSelectedAsset.CheckedChanged += new System.EventHandler(this.radioButtonSelectedAsset_CheckedChanged);
             // 
@@ -148,12 +148,12 @@
             this.radioButtonNewAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.radioButtonNewAsset.AutoSize = true;
             this.radioButtonNewAsset.Checked = true;
-            this.radioButtonNewAsset.Location = new System.Drawing.Point(23, 19);
+            this.radioButtonNewAsset.Location = new System.Drawing.Point(27, 23);
             this.radioButtonNewAsset.Name = "radioButtonNewAsset";
-            this.radioButtonNewAsset.Size = new System.Drawing.Size(99, 17);
+            this.radioButtonNewAsset.Size = new System.Drawing.Size(105, 19);
             this.radioButtonNewAsset.TabIndex = 0;
             this.radioButtonNewAsset.TabStop = true;
-            this.radioButtonNewAsset.Text = "as a new asset:";
+            this.radioButtonNewAsset.Text = "as a new asset :";
             this.radioButtonNewAsset.UseVisualStyleBackColor = true;
             this.radioButtonNewAsset.CheckedChanged += new System.EventHandler(this.radioButtonNewAsset_CheckedChanged);
             // 
@@ -169,9 +169,9 @@
             this.groupBox2.Controls.Add(this.textBoxStorageName);
             this.groupBox2.Controls.Add(this.radioButtonOtherStorage);
             this.groupBox2.Controls.Add(this.radioButtonStorageDefault);
-            this.groupBox2.Location = new System.Drawing.Point(25, 12);
+            this.groupBox2.Location = new System.Drawing.Point(29, 14);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(735, 107);
+            this.groupBox2.Size = new System.Drawing.Size(726, 123);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Azure Storage Source";
@@ -179,9 +179,9 @@
             // labelDefaultStorage
             // 
             this.labelDefaultStorage.AutoSize = true;
-            this.labelDefaultStorage.Location = new System.Drawing.Point(262, 27);
+            this.labelDefaultStorage.Location = new System.Drawing.Point(306, 31);
             this.labelDefaultStorage.Name = "labelDefaultStorage";
-            this.labelDefaultStorage.Size = new System.Drawing.Size(68, 13);
+            this.labelDefaultStorage.Size = new System.Drawing.Size(76, 15);
             this.labelDefaultStorage.TabIndex = 17;
             this.labelDefaultStorage.Text = "storagename";
             // 
@@ -189,9 +189,9 @@
             // 
             this.buttonConnect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConnect.Enabled = false;
-            this.buttonConnect.Location = new System.Drawing.Point(654, 50);
+            this.buttonConnect.Location = new System.Drawing.Point(625, 55);
             this.buttonConnect.Name = "buttonConnect";
-            this.buttonConnect.Size = new System.Drawing.Size(75, 23);
+            this.buttonConnect.Size = new System.Drawing.Size(87, 27);
             this.buttonConnect.TabIndex = 16;
             this.buttonConnect.Text = "Connect";
             this.buttonConnect.UseVisualStyleBackColor = true;
@@ -200,29 +200,29 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(189, 79);
+            this.label2.Location = new System.Drawing.Point(210, 91);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(65, 13);
+            this.label2.Size = new System.Drawing.Size(70, 15);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Access key:";
+            this.label2.Text = "Access key :";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(180, 52);
+            this.label1.Location = new System.Drawing.Point(210, 60);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.Size = new System.Drawing.Size(91, 15);
             this.label1.TabIndex = 14;
-            this.label1.Text = "Account name:";
+            this.label1.Text = "Account name :";
             // 
             // textBoxStorageKey
             // 
             this.textBoxStorageKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxStorageKey.Enabled = false;
-            this.textBoxStorageKey.Location = new System.Drawing.Point(262, 76);
+            this.textBoxStorageKey.Location = new System.Drawing.Point(306, 88);
             this.textBoxStorageKey.Name = "textBoxStorageKey";
-            this.textBoxStorageKey.Size = new System.Drawing.Size(374, 20);
+            this.textBoxStorageKey.Size = new System.Drawing.Size(305, 23);
             this.textBoxStorageKey.TabIndex = 13;
             // 
             // textBoxStorageName
@@ -230,17 +230,17 @@
             this.textBoxStorageName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxStorageName.Enabled = false;
-            this.textBoxStorageName.Location = new System.Drawing.Point(262, 50);
+            this.textBoxStorageName.Location = new System.Drawing.Point(306, 58);
             this.textBoxStorageName.Name = "textBoxStorageName";
-            this.textBoxStorageName.Size = new System.Drawing.Size(374, 20);
+            this.textBoxStorageName.Size = new System.Drawing.Size(305, 23);
             this.textBoxStorageName.TabIndex = 12;
             // 
             // radioButtonOtherStorage
             // 
             this.radioButtonOtherStorage.AutoSize = true;
-            this.radioButtonOtherStorage.Location = new System.Drawing.Point(23, 50);
+            this.radioButtonOtherStorage.Location = new System.Drawing.Point(27, 58);
             this.radioButtonOtherStorage.Name = "radioButtonOtherStorage";
-            this.radioButtonOtherStorage.Size = new System.Drawing.Size(132, 17);
+            this.radioButtonOtherStorage.Size = new System.Drawing.Size(144, 19);
             this.radioButtonOtherStorage.TabIndex = 11;
             this.radioButtonOtherStorage.Text = "Another Azure Storage";
             this.radioButtonOtherStorage.UseVisualStyleBackColor = true;
@@ -250,9 +250,9 @@
             // 
             this.radioButtonStorageDefault.AutoSize = true;
             this.radioButtonStorageDefault.Checked = true;
-            this.radioButtonStorageDefault.Location = new System.Drawing.Point(23, 27);
+            this.radioButtonStorageDefault.Location = new System.Drawing.Point(27, 31);
             this.radioButtonStorageDefault.Name = "radioButtonStorageDefault";
-            this.radioButtonStorageDefault.Size = new System.Drawing.Size(203, 17);
+            this.radioButtonStorageDefault.Size = new System.Drawing.Size(219, 19);
             this.radioButtonStorageDefault.TabIndex = 10;
             this.radioButtonStorageDefault.TabStop = true;
             this.radioButtonStorageDefault.Text = "Default Azure Media Services storage";
@@ -262,18 +262,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(22, 134);
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(26, 155);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(57, 13);
+            this.label3.Size = new System.Drawing.Size(63, 15);
             this.label3.TabIndex = 18;
             this.label3.Text = "Containers";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(438, 134);
+            this.label4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(511, 155);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 13);
+            this.label4.Size = new System.Drawing.Size(30, 15);
             this.label4.TabIndex = 19;
             this.label4.Text = "Files";
             // 
@@ -288,9 +290,9 @@
             this.ListViewFilesSize});
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
-            this.listViewFiles.Location = new System.Drawing.Point(441, 150);
+            this.listViewFiles.Location = new System.Drawing.Point(514, 173);
             this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.Size = new System.Drawing.Size(313, 276);
+            this.listViewFiles.Size = new System.Drawing.Size(233, 214);
             this.listViewFiles.TabIndex = 20;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
@@ -318,10 +320,10 @@
             this.columnHeader2});
             this.listViewBlobs.FullRowSelect = true;
             this.listViewBlobs.HideSelection = false;
-            this.listViewBlobs.Location = new System.Drawing.Point(25, 150);
+            this.listViewBlobs.Location = new System.Drawing.Point(29, 173);
             this.listViewBlobs.MultiSelect = false;
             this.listViewBlobs.Name = "listViewBlobs";
-            this.listViewBlobs.Size = new System.Drawing.Size(410, 249);
+            this.listViewBlobs.Size = new System.Drawing.Size(478, 183);
             this.listViewBlobs.TabIndex = 21;
             this.listViewBlobs.UseCompatibleStateImageBehavior = false;
             this.listViewBlobs.View = System.Windows.Forms.View.Details;
@@ -339,9 +341,9 @@
             // textBoxSearch
             // 
             this.textBoxSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxSearch.Location = new System.Drawing.Point(72, 406);
+            this.textBoxSearch.Location = new System.Drawing.Point(84, 364);
             this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(363, 20);
+            this.textBoxSearch.Size = new System.Drawing.Size(423, 23);
             this.textBoxSearch.TabIndex = 22;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
@@ -349,11 +351,11 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(22, 413);
+            this.label5.Location = new System.Drawing.Point(26, 367);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(44, 13);
+            this.label5.Size = new System.Drawing.Size(48, 15);
             this.label5.TabIndex = 23;
-            this.label5.Text = "Search:";
+            this.label5.Text = "Search :";
             // 
             // panel1
             // 
@@ -362,17 +364,17 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonUpload);
             this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Location = new System.Drawing.Point(-2, 529);
+            this.panel1.Location = new System.Drawing.Point(-2, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(791, 48);
+            this.panel1.Size = new System.Drawing.Size(792, 55);
             this.panel1.TabIndex = 63;
             // 
             // ImportFromAzureStorage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 576);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.textBoxSearch);
@@ -382,6 +384,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ImportFromAzureStorage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Import from Azure Storage";

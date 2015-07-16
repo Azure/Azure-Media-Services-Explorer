@@ -54,7 +54,7 @@
             this.tableLayoutPanel.Controls.Add(this.labelCopyright, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.buttonLicTerms, 1, 6);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
+            this.tableLayoutPanel.Location = new System.Drawing.Point(10, 10);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
             this.tableLayoutPanel.RowCount = 7;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
@@ -64,17 +64,17 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 40F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(417, 265);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(487, 307);
             this.tableLayoutPanel.TabIndex = 0;
             // 
             // linkLabelWebSite
             // 
             this.linkLabelWebSite.AutoSize = true;
             this.linkLabelWebSite.LinkArea = new System.Windows.Forms.LinkArea(11, 18);
-            this.linkLabelWebSite.Location = new System.Drawing.Point(143, 130);
-            this.linkLabelWebSite.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+            this.linkLabelWebSite.Location = new System.Drawing.Point(167, 150);
+            this.linkLabelWebSite.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
             this.linkLabelWebSite.Name = "linkLabelWebSite";
-            this.linkLabelWebSite.Size = new System.Drawing.Size(153, 17);
+            this.linkLabelWebSite.Size = new System.Drawing.Size(167, 21);
             this.linkLabelWebSite.TabIndex = 31;
             this.linkLabelWebSite.TabStop = true;
             this.linkLabelWebSite.Text = "Web site : http://aka.ms/amse";
@@ -86,10 +86,10 @@
             // 
             this.linkLabelContact.AutoSize = true;
             this.linkLabelContact.LinkArea = new System.Windows.Forms.LinkArea(10, 21);
-            this.linkLabelContact.Location = new System.Drawing.Point(143, 104);
-            this.linkLabelContact.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
+            this.linkLabelContact.Location = new System.Drawing.Point(167, 120);
+            this.linkLabelContact.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
             this.linkLabelContact.Name = "linkLabelContact";
-            this.linkLabelContact.Size = new System.Drawing.Size(162, 17);
+            this.linkLabelContact.Size = new System.Drawing.Size(174, 21);
             this.linkLabelContact.TabIndex = 30;
             this.linkLabelContact.TabStop = true;
             this.linkLabelContact.Text = "Contact : amse@microsoft.com";
@@ -100,11 +100,11 @@
             // labelCompanyName
             // 
             this.labelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCompanyName.Location = new System.Drawing.Point(143, 78);
-            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelCompanyName.Location = new System.Drawing.Point(167, 90);
+            this.labelCompanyName.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
+            this.labelCompanyName.MaximumSize = new System.Drawing.Size(0, 20);
             this.labelCompanyName.Name = "labelCompanyName";
-            this.labelCompanyName.Size = new System.Drawing.Size(271, 17);
+            this.labelCompanyName.Size = new System.Drawing.Size(317, 20);
             this.labelCompanyName.TabIndex = 29;
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -117,7 +117,7 @@
             this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
             this.logoPictureBox.Name = "logoPictureBox";
             this.tableLayoutPanel.SetRowSpan(this.logoPictureBox, 6);
-            this.logoPictureBox.Size = new System.Drawing.Size(131, 230);
+            this.logoPictureBox.Size = new System.Drawing.Size(154, 266);
             this.logoPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.logoPictureBox.TabIndex = 12;
             this.logoPictureBox.TabStop = false;
@@ -125,11 +125,11 @@
             // labelProductName
             // 
             this.labelProductName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelProductName.Location = new System.Drawing.Point(143, 0);
-            this.labelProductName.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelProductName.Location = new System.Drawing.Point(167, 0);
+            this.labelProductName.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
+            this.labelProductName.MaximumSize = new System.Drawing.Size(0, 20);
             this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(271, 17);
+            this.labelProductName.Size = new System.Drawing.Size(317, 20);
             this.labelProductName.TabIndex = 19;
             this.labelProductName.Text = "Product Name";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -137,11 +137,11 @@
             // labelVersion
             // 
             this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelVersion.Location = new System.Drawing.Point(143, 26);
-            this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelVersion.Location = new System.Drawing.Point(167, 30);
+            this.labelVersion.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
+            this.labelVersion.MaximumSize = new System.Drawing.Size(0, 20);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(271, 17);
+            this.labelVersion.Size = new System.Drawing.Size(317, 20);
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -149,20 +149,20 @@
             // labelCopyright
             // 
             this.labelCopyright.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCopyright.Location = new System.Drawing.Point(143, 52);
-            this.labelCopyright.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
-            this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 17);
+            this.labelCopyright.Location = new System.Drawing.Point(167, 60);
+            this.labelCopyright.Margin = new System.Windows.Forms.Padding(7, 0, 3, 0);
+            this.labelCopyright.MaximumSize = new System.Drawing.Size(0, 20);
             this.labelCopyright.Name = "labelCopyright";
-            this.labelCopyright.Size = new System.Drawing.Size(271, 17);
+            this.labelCopyright.Size = new System.Drawing.Size(317, 20);
             this.labelCopyright.TabIndex = 21;
             this.labelCopyright.Text = "Copyright";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonLicTerms
             // 
-            this.buttonLicTerms.Location = new System.Drawing.Point(140, 239);
+            this.buttonLicTerms.Location = new System.Drawing.Point(163, 275);
             this.buttonLicTerms.Name = "buttonLicTerms";
-            this.buttonLicTerms.Size = new System.Drawing.Size(96, 22);
+            this.buttonLicTerms.Size = new System.Drawing.Size(112, 25);
             this.buttonLicTerms.TabIndex = 32;
             this.buttonLicTerms.Text = "License terms...";
             this.buttonLicTerms.UseVisualStyleBackColor = true;
@@ -170,16 +170,17 @@
             // 
             // AboutBox
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(435, 283);
+            this.ClientSize = new System.Drawing.Size(507, 327);
             this.Controls.Add(this.tableLayoutPanel);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBox";
-            this.Padding = new System.Windows.Forms.Padding(9);
+            this.Padding = new System.Windows.Forms.Padding(10, 10, 10, 10);
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

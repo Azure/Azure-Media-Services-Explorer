@@ -53,9 +53,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(486, 11);
+            this.buttonCancel.Location = new System.Drawing.Point(567, 13);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(92, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(107, 27);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -63,9 +63,9 @@
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(459, 40);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(535, 46);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(83, 25);
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(97, 29);
             this.buttongenerateContentKey.TabIndex = 40;
             this.buttongenerateContentKey.Text = "Generate";
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
@@ -75,18 +75,18 @@
             // 
             this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxcontentkey.Location = new System.Drawing.Point(9, 43);
+            this.textBoxcontentkey.Location = new System.Drawing.Point(10, 50);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
-            this.textBoxcontentkey.Size = new System.Drawing.Size(366, 20);
+            this.textBoxcontentkey.Size = new System.Drawing.Size(426, 23);
             this.textBoxcontentkey.TabIndex = 35;
             this.textBoxcontentkey.TextChanged += new System.EventHandler(this.textBoxcontentkey_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 27);
+            this.label4.Location = new System.Drawing.Point(7, 31);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.Size = new System.Drawing.Size(74, 15);
             this.label4.TabIndex = 34;
             this.label4.Text = "Content key:";
             // 
@@ -95,9 +95,9 @@
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(329, 11);
+            this.buttonOk.Location = new System.Drawing.Point(384, 13);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(151, 23);
+            this.buttonOk.Size = new System.Drawing.Size(176, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
             this.buttonOk.Text = "Next";
@@ -110,9 +110,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 615);
+            this.panel1.Location = new System.Drawing.Point(-1, 710);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(586, 48);
+            this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
             // 
             // radioButtonContentKeyBase64
@@ -121,9 +121,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyBase64.AutoSize = true;
             this.radioButtonContentKeyBase64.Checked = true;
-            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(8, 3);
+            this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(9, 3);
             this.radioButtonContentKeyBase64.Name = "radioButtonContentKeyBase64";
-            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonContentKeyBase64.TabIndex = 68;
             this.radioButtonContentKeyBase64.TabStop = true;
             this.radioButtonContentKeyBase64.Text = "Base64";
@@ -135,9 +135,9 @@
             this.radioButtonContentKeyHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyHex.AutoSize = true;
-            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(8, 25);
+            this.radioButtonContentKeyHex.Location = new System.Drawing.Point(9, 29);
             this.radioButtonContentKeyHex.Name = "radioButtonContentKeyHex";
-            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(44, 17);
+            this.radioButtonContentKeyHex.Size = new System.Drawing.Size(45, 19);
             this.radioButtonContentKeyHex.TabIndex = 69;
             this.radioButtonContentKeyHex.Text = "Hex";
             this.radioButtonContentKeyHex.UseVisualStyleBackColor = true;
@@ -147,9 +147,9 @@
             // 
             this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel2.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel2.Location = new System.Drawing.Point(381, 27);
+            this.panel2.Location = new System.Drawing.Point(444, 31);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(75, 48);
+            this.panel2.Size = new System.Drawing.Size(87, 55);
             this.panel2.TabIndex = 70;
             // 
             // groupBox2
@@ -159,9 +159,9 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
-            this.groupBox2.Location = new System.Drawing.Point(12, 99);
+            this.groupBox2.Location = new System.Drawing.Point(14, 114);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(552, 100);
+            this.groupBox2.Size = new System.Drawing.Size(644, 115);
             this.groupBox2.TabIndex = 73;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "AES Content key\'s generation";
@@ -169,9 +169,9 @@
             // label3
             // 
             this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label3.Location = new System.Drawing.Point(31, 25);
+            this.label3.Location = new System.Drawing.Point(36, 29);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(493, 19);
+            this.label3.Size = new System.Drawing.Size(575, 22);
             this.label3.TabIndex = 68;
             this.label3.Text = "Explorer will use the existing AES key attached to the asset. If there is none, a" +
     " key must be created :";
@@ -179,9 +179,9 @@
             // radioButtonKeySpecifiedByUser
             // 
             this.radioButtonKeySpecifiedByUser.AutoSize = true;
-            this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(34, 70);
+            this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(40, 81);
             this.radioButtonKeySpecifiedByUser.Name = "radioButtonKeySpecifiedByUser";
-            this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(124, 17);
+            this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(134, 19);
             this.radioButtonKeySpecifiedByUser.TabIndex = 1;
             this.radioButtonKeySpecifiedByUser.Text = "Specified by the user";
             this.radioButtonKeySpecifiedByUser.UseVisualStyleBackColor = true;
@@ -190,9 +190,9 @@
             // 
             this.radioButtonKeyRandomGeneration.AutoSize = true;
             this.radioButtonKeyRandomGeneration.Checked = true;
-            this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(34, 47);
+            this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(40, 54);
             this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
-            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(118, 17);
+            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(130, 19);
             this.radioButtonKeyRandomGeneration.TabIndex = 0;
             this.radioButtonKeyRandomGeneration.TabStop = true;
             this.radioButtonKeyRandomGeneration.Text = "Random generation";
@@ -208,9 +208,9 @@
             this.groupBoxCrypto.Controls.Add(this.textBoxcontentkey);
             this.groupBoxCrypto.Controls.Add(this.label4);
             this.groupBoxCrypto.Enabled = false;
-            this.groupBoxCrypto.Location = new System.Drawing.Point(12, 218);
+            this.groupBoxCrypto.Location = new System.Drawing.Point(14, 252);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(552, 173);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(644, 200);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
@@ -218,23 +218,24 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(22, 18);
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(26, 21);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 40);
+            this.label1.Size = new System.Drawing.Size(153, 42);
             this.label1.TabIndex = 75;
             this.label1.Text = "Step 2\r\nSpecify the AES key";
             // 
             // AddDynamicEncryptionFrame2_AESKeyConfig
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AddDynamicEncryptionFrame2_AESKeyConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 2";

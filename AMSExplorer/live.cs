@@ -213,7 +213,7 @@ namespace AMSExplorer
             this.Columns["InputUrl"].HeaderText = "Primary Input Url";
             this.Columns["InputUrl"].Width = 140;
             this.Columns["InputProtocol"].HeaderText = "Input Protocol (input nb)";
-            this.Columns["InputProtocol"].Width = 160;
+            this.Columns["InputProtocol"].Width = 180;
             this.Columns["PreviewUrl"].Width = 120;
 
             this.Columns[_encoded].DisplayIndex = this.ColumnCount - 3;

@@ -102,7 +102,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainerBox.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.splitContainerBox.Location = new System.Drawing.Point(16, 32);
+            this.splitContainerBox.Location = new System.Drawing.Point(19, 37);
             this.splitContainerBox.Name = "splitContainerBox";
             // 
             // splitContainerBox.Panel1
@@ -115,8 +115,9 @@
             this.splitContainerBox.Panel2.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainerBox.Panel2.Controls.Add(this.groupBox1);
             this.splitContainerBox.Panel2.Controls.Add(this.groupBox2);
-            this.splitContainerBox.Size = new System.Drawing.Size(756, 466);
-            this.splitContainerBox.SplitterDistance = 250;
+            this.splitContainerBox.Size = new System.Drawing.Size(882, 538);
+            this.splitContainerBox.SplitterDistance = 291;
+            this.splitContainerBox.SplitterWidth = 5;
             this.splitContainerBox.TabIndex = 3;
             // 
             // splitContainerPreviews
@@ -140,16 +141,17 @@
             this.splitContainerPreviews.Panel2.Controls.Add(this.checkBoxPreviewSlate);
             this.splitContainerPreviews.Panel2.Controls.Add(this.labelSlatePreviewInfo);
             this.splitContainerPreviews.Panel2.Controls.Add(this.pictureBoxPreviewSlate);
-            this.splitContainerPreviews.Size = new System.Drawing.Size(250, 466);
-            this.splitContainerPreviews.SplitterDistance = 283;
+            this.splitContainerPreviews.Size = new System.Drawing.Size(291, 538);
+            this.splitContainerPreviews.SplitterDistance = 326;
+            this.splitContainerPreviews.SplitterWidth = 5;
             this.splitContainerPreviews.TabIndex = 61;
             // 
             // checkBoxPreviewStream
             // 
             this.checkBoxPreviewStream.AutoSize = true;
-            this.checkBoxPreviewStream.Location = new System.Drawing.Point(6, 3);
+            this.checkBoxPreviewStream.Location = new System.Drawing.Point(7, 3);
             this.checkBoxPreviewStream.Name = "checkBoxPreviewStream";
-            this.checkBoxPreviewStream.Size = new System.Drawing.Size(134, 17);
+            this.checkBoxPreviewStream.Size = new System.Drawing.Size(147, 19);
             this.checkBoxPreviewStream.TabIndex = 3;
             this.checkBoxPreviewStream.Text = "Display preview stream";
             this.checkBoxPreviewStream.UseVisualStyleBackColor = true;
@@ -160,19 +162,19 @@
             this.webBrowserPreview2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webBrowserPreview2.Location = new System.Drawing.Point(6, 26);
-            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserPreview2.Location = new System.Drawing.Point(7, 30);
+            this.webBrowserPreview2.MinimumSize = new System.Drawing.Size(23, 23);
             this.webBrowserPreview2.Name = "webBrowserPreview2";
-            this.webBrowserPreview2.Size = new System.Drawing.Size(241, 254);
+            this.webBrowserPreview2.Size = new System.Drawing.Size(280, 292);
             this.webBrowserPreview2.TabIndex = 2;
             this.webBrowserPreview2.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserPreview2_DocumentCompleted);
             // 
             // checkBoxPreviewSlate
             // 
             this.checkBoxPreviewSlate.AutoSize = true;
-            this.checkBoxPreviewSlate.Location = new System.Drawing.Point(6, 3);
+            this.checkBoxPreviewSlate.Location = new System.Drawing.Point(7, 3);
             this.checkBoxPreviewSlate.Name = "checkBoxPreviewSlate";
-            this.checkBoxPreviewSlate.Size = new System.Drawing.Size(128, 17);
+            this.checkBoxPreviewSlate.Size = new System.Drawing.Size(137, 19);
             this.checkBoxPreviewSlate.TabIndex = 5;
             this.checkBoxPreviewSlate.Text = "Display selected slate";
             this.checkBoxPreviewSlate.UseVisualStyleBackColor = true;
@@ -182,10 +184,10 @@
             // 
             this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 162);
+            this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 187);
             this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
-            this.labelSlatePreviewInfo.Size = new System.Drawing.Size(248, 14);
+            this.labelSlatePreviewInfo.Size = new System.Drawing.Size(288, 16);
             this.labelSlatePreviewInfo.TabIndex = 60;
             this.labelSlatePreviewInfo.Text = "Resolution : {0}x{1}, Aspect Ratio : {2:0.000}";
             this.labelSlatePreviewInfo.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -196,9 +198,9 @@
             this.pictureBoxPreviewSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(6, 20);
+            this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(7, 23);
             this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
-            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(241, 139);
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(280, 160);
             this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPreviewSlate.TabIndex = 4;
             this.pictureBoxPreviewSlate.TabStop = false;
@@ -215,20 +217,20 @@
             this.groupBox1.Controls.Add(this.textBoxADSignalDuration);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxCueId);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(8, 3);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(9, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(487, 126);
+            this.groupBox1.Size = new System.Drawing.Size(568, 145);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advertising";
             // 
             // buttongenerateContentKey
             // 
-            this.buttongenerateContentKey.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(150, 38);
+            this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(175, 44);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(65, 23);
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(76, 27);
             this.buttongenerateContentKey.TabIndex = 59;
             this.buttongenerateContentKey.Text = "Generate";
             this.toolTip1.SetToolTip(this.buttongenerateContentKey, "Generates another random integer");
@@ -238,12 +240,12 @@
             // buttonInsertAD
             // 
             this.buttonInsertAD.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertAD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInsertAD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAD.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonInsertAD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAD.Location = new System.Drawing.Point(290, 58);
+            this.buttonInsertAD.Location = new System.Drawing.Point(338, 67);
             this.buttonInsertAD.Name = "buttonInsertAD";
-            this.buttonInsertAD.Size = new System.Drawing.Size(182, 23);
+            this.buttonInsertAD.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAD.TabIndex = 57;
             this.buttonInsertAD.Text = "Insert AD";
             this.toolTip1.SetToolTip(this.buttonInsertAD, "Insert an ad in the live stream");
@@ -253,12 +255,12 @@
             // buttonInsertAdAndSlate
             // 
             this.buttonInsertAdAndSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAdAndSlate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonInsertAdAndSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(290, 87);
+            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(338, 100);
             this.buttonInsertAdAndSlate.Name = "buttonInsertAdAndSlate";
-            this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(182, 23);
+            this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAdAndSlate.TabIndex = 56;
             this.buttonInsertAdAndSlate.Text = "Insert AD and default Slate";
             this.toolTip1.SetToolTip(this.buttonInsertAdAndSlate, "Insert an ad and the default slate as defined in the channel (asset in blue)");
@@ -268,19 +270,19 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(13, 74);
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(15, 85);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(115, 13);
+            this.label3.Size = new System.Drawing.Size(128, 15);
             this.label3.TabIndex = 55;
             this.label3.Text = "AD Signal duration (s) :";
             // 
             // textBoxADSignalDuration
             // 
-            this.textBoxADSignalDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxADSignalDuration.Location = new System.Drawing.Point(13, 90);
+            this.textBoxADSignalDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxADSignalDuration.Location = new System.Drawing.Point(15, 104);
             this.textBoxADSignalDuration.Name = "textBoxADSignalDuration";
-            this.textBoxADSignalDuration.Size = new System.Drawing.Size(134, 20);
+            this.textBoxADSignalDuration.Size = new System.Drawing.Size(156, 23);
             this.textBoxADSignalDuration.TabIndex = 54;
             this.textBoxADSignalDuration.Text = "30";
             this.toolTip1.SetToolTip(this.textBoxADSignalDuration, "Ad duration in seconds (decimal is supported)");
@@ -289,19 +291,19 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 24);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(15, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 13);
+            this.label1.Size = new System.Drawing.Size(48, 15);
             this.label1.TabIndex = 53;
             this.label1.Text = "Cue ID :";
             // 
             // textBoxCueId
             // 
-            this.textBoxCueId.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCueId.Location = new System.Drawing.Point(13, 40);
+            this.textBoxCueId.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCueId.Location = new System.Drawing.Point(15, 46);
             this.textBoxCueId.Name = "textBoxCueId";
-            this.textBoxCueId.Size = new System.Drawing.Size(131, 20);
+            this.textBoxCueId.Size = new System.Drawing.Size(152, 23);
             this.textBoxCueId.TabIndex = 52;
             this.toolTip1.SetToolTip(this.textBoxCueId, "An integer that identifies the ad");
             this.textBoxCueId.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxCueId_Validating);
@@ -321,10 +323,10 @@
             this.groupBox2.Controls.Add(this.buttonShowSLate);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.textBoxSlateDuration);
-            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(8, 145);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.Location = new System.Drawing.Point(9, 167);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(487, 318);
+            this.groupBox2.Size = new System.Drawing.Size(568, 367);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
@@ -332,44 +334,44 @@
             // label15
             // 
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(25, 230);
+            this.label15.Location = new System.Drawing.Point(29, 265);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(447, 13);
+            this.label15.Size = new System.Drawing.Size(521, 15);
             this.label15.TabIndex = 84;
-            this.label15.Text = "Requirements: JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
+            this.label15.Text = "Requirements : JPG file, 16:9 aspect ratio, 1920x1080 max and 3 MB max";
             this.label15.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label8
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(10, 207);
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label8.Location = new System.Drawing.Point(12, 239);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(108, 13);
+            this.label8.Size = new System.Drawing.Size(121, 15);
             this.label8.TabIndex = 83;
-            this.label8.Text = "Search in name or Id:";
+            this.label8.Text = "Search in name or Id :";
             this.label8.Click += new System.EventHandler(this.label8_Click);
             // 
             // textBoxJPGSearch
             // 
             this.textBoxJPGSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJPGSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxJPGSearch.Location = new System.Drawing.Point(124, 204);
+            this.textBoxJPGSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxJPGSearch.Location = new System.Drawing.Point(145, 235);
             this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.Size = new System.Drawing.Size(160, 20);
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(186, 23);
             this.textBoxJPGSearch.TabIndex = 82;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(290, 204);
+            this.progressBarUpload.Location = new System.Drawing.Point(338, 235);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(84, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(98, 27);
             this.progressBarUpload.TabIndex = 81;
             this.progressBarUpload.Visible = false;
             this.progressBarUpload.Click += new System.EventHandler(this.progressBarUpload_Click);
@@ -377,10 +379,10 @@
             // buttonUploadSlate
             // 
             this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUploadSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUploadSlate.Location = new System.Drawing.Point(380, 204);
+            this.buttonUploadSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttonUploadSlate.Location = new System.Drawing.Point(443, 235);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
-            this.buttonUploadSlate.Size = new System.Drawing.Size(92, 23);
+            this.buttonUploadSlate.Size = new System.Drawing.Size(107, 27);
             this.buttonUploadSlate.TabIndex = 80;
             this.buttonUploadSlate.Text = "Upload a file...";
             this.toolTip1.SetToolTip(this.buttonUploadSlate, "Upload a new slate image");
@@ -392,13 +394,13 @@
             this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewJPG1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.listViewJPG1.FullRowSelect = true;
             this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(13, 24);
+            this.listViewJPG1.Location = new System.Drawing.Point(15, 28);
             this.listViewJPG1.MultiSelect = false;
             this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(459, 174);
+            this.listViewJPG1.Size = new System.Drawing.Size(535, 200);
             this.listViewJPG1.TabIndex = 61;
             this.listViewJPG1.Tag = -1;
             this.listViewJPG1.UseCompatibleStateImageBehavior = false;
@@ -408,12 +410,12 @@
             // buttonHideSlate
             // 
             this.buttonHideSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHideSlate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonHideSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonHideSlate.Image = global::AMSExplorer.Bitmaps.cancel;
             this.buttonHideSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHideSlate.Location = new System.Drawing.Point(290, 289);
+            this.buttonHideSlate.Location = new System.Drawing.Point(338, 333);
             this.buttonHideSlate.Name = "buttonHideSlate";
-            this.buttonHideSlate.Size = new System.Drawing.Size(182, 23);
+            this.buttonHideSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonHideSlate.TabIndex = 59;
             this.buttonHideSlate.Text = "Hide Slate";
             this.toolTip1.SetToolTip(this.buttonHideSlate, "Hide the current slate now");
@@ -423,12 +425,12 @@
             // buttonShowSLate
             // 
             this.buttonShowSLate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonShowSLate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonShowSLate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonShowSLate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonShowSLate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonShowSLate.Location = new System.Drawing.Point(290, 260);
+            this.buttonShowSLate.Location = new System.Drawing.Point(338, 300);
             this.buttonShowSLate.Name = "buttonShowSLate";
-            this.buttonShowSLate.Size = new System.Drawing.Size(182, 23);
+            this.buttonShowSLate.Size = new System.Drawing.Size(212, 27);
             this.buttonShowSLate.TabIndex = 58;
             this.buttonShowSLate.Text = "Show Slate";
             this.toolTip1.SetToolTip(this.buttonShowSLate, "Show the selected slate now");
@@ -439,20 +441,20 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 276);
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label4.Location = new System.Drawing.Point(15, 318);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 13);
+            this.label4.Size = new System.Drawing.Size(102, 15);
             this.label4.TabIndex = 59;
             this.label4.Text = "Slate duration (s) :";
             // 
             // textBoxSlateDuration
             // 
             this.textBoxSlateDuration.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.textBoxSlateDuration.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSlateDuration.Location = new System.Drawing.Point(13, 292);
+            this.textBoxSlateDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxSlateDuration.Location = new System.Drawing.Point(15, 337);
             this.textBoxSlateDuration.Name = "textBoxSlateDuration";
-            this.textBoxSlateDuration.Size = new System.Drawing.Size(121, 20);
+            this.textBoxSlateDuration.Size = new System.Drawing.Size(140, 23);
             this.textBoxSlateDuration.TabIndex = 58;
             this.textBoxSlateDuration.Text = "30";
             this.toolTip1.SetToolTip(this.textBoxSlateDuration, "Slate duration in seconds (decimal is supported)");
@@ -462,10 +464,10 @@
             // 
             this.labelChannelName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelChannelName.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelChannelName.Location = new System.Drawing.Point(18, 9);
+            this.labelChannelName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelChannelName.Location = new System.Drawing.Point(21, 10);
             this.labelChannelName.Name = "labelChannelName";
-            this.labelChannelName.Size = new System.Drawing.Size(744, 20);
+            this.labelChannelName.Size = new System.Drawing.Size(868, 23);
             this.labelChannelName.TabIndex = 37;
             this.labelChannelName.Text = "Channel : ";
             // 
@@ -473,9 +475,9 @@
             // 
             this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonDisregard.Location = new System.Drawing.Point(656, 10);
+            this.buttonDisregard.Location = new System.Drawing.Point(765, 12);
             this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(106, 23);
+            this.buttonDisregard.Size = new System.Drawing.Size(124, 27);
             this.buttonDisregard.TabIndex = 41;
             this.buttonDisregard.Text = "Close";
             this.buttonDisregard.UseVisualStyleBackColor = true;
@@ -487,9 +489,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonDisregard);
-            this.panel1.Location = new System.Drawing.Point(-2, 516);
+            this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(790, 48);
+            this.panel1.Size = new System.Drawing.Size(922, 55);
             this.panel1.TabIndex = 58;
             // 
             // openFileDialogSlate
@@ -502,13 +504,14 @@
             // 
             // ChannelAdSlateControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.splitContainerBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "ChannelAdSlateControl";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Advertising and Slate Control";

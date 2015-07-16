@@ -41,9 +41,9 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(262, 13);
+            this.buttonOk.Location = new System.Drawing.Point(306, 15);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(113, 23);
+            this.buttonOk.Size = new System.Drawing.Size(132, 27);
             this.buttonOk.TabIndex = 10;
             this.buttonOk.Text = "Delete Program(s)";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -52,9 +52,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(381, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(444, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 11;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -62,18 +62,18 @@
             // labelmain
             // 
             this.labelmain.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.labelmain.Location = new System.Drawing.Point(27, 19);
+            this.labelmain.Location = new System.Drawing.Point(31, 22);
             this.labelmain.Name = "labelmain";
-            this.labelmain.Size = new System.Drawing.Size(436, 33);
+            this.labelmain.Size = new System.Drawing.Size(509, 38);
             this.labelmain.TabIndex = 48;
             this.labelmain.Text = "text";
             // 
             // checkBoxDeleteAsset
             // 
             this.checkBoxDeleteAsset.AutoSize = true;
-            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(30, 68);
+            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(35, 78);
             this.checkBoxDeleteAsset.Name = "checkBoxDeleteAsset";
-            this.checkBoxDeleteAsset.Size = new System.Drawing.Size(149, 17);
+            this.checkBoxDeleteAsset.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteAsset.TabIndex = 49;
             this.checkBoxDeleteAsset.Text = "Delete the related asset(s)";
             this.checkBoxDeleteAsset.UseVisualStyleBackColor = true;
@@ -81,9 +81,9 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(185, 68);
+            this.label5.Location = new System.Drawing.Point(216, 78);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(166, 17);
+            this.label5.Size = new System.Drawing.Size(194, 20);
             this.label5.TabIndex = 50;
             this.label5.Text = "(user data will be deleted)";
             // 
@@ -94,21 +94,22 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 116);
+            this.panel1.Location = new System.Drawing.Point(-2, 134);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(494, 48);
+            this.panel1.Size = new System.Drawing.Size(576, 55);
             this.panel1.TabIndex = 63;
             // 
             // DeleteProgramChannel
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(490, 164);
+            this.ClientSize = new System.Drawing.Size(572, 189);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxDeleteAsset);
             this.Controls.Add(this.labelmain);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "DeleteProgramChannel";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Delete program(s)";
