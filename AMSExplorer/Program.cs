@@ -1062,7 +1062,7 @@ namespace AMSExplorer
             var ismFile = asset.AssetFiles.AsEnumerable().Where(f => f.Name.EndsWith(".ism")).OrderByDescending(f => f.IsPrimary).FirstOrDefault();
             if (ismFile != null)
             {
-                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow).OrderByDescending(l=>l.ExpirationDateTime);
+                var locators = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin && l.ExpirationDateTime > DateTime.UtcNow).OrderByDescending(l => l.ExpirationDateTime);
 
                 var template = new UriTemplate("{contentAccessComponent}/{ismFileName}/manifest");
                 ValidURIs = locators.SelectMany(l =>
@@ -1429,6 +1429,11 @@ namespace AMSExplorer
                     response.TimeScale = long.Parse(timescalefrommanifest);
 
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
+
+                    if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
+                    {
+                        timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
+                    }
 
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
                     {

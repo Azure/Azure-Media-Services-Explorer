@@ -53,7 +53,7 @@ namespace AMSExplorer
 
         private void ExportToExcel_Load(object sender, EventArgs e)
         {
-            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}.xls", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
+            textBoxExcelFile.Text = string.Format("{0}\\Export-{1}-{2}.xlsx", Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), _context.Credentials.ClientId, DateTime.Now.ToString("dMMMyyyy"));
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -136,8 +136,8 @@ namespace AMSExplorer
             chartRange.FormulaR1C1 = "Assets information";
             //chartRange.HorizontalAlignment = 3;
             chartRange.VerticalAlignment = 3;
-            chartRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
-            chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            //chartRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            chartRange.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
             chartRange.Font.Size = 20;
 
             xlWorkSheet.get_Range("a2", "f2").Merge(false);
@@ -145,10 +145,9 @@ namespace AMSExplorer
             chartRange2.FormulaR1C1 = string.Format("Exported with Azure Media Services Explorer on {0}, media account '{1}'", DateTime.Now.ToString(), _context.Credentials.ClientId);
             //chartRange2.HorizontalAlignment = 3;
             chartRange2.VerticalAlignment = 3;
-            chartRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
-            chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Red);
+            //chartRange2.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.Yellow);
+            chartRange2.Font.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkBlue);
             chartRange2.Font.Size = 12;
-
 
             int row = 4;
             xlWorkSheet.Cells[row, 1] = "Asset Name";
@@ -259,7 +258,7 @@ namespace AMSExplorer
 
             try
             {
-                xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                 xlWorkBook.Close(true, misValue, misValue);
                 xlApp.Quit();
                 releaseObject(xlWorkSheet);

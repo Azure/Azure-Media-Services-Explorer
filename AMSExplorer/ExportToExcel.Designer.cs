@@ -31,6 +31,8 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.radioButtonDetailledMode = new System.Windows.Forms.RadioButton();
             this.radioButtonNormalMode = new System.Windows.Forms.RadioButton();
             this.labelAssetName = new System.Windows.Forms.Label();
@@ -41,14 +43,12 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBoxOpenFileAfterExport = new System.Windows.Forms.CheckBox();
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxExcelFile = new System.Windows.Forms.TextBox();
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.checkBoxOpenFileAfterExport = new System.Windows.Forms.CheckBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -92,6 +92,24 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // label1
+            // 
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(152, 49);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(386, 18);
+            this.label1.TabIndex = 70;
+            this.label1.Text = "+ locators count, expiration date,  storage account, dyn enc....";
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(152, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(331, 18);
+            this.label8.TabIndex = 69;
+            this.label8.Text = "Name, ID, Last modified, Type, Size, URL";
             // 
             // radioButtonDetailledMode
             // 
@@ -183,7 +201,7 @@
             // 
             // saveFileDialog1
             // 
-            this.saveFileDialog1.Filter = "Excel files|*.xls|All files|*.*";
+            this.saveFileDialog1.Filter = "Excel files|*.xlsx|All files|*.*";
             // 
             // groupBox1
             // 
@@ -198,6 +216,18 @@
             this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Export to file";
+            // 
+            // checkBoxOpenFileAfterExport
+            // 
+            this.checkBoxOpenFileAfterExport.AutoSize = true;
+            this.checkBoxOpenFileAfterExport.Checked = true;
+            this.checkBoxOpenFileAfterExport.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOpenFileAfterExport.Location = new System.Drawing.Point(16, 75);
+            this.checkBoxOpenFileAfterExport.Name = "checkBoxOpenFileAfterExport";
+            this.checkBoxOpenFileAfterExport.Size = new System.Drawing.Size(129, 19);
+            this.checkBoxOpenFileAfterExport.TabIndex = 2;
+            this.checkBoxOpenFileAfterExport.Text = "Open file with Excel";
+            this.checkBoxOpenFileAfterExport.UseVisualStyleBackColor = true;
             // 
             // buttonBrowseFile
             // 
@@ -242,36 +272,6 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // checkBoxOpenFileAfterExport
-            // 
-            this.checkBoxOpenFileAfterExport.AutoSize = true;
-            this.checkBoxOpenFileAfterExport.Checked = true;
-            this.checkBoxOpenFileAfterExport.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOpenFileAfterExport.Location = new System.Drawing.Point(16, 75);
-            this.checkBoxOpenFileAfterExport.Name = "checkBoxOpenFileAfterExport";
-            this.checkBoxOpenFileAfterExport.Size = new System.Drawing.Size(129, 19);
-            this.checkBoxOpenFileAfterExport.TabIndex = 2;
-            this.checkBoxOpenFileAfterExport.Text = "Open file with Excel";
-            this.checkBoxOpenFileAfterExport.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(152, 23);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(331, 18);
-            this.label8.TabIndex = 69;
-            this.label8.Text = "Name, ID, Last modified, Type, Size, URL";
-            // 
-            // label1
-            // 
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Location = new System.Drawing.Point(152, 49);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(386, 18);
-            this.label1.TabIndex = 70;
-            this.label1.Text = "+ locators count, expiration date,  storage account, dyn enc....";
             // 
             // ExportToExcel
             // 
