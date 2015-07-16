@@ -1041,11 +1041,10 @@ namespace AMSExplorer
             bool multipleassets = SelectedAssets.Count > 1;
             bool Error = false;
 
-            string labeldb = "Starting download of " + SelectedAssets.FirstOrDefault().Name + " to " + folder as string + Constants.endline;
-            if (multipleassets)
-            {
-                labeldb = "Starting download of files of " + SelectedAssets.Count + " assets to " + folder as string + Constants.endline;
-            }
+            string labeldb = (multipleassets) ?
+                string.Format("Starting download of files of {1} assets to {1}", SelectedAssets.Count, folder as string) :
+                string.Format("Starting download of '{0}' to {1}", SelectedAssets.FirstOrDefault().Name, folder as string);
+
             TextBoxLogWriteLine(labeldb);
             foreach (IAsset mediaAsset in SelectedAssets)
             {
@@ -1077,7 +1076,6 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Download finished.");
                 DoGridTransferDeclareCompleted(index, folder.ToString());
-
             }
         }
 
@@ -1086,7 +1084,7 @@ namespace AMSExplorer
             // If download is in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
 
-            string labeldb = "Starting download of " + File.Name + " of asset " + asset.Name + " to " + folder as string + Constants.endline;
+            string labeldb = string.Format("Starting download of '{0}' of asset '{1}' to {2}", File.Name, asset.Name, folder as string);
             ILocator sasLocator = null;
             var locatorTask = Task.Factory.StartNew(() =>
             {
@@ -10545,13 +10543,13 @@ namespace AMSExplorer
             DoSubClip();
         }
 
-   
+
         private void DoExportMetadata()
         {
             ExportToExcel form = new ExportToExcel(_context, ReturnSelectedAssets(), dataGridViewAssetsV.assets);
             if (form.ShowDialog() == DialogResult.OK)
             {
-              
+
             }
         }
 
