@@ -1409,6 +1409,7 @@ namespace AMSExplorer
 
 
         static public ManifestTimingData GetManifestTimingData(IAsset asset)
+        // Parse the manifest and get data from it
         {
             ManifestTimingData response = new ManifestTimingData() { IsLive = false, Error = false, TimestampOffset = 0 };
 
@@ -1425,23 +1426,32 @@ namespace AMSExplorer
                 {
                     XDocument manifest = XDocument.Load(myuri.ToString());
                     var smoothmedia = manifest.Element("SmoothStreamingMedia");
-                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    response.TimeScale = long.Parse(timescalefrommanifest);
-
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
+
+                    // TIMESCALE
+                    string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
+                    response.TimeScale = long.Parse(timescalefrommanifest);
                     if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                     {
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                     }
 
-                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                    // Timestamp offset
+                    if (videotrack.FirstOrDefault().Attribute("StreamStartTimestamp") != null) // there is StreamStartTimestamp value in the video track. Let's take this one.
                     {
-                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Attribute("StreamStartTimestamp").Value);
                     }
-                    else
+                    else // no StreamStartTimestamp so let's read the first video timestamp
                     {
-                        response.TimestampOffset = 0; // no timestamp, so it should be 0
+                        if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
+                        {
+                            response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                        }
+                        else
+                        {
+                            response.TimestampOffset = 0; // no timestamp, so it should be 0
+                        }
                     }
 
 
