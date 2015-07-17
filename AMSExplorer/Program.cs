@@ -559,6 +559,7 @@ namespace AMSExplorer
         public const string strUnits = "{0} unit{1}";
 
         public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";
+        public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
@@ -1428,7 +1429,6 @@ namespace AMSExplorer
                     var smoothmedia = manifest.Element("SmoothStreamingMedia");
                     var videotrack = smoothmedia.Elements("StreamIndex").Where(a => a.Attribute("Type").Value == "video");
 
-
                     // TIMESCALE
                     string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
                     response.TimeScale = long.Parse(timescalefrommanifest);
@@ -1438,22 +1438,14 @@ namespace AMSExplorer
                     }
 
                     // Timestamp offset
-                    if (videotrack.FirstOrDefault().Attribute("StreamStartTimestamp") != null) // there is StreamStartTimestamp value in the video track. Let's take this one.
+                    if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
                     {
-                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Attribute("StreamStartTimestamp").Value);
+                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
                     }
-                    else // no StreamStartTimestamp so let's read the first video timestamp
+                    else
                     {
-                        if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
-                        {
-                            response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
-                        }
-                        else
-                        {
-                            response.TimestampOffset = 0; // no timestamp, so it should be 0
-                        }
+                        response.TimestampOffset = 0; // no timestamp, so it should be 0
                     }
-
 
                     if (smoothmedia.Attribute("IsLive") != null && smoothmedia.Attribute("IsLive").Value == "TRUE")
                     { // Live asset.... No duration to read (but we can read scaling and compute duration if no gap)

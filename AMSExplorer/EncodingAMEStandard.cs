@@ -28,6 +28,7 @@ using System.Xml.Linq;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -145,6 +146,9 @@ namespace AMSExplorer
             var filePaths = Directory.GetFiles(EncodingAMEStdPresetXMLFilesFolder, "*.xml").Select(f => Path.GetFileNameWithoutExtension(f));
             listboxPresets.Items.AddRange(filePaths.ToArray());
             listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+            label4KWarning.Text = string.Empty;
+            moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
+
         }
 
 
@@ -167,6 +171,9 @@ namespace AMSExplorer
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
+
+                label4KWarning.Text = string.Empty;
+                buttonOk.Enabled = true;
             }
         }
 
@@ -252,12 +259,29 @@ namespace AMSExplorer
                     usereditmode = true;
                 }
 
+                if (listboxPresets.SelectedItem.ToString().Contains("4K") && _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType!=ReservedUnitType.Premium)
+                {
+                    label4KWarning.Text = (string)label4KWarning.Tag;
+                    buttonOk.Enabled = false;
+                }
+                else
+                {
+                    label4KWarning.Text = string.Empty;
+                    buttonOk.Enabled = true;
+                }
+
             }
         }
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
             if (usereditmode) listboxPresets.SelectedIndex = -1;
+        }
+
+        private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
         }
     }
 

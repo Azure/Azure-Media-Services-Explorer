@@ -50,6 +50,8 @@
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.label4KWarning = new System.Windows.Forms.Label();
+            this.moreinfoame = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -97,6 +99,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label4KWarning);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.listboxPresets);
             this.groupBox1.Controls.Add(this.buttonSaveXML);
@@ -212,7 +215,7 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(521, 13);
+            this.label34.Location = new System.Drawing.Point(523, 13);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(232, 25);
             this.label34.TabIndex = 63;
@@ -275,12 +278,37 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // label4KWarning
+            // 
+            this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4KWarning.AutoSize = true;
+            this.label4KWarning.ForeColor = System.Drawing.Color.Red;
+            this.label4KWarning.Location = new System.Drawing.Point(385, 37);
+            this.label4KWarning.Name = "label4KWarning";
+            this.label4KWarning.Size = new System.Drawing.Size(307, 15);
+            this.label4KWarning.TabIndex = 73;
+            this.label4KWarning.Tag = "Warning : you should use a Premium Encoding RU for 4K";
+            this.label4KWarning.Text = "Warning : you should use a Premium Encoding RU for 4K";
+            // 
+            // moreinfoame
+            // 
+            this.moreinfoame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoame.AutoSize = true;
+            this.moreinfoame.Location = new System.Drawing.Point(650, 38);
+            this.moreinfoame.Name = "moreinfoame";
+            this.moreinfoame.Size = new System.Drawing.Size(101, 15);
+            this.moreinfoame.TabIndex = 73;
+            this.moreinfoame.TabStop = true;
+            this.moreinfoame.Text = "More information";
+            this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
+            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label34);
@@ -330,5 +358,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialogPreset;
         public System.Windows.Forms.ListBox listboxPresets;
         public System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label4KWarning;
+        private System.Windows.Forms.LinkLabel moreinfoame;
     }
 }
