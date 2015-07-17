@@ -337,6 +337,11 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
 
         }
+
+        private void moreinfopresetslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+        }
     }
 
 

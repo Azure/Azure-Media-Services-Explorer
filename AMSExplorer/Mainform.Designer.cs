@@ -784,8 +784,10 @@
             // subclipToolStripMenuItem
             // 
             this.subclipToolStripMenuItem.Name = "subclipToolStripMenuItem";
+            this.subclipToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.subclipToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
+            this.subclipToolStripMenuItem.Visible = false;
             this.subclipToolStripMenuItem.Click += new System.EventHandler(this.subclipToolStripMenuItem_Click);
             // 
             // ContextMenuItemThumbnails
@@ -1502,8 +1504,10 @@
             // subclipLiveStreamsarchivesToolStripMenuItem
             // 
             this.subclipLiveStreamsarchivesToolStripMenuItem.Name = "subclipLiveStreamsarchivesToolStripMenuItem";
+            this.subclipLiveStreamsarchivesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.subclipLiveStreamsarchivesToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
             this.subclipLiveStreamsarchivesToolStripMenuItem.Click += new System.EventHandler(this.subclipLiveStreamsarchivesToolStripMenuItem_Click);
             // 
             // generateThumbnailsForTheAssetsToolStripMenuItem
@@ -2243,6 +2247,7 @@
             // subclipLiveStreamsarchivesToolStripMenuItem1
             // 
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Name = "subclipLiveStreamsarchivesToolStripMenuItem1";
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Text = "Subclip program(s)...";
             // 
@@ -2983,8 +2988,10 @@
             // subclipProgramsToolStripMenuItem
             // 
             this.subclipProgramsToolStripMenuItem.Name = "subclipProgramsToolStripMenuItem";
+            this.subclipProgramsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.subclipProgramsToolStripMenuItem.Text = "Subclip program(s)...";
+            this.subclipProgramsToolStripMenuItem.Visible = false;
             this.subclipProgramsToolStripMenuItem.Click += new System.EventHandler(this.subclipProgramsToolStripMenuItem_Click);
             // 
             // ContextMenuItemProgramPlayback

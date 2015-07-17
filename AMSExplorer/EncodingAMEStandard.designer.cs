@@ -317,6 +317,7 @@
             this.moreinfopresetslink.TabIndex = 76;
             this.moreinfopresetslink.TabStop = true;
             this.moreinfopresetslink.Text = "More information on presets";
+            this.moreinfopresetslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfopresetslink_LinkClicked);
             // 
             // buttonJobOptions
             // 
