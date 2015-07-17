@@ -468,82 +468,82 @@
     <Compile Include="ImportFromAzureStorage.Designer.cs">
       <DependentUpon>ImportFromAzureStorage.cs</DependentUpon>
     </Compile>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 for iOS.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 for iOS.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 4K Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 4K.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 720p Audio 5.1.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 720p for Android.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate 720p.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate High Quality SD for Android.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="AMEStandardPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="BitmapsPNG\hyperlapse-large.png" />
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 for iOS.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 16x9 SD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4K.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 for iOS.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 4x3 SD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Multiple Bitrate 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 1080p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 16x9 SD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4K Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4K.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 4x3 SD.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p Audio 5.1.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p for Android.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate 720p.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate High Quality SD for Android.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AMEStandardPresetFiles\H264 Single Bitrate Low Quality SD for Android.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Configurations\RenderedSubclip.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

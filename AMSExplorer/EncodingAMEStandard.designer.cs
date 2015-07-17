@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label4KWarning = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.listboxPresets = new System.Windows.Forms.ListBox();
             this.buttonSaveXML = new System.Windows.Forms.Button();
@@ -49,9 +50,10 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.label4KWarning = new System.Windows.Forms.Label();
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
+            this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
+            this.moreinfopresetslink = new System.Windows.Forms.LinkLabel();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -99,6 +101,8 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.moreinfopresetslink);
+            this.groupBox1.Controls.Add(this.richTextBoxDesc);
             this.groupBox1.Controls.Add(this.label4KWarning);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.listboxPresets);
@@ -114,14 +118,26 @@
             this.groupBox1.Text = "Encoder Configuration";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // label4KWarning
+            // 
+            this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4KWarning.ForeColor = System.Drawing.Color.Red;
+            this.label4KWarning.Location = new System.Drawing.Point(388, 107);
+            this.label4KWarning.Name = "label4KWarning";
+            this.label4KWarning.Size = new System.Drawing.Size(322, 23);
+            this.label4KWarning.TabIndex = 73;
+            this.label4KWarning.Tag = "Warning : you should use a Premium Encoding RU for 4K";
+            this.label4KWarning.Text = "Warning : you should use a Premium Encoding RU for 4K";
+            this.label4KWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(15, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(171, 15);
+            this.label4.Size = new System.Drawing.Size(187, 15);
             this.label4.TabIndex = 44;
-            this.label4.Text = "Select a preset or load an XML :";
+            this.label4.Text = "Select a preset or load a JSON file :";
             // 
             // listboxPresets
             // 
@@ -142,7 +158,7 @@
             this.buttonSaveXML.Name = "buttonSaveXML";
             this.buttonSaveXML.Size = new System.Drawing.Size(157, 27);
             this.buttonSaveXML.TabIndex = 42;
-            this.buttonSaveXML.Text = "Save edited XML...";
+            this.buttonSaveXML.Text = "Save edited JSON...";
             this.buttonSaveXML.UseVisualStyleBackColor = true;
             this.buttonSaveXML.Click += new System.EventHandler(this.buttonSaveXML_Click);
             // 
@@ -153,7 +169,7 @@
             this.buttonLoadXML.Name = "buttonLoadXML";
             this.buttonLoadXML.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML.TabIndex = 41;
-            this.buttonLoadXML.Text = "Load a preset XML file...";
+            this.buttonLoadXML.Text = "Load a preset JSON file...";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
             this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadXML_Click);
             // 
@@ -162,9 +178,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(15, 168);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(87, 15);
+            this.label2.Size = new System.Drawing.Size(91, 15);
             this.label2.TabIndex = 38;
-            this.label2.Text = "XML (editable):";
+            this.label2.Text = "JSON (editable):";
             // 
             // textBoxConfiguration
             // 
@@ -261,34 +277,12 @@
             // openFileDialogPreset
             // 
             this.openFileDialogPreset.DefaultExt = "xml";
-            this.openFileDialogPreset.Filter = "Preset files|*.xml|All files|*.*";
+            this.openFileDialogPreset.Filter = "Preset files|*.json|All files|*.*";
             // 
             // saveFileDialogPreset
             // 
             this.saveFileDialogPreset.DefaultExt = "xml";
-            this.saveFileDialogPreset.Filter = "Preset file|*.xml|All files|*.*";
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(595, 412);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // label4KWarning
-            // 
-            this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4KWarning.AutoSize = true;
-            this.label4KWarning.ForeColor = System.Drawing.Color.Red;
-            this.label4KWarning.Location = new System.Drawing.Point(385, 37);
-            this.label4KWarning.Name = "label4KWarning";
-            this.label4KWarning.Size = new System.Drawing.Size(307, 15);
-            this.label4KWarning.TabIndex = 73;
-            this.label4KWarning.Tag = "Warning : you should use a Premium Encoding RU for 4K";
-            this.label4KWarning.Text = "Warning : you should use a Premium Encoding RU for 4K";
+            this.saveFileDialogPreset.Filter = "Preset file|*.json|All files|*.*";
             // 
             // moreinfoame
             // 
@@ -301,6 +295,38 @@
             this.moreinfoame.TabStop = true;
             this.moreinfoame.Text = "More information";
             this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
+            // 
+            // richTextBoxDesc
+            // 
+            this.richTextBoxDesc.AcceptsTab = true;
+            this.richTextBoxDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxDesc.Location = new System.Drawing.Point(388, 37);
+            this.richTextBoxDesc.Name = "richTextBoxDesc";
+            this.richTextBoxDesc.ReadOnly = true;
+            this.richTextBoxDesc.Size = new System.Drawing.Size(322, 52);
+            this.richTextBoxDesc.TabIndex = 75;
+            this.richTextBoxDesc.Text = "";
+            // 
+            // moreinfopresetslink
+            // 
+            this.moreinfopresetslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfopresetslink.AutoSize = true;
+            this.moreinfopresetslink.Location = new System.Drawing.Point(552, 92);
+            this.moreinfopresetslink.Name = "moreinfopresetslink";
+            this.moreinfopresetslink.Size = new System.Drawing.Size(158, 15);
+            this.moreinfopresetslink.TabIndex = 76;
+            this.moreinfopresetslink.TabStop = true;
+            this.moreinfopresetslink.Text = "More information on presets";
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(595, 412);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 
@@ -360,5 +386,7 @@
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label4KWarning;
         private System.Windows.Forms.LinkLabel moreinfoame;
+        private System.Windows.Forms.RichTextBox richTextBoxDesc;
+        private System.Windows.Forms.LinkLabel moreinfopresetslink;
     }
 }

@@ -559,8 +559,10 @@ namespace AMSExplorer
         public const string strUnits = "{0} unit{1}";
 
         public const string LinkMoreInfoAME = "http://azure.microsoft.com/en-us/documentation/articles/media-services-azure-media-encoder-formats/";
-        public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
         public const string LinkMorePresetsAME = "https://msdn.microsoft.com/library/azure/dn619392.aspx";
+        public const string LinkMoreInfoMES = "http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/";
+        public const string LinkMorePresetsMES = "http://go.microsoft.com/fwlink/?LinkId=618336";
+
         public const string LinkMoreAMEAdvanced = "http://azure.microsoft.com/blog/2014/08/21/advanced-encoding-features-in-azure-media-encoder/";
         public const string LinkMoreInfoPremiumEncoder = "http://azure.microsoft.com/en-us/documentation/articles/media-services-encode-asset/#media_encoder_premium_wokrflow";
         public const string LinkMoreInfoHyperlapse = "http://azure.microsoft.com/blog/2015/05/14/announcing-hyperlapse-for-azure-media-services/";
