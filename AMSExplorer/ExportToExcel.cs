@@ -193,11 +193,11 @@ namespace AMSExplorer
                 xlWorkSheet.Cells[row, 8] = "Alternate Id";
                 xlWorkSheet.Cells[row, 9] = "Storage Account";
                 xlWorkSheet.Cells[row, 10] = "Streaming Locators Count";
-                xlWorkSheet.Cells[row, 11] = "Streaming Max Expiration time";
-                xlWorkSheet.Cells[row, 12] = "Streaming Min Expiration time";
+                xlWorkSheet.Cells[row, 11] = "Streaming Min Expiration time";
+                xlWorkSheet.Cells[row, 12] = "Streaming Max Expiration time";
                 xlWorkSheet.Cells[row, 13] = "SAS Locators Count";
-                xlWorkSheet.Cells[row, 14] = "SAS Max Expiration time";
-                xlWorkSheet.Cells[row, 15] = "SAS Min Expiration time";
+                xlWorkSheet.Cells[row, 14] = "SAS Min Expiration time";
+                xlWorkSheet.Cells[row, 15] = "SAS Max Expiration time";
                 xlWorkSheet.Cells[row, 16] = "Dynamic encryption";
             }
 
