@@ -5820,18 +5820,18 @@ namespace AMSExplorer
 
         private async Task<IOperation> StartStreamingEndpoint(IStreamingEndpoint myO)
         {
-            TextBoxLogWriteLine("Streaming endpoint '{0}': starting...", myO.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}' : starting...", myO.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendStartOperationAsync, myO, "started"));
         }
         private async Task<IOperation> StopStreamingEndpointAsync(IStreamingEndpoint mySE)
         {
-            TextBoxLogWriteLine("Streaming endpoint '{0}': stopping...", mySE.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}' : stopping...", mySE.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(mySE.SendStopOperationAsync, mySE, "stopped"));
         }
 
         private async Task<IOperation> DeleteStreamingEndpointAsync(IStreamingEndpoint myO)
         {
-            TextBoxLogWriteLine("Streaming endpoint '{0}': deleting...", myO.Name);
+            TextBoxLogWriteLine("Streaming endpoint '{0}' : deleting...", myO.Name);
             return await Task.Run(() => StreamingEndpointExecuteOperationAsync(myO.SendDeleteOperationAsync, myO, "deleted"));
         }
 
@@ -12067,6 +12067,16 @@ namespace AMSExplorer
                                        {
                                            myform.Notify(string.Format("Job {0}", status), string.Format("Job {0}", _MyObservJob[index].Name), JobRefreshed.State == JobState.Error);
                                            myform.TextBoxLogWriteLine(string.Format("Job '{0}': {1}.", _MyObservJob[index].Name, status), JobRefreshed.State == JobState.Error);
+                                           if (JobRefreshed.State == JobState.Error)
+                                           {
+                                               foreach(var task in JobRefreshed.Tasks)
+                                               {
+                                                   foreach(var error in task.ErrorDetails)
+                                                   {
+                                                       myform.TextBoxLogWriteLine(string.Format("Task '{0}', Error : {1}", task.Name, error.Code + " : " + error.Message), true);
+                                                   }
+                                               }
+                                           }
                                            myform.DoRefreshGridAssetV(false);
                                        }));
 
