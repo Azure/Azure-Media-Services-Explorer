@@ -1433,7 +1433,7 @@ namespace AMSExplorer
 
                     // TIMESCALE
                     string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    response.TimeScale = long.Parse(timescalefrommanifest);
+                    response.TimeScale = ulong.Parse(timescalefrommanifest);
                     if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                     {
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
@@ -1442,7 +1442,7 @@ namespace AMSExplorer
                     // Timestamp offset
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
                     {
-                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                        response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
                     }
                     else
                     {
@@ -1459,17 +1459,17 @@ namespace AMSExplorer
                         {
                             if (chunk.Attribute("t") != null)
                             {
-                                duration = long.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
+                                duration = long.Parse(chunk.Attribute("t").Value) - (long)response.TimestampOffset; // new timestamp, perhaps gap in live stream....
                             }
                             d = chunk.Attribute("d") != null ? long.Parse(chunk.Attribute("d").Value) : 0;
                             r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;
                             duration += d * r;
                         }
-                        response.AssetDuration = duration;
+                        response.AssetDuration = (ulong)duration;
                     }
                     else
                     {
-                        response.AssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                        response.AssetDuration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
                     }
                 }
                 else
@@ -2433,9 +2433,9 @@ namespace AMSExplorer
 
     public class ManifestTimingData
     {
-        public long AssetDuration { get; set; }
-        public long TimestampOffset { get; set; }
-        public long TimeScale { get; set; }
+        public ulong AssetDuration { get; set; }
+        public ulong TimestampOffset { get; set; }
+        public ulong TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
     }
@@ -2453,6 +2453,15 @@ namespace AMSExplorer
 
     }
 
+
+    public class AssetCreationInfo
+    {
+        public string Name { get; set; }  // contains the full configuration for subclipping
+        public PresentationTimeRange Presentationtimerange { get; set; }
+        public IList<FilterTrackSelectStatement> Trackconditions { get; set; }
+
+
+    }
     public class SubClipConfiguration
     {
         public string Configuration { get; set; }  // contains the full configuration for subclipping
@@ -2539,6 +2548,34 @@ namespace AMSExplorer
         public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
 
+    }
+
+    public sealed class FilterProperty
+    {
+        public static readonly string Type = "Type";
+        public static readonly string Name = "Name";
+        public static readonly string Language = "Language";
+        public static readonly string FourCC = "FourCC";
+        public static readonly string Bitrate = "Bitrate";
+    }
+
+
+    public sealed class FilterPropertyTypeValue
+    {
+        public static readonly string video = "video";
+        public static readonly string audio = "audio";
+        public static readonly string text = "text";
+    }
+
+
+
+
+    public sealed class FilterPropertyFourCCValue
+    {
+        public static readonly string mp4a = "mp4a";
+        public static readonly string avc1 = "avc1";
+        public static readonly string mp4v = "mp4v";
+        public static readonly string ec3 = "ec-3";
     }
 
 

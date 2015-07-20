@@ -332,7 +332,7 @@
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlStart.ScaledTotalDuration = ((long)(-1));
+            this.timeControlStart.ScaledTotalDuration = ((long)(0));
             this.timeControlStart.Size = new System.Drawing.Size(500, 92);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
@@ -354,7 +354,7 @@
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlEnd.ScaledTotalDuration = ((long)(-1));
+            this.timeControlEnd.ScaledTotalDuration = ((long)(0));
             this.timeControlEnd.Size = new System.Drawing.Size(500, 87);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));

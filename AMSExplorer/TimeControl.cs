@@ -28,12 +28,12 @@ namespace AMSExplorer
 {
     public partial class TimeControl : UserControl
     {
-        private Int64 timescale = TimeSpan.TicksPerSecond;
-        private Int64 scaledoffset = 0;
+        private ulong timescale = TimeSpan.TicksPerSecond;
+        private ulong scaledoffset = 0;
         private TimeSpan min = new TimeSpan(0);
         private TimeSpan max = new TimeSpan(Int64.MaxValue);
         private bool donotfirechangeevent = false;
-        private long _scaledTotalDuration = -1;
+        private ulong _scaledTotalDuration = 0;
         private bool _dvrmode = false; // inversed mode for dvr
         private bool _displaytrackbar = false;
 
@@ -93,19 +93,19 @@ namespace AMSExplorer
             }
         }
 
-        public Int64 TimeScale
+        public ulong TimeScale
         {
             get { return timescale; }
             set { timescale = value; }
         }
 
-        public Int64 ScaledFirstTimestampOffset // timestamp of first video chunk in manifest
+        public ulong ScaledFirstTimestampOffset // timestamp of first video chunk in manifest
         {
             get { return scaledoffset; }
             set { scaledoffset = value; }
         }
 
-        public Int64 ScaledTotalDuration
+        public ulong ScaledTotalDuration
         {
             get { return _scaledTotalDuration; }
             set { _scaledTotalDuration = value; }
@@ -164,42 +164,35 @@ namespace AMSExplorer
         }
 
 
-        public string GetScaledTimeStamp()
+        public ulong GetScaledTimeStamp()
         {
             TimeSpan ts = GetTimeStampAsTimeSpanWitoutOffset();
-            return Math.Truncate(((double)ts.Ticks) * ((double)timescale / (double)TimeSpan.TicksPerSecond)).ToString();
+            return (ulong)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * ((double)timescale / (double)TimeSpan.TicksPerSecond)));
         }
 
-        public string GetScaledTimeStampWithOffset()
+     
+
+        public ulong GetScaledTimeStampWithOffset()
         {
             TimeSpan ts = GetTimeStampAsTimeSpanWithOffset();
-            return Math.Truncate(((double)ts.Ticks) * ((double)timescale / (double)TimeSpan.TicksPerSecond)).ToString();
+            return (ulong)Convert.ToInt64(Math.Truncate(((double)ts.Ticks) * ((double)timescale / (double)TimeSpan.TicksPerSecond)));
         }
 
-        public void SetScaledTimeStamp(string value)
+        public void SetScaledTimeStamp(ulong? value)
         {
-            bool Error = false;
-            long timestamp = -1;
-            try
+            if (value == null)
             {
-                timestamp = long.Parse(value);
+                SetTimeStamp(new TimeSpan(long.MaxValue));
             }
-            catch
+            else if (value == 0)
             {
-                Error = true;
+                SetTimeStamp(new TimeSpan(0));
             }
-            if (!Error)
+            else
             {
-                if (timestamp == Int64.MaxValue || timestamp == 0)
-                {
-                    SetTimeStamp(new TimeSpan(timestamp));
-                }
-                else
-                {
-                    double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
-                    TimeSpan ts = new TimeSpan(Convert.ToInt64((((double)timestamp) - (double)ScaledFirstTimestampOffset) * scale));
-                    SetTimeStamp(ts);
-                }
+                double scale = ((double)TimeSpan.TicksPerSecond) / ((double)timescale);
+                TimeSpan ts = new TimeSpan(Convert.ToInt64((((double)value) - (double)ScaledFirstTimestampOffset) * scale));
+                SetTimeStamp(ts);
             }
         }
 

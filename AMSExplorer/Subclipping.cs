@@ -35,10 +35,9 @@ namespace AMSExplorer
     public partial class Subclipping : Form
     {
         CloudMediaContext _context;
-        MediaServiceContextForDynManifest _contextdynmanifest;
         private List<IAsset> _selectedAssets;
         private ManifestTimingData _parentassetmanifestdata;
-        private long _timescale = TimeSpan.TicksPerSecond;
+        private ulong _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
 
@@ -78,13 +77,12 @@ namespace AMSExplorer
             }
         }
 
-        public Subclipping(CloudMediaContext context, MediaServiceContextForDynManifest contextdynmanifest, List<IAsset> assetlist, Mainform mainform)
+        public Subclipping(CloudMediaContext context, List<IAsset> assetlist, Mainform mainform)
         {
             InitializeComponent();
             buttonJobOptions.Initialize(context);
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            _contextdynmanifest = contextdynmanifest;
             _parentassetmanifestdata = new ManifestTimingData();
             _selectedAssets = assetlist;
             _mainform = mainform;
@@ -109,7 +107,7 @@ namespace AMSExplorer
                     textBoxFilterTimeScale.Text = _timescale.ToString();
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks(_parentassetmanifestdata.AssetDuration, _parentassetmanifestdata.TimeScale));
+                    timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks((long)_parentassetmanifestdata.AssetDuration, (long)_parentassetmanifestdata.TimeScale));
 
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
@@ -483,24 +481,18 @@ namespace AMSExplorer
             else if (subclipConfig.CreateAssetFilter) // create a asset filter
             {
                 IAsset selasset = _selectedAssets.FirstOrDefault();
-                DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
+                DynManifestFilter formAF = new DynManifestFilter(_context, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
-                    AssetFilter myassetfilter = new AssetFilter(selasset);
-
-                    Filter filter = formAF.GetFilter;
-                    myassetfilter.Name = filter.Name;
-                    myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
-                    myassetfilter.Tracks = filter.Tracks;
-                    myassetfilter._context = filter._context;
+                    var filterinfo = formAF.GetFilterInfo;
                     try
                     {
-                        myassetfilter.Create();
-                        _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
+                        selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                        _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
                     catch (Exception ex)
                     {
-                        _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
+                        _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", filterinfo.Name, true);
                         _mainform.TextBoxLogWriteLine(ex);
                     }
 
