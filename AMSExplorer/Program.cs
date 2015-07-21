@@ -863,6 +863,8 @@ namespace AMSExplorer
         public StringBuilder GetStats()
         {
             StringBuilder sb = new StringBuilder();
+            const string cannotcalc = "cannot be calculated";
+
             const string section = "==============================================================================";
             if (SelectedJobs.Count > 0)
             {
@@ -960,24 +962,16 @@ namespace AMSExplorer
                             foreach (IAsset asset in task.OutputAssets)
                                 ListFilesInAsset(asset, ref sb);
 
-                            if (MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1)
+                            if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
                             {
-
-                                if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
-                                {
-                                    sb.AppendLine("Input size processed by the task  : " + AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize));
-                                    sb.AppendLine("Output size processed by the task : " + AssetInfo.FormatByteSize(MyTaskSizePrice.OutputSize));
-                                    sb.AppendLine("Total size processed by the task  : " + AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize));
-                                }
+                                sb.AppendLine("Input size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize) : cannotcalc));
+                                sb.AppendLine("Output size processed by the task : " + ((MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.OutputSize) : cannotcalc));
+                                sb.AppendLine("Total size processed by the task  : " + ((MyTaskSizePrice.InputSize != -1 && MyTaskSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyTaskSizePrice.InputSize + MyTaskSizePrice.OutputSize) : cannotcalc));
 
                                 if (MyTaskSizePrice.Price >= 0)
                                 {
-                                    if (theJob.Tasks.Count > 1) sb.AppendLine(string.Format("Estimated cost of the task        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyTaskSizePrice.Price));
+                                    sb.AppendLine(string.Format("Estimated cost of the task        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyTaskSizePrice.Price));
                                 }
-                            }
-                            else
-                            {
-                                sb.AppendLine("Gigabytes processed by the task : cannot be calculated, asset deleted?");
                             }
                         }
 
@@ -988,12 +982,10 @@ namespace AMSExplorer
 
                     TaskSizeAndPrice MyJobSizePrice = CalculateJobSizeAndPrice(theJob);
 
-                    if (MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1)
-                    {
-                        sb.AppendLine("Input size processed by the job  : " + AssetInfo.FormatByteSize(MyJobSizePrice.InputSize));
-                        sb.AppendLine("Output size processed by the job : " + AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize));
-                        sb.AppendLine("Total size processed by the job  : " + AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize));
-                    }
+                    sb.AppendLine("Input size processed by the job  : " + ((MyJobSizePrice.InputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize) : cannotcalc));
+                    sb.AppendLine("Output size processed by the job : " + ((MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.OutputSize) : cannotcalc));
+                    sb.AppendLine("Total size processed by the job  : " + ((MyJobSizePrice.InputSize != -1 && MyJobSizePrice.OutputSize != -1) ? AssetInfo.FormatByteSize(MyJobSizePrice.InputSize + MyJobSizePrice.OutputSize) : cannotcalc));
+
                     if (MyJobSizePrice.Price != -1)
                     {
                         sb.AppendLine(string.Format("Estimated cost of the job        : {0} {1:0.00}", Properties.Settings.Default.Currency, MyJobSizePrice.Price));
