@@ -29,6 +29,7 @@ using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Reflection;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace AMSExplorer
 {
@@ -185,8 +186,6 @@ namespace AMSExplorer
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
-
-
         }
 
 
@@ -217,44 +216,25 @@ namespace AMSExplorer
             }
         }
 
-        private void UpdateTextBoxJSON(string xmldata)
+        private void UpdateTextBoxJSON(string jsondata)
         {
             if (_subclipConfig == null || !_subclipConfig.Trimming)
             {
-                textBoxConfiguration.Text = xmldata;
+                textBoxConfiguration.Text = jsondata;
             }
             else
             {
-                // Update the xml with trimming
-                XDocument doc = XDocument.Parse(xmldata);
-                XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
+                // Update the json with trimming
+                var jo = JObject.Parse(jsondata);
 
-                var presetxml = doc.Element(ns + "Preset");
-                var encodingxml = presetxml.Element(ns + "Encoding");
+                jo.Add(new JProperty("Sources",
+                    new JArray(
+                    new JObject(
+                    new JProperty("TimeStart", _subclipConfig.StartTimeForReencode),
+                    new JProperty("Duration", _subclipConfig.DurationForReencode)
+                    ))));
 
-                if (presetxml != null)
-                {
-                    if (presetxml.Element(ns + "Sources") == null)
-                    {
-                        if (encodingxml != null)
-                        {
-                            encodingxml.AddBeforeSelf(new XElement(ns + "Sources", new XElement(ns + "Source"))); // order is important !
-                        }
-                        else
-                        {
-                            presetxml.AddFirst(new XElement(ns + "Sources", new XElement(ns + "Source")));
-                        }
-                    }
-                    var sourcesxml = presetxml.Element(ns + "Sources");
-                    if (sourcesxml.Element(ns + "Source") == null)
-                    {
-                        sourcesxml.Add(new XElement(ns + "Source"));
-                    }
-                    var sourcexml = sourcesxml.Element(ns + "Source");
-                    sourcexml.SetAttributeValue("StartTime", _subclipConfig.StartTimeForReencode);
-                    sourcexml.SetAttributeValue("Duration", _subclipConfig.DurationForReencode);
-                }
-                textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+                textBoxConfiguration.Text = jo.ToString();
             }
         }
 
@@ -289,13 +269,12 @@ namespace AMSExplorer
                     StreamReader streamReader = new StreamReader(filePath);
                     usereditmode = false;
                     UpdateTextBoxJSON(streamReader.ReadToEnd());
-                    //textBoxConfiguration.Text = streamReader.ReadToEnd();
                     usereditmode = true;
                     streamReader.Close();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                    MessageBox.Show("Error: Could not read file from disk or process the JSON data. Original error:" + Constants.endline + ex.Message);
                     usereditmode = true;
                 }
 
@@ -343,7 +322,4 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
     }
-
-
-
 }
