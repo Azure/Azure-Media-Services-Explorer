@@ -2435,6 +2435,7 @@ namespace AMSExplorer
     public class SubClipTrimmingDataXMLSerialized
     {
         public string StartTime { get; set; }
+        public string EndTime { get; set; }
         public string Duration { get; set; }
     }
 
@@ -2442,6 +2443,7 @@ namespace AMSExplorer
     {
         public TimeSpan StartTime { get; set; }
         public TimeSpan EndTime { get; set; }
+        public TimeSpan Duration { get; set; }
 
     }
 
@@ -2451,8 +2453,8 @@ namespace AMSExplorer
         public bool Reencode { get; set; }
         public bool Trimming { get; set; }
         public bool CreateAssetFilter { get; set; }
-        public string StartTimeForReencode { get; set; }
-        public string DurationForReencode { get; set; }
+        public TimeSpan StartTimeForReencode { get; set; }
+        public TimeSpan DurationForReencode { get; set; }
         public TimeSpan StartTimeForAssetFilter { get; set; }
         public TimeSpan EndTimeForAssetFilter { get; set; }
 

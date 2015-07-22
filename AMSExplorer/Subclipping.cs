@@ -155,6 +155,7 @@ namespace AMSExplorer
             if (checkBoxTrimming.Checked)
             {
                 trimmingdata.StartTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlStart.GetTimeStampAsTimeSpanWithOffset());
+                trimmingdata.EndTime = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset());
                 trimmingdata.Duration = AssetInfo.GetXMLSerializedTimeSpan(timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset());
             }
             return trimmingdata;
@@ -168,6 +169,7 @@ namespace AMSExplorer
             {
                 trimmingdata.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
                 trimmingdata.EndTime = timeControlEnd.GetTimeStampAsTimeSpanWithOffset();
+                trimmingdata.Duration = trimmingdata.EndTime - trimmingdata.StartTime;
             }
             return trimmingdata;
         }
@@ -229,7 +231,7 @@ namespace AMSExplorer
 
                 if (checkBoxTrimming.Checked)
                 {
-                    var subdata = GetSubClipTrimmingDataXMLSerialized();
+                    var subdata = GetSubClipTrimmingDataTimeSpan();
                     config.Trimming = true;
                     config.StartTimeForReencode = subdata.StartTime;
                     config.DurationForReencode = subdata.Duration;
