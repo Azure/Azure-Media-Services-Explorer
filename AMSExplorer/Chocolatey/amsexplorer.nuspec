@@ -14,7 +14,7 @@
 *Contact: amse@microsoft.com*
 </description>
     <projectUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectUrl>
-    <packageSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/Chocolatey/</packageSourceUrl>
+    <packageSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/tree/master/AMSExplorer/Chocolatey</packageSourceUrl>
     <projectSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectSourceUrl>
     <!--<docsUrl></docsUrl>
     <mailingListUrl></mailingListUrl>-->
