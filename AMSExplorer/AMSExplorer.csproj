@@ -551,6 +551,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="IconsPNG\filter.png" />
     <None Include="IconsPNG\filters.png" />
     <None Include="IconsPNG\Display_information_filter.png" />

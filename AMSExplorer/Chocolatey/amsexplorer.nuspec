@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>amsexplorer</id>
+    <title>Azure Media Services Explorer</title>
+    <version>3.27.0.0</version>
+    <authors>Microsoft Corporation</authors>
+    <owners>Microsoft</owners>
+    <summary>Azure Media Services Explorer</summary>
+    <description>*Azure Media Services Explorer is a tool for Windows that does upload, download, process, encode, package, and stream assets and live channels with Azure Media Services. Source code is also provided.*
+*A general description is available [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool) and there is a recent blog post on [live encoding and Explorer](http://azure.microsoft.com/blog/2015/05/27/using-azure-media-services-explorer-for-live-encoding).*
+*Contact: amse@microsoft.com*
+</description>
+    <projectUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectUrl>
+    <packageSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/Chocolatey/</packageSourceUrl>
+    <projectSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectSourceUrl>
+    <!--<docsUrl></docsUrl>
+    <mailingListUrl></mailingListUrl>-->
+    <bugTrackerUrl>https://github.com/Azure/Azure-Media-Services-Explorer/issues</bugTrackerUrl>
+    <tags>amsexplorer AMSE AMS Azure Media Explorer Encoding Streaming</tags>
+    <copyright></copyright>
+    <licenseUrl>https://github.com/Azure/Azure-Media-Services-Explorer/blob/master/LICENSE.md</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://cdn.rawgit.com/Azure/Azure-Media-Services-Explorer/master/AMSExplorer/BitmapsPNG/Azure%20Explorer.png</iconUrl>
+    <!--<dependencies>
+      <dependency id="dotnet4.5.2" version="4.5.2.20140902" />
+    </dependencies>-->
+    <releaseNotes>This update brings the following features and improvements :
+      * **Asset information export to Excel**. You can now export assets data to Excel (asset name, ID, streaming URL, expiration) then use Excel to analyse the data (with a pivot table). Please give us some feedback!
+      * Update to the logging window (timestamps and more details)
+      * Switched to JSON presets for **Media Encoder Standard** [which is now GA](http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/).
+      * Subclipping support (currently in private preview)
+      * UI updates
+      * Several bug fixes
+    </releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
