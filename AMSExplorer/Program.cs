@@ -2544,24 +2544,6 @@ namespace AMSExplorer
 
     }
 
-    public sealed class FilterProperty
-    {
-        public static readonly string Type = "Type";
-        public static readonly string Name = "Name";
-        public static readonly string Language = "Language";
-        public static readonly string FourCC = "FourCC";
-        public static readonly string Bitrate = "Bitrate";
-    }
-
-
-    public sealed class FilterPropertyTypeValue
-    {
-        public static readonly string video = "video";
-        public static readonly string audio = "audio";
-        public static readonly string text = "text";
-    }
-
-
 
 
     public sealed class FilterPropertyFourCCValue
@@ -2572,6 +2554,15 @@ namespace AMSExplorer
         public static readonly string ec3 = "ec-3";
     }
 
+   
+    public sealed class FilterProperty
+     {
+        public const string Type = "Type";
+        public const string Name = "Name";
+        public const string Language = "Language";
+        public const string FourCC = "FourCC";
+        public const string Bitrate = "Bitrate";
+    }
 
 
     public class ListViewItemComparer : IComparer

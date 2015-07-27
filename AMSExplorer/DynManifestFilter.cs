@@ -298,12 +298,12 @@ namespace AMSExplorer
 
             // dataPropertyType
             dataPropertyType = new DataTable();
-            dataPropertyType.Columns.Add(new DataColumn("Value", typeof(string)));
+            dataPropertyType.Columns.Add(new DataColumn("Value", typeof(int)));
             dataPropertyType.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            dataPropertyType.Rows.Add(FilterPropertyTypeValue.audio, FilterPropertyTypeValue.audio);
-            dataPropertyType.Rows.Add(FilterPropertyTypeValue.video, FilterPropertyTypeValue.video);
-            dataPropertyType.Rows.Add(FilterPropertyTypeValue.text, FilterPropertyTypeValue.text);
+            dataPropertyType.Rows.Add(FilterTrackType.Audio, FilterTrackType.Audio.ToString());
+            dataPropertyType.Rows.Add(FilterTrackType.Video, FilterTrackType.Video.ToString());
+            dataPropertyType.Rows.Add(FilterTrackType.Text, FilterTrackType.Text.ToString());
 
             // FilterPropertyFourCCValue
 
@@ -326,10 +326,10 @@ namespace AMSExplorer
             dataOperator.Columns.Add(new DataColumn("Operator", typeof(string)));
             dataOperator.Columns.Add(new DataColumn("Description", typeof(string)));
 
-            dataProperty.Rows.Add(FilterProperty.Type, FilterProperty.Type);
-            dataProperty.Rows.Add(FilterProperty.Bitrate, FilterProperty.Bitrate);
-            dataProperty.Rows.Add(FilterProperty.FourCC, FilterProperty.FourCC);
-            dataProperty.Rows.Add(FilterProperty.Language, FilterProperty.Language);
+            dataProperty.Rows.Add(FilterProperty.Type, FilterProperty.Type.ToString());
+            dataProperty.Rows.Add(FilterProperty.Bitrate, FilterProperty.Bitrate.ToString());
+            dataProperty.Rows.Add(FilterProperty.FourCC, FilterProperty.FourCC.ToString());
+            dataProperty.Rows.Add(FilterProperty.Language, FilterProperty.Language.ToString());
             dataProperty.Rows.Add(FilterProperty.Name, FilterProperty.Name);
 
             dataOperator.Rows.Add(FilterTrackCompareOperator.Equal, FilterTrackCompareOperator.Equal);
@@ -464,7 +464,7 @@ namespace AMSExplorer
             {
                 if (dataGridViewTracks.CurrentCell.ColumnIndex == 0) // if first column
                 {
-                    if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.Type) // property type
+                    if (((FilterProperty)dataGridViewTracks.CurrentCell.Value) == FilterProperty.Type) // property type
                     {
                         var cellValue = new DataGridViewComboBoxCell();
                         cellValue.DataSource = dataPropertyType;
@@ -473,7 +473,7 @@ namespace AMSExplorer
                         dataGridViewTracks[2, dataGridViewTracks.CurrentCell.RowIndex] = cellValue;
                         dataGridViewTracks.CommitEdit(DataGridViewDataErrorContexts.Commit);
                     }
-                    else if (dataGridViewTracks.CurrentCell.Value.ToString() == FilterProperty.FourCC) // property FourCC
+                    else if (((FilterProperty)dataGridViewTracks.CurrentCell.Value) == FilterProperty.FourCC) // property FourCC
                     {
                         var cellValue = new DataGridViewComboBoxCell();
                         cellValue.DataSource = dataPropertyFourCC;
@@ -495,6 +495,21 @@ namespace AMSExplorer
                 switch (dataGridViewTracks.CurrentCell.ColumnIndex)
                 {
                     case 0: // property
+                        switch (dataGridViewTracks.CurrentCell.Value.ToString())
+                        {
+                            case (FilterProperty.Bitrate):
+                                _filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].
+
+
+                            case (FilterProperty.FourCC):
+                            case (FilterProperty.Language):
+                            case (FilterProperty.Name):
+                            case (FilterProperty.Type):
+                          
+ 
+ 
+
+                        }
                         _filter_tracks[listBoxTracks.SelectedIndex].PropertyConditions[dataGridViewTracks.CurrentCell.RowIndex].Property = dataGridViewTracks.CurrentCell.Value.ToString();
 
                         break;
@@ -600,22 +615,43 @@ namespace AMSExplorer
         {
             // Filter sample
             // _filter.PresentationTimeRange = new IFilterPresentationTimeRange() { LiveBackoffDuration = string.Empty, StartTimestamp = string.Empty, PresentationWindowDuration = string.Empty, EndTimestamp = "300000000", Timescale = "10000000" };
-            var conditions = new List<IFilterTrackPropertyCondition>();
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
-            var tracks = new List<FilterTrackSelectStatement>() { new FilterTrackSelectStatement() { PropertyConditions = conditions } };
 
-            conditions = new List<IFilterTrackPropertyCondition>();
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.FourCC, Value = "mp4a" });
-            tracks.Add(new FilterTrackSelectStatement() { PropertyConditions = conditions });
+            List<FilterTrackSelectStatement> filterTrackSelectStatements = new List<FilterTrackSelectStatement>();
+            FilterTrackSelectStatement filterTrackSelectStatement = new FilterTrackSelectStatement();
 
-            conditions = new List<IFilterTrackPropertyCondition>();
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
-            conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Language, Value = "en" });
-            tracks.Add(new FilterTrackSelectStatement() { PropertyConditions = conditions });
+            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Video, FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackBitrateRangeCondition(new FilterTrackBitrateRange(0, 1048576), FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatements.Add(filterTrackSelectStatement);
 
-            _filter_tracks = tracks;
+            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Audio, FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackFourCCCondition(FilterPropertyFourCCValue.mp4a, FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatements.Add(filterTrackSelectStatement);
+
+            filterTrackSelectStatement.PropertyConditions = new List<IFilterTrackPropertyCondition>();
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackTypeCondition(FilterTrackType.Text, FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatement.PropertyConditions.Add(new FilterTrackLanguageCondition("en", FilterTrackCompareOperator.Equal));
+            filterTrackSelectStatements.Add(filterTrackSelectStatement);
+
+
+          
+            //var conditions = new List<IFilterTrackPropertyCondition>();
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.video });
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Bitrate, Value = "0-1048576" });
+            //var tracks = new List<FilterTrackSelectStatement>() { new FilterTrackSelectStatement() { PropertyConditions = conditions } };
+
+            //conditions = new List<IFilterTrackPropertyCondition>();
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.audio });
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.FourCC, Value = "mp4a" });
+            //tracks.Add(new FilterTrackSelectStatement() { PropertyConditions = conditions });
+
+            //conditions = new List<IFilterTrackPropertyCondition>();
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Type, Value = FilterPropertyTypeValue.text });
+            //conditions.Add(new IFilterTrackPropertyCondition() { Operator = FilterTrackCompareOperator.Equal, Property = FilterProperty.Language, Value = "en" });
+            //tracks.Add(new FilterTrackSelectStatement() { PropertyConditions = conditions });
+
+            _filter_tracks = filterTrackSelectStatements;
 
             //RefreshPresentationTimes();
             RefreshTracks();
@@ -806,4 +842,41 @@ namespace AMSExplorer
             }
         }
     }
+
+    public class ExplorerFilterTrackSelect
+    {
+        public List<ExplorerFilterTrackPropertyCondition> PropertyConditions
+        {
+            get;
+            set;
+        }
+    }
+
+
+
+    public class ExplorerFilterTrackPropertyCondition
+    {
+        public string Property
+        {
+            get;
+            set;
+        }
+
+        public string Value
+        {
+            get;
+            set;
+        }
+
+        public string Operator
+        {
+            get;
+            set;
+        }
+    }
+
+
+
+
+
 }
