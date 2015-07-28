@@ -1425,11 +1425,12 @@ namespace AMSExplorer
 
                     // TIMESCALE
                     string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    response.TimeScale = ulong.Parse(timescalefrommanifest);
                     if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                     {
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                     }
+                    ulong timescale = ulong.Parse(timescalefrommanifest);
+                    response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
 
                     // Timestamp offset
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
@@ -1457,11 +1458,13 @@ namespace AMSExplorer
                             r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;
                             duration += d * r;
                         }
-                        response.AssetDuration = (ulong)duration;
+                        response.AssetDuration = new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)duration / ((double)timescale)));
+
                     }
                     else
                     {
-                        response.AssetDuration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
+                        ulong duration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
+                        response.AssetDuration = new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)duration / ((double)timescale)));
                     }
                 }
                 else
@@ -1477,9 +1480,10 @@ namespace AMSExplorer
             return response;
         }
 
-        public static long ReturnTimestampInTicks(long timestamp, long timescale)
+        public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
-            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / (double)timescale);
+            double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
         }
 
         public static IAsset GetAsset(string assetId, CloudMediaContext _context)
@@ -2425,9 +2429,9 @@ namespace AMSExplorer
 
     public class ManifestTimingData
     {
-        public ulong AssetDuration { get; set; }
+        public TimeSpan AssetDuration { get; set; }
         public ulong TimestampOffset { get; set; }
-        public ulong TimeScale { get; set; }
+        public ulong? TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
     }
@@ -2554,15 +2558,28 @@ namespace AMSExplorer
         public static readonly string ec3 = "ec-3";
     }
 
-   
+
     public sealed class FilterProperty
-     {
+    {
         public const string Type = "Type";
         public const string Name = "Name";
         public const string Language = "Language";
         public const string FourCC = "FourCC";
         public const string Bitrate = "Bitrate";
     }
+
+    public class ExFilterTrack
+    {
+        public List<ExCondition> conditions { get; set; }
+    }
+
+    public class ExCondition
+    {
+        public string property { get; set; }
+        public string oper { get; set; }
+        public string value { get; set; }
+    }
+
 
 
     public class ListViewItemComparer : IComparer

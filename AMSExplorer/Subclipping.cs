@@ -37,7 +37,7 @@ namespace AMSExplorer
         CloudMediaContext _context;
         private List<IAsset> _selectedAssets;
         private ManifestTimingData _parentassetmanifestdata;
-        private ulong _timescale = TimeSpan.TicksPerSecond;
+        private ulong? _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
 
@@ -107,12 +107,12 @@ namespace AMSExplorer
                     textBoxFilterTimeScale.Text = _timescale.ToString();
                     textBoxFilterTimeScale.Visible = labelAssetTimescale.Visible = true;
 
-                    timeControlStart.Max = timeControlEnd.Max = new TimeSpan(AssetInfo.ReturnTimestampInTicks((long)_parentassetmanifestdata.AssetDuration, (long)_parentassetmanifestdata.TimeScale));
+                    timeControlStart.Max = timeControlEnd.Max = _parentassetmanifestdata.AssetDuration;
 
                     labelassetduration.Visible = textBoxAssetDuration.Visible = true;
                     textBoxAssetDuration.Text = timeControlStart.Max.ToString(@"d\.hh\:mm\:ss") + (_parentassetmanifestdata.IsLive ? " (LIVE)" : "");
                     // let set duration and active track bat
-                    timeControlStart.ScaledTotalDuration = timeControlEnd.ScaledTotalDuration = _parentassetmanifestdata.AssetDuration;
+                    timeControlStart.TotalDuration = timeControlEnd.TotalDuration = _parentassetmanifestdata.AssetDuration;
                     timeControlStart.DisplayTrackBar = true;
                     timeControlEnd.DisplayTrackBar = true;
                     timeControlEnd.SetTimeStamp(timeControlEnd.Max);

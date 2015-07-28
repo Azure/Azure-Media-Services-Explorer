@@ -322,7 +322,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.DVRMode = false;
             this.timeControlStart.Enabled = false;
             this.timeControlStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlStart.Label1 = "";
@@ -332,7 +331,7 @@
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlStart.ScaledTotalDuration = ((long)(0));
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Size = new System.Drawing.Size(500, 92);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = ((long)(10000000));
@@ -344,7 +343,6 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
             this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.DVRMode = false;
             this.timeControlEnd.Enabled = false;
             this.timeControlEnd.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlEnd.Label1 = "";
@@ -354,7 +352,7 @@
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlEnd.ScaledTotalDuration = ((long)(0));
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Size = new System.Drawing.Size(500, 87);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = ((long)(10000000));

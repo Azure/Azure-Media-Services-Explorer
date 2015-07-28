@@ -463,10 +463,14 @@ namespace AMSExplorer
                         (double)filter.PresentationTimeRange.Timescale
                         : (double)TimeSpan.TicksPerSecond;
 
+                    double dscaleoffset = (myassetmanifesttimingdata.TimeScale != null) ?
+                        (double)myassetmanifesttimingdata.TimeScale
+                        : (double)TimeSpan.TicksPerSecond;
+
 
                     //double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000d;
-                    s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, myassetmanifesttimingdata.TimeScale, "min");
-                    e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, myassetmanifesttimingdata.TimeScale, "max");
+                    s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
+                    e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
                     d = ReturnFilterText(dvr, "max");
                     l = ReturnFilterText(live, "min");
                 }
