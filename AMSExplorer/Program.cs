@@ -83,7 +83,7 @@ namespace AMSExplorer
             if (indexname != -1)
             {
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                int colw = grid.Columns[indexname].Width;
+                int colw = Math.Max(grid.Columns[indexname].Width, 100);
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grid.Columns[indexname].Width = colw;
             }
