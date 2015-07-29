@@ -64,6 +64,10 @@
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxStartProgramNow = new System.Windows.Forms.CheckBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.textBoxManifestName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.labelCloneLocators = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,6 +76,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -100,7 +105,7 @@
             // 
             this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(21, 107);
+            this.textBoxAssetName.Location = new System.Drawing.Point(21, 102);
             this.textBoxAssetName.Name = "textBoxAssetName";
             this.textBoxAssetName.Size = new System.Drawing.Size(450, 23);
             this.textBoxAssetName.TabIndex = 3;
@@ -108,7 +113,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 89);
+            this.label4.Location = new System.Drawing.Point(17, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(99, 15);
             this.label4.TabIndex = 48;
@@ -117,7 +122,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(210, 27);
+            this.label9.Location = new System.Drawing.Point(210, 19);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(32, 15);
             this.label9.TabIndex = 60;
@@ -125,7 +130,7 @@
             // 
             // numericUpDownArchiveDays
             // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(213, 45);
+            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(213, 37);
             this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -138,7 +143,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(58, 45);
+            this.label2.Location = new System.Drawing.Point(58, 37);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(140, 15);
             this.label2.TabIndex = 0;
@@ -216,6 +221,7 @@
             this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(35, 202);
             this.tabControl1.Name = "tabControl1";
@@ -249,7 +255,7 @@
             // 
             this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(17, 146);
+            this.label33.Location = new System.Drawing.Point(17, 148);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(93, 15);
             this.label33.TabIndex = 65;
@@ -260,14 +266,14 @@
             this.comboBoxStorage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorage.FormattingEnabled = true;
-            this.comboBoxStorage.Location = new System.Drawing.Point(21, 164);
+            this.comboBoxStorage.Location = new System.Drawing.Point(21, 166);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(327, 23);
             this.comboBoxStorage.TabIndex = 4;
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(337, 45);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(337, 37);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -280,7 +286,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(334, 27);
+            this.label11.Location = new System.Drawing.Point(334, 19);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 15);
             this.label11.TabIndex = 63;
@@ -289,7 +295,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.archive;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 42);
+            this.pictureBox1.Location = new System.Drawing.Point(21, 34);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -299,7 +305,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(272, 27);
+            this.label10.Location = new System.Drawing.Point(272, 19);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 15);
             this.label10.TabIndex = 61;
@@ -307,7 +313,7 @@
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(275, 45);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(275, 37);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
             23,
             0,
@@ -333,7 +339,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(498, 210);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Advanced";
+            this.tabPage2.Text = "Replica";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // labelURLFileNameWarning
@@ -459,6 +465,47 @@
             this.checkBoxStartProgramNow.Text = "Start the program now";
             this.checkBoxStartProgramNow.UseVisualStyleBackColor = true;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.labelCloneLocators);
+            this.tabPage3.Controls.Add(this.textBoxManifestName);
+            this.tabPage3.Controls.Add(this.label13);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(498, 210);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Advanced";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // textBoxManifestName
+            // 
+            this.textBoxManifestName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxManifestName.Location = new System.Drawing.Point(21, 102);
+            this.textBoxManifestName.Name = "textBoxManifestName";
+            this.textBoxManifestName.Size = new System.Drawing.Size(450, 23);
+            this.textBoxManifestName.TabIndex = 49;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(18, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(92, 15);
+            this.label13.TabIndex = 50;
+            this.label13.Text = "Manifest name :";
+            // 
+            // labelCloneLocators
+            // 
+            this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneLocators.Location = new System.Drawing.Point(116, 84);
+            this.labelCloneLocators.Name = "labelCloneLocators";
+            this.labelCloneLocators.Size = new System.Drawing.Size(255, 15);
+            this.labelCloneLocators.TabIndex = 72;
+            this.labelCloneLocators.Text = "leave empty to auto generate it";
+            this.labelCloneLocators.Visible = false;
+            // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -491,6 +538,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -534,5 +583,9 @@
         private System.Windows.Forms.CheckBox checkBoxDynEnc;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxStartProgramNow;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TextBox textBoxManifestName;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelCloneLocators;
     }
 }

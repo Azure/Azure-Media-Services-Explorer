@@ -6777,7 +6777,7 @@ namespace AMSExplorer
                             Description = form.ProgramDescription,
                             ArchiveWindowLength = form.archiveWindowLength,
                             AssetId = NewAsset.Id,
-                            ManifestName = form.IsReplica ? form.ReplicaManifestName : null // if replica is selected, then we force the manifest name
+                            ManifestName = form.ForceManifestName // if replica is selected or force manifest name is pecified, then we force the manifest name
                         };
 
                         var STask = ProgramExecuteAsync(
@@ -6798,7 +6798,6 @@ namespace AMSExplorer
                                 await StartProgramASync(program);
                             }
                             );
-                            //StartProgam(_context.Programs.Where(p => p.Name == form.ProgramName && p.ChannelId == channel.Id).FirstOrDefault());
                         }
                     }
                     DoRefreshGridAssetV(false);
