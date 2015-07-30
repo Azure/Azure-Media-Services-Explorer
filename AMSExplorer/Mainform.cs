@@ -6634,7 +6634,6 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine(ex);
                             }
                             DoRefreshGridAssetV(false);
-
                         }
                     }
                 }
@@ -9949,7 +9948,7 @@ namespace AMSExplorer
         private void DoUpdateFilter()
         {
             IStreamingFilter filter = ReturnSelectedFilters().FirstOrDefault();
-            DynManifestFilter form = new DynManifestFilter( _context, filter);
+            DynManifestFilter form = new DynManifestFilter(_context, filter);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
@@ -10132,7 +10131,7 @@ namespace AMSExplorer
             var myassetfilter = myasset.AssetFilters.Where(f => f.Name == sender.ToString()).FirstOrDefault();
             if (myassetfilter != null)
             {
-                DynManifestFilter form = new DynManifestFilter( _context, (IStreamingFilter)myassetfilter, myasset);
+                DynManifestFilter form = new DynManifestFilter(_context, (IStreamingFilter)myassetfilter, myasset);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -10140,7 +10139,7 @@ namespace AMSExplorer
                     try
                     {
                         filtertoupdate.Update();
-                      
+
                         TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
                     }
                     catch (Exception ex)
@@ -10221,12 +10220,12 @@ namespace AMSExplorer
         {
             IAsset selasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
 
-            DynManifestFilter form = new DynManifestFilter( _context, null, selasset);
+            DynManifestFilter form = new DynManifestFilter(_context, null, selasset);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
                 var filterinfo = form.GetFilterInfo;
-                
+
                 try
                 {
                     selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
@@ -10415,7 +10414,7 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
-                Subclipping form = new Subclipping(_context,  selectedAssets, this)
+                Subclipping form = new Subclipping(_context, selectedAssets, this)
                 {
                     EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + " - Subclipped"
@@ -11560,7 +11559,7 @@ namespace AMSExplorer
         {
             AssetBitmapAndText ABT = new AssetBitmapAndText();
             var filters = asset.AssetFilters;
-            
+
             if (filters.Count() > 1)
             {
                 ABT.bitmap = AssetFiltersImage;

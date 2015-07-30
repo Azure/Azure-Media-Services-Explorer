@@ -51,6 +51,10 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.labelCloneLocators = new System.Windows.Forms.Label();
+            this.textBoxManifestName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.labelManifestFile = new System.Windows.Forms.Label();
@@ -64,19 +68,15 @@
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxStartProgramNow = new System.Windows.Forms.CheckBox();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.textBoxManifestName = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.labelCloneLocators = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
+            this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -323,6 +323,46 @@
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveHours.TabIndex = 1;
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.labelCloneLocators);
+            this.tabPage3.Controls.Add(this.textBoxManifestName);
+            this.tabPage3.Controls.Add(this.label13);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(498, 210);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Advanced";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // labelCloneLocators
+            // 
+            this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelCloneLocators.Location = new System.Drawing.Point(116, 84);
+            this.labelCloneLocators.Name = "labelCloneLocators";
+            this.labelCloneLocators.Size = new System.Drawing.Size(255, 15);
+            this.labelCloneLocators.TabIndex = 72;
+            this.labelCloneLocators.Text = "leave empty to auto generate it";
+            // 
+            // textBoxManifestName
+            // 
+            this.textBoxManifestName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxManifestName.Location = new System.Drawing.Point(21, 102);
+            this.textBoxManifestName.Name = "textBoxManifestName";
+            this.textBoxManifestName.Size = new System.Drawing.Size(450, 23);
+            this.textBoxManifestName.TabIndex = 49;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(18, 84);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(92, 15);
+            this.label13.TabIndex = 50;
+            this.label13.Text = "Manifest name :";
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.labelURLFileNameWarning);
@@ -465,47 +505,6 @@
             this.checkBoxStartProgramNow.Text = "Start the program now";
             this.checkBoxStartProgramNow.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.labelCloneLocators);
-            this.tabPage3.Controls.Add(this.textBoxManifestName);
-            this.tabPage3.Controls.Add(this.label13);
-            this.tabPage3.Location = new System.Drawing.Point(4, 24);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(498, 210);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Advanced";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // textBoxManifestName
-            // 
-            this.textBoxManifestName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxManifestName.Location = new System.Drawing.Point(21, 102);
-            this.textBoxManifestName.Name = "textBoxManifestName";
-            this.textBoxManifestName.Size = new System.Drawing.Size(450, 23);
-            this.textBoxManifestName.TabIndex = 49;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(18, 84);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(92, 15);
-            this.label13.TabIndex = 50;
-            this.label13.Text = "Manifest name :";
-            // 
-            // labelCloneLocators
-            // 
-            this.labelCloneLocators.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelCloneLocators.Location = new System.Drawing.Point(116, 84);
-            this.labelCloneLocators.Name = "labelCloneLocators";
-            this.labelCloneLocators.Size = new System.Drawing.Size(255, 15);
-            this.labelCloneLocators.TabIndex = 72;
-            this.labelCloneLocators.Text = "leave empty to auto generate it";
-            this.labelCloneLocators.Visible = false;
-            // 
             // CreateProgram
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -535,11 +534,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
