@@ -1459,14 +1459,11 @@ namespace AMSExplorer
                             duration += d * r;
                         }
                         response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
-                        //new TimeSpan((long)((double)TimeSpan.TicksPerSecond * );
-
                     }
                     else
                     {
                         ulong duration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
-                        //response.AssetDuration = new TimeSpan((long)((double)TimeSpan.TicksPerSecond * (double)duration / ((double)timescale)));
-                         response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
+                        response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
                     }
                 }
                 else

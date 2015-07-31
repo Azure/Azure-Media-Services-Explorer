@@ -201,7 +201,6 @@ namespace AMSExplorer
                 {
                     StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
                     UpdateTextBoxJSON(streamReader.ReadToEnd());
-                    //textBoxConfiguration.Text = streamReader.ReadToEnd();
                     streamReader.Close();
                 }
                 catch (Exception ex)
@@ -308,6 +307,20 @@ namespace AMSExplorer
             {
                 listboxPresets.SelectedIndex = -1;
                 richTextBoxDesc.Text = string.Empty;
+
+                // Let's check JSON syntax
+                bool Error = false;
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch
+                {
+                    labelWarningJSON.Visible = true;
+                    Error = true;
+                }
+                if (!Error) labelWarningJSON.Visible = false;
+
             }
         }
 
