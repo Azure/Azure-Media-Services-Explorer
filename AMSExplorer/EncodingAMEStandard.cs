@@ -189,7 +189,7 @@ namespace AMSExplorer
         }
 
 
-        private void buttonLoadXML_Click(object sender, EventArgs e)
+        private void buttonLoadJSON_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(this.EncodingAMEStdPresetJSONFilesUserFolder))
                 openFileDialogPreset.InitialDirectory = this.EncodingAMEStdPresetJSONFilesUserFolder;
@@ -201,7 +201,6 @@ namespace AMSExplorer
                 {
                     StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
                     UpdateTextBoxJSON(streamReader.ReadToEnd());
-                    //textBoxConfiguration.Text = streamReader.ReadToEnd();
                     streamReader.Close();
                 }
                 catch (Exception ex)
@@ -309,6 +308,21 @@ namespace AMSExplorer
                 listboxPresets.SelectedIndex = -1;
                 richTextBoxDesc.Text = string.Empty;
             }
+
+            // Let's check JSON syntax
+            bool Error = false;
+            try
+            {
+                var jo = JObject.Parse(textBoxConfiguration.Text);
+            }
+            catch
+            {
+                labelWarningJSON.Visible = true;
+                Error = true;
+            }
+            if (!Error) labelWarningJSON.Visible = false;
+
+
         }
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

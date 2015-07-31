@@ -84,16 +84,33 @@ namespace AMSExplorer
             }
         }
 
+       
         public string ReplicaLocatorID
         {
             get { return labelLocatorID.Text; }
 
         }
 
-        public string ReplicaManifestName
+        public string ForceManifestName
         {
-            get { return labelManifestFile.Text; }
-
+            get 
+            {
+                if (checkBoxReplica.Checked)
+                {
+                    return labelManifestFile.Text;
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(textBoxManifestName.Text))
+                    {
+                        return null;
+                    }
+                    else
+                    {
+                        return textBoxManifestName.Text.Trim();
+                    }
+                }
+            }
         }
 
         public string AssetName
@@ -156,6 +173,7 @@ namespace AMSExplorer
         private void checkBoxReplica_CheckedChanged(object sender, EventArgs e)
         {
             textBoxProgramSourceURL.Enabled = checkBoxReplica.Checked;
+            textBoxManifestName.Enabled = checkBoxReplica.Checked;
             if (checkBoxReplica.Checked)
             {
                 checkBoxCreateLocator.Checked = true;

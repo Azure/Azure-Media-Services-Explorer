@@ -34,6 +34,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.moreinfopresetslink = new System.Windows.Forms.LinkLabel();
+            this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
             this.label4KWarning = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.listboxPresets = new System.Windows.Forms.ListBox();
@@ -51,8 +53,7 @@
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
-            this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
-            this.moreinfopresetslink = new System.Windows.Forms.LinkLabel();
+            this.labelWarningJSON = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -118,6 +119,29 @@
             this.groupBox1.Text = "Encoder Configuration";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // moreinfopresetslink
+            // 
+            this.moreinfopresetslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfopresetslink.AutoSize = true;
+            this.moreinfopresetslink.Location = new System.Drawing.Point(552, 92);
+            this.moreinfopresetslink.Name = "moreinfopresetslink";
+            this.moreinfopresetslink.Size = new System.Drawing.Size(158, 15);
+            this.moreinfopresetslink.TabIndex = 76;
+            this.moreinfopresetslink.TabStop = true;
+            this.moreinfopresetslink.Text = "More information on presets";
+            this.moreinfopresetslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfopresetslink_LinkClicked);
+            // 
+            // richTextBoxDesc
+            // 
+            this.richTextBoxDesc.AcceptsTab = true;
+            this.richTextBoxDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.richTextBoxDesc.Location = new System.Drawing.Point(388, 37);
+            this.richTextBoxDesc.Name = "richTextBoxDesc";
+            this.richTextBoxDesc.ReadOnly = true;
+            this.richTextBoxDesc.Size = new System.Drawing.Size(322, 52);
+            this.richTextBoxDesc.TabIndex = 75;
+            this.richTextBoxDesc.Text = "";
+            // 
             // label4KWarning
             // 
             this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -171,7 +195,7 @@
             this.buttonLoadXML.TabIndex = 41;
             this.buttonLoadXML.Text = "Load a preset JSON file...";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
-            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadXML_Click);
+            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadJSON_Click);
             // 
             // label2
             // 
@@ -296,28 +320,18 @@
             this.moreinfoame.Text = "More information";
             this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
-            // richTextBoxDesc
+            // labelWarningJSON
             // 
-            this.richTextBoxDesc.AcceptsTab = true;
-            this.richTextBoxDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxDesc.Location = new System.Drawing.Point(388, 37);
-            this.richTextBoxDesc.Name = "richTextBoxDesc";
-            this.richTextBoxDesc.ReadOnly = true;
-            this.richTextBoxDesc.Size = new System.Drawing.Size(322, 52);
-            this.richTextBoxDesc.TabIndex = 75;
-            this.richTextBoxDesc.Text = "";
-            // 
-            // moreinfopresetslink
-            // 
-            this.moreinfopresetslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.moreinfopresetslink.AutoSize = true;
-            this.moreinfopresetslink.Location = new System.Drawing.Point(552, 92);
-            this.moreinfopresetslink.Name = "moreinfopresetslink";
-            this.moreinfopresetslink.Size = new System.Drawing.Size(158, 15);
-            this.moreinfopresetslink.TabIndex = 76;
-            this.moreinfopresetslink.TabStop = true;
-            this.moreinfopresetslink.Text = "More information on presets";
-            this.moreinfopresetslink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfopresetslink_LinkClicked);
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON.Location = new System.Drawing.Point(595, 284);
+            this.labelWarningJSON.Name = "labelWarningJSON";
+            this.labelWarningJSON.Size = new System.Drawing.Size(136, 21);
+            this.labelWarningJSON.TabIndex = 77;
+            this.labelWarningJSON.Tag = "JSON Syntax error !";
+            this.labelWarningJSON.Text = "JSON Syntax error !";
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.Visible = false;
             // 
             // buttonJobOptions
             // 
@@ -335,6 +349,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
@@ -389,5 +404,6 @@
         private System.Windows.Forms.LinkLabel moreinfoame;
         private System.Windows.Forms.RichTextBox richTextBoxDesc;
         private System.Windows.Forms.LinkLabel moreinfopresetslink;
+        private System.Windows.Forms.Label labelWarningJSON;
     }
 }

@@ -42,28 +42,26 @@ namespace AMSExplorer
         public IAsset myAsset;
         private string myAssetType;
         private CloudMediaContext myContext;
-        private MediaServiceContextForDynManifest myDynManifestContext;
         public IEnumerable<IStreamingEndpoint> myStreamingEndpoints;
         private ILocator tempLocator = null;
         private ILocator tempMetadaLocator = null;
         private IContentKeyAuthorizationPolicy myAuthPolicy = null;
         private Mainform myMainForm;
-        private List<Filter> globalFilters;
         private bool oktobuildlocator = false;
         private ManifestTimingData myassetmanifesttimingdata = null;
 
-        public AssetInformation(Mainform mainform, CloudMediaContext context, MediaServiceContextForDynManifest contextdynman)
+        public AssetInformation(Mainform mainform, CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             myMainForm = mainform;
             myContext = context;
-            myDynManifestContext = contextdynman;
+
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
         {
-
+            
         }
 
         private void toolStripMenuItemCopy_Click(object sender, EventArgs e)
@@ -408,8 +406,7 @@ namespace AMSExplorer
                 buttonUpload.Enabled = true;
             }
 
-            globalFilters = myDynManifestContext.ListGlobalFilters();
-
+            
             DisplayAssetFilters();
             oktobuildlocator = true;
             BuildLocatorsTree();
@@ -440,42 +437,59 @@ namespace AMSExplorer
             comboBoxLocatorsFilters.BeginUpdate();
             comboBoxLocatorsFilters.Items.Add(new Item(string.Empty, null));
 
-            List<AssetFilter> filters = myDynManifestContext.ListAssetFilters(myAsset);
+            //List<AssetFilter> filters = myDynManifestContext.ListAssetFilters(myAsset);
+            //var filters = myAsset.AssetFilters;
 
-            if (filters.Count > 0 && myassetmanifesttimingdata == null)
+            if (myAsset.AssetFilters.Count() > 0 && myassetmanifesttimingdata == null)
             {
                 myassetmanifesttimingdata = AssetInfo.GetManifestTimingData(myAsset);
             }
 
-            foreach (var filter in filters)
+            foreach (var filter in myAsset.AssetFilters)
             {
                 string s = null;
                 string e = null;
                 string d = null;
                 string l = null;
-                
+
                 if (filter.PresentationTimeRange != null)
                 {
-                    double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000d;
-                    s = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.StartTimestamp, myassetmanifesttimingdata.TimestampOffset, scale);
-                    e = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.EndTimestamp, myassetmanifesttimingdata.TimestampOffset, scale);
-                    d = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.PresentationWindowDuration, 0, scale);
-                    l = ReturnFilterTextWithOffSet(filter.PresentationTimeRange.LiveBackoffDuration, 0, scale);
+                    ulong? start = filter.PresentationTimeRange.StartTimestamp;
+                    ulong? end = filter.PresentationTimeRange.EndTimestamp;
+                    TimeSpan? dvr = filter.PresentationTimeRange.PresentationWindowDuration;
+                    TimeSpan? live = filter.PresentationTimeRange.LiveBackoffDuration;
+
+                    double dscale = (filter.PresentationTimeRange.Timescale != null) ?
+                        (double)filter.PresentationTimeRange.Timescale
+                        : (double)TimeSpan.TicksPerSecond;
+
+                    double dscaleoffset = (myassetmanifesttimingdata.TimeScale != null) ?
+                        (double)myassetmanifesttimingdata.TimeScale
+                        : (double)TimeSpan.TicksPerSecond;
+
+
+                    //double scale = Convert.ToDouble(filter.PresentationTimeRange.Timescale) / 10000000d;
+                    s = ReturnFilterTextWithOffSet(start, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "min");
+                    e = ReturnFilterTextWithOffSet(end, dscale, myassetmanifesttimingdata.TimestampOffset, dscaleoffset, "max");
+                    d = ReturnFilterText(dvr, "max");
+                    l = ReturnFilterText(live, "min");
                 }
                 int rowi = dataGridViewFilters.Rows.Add(filter.Name, filter.Id, filter.Tracks.Count, s, e, d, l);
 
                 // droplist
                 comboBoxLocatorsFilters.Items.Add(new Item("Asset filter  : " + filter.Name, filter.Name));
             }
-            globalFilters.ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
+
+
+            myContext.Filters.ToList().ForEach(g => comboBoxLocatorsFilters.Items.Add(new Item("Global filter : " + g.Name, g.Name)));
             comboBoxLocatorsFilters.SelectedIndex = 0;
             comboBoxLocatorsFilters.EndUpdate();
         }
 
-        private static string ReturnFilterTextWithOffSet(string value, Int64 offset, double scale)
+        private static string ReturnFilterTextWithOffSet(string value, ulong offset, double scale)
         {
-            Int64 valueint = Int64.Parse(value);
-            if (valueint == long.MaxValue)
+            ulong valueint = ulong.Parse(value);
+            if (valueint == ulong.MaxValue)
             {
                 return "max";
             }
@@ -483,6 +497,35 @@ namespace AMSExplorer
             {
                 valueint -= offset;
                 return TimeSpan.FromTicks((long)(valueint / scale)).ToString(@"d\.hh\:mm\:ss");
+            }
+        }
+
+        private static string ReturnFilterTextWithOffSet(ulong? value, double scalevalue, ulong offset, double scaleoffset, string defaultwhennull)
+        {
+
+            if (value == null)
+            {
+                return defaultwhennull;
+            }
+            else
+            {
+                var value2 = (double)value / scalevalue;
+                var offset2 = (double)offset / scaleoffset;
+                value2 -= offset2;
+                return TimeSpan.FromSeconds(value2).ToString(@"d\.hh\:mm\:ss");
+            }
+        }
+
+        private static string ReturnFilterText(TimeSpan? value, string defaultwhennull)
+        {
+
+            if (value == null)
+            {
+                return defaultwhennull;
+            }
+            else
+            {
+                return ((TimeSpan)value).ToString(@"d\.hh\:mm\:ss");
             }
         }
 
@@ -1493,7 +1536,7 @@ namespace AMSExplorer
                             dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
                             dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
-                            if (tokenTemplate.PrimaryVerificationKey!=null)
+                            if (tokenTemplate.PrimaryVerificationKey != null)
                             {
                                 dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
                             }
@@ -1876,14 +1919,14 @@ namespace AMSExplorer
         {
             DoFilterInfo();
         }
-        private List<AssetFilter> ReturnSelectedFilters()
+        private List<IStreamingAssetFilter> ReturnSelectedFilters()
         {
 
-            List<AssetFilter> SelectedFilters = new List<AssetFilter>();
+            List<IStreamingAssetFilter> SelectedFilters = new List<IStreamingAssetFilter>();
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
-                AssetFilter myfilter = myDynManifestContext.GetAssetFilter(filterid);
+                IStreamingAssetFilter myfilter = myAsset.AssetFilters.Where(f=>f.Id ==  filterid).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -1896,15 +1939,17 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                DynManifestFilter form = new DynManifestFilter(myDynManifestContext, myContext, (Filter)filters.FirstOrDefault(), myAsset);
+                var filter = filters.FirstOrDefault();
+                DynManifestFilter form = new DynManifestFilter(myContext, (IStreamingFilter)filter, myAsset);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    AssetFilter filtertoupdate = (AssetFilter)form.GetFilter;
+                    var filtertoupdate =form.GetFilterInfo;
                     try
                     {
-                        filtertoupdate.Delete();
-                        filtertoupdate.Create();
+                        filter.PresentationTimeRange = filtertoupdate.Presentationtimerange;
+                        filter.Tracks = filtertoupdate.Trackconditions;
+                        filter.Update();
                         myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
                     }
                     catch (Exception e)
@@ -1925,26 +1970,21 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter(myDynManifestContext, myContext, null, myAsset);
+            DynManifestFilter form = new DynManifestFilter( myContext, null, myAsset);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                AssetFilter myassetfilter = new AssetFilter(myAsset);
-
-                Filter filter = form.GetFilter;
-                myassetfilter.Name = filter.Name;
-                myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
-                myassetfilter.Tracks = filter.Tracks;
-                myassetfilter._context = filter._context;
-                try
+            
+                var filterinfo = form.GetFilterInfo;
+                               try
                 {
-                    myassetfilter.Create();
-                    myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filter.Name);
+                    myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                    myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filterinfo.Name);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("Error when creating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", filter.Name, true);
+                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", filterinfo.Name, true);
                     myMainForm.TextBoxLogWriteLine(e);
                 }
                 DisplayAssetFilters();
@@ -1982,19 +2022,14 @@ namespace AMSExplorer
             var filters = ReturnSelectedFilters();
             if (filters.Count == 1)
             {
-                AssetFilter sourcefilter = filters.FirstOrDefault();
+                IStreamingAssetFilter sourcefilter = filters.FirstOrDefault();
 
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
-                    AssetFilter copyfilter = new AssetFilter(myAsset);
-                    copyfilter.Name = newfiltername;
-                    copyfilter.PresentationTimeRange = sourcefilter.PresentationTimeRange;
-                    copyfilter.Tracks = sourcefilter.Tracks;
-                    copyfilter._context = sourcefilter._context;
-                    try
+                                     try
                     {
-                        copyfilter.Create();
+                        myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
                     }
                     catch (Exception e)
                     {

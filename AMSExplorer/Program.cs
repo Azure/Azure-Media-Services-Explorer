@@ -83,7 +83,7 @@ namespace AMSExplorer
             if (indexname != -1)
             {
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                int colw = grid.Columns[indexname].Width;
+                int colw = Math.Max(grid.Columns[indexname].Width, 100);
                 grid.Columns[indexname].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
                 grid.Columns[indexname].Width = colw;
             }
@@ -1425,16 +1425,17 @@ namespace AMSExplorer
 
                     // TIMESCALE
                     string timescalefrommanifest = smoothmedia.Attribute("TimeScale").Value;
-                    response.TimeScale = long.Parse(timescalefrommanifest);
                     if (videotrack.FirstOrDefault().Attribute("TimeScale") != null) // there is timescale value in the video track. Let's take this one.
                     {
                         timescalefrommanifest = videotrack.FirstOrDefault().Attribute("TimeScale").Value;
                     }
+                    ulong timescale = ulong.Parse(timescalefrommanifest);
+                    response.TimeScale = (timescale == TimeSpan.TicksPerSecond) ? null : (ulong?)timescale; // if 10000000 then null (default)
 
                     // Timestamp offset
                     if (videotrack.FirstOrDefault().Element("c").Attribute("t") != null)
                     {
-                        response.TimestampOffset = long.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
+                        response.TimestampOffset = ulong.Parse(videotrack.FirstOrDefault().Element("c").Attribute("t").Value);
                     }
                     else
                     {
@@ -1451,17 +1452,18 @@ namespace AMSExplorer
                         {
                             if (chunk.Attribute("t") != null)
                             {
-                                duration = long.Parse(chunk.Attribute("t").Value) - response.TimestampOffset; // new timestamp, perhaps gap in live stream....
+                                duration = long.Parse(chunk.Attribute("t").Value) - (long)response.TimestampOffset; // new timestamp, perhaps gap in live stream....
                             }
                             d = chunk.Attribute("d") != null ? long.Parse(chunk.Attribute("d").Value) : 0;
                             r = chunk.Attribute("r") != null ? long.Parse(chunk.Attribute("r").Value) : 1;
                             duration += d * r;
                         }
-                        response.AssetDuration = duration;
+                        response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
                     }
                     else
                     {
-                        response.AssetDuration = long.Parse(smoothmedia.Attribute("Duration").Value);
+                        ulong duration = ulong.Parse(smoothmedia.Attribute("Duration").Value);
+                        response.AssetDuration = TimeSpan.FromSeconds((double)duration / ((double)timescale));
                     }
                 }
                 else
@@ -1477,9 +1479,10 @@ namespace AMSExplorer
             return response;
         }
 
-        public static long ReturnTimestampInTicks(long timestamp, long timescale)
+        public static long ReturnTimestampInTicks(ulong timestamp, ulong? timescale)
         {
-            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / (double)timescale);
+            double timescale2 = timescale ?? TimeSpan.TicksPerSecond;
+            return (long)((double)timestamp * (double)TimeSpan.TicksPerSecond / timescale2);
         }
 
         public static IAsset GetAsset(string assetId, CloudMediaContext _context)
@@ -2425,9 +2428,9 @@ namespace AMSExplorer
 
     public class ManifestTimingData
     {
-        public long AssetDuration { get; set; }
-        public long TimestampOffset { get; set; }
-        public long TimeScale { get; set; }
+        public TimeSpan AssetDuration { get; set; }
+        public ulong TimestampOffset { get; set; }
+        public ulong? TimeScale { get; set; }
         public bool IsLive { get; set; }
         public bool Error { get; set; }
     }
@@ -2447,6 +2450,15 @@ namespace AMSExplorer
 
     }
 
+
+    public class AssetCreationInfo
+    {
+        public string Name { get; set; }  // contains the full configuration for subclipping
+        public PresentationTimeRange Presentationtimerange { get; set; }
+        public IList<FilterTrackSelectStatement> Trackconditions { get; set; }
+
+
+    }
     public class SubClipConfiguration
     {
         public string Configuration { get; set; }  // contains the full configuration for subclipping
@@ -2533,6 +2545,38 @@ namespace AMSExplorer
         public bool TasksOptionsSettingReadOnly { get; set; }
         public AssetCreationOptions OutputAssetsCreationOptions { get; set; }
 
+    }
+
+
+
+    public sealed class FilterPropertyFourCCValue
+    {
+        public static readonly string mp4a = "mp4a";
+        public static readonly string avc1 = "avc1";
+        public static readonly string mp4v = "mp4v";
+        public static readonly string ec3 = "ec-3";
+    }
+
+
+    public sealed class FilterProperty
+    {
+        public const string Type = "Type";
+        public const string Name = "Name";
+        public const string Language = "Language";
+        public const string FourCC = "FourCC";
+        public const string Bitrate = "Bitrate";
+    }
+
+    public class ExFilterTrack
+    {
+        public List<ExCondition> conditions { get; set; }
+    }
+
+    public class ExCondition
+    {
+        public string property { get; set; }
+        public string oper { get; set; }
+        public string value { get; set; }
     }
 
 
