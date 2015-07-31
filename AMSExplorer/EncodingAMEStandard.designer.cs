@@ -195,7 +195,7 @@
             this.buttonLoadXML.TabIndex = 41;
             this.buttonLoadXML.Text = "Load a preset JSON file...";
             this.buttonLoadXML.UseVisualStyleBackColor = true;
-            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadXML_Click);
+            this.buttonLoadXML.Click += new System.EventHandler(this.buttonLoadJSON_Click);
             // 
             // label2
             // 
