@@ -102,6 +102,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.labelWarningJSON);
             this.groupBox1.Controls.Add(this.moreinfopresetslink);
             this.groupBox1.Controls.Add(this.richTextBoxDesc);
             this.groupBox1.Controls.Add(this.label4KWarning);
@@ -322,14 +323,15 @@
             // 
             // labelWarningJSON
             // 
-            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(595, 284);
+            this.labelWarningJSON.Location = new System.Drawing.Point(115, 165);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(136, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(595, 21);
             this.labelWarningJSON.TabIndex = 77;
-            this.labelWarningJSON.Tag = "JSON Syntax error !";
-            this.labelWarningJSON.Text = "JSON Syntax error !";
+            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
+            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
             this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWarningJSON.Visible = false;
             // 
@@ -349,7 +351,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);

@@ -315,14 +315,13 @@ namespace AMSExplorer
             {
                 var jo = JObject.Parse(textBoxConfiguration.Text);
             }
-            catch
+            catch (Exception ex)
             {
-                labelWarningJSON.Visible = true;
+                labelWarningJSON.Text = string.Format((string) labelWarningJSON.Tag, ex.Message);
                 Error = true;
             }
-            if (!Error) labelWarningJSON.Visible = false;
-
-
+            labelWarningJSON.Visible = Error;
+            
         }
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
