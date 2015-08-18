@@ -241,8 +241,8 @@ namespace AMSExplorer
             tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
             tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
 
-            comboBoxEncodingPreset.Items.Add("Default720p");
-            comboBoxEncodingPreset.SelectedIndex = 0;
+            //comboBoxEncodingPreset.Items.Add("Default720p");
+            //comboBoxEncodingPreset.SelectedIndex = 0;
 
             dataGridViewAudioStreams.DataSource = audiostreams;
             dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
@@ -314,13 +314,18 @@ namespace AMSExplorer
                     EncodingTabDisplayed = false;
                     FillComboProtocols(false);
                 }
-                else if (!EncodingTabDisplayed)
+                else
                 {
-                    tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
-                    tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
-                    tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
-                    EncodingTabDisplayed = true;
                     FillComboProtocols(true);
+                    FillComboLiveEncodingProfile();
+                    if (!EncodingTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
+                        tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
+                        tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
+                        EncodingTabDisplayed = true;
+
+                    }
                 }
             }
         }
@@ -336,6 +341,17 @@ namespace AMSExplorer
                 comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTPMPEG2TS), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTPMPEG2TS)));
             }
             comboBoxProtocolInput.SelectedIndex = 0;
+        }
+
+        private void FillComboLiveEncodingProfile()
+        {
+            // default encoding profile
+            ChannelEncodingType encodingType = (ChannelEncodingType)Enum.Parse(typeof(ChannelEncodingType), comboBoxEncodingType.Text);
+            string defaultprofile = encodingType == ChannelEncodingType.Standard ? "Default720p" : "Default1080p";
+
+            comboBoxEncodingPreset.Items.Clear();
+            comboBoxEncodingPreset.Items.Add(defaultprofile);
+            comboBoxEncodingPreset.SelectedIndex = 0;
         }
 
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
