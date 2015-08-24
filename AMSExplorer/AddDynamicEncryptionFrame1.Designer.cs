@@ -317,12 +317,11 @@
             // radioButtonNoAuthPolicy
             // 
             this.radioButtonNoAuthPolicy.AutoSize = true;
-            this.radioButtonNoAuthPolicy.Enabled = false;
             this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(41, 97);
             this.radioButtonNoAuthPolicy.Name = "radioButtonNoAuthPolicy";
-            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(370, 19);
+            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(394, 19);
             this.radioButtonNoAuthPolicy.TabIndex = 62;
-            this.radioButtonNoAuthPolicy.Text = "None - An external PlayReady server is used to deliver the licenses\r\n";
+            this.radioButtonNoAuthPolicy.Text = "None - An external Key/PlayReady server is used to deliver the licenses\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
             // 
             // AddDynamicEncryptionFrame1

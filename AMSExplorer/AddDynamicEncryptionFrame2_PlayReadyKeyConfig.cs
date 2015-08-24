@@ -61,15 +61,24 @@ namespace AMSExplorer
                 textBoxkeyseed.Text = value;
             }
         }
-        public string PlayReadyLAurl
+        public Uri PlayReadyLAurl
         {
             get
             {
-                return textBoxLAurl.Text;
+                Uri myuri = null;
+                try
+                {
+                    myuri = new Uri(textBoxLAurl.Text);
+                }
+                catch
+                {
+
+                }
+                return myuri;
             }
             set
             {
-                textBoxLAurl.Text = value;
+                textBoxLAurl.Text = value.ToString();
             }
         }
 

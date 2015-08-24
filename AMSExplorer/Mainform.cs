@@ -7615,7 +7615,8 @@ namespace AMSExplorer
 
                         ///////////////////////////////////////////// AES Dynamic Encryption
                         case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
-                            AddDynamicEncryptionFrame2_AESKeyConfig form2_AES = new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey) { Left = form1.Left, Top = form1.Top };
+                            AddDynamicEncryptionFrame2_AESKeyConfig form2_AES =
+                                new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey || form1.GetNumberOfAuthorizationPolicyOptions == 0, form1.GetNumberOfAuthorizationPolicyOptions > 0, form1.GetNumberOfAuthorizationPolicyOptions == 0) { Left = form1.Left, Top = form1.Top };
                             if (form2_AES.ShowDialog() == DialogResult.OK)
                             {
                                 List<AddDynamicEncryptionFrame3> form3list = new List<AddDynamicEncryptionFrame3>();
@@ -7910,7 +7911,7 @@ namespace AMSExplorer
                             }
                             else // Licenses NOT delivered by Azure Media Services but by a third party server
                             {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, new Uri(form2_PlayReady.PlayReadyLAurl), form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, form2_PlayReady.PlayReadyLAurl, form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
                             }
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -7931,9 +7932,11 @@ namespace AMSExplorer
         {
             bool Error = false;
             string aeskey = string.Empty;
+            Uri aeslaurl = null;
             if (!form2.ContentKeyRandomGeneration)
             {
                 aeskey = form2.AESContentKey;
+                aeslaurl = form2.AESLaUrl;
             }
 
             foreach (IAsset AssetToProcess in SelectedAssets)
@@ -7979,85 +7982,89 @@ namespace AMSExplorer
                     }
 
 
-                    // let's create the Authorization Policy
-                    IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
-                                   ContentKeyAuthorizationPolicies.
-                                   CreateAsync("My Authorization Policy").Result;
-
-                    // Associate the content key authorization policy with the content key.
-                    contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
-                    contentKey = contentKey.UpdateAsync().Result;
-
-
-                    foreach (var form3 in form3list)
+                    if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // AES Key and delivery from Azure Media Services
                     {
-                        IContentKeyAuthorizationPolicyOption policyOption = null;
-                        Error = false;
-                        try
+
+                        // let's create the Authorization Policy
+                        IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                                       ContentKeyAuthorizationPolicies.
+                                       CreateAsync("My Authorization Policy").Result;
+
+                        // Associate the content key authorization policy with the content key.
+                        contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                        contentKey = contentKey.UpdateAsync().Result;
+
+
+                        foreach (var form3 in form3list)
                         {
-                            switch (form3.GetKeyRestrictionType)
+                            IContentKeyAuthorizationPolicyOption policyOption = null;
+                            Error = false;
+                            try
                             {
-                                case ContentKeyRestrictionType.Open:
+                                switch (form3.GetKeyRestrictionType)
+                                {
+                                    case ContentKeyRestrictionType.Open:
 
-                                    policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
-                                    TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                    contentKeyAuthorizationPolicy.Options.Add(policyOption);
-                                    break;
+                                        policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.BaselineHttp, null, _context);
+                                        TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                                        break;
 
-                                case ContentKeyRestrictionType.TokenRestricted:
-                                    TokenVerificationKey mytokenverifkey = null;
-                                    string OpenIdDoc = null;
-                                    switch (form3.GetDetailedTokenType)
-                                    {
-                                        case ExplorerTokenType.SWT:
-                                        case ExplorerTokenType.JWTSym:
-                                            mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
-                                            break;
-
-                                        case ExplorerTokenType.JWTOpenID:
-                                            OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
-                                            break;
-
-                                        case ExplorerTokenType.JWTX509:
-                                            mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
-                                            break;
-                                    }
-
-                                    policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, OpenIdDoc);
-                                    TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
-                                    contentKeyAuthorizationPolicy.Options.Add(policyOption);
-
-                                    if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
-                                    {
-                                        // let display a test token
-                                        X509SigningCredentials signingcred = null;
-                                        if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                    case ContentKeyRestrictionType.TokenRestricted:
+                                        TokenVerificationKey mytokenverifkey = null;
+                                        string OpenIdDoc = null;
+                                        switch (form3.GetDetailedTokenType)
                                         {
-                                            signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                            case ExplorerTokenType.SWT:
+                                            case ExplorerTokenType.JWTSym:
+                                                mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                break;
+
+                                            case ExplorerTokenType.JWTOpenID:
+                                                OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                                break;
+
+                                            case ExplorerTokenType.JWTX509:
+                                                mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                                break;
                                         }
 
-                                        _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
-                                        DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                        TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
-                                        System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                        policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyAES(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, OpenIdDoc);
+                                        TextBoxLogWriteLine("Created Token AES authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                        contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                    }
-                                    break;
+                                        if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
+                                        {
+                                            // let display a test token
+                                            X509SigningCredentials signingcred = null;
+                                            if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                            {
+                                                signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                            }
 
-                                default:
-                                    break;
+                                            _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                            DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                            TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                            System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+
+                                        }
+                                        break;
+
+                                    default:
+                                        break;
+                                }
                             }
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                Error = true;
+                            }
 
+                        }
+                        contentKeyAuthorizationPolicy.Update();
                     }
-                    contentKeyAuthorizationPolicy.Update();
 
                     // Let's create the Asset Delivery Policy now
                     IAssetDeliveryPolicy DelPol = null;
@@ -8065,7 +8072,7 @@ namespace AMSExplorer
 
                     try
                     {
-                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context);
+                        DelPol = DynamicEncryption.CreateAssetDeliveryPolicyAES(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, aeslaurl);
                         TextBoxLogWriteLine("Created asset delivery policy {0} for asset {1}.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
                     }
                     catch (Exception e)

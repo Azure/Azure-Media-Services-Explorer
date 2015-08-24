@@ -395,7 +395,7 @@ namespace AMSExplorer
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
-                            if (tokenTemplate.OpenIdConnectDiscoveryDocument==null)
+                            if (tokenTemplate.OpenIdConnectDiscoveryDocument == null)
                             {
                                 MyResult.TokenType = tokenTemplate.TokenType;
                                 MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
@@ -502,9 +502,11 @@ namespace AMSExplorer
             return MyResult;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri keyAcquisitionUri)
         {
-            Uri keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
+            // if user does not specify a custom LA URL, let's use the AES key server from Azure Media Services
+            if (keyAcquisitionUri == null)
+                keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
 
             string envelopeEncryptionIV = Convert.ToBase64String(GetRandomBuffer(16));
 

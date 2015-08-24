@@ -110,7 +110,8 @@ namespace AMSExplorer
 
         private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonEnvelope.Checked) radioButtonDefineAuthPol.Checked = true;
+           //radioButtonDefineAuthPol.Checked = radioButtonEnvelope.Checked;
+           radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
         }
 
 
@@ -125,19 +126,11 @@ namespace AMSExplorer
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
-            // groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
-            /*
-                  radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
-                  if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
-                  {
-                      radioButtonOpenAuthPolicy.Checked = true;
-                  }
-             * */
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
         }
 
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
