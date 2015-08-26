@@ -5906,7 +5906,7 @@ namespace AMSExplorer
                     }
                     else
                     {
-                        TextBoxLogWriteLine("Streaming endpoint '{0}' : did NOT scaled. (Error {1})", myO.Name, operation.ErrorCode, true);
+                        TextBoxLogWriteLine("Streaming endpoint '{0}' : did NOT scale. (Error {1})", myO.Name, operation.ErrorCode, true);
                         TextBoxLogWriteLine("Error message : {0}", operation.ErrorMessage, true);
                     }
                     dataGridViewStreamingEndpointsV.BeginInvoke(new Action(() => dataGridViewStreamingEndpointsV.RefreshStreamingEndpoint(myO)), null);

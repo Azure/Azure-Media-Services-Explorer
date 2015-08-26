@@ -301,7 +301,7 @@ namespace AMSExplorer
         {
             int nbjobs = (radioButtonOneJobPerInputAsset.Checked ? SelectedAssets.Count : 1);
 
-            labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}",
+            labelsummaryjob.Text = string.Format(labelsummaryjob.Tag as string,
                 nbjobs,
                 nbjobs > 1 ? "s" : "",
                 numberoftasks,

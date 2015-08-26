@@ -418,7 +418,8 @@
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(426, 25);
             this.labelsummaryjob.TabIndex = 38;
-            this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
+            this.labelsummaryjob.Tag = "You are going to submit {0} job{1} with {2} task{3}";
+            this.labelsummaryjob.Text = "You are going to submit {0} job{1} with {2} task{3}";
             // 
             // tabPageTask1
             // 
@@ -499,9 +500,9 @@
             this.tabPageTask2.Controls.Add(this.textBoxConfiguration2);
             this.tabPageTask2.Controls.Add(this.label8);
             this.tabPageTask2.Controls.Add(this.listViewProcessors2);
-            this.tabPageTask2.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTask2.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask2.Name = "tabPageTask2";
-            this.tabPageTask2.Size = new System.Drawing.Size(860, 523);
+            this.tabPageTask2.Size = new System.Drawing.Size(860, 521);
             this.tabPageTask2.TabIndex = 3;
             this.tabPageTask2.Text = "Task2";
             this.tabPageTask2.UseVisualStyleBackColor = true;
@@ -611,9 +612,9 @@
             this.tabPageTask3.Controls.Add(this.textBoxConfiguration3);
             this.tabPageTask3.Controls.Add(this.label10);
             this.tabPageTask3.Controls.Add(this.listViewProcessors3);
-            this.tabPageTask3.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTask3.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask3.Name = "tabPageTask3";
-            this.tabPageTask3.Size = new System.Drawing.Size(860, 523);
+            this.tabPageTask3.Size = new System.Drawing.Size(860, 521);
             this.tabPageTask3.TabIndex = 4;
             this.tabPageTask3.Text = "Task3";
             this.tabPageTask3.UseVisualStyleBackColor = true;
@@ -723,9 +724,9 @@
             this.tabPageTask4.Controls.Add(this.textBoxConfiguration4);
             this.tabPageTask4.Controls.Add(this.label12);
             this.tabPageTask4.Controls.Add(this.listViewProcessors4);
-            this.tabPageTask4.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTask4.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask4.Name = "tabPageTask4";
-            this.tabPageTask4.Size = new System.Drawing.Size(860, 523);
+            this.tabPageTask4.Size = new System.Drawing.Size(860, 521);
             this.tabPageTask4.TabIndex = 5;
             this.tabPageTask4.Text = "Task4";
             this.tabPageTask4.UseVisualStyleBackColor = true;
@@ -835,9 +836,9 @@
             this.tabPageTask5.Controls.Add(this.textBoxConfiguration5);
             this.tabPageTask5.Controls.Add(this.label14);
             this.tabPageTask5.Controls.Add(this.listViewProcessors5);
-            this.tabPageTask5.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTask5.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask5.Name = "tabPageTask5";
-            this.tabPageTask5.Size = new System.Drawing.Size(860, 523);
+            this.tabPageTask5.Size = new System.Drawing.Size(860, 521);
             this.tabPageTask5.TabIndex = 6;
             this.tabPageTask5.Text = "Task5";
             this.tabPageTask5.UseVisualStyleBackColor = true;

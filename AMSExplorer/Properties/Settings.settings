@@ -83,9 +83,6 @@
     <Setting Name="DefaultTokenDuration" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">60</Value>
     </Setting>
-    <Setting Name="AMEPremiumWorkflowPreviewPrice" Type="System.Decimal" Scope="User">
-      <Value Profile="(Default)">1.99</Value>
-    </Setting>
     <Setting Name="ffmpegPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">%programfiles32%\ffmpeg\bin</Value>
     </Setting>
@@ -109,6 +106,9 @@
     </Setting>
     <Setting Name="DynEncTokenAudience" Type="System.String" Scope="User">
       <Value Profile="(Default)">urn:test</Value>
+    </Setting>
+    <Setting Name="MEPremiumWorkflowPrice" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">3.99</Value>
     </Setting>
   </Settings>
 </SettingsFile>

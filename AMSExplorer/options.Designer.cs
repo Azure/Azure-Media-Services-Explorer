@@ -470,9 +470,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(47, 68);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(222, 15);
+            this.label4.Size = new System.Drawing.Size(169, 15);
             this.label4.TabIndex = 54;
-            this.label4.Text = "Encoding price per output GB, Standard :";
+            this.label4.Text = "Encoding price per output GB :";
             // 
             // numericUpDownAMEPrice
             // 
@@ -482,7 +482,7 @@
             0,
             0,
             131072});
-            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(297, 66);
+            this.numericUpDownAMEPrice.Location = new System.Drawing.Point(337, 66);
             this.numericUpDownAMEPrice.Name = "numericUpDownAMEPrice";
             this.numericUpDownAMEPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownAMEPrice.TabIndex = 55;
@@ -500,7 +500,7 @@
             0,
             0,
             131072});
-            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(297, 96);
+            this.numericUpDownLegacyEncodingPrice.Location = new System.Drawing.Point(337, 126);
             this.numericUpDownLegacyEncodingPrice.Name = "numericUpDownLegacyEncodingPrice";
             this.numericUpDownLegacyEncodingPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownLegacyEncodingPrice.TabIndex = 57;
@@ -513,7 +513,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(47, 98);
+            this.label5.Location = new System.Drawing.Point(45, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(226, 15);
             this.label5.TabIndex = 56;
@@ -528,12 +528,12 @@
             0,
             0,
             131072});
-            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(297, 156);
+            this.numericUpDownIndexingPrice.Location = new System.Drawing.Point(337, 156);
             this.numericUpDownIndexingPrice.Name = "numericUpDownIndexingPrice";
             this.numericUpDownIndexingPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownIndexingPrice.TabIndex = 59;
             this.numericUpDownIndexingPrice.Value = new decimal(new int[] {
-            199,
+            1000,
             0,
             0,
             131072});
@@ -549,7 +549,7 @@
             // 
             // textBoxCurrency
             // 
-            this.textBoxCurrency.Location = new System.Drawing.Point(297, 27);
+            this.textBoxCurrency.Location = new System.Drawing.Point(337, 27);
             this.textBoxCurrency.Name = "textBoxCurrency";
             this.textBoxCurrency.Size = new System.Drawing.Size(59, 23);
             this.textBoxCurrency.TabIndex = 60;
@@ -578,11 +578,11 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(47, 128);
+            this.label9.Location = new System.Drawing.Point(47, 98);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(114, 15);
+            this.label9.Size = new System.Drawing.Size(275, 15);
             this.label9.TabIndex = 64;
-            this.label9.Text = "Premium (preview) :";
+            this.label9.Text = "Premium Workflow encoding price per output GB :";
             // 
             // numericUpDownAMEPremiumWorkflowPrice
             // 
@@ -592,12 +592,12 @@
             0,
             0,
             131072});
-            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(297, 126);
+            this.numericUpDownAMEPremiumWorkflowPrice.Location = new System.Drawing.Point(337, 96);
             this.numericUpDownAMEPremiumWorkflowPrice.Name = "numericUpDownAMEPremiumWorkflowPrice";
             this.numericUpDownAMEPremiumWorkflowPrice.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownAMEPremiumWorkflowPrice.TabIndex = 63;
             this.numericUpDownAMEPremiumWorkflowPrice.Value = new decimal(new int[] {
-            199,
+            399,
             0,
             0,
             131072});
