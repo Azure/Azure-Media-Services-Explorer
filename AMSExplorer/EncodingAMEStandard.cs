@@ -229,7 +229,7 @@ namespace AMSExplorer
                 jo.Add(new JProperty("Sources",
                     new JArray(
                     new JObject(
-                    new JProperty("TimeStart", _subclipConfig.StartTimeForReencode),
+                    new JProperty("StartTime", _subclipConfig.StartTimeForReencode),
                     new JProperty("Duration", _subclipConfig.DurationForReencode)
                     ))));
 
