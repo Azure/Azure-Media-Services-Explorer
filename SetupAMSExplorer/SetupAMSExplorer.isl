@@ -2617,7 +2617,7 @@
 		<col def="I2">Order</col>
 		<col def="I2">ISSetupLocation</col>
 		<col def="S255">ISReleaseFlags</col>
-		<row><td>_DAA5C5CB_DC56_4D01_A7FB_3EAD3E7E3682_</td><td>Microsoft .NET Framework 4.5.2 Web.prq</td><td/><td/><td/></row>
+		<row><td>_DAA5C5CB_DC56_4D01_A7FB_3EAD3E7E3682_</td><td>Microsoft .NET Framework 4.5.2 Web.prq</td><td/><td>1</td><td/></row>
 	</table>
 
 	<table name="ISSetupType">
@@ -4391,9 +4391,9 @@ UwBpAG4AZwBsAGUASQBtAGEAZwBlAAEARQB4AHAAcgBlAHMAcwA=
 		<row><td>PROGMSG_IIS_ROLLBACKVROOTS</td><td>##IDS_PROGMSG_IIS_ROLLBACKVROOTS##</td><td/></row>
 		<row><td>PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS</td><td>##IDS_PROGMSG_IIS_ROLLBACKWEBSERVICEEXTENSIONS##</td><td/></row>
 		<row><td>PROGRAMFILETOLAUNCHATEND</td><td>[INSTALLDIR]AMSExplorer.Primary output</td><td/></row>
-		<row><td>ProductCode</td><td>{1C73C5BE-5396-4D48-9D40-2B8D0F54587E}</td><td/></row>
+		<row><td>ProductCode</td><td>{82ECD805-A953-4724-8325-4B97687DC720}</td><td/></row>
 		<row><td>ProductName</td><td>Azure Media Services Explorer</td><td/></row>
-		<row><td>ProductVersion</td><td>3.27.0.3</td><td/></row>
+		<row><td>ProductVersion</td><td>3.27.0.4</td><td/></row>
 		<row><td>ProgressType0</td><td>install</td><td/></row>
 		<row><td>ProgressType1</td><td>Installing</td><td/></row>
 		<row><td>ProgressType2</td><td>installed</td><td/></row>
