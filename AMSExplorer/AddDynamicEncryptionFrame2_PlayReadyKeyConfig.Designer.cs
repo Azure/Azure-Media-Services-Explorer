@@ -70,6 +70,7 @@
             this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.panelPlayReadyTest.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -108,7 +109,7 @@
             this.label.AutoSize = true;
             this.label.Location = new System.Drawing.Point(205, 9);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(293, 15);
+            this.label.Size = new System.Drawing.Size(292, 15);
             this.label.TabIndex = 28;
             this.label.Text = "You can specifiy your own data or use the test settings";
             // 
@@ -493,6 +494,7 @@
             // 
             this.panelKeyId.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelKeyId.Controls.Add(this.label10);
             this.panelKeyId.Controls.Add(this.textBoxkeyid);
             this.panelKeyId.Controls.Add(this.buttonGenKeyID);
             this.panelKeyId.Controls.Add(this.label5);
@@ -540,6 +542,15 @@
             this.label9.Size = new System.Drawing.Size(264, 42);
             this.label9.TabIndex = 83;
             this.label9.Text = "Step 2\r\nSpecify the PlayReady Content Key";
+            // 
+            // label10
+            // 
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(52, 15);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(267, 15);
+            this.label10.TabIndex = 69;
+            this.label10.Text = "If empty, it will be automatically generated";
             // 
             // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
@@ -624,5 +635,6 @@
         private System.Windows.Forms.CheckBox checkBoxEncodingSL;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
     }
 }

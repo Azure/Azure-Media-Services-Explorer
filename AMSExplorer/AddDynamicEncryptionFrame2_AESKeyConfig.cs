@@ -64,6 +64,40 @@ namespace AMSExplorer
             }
         }
 
+        public Guid? AESKeyId
+        {
+            get
+            {
+                try
+                {
+                    if (radioButtonKeySpecifiedByUser.Checked)
+                    {
+                        if (radioButtonKeyIDGuid.Checked) // GUID
+                        {
+                            return (Guid?)new Guid(textBoxkeyid.Text);
+                        }
+                        else // Base64
+                        {
+                            return (Guid?)new Guid(Convert.FromBase64String(textBoxkeyid.Text));
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                    
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                textBoxkeyid.Text = value.ToString();
+            }
+        }
+
         public Uri AESLaUrl
         {
             get
@@ -171,6 +205,13 @@ namespace AMSExplorer
         private void radioButtonKeyRandomGeneration_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxCrypto.Enabled = radioButtonKeySpecifiedByUser.Checked;
+        }
+
+        private void buttonGenKeyID_Click(object sender, EventArgs e)
+        {
+            radioButtonKeyIDGuid.Checked = true;
+            textBoxkeyid.Text = Guid.NewGuid().ToString();
+            radioButtonContentKeyBase64.Checked = true;
         }
     }
 }

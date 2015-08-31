@@ -76,7 +76,7 @@ namespace AMSExplorer
 
             var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
                 {
-                    new ContentKeyAuthorizationPolicyRestriction { Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction), 
+                    new ContentKeyAuthorizationPolicyRestriction { Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction),
                         KeyRestrictionType = (int)PlayReadyKeyRestriction }
                 };
 
@@ -157,19 +157,19 @@ namespace AMSExplorer
 
 
 
-        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset)  // with key generated randomly
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, Guid? keyId = null)  // with key generated randomly
         {
             // Create envelope encryption content key
             byte[] contentKey = GetRandomBuffer(16);
-            return CreateEnvelopeTypeContentKey(asset, contentKey);
+            return CreateEnvelopeTypeContentKey(asset, contentKey, keyId);
         }
 
-        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, byte[] contentKey)
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, byte[] contentKey, Guid? keyId = null)
         {
-            Guid keyId = Guid.NewGuid();
+            if (keyId == null) keyId = Guid.NewGuid();
 
             IContentKey key = asset.GetMediaContext().ContentKeys.Create(
-                                    keyId,
+                                    (Guid) keyId,
                                     contentKey,
                                     "ContentKey Envelope",
                                     ContentKeyType.EnvelopeEncryption);
@@ -188,10 +188,10 @@ namespace AMSExplorer
             // and create authorization policy          
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
     {
-        new ContentKeyAuthorizationPolicyRestriction 
-        { 
-            Name = "Open Authorization Policy", 
-            KeyRestrictionType = (int)ContentKeyRestrictionType.Open, 
+        new ContentKeyAuthorizationPolicyRestriction
+        {
+            Name = "Open Authorization Policy",
+            KeyRestrictionType = (int)ContentKeyRestrictionType.Open,
             Requirements = null
         }
     };
@@ -248,11 +248,11 @@ namespace AMSExplorer
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
     {
-        new ContentKeyAuthorizationPolicyRestriction 
-        { 
-            Name = tname+ " Token Authorization Policy", 
+        new ContentKeyAuthorizationPolicyRestriction
+        {
+            Name = tname+ " Token Authorization Policy",
             KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
-            Requirements = tokenTemplateString, 
+            Requirements = tokenTemplateString,
         }
     };
 
@@ -514,7 +514,7 @@ namespace AMSExplorer
             //   key url that will have KID=<Guid> appended to the envelope and
             //   the Initialization Vector (IV) to use for the envelope encryption.
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
-                new Dictionary<AssetDeliveryPolicyConfigurationKey, string> 
+                new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
             {
                 {AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString()},
                 {AssetDeliveryPolicyConfigurationKey.EnvelopeEncryptionIVAsBase64, envelopeEncryptionIV}

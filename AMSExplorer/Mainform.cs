@@ -7639,7 +7639,7 @@ namespace AMSExplorer
 
                                 if (!usercancelledform3)
                                 {
-                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3list);
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3list, true);
                                     oktoproceed = true;
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
@@ -7674,7 +7674,7 @@ namespace AMSExplorer
             bool firstkeycreation = true;
             IContentKey formerkey = null;
 
-            if (!form2_PlayReady.ContentKeyRandomGeneration && (form2_PlayReady.PlayReadyKeySeed == null))  // user want to manually enter the cryptography data and seed not provided 
+            if (!form2_PlayReady.ContentKeyRandomGeneration && (form2_PlayReady.PlayReadyKeyId != null))  // user want to manually enter the cryptography data and key if providedd 
             {
                 // if the key already exists in the account (same key id), let's 
                 formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.PlayReadyKeyId.ToString()).FirstOrDefault();
@@ -7737,8 +7737,8 @@ namespace AMSExplorer
                         }
                         else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
                         {
-                            // if the key does not exist in the account (same key id), let's 
-                            if (firstkeycreation && !reusekey)
+                            // if the key does not exist in the account (same key id), let's create it
+                            if ((firstkeycreation && !reusekey) || form2_PlayReady.PlayReadyKeyId == null) // if we need to generate a new key id for each asset
                             {
                                 if (form2_PlayReady.PlayReadyKeySeed != null) // seed has been given
                                 {
@@ -7929,16 +7929,53 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, List<AddDynamicEncryptionFrame3> form3list)
+        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, List<AddDynamicEncryptionFrame3> form3list,  bool DisplayUI)
         {
-            bool Error = false;
+            bool ErrorCreationKey = false;
             string aeskey = string.Empty;
+            bool firstkeycreation = true;
             Uri aeslaurl = null;
+            IContentKey formerkey = null;
+            bool reusekey = false;
+
             if (!form2.ContentKeyRandomGeneration)
             {
                 aeskey = form2.AESContentKey;
                 aeslaurl = form2.AESLaUrl;
             }
+
+
+
+            if (!form2.ContentKeyRandomGeneration && (form2.AESKeyId != null))  // user want to manually enter the cryptography data and key if providedd 
+            {
+                // if the key already exists in the account (same key id), let's 
+                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2.AESKeyId.ToString()).FirstOrDefault();
+                if (formerkey != null)
+                {
+                    if (DisplayUI && MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // user wants to replace the key
+                        try
+                        {
+                            formerkey.Delete();
+                        }
+                        catch (Exception e)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the content key {0}.", formerkey.Id, true);
+                            TextBoxLogWriteLine(e);
+                            TextBoxLogWriteLine("The former key will be reused.", true);
+                            reusekey = true;
+                        }
+                    }
+                    else
+                    {
+                        reusekey = true;
+                    }
+                }
+            }
+
+
 
             foreach (IAsset AssetToProcess in SelectedAssets)
             {
@@ -7948,32 +7985,74 @@ namespace AMSExplorer
                     IContentKey contentKey = null;
 
                     var contentkeys = AssetToProcess.ContentKeys.Where(c => c.ContentKeyType == form1.GetContentKeyType);
+
                     if (contentkeys.Count() == 0) // no content key existing so we need to create one
                     {
-                        Error = false;
-                        try
+                        ErrorCreationKey = false;
+
+
+                        if (form1.GetNumberOfAuthorizationPolicyOptions > 0 && (form2.ContentKeyRandomGeneration))
+                        // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
                         {
-                            if ((!form2.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user has to provide the key
-                            {
-                                contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey));
-                            }
-                            else
+                            try
                             {
                                 contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess);
                             }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
+                            if (!ErrorCreationKey)
+                            {
+                                TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
+                            }
                         }
-                        catch (Exception e)
+                        else // user wants to deliver with an external key server or want to provide some cryptography, so let's create the key based on what the user input
                         {
-                            // Add useful information to the exception
-                            TextBoxLogWriteLine("There is a problem when creating the content key for '{0}'.", AssetToProcess.Name, true);
-                            TextBoxLogWriteLine(e);
-                            Error = true;
-                        }
-                        if (!Error)
-                        {
-                            TextBoxLogWriteLine("Created key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
-                        }
+                            if ((firstkeycreation && !reusekey) || form2.AESKeyId == null) // if we need to generate a new key id for each asset
+                            {
+                                try
+                                {
+                                    if ((!form2.ContentKeyRandomGeneration) && !string.IsNullOrEmpty(aeskey)) // user provides custom crypto (key, or key id)
+                                    {
+                                        contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, Convert.FromBase64String(aeskey), form2.AESKeyId);
+                                    }
+                                    else // content key if random. Perhaps key id has been provided
+                                    {
+                                        contentKey = DynamicEncryption.CreateEnvelopeTypeContentKey(AssetToProcess, form2.AESKeyId);
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the content key for asset '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                    ErrorCreationKey = true;
+                                }
+                                if (!ErrorCreationKey)
+                                {
+                                    TextBoxLogWriteLine("Created key {0} for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
+                                }
 
+                                formerkey = contentKey;
+                                firstkeycreation = false;
+                            }
+                            else
+                            {
+                                contentKey = formerkey;
+                                AssetToProcess.ContentKeys.Add(contentKey);
+                                AssetToProcess.Update();
+                                TextBoxLogWriteLine("Reusing key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
+                            }
+                        }
+                       
+                    }
+                    else if (form1.GetNumberOfAuthorizationPolicyOptions == 0)  // user wants to deliver with an external key server but the key exists already !
+                    {
+                        TextBoxLogWriteLine("Warning for asset '{0}'. A AES key already exists. You need to make sure that your external key server can deliver the key for this asset.", AssetToProcess.Name, true);
                     }
 
                     else // let's use existing content key
@@ -7999,7 +8078,7 @@ namespace AMSExplorer
                         foreach (var form3 in form3list)
                         {
                             IContentKeyAuthorizationPolicyOption policyOption = null;
-                            Error = false;
+                            ErrorCreationKey = false;
                             try
                             {
                                 switch (form3.GetKeyRestrictionType)
@@ -8060,7 +8139,7 @@ namespace AMSExplorer
                                 // Add useful information to the exception
                                 TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(e);
-                                Error = true;
+                                ErrorCreationKey = true;
                             }
 
                         }

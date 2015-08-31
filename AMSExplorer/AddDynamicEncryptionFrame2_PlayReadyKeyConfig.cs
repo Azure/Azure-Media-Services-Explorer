@@ -168,8 +168,6 @@ namespace AMSExplorer
         {
             textBoxLAurl.Text = _PlayReadyTestLAURL;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
-            textBoxkeyid.Text = Guid.NewGuid().ToString();
-
             textBoxcontentkey.Text = string.Empty;
         }
 
@@ -201,8 +199,9 @@ namespace AMSExplorer
         {
             bool validation = false;
 
-
-            if (!string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) || (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
+            if (!string.IsNullOrEmpty(textBoxkeyseed.Text) ||
+                (string.IsNullOrEmpty(textBoxkeyseed.Text) && !string.IsNullOrEmpty(textBoxkeyid.Text) && !string.IsNullOrEmpty(textBoxcontentkey.Text))
+                )
             {
                 validation = true;
             }
@@ -211,8 +210,6 @@ namespace AMSExplorer
             buttonOk.Enabled = validation;
 
             checkBoxEncodingSL.Enabled = (textBoxLAurl.Text.Contains("&"));
-
-
         }
 
         private void textBoxkeyseed_TextChanged(object sender, EventArgs e)

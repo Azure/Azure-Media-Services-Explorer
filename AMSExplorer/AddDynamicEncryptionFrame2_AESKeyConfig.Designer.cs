@@ -33,6 +33,7 @@
             this.textBoxcontentkey = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonOk = new System.Windows.Forms.Button();
             this.radioButtonContentKeyBase64 = new System.Windows.Forms.RadioButton();
             this.radioButtonContentKeyHex = new System.Windows.Forms.RadioButton();
             this.panel2 = new System.Windows.Forms.Panel();
@@ -41,14 +42,22 @@
             this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxLAURL = new System.Windows.Forms.TextBox();
             this.labelkeylaurl = new System.Windows.Forms.Label();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.textBoxLAURL = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.textBoxkeyid = new System.Windows.Forms.TextBox();
+            this.buttonGenKeyID = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.radioButtonKeyIDGuid = new System.Windows.Forms.RadioButton();
+            this.radioButtonKeyIDBase64 = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxCrypto.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -65,9 +74,9 @@
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(535, 46);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(553, 136);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(97, 29);
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
             this.buttongenerateContentKey.TabIndex = 40;
             this.buttongenerateContentKey.Text = "Generate";
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
@@ -77,16 +86,16 @@
             // 
             this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxcontentkey.Location = new System.Drawing.Point(10, 50);
+            this.textBoxcontentkey.Location = new System.Drawing.Point(16, 131);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
-            this.textBoxcontentkey.Size = new System.Drawing.Size(426, 23);
+            this.textBoxcontentkey.Size = new System.Drawing.Size(438, 23);
             this.textBoxcontentkey.TabIndex = 35;
             this.textBoxcontentkey.TextChanged += new System.EventHandler(this.textBoxcontentkey_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(7, 31);
+            this.label4.Location = new System.Drawing.Point(13, 113);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 15);
             this.label4.TabIndex = 34;
@@ -103,6 +112,20 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
+            // 
+            // buttonOk
+            // 
+            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonOk.Location = new System.Drawing.Point(384, 13);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(176, 27);
+            this.buttonOk.TabIndex = 17;
+            this.buttonOk.Tag = "";
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // radioButtonContentKeyBase64
             // 
@@ -137,7 +160,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel2.Controls.Add(this.radioButtonContentKeyHex);
-            this.panel2.Location = new System.Drawing.Point(444, 31);
+            this.panel2.Location = new System.Drawing.Point(462, 121);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(87, 55);
             this.panel2.TabIndex = 70;
@@ -154,7 +177,7 @@
             this.groupBox2.Size = new System.Drawing.Size(644, 115);
             this.groupBox2.TabIndex = 73;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "AES Content key\'s generation";
+            this.groupBox2.Text = "AES Key Generation";
             // 
             // label3
             // 
@@ -182,10 +205,10 @@
             this.radioButtonKeyRandomGeneration.Checked = true;
             this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(40, 54);
             this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
-            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(130, 19);
+            this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(259, 19);
             this.radioButtonKeyRandomGeneration.TabIndex = 0;
             this.radioButtonKeyRandomGeneration.TabStop = true;
-            this.radioButtonKeyRandomGeneration.Text = "Random generation";
+            this.radioButtonKeyRandomGeneration.Text = "Automatic generation (random content key)";
             this.radioButtonKeyRandomGeneration.UseVisualStyleBackColor = true;
             this.radioButtonKeyRandomGeneration.CheckedChanged += new System.EventHandler(this.radioButtonKeyRandomGeneration_CheckedChanged);
             // 
@@ -193,7 +216,13 @@
             // 
             this.groupBoxCrypto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxCrypto.Controls.Add(this.label2);
+            this.groupBoxCrypto.Controls.Add(this.textBoxkeyid);
+            this.groupBoxCrypto.Controls.Add(this.buttonGenKeyID);
+            this.groupBoxCrypto.Controls.Add(this.label10);
+            this.groupBoxCrypto.Controls.Add(this.label5);
             this.groupBoxCrypto.Controls.Add(this.labelkeylaurl);
+            this.groupBoxCrypto.Controls.Add(this.panel4);
             this.groupBoxCrypto.Controls.Add(this.textBoxLAURL);
             this.groupBoxCrypto.Controls.Add(this.panel2);
             this.groupBoxCrypto.Controls.Add(this.buttongenerateContentKey);
@@ -202,10 +231,28 @@
             this.groupBoxCrypto.Enabled = false;
             this.groupBoxCrypto.Location = new System.Drawing.Point(14, 252);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(644, 200);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(644, 317);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
+            // 
+            // labelkeylaurl
+            // 
+            this.labelkeylaurl.AutoSize = true;
+            this.labelkeylaurl.Location = new System.Drawing.Point(13, 188);
+            this.labelkeylaurl.Name = "labelkeylaurl";
+            this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
+            this.labelkeylaurl.TabIndex = 73;
+            this.labelkeylaurl.Text = "Key Acquisition Url:";
+            // 
+            // textBoxLAURL
+            // 
+            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLAURL.Location = new System.Drawing.Point(15, 206);
+            this.textBoxLAURL.Name = "textBoxLAURL";
+            this.textBoxLAURL.Size = new System.Drawing.Size(439, 23);
+            this.textBoxLAURL.TabIndex = 72;
             // 
             // label1
             // 
@@ -217,37 +264,92 @@
             this.label1.TabIndex = 75;
             this.label1.Text = "Step 2\r\nSpecify the AES key";
             // 
-            // textBoxLAURL
+            // label10
             // 
-            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(187, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(267, 15);
+            this.label10.TabIndex = 76;
+            this.label10.Text = "If empty, it will be automatically generated";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // textBoxkeyid
+            // 
+            this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAURL.Location = new System.Drawing.Point(10, 117);
-            this.textBoxLAURL.Name = "textBoxLAURL";
-            this.textBoxLAURL.Size = new System.Drawing.Size(426, 23);
-            this.textBoxLAURL.TabIndex = 72;
+            this.textBoxkeyid.Location = new System.Drawing.Point(15, 56);
+            this.textBoxkeyid.Name = "textBoxkeyid";
+            this.textBoxkeyid.Size = new System.Drawing.Size(439, 23);
+            this.textBoxkeyid.TabIndex = 32;
             // 
-            // labelkeylaurl
+            // buttonGenKeyID
             // 
-            this.labelkeylaurl.AutoSize = true;
-            this.labelkeylaurl.Location = new System.Drawing.Point(7, 99);
-            this.labelkeylaurl.Name = "labelkeylaurl";
-            this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
-            this.labelkeylaurl.TabIndex = 73;
-            this.labelkeylaurl.Text = "Key Acquisition Url:";
+            this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGenKeyID.Location = new System.Drawing.Point(553, 53);
+            this.buttonGenKeyID.Name = "buttonGenKeyID";
+            this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
+            this.buttonGenKeyID.TabIndex = 33;
+            this.buttonGenKeyID.Text = "Generate";
+            this.buttonGenKeyID.UseVisualStyleBackColor = true;
+            this.buttonGenKeyID.Click += new System.EventHandler(this.buttonGenKeyID_Click);
             // 
-            // buttonOk
+            // label5
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(384, 13);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(176, 27);
-            this.buttonOk.TabIndex = 17;
-            this.buttonOk.Tag = "";
-            this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(12, 38);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 15);
+            this.label5.TabIndex = 31;
+            this.label5.Text = "Key ID:";
+            // 
+            // panel4
+            // 
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.Controls.Add(this.radioButtonKeyIDGuid);
+            this.panel4.Controls.Add(this.radioButtonKeyIDBase64);
+            this.panel4.Location = new System.Drawing.Point(462, 38);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(87, 55);
+            this.panel4.TabIndex = 72;
+            // 
+            // radioButtonKeyIDGuid
+            // 
+            this.radioButtonKeyIDGuid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonKeyIDGuid.AutoSize = true;
+            this.radioButtonKeyIDGuid.Checked = true;
+            this.radioButtonKeyIDGuid.Location = new System.Drawing.Point(9, 3);
+            this.radioButtonKeyIDGuid.Name = "radioButtonKeyIDGuid";
+            this.radioButtonKeyIDGuid.Size = new System.Drawing.Size(50, 19);
+            this.radioButtonKeyIDGuid.TabIndex = 68;
+            this.radioButtonKeyIDGuid.TabStop = true;
+            this.radioButtonKeyIDGuid.Text = "Guid";
+            this.radioButtonKeyIDGuid.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonKeyIDBase64
+            // 
+            this.radioButtonKeyIDBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButtonKeyIDBase64.AutoSize = true;
+            this.radioButtonKeyIDBase64.Location = new System.Drawing.Point(9, 29);
+            this.radioButtonKeyIDBase64.Name = "radioButtonKeyIDBase64";
+            this.radioButtonKeyIDBase64.Size = new System.Drawing.Size(61, 19);
+            this.radioButtonKeyIDBase64.TabIndex = 69;
+            this.radioButtonKeyIDBase64.Text = "Base64";
+            this.radioButtonKeyIDBase64.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(187, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(267, 15);
+            this.label2.TabIndex = 77;
+            this.label2.Text = "If empty, it will be automatically generated";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // AddDynamicEncryptionFrame2_AESKeyConfig
             // 
@@ -271,6 +373,8 @@
             this.groupBox2.PerformLayout();
             this.groupBoxCrypto.ResumeLayout(false);
             this.groupBoxCrypto.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,5 +399,13 @@
         public System.Windows.Forms.TextBox textBoxLAURL;
         public System.Windows.Forms.Label labelkeylaurl;
         public System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox textBoxkeyid;
+        private System.Windows.Forms.Button buttonGenKeyID;
+        public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.RadioButton radioButtonKeyIDGuid;
+        private System.Windows.Forms.RadioButton radioButtonKeyIDBase64;
+        private System.Windows.Forms.Label label2;
     }
 }
