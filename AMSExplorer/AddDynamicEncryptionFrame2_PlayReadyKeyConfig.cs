@@ -35,7 +35,6 @@ namespace AMSExplorer
     {
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
-        private bool multiassets;
 
         public bool ContentKeyRandomGeneration
         {
@@ -54,7 +53,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxkeyseed.Text;
+                return string.IsNullOrWhiteSpace(textBoxkeyseed.Text) ? null : textBoxkeyseed.Text;
             }
             set
             {
@@ -114,11 +113,11 @@ namespace AMSExplorer
                 {
                     if (radioButtonKeyIDGuid.Checked) // GUID
                     {
-                        return multiassets ? null : (Guid?)new Guid(textBoxkeyid.Text);
+                        return (Guid?)new Guid(textBoxkeyid.Text);
                     }
                     else // Base64
                     {
-                        return multiassets ? null : (Guid?)new Guid(Convert.FromBase64String(textBoxkeyid.Text));
+                        return (Guid?)new Guid(Convert.FromBase64String(textBoxkeyid.Text));
                     }
                 }
                 catch
@@ -140,11 +139,10 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool Multiassets, bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false)
+        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            multiassets = Multiassets;
 
             if (ForceUseToProvideKey) // code wants to force user to provide the key
             {
@@ -154,11 +152,6 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
-            if (multiassets) // batch mode for dyn enc so user can only input the seed and custom attributes
-            {
-                panelContentKey.Enabled = false;
-                panelKeyId.Enabled = false;
-            }
             if (DoNotAskURL)
             {
                 textBoxLAurl.Enabled = false;
@@ -175,7 +168,7 @@ namespace AMSExplorer
         {
             textBoxLAurl.Text = _PlayReadyTestLAURL;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
-            if (!multiassets) textBoxkeyid.Text = Guid.NewGuid().ToString();
+            textBoxkeyid.Text = Guid.NewGuid().ToString();
 
             textBoxcontentkey.Text = string.Empty;
         }
@@ -207,20 +200,13 @@ namespace AMSExplorer
         private void textBox_TextChanged(object sender, EventArgs e)
         {
             bool validation = false;
-            if (multiassets) // multi assets selectyed. We need at least the key seed
+
+
+            if (!string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) || (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
             {
-                if (!string.IsNullOrEmpty(textBoxkeyseed.Text))
-                {
-                    validation = true;
-                }
+                validation = true;
             }
-            else // single asset selected
-            {
-                if (!string.IsNullOrEmpty(textBoxkeyid.Text) && (!string.IsNullOrEmpty(textBoxkeyseed.Text) || (!string.IsNullOrEmpty(textBoxcontentkey.Text))))
-                {
-                    validation = true;
-                }
-            }
+
             UpdateCalculatedContentKey();
             buttonOk.Enabled = validation;
 
@@ -242,9 +228,9 @@ namespace AMSExplorer
         private void UpdateCalculatedContentKey()
         {
             textBoxContentKeyCalculated.Text = string.Empty;
-            if (!multiassets && this.PlayReadyKeyId != null)
+            if (this.PlayReadyKeyId != null)
             {
-                if (!string.IsNullOrEmpty(this.PlayReadyKeySeed))
+                if (this.PlayReadyKeySeed != null)
                 {
                     try
                     {

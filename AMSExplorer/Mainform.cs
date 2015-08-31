@@ -1205,13 +1205,13 @@ namespace AMSExplorer
                 }
 
                 CreateLocator form = new CreateLocator(true)
-                               {
-                                   LocStartDate = DateTime.Now.ToLocalTime(),
-                                   LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDays),
-                                   LocAssetName = labelAssetName,
-                                   LocHasStartDate = false,
-                                   LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
-                               };
+                {
+                    LocStartDate = DateTime.Now.ToLocalTime(),
+                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDays),
+                    LocAssetName = labelAssetName,
+                    LocHasStartDate = false,
+                    LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
+                };
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -1863,11 +1863,11 @@ namespace AMSExplorer
             if (havestoragecredentials) // if we have the storage credentials
             {
                 ImportFromAzureStorage form = new ImportFromAzureStorage(_context, _credentials.StorageKey, _credentials.ReturnStorageSuffix())
-                    {
-                        ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
-                        ImportNewAssetName = "NewAsset Blob_" + Guid.NewGuid(),
-                        ImportCreateNewAsset = true
-                    };
+                {
+                    ImportLabelDefaultStorageName = _context.DefaultStorageAccount.Name,
+                    ImportNewAssetName = "NewAsset Blob_" + Guid.NewGuid(),
+                    ImportCreateNewAsset = true
+                };
 
                 if (!string.IsNullOrEmpty(targetAssetID))
                 {
@@ -2750,13 +2750,13 @@ namespace AMSExplorer
                 }
             }
             var options = new ProgramCreationOptions()
-{
-    Name = sourceProgram.Name,
-    Description = sourceProgram.Description,
-    ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
-    AssetId = clonedAsset.Id,
-    ManifestName = sourceProgram.ManifestName
-};
+            {
+                Name = sourceProgram.Name,
+                Description = sourceProgram.Description,
+                ArchiveWindowLength = sourceProgram.ArchiveWindowLength,
+                AssetId = clonedAsset.Id,
+                ManifestName = sourceProgram.ManifestName
+            };
 
             var STask = ProgramExecuteAsync(
               () =>
@@ -2776,14 +2776,14 @@ namespace AMSExplorer
             CloudMediaContext DestinationContext = Program.ConnectAndGetNewContext(DestinationCredentialsEntry);
 
             var options = new ChannelCreationOptions()
-                {
-                    Name = sourceChannel.Name,
-                    Description = sourceChannel.Description,
-                    EncodingType = sourceChannel.EncodingType,
-                    Input = sourceChannel.Input,
-                    Output = sourceChannel.Output,
-                    Preview = sourceChannel.Preview
-                };
+            {
+                Name = sourceChannel.Name,
+                Description = sourceChannel.Description,
+                EncodingType = sourceChannel.EncodingType,
+                Input = sourceChannel.Input,
+                Output = sourceChannel.Output,
+                Preview = sourceChannel.Preview
+            };
 
             if (sourceChannel.EncodingType != ChannelEncodingType.None)
             {
@@ -3270,16 +3270,16 @@ namespace AMSExplorer
                    MediaProcessorNames.WindowsAzureMediaPackager);
 
             HLSAESStatic form = new HLSAESStatic()
-                {
-                    HLSEncrypt = false,
-                    HLSMaxBitrate = "6600000",
-                    HLSServiceSegment = "10",
-                    HLSKey = string.Empty,
-                    HLSKeyURL = string.Empty,
-                    HLSProcessorLabel = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                    HLSLabel = (SelectedAssets.Count > 1) ? "Batch mode: " + SelectedAssets.Count + " assets have been selected." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be packaged to HLS as a new asset",
-                    HLSOutputAssetName = Constants.NameconvInputasset + "-Packaged to " + Constants.NameconvFormathls
-                };
+            {
+                HLSEncrypt = false,
+                HLSMaxBitrate = "6600000",
+                HLSServiceSegment = "10",
+                HLSKey = string.Empty,
+                HLSKeyURL = string.Empty,
+                HLSProcessorLabel = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                HLSLabel = (SelectedAssets.Count > 1) ? "Batch mode: " + SelectedAssets.Count + " assets have been selected." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be packaged to HLS as a new asset",
+                HLSOutputAssetName = Constants.NameconvInputasset + "-Packaged to " + Constants.NameconvFormathls
+            };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
@@ -6736,16 +6736,16 @@ namespace AMSExplorer
             if (channel != null)
             {
                 CreateProgram form = new CreateProgram(_context)
-                    {
-                        ChannelName = channel.Name,
-                        archiveWindowLength = new TimeSpan(4, 0, 0),
-                        CreateLocator = true,
-                        EnableDynEnc = false,
-                        StartProgram = false,
-                        ProposeStartProgram = (channel.State == ChannelState.Running),
-                        AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
-                        ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
-                    };
+                {
+                    ChannelName = channel.Name,
+                    archiveWindowLength = new TimeSpan(4, 0, 0),
+                    CreateLocator = true,
+                    EnableDynEnc = false,
+                    StartProgram = false,
+                    ProposeStartProgram = (channel.State == ChannelState.Running),
+                    AssetName = Constants.NameconvChannel + "-" + Constants.NameconvProgram,
+                    ProposeScaleUnit = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count == 0
+                };
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     if (form.ScaleUnit)
@@ -7569,7 +7569,8 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_PlayReadyKeyConfig(
-                                SelectedAssets.Count > 1, form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense) { Left = form1.Left, Top = form1.Top };
+                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense)
+                            { Left = form1.Left, Top = form1.Top };
                             if (form2_PlayReady.ShowDialog() == DialogResult.OK)
                             {
                                 List<AddDynamicEncryptionFrame3> form3list = new List<AddDynamicEncryptionFrame3>();
@@ -7673,7 +7674,7 @@ namespace AMSExplorer
             bool firstkeycreation = true;
             IContentKey formerkey = null;
 
-            if (!form2_PlayReady.ContentKeyRandomGeneration)  // user want to manually enter the key and did not provide a seed
+            if (!form2_PlayReady.ContentKeyRandomGeneration && (form2_PlayReady.PlayReadyKeySeed == null))  // user want to manually enter the cryptography data and seed not provided 
             {
                 // if the key already exists in the account (same key id), let's 
                 formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.PlayReadyKeyId.ToString()).FirstOrDefault();
@@ -7739,7 +7740,7 @@ namespace AMSExplorer
                             // if the key does not exist in the account (same key id), let's 
                             if (firstkeycreation && !reusekey)
                             {
-                                if (!string.IsNullOrEmpty(form2_PlayReady.PlayReadyKeySeed)) // seed has been given
+                                if (form2_PlayReady.PlayReadyKeySeed != null) // seed has been given
                                 {
                                     Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
                                     byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
@@ -11233,8 +11234,8 @@ namespace AMSExplorer
                     (a.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
                     ||
                     (a.Id.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)
-                    // ||
-                    //(a.AssetFiles.ToList().Any(f => f.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1))
+                // ||
+                //(a.AssetFiles.ToList().Any(f => f.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1))
                 );
 
 
@@ -11763,17 +11764,17 @@ namespace AMSExplorer
             jobquery = from j in _context.Jobs
                        orderby j.LastModified descending
                        select new JobEntry
-                           {
-                               Name = j.Name,
-                               Id = j.Id,
-                               Tasks = j.Tasks.Count,
-                               Priority = j.Priority,
-                               State = j.State,
-                               StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
-                               Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
-                               Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
-                           };
+                       {
+                           Name = j.Name,
+                           Id = j.Id,
+                           Tasks = j.Tasks.Count,
+                           Priority = j.Priority,
+                           State = j.State,
+                           StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
+                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                           Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
+                           Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
+                       };
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
             {
