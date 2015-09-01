@@ -103,7 +103,7 @@ namespace AMSExplorer
             }
 
         }
-        public string SearchInName
+        public SearchObject SearchInName
         {
             get
             {
@@ -166,7 +166,7 @@ namespace AMSExplorer
         static string _statefilter = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
-        static private string _searchinname = "";
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ChannelName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
@@ -318,11 +318,29 @@ namespace AMSExplorer
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
             channels = (days == -1) ? context.Channels : context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
-            if (!string.IsNullOrEmpty(_searchinname))
+            // search
+            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
-                string searchlower = _searchinname.ToLower();
-                channels = channels.Where(c => (c.Name.ToLower().Contains(searchlower) || c.Id.ToLower().Contains(searchlower)));
+                switch (_searchinname.SearchType)
+                {
+                    case SearchIn.ChannelName:
+                        channels = channels.Where(a =>
+                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+                                 );
+                        break;
+
+                    case SearchIn.ChannelId:
+                        channels = channels.Where(a =>
+                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                              );
+                        break;
+
+                    default:
+                        break;
+
+                }
             }
+        
 
             if (FilterState != "All")
             {
@@ -421,6 +439,30 @@ namespace AMSExplorer
     public class DataGridViewLiveProgram : DataGridView
     {
 
+        private List<string> idsList = new List<string>();
+
+        private List<StatusInfo> ListStatus = new List<StatusInfo>();
+
+        static BindingList<ProgramEntry> _MyObservPrograms;
+        static BindingList<ProgramEntry> _MyObservProgramsthisPage;
+
+        static IEnumerable<IProgram> programs;
+        static private int _itemssperpage = 50; //nb of items per page
+        static private int _pagecount = 1;
+        static private int _currentpage = 1;
+        static private bool _initialized = false;
+        static private bool _refreshedatleastonetime = false;
+        static string _orderitems = OrderPrograms.LastModified;
+        static string _statefilter = "All";
+        static CloudMediaContext _context;
+        static private CredentialsEntry _credentials;
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.ProgramName, Text = "" };
+
+        static private string _timefilter = FilterTime.LastWeek;
+        static BackgroundWorker WorkerRefreshChannels;
+        public string _published = "Published";
+        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+
         public List<string> ChannelSourceIDs
         {
             get
@@ -486,7 +528,7 @@ namespace AMSExplorer
             }
 
         }
-        public string SearchInName
+        public SearchObject SearchInName
         {
             get
             {
@@ -535,28 +577,7 @@ namespace AMSExplorer
         }
 
 
-        private List<string> idsList = new List<string>();
-
-        private List<StatusInfo> ListStatus = new List<StatusInfo>();
-
-        static BindingList<ProgramEntry> _MyObservPrograms;
-        static BindingList<ProgramEntry> _MyObservProgramsthisPage;
-
-        static IEnumerable<IProgram> programs;
-        static private int _itemssperpage = 50; //nb of items per page
-        static private int _pagecount = 1;
-        static private int _currentpage = 1;
-        static private bool _initialized = false;
-        static private bool _refreshedatleastonetime = false;
-        static string _orderitems = OrderPrograms.LastModified;
-        static string _statefilter = "All";
-        static CloudMediaContext _context;
-        static private CredentialsEntry _credentials;
-        static private string _searchinname = "";
-        static private string _timefilter = FilterTime.LastWeek;
-        static BackgroundWorker WorkerRefreshChannels;
-        public string _published = "Published";
-        static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+     
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
@@ -713,11 +734,29 @@ namespace AMSExplorer
 
             programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
-            if (!string.IsNullOrEmpty(_searchinname))
+            // search
+            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
-                string searchlower = _searchinname.ToLower();
-                programs = programs.Where(p => (p.Name.ToLower().Contains(searchlower) || p.Id.ToLower().Contains(searchlower) || p.Asset.Id.ToLower().Contains(searchlower)));
+                switch (_searchinname.SearchType)
+                {
+                    case SearchIn.ProgramName:
+                        programs = programs.Where(a =>
+                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+                                 );
+                        break;
+
+                    case SearchIn.ProgramId:
+                        programs = programs.Where(a =>
+                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                              );
+                        break;
+
+                    default:
+                        break;
+
+                }
             }
+          
 
             if (FilterState != "All")
             {
@@ -727,6 +766,7 @@ namespace AMSExplorer
 
             switch (_orderitems)
             {
+                
                 case OrderPrograms.LastModified:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderByDescending(p => p.LastModified)
                  .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
@@ -743,9 +783,7 @@ namespace AMSExplorer
                             ChannelId = c.Id,
                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                         }).ToArray();
-                    break;
-
-
+                    break; 
 
                 case OrderPrograms.Name:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)

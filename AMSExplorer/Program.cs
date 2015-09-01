@@ -2519,6 +2519,7 @@ namespace AMSExplorer
     {
         AssetName = 0,
         AssetId,
+        AssetAltId,
         AssetFileName,
         AssetFileId,
         LocatorPath,
@@ -2526,7 +2527,11 @@ namespace AMSExplorer
         JobId,
         TaskName,
         TaskId,
-        TaskProcessorId
+        TaskProcessorId,
+        ChannelName,
+        ChannelId,
+        ProgramName,
+        ProgramId
     }
 
     public class SearchObject

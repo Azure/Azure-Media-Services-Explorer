@@ -3698,7 +3698,8 @@ namespace AMSExplorer
             UpdateLabelStorageEncryption();
 
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset Id :", SearchIn.AssetFileId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset Id :", SearchIn.AssetId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset alt Id :", SearchIn.AssetAltId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
@@ -3711,6 +3712,13 @@ namespace AMSExplorer
             comboBoxSearchJobOption.Items.Add(new Item("Search in task proc id :", SearchIn.TaskProcessorId.ToString()));
             comboBoxSearchJobOption.SelectedIndex = 0;
 
+            comboBoxSearchChannelOption.Items.Add(new Item("Search in channel name :", SearchIn.ChannelName.ToString()));
+            comboBoxSearchChannelOption.Items.Add(new Item("Search in channel Id :", SearchIn.ChannelId.ToString()));
+            comboBoxSearchChannelOption.SelectedIndex = 0;
+
+            comboBoxSearchProgramOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
+            comboBoxSearchProgramOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchProgramOption.SelectedIndex = 0;
 
             comboBoxOrderAssets.Items.AddRange(
            typeof(OrderAssets)
@@ -7520,7 +7528,8 @@ namespace AMSExplorer
         {
             if (dataGridViewProgramsV.Initialized)
             {
-                dataGridViewProgramsV.SearchInName = textBoxSearchNameProgram.Text;
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchProgramOption.SelectedItem as Item).Value);
+                dataGridViewProgramsV.SearchInName = new SearchObject { Text = textBoxSearchNameProgram.Text, SearchType = stype };
                 DoRefreshGridProgramV(false);
             }
         }
@@ -9932,7 +9941,8 @@ namespace AMSExplorer
         {
             if (dataGridViewChannelsV.Initialized)
             {
-                dataGridViewChannelsV.SearchInName = textBoxSearchNameChannel.Text;
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchChannelOption.SelectedItem as Item).Value);
+                dataGridViewChannelsV.SearchInName = new SearchObject { Text = textBoxSearchNameChannel.Text, SearchType = stype };
                 DoRefreshGridChannelV(false);
             }
         }
@@ -11322,7 +11332,7 @@ namespace AMSExplorer
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             // search
-            if (!string.IsNullOrEmpty(_searchinname.Text))
+            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
                 switch (_searchinname.SearchType)
                 {
@@ -11335,6 +11345,12 @@ namespace AMSExplorer
                     case SearchIn.AssetId:
                         assets = assets.Where(a =>
                               (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                              );
+                        break;
+
+                    case SearchIn.AssetAltId:
+                        assets = assets.Where(a =>
+                              (a.AlternateId != null && a.AlternateId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
                               );
                         break;
 
@@ -11961,7 +11977,7 @@ namespace AMSExplorer
 
 
             // search
-            if (!string.IsNullOrEmpty(_searchinname.Text))
+            if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
                 switch (_searchinname.SearchType)
                 {

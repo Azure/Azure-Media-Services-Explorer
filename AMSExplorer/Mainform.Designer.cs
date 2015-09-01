@@ -30,9 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
+            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -412,6 +414,8 @@
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.tabPageLive = new System.Windows.Forms.TabPage();
+            this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
+            this.comboBoxSearchChannelOption = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeChannel = new System.Windows.Forms.ComboBox();
             this.comboBoxStatusChannel = new System.Windows.Forms.ComboBox();
@@ -419,7 +423,6 @@
             this.comboBoxOrderChannel = new System.Windows.Forms.ComboBox();
             this.label26 = new System.Windows.Forms.Label();
             this.buttonSetFilterChannel = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
@@ -429,7 +432,6 @@
             this.comboBoxOrderProgram = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
             this.buttonSetFilterProgram = new System.Windows.Forms.Button();
-            this.label17 = new System.Windows.Forms.Label();
             this.dataGridViewProgramsV = new AMSExplorer.DataGridViewLiveProgram();
             this.dataGridViewChannelsV = new AMSExplorer.DataGridViewLiveChannel();
             this.tabPageProcessors = new System.Windows.Forms.TabPage();
@@ -3470,9 +3472,9 @@
             this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(130, 189);
+            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(168, 189);
             this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
-            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(167, 23);
+            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(129, 23);
             this.textBoxSearchNameChannel.TabIndex = 53;
             this.toolTip1.SetToolTip(this.textBoxSearchNameChannel, "Search in channel name and channel Id");
             // 
@@ -3481,9 +3483,9 @@
             this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(130, 410);
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(168, 410);
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(167, 23);
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(129, 23);
             this.textBoxSearchNameProgram.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, "Search in program name, program Id and asset Id");
             // 
@@ -3655,9 +3657,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject2.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject2;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4032,6 +4034,7 @@
             this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
             this.dataGridViewJobsV.ReadOnly = true;
             this.dataGridViewJobsV.RowHeadersVisible = false;
+            this.dataGridViewJobsV.SearchInName = null;
             this.dataGridViewJobsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewJobsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewJobsV.TabIndex = 31;
@@ -4044,6 +4047,8 @@
             // 
             // tabPageLive
             // 
+            this.tabPageLive.Controls.Add(this.comboBoxSearchProgramOption);
+            this.tabPageLive.Controls.Add(this.comboBoxSearchChannelOption);
             this.tabPageLive.Controls.Add(this.label24);
             this.tabPageLive.Controls.Add(this.comboBoxFilterTimeChannel);
             this.tabPageLive.Controls.Add(this.comboBoxStatusChannel);
@@ -4051,7 +4056,6 @@
             this.tabPageLive.Controls.Add(this.comboBoxOrderChannel);
             this.tabPageLive.Controls.Add(this.label26);
             this.tabPageLive.Controls.Add(this.buttonSetFilterChannel);
-            this.tabPageLive.Controls.Add(this.label23);
             this.tabPageLive.Controls.Add(this.textBoxSearchNameChannel);
             this.tabPageLive.Controls.Add(this.label15);
             this.tabPageLive.Controls.Add(this.label14);
@@ -4062,7 +4066,6 @@
             this.tabPageLive.Controls.Add(this.comboBoxOrderProgram);
             this.tabPageLive.Controls.Add(this.label18);
             this.tabPageLive.Controls.Add(this.buttonSetFilterProgram);
-            this.tabPageLive.Controls.Add(this.label17);
             this.tabPageLive.Controls.Add(this.textBoxSearchNameProgram);
             this.tabPageLive.Controls.Add(this.dataGridViewProgramsV);
             this.tabPageLive.Controls.Add(this.dataGridViewChannelsV);
@@ -4073,6 +4076,27 @@
             this.tabPageLive.TabIndex = 6;
             this.tabPageLive.Text = "Live";
             this.tabPageLive.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxSearchProgramOption
+            // 
+            this.comboBoxSearchProgramOption.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxSearchProgramOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchProgramOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxSearchProgramOption.FormattingEnabled = true;
+            this.comboBoxSearchProgramOption.Location = new System.Drawing.Point(6, 410);
+            this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
+            this.comboBoxSearchProgramOption.Size = new System.Drawing.Size(156, 23);
+            this.comboBoxSearchProgramOption.TabIndex = 63;
+            // 
+            // comboBoxSearchChannelOption
+            // 
+            this.comboBoxSearchChannelOption.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxSearchChannelOption.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxSearchChannelOption.FormattingEnabled = true;
+            this.comboBoxSearchChannelOption.Location = new System.Drawing.Point(6, 189);
+            this.comboBoxSearchChannelOption.Name = "comboBoxSearchChannelOption";
+            this.comboBoxSearchChannelOption.Size = new System.Drawing.Size(156, 23);
+            this.comboBoxSearchChannelOption.TabIndex = 62;
             // 
             // label24
             // 
@@ -4154,16 +4178,6 @@
             this.buttonSetFilterChannel.Text = "Apply";
             this.buttonSetFilterChannel.UseVisualStyleBackColor = true;
             this.buttonSetFilterChannel.Click += new System.EventHandler(this.buttonSetFilterChannel_Click);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(6, 193);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(121, 15);
-            this.label23.TabIndex = 54;
-            this.label23.Text = "Search in name or Id :";
             // 
             // label15
             // 
@@ -4266,17 +4280,6 @@
             this.buttonSetFilterProgram.UseVisualStyleBackColor = true;
             this.buttonSetFilterProgram.Click += new System.EventHandler(this.buttonSetFilterProgram_Click);
             // 
-            // label17
-            // 
-            this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.Location = new System.Drawing.Point(6, 414);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(121, 15);
-            this.label17.TabIndex = 47;
-            this.label17.Text = "Search in name or Id :";
-            // 
             // dataGridViewProgramsV
             // 
             this.dataGridViewProgramsV.AllowUserToAddRows = false;
@@ -4295,7 +4298,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            this.dataGridViewProgramsV.SearchInName = "";
+            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4322,7 +4327,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            this.dataGridViewChannelsV.SearchInName = "";
+            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -4583,10 +4590,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -5064,9 +5071,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button buttonSetFilterProgram;
         private System.Windows.Forms.TextBox textBoxSearchNameProgram;
-        private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button buttonSetFilterChannel;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.TextBox textBoxSearchNameChannel;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.ComboBox comboBoxFilterTimeChannel;
@@ -5121,6 +5126,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator37;
         private System.Windows.Forms.ComboBox comboBoxSearchAssetOption;
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
+        private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
+        private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
     }
 }
 
