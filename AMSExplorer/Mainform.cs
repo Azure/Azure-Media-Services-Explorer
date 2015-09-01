@@ -3697,6 +3697,21 @@ namespace AMSExplorer
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset Id :", SearchIn.AssetFileId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
+            comboBoxSearchAssetOption.SelectedIndex = 0;
+
+            comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search in job Id :", SearchIn.JobId.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search in task name :", SearchIn.TaskName.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search in task Id :", SearchIn.TaskId.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search in task proc id :", SearchIn.TaskProcessorId.ToString()));
+            comboBoxSearchJobOption.SelectedIndex = 0;
+
+
             comboBoxOrderAssets.Items.AddRange(
            typeof(OrderAssets)
            .GetFields()
@@ -4640,9 +4655,8 @@ namespace AMSExplorer
         {
             if (dataGridViewJobsV.Initialized)
             {
-                Debug.WriteLine("buttonJobSearch_Click");
-                string search = textBoxJobSearch.Text;
-                dataGridViewJobsV.SearchInName = search;
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchJobOption.SelectedItem as Item).Value);
+                dataGridViewJobsV.SearchInName = new SearchObject { Text = textBoxJobSearch.Text, SearchType = stype };
                 DoRefreshGridJobV(false);
             }
         }
@@ -4651,8 +4665,8 @@ namespace AMSExplorer
         {
             if (dataGridViewAssetsV.Initialized)
             {
-                string search = textBoxAssetSearch.Text;
-                dataGridViewAssetsV.SearchInName = search;
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchAssetOption.SelectedItem as Item).Value);
+                dataGridViewAssetsV.SearchInName = new SearchObject { Text = textBoxAssetSearch.Text, SearchType = stype };
                 DoRefreshGridAssetV(false);
             }
         }
@@ -7929,7 +7943,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, List<AddDynamicEncryptionFrame3> form3list,  bool DisplayUI)
+        private void DoDynamicEncryptionWithAES(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_AESKeyConfig form2, List<AddDynamicEncryptionFrame3> form3list, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             string aeskey = string.Empty;
@@ -8048,7 +8062,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("Reusing key {0} for the asset {1} ", contentKey.Id, AssetToProcess.Name);
                             }
                         }
-                       
+
                     }
                     else if (form1.GetNumberOfAuthorizationPolicyOptions == 0)  // user wants to deliver with an external key server but the key exists already !
                     {
@@ -10993,7 +11007,7 @@ namespace AMSExplorer
         static private bool _initialized = false;
         static private bool _refreshedatleastonetime = false;
         static private bool _neveranalyzed = true;
-        static private string _searchinname = "";
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.AssetName, Text = "" };
         static private string _statefilter = "";
         static private string _timefilter = FilterTime.First50Items;
 
@@ -11062,7 +11076,7 @@ namespace AMSExplorer
             }
 
         }
-        public string SearchInName
+        public SearchObject SearchInName
         {
             get
             {
@@ -11073,6 +11087,9 @@ namespace AMSExplorer
                 _searchinname = value;
             }
         }
+
+
+
         public string StateFilter
         {
             get
@@ -11305,19 +11322,52 @@ namespace AMSExplorer
             assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             // search
-            if (!string.IsNullOrEmpty(_searchinname))
+            if (!string.IsNullOrEmpty(_searchinname.Text))
             {
-                //string searchlower = _searchinname.ToLower();
-                //assets = assets.Where(a => (a.Name.ToLower().Contains(searchlower) || a.Id.ToLower().Contains(searchlower)));
-                assets = assets.Where(a =>
-                    (a.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                    ||
-                    (a.Id.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1)
-                // ||
-                //(a.AssetFiles.ToList().Any(f => f.Name.IndexOf(_searchinname, StringComparison.OrdinalIgnoreCase) != -1))
-                );
+                switch (_searchinname.SearchType)
+                {
+                    case SearchIn.AssetName:
+                        assets = assets.Where(a =>
+                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+                                 );
+                        break;
+
+                    case SearchIn.AssetId:
+                        assets = assets.Where(a =>
+                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                              );
+                        break;
+
+                    case SearchIn.AssetFileName:
+                        var query = _context.Files.ToList().Where(f =>
+                        f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(query, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        break;
 
 
+                    case SearchIn.AssetFileId:
+                        var queryafid = _context.Files.ToList().Where(f =>
+                        f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryafid, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        break;
+
+
+                    case SearchIn.LocatorPath:
+                        string locatorid = _searchinname.Text;
+                        if (locatorid.StartsWith(Constants.LocatorIdPrefix))
+                        {
+                            locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
+                        }
+                        var queryl = _context.Locators.ToList().Where(l =>
+                        l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
+                        break;
+
+
+                    default:
+                        break;
+
+                }
             }
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
@@ -11767,7 +11817,7 @@ namespace AMSExplorer
             }
 
         }
-        public string SearchInName
+        public SearchObject SearchInName
         {
             get
             {
@@ -11815,13 +11865,10 @@ namespace AMSExplorer
 
         }
 
-
         static BindingList<JobEntry> _MyObservJob;
         static BindingList<JobEntry> _MyObservAssethisPage;
-
         static IEnumerable<IJob> jobs;
         static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
-
         static private int _jobsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -11831,7 +11878,7 @@ namespace AMSExplorer
         static string _filterjobsstate = "All";
         static CloudMediaContext _context;
         static private CredentialsEntry _credentials;
-        static private string _searchinname = "";
+        static private SearchObject _searchinname = new SearchObject { SearchType = SearchIn.JobName, Text = "" };
         static private string _timefilter = FilterTime.LastWeek;
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
@@ -11912,11 +11959,48 @@ namespace AMSExplorer
                 jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
 
-            if (!string.IsNullOrEmpty(_searchinname))
+
+            // search
+            if (!string.IsNullOrEmpty(_searchinname.Text))
             {
-                string searchlower = _searchinname.ToLower();
-                jobs = jobs.Where(j => (j.Name.ToLower().Contains(searchlower) || j.Id.ToLower().Contains(searchlower)));
+                switch (_searchinname.SearchType)
+                {
+                    case SearchIn.JobName:
+                        jobs = jobs.Where(a =>
+                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+                                 );
+                        break;
+
+                    case SearchIn.JobId:
+                        jobs = jobs.Where(a =>
+                               (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                               );
+                        break;
+
+                    case SearchIn.TaskName:
+                        jobs = jobs.Where(j => j.Tasks.Any(t =>
+                          (t.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)));
+                        break;
+
+                    case SearchIn.TaskId:
+                        jobs = jobs.Where(j => j.Tasks.Any(t =>
+                                 (t.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                                 ));
+                        break;
+
+                    case SearchIn.TaskProcessorId:
+                        jobs = jobs.Where(j => j.Tasks.Any(t =>
+                                 (t.MediaProcessorId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
+                                 ));
+                        break;
+
+
+                    default:
+                        break;
+
+                }
             }
+
 
             switch (_orderjobs)
             {

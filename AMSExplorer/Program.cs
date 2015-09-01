@@ -548,8 +548,10 @@ namespace AMSExplorer
 
         public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
+        public const string AssetFileIdPrefix = "nb:cid:UUID:";
         public const string ContentKeyIdPrefix = "nb:kid:UUID:";
         public const string JobIdPrefix = "nb:jid:UUID:";
+        public const string TaskIdPrefix = "nb:tid:UUID:";
         public const string ProgramIdPrefix = "nb:pgid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";
@@ -2513,6 +2515,26 @@ namespace AMSExplorer
         TaskOutputAsset
     }
 
+    public enum SearchIn
+    {
+        AssetName = 0,
+        AssetId,
+        AssetFileName,
+        AssetFileId,
+        LocatorPath,
+        JobName,
+        JobId,
+        TaskName,
+        TaskId,
+        TaskProcessorId
+    }
+
+    public class SearchObject
+    {
+        public string Text { get; set; }
+        public SearchIn SearchType { get; set; }
+       
+    }
 
     public class LocalEncoder
     {
