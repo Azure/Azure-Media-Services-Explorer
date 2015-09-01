@@ -148,7 +148,6 @@ namespace AMSExplorer
             {
                 return channels;
             }
-
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
@@ -170,7 +169,27 @@ namespace AMSExplorer
         static private string _timefilter = FilterTime.LastWeek;
         static BackgroundWorker WorkerRefreshChannels;
         static Bitmap EncodingImage = Bitmaps.encoding;
+        static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
         public string _encoded = "Encoding";
+        
+        private Bitmap ReturnChannelBitmap (IChannel channel)
+        {
+            switch (channel.EncodingType)
+            {
+                case ChannelEncodingType.None:
+                    return null;
+
+                case ChannelEncodingType.Standard:
+                    return EncodingImage;
+
+                case ChannelEncodingType.Premium:
+                    return PremiumEncodingImage;
+
+                default:
+                    return null;
+            }
+
+        }
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
@@ -186,7 +205,7 @@ namespace AMSExplorer
                                Id = c.Id,
                                Description = c.Description,
                                InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                               Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                               Encoding = ReturnChannelBitmap(c),
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
@@ -359,7 +378,7 @@ namespace AMSExplorer
                                        Id = c.Id,
                                        Description = c.Description,
                                        InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       Encoding = ReturnChannelBitmap(c),
                                        InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                        PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                        State = c.State,
@@ -378,7 +397,7 @@ namespace AMSExplorer
                                        Id = c.Id,
                                        Description = c.Description,
                                        InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       Encoding = ReturnChannelBitmap(c),
                                        InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                        PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                        State = c.State,
@@ -395,7 +414,7 @@ namespace AMSExplorer
                                        Id = c.Id,
                                        Description = c.Description,
                                        InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       Encoding = ReturnChannelBitmap(c),
                                        InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                        PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                        State = c.State,
@@ -411,7 +430,7 @@ namespace AMSExplorer
                                        Id = c.Id,
                                        Description = c.Description,
                                        InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = c.EncodingType != ChannelEncodingType.None ? EncodingImage : null,
+                                       Encoding = ReturnChannelBitmap(c),
                                        InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                        PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                        State = c.State,
@@ -538,7 +557,6 @@ namespace AMSExplorer
             {
                 _searchinname = value;
             }
-
         }
         public bool Initialized
         {
@@ -546,7 +564,6 @@ namespace AMSExplorer
             {
                 return _initialized;
             }
-
         }
         public string TimeFilter
         {
@@ -565,7 +582,6 @@ namespace AMSExplorer
             {
                 return _MyObservPrograms.Count();
             }
-
         }
         public IEnumerable<IProgram> DisplayedItems
         {
@@ -573,11 +589,8 @@ namespace AMSExplorer
             {
                 return programs;
             }
-
         }
 
-
-     
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
         {
@@ -674,20 +687,15 @@ namespace AMSExplorer
                     catch
                     {
                     }
-
                 }
             }
-
-
         }
 
         private void WorkerRefreshChannels_DoWork(object sender, DoWorkEventArgs e)
         {
-
             Debug.WriteLine("WorkerRefreshChannels_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             IProgram program;
-
 
             foreach (ProgramEntry CE in _MyObservPrograms)
             {
@@ -711,7 +719,6 @@ namespace AMSExplorer
                     e.Cancel = true;
                     return;
                 }
-
             }
             this.BeginInvoke(new Action(() => this.Refresh()), null);
         }
@@ -724,7 +731,6 @@ namespace AMSExplorer
         public void RefreshPrograms(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
-
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
@@ -766,7 +772,6 @@ namespace AMSExplorer
 
             switch (_orderitems)
             {
-                
                 case OrderPrograms.LastModified:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderByDescending(p => p.LastModified)
                  .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,

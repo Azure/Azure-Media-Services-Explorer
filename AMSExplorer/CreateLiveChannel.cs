@@ -465,7 +465,7 @@ namespace AMSExplorer
                 file.Upload(FileName);
                 AssetInfo.SetFileAsPrimary(asset, SafeFileName);
             }
-            catch (Exception e)
+            catch
             {
                 asset = null;
             }

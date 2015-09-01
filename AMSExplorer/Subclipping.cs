@@ -421,16 +421,7 @@ namespace AMSExplorer
                 if (myuri != null)
                 {
                     string myurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false);
-                    // string myurl = "http://nab2015-dev.azurewebsites.net/#/channels/LiveChannelStreamDemo/program-schedule/112485dc-2d26-422b-99e9-56240f6d70da
-                    // webBrowserPreview2.Url = new Uri(myurl);
-
-                    //string myurl = "http://whatsmyuseragent.com/";
-                    //string myurl = "http://localhost:33270/dynamic_registerEvents.htm";
                     webBrowserPreview2.Url = new Uri(myurl);
-
-
-                    //  webBrowserPreview2.DocumentText = File.ReadAllText(@"C:\Users\xpouyat\Documents\visual studio 2013\Projects\dynamic_registerEvents.htm");
-
                 }
             }
             else

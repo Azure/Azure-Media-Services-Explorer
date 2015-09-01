@@ -286,6 +286,7 @@
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelSE = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelEncRU = new System.Windows.Forms.ToolStripStatusLabel();
             this.contextMenuStripTransfers = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.ContextMenuItemTransferOpenDest = new System.Windows.Forms.ToolStripMenuItem();
             this.displayErrorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -2711,7 +2712,8 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelConnection,
             this.toolStripStatusLabelWatchFolder,
-            this.toolStripStatusLabelSE});
+            this.toolStripStatusLabelSE,
+            this.toolStripStatusLabelEncRU});
             this.statusStrip1.Location = new System.Drawing.Point(0, 617);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1020, 22);
@@ -2740,6 +2742,17 @@
             this.toolStripStatusLabelSE.Name = "toolStripStatusLabelSE";
             this.toolStripStatusLabelSE.Size = new System.Drawing.Size(211, 17);
             this.toolStripStatusLabelSE.Text = "New asset will be storage encrypted";
+            // 
+            // toolStripStatusLabelEncRU
+            // 
+            this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
+            this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
+            this.toolStripStatusLabelEncRU.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabelEncRU.Size = new System.Drawing.Size(545, 17);
+            this.toolStripStatusLabelEncRU.Spring = true;
+            this.toolStripStatusLabelEncRU.Tag = "";
+            this.toolStripStatusLabelEncRU.Text = "{0} {1} Encoding RU";
+            this.toolStripStatusLabelEncRU.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // contextMenuStripTransfers
             // 
@@ -5128,6 +5141,7 @@
         private System.Windows.Forms.ComboBox comboBoxSearchJobOption;
         private System.Windows.Forms.ComboBox comboBoxSearchProgramOption;
         private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
     }
 }
 

@@ -134,8 +134,8 @@ namespace AMSExplorer
 
         private void PlayReadyLicense_Load(object sender, EventArgs e)
         {
-            moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, "http://www.microsoft.com/playready/licensing/compliance/"));
-            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, "https://msdn.microsoft.com/en-us/library/azure/dn783459.aspx"));
+            moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
+            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, Constants.LinkPlayReadyTemplateInfo));
 
             comboBoxType.Items.AddRange(Enum.GetNames(typeof(PlayReadyLicenseType)).ToArray()); // license type
             comboBoxType.SelectedItem = Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent);

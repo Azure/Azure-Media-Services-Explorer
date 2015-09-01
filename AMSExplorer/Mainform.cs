@@ -2850,7 +2850,7 @@ namespace AMSExplorer
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://smf.cloudapp.net/healthmonitor");
+            Process.Start(Constants.LinkSMFHealth);
         }
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3534,7 +3534,7 @@ namespace AMSExplorer
 
         private void DisplayDeprecatedMessage()
         {
-            MessageBox.Show("On November 1, 2015, Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life. At that time, these components—used to convert file packaging formats and apply encryption—become fully deactivated and no longer available. The conversion and encryption capabilities will be transitioned to the dynamic packaging component of Azure Media Services.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2016. At that time, these components will no longer be available.  The format conversion and encryption capabilities will be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DoMenuIndexAssets()
@@ -5547,7 +5547,18 @@ namespace AMSExplorer
                 trackBarEncodingRU.Maximum = _context.EncodingReservedUnits.FirstOrDefault().MaxReservableUnits;
                 trackBarEncodingRU.Value = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits;
                 UpdateLabelProcessorUnits();
+
+                if (_context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits == 0)
+                {
+                    toolStripStatusLabelEncRU.Text = string.Format("No encoding RU");
+                }
+                else
+                {
+                    string s = _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits > 1 ? "s" : "";
+                    toolStripStatusLabelEncRU.Text = string.Format("{0} {1} encoding RU{2}", _context.EncodingReservedUnits.FirstOrDefault().CurrentReservedUnits, _context.EncodingReservedUnits.FirstOrDefault().ReservedUnitType.ToString(), s);
+                }
             }
+
             else
             {
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
@@ -11034,10 +11045,10 @@ namespace AMSExplorer
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
         static Bitmap AssetFilterImage = Bitmaps.filter;
         static Bitmap AssetFiltersImage = Bitmaps.filters;
-        static Bitmap Redstreamimage = MakeRed(Streaminglocatorimage);
-        static Bitmap Reddownloadimage = MakeRed(SASlocatorimage);
-        static Bitmap Bluestreamimage = MakeBlue(Streaminglocatorimage);
-        static Bitmap Bluedownloadimage = MakeBlue(SASlocatorimage);
+        static Bitmap Redstreamimage = Program.MakeRed(Streaminglocatorimage);
+        static Bitmap Reddownloadimage = Program.MakeRed(SASlocatorimage);
+        static Bitmap Bluestreamimage = Program.MakeBlue(Streaminglocatorimage);
+        static Bitmap Bluedownloadimage = Program.MakeBlue(SASlocatorimage);
 
         public int AssetsPerPage
         {
@@ -11532,45 +11543,7 @@ namespace AMSExplorer
 
         }
 
-        public static Bitmap MakeRed(Bitmap original)
-        {
-            //make an empty bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
-
-            for (int i = 0; i < original.Width; i++)
-            {
-                for (int j = 0; j < original.Height; j++)
-                {
-                    //get the pixel from the original image
-                    Color originalColor = original.GetPixel(i, j);
-
-                    //set the new image's pixel to the grayscale version
-                    newBitmap.SetPixel(i, j, Color.FromArgb(originalColor.A, 255, originalColor.G, originalColor.B));
-                }
-            }
-
-            return newBitmap;
-        }
-
-        public static Bitmap MakeBlue(Bitmap original)
-        {
-            //make an empty bitmap the same size as original
-            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
-
-            for (int i = 0; i < original.Width; i++)
-            {
-                for (int j = 0; j < original.Height; j++)
-                {
-                    //get the pixel from the original image
-                    Color originalColor = original.GetPixel(i, j);
-
-                    //set the new image's pixel to the grayscale version
-                    newBitmap.SetPixel(i, j, Color.FromArgb(originalColor.A, originalColor.R, originalColor.G, 255));
-                }
-            }
-
-            return newBitmap;
-        }
+      
 
         public static AssetBitmapAndText BuildBitmapPublication(IAsset asset)
         {

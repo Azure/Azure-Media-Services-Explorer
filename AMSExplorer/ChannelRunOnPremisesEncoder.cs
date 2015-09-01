@@ -94,7 +94,7 @@ namespace AMSExplorer
                 proc.Arguments = "/K " + textBoxCommand.Text;
                 System.Diagnostics.Process.Start(proc);
             }
-            catch (Exception ex)
+            catch
             {
 
             }

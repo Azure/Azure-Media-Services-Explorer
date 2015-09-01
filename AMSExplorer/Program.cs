@@ -257,6 +257,45 @@ namespace AMSExplorer
             }
         }
 
+        public static Bitmap MakeRed(Bitmap original)
+        {
+            //make an empty bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            for (int i = 0; i < original.Width; i++)
+            {
+                for (int j = 0; j < original.Height; j++)
+                {
+                    //get the pixel from the original image
+                    Color originalColor = original.GetPixel(i, j);
+
+                    //set the new image's pixel to the grayscale version
+                    newBitmap.SetPixel(i, j, Color.FromArgb(originalColor.A, 255, originalColor.G, originalColor.B));
+                }
+            }
+            return newBitmap;
+        }
+
+        public static Bitmap MakeBlue(Bitmap original)
+        {
+            //make an empty bitmap the same size as original
+            Bitmap newBitmap = new Bitmap(original.Width, original.Height);
+
+            for (int i = 0; i < original.Width; i++)
+            {
+                for (int j = 0; j < original.Height; j++)
+                {
+                    //get the pixel from the original image
+                    Color originalColor = original.GetPixel(i, j);
+
+                    //set the new image's pixel to the grayscale version
+                    newBitmap.SetPixel(i, j, Color.FromArgb(originalColor.A, originalColor.R, originalColor.G, 255));
+                }
+            }
+            return newBitmap;
+        }
+
+       
         public static DialogResult InputBox(string title, string promptText, ref string value)
         {
             Button buttonOk = new Button()
@@ -315,7 +354,7 @@ namespace AMSExplorer
             {
                 Properties.Settings.Default.Save();
             }
-            catch (Exception e)
+            catch
             {
 
             }
@@ -571,6 +610,14 @@ namespace AMSExplorer
         public const string LinkHowItWorksHyperlapse = "http://research.microsoft.com/en-us/um/redmond/projects/hyperlapse/";
         public const string LinkHowIMoreInfoDynamicManifest = "http://azure.microsoft.com/blog/2015/05/28/dynamic-manifest/";
         public const string LinkHowIMoreInfoSubclipping = "http://azure.microsoft.com/blog/2015/04/14/dynamic-manifests-and-rendered-sub-clips/";
+
+        public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
+        public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
+
+        public const string LinkAMSE = "http://aka.ms/amse";
+        public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
+
+        public const string LinkSMFHealth = "http://smf.cloudapp.net/healthmonitor";
 
         public const string AzureNotificationNameWatchFolder = "explorer-watch-folder";
 
@@ -1094,7 +1141,7 @@ namespace AMSExplorer
                 });
                 locatorTask.Wait();
             }
-            catch (Exception ex)
+            catch
             {
 
             }
@@ -1474,7 +1521,7 @@ namespace AMSExplorer
                 }
                 if (mytemplocator != null) mytemplocator.Delete();
             }
-            catch (Exception ex)
+            catch
             {
                 response.Error = true;
             }
@@ -1562,23 +1609,6 @@ namespace AMSExplorer
                             case "WORKFLOW":
                             case "BLUEPRINT":
                                 type = Type_Workflow;
-                                break;
-
-                            case "ISM":
-                                /*
-                                var program = asset.GetMediaContext().Programs.ToList().Where(p => p.AssetId == asset.Id).ToArray();
-                                if (program.Count() == 1) // from a live program
-                                {
-                                */
-                                return Type_LiveArchive;
-                                /*
-                                }
-                                else
-                                {
-                                    type = ext;
-                                }
-                                */
-
                                 break;
 
                             default:
@@ -2118,7 +2148,7 @@ namespace AMSExplorer
                         {
                             Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
-                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.3.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
+                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.4.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHAzurePage:
@@ -2538,7 +2568,7 @@ namespace AMSExplorer
     {
         public string Text { get; set; }
         public SearchIn SearchType { get; set; }
-       
+
     }
 
     public class LocalEncoder

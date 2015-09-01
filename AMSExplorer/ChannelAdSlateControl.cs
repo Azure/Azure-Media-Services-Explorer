@@ -172,7 +172,7 @@ namespace AMSExplorer
                                                       );
                 AssetInfo.SetFileAsPrimary(asset, Path.GetFileName(safeFileName));
             }
-            catch (Exception e)
+            catch
             {
                 asset = null;
             }

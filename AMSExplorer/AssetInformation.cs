@@ -61,7 +61,7 @@ namespace AMSExplorer
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void toolStripMenuItemCopy_Click(object sender, EventArgs e)
@@ -406,7 +406,7 @@ namespace AMSExplorer
                 buttonUpload.Enabled = true;
             }
 
-            
+
             DisplayAssetFilters();
             oktobuildlocator = true;
             BuildLocatorsTree();
@@ -1225,7 +1225,6 @@ namespace AMSExplorer
             {
                 try
                 {
-
                     if (!Mainform.havestoragecredentials)
                     { // No blob credentials.
                         MessageBox.Show("Please specify the account storage key in the login window.");
@@ -1569,7 +1568,6 @@ namespace AMSExplorer
 
         private void DoGetTestToken()
         {
-            bool Error = true;
             if (listViewKeys.SelectedItems.Count > 0)
             {
                 IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
@@ -1588,7 +1586,6 @@ namespace AMSExplorer
                                 myMainForm.TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken);
                                 System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                 MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken.TokenString), "Test token copied");
-                                Error = false;
                             }
                         }
                     }
@@ -1926,7 +1923,7 @@ namespace AMSExplorer
             foreach (DataGridViewRow Row in dataGridViewFilters.SelectedRows)
             {
                 string filterid = Row.Cells[dataGridViewFilters.Columns["Id"].Index].Value.ToString();
-                IStreamingAssetFilter myfilter = myAsset.AssetFilters.Where(f=>f.Id ==  filterid).FirstOrDefault();
+                IStreamingAssetFilter myfilter = myAsset.AssetFilters.Where(f => f.Id == filterid).FirstOrDefault();
                 if (myfilter != null)
                 {
                     SelectedFilters.Add(myfilter);
@@ -1944,7 +1941,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var filtertoupdate =form.GetFilterInfo;
+                    var filtertoupdate = form.GetFilterInfo;
                     try
                     {
                         filter.PresentationTimeRange = filtertoupdate.Presentationtimerange;
@@ -1970,13 +1967,13 @@ namespace AMSExplorer
 
         private void DoCreateAssetFilter()
         {
-            DynManifestFilter form = new DynManifestFilter( myContext, null, myAsset);
+            DynManifestFilter form = new DynManifestFilter(myContext, null, myAsset);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-            
+
                 var filterinfo = form.GetFilterInfo;
-                               try
+                try
                 {
                     myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
                     myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filterinfo.Name);
@@ -2004,7 +2001,7 @@ namespace AMSExplorer
                 filters.ForEach(f => f.Delete());
             }
 
-            catch (Exception e)
+            catch
             {
                 MessageBox.Show("Error when deleting asset filter(s).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -2027,13 +2024,13 @@ namespace AMSExplorer
                 string newfiltername = sourcefilter.Name + "Copy";
                 if (Program.InputBox("New name", "Enter the name of the new duplicate filter:", ref newfiltername) == DialogResult.OK)
                 {
-                                     try
+                    try
                     {
                         myAsset.AssetFilters.Create(newfiltername, sourcefilter.PresentationTimeRange, sourcefilter.Tracks);
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when duplicating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error when duplicating asset filter." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     DisplayAssetFilters();
                 }

@@ -599,27 +599,9 @@
 
         private System.Windows.Forms.DataGridView DGOrigin;
         private System.Windows.Forms.Button buttonApplyClose;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripLocators;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCopy;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripDG;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackFlash;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackSilverlight;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHIF;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPlaybackMP4;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpen;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripFiles;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemOpenFile;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDownloadFile;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownload;
-        private System.Windows.Forms.ToolStripMenuItem makeItPrimaryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDASHAZURE;
-        private System.Windows.Forms.ToolStripMenuItem duplicateFileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteLocatorToolStripMenuItem;
         private System.Windows.Forms.Label labelOriginName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOI;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
