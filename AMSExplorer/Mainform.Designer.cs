@@ -2748,7 +2748,7 @@
             this.toolStripStatusLabelEncRU.BackColor = System.Drawing.SystemColors.Control;
             this.toolStripStatusLabelEncRU.Name = "toolStripStatusLabelEncRU";
             this.toolStripStatusLabelEncRU.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabelEncRU.Size = new System.Drawing.Size(545, 17);
+            this.toolStripStatusLabelEncRU.Size = new System.Drawing.Size(576, 17);
             this.toolStripStatusLabelEncRU.Spring = true;
             this.toolStripStatusLabelEncRU.Tag = "";
             this.toolStripStatusLabelEncRU.Text = "{0} {1} Encoding RU";
@@ -3485,9 +3485,9 @@
             this.textBoxSearchNameChannel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameChannel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(168, 189);
+            this.textBoxSearchNameChannel.Location = new System.Drawing.Point(176, 189);
             this.textBoxSearchNameChannel.Name = "textBoxSearchNameChannel";
-            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(129, 23);
+            this.textBoxSearchNameChannel.Size = new System.Drawing.Size(121, 23);
             this.textBoxSearchNameChannel.TabIndex = 53;
             this.toolTip1.SetToolTip(this.textBoxSearchNameChannel, "Search in channel name and channel Id");
             // 
@@ -3496,9 +3496,9 @@
             this.textBoxSearchNameProgram.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxSearchNameProgram.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(168, 410);
+            this.textBoxSearchNameProgram.Location = new System.Drawing.Point(176, 410);
             this.textBoxSearchNameProgram.Name = "textBoxSearchNameProgram";
-            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(129, 23);
+            this.textBoxSearchNameProgram.Size = new System.Drawing.Size(121, 23);
             this.textBoxSearchNameProgram.TabIndex = 46;
             this.toolTip1.SetToolTip(this.textBoxSearchNameProgram, "Search in program name, program Id and asset Id");
             // 
@@ -4098,7 +4098,7 @@
             this.comboBoxSearchProgramOption.FormattingEnabled = true;
             this.comboBoxSearchProgramOption.Location = new System.Drawing.Point(6, 410);
             this.comboBoxSearchProgramOption.Name = "comboBoxSearchProgramOption";
-            this.comboBoxSearchProgramOption.Size = new System.Drawing.Size(156, 23);
+            this.comboBoxSearchProgramOption.Size = new System.Drawing.Size(164, 23);
             this.comboBoxSearchProgramOption.TabIndex = 63;
             // 
             // comboBoxSearchChannelOption
@@ -4108,7 +4108,7 @@
             this.comboBoxSearchChannelOption.FormattingEnabled = true;
             this.comboBoxSearchChannelOption.Location = new System.Drawing.Point(6, 189);
             this.comboBoxSearchChannelOption.Name = "comboBoxSearchChannelOption";
-            this.comboBoxSearchChannelOption.Size = new System.Drawing.Size(156, 23);
+            this.comboBoxSearchChannelOption.Size = new System.Drawing.Size(164, 23);
             this.comboBoxSearchChannelOption.TabIndex = 62;
             // 
             // label24
