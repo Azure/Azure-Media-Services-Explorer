@@ -5,7 +5,7 @@
     <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
     <id>amsexplorer</id>
     <title>Azure Media Services Explorer</title>
-    <version>3.27.0.0</version>
+    <version>3.28.0.0</version>
     <authors>Microsoft Corporation</authors>
     <owners>Microsoft</owners>
     <summary>Azure Media Services Explorer</summary>
@@ -28,12 +28,15 @@
       <dependency id="dotnet4.5.2" version="4.5.2.20140902" />
     </dependencies>-->
     <releaseNotes>This update brings the following features and improvements :
-      * **Asset information export to Excel**. You can now export assets data to Excel (asset name, ID, streaming URL, expiration) then use Excel to analyse the data (with a pivot table). Please give us some feedback!
-      * Update to the logging window (timestamps and more details)
-      * Switched to JSON presets for **Media Encoder Standard** [which is now GA](http://azure.microsoft.com/blog/2015/07/16/announcing-the-general-availability-of-media-encoder-standard/).
-      * Subclipping support (currently in private preview)
-      * UI updates
-      * Several bug fixes
+* Code updated to use **Media Services SDK v3.4.0.0** and **Visual Studio 2015**
+* The new installer checks the requirement for .NET 4.5.2
+* Moved all API calls from REST to .NET SDK for asset and global filters
+* **New options to search** in Id or name of assets, asset files, locators, jobs, channels and programs
+* Option to specify the manifest name for live programs
+* **Dynamic encryption updates**: an external AES key server can be configured, and it's possible to use the same key (key id) for several assets (AES or PlayReady)
+* Added support for **Premium Live Encoding** (in private preview)
+* Fixes to subclipping (currently in private preview)
+* UI updates and bug fixes
     </releaseNotes>
   </metadata>
   <files>

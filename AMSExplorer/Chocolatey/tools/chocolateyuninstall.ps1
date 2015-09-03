@@ -1,8 +1,8 @@
 ﻿$ErrorActionPreference = 'Stop';
 
 $packageName = 'amsexplorer'
-$registryUninstallerKeyName = '{4118FAF1-F307-42DF-9DF3-707E94331841}'
-$msiProductCodeGuid = '{4118FAF1-F307-42DF-9DF3-707E94331841}'
+$registryUninstallerKeyName = '{153DE731-881C-48CD-9A31-D52962B1F267}'
+$msiProductCodeGuid = '{153DE731-881C-48CD-9A31-D52962B1F267}'
 $shouldUninstall = $true
 
 $local_key     = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\$registryUninstallerKeyName"
