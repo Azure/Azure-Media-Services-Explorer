@@ -53,6 +53,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.comboBoxEncodingType = new System.Windows.Forms.ComboBox();
             this.tabPageLiveEncoding = new System.Windows.Forms.TabPage();
+            this.textBoxCustomPreset = new System.Windows.Forms.TextBox();
+            this.radioButtonCustomPreset = new System.Windows.Forms.RadioButton();
+            this.radioButtonDefaultPreset = new System.Windows.Forms.RadioButton();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.dataGridViewAudioProf = new System.Windows.Forms.DataGridView();
@@ -60,8 +63,6 @@
             this.panelRTP = new System.Windows.Forms.Panel();
             this.numericUpDownVideoStreamIndex = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.comboBoxEncodingPreset = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.tabPageAudioOptions = new System.Windows.Forms.TabPage();
             this.panelAudioControl = new System.Windows.Forms.Panel();
             this.panelMultiAudio = new System.Windows.Forms.Panel();
@@ -350,13 +351,14 @@
             // 
             // tabPageLiveEncoding
             // 
+            this.tabPageLiveEncoding.Controls.Add(this.textBoxCustomPreset);
+            this.tabPageLiveEncoding.Controls.Add(this.radioButtonCustomPreset);
+            this.tabPageLiveEncoding.Controls.Add(this.radioButtonDefaultPreset);
             this.tabPageLiveEncoding.Controls.Add(this.label17);
             this.tabPageLiveEncoding.Controls.Add(this.label16);
             this.tabPageLiveEncoding.Controls.Add(this.dataGridViewAudioProf);
             this.tabPageLiveEncoding.Controls.Add(this.dataGridViewVideoProf);
             this.tabPageLiveEncoding.Controls.Add(this.panelRTP);
-            this.tabPageLiveEncoding.Controls.Add(this.comboBoxEncodingPreset);
-            this.tabPageLiveEncoding.Controls.Add(this.label6);
             this.tabPageLiveEncoding.Location = new System.Drawing.Point(4, 24);
             this.tabPageLiveEncoding.Name = "tabPageLiveEncoding";
             this.tabPageLiveEncoding.Padding = new System.Windows.Forms.Padding(3);
@@ -365,11 +367,46 @@
             this.tabPageLiveEncoding.Text = "Live Encoding";
             this.tabPageLiveEncoding.UseVisualStyleBackColor = true;
             // 
+            // textBoxCustomPreset
+            // 
+            this.textBoxCustomPreset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCustomPreset.Enabled = false;
+            this.textBoxCustomPreset.Location = new System.Drawing.Point(160, 50);
+            this.textBoxCustomPreset.Name = "textBoxCustomPreset";
+            this.textBoxCustomPreset.Size = new System.Drawing.Size(319, 23);
+            this.textBoxCustomPreset.TabIndex = 61;
+            this.textBoxCustomPreset.TextChanged += new System.EventHandler(this.textBoxCustomPreset_TextChanged);
+            // 
+            // radioButtonCustomPreset
+            // 
+            this.radioButtonCustomPreset.AutoSize = true;
+            this.radioButtonCustomPreset.Location = new System.Drawing.Point(26, 51);
+            this.radioButtonCustomPreset.Name = "radioButtonCustomPreset";
+            this.radioButtonCustomPreset.Size = new System.Drawing.Size(128, 19);
+            this.radioButtonCustomPreset.TabIndex = 76;
+            this.radioButtonCustomPreset.Text = "Use custom preset :";
+            this.radioButtonCustomPreset.UseVisualStyleBackColor = true;
+            this.radioButtonCustomPreset.CheckedChanged += new System.EventHandler(this.radioButtonCustomPreset_CheckedChanged);
+            // 
+            // radioButtonDefaultPreset
+            // 
+            this.radioButtonDefaultPreset.AutoSize = true;
+            this.radioButtonDefaultPreset.Checked = true;
+            this.radioButtonDefaultPreset.Location = new System.Drawing.Point(26, 25);
+            this.radioButtonDefaultPreset.Name = "radioButtonDefaultPreset";
+            this.radioButtonDefaultPreset.Size = new System.Drawing.Size(106, 19);
+            this.radioButtonDefaultPreset.TabIndex = 75;
+            this.radioButtonDefaultPreset.TabStop = true;
+            this.radioButtonDefaultPreset.Tag = "Use \"{0}\" preset";
+            this.radioButtonDefaultPreset.Text = "Use \"{0}\" preset";
+            this.radioButtonDefaultPreset.UseVisualStyleBackColor = true;
+            // 
             // label17
             // 
             this.label17.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(19, 190);
+            this.label17.Location = new System.Drawing.Point(19, 209);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(144, 15);
             this.label17.TabIndex = 74;
@@ -378,7 +415,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(19, 76);
+            this.label16.Location = new System.Drawing.Point(19, 92);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(142, 15);
             this.label16.TabIndex = 73;
@@ -392,11 +429,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewAudioProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewAudioProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAudioProf.Location = new System.Drawing.Point(22, 208);
+            this.dataGridViewAudioProf.Location = new System.Drawing.Point(22, 227);
             this.dataGridViewAudioProf.Name = "dataGridViewAudioProf";
             this.dataGridViewAudioProf.ReadOnly = true;
             this.dataGridViewAudioProf.RowHeadersVisible = false;
-            this.dataGridViewAudioProf.Size = new System.Drawing.Size(457, 87);
+            this.dataGridViewAudioProf.Size = new System.Drawing.Size(457, 68);
             this.dataGridViewAudioProf.TabIndex = 72;
             // 
             // dataGridViewVideoProf
@@ -408,7 +445,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewVideoProf.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewVideoProf.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewVideoProf.Location = new System.Drawing.Point(22, 95);
+            this.dataGridViewVideoProf.Location = new System.Drawing.Point(22, 111);
             this.dataGridViewVideoProf.Name = "dataGridViewVideoProf";
             this.dataGridViewVideoProf.ReadOnly = true;
             this.dataGridViewVideoProf.RowHeadersVisible = false;
@@ -442,24 +479,6 @@
             this.label7.Size = new System.Drawing.Size(114, 15);
             this.label7.TabIndex = 71;
             this.label7.Text = "Video Stream Index :";
-            // 
-            // comboBoxEncodingPreset
-            // 
-            this.comboBoxEncodingPreset.FormattingEnabled = true;
-            this.comboBoxEncodingPreset.Location = new System.Drawing.Point(22, 35);
-            this.comboBoxEncodingPreset.Name = "comboBoxEncodingPreset";
-            this.comboBoxEncodingPreset.Size = new System.Drawing.Size(233, 23);
-            this.comboBoxEncodingPreset.TabIndex = 11;
-            this.comboBoxEncodingPreset.TextChanged += new System.EventHandler(this.comboBoxEncodingPreset_TextChanged);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 16);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 15);
-            this.label6.TabIndex = 10;
-            this.label6.Text = "Preset :";
             // 
             // tabPageAudioOptions
             // 
@@ -844,8 +863,6 @@
         private System.Windows.Forms.TabPage tabPageLiveEncoding;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxEncodingType;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox comboBoxEncodingPreset;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxAdMarkerSource;
         private System.Windows.Forms.Label label8;
@@ -886,5 +903,8 @@
         private System.Windows.Forms.DataGridView dataGridViewAudioProf;
         private System.Windows.Forms.Panel panelMultiAudio;
         private System.Windows.Forms.CheckBox checkBoxEnableMultiAudio;
+        private System.Windows.Forms.TextBox textBoxCustomPreset;
+        private System.Windows.Forms.RadioButton radioButtonCustomPreset;
+        private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
     }
 }

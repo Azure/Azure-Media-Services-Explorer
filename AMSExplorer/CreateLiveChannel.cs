@@ -39,6 +39,7 @@ namespace AMSExplorer
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
+        private string defaultEncodingPreset = "";
 
         public readonly List<LiveProfile> Profiles = new List<LiveProfile>
         {
@@ -60,7 +61,6 @@ namespace AMSExplorer
                     {
                     Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
                     }
-
             },
              new LiveProfile()
             {
@@ -81,7 +81,6 @@ namespace AMSExplorer
                     {
                     Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
                     }
-
             }
         };
 
@@ -114,8 +113,8 @@ namespace AMSExplorer
             {
                 ChannelEncoding encodingoption = new ChannelEncoding()
                 {
-                    SystemPreset = comboBoxEncodingPreset.Text,
-                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                    SystemPreset = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
+                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value))
                 };
                 if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP
@@ -223,17 +222,18 @@ namespace AMSExplorer
             get
             {
                 List<IPRange> ips = new List<IPRange>();
-                IPRange ip;
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
-                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                    IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                    ips.Add(ip);
+
                 }
                 else
                 {
-                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    //ip = null;// new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    ips = null;
                 }
-                ips.Add(ip);
                 return ips;
             }
         }
@@ -254,7 +254,6 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-
             FillComboProtocols(false);
 
             //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
@@ -338,7 +337,8 @@ namespace AMSExplorer
                 else
                 {
                     FillComboProtocols(true);
-                    FillComboLiveEncodingProfile();
+                    SetLabelDefaultEncLabel();
+                    UpdateProfileGrids();
                     if (!EncodingTabDisplayed)
                     {
                         tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
@@ -353,7 +353,6 @@ namespace AMSExplorer
         private void FillComboProtocols(bool displayrtp)
         {
             comboBoxProtocolInput.Items.Clear();
-
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.FragmentedMP4), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4)));
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTMP), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP)));
             if (displayrtp)
@@ -363,16 +362,14 @@ namespace AMSExplorer
             comboBoxProtocolInput.SelectedIndex = 0;
         }
 
-        private void FillComboLiveEncodingProfile()
+        private void SetLabelDefaultEncLabel()
         {
-            comboBoxEncodingPreset.Items.Clear();
-
             // default encoding profile name
             var profileliveselected = Profiles.Where(p => p.Type == EncodingType).FirstOrDefault();
             if (profileliveselected != null)
             {
-                comboBoxEncodingPreset.Items.Add(profileliveselected.Name);
-                comboBoxEncodingPreset.SelectedIndex = 0;
+                defaultEncodingPreset = profileliveselected.Name;
+                radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
             }
         }
 
@@ -381,11 +378,6 @@ namespace AMSExplorer
         {
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
             if (!checkBoxRestrictPreviewIP.Checked) errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
-        }
-
-        private void textBoxRestrictPreviewIP_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
@@ -545,7 +537,6 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
-
         }
 
 
@@ -562,36 +553,49 @@ namespace AMSExplorer
 
         }
 
-        private void UpdateProfileGrids()
+        private string ReturnLiveEncodingProfile ()
         {
-            var profileliveselected = Profiles.Where(p => p.Name == comboBoxEncodingPreset.Text).FirstOrDefault();
-            if (profileliveselected != null)
+            if (EncodingType != ChannelEncodingType.None)
             {
-                dataGridViewVideoProf.DataSource = profileliveselected.Video;
-
-
-
-                List<LiveAudioProfile> profmultiaudio = new List<LiveAudioProfile>();
-
-                var option = this.EncodingOptions;
-                if (option != null && option.AudioStreams != null)
-                {
-                    foreach (var audiostream in this.EncodingOptions.AudioStreams)
-                    {
-                        profmultiaudio.Add(new LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                    }
-                }
-                else // no specific audio language specified
-                {
-                    profmultiaudio.Add(new LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                }
-
-                dataGridViewAudioProf.DataSource = profmultiaudio;
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }
             else
             {
-                dataGridViewVideoProf.DataSource = null;
-                dataGridViewAudioProf.DataSource = null;
+                return null;
+            }
+        }
+
+        private void UpdateProfileGrids()
+        {
+            string encodingprofile = ReturnLiveEncodingProfile();
+            if (encodingprofile!=null)
+            {
+                var profileliveselected = Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    dataGridViewVideoProf.DataSource = profileliveselected.Video;
+                    List<LiveAudioProfile> profmultiaudio = new List<LiveAudioProfile>();
+
+                    var option = this.EncodingOptions;
+                    if (option != null && option.AudioStreams != null)
+                    {
+                        foreach (var audiostream in this.EncodingOptions.AudioStreams)
+                        {
+                            profmultiaudio.Add(new LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                        }
+                    }
+                    else // no specific audio language specified
+                    {
+                        profmultiaudio.Add(new LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    }
+
+                    dataGridViewAudioProf.DataSource = profmultiaudio;
+                }
+                else
+                {
+                    dataGridViewVideoProf.DataSource = null;
+                    dataGridViewAudioProf.DataSource = null;
+                }
             }
         }
 
@@ -600,15 +604,23 @@ namespace AMSExplorer
             UpdateProfileGrids();
         }
 
-        private void comboBoxEncodingPreset_TextChanged(object sender, EventArgs e)
-        {
-            UpdateProfileGrids();
-        }
-
+  
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             panelMultiAudio.Enabled = checkBoxEnableMultiAudio.Checked;
             UpdateProfileGrids();
+        }
+
+        private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+
+        }
+
+        private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+            textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
         }
     }
 
@@ -636,9 +648,7 @@ namespace AMSExplorer
     public class LiveProfile
     {
         public string Name { get; set; }
-
         public ChannelEncodingType Type { get; set; }
-
         public List<LiveVideoProfile> Video { get; set; }
         public LiveAudioProfile Audio { get; set; }
     }

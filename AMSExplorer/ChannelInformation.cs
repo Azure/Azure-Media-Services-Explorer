@@ -169,7 +169,7 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    DGChannel.Rows.Add("Slate settings","(none)");
+                    DGChannel.Rows.Add("Slate settings", "(none)");
                 }
             }
 
@@ -359,7 +359,7 @@ namespace AMSExplorer
         private void buttonAllowAllInputIP_Click(object sender, EventArgs e)
         {
             InputEndpointSettingList.Clear();
-            InputEndpointSettingList.Add(new IPRange() { Name = "default", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
+            InputEndpointSettingList.Add(new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 });
             checkBoxInputSet.Checked = true;
         }
 
@@ -368,8 +368,6 @@ namespace AMSExplorer
             checkBoxPreviewSet.Checked = false;
             PreviewEndpointSettingList.Clear();
         }
-
-
 
         private void tabPage4_Enter(object sender, EventArgs e)
         {
