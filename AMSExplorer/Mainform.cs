@@ -6385,37 +6385,52 @@ namespace AMSExplorer
             {
                 TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
 
-                var options = new ChannelCreationOptions()
+                bool Error = false;
+                ChannelCreationOptions options = new ChannelCreationOptions();
+                try
                 {
-                    Name = form.ChannelName,
-                    Description = form.ChannelDescription,
-                    EncodingType = form.EncodingType,
-                    Input = new ChannelInput()
+                     options = new ChannelCreationOptions()
                     {
-                        StreamingProtocol = form.Protocol,
-                        AccessControl = new ChannelAccessControl()
+                        Name = form.ChannelName,
+                        Description = form.ChannelDescription,
+                        EncodingType = form.EncodingType,
+                        Input = new ChannelInput()
                         {
-                            IPAllowList = form.inputIPAllow
+                            StreamingProtocol = form.Protocol,
+                            AccessControl = new ChannelAccessControl()
+                            {
+                                IPAllowList = form.inputIPAllow
+                            },
+                            KeyFrameInterval = form.KeyframeInterval
                         },
-                        KeyFrameInterval = form.KeyframeInterval
-                    },
-                    Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } },
-                    Preview = new ChannelPreview()
-                    {
-                        AccessControl = new ChannelAccessControl()
+                        Output = new ChannelOutput() { Hls = new ChannelOutputHls() { FragmentsPerSegment = form.HLSFragmentPerSegment } },
+                        Preview = new ChannelPreview()
                         {
-                            IPAllowList = form.previewIPAllow
-                        },
-                    }
-                };
+                            AccessControl = new ChannelAccessControl()
+                            {
+                                IPAllowList = form.previewIPAllow
+                            },
+                        }
+                    };
 
-                if (form.EncodingType != ChannelEncodingType.None)
-                {
-                    options.Encoding = form.EncodingOptions;
-                    options.Slate = form.Slate;
+                    if (form.EncodingType != ChannelEncodingType.None)
+                    {
+                        options.Encoding = form.EncodingOptions;
+                        options.Slate = form.Slate;
+                    }
                 }
 
-                await Task.Run(() => IObjectExecuteOperationAsync(
+                catch (Exception ex)
+                {
+                    Error = true;
+                    TextBoxLogWriteLine("Error with channel settings.", true);
+                    TextBoxLogWriteLine(ex);
+
+                }
+
+                if (!Error)
+                {
+                    await Task.Run(() => IObjectExecuteOperationAsync(
                      () =>
                          _context.Channels.SendCreateOperationAsync(
                          options),
@@ -6424,20 +6439,23 @@ namespace AMSExplorer
                          "created",
                          _context));
 
-                DoRefreshGridChannelV(false);
-                IChannel channel = GetChannelFromName(form.ChannelName);
-                if (channel != null)
-                {
-                    if (form.StartChannelNow)
+                    DoRefreshGridChannelV(false);
+                    IChannel channel = GetChannelFromName(form.ChannelName);
+                    if (channel != null)
                     {
-                        Task.Run(async () =>
+                        if (form.StartChannelNow)
                         {
-                            // let's start the channel now
-                            await StartChannelAsync(GetChannelFromName(form.ChannelName));
+                            Task.Run(async () =>
+                            {
+                                // let's start the channel now
+                                await StartChannelAsync(GetChannelFromName(form.ChannelName));
+                            }
+                );
                         }
-            );
                     }
+
                 }
+
             }
         }
 
@@ -11543,7 +11561,7 @@ namespace AMSExplorer
 
         }
 
-      
+
 
         public static AssetBitmapAndText BuildBitmapPublication(IAsset asset)
         {

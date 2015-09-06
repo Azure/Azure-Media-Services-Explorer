@@ -204,16 +204,24 @@ namespace AMSExplorer
                 List<IPRange> ips = new List<IPRange>();
                 IPRange ip;
 
-                if (checkBoxRestrictIngestIP.Checked)
+                try
                 {
-                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                    if (checkBoxRestrictIngestIP.Checked)
+                    {
+                        ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                    }
+                    else
+                    {
+                        ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    }
+                    ips.Add(ip);
+                    return ips;
                 }
-                else
+                catch
                 {
-                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    throw;
                 }
-                ips.Add(ip);
-                return ips;
+           
             }
         }
 
@@ -225,9 +233,15 @@ namespace AMSExplorer
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
-                    IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
-                    ips.Add(ip);
-
+                    try
+                    {
+                        IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                        ips.Add(ip);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                 }
                 else
                 {
@@ -553,7 +567,7 @@ namespace AMSExplorer
 
         }
 
-        private string ReturnLiveEncodingProfile ()
+        private string ReturnLiveEncodingProfile()
         {
             if (EncodingType != ChannelEncodingType.None)
             {
@@ -568,7 +582,7 @@ namespace AMSExplorer
         private void UpdateProfileGrids()
         {
             string encodingprofile = ReturnLiveEncodingProfile();
-            if (encodingprofile!=null)
+            if (encodingprofile != null)
             {
                 var profileliveselected = Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
                 if (profileliveselected != null)
@@ -604,7 +618,7 @@ namespace AMSExplorer
             UpdateProfileGrids();
         }
 
-  
+
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             panelMultiAudio.Enabled = checkBoxEnableMultiAudio.Checked;
