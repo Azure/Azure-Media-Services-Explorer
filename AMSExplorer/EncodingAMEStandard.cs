@@ -30,6 +30,8 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Reflection;
 using System.Diagnostics;
 using Newtonsoft.Json.Linq;
+using AMSExplorer;
+
 
 namespace AMSExplorer
 {
@@ -48,30 +50,30 @@ namespace AMSExplorer
         bool usereditmode = false;
 
         public readonly IList<Profile> Profiles = new List<Profile> {
-            new Profile() {Prof=@"H264 Multiple Bitrate 1080p Audio 5.1", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 1080p", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 for iOS", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 8500 kbps to 200 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 SD Audio 5.1", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1900 kbps to 400 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 SD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1900 kbps to 400 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 4K Audio 5.1", Desc="Produces a set of 12 GOP-aligned MP4 files, ranging from 20000 kbps to 1000 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 4K", Desc="Produces a set of 12 GOP-aligned MP4 files, ranging from 20000 kbps to 1000 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 for iOS", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 8500 kbps to 200 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 SD Audio 5.1", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600 kbps to 400 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 SD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600 kbps to 400 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 720p Audio 5.1", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Multiple Bitrate 720p", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 1080p Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 6750 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 1080p", Desc="Produces a single MP4 file with a bitrate of 6750 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 4K Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 4K", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 4x3 SD Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 4x3 SD", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 16x9 SD Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 2200 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 16x9 SD", Desc="Produces a single MP4 file with a bitrate of 2200 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 720p Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 4500 kbps, and AAC 5.1 audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 720p for Android", Desc="Produces a single MP4 file with a bitrate of 2000 kbps, and stereo AAC."}, 
-            new Profile() {Prof=@"H264 Single Bitrate 720p", Desc="Produces a single MP4 file with a bitrate of 4500 kbps, and stereo AAC audio."}, 
-            new Profile() {Prof=@"H264 Single Bitrate High Quality SD for Androi", Desc="Produces a single MP4 file with a bitrate of 500 kbps, and stereo AAC audio."}, 
+            new Profile() {Prof=@"H264 Multiple Bitrate 1080p Audio 5.1", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 1080p", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 for iOS", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 8500 kbps to 200 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 SD Audio 5.1", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1900 kbps to 400 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 16x9 SD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1900 kbps to 400 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 4K Audio 5.1", Desc="Produces a set of 12 GOP-aligned MP4 files, ranging from 20000 kbps to 1000 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 4K", Desc="Produces a set of 12 GOP-aligned MP4 files, ranging from 20000 kbps to 1000 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 for iOS", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 8500 kbps to 200 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 SD Audio 5.1", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600 kbps to 400 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 4x3 SD", Desc="Produces a set of 5 GOP-aligned MP4 files, ranging from 1600 kbps to 400 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 720p Audio 5.1", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Multiple Bitrate 720p", Desc="Produces a set of 6 GOP-aligned MP4 files, ranging from 3400 kbps to 400 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 1080p Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 6750 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 1080p", Desc="Produces a single MP4 file with a bitrate of 6750 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 4K Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 4K", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 4x3 SD Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 4x3 SD", Desc="Produces a single MP4 file with a bitrate of 18000 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 16x9 SD Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 2200 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 16x9 SD", Desc="Produces a single MP4 file with a bitrate of 2200 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 720p Audio 5.1", Desc="Produces a single MP4 file with a bitrate of 4500 kbps, and AAC 5.1 audio."},
+            new Profile() {Prof=@"H264 Single Bitrate 720p for Android", Desc="Produces a single MP4 file with a bitrate of 2000 kbps, and stereo AAC."},
+            new Profile() {Prof=@"H264 Single Bitrate 720p", Desc="Produces a single MP4 file with a bitrate of 4500 kbps, and stereo AAC audio."},
+            new Profile() {Prof=@"H264 Single Bitrate High Quality SD for Androi", Desc="Produces a single MP4 file with a bitrate of 500 kbps, and stereo AAC audio."},
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
 
@@ -186,6 +188,13 @@ namespace AMSExplorer
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
+
+            if (_subclipConfig != null && _subclipConfig.Trimming)
+            {
+                checkBoxTrim.Checked = true;
+                timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode);
+                timeControlDuration.SetTimeStamp(_subclipConfig.DurationForReencode);
+            }
         }
 
 
@@ -217,25 +226,31 @@ namespace AMSExplorer
 
         private void UpdateTextBoxJSON(string jsondata)
         {
-            if (_subclipConfig == null || !_subclipConfig.Trimming)
+            var jo = JObject.Parse(jsondata);
+            var SourcesProperty = jo.Property("Sources");
+
+            if (SourcesProperty != null)
             {
-                textBoxConfiguration.Text = jsondata;
+                jo.Remove("Sources");
             }
-            else
+
+            if (checkBoxTrim.Checked)
             {
                 // Update the json with trimming
-                var jo = JObject.Parse(jsondata);
 
                 jo.Add(new JProperty("Sources",
-                    new JArray(
-                    new JObject(
-                    new JProperty("StartTime", _subclipConfig.StartTimeForReencode),
-                    new JProperty("Duration", _subclipConfig.DurationForReencode)
-                    ))));
-
-                textBoxConfiguration.Text = jo.ToString();
+               new JArray(
+               new JObject(
+               new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
+               new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
+               ))));
             }
+            textBoxConfiguration.Text = jo.ToString();
+
         }
+
+
+
 
         private void buttonSaveXML_Click(object sender, EventArgs e)
         {
@@ -317,11 +332,11 @@ namespace AMSExplorer
             }
             catch (Exception ex)
             {
-                labelWarningJSON.Text = string.Format((string) labelWarningJSON.Tag, ex.Message);
+                labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
                 Error = true;
             }
             labelWarningJSON.Visible = Error;
-            
+
         }
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -334,5 +349,24 @@ namespace AMSExplorer
         {
             Process.Start(e.Link.LinkData as string);
         }
+
+        private void checkBoxTrim_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlStartTime.Enabled = timeControlDuration.Enabled = checkBoxTrim.Checked;
+        }
+
+        private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+
+        }
+
+        private void timeControlDuration_ValueChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+
+        }
     }
+
+
 }

@@ -33,7 +33,7 @@
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxJobName = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.labelWarningJSON = new System.Windows.Forms.Label();
             this.moreinfopresetslink = new System.Windows.Forms.LinkLabel();
             this.richTextBoxDesc = new System.Windows.Forms.RichTextBox();
             this.label4KWarning = new System.Windows.Forms.Label();
@@ -53,10 +53,17 @@
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
-            this.labelWarningJSON = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
-            this.groupBox1.SuspendLayout();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.Preset = new System.Windows.Forms.TabPage();
+            this.Advanced = new System.Windows.Forms.TabPage();
+            this.timeControlDuration = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.checkBoxTrim = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.Preset.SuspendLayout();
+            this.Advanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -97,34 +104,25 @@
             this.textBoxJobName.Size = new System.Drawing.Size(538, 23);
             this.textBoxJobName.TabIndex = 13;
             // 
-            // groupBox1
+            // labelWarningJSON
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.labelWarningJSON);
-            this.groupBox1.Controls.Add(this.moreinfopresetslink);
-            this.groupBox1.Controls.Add(this.richTextBoxDesc);
-            this.groupBox1.Controls.Add(this.label4KWarning);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.listboxPresets);
-            this.groupBox1.Controls.Add(this.buttonSaveXML);
-            this.groupBox1.Controls.Add(this.buttonLoadXML);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.textBoxConfiguration);
-            this.groupBox1.Location = new System.Drawing.Point(24, 118);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(730, 257);
-            this.groupBox1.TabIndex = 29;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Encoder Configuration";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON.Location = new System.Drawing.Point(175, 157);
+            this.labelWarningJSON.Name = "labelWarningJSON";
+            this.labelWarningJSON.Size = new System.Drawing.Size(529, 21);
+            this.labelWarningJSON.TabIndex = 77;
+            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
+            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.Visible = false;
             // 
             // moreinfopresetslink
             // 
             this.moreinfopresetslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfopresetslink.AutoSize = true;
-            this.moreinfopresetslink.Location = new System.Drawing.Point(552, 92);
+            this.moreinfopresetslink.Location = new System.Drawing.Point(546, 84);
             this.moreinfopresetslink.Name = "moreinfopresetslink";
             this.moreinfopresetslink.Size = new System.Drawing.Size(158, 15);
             this.moreinfopresetslink.TabIndex = 76;
@@ -136,10 +134,10 @@
             // 
             this.richTextBoxDesc.AcceptsTab = true;
             this.richTextBoxDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxDesc.Location = new System.Drawing.Point(388, 37);
+            this.richTextBoxDesc.Location = new System.Drawing.Point(317, 29);
             this.richTextBoxDesc.Name = "richTextBoxDesc";
             this.richTextBoxDesc.ReadOnly = true;
-            this.richTextBoxDesc.Size = new System.Drawing.Size(322, 52);
+            this.richTextBoxDesc.Size = new System.Drawing.Size(387, 52);
             this.richTextBoxDesc.TabIndex = 75;
             this.richTextBoxDesc.Text = "";
             // 
@@ -147,9 +145,9 @@
             // 
             this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4KWarning.ForeColor = System.Drawing.Color.Red;
-            this.label4KWarning.Location = new System.Drawing.Point(388, 107);
+            this.label4KWarning.Location = new System.Drawing.Point(317, 99);
             this.label4KWarning.Name = "label4KWarning";
-            this.label4KWarning.Size = new System.Drawing.Size(322, 23);
+            this.label4KWarning.Size = new System.Drawing.Size(387, 23);
             this.label4KWarning.TabIndex = 73;
             this.label4KWarning.Tag = "Warning : you should use a Premium Encoding RU for 4K";
             this.label4KWarning.Text = "Warning : you should use a Premium Encoding RU for 4K";
@@ -158,7 +156,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 18);
+            this.label4.Location = new System.Drawing.Point(10, 10);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(187, 15);
             this.label4.TabIndex = 44;
@@ -170,16 +168,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listboxPresets.FormattingEnabled = true;
             this.listboxPresets.ItemHeight = 15;
-            this.listboxPresets.Location = new System.Drawing.Point(19, 37);
+            this.listboxPresets.Location = new System.Drawing.Point(14, 29);
             this.listboxPresets.Name = "listboxPresets";
-            this.listboxPresets.Size = new System.Drawing.Size(350, 124);
+            this.listboxPresets.Size = new System.Drawing.Size(284, 124);
             this.listboxPresets.TabIndex = 43;
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
             // buttonSaveXML
             // 
             this.buttonSaveXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveXML.Location = new System.Drawing.Point(553, 135);
+            this.buttonSaveXML.Location = new System.Drawing.Point(547, 127);
             this.buttonSaveXML.Name = "buttonSaveXML";
             this.buttonSaveXML.Size = new System.Drawing.Size(157, 27);
             this.buttonSaveXML.TabIndex = 42;
@@ -190,7 +188,7 @@
             // buttonLoadXML
             // 
             this.buttonLoadXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML.Location = new System.Drawing.Point(388, 135);
+            this.buttonLoadXML.Location = new System.Drawing.Point(384, 127);
             this.buttonLoadXML.Name = "buttonLoadXML";
             this.buttonLoadXML.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML.TabIndex = 41;
@@ -201,7 +199,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 168);
+            this.label2.Location = new System.Drawing.Point(10, 160);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(91, 15);
             this.label2.TabIndex = 38;
@@ -213,11 +211,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(19, 187);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(14, 179);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 62);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(690, 67);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -229,7 +227,7 @@
             this.comboBoxProcessor.FormattingEnabled = true;
             this.comboBoxProcessor.Location = new System.Drawing.Point(23, 68);
             this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(730, 23);
+            this.comboBoxProcessor.Size = new System.Drawing.Size(728, 23);
             this.comboBoxProcessor.TabIndex = 32;
             // 
             // processorlabel
@@ -321,20 +319,6 @@
             this.moreinfoame.Text = "More information";
             this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
             // 
-            // labelWarningJSON
-            // 
-            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(115, 165);
-            this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(595, 21);
-            this.labelWarningJSON.TabIndex = 77;
-            this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
-            this.labelWarningJSON.Text = "JSON Syntax error. {0}";
-            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelWarningJSON.Visible = false;
-            // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -345,12 +329,108 @@
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControl1.Controls.Add(this.Preset);
+            this.tabControl1.Controls.Add(this.Advanced);
+            this.tabControl1.Location = new System.Drawing.Point(24, 111);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(731, 280);
+            this.tabControl1.TabIndex = 74;
+            // 
+            // Preset
+            // 
+            this.Preset.Controls.Add(this.labelWarningJSON);
+            this.Preset.Controls.Add(this.label4);
+            this.Preset.Controls.Add(this.moreinfopresetslink);
+            this.Preset.Controls.Add(this.textBoxConfiguration);
+            this.Preset.Controls.Add(this.richTextBoxDesc);
+            this.Preset.Controls.Add(this.label2);
+            this.Preset.Controls.Add(this.label4KWarning);
+            this.Preset.Controls.Add(this.buttonLoadXML);
+            this.Preset.Controls.Add(this.buttonSaveXML);
+            this.Preset.Controls.Add(this.listboxPresets);
+            this.Preset.Location = new System.Drawing.Point(4, 24);
+            this.Preset.Name = "Preset";
+            this.Preset.Padding = new System.Windows.Forms.Padding(3);
+            this.Preset.Size = new System.Drawing.Size(723, 252);
+            this.Preset.TabIndex = 0;
+            this.Preset.Text = "Preset";
+            this.Preset.UseVisualStyleBackColor = true;
+            // 
+            // Advanced
+            // 
+            this.Advanced.Controls.Add(this.timeControlDuration);
+            this.Advanced.Controls.Add(this.timeControlStartTime);
+            this.Advanced.Controls.Add(this.checkBoxTrim);
+            this.Advanced.Location = new System.Drawing.Point(4, 24);
+            this.Advanced.Name = "Advanced";
+            this.Advanced.Padding = new System.Windows.Forms.Padding(3);
+            this.Advanced.Size = new System.Drawing.Size(723, 252);
+            this.Advanced.TabIndex = 1;
+            this.Advanced.Text = "Advanced";
+            this.Advanced.UseVisualStyleBackColor = true;
+            // 
+            // timeControlDuration
+            // 
+            this.timeControlDuration.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlDuration.DisplayTrackBar = false;
+            this.timeControlDuration.Enabled = false;
+            this.timeControlDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlDuration.Label1 = "";
+            this.timeControlDuration.Label2 = "Duration :";
+            this.timeControlDuration.Location = new System.Drawing.Point(32, 103);
+            this.timeControlDuration.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlDuration.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDuration.Name = "timeControlDuration";
+            this.timeControlDuration.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlDuration.Size = new System.Drawing.Size(441, 55);
+            this.timeControlDuration.TabIndex = 2;
+            this.timeControlDuration.TimeScale = null;
+            this.timeControlDuration.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlDuration.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            // 
+            // timeControlStartTime
+            // 
+            this.timeControlStartTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStartTime.DisplayTrackBar = false;
+            this.timeControlStartTime.Enabled = false;
+            this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStartTime.Label1 = "";
+            this.timeControlStartTime.Label2 = "Start time :";
+            this.timeControlStartTime.Location = new System.Drawing.Point(32, 42);
+            this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStartTime.Name = "timeControlStartTime";
+            this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 55);
+            this.timeControlStartTime.TabIndex = 1;
+            this.timeControlStartTime.TimeScale = null;
+            this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
+            // 
+            // checkBoxTrim
+            // 
+            this.checkBoxTrim.AutoSize = true;
+            this.checkBoxTrim.Location = new System.Drawing.Point(17, 17);
+            this.checkBoxTrim.Name = "checkBoxTrim";
+            this.checkBoxTrim.Size = new System.Drawing.Size(108, 19);
+            this.checkBoxTrim.TabIndex = 0;
+            this.checkBoxTrim.Text = "Trim the source";
+            this.checkBoxTrim.UseVisualStyleBackColor = true;
+            this.checkBoxTrim.CheckedChanged += new System.EventHandler(this.checkBoxTrim_CheckedChanged);
+            // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.moreinfoame);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
@@ -358,7 +438,6 @@
             this.Controls.Add(this.label);
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.processorlabel);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.label1);
@@ -370,9 +449,12 @@
             this.Text = "Media Encoder Standard";
             this.Load += new System.EventHandler(this.EncodingAMEStandard_Load);
             this.Shown += new System.EventHandler(this.EncodingAMEStandard_Shown);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabControl1.ResumeLayout(false);
+            this.Preset.ResumeLayout(false);
+            this.Preset.PerformLayout();
+            this.Advanced.ResumeLayout(false);
+            this.Advanced.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -382,7 +464,6 @@
 
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label1;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxProcessor;
@@ -406,5 +487,11 @@
         private System.Windows.Forms.RichTextBox richTextBoxDesc;
         private System.Windows.Forms.LinkLabel moreinfopresetslink;
         private System.Windows.Forms.Label labelWarningJSON;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage Preset;
+        private System.Windows.Forms.TabPage Advanced;
+        private System.Windows.Forms.CheckBox checkBoxTrim;
+        private TimeControl timeControlDuration;
+        private TimeControl timeControlStartTime;
     }
 }

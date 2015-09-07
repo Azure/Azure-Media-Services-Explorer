@@ -334,7 +334,6 @@
             this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Size = new System.Drawing.Size(500, 92);
             this.timeControlStart.TabIndex = 122;
-            this.timeControlStart.TimeScale = 10000000;
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // timeControlEnd
@@ -355,7 +354,6 @@
             this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Size = new System.Drawing.Size(500, 87);
             this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = 10000000;
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // checkBoxPreviewStream

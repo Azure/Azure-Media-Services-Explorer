@@ -46,7 +46,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using Microsoft.Win32;
 using System.ComponentModel;
-
+using Newtonsoft.Json.Linq;
 
 namespace AMSExplorer
 {
@@ -1190,12 +1190,12 @@ namespace AMSExplorer
         }
 
 
-        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null,  string audiotrack = null)
+        public static IEnumerable<Uri> GetSmoothStreamingUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.NotSpecified, audiotrack);
         }
 
-        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null,  string audiotrack = null)
+        public static IEnumerable<Uri> GetSmoothStreamingLegacyUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.SmoothLegacy, audiotrack);
         }
@@ -1205,7 +1205,7 @@ namespace AMSExplorer
         /// </summary>
         /// <param name="originLocator">The <see cref="ILocator"/> instance.</param>
         /// <returns>A <see cref="System.Uri"/> representing the HLS version 4 URL of the <paramref name="originLocator"/>; otherwise, null.</returns>
-        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null,  string audiotrack = null)
+        public static IEnumerable<Uri> GetHlsUris(ILocator originLocator, IStreamingEndpoint se = null, string filter = null, bool https = false, string customhostname = null, string audiotrack = null)
         {
             return GetStreamingUris(originLocator, se, filter, https, customhostname, AMSOutputProtocols.HLSv4, audiotrack);
         }
@@ -1387,7 +1387,7 @@ namespace AMSExplorer
             else return null;
         }
 
-  
+
 
         public static string RW(string path, IStreamingEndpoint se, string filter = null, bool https = false, string customhostname = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
         {
@@ -2028,7 +2028,7 @@ namespace AMSExplorer
         public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context,
             IAsset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
-            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols=true)
+            AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true)
         {
             string FullPlayBackLink = null;
             if (!string.IsNullOrEmpty(Urlstr))
@@ -2036,9 +2036,9 @@ namespace AMSExplorer
                 IStreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(context);
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
-                if (!DoNotRewriteURL )
+                if (!DoNotRewriteURL)
                 {
-                    if (myasset!=null && UISelectSEFiltersAndProtocols)
+                    if (myasset != null && UISelectSEFiltersAndProtocols)
                     {
                         var form = new ChooseStreamingEndpoint(context, myasset, filter, typeplayer);
                         if (form.ShowDialog() == DialogResult.OK)
@@ -2720,7 +2720,34 @@ namespace AMSExplorer
         public string oper { get; set; }
         public string value { get; set; }
     }
+    static class JSONExtensions
+    {
 
+
+        public static JToken RemoveFields(this JToken token, string[] fields)
+        {
+            JContainer container = token as JContainer;
+            if (container == null) return token;
+
+            List<JToken> removeList = new List<JToken>();
+            foreach (JToken el in container.Children())
+            {
+                JProperty p = el as JProperty;
+                if (p != null && fields.Contains(p.Name))
+                {
+                    removeList.Add(el);
+                }
+                el.RemoveFields(fields);
+            }
+
+            foreach (JToken el in removeList)
+            {
+                el.Remove();
+            }
+
+            return token;
+        }
+    }
 
 
     public class ListViewItemComparer : IComparer
