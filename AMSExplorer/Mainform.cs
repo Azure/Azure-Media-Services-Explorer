@@ -982,7 +982,7 @@ namespace AMSExplorer
                                     Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                     if (SmoothUri != null)
                                     {
-                                        string playbackurl = AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, oasset, launchbrowser: false);
+                                        string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols:false);
                                         sb.AppendLine("Link to playback the asset:");
                                         sb.AppendLine(playbackurl);
                                         sb.AppendLine();
@@ -6389,7 +6389,7 @@ namespace AMSExplorer
                 ChannelCreationOptions options = new ChannelCreationOptions();
                 try
                 {
-                     options = new ChannelCreationOptions()
+                    options = new ChannelCreationOptions()
                     {
                         Name = form.ChannelName,
                         Description = form.ChannelDescription,
@@ -7439,7 +7439,7 @@ namespace AMSExplorer
                 {
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
-                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, UISelectSEFiltersAndProtocols:false);
                     }
                 }
             }
@@ -8534,7 +8534,18 @@ namespace AMSExplorer
                 if (ValidURIs != null && ValidURIs.FirstOrDefault() != null)
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
+
+                    if (_context.StreamingEndpoints.Count() > 0 || _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0 || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
+                    {
+                        var form = new ChooseStreamingEndpoint(_context, asset);
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilter, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName).ToString();
+                        }
+                    }
                     System.Windows.Forms.Clipboard.SetText(url);
+                    TextBoxLogWriteLine("The following URL has been copied to the clipboard :");
+                    TextBoxLogWriteLine("<" + url + ">");
                 }
                 else
                 {
@@ -9340,7 +9351,7 @@ namespace AMSExplorer
             DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer);
         }
 
-        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<IAsset> listassets, string selectedGlobalFilter = null)
+        public void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, List<IAsset> listassets, string filter = null)
         {
             foreach (var myAsset in listassets)
             {
@@ -9356,7 +9367,8 @@ namespace AMSExplorer
 
                 if (IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
                 {
-                    Uri MyUri;
+                    Uri MyUri = PlayBackLocator.GetSmoothStreamingUri();
+                    /*
                     if (playertype == PlayerType.DASHIFRefPlayer || playertype == PlayerType.DASHLiveAzure)
                     {
                         MyUri = PlayBackLocator.GetMpegDashUri();
@@ -9365,10 +9377,10 @@ namespace AMSExplorer
                     {
                         MyUri = PlayBackLocator.GetSmoothStreamingUri();
                     }
-
+                    */
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithBestStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset, false, selectedGlobalFilter);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset, false, filter);
                     }
                     else
                     {
@@ -9377,7 +9389,7 @@ namespace AMSExplorer
                         if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
                         {
                             MessageBox.Show(string.Format("The asset '{0}' in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", myAsset.Name), "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols:false);
                         }
                         else
                         {
@@ -9388,9 +9400,9 @@ namespace AMSExplorer
             }
         }
 
-        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype, string selectedGlobalFilter = null)
+        private void DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType playertype)
         {
-            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssets(), selectedGlobalFilter);
+            DoPlaySelectedAssetsOrProgramsWithPlayer(playertype, ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -10259,102 +10271,17 @@ namespace AMSExplorer
         private void dataGridViewTransfer_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
         }
-        public void DoLaunchAzureMediaPlayerWithFilter(object sender, System.EventArgs e)
-        {
-            // we launch AMP with a filter
-            DoPlaySelectedAssetsOrProgramsWithPlayer(PlayerType.AzureMediaPlayer, sender.ToString());
-        }
 
-        public void DoDisplayFilter(object sender, System.EventArgs e)
-        {
-            IAsset myasset = ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault();
-            var myassetfilter = myasset.AssetFilters.Where(f => f.Name == sender.ToString()).FirstOrDefault();
-            if (myassetfilter != null)
-            {
-                DynManifestFilter form = new DynManifestFilter(_context, (IStreamingFilter)myassetfilter, myasset);
-
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    IStreamingAssetFilter filtertoupdate = (IStreamingAssetFilter)form.GetFilterInfo;
-                    try
-                    {
-                        filtertoupdate.Update();
-
-                        TextBoxLogWriteLine("Asset filter '{0}' has been updated.", filtertoupdate.Name);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error when updating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
-                        TextBoxLogWriteLine(ex);
-                    }
-                }
-            }
-        }
-
-
-        private void AddFilterToAMPMenu(ToolStripMenuItem mytoolstripmenuitem, List<IAsset> ListAssets)
-        {
-            mytoolstripmenuitem.DropDownItems.Clear();
-            ToolStripMenuItem SSMenuGF = new ToolStripMenuItem("with a global filter");
-            mytoolstripmenuitem.DropDownItems.Add(SSMenuGF);
-            ToolStripMenuItem SSMenuAF = new ToolStripMenuItem("with an asset filter");
-            mytoolstripmenuitem.DropDownItems.Add(SSMenuAF);
-
-            if (_context.Filters.Count() > 0)
-            {
-                foreach (var filter in _context.Filters)
-                {
-                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
-                    SSMenuGF.DropDownItems.Add(SSMenu);
-                }
-            }
-            if (ListAssets.Count == 1)
-            {
-                var AssetFilters = ListAssets.FirstOrDefault().AssetFilters;
-                if (AssetFilters.Count() > 0)
-                {
-                    foreach (var filter in AssetFilters)
-                    {
-                        ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoLaunchAzureMediaPlayerWithFilter);
-                        SSMenuAF.DropDownItems.Add(SSMenu);
-                    }
-                }
-            }
-
-        }
-
-
-        private void AddAssetFilterInfoToMenu(ToolStripMenuItem mytoolstripmenuitem, IAsset asset)
-        {
-            mytoolstripmenuitem.DropDownItems.Clear();
-
-            var Filters = asset.AssetFilters;
-            if (Filters.Count() > 0)
-            {
-                foreach (var filter in Filters)
-                {
-                    ToolStripMenuItem SSMenu = new ToolStripMenuItem(filter.Name, null, DoDisplayFilter);
-                    mytoolstripmenuitem.DropDownItems.Add(SSMenu);
-                }
-            }
-        }
 
 
         private void withAzureMediaPlayerToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssets());
         }
 
         private void withAzureMediaPlayerToolStripMenuItem1_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
         }
 
-        private void createAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoCreateAssetFilter();
-        }
 
         private void DoCreateAssetFilter()
         {
@@ -10432,23 +10359,19 @@ namespace AMSExplorer
 
         private void withAzureMediaPlayerToolStripMenuItem2_DropDownOpening(object sender, EventArgs e)
         {
-            AddFilterToAMPMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets());
 
         }
 
         private void assetFilterInfoupdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssets().FirstOrDefault());
         }
 
         private void toolStripMenuItemAssetInfo36_DropDownOpening(object sender, EventArgs e)
         {
-            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
         {
-            AddAssetFilterInfoToMenu((ToolStripMenuItem)sender, ReturnSelectedAssetsFromProgramsOrAssets().FirstOrDefault());
         }
 
         private void toolStripMenuItem26_Click(object sender, EventArgs e)

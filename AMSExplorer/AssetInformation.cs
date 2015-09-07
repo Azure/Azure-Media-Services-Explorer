@@ -92,11 +92,11 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth_legacy:
                         case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                             break;
 
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                             break;
 
                         default:
@@ -123,7 +123,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth_legacy:
                         case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.SilverlightMonitoring, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                             break;
 
                         default:
@@ -154,7 +154,7 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHIFRefPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                             break;
 
                         default:
@@ -244,7 +244,7 @@ namespace AMSExplorer
                 // Root node's Parent property is null, so do check
                 if (TreeViewLocators.SelectedNode.Parent != null)
                 {
-                    AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                    AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.MP4AzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                 }
             }
         }
@@ -394,18 +394,20 @@ namespace AMSExplorer
                     DGAsset.Rows.Add("Parent asset Id", p_asset.Id);
                 }
 
-                int i;
                 IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(myContext);
 
                 foreach (var se in myStreamingEndpoints)
                 {
-                    i = comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 0 ? "s" : string.Empty), se.HostName));
+                    comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3})", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty), se.HostName));
                     if (se.Name == SESelected.Name) comboBoxStreamingEndpoint.SelectedIndex = comboBoxStreamingEndpoint.Items.Count - 1;
+
+                    foreach (var custom in se.CustomHostNames)
+                    {
+                        comboBoxStreamingEndpoint.Items.Add(new Item(string.Format("{0} ({1}, {2} scale unit{3}) Custom hostname : {4}", se.Name, se.State, se.ScaleUnits, se.ScaleUnits > 1 ? "s" : string.Empty, custom), custom));
+                    }
                 }
-                //BuildLocatorsTree(); anywy, it will be built when set the index for the filter drop list
                 buttonUpload.Enabled = true;
             }
-
 
             DisplayAssetFilters();
             oktobuildlocator = true;
@@ -540,6 +542,15 @@ namespace AMSExplorer
             else return null;
         }
 
+        private string ReturnSelectedStreamingEndpointHostname()
+        {
+            if (comboBoxStreamingEndpoint.SelectedItem != null)
+            {
+                return ((Item)comboBoxStreamingEndpoint.SelectedItem).Value;
+            }
+            else return null;
+        }
+
 
         private void BuildLocatorsTree()
         {
@@ -549,6 +560,7 @@ namespace AMSExplorer
             IEnumerable<IAssetFile> MyAssetFiles;
             List<Uri> ProgressiveDownloadUris;
             IStreamingEndpoint SelectedSE = ReturnSelectedStreamingEndpoint();
+            string SelectedSEHostName = ReturnSelectedStreamingEndpointHostname();
             if (SelectedSE != null)
             {
                 bool CurrentStreamingEndpointHasRUs = SelectedSE.ScaleUnits > 0;
@@ -617,14 +629,14 @@ namespace AMSExplorer
                     if (locator.Type == LocatorType.OnDemandOrigin)
                     {
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                     string.Format("Path: {0}", AssetInfo.RW(locator.Path, SelectedSE))
+                     string.Format("Path: {0}", AssetInfo.RW(locator.Path, SelectedSE, null, false, SelectedSEHostName))
                      ));
 
                         int indexn = 1;
 
                         TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._prog_down_http_streaming) { ForeColor = colornodeRU });
                         foreach (IAssetFile IAF in myAsset.AssetFiles)
-                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
+                            TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode((new Uri(AssetInfo.RW(locator.Path, SelectedSE, null, checkBoxHttps.Checked, SelectedSEHostName) + IAF.Name)).AbsoluteUri) { ForeColor = colornodeRU });
                         indexn++;
 
                         if (myAsset.AssetType == AssetType.MediaServicesHLS)
@@ -635,21 +647,21 @@ namespace AMSExplorer
                             indexn++;
                         }
                         else if (myAsset.AssetType == AssetType.SmoothStreaming || myAsset.AssetType == AssetType.MultiBitrateMP4 || myAsset.AssetType == AssetType.Unknown) //later to change Unknown to live archive
-                        // It's not Static HLS
-                        // Smooth or multi MP4
+                                                                                                                                                                             // It's not Static HLS
+                                                                                                                                                                             // Smooth or multi MP4
                         {
                             if (locator.GetSmoothStreamingUri() != null)
                             {
                                 Color ColorSmooth = ((myAsset.AssetType == AssetType.SmoothStreaming) && !checkBoxHttps.Checked) ? Color.Black : colornodeRU; // if not RU but aset is smooth, we can display the smooth URL as OK. If user asked for https, it works only with RU
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth) { ForeColor = ColorSmooth });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetSmoothStreamingUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = ColorSmooth });
                                 }
                                 indexn++;
 
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._smooth_legacy) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetSmoothStreamingLegacyUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -658,7 +670,7 @@ namespace AMSExplorer
                             if (locator.GetMpegDashUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._dash) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetMpegDashUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -667,12 +679,12 @@ namespace AMSExplorer
                             if (locator.GetHlsUri() != null)
                             {
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v4) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsUris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
                                 TreeViewLocators.Nodes[indexloc].Nodes.Add(new TreeNode(AssetInfo._hls_v3) { ForeColor = colornodeRU });
-                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, filter, checkBoxHttps.Checked))
+                                foreach (var uri in AssetInfo.GetHlsv3Uris(locator, SelectedSE, filter, checkBoxHttps.Checked, SelectedSEHostName))
                                 {
                                     TreeViewLocators.Nodes[indexloc].Nodes[indexn + 1].Nodes.Add(new TreeNode(uri.AbsoluteUri) { ForeColor = colornodeRU });
                                 }
@@ -1174,24 +1186,24 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Dash);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Dash);
 
                             break;
 
                         case AssetInfo._smooth:
                         case AssetInfo._smooth_legacy:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Smooth);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.Smooth);
                             break;
 
                         case AssetInfo._hls_v4:
                         case AssetInfo._hls_v3:
                         case AssetInfo._hls:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.HLS);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.HLS);
                             break;
 
                         case AssetInfo._prog_down_http_streaming:
                         case AssetInfo._prog_down_https_SAS:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.VideoMP4);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayer, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, formatamp: AzureMediaPlayerFormats.VideoMP4);
                             break;
 
                         default:
@@ -1608,7 +1620,7 @@ namespace AMSExplorer
                     switch (TreeViewLocators.SelectedNode.Parent.Text)
                     {
                         case AssetInfo._dash:
-                            AssetInfo.DoPlayBackWithBestStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.DASHLiveAzure, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext);
                             break;
 
 

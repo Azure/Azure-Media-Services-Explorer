@@ -67,54 +67,65 @@ namespace AMSExplorer
 
         private void ExportAssetExcel(IAsset asset, Excel.Worksheet xlWorkSheet, int row, bool detailed, bool localtime)
         {
-            xlWorkSheet.Cells[row, 1] = asset.Name;
-            xlWorkSheet.Cells[row, 2] = asset.Id;
-            xlWorkSheet.Cells[row, 3] = localtime ? asset.LastModified.ToLocalTime() : asset.LastModified;
-            xlWorkSheet.Cells[row, 4] = AssetInfo.GetAssetType(asset);
-            xlWorkSheet.Cells[row, 5] = AssetInfo.GetSize(asset);
-            var url = AssetInfo.GetValidOnDemandURI(asset);
-            xlWorkSheet.Cells[row, 6] = url != null ? url.ToString() : string.Empty;
+            int index = 1;
+            xlWorkSheet.Cells[row, index++] = asset.Name;
+            xlWorkSheet.Cells[row, index++] = asset.Id;
+            xlWorkSheet.Cells[row, index++] = localtime ? asset.LastModified.ToLocalTime() : asset.LastModified;
+            xlWorkSheet.Cells[row, index++] = AssetInfo.GetAssetType(asset);
+            xlWorkSheet.Cells[row, index++] = AssetInfo.GetSize(asset);
+            int backindex = index;
+            var urls = AssetInfo.GetURIs(asset);
+            if (urls!=null)
+            {
+                foreach (var url in urls)
+                {
+                    xlWorkSheet.Cells[row, index++] = url != null ? url.ToString() : string.Empty;
+                }
 
+            }
+            index = backindex + _context.StreamingEndpoints.Count();
             if (localtime)
             {
-                xlWorkSheet.Cells[row, 7] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                xlWorkSheet.Cells[row, index++] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
             }
             else
             {
-                xlWorkSheet.Cells[row, 7] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime) : null;
+                xlWorkSheet.Cells[row, index++] = asset.Locators.Any() ? (DateTime?)asset.Locators.Max(l => l.ExpirationDateTime) : null;
             }
 
             if (detailed)
             {
-                xlWorkSheet.Cells[row, 8] = asset.AlternateId;
-                xlWorkSheet.Cells[row, 9] = asset.StorageAccount.Name;
+                xlWorkSheet.Cells[row, index++] = asset.AlternateId;
+                xlWorkSheet.Cells[row, index++] = asset.StorageAccount.Name;
                 var streamingloc = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
-                xlWorkSheet.Cells[row, 10] = streamingloc.Count();
+                xlWorkSheet.Cells[row, index++] = streamingloc.Count();
                 if (localtime)
                 {
-                    xlWorkSheet.Cells[row, 11] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                    xlWorkSheet.Cells[row, 12] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
                 }
                 else
                 {
-                    xlWorkSheet.Cells[row, 11] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime) : null;
-                    xlWorkSheet.Cells[row, 12] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Min(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = streamingloc.Any() ? (DateTime?)streamingloc.Max(l => l.ExpirationDateTime) : null;
                 }
 
                 var sasloc = asset.Locators.Where(l => l.Type == LocatorType.Sas);
-                xlWorkSheet.Cells[row, 13] = sasloc.Count();
+                xlWorkSheet.Cells[row, index++] = sasloc.Count();
                 if (localtime)
                 {
-                    xlWorkSheet.Cells[row, 14] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                    xlWorkSheet.Cells[row, 15] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
+                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime).ToLocalTime() : null;
                 }
                 else
                 {
-                    xlWorkSheet.Cells[row, 14] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime) : null;
-                    xlWorkSheet.Cells[row, 15] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Min(l => l.ExpirationDateTime) : null;
+                    xlWorkSheet.Cells[row, index++] = sasloc.Any() ? (DateTime?)sasloc.Max(l => l.ExpirationDateTime) : null;
                 }
 
-                xlWorkSheet.Cells[row, 16] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
+                xlWorkSheet.Cells[row, index++] = asset.GetEncryptionState(AssetDeliveryProtocol.SmoothStreaming | AssetDeliveryProtocol.HLS | AssetDeliveryProtocol.Dash).ToString();
+                xlWorkSheet.Cells[row, index++] = asset.AssetFilters.Count().ToString();
+
             }
         }
 
@@ -181,24 +192,31 @@ namespace AMSExplorer
             chartRange2.Font.Size = 12;
 
             int row = 4;
-            xlWorkSheet.Cells[row, 1] = "Asset Name";
-            xlWorkSheet.Cells[row, 2] = "Id";
-            xlWorkSheet.Cells[row, 3] = "Last Modified";
-            xlWorkSheet.Cells[row, 4] = "Type";
-            xlWorkSheet.Cells[row, 5] = "Size";
-            xlWorkSheet.Cells[row, 6] = "Streaming URL";
-            xlWorkSheet.Cells[row, 7] = "Expiration time";
+            int index = 1;
+            xlWorkSheet.Cells[row, index++] = "Asset Name";
+            xlWorkSheet.Cells[row, index++] = "Id";
+            xlWorkSheet.Cells[row, index++] = "Last Modified";
+            xlWorkSheet.Cells[row, index++] = "Type";
+            xlWorkSheet.Cells[row, index++] = "Size";
+            int backindex = index;
+            _context.StreamingEndpoints.ToList().ForEach(se =>
+            xlWorkSheet.Cells[row, index++] = "Streaming URL"
+            );
+            index = backindex + _context.StreamingEndpoints.Count();
+
+            xlWorkSheet.Cells[row, index++] = "Expiration time";
             if (detailed)
             {
-                xlWorkSheet.Cells[row, 8] = "Alternate Id";
-                xlWorkSheet.Cells[row, 9] = "Storage Account";
-                xlWorkSheet.Cells[row, 10] = "Streaming Locators Count";
-                xlWorkSheet.Cells[row, 11] = "Streaming Min Expiration time";
-                xlWorkSheet.Cells[row, 12] = "Streaming Max Expiration time";
-                xlWorkSheet.Cells[row, 13] = "SAS Locators Count";
-                xlWorkSheet.Cells[row, 14] = "SAS Min Expiration time";
-                xlWorkSheet.Cells[row, 15] = "SAS Max Expiration time";
-                xlWorkSheet.Cells[row, 16] = "Dynamic encryption";
+                xlWorkSheet.Cells[row, index++] = "Alternate Id";
+                xlWorkSheet.Cells[row, index++] = "Storage Account";
+                xlWorkSheet.Cells[row, index++] = "Streaming Locators Count";
+                xlWorkSheet.Cells[row, index++] = "Streaming Min Expiration time";
+                xlWorkSheet.Cells[row, index++] = "Streaming Max Expiration time";
+                xlWorkSheet.Cells[row, index++] = "SAS Locators Count";
+                xlWorkSheet.Cells[row, index++] = "SAS Min Expiration time";
+                xlWorkSheet.Cells[row, index++] = "SAS Max Expiration time";
+                xlWorkSheet.Cells[row, index++] = "Dynamic encryption";
+                xlWorkSheet.Cells[row, index++] = "Asset filters count";
             }
 
             Excel.Range formatRange;
@@ -214,7 +232,7 @@ namespace AMSExplorer
                 int currentBatch = 0;
 
                 int total = _context.Assets.Count();
-                int index = 1;
+                int index2 = 1;
 
                 while (true)
                 {
@@ -225,7 +243,7 @@ namespace AMSExplorer
                         currentBatch++;
                         ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
 
-                        backgroundWorker1.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                        backgroundWorker1.ReportProgress(100 * index2 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
                         //if cancellation is pending, cancel work.  
                         if (backgroundWorker1.CancellationPending)
                         {
@@ -238,7 +256,7 @@ namespace AMSExplorer
                             e.Cancel = true;
                             return;
                         }
-                        index++;
+                        index2++;
                     }
 
                     if (currentBatch == batchSize)
@@ -265,13 +283,13 @@ namespace AMSExplorer
                 }
 
                 int total = myassets.Count();
-                int index = 1;
+                int index3 = 1;
 
                 foreach (IAsset asset in myassets)
                 {
                     row++;
                     ExportAssetExcel(asset, xlWorkSheet, row, detailed, checkBoxLocalTime.Checked);
-                    backgroundWorker1.ReportProgress(100 * index / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
+                    backgroundWorker1.ReportProgress(100 * index3 / total, DateTime.Now); //notify progress to main thread. We also pass time information in UserState to cover this property in the example.  
                     //if cancellation is pending, cancel work.  
                     if (backgroundWorker1.CancellationPending)
                     {
@@ -284,22 +302,15 @@ namespace AMSExplorer
                         e.Cancel = true;
                         return;
                     }
-                    index++;
+                    index3++;
                 }
             }
 
             // Set the range to fill.
-            if (detailed)
-            {
-                var aRange = xlWorkSheet.get_Range("A4", "P100");
-                aRange.EntireColumn.AutoFit();
-            }
-            else
-            {
-                var aRange = xlWorkSheet.get_Range("A4", "F100");
-                aRange.EntireColumn.AutoFit();
-            }
-          
+
+            var aRange = xlWorkSheet.get_Range("A4", "Z100");
+            aRange.EntireColumn.AutoFit();
+
             try
             {
                 xlWorkBook.SaveAs(filename, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);

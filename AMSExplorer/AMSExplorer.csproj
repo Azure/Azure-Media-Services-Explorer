@@ -176,6 +176,12 @@
     <Compile Include="CopyAsset.Designer.cs">
       <DependentUpon>CopyAsset.cs</DependentUpon>
     </Compile>
+    <Compile Include="ChooseStreamingEndpoint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseStreamingEndpoint.Designer.cs">
+      <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportToExcel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,9 +212,7 @@
     <Compile Include="EncodingAMEStandard.designer.cs">
       <DependentUpon>EncodingAMEStandard.cs</DependentUpon>
     </Compile>
-    <Compile Include="GridTransfer.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="GridTransfer.cs" />
     <Compile Include="JobOptions.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,9 +325,7 @@
     <Compile Include="StreamingEndpointInformation.Designer.cs">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="StreamingEndpoint.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="StreamingEndpoint.cs" />
     <Compile Include="Indexer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -581,6 +583,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CopyAsset.resx">
       <DependentUpon>CopyAsset.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseStreamingEndpoint.resx">
+      <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportToExcel.resx">
       <DependentUpon>ExportToExcel.cs</DependentUpon>

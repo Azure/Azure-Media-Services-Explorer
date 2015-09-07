@@ -871,13 +871,13 @@
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.getTestTokenToolStripMenuItem});
             this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(163, 26);
+            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(161, 26);
             this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
             // 
             // getTestTokenToolStripMenuItem
             // 
             this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
-            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.getTestTokenToolStripMenuItem.Text = "Get Test Token...";
             this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
             // 
@@ -1047,6 +1047,7 @@
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(406, 10);
             this.label5.Name = "label5";
@@ -1056,8 +1057,7 @@
             // 
             // comboBoxLocatorsFilters
             // 
-            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxLocatorsFilters.FormattingEnabled = true;
@@ -1102,6 +1102,8 @@
             // 
             // comboBoxStreamingEndpoint
             // 
+            this.comboBoxStreamingEndpoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStreamingEndpoint.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
