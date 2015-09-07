@@ -7453,12 +7453,20 @@ namespace AMSExplorer
 
         private void copyIngestURLToClipboard_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri);
+            string ingest = ReturnSelectedChannels().FirstOrDefault().Input.Endpoints.FirstOrDefault().Url.AbsoluteUri;
+            System.Windows.Forms.Clipboard.SetText(ingest);
+            TextBoxLogWriteLine("The following ingest URL has been copied to the clipboard :");
+            TextBoxLogWriteLine("<" + ingest + ">");
+
         }
 
         private void copyPreviewURLToClipboard_Click(object sender, EventArgs e)
         {
-            System.Windows.Forms.Clipboard.SetText(ReturnSelectedChannels().FirstOrDefault().Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri);
+            string preview = ReturnSelectedChannels().FirstOrDefault().Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri;
+            System.Windows.Forms.Clipboard.SetText(preview);
+            TextBoxLogWriteLine("The following ^preview URL has been copied to the clipboard :");
+            TextBoxLogWriteLine("<" + preview + ">");
+
         }
 
         private void generateThumbnailsForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
