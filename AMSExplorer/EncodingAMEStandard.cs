@@ -219,29 +219,128 @@ namespace AMSExplorer
         private void UpdateTextBoxJSON(string jsondata)
         {
             var jo = JObject.Parse(jsondata);
+            dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
             if (checkBoxAddAutomatic.Checked)
             {
-              
-                var SourcesProperty = jo.Property("Sources");
 
-                if (SourcesProperty != null)
-                {
-                    jo.Remove("Sources");
-                }
+                // Cleaning
+                if (obj.Sources != null) obj.Sources.Clear();
 
                 if (checkBoxSourceTrimming.Checked)
                 {
-                    // Update the json with trimming
+                    if (obj.Sources == null)
+                    {
+                        obj.Sources = new JArray() as dynamic;
+                    }
+                   
+                     dynamic time = new JObject();
+                    time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                    time.Duration = timeControlDuration.GetTimeStampAsTimeSpanWithOffset();
+                    obj.Sources.Add(time);
+                }
 
+                if (_subclipConfig != null) // sublicping. we need to add top bitrate values
+                {
+                    if (obj.Sources == null)
+                    {
+                        obj.Sources = new JArray() as dynamic;
+                    }
+
+                    dynamic entry = new JObject() as dynamic;
+
+                    bool alreadyentry = false;
+                    if (obj.Sources.Count > 0)
+                    {
+                        entry = obj.Sources[0];
+                        alreadyentry = true;
+                    }
+
+                    entry.Streams = new JArray() as dynamic;
+
+                    dynamic stream = new JObject();
+                    stream.Type = "AudioStream";
+                    stream.Value = "TopBitrate";
+                    entry.Streams.Add(stream);
+
+                    stream = new JObject();
+                    stream.Type = "VideoStream";
+                    stream.Value = "TopBitrate";
+                    entry.Streams.Add(stream);
+
+                    if (!alreadyentry) obj.Sources.Add(entry);
+
+
+                    /*
+                    JArray sources = (JArray)jo["Sources"];
+                    if (sources == null)
+                    {
+                        jo.Add(new JProperty("Sources"));
+                    }
+                    sources = (JArray)jo["Sources"];
+
+
+
+                    sources.Add(new JObject(
+
+                       new JProperty("Streams",
+                           new JArray(
+                               new JObject(
+                                   new JProperty("Type", "AudioStream"),
+                                   new JProperty("Value", "TopBitrate")),
+                               new JObject(
+                                   new JProperty("Type", "VideoStream"),
+                                   new JProperty("Value", "TopBitrate"))
+                  ))));
+
+                  /*
+                    // Update the json with trimming
+                    JArray sources = (JArray)jo["Sources"];
+                    if (sources == null)
+                    {
+                        jo.Add(new JProperty("Sources"));
+                    }
+                    sources = (JArray)jo["Sources"];
+                    if (sources["StartTime"] != null) sources["StartTime"].Remove();
+                    if (sources["Duration"] != null) sources["Duration"].Remove();
+
+                    sources.Add(
+                   new JObject(
+                   new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
+                   new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
+                   ));
+                   */
+
+
+
+
+                    /*
                     jo.Add(new JProperty("Sources",
                    new JArray(
                    new JObject(
                    new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
                    new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
                    ))));
+                   */
+
+                    /*
+                    JArray sources = (JArray)jo["Sources"];
+                   sources.Add(new JObject(
+
+                        new JProperty("Streams",
+                            new JArray(
+                                new JObject(
+                                    new JProperty("Type", "AudioStream"),
+                                    new JProperty("Value", "TopBitrate")),
+                                new JObject(
+                                    new JProperty("Type", "VideoStream"),
+                                    new JProperty("Value", "TopBitrate"))
+                   ))));
+                   */
+                   
                 }
+
             }
-            textBoxConfiguration.Text = jo.ToString();
+            textBoxConfiguration.Text = obj.ToString();
 
         }
 
