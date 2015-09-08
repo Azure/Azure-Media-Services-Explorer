@@ -53,24 +53,27 @@
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogPreset = new System.Windows.Forms.SaveFileDialog();
             this.moreinfoame = new System.Windows.Forms.LinkLabel();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Preset = new System.Windows.Forms.TabPage();
             this.Advanced = new System.Windows.Forms.TabPage();
+            this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
+            this.groupBoxTrim = new System.Windows.Forms.GroupBox();
+            this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.timeControlDuration = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
-            this.checkBoxTrim = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Preset.SuspendLayout();
             this.Advanced.SuspendLayout();
+            this.groupBoxTrim.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 448);
+            this.label3.Location = new System.Drawing.Point(25, 557);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(126, 15);
             this.label3.TabIndex = 22;
@@ -80,16 +83,16 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(23, 467);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(27, 575);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(537, 23);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(521, 23);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // label1
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 394);
+            this.label1.Location = new System.Drawing.Point(25, 509);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 18;
@@ -99,9 +102,9 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(22, 416);
+            this.textBoxJobName.Location = new System.Drawing.Point(28, 527);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(538, 23);
+            this.textBoxJobName.Size = new System.Drawing.Size(522, 23);
             this.textBoxJobName.TabIndex = 13;
             // 
             // labelWarningJSON
@@ -111,7 +114,7 @@
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
             this.labelWarningJSON.Location = new System.Drawing.Point(175, 157);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(529, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(530, 21);
             this.labelWarningJSON.TabIndex = 77;
             this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
             this.labelWarningJSON.Text = "JSON Syntax error. {0}";
@@ -122,7 +125,7 @@
             // 
             this.moreinfopresetslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfopresetslink.AutoSize = true;
-            this.moreinfopresetslink.Location = new System.Drawing.Point(546, 84);
+            this.moreinfopresetslink.Location = new System.Drawing.Point(547, 84);
             this.moreinfopresetslink.Name = "moreinfopresetslink";
             this.moreinfopresetslink.Size = new System.Drawing.Size(158, 15);
             this.moreinfopresetslink.TabIndex = 76;
@@ -134,7 +137,7 @@
             // 
             this.richTextBoxDesc.AcceptsTab = true;
             this.richTextBoxDesc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBoxDesc.Location = new System.Drawing.Point(317, 29);
+            this.richTextBoxDesc.Location = new System.Drawing.Point(318, 29);
             this.richTextBoxDesc.Name = "richTextBoxDesc";
             this.richTextBoxDesc.ReadOnly = true;
             this.richTextBoxDesc.Size = new System.Drawing.Size(387, 52);
@@ -145,7 +148,7 @@
             // 
             this.label4KWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4KWarning.ForeColor = System.Drawing.Color.Red;
-            this.label4KWarning.Location = new System.Drawing.Point(317, 99);
+            this.label4KWarning.Location = new System.Drawing.Point(318, 99);
             this.label4KWarning.Name = "label4KWarning";
             this.label4KWarning.Size = new System.Drawing.Size(387, 23);
             this.label4KWarning.TabIndex = 73;
@@ -170,14 +173,14 @@
             this.listboxPresets.ItemHeight = 15;
             this.listboxPresets.Location = new System.Drawing.Point(14, 29);
             this.listboxPresets.Name = "listboxPresets";
-            this.listboxPresets.Size = new System.Drawing.Size(284, 124);
+            this.listboxPresets.Size = new System.Drawing.Size(285, 109);
             this.listboxPresets.TabIndex = 43;
             this.listboxPresets.SelectedIndexChanged += new System.EventHandler(this.listboxPresets_SelectedIndexChanged);
             // 
             // buttonSaveXML
             // 
             this.buttonSaveXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSaveXML.Location = new System.Drawing.Point(547, 127);
+            this.buttonSaveXML.Location = new System.Drawing.Point(548, 127);
             this.buttonSaveXML.Name = "buttonSaveXML";
             this.buttonSaveXML.Size = new System.Drawing.Size(157, 27);
             this.buttonSaveXML.TabIndex = 42;
@@ -188,7 +191,7 @@
             // buttonLoadXML
             // 
             this.buttonLoadXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML.Location = new System.Drawing.Point(384, 127);
+            this.buttonLoadXML.Location = new System.Drawing.Point(385, 127);
             this.buttonLoadXML.Name = "buttonLoadXML";
             this.buttonLoadXML.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML.TabIndex = 41;
@@ -215,7 +218,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(690, 67);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 154);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -227,7 +230,7 @@
             this.comboBoxProcessor.FormattingEnabled = true;
             this.comboBoxProcessor.Location = new System.Drawing.Point(23, 68);
             this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(728, 23);
+            this.comboBoxProcessor.Size = new System.Drawing.Size(733, 23);
             this.comboBoxProcessor.TabIndex = 32;
             // 
             // processorlabel
@@ -242,9 +245,9 @@
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(21, 13);
+            this.label.Location = new System.Drawing.Point(20, 21);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(373, 23);
+            this.label.Size = new System.Drawing.Size(357, 23);
             this.label.TabIndex = 41;
             this.label.Text = "label1";
             // 
@@ -254,7 +257,7 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(523, 13);
+            this.label34.Location = new System.Drawing.Point(524, 13);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(232, 25);
             this.label34.TabIndex = 63;
@@ -265,7 +268,7 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(655, 15);
+            this.buttonCancel.Location = new System.Drawing.Point(656, 15);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 4;
@@ -278,7 +281,7 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(485, 15);
+            this.buttonOk.Location = new System.Drawing.Point(487, 15);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(163, 27);
             this.buttonOk.TabIndex = 5;
@@ -292,9 +295,9 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-2, 506);
+            this.panel1.Location = new System.Drawing.Point(1, 606);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 55);
+            this.panel1.Size = new System.Drawing.Size(783, 55);
             this.panel1.TabIndex = 66;
             // 
             // openFileDialogPreset
@@ -311,23 +314,13 @@
             // 
             this.moreinfoame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoame.AutoSize = true;
-            this.moreinfoame.Location = new System.Drawing.Point(650, 38);
+            this.moreinfoame.Location = new System.Drawing.Point(655, 38);
             this.moreinfoame.Name = "moreinfoame";
             this.moreinfoame.Size = new System.Drawing.Size(101, 15);
             this.moreinfoame.TabIndex = 73;
             this.moreinfoame.TabStop = true;
             this.moreinfoame.Text = "More information";
             this.moreinfoame.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoame_LinkClicked);
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(595, 412);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // tabControl1
             // 
@@ -339,7 +332,7 @@
             this.tabControl1.Location = new System.Drawing.Point(24, 111);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(731, 280);
+            this.tabControl1.Size = new System.Drawing.Size(732, 389);
             this.tabControl1.TabIndex = 74;
             // 
             // Preset
@@ -357,23 +350,67 @@
             this.Preset.Location = new System.Drawing.Point(4, 24);
             this.Preset.Name = "Preset";
             this.Preset.Padding = new System.Windows.Forms.Padding(3);
-            this.Preset.Size = new System.Drawing.Size(723, 252);
+            this.Preset.Size = new System.Drawing.Size(724, 361);
             this.Preset.TabIndex = 0;
             this.Preset.Text = "Preset";
             this.Preset.UseVisualStyleBackColor = true;
             // 
             // Advanced
             // 
-            this.Advanced.Controls.Add(this.timeControlDuration);
-            this.Advanced.Controls.Add(this.timeControlStartTime);
-            this.Advanced.Controls.Add(this.checkBoxTrim);
+            this.Advanced.Controls.Add(this.checkBoxAddAutomatic);
+            this.Advanced.Controls.Add(this.groupBoxTrim);
             this.Advanced.Location = new System.Drawing.Point(4, 24);
             this.Advanced.Name = "Advanced";
             this.Advanced.Padding = new System.Windows.Forms.Padding(3);
-            this.Advanced.Size = new System.Drawing.Size(723, 252);
+            this.Advanced.Size = new System.Drawing.Size(724, 361);
             this.Advanced.TabIndex = 1;
             this.Advanced.Text = "Advanced";
             this.Advanced.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAddAutomatic
+            // 
+            this.checkBoxAddAutomatic.AutoSize = true;
+            this.checkBoxAddAutomatic.Checked = true;
+            this.checkBoxAddAutomatic.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxAddAutomatic.Location = new System.Drawing.Point(16, 13);
+            this.checkBoxAddAutomatic.Name = "checkBoxAddAutomatic";
+            this.checkBoxAddAutomatic.Size = new System.Drawing.Size(266, 19);
+            this.checkBoxAddAutomatic.TabIndex = 4;
+            this.checkBoxAddAutomatic.Text = "Automatically update the JSON configuration";
+            this.checkBoxAddAutomatic.UseVisualStyleBackColor = true;
+            this.checkBoxAddAutomatic.CheckedChanged += new System.EventHandler(this.checkBoxAddAutomatic_CheckedChanged);
+            // 
+            // groupBoxTrim
+            // 
+            this.groupBoxTrim.Controls.Add(this.timeControlDuration);
+            this.groupBoxTrim.Controls.Add(this.timeControlStartTime);
+            this.groupBoxTrim.Controls.Add(this.checkBoxSourceTrimming);
+            this.groupBoxTrim.Location = new System.Drawing.Point(16, 38);
+            this.groupBoxTrim.Name = "groupBoxTrim";
+            this.groupBoxTrim.Size = new System.Drawing.Size(672, 169);
+            this.groupBoxTrim.TabIndex = 3;
+            this.groupBoxTrim.TabStop = false;
+            // 
+            // checkBoxSourceTrimming
+            // 
+            this.checkBoxSourceTrimming.AutoSize = true;
+            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
+            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
+            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxSourceTrimming.TabIndex = 5;
+            this.checkBoxSourceTrimming.Text = "Source Trimming";
+            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 75;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // timeControlDuration
             // 
@@ -382,14 +419,14 @@
             this.timeControlDuration.Enabled = false;
             this.timeControlDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlDuration.Label1 = "";
-            this.timeControlDuration.Label2 = "Duration :";
-            this.timeControlDuration.Location = new System.Drawing.Point(32, 103);
+            this.timeControlDuration.Label2 = "Duration";
+            this.timeControlDuration.Location = new System.Drawing.Point(44, 105);
             this.timeControlDuration.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlDuration.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlDuration.Name = "timeControlDuration";
             this.timeControlDuration.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDuration.Size = new System.Drawing.Size(441, 55);
-            this.timeControlDuration.TabIndex = 2;
+            this.timeControlDuration.Size = new System.Drawing.Size(441, 58);
+            this.timeControlDuration.TabIndex = 7;
             this.timeControlDuration.TimeScale = null;
             this.timeControlDuration.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlDuration.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
@@ -401,47 +438,36 @@
             this.timeControlStartTime.Enabled = false;
             this.timeControlStartTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.timeControlStartTime.Label1 = "";
-            this.timeControlStartTime.Label2 = "Start time :";
-            this.timeControlStartTime.Location = new System.Drawing.Point(32, 42);
+            this.timeControlStartTime.Label2 = "Start time";
+            this.timeControlStartTime.Location = new System.Drawing.Point(44, 47);
             this.timeControlStartTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStartTime.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStartTime.Name = "timeControlStartTime";
             this.timeControlStartTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStartTime.Size = new System.Drawing.Size(441, 55);
-            this.timeControlStartTime.TabIndex = 1;
+            this.timeControlStartTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlStartTime.TabIndex = 6;
             this.timeControlStartTime.TimeScale = null;
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
-            // checkBoxTrim
-            // 
-            this.checkBoxTrim.AutoSize = true;
-            this.checkBoxTrim.Location = new System.Drawing.Point(17, 17);
-            this.checkBoxTrim.Name = "checkBoxTrim";
-            this.checkBoxTrim.Size = new System.Drawing.Size(108, 19);
-            this.checkBoxTrim.TabIndex = 0;
-            this.checkBoxTrim.Text = "Trim the source";
-            this.checkBoxTrim.UseVisualStyleBackColor = true;
-            this.checkBoxTrim.CheckedChanged += new System.EventHandler(this.checkBoxTrim_CheckedChanged);
             // 
             // EncodingAMEStandard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.tabControl1);
-            this.Controls.Add(this.moreinfoame);
+            this.ClientSize = new System.Drawing.Size(784, 661);
             this.Controls.Add(this.buttonJobOptions);
-            this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label34);
-            this.Controls.Add(this.label);
-            this.Controls.Add(this.comboBoxProcessor);
-            this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxJobName);
+            this.Controls.Add(this.comboBoxProcessor);
+            this.Controls.Add(this.processorlabel);
+            this.Controls.Add(this.label);
+            this.Controls.Add(this.label34);
+            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.moreinfoame);
+            this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EncodingAMEStandard";
@@ -455,6 +481,8 @@
             this.Preset.PerformLayout();
             this.Advanced.ResumeLayout(false);
             this.Advanced.PerformLayout();
+            this.groupBoxTrim.ResumeLayout(false);
+            this.groupBoxTrim.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -475,7 +503,6 @@
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Panel panel1;
-        private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.Button buttonSaveXML;
         private System.Windows.Forms.Button buttonLoadXML;
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
@@ -490,8 +517,11 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage Preset;
         private System.Windows.Forms.TabPage Advanced;
-        private System.Windows.Forms.CheckBox checkBoxTrim;
+        private System.Windows.Forms.GroupBox groupBoxTrim;
+        private System.Windows.Forms.CheckBox checkBoxAddAutomatic;
+        private System.Windows.Forms.CheckBox checkBoxSourceTrimming;
         private TimeControl timeControlDuration;
         private TimeControl timeControlStartTime;
+        private ButtonJobOptions buttonJobOptions;
     }
 }

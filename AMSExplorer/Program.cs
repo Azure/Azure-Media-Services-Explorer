@@ -2722,8 +2722,6 @@ namespace AMSExplorer
     }
     static class JSONExtensions
     {
-
-
         public static JToken RemoveFields(this JToken token, string[] fields)
         {
             JContainer container = token as JContainer;

@@ -811,7 +811,7 @@
             this.checkBoxVSS.Enabled = false;
             this.checkBoxVSS.Location = new System.Drawing.Point(22, 97);
             this.checkBoxVSS.Name = "checkBoxVSS";
-            this.checkBoxVSS.Size = new System.Drawing.Size(507, 19);
+            this.checkBoxVSS.Size = new System.Drawing.Size(506, 19);
             this.checkBoxVSS.TabIndex = 36;
             this.checkBoxVSS.Text = "Vertical Video Syndrome - Automatically detect and rotate the video (source must " +
     "be MP4) ";

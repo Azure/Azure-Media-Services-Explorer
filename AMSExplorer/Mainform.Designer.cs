@@ -791,7 +791,6 @@
             this.subclipToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
             this.subclipToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
-            this.subclipToolStripMenuItem.Visible = false;
             this.subclipToolStripMenuItem.Click += new System.EventHandler(this.subclipToolStripMenuItem_Click);
             // 
             // ContextMenuItemThumbnails
@@ -1027,7 +1026,7 @@
             // 
             this.toolStripMenuItem22.Name = "toolStripMenuItem22";
             this.toolStripMenuItem22.Size = new System.Drawing.Size(343, 22);
-            this.toolStripMenuItem22.Text = "Copy the publish URL to clipboard";
+            this.toolStripMenuItem22.Text = "Copy the publish URL to clipboard...";
             this.toolStripMenuItem22.Click += new System.EventHandler(this.toolStripMenuItem22_Click_2);
             // 
             // ContextMenuItemAssetPlayback
@@ -1511,7 +1510,6 @@
             this.subclipLiveStreamsarchivesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem.Size = new System.Drawing.Size(544, 22);
             this.subclipLiveStreamsarchivesToolStripMenuItem.Text = "Subclip live stream(s)/archive(s)...";
-            this.subclipLiveStreamsarchivesToolStripMenuItem.Visible = false;
             this.subclipLiveStreamsarchivesToolStripMenuItem.Click += new System.EventHandler(this.subclipLiveStreamsarchivesToolStripMenuItem_Click);
             // 
             // generateThumbnailsForTheAssetsToolStripMenuItem
@@ -1860,7 +1858,7 @@
             // 
             this.toolStripMenuItemPublishCopyPubURLToClipb.Name = "toolStripMenuItemPublishCopyPubURLToClipb";
             this.toolStripMenuItemPublishCopyPubURLToClipb.Size = new System.Drawing.Size(467, 22);
-            this.toolStripMenuItemPublishCopyPubURLToClipb.Text = "Copy published URL to clipboard";
+            this.toolStripMenuItemPublishCopyPubURLToClipb.Text = "Copy published URL to clipboard...";
             this.toolStripMenuItemPublishCopyPubURLToClipb.Click += new System.EventHandler(this.toolStripMenuItem25_Click_1);
             // 
             // findTheAssetFromTheLocatorToolStripMenuItem

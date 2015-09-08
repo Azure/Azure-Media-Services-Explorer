@@ -78,13 +78,6 @@ namespace AMSExplorer
            };
 
 
-
-
-
-
-
-
-
         public string EncodingLabel
         {
             set
@@ -174,7 +167,6 @@ namespace AMSExplorer
         }
 
 
-
         private void EncodingAMEStandard_Shown(object sender, EventArgs e)
         {
         }
@@ -191,9 +183,9 @@ namespace AMSExplorer
 
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
-                checkBoxTrim.Checked = true;
                 timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode);
                 timeControlDuration.SetTimeStamp(_subclipConfig.DurationForReencode);
+                checkBoxSourceTrimming.Checked = true;
             }
         }
 
@@ -227,29 +219,31 @@ namespace AMSExplorer
         private void UpdateTextBoxJSON(string jsondata)
         {
             var jo = JObject.Parse(jsondata);
-            var SourcesProperty = jo.Property("Sources");
-
-            if (SourcesProperty != null)
+            if (checkBoxAddAutomatic.Checked)
             {
-                jo.Remove("Sources");
-            }
+              
+                var SourcesProperty = jo.Property("Sources");
 
-            if (checkBoxTrim.Checked)
-            {
-                // Update the json with trimming
+                if (SourcesProperty != null)
+                {
+                    jo.Remove("Sources");
+                }
 
-                jo.Add(new JProperty("Sources",
-               new JArray(
-               new JObject(
-               new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
-               new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
-               ))));
+                if (checkBoxSourceTrimming.Checked)
+                {
+                    // Update the json with trimming
+
+                    jo.Add(new JProperty("Sources",
+                   new JArray(
+                   new JObject(
+                   new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
+                   new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
+                   ))));
+                }
             }
             textBoxConfiguration.Text = jo.ToString();
 
         }
-
-
 
 
         private void buttonSaveXML_Click(object sender, EventArgs e)
@@ -268,10 +262,6 @@ namespace AMSExplorer
             }
         }
 
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void listboxPresets_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -350,21 +340,28 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void checkBoxTrim_CheckedChanged(object sender, EventArgs e)
-        {
-            timeControlStartTime.Enabled = timeControlDuration.Enabled = checkBoxTrim.Checked;
-        }
+
+
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
-
         }
 
         private void timeControlDuration_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
 
+        private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
+        {
+            timeControlStartTime.Enabled = timeControlDuration.Enabled = checkBoxSourceTrimming.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxAddAutomatic_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxTrim.Enabled = checkBoxAddAutomatic.Checked;
         }
     }
 

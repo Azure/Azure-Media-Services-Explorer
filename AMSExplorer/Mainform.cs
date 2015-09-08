@@ -286,7 +286,8 @@ namespace AMSExplorer
                 blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
                 TextBoxLogWriteLine("Created a reference for block blob in Azure....");
 
-                blockBlob.StartCopyFromBlob(ObjectUrl, null, null, null);
+                //blockBlob.StartCopyFromBlob(ObjectUrl, null, null, null);
+                blockBlob.StartCopy(ObjectUrl);
 
                 DateTime startTime = DateTime.UtcNow;
 

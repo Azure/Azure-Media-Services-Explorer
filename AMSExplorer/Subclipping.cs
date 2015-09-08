@@ -40,6 +40,7 @@ namespace AMSExplorer
         private ulong? _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
+        bool backupcheckboxtrim = false; // used when user select reencode to save the status of trim checkbox
 
         public JobOptionsVar JobOptions
         {
@@ -307,6 +308,7 @@ namespace AMSExplorer
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
+            if (!radioButtonClipWithReencode.Checked) backupcheckboxtrim = checkBoxTrimming.Checked; // let's save status
             timeControlStart.Enabled = checkBoxTrimming.Checked;
             timeControlEnd.Enabled = checkBoxTrimming.Checked;
             checkBoxPreviewStream.Enabled = checkBoxTrimming.Checked;
@@ -327,28 +329,35 @@ namespace AMSExplorer
 
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonClipWithReencode.Checked)  // reencoding
+            RadioButton senderr = sender as RadioButton;
+            if (radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
             {
+                backupcheckboxtrim = checkBoxTrimming.Checked;
+                checkBoxTrimming.Checked = true;
+                checkBoxTrimming.Enabled = false;
                 textBoxConfiguration.Enabled = panelJob.Visible = false;
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
             }
-            else if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked)  // archive
+            else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) || (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name))  // archive
             {
+                checkBoxTrimming.Checked = backupcheckboxtrim;
+                checkBoxTrimming.Enabled = true;
                 textBoxConfiguration.Enabled = panelJob.Visible = true;
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
             }
-            else if (radioButtonAssetFilter.Checked) // asset filter
+            else if (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name) // asset filter
             {
+                checkBoxTrimming.Checked = backupcheckboxtrim;
+                checkBoxTrimming.Enabled = false;
                 textBoxConfiguration.Enabled = panelJob.Visible = false;
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
             }
-
         }
 
         private void UpdateButtonOk()
@@ -420,7 +429,7 @@ namespace AMSExplorer
                 }
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols:false);
+                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
                     webBrowserPreview2.Url = new Uri(myurl);
                 }
             }
