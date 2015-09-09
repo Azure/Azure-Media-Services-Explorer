@@ -113,6 +113,10 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
+            this.tabPageInformation = new System.Windows.Forms.TabPage();
+            this.DGInfo = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -126,6 +130,9 @@
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
+            this.tabPageInformation.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).BeginInit();
+            this.contextMenuStripInfo.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -325,6 +332,7 @@
             this.tabControl1.Controls.Add(this.tabPageTR);
             this.tabControl1.Controls.Add(this.tabPageTRRaw);
             this.tabControl1.Controls.Add(this.tabPageTF);
+            this.tabControl1.Controls.Add(this.tabPageInformation);
             this.tabControl1.Location = new System.Drawing.Point(14, 105);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1177,6 +1185,52 @@
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
             // 
+            // tabPageInformation
+            // 
+            this.tabPageInformation.Controls.Add(this.DGInfo);
+            this.tabPageInformation.Location = new System.Drawing.Point(4, 24);
+            this.tabPageInformation.Name = "tabPageInformation";
+            this.tabPageInformation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInformation.Size = new System.Drawing.Size(1039, 557);
+            this.tabPageInformation.TabIndex = 3;
+            this.tabPageInformation.Text = "Information";
+            this.tabPageInformation.UseVisualStyleBackColor = true;
+            // 
+            // DGInfo
+            // 
+            this.DGInfo.AllowUserToAddRows = false;
+            this.DGInfo.AllowUserToDeleteRows = false;
+            this.DGInfo.AllowUserToResizeRows = false;
+            this.DGInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGInfo.ColumnHeadersVisible = false;
+            this.DGInfo.ContextMenuStrip = this.contextMenuStripInfo;
+            this.DGInfo.Location = new System.Drawing.Point(3, 6);
+            this.DGInfo.MultiSelect = false;
+            this.DGInfo.Name = "DGInfo";
+            this.DGInfo.ReadOnly = true;
+            this.DGInfo.RowHeadersVisible = false;
+            this.DGInfo.Size = new System.Drawing.Size(1030, 545);
+            this.DGInfo.TabIndex = 1;
+            // 
+            // contextMenuStripInfo
+            // 
+            this.contextMenuStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemFilesCopyClipboard});
+            this.contextMenuStripInfo.Name = "contextMenuStripDG";
+            this.contextMenuStripInfo.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStripInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripInfo_MouseClick);
+            // 
+            // toolStripMenuItemFilesCopyClipboard
+            // 
+            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
+            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
+            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
+            this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
+            // 
             // DynManifestFilter
             // 
             this.AcceptButton = this.buttonOk;
@@ -1222,6 +1276,9 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
+            this.tabPageInformation.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).EndInit();
+            this.contextMenuStripInfo.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1313,5 +1370,9 @@
         private System.Windows.Forms.TextBox textBoxRawTimescale;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBoxLocatorsFilters;
+        private System.Windows.Forms.TabPage tabPageInformation;
+        private System.Windows.Forms.DataGridView DGInfo;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripInfo;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
     }
 }

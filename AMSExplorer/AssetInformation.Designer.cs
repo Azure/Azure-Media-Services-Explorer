@@ -175,7 +175,7 @@
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 48);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick_1);
             // 
             // toolStripMenuItemFilesCopyClipboard

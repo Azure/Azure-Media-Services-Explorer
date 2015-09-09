@@ -102,6 +102,7 @@ namespace AMSExplorer
             {
                 newfilter = true;
                 isGlobalFilter = true;
+                tabControl1.TabPages.Remove(tabPageInformation);
                 _filter_presentationtimerange = new PresentationTimeRange();
                 // _filter_tracks = new List<FilterTrackSelectStatement>();
                 filtertracks = new List<ExFilterTrack>();
@@ -119,6 +120,7 @@ namespace AMSExplorer
             {
                 newfilter = false;
                 isGlobalFilter = true;
+                DisplayFilterInfo();
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
                 //_filter_tracks = new List<FilterTrackSelectStatement>();
@@ -155,6 +157,8 @@ namespace AMSExplorer
             {
                 newfilter = true;
                 isGlobalFilter = false;
+                tabControl1.TabPages.Remove(tabPageInformation);
+
                 _filter_presentationtimerange = new PresentationTimeRange();
                 //_filter_tracks = new List<FilterTrackSelectStatement>();
 
@@ -227,6 +231,7 @@ namespace AMSExplorer
             {
                 newfilter = false;
                 isGlobalFilter = false;
+                DisplayFilterInfo();
 
                 _filter_name = _filterToDisplay.Name;
                 _filter_presentationtimerange = _filterToDisplay.PresentationTimeRange;
@@ -357,6 +362,33 @@ namespace AMSExplorer
 
             RefreshTracks();
             CheckIfErrorTimeControls();
+        }
+
+        private void DisplayFilterInfo()
+        {
+            const string snull = "(null)";
+            DGInfo.ColumnCount = 2;
+            // filter info
+            DGInfo.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
+            DGInfo.Rows.Add("Name", _filterToDisplay.Name);
+
+            if (isGlobalFilter)
+            {
+                DGInfo.Rows.Add("Type", "Global filter");
+            }
+            else
+            {
+                var assetfilter = (IStreamingAssetFilter)_filterToDisplay;
+                DGInfo.Rows.Add("Type", "Asset filter");
+                DGInfo.Rows.Add("Id", assetfilter.Id);
+                DGInfo.Rows.Add("Parent asset Id", assetfilter.ParentAssetId);
+            }
+            DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? snull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
+            DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? snull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
+            DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? snull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
+            DGInfo.Rows.Add("PresentationWindowDuration", _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? snull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
+            DGInfo.Rows.Add("LiveBackoffDuration", _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? snull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
+            DGInfo.Rows.Add("Track count", _filterToDisplay.Tracks.Count);
         }
 
         private List<ExFilterTrack> ConvertFilterTracksToInternalVar(IList<FilterTrackSelectStatement> tracks)
@@ -948,6 +980,31 @@ namespace AMSExplorer
                     RefreshTracks();
                     RefreshTracksConditions();
                 }
+            }
+        }
+
+        private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextMenuStripInfo_MouseClick(object sender, MouseEventArgs e)
+        {
+            ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
+            DataGridView DG = (DataGridView)contextmenu.SourceControl;
+
+            if (DG.SelectedCells.Count == 1)
+            {
+                if (DG.SelectedCells[0].Value != null)
+                {
+                    System.Windows.Forms.Clipboard.SetText(DG.SelectedCells[0].Value.ToString());
+
+                }
+                else
+                {
+                    System.Windows.Forms.Clipboard.Clear();
+                }
+
             }
         }
     }
