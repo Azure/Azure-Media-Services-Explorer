@@ -417,6 +417,9 @@ namespace AMSExplorer
 
         private void DisplayAssetFilters()
         {
+            // let's refresh the asset
+            myAsset = myContext.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+            if (myAsset == null) return; // Error!
 
             dataGridViewFilters.ColumnCount = 7;
             dataGridViewFilters.Columns[0].HeaderText = "Name";
@@ -1963,7 +1966,7 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when updating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error when updating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         myMainForm.TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
                         myMainForm.TextBoxLogWriteLine(e);
                     }
@@ -1992,7 +1995,7 @@ namespace AMSExplorer
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("Error when creating asset filter.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error when creating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", filterinfo.Name, true);
                     myMainForm.TextBoxLogWriteLine(e);
                 }
@@ -2042,7 +2045,7 @@ namespace AMSExplorer
                     }
                     catch (Exception e)
                     {
-                        MessageBox.Show("Error when duplicating asset filter." + Constants.endline + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Error when duplicating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     DisplayAssetFilters();
                 }
