@@ -2031,6 +2031,7 @@ namespace AMSExplorer
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true)
         {
             string FullPlayBackLink = null;
+
             if (!string.IsNullOrEmpty(Urlstr))
             {
                 IStreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(context);
@@ -2038,13 +2039,22 @@ namespace AMSExplorer
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
                 {
-                    if (myasset != null && UISelectSEFiltersAndProtocols)
+                    if (
+                        (myasset != null && UISelectSEFiltersAndProtocols)
+                        &&
+                        (context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
+                        )
+
                     {
                         var form = new ChooseStreamingEndpoint(context, myasset, filter, typeplayer);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilter, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName).ToString();
                             choosenSE = form.SelectStreamingEndpoint;
+                        }
+                        else
+                        {
+                            return string.Empty;
                         }
                     }
                     else // no UI but let's rw for filter

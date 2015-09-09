@@ -123,6 +123,8 @@ namespace AMSExplorer
 
         private void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
+            label.Text = string.Format(label.Text, _asset.Name);
+            
             // SE List
             IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
             foreach (var se in _context.StreamingEndpoints)

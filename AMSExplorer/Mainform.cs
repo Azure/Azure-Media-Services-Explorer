@@ -8545,12 +8545,16 @@ namespace AMSExplorer
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
 
-                    if (_context.StreamingEndpoints.Count() > 0 || _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0 || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
+                    if (_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault()!=null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
                         var form = new ChooseStreamingEndpoint(_context, asset);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilter, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName).ToString();
+                        }
+                        else
+                        {
+                            return;
                         }
                     }
                     System.Windows.Forms.Clipboard.SetText(url);

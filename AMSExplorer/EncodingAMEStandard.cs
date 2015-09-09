@@ -223,7 +223,7 @@ namespace AMSExplorer
             if (checkBoxAddAutomatic.Checked)
             {
                 // Cleaning
-                if (obj.Sources != null) obj.Sources.Clear();
+                if (obj.Sources != null) obj.Sources.Parent.Remove();
 
                 if (checkBoxSourceTrimming.Checked)
                 {
@@ -267,82 +267,9 @@ namespace AMSExplorer
                     entry.Streams.Add(stream);
 
                     if (!alreadyentry) obj.Sources.Add(entry);
-
-
-                    /* 
-
-                    // OLD CODE
-                    JArray sources = (JArray)jo["Sources"];
-                    if (sources == null)
-                    {
-                        jo.Add(new JProperty("Sources"));
-                    }
-                    sources = (JArray)jo["Sources"];
-
-
-
-                    sources.Add(new JObject(
-
-                       new JProperty("Streams",
-                           new JArray(
-                               new JObject(
-                                   new JProperty("Type", "AudioStream"),
-                                   new JProperty("Value", "TopBitrate")),
-                               new JObject(
-                                   new JProperty("Type", "VideoStream"),
-                                   new JProperty("Value", "TopBitrate"))
-                  ))));
-
-                  /*
-                    // Update the json with trimming
-                    JArray sources = (JArray)jo["Sources"];
-                    if (sources == null)
-                    {
-                        jo.Add(new JProperty("Sources"));
-                    }
-                    sources = (JArray)jo["Sources"];
-                    if (sources["StartTime"] != null) sources["StartTime"].Remove();
-                    if (sources["Duration"] != null) sources["Duration"].Remove();
-
-                    sources.Add(
-                   new JObject(
-                   new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
-                   new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
-                   ));
-                   */
-
-
-
-
-                    /*
-                    jo.Add(new JProperty("Sources",
-                   new JArray(
-                   new JObject(
-                   new JProperty("StartTime", timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()),
-                   new JProperty("Duration", timeControlDuration.GetTimeStampAsTimeSpanWithOffset())
-                   ))));
-                   */
-
-                    /*
-                    JArray sources = (JArray)jo["Sources"];
-                   sources.Add(new JObject(
-
-                        new JProperty("Streams",
-                            new JArray(
-                                new JObject(
-                                    new JProperty("Type", "AudioStream"),
-                                    new JProperty("Value", "TopBitrate")),
-                                new JObject(
-                                    new JProperty("Type", "VideoStream"),
-                                    new JProperty("Value", "TopBitrate"))
-                   ))));
-                   */
-
                 }
-
             }
             textBoxConfiguration.Text = obj.ToString();
-
         }
 
 
