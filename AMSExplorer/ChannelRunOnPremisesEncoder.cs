@@ -132,7 +132,7 @@ namespace AMSExplorer
                          .Replace("%vlcpath%", Properties.Settings.Default.VLCPath)
                         .Replace("%programfiles32%", Environment.GetFolderPath(Environment.Is64BitOperatingSystem ? Environment.SpecialFolder.ProgramFilesX86 : Environment.SpecialFolder.ProgramFiles))
                         .Replace("%programfiles64%", System.Environment.ExpandEnvironmentVariables("%systemdrive%\\Program Files"));
-                    buttonOk.Enabled = SelectedEncoder.CanBeRunLocally;
+                    buttonLaunch.Enabled = SelectedEncoder.CanBeRunLocally;
                     linkLabelInstall.Links.Clear();
                     linkLabelInstall.Links.Add(new LinkLabel.Link(0, linkLabelInstall.Text.Length, SelectedEncoder.InstallURL.ToString()));
                 }

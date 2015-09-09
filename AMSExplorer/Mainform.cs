@@ -342,6 +342,7 @@ namespace AMSExplorer
                     asset = _context.Assets.Where(a => a.Id == asset.Id).FirstOrDefault();
 
                     DoGridTransferDeclareCompleted(index, asset.Id);
+                    DoRefreshGridAssetV(false);
                 }
                 else // Error!
                 {
@@ -1188,7 +1189,7 @@ namespace AMSExplorer
                     // Start a worker thread that does uploading.
                     Task.Factory.StartNew(() => ProcessImportFromHttp(form.GetURL, form.GetAssetName, form.GetAssetFileName, index));
                     DotabControlMainSwitch(Constants.TabTransfers);
-                    DoRefreshGridAssetV(false);
+                    //DoRefreshGridAssetV(false);
                 }
             }
         }
@@ -12122,8 +12123,6 @@ namespace AMSExplorer
                                        _MyObservJob[index].EndTime = ETA.ToString(@"g") + " ?";
                                        _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                                    }
-
-
 
                                    int indexdisplayed = -1;
                                    foreach (JobEntry je in _MyObservAssethisPage) // let's search for index in the page

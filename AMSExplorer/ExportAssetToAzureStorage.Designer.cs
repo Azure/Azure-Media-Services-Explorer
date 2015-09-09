@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonUpload = new System.Windows.Forms.Button();
-            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonExport = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelContName = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -67,29 +67,29 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonUpload
+            // buttonExport
             // 
-            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(588, 15);
-            this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(87, 27);
-            this.buttonUpload.TabIndex = 2;
-            this.buttonUpload.Text = "Export";
-            this.buttonUpload.UseVisualStyleBackColor = true;
-            this.buttonUpload.Click += new System.EventHandler(this.buttonCopy_Click);
+            this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExport.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonExport.Enabled = false;
+            this.buttonExport.Location = new System.Drawing.Point(588, 15);
+            this.buttonExport.Name = "buttonExport";
+            this.buttonExport.Size = new System.Drawing.Size(87, 27);
+            this.buttonExport.TabIndex = 2;
+            this.buttonExport.Text = "Export";
+            this.buttonExport.UseVisualStyleBackColor = true;
+            this.buttonExport.Click += new System.EventHandler(this.buttonCopy_Click);
             // 
-            // buttonClose
+            // buttonCancel
             // 
-            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonClose.Location = new System.Drawing.Point(682, 15);
-            this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(87, 27);
-            this.buttonClose.TabIndex = 10;
-            this.buttonClose.Text = "Cancel";
-            this.buttonClose.UseVisualStyleBackColor = true;
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(682, 15);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(87, 27);
+            this.buttonCancel.TabIndex = 10;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -410,8 +410,8 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Controls.Add(this.buttonUpload);
+            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonExport);
             this.panel1.Location = new System.Drawing.Point(0, 606);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(784, 55);
@@ -419,9 +419,11 @@
             // 
             // ExportAssetToAzureStorage
             // 
+            this.AcceptButton = this.buttonExport;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelWarning);
@@ -447,8 +449,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonUpload;
-        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button buttonExport;
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxNewContainerName;
         private System.Windows.Forms.RadioButton radioButtonSelectedContainer;

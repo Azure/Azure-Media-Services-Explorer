@@ -65,12 +65,12 @@
             this.panelContentKey = new System.Windows.Forms.Panel();
             this.textBoxContentKeyCalculated = new System.Windows.Forms.TextBox();
             this.panelKeyId = new System.Windows.Forms.Panel();
+            this.label10 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
             this.panelPlayReadyTest.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -504,6 +504,15 @@
             this.panelKeyId.Size = new System.Drawing.Size(628, 77);
             this.panelKeyId.TabIndex = 74;
             // 
+            // label10
+            // 
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(52, 15);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(267, 15);
+            this.label10.TabIndex = 69;
+            this.label10.Text = "If empty, it will be automatically generated";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -543,20 +552,13 @@
             this.label9.TabIndex = 83;
             this.label9.Text = "Step 2\r\nSpecify the PlayReady Content Key";
             // 
-            // label10
-            // 
-            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(52, 15);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(267, 15);
-            this.label10.TabIndex = 69;
-            this.label10.Text = "If empty, it will be automatically generated";
-            // 
             // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label7);

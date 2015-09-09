@@ -30,7 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
@@ -88,23 +88,23 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonCancel);
+            this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(0, 707);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(915, 55);
             this.panel1.TabIndex = 60;
             // 
-            // buttonCancel
+            // buttonClose
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(784, 14);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(114, 27);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Close";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.Location = new System.Drawing.Point(784, 14);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(114, 27);
+            this.buttonClose.TabIndex = 5;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
@@ -330,10 +330,11 @@
             this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
             this.timeControlStart.Size = new System.Drawing.Size(500, 92);
             this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = null;
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // timeControlEnd
@@ -350,10 +351,11 @@
             this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((long)(0));
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
             this.timeControlEnd.Size = new System.Drawing.Size(500, 87);
             this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = null;
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // checkBoxPreviewStream
@@ -378,7 +380,7 @@
             this.checkBoxTrimming.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxTrimming.Location = new System.Drawing.Point(17, 22);
             this.checkBoxTrimming.Name = "checkBoxTrimming";
-            this.checkBoxTrimming.Size = new System.Drawing.Size(174, 19);
+            this.checkBoxTrimming.Size = new System.Drawing.Size(173, 19);
             this.checkBoxTrimming.TabIndex = 132;
             this.checkBoxTrimming.Text = "Trim the live archive/stream";
             this.checkBoxTrimming.UseVisualStyleBackColor = true;
@@ -419,7 +421,7 @@
             this.radioButtonAssetFilter.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonAssetFilter.Location = new System.Drawing.Point(21, 189);
             this.radioButtonAssetFilter.Name = "radioButtonAssetFilter";
-            this.radioButtonAssetFilter.Size = new System.Drawing.Size(76, 19);
+            this.radioButtonAssetFilter.Size = new System.Drawing.Size(75, 19);
             this.radioButtonAssetFilter.TabIndex = 136;
             this.radioButtonAssetFilter.Text = "Trim only";
             this.radioButtonAssetFilter.UseVisualStyleBackColor = true;
@@ -465,7 +467,7 @@
             this.radioButtonArchiveTopBitrate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonArchiveTopBitrate.Location = new System.Drawing.Point(21, 30);
             this.radioButtonArchiveTopBitrate.Name = "radioButtonArchiveTopBitrate";
-            this.radioButtonArchiveTopBitrate.Size = new System.Drawing.Size(126, 19);
+            this.radioButtonArchiveTopBitrate.Size = new System.Drawing.Size(125, 19);
             this.radioButtonArchiveTopBitrate.TabIndex = 126;
             this.radioButtonArchiveTopBitrate.TabStop = true;
             this.radioButtonArchiveTopBitrate.Text = "Archive Top Bitrate";
@@ -490,7 +492,7 @@
             this.radioButtonClipWithReencode.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonClipWithReencode.Location = new System.Drawing.Point(21, 136);
             this.radioButtonClipWithReencode.Name = "radioButtonClipWithReencode";
-            this.radioButtonClipWithReencode.Size = new System.Drawing.Size(138, 19);
+            this.radioButtonClipWithReencode.Size = new System.Drawing.Size(137, 19);
             this.radioButtonClipWithReencode.TabIndex = 129;
             this.radioButtonClipWithReencode.Text = "Reencode Top Bitrate";
             this.radioButtonClipWithReencode.UseVisualStyleBackColor = true;
@@ -587,9 +589,11 @@
             // 
             // Subclipping
             // 
+            this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 763);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label34);
@@ -624,7 +628,7 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;

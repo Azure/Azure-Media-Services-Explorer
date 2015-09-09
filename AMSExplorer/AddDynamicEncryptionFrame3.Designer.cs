@@ -133,7 +133,7 @@
             this.radioButtonTokenAuthPolicy.Checked = true;
             this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(23, 25);
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
-            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(58, 19);
+            this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(57, 19);
             this.radioButtonTokenAuthPolicy.TabIndex = 55;
             this.radioButtonTokenAuthPolicy.TabStop = true;
             this.radioButtonTokenAuthPolicy.Text = "Token";
@@ -247,7 +247,7 @@
             this.radioButtonJWTSymmetric.Checked = true;
             this.radioButtonJWTSymmetric.Location = new System.Drawing.Point(24, 42);
             this.radioButtonJWTSymmetric.Name = "radioButtonJWTSymmetric";
-            this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(149, 19);
+            this.radioButtonJWTSymmetric.Size = new System.Drawing.Size(148, 19);
             this.radioButtonJWTSymmetric.TabIndex = 69;
             this.radioButtonJWTSymmetric.TabStop = true;
             this.radioButtonJWTSymmetric.Text = "JWT - JSON Web Token";
@@ -298,7 +298,7 @@
             this.radioButtonJWTX509.AutoSize = true;
             this.radioButtonJWTX509.Location = new System.Drawing.Point(24, 68);
             this.radioButtonJWTX509.Name = "radioButtonJWTX509";
-            this.radioButtonJWTX509.Size = new System.Drawing.Size(149, 19);
+            this.radioButtonJWTX509.Size = new System.Drawing.Size(148, 19);
             this.radioButtonJWTX509.TabIndex = 65;
             this.radioButtonJWTX509.Text = "JWT - JSON Web Token";
             this.radioButtonJWTX509.UseVisualStyleBackColor = true;
@@ -309,7 +309,7 @@
             this.radioButtonSWT.AutoSize = true;
             this.radioButtonSWT.Location = new System.Drawing.Point(24, 15);
             this.radioButtonSWT.Name = "radioButtonSWT";
-            this.radioButtonSWT.Size = new System.Drawing.Size(159, 19);
+            this.radioButtonSWT.Size = new System.Drawing.Size(158, 19);
             this.radioButtonSWT.TabIndex = 64;
             this.radioButtonSWT.Text = "SWT - Simple Web Token";
             this.radioButtonSWT.UseVisualStyleBackColor = true;
@@ -457,7 +457,7 @@
             this.radioButtonJWTOpenId.AutoSize = true;
             this.radioButtonJWTOpenId.Location = new System.Drawing.Point(24, 95);
             this.radioButtonJWTOpenId.Name = "radioButtonJWTOpenId";
-            this.radioButtonJWTOpenId.Size = new System.Drawing.Size(149, 19);
+            this.radioButtonJWTOpenId.Size = new System.Drawing.Size(148, 19);
             this.radioButtonJWTOpenId.TabIndex = 73;
             this.radioButtonJWTOpenId.Text = "JWT - JSON Web Token";
             this.radioButtonJWTOpenId.UseVisualStyleBackColor = true;
@@ -493,10 +493,10 @@
             // tabPageTokenSymmetric
             // 
             this.tabPageTokenSymmetric.Controls.Add(this.panelSymKey);
-            this.tabPageTokenSymmetric.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTokenSymmetric.Location = new System.Drawing.Point(4, 24);
             this.tabPageTokenSymmetric.Name = "tabPageTokenSymmetric";
             this.tabPageTokenSymmetric.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTokenSymmetric.Size = new System.Drawing.Size(645, 133);
+            this.tabPageTokenSymmetric.Size = new System.Drawing.Size(645, 131);
             this.tabPageTokenSymmetric.TabIndex = 1;
             this.tabPageTokenSymmetric.Text = "Symmetric token key";
             this.tabPageTokenSymmetric.UseVisualStyleBackColor = true;
@@ -504,9 +504,9 @@
             // tabPageTokenX509
             // 
             this.tabPageTokenX509.Controls.Add(this.panelJWT);
-            this.tabPageTokenX509.Location = new System.Drawing.Point(4, 22);
+            this.tabPageTokenX509.Location = new System.Drawing.Point(4, 24);
             this.tabPageTokenX509.Name = "tabPageTokenX509";
-            this.tabPageTokenX509.Size = new System.Drawing.Size(645, 133);
+            this.tabPageTokenX509.Size = new System.Drawing.Size(645, 131);
             this.tabPageTokenX509.TabIndex = 2;
             this.tabPageTokenX509.Text = "X509 Certificate";
             this.tabPageTokenX509.UseVisualStyleBackColor = true;
@@ -517,10 +517,10 @@
             this.tabPageOpenId.Controls.Add(this.buttonAddMapping);
             this.tabPageOpenId.Controls.Add(this.label9);
             this.tabPageOpenId.Controls.Add(this.textBoxOpenIdDocument);
-            this.tabPageOpenId.Location = new System.Drawing.Point(4, 22);
+            this.tabPageOpenId.Location = new System.Drawing.Point(4, 24);
             this.tabPageOpenId.Name = "tabPageOpenId";
             this.tabPageOpenId.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOpenId.Size = new System.Drawing.Size(645, 133);
+            this.tabPageOpenId.Size = new System.Drawing.Size(645, 131);
             this.tabPageOpenId.TabIndex = 3;
             this.tabPageOpenId.Text = "OpenId";
             this.tabPageOpenId.UseVisualStyleBackColor = true;
@@ -620,10 +620,10 @@
             this.tabPage3.Controls.Add(this.dataGridViewTokenClaims);
             this.tabPage3.Controls.Add(this.buttonAddClaim);
             this.tabPage3.Controls.Add(this.buttonDelClaim);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(645, 231);
+            this.tabPage3.Size = new System.Drawing.Size(645, 229);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Claims";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -639,9 +639,11 @@
             // 
             // AddDynamicEncryptionFrame3
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.tabControlTokenProperties);
             this.Controls.Add(this.tabControlTokenType);

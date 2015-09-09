@@ -71,7 +71,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(460, 14);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(112, 27);
-            this.buttonCancel.TabIndex = 5;
+            this.buttonCancel.TabIndex = 1;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -265,17 +265,19 @@
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(15, 5);
+            this.label.Location = new System.Drawing.Point(15, 9);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(465, 23);
+            this.label.Size = new System.Drawing.Size(554, 23);
             this.label.TabIndex = 64;
-            this.label.Text = "Choose the settings to play asset \'{0}\'";
+            this.label.Text = "Asset : \'{0}\'";
             // 
             // ChooseStreamingEndpoint
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(584, 561);
             this.Controls.Add(this.label);
             this.Controls.Add(this.groupBox1);

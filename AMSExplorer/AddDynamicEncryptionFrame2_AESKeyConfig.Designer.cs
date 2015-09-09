@@ -42,17 +42,17 @@
             this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
-            this.labelkeylaurl = new System.Windows.Forms.Label();
-            this.textBoxLAURL = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.textBoxkeyid = new System.Windows.Forms.TextBox();
             this.buttonGenKeyID = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.labelkeylaurl = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.radioButtonKeyIDGuid = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyIDBase64 = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
+            this.textBoxLAURL = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -236,44 +236,16 @@
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
             // 
-            // labelkeylaurl
+            // label2
             // 
-            this.labelkeylaurl.AutoSize = true;
-            this.labelkeylaurl.Location = new System.Drawing.Point(13, 188);
-            this.labelkeylaurl.Name = "labelkeylaurl";
-            this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
-            this.labelkeylaurl.TabIndex = 73;
-            this.labelkeylaurl.Text = "Key Acquisition Url:";
-            // 
-            // textBoxLAURL
-            // 
-            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAURL.Location = new System.Drawing.Point(15, 206);
-            this.textBoxLAURL.Name = "textBoxLAURL";
-            this.textBoxLAURL.Size = new System.Drawing.Size(439, 23);
-            this.textBoxLAURL.TabIndex = 72;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
-            this.label1.Location = new System.Drawing.Point(26, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 42);
-            this.label1.TabIndex = 75;
-            this.label1.Text = "Step 2\r\nSpecify the AES key";
-            // 
-            // label10
-            // 
-            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(187, 113);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(267, 15);
-            this.label10.TabIndex = 76;
-            this.label10.Text = "If empty, it will be automatically generated";
-            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label2.Location = new System.Drawing.Point(187, 38);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(267, 15);
+            this.label2.TabIndex = 77;
+            this.label2.Text = "If empty, it will be automatically generated";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // textBoxkeyid
             // 
@@ -295,6 +267,17 @@
             this.buttonGenKeyID.UseVisualStyleBackColor = true;
             this.buttonGenKeyID.Click += new System.EventHandler(this.buttonGenKeyID_Click);
             // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label10.Location = new System.Drawing.Point(187, 113);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(267, 15);
+            this.label10.TabIndex = 76;
+            this.label10.Text = "If empty, it will be automatically generated";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -303,6 +286,15 @@
             this.label5.Size = new System.Drawing.Size(43, 15);
             this.label5.TabIndex = 31;
             this.label5.Text = "Key ID:";
+            // 
+            // labelkeylaurl
+            // 
+            this.labelkeylaurl.AutoSize = true;
+            this.labelkeylaurl.Location = new System.Drawing.Point(13, 188);
+            this.labelkeylaurl.Name = "labelkeylaurl";
+            this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
+            this.labelkeylaurl.TabIndex = 73;
+            this.labelkeylaurl.Text = "Key Acquisition Url:";
             // 
             // panel4
             // 
@@ -340,22 +332,32 @@
             this.radioButtonKeyIDBase64.Text = "Base64";
             this.radioButtonKeyIDBase64.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // textBoxLAURL
             // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Location = new System.Drawing.Point(187, 38);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(267, 15);
-            this.label2.TabIndex = 77;
-            this.label2.Text = "If empty, it will be automatically generated";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLAURL.Location = new System.Drawing.Point(15, 206);
+            this.textBoxLAURL.Name = "textBoxLAURL";
+            this.textBoxLAURL.Size = new System.Drawing.Size(439, 23);
+            this.textBoxLAURL.TabIndex = 72;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(26, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(153, 42);
+            this.label1.TabIndex = 75;
+            this.label1.Text = "Step 2\r\nSpecify the AES key";
             // 
             // AddDynamicEncryptionFrame2_AESKeyConfig
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 761);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxCrypto);

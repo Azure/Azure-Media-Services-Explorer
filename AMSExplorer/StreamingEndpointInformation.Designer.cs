@@ -32,7 +32,7 @@
             this.DGOrigin = new System.Windows.Forms.DataGridView();
             this.contextMenuStripOI = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.buttonApplyClose = new System.Windows.Forms.Button();
+            this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
@@ -68,7 +68,7 @@
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
             this.labelOriginName = new System.Windows.Forms.Label();
-            this.buttonDisregard = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
@@ -121,16 +121,16 @@
             this.copyToClipboardToolStripMenuItem.Size = new System.Drawing.Size(169, 22);
             this.copyToClipboardToolStripMenuItem.Text = "Copy to clipboard";
             // 
-            // buttonApplyClose
+            // buttonUpdateClose
             // 
-            this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(596, 15);
-            this.buttonApplyClose.Name = "buttonApplyClose";
-            this.buttonApplyClose.Size = new System.Drawing.Size(185, 27);
-            this.buttonApplyClose.TabIndex = 3;
-            this.buttonApplyClose.Text = "Update settings and close";
-            this.buttonApplyClose.UseVisualStyleBackColor = true;
+            this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonUpdateClose.Location = new System.Drawing.Point(596, 15);
+            this.buttonUpdateClose.Name = "buttonUpdateClose";
+            this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
+            this.buttonUpdateClose.TabIndex = 3;
+            this.buttonUpdateClose.Text = "Update settings and close";
+            this.buttonUpdateClose.UseVisualStyleBackColor = true;
             // 
             // tabControl1
             // 
@@ -533,24 +533,24 @@
             this.labelOriginName.TabIndex = 37;
             this.labelOriginName.Text = "Streaming endpoint : ";
             // 
-            // buttonDisregard
+            // buttonClose
             // 
-            this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(789, 15);
-            this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(115, 27);
-            this.buttonDisregard.TabIndex = 39;
-            this.buttonDisregard.Text = "Close";
-            this.buttonDisregard.UseVisualStyleBackColor = true;
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.Location = new System.Drawing.Point(789, 15);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(115, 27);
+            this.buttonClose.TabIndex = 39;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonApplyClose);
-            this.panel1.Controls.Add(this.buttonDisregard);
+            this.panel1.Controls.Add(this.buttonUpdateClose);
+            this.panel1.Controls.Add(this.buttonClose);
             this.panel1.Location = new System.Drawing.Point(-3, 592);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(922, 55);
@@ -558,9 +558,11 @@
             // 
             // StreamingEndpointInformation
             // 
+            this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelOriginName);
@@ -598,7 +600,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView DGOrigin;
-        private System.Windows.Forms.Button buttonApplyClose;
+        private System.Windows.Forms.Button buttonUpdateClose;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -607,7 +609,7 @@
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDownRU;
-        private System.Windows.Forms.Button buttonDisregard;
+        private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Label lblMaxCacheAge;
         private System.Windows.Forms.TextBox textBoxMaxCacheAge;
         private System.Windows.Forms.DataGridView dataGridViewIP;

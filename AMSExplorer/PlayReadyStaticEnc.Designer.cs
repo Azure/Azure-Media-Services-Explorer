@@ -117,7 +117,7 @@
             this.label.AutoSize = true;
             this.label.Location = new System.Drawing.Point(219, 54);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(293, 15);
+            this.label.Size = new System.Drawing.Size(292, 15);
             this.label.TabIndex = 28;
             this.label.Text = "You can specifiy your own data or use the test settings";
             // 
@@ -378,9 +378,11 @@
             // 
             // PlayReadyStaticEnc
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(603, 614);
             this.Controls.Add(this.buttonAzureSettings);
             this.Controls.Add(this.panel1);

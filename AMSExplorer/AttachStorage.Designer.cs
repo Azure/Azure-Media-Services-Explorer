@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonUpdate = new System.Windows.Forms.Button();
+            this.buttonAttach = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxSubId = new System.Windows.Forms.TextBox();
@@ -54,16 +54,16 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonUpdate
+            // buttonAttach
             // 
-            this.buttonUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonUpdate.Location = new System.Drawing.Point(537, 15);
-            this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(120, 27);
-            this.buttonUpdate.TabIndex = 5;
-            this.buttonUpdate.Text = "Attach storage";
-            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonAttach.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAttach.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonAttach.Location = new System.Drawing.Point(537, 15);
+            this.buttonAttach.Name = "buttonAttach";
+            this.buttonAttach.Size = new System.Drawing.Size(120, 27);
+            this.buttonAttach.TabIndex = 5;
+            this.buttonAttach.Text = "Attach storage";
+            this.buttonAttach.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
@@ -224,7 +224,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Controls.Add(this.buttonUpdate);
+            this.panel1.Controls.Add(this.buttonAttach);
             this.panel1.Location = new System.Drawing.Point(0, 600);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(805, 55);
@@ -288,9 +288,11 @@
             // 
             // AttachStorage
             // 
+            this.AcceptButton = this.buttonAttach;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(805, 655);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.buttonImportSubscriptionFile);
@@ -315,7 +317,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.Button buttonAttach;
         private System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxSubId;

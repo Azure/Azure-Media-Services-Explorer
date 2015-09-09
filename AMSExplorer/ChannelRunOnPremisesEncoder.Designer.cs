@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonLaunch = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
@@ -59,37 +59,37 @@
             this.panelAVSettings.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonOk
+            // buttonLaunch
             // 
-            this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(621, 14);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(163, 27);
-            this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Launch encoder";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
+            this.buttonLaunch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLaunch.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.buttonLaunch.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonLaunch.Location = new System.Drawing.Point(621, 14);
+            this.buttonLaunch.Name = "buttonLaunch";
+            this.buttonLaunch.Size = new System.Drawing.Size(163, 27);
+            this.buttonLaunch.TabIndex = 4;
+            this.buttonLaunch.Text = "Launch encoder";
+            this.buttonLaunch.UseVisualStyleBackColor = true;
+            this.buttonLaunch.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // buttonCancel
+            // buttonClose
             // 
-            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(791, 14);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(112, 27);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Close";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.Location = new System.Drawing.Point(791, 14);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(112, 27);
+            this.buttonClose.TabIndex = 5;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Controls.Add(this.buttonOk);
+            this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Controls.Add(this.buttonLaunch);
             this.panel1.Location = new System.Drawing.Point(-2, 593);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(918, 55);
@@ -333,9 +333,11 @@
             // 
             // ChannelRunOnPremisesEncoder
             // 
+            this.AcceptButton = this.buttonLaunch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.labelURL);
             this.Controls.Add(this.labelChannel);
@@ -363,8 +365,8 @@
 
         #endregion
 
-        public System.Windows.Forms.Button buttonOk;
-        public System.Windows.Forms.Button buttonCancel;
+        public System.Windows.Forms.Button buttonLaunch;
+        public System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBox1;
         public System.Windows.Forms.Label label2;

@@ -180,7 +180,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(8, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(42, 15);
+            this.label1.Size = new System.Drawing.Size(41, 15);
             this.label1.TabIndex = 38;
             this.label1.Text = "Track :";
             // 
@@ -215,7 +215,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 20);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 15);
+            this.label2.Size = new System.Drawing.Size(41, 15);
             this.label2.TabIndex = 40;
             this.label2.Text = "Track :";
             // 
@@ -246,9 +246,11 @@
             // 
             // MetadataInformation
             // 
+            this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox3);

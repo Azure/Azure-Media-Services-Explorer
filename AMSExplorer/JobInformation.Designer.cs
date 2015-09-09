@@ -131,7 +131,7 @@
             this.DGTasks.Name = "DGTasks";
             this.DGTasks.ReadOnly = true;
             this.DGTasks.RowHeadersVisible = false;
-            this.DGTasks.Size = new System.Drawing.Size(716, 257);
+            this.DGTasks.Size = new System.Drawing.Size(716, 259);
             this.DGTasks.TabIndex = 10;
             // 
             // DGJob
@@ -267,10 +267,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.textBoxConfiguration);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(855, 365);
+            this.tabPage4.Size = new System.Drawing.Size(724, 275);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Configuration";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -286,7 +286,7 @@
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ReadOnly = true;
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(839, 347);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(708, 259);
             this.textBoxConfiguration.TabIndex = 28;
             // 
             // labelJobNameTitle
@@ -313,9 +313,11 @@
             // 
             // JobInformation
             // 
+            this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelJobNameTitle);

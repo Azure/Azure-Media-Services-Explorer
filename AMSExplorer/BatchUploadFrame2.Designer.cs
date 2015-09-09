@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonNext = new System.Windows.Forms.Button();
+            this.buttonUpload = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.checkedListBoxFiles = new System.Windows.Forms.CheckedListBox();
             this.checkedListBoxFolders = new System.Windows.Forms.CheckedListBox();
@@ -49,18 +49,18 @@
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // buttonNext
+            // buttonUpload
             // 
-            this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonNext.Image = global::AMSExplorer.Bitmaps.upload;
-            this.buttonNext.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonNext.Location = new System.Drawing.Point(381, 13);
-            this.buttonNext.Name = "buttonNext";
-            this.buttonNext.Size = new System.Drawing.Size(145, 27);
-            this.buttonNext.TabIndex = 0;
-            this.buttonNext.Text = "Launch upload";
-            this.buttonNext.UseVisualStyleBackColor = true;
+            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpload.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonUpload.Image = global::AMSExplorer.Bitmaps.upload;
+            this.buttonUpload.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonUpload.Location = new System.Drawing.Point(381, 13);
+            this.buttonUpload.Name = "buttonUpload";
+            this.buttonUpload.Size = new System.Drawing.Size(145, 27);
+            this.buttonUpload.TabIndex = 0;
+            this.buttonUpload.Text = "Launch upload";
+            this.buttonUpload.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
             // 
@@ -82,7 +82,7 @@
             this.checkedListBoxFiles.FormattingEnabled = true;
             this.checkedListBoxFiles.Location = new System.Drawing.Point(7, 32);
             this.checkedListBoxFiles.Name = "checkedListBoxFiles";
-            this.checkedListBoxFiles.Size = new System.Drawing.Size(587, 112);
+            this.checkedListBoxFiles.Size = new System.Drawing.Size(587, 94);
             this.checkedListBoxFiles.TabIndex = 2;
             // 
             // checkedListBoxFolders
@@ -169,7 +169,7 @@
             // buttonFileDeselAll
             // 
             this.buttonFileDeselAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileDeselAll.Location = new System.Drawing.Point(101, 165);
+            this.buttonFileDeselAll.Location = new System.Drawing.Point(101, 164);
             this.buttonFileDeselAll.Name = "buttonFileDeselAll";
             this.buttonFileDeselAll.Size = new System.Drawing.Size(87, 27);
             this.buttonFileDeselAll.TabIndex = 8;
@@ -180,7 +180,7 @@
             // buttonFileSelAll
             // 
             this.buttonFileSelAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFileSelAll.Location = new System.Drawing.Point(7, 165);
+            this.buttonFileSelAll.Location = new System.Drawing.Point(7, 164);
             this.buttonFileSelAll.Name = "buttonFileSelAll";
             this.buttonFileSelAll.Size = new System.Drawing.Size(87, 27);
             this.buttonFileSelAll.TabIndex = 7;
@@ -214,7 +214,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Controls.Add(this.buttonNext);
+            this.panel1.Controls.Add(this.buttonUpload);
             this.panel1.Location = new System.Drawing.Point(0, 502);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(636, 55);
@@ -222,9 +222,11 @@
             // 
             // BatchUploadFrame2
             // 
+            this.AcceptButton = this.buttonUpload;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(635, 555);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label33);
@@ -249,7 +251,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonNext;
+        private System.Windows.Forms.Button buttonUpload;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.CheckedListBox checkedListBoxFiles;
         private System.Windows.Forms.CheckedListBox checkedListBoxFolders;

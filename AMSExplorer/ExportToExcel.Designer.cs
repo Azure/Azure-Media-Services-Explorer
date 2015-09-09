@@ -31,6 +31,7 @@
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.checkBoxLocalTime = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.radioButtonDetailledMode = new System.Windows.Forms.RadioButton();
@@ -49,7 +50,6 @@
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.checkBoxLocalTime = new System.Windows.Forms.CheckBox();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -94,6 +94,18 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Options";
+            // 
+            // checkBoxLocalTime
+            // 
+            this.checkBoxLocalTime.AutoSize = true;
+            this.checkBoxLocalTime.Checked = true;
+            this.checkBoxLocalTime.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxLocalTime.Location = new System.Drawing.Point(27, 88);
+            this.checkBoxLocalTime.Name = "checkBoxLocalTime";
+            this.checkBoxLocalTime.Size = new System.Drawing.Size(204, 19);
+            this.checkBoxLocalTime.TabIndex = 3;
+            this.checkBoxLocalTime.Text = "Use local time (UTC if unchecked)";
+            this.checkBoxLocalTime.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -275,23 +287,13 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // checkBoxLocalTime
-            // 
-            this.checkBoxLocalTime.AutoSize = true;
-            this.checkBoxLocalTime.Checked = true;
-            this.checkBoxLocalTime.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxLocalTime.Location = new System.Drawing.Point(27, 88);
-            this.checkBoxLocalTime.Name = "checkBoxLocalTime";
-            this.checkBoxLocalTime.Size = new System.Drawing.Size(205, 19);
-            this.checkBoxLocalTime.TabIndex = 3;
-            this.checkBoxLocalTime.Text = "Use local time (UTC if unchecked)";
-            this.checkBoxLocalTime.UseVisualStyleBackColor = true;
-            // 
             // ExportToExcel
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 607);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBarExport);

@@ -296,7 +296,7 @@ namespace AMSExplorer
             if (dataGridViewInputIP.SelectedRows.Count == 1)
             {
                 InputEndpointSettingList.RemoveAt(dataGridViewInputIP.SelectedRows[0].Index);
-                buttonApplyClose.Enabled = true;
+                buttonUpdateClose.Enabled = true;
             }
         }
 
@@ -305,7 +305,7 @@ namespace AMSExplorer
             if (dataGridViewPreviewIP.SelectedRows.Count == 1)
             {
                 PreviewEndpointSettingList.RemoveAt(dataGridViewPreviewIP.SelectedRows[0].Index);
-                buttonApplyClose.Enabled = true;
+                buttonUpdateClose.Enabled = true;
             }
         }
 

@@ -178,9 +178,11 @@
             // 
             // IndexerOptions
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(415, 245);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);

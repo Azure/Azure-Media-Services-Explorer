@@ -355,9 +355,11 @@
             // 
             // CreateTestToken
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.panelJWTX509Cert);
             this.Controls.Add(this.panel1);

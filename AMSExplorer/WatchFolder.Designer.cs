@@ -54,10 +54,10 @@
             this.groupBoxProcess = new System.Windows.Forms.GroupBox();
             this.labelWarning = new System.Windows.Forms.Label();
             this.panelInsertAsset = new System.Windows.Forms.Panel();
-            this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
-            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.listViewWorkflows1 = new AMSExplorer.ListViewWorkflows();
+            this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
+            this.pictureBox5 = new System.Windows.Forms.PictureBox();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -361,28 +361,6 @@
             this.panelInsertAsset.Size = new System.Drawing.Size(723, 126);
             this.panelInsertAsset.TabIndex = 75;
             // 
-            // checkBoAddAssetsToInput
-            // 
-            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.checkBoAddAssetsToInput.AutoSize = true;
-            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(19, 106);
-            this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
-            this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(164, 19);
-            this.checkBoAddAssetsToInput.TabIndex = 74;
-            this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
-            this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
-            this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
-            // 
-            // pictureBox5
-            // 
-            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
-            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
-            this.pictureBox5.Name = "pictureBox5";
-            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox5.TabIndex = 75;
-            this.pictureBox5.TabStop = false;
-            // 
             // listViewWorkflows1
             // 
             this.listViewWorkflows1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -398,6 +376,18 @@
             this.listViewWorkflows1.Tag = -1;
             this.listViewWorkflows1.UseCompatibleStateImageBehavior = false;
             this.listViewWorkflows1.View = System.Windows.Forms.View.Details;
+            // 
+            // checkBoAddAssetsToInput
+            // 
+            this.checkBoAddAssetsToInput.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.checkBoAddAssetsToInput.AutoSize = true;
+            this.checkBoAddAssetsToInput.Location = new System.Drawing.Point(19, 106);
+            this.checkBoAddAssetsToInput.Name = "checkBoAddAssetsToInput";
+            this.checkBoAddAssetsToInput.Size = new System.Drawing.Size(164, 19);
+            this.checkBoAddAssetsToInput.TabIndex = 74;
+            this.checkBoAddAssetsToInput.Text = "Add asset(s) to input asset";
+            this.checkBoAddAssetsToInput.UseVisualStyleBackColor = true;
+            this.checkBoAddAssetsToInput.CheckedChanged += new System.EventHandler(this.checkBoAddAssetsToInput_CheckedChanged);
             // 
             // listViewTemplates
             // 
@@ -416,11 +406,23 @@
             this.listViewTemplates.View = System.Windows.Forms.View.Details;
             this.listViewTemplates.SelectedIndexChanged += new System.EventHandler(this.listViewTemplates_SelectedIndexChanged);
             // 
+            // pictureBox5
+            // 
+            this.pictureBox5.Image = global::AMSExplorer.Bitmaps.encoding;
+            this.pictureBox5.Location = new System.Drawing.Point(26, 303);
+            this.pictureBox5.Name = "pictureBox5";
+            this.pictureBox5.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox5.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox5.TabIndex = 75;
+            this.pictureBox5.TabStop = false;
+            // 
             // WatchFolder
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);

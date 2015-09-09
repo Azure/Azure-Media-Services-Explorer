@@ -637,10 +637,10 @@
             this.tabPage1.Controls.Add(this.checkBoxDigitalVideoOnlyContentRestriction);
             this.tabPage1.Controls.Add(this.labelAllowPassingVideoContentToUnknownOuput);
             this.tabPage1.Controls.Add(this.comboBoxAllowPassingVideoContentUnknownOutput);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(632, 484);
+            this.tabPage1.Size = new System.Drawing.Size(632, 482);
             this.tabPage1.TabIndex = 3;
             this.tabPage1.Text = "Advanced settings";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -961,9 +961,11 @@
             // 
             // AddDynamicEncryptionFrame4_PlayReadyLicense
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
             this.Controls.Add(this.linkLabelPlayReadyPolicy);
             this.Controls.Add(this.buttonImportXML);

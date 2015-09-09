@@ -60,8 +60,8 @@
             this.tabPagePreview = new System.Windows.Forms.TabPage();
             this.webBrowserPreview = new System.Windows.Forms.WebBrowser();
             this.labelChannelName = new System.Windows.Forms.Label();
-            this.buttonDisregard = new System.Windows.Forms.Button();
-            this.buttonApplyClose = new System.Windows.Forms.Button();
+            this.buttonClose = new System.Windows.Forms.Button();
+            this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
@@ -157,10 +157,10 @@
             this.tabPageSettings.Controls.Add(this.label2);
             this.tabPageSettings.Controls.Add(this.buttonAddInputIP);
             this.tabPageSettings.Controls.Add(this.textboxchannedesc);
-            this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSettings.Location = new System.Drawing.Point(4, 24);
             this.tabPageSettings.Name = "tabPageSettings";
             this.tabPageSettings.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSettings.Size = new System.Drawing.Size(879, 513);
+            this.tabPageSettings.Size = new System.Drawing.Size(879, 511);
             this.tabPageSettings.TabIndex = 1;
             this.tabPageSettings.Text = "Settings";
             this.tabPageSettings.UseVisualStyleBackColor = true;
@@ -343,10 +343,10 @@
             this.tabPagePolicies.Controls.Add(this.textBoxCrossDomPolicy);
             this.tabPagePolicies.Controls.Add(this.checkBoxclientpolicy);
             this.tabPagePolicies.Controls.Add(this.textBoxClientPolicy);
-            this.tabPagePolicies.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePolicies.Location = new System.Drawing.Point(4, 24);
             this.tabPagePolicies.Name = "tabPagePolicies";
             this.tabPagePolicies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPagePolicies.Size = new System.Drawing.Size(879, 513);
+            this.tabPagePolicies.Size = new System.Drawing.Size(879, 511);
             this.tabPagePolicies.TabIndex = 2;
             this.tabPagePolicies.Text = "Policies";
             this.tabPagePolicies.UseVisualStyleBackColor = true;
@@ -401,9 +401,9 @@
             // tabPagePreview
             // 
             this.tabPagePreview.Controls.Add(this.webBrowserPreview);
-            this.tabPagePreview.Location = new System.Drawing.Point(4, 22);
+            this.tabPagePreview.Location = new System.Drawing.Point(4, 24);
             this.tabPagePreview.Name = "tabPagePreview";
-            this.tabPagePreview.Size = new System.Drawing.Size(879, 513);
+            this.tabPagePreview.Size = new System.Drawing.Size(879, 511);
             this.tabPagePreview.TabIndex = 3;
             this.tabPagePreview.Text = "Preview";
             this.tabPagePreview.UseVisualStyleBackColor = true;
@@ -416,7 +416,7 @@
             this.webBrowserPreview.Location = new System.Drawing.Point(0, 0);
             this.webBrowserPreview.MinimumSize = new System.Drawing.Size(23, 23);
             this.webBrowserPreview.Name = "webBrowserPreview";
-            this.webBrowserPreview.Size = new System.Drawing.Size(879, 513);
+            this.webBrowserPreview.Size = new System.Drawing.Size(879, 511);
             this.webBrowserPreview.TabIndex = 0;
             // 
             // labelChannelName
@@ -430,35 +430,35 @@
             this.labelChannelName.TabIndex = 37;
             this.labelChannelName.Text = "Channel : ";
             // 
-            // buttonDisregard
+            // buttonClose
             // 
-            this.buttonDisregard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDisregard.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonDisregard.Location = new System.Drawing.Point(779, 12);
-            this.buttonDisregard.Name = "buttonDisregard";
-            this.buttonDisregard.Size = new System.Drawing.Size(124, 27);
-            this.buttonDisregard.TabIndex = 41;
-            this.buttonDisregard.Text = "Close";
-            this.buttonDisregard.UseVisualStyleBackColor = true;
+            this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonClose.Location = new System.Drawing.Point(779, 12);
+            this.buttonClose.Name = "buttonClose";
+            this.buttonClose.Size = new System.Drawing.Size(124, 27);
+            this.buttonClose.TabIndex = 41;
+            this.buttonClose.Text = "Close";
+            this.buttonClose.UseVisualStyleBackColor = true;
             // 
-            // buttonApplyClose
+            // buttonUpdateClose
             // 
-            this.buttonApplyClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonApplyClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonApplyClose.Location = new System.Drawing.Point(587, 12);
-            this.buttonApplyClose.Name = "buttonApplyClose";
-            this.buttonApplyClose.Size = new System.Drawing.Size(185, 27);
-            this.buttonApplyClose.TabIndex = 40;
-            this.buttonApplyClose.Text = "Update settings and close";
-            this.buttonApplyClose.UseVisualStyleBackColor = true;
+            this.buttonUpdateClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpdateClose.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonUpdateClose.Location = new System.Drawing.Point(587, 12);
+            this.buttonUpdateClose.Name = "buttonUpdateClose";
+            this.buttonUpdateClose.Size = new System.Drawing.Size(185, 27);
+            this.buttonUpdateClose.TabIndex = 40;
+            this.buttonUpdateClose.Text = "Update settings and close";
+            this.buttonUpdateClose.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.buttonDisregard);
-            this.panel1.Controls.Add(this.buttonApplyClose);
+            this.panel1.Controls.Add(this.buttonClose);
+            this.panel1.Controls.Add(this.buttonUpdateClose);
             this.panel1.Location = new System.Drawing.Point(-2, 595);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(922, 55);
@@ -470,9 +470,11 @@
             // 
             // ChannelInformation
             // 
+            this.AcceptButton = this.buttonClose;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
@@ -517,8 +519,8 @@
         private System.Windows.Forms.DataGridView dataGridViewInputIP;
         private System.Windows.Forms.Button buttonDelInputIP;
         private System.Windows.Forms.Button buttonAddInputIP;
-        private System.Windows.Forms.Button buttonDisregard;
-        private System.Windows.Forms.Button buttonApplyClose;
+        private System.Windows.Forms.Button buttonClose;
+        private System.Windows.Forms.Button buttonUpdateClose;
         private System.Windows.Forms.CheckBox checkBoxPreviewSet;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textboxchannedesc;

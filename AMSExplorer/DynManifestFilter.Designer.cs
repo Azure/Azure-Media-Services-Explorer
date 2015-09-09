@@ -263,11 +263,11 @@
             this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Name = "timeControlStart";
             this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.Size = new System.Drawing.Size(589, 110);
             this.timeControlStart.TabIndex = 122;
             this.timeControlStart.TimeScale = null;
             this.toolTip1.SetToolTip(this.timeControlStart, "Live and VOD. Value rounded to the closest next GOP start.");
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
             // timeControlDVR
@@ -285,12 +285,12 @@
             this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.Name = "timeControlDVR";
             this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.Size = new System.Drawing.Size(589, 81);
             this.timeControlDVR.TabIndex = 107;
             this.timeControlDVR.TimeScale = null;
             this.toolTip1.SetToolTip(this.timeControlDVR, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
         "20s");
+            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
             this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
             // 
@@ -309,12 +309,12 @@
             this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Name = "timeControlEnd";
             this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.Size = new System.Drawing.Size(589, 92);
             this.timeControlEnd.TabIndex = 105;
             this.timeControlEnd.TimeScale = null;
             this.toolTip1.SetToolTip(this.timeControlEnd, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
         "GOP start.");
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
             this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // tabControl1
@@ -1179,9 +1179,11 @@
             // 
             // DynManifestFilter
             // 
+            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(1077, 761);
             this.Controls.Add(this.checkBoxRawMode);
             this.Controls.Add(this.textBoxOffset);

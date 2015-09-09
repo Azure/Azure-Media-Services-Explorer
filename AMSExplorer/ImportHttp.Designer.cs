@@ -174,9 +174,11 @@
             // 
             // ImportHttp
             // 
+            this.AcceptButton = this.buttonImport;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(798, 410);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
