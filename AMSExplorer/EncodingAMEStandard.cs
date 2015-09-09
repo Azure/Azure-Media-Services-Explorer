@@ -222,7 +222,6 @@ namespace AMSExplorer
             dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
             if (checkBoxAddAutomatic.Checked)
             {
-
                 // Cleaning
                 if (obj.Sources != null) obj.Sources.Clear();
 
@@ -232,14 +231,14 @@ namespace AMSExplorer
                     {
                         obj.Sources = new JArray() as dynamic;
                     }
-                   
-                     dynamic time = new JObject();
+
+                    dynamic time = new JObject();
                     time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                     time.Duration = timeControlDuration.GetTimeStampAsTimeSpanWithOffset();
                     obj.Sources.Add(time);
                 }
 
-                if (_subclipConfig != null) // sublicping. we need to add top bitrate values
+                if (_subclipConfig != null) // subclipping. we need to add top bitrate values
                 {
                     if (obj.Sources == null)
                     {
@@ -270,7 +269,9 @@ namespace AMSExplorer
                     if (!alreadyentry) obj.Sources.Add(entry);
 
 
-                    /*
+                    /* 
+
+                    // OLD CODE
                     JArray sources = (JArray)jo["Sources"];
                     if (sources == null)
                     {
@@ -336,7 +337,7 @@ namespace AMSExplorer
                                     new JProperty("Value", "TopBitrate"))
                    ))));
                    */
-                   
+
                 }
 
             }
