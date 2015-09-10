@@ -2061,7 +2061,14 @@ namespace AMSExplorer
                     }
                     else // no UI but let's rw for filter
                     {
-                        Urlstr = RW(Urlstr, choosenSE, filter);
+                        if (typeplayer == PlayerType.DASHIFRefPlayer || typeplayer == PlayerType.DASHLiveAzure)
+                        {
+                            Urlstr = AssetInfo.RW(new Uri(Urlstr), choosenSE, filter, false, null, AMSOutputProtocols.Dash).ToString();
+                        }
+                        else
+                        {
+                            Urlstr = RW(Urlstr, choosenSE, filter);
+                        }
                     }
                 }
 

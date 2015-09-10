@@ -92,7 +92,6 @@
             this.deleteAllLocatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createAnAssetFilterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.assetFilterInfoupdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem22 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetPlayback = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -189,7 +188,6 @@
             this.toolStripSeparator23 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem26 = new System.Windows.Forms.ToolStripMenuItem();
             this.createAnAssetFilterToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemAssetInfo36 = new System.Windows.Forms.ToolStripMenuItem();
             this.playbackToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withAzureMediaPlayerToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
@@ -526,7 +524,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -962,8 +960,7 @@
             this.extendExistingLocatorsToolStripMenuItem,
             this.deleteAllLocatorsToolStripMenuItem,
             this.findTheAssetFromTheLocatorIdGUIDToolStripMenuItem,
-            this.createAnAssetFilterToolStripMenuItem,
-            this.assetFilterInfoupdateToolStripMenuItem});
+            this.createAnAssetFilterToolStripMenuItem});
             this.publishToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.streaming_locator;
             this.publishToolStripMenuItem1.Name = "publishToolStripMenuItem1";
             this.publishToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
@@ -1013,14 +1010,6 @@
             this.createAnAssetFilterToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
             this.createAnAssetFilterToolStripMenuItem.Text = "Create an asset filter...";
             this.createAnAssetFilterToolStripMenuItem.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem_Click);
-            // 
-            // assetFilterInfoupdateToolStripMenuItem
-            // 
-            this.assetFilterInfoupdateToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
-            this.assetFilterInfoupdateToolStripMenuItem.Name = "assetFilterInfoupdateToolStripMenuItem";
-            this.assetFilterInfoupdateToolStripMenuItem.Size = new System.Drawing.Size(325, 22);
-            this.assetFilterInfoupdateToolStripMenuItem.Text = "Asset filter info/update...";
-            this.assetFilterInfoupdateToolStripMenuItem.DropDownOpening += new System.EventHandler(this.assetFilterInfoupdateToolStripMenuItem_DropDownOpening);
             // 
             // toolStripMenuItem22
             // 
@@ -1775,7 +1764,6 @@
             this.toolStripSeparator23,
             this.toolStripMenuItem26,
             this.createAnAssetFilterToolStripMenuItem1,
-            this.toolStripMenuItemAssetInfo36,
             this.playbackToolStripMenuItem});
             this.publishToolStripMenuItem.Name = "publishToolStripMenuItem";
             this.publishToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
@@ -1890,14 +1878,6 @@
             this.createAnAssetFilterToolStripMenuItem1.Size = new System.Drawing.Size(467, 22);
             this.createAnAssetFilterToolStripMenuItem1.Text = "Create an asset filter...";
             this.createAnAssetFilterToolStripMenuItem1.Click += new System.EventHandler(this.createAnAssetFilterToolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItemAssetInfo36
-            // 
-            this.toolStripMenuItemAssetInfo36.Image = global::AMSExplorer.Bitmaps.Display_information_filter;
-            this.toolStripMenuItemAssetInfo36.Name = "toolStripMenuItemAssetInfo36";
-            this.toolStripMenuItemAssetInfo36.Size = new System.Drawing.Size(467, 22);
-            this.toolStripMenuItemAssetInfo36.Text = "Asset filter info/update...";
-            this.toolStripMenuItemAssetInfo36.DropDownOpening += new System.EventHandler(this.toolStripMenuItemAssetInfo36_DropDownOpening);
             // 
             // playbackToolStripMenuItem
             // 
@@ -5118,8 +5098,6 @@
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createAnAssetFilterToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem25;
-        private System.Windows.Forms.ToolStripMenuItem assetFilterInfoupdateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemAssetInfo36;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProgramAssetFilterInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem26;
         private System.Windows.Forms.ToolStripMenuItem azureMediaPlayerDiagnosticsCenterToolStripMenuItem;

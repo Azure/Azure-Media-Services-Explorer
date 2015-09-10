@@ -4406,7 +4406,6 @@ namespace AMSExplorer
             contextMenuExportFilesToStorage.Enabled =
             createAnAssetFilterToolStripMenuItem.Enabled =
             displayParentJobToolStripMenuItem1.Enabled = singleitem;
-            assetFilterInfoupdateToolStripMenuItem.Enabled = singleitem;
 
             if (singleitem && firstAsset != null && firstAsset.AssetFiles.Count() == 1)
             {
@@ -5565,6 +5564,7 @@ namespace AMSExplorer
             else
             {
                 comboBoxEncodingRU.Enabled = trackBarEncodingRU.Enabled = buttonUpdateEncodingRU.Enabled = false;
+                toolStripStatusLabelEncRU.Text = string.Format("No encoding on this account");
             }
         }
 
@@ -9383,16 +9383,7 @@ namespace AMSExplorer
                 if (IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
                 {
                     Uri MyUri = PlayBackLocator.GetSmoothStreamingUri();
-                    /*
-                    if (playertype == PlayerType.DASHIFRefPlayer || playertype == PlayerType.DASHLiveAzure)
-                    {
-                        MyUri = PlayBackLocator.GetMpegDashUri();
-                    }
-                    else
-                    {
-                        MyUri = PlayBackLocator.GetSmoothStreamingUri();
-                    }
-                    */
+
                     if (MyUri != null)
                     {
                         AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset, false, filter);
@@ -9438,11 +9429,6 @@ namespace AMSExplorer
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(@"http://ie.microsoft.com/testdrive/graphics/captionmaker");
-        }
-
-        private void removeKeysForTheAssetsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoRemoveKeys();
         }
 
         private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9652,11 +9638,6 @@ namespace AMSExplorer
             return storagekeys;
         }
 
-        private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            DoCopyAssetToAnotherAMSAccount();
-        }
-
         private void enableAzureCDNToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ChangeAzureCDN(true);
@@ -9699,7 +9680,6 @@ namespace AMSExplorer
         {
             // enable Azure CDN operation if one se selected and in stopped state
             ManageMenuOptionsAzureCDN(disableAzureCDNToolStripMenuItem, enableAzureCDNToolStripMenuItem);
-
         }
 
         private void enableAzureCDNToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9969,7 +9949,6 @@ namespace AMSExplorer
 
             // edit asset filter if only one program
             toolStripMenuItemProgramAssetFilterInfo.Enabled = single;
-
         }
 
         private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
@@ -10035,7 +10014,6 @@ namespace AMSExplorer
         {
 
         }
-
 
         private void findTheAssetFromTheLocatorToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10226,7 +10204,6 @@ namespace AMSExplorer
         private void encodeAssetsWithAMEStandardToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoMenuEncodeWithAMEStandard();
-
         }
 
 
@@ -10279,7 +10256,6 @@ namespace AMSExplorer
             getATestTokenToolStripMenuItem.Enabled =
             createAnAssetFilterToolStripMenuItem1.Enabled =
             toolStripMenuItemPublishCopyPubURLToClipb.Enabled =
-            toolStripMenuItemAssetInfo36.Enabled =
             assets.Count == 1;
         }
 
@@ -10377,14 +10353,6 @@ namespace AMSExplorer
 
         }
 
-        private void assetFilterInfoupdateToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
-        {
-        }
-
-        private void toolStripMenuItemAssetInfo36_DropDownOpening(object sender, EventArgs e)
-        {
-        }
-
         private void toolStripMenuItemProgramAssetFilterInfo_DropDownOpening(object sender, EventArgs e)
         {
         }
@@ -10392,16 +10360,6 @@ namespace AMSExplorer
         private void toolStripMenuItem26_Click(object sender, EventArgs e)
         {
             DoCreateFilter();
-        }
-
-        private void dataGridViewFilters_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
-        {
-            // on line on two is blue
-            if (e.RowIndex % 2 == 0)
-            {
-                foreach (DataGridViewCell c in ((DataGridView)sender).Rows[e.RowIndex].Cells) c.Style.BackColor = Color.AliceBlue;
-            }
-
         }
 
         private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10456,7 +10414,6 @@ namespace AMSExplorer
                 {
                     foreach (IChannel channel in SelectedChannels)
                     {
-                        //int index = DoGridTransferAddItem(string.Format("Copy asset '{0}' to account '{1}'", asset.Name, form.DestinationLoginCredentials.AccountName), TransferType.ExportToOtherAMSAccount, Properties.Settings.Default.useTransferQueue);
                         // Start a worker thread that does asset copy.
                         Task.Factory.StartNew(() => ProcessCloneChannelToAnotherAMSAccount(form.DestinationLoginCredentials, form.DestinationStorageAccount, channel));
                     }
@@ -10492,6 +10449,12 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
+                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a) == AssetInfo.Type_LiveArchive))
+                {
+                    MessageBox.Show("Asset(s) should be a Live stream or archive." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+
                 Subclipping form = new Subclipping(_context, selectedAssets, this)
                 {
                     EncodingJobName = "Subclipping of " + Constants.NameconvInputasset,
@@ -10499,87 +10462,6 @@ namespace AMSExplorer
                 };
 
                 form.ShowDialog();
-
-                //if (form.Show() == DialogResult.OK)
-                //{
-                //    var subclipConfig = form.GetSubclippingConfiguration();
-
-                //    if (subclipConfig.Reencode) // reencode the clip
-                //    {
-                //        List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
-                //        EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
-                //        {
-                //            EncodingLabel = (selectedAssets.Count > 1) ? selectedAssets.Count + " assets have been selected. " + selectedAssets.Count + " jobs will be submitted." : "Asset '" + selectedAssets.FirstOrDefault().Name + "' will be encoded.",
-                //            EncodingProcessorsList = Procs,
-                //            EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
-                //            EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
-                //            EncodingAMEStdPresetXMLFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
-                //            EncodingAMEStdPresetXMLFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
-                //            SelectedAssets = selectedAssets
-                //        };
-
-                //        if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                //        {
-                //            string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                //            LaunchJobs(
-                //               form2.EncodingProcessorSelected,
-                //               selectedAssets,
-                //               form2.EncodingJobName,
-                //               form2.JobOptions.Priority,
-                //               taskname,
-                //               form2.EncodingOutputAssetName,
-                //               new List<string>() { form2.EncodingConfiguration },
-                //               form2.JobOptions.OutputAssetsCreationOptions,
-                //               form2.JobOptions.TasksOptionsSetting,
-                //               form2.JobOptions.StorageSelected);
-                //        }
-                //    }
-                //    else if (subclipConfig.CreateAssetFilter) // create a asset filter
-                //    {
-                //        IAsset selasset = selectedAssets.FirstOrDefault();
-                //        DynManifestFilter formAF = new DynManifestFilter(_contextdynmanifest, _context, null, selasset, subclipConfig);
-
-                //        if (formAF.ShowDialog() == DialogResult.OK)
-                //        {
-                //            AssetFilter myassetfilter = new AssetFilter(selasset);
-
-                //            Filter filter = formAF.GetFilter;
-                //            myassetfilter.Name = filter.Name;
-                //            myassetfilter.PresentationTimeRange = filter.PresentationTimeRange;
-                //            myassetfilter.Tracks = filter.Tracks;
-                //            myassetfilter._context = filter._context;
-                //            try
-                //            {
-                //                myassetfilter.Create();
-                //                TextBoxLogWriteLine("Asset filter '{0}' created.", myassetfilter.Name);
-                //            }
-                //            catch (Exception e)
-                //            {
-                //                TextBoxLogWriteLine("Error when creating filter '{0}'.", myassetfilter.Name, true);
-                //                TextBoxLogWriteLine(e);
-                //            }
-                //            DoRefreshGridFiltersV(false);
-                //        }
-
-                //    }
-                //    else // no reencode or asset filter but stream copy
-                //    {
-                //        string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                //        IMediaProcessor Proc = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
-
-                //        LaunchJobs(
-                //            Proc,
-                //            selectedAssets,
-                //            form.EncodingJobName,
-                //            form.JobOptions.Priority,
-                //            taskname,
-                //            form.EncodingOutputAssetName,
-                //            new List<string>() { form.GetSubclippingConfiguration().Configuration },
-                //            form.JobOptions.OutputAssetsCreationOptions,
-                //            form.JobOptions.TasksOptionsSetting,
-                //            form.JobOptions.StorageSelected);
-                //    }
-
             }
         }
 

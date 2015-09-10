@@ -247,7 +247,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label.Location = new System.Drawing.Point(20, 21);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(357, 23);
+            this.label.Size = new System.Drawing.Size(498, 23);
             this.label.TabIndex = 41;
             this.label.Text = "label1";
             // 
