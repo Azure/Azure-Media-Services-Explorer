@@ -454,5 +454,17 @@ namespace AMSExplorer.Properties {
                 this["MEPremiumWorkflowPrice"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3650")]
+        public int DefaultLocatorDurationDaysNew {
+            get {
+                return ((int)(this["DefaultLocatorDurationDaysNew"]));
+            }
+            set {
+                this["DefaultLocatorDurationDaysNew"] = value;
+            }
+        }
     }
 }

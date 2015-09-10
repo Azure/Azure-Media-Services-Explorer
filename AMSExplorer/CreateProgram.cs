@@ -158,7 +158,7 @@ namespace AMSExplorer
         private void CreateLocator_Load(object sender, EventArgs e)
         {
             this.Text = string.Format(this.Text, ChannelName);
-            checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
+            checkBoxCreateLocator.Text = string.Format(checkBoxCreateLocator.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
             labelManifestFile.Text = string.Empty;
             labelLocatorID.Text = string.Empty;
             labelURLFileNameWarning.Text = string.Empty;

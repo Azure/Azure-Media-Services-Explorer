@@ -366,7 +366,7 @@
             this.numericUpDownLocatorDuration.Size = new System.Drawing.Size(108, 23);
             this.numericUpDownLocatorDuration.TabIndex = 53;
             this.numericUpDownLocatorDuration.Value = new decimal(new int[] {
-            365,
+            3650,
             0,
             0,
             0});

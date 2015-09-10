@@ -110,5 +110,8 @@
     <Setting Name="MEPremiumWorkflowPrice" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">3.99</Value>
     </Setting>
+    <Setting Name="DefaultLocatorDurationDaysNew" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3650</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

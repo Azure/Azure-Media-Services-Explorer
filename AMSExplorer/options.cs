@@ -56,7 +56,7 @@ namespace AMSExplorer
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
-            Properties.Settings.Default.DefaultLocatorDurationDays = (int)numericUpDownLocatorDuration.Value;
+            Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
             Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
@@ -95,7 +95,7 @@ namespace AMSExplorer
 
             numericUpDownPriority.Value = 10;
             textBoxCurrency.Text = "$";
-            numericUpDownLocatorDuration.Value = 365;
+            numericUpDownLocatorDuration.Value = 3650;
             numericUpDownTokenDuration.Value = 60;
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
@@ -141,7 +141,7 @@ namespace AMSExplorer
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
 
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
-            numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDays;
+            numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;

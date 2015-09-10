@@ -142,7 +142,7 @@ namespace AMSExplorer
 
             // publish
             checkBoxPublishOAssets.Checked = _WatchFolderSettings.PublishOutputAssets;
-            checkBoxPublishOAssets.Text = string.Format(checkBoxPublishOAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDays);
+            checkBoxPublishOAssets.Text = string.Format(checkBoxPublishOAssets.Text, Properties.Settings.Default.DefaultLocatorDurationDaysNew);
         
             // send email
             checkBoxSendEMail.Checked = _WatchFolderSettings.SendEmailToRecipient != null;
