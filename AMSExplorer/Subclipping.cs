@@ -292,6 +292,7 @@ namespace AMSExplorer
         {
             CheckIfErrorTimeControls();
             ResetConfigXML();
+            UpdateDurationText();
         }
 
 
@@ -304,13 +305,20 @@ namespace AMSExplorer
         {
             CheckIfErrorTimeControls();
             ResetConfigXML();
+            UpdateDurationText();
+        }
+
+        private void UpdateDurationText()
+        {
+            textBoxDurationTime.Text = (timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset()).ToString();
         }
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
             if (!radioButtonClipWithReencode.Checked) backupcheckboxtrim = checkBoxTrimming.Checked; // let's save status
-            timeControlStart.Enabled = checkBoxTrimming.Checked;
-            timeControlEnd.Enabled = checkBoxTrimming.Checked;
+            timeControlStart.Enabled = 
+            timeControlEnd.Enabled = 
+            textBoxDurationTime.Enabled = 
             checkBoxPreviewStream.Enabled = checkBoxTrimming.Checked;
             CheckIfErrorTimeControls();
             ResetConfigXML();

@@ -362,6 +362,7 @@ namespace AMSExplorer
 
             RefreshTracks();
             CheckIfErrorTimeControls();
+            UpdateDurationText();
         }
 
         private void DisplayFilterInfo()
@@ -530,7 +531,7 @@ namespace AMSExplorer
                     {
                         throw;
                     }
-                   
+
                 }
                 else  // Default mode
                 {
@@ -880,6 +881,7 @@ namespace AMSExplorer
         private void timeControlEnd_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+            UpdateDurationText();
         }
 
 
@@ -889,7 +891,22 @@ namespace AMSExplorer
             timeControlStart.Enabled = checkBoxStartTime.Checked;
             labelStartTimeDefault.Text = checkBoxStartTime.Checked ? string.Empty : (string)labelStartTimeDefault.Tag;
             CheckIfErrorTimeControls();
+            UpdateDurationText();
+        }
 
+        private void UpdateDurationText()
+        {
+            if (checkBoxStartTime.Checked && checkBoxEndTime.Checked)
+            {
+                textBoxDurationTime.Enabled = true;
+                textBoxDurationTime.Text = (timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset()).ToString();
+
+            }
+            else
+            {
+                textBoxDurationTime.Enabled = false;
+                textBoxDurationTime.Text = string.Empty;
+            }
         }
 
         private void checkBoxEndTime_CheckedChanged(object sender, EventArgs e)
@@ -897,6 +914,7 @@ namespace AMSExplorer
             timeControlEnd.Enabled = checkBoxEndTime.Checked;
             labelDefaultEnd.Text = checkBoxEndTime.Checked ? string.Empty : (string)labelDefaultEnd.Tag;
             CheckIfErrorTimeControls();
+            UpdateDurationText();
         }
 
         private void checkBoxLiveBackoff_CheckedChanged(object sender, EventArgs e)
@@ -964,6 +982,7 @@ namespace AMSExplorer
         private void timeControlStart_ValueChanged(object sender, EventArgs e)
         {
             CheckIfErrorTimeControls();
+            UpdateDurationText();
         }
 
         private void comboBoxLocatorsFilters_SelectedIndexChanged(object sender, EventArgs e)

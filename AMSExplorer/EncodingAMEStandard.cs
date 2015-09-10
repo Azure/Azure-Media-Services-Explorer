@@ -184,7 +184,7 @@ namespace AMSExplorer
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
                 timeControlStartTime.SetTimeStamp(_subclipConfig.StartTimeForReencode);
-                timeControlDuration.SetTimeStamp(_subclipConfig.DurationForReencode);
+                timeControlEndTime.SetTimeStamp(_subclipConfig.StartTimeForReencode + _subclipConfig.DurationForReencode);
                 checkBoxSourceTrimming.Checked = true;
             }
         }
@@ -234,7 +234,7 @@ namespace AMSExplorer
 
                     dynamic time = new JObject();
                     time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
-                    time.Duration = timeControlDuration.GetTimeStampAsTimeSpanWithOffset();
+                    time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
                     obj.Sources.Add(time);
                 }
 
@@ -373,16 +373,26 @@ namespace AMSExplorer
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
+            UpdateDurationText();
         }
 
         private void timeControlDuration_ValueChanged(object sender, EventArgs e)
         {
             UpdateTextBoxJSON(textBoxConfiguration.Text);
+            UpdateDurationText();
+        }
+        private void UpdateDurationText()
+        {
+            textBoxSourceDurationTime.Text = (timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset()).ToString();
         }
 
         private void checkBoxSourceTrimming_CheckedChanged(object sender, EventArgs e)
         {
-            timeControlStartTime.Enabled = timeControlDuration.Enabled = checkBoxSourceTrimming.Checked;
+            timeControlStartTime.Enabled =
+                timeControlEndTime.Enabled =
+                textBoxSourceDurationTime.Enabled =
+                checkBoxSourceTrimming.Checked;
+
             UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
 

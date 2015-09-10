@@ -58,10 +58,12 @@
             this.Advanced = new System.Windows.Forms.TabPage();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
             this.groupBoxTrim = new System.Windows.Forms.GroupBox();
-            this.timeControlDuration = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Preset.SuspendLayout();
@@ -218,7 +220,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 154);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 138);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -382,7 +384,9 @@
             // 
             // groupBoxTrim
             // 
-            this.groupBoxTrim.Controls.Add(this.timeControlDuration);
+            this.groupBoxTrim.Controls.Add(this.textBoxSourceDurationTime);
+            this.groupBoxTrim.Controls.Add(this.label7);
+            this.groupBoxTrim.Controls.Add(this.timeControlEndTime);
             this.groupBoxTrim.Controls.Add(this.timeControlStartTime);
             this.groupBoxTrim.Controls.Add(this.checkBoxSourceTrimming);
             this.groupBoxTrim.Location = new System.Drawing.Point(16, 38);
@@ -391,24 +395,63 @@
             this.groupBoxTrim.TabIndex = 3;
             this.groupBoxTrim.TabStop = false;
             // 
-            // timeControlDuration
+            // checkBoxSourceTrimming
             // 
-            this.timeControlDuration.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDuration.DisplayTrackBar = false;
-            this.timeControlDuration.Enabled = false;
-            this.timeControlDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlDuration.Label1 = "";
-            this.timeControlDuration.Label2 = "Duration";
-            this.timeControlDuration.Location = new System.Drawing.Point(44, 105);
-            this.timeControlDuration.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlDuration.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDuration.Name = "timeControlDuration";
-            this.timeControlDuration.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDuration.Size = new System.Drawing.Size(441, 58);
-            this.timeControlDuration.TabIndex = 7;
-            this.timeControlDuration.TimeScale = null;
-            this.timeControlDuration.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
-            this.timeControlDuration.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
+            this.checkBoxSourceTrimming.AutoSize = true;
+            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
+            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
+            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxSourceTrimming.TabIndex = 5;
+            this.checkBoxSourceTrimming.Text = "Source Trimming";
+            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(514, 105);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 15);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Duration :";
+            // 
+            // textBoxSourceDurationTime
+            // 
+            this.textBoxSourceDurationTime.Enabled = false;
+            this.textBoxSourceDurationTime.Location = new System.Drawing.Point(517, 123);
+            this.textBoxSourceDurationTime.Name = "textBoxSourceDurationTime";
+            this.textBoxSourceDurationTime.ReadOnly = true;
+            this.textBoxSourceDurationTime.Size = new System.Drawing.Size(123, 23);
+            this.textBoxSourceDurationTime.TabIndex = 88;
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 75;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // timeControlEndTime
+            // 
+            this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEndTime.DisplayTrackBar = false;
+            this.timeControlEndTime.Enabled = false;
+            this.timeControlEndTime.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEndTime.Label1 = "";
+            this.timeControlEndTime.Label2 = "End time";
+            this.timeControlEndTime.Location = new System.Drawing.Point(44, 105);
+            this.timeControlEndTime.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEndTime.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEndTime.Name = "timeControlEndTime";
+            this.timeControlEndTime.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEndTime.Size = new System.Drawing.Size(441, 58);
+            this.timeControlEndTime.TabIndex = 7;
+            this.timeControlEndTime.TimeScale = null;
+            this.timeControlEndTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
+            this.timeControlEndTime.ValueChanged += new System.EventHandler(this.timeControlDuration_ValueChanged);
             // 
             // timeControlStartTime
             // 
@@ -428,27 +471,6 @@
             this.timeControlStartTime.TimeScale = null;
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
-            // checkBoxSourceTrimming
-            // 
-            this.checkBoxSourceTrimming.AutoSize = true;
-            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
-            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
-            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxSourceTrimming.TabIndex = 5;
-            this.checkBoxSourceTrimming.Text = "Source Trimming";
-            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
-            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 75;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 
@@ -522,8 +544,10 @@
         private System.Windows.Forms.GroupBox groupBoxTrim;
         private System.Windows.Forms.CheckBox checkBoxAddAutomatic;
         private System.Windows.Forms.CheckBox checkBoxSourceTrimming;
-        private TimeControl timeControlDuration;
+        private TimeControl timeControlEndTime;
         private TimeControl timeControlStartTime;
         private ButtonJobOptions buttonJobOptions;
+        public System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxSourceDurationTime;
     }
 }
