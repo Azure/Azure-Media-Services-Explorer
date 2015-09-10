@@ -8546,7 +8546,7 @@ namespace AMSExplorer
                 {
                     string url = ValidURIs.FirstOrDefault().AbsoluteUri;
 
-                    if (_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault()!=null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
+                    if (_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
                         var form = new ChooseStreamingEndpoint(_context, asset);
                         if (form.ShowDialog() == DialogResult.OK)
@@ -10073,16 +10073,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-
-                var myfilterinfo = form.GetFilterInfo;
+                FilterCreationInfo filterinfo = null;
                 try
                 {
-                    _context.Filters.Create(myfilterinfo.Name, myfilterinfo.Presentationtimerange, myfilterinfo.Trackconditions);
-                    TextBoxLogWriteLine("Global filter '{0}' created.", myfilterinfo.Name);
+                    filterinfo = form.GetFilterInfo;
+                    _context.Filters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
+                    TextBoxLogWriteLine("Global filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when creating filter '{0}'.", myfilterinfo.Name, true);
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);
@@ -10119,13 +10119,13 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                var filterinfotoupdate = form.GetFilterInfo;
+                FilterCreationInfo filterinfotoupdate = null;
                 try
                 {
+                    filterinfotoupdate = form.GetFilterInfo;
                     filter.PresentationTimeRange = filterinfotoupdate.Presentationtimerange;
                     filter.Tracks = filterinfotoupdate.Trackconditions;
                     filter.Update();
-
                     TextBoxLogWriteLine("Global filter '{0}' updated.", filter.Name);
                 }
                 catch (Exception e)
@@ -10306,16 +10306,16 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                var filterinfo = form.GetFilterInfo;
-
+                FilterCreationInfo filterinfo = null;
                 try
                 {
+                    filterinfo = form.GetFilterInfo;
                     selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
                     TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                 }
                 catch (Exception e)
                 {
-                    TextBoxLogWriteLine("Error when creating filter '{0}'.", filterinfo.Name, true);
+                    TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     TextBoxLogWriteLine(e);
                 }
                 DoRefreshGridFiltersV(false);

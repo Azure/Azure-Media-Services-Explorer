@@ -40,9 +40,6 @@
             this.checkBoxDVRWindow = new System.Windows.Forms.CheckBox();
             this.checkBoxEndTime = new System.Windows.Forms.CheckBox();
             this.checkBoxStartTime = new System.Windows.Forms.CheckBox();
-            this.timeControlStart = new AMSExplorer.TimeControl();
-            this.timeControlDVR = new AMSExplorer.TimeControl();
-            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.labelDefaultBakckoff = new System.Windows.Forms.Label();
@@ -55,6 +52,11 @@
             this.numericUpDownBackoffSeconds = new System.Windows.Forms.NumericUpDown();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.tabPageTRRaw = new System.Windows.Forms.TabPage();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.textBoxRawTimescale = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.textBoxRawBackoff = new System.Windows.Forms.TextBox();
@@ -101,6 +103,10 @@
             this.buttonAddTrack = new System.Windows.Forms.Button();
             this.listBoxTracks = new System.Windows.Forms.ListBox();
             this.dataGridViewTracks = new System.Windows.Forms.DataGridView();
+            this.tabPageInformation = new System.Windows.Forms.TabPage();
+            this.DGInfo = new System.Windows.Forms.DataGridView();
+            this.contextMenuStripInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.labelFilterTitle = new System.Windows.Forms.Label();
@@ -113,10 +119,9 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
-            this.tabPageInformation = new System.Windows.Forms.TabPage();
-            this.DGInfo = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripInfo = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemFilesCopyClipboard = new System.Windows.Forms.ToolStripMenuItem();
+            this.timeControlStart = new AMSExplorer.TimeControl();
+            this.timeControlDVR = new AMSExplorer.TimeControl();
+            this.timeControlEnd = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -129,10 +134,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageInformation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).BeginInit();
             this.contextMenuStripInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -254,75 +259,6 @@
             this.toolTip1.SetToolTip(this.checkBoxStartTime, "Live and VOD. Value rounded to the closest next GOP start.");
             this.checkBoxStartTime.UseVisualStyleBackColor = true;
             this.checkBoxStartTime.CheckedChanged += new System.EventHandler(this.checkBoxStartTime_CheckedChanged);
-            // 
-            // timeControlStart
-            // 
-            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlStart.DisplayTrackBar = true;
-            this.timeControlStart.Enabled = false;
-            this.timeControlStart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlStart.Label1 = "Start time";
-            this.timeControlStart.Label2 = "(Live and VOD)";
-            this.timeControlStart.Location = new System.Drawing.Point(408, 27);
-            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.Name = "timeControlStart";
-            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlStart.Size = new System.Drawing.Size(589, 110);
-            this.timeControlStart.TabIndex = 122;
-            this.timeControlStart.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlStart, "Live and VOD. Value rounded to the closest next GOP start.");
-            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
-            // 
-            // timeControlDVR
-            // 
-            this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlDVR.DisplayTrackBar = true;
-            this.timeControlDVR.Enabled = false;
-            this.timeControlDVR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlDVR.Label1 = "";
-            this.timeControlDVR.Label2 = "DVR Window";
-            this.timeControlDVR.Location = new System.Drawing.Point(408, 303);
-            this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
-            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDVR.Name = "timeControlDVR";
-            this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlDVR.Size = new System.Drawing.Size(589, 81);
-            this.timeControlDVR.TabIndex = 107;
-            this.timeControlDVR.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlDVR, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
-        "20s");
-            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
-            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
-            // 
-            // timeControlEnd
-            // 
-            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
-            this.timeControlEnd.DisplayTrackBar = true;
-            this.timeControlEnd.Enabled = false;
-            this.timeControlEnd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.timeControlEnd.Label1 = "End time";
-            this.timeControlEnd.Label2 = "(VOD)";
-            this.timeControlEnd.Location = new System.Drawing.Point(408, 144);
-            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
-            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.Name = "timeControlEnd";
-            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
-            this.timeControlEnd.Size = new System.Drawing.Size(589, 92);
-            this.timeControlEnd.TabIndex = 105;
-            this.timeControlEnd.TimeScale = null;
-            this.toolTip1.SetToolTip(this.timeControlEnd, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
-        "GOP start.");
-            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
-            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // tabControl1
             // 
@@ -461,6 +397,11 @@
             // 
             // tabPageTRRaw
             // 
+            this.tabPageTRRaw.Controls.Add(this.label21);
+            this.tabPageTRRaw.Controls.Add(this.label19);
+            this.tabPageTRRaw.Controls.Add(this.label18);
+            this.tabPageTRRaw.Controls.Add(this.label17);
+            this.tabPageTRRaw.Controls.Add(this.label16);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawTimescale);
             this.tabPageTRRaw.Controls.Add(this.label9);
             this.tabPageTRRaw.Controls.Add(this.textBoxRawBackoff);
@@ -479,12 +420,58 @@
             this.tabPageTRRaw.Text = "Time Range (Raw)";
             this.tabPageTRRaw.UseVisualStyleBackColor = true;
             // 
+            // label21
+            // 
+            this.label21.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label21.Location = new System.Drawing.Point(519, 293);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(243, 18);
+            this.label21.TabIndex = 125;
+            this.label21.Text = "Keep it empty to use default (min)";
+            // 
+            // label19
+            // 
+            this.label19.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label19.Location = new System.Drawing.Point(519, 225);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(243, 18);
+            this.label19.TabIndex = 124;
+            this.label19.Text = "Keep it empty to use default (max)";
+            // 
+            // label18
+            // 
+            this.label18.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label18.Location = new System.Drawing.Point(519, 163);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(243, 18);
+            this.label18.TabIndex = 123;
+            this.label18.Text = "Keep it empty to use default (max)";
+            // 
+            // label17
+            // 
+            this.label17.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label17.Location = new System.Drawing.Point(519, 99);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(243, 18);
+            this.label17.TabIndex = 122;
+            this.label17.Text = "Keep it empty to use default (min)";
+            // 
+            // label16
+            // 
+            this.label16.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label16.Location = new System.Drawing.Point(519, 34);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(321, 18);
+            this.label16.TabIndex = 121;
+            this.label16.Text = "Keep it empty to use default (10000000 ticks per second)";
+            // 
             // textBoxRawTimescale
             // 
             this.textBoxRawTimescale.Location = new System.Drawing.Point(217, 31);
             this.textBoxRawTimescale.Name = "textBoxRawTimescale";
             this.textBoxRawTimescale.Size = new System.Drawing.Size(278, 23);
             this.textBoxRawTimescale.TabIndex = 120;
+            this.textBoxRawTimescale.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // label9
             // 
@@ -502,6 +489,7 @@
             this.textBoxRawBackoff.Name = "textBoxRawBackoff";
             this.textBoxRawBackoff.Size = new System.Drawing.Size(278, 23);
             this.textBoxRawBackoff.TabIndex = 118;
+            this.textBoxRawBackoff.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawTimeSpan_Validating);
             // 
             // textBoxRawDVR
             // 
@@ -509,6 +497,7 @@
             this.textBoxRawDVR.Name = "textBoxRawDVR";
             this.textBoxRawDVR.Size = new System.Drawing.Size(278, 23);
             this.textBoxRawDVR.TabIndex = 117;
+            this.textBoxRawDVR.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawTimeSpan_Validating);
             // 
             // textBoxRawEnd
             // 
@@ -516,6 +505,7 @@
             this.textBoxRawEnd.Name = "textBoxRawEnd";
             this.textBoxRawEnd.Size = new System.Drawing.Size(278, 23);
             this.textBoxRawEnd.TabIndex = 116;
+            this.textBoxRawEnd.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // textBoxRawStart
             // 
@@ -523,6 +513,7 @@
             this.textBoxRawStart.Name = "textBoxRawStart";
             this.textBoxRawStart.Size = new System.Drawing.Size(278, 23);
             this.textBoxRawStart.TabIndex = 91;
+            this.textBoxRawStart.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRawulong_Validating);
             // 
             // label8
             // 
@@ -1064,6 +1055,52 @@
             this.dataGridViewTracks.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTracks_CellValueChanged);
             this.dataGridViewTracks.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridViewTracks_CurrentCellDirtyStateChanged);
             // 
+            // tabPageInformation
+            // 
+            this.tabPageInformation.Controls.Add(this.DGInfo);
+            this.tabPageInformation.Location = new System.Drawing.Point(4, 24);
+            this.tabPageInformation.Name = "tabPageInformation";
+            this.tabPageInformation.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageInformation.Size = new System.Drawing.Size(1039, 557);
+            this.tabPageInformation.TabIndex = 3;
+            this.tabPageInformation.Text = "Filter information";
+            this.tabPageInformation.UseVisualStyleBackColor = true;
+            // 
+            // DGInfo
+            // 
+            this.DGInfo.AllowUserToAddRows = false;
+            this.DGInfo.AllowUserToDeleteRows = false;
+            this.DGInfo.AllowUserToResizeRows = false;
+            this.DGInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.DGInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DGInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGInfo.ColumnHeadersVisible = false;
+            this.DGInfo.ContextMenuStrip = this.contextMenuStripInfo;
+            this.DGInfo.Location = new System.Drawing.Point(3, 6);
+            this.DGInfo.MultiSelect = false;
+            this.DGInfo.Name = "DGInfo";
+            this.DGInfo.ReadOnly = true;
+            this.DGInfo.RowHeadersVisible = false;
+            this.DGInfo.Size = new System.Drawing.Size(1030, 545);
+            this.DGInfo.TabIndex = 1;
+            // 
+            // contextMenuStripInfo
+            // 
+            this.contextMenuStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemFilesCopyClipboard});
+            this.contextMenuStripInfo.Name = "contextMenuStripDG";
+            this.contextMenuStripInfo.Size = new System.Drawing.Size(170, 26);
+            this.contextMenuStripInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripInfo_MouseClick);
+            // 
+            // toolStripMenuItemFilesCopyClipboard
+            // 
+            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
+            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
+            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
+            this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
+            // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
@@ -1185,51 +1222,74 @@
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
             // 
-            // tabPageInformation
+            // timeControlStart
             // 
-            this.tabPageInformation.Controls.Add(this.DGInfo);
-            this.tabPageInformation.Location = new System.Drawing.Point(4, 24);
-            this.tabPageInformation.Name = "tabPageInformation";
-            this.tabPageInformation.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageInformation.Size = new System.Drawing.Size(1039, 557);
-            this.tabPageInformation.TabIndex = 3;
-            this.tabPageInformation.Text = "Information";
-            this.tabPageInformation.UseVisualStyleBackColor = true;
-            // 
-            // DGInfo
-            // 
-            this.DGInfo.AllowUserToAddRows = false;
-            this.DGInfo.AllowUserToDeleteRows = false;
-            this.DGInfo.AllowUserToResizeRows = false;
-            this.DGInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.timeControlStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DGInfo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DGInfo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGInfo.ColumnHeadersVisible = false;
-            this.DGInfo.ContextMenuStrip = this.contextMenuStripInfo;
-            this.DGInfo.Location = new System.Drawing.Point(3, 6);
-            this.DGInfo.MultiSelect = false;
-            this.DGInfo.Name = "DGInfo";
-            this.DGInfo.ReadOnly = true;
-            this.DGInfo.RowHeadersVisible = false;
-            this.DGInfo.Size = new System.Drawing.Size(1030, 545);
-            this.DGInfo.TabIndex = 1;
+            this.timeControlStart.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlStart.DisplayTrackBar = true;
+            this.timeControlStart.Enabled = false;
+            this.timeControlStart.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlStart.Label1 = "Start time";
+            this.timeControlStart.Label2 = "(Live and VOD)";
+            this.timeControlStart.Location = new System.Drawing.Point(408, 27);
+            this.timeControlStart.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlStart.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.Name = "timeControlStart";
+            this.timeControlStart.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlStart.Size = new System.Drawing.Size(589, 110);
+            this.timeControlStart.TabIndex = 122;
+            this.timeControlStart.TimeScale = null;
+            this.toolTip1.SetToolTip(this.timeControlStart, "Live and VOD. Value rounded to the closest next GOP start.");
+            this.timeControlStart.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlStart.ValueChanged += new System.EventHandler(this.timeControlStart_ValueChanged);
             // 
-            // contextMenuStripInfo
+            // timeControlDVR
             // 
-            this.contextMenuStripInfo.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemFilesCopyClipboard});
-            this.contextMenuStripInfo.Name = "contextMenuStripDG";
-            this.contextMenuStripInfo.Size = new System.Drawing.Size(170, 26);
-            this.contextMenuStripInfo.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripInfo_MouseClick);
+            this.timeControlDVR.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlDVR.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlDVR.DisplayTrackBar = true;
+            this.timeControlDVR.Enabled = false;
+            this.timeControlDVR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlDVR.Label1 = "";
+            this.timeControlDVR.Label2 = "DVR Window";
+            this.timeControlDVR.Location = new System.Drawing.Point(408, 303);
+            this.timeControlDVR.Max = System.TimeSpan.Parse("24.00:00:00");
+            this.timeControlDVR.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.Name = "timeControlDVR";
+            this.timeControlDVR.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlDVR.Size = new System.Drawing.Size(589, 81);
+            this.timeControlDVR.TabIndex = 107;
+            this.timeControlDVR.TimeScale = null;
+            this.toolTip1.SetToolTip(this.timeControlDVR, "Live, but also VOD to enable smooth transitions when the presentation ends. Min 1" +
+        "20s");
+            this.timeControlDVR.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlDVR.ValueChanged += new System.EventHandler(this.timeControlDVR_ValueChanged);
+            this.timeControlDVR.Load += new System.EventHandler(this.timeControlDVR_Load);
             // 
-            // toolStripMenuItemFilesCopyClipboard
+            // timeControlEnd
             // 
-            this.toolStripMenuItemFilesCopyClipboard.Name = "toolStripMenuItemFilesCopyClipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Size = new System.Drawing.Size(169, 22);
-            this.toolStripMenuItemFilesCopyClipboard.Text = "Copy to clipboard";
-            this.toolStripMenuItemFilesCopyClipboard.Click += new System.EventHandler(this.toolStripMenuItemFilesCopyClipboard_Click);
+            this.timeControlEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.timeControlEnd.BackColor = System.Drawing.SystemColors.Window;
+            this.timeControlEnd.DisplayTrackBar = true;
+            this.timeControlEnd.Enabled = false;
+            this.timeControlEnd.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.timeControlEnd.Label1 = "End time";
+            this.timeControlEnd.Label2 = "(VOD)";
+            this.timeControlEnd.Location = new System.Drawing.Point(408, 144);
+            this.timeControlEnd.Max = System.TimeSpan.Parse("10675199.02:48:05.4775807");
+            this.timeControlEnd.Min = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.Name = "timeControlEnd";
+            this.timeControlEnd.ScaledFirstTimestampOffset = ((ulong)(0ul));
+            this.timeControlEnd.Size = new System.Drawing.Size(589, 92);
+            this.timeControlEnd.TabIndex = 105;
+            this.timeControlEnd.TimeScale = null;
+            this.toolTip1.SetToolTip(this.timeControlEnd, "VOD (ignored for Live but applies to archive). Value rounded to the closest next " +
+        "GOP start.");
+            this.timeControlEnd.TotalDuration = System.TimeSpan.Parse("00:00:00");
+            this.timeControlEnd.ValueChanged += new System.EventHandler(this.timeControlEnd_ValueChanged);
             // 
             // DynManifestFilter
             // 
@@ -1275,10 +1335,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTracks)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.tabPageInformation.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DGInfo)).EndInit();
             this.contextMenuStripInfo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1374,5 +1434,10 @@
         private System.Windows.Forms.DataGridView DGInfo;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripInfo;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemFilesCopyClipboard;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label16;
     }
 }

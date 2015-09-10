@@ -366,7 +366,6 @@ namespace AMSExplorer
 
         private void DisplayFilterInfo()
         {
-            const string snull = "(null)";
             DGInfo.ColumnCount = 2;
             // filter info
             DGInfo.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
@@ -383,11 +382,11 @@ namespace AMSExplorer
                 DGInfo.Rows.Add("Id", assetfilter.Id);
                 DGInfo.Rows.Add("Parent asset Id", assetfilter.ParentAssetId);
             }
-            DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? snull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
-            DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? snull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
-            DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? snull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
-            DGInfo.Rows.Add("PresentationWindowDuration", _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? snull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
-            DGInfo.Rows.Add("LiveBackoffDuration", _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? snull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
+            DGInfo.Rows.Add("Timescale", _filterToDisplay.PresentationTimeRange.Timescale == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.Timescale.ToString());
+            DGInfo.Rows.Add("Start timestamp", _filterToDisplay.PresentationTimeRange.StartTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.StartTimestamp.ToString());
+            DGInfo.Rows.Add("End timestamp", _filterToDisplay.PresentationTimeRange.EndTimestamp == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.EndTimestamp.ToString());
+            DGInfo.Rows.Add("PresentationWindowDuration", _filterToDisplay.PresentationTimeRange.PresentationWindowDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.PresentationWindowDuration.ToString());
+            DGInfo.Rows.Add("LiveBackoffDuration", _filterToDisplay.PresentationTimeRange.LiveBackoffDuration == null ? Constants.stringNull : _filterToDisplay.PresentationTimeRange.LiveBackoffDuration.ToString());
             DGInfo.Rows.Add("Track count", _filterToDisplay.Tracks.Count);
         }
 
@@ -506,31 +505,39 @@ namespace AMSExplorer
             }
         }
 
-        public AssetCreationInfo GetFilterInfo
+        public FilterCreationInfo GetFilterInfo
         {
             get
             {
-                AssetCreationInfo filterinfo = new AssetCreationInfo();
+                FilterCreationInfo filterinfo = new FilterCreationInfo();
                 filterinfo.Name = newfilter ? textBoxFilterName.Text : _filter_name;
 
                 if (checkBoxRawMode.Checked) // RAW Mode
                 {
-                    var presentation = new PresentationTimeRange(
-                        string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : (ulong?)ulong.Parse(textBoxRawTimescale.Text),
-                        string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : (ulong?)ulong.Parse(textBoxRawStart.Text),
-                        string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : (ulong?)ulong.Parse(textBoxRawEnd.Text),
-                        string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawDVR.Text)),
-                        string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawBackoff.Text))
+                    try
+                    {
+                        var presentation = new PresentationTimeRange(
+                                               string.IsNullOrWhiteSpace(textBoxRawTimescale.Text) ? null : (ulong?)ulong.Parse(textBoxRawTimescale.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawStart.Text) ? null : (ulong?)ulong.Parse(textBoxRawStart.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawEnd.Text) ? null : (ulong?)ulong.Parse(textBoxRawEnd.Text),
+                                               string.IsNullOrWhiteSpace(textBoxRawDVR.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawDVR.Text)),
+                                               string.IsNullOrWhiteSpace(textBoxRawBackoff.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(textBoxRawBackoff.Text))
 
-                        );
-                    filterinfo.Presentationtimerange = presentation;
+                                               );
+                        filterinfo.Presentationtimerange = presentation;
+                    }
+                    catch
+                    {
+                        throw;
+                    }
+                   
                 }
                 else  // Default mode
                 {
                     filterinfo.Presentationtimerange = GetFilterPresenTationTRDefaultMode;
                 }
                 // to make sure it is null to avoid puting data in JSON
-                filterinfo.Trackconditions = CreateFilterTracks(); // (_filter_tracks.Count == 0) ? null : _filter_tracks;
+                filterinfo.Trackconditions = CreateFilterTracks();
 
                 return filterinfo;
             }
@@ -939,11 +946,11 @@ namespace AMSExplorer
                 if (seltab == tabPageTR) tabControl1.SelectedTab = tabPageTRRaw;
 
                 var ptr = GetFilterPresenTationTRDefaultMode;
-                textBoxRawTimescale.Text = ptr.Timescale.ToString();
-                textBoxRawStart.Text = ptr.StartTimestamp.ToString();
-                textBoxRawEnd.Text = ptr.EndTimestamp.ToString();
-                textBoxRawDVR.Text = ptr.PresentationWindowDuration.ToString();
-                textBoxRawBackoff.Text = ptr.LiveBackoffDuration.ToString();
+                textBoxRawTimescale.Text = ptr.Timescale == null ? string.Empty : ptr.Timescale.ToString();
+                textBoxRawStart.Text = ptr.StartTimestamp == null ? string.Empty : ptr.StartTimestamp.ToString();
+                textBoxRawEnd.Text = ptr.EndTimestamp == null ? string.Empty : ptr.EndTimestamp.ToString();
+                textBoxRawDVR.Text = ptr.PresentationWindowDuration == null ? string.Empty : ((TimeSpan)ptr.PresentationWindowDuration).Ticks.ToString();
+                textBoxRawBackoff.Text = ptr.LiveBackoffDuration == null ? string.Empty : ((TimeSpan)ptr.LiveBackoffDuration).Ticks.ToString();
             }
             else
             {
@@ -1005,6 +1012,48 @@ namespace AMSExplorer
                     System.Windows.Forms.Clipboard.Clear();
                 }
 
+            }
+        }
+
+        private void textBoxRawulong_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            bool Error = false;
+            try
+            {
+                var value = string.IsNullOrWhiteSpace(tb.Text) ? null : (ulong?)ulong.Parse(tb.Text);
+            }
+            catch
+            {
+                errorProvider1.SetError(tb, "Incorrect value");
+                Error = true;
+
+            }
+            if (!Error)
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxRawTimeSpan_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            bool Error = false;
+            try
+            {
+                var value = string.IsNullOrWhiteSpace(tb.Text) ? null : (TimeSpan?)TimeSpan.FromTicks(long.Parse(tb.Text));
+            }
+            catch
+            {
+                errorProvider1.SetError(tb, "Incorrect value");
+                Error = true;
+
+            }
+            if (!Error)
+            {
+                errorProvider1.SetError(tb, String.Empty);
             }
         }
     }

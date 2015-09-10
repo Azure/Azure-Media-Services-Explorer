@@ -486,15 +486,16 @@ namespace AMSExplorer
                 DynManifestFilter formAF = new DynManifestFilter(_context, null, selasset, subclipConfig);
                 if (formAF.ShowDialog() == DialogResult.OK)
                 {
-                    var filterinfo = formAF.GetFilterInfo;
+                    FilterCreationInfo filterinfo = null;
                     try
                     {
+                         filterinfo = formAF.GetFilterInfo;
                         selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
                     catch (Exception ex)
                     {
-                        _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", filterinfo.Name, true);
+                        _mainform.TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                         _mainform.TextBoxLogWriteLine(ex);
                     }
 

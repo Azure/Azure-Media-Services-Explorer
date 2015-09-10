@@ -1956,9 +1956,10 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    var filtertoupdate = form.GetFilterInfo;
+                    FilterCreationInfo filtertoupdate = null;
                     try
                     {
+                        filtertoupdate = form.GetFilterInfo;
                         filter.PresentationTimeRange = filtertoupdate.Presentationtimerange;
                         filter.Tracks = filtertoupdate.Trackconditions;
                         filter.Update();
@@ -1967,7 +1968,7 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         MessageBox.Show("Error when updating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        myMainForm.TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filtertoupdate.Name, true);
+                        myMainForm.TextBoxLogWriteLine("Error when updating asset filter '{0}'.", filter.Name, true);
                         myMainForm.TextBoxLogWriteLine(e);
                     }
                     DisplayAssetFilters();
@@ -1987,16 +1988,17 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
 
-                var filterinfo = form.GetFilterInfo;
+                FilterCreationInfo filterinfo = null;
                 try
                 {
+                    filterinfo = form.GetFilterInfo;
                     myAsset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
                     myMainForm.TextBoxLogWriteLine("Asset filter '{0}' has been created.", filterinfo.Name);
                 }
                 catch (Exception e)
                 {
                     MessageBox.Show("Error when creating asset filter." + Constants.endline + Program.GetErrorMessage(e), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", filterinfo.Name, true);
+                    myMainForm.TextBoxLogWriteLine("Error when creating asset filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     myMainForm.TextBoxLogWriteLine(e);
                 }
                 DisplayAssetFilters();

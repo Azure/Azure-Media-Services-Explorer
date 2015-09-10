@@ -626,6 +626,8 @@ namespace AMSExplorer
         public const int maxSlateJPGVerticalResolution = 1080;
         public const double SlateJPGAspectRatio = 16d / 9d;
         public const string SlateJPGExtension = ".jpg";
+
+        public const string stringNull = "(null)"; // To display null is textbox
     }
 
 
@@ -2578,7 +2580,7 @@ namespace AMSExplorer
     }
 
 
-    public class AssetCreationInfo
+    public class FilterCreationInfo
     {
         public string Name { get; set; }  // contains the full configuration for subclipping
         public PresentationTimeRange Presentationtimerange { get; set; }
