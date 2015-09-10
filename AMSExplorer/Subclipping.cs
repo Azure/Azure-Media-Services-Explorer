@@ -142,7 +142,7 @@ namespace AMSExplorer
 
         private void Subclipping_Load(object sender, EventArgs e)
         {
-            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowIMoreInfoSubclipping));
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoSubClipAMSE));
             CheckIfErrorTimeControls();
             DisplayAccuracy();
         }

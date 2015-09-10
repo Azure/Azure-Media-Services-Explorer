@@ -49,6 +49,8 @@
             this.tabPageTR = new System.Windows.Forms.TabPage();
             this.panelAssetInfo = new System.Windows.Forms.Panel();
             this.groupBoxTrimming = new System.Windows.Forms.GroupBox();
+            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.labelAccurate = new System.Windows.Forms.Label();
             this.webBrowserPreview2 = new System.Windows.Forms.WebBrowser();
             this.timeControlStart = new AMSExplorer.TimeControl();
@@ -72,8 +74,6 @@
             this.panelJob = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label34 = new System.Windows.Forms.Label();
-            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.tabPageXML.SuspendLayout();
@@ -297,6 +297,29 @@
             this.groupBoxTrimming.TabIndex = 131;
             this.groupBoxTrimming.TabStop = false;
             this.groupBoxTrimming.Text = "Trimming";
+            // 
+            // textBoxDurationTime
+            // 
+            this.textBoxDurationTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDurationTime.Enabled = false;
+            this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxDurationTime.Location = new System.Drawing.Point(394, 462);
+            this.textBoxDurationTime.Name = "textBoxDurationTime";
+            this.textBoxDurationTime.ReadOnly = true;
+            this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
+            this.textBoxDurationTime.TabIndex = 135;
+            // 
+            // label7
+            // 
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label7.Location = new System.Drawing.Point(329, 465);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 15);
+            this.label7.TabIndex = 134;
+            this.label7.Text = "Duration :";
             // 
             // labelAccurate
             // 
@@ -590,29 +613,6 @@
             this.label34.TabIndex = 136;
             this.label34.Text = "Live stream/archive Subclipping";
             this.label34.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // textBoxDurationTime
-            // 
-            this.textBoxDurationTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDurationTime.Enabled = false;
-            this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxDurationTime.Location = new System.Drawing.Point(394, 462);
-            this.textBoxDurationTime.Name = "textBoxDurationTime";
-            this.textBoxDurationTime.ReadOnly = true;
-            this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
-            this.textBoxDurationTime.TabIndex = 135;
-            // 
-            // label7
-            // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(329, 465);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 15);
-            this.label7.TabIndex = 134;
-            this.label7.Text = "Duration :";
             // 
             // Subclipping
             // 
