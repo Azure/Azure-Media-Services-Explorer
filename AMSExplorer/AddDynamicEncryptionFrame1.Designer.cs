@@ -50,6 +50,7 @@
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -99,9 +100,9 @@
             this.radioButtonCENCKey.AutoSize = true;
             this.radioButtonCENCKey.Location = new System.Drawing.Point(41, 54);
             this.radioButtonCENCKey.Name = "radioButtonCENCKey";
-            this.radioButtonCENCKey.Size = new System.Drawing.Size(210, 19);
+            this.radioButtonCENCKey.Size = new System.Drawing.Size(268, 19);
             this.radioButtonCENCKey.TabIndex = 46;
-            this.radioButtonCENCKey.Text = "Common encryption (PlayReady...)";
+            this.radioButtonCENCKey.Text = "Common encryption (PlayReady., Widevine...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
             this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
             // 
@@ -249,6 +250,7 @@
             // 
             // groupBoxAuthPol
             // 
+            this.groupBoxAuthPol.Controls.Add(this.label3);
             this.groupBoxAuthPol.Controls.Add(this.label8);
             this.groupBoxAuthPol.Controls.Add(this.label2);
             this.groupBoxAuthPol.Controls.Add(this.numericUpDownNbOptions);
@@ -256,7 +258,7 @@
             this.groupBoxAuthPol.Controls.Add(this.radioButtonNoAuthPolicy);
             this.groupBoxAuthPol.Location = new System.Drawing.Point(14, 418);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
-            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 132);
+            this.groupBoxAuthPol.Size = new System.Drawing.Size(645, 174);
             this.groupBoxAuthPol.TabIndex = 52;
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Key Authorization policy";
@@ -319,10 +321,19 @@
             this.radioButtonNoAuthPolicy.AutoSize = true;
             this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(41, 97);
             this.radioButtonNoAuthPolicy.Name = "radioButtonNoAuthPolicy";
-            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(394, 19);
+            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(429, 19);
             this.radioButtonNoAuthPolicy.TabIndex = 62;
-            this.radioButtonNoAuthPolicy.Text = "None - An external Key/PlayReady server is used to deliver the licenses\r\n";
+            this.radioButtonNoAuthPolicy.Text = "None - An external AES Key or PlayReady server is used to deliver the licenses\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Location = new System.Drawing.Point(4, 138);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(390, 23);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "In both cases, Widevine licenses must be delivered by a third party";
             // 
             // AddDynamicEncryptionFrame1
             // 
@@ -382,5 +393,6 @@
         private System.Windows.Forms.RadioButton radioButtonNoAuthPolicy;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.RadioButton radioButtonNoDynEnc;
+        private System.Windows.Forms.Label label3;
     }
 }

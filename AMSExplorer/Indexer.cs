@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml.Linq;
+using System.Security;
 
 
 namespace AMSExplorer

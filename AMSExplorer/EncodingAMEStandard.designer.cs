@@ -58,12 +58,12 @@
             this.Advanced = new System.Windows.Forms.TabPage();
             this.checkBoxAddAutomatic = new System.Windows.Forms.CheckBox();
             this.groupBoxTrim = new System.Windows.Forms.GroupBox();
-            this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
-            this.label7 = new System.Windows.Forms.Label();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.label7 = new System.Windows.Forms.Label();
             this.timeControlEndTime = new AMSExplorer.TimeControl();
             this.timeControlStartTime = new AMSExplorer.TimeControl();
+            this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Preset.SuspendLayout();
@@ -395,26 +395,6 @@
             this.groupBoxTrim.TabIndex = 3;
             this.groupBoxTrim.TabStop = false;
             // 
-            // checkBoxSourceTrimming
-            // 
-            this.checkBoxSourceTrimming.AutoSize = true;
-            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
-            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
-            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxSourceTrimming.TabIndex = 5;
-            this.checkBoxSourceTrimming.Text = "Source Trimming";
-            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
-            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(514, 105);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(59, 15);
-            this.label7.TabIndex = 82;
-            this.label7.Text = "Duration :";
-            // 
             // textBoxSourceDurationTime
             // 
             this.textBoxSourceDurationTime.Enabled = false;
@@ -424,15 +404,14 @@
             this.textBoxSourceDurationTime.Size = new System.Drawing.Size(123, 23);
             this.textBoxSourceDurationTime.TabIndex = 88;
             // 
-            // buttonJobOptions
+            // label7
             // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 75;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(514, 105);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 15);
+            this.label7.TabIndex = 82;
+            this.label7.Text = "Duration :";
             // 
             // timeControlEndTime
             // 
@@ -472,9 +451,29 @@
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
             // 
+            // checkBoxSourceTrimming
+            // 
+            this.checkBoxSourceTrimming.AutoSize = true;
+            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
+            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
+            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxSourceTrimming.TabIndex = 5;
+            this.checkBoxSourceTrimming.Text = "Source Trimming";
+            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 75;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // EncodingAMEStandard
             // 
-            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;

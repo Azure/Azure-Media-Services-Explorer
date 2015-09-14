@@ -7737,10 +7737,10 @@ namespace AMSExplorer
             bool firstkeycreation = true;
             IContentKey formerkey = null;
 
-            if (!form2_PlayReady.ContentKeyRandomGeneration && (form2_PlayReady.PlayReadyKeyId != null))  // user want to manually enter the cryptography data and key if providedd 
+            if (!form2_PlayReady.ContentKeyRandomGeneration && (form2_PlayReady.KeyId != null))  // user want to manually enter the cryptography data and key if providedd 
             {
                 // if the key already exists in the account (same key id), let's 
-                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.PlayReadyKeyId.ToString()).FirstOrDefault();
+                formerkey = SelectedAssets.FirstOrDefault().GetMediaContext().ContentKeys.Where(c => c.Id == Constants.ContentKeyIdPrefix + form2_PlayReady.KeyId.ToString()).FirstOrDefault();
                 if (formerkey != null)
                 {
                     if (DisplayUI && MessageBox.Show("A Content key with the same Key Id exists already in the account.\nDo you want to try to replace it?\n(If not, the existing key will be used)", "Content key Id", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -7801,12 +7801,12 @@ namespace AMSExplorer
                         else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
                         {
                             // if the key does not exist in the account (same key id), let's create it
-                            if ((firstkeycreation && !reusekey) || form2_PlayReady.PlayReadyKeyId == null) // if we need to generate a new key id for each asset
+                            if ((firstkeycreation && !reusekey) || form2_PlayReady.KeyId == null) // if we need to generate a new key id for each asset
                             {
-                                if (form2_PlayReady.PlayReadyKeySeed != null) // seed has been given
+                                if (form2_PlayReady.KeySeed != null) // seed has been given
                                 {
-                                    Guid keyid = (form2_PlayReady.PlayReadyKeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.PlayReadyKeyId;
-                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.PlayReadyKeySeed), keyid);
+                                    Guid keyid = (form2_PlayReady.KeyId == null) ? Guid.NewGuid() : (Guid)form2_PlayReady.KeyId;
+                                    byte[] bytecontentkey = CommonEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(form2_PlayReady.KeySeed), keyid);
                                     try
                                     {
                                         contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, keyid, bytecontentkey);
@@ -7828,7 +7828,7 @@ namespace AMSExplorer
                                 {
                                     try
                                     {
-                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.PlayReadyKeyId, Convert.FromBase64String(form2_PlayReady.PlayReadyContentKey));
+                                        contentKey = DynamicEncryption.CreateCommonTypeContentKey(AssetToProcess, _context, (Guid)form2_PlayReady.KeyId, Convert.FromBase64String(form2_PlayReady.CENCContentKey));
                                     }
                                     catch (Exception e)
                                     {
@@ -7971,11 +7971,11 @@ namespace AMSExplorer
                         {
                             if (form1.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
                             {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form2_PlayReady.PlayReadyCustomAttributes);
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, null, false, form2_PlayReady.PlayReadyCustomAttributes, form2_PlayReady.WidevineLAurl);
                             }
                             else // Licenses NOT delivered by Azure Media Services but by a third party server
                             {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, form2_PlayReady.PlayReadyLAurl, form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes);
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1.GetAssetDeliveryProtocol, name, _context, form2_PlayReady.PlayReadyLAurl, form2_PlayReady.PlayReadyLAurlEncodeForSL, form2_PlayReady.PlayReadyCustomAttributes, form2_PlayReady.WidevineLAurl);
                             }
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);

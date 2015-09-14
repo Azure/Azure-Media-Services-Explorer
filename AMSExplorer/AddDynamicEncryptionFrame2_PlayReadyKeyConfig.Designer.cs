@@ -71,6 +71,10 @@
             this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label9 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
+            this.LAURLWidevine = new System.Windows.Forms.TextBox();
             this.panelPlayReadyTest.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -80,12 +84,14 @@
             this.groupBoxCrypto.SuspendLayout();
             this.panelContentKey.SuspendLayout();
             this.panelKeyId.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // moreinfotestserver
             // 
             this.moreinfotestserver.AutoSize = true;
-            this.moreinfotestserver.Location = new System.Drawing.Point(208, 30);
+            this.moreinfotestserver.Location = new System.Drawing.Point(215, 24);
             this.moreinfotestserver.Name = "moreinfotestserver";
             this.moreinfotestserver.Size = new System.Drawing.Size(163, 15);
             this.moreinfotestserver.TabIndex = 19;
@@ -107,7 +113,7 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(205, 9);
+            this.label.Location = new System.Drawing.Point(86, 7);
             this.label.Name = "label";
             this.label.Size = new System.Drawing.Size(292, 15);
             this.label.TabIndex = 28;
@@ -115,7 +121,7 @@
             // 
             // buttonPlayReadyTestSettings
             // 
-            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(13, 10);
+            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(193, 43);
             this.buttonPlayReadyTestSettings.Name = "buttonPlayReadyTestSettings";
             this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(185, 37);
             this.buttonPlayReadyTestSettings.TabIndex = 29;
@@ -127,7 +133,8 @@
             // 
             this.textBoxLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAurl.Location = new System.Drawing.Point(13, 207);
+            this.textBoxLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxLAurl.Location = new System.Drawing.Point(14, 44);
             this.textBoxLAurl.Name = "textBoxLAurl";
             this.textBoxLAurl.Size = new System.Drawing.Size(445, 23);
             this.textBoxLAurl.TabIndex = 37;
@@ -136,7 +143,8 @@
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(544, 44);
+            this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(544, 47);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
             this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
             this.buttongenerateContentKey.TabIndex = 40;
@@ -147,26 +155,29 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 238);
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label1.Location = new System.Drawing.Point(9, 117);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(57, 15);
+            this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Key Seed:";
+            this.label1.Text = "Key Seed :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(9, 188);
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(11, 26);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 15);
+            this.label2.Size = new System.Drawing.Size(133, 15);
             this.label2.TabIndex = 35;
-            this.label2.Text = "License Acquisition Url:";
+            this.label2.Text = "License Acquisition Url :";
             // 
             // textBoxkeyseed
             // 
             this.textBoxkeyseed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxkeyseed.Location = new System.Drawing.Point(13, 256);
+            this.textBoxkeyseed.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxkeyseed.Location = new System.Drawing.Point(13, 135);
             this.textBoxkeyseed.Name = "textBoxkeyseed";
             this.textBoxkeyseed.Size = new System.Drawing.Size(445, 23);
             this.textBoxkeyseed.TabIndex = 34;
@@ -175,6 +186,7 @@
             // buttonGenKeyID
             // 
             this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGenKeyID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonGenKeyID.Location = new System.Drawing.Point(544, 30);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
             this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
@@ -187,6 +199,7 @@
             // 
             this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxkeyid.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxkeyid.Location = new System.Drawing.Point(6, 33);
             this.textBoxkeyid.Name = "textBoxkeyid";
             this.textBoxkeyid.Size = new System.Drawing.Size(439, 23);
@@ -197,6 +210,7 @@
             // 
             this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxcontentkey.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxcontentkey.Location = new System.Drawing.Point(7, 25);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
             this.textBoxcontentkey.Size = new System.Drawing.Size(438, 23);
@@ -206,20 +220,22 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label5.Location = new System.Drawing.Point(3, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 15);
+            this.label5.Size = new System.Drawing.Size(46, 15);
             this.label5.TabIndex = 31;
-            this.label5.Text = "Key ID:";
+            this.label5.Text = "Key ID :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(3, 7);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 15);
+            this.label4.Size = new System.Drawing.Size(77, 15);
             this.label4.TabIndex = 34;
-            this.label4.Text = "Content key:";
+            this.label4.Text = "Content key :";
             // 
             // buttonOk
             // 
@@ -237,12 +253,13 @@
             // 
             // panelPlayReadyTest
             // 
+            this.panelPlayReadyTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panelPlayReadyTest.Controls.Add(this.label);
             this.panelPlayReadyTest.Controls.Add(this.moreinfotestserver);
             this.panelPlayReadyTest.Controls.Add(this.buttonPlayReadyTestSettings);
-            this.panelPlayReadyTest.Location = new System.Drawing.Point(13, 28);
+            this.panelPlayReadyTest.Location = new System.Drawing.Point(280, 2);
             this.panelPlayReadyTest.Name = "panelPlayReadyTest";
-            this.panelPlayReadyTest.Size = new System.Drawing.Size(531, 57);
+            this.panelPlayReadyTest.Size = new System.Drawing.Size(381, 83);
             this.panelPlayReadyTest.TabIndex = 41;
             // 
             // panel1
@@ -261,8 +278,9 @@
             // 
             this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(465, 210);
+            this.label8.Location = new System.Drawing.Point(466, 47);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 15);
             this.label8.TabIndex = 67;
@@ -274,6 +292,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyBase64.AutoSize = true;
             this.radioButtonContentKeyBase64.Checked = true;
+            this.radioButtonContentKeyBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonContentKeyBase64.Location = new System.Drawing.Point(9, 7);
             this.radioButtonContentKeyBase64.Name = "radioButtonContentKeyBase64";
             this.radioButtonContentKeyBase64.Size = new System.Drawing.Size(61, 19);
@@ -288,6 +307,7 @@
             this.radioButtonContentKeyHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonContentKeyHex.AutoSize = true;
+            this.radioButtonContentKeyHex.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonContentKeyHex.Location = new System.Drawing.Point(9, 32);
             this.radioButtonContentKeyHex.Name = "radioButtonContentKeyHex";
             this.radioButtonContentKeyHex.Size = new System.Drawing.Size(45, 19);
@@ -311,7 +331,7 @@
             this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel3.Controls.Add(this.radioButtonKeySeedBase64);
             this.panel3.Controls.Add(this.radioButtonKeySeedHex);
-            this.panel3.Location = new System.Drawing.Point(465, 238);
+            this.panel3.Location = new System.Drawing.Point(465, 117);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(87, 55);
             this.panel3.TabIndex = 71;
@@ -322,7 +342,8 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeySeedBase64.AutoSize = true;
             this.radioButtonKeySeedBase64.Checked = true;
-            this.radioButtonKeySeedBase64.Location = new System.Drawing.Point(9, 3);
+            this.radioButtonKeySeedBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonKeySeedBase64.Location = new System.Drawing.Point(4, 3);
             this.radioButtonKeySeedBase64.Name = "radioButtonKeySeedBase64";
             this.radioButtonKeySeedBase64.Size = new System.Drawing.Size(61, 19);
             this.radioButtonKeySeedBase64.TabIndex = 68;
@@ -336,7 +357,8 @@
             this.radioButtonKeySeedHex.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeySeedHex.AutoSize = true;
-            this.radioButtonKeySeedHex.Location = new System.Drawing.Point(9, 29);
+            this.radioButtonKeySeedHex.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.radioButtonKeySeedHex.Location = new System.Drawing.Point(4, 28);
             this.radioButtonKeySeedHex.Name = "radioButtonKeySeedHex";
             this.radioButtonKeySeedHex.Size = new System.Drawing.Size(45, 19);
             this.radioButtonKeySeedHex.TabIndex = 69;
@@ -360,6 +382,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeyIDGuid.AutoSize = true;
             this.radioButtonKeyIDGuid.Checked = true;
+            this.radioButtonKeyIDGuid.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonKeyIDGuid.Location = new System.Drawing.Point(9, 3);
             this.radioButtonKeyIDGuid.Name = "radioButtonKeyIDGuid";
             this.radioButtonKeyIDGuid.Size = new System.Drawing.Size(50, 19);
@@ -374,6 +397,7 @@
             this.radioButtonKeyIDBase64.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.radioButtonKeyIDBase64.AutoSize = true;
+            this.radioButtonKeyIDBase64.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonKeyIDBase64.Location = new System.Drawing.Point(9, 29);
             this.radioButtonKeyIDBase64.Name = "radioButtonKeyIDBase64";
             this.radioButtonKeyIDBase64.Size = new System.Drawing.Size(61, 19);
@@ -433,20 +457,16 @@
             // 
             this.groupBoxCrypto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxCrypto.Controls.Add(this.checkBoxEncodingSL);
             this.groupBoxCrypto.Controls.Add(this.panelContentKey);
             this.groupBoxCrypto.Controls.Add(this.panelKeyId);
-            this.groupBoxCrypto.Controls.Add(this.panelPlayReadyTest);
             this.groupBoxCrypto.Controls.Add(this.panel3);
-            this.groupBoxCrypto.Controls.Add(this.label8);
             this.groupBoxCrypto.Controls.Add(this.label1);
-            this.groupBoxCrypto.Controls.Add(this.label2);
             this.groupBoxCrypto.Controls.Add(this.textBoxkeyseed);
-            this.groupBoxCrypto.Controls.Add(this.textBoxLAurl);
             this.groupBoxCrypto.Enabled = false;
+            this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxCrypto.Location = new System.Drawing.Point(17, 213);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 418);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 278);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "Cryptography";
@@ -456,7 +476,8 @@
             this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxEncodingSL.AutoSize = true;
             this.checkBoxEncodingSL.Enabled = false;
-            this.checkBoxEncodingSL.Location = new System.Drawing.Point(509, 209);
+            this.checkBoxEncodingSL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEncodingSL.Location = new System.Drawing.Point(510, 46);
             this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
             this.checkBoxEncodingSL.Size = new System.Drawing.Size(109, 19);
             this.checkBoxEncodingSL.TabIndex = 76;
@@ -474,7 +495,7 @@
             this.panelContentKey.Controls.Add(this.textBoxcontentkey);
             this.panelContentKey.Controls.Add(this.buttongenerateContentKey);
             this.panelContentKey.Controls.Add(this.panel2);
-            this.panelContentKey.Location = new System.Drawing.Point(7, 300);
+            this.panelContentKey.Location = new System.Drawing.Point(7, 179);
             this.panelContentKey.Name = "panelContentKey";
             this.panelContentKey.Size = new System.Drawing.Size(628, 93);
             this.panelContentKey.TabIndex = 75;
@@ -483,6 +504,7 @@
             // 
             this.textBoxContentKeyCalculated.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxContentKeyCalculated.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxContentKeyCalculated.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.textBoxContentKeyCalculated.Location = new System.Drawing.Point(7, 55);
             this.textBoxContentKeyCalculated.Name = "textBoxContentKeyCalculated";
@@ -499,13 +521,14 @@
             this.panelKeyId.Controls.Add(this.buttonGenKeyID);
             this.panelKeyId.Controls.Add(this.label5);
             this.panelKeyId.Controls.Add(this.panel4);
-            this.panelKeyId.Location = new System.Drawing.Point(7, 107);
+            this.panelKeyId.Location = new System.Drawing.Point(7, 27);
             this.panelKeyId.Name = "panelKeyId";
             this.panelKeyId.Size = new System.Drawing.Size(628, 77);
             this.panelKeyId.TabIndex = 74;
             // 
             // label10
             // 
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label10.Location = new System.Drawing.Point(52, 15);
             this.label10.Name = "label10";
@@ -516,18 +539,20 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(27, 646);
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(11, 82);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(105, 15);
+            this.label7.Size = new System.Drawing.Size(108, 15);
             this.label7.TabIndex = 82;
-            this.label7.Text = "Custom attributes:";
+            this.label7.Text = "Custom attributes :";
             // 
             // label6
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label6.Location = new System.Drawing.Point(483, 668);
+            this.label6.Location = new System.Drawing.Point(471, 103);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(156, 15);
             this.label6.TabIndex = 81;
@@ -537,7 +562,8 @@
             // 
             this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(24, 665);
+            this.textBoxCustomAttributes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(12, 100);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
             this.textBoxCustomAttributes.Size = new System.Drawing.Size(451, 23);
             this.textBoxCustomAttributes.TabIndex = 80;
@@ -548,9 +574,61 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label9.Location = new System.Drawing.Point(26, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(264, 42);
+            this.label9.Size = new System.Drawing.Size(230, 42);
             this.label9.TabIndex = 83;
-            this.label9.Text = "Step 2\r\nSpecify the PlayReady Content Key";
+            this.label9.Text = "Step 2\r\nSpecify the CENC Content Key";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.textBoxLAurl);
+            this.groupBox1.Controls.Add(this.checkBoxEncodingSL);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.textBoxCustomAttributes);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(17, 508);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(641, 138);
+            this.groupBox1.TabIndex = 84;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "PlayReady";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.LAURLWidevine);
+            this.groupBox3.Controls.Add(this.checkBoxWidevine);
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(17, 652);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(640, 52);
+            this.groupBox3.TabIndex = 85;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Widevine";
+            // 
+            // checkBoxWidevine
+            // 
+            this.checkBoxWidevine.AutoSize = true;
+            this.checkBoxWidevine.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxWidevine.Location = new System.Drawing.Point(14, 23);
+            this.checkBoxWidevine.Name = "checkBoxWidevine";
+            this.checkBoxWidevine.Size = new System.Drawing.Size(235, 19);
+            this.checkBoxWidevine.TabIndex = 0;
+            this.checkBoxWidevine.Text = "Add Widevine header. Acquisition URL :";
+            this.checkBoxWidevine.UseVisualStyleBackColor = true;
+            this.checkBoxWidevine.CheckedChanged += new System.EventHandler(this.checkBoxWidevine_CheckedChanged);
+            // 
+            // LAURLWidevine
+            // 
+            this.LAURLWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LAURLWidevine.Enabled = false;
+            this.LAURLWidevine.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.LAURLWidevine.Location = new System.Drawing.Point(254, 21);
+            this.LAURLWidevine.Name = "LAURLWidevine";
+            this.LAURLWidevine.Size = new System.Drawing.Size(373, 23);
+            this.LAURLWidevine.TabIndex = 83;
             // 
             // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
@@ -560,11 +638,11 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.panelPlayReadyTest);
             this.Controls.Add(this.groupBoxCrypto);
-            this.Controls.Add(this.textBoxCustomAttributes);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -589,6 +667,10 @@
             this.panelContentKey.PerformLayout();
             this.panelKeyId.ResumeLayout(false);
             this.panelKeyId.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -601,14 +683,10 @@
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label;
         private System.Windows.Forms.Button buttonPlayReadyTestSettings;
-        public System.Windows.Forms.TextBox textBoxLAurl;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox textBoxkeyseed;
         private System.Windows.Forms.Button buttonGenKeyID;
-        public System.Windows.Forms.TextBox textBoxkeyid;
         public System.Windows.Forms.Label label5;
-        public System.Windows.Forms.TextBox textBoxcontentkey;
         public System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button buttongenerateContentKey;
         private System.Windows.Forms.Panel panelPlayReadyTest;
@@ -628,15 +706,23 @@
         private System.Windows.Forms.RadioButton radioButtonKeySpecifiedByUser;
         private System.Windows.Forms.RadioButton radioButtonKeyRandomGeneration;
         private System.Windows.Forms.GroupBox groupBoxCrypto;
-        public System.Windows.Forms.TextBox textBoxContentKeyCalculated;
         private System.Windows.Forms.Panel panelContentKey;
         private System.Windows.Forms.Panel panelKeyId;
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
-        public System.Windows.Forms.TextBox textBoxCustomAttributes;
         private System.Windows.Forms.CheckBox checkBoxEncodingSL;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxWidevine;
+        private System.Windows.Forms.TextBox textBoxLAurl;
+        private System.Windows.Forms.TextBox textBoxCustomAttributes;
+        private System.Windows.Forms.TextBox LAURLWidevine;
+        private System.Windows.Forms.TextBox textBoxkeyseed;
+        private System.Windows.Forms.TextBox textBoxkeyid;
+        private System.Windows.Forms.TextBox textBoxcontentkey;
+        private System.Windows.Forms.TextBox textBoxContentKeyCalculated;
     }
 }

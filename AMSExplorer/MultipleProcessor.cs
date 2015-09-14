@@ -278,8 +278,8 @@ namespace AMSExplorer
                             MessageBox.Show("You must at least have two input assets : the workflow file and the video file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
 
-                        mytextboxconfig.Text = string.Empty;
-                        mytextboxconfig.Enabled = false;
+                        //mytextboxconfig.Text = string.Empty;
+                        //mytextboxconfig.Enabled = false;
                     }
                     else
                     {

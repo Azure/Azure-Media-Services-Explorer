@@ -49,7 +49,7 @@ namespace AMSExplorer
             }
         }
 
-        public string PlayReadyKeySeed
+        public string KeySeed
         {
             get
             {
@@ -89,7 +89,7 @@ namespace AMSExplorer
             }
 
         }
-        public string PlayReadyContentKey
+        public string CENCContentKey
         {
             get
             {
@@ -105,7 +105,7 @@ namespace AMSExplorer
                 textBoxcontentkey.Text = value;
             }
         }
-        public Guid? PlayReadyKeyId
+        public Guid? KeyId
         {
             get
             {
@@ -136,6 +136,30 @@ namespace AMSExplorer
             get
             {
                 return string.IsNullOrEmpty(textBoxCustomAttributes.Text) ? null : textBoxCustomAttributes.Text;
+            }
+        }
+
+        public Uri WidevineLAurl
+        {
+            get
+            {
+                Uri myuri = null;
+                if (checkBoxWidevine.Checked)
+                {
+                    try
+                    {
+                        myuri = new Uri(LAURLWidevine.Text);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+                return myuri;
+            }
+            set
+            {
+                LAURLWidevine.Text = value.ToString();
             }
         }
 
@@ -225,13 +249,13 @@ namespace AMSExplorer
         private void UpdateCalculatedContentKey()
         {
             textBoxContentKeyCalculated.Text = string.Empty;
-            if (this.PlayReadyKeyId != null)
+            if (this.KeyId != null)
             {
-                if (this.PlayReadyKeySeed != null)
+                if (this.KeySeed != null)
                 {
                     try
                     {
-                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(this.PlayReadyKeySeed), (Guid)this.PlayReadyKeyId);
+                        byte[] bytecontentkey = DynamicEncryption.GeneratePlayReadyContentKey(Convert.FromBase64String(this.KeySeed), (Guid)this.KeyId);
                         if (radioButtonContentKeyBase64.Checked) // base64
                         {
                             textBoxContentKeyCalculated.Text = Convert.ToBase64String(bytecontentkey);
@@ -372,6 +396,9 @@ namespace AMSExplorer
 
         }
 
-
+        private void checkBoxWidevine_CheckedChanged(object sender, EventArgs e)
+        {
+            LAURLWidevine.Enabled = checkBoxWidevine.Checked;
+        }
     }
 }

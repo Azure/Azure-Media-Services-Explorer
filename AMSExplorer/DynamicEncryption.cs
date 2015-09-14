@@ -169,7 +169,7 @@ namespace AMSExplorer
             if (keyId == null) keyId = Guid.NewGuid();
 
             IContentKey key = asset.GetMediaContext().ContentKeys.Create(
-                                    (Guid) keyId,
+                                    (Guid)keyId,
                                     contentKey,
                                     "ContentKey Envelope",
                                     ContentKeyType.EnvelopeEncryption);
@@ -547,26 +547,35 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, bool EncodeLAURLForSilverlight = false, string CustomAttributes = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string playreadyCustomAttributes = null, Uri widevineAcquisitionUrl = null)
         {
             string stringacquisitionUrl;
-            if (EncodeLAURLForSilverlight && acquisitionUrl != null)
+            if (playreadyEncodeLAURLForSilverlight && playreadyAcquisitionUrl != null)
             {
-                stringacquisitionUrl = acquisitionUrl.ToString().Replace("&", "%26");
+                stringacquisitionUrl = playreadyAcquisitionUrl.ToString().Replace("&", "%26");
             }
             else
             {
-                if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+                if (playreadyAcquisitionUrl == null) playreadyAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
 
-                stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+                stringacquisitionUrl = System.Security.SecurityElement.Escape(playreadyAcquisitionUrl.ToString());
             }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
-    {
-        {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},
-         };
-            if (CustomAttributes != null) // let's add custom attributes
             {
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, CustomAttributes);
+                {
+                    AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl
+                },
+         };
+            if (playreadyCustomAttributes != null) // let's add custom attributes
+            {
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, playreadyCustomAttributes);
+            }
+
+            // Widevine
+            if (widevineAcquisitionUrl != null) // let's add Widevine
+            {
+                stringacquisitionUrl = System.Security.SecurityElement.Escape(widevineAcquisitionUrl.ToString());
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, stringacquisitionUrl);
             }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
