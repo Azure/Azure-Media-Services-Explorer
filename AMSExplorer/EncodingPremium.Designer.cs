@@ -48,9 +48,10 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label8 = new System.Windows.Forms.Label();
+            this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
+            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -268,6 +269,36 @@
             this.panel1.Size = new System.Drawing.Size(788, 55);
             this.panel1.TabIndex = 66;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(53, 537);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(103, 15);
+            this.label8.TabIndex = 73;
+            this.label8.Text = "Not yet supported";
+            // 
+            // buttonPremiumXMLData
+            // 
+            this.buttonPremiumXMLData.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPremiumXMLData.Location = new System.Drawing.Point(550, 350);
+            this.buttonPremiumXMLData.Name = "buttonPremiumXMLData";
+            this.buttonPremiumXMLData.Size = new System.Drawing.Size(202, 27);
+            this.buttonPremiumXMLData.TabIndex = 75;
+            this.buttonPremiumXMLData.Text = "Pass XML data to Workflow...";
+            this.buttonPremiumXMLData.UseVisualStyleBackColor = true;
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(550, 383);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(202, 27);
+            this.buttonJobOptions.TabIndex = 72;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // listViewWorkflows
             // 
             this.listViewWorkflows.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -284,26 +315,6 @@
             this.listViewWorkflows.View = System.Windows.Forms.View.Details;
             this.listViewWorkflows.SelectedIndexChanged += new System.EventHandler(this.listViewWorkflows_SelectedIndexChanged);
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(592, 370);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(53, 537);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 15);
-            this.label8.TabIndex = 73;
-            this.label8.Text = "Not yet supported";
-            // 
             // EncodingPremium
             // 
             this.AcceptButton = this.buttonOk;
@@ -312,6 +323,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.buttonPremiumXMLData);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
@@ -369,6 +381,6 @@
         private ListViewWorkflows listViewWorkflows;
         private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.Label label8;
-
+        private ButtonPremiumXMLData buttonPremiumXMLData;
     }
 }

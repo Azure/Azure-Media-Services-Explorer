@@ -2917,7 +2917,6 @@ namespace AMSExplorer
                 OutputAssetsCreationOptions = Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None
             };
 
-
             DialogResult dialogResult = form.ShowDialog();
 
             this.Cursor = Cursors.Arrow;
@@ -2934,7 +2933,7 @@ namespace AMSExplorer
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
                                    form.EncodingProcessorSelected,
-                                   "",
+                                   form.XMLData,
                                    form.JobOptions.TasksOptionsSetting
                                    );
                         // Specify the workflow asset to be encoded, followed by the input video asset to be used
@@ -2973,7 +2972,7 @@ namespace AMSExplorer
                             ITask task = job.Tasks.AddNew(
                                         tasknameloc,
                                        form.EncodingProcessorSelected,
-                                       "",
+                                       form.XMLData,
                                        form.JobOptions.TasksOptionsSetting
                                        );
                             // Specify the graph asset to be encoded, followed by the input video asset to be used

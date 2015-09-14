@@ -58,6 +58,14 @@ namespace AMSExplorer
             }
         }
 
+        public string XMLData
+        {
+            get
+            {
+                return buttonPremiumXMLData.GetXML();
+            }
+        }
+
         public JobOptionsVar JobOptions
         {
             get
@@ -69,7 +77,6 @@ namespace AMSExplorer
                 buttonJobOptions.SetSettings(value);
             }
         }
-
 
 
         public List<IAsset> SelectedPremiumWorkflows
@@ -153,6 +160,7 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             buttonJobOptions.Initialize(_context);
+            buttonPremiumXMLData.Initialize();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -192,8 +200,6 @@ namespace AMSExplorer
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
-
-
             listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
         }
