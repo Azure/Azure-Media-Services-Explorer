@@ -118,7 +118,7 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxDescription.Text;
+                return textBoxDescription.Text.Replace(Constants.endline, " ");
             }
             set
             {
