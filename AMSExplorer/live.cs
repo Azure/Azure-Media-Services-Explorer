@@ -171,8 +171,8 @@ namespace AMSExplorer
         static Bitmap EncodingImage = Bitmaps.encoding;
         static Bitmap PremiumEncodingImage = Bitmaps.encodingPremium;
         public string _encoded = "Encoding";
-        
-        private Bitmap ReturnChannelBitmap (IChannel channel)
+
+        private Bitmap ReturnChannelBitmap(IChannel channel)
         {
             switch (channel.EncodingType)
             {
@@ -359,7 +359,7 @@ namespace AMSExplorer
 
                 }
             }
-        
+
 
             if (FilterState != "All")
             {
@@ -385,7 +385,6 @@ namespace AMSExplorer
                                        LastModified = c.LastModified.ToLocalTime()
                                    };
                     break;
-
 
 
                 case OrderChannels.Name:
@@ -448,11 +447,8 @@ namespace AMSExplorer
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservChannelthisPage));
             _refreshedatleastonetime = true;
-
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
         }
-
-
     }
 
     public class DataGridViewLiveProgram : DataGridView
@@ -762,7 +758,7 @@ namespace AMSExplorer
 
                 }
             }
-          
+
 
             if (FilterState != "All")
             {
@@ -788,7 +784,7 @@ namespace AMSExplorer
                             ChannelId = c.Id,
                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                         }).ToArray();
-                    break; 
+                    break;
 
                 case OrderPrograms.Name:
                     programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)

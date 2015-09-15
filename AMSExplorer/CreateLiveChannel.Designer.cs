@@ -82,7 +82,6 @@
             this.panelInsertSlate = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
@@ -94,6 +93,11 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.labelWarning = new System.Windows.Forms.Label();
+            this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -290,6 +294,8 @@
             // 
             // TabSettings
             // 
+            this.TabSettings.Controls.Add(this.moreinfoLiveStreamingProfilelink);
+            this.TabSettings.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.TabSettings.Controls.Add(this.checkBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.textBoxRestrictPreviewIP);
             this.TabSettings.Controls.Add(this.checkBoxKeyFrameIntDefined);
@@ -688,23 +694,6 @@
             this.textBoxJPGSearch.TabIndex = 85;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
-            // listViewJPG1
-            // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
-            this.listViewJPG1.TabIndex = 84;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
-            // 
             // label15
             // 
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -792,6 +781,69 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // moreinfoLiveEncodingProfilelink
+            // 
+            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(253, 36);
+            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
+            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(192, 15);
+            this.moreinfoLiveEncodingProfilelink.TabIndex = 61;
+            this.moreinfoLiveEncodingProfilelink.TabStop = true;
+            this.moreinfoLiveEncodingProfilelink.Text = "More information on live encoding";
+            this.moreinfoLiveEncodingProfilelink.Visible = false;
+            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // moreinfoLiveStreamingProfilelink
+            // 
+            this.moreinfoLiveStreamingProfilelink.AutoSize = true;
+            this.moreinfoLiveStreamingProfilelink.Location = new System.Drawing.Point(253, 36);
+            this.moreinfoLiveStreamingProfilelink.Name = "moreinfoLiveStreamingProfilelink";
+            this.moreinfoLiveStreamingProfilelink.Size = new System.Drawing.Size(230, 15);
+            this.moreinfoLiveStreamingProfilelink.TabIndex = 62;
+            this.moreinfoLiveStreamingProfilelink.TabStop = true;
+            this.moreinfoLiveStreamingProfilelink.Text = "Live streaming with on-premises encoders";
+            this.moreinfoLiveStreamingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // labelWarning
+            // 
+            this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelWarning.AutoSize = true;
+            this.labelWarning.ForeColor = System.Drawing.Color.Red;
+            this.labelWarning.Location = new System.Drawing.Point(207, 554);
+            this.labelWarning.Name = "labelWarning";
+            this.labelWarning.Size = new System.Drawing.Size(215, 15);
+            this.labelWarning.TabIndex = 63;
+            this.labelWarning.Text = "A running channel has a pricing impact";
+            // 
+            // linkLabelMoreInfoPrice
+            // 
+            this.linkLabelMoreInfoPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.linkLabelMoreInfoPrice.AutoSize = true;
+            this.linkLabelMoreInfoPrice.Location = new System.Drawing.Point(428, 554);
+            this.linkLabelMoreInfoPrice.Name = "linkLabelMoreInfoPrice";
+            this.linkLabelMoreInfoPrice.Size = new System.Drawing.Size(101, 15);
+            this.linkLabelMoreInfoPrice.TabIndex = 63;
+            this.linkLabelMoreInfoPrice.TabStop = true;
+            this.linkLabelMoreInfoPrice.Text = "More information";
+            this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
+            this.listViewJPG1.TabIndex = 84;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
+            // 
             // CreateLiveChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -800,6 +852,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 647);
+            this.Controls.Add(this.linkLabelMoreInfoPrice);
+            this.Controls.Add(this.labelWarning);
             this.Controls.Add(this.tabControlLiveChannel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.checkBoxStartChannel);
@@ -908,5 +962,9 @@
         private System.Windows.Forms.TextBox textBoxCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonCustomPreset;
         private System.Windows.Forms.RadioButton radioButtonDefaultPreset;
+        private System.Windows.Forms.LinkLabel moreinfoLiveEncodingProfilelink;
+        private System.Windows.Forms.LinkLabel moreinfoLiveStreamingProfilelink;
+        private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
     }
 }

@@ -64,6 +64,7 @@
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.contextMenuStripDG.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerBox)).BeginInit();
             this.splitContainerBox.Panel1.SuspendLayout();
@@ -185,7 +186,7 @@
             this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 186);
+            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 184);
             this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
             this.labelSlatePreviewInfo.Size = new System.Drawing.Size(288, 16);
             this.labelSlatePreviewInfo.TabIndex = 60;
@@ -200,7 +201,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(7, 23);
             this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
-            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(280, 159);
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(280, 157);
             this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPreviewSlate.TabIndex = 4;
             this.pictureBoxPreviewSlate.TabStop = false;
@@ -220,7 +221,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(9, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(567, 145);
+            this.groupBox1.Size = new System.Drawing.Size(565, 145);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advertising";
@@ -243,7 +244,7 @@
             this.buttonInsertAD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAD.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonInsertAD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAD.Location = new System.Drawing.Point(337, 67);
+            this.buttonInsertAD.Location = new System.Drawing.Point(335, 67);
             this.buttonInsertAD.Name = "buttonInsertAD";
             this.buttonInsertAD.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAD.TabIndex = 57;
@@ -258,7 +259,7 @@
             this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAdAndSlate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonInsertAdAndSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(337, 100);
+            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(335, 100);
             this.buttonInsertAdAndSlate.Name = "buttonInsertAdAndSlate";
             this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAdAndSlate.TabIndex = 56;
@@ -326,7 +327,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(9, 167);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(567, 367);
+            this.groupBox2.Size = new System.Drawing.Size(565, 367);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
@@ -336,7 +337,7 @@
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(28, 265);
+            this.label15.Location = new System.Drawing.Point(26, 265);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(521, 15);
             this.label15.TabIndex = 84;
@@ -362,14 +363,14 @@
             this.textBoxJPGSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxJPGSearch.Location = new System.Drawing.Point(145, 235);
             this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.Size = new System.Drawing.Size(185, 23);
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(183, 23);
             this.textBoxJPGSearch.TabIndex = 82;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(337, 235);
+            this.progressBarUpload.Location = new System.Drawing.Point(335, 235);
             this.progressBarUpload.Name = "progressBarUpload";
             this.progressBarUpload.Size = new System.Drawing.Size(98, 27);
             this.progressBarUpload.TabIndex = 81;
@@ -380,7 +381,7 @@
             // 
             this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUploadSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonUploadSlate.Location = new System.Drawing.Point(442, 235);
+            this.buttonUploadSlate.Location = new System.Drawing.Point(440, 235);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
             this.buttonUploadSlate.Size = new System.Drawing.Size(107, 27);
             this.buttonUploadSlate.TabIndex = 80;
@@ -400,7 +401,7 @@
             this.listViewJPG1.Location = new System.Drawing.Point(15, 28);
             this.listViewJPG1.MultiSelect = false;
             this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(534, 200);
+            this.listViewJPG1.Size = new System.Drawing.Size(532, 200);
             this.listViewJPG1.TabIndex = 61;
             this.listViewJPG1.Tag = -1;
             this.listViewJPG1.UseCompatibleStateImageBehavior = false;
@@ -413,7 +414,7 @@
             this.buttonHideSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonHideSlate.Image = global::AMSExplorer.Bitmaps.cancel;
             this.buttonHideSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHideSlate.Location = new System.Drawing.Point(337, 333);
+            this.buttonHideSlate.Location = new System.Drawing.Point(335, 333);
             this.buttonHideSlate.Name = "buttonHideSlate";
             this.buttonHideSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonHideSlate.TabIndex = 59;
@@ -428,7 +429,7 @@
             this.buttonShowSLate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonShowSLate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonShowSLate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonShowSLate.Location = new System.Drawing.Point(337, 300);
+            this.buttonShowSLate.Location = new System.Drawing.Point(335, 300);
             this.buttonShowSLate.Name = "buttonShowSLate";
             this.buttonShowSLate.Size = new System.Drawing.Size(212, 27);
             this.buttonShowSLate.TabIndex = 58;
@@ -467,7 +468,7 @@
             this.labelChannelName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelChannelName.Location = new System.Drawing.Point(21, 10);
             this.labelChannelName.Name = "labelChannelName";
-            this.labelChannelName.Size = new System.Drawing.Size(868, 23);
+            this.labelChannelName.Size = new System.Drawing.Size(682, 23);
             this.labelChannelName.TabIndex = 37;
             this.labelChannelName.Text = "Channel : ";
             // 
@@ -502,6 +503,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // moreinfoLiveEncodingProfilelink
+            // 
+            this.moreinfoLiveEncodingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(709, 10);
+            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
+            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(192, 15);
+            this.moreinfoLiveEncodingProfilelink.TabIndex = 62;
+            this.moreinfoLiveEncodingProfilelink.TabStop = true;
+            this.moreinfoLiveEncodingProfilelink.Text = "More information on live encoding";
+            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
             // ChannelAdSlateControl
             // 
             this.AcceptButton = this.buttonClose;
@@ -510,6 +523,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
+            this.Controls.Add(this.moreinfoLiveEncodingProfilelink);
             this.Controls.Add(this.splitContainerBox);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelChannelName);
@@ -539,6 +553,7 @@
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -579,5 +594,6 @@
         private System.Windows.Forms.Button buttongenerateContentKey;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.SplitContainer splitContainerPreviews;
+        private System.Windows.Forms.LinkLabel moreinfoLiveEncodingProfilelink;
     }
 }

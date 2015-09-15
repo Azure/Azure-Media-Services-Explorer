@@ -29,7 +29,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -221,7 +221,7 @@ namespace AMSExplorer
                 {
                     throw;
                 }
-           
+
             }
         }
 
@@ -295,6 +295,12 @@ namespace AMSExplorer
                 comboBoxAudioLanguageMain.Items.Add(myitem);
                 comboBoxAudioLanguageAddition.Items.Add(myitem);
             }
+
+            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
+            moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
+            linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
+
+
             InitPhase = false;
         }
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -339,6 +345,9 @@ namespace AMSExplorer
         {
             if (!InitPhase)
             {
+                moreinfoLiveEncodingProfilelink.Visible = !(EncodingType == ChannelEncodingType.None);
+                moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
+
                 // let's display the encoding tab if encoding has been choosen
                 if ((EncodingType == ChannelEncodingType.None) && EncodingTabDisplayed)
                 {
@@ -635,6 +644,13 @@ namespace AMSExplorer
         {
             UpdateProfileGrids();
             textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
+        }
+
+        private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            Process.Start(e.Link.LinkData as string);
+
         }
     }
 

@@ -81,6 +81,8 @@ namespace AMSExplorer
             labelChannelName.Text += MyChannel.Name;
             listViewJPG1.LoadJPGs(MyContext, null, MyChannel.Slate);
             textBoxCueId.Text = GenerateRandomCueId();
+            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
+
         }
 
         private string GenerateRandomCueId()
@@ -513,6 +515,12 @@ namespace AMSExplorer
         private void webBrowserPreview2_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
 
+        }
+
+        private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }
