@@ -3020,7 +3020,6 @@ namespace AMSExplorer
             }
 
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
-            Encoders.AddRange(GetMediaProcessorsByName(Constants.WindowsAzureMediaEncoder));
 
             EncodingAMEPreset form = new EncodingAMEPreset(_context)
             {
@@ -3910,7 +3909,6 @@ namespace AMSExplorer
 
             string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
-            Encoders.AddRange(GetMediaProcessorsByName(Constants.WindowsAzureMediaEncoder));
 
             EncodingAMEAdv form = new EncodingAMEAdv(_context)
             {
