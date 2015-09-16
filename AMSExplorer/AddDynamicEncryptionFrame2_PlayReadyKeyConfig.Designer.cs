@@ -61,20 +61,22 @@
             this.radioButtonKeySpecifiedByUser = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyRandomGeneration = new System.Windows.Forms.RadioButton();
             this.groupBoxCrypto = new System.Windows.Forms.GroupBox();
-            this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
             this.panelContentKey = new System.Windows.Forms.Panel();
             this.textBoxContentKeyCalculated = new System.Windows.Forms.TextBox();
             this.panelKeyId = new System.Windows.Forms.Panel();
             this.label10 = new System.Windows.Forms.Label();
+            this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
+            this.groupBoxWidevine = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.LAURLWidevine = new System.Windows.Forms.TextBox();
+            this.checkBoxWidevine = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panelPlayReadyTest.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -85,7 +87,8 @@
             this.panelContentKey.SuspendLayout();
             this.panelKeyId.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.groupBoxWidevine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // moreinfotestserver
@@ -139,6 +142,7 @@
             this.textBoxLAurl.Size = new System.Drawing.Size(445, 23);
             this.textBoxLAurl.TabIndex = 37;
             this.textBoxLAurl.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxLAurl.Validating += new System.ComponentModel.CancelEventHandler(this.LAUR_Validating);
             // 
             // buttongenerateContentKey
             // 
@@ -280,7 +284,7 @@
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(466, 47);
+            this.label8.Location = new System.Drawing.Point(474, 47);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(30, 15);
             this.label8.TabIndex = 67;
@@ -413,15 +417,17 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(14, 82);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(644, 115);
             this.groupBox2.TabIndex = 73;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "CENC Content key\'s generation";
+            this.groupBox2.Text = "CENC Content Key\'s generation";
             // 
             // label3
             // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label3.Location = new System.Drawing.Point(36, 29);
             this.label3.Name = "label3";
@@ -433,6 +439,7 @@
             // radioButtonKeySpecifiedByUser
             // 
             this.radioButtonKeySpecifiedByUser.AutoSize = true;
+            this.radioButtonKeySpecifiedByUser.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(40, 81);
             this.radioButtonKeySpecifiedByUser.Name = "radioButtonKeySpecifiedByUser";
             this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(134, 19);
@@ -445,6 +452,7 @@
             // 
             this.radioButtonKeyRandomGeneration.AutoSize = true;
             this.radioButtonKeyRandomGeneration.Checked = true;
+            this.radioButtonKeyRandomGeneration.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(40, 54);
             this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
             this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(130, 19);
@@ -469,22 +477,7 @@
             this.groupBoxCrypto.Size = new System.Drawing.Size(640, 278);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
-            this.groupBoxCrypto.Text = "Cryptography";
-            // 
-            // checkBoxEncodingSL
-            // 
-            this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxEncodingSL.AutoSize = true;
-            this.checkBoxEncodingSL.Enabled = false;
-            this.checkBoxEncodingSL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEncodingSL.Location = new System.Drawing.Point(510, 46);
-            this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
-            this.checkBoxEncodingSL.Size = new System.Drawing.Size(109, 19);
-            this.checkBoxEncodingSL.TabIndex = 76;
-            this.checkBoxEncodingSL.Text = "Encoding for SL";
-            this.toolTip1.SetToolTip(this.checkBoxEncodingSL, "& will encoded as %26 for compatibility with Silverlight (breaks compatibility wi" +
-        "th DASH)");
-            this.checkBoxEncodingSL.UseVisualStyleBackColor = true;
+            this.groupBoxCrypto.Text = "CENC Content Key";
             // 
             // panelContentKey
             // 
@@ -536,6 +529,21 @@
             this.label10.TabIndex = 69;
             this.label10.Text = "If empty, it will be automatically generated";
             // 
+            // checkBoxEncodingSL
+            // 
+            this.checkBoxEncodingSL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxEncodingSL.AutoSize = true;
+            this.checkBoxEncodingSL.Enabled = false;
+            this.checkBoxEncodingSL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxEncodingSL.Location = new System.Drawing.Point(510, 46);
+            this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
+            this.checkBoxEncodingSL.Size = new System.Drawing.Size(109, 19);
+            this.checkBoxEncodingSL.TabIndex = 76;
+            this.checkBoxEncodingSL.Text = "Encoding for SL";
+            this.toolTip1.SetToolTip(this.checkBoxEncodingSL, "& will encoded as %26 for compatibility with Silverlight (breaks compatibility wi" +
+        "th DASH)");
+            this.checkBoxEncodingSL.UseVisualStyleBackColor = true;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -565,7 +573,7 @@
             this.textBoxCustomAttributes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxCustomAttributes.Location = new System.Drawing.Point(12, 100);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
-            this.textBoxCustomAttributes.Size = new System.Drawing.Size(451, 23);
+            this.textBoxCustomAttributes.Size = new System.Drawing.Size(447, 23);
             this.textBoxCustomAttributes.TabIndex = 80;
             // 
             // label9
@@ -574,12 +582,14 @@
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
             this.label9.Location = new System.Drawing.Point(26, 21);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(230, 42);
+            this.label9.Size = new System.Drawing.Size(340, 42);
             this.label9.TabIndex = 83;
-            this.label9.Text = "Step 2\r\nSpecify the CENC Content Key";
+            this.label9.Text = "Step 2\r\nSpecify the CENC Content Key and packaging";
             // 
             // groupBox1
             // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.textBoxLAurl);
             this.groupBox1.Controls.Add(this.checkBoxEncodingSL);
             this.groupBox1.Controls.Add(this.label7);
@@ -593,19 +603,46 @@
             this.groupBox1.Size = new System.Drawing.Size(641, 138);
             this.groupBox1.TabIndex = 84;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "PlayReady";
+            this.groupBox1.Text = "PlayReady DRM";
             // 
-            // groupBox3
+            // groupBoxWidevine
             // 
-            this.groupBox3.Controls.Add(this.LAURLWidevine);
-            this.groupBox3.Controls.Add(this.checkBoxWidevine);
-            this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(17, 652);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(640, 52);
-            this.groupBox3.TabIndex = 85;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Widevine";
+            this.groupBoxWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxWidevine.Controls.Add(this.label11);
+            this.groupBoxWidevine.Controls.Add(this.LAURLWidevine);
+            this.groupBoxWidevine.Controls.Add(this.checkBoxWidevine);
+            this.groupBoxWidevine.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxWidevine.Location = new System.Drawing.Point(17, 652);
+            this.groupBoxWidevine.Name = "groupBoxWidevine";
+            this.groupBoxWidevine.Size = new System.Drawing.Size(640, 52);
+            this.groupBoxWidevine.TabIndex = 85;
+            this.groupBoxWidevine.TabStop = false;
+            this.groupBoxWidevine.Text = "Widevine DRM (DASH only)";
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label11.Location = new System.Drawing.Point(552, 24);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(82, 15);
+            this.label11.TabIndex = 83;
+            this.label11.Text = "(Url, Optional)";
+            // 
+            // LAURLWidevine
+            // 
+            this.LAURLWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.LAURLWidevine.Enabled = false;
+            this.LAURLWidevine.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.LAURLWidevine.Location = new System.Drawing.Point(254, 21);
+            this.LAURLWidevine.Name = "LAURLWidevine";
+            this.LAURLWidevine.Size = new System.Drawing.Size(276, 23);
+            this.LAURLWidevine.TabIndex = 83;
+            this.LAURLWidevine.Validating += new System.ComponentModel.CancelEventHandler(this.LAUR_Validating);
             // 
             // checkBoxWidevine
             // 
@@ -619,16 +656,9 @@
             this.checkBoxWidevine.UseVisualStyleBackColor = true;
             this.checkBoxWidevine.CheckedChanged += new System.EventHandler(this.checkBoxWidevine_CheckedChanged);
             // 
-            // LAURLWidevine
+            // errorProvider1
             // 
-            this.LAURLWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LAURLWidevine.Enabled = false;
-            this.LAURLWidevine.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.LAURLWidevine.Location = new System.Drawing.Point(254, 21);
-            this.LAURLWidevine.Name = "LAURLWidevine";
-            this.LAURLWidevine.Size = new System.Drawing.Size(373, 23);
-            this.LAURLWidevine.TabIndex = 83;
+            this.errorProvider1.ContainerControl = this;
             // 
             // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
             // 
@@ -638,7 +668,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 763);
-            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBoxWidevine);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.panelPlayReadyTest);
@@ -669,8 +699,9 @@
             this.panelKeyId.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.groupBoxWidevine.ResumeLayout(false);
+            this.groupBoxWidevine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -715,7 +746,7 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBoxWidevine;
         private System.Windows.Forms.CheckBox checkBoxWidevine;
         private System.Windows.Forms.TextBox textBoxLAurl;
         private System.Windows.Forms.TextBox textBoxCustomAttributes;
@@ -724,5 +755,7 @@
         private System.Windows.Forms.TextBox textBoxkeyid;
         private System.Windows.Forms.TextBox textBoxcontentkey;
         private System.Windows.Forms.TextBox textBoxContentKeyCalculated;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

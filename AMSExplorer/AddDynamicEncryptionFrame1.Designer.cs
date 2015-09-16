@@ -45,12 +45,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDownNbOptions = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDefineAuthPol = new System.Windows.Forms.RadioButton();
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -85,12 +85,10 @@
             // radioButtonEnvelope
             // 
             this.radioButtonEnvelope.AutoSize = true;
-            this.radioButtonEnvelope.Checked = true;
             this.radioButtonEnvelope.Location = new System.Drawing.Point(41, 28);
             this.radioButtonEnvelope.Name = "radioButtonEnvelope";
             this.radioButtonEnvelope.Size = new System.Drawing.Size(164, 19);
             this.radioButtonEnvelope.TabIndex = 44;
-            this.radioButtonEnvelope.TabStop = true;
             this.radioButtonEnvelope.Text = "Envelope encryption (AES)";
             this.radioButtonEnvelope.UseVisualStyleBackColor = true;
             this.radioButtonEnvelope.CheckedChanged += new System.EventHandler(this.radioButtonEnvelope_CheckedChanged);
@@ -98,10 +96,12 @@
             // radioButtonCENCKey
             // 
             this.radioButtonCENCKey.AutoSize = true;
+            this.radioButtonCENCKey.Checked = true;
             this.radioButtonCENCKey.Location = new System.Drawing.Point(41, 54);
             this.radioButtonCENCKey.Name = "radioButtonCENCKey";
             this.radioButtonCENCKey.Size = new System.Drawing.Size(268, 19);
             this.radioButtonCENCKey.TabIndex = 46;
+            this.radioButtonCENCKey.TabStop = true;
             this.radioButtonCENCKey.Text = "Common encryption (PlayReady., Widevine...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
             this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
@@ -263,6 +263,15 @@
             this.groupBoxAuthPol.TabStop = false;
             this.groupBoxAuthPol.Text = "Key Authorization policy";
             // 
+            // label3
+            // 
+            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label3.Location = new System.Drawing.Point(41, 138);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(583, 23);
+            this.label3.TabIndex = 70;
+            this.label3.Text = "As of today, Widevine licenses must be delivered by a third party.";
+            // 
             // label8
             // 
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
@@ -321,19 +330,11 @@
             this.radioButtonNoAuthPolicy.AutoSize = true;
             this.radioButtonNoAuthPolicy.Location = new System.Drawing.Point(41, 97);
             this.radioButtonNoAuthPolicy.Name = "radioButtonNoAuthPolicy";
-            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(429, 19);
+            this.radioButtonNoAuthPolicy.Size = new System.Drawing.Size(303, 19);
             this.radioButtonNoAuthPolicy.TabIndex = 62;
-            this.radioButtonNoAuthPolicy.Text = "None - An external AES Key or PlayReady server is used to deliver the licenses\r\n";
+            this.radioButtonNoAuthPolicy.Tag = "None - An external {0} server is used to deliver the {1}";
+            this.radioButtonNoAuthPolicy.Text = "None - An external {0} server is used to deliver the {1}\r\n";
             this.radioButtonNoAuthPolicy.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label3.Location = new System.Drawing.Point(4, 138);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(390, 23);
-            this.label3.TabIndex = 70;
-            this.label3.Text = "In both cases, Widevine licenses must be delivered by a third party";
             // 
             // AddDynamicEncryptionFrame1
             // 

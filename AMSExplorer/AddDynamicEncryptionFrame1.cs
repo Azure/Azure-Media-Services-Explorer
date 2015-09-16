@@ -44,7 +44,7 @@ namespace AMSExplorer
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryption;
                 }
-                else if(radioButtonDecryptStorage.Checked)
+                else if (radioButtonDecryptStorage.Checked)
                 {
                     return AssetDeliveryPolicyType.NoDynamicEncryption;
                 }
@@ -102,7 +102,7 @@ namespace AMSExplorer
 
         private void SetupDynEnc_Load(object sender, EventArgs e)
         {
-
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
 
@@ -110,8 +110,8 @@ namespace AMSExplorer
 
         private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
         {
-           //radioButtonDefineAuthPol.Checked = radioButtonEnvelope.Checked;
-           radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
 
@@ -131,13 +131,25 @@ namespace AMSExplorer
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
             radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
-
+        private void UpdateradioButtonNoAuthPolicyTextBox()
+        {
+            if (radioButtonNoDynEnc.Checked || radioButtonCENCKey.Checked)
+            {
+                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "PlayReady license", "licenses");
+            }
+            else if (radioButtonEnvelope.Checked)
+            {
+                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "AES key", "keys");
+            }
+        }
     }
 }

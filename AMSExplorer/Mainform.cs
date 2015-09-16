@@ -7631,7 +7631,7 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_PlayReadyKeyConfig(
-                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense)
+                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense, (form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash)== AssetDeliveryProtocol.Dash)
                             { Left = form1.Left, Top = form1.Top };
                             if (form2_PlayReady.ShowDialog() == DialogResult.OK)
                             {

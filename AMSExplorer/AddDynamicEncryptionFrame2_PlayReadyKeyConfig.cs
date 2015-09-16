@@ -163,7 +163,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false)
+        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled=true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -186,6 +186,9 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+            
+                groupBoxWidevine.Enabled = DashEnabled;
+           
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
@@ -399,6 +402,31 @@ namespace AMSExplorer
         private void checkBoxWidevine_CheckedChanged(object sender, EventArgs e)
         {
             LAURLWidevine.Enabled = checkBoxWidevine.Checked;
+        }
+
+        private void LAUR_Validating(object sender, CancelEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+
+            bool Error = false;
+
+            try
+            {
+                 Uri testuri = new Uri(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                errorProvider1.SetError(tb, "Url not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
         }
     }
 }
