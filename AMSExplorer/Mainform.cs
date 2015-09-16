@@ -3019,6 +3019,8 @@ namespace AMSExplorer
                 return;
             }
 
+            CheckQuicktimeAndDisplayMessage(SelectedAssets);
+
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
 
             EncodingAMEPreset form = new EncodingAMEPreset(_context)
@@ -3047,6 +3049,14 @@ namespace AMSExplorer
             }
         }
 
+        private static void CheckQuicktimeAndDisplayMessage(List<IAsset> SelectedAssets)
+        {
+            if (SelectedAssets.Any(a => AssetInfo.GetAssetType(a) == "MOV (1)"))
+            {
+                bool multi = SelectedAssets.Count > 1;
+                MessageBox.Show(string.Format("Asset{0} seem{1} to be a Quicktime or ProRes file.", multi ? "s" : "", multi ? "" : "s") + Constants.endline + "You should use Media Encoder Standard instead.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
 
         private void Mainform_Shown(object sender, EventArgs e)
         {
@@ -3906,6 +3916,8 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            CheckQuicktimeAndDisplayMessage(SelectedAssets);
 
             string taskname = "Azure Media Encoding (adv) of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
             Encoders = GetMediaProcessorsByName(Constants.AzureMediaEncoder);
@@ -7629,7 +7641,7 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_PlayReadyKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_PlayReadyKeyConfig(
-                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense, (form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash)== AssetDeliveryProtocol.Dash)
+                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense, (form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
                             { Left = form1.Left, Top = form1.Top };
                             if (form2_PlayReady.ShowDialog() == DialogResult.OK)
                             {
