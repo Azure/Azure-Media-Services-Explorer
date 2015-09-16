@@ -42,14 +42,14 @@ namespace AMSExplorer
             }
         }
 
-
-        public EncodingPremiumXML()
+        public EncodingPremiumXML(string title = null, string text = null, bool editMode=false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            textBoxConfiguration.Text = savedConfig = defaultConfig = string.Empty;
+            if (title != null) this.Text = title;
+            textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
+            if (editMode) buttonOk.Text = "Save";
         }
-
 
         private void JobOptions_Load(object sender, EventArgs e)
         {
@@ -79,7 +79,6 @@ namespace AMSExplorer
         {
             this.Click += ButtonXML_Click;
         }
-
 
         public void Initialize()
         {

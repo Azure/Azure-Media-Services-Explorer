@@ -929,7 +929,6 @@ namespace AMSExplorer
                     }
                 }
             }
-
         }
 
         private void toolStripMenuItemDownloadFile_Click(object sender, EventArgs e)
@@ -1075,6 +1074,7 @@ namespace AMSExplorer
             bool bSelect = listViewFiles.SelectedItems.Count > 0;
             bool bMultiSelect = listViewFiles.SelectedItems.Count > 1;
             bool NonEncrypted = (myAsset.Options == AssetCreationOptions.None);
+
             buttonDeleteFile.Enabled = bSelect;
             buttonDeleteAll.Enabled = bSelect;
             buttonSetPrimary.Enabled = bSelect && !bMultiSelect;
@@ -1083,6 +1083,7 @@ namespace AMSExplorer
             buttonDuplicate.Enabled = bSelect & NonEncrypted && !bMultiSelect;
             buttonUpload.Enabled = true;
             buttonFileMetadata.Enabled = bSelect && !bMultiSelect;
+            buttonEditOnline.Enabled = bSelect && !bMultiSelect;
             DoDisplayFileProperties();
         }
 
@@ -1355,6 +1356,23 @@ namespace AMSExplorer
 
         }
 
+        private void ProcessDownloadFileToAsset(IAssetFile assetFile, string destfolderpath)
+        {
+            try
+            {
+                assetFile.DownloadProgressChanged += MyDownloadProgressChanged;
+                assetFile.Download(destfolderpath);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        private void MyDownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
+        }
 
 
         private void duplicateFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2133,6 +2151,93 @@ namespace AMSExplorer
         private void deleteAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteAllFiles();
+        }
+
+        private void buttonEditOnline_Click(object sender, EventArgs e)
+        {
+            DoEditFile();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        private async void DoEditFile()
+        {
+            var SelectedAssetFiles = ReturnSelectedAssetFiles();
+
+            if (SelectedAssetFiles.Count == 1 && SelectedAssetFiles.FirstOrDefault() != null)
+            {
+                IAssetFile assetFileToEdit = SelectedAssetFiles.FirstOrDefault();
+
+                if (assetFileToEdit.ContentFileSize > 500 * 1024)
+                {
+                    MessageBox.Show("File is to big to edit it online.");
+                    return;
+                }
+
+                try
+                {
+                    progressBarUpload.Maximum = 100;
+                    progressBarUpload.Visible = true;
+                    string tempPath = System.IO.Path.GetTempPath();
+                    string filePath = Path.Combine(tempPath, assetFileToEdit.Name);
+
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+                    await Task.Factory.StartNew(() => ProcessDownloadFileToAsset(assetFileToEdit, filePath));
+
+                    progressBarUpload.Visible = false;
+
+                    StreamReader streamReader = new StreamReader(filePath);
+                    Encoding fileEncoding = streamReader.CurrentEncoding;
+                    string datastring = streamReader.ReadToEnd();
+                    streamReader.Close();
+
+                    var editform = new EncodingPremiumXML(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
+                    if (editform.Display() == DialogResult.OK)
+                    { // OK
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+                        StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
+
+                        outfile.Write(editform.PremiumXML);
+                        outfile.Close();
+
+                        string assetFileName = assetFileToEdit.Name;
+                        bool assetFilePrimary = assetFileToEdit.IsPrimary;
+                        assetFileToEdit.Delete();
+
+                        progressBarUpload.Visible = true;
+
+                        await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
+
+                        if (File.Exists(filePath))
+                        {
+                            File.Delete(filePath);
+                        }
+
+                        if (assetFilePrimary)
+                        {
+                            AssetInfo.SetFileAsPrimary(myAsset, assetFileName);
+                        }
+                        // Refresh the asset.
+                        myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
+                        progressBarUpload.Visible = false;
+
+                        ListAssetFiles();
+                    }
+                }
+
+                catch
+                {
+                    MessageBox.Show("Error when accessing/editing asset file.");
+                }
+
+            }
         }
     }
 }

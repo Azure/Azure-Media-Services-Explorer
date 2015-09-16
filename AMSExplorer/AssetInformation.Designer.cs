@@ -127,6 +127,7 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonEditOnline = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -175,7 +176,7 @@
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 48);
+            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick_1);
             // 
             // toolStripMenuItemFilesCopyClipboard
@@ -419,9 +420,9 @@
             // 
             this.buttonSetPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSetPrimary.Enabled = false;
-            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 470);
+            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 469);
             this.buttonSetPrimary.Name = "buttonSetPrimary";
-            this.buttonSetPrimary.Size = new System.Drawing.Size(103, 27);
+            this.buttonSetPrimary.Size = new System.Drawing.Size(104, 27);
             this.buttonSetPrimary.TabIndex = 27;
             this.buttonSetPrimary.Text = "Set as Primary";
             this.buttonSetPrimary.UseVisualStyleBackColor = true;
@@ -431,9 +432,9 @@
             // 
             this.buttonDeleteFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteFile.Enabled = false;
-            this.buttonDeleteFile.Location = new System.Drawing.Point(387, 470);
+            this.buttonDeleteFile.Location = new System.Drawing.Point(581, 469);
             this.buttonDeleteFile.Name = "buttonDeleteFile";
-            this.buttonDeleteFile.Size = new System.Drawing.Size(63, 27);
+            this.buttonDeleteFile.Size = new System.Drawing.Size(56, 27);
             this.buttonDeleteFile.TabIndex = 28;
             this.buttonDeleteFile.Text = "Delete";
             this.toolTip1.SetToolTip(this.buttonDeleteFile, "Delete the selected file");
@@ -444,9 +445,9 @@
             // 
             this.buttonDownloadFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDownloadFile.Enabled = false;
-            this.buttonDownloadFile.Location = new System.Drawing.Point(297, 470);
+            this.buttonDownloadFile.Location = new System.Drawing.Point(341, 469);
             this.buttonDownloadFile.Name = "buttonDownloadFile";
-            this.buttonDownloadFile.Size = new System.Drawing.Size(83, 27);
+            this.buttonDownloadFile.Size = new System.Drawing.Size(80, 27);
             this.buttonDownloadFile.TabIndex = 29;
             this.buttonDownloadFile.Text = "Download";
             this.buttonDownloadFile.UseVisualStyleBackColor = true;
@@ -456,7 +457,7 @@
             // 
             this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpenFile.Enabled = false;
-            this.buttonOpenFile.Location = new System.Drawing.Point(238, 470);
+            this.buttonOpenFile.Location = new System.Drawing.Point(229, 469);
             this.buttonOpenFile.Name = "buttonOpenFile";
             this.buttonOpenFile.Size = new System.Drawing.Size(52, 27);
             this.buttonOpenFile.TabIndex = 30;
@@ -539,6 +540,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
             this.tabPage2.Controls.Add(this.buttonFileMetadata);
             this.tabPage2.Controls.Add(this.progressBarUpload);
@@ -562,9 +564,9 @@
             // 
             this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteAll.Enabled = false;
-            this.buttonDeleteAll.Location = new System.Drawing.Point(632, 469);
+            this.buttonDeleteAll.Location = new System.Drawing.Point(643, 469);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
-            this.buttonDeleteAll.Size = new System.Drawing.Size(90, 27);
+            this.buttonDeleteAll.Size = new System.Drawing.Size(79, 27);
             this.buttonDeleteAll.TabIndex = 36;
             this.buttonDeleteAll.Text = "Delete All";
             this.toolTip1.SetToolTip(this.buttonDeleteAll, "Delete the selected file");
@@ -575,9 +577,9 @@
             // 
             this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFileMetadata.Enabled = false;
-            this.buttonFileMetadata.Location = new System.Drawing.Point(120, 470);
+            this.buttonFileMetadata.Location = new System.Drawing.Point(120, 469);
             this.buttonFileMetadata.Name = "buttonFileMetadata";
-            this.buttonFileMetadata.Size = new System.Drawing.Size(111, 27);
+            this.buttonFileMetadata.Size = new System.Drawing.Size(103, 27);
             this.buttonFileMetadata.TabIndex = 35;
             this.buttonFileMetadata.Text = "Show metadata";
             this.toolTip1.SetToolTip(this.buttonFileMetadata, "Duplicate the selected file");
@@ -598,9 +600,9 @@
             // 
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(545, 470);
+            this.buttonUpload.Location = new System.Drawing.Point(427, 469);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(80, 27);
+            this.buttonUpload.Size = new System.Drawing.Size(69, 27);
             this.buttonUpload.TabIndex = 33;
             this.buttonUpload.Text = "Upload";
             this.toolTip1.SetToolTip(this.buttonUpload, "Upload file(s) to the asset. Use for small file(s) only.");
@@ -611,9 +613,9 @@
             // 
             this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDuplicate.Enabled = false;
-            this.buttonDuplicate.Location = new System.Drawing.Point(457, 470);
+            this.buttonDuplicate.Location = new System.Drawing.Point(502, 469);
             this.buttonDuplicate.Name = "buttonDuplicate";
-            this.buttonDuplicate.Size = new System.Drawing.Size(80, 27);
+            this.buttonDuplicate.Size = new System.Drawing.Size(73, 27);
             this.buttonDuplicate.TabIndex = 32;
             this.buttonDuplicate.Text = "Duplicate";
             this.toolTip1.SetToolTip(this.buttonDuplicate, "Duplicate the selected file");
@@ -1229,6 +1231,19 @@
             this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
             // 
+            // buttonEditOnline
+            // 
+            this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditOnline.Enabled = false;
+            this.buttonEditOnline.Location = new System.Drawing.Point(287, 469);
+            this.buttonEditOnline.Name = "buttonEditOnline";
+            this.buttonEditOnline.Size = new System.Drawing.Size(48, 27);
+            this.buttonEditOnline.TabIndex = 37;
+            this.buttonEditOnline.Text = "Edit";
+            this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
+            this.buttonEditOnline.UseVisualStyleBackColor = true;
+            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
+            // 
             // AssetInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -1374,5 +1389,6 @@
         private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteAll;
         private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
+        private System.Windows.Forms.Button buttonEditOnline;
     }
 }

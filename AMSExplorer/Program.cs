@@ -2192,7 +2192,7 @@ namespace AMSExplorer
                                 default: // auto or other
                                     break;
                             }
-                            if (tokenresult != null)
+                            if (tokenresult.TokenString != null)
                             {
                                 playerurl += string.Format(tokensyntax, tokenresult);
                             }
