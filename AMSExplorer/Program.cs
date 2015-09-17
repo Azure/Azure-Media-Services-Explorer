@@ -1823,7 +1823,18 @@ namespace AMSExplorer
                         break;
 
                     case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        type = AssetProtectionType.PlayReady;
+                        if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl) && policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl))
+                        {
+                            type = AssetProtectionType.PlayReadyAndWidevine;
+                        }
+                        else if (policy.AssetDeliveryConfiguration.ContainsKey(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl))
+                        {
+                            type = AssetProtectionType.Widevine;
+                        }
+                        else
+                        {
+                            type = AssetProtectionType.PlayReady;
+                        }
                         break;
 
                     default:
@@ -2081,7 +2092,7 @@ namespace AMSExplorer
 
                 if (myasset != null)
                 {
-                    keytype = AssetInfo.GetAssetProtection(myasset, context); // let's save the protection scheme (use by azure player)
+                    keytype = AssetInfo.GetAssetProtection(myasset, context); // let's save the protection scheme (use by azure player): AES, PlayReady, Widevine or PlayReadyAndWidevine
 
                     if (DynamicEncryption.IsAssetHasAuthorizationPolicyWithToken(myasset, context)) // dynamic encryption with token
                     {
@@ -2115,12 +2126,14 @@ namespace AMSExplorer
                                         break;
                                     case AssetProtectionType.AES:
                                     case AssetProtectionType.PlayReady:
+                                    case AssetProtectionType.Widevine:
+                                    case AssetProtectionType.PlayReadyAndWidevine:
                                         tokenresult = DynamicEncryption.GetTestToken(myasset, context, displayUI: true);
                                         if (!string.IsNullOrEmpty(tokenresult.TokenString))
                                         {
                                             tokenresult.TokenString = HttpUtility.UrlEncode(Constants.Bearer + tokenresult.TokenString);
                                             // if the user selecteed an CENC key, let's assume that the content is protected with PlayReady, otherwise AES
-                                            keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
+                                            //keytype = (tokenresult.ContentKeyType == ContentKeyType.CommonEncryption) ? AssetProtectionType.PlayReady : AssetProtectionType.AES;
                                         }
                                         break;
                                 }
@@ -2158,6 +2171,14 @@ namespace AMSExplorer
 
                                 case AssetProtectionType.PlayReady:
                                     playerurl += string.Format(protectionsyntax, "playready");
+                                    break;
+
+                                case AssetProtectionType.Widevine:
+                                    playerurl += string.Format(protectionsyntax, "widevine");
+                                    break;
+
+                                case AssetProtectionType.PlayReadyAndWidevine:
+                                    playerurl += string.Format(protectionsyntax, "drm");
                                     break;
 
                                 default:
@@ -2530,8 +2551,10 @@ namespace AMSExplorer
     public enum AssetProtectionType
     {
         None = 0,
-        AES = 1,
-        PlayReady = 2
+        AES,
+        PlayReady,
+        Widevine,
+        PlayReadyAndWidevine
     }
 
     public enum TypeInputExtraInput
