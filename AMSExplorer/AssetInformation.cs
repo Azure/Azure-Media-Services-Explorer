@@ -2195,13 +2195,15 @@ namespace AMSExplorer
                     string datastring = streamReader.ReadToEnd();
                     streamReader.Close();
 
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
                     var editform = new EncodingPremiumXML(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
-                        if (File.Exists(filePath))
-                        {
-                            File.Delete(filePath);
-                        }
+                       
                         StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
 
                         outfile.Write(editform.PremiumXML);
