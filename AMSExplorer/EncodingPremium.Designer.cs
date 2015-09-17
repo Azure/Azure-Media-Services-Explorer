@@ -271,6 +271,7 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label8.Location = new System.Drawing.Point(53, 537);
