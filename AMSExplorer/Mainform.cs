@@ -70,6 +70,7 @@ namespace AMSExplorer
         public static CloudMediaContext _context = null;
         public static string Salt;
         private string _backuprootfolderupload = "";
+        private string _backuprootfolderdownload = "";
         private StringBuilder sbuilder = new StringBuilder(); // used for locator copy to clipboard
         private ILocator PlayBackLocator = null;
 
@@ -1034,7 +1035,7 @@ namespace AMSExplorer
 
 
 
-        private void ProcessDownloadAsset(List<IAsset> SelectedAssets, object folder, int index)
+        private void ProcessDownloadAsset(List<IAsset> SelectedAssets, string folder, int index, DownloadToFolderOption downloadOption, bool openFileExplorer)
         {
             // If download in the queue, let's wait our turn
             DoGridTransferWaitIfNeeded(index);
@@ -1049,27 +1050,52 @@ namespace AMSExplorer
             TextBoxLogWriteLine(labeldb);
             foreach (IAsset mediaAsset in SelectedAssets)
             {
-                string foldera = folder.ToString();
-                if (multipleassets)
+                string foldera = folder;
+                bool ErrorCurrentAssetFolderCreation = false;
+                bool ErrorCurrentAsset = false;
+                if (downloadOption == DownloadToFolderOption.SubfolderAssetId)
                 {
                     foldera += "\\" + mediaAsset.Id.Substring(12);
-                    Directory.CreateDirectory(foldera);
                 }
-                try
+                else if (downloadOption == DownloadToFolderOption.SubfolderAssetName)
                 {
-                    mediaAsset.DownloadToFolder(foldera,
-                                                                                     (af, p) =>
-                                                                                     {
-                                                                                         DoGridTransferUpdateProgress(p.Progress, index);
-                                                                                     }
-                                                                                    );
+                    foldera += "\\" + mediaAsset.Name;
                 }
-                catch (Exception e)
+                if (!File.Exists(foldera))
                 {
-                    Error = true;
-                    TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
-                    TextBoxLogWriteLine(e);
-                    DoGridTransferDeclareError(index, e);
+                    try
+                    {
+                        Directory.CreateDirectory(foldera);
+                    }
+                    catch
+                    {
+                        TextBoxLogWriteLine("Error when creating folder '{0}'.", foldera, true);
+                        ErrorCurrentAssetFolderCreation = true;
+                    }
+                }
+                if (!ErrorCurrentAssetFolderCreation)
+                {
+                    try
+                    {
+                        mediaAsset.DownloadToFolder(foldera,
+                                                                                         (af, p) =>
+                                                                                         {
+                                                                                             DoGridTransferUpdateProgress(p.Progress, index);
+                                                                                         }
+                                                                                        );
+                    }
+                    catch (Exception e)
+                    {
+                        ErrorCurrentAsset = true;
+                        Error = true;
+                        TextBoxLogWriteLine(string.Format("Download of asset '{0}' failed.", mediaAsset.Name), true);
+                        TextBoxLogWriteLine(e);
+                        DoGridTransferDeclareError(index, e);
+                    }
+                    if (!ErrorCurrentAsset)
+                    {
+                        if (openFileExplorer) Process.Start(foldera);
+                    }
                 }
 
             }
@@ -1425,15 +1451,45 @@ namespace AMSExplorer
             if (SelectedAssets.Count == 0) return;
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
-            if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
-            {
-                string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
-                if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
 
-                int index = DoGridTransferAddItem(label, TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
-                // Start a worker thread that does downloading.
-                Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, folderBrowserDialogDownload.SelectedPath, index));
-                DotabControlMainSwitch(Constants.TabTransfers);
+            var form = new DownloadToLocal(SelectedAssets, _backuprootfolderdownload);
+
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                bool ErrorFolderCreation = false;
+                _backuprootfolderdownload = form.FolderPath; // for reuse later
+                if (!File.Exists(form.FolderPath))
+                {
+                    if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.FolderPath), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                    {
+                        try
+                        {
+                            Directory.CreateDirectory(form.FolderPath);
+                        }
+                        catch
+                        {
+                            ErrorFolderCreation = true;
+                            MessageBox.Show(string.Format("Error when creating folder '{0}'.", form.FolderPath), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            TextBoxLogWriteLine("Error when creating folder '{0}'.", form.FolderPath, true);
+                        }
+                    }
+                    else
+                    {
+                        ErrorFolderCreation = true;
+                        TextBoxLogWriteLine("User cancelled the folder creation.", true);
+                    }
+                }
+                if (!ErrorFolderCreation)
+                {
+                    string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
+                    if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
+
+                    int index = DoGridTransferAddItem(label, TransferType.DownloadToLocal, Properties.Settings.Default.useTransferQueue);
+                    // Start a worker thread that does downloading.
+                    Task.Factory.StartNew(() => ProcessDownloadAsset(SelectedAssets, form.FolderPath, index, form.FolderOption, form.OpenFolderAfterDownload));
+                    DotabControlMainSwitch(Constants.TabTransfers);
+                }
             }
         }
 
@@ -4429,21 +4485,11 @@ namespace AMSExplorer
         }
 
 
-
         private void toolStripMenuItemRename_Click(object sender, EventArgs e)
         {
             DoMenuRenameAsset();
         }
 
-        private void toolStripMenuItemDownloadToLocal_Click(object sender, EventArgs e)
-        {
-            DoMenuDownloadToLocal();
-        }
-
-        private void toolStripMenuItemUploadFileFromAzure_Click(object sender, EventArgs e)
-        {
-            DoMenuImportFromAzureStorage();
-        }
 
         private void toolStripMenuItemDelete_Click(object sender, EventArgs e)
         {

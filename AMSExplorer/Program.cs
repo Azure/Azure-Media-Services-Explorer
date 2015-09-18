@@ -2696,6 +2696,13 @@ namespace AMSExplorer
         ProgramId
     }
 
+    public enum DownloadToFolderOption
+    {
+        DoNotCreateSubfolder = 0,
+        SubfolderAssetName,
+        SubfolderAssetId
+    }
+
     public class SearchObject
     {
         public string Text { get; set; }
