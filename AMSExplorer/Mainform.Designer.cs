@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -202,7 +202,7 @@
             this.channelsAdAndSlateControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createChannelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCloneChannel = new System.Windows.Forms.ToolStripMenuItem();
             this.stopChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteChannelsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -225,7 +225,7 @@
             this.recreateProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.stopProgramsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemCloneProgram = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteProgramsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.subclipLiveStreamsarchivesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.originToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -524,7 +524,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1965,7 +1965,7 @@
             this.channelsAdAndSlateControlToolStripMenuItem,
             this.createChannelToolStripMenuItem,
             this.startChannelsToolStripMenuItem,
-            this.toolStripMenuItem28,
+            this.toolStripMenuItemCloneChannel,
             this.stopChannelsToolStripMenuItem,
             this.resetChannelsToolStripMenuItem,
             this.deleteChannelsToolStripMenuItem,
@@ -1980,7 +1980,7 @@
             this.recreateProgramsToolStripMenuItem,
             this.startProgramsToolStripMenuItem1,
             this.stopProgramsToolStripMenuItem,
-            this.toolStripMenuItem27,
+            this.toolStripMenuItemCloneProgram,
             this.deleteProgramsToolStripMenuItem1,
             this.subclipLiveStreamsarchivesToolStripMenuItem1});
             this.liveChannelToolStripMenuItem.Enabled = false;
@@ -2023,12 +2023,12 @@
             this.startChannelsToolStripMenuItem.Text = "Start channel(s)";
             this.startChannelsToolStripMenuItem.Click += new System.EventHandler(this.startChannelsToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem28
+            // toolStripMenuItemCloneChannel
             // 
-            this.toolStripMenuItem28.Name = "toolStripMenuItem28";
-            this.toolStripMenuItem28.Size = new System.Drawing.Size(292, 22);
-            this.toolStripMenuItem28.Text = "Clone channel(s) to another account...";
-            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click);
+            this.toolStripMenuItemCloneChannel.Name = "toolStripMenuItemCloneChannel";
+            this.toolStripMenuItemCloneChannel.Size = new System.Drawing.Size(292, 22);
+            this.toolStripMenuItemCloneChannel.Text = "Clone channel(s) to another account...";
+            this.toolStripMenuItemCloneChannel.Click += new System.EventHandler(this.toolStripMenuItem28_Click);
             // 
             // stopChannelsToolStripMenuItem
             // 
@@ -2210,12 +2210,12 @@
             this.stopProgramsToolStripMenuItem.Text = "Stop program(s)";
             this.stopProgramsToolStripMenuItem.Click += new System.EventHandler(this.stopProgramsToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem27
+            // toolStripMenuItemCloneProgram
             // 
-            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
-            this.toolStripMenuItem27.Size = new System.Drawing.Size(292, 22);
-            this.toolStripMenuItem27.Text = "Clone program(s) to another account...";
-            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click);
+            this.toolStripMenuItemCloneProgram.Name = "toolStripMenuItemCloneProgram";
+            this.toolStripMenuItemCloneProgram.Size = new System.Drawing.Size(292, 22);
+            this.toolStripMenuItemCloneProgram.Text = "Clone program(s) to another account...";
+            this.toolStripMenuItemCloneProgram.Click += new System.EventHandler(this.toolStripMenuItem27_Click);
             // 
             // deleteProgramsToolStripMenuItem1
             // 
@@ -2232,6 +2232,7 @@
             this.subclipLiveStreamsarchivesToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Text = "Subclip program(s)...";
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.Click += new System.EventHandler(this.subclipLiveStreamsarchivesToolStripMenuItem1_Click);
             // 
             // originToolStripMenuItem
             // 
@@ -3648,9 +3649,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject3.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject3.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject3;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4289,9 +4290,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject2.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject2;
+            searchObject4.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject4.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject4;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4318,9 +4319,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject3.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject3;
+            searchObject1.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject1.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject1;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -4581,10 +4582,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chart.Legends.Add(legend3);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -5103,8 +5104,8 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaPlayerDiagnosticsCenterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cloneToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cloneChannelsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem28;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloneProgram;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloneChannel;
         private System.Windows.Forms.ToolStripMenuItem subclipToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem subclipLiveStreamsarchivesToolStripMenuItem1;

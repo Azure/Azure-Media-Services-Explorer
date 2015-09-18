@@ -6303,8 +6303,7 @@ namespace AMSExplorer
                             }
 
                             // delete the channels
-                            SelectedChannels.ToList().ForEach(c => TextBoxLogWriteLine("Channel '{0}': deleting...", c.Name));
-                            var taskcdel = SelectedChannels.Select(c => c.DeleteAsync()).ToArray();
+                            var taskcdel = SelectedChannels.Select(c => DeleteChannelAsync(c)).ToArray();
                             try
                             {
 
@@ -9937,27 +9936,40 @@ namespace AMSExplorer
         private void contextMenuStripChannels_Opening(object sender, CancelEventArgs e)
         {
             var channels = ReturnSelectedChannels();
+            bool single = channels.Count == 1;
+            bool oneOrMore = channels.Count > 0;
 
             // channel info if only one channel
-            ContextMenuItemChannelDisplayInfomation.Enabled = channels.Count == 1;
+            ContextMenuItemChannelDisplayInfomation.Enabled = single;
 
             // slate control if at least one channel with live transcoding
             ContextMenuItemChannelAdAndSlateControl.Enabled = channels.Any(c => c.Encoding != null);
 
             // copy input url if only one channel
-            ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = channels.Count == 1;
+            ContextMenuItemChannelCopyIngestURLToClipboard.Enabled = single;
 
             // on premises encoder if only one channel
-            ContextMenuItemChannelRunOnPremisesLiveEncoder.Enabled = channels.Count == 1;
+            ContextMenuItemChannelRunOnPremisesLiveEncoder.Enabled = single;
 
             // copy preview url if only one channel
-            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = channels.Count == 1;
+            ContextMenuItemChannelCopyPreviewURLToClipboard.Enabled = single;
+
+            // start, stop, reset, delete, clone channel
+            ContextMenuItemChannelStart.Enabled = oneOrMore;
+            ContextMenuItemChannelStop.Enabled = oneOrMore;
+            ContextMenuItemChannelReset.Enabled = oneOrMore;
+            cloneChannelsToolStripMenuItem.Enabled = oneOrMore;
+            ContextMenuItemChannelDelete.Enabled = oneOrMore;
+
+            // playback preview
+            playbackTheProgramToolStripMenuItem.Enabled = oneOrMore;
         }
 
         private void liveChannelToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
             var channels = ReturnSelectedChannels();
             bool single = channels.Count == 1;
+            bool oneOrMore = channels.Count > 0;
 
             // channel info if only one channel
             channInfoToolStripMenuItem.Enabled = single;
@@ -9974,11 +9986,21 @@ namespace AMSExplorer
             // copy preview url if only one channel
             copyPreviewURLToClipboardToolStripMenuItem.Enabled = single;
 
+            // start, stop, reset, delete, clone channel
+            startChannelsToolStripMenuItem.Enabled = oneOrMore;
+            stopChannelsToolStripMenuItem.Enabled = oneOrMore;
+            resetChannelsToolStripMenuItem.Enabled = oneOrMore;
+            deleteChannelsToolStripMenuItem.Enabled = oneOrMore;
+            toolStripMenuItemCloneChannel.Enabled = oneOrMore;
+
+            // playback preview
+            playbackThePreviewToolStripMenuItem.Enabled = oneOrMore;
 
             ////////////
 
             var programs = ReturnSelectedPrograms();
             single = programs.Count == 1;
+            oneOrMore = programs.Count > 0;
 
             // program info if only one program
             displayProgramInformationToolStripMenuItem.Enabled = single;
@@ -9986,12 +10008,27 @@ namespace AMSExplorer
             // asset info if only one program
             ProgramDisplayRelatedAssetInformationToolStripMenuItem.Enabled = single;
 
+            // reset program
+            recreateProgramsToolStripMenuItem.Enabled = oneOrMore;
+
+            // start, stop, delete program
+            startProgramsToolStripMenuItem1.Enabled = oneOrMore;
+            stopProgramsToolStripMenuItem.Enabled = oneOrMore;
+            deleteProgramsToolStripMenuItem1.Enabled = oneOrMore;
+
+            // clone program
+            toolStripMenuItemCloneProgram.Enabled = oneOrMore;
+
+            // sublcip program
+            subclipLiveStreamsarchivesToolStripMenuItem1.Enabled = oneOrMore;
+
         }
 
         private void contextMenuStripPrograms_Opening(object sender, CancelEventArgs e)
         {
             var programs = ReturnSelectedPrograms();
             bool single = programs.Count == 1;
+            bool oneOrMore = programs.Count > 0;
 
             // program info if only one program
             ContextMenuItemProgramDisplayInformation.Enabled = single;
@@ -10004,6 +10041,31 @@ namespace AMSExplorer
 
             // edit asset filter if only one program
             toolStripMenuItemProgramAssetFilterInfo.Enabled = single;
+
+
+            // reset program
+            recreateProgramToolStripMenuItem.Enabled = oneOrMore;
+
+            // start, stop, delete program
+            ContextMenuItemProgramStart.Enabled = oneOrMore;
+            ContextMenuItemProgramStop.Enabled = oneOrMore;
+            ContextMenuItemProgramDelete.Enabled = oneOrMore;
+
+            // clone program
+            cloneToolStripMenuItem.Enabled = oneOrMore;
+
+            // subclip program
+            subclipProgramsToolStripMenuItem.Enabled = oneOrMore;
+
+            // secutiry
+            securityToolStripMenuItem.Enabled = oneOrMore;
+
+            // publish
+            publishToolStripMenuItem2.Enabled = oneOrMore;
+
+            // playback
+            ContextMenuItemProgramPlayback.Enabled = oneOrMore;
+
         }
 
         private void ContextMenuItemProgramCopyTheOutputURLToClipboard_Click(object sender, EventArgs e)
@@ -10549,6 +10611,11 @@ namespace AMSExplorer
         private void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoExportMetadata();
+        }
+
+        private void subclipLiveStreamsarchivesToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoSubClip();
         }
     }
 }
