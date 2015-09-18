@@ -99,10 +99,10 @@
             this.radioButtonCENCKey.Checked = true;
             this.radioButtonCENCKey.Location = new System.Drawing.Point(41, 54);
             this.radioButtonCENCKey.Name = "radioButtonCENCKey";
-            this.radioButtonCENCKey.Size = new System.Drawing.Size(268, 19);
+            this.radioButtonCENCKey.Size = new System.Drawing.Size(265, 19);
             this.radioButtonCENCKey.TabIndex = 46;
             this.radioButtonCENCKey.TabStop = true;
-            this.radioButtonCENCKey.Text = "Common encryption (PlayReady., Widevine...)";
+            this.radioButtonCENCKey.Text = "Common encryption (PlayReady, Widevine...)";
             this.radioButtonCENCKey.UseVisualStyleBackColor = true;
             this.radioButtonCENCKey.CheckedChanged += new System.EventHandler(this.radioButtonCENCKey_CheckedChanged);
             // 
