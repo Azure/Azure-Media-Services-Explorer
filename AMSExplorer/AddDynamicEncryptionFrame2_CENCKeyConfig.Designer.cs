@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame2_PlayReadyKeyConfig
+    partial class AddDynamicEncryptionFrame2_CENCKeyConfig
     {
         /// <summary>
         /// Required designer variable.

@@ -31,7 +31,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame2_PlayReadyKeyConfig : Form
+    public partial class AddDynamicEncryptionFrame2_CENCKeyConfig : Form
     {
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
@@ -157,7 +157,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled = true)
+        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

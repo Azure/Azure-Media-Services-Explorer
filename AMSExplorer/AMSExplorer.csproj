@@ -319,11 +319,11 @@
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </Compile>
     <Compile Include="DynamicEncryption.cs" />
-    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs">
+    <Compile Include="AddDynamicEncryptionFrame2_CENCKeyConfig.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame2_CENCKeyConfig.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </Compile>
     <Compile Include="StreamingEndpointInformation.cs">
       <SubType>Form</SubType>
@@ -663,8 +663,8 @@
     <EmbeddedResource Include="CreateStreamingEndpoint.resx">
       <DependentUpon>CreateStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame2_PlayReadyKeyConfig.resx">
-      <DependentUpon>AddDynamicEncryptionFrame2_PlayReadyKeyConfig.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame2_CENCKeyConfig.resx">
+      <DependentUpon>AddDynamicEncryptionFrame2_CENCKeyConfig.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StreamingEndpointInformation.resx">
       <DependentUpon>StreamingEndpointInformation.cs</DependentUpon>
