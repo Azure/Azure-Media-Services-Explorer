@@ -547,7 +547,7 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string playreadyCustomAttributes = null, Uri widevineAcquisitionUrl = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string playreadyCustomAttributes = null, string widevineAcquisitionUrl = null)
         {
             string stringacquisitionUrl;
             if (playreadyEncodeLAURLForSilverlight && playreadyAcquisitionUrl != null)
@@ -574,8 +574,7 @@ namespace AMSExplorer
             // Widevine
             if (widevineAcquisitionUrl != null) // let's add Widevine
             {
-                stringacquisitionUrl = System.Security.SecurityElement.Escape(widevineAcquisitionUrl.ToString());
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, stringacquisitionUrl);
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(

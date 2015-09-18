@@ -73,6 +73,7 @@ namespace AMSExplorer
                 {
 
                 }
+
                 return myuri;
             }
             set
@@ -139,21 +140,14 @@ namespace AMSExplorer
             }
         }
 
-        public Uri WidevineLAurl
+        public string WidevineLAurl
         {
             get
             {
-                Uri myuri = null;
+                string myuri = null;
                 if (checkBoxWidevine.Checked)
                 {
-                    try
-                    {
-                        myuri = new Uri(LAURLWidevine.Text);
-                    }
-                    catch
-                    {
-
-                    }
+                    myuri = LAURLWidevine.Text.Trim();
                 }
                 return myuri;
             }
@@ -163,7 +157,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled=true)
+        public AddDynamicEncryptionFrame2_PlayReadyKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -186,9 +180,9 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
-            
-                groupBoxWidevine.Enabled = DashEnabled;
-           
+
+            groupBoxWidevine.Enabled = DashEnabled;
+
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
@@ -409,14 +403,16 @@ namespace AMSExplorer
             TextBox tb = (TextBox)sender;
 
             bool Error = false;
-
-            try
+            if (!string.IsNullOrWhiteSpace(tb.Text))
             {
-                 Uri testuri = new Uri(tb.Text);
-            }
-            catch
-            {
-                Error = true;
+                try
+                {
+                    Uri testuri = new Uri(tb.Text);
+                }
+                catch
+                {
+                    Error = true;
+                }
             }
 
             if (Error)

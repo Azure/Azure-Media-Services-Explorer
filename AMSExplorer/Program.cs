@@ -2702,6 +2702,7 @@ namespace AMSExplorer
         public SearchIn SearchType { get; set; }
 
     }
+  
 
     public class LocalEncoder
     {
