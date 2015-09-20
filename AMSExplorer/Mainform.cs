@@ -156,7 +156,7 @@ namespace AMSExplorer
             });
 
             // Get the service context.
-            _context = Program.ConnectAndGetNewContext(_credentials);
+            _context = Program.ConnectAndGetNewContext(_credentials, true);
 
             // mainform title
             toolStripStatusLabelConnection.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version) + " - Connected to " + _context.Credentials.ClientId;

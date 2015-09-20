@@ -89,7 +89,7 @@ namespace AMSExplorer
             }
         }
 
-        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials)
+        public static CloudMediaContext ConnectAndGetNewContext(CredentialsEntry credentials, bool refreshToken = false)
         {
             CloudMediaContext myContext = null;
             if (credentials.UsePartnerAPI == true.ToString())
@@ -132,13 +132,20 @@ namespace AMSExplorer
                     Environment.Exit(0);
                 }
             }
-            try { myContext.Credentials.RefreshToken(); } // to force connection to WAMS
-            catch (Exception e)
+            if (refreshToken)
             {
-                // Add useful information to the exception
-                MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
-                Environment.Exit(0);
+                try
+                {
+                    myContext.Credentials.RefreshToken(); // to force connection to WAMS
+                } 
+                catch (Exception e)
+                {
+                    // Add useful information to the exception
+                    MessageBox.Show("There is a credentials problem when connecting to Azure Media Services." + Constants.endline + "Application will close." + Constants.endline + e.Message);
+                    Environment.Exit(0);
+                }
             }
+
             return myContext;
         }
 
@@ -2709,7 +2716,7 @@ namespace AMSExplorer
         public SearchIn SearchType { get; set; }
 
     }
-  
+
 
     public class LocalEncoder
     {
