@@ -1257,7 +1257,8 @@ namespace AMSExplorer
                     }
                     finally
                     {
-
+                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets.ToList());
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
             }
@@ -1438,7 +1439,9 @@ namespace AMSExplorer
                             return;
                         }
                         TextBoxLogWriteLine("Renamed asset '{0}'.", AssetTORename.Id);
-                        DoRefreshGridAssetV(false);
+                        dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        //DoRefreshGridAssetV(false);
                     }
                 }
             }
@@ -1574,152 +1577,174 @@ namespace AMSExplorer
 
                     sbuilder.Clear();
 
-                    foreach (IAsset AssetTOProcess in SelectedAssets)
+                    //foreach (IAsset AssetTOProcess in SelectedAssets)
 
-                        if (AssetTOProcess != null)
-                        {
-                            //delete
-                            TextBoxLogWriteLine("Creating locator for asset '{0}'... ", AssetTOProcess.Name);
-                            try
-                            {
+                    //    if (AssetTOProcess != null)
+                    //    {
+                    //        //delete
+                    //        TextBoxLogWriteLine("Creating locator for asset '{0}'... ", AssetTOProcess.Name);
+                    //        try
+                    //        {
 
-                                Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
-                            }
+                    //            Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
+                    //        }
 
-                            catch (Exception e)
-                            {
-                                // Add useful information to the exception
-                                TextBoxLogWriteLine("There is a problem when creating the locator on asset '{0}'.", AssetTOProcess.Name, true);
-                                TextBoxLogWriteLine(e);
-                            }
-                        }
+                    //        catch (Exception e)
+                    //        {
+                    //            // Add useful information to the exception
+                    //            TextBoxLogWriteLine("There is a problem when creating the locator on asset '{0}'.", AssetTOProcess.Name, true);
+                    //            TextBoxLogWriteLine(e);
+                    //        }
+                    //    }
+
+
+
+
+                    try
+                    {
+
+                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
+                    }
+
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when creating a locator", true);
+                        TextBoxLogWriteLine(e);
+                    }
+
                 }
             }
         }
 
 
-        private void ProcessCreateLocator(LocatorType locatorType, IAsset AssetToP, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
+        private void ProcessCreateLocator(LocatorType locatorType, List<IAsset> assets, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
-            ILocator locator = null;
-            try
+            foreach (var AssetToP in assets)
             {
-                IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + AssetToP, accessPolicyDuration, accessPolicyPermissions);
-                if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
+
+                ILocator locator = null;
+                try
                 {
-                    locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
-                }
-                else // Streaming locator and user wants to force the GUID
-                {
-                    locator = _context.Locators.CreateLocator(ForceLocatorGUID, LocatorType.OnDemandOrigin, AssetToP, policy, startTime);
-                }
-            }
-            catch (Exception ex)
-            {
-                TextBoxLogWriteLine("Error. Could not create a locator for '{0}' (is the asset encrypted, or locators quota has been reached ?)", AssetToP.Name, true);
-                TextBoxLogWriteLine(ex);
-                return;
-            }
-            if (locator == null) return;
-
-            // let's choose a SE that running and with higher number of RU
-            IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
-            bool SESelectedHasRU = SESelected.ScaleUnits > 0;
-
-            if (!SESelectedHasRU && AssetToP.AssetType != AssetType.SmoothStreaming)
-            {
-                TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit.", true);
-            }
-
-            StringBuilder sbuilderThisAsset = new StringBuilder();
-            sbuilderThisAsset.AppendLine("");
-            sbuilderThisAsset.AppendLine("Asset:");
-            sbuilderThisAsset.AppendLine(AssetToP.Name);
-            sbuilderThisAsset.AppendLine("Locator ID:");
-            sbuilderThisAsset.AppendLine(locator.Id);
-            sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
-            sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
-            sbuilderThisAsset.AppendLine("");
-
-            if (locatorType == LocatorType.OnDemandOrigin)
-            {
-                // Get the MPEG-DASH URL of the asset for adaptive streaming.
-                Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
-
-                // Get the HLS URL of the asset for adaptive streaming.
-                Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected);
-                Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected);
-
-                // Get the Smooth URL of the asset for adaptive streaming.
-                Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
-
-                if (AssetToP.AssetType == AssetType.MediaServicesHLS)
-                // It is a static HLS asset, so let's propose only the standard HLS V3 locator
-                {
-                    sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                    sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.AbsoluteUri));
-                }
-                else // It's not Static HLS
-                {
-                    if (!SESelectedHasRU && AssetToP.AssetType == AssetType.SmoothStreaming)
-                    // it's smooth streaming with no dynamic packaging
+                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + AssetToP, accessPolicyDuration, accessPolicyPermissions);
+                    if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
                     {
-                        sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
-                        sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
+                        locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
                     }
-                    else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
-                    // Smooth or multi MP4, SE RU so dynamic packaging is possible
+                    else // Streaming locator and user wants to force the GUID
                     {
-                        if (locator.GetSmoothStreamingUri() != null)
+                        locator = _context.Locators.CreateLocator(ForceLocatorGUID, LocatorType.OnDemandOrigin, AssetToP, policy, startTime);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Error. Could not create a locator for '{0}' (is the asset encrypted, or locators quota has been reached ?)", AssetToP.Name, true);
+                    TextBoxLogWriteLine(ex);
+                    return;
+                }
+                if (locator == null) return;
+
+                // let's choose a SE that running and with higher number of RU
+                IStreamingEndpoint SESelected = AssetInfo.GetBestStreamingEndpoint(_context);
+                bool SESelectedHasRU = SESelected.ScaleUnits > 0;
+
+                if (!SESelectedHasRU && AssetToP.AssetType != AssetType.SmoothStreaming)
+                {
+                    TextBoxLogWriteLine("There is no running streaming endpoint with a scale unit.", true);
+                }
+
+                StringBuilder sbuilderThisAsset = new StringBuilder();
+                sbuilderThisAsset.AppendLine("");
+                sbuilderThisAsset.AppendLine("Asset:");
+                sbuilderThisAsset.AppendLine(AssetToP.Name);
+                sbuilderThisAsset.AppendLine("Locator ID:");
+                sbuilderThisAsset.AppendLine(locator.Id);
+                sbuilderThisAsset.AppendLine("Locator Path (best streaming endpoint selected)");
+                sbuilderThisAsset.AppendLine(AssetInfo.RW(locator.Path, SESelected));
+                sbuilderThisAsset.AppendLine("");
+
+                if (locatorType == LocatorType.OnDemandOrigin)
+                {
+                    // Get the MPEG-DASH URL of the asset for adaptive streaming.
+                    Uri mpegDashUri = AssetInfo.RW(locator.GetMpegDashUri(), SESelected);
+
+                    // Get the HLS URL of the asset for adaptive streaming.
+                    Uri HLSUri = AssetInfo.RW(locator.GetHlsUri(), SESelected);
+                    Uri HLSUriv3 = AssetInfo.RW(locator.GetHlsv3Uri(), SESelected);
+
+                    // Get the Smooth URL of the asset for adaptive streaming.
+                    Uri SmoothUri = AssetInfo.RW(locator.GetSmoothStreamingUri(), SESelected);
+
+                    if (AssetToP.AssetType == AssetType.MediaServicesHLS)
+                    // It is a static HLS asset, so let's propose only the standard HLS V3 locator
+                    {
+                        sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
+                        sbuilderThisAsset.AppendLine(AddBracket(HLSUriv3.AbsoluteUri));
+                    }
+                    else // It's not Static HLS
+                    {
+                        if (!SESelectedHasRU && AssetToP.AssetType == AssetType.SmoothStreaming)
+                        // it's smooth streaming with no dynamic packaging
                         {
                             sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
                             sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
                         }
-                        if (locator.GetMpegDashUri() != null)
+                        else if (SESelectedHasRU && (AssetToP.AssetType == AssetType.SmoothStreaming || AssetToP.AssetType == AssetType.MultiBitrateMP4))
+                        // Smooth or multi MP4, SE RU so dynamic packaging is possible
                         {
-                            sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
-                        }
-                        if (locator.GetHlsUri() != null)
-                        {
-                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
-                            sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
-                            sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).AbsoluteUri));
+                            if (locator.GetSmoothStreamingUri() != null)
+                            {
+                                sbuilderThisAsset.AppendLine(AssetInfo._smooth + " : ");
+                                sbuilderThisAsset.AppendLine(AddBracket(SmoothUri.AbsoluteUri));
+                                sbuilderThisAsset.AppendLine(AssetInfo._smooth_legacy + " : ");
+                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.GetSmoothLegacy(SmoothUri.AbsoluteUri)));
+                            }
+                            if (locator.GetMpegDashUri() != null)
+                            {
+                                sbuilderThisAsset.AppendLine(AssetInfo._dash + " : ");
+                                sbuilderThisAsset.AppendLine(AddBracket(mpegDashUri.AbsoluteUri));
+                            }
+                            if (locator.GetHlsUri() != null)
+                            {
+                                sbuilderThisAsset.AppendLine(AssetInfo._hls_v4 + " : ");
+                                sbuilderThisAsset.AppendLine(AddBracket(HLSUri.AbsoluteUri));
+                                sbuilderThisAsset.AppendLine(AssetInfo._hls_v3 + " : ");
+                                sbuilderThisAsset.AppendLine(AddBracket(AssetInfo.RW(locator.GetHlsv3Uri(), SESelected).AbsoluteUri));
+                            }
                         }
                     }
                 }
+                else //SAS
+                {
+                    IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
+
+                    // Generate the Progressive Download URLs for each file. 
+                    List<Uri> ProgressiveDownloadUris =
+                        AssetFiles.Select(af => af.GetSasUri()).ToList();
+
+
+                    TextBoxLogWriteLine("You can progressively download the following files :");
+                    ProgressiveDownloadUris.ForEach(uri =>
+                    {
+                        sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
+
+                    }
+                                        );
+                }
+                //log window
+                TextBoxLogWriteLine(sbuilderThisAsset.ToString());
+
+                if (sbuilderThisAsset != null)
+                {
+                    sbuilder.Append(sbuilderThisAsset); // we add this builder to the general builder
+                                                        // COPY to clipboard. We need to create a STA thread for it
+                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                    MyThread.SetApartmentState(ApartmentState.STA);
+                    MyThread.IsBackground = true;
+                    MyThread.Start(sbuilder.ToString());
+                }
             }
-            else //SAS
-            {
-                IEnumerable<IAssetFile> AssetFiles = AssetToP.AssetFiles.ToList();
-
-                // Generate the Progressive Download URLs for each file. 
-                List<Uri> ProgressiveDownloadUris =
-                    AssetFiles.Select(af => af.GetSasUri()).ToList();
-
-
-                TextBoxLogWriteLine("You can progressively download the following files :");
-                ProgressiveDownloadUris.ForEach(uri =>
-                                {
-                                    sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
-
-                                }
-                                    );
-            }
-            //log window
-            TextBoxLogWriteLine(sbuilderThisAsset.ToString());
-
-            if (sbuilderThisAsset != null)
-            {
-                sbuilder.Append(sbuilderThisAsset); // we add this builder to the general builder
-                // COPY to clipboard. We need to create a STA thread for it
-                System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                MyThread.SetApartmentState(ApartmentState.STA);
-                MyThread.IsBackground = true;
-                MyThread.Start(sbuilder.ToString());
-            }
+            dataGridViewAssetsV.PurgeCacheAssets(assets);
             dataGridViewAssetsV.AnalyzeItemsInBackground();
         }
 
@@ -1761,6 +1786,7 @@ namespace AMSExplorer
                                 TextBoxLogWriteLine("There is a problem when deleting locators of the asset {0}.", AssetToProcess.Name, true);
                                 TextBoxLogWriteLine(ex);
                             }
+                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                     }
@@ -7726,6 +7752,7 @@ namespace AMSExplorer
                                 {
                                     DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_PlayReady, form3list, form4list, true);
                                     oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
@@ -7758,6 +7785,7 @@ namespace AMSExplorer
                                 {
                                     DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3list, true);
                                     oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                     dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
@@ -7767,6 +7795,7 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.NoDynamicEncryption:
                             AddDynDecryption(SelectedAssets, form1, _context);
                             oktoproceed = true;
+                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                             break;
 
@@ -8459,6 +8488,7 @@ namespace AMSExplorer
                             if (Error) break;
                             TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
+                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                     }
@@ -8534,6 +8564,7 @@ namespace AMSExplorer
                             if (Error) break;
                             TextBoxLogWriteLine("Removed{0} CENC and Enveloppe keys for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
 
+                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                             dataGridViewAssetsV.AnalyzeItemsInBackground();
                         }
                     }
@@ -10411,7 +10442,8 @@ namespace AMSExplorer
                     TextBoxLogWriteLine("Error when creating filter '{0}'.", (filterinfo != null && filterinfo.Name != null) ? filterinfo.Name : "unknown name", true);
                     TextBoxLogWriteLine(e);
                 }
-                DoRefreshGridFiltersV(false);
+                dataGridViewAssetsV.PurgeCacheAsset(selasset);
+                dataGridViewAssetsV.AnalyzeItemsInBackground();
             }
 
         }
@@ -11203,7 +11235,6 @@ namespace AMSExplorer
 
         private void WorkerAnalyzeAssets_DoWork(object sender, DoWorkEventArgs e)
         {
-
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
             IAsset asset;
@@ -11224,7 +11255,8 @@ namespace AMSExplorer
                     if (asset != null)
                     {
                         AssetInfo myAssetInfo = new AssetInfo(asset);
-
+                        AE.Name = asset.Name;
+                        AE.LastModified = asset.LastModified.ToLocalTime();
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
                         AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
@@ -11290,6 +11322,11 @@ namespace AMSExplorer
         public void PurgeCacheAssets(List<IAsset> assets)
         {
             assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
+        }
+
+        public void PurgeCacheAsset(IAsset asset)
+        {
+            cacheAssetentries.Remove(asset.Id);
         }
 
         public void RefreshAssets(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
