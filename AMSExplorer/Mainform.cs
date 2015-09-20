@@ -10982,6 +10982,8 @@ namespace AMSExplorer
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
+        static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
+
         static private int _assetsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -11210,7 +11212,10 @@ namespace AMSExplorer
             PublishStatus OrigLoc;
             int i = 0;
 
-            foreach (AssetEntry AE in _MyObservAsset)
+            var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList();
+            listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
+
+            foreach (AssetEntry AE in listae)
             {
                 asset = null;
                 try
@@ -11240,6 +11245,7 @@ namespace AMSExplorer
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
+                        cacheAssetentries.Add(asset.Id, AE); // let's put it in cache
                         i++;
                         if (i % 5 == 0)
                         {
@@ -11281,8 +11287,10 @@ namespace AMSExplorer
             }
         }
 
-
-
+        public void PurgeCacheAssets(List<IAsset> assets)
+        {
+            assets.ToList().ForEach(a => cacheAssetentries.Remove(a.Id));
+        }
 
         public void RefreshAssets(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
@@ -11462,8 +11470,15 @@ namespace AMSExplorer
 
             try
             {
-                assetquery = from a in assets
-                             select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+                //         assetquery = from a in assets
+                //                      select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName, Publication = cacheAssetentries.ContainsKey(a.Id) ? cacheAssetentries[a.Id].Publication:null  };
+
+                assetquery = assets.Select(a =>
+                // let's return the data cached in memory of it exists and last modified time is the same
+                (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
+                              new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
+                              );
+
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
             catch (Exception e)
