@@ -1329,6 +1329,8 @@ namespace AMSExplorer
                     finally
                     {
                         this.Cursor = Cursors.Arrow;
+                        dataGridViewAssetsV.PurgeCacheAsset(asset);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
             }
