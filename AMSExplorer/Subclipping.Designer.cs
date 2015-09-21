@@ -222,7 +222,7 @@
             this.tabPageXML.Padding = new System.Windows.Forms.Padding(3);
             this.tabPageXML.Size = new System.Drawing.Size(879, 509);
             this.tabPageXML.TabIndex = 2;
-            this.tabPageXML.Text = "Generated Configuration";
+            this.tabPageXML.Text = "Generated JSON Configuration";
             this.tabPageXML.UseVisualStyleBackColor = true;
             this.tabPageXML.Enter += new System.EventHandler(this.tabPageXML_Enter);
             // 
@@ -231,9 +231,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(19, 16);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(87, 15);
+            this.label3.Size = new System.Drawing.Size(91, 15);
             this.label3.TabIndex = 40;
-            this.label3.Text = "XML (editable):";
+            this.label3.Text = "JSON (editable):";
             // 
             // textBoxConfiguration
             // 

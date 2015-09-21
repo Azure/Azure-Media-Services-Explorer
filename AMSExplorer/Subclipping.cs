@@ -28,7 +28,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
-
+using Newtonsoft.Json.Linq;
 
 namespace AMSExplorer
 {
@@ -188,36 +188,104 @@ namespace AMSExplorer
         {
             if (radioButtonArchiveAllBitrate.Checked || radioButtonArchiveTopBitrate.Checked) // Archive, no reencoding
             {
-                // Prepare the Subclipping xml
-                XDocument doc = XDocument.Load(Path.Combine(Application.StartupPath + Constants.PathConfigFiles, "RenderedSubclip.xml"));
-                XNamespace ns = "http://www.windowsazure.com/media/encoding/Preset/2014/03";
+                /*
+                SAMPLE JSON
 
-                var presetxml = doc.Element(ns + "Preset");
-                var sourcexml = presetxml.Element(ns + "Sources").Element(ns + "Source");
-                var streamsxml = sourcexml.Element(ns + "Streams");
-                var output = presetxml.Element(ns + "Outputs").Element(ns + "Output"); ;
+                                {
+                  "Version": 1.0,
+                  "Sources": [
+                    {
+                      "StartTime": "20.13:05:33.0520000",
+                      "Duration": "00:00:44.7100000",
+                      "Streams": [
+                        {
+                          "Type": "AudioStream",
+                          "Value": "TopBitrate"
+                        },
+                        {
+                          "Type": "VideoStream",
+                          "Value": "TopBitrate"
+                        }
+                      ]
+                    }
+                  ],
+                  "Outputs": [
+                    {
+                      "FileName": "ArchiveTopBitrate_{Basename}.mp4",
+                      "Format": {
+                        "Type": "MP4Format"
+                      }
+                    }
+                  ],
+                  "Codecs": [
+                    {
+                      "Type": "CopyVideo"
+                    },
+                    {
+                      "Type": "CopyAudio"
+                    }
+                  ]
+                }
+
+                */
+
+
+                var obj = new JObject() as dynamic;
+                obj.Version = 1.0;
+
+                // Sources
+                obj.Sources = new JArray() as dynamic;
+                dynamic sourceEntry = new JObject() as dynamic;
+                // trimming
+                if (checkBoxTrimming.Checked)
+                {
+                    sourceEntry.StartTime = timeControlStart.GetTimeStampAsTimeSpanWithOffset();
+                    sourceEntry.Duration = timeControlEnd.GetTimeStampAsTimeSpanWithOffset() - timeControlStart.GetTimeStampAsTimeSpanWithOffset();
+                }
+
+                sourceEntry.Streams = new JArray() as dynamic;
 
                 string filter = radioButtonArchiveAllBitrate.Checked ? "*" : "TopBitrate";
                 string mode = radioButtonArchiveAllBitrate.Checked ? "ArchiveAllBitrates" : "ArchiveTopBitrate";
 
-                streamsxml.Add(new XElement(ns + "VideoStream", filter));
-                streamsxml.Add(new XElement(ns + "AudioStream", filter));
-                output.Attribute("FileName").SetValue(mode + "_{Basename}.mp4");
+                dynamic stream = new JObject();
+                stream.Type = "AudioStream";
+                stream.Value = filter;
+                sourceEntry.Streams.Add(stream);
+                stream = new JObject();
+                stream.Type = "VideoStream";
+                stream.Value = filter;
+                sourceEntry.Streams.Add(stream);
 
-                if (checkBoxTrimming.Checked)
-                {
-                    var subdata = GetSubClipTrimmingDataXMLSerialized();
-                    sourcexml.SetAttributeValue("StartTime", subdata.StartTime);
-                    sourcexml.SetAttributeValue("Duration", subdata.Duration);
-                }
+                obj.Sources.Add(sourceEntry);
+
+                obj.Outputs = new JArray() as dynamic;
+                dynamic output = new JObject();
+                output.FileName = mode + "_{Basename}.mp4";
+
+                dynamic formatentry = new JObject();
+                formatentry.Type = "MP4Format";
+
+                output.Format = formatentry;
+
+                obj.Outputs.Add(output);
+
+                obj.Codecs = new JArray();
+                dynamic streamcopy = new JObject();
+                streamcopy.Type = "CopyVideo";
+                obj.Codecs.Add(streamcopy);
+                streamcopy = new JObject();
+                streamcopy.Type = "CopyAudio";
+                obj.Codecs.Add(streamcopy);
 
                 return new SubClipConfiguration()
                 {
-                    Configuration = doc.Declaration.ToString() + doc.ToString(),
+                    Configuration = obj.ToString(),
                     Reencode = false,
                     Trimming = false,
                     CreateAssetFilter = false
                 };
+
             }
             else if (radioButtonClipWithReencode.Checked) // means Reencoding
             {
@@ -316,9 +384,9 @@ namespace AMSExplorer
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
             if (!radioButtonClipWithReencode.Checked) backupcheckboxtrim = checkBoxTrimming.Checked; // let's save status
-            timeControlStart.Enabled = 
-            timeControlEnd.Enabled = 
-            textBoxDurationTime.Enabled = 
+            timeControlStart.Enabled =
+            timeControlEnd.Enabled =
+            textBoxDurationTime.Enabled =
             checkBoxPreviewStream.Enabled = checkBoxTrimming.Checked;
             CheckIfErrorTimeControls();
             ResetConfigXML();
@@ -497,7 +565,7 @@ namespace AMSExplorer
                     FilterCreationInfo filterinfo = null;
                     try
                     {
-                         filterinfo = formAF.GetFilterInfo;
+                        filterinfo = formAF.GetFilterInfo;
                         selasset.AssetFilters.Create(filterinfo.Name, filterinfo.Presentationtimerange, filterinfo.Trackconditions);
                         _mainform.TextBoxLogWriteLine("Asset filter '{0}' created.", filterinfo.Name);
                     }
