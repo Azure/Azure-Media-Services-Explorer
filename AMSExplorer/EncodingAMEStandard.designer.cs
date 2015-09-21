@@ -60,10 +60,10 @@
             this.groupBoxTrim = new System.Windows.Forms.GroupBox();
             this.textBoxSourceDurationTime = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.timeControlEndTime = new AMSExplorer.TimeControl();
-            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.timeControlEndTime = new AMSExplorer.TimeControl();
+            this.timeControlStartTime = new AMSExplorer.TimeControl();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Preset.SuspendLayout();
@@ -114,9 +114,9 @@
             this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(175, 157);
+            this.labelWarningJSON.Location = new System.Drawing.Point(151, 157);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(530, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(554, 21);
             this.labelWarningJSON.TabIndex = 77;
             this.labelWarningJSON.Tag = "JSON Syntax error. {0}";
             this.labelWarningJSON.Text = "JSON Syntax error. {0}";
@@ -206,9 +206,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(10, 160);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(91, 15);
+            this.label2.Size = new System.Drawing.Size(135, 15);
             this.label2.TabIndex = 38;
-            this.label2.Text = "JSON (editable):";
+            this.label2.Text = "JSON or XML (editable) :";
             // 
             // textBoxConfiguration
             // 
@@ -220,7 +220,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 138);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(691, 130);
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -413,6 +413,27 @@
             this.label7.TabIndex = 82;
             this.label7.Text = "Duration :";
             // 
+            // checkBoxSourceTrimming
+            // 
+            this.checkBoxSourceTrimming.AutoSize = true;
+            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
+            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
+            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxSourceTrimming.TabIndex = 5;
+            this.checkBoxSourceTrimming.Text = "Source Trimming";
+            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
+            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
+            // 
+            // buttonJobOptions
+            // 
+            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
+            this.buttonJobOptions.Name = "buttonJobOptions";
+            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
+            this.buttonJobOptions.TabIndex = 75;
+            this.buttonJobOptions.Text = "Job options...";
+            this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
             // timeControlEndTime
             // 
             this.timeControlEndTime.BackColor = System.Drawing.SystemColors.Window;
@@ -450,27 +471,6 @@
             this.timeControlStartTime.TimeScale = null;
             this.timeControlStartTime.TotalDuration = System.TimeSpan.Parse("1.00:00:00");
             this.timeControlStartTime.ValueChanged += new System.EventHandler(this.timeControlStartTime_ValueChanged);
-            // 
-            // checkBoxSourceTrimming
-            // 
-            this.checkBoxSourceTrimming.AutoSize = true;
-            this.checkBoxSourceTrimming.Location = new System.Drawing.Point(16, 22);
-            this.checkBoxSourceTrimming.Name = "checkBoxSourceTrimming";
-            this.checkBoxSourceTrimming.Size = new System.Drawing.Size(117, 19);
-            this.checkBoxSourceTrimming.TabIndex = 5;
-            this.checkBoxSourceTrimming.Text = "Source Trimming";
-            this.checkBoxSourceTrimming.UseVisualStyleBackColor = true;
-            this.checkBoxSourceTrimming.CheckedChanged += new System.EventHandler(this.checkBoxSourceTrimming_CheckedChanged);
-            // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 75;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
             // 
             // EncodingAMEStandard
             // 

@@ -48,7 +48,7 @@ namespace AMSExplorer
 
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
-
+      
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"H264 Multiple Bitrate 1080p Audio 5.1", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and AAC 5.1 audio."},
             new Profile() {Prof=@"H264 Multiple Bitrate 1080p", Desc="Produces a set of 8 GOP-aligned MP4 files, ranging from 6000 kbps to 400 kbps, and stereo AAC audio."},
@@ -216,60 +216,90 @@ namespace AMSExplorer
             }
         }
 
+        // Detect if this JSON or XML data or other and store in private var
+        private TypeConfig AnalyseConfigurationString(string config)
+        {
+            config = config.Trim();
+            if (config.StartsWith("<")) // XML data
+            {
+              return TypeConfig.XML;
+            }
+            else if (config.StartsWith("[") || config.StartsWith("{")) // JSON
+            {
+                return TypeConfig.JSON;
+            }
+            else // something else
+            {
+                return TypeConfig.Other;
+            }
+        }
+
         private void UpdateTextBoxJSON(string jsondata)
         {
-            var jo = JObject.Parse(jsondata);
-            dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
-            if (checkBoxAddAutomatic.Checked)
+            var mode = AnalyseConfigurationString(jsondata);
+            if (mode == TypeConfig.XML) // XML data
             {
-                // Cleaning
-                if (obj.Sources != null) obj.Sources.Parent.Remove();
-
-                if (checkBoxSourceTrimming.Checked)
-                {
-                    if (obj.Sources == null)
-                    {
-                        obj.Sources = new JArray() as dynamic;
-                    }
-
-                    dynamic time = new JObject();
-                    time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
-                    time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
-                    obj.Sources.Add(time);
-                }
-
-                if (_subclipConfig != null) // subclipping. we need to add top bitrate values
-                {
-                    if (obj.Sources == null)
-                    {
-                        obj.Sources = new JArray() as dynamic;
-                    }
-
-                    dynamic entry = new JObject() as dynamic;
-
-                    bool alreadyentry = false;
-                    if (obj.Sources.Count > 0)
-                    {
-                        entry = obj.Sources[0];
-                        alreadyentry = true;
-                    }
-
-                    entry.Streams = new JArray() as dynamic;
-
-                    dynamic stream = new JObject();
-                    stream.Type = "AudioStream";
-                    stream.Value = "TopBitrate";
-                    entry.Streams.Add(stream);
-
-                    stream = new JObject();
-                    stream.Type = "VideoStream";
-                    stream.Value = "TopBitrate";
-                    entry.Streams.Add(stream);
-
-                    if (!alreadyentry) obj.Sources.Add(entry);
-                }
+                textBoxConfiguration.Text = jsondata;
             }
-            textBoxConfiguration.Text = obj.ToString();
+            else if (mode== TypeConfig.JSON) // JSON
+            {
+                var jo = JObject.Parse(jsondata);
+                dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
+                if (checkBoxAddAutomatic.Checked)
+                {
+                    // Cleaning
+                    if (obj.Sources != null) obj.Sources.Parent.Remove();
+
+                    if (checkBoxSourceTrimming.Checked)
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        dynamic time = new JObject();
+                        time.StartTime = timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                        time.Duration = timeControlEndTime.GetTimeStampAsTimeSpanWithOffset() - timeControlStartTime.GetTimeStampAsTimeSpanWithOffset();
+                        obj.Sources.Add(time);
+                    }
+
+                    if (_subclipConfig != null) // subclipping. we need to add top bitrate values
+                    {
+                        if (obj.Sources == null)
+                        {
+                            obj.Sources = new JArray() as dynamic;
+                        }
+
+                        dynamic entry = new JObject() as dynamic;
+
+                        bool alreadyentry = false;
+                        if (obj.Sources.Count > 0)
+                        {
+                            entry = obj.Sources[0];
+                            alreadyentry = true;
+                        }
+
+                        entry.Streams = new JArray() as dynamic;
+
+                        dynamic stream = new JObject();
+                        stream.Type = "AudioStream";
+                        stream.Value = "TopBitrate";
+                        entry.Streams.Add(stream);
+
+                        stream = new JObject();
+                        stream.Type = "VideoStream";
+                        stream.Value = "TopBitrate";
+                        entry.Streams.Add(stream);
+
+                        if (!alreadyentry) obj.Sources.Add(entry);
+                    }
+                }
+                textBoxConfiguration.Text = obj.ToString();
+            }
+            else // no xml and no Json !
+            {
+                textBoxConfiguration.Text = jsondata;
+            }
         }
 
 
@@ -341,19 +371,36 @@ namespace AMSExplorer
                 richTextBoxDesc.Text = string.Empty;
             }
 
-            // Let's check JSON syntax
             bool Error = false;
-            try
+            var type = AnalyseConfigurationString(textBoxConfiguration.Text);
+            if (type==TypeConfig.JSON)
             {
-                var jo = JObject.Parse(textBoxConfiguration.Text);
+                // Let's check JSON syntax
+                
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    Error = true;
+                }
             }
-            catch (Exception ex)
+            else if(type == TypeConfig.XML) // XML 
             {
-                labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
-                Error = true;
+                try
+                {
+                    var xml = XElement.Load(new StringReader(textBoxConfiguration.Text));
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
+                    Error = true;
+                }
             }
+          
             labelWarningJSON.Visible = Error;
-
         }
 
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -400,6 +447,13 @@ namespace AMSExplorer
         {
             groupBoxTrim.Enabled = checkBoxAddAutomatic.Checked;
         }
+    }
+
+    enum TypeConfig
+    {
+        JSON,
+        XML,
+        Other
     }
 
 
