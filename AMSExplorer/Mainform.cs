@@ -10600,7 +10600,7 @@ namespace AMSExplorer
 
             if (selectedAssets.Count > 0)
             {
-                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a) == AssetInfo.Type_LiveArchive))
+                if (!selectedAssets.All(a => AssetInfo.GetAssetType(a).StartsWith(AssetInfo.Type_LiveArchive)))
                 {
                     MessageBox.Show("Asset(s) should be a Live stream or archive." + Constants.endline + "Subclipping other types of assets is unpredictable.", "Format issue", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
