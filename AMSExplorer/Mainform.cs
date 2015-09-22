@@ -2987,8 +2987,7 @@ namespace AMSExplorer
                 EncodingProcessorsList = Encoders,
                 EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded with " + Constants.NameconvWorkflow,
-                EncodingMultipleJobs = true,
-                EncodingNumberInputAssets = SelectedAssets.Count,
+                EncodingNumberOfInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
 
             };
@@ -3007,23 +3006,27 @@ namespace AMSExplorer
 
             if (dialogResult == DialogResult.OK)
             {
-                if (!form.EncodingMultipleJobs) // ONE job with all input assets
+                // multiple jobs: one job for each input asset
+                foreach (IAsset asset in SelectedAssets)
                 {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name);
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each blueprint selected, we create a task
+                    foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
                     {
-                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+
                         ITask task = job.Tasks.AddNew(
                                     tasknameloc,
                                    form.EncodingProcessorSelected,
                                    form.XMLData,
                                    form.JobOptions.TasksOptionsSetting
                                    );
-                        // Specify the workflow asset to be encoded, followed by the input video asset to be used
+                        // Specify the graph asset to be encoded, followed by the input video asset to be used
                         task.InputAssets.Add(graphAsset);
-                        task.InputAssets.AddRange(SelectedAssets); // we add all assets
-                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, SelectedAssets[0].Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+                        task.InputAssets.Add(asset); // we add one asset
+                        string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
+
                         task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
                     }
                     TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
@@ -3035,56 +3038,15 @@ namespace AMSExplorer
                     catch (Exception e)
                     {
                         // Add useful information to the exception
-                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error); TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
+                        if (SelectedAssets.Count < 5)
+                        {
+                            MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
                         TextBoxLogWriteLine(e);
                         return;
                     }
                     dataGridViewJobsV.DoJobProgress(job);
-
-                }
-                else // multiple jobs: one job for each input asset
-                {
-                    foreach (IAsset asset in SelectedAssets)
-                    {
-                        string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
-
-                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                        foreach (IAsset graphAsset in form.SelectedPremiumWorkflows) // for each workflow selected, we create a task
-                        {
-                            string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
-
-                            ITask task = job.Tasks.AddNew(
-                                        tasknameloc,
-                                       form.EncodingProcessorSelected,
-                                       form.XMLData,
-                                       form.JobOptions.TasksOptionsSetting
-                                       );
-                            // Specify the graph asset to be encoded, followed by the input video asset to be used
-                            task.InputAssets.Add(graphAsset);
-                            task.InputAssets.Add(asset); // we add one asset
-                            string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvWorkflow, graphAsset.Name);
-
-                            task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
-                        }
-                        TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
-                        // Submit the job and wait until it is completed. 
-                        try
-                        {
-                            job.Submit();
-                        }
-                        catch (Exception e)
-                        {
-                            // Add useful information to the exception
-                            if (SelectedAssets.Count < 5)
-                            {
-                                MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
-                            TextBoxLogWriteLine(e);
-                            return;
-                        }
-                        dataGridViewJobsV.DoJobProgress(job);
-                    }
                 }
                 DotabControlMainSwitch(Constants.TabJobs);
                 DoRefreshGridJobV(false);

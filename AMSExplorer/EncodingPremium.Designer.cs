@@ -36,8 +36,6 @@
             this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
-            this.radioButtonMultipleJob = new System.Windows.Forms.RadioButton();
-            this.radioButtonSingleJob = new System.Windows.Forms.RadioButton();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.buttonOk = new System.Windows.Forms.Button();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
@@ -48,7 +46,6 @@
             this.buttonUpload = new System.Windows.Forms.Button();
             this.openFileDialogWorkflow = new System.Windows.Forms.OpenFileDialog();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label8 = new System.Windows.Forms.Label();
             this.buttonPremiumXMLData = new AMSExplorer.ButtonPremiumXMLData();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.listViewWorkflows = new AMSExplorer.ListViewWorkflows();
@@ -141,31 +138,6 @@
             this.textboxoutputassetname.TabIndex = 9;
             this.textboxoutputassetname.TextChanged += new System.EventHandler(this.outputassetname_TextChanged);
             // 
-            // radioButtonMultipleJob
-            // 
-            this.radioButtonMultipleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.radioButtonMultipleJob.AutoSize = true;
-            this.radioButtonMultipleJob.Checked = true;
-            this.radioButtonMultipleJob.Location = new System.Drawing.Point(37, 490);
-            this.radioButtonMultipleJob.Name = "radioButtonMultipleJob";
-            this.radioButtonMultipleJob.Size = new System.Drawing.Size(237, 19);
-            this.radioButtonMultipleJob.TabIndex = 12;
-            this.radioButtonMultipleJob.TabStop = true;
-            this.radioButtonMultipleJob.Text = "Multiple jobs (a job for each input asset)";
-            this.radioButtonMultipleJob.UseVisualStyleBackColor = true;
-            this.radioButtonMultipleJob.CheckedChanged += new System.EventHandler(this.radioButtonMultipleJob_CheckedChanged);
-            // 
-            // radioButtonSingleJob
-            // 
-            this.radioButtonSingleJob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.radioButtonSingleJob.AutoSize = true;
-            this.radioButtonSingleJob.Location = new System.Drawing.Point(37, 517);
-            this.radioButtonSingleJob.Name = "radioButtonSingleJob";
-            this.radioButtonSingleJob.Size = new System.Drawing.Size(322, 19);
-            this.radioButtonSingleJob.TabIndex = 13;
-            this.radioButtonSingleJob.Text = "Single job (one job and pass all selected assets as inputs)";
-            this.radioButtonSingleJob.UseVisualStyleBackColor = true;
-            // 
             // labelsummaryjob
             // 
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -237,15 +209,16 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(617, 143);
+            this.progressBarUpload.Location = new System.Drawing.Point(419, 146);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(136, 27);
+            this.progressBarUpload.Size = new System.Drawing.Size(165, 27);
             this.progressBarUpload.TabIndex = 63;
             this.progressBarUpload.Visible = false;
             // 
             // buttonUpload
             // 
-            this.buttonUpload.Location = new System.Drawing.Point(448, 144);
+            this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpload.Location = new System.Drawing.Point(590, 146);
             this.buttonUpload.Name = "buttonUpload";
             this.buttonUpload.Size = new System.Drawing.Size(162, 27);
             this.buttonUpload.TabIndex = 62;
@@ -268,17 +241,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(788, 55);
             this.panel1.TabIndex = 66;
-            // 
-            // label8
-            // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label8.AutoSize = true;
-            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(53, 537);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 15);
-            this.label8.TabIndex = 73;
-            this.label8.Text = "Not yet supported";
             // 
             // buttonPremiumXMLData
             // 
@@ -325,7 +287,6 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
             this.Controls.Add(this.buttonPremiumXMLData);
-            this.Controls.Add(this.label8);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.listViewWorkflows);
             this.Controls.Add(this.panel1);
@@ -335,8 +296,6 @@
             this.Controls.Add(this.comboBoxProcessor);
             this.Controls.Add(this.pictureBoxJob);
             this.Controls.Add(this.labelsummaryjob);
-            this.Controls.Add(this.radioButtonSingleJob);
-            this.Controls.Add(this.radioButtonMultipleJob);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -368,8 +327,6 @@
         private System.Windows.Forms.LinkLabel moreinfoprofilelink;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textboxoutputassetname;
-        private System.Windows.Forms.RadioButton radioButtonMultipleJob;
-        private System.Windows.Forms.RadioButton radioButtonSingleJob;
         private System.Windows.Forms.Label labelsummaryjob;
         private System.Windows.Forms.PictureBox pictureBoxJob;
         public System.Windows.Forms.Label label32;
@@ -381,7 +338,6 @@
         private System.Windows.Forms.Panel panel1;
         private ListViewWorkflows listViewWorkflows;
         private ButtonJobOptions buttonJobOptions;
-        private System.Windows.Forms.Label label8;
         private ButtonPremiumXMLData buttonPremiumXMLData;
     }
 }
