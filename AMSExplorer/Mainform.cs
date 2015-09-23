@@ -1840,7 +1840,9 @@ namespace AMSExplorer
             if (dataGridViewStorage.SelectedRows.Count == 1)
             {
                 var row = dataGridViewStorage.SelectedRows[0];
-                SelectedStorage = _context.StorageAccounts.Where(s => s.Name == row.Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString()).FirstOrDefault();
+                var index = dataGridViewStorage.Columns["StrictName"].Index;
+                var storagename = row.Cells[index].Value.ToString();
+                SelectedStorage = _context.StorageAccounts.Where(s => s.Name == storagename).FirstOrDefault();
             }
 
             return SelectedStorage;
@@ -1923,11 +1925,6 @@ namespace AMSExplorer
         {
             DisplayInfo(ReturnSelectedJobs().FirstOrDefault());
         }
-
-
-
-
-
 
 
         private void DoMenuImportFromAzureStorage()
@@ -5621,7 +5618,7 @@ namespace AMSExplorer
             if (firstime)
             {
                 // Storage tab
-                dataGridViewStorage.ColumnCount = 2;
+                dataGridViewStorage.ColumnCount = 3;
 
                 DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
                 {
@@ -5635,8 +5632,9 @@ namespace AMSExplorer
                 dataGridViewStorage.Columns[0].Width = 280;
                 dataGridViewStorage.Columns[1].HeaderText = "Used space";
                 dataGridViewStorage.Columns[1].Width = 100;
-                dataGridViewStorage.Columns[2].Width = 600;
-
+                dataGridViewStorage.Columns[2].Name = "StrictName";
+                dataGridViewStorage.Columns[2].Visible = false;
+                dataGridViewStorage.Columns[3].Width = 600;
             }
             dataGridViewStorage.Rows.Clear();
             List<IStorageAccount> Storages = _context.StorageAccounts.ToList().OrderByDescending(p => p.IsDefault).ThenBy(p => p.Name).ToList();
@@ -5650,7 +5648,7 @@ namespace AMSExplorer
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
 
-                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", displaycapacity ? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", storage.Name, displaycapacity ? capacityPercentageFullTmp : null);
                 if (storage.IsDefault)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
@@ -10613,6 +10611,71 @@ namespace AMSExplorer
         {
             DoSubClip();
         }
+
+        private void storageVersionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoStorageVersion();
+        }
+
+        private void DoStorageVersion()
+        {
+            string valuekey = "";
+            bool StorageKeyKnown = false;
+            string storageName = ReturnSelectedStorage().Name;
+
+            if (storageName == _context.DefaultStorageAccount.Name && havestoragecredentials)
+            {
+                valuekey = _credentials.StorageKey;
+                StorageKeyKnown = true;
+            }
+
+            if ((!havestoragecredentials && storageName == _context.DefaultStorageAccount.Name) || (storageName != _context.DefaultStorageAccount.Name))
+            { // No blob credentials. Let's ask the user
+                StorageKeyKnown = false;
+                if (Program.InputBox("Storage Account Key Needed", "Please enter the Storage Account Access Key for " + storageName + ":", ref valuekey) == DialogResult.OK)
+                {
+                    StorageKeyKnown = true;
+                    if (storageName == _context.DefaultStorageAccount.Name)
+                    {
+                        _credentials.StorageKey = valuekey;
+                        havestoragecredentials = true;
+                    }
+                }
+            }
+            if (StorageKeyKnown) // if we have the storage credentials
+            {
+                var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
+
+                var blobClient = storageAccount.CreateCloudBlobClient();
+
+                // Get the current service properties
+                var serviceProperties = blobClient.GetServiceProperties();
+
+                var form = new StorageVersion(storageName, serviceProperties.DefaultServiceVersion);
+
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+
+                    // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
+                    //serviceProperties.DefaultServiceVersion = "2011-08-18";
+                    try
+                    {
+                        TextBoxLogWriteLine("Setting storage version to '{0}'...", form.RequestedStorageVersion);
+                        serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
+
+                        // Save the updated service properties
+                        blobClient.SetServiceProperties(serviceProperties);
+                        TextBoxLogWriteLine("Storage settings done.");
+
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when setting the storage version.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -12097,7 +12160,7 @@ namespace AMSExplorer
                            // refesh context and job
 
                            _context = Program.ConnectAndGetNewContext(_credentials); // needed to get overallprogress
-                           /// NET TO RESTORE CONTEXT
+                                                                                     /// NET TO RESTORE CONTEXT
                            IJob JobRefreshed = GetJob(j.Id);
                            int index = -1;
 

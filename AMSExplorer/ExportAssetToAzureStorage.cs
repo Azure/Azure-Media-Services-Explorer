@@ -215,9 +215,6 @@ namespace AMSExplorer
             }
             cloudBlobClient = storageAccount.CreateCloudBlobClient();
             mediaBlobContainers = cloudBlobClient.ListContainers();
-
-
-
         }
 
         private void DoListBlobs(bool ResetSearch)
