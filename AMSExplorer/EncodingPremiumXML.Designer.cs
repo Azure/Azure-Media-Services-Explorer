@@ -34,6 +34,7 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labelWarningJSON = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,12 +79,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 12);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 30);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(760, 478);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(760, 460);
             this.textBoxConfiguration.TabIndex = 67;
+            this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -95,6 +97,20 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // labelWarningJSON
+            // 
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON.Location = new System.Drawing.Point(12, 6);
+            this.labelWarningJSON.Name = "labelWarningJSON";
+            this.labelWarningJSON.Size = new System.Drawing.Size(760, 21);
+            this.labelWarningJSON.TabIndex = 78;
+            this.labelWarningJSON.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.Visible = false;
+            // 
             // EncodingPremiumXML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -102,6 +118,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.textBoxConfiguration);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
@@ -123,5 +140,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBoxConfiguration;
+        private System.Windows.Forms.Label labelWarningJSON;
     }
 }

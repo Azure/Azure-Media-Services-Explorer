@@ -216,27 +216,10 @@ namespace AMSExplorer
             }
         }
 
-        // Detect if this JSON or XML data or other and store in private var
-        private TypeConfig AnalyseConfigurationString(string config)
-        {
-            config = config.Trim();
-            if (config.StartsWith("<")) // XML data
-            {
-              return TypeConfig.XML;
-            }
-            else if (config.StartsWith("[") || config.StartsWith("{")) // JSON
-            {
-                return TypeConfig.JSON;
-            }
-            else // something else
-            {
-                return TypeConfig.Other;
-            }
-        }
-
+       
         private void UpdateTextBoxJSON(string jsondata)
         {
-            var mode = AnalyseConfigurationString(jsondata);
+            var mode = Program.AnalyseConfigurationString(jsondata);
             if (mode == TypeConfig.XML) // XML data
             {
                 textBoxConfiguration.Text = jsondata;
@@ -372,7 +355,7 @@ namespace AMSExplorer
             }
 
             bool Error = false;
-            var type = AnalyseConfigurationString(textBoxConfiguration.Text);
+            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
             if (type==TypeConfig.JSON)
             {
                 // Let's check JSON syntax

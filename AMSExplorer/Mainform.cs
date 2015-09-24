@@ -10662,7 +10662,7 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...", 
                             form.RequestedStorageVersion ?? StorageSettings.noversion, 
                             form.RequestedMetricsLevel.ToString(),
-                            form.RequestedMetricsRetention
+                            form.RequestedMetricsRetention ?? 0
                             );
                         serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
                         serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;

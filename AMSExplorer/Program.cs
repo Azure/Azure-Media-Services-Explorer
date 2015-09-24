@@ -229,6 +229,24 @@ namespace AMSExplorer
             }
         }
 
+        // Detect if this JSON or XML data or other and store in private var
+        public static TypeConfig AnalyseConfigurationString(string config)
+        {
+            config = config.Trim();
+            if (config.StartsWith("<")) // XML data
+            {
+                return TypeConfig.XML;
+            }
+            else if (config.StartsWith("[") || config.StartsWith("{")) // JSON
+            {
+                return TypeConfig.JSON;
+            }
+            else // something else
+            {
+                return TypeConfig.Other;
+            }
+        }
+
         public static string MessageNewVersion = string.Empty;
 
         public static void CheckAMSEVersion()
