@@ -2200,7 +2200,7 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    var editform = new EncodingPremiumXML(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
+                    var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
                        

@@ -31,7 +31,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class EncodingPremiumXML : Form
+    public partial class EditorXMLJSON : Form
     {
         string savedConfig;
         string defaultConfig;
@@ -44,16 +44,20 @@ namespace AMSExplorer
             }
         }
 
-        public EncodingPremiumXML(string title = null, string text = null, bool editMode=false)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             if (title != null) this.Text = title;
             textBoxConfiguration.Text = savedConfig = defaultConfig = (text == null ? string.Empty : text);
-            if (editMode) buttonOk.Text = "Save";
+            if (editMode)
+            {
+                buttonOk.Text = "Save";
+                buttonInsertSample.Visible = false;
+            };
         }
 
-        private void JobOptions_Load(object sender, EventArgs e)
+        private void EditorXMLJSON_Load(object sender, EventArgs e)
         {
 
         }
@@ -105,11 +109,27 @@ namespace AMSExplorer
 
             labelWarningJSON.Visible = Error;
         }
+
+        private void buttonInsertSample_Click(object sender, EventArgs e)
+        {
+            string myxml =
+@"<?xml version = ""1.0"" encoding = ""utf-8"" ?>
+<transcodeRequest>
+<transcodeSource>
+</transcodeSource>
+<!--set runtime properties-->
+<setRuntimeProperties>
+<property propertyPath = ""Text To Image Converter/text"" value = ""Value""/>
+</setRuntimeProperties></transcodeRequest>";
+
+            XDocument doc = XDocument.Parse(myxml);
+            textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
+        }
     }
 
     class ButtonPremiumXMLData : Button
     {
-        EncodingPremiumXML myPremiumXML;
+        EditorXMLJSON myPremiumXML;
 
         public ButtonPremiumXMLData()
         {
@@ -118,7 +138,7 @@ namespace AMSExplorer
 
         public void Initialize()
         {
-            myPremiumXML = new EncodingPremiumXML();
+            myPremiumXML = new EditorXMLJSON();
         }
 
         void ButtonXML_Click(object sender, EventArgs e)

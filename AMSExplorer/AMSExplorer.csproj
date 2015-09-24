@@ -200,11 +200,11 @@
     <Compile Include="CreateTestToken.Designer.cs">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </Compile>
-    <Compile Include="EncodingPremiumXML.cs">
+    <Compile Include="EditorXMLJSON.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EncodingPremiumXML.Designer.cs">
-      <DependentUpon>EncodingPremiumXML.cs</DependentUpon>
+    <Compile Include="EditorXMLJSON.Designer.cs">
+      <DependentUpon>EditorXMLJSON.cs</DependentUpon>
     </Compile>
     <Compile Include="StorageSettings.cs">
       <SubType>Form</SubType>
@@ -611,8 +611,8 @@
     <EmbeddedResource Include="CreateTestToken.resx">
       <DependentUpon>CreateTestToken.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EncodingPremiumXML.resx">
-      <DependentUpon>EncodingPremiumXML.cs</DependentUpon>
+    <EmbeddedResource Include="EditorXMLJSON.resx">
+      <DependentUpon>EditorXMLJSON.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StorageSettings.resx">
       <DependentUpon>StorageSettings.cs</DependentUpon>

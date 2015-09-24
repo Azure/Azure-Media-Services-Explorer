@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class EncodingPremiumXML
+    partial class EditorXMLJSON
     {
         /// <summary>
         /// Required designer variable.
@@ -35,6 +35,7 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelWarningJSON = new System.Windows.Forms.Label();
+            this.buttonInsertSample = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -102,14 +103,24 @@
             this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(12, 6);
+            this.labelWarningJSON.Location = new System.Drawing.Point(116, 6);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(760, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(656, 21);
             this.labelWarningJSON.TabIndex = 78;
             this.labelWarningJSON.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON.Text = "XML Syntax error. {0}";
             this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.labelWarningJSON.Visible = false;
+            // 
+            // buttonInsertSample
+            // 
+            this.buttonInsertSample.Location = new System.Drawing.Point(13, 3);
+            this.buttonInsertSample.Name = "buttonInsertSample";
+            this.buttonInsertSample.Size = new System.Drawing.Size(97, 23);
+            this.buttonInsertSample.TabIndex = 79;
+            this.buttonInsertSample.Text = "Insert sample";
+            this.buttonInsertSample.UseVisualStyleBackColor = true;
+            this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
             // EncodingPremiumXML
             // 
@@ -118,6 +129,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.textBoxConfiguration);
             this.Controls.Add(this.panel1);
@@ -125,7 +137,7 @@
             this.Name = "EncodingPremiumXML";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "XML Data";
-            this.Load += new System.EventHandler(this.JobOptions_Load);
+            this.Load += new System.EventHandler(this.EditorXMLJSON_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -141,5 +153,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBoxConfiguration;
         private System.Windows.Forms.Label labelWarningJSON;
+        private System.Windows.Forms.Button buttonInsertSample;
     }
 }
