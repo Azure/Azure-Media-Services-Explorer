@@ -362,6 +362,7 @@
             this.contextMenuStripStorage = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.attachAnotherStorageAccountToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.storageVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label12 = new System.Windows.Forms.Label();
             this.contextMenuStripLog = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.copyToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -455,7 +456,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.storageVersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -3391,6 +3391,13 @@
             this.attachAnotherStorageAccountToolStripMenuItem.Text = "Attach another storage account...";
             this.attachAnotherStorageAccountToolStripMenuItem.Click += new System.EventHandler(this.attachAnotherStorageAccountToolStripMenuItem_Click);
             // 
+            // storageVersionToolStripMenuItem
+            // 
+            this.storageVersionToolStripMenuItem.Name = "storageVersionToolStripMenuItem";
+            this.storageVersionToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
+            this.storageVersionToolStripMenuItem.Text = "Storage settings...";
+            this.storageVersionToolStripMenuItem.Click += new System.EventHandler(this.storageVersionToolStripMenuItem_Click);
+            // 
             // label12
             // 
             this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -4630,13 +4637,6 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
-            // 
-            // storageVersionToolStripMenuItem
-            // 
-            this.storageVersionToolStripMenuItem.Name = "storageVersionToolStripMenuItem";
-            this.storageVersionToolStripMenuItem.Size = new System.Drawing.Size(250, 22);
-            this.storageVersionToolStripMenuItem.Text = "Storage version...";
-            this.storageVersionToolStripMenuItem.Click += new System.EventHandler(this.storageVersionToolStripMenuItem_Click);
             // 
             // Mainform
             // 

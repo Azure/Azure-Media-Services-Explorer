@@ -15,6 +15,7 @@
 //---------------------------------------------------------------------------------------------
 
 
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,37 +29,56 @@ using System.Windows.Forms;
 
 namespace AMSExplorer
 {
-    public partial class StorageVersion : Form
+    public partial class StorageSettings : Form
     {
-        const string noversion = "(not defined)";
+        public const string noversion = "(undefined)";
+        ServiceProperties _serviceProperties;
 
         public string RequestedStorageVersion
         {
             get
-            { 
-                return (comboBoxVersion.Text == noversion) ? null:comboBoxVersion.Text;
-            }
-
-            set
             {
-                comboBoxVersion.Text = value;
+                return (comboBoxVersion.Text == noversion) ? null : comboBoxVersion.Text;
             }
         }
-        public StorageVersion(string storageName, string currentVersion)
+
+        public MetricsLevel RequestedMetricsLevel
+        {
+            get
+            {
+                return (MetricsLevel)Enum.Parse(typeof(MetricsLevel), comboBoxMetrics.Text);
+            }
+        }
+
+        public int? RequestedMetricsRetention
+        {
+            get
+            {
+                return (numericUpDownRetention.Value  ==0)? null : (int?) numericUpDownRetention.Value;
+            }
+        }
+
+        public StorageSettings(string storageName, ServiceProperties serviceProperties)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            textBoxVersion.Text = currentVersion;
-            labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
+             labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
+            _serviceProperties = serviceProperties;
         }
 
         private void StorageVersion_Load(object sender, EventArgs e)
         {
             var list = new List<string>() { noversion, "2015-02-21", "2014-02-14", "2013-08-15", "2012-02-12", "2011-08-18", "2009-09-19", "2009-07-17", "2009-04-14" };
             comboBoxVersion.Items.AddRange(list.ToArray());
-            comboBoxVersion.SelectedIndex = 4;
+            comboBoxVersion.Text = _serviceProperties.DefaultServiceVersion ?? noversion;
 
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoStorageVersioning));
+            linkLabelStorageAnalytics.Links.Add(new LinkLabel.Link(0, linkLabelStorageAnalytics.Text.Length, Constants.LinkMoreInfoStorageAnalytics));
+
+            comboBoxMetrics.Items.AddRange(Enum.GetNames(typeof(MetricsLevel)).ToArray()); // metrics level
+            comboBoxMetrics.Text = _serviceProperties.HourMetrics.MetricsLevel.ToString();
+
+            numericUpDownRetention.Value = _serviceProperties.HourMetrics.RetentionDays ?? 0;
         }
 
         private void moreinfoLiveStreamingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

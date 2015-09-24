@@ -5648,7 +5648,7 @@ namespace AMSExplorer
                     capacityPercentageFullTmp = (double)((100 * (double)storage.BytesUsed) / (double)TotalStorageInBytes);
                 }
 
-                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "?", storage.Name, displaycapacity ? capacityPercentageFullTmp : null);
+                int rowi = dataGridViewStorage.Rows.Add(storage.Name + (string)((storage.IsDefault) ? " (default)" : string.Empty), displaycapacity ? AssetInfo.FormatByteSize(storage.BytesUsed) : "(are the metrics enabled ?)", storage.Name, displaycapacity ? capacityPercentageFullTmp : null);
                 if (storage.IsDefault)
                 {
                     dataGridViewStorage.Rows[rowi].Cells[0].Style.ForeColor = Color.Blue;
@@ -10645,13 +10645,12 @@ namespace AMSExplorer
             if (StorageKeyKnown) // if we have the storage credentials
             {
                 var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
-
                 var blobClient = storageAccount.CreateCloudBlobClient();
 
                 // Get the current service properties
                 var serviceProperties = blobClient.GetServiceProperties();
 
-                var form = new StorageVersion(storageName, serviceProperties.DefaultServiceVersion);
+                var form = new StorageSettings(storageName, serviceProperties);
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -10660,13 +10659,18 @@ namespace AMSExplorer
                     //serviceProperties.DefaultServiceVersion = "2011-08-18";
                     try
                     {
-                        TextBoxLogWriteLine("Setting storage version to '{0}'...", form.RequestedStorageVersion);
+                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...", 
+                            form.RequestedStorageVersion ?? StorageSettings.noversion, 
+                            form.RequestedMetricsLevel.ToString(),
+                            form.RequestedMetricsRetention
+                            );
                         serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
-
+                        serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
+                        serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+                        
                         // Save the updated service properties
                         blobClient.SetServiceProperties(serviceProperties);
-                        TextBoxLogWriteLine("Storage settings done.");
-
+                        TextBoxLogWriteLine("Storage settings applied.");
                     }
                     catch (Exception ex)
                     {

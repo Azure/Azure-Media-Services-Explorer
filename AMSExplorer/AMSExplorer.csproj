@@ -206,11 +206,11 @@
     <Compile Include="EncodingPremiumXML.Designer.cs">
       <DependentUpon>EncodingPremiumXML.cs</DependentUpon>
     </Compile>
-    <Compile Include="StorageVersion.cs">
+    <Compile Include="StorageSettings.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="StorageVersion.Designer.cs">
-      <DependentUpon>StorageVersion.cs</DependentUpon>
+    <Compile Include="StorageSettings.Designer.cs">
+      <DependentUpon>StorageSettings.cs</DependentUpon>
     </Compile>
     <Compile Include="Subclipping.cs">
       <SubType>Form</SubType>
@@ -614,8 +614,8 @@
     <EmbeddedResource Include="EncodingPremiumXML.resx">
       <DependentUpon>EncodingPremiumXML.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="StorageVersion.resx">
-      <DependentUpon>StorageVersion.cs</DependentUpon>
+    <EmbeddedResource Include="StorageSettings.resx">
+      <DependentUpon>StorageSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Subclipping.resx">
       <DependentUpon>Subclipping.cs</DependentUpon>
