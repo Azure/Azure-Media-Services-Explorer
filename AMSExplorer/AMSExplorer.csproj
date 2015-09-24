@@ -188,6 +188,12 @@
     <Compile Include="DownloadToLocal.Designer.cs">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
     </Compile>
+    <Compile Include="SoftwareUpdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoftwareUpdate.Designer.cs">
+      <DependentUpon>SoftwareUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExportToExcel.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -604,6 +610,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SoftwareUpdate.resx">
+      <DependentUpon>SoftwareUpdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ExportToExcel.resx">
       <DependentUpon>ExportToExcel.cs</DependentUpon>

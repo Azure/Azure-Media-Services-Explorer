@@ -650,7 +650,6 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
-
         }
     }
 

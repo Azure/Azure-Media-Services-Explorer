@@ -137,7 +137,7 @@ namespace AMSExplorer
                 try
                 {
                     myContext.Credentials.RefreshToken(); // to force connection to WAMS
-                } 
+                }
                 catch (Exception e)
                 {
                     // Add useful information to the exception
@@ -253,7 +253,9 @@ namespace AMSExplorer
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
-            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+            //webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
+            //C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer
+            webClient.DownloadStringAsync(new Uri("C:\\Users\\xpouyat\\Documents\\GitHubVisualStudio\\Azure-Media-Services-Explorer\version.xml"));
         }
 
         public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -262,16 +264,42 @@ namespace AMSExplorer
             {
                 try
                 {
+                    Uri RelNotesUrl = null;
+                    Uri BinaryUrl = null;
                     var xmlversion = XDocument.Parse(e.Result);
                     Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
+                    var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("RelNotesUrl").FirstOrDefault();
+                    var BinaryUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("BinaryUrl").FirstOrDefault();
+
+                    if (RelNotesUrlXML != null)
+                    {
+                        RelNotesUrl = new Uri(RelNotesUrlXML.Value.ToString());
+                    }
+                    if (BinaryUrlXML != null)
+                    {
+                        BinaryUrl = new Uri(BinaryUrlXML.Value.ToString());
+                    }
+
                     Version versionAMSELocal = Assembly.GetExecutingAssembly().GetName().Version;
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
+                        /*
                         if (MessageBox.Show(string.Format("A new version of Azure Media Services Explorer ({0}) is available." + Constants.endline + "Would you like to download it ?", versionAMSEGitHub), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         { // user selected yes
                             System.Diagnostics.Process.Start(Constants.GitHubAMSELink);
                             Environment.Exit(0);
+                        }
+                        */
+                        var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub);
+                        if (form.ShowDialog() == DialogResult.OK)
+                        {
+                            var webClientB = new WebClient();
+                            var filename = System.IO.Path.GetFileName(BinaryUrl.LocalPath);
+
+                            webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
+
+                            webClientB.DownloadFileAsync(BinaryUrl, Path.GetTempPath() + filename);
                         }
                     }
                 }
@@ -281,6 +309,18 @@ namespace AMSExplorer
                 }
             }
         }
+        public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename)
+        {
+            Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
+            {
+                Process.Start(Path.GetTempPath() + filename);
+            };
+            return new AsyncCompletedEventHandler(action);
+
+        }
+
+
+
 
         public static Bitmap MakeRed(Bitmap original)
         {
