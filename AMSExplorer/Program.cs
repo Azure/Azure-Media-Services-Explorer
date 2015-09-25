@@ -254,8 +254,7 @@ namespace AMSExplorer
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
             //webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
-            //C:\Users\xpouyat\Documents\GitHubVisualStudio\Azure-Media-Services-Explorer
-            webClient.DownloadStringAsync(new Uri("C:\\Users\\xpouyat\\Documents\\GitHubVisualStudio\\Azure-Media-Services-Explorer\version.xml"));
+            webClient.DownloadStringAsync(new Uri("https://raw.githubusercontent.com/xpouyat/Azure-Media-Services-Explorer/NET46/version.xml?token=AHupDYD2ztE_-UEwNPlKF2aJcN8zSUx-ks5WDasawA%3D%3D"));
         }
 
         public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -266,6 +265,7 @@ namespace AMSExplorer
                 {
                     Uri RelNotesUrl = null;
                     Uri BinaryUrl = null;
+
                     var xmlversion = XDocument.Parse(e.Result);
                     Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
                     var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("RelNotesUrl").FirstOrDefault();
@@ -291,15 +291,10 @@ namespace AMSExplorer
                             Environment.Exit(0);
                         }
                         */
-                        var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub);
+                        var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
-                            var webClientB = new WebClient();
-                            var filename = System.IO.Path.GetFileName(BinaryUrl.LocalPath);
-
-                            webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
-
-                            webClientB.DownloadFileAsync(BinaryUrl, Path.GetTempPath() + filename);
+                           
                         }
                     }
                 }
@@ -309,15 +304,7 @@ namespace AMSExplorer
                 }
             }
         }
-        public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename)
-        {
-            Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
-            {
-                Process.Start(Path.GetTempPath() + filename);
-            };
-            return new AsyncCompletedEventHandler(action);
-
-        }
+     
 
 
 

@@ -31,6 +31,7 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -54,7 +55,6 @@
             // buttonOk
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(351, 15);
             this.buttonOk.Name = "buttonOk";
@@ -62,18 +62,28 @@
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Text = "Update !";
             this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.progressBar1);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 344);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(603, 55);
             this.panel1.TabIndex = 66;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(17, 15);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(314, 23);
+            this.progressBar1.TabIndex = 18;
+            this.progressBar1.Visible = false;
             // 
             // webBrowser1
             // 
@@ -164,5 +174,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabelMoreInfoPrice;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

@@ -28,6 +28,7 @@ using Microsoft.WindowsAzure.MediaServices.Client;
 using Newtonsoft.Json.Linq;
 using System.Xml.Linq;
 using System.IO;
+using System.Net;
 
 namespace AMSExplorer
 {
@@ -35,14 +36,15 @@ namespace AMSExplorer
     {
         Uri _urlRelNotes;
         Version _newVersion;
+        Uri _binaryUrl;
 
-
-        public SoftwareUpdate(Uri urlRelNotes, Version newVersion)
+        public SoftwareUpdate(Uri urlRelNotes, Version newVersion, Uri binaryUrl)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _urlRelNotes = urlRelNotes;
             _newVersion = newVersion;
+            _binaryUrl = binaryUrl;
         }
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
@@ -57,10 +59,32 @@ namespace AMSExplorer
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
         }
+
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            progressBar1.Visible = true;
+            buttonOk.Enabled = false;
+            var webClientB = new WebClient();
+            var filename = System.IO.Path.GetFileName(_binaryUrl.LocalPath);
+
+            webClientB.DownloadFileCompleted += DownloadFileCompletedBinary(filename);
+            webClientB.DownloadProgressChanged += WebClientB_DownloadProgressChanged;
+            webClientB.DownloadFileAsync(_binaryUrl, Path.GetTempPath() + filename);
+        }
+
+        private void WebClientB_DownloadProgressChanged(object sender, System.Net.DownloadProgressChangedEventArgs e)
+        {
+            progressBar1.Value = e.ProgressPercentage;
+        }
+
+        public static AsyncCompletedEventHandler DownloadFileCompletedBinary(string filename)
+        {
+            Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
+            {
+                Process.Start(Path.GetTempPath() + filename);
+                Environment.Exit(0);
+            };
+            return new AsyncCompletedEventHandler(action);
+        }
     }
-
-
-
-
-
 }
