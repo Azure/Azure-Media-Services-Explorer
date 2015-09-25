@@ -45,6 +45,8 @@
             this.timeControlEnd = new AMSExplorer.TimeControl();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPageTR = new System.Windows.Forms.TabPage();
+            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
             this.labelDefaultBakckoff = new System.Windows.Forms.Label();
             this.labelDefaultDVR = new System.Windows.Forms.Label();
             this.labelDefaultEnd = new System.Windows.Forms.Label();
@@ -122,8 +124,6 @@
             this.textBoxOffset = new System.Windows.Forms.TextBox();
             this.labelOffset = new System.Windows.Forms.Label();
             this.checkBoxRawMode = new System.Windows.Forms.CheckBox();
-            this.textBoxDurationTime = new System.Windows.Forms.TextBox();
-            this.label39 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPageTR.SuspendLayout();
@@ -374,6 +374,27 @@
             this.tabPageTR.Text = "Time Range";
             this.tabPageTR.UseVisualStyleBackColor = true;
             this.tabPageTR.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // textBoxDurationTime
+            // 
+            this.textBoxDurationTime.Enabled = false;
+            this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.textBoxDurationTime.Location = new System.Drawing.Point(710, 250);
+            this.textBoxDurationTime.Name = "textBoxDurationTime";
+            this.textBoxDurationTime.ReadOnly = true;
+            this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
+            this.textBoxDurationTime.TabIndex = 137;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label39.Location = new System.Drawing.Point(707, 232);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(59, 15);
+            this.label39.TabIndex = 136;
+            this.label39.Text = "Duration :";
             // 
             // labelDefaultBakckoff
             // 
@@ -1195,7 +1216,8 @@
             this.labelFilterTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelFilterTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelFilterTitle.Location = new System.Drawing.Point(9, 10);
+            this.labelFilterTitle.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelFilterTitle.Location = new System.Drawing.Point(10, 16);
             this.labelFilterTitle.Name = "labelFilterTitle";
             this.labelFilterTitle.Size = new System.Drawing.Size(930, 21);
             this.labelFilterTitle.TabIndex = 81;
@@ -1294,27 +1316,6 @@
             this.checkBoxRawMode.Text = "Time range Raw mode";
             this.checkBoxRawMode.UseVisualStyleBackColor = true;
             this.checkBoxRawMode.CheckedChanged += new System.EventHandler(this.checkBoxRawMode_CheckedChanged);
-            // 
-            // textBoxDurationTime
-            // 
-            this.textBoxDurationTime.Enabled = false;
-            this.textBoxDurationTime.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxDurationTime.Location = new System.Drawing.Point(710, 250);
-            this.textBoxDurationTime.Name = "textBoxDurationTime";
-            this.textBoxDurationTime.ReadOnly = true;
-            this.textBoxDurationTime.Size = new System.Drawing.Size(123, 23);
-            this.textBoxDurationTime.TabIndex = 137;
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label39.Location = new System.Drawing.Point(707, 232);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(59, 15);
-            this.label39.TabIndex = 136;
-            this.label39.Text = "Duration :";
             // 
             // DynManifestFilter
             // 

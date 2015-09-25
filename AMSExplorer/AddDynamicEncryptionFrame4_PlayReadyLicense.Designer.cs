@@ -915,6 +915,7 @@
             // 
             this.labelstep.AutoSize = true;
             this.labelstep.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.labelstep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelstep.Location = new System.Drawing.Point(26, 21);
             this.labelstep.Name = "labelstep";
             this.labelstep.Size = new System.Drawing.Size(402, 42);

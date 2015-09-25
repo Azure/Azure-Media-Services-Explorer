@@ -204,6 +204,7 @@ namespace AMSExplorer
             this.labelStorageAccount.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStorageAccount.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStorageAccount.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelStorageAccount.Location = new System.Drawing.Point(15, 20);
             this.labelStorageAccount.Name = "labelStorageAccount";
             this.labelStorageAccount.Size = new System.Drawing.Size(431, 23);

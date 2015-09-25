@@ -69,6 +69,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonFileMetadata = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
@@ -127,7 +128,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonEditOnline = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -559,6 +559,19 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonEditOnline
+            // 
+            this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditOnline.Enabled = false;
+            this.buttonEditOnline.Location = new System.Drawing.Point(287, 469);
+            this.buttonEditOnline.Name = "buttonEditOnline";
+            this.buttonEditOnline.Size = new System.Drawing.Size(48, 27);
+            this.buttonEditOnline.TabIndex = 37;
+            this.buttonEditOnline.Text = "Edit";
+            this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
+            this.buttonEditOnline.UseVisualStyleBackColor = true;
+            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
             // 
             // buttonDeleteAll
             // 
@@ -1230,19 +1243,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
-            // 
-            // buttonEditOnline
-            // 
-            this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonEditOnline.Enabled = false;
-            this.buttonEditOnline.Location = new System.Drawing.Point(287, 469);
-            this.buttonEditOnline.Name = "buttonEditOnline";
-            this.buttonEditOnline.Size = new System.Drawing.Size(48, 27);
-            this.buttonEditOnline.TabIndex = 37;
-            this.buttonEditOnline.Text = "Edit";
-            this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
-            this.buttonEditOnline.UseVisualStyleBackColor = true;
-            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
             // 
             // AssetInformation
             // 

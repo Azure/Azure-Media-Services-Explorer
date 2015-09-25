@@ -42,6 +42,7 @@
             this.checkBoxKeywords = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -109,7 +110,7 @@
             this.groupBox1.Controls.Add(this.checkBoxWEBVTT);
             this.groupBox1.Controls.Add(this.checkBoxSAMI);
             this.groupBox1.Controls.Add(this.checkBoxTTML);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 39);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(163, 136);
             this.groupBox1.TabIndex = 68;
@@ -169,12 +170,23 @@
             // 
             this.groupBox2.Controls.Add(this.checkBoxKeywords);
             this.groupBox2.Controls.Add(this.checkBoxAIB);
-            this.groupBox2.Location = new System.Drawing.Point(192, 12);
+            this.groupBox2.Location = new System.Drawing.Point(190, 39);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(211, 136);
             this.groupBox2.TabIndex = 70;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Other";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(12, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(138, 20);
+            this.label5.TabIndex = 74;
+            this.label5.Text = "Generation Options";
             // 
             // IndexerOptions
             // 
@@ -184,6 +196,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(415, 245);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -198,6 +211,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -216,5 +230,6 @@
         private System.Windows.Forms.CheckBox checkBoxKeywords;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label5;
     }
 }

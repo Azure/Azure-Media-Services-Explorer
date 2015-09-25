@@ -438,10 +438,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(14, 15);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(218, 15);
+            this.label5.Size = new System.Drawing.Size(276, 20);
             this.label5.TabIndex = 31;
             this.label5.Text = "Select or enter a Media Services account";
             // 
@@ -483,7 +484,7 @@
             // 
             this.accountmgtlink.AutoSize = true;
             this.accountmgtlink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.accountmgtlink.Location = new System.Drawing.Point(293, 15);
+            this.accountmgtlink.Location = new System.Drawing.Point(338, 5);
             this.accountmgtlink.Name = "accountmgtlink";
             this.accountmgtlink.Size = new System.Drawing.Size(221, 15);
             this.accountmgtlink.TabIndex = 34;

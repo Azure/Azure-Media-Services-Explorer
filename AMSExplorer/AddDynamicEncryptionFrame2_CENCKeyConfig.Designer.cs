@@ -580,6 +580,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold);
+            this.label9.ForeColor = System.Drawing.Color.DarkBlue;
             this.label9.Location = new System.Drawing.Point(26, 21);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(340, 42);
@@ -660,7 +661,7 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // AddDynamicEncryptionFrame2_PlayReadyKeyConfig
+            // AddDynamicEncryptionFrame2_CENCKeyConfig
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -676,7 +677,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "AddDynamicEncryptionFrame2_PlayReadyKeyConfig";
+            this.Name = "AddDynamicEncryptionFrame2_CENCKeyConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step 2";
             this.Load += new System.EventHandler(this.PlayReadyExternalServer_Load);

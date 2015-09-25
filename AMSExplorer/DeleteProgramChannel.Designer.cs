@@ -34,6 +34,7 @@
             this.checkBoxDeleteAsset = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -62,7 +63,7 @@
             // labelmain
             // 
             this.labelmain.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.labelmain.Location = new System.Drawing.Point(31, 22);
+            this.labelmain.Location = new System.Drawing.Point(31, 44);
             this.labelmain.Name = "labelmain";
             this.labelmain.Size = new System.Drawing.Size(509, 38);
             this.labelmain.TabIndex = 48;
@@ -71,7 +72,7 @@
             // checkBoxDeleteAsset
             // 
             this.checkBoxDeleteAsset.AutoSize = true;
-            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(35, 78);
+            this.checkBoxDeleteAsset.Location = new System.Drawing.Point(35, 92);
             this.checkBoxDeleteAsset.Name = "checkBoxDeleteAsset";
             this.checkBoxDeleteAsset.Size = new System.Drawing.Size(160, 19);
             this.checkBoxDeleteAsset.TabIndex = 49;
@@ -81,7 +82,7 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(216, 78);
+            this.label5.Location = new System.Drawing.Point(216, 92);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(194, 20);
             this.label5.TabIndex = 50;
@@ -99,6 +100,17 @@
             this.panel1.Size = new System.Drawing.Size(576, 55);
             this.panel1.TabIndex = 63;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label1.Location = new System.Drawing.Point(30, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.TabIndex = 72;
+            this.label1.Text = "Delete Program(s)";
+            // 
             // DeleteProgramChannel
             // 
             this.AcceptButton = this.buttonOk;
@@ -107,6 +119,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 189);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.checkBoxDeleteAsset);
@@ -130,5 +143,6 @@
         private System.Windows.Forms.CheckBox checkBoxDeleteAsset;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
     }
 }

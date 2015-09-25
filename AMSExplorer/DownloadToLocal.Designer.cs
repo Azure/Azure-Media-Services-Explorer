@@ -41,6 +41,7 @@
             this.buttonBrowseFile = new System.Windows.Forms.Button();
             this.textBoxFolderPath = new System.Windows.Forms.TextBox();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -77,7 +78,7 @@
             this.groupBox2.Controls.Add(this.checkBoxCreateSubfolder);
             this.groupBox2.Controls.Add(this.radioButtonAssetId);
             this.groupBox2.Controls.Add(this.radioButtonAssetName);
-            this.groupBox2.Location = new System.Drawing.Point(14, 178);
+            this.groupBox2.Location = new System.Drawing.Point(14, 186);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(546, 145);
             this.groupBox2.TabIndex = 1;
@@ -132,7 +133,7 @@
             // 
             // labelAssetName
             // 
-            this.labelAssetName.Location = new System.Drawing.Point(15, 15);
+            this.labelAssetName.Location = new System.Drawing.Point(15, 50);
             this.labelAssetName.Name = "labelAssetName";
             this.labelAssetName.Size = new System.Drawing.Size(527, 15);
             this.labelAssetName.TabIndex = 42;
@@ -156,9 +157,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.buttonBrowseFile);
             this.groupBox1.Controls.Add(this.textBoxFolderPath);
-            this.groupBox1.Location = new System.Drawing.Point(15, 48);
+            this.groupBox1.Location = new System.Drawing.Point(15, 84);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(545, 107);
+            this.groupBox1.Size = new System.Drawing.Size(545, 81);
             this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Local folder";
@@ -183,6 +184,17 @@
             this.textBoxFolderPath.Size = new System.Drawing.Size(410, 23);
             this.textBoxFolderPath.TabIndex = 0;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(14, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 20);
+            this.label5.TabIndex = 72;
+            this.label5.Text = "Download Asset(s)";
+            // 
             // DownloadToLocal
             // 
             this.AcceptButton = this.buttonOk;
@@ -191,6 +203,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 409);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
@@ -206,6 +219,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -224,5 +238,6 @@
         private System.Windows.Forms.CheckBox checkBoxCreateSubfolder;
         private System.Windows.Forms.RadioButton radioButtonAssetId;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
+        private System.Windows.Forms.Label label5;
     }
 }

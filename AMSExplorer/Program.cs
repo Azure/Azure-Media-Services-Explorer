@@ -253,8 +253,7 @@ namespace AMSExplorer
         {
             var webClient = new WebClient();
             webClient.DownloadStringCompleted += DownloadVersionRequestCompleted;
-            //webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
-            webClient.DownloadStringAsync(new Uri("https://raw.githubusercontent.com/xpouyat/Azure-Media-Services-Explorer/NET46/version.xml?token=AHupDYD2ztE_-UEwNPlKF2aJcN8zSUx-ks5WDasawA%3D%3D"));
+            webClient.DownloadStringAsync(new Uri(Constants.GitHubAMSEVersion));
         }
 
         public static void DownloadVersionRequestCompleted(object sender, DownloadStringCompletedEventArgs e)
@@ -268,7 +267,7 @@ namespace AMSExplorer
 
                     var xmlversion = XDocument.Parse(e.Result);
                     Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
-                    var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("RelNotesUrl").FirstOrDefault();
+                    var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("ReleaseNotesUrl").FirstOrDefault();
                     var BinaryUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("BinaryUrl").FirstOrDefault();
 
                     if (RelNotesUrlXML != null)
@@ -284,7 +283,7 @@ namespace AMSExplorer
                     if (versionAMSEGitHub > versionAMSELocal)
                     {
                         MessageNewVersion = string.Format("A new version ({0}) is available on GitHub: {1}", versionAMSEGitHub, Constants.GitHubAMSEReleases);
-                        /*
+                        /* // OLD CODE
                         if (MessageBox.Show(string.Format("A new version of Azure Media Services Explorer ({0}) is available." + Constants.endline + "Would you like to download it ?", versionAMSEGitHub), "Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         { // user selected yes
                             System.Diagnostics.Process.Start(Constants.GitHubAMSELink);
@@ -292,10 +291,7 @@ namespace AMSExplorer
                         }
                         */
                         var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
-                        if (form.ShowDialog() == DialogResult.OK)
-                        {
-                           
-                        }
+                        form.ShowDialog();
                     }
                 }
                 catch
@@ -304,7 +300,7 @@ namespace AMSExplorer
                 }
             }
         }
-     
+
 
 
 

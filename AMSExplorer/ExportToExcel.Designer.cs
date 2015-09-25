@@ -50,6 +50,7 @@
             this.progressBarExport = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -149,9 +150,10 @@
             // 
             // labelAssetName
             // 
-            this.labelAssetName.Location = new System.Drawing.Point(15, 15);
+            this.labelAssetName.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelAssetName.Location = new System.Drawing.Point(126, 20);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(527, 15);
+            this.labelAssetName.Size = new System.Drawing.Size(403, 16);
             this.labelAssetName.TabIndex = 42;
             this.labelAssetName.Text = "Export asset(s) metadata to an Excel file";
             // 
@@ -287,6 +289,17 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(12, 16);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(108, 20);
+            this.label5.TabIndex = 72;
+            this.label5.Text = "Export to Excel";
+            // 
             // ExportToExcel
             // 
             this.AcceptButton = this.buttonOk;
@@ -295,6 +308,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(572, 607);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.progressBarExport);
             this.Controls.Add(this.groupBox1);
@@ -343,5 +357,6 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox checkBoxLocalTime;
+        private System.Windows.Forms.Label label5;
     }
 }

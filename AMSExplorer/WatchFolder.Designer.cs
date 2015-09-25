@@ -58,6 +58,7 @@
             this.checkBoAddAssetsToInput = new System.Windows.Forms.CheckBox();
             this.listViewTemplates = new AMSExplorer.ListViewTemplates();
             this.pictureBox5 = new System.Windows.Forms.PictureBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -94,7 +95,8 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 25);
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(17, 35);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(693, 45);
             this.label1.TabIndex = 35;
@@ -416,6 +418,17 @@
             this.pictureBox5.TabIndex = 75;
             this.pictureBox5.TabStop = false;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label13.Location = new System.Drawing.Point(16, 9);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(96, 20);
+            this.label13.TabIndex = 78;
+            this.label13.Text = "Watch Folder";
+            // 
             // WatchFolder
             // 
             this.AcceptButton = this.buttonOk;
@@ -424,6 +437,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(833, 717);
+            this.Controls.Add(this.label13);
             this.Controls.Add(this.pictureBox5);
             this.Controls.Add(this.groupBoxProcess);
             this.Controls.Add(this.buttonTestEmail);
@@ -496,5 +510,6 @@
         private System.Windows.Forms.Panel panelInsertAsset;
         private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Label labelWarning;
+        private System.Windows.Forms.Label label13;
     }
 }

@@ -47,6 +47,7 @@
             this.radioButtonHLSv3 = new System.Windows.Forms.RadioButton();
             this.radioButtonSmooth = new System.Windows.Forms.RadioButton();
             this.label = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -83,7 +84,7 @@
             this.groupBox4.Controls.Add(this.radioButtonHttps);
             this.groupBox4.Controls.Add(this.radioButtonHttp);
             this.groupBox4.Controls.Add(this.listBoxSE);
-            this.groupBox4.Location = new System.Drawing.Point(17, 31);
+            this.groupBox4.Location = new System.Drawing.Point(17, 42);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(552, 186);
             this.groupBox4.TabIndex = 0;
@@ -265,11 +266,22 @@
             // 
             this.label.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.label.Location = new System.Drawing.Point(15, 9);
+            this.label.Location = new System.Drawing.Point(212, 16);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(554, 23);
+            this.label.Size = new System.Drawing.Size(357, 20);
             this.label.TabIndex = 64;
             this.label.Text = "Asset : \'{0}\'";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(14, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(184, 20);
+            this.label5.TabIndex = 65;
+            this.label5.Text = "Streaming URL Generation";
             // 
             // ChooseStreamingEndpoint
             // 
@@ -279,6 +291,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.label);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -296,6 +309,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -320,5 +334,6 @@
         private System.Windows.Forms.RadioButton radioButtonHttps;
         private System.Windows.Forms.RadioButton radioButtonHttp;
         public System.Windows.Forms.Label label;
+        private System.Windows.Forms.Label label5;
     }
 }

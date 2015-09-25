@@ -40,6 +40,7 @@
             this.labelURLFileNameWarning = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +71,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(33, 31);
+            this.label1.Location = new System.Drawing.Point(33, 45);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(211, 15);
             this.label1.TabIndex = 38;
@@ -80,7 +81,7 @@
             // 
             this.textBoxURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxURL.Location = new System.Drawing.Point(36, 50);
+            this.textBoxURL.Location = new System.Drawing.Point(36, 63);
             this.textBoxURL.Name = "textBoxURL";
             this.textBoxURL.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.textBoxURL.Size = new System.Drawing.Size(719, 23);
@@ -91,7 +92,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label2.Location = new System.Drawing.Point(33, 104);
+            this.label2.Location = new System.Drawing.Point(33, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(396, 60);
             this.label2.TabIndex = 42;
@@ -139,7 +140,7 @@
             // 
             this.labelURLFileNameWarning.AutoSize = true;
             this.labelURLFileNameWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelURLFileNameWarning.Location = new System.Drawing.Point(36, 76);
+            this.labelURLFileNameWarning.Location = new System.Drawing.Point(36, 89);
             this.labelURLFileNameWarning.Name = "labelURLFileNameWarning";
             this.labelURLFileNameWarning.Size = new System.Drawing.Size(52, 15);
             this.labelURLFileNameWarning.TabIndex = 46;
@@ -172,6 +173,17 @@
             this.panel1.Size = new System.Drawing.Size(800, 55);
             this.panel1.TabIndex = 63;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(32, 9);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(124, 20);
+            this.label5.TabIndex = 73;
+            this.label5.Text = "Import from Http";
+            // 
             // ImportHttp
             // 
             this.AcceptButton = this.buttonImport;
@@ -180,6 +192,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(798, 410);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelURLFileNameWarning);
@@ -213,5 +226,6 @@
         private System.Windows.Forms.Label labelURLFileNameWarning;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label5;
     }
 }

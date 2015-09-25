@@ -48,6 +48,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tabControlLiveChannel = new System.Windows.Forms.TabControl();
             this.TabSettings = new System.Windows.Forms.TabPage();
+            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
+            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
             this.checkBoxRestrictPreviewIP = new System.Windows.Forms.CheckBox();
             this.textBoxRestrictPreviewIP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -93,8 +95,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.moreinfoLiveEncodingProfilelink = new System.Windows.Forms.LinkLabel();
-            this.moreinfoLiveStreamingProfilelink = new System.Windows.Forms.LinkLabel();
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
             this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
@@ -163,7 +163,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(31, 18);
+            this.label3.Location = new System.Drawing.Point(31, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 15);
             this.label3.TabIndex = 45;
@@ -173,7 +173,7 @@
             // 
             this.textboxchannelname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxchannelname.Location = new System.Drawing.Point(35, 37);
+            this.textboxchannelname.Location = new System.Drawing.Point(35, 44);
             this.textboxchannelname.Name = "textboxchannelname";
             this.textboxchannelname.Size = new System.Drawing.Size(500, 23);
             this.textboxchannelname.TabIndex = 0;
@@ -239,7 +239,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(31, 73);
+            this.label5.Location = new System.Drawing.Point(31, 79);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 15);
             this.label5.TabIndex = 48;
@@ -249,7 +249,7 @@
             // 
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxDescription.Location = new System.Drawing.Point(35, 91);
+            this.textBoxDescription.Location = new System.Drawing.Point(35, 97);
             this.textBoxDescription.Name = "textBoxDescription";
             this.textBoxDescription.Size = new System.Drawing.Size(500, 23);
             this.textBoxDescription.TabIndex = 1;
@@ -315,6 +315,29 @@
             this.TabSettings.TabIndex = 0;
             this.TabSettings.Text = "Channel Settings";
             this.TabSettings.UseVisualStyleBackColor = true;
+            // 
+            // moreinfoLiveStreamingProfilelink
+            // 
+            this.moreinfoLiveStreamingProfilelink.AutoSize = true;
+            this.moreinfoLiveStreamingProfilelink.Location = new System.Drawing.Point(253, 36);
+            this.moreinfoLiveStreamingProfilelink.Name = "moreinfoLiveStreamingProfilelink";
+            this.moreinfoLiveStreamingProfilelink.Size = new System.Drawing.Size(230, 15);
+            this.moreinfoLiveStreamingProfilelink.TabIndex = 62;
+            this.moreinfoLiveStreamingProfilelink.TabStop = true;
+            this.moreinfoLiveStreamingProfilelink.Text = "Live streaming with on-premises encoders";
+            this.moreinfoLiveStreamingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
+            // 
+            // moreinfoLiveEncodingProfilelink
+            // 
+            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
+            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(253, 36);
+            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
+            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(192, 15);
+            this.moreinfoLiveEncodingProfilelink.TabIndex = 61;
+            this.moreinfoLiveEncodingProfilelink.TabStop = true;
+            this.moreinfoLiveEncodingProfilelink.Text = "More information on live encoding";
+            this.moreinfoLiveEncodingProfilelink.Visible = false;
+            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // checkBoxRestrictPreviewIP
             // 
@@ -780,29 +803,6 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
-            // 
-            // moreinfoLiveEncodingProfilelink
-            // 
-            this.moreinfoLiveEncodingProfilelink.AutoSize = true;
-            this.moreinfoLiveEncodingProfilelink.Location = new System.Drawing.Point(253, 36);
-            this.moreinfoLiveEncodingProfilelink.Name = "moreinfoLiveEncodingProfilelink";
-            this.moreinfoLiveEncodingProfilelink.Size = new System.Drawing.Size(192, 15);
-            this.moreinfoLiveEncodingProfilelink.TabIndex = 61;
-            this.moreinfoLiveEncodingProfilelink.TabStop = true;
-            this.moreinfoLiveEncodingProfilelink.Text = "More information on live encoding";
-            this.moreinfoLiveEncodingProfilelink.Visible = false;
-            this.moreinfoLiveEncodingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
-            // 
-            // moreinfoLiveStreamingProfilelink
-            // 
-            this.moreinfoLiveStreamingProfilelink.AutoSize = true;
-            this.moreinfoLiveStreamingProfilelink.Location = new System.Drawing.Point(253, 36);
-            this.moreinfoLiveStreamingProfilelink.Name = "moreinfoLiveStreamingProfilelink";
-            this.moreinfoLiveStreamingProfilelink.Size = new System.Drawing.Size(230, 15);
-            this.moreinfoLiveStreamingProfilelink.TabIndex = 62;
-            this.moreinfoLiveStreamingProfilelink.TabStop = true;
-            this.moreinfoLiveStreamingProfilelink.Text = "Live streaming with on-premises encoders";
-            this.moreinfoLiveStreamingProfilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
             // 
             // labelWarning
             // 

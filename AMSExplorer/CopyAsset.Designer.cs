@@ -52,6 +52,7 @@
             this.checkBoxRewriteURL = new System.Windows.Forms.CheckBox();
             this.checkBoxTargetSingleAsset = new System.Windows.Forms.CheckBox();
             this.labelExplanation = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.panelStorageAccount.SuspendLayout();
@@ -233,7 +234,7 @@
             // 
             // labelinfo
             // 
-            this.labelinfo.Location = new System.Drawing.Point(23, 25);
+            this.labelinfo.Location = new System.Drawing.Point(119, 16);
             this.labelinfo.Name = "labelinfo";
             this.labelinfo.Size = new System.Drawing.Size(381, 20);
             this.labelinfo.TabIndex = 66;
@@ -326,15 +327,24 @@
             // 
             // labelExplanation
             // 
-            this.labelExplanation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelExplanation.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.labelExplanation.Location = new System.Drawing.Point(281, 12);
+            this.labelExplanation.Location = new System.Drawing.Point(12, 39);
             this.labelExplanation.Name = "labelExplanation";
-            this.labelExplanation.Size = new System.Drawing.Size(489, 33);
+            this.labelExplanation.Size = new System.Drawing.Size(463, 23);
             this.labelExplanation.TabIndex = 70;
             this.labelExplanation.Text = "On-Demand and Live archive are supported. Assets should not be statically protect" +
     "ed.";
-            this.labelExplanation.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label5.Location = new System.Drawing.Point(13, 12);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(82, 20);
+            this.label5.TabIndex = 71;
+            this.label5.Text = "Asset Copy";
             // 
             // CopyAsset
             // 
@@ -344,6 +354,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.labelExplanation);
             this.Controls.Add(this.groupBoxOptions);
             this.Controls.Add(this.labelinfo);
@@ -394,5 +405,6 @@
         private System.Windows.Forms.Label labelCloneLocators;
         private System.Windows.Forms.CheckBox checkBoxCloneLocators;
         private System.Windows.Forms.Panel panelStorageAccount;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -527,7 +527,8 @@
             this.labelOriginName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelOriginName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOriginName.Location = new System.Drawing.Point(21, 10);
+            this.labelOriginName.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelOriginName.Location = new System.Drawing.Point(21, 13);
             this.labelOriginName.Name = "labelOriginName";
             this.labelOriginName.Size = new System.Drawing.Size(868, 23);
             this.labelOriginName.TabIndex = 37;
