@@ -49,8 +49,7 @@ namespace AMSExplorer
 
         private void SoftwareUpdate_Load(object sender, EventArgs e)
         {
-            if (_urlRelNotes != null) webBrowser1.Document= 
-                    //.Url = _urlRelNotes;
+            if (_urlRelNotes != null) webBrowser1.Url = _urlRelNotes;
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkAMSE));
             label5.Text = string.Format(label5.Text, _newVersion);
         }
