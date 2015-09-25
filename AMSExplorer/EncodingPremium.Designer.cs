@@ -141,6 +141,7 @@
             // labelsummaryjob
             // 
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelsummaryjob.Location = new System.Drawing.Point(34, 578);
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(266, 25);

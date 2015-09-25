@@ -414,6 +414,7 @@
             // 
             // labelsummaryjob
             // 
+            this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelsummaryjob.Location = new System.Drawing.Point(16, 310);
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(426, 25);

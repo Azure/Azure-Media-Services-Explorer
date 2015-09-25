@@ -157,7 +157,7 @@ namespace AMSExplorer
             }
         }
 
-        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool DashEnabled = true)
+        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool WidevineEnabled = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -181,7 +181,7 @@ namespace AMSExplorer
                 buttonOk.Image = null;
             }
 
-            groupBoxWidevine.Enabled = DashEnabled;
+            groupBoxWidevine.Enabled = WidevineEnabled;
 
         }
 

@@ -76,13 +76,13 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate High Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 500 kbps, and stereo AAC audio."},
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
-
+        private int _nbInputAssets;
 
         public string EncodingLabel
         {
             set
             {
-                label.Text = value;
+                labelsummaryjob.Text = value;
             }
         }
 
@@ -157,13 +157,14 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, SubClipConfiguration subclipConfig = null)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, SubClipConfiguration subclipConfig = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
+            _nbInputAssets = nbInputAssets;
         }
 
 

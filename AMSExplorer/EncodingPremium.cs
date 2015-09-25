@@ -88,7 +88,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
         public string EncodingJobName
         {
             get
@@ -146,13 +146,13 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-       
+
 
         private void UpdateJobSummary()
         {
-            if (listViewWorkflows.SelectedIndices.Count>0)
+            if (listViewWorkflows.SelectedIndices.Count > 0)
             {
-                labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}",
+                labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}.",
                 EncodingNumberOfInputAssets,
                 EncodingNumberOfInputAssets > 1 ? "s" : "",
                 listViewWorkflows.SelectedIndices.Count,
@@ -162,9 +162,6 @@ namespace AMSExplorer
             {
                 labelsummaryjob.Text = string.Empty;
             }
-            
-
-
         }
 
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)

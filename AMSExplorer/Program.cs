@@ -247,6 +247,11 @@ namespace AMSExplorer
             }
         }
 
+        public static string ReturnS(int number)
+        {
+            return number > 1 ? "s" : "";
+        }
+
         public static string MessageNewVersion = string.Empty;
 
         public static void CheckAMSEVersion()

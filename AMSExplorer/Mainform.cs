@@ -1443,7 +1443,6 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Renamed asset '{0}'.", AssetTORename.Id);
                         dataGridViewAssetsV.PurgeCacheAsset(AssetTORename);
                         dataGridViewAssetsV.AnalyzeItemsInBackground();
-                        //DoRefreshGridAssetV(false);
                     }
                 }
             }
@@ -7674,7 +7673,10 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_CENCKeyConfig form2_PlayReady = new AddDynamicEncryptionFrame2_CENCKeyConfig(
-                                form1.GetNumberOfAuthorizationPolicyOptions > 0, forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0), !NeedToDisplayPlayReadyLicense, (form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash)
+                                form1.GetNumberOfAuthorizationPolicyOptions > 0,
+                                forceusertoprovidekey || (form1.GetNumberOfAuthorizationPolicyOptions == 0),
+                                !NeedToDisplayPlayReadyLicense,
+                                ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
                             { Left = form1.Left, Top = form1.Top };
                             if (form2_PlayReady.ShowDialog() == DialogResult.OK)
                             {
@@ -8433,7 +8435,6 @@ namespace AMSExplorer
                                         Task<IMediaDataServiceResponse>[] deleteTasks = _context.ContentKeyAuthorizationPolicyOptions.ToList().Where(p => AutPolOptionListIDs.Contains(p.Id)).ToList().Select(o => o.DeleteAsync()).ToArray();
                                         Task.WaitAll(deleteTasks);
                                     }
-
                                 }
                                 catch (Exception e)
                                 {
@@ -8441,11 +8442,7 @@ namespace AMSExplorer
                                     TextBoxLogWriteLine("There is a problem when deleting the delivery policy or locator for '{0}'.", AssetToProcess.Name, true);
                                     TextBoxLogWriteLine(e);
                                 }
-
-
                             }
-
-
 
                             if (Error) break;
                             TextBoxLogWriteLine("Removed{0} asset delivery policies, key authorization policies and locator(s) for asset {1}.", (myDialogResult == DialogResult.Yes) ? " and deleted" : string.Empty, AssetToProcess.Name);
@@ -10254,9 +10251,13 @@ namespace AMSExplorer
 
             List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context,SelectedAssets.Count )
             {
-                EncodingLabel = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                EncodingLabel = (SelectedAssets.Count > 1) ?
+                string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
+
                 EncodingProcessorsList = Procs,
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Encoded",
@@ -10659,15 +10660,15 @@ namespace AMSExplorer
                     //serviceProperties.DefaultServiceVersion = "2011-08-18";
                     try
                     {
-                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...", 
-                            form.RequestedStorageVersion ?? StorageSettings.noversion, 
+                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
+                            form.RequestedStorageVersion ?? StorageSettings.noversion,
                             form.RequestedMetricsLevel.ToString(),
                             form.RequestedMetricsRetention ?? 0
                             );
                         serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
                         serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
                         serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
-                        
+
                         // Save the updated service properties
                         blobClient.SetServiceProperties(serviceProperties);
                         TextBoxLogWriteLine("Storage settings applied.");

@@ -528,9 +528,13 @@ namespace AMSExplorer
             if (subclipConfig.Reencode) // reencode the clip
             {
                 List<IMediaProcessor> Procs = Mainform.GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, subclipConfig)
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, subclipConfig)
                 {
-                    EncodingLabel = (_selectedAssets.Count > 1) ? _selectedAssets.Count + " assets have been selected. " + _selectedAssets.Count + " jobs will be submitted." : "Asset '" + _selectedAssets.FirstOrDefault().Name + "' will be encoded.",
+                    EncodingLabel = (_selectedAssets.Count > 1) ?
+                                    string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
+                                    :
+                                    "Asset '" + _selectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
+
                     EncodingProcessorsList = Procs,
                     EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
