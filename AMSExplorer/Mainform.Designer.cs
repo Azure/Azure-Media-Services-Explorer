@@ -265,6 +265,7 @@
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
+            this.explorerReleaseNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripJobs = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -2515,10 +2516,12 @@
             this.azureMediaServicesMSDNToolStripMenuItem,
             this.azureMediaServicesForumToolStripMenuItem,
             this.toolStripSeparator13,
+            this.explorerReleaseNotesToolStripMenuItem,
             this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.DropDownOpening += new System.EventHandler(this.helpToolStripMenuItem_DropDownOpening);
             // 
             // azureMediaHelpFileToolStripMenuItem
             // 
@@ -2552,6 +2555,14 @@
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
             this.toolStripSeparator13.Size = new System.Drawing.Size(310, 6);
+            // 
+            // explorerReleaseNotesToolStripMenuItem
+            // 
+            this.explorerReleaseNotesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
+            this.explorerReleaseNotesToolStripMenuItem.Name = "explorerReleaseNotesToolStripMenuItem";
+            this.explorerReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.explorerReleaseNotesToolStripMenuItem.Text = "Explorer Release Notes";
+            this.explorerReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.explorerReleaseNotesToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -3373,7 +3384,7 @@
             this.attachAnotherStorageAccountToolStripMenuItem,
             this.storageVersionToolStripMenuItem});
             this.contextMenuStripStorage.Name = "contextMenuStripStreamingEndpoints";
-            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 92);
+            this.contextMenuStripStorage.Size = new System.Drawing.Size(251, 70);
             this.contextMenuStripStorage.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripStorage_Opening);
             // 
             // toolStripMenuItem2
@@ -5129,6 +5140,7 @@
         private System.Windows.Forms.ComboBox comboBoxSearchChannelOption;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ToolStripMenuItem storageVersionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
     }
 }
 

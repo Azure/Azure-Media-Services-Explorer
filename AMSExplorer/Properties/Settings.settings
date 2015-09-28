@@ -113,5 +113,8 @@
     <Setting Name="DefaultLocatorDurationDaysNew" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3650</Value>
     </Setting>
+    <Setting Name="DeleteInstallationFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

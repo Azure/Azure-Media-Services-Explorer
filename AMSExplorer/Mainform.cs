@@ -60,6 +60,7 @@ namespace AMSExplorer
 
     public partial class Mainform : Form
     {
+
         // XML Configuration files path.
         public static string _configurationXMLFiles;
         private static string _HelpFiles;
@@ -104,6 +105,22 @@ namespace AMSExplorer
                 Properties.Settings.Default.Upgrade();
                 Properties.Settings.Default.CallUpgrade = false;
             }
+
+            // if installation file has been downloaded, let's delete it now
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.DeleteInstallationFile))
+            {
+                try
+                {
+                    File.Delete(Properties.Settings.Default.DeleteInstallationFile);
+                    Properties.Settings.Default.DeleteInstallationFile = string.Empty;
+                    Properties.Settings.Default.Save();
+                }
+                catch
+                {
+
+                }
+            }
+
             _configurationXMLFiles = Application.StartupPath + Constants.PathConfigFiles;
 
             // AME Standard preset folder
@@ -2982,7 +2999,7 @@ namespace AMSExplorer
                 EncodingPromptText = (SelectedAssets.Count > 1) ? "Input assets : " + SelectedAssets.Count + " assets have been selected." : "Input asset : '" + SelectedAssets.FirstOrDefault().Name + "'",
                 EncodingProcessorsList = Encoders,
                 EncodingJobName = "Premium Workflow Encoding of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded with " + Constants.NameconvWorkflow,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Premium Workflow encoded",
                 EncodingNumberOfInputAssets = SelectedAssets.Count,
                 EncodingPremiumWorkflowPresetXMLFiles = Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder,
 
@@ -3067,7 +3084,7 @@ namespace AMSExplorer
 
             EncodingAMEPreset form = new EncodingAMEPreset(_context)
             {
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",// with " + Constants.NameconvAMEpreset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Azure Media encoded",
                 Text = "Azure Media Encoding",
                 EncodingLabel1 = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected. " + SelectedAssets.Count + " jobs will be submitted." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded.",
                 EncodingJobName = "Azure Media Encoding of " + Constants.NameconvInputasset,
@@ -7105,7 +7122,7 @@ namespace AMSExplorer
 
             StreamingEndpointInformation form = new StreamingEndpointInformation()
             {
-                MyOrigin = streamingendpoint,
+                MyStreamingEndpoint = streamingendpoint,
                 MyContext = _context
             };
 
@@ -10251,7 +10268,7 @@ namespace AMSExplorer
 
             List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context,SelectedAssets.Count )
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
@@ -10260,7 +10277,7 @@ namespace AMSExplorer
 
                 EncodingProcessorsList = Procs,
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
-                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Encoded",
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
                 EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
                 EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
                 SelectedAssets = SelectedAssets
@@ -10680,6 +10697,17 @@ namespace AMSExplorer
                     }
                 }
             }
+        }
+
+        private void helpToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            explorerReleaseNotesToolStripMenuItem.Enabled = (Program.AllReleaseNotesUrl != null);
+        }
+
+        private void explorerReleaseNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Program.AllReleaseNotesUrl != null)
+                Process.Start(Program.AllReleaseNotesUrl.ToString());
         }
     }
 }

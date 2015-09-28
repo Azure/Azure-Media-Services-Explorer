@@ -81,6 +81,8 @@ namespace AMSExplorer
         {
             Action<object, AsyncCompletedEventArgs> action = (sender, e) =>
             {
+                Properties.Settings.Default.DeleteInstallationFile = Path.GetTempPath() + filename;
+                Properties.Settings.Default.Save();
                 Process.Start(Path.GetTempPath() + filename);
                 Environment.Exit(0);
             };

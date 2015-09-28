@@ -67,7 +67,7 @@
             this.textBoxCrossDomPolicy = new System.Windows.Forms.TextBox();
             this.checkBoxclientpolicy = new System.Windows.Forms.CheckBox();
             this.textBoxClientPolicy = new System.Windows.Forms.TextBox();
-            this.labelOriginName = new System.Windows.Forms.Label();
+            this.labelSEName = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
@@ -524,15 +524,15 @@
             // 
             // labelOriginName
             // 
-            this.labelOriginName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelSEName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelOriginName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelOriginName.ForeColor = System.Drawing.Color.DarkBlue;
-            this.labelOriginName.Location = new System.Drawing.Point(21, 13);
-            this.labelOriginName.Name = "labelOriginName";
-            this.labelOriginName.Size = new System.Drawing.Size(868, 23);
-            this.labelOriginName.TabIndex = 37;
-            this.labelOriginName.Text = "Streaming endpoint : ";
+            this.labelSEName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSEName.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelSEName.Location = new System.Drawing.Point(21, 13);
+            this.labelSEName.Name = "labelOriginName";
+            this.labelSEName.Size = new System.Drawing.Size(868, 23);
+            this.labelSEName.TabIndex = 37;
+            this.labelSEName.Text = "Streaming endpoint : {0}";
             // 
             // buttonClose
             // 
@@ -566,7 +566,7 @@
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.labelOriginName);
+            this.Controls.Add(this.labelSEName);
             this.Controls.Add(this.tabControl1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "StreamingEndpointInformation";
@@ -605,7 +605,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Label labelOriginName;
+        private System.Windows.Forms.Label labelSEName;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripOI;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem;
         private System.Windows.Forms.Label label1;

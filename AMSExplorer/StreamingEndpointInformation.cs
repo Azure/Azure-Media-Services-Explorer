@@ -38,7 +38,7 @@ namespace AMSExplorer
 {
     public partial class StreamingEndpointInformation : Form
     {
-        public IStreamingEndpoint MyOrigin;
+        public IStreamingEndpoint MyStreamingEndpoint;
         public CloudMediaContext MyContext;
         private string MaxCacheAgeInitial;
         private BindingList<IPRange> endpointSettingList = new BindingList<IPRange>();
@@ -121,7 +121,7 @@ namespace AMSExplorer
             }
         }
 
-        
+
 
         public string GetOriginClientPolicy
         {
@@ -145,25 +145,25 @@ namespace AMSExplorer
 
         private void StreamingEndpointInformation_Load(object sender, EventArgs e)
         {
-            labelOriginName.Text += MyOrigin.Name;
+            labelSEName.Text = string.Format(labelSEName.Text, MyStreamingEndpoint.Name);
             hostnamelink.Links.Add(new LinkLabel.Link(0, hostnamelink.Text.Length, "http://msdn.microsoft.com/en-us/library/azure/dn783468.aspx"));
             DGOrigin.ColumnCount = 2;
-            // asset info
 
+            // asset info
             DGOrigin.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
-            DGOrigin.Rows.Add("Name", MyOrigin.Name);
-            DGOrigin.Rows.Add("Id", MyOrigin.Id);
-            DGOrigin.Rows.Add("State", (StreamingEndpointState)MyOrigin.State);
-            DGOrigin.Rows.Add("CDN Enabled", MyOrigin.CdnEnabled);
-            DGOrigin.Rows.Add("Created", ((DateTime)MyOrigin.Created).ToLocalTime());
-            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyOrigin.LastModified).ToLocalTime());
-            DGOrigin.Rows.Add("Description", MyOrigin.Description);
-            DGOrigin.Rows.Add("Host name", MyOrigin.HostName);
+            DGOrigin.Rows.Add("Name", MyStreamingEndpoint.Name);
+            DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
+            DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
+            DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
+            DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime());
+            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime());
+            DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
+            DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
 
             // Custom Hostnames binding to control
-            if (MyOrigin.CustomHostNames != null)
+            if (MyStreamingEndpoint.CustomHostNames != null)
             {
-                foreach (var hostname in MyOrigin.CustomHostNames)
+                foreach (var hostname in MyStreamingEndpoint.CustomHostNames)
                 {
                     CustomHostNamesList.Add(new HostNameClass() { HostName = hostname });
                 }
@@ -171,21 +171,21 @@ namespace AMSExplorer
             dataGridViewCustomHostname.DataSource = CustomHostNamesList;
 
             // AZURE CDN
-             panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyOrigin.CdnEnabled;
-             labelcdn.Visible = MyOrigin.CdnEnabled;
+            panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyStreamingEndpoint.CdnEnabled;
+            labelcdn.Visible = MyStreamingEndpoint.CdnEnabled;
 
-            if (MyOrigin.ScaleUnits != null)
+            if (MyStreamingEndpoint.ScaleUnits != null)
             {
-                DGOrigin.Rows.Add("Scale Units", MyOrigin.ScaleUnits);
-                if (numericUpDownRU.Maximum < MyOrigin.ScaleUnits) numericUpDownRU.Maximum = (int)MyOrigin.ScaleUnits * 2;
-                numericUpDownRU.Value = (int)MyOrigin.ScaleUnits;
+                DGOrigin.Rows.Add("Scale Units", MyStreamingEndpoint.ScaleUnits);
+                if (numericUpDownRU.Maximum < MyStreamingEndpoint.ScaleUnits) numericUpDownRU.Maximum = (int)MyStreamingEndpoint.ScaleUnits * 2;
+                numericUpDownRU.Value = (int)MyStreamingEndpoint.ScaleUnits;
             }
 
-            if (MyOrigin.CacheControl != null)
+            if (MyStreamingEndpoint.CacheControl != null)
             {
-                if (MyOrigin.CacheControl.MaxAge != null)
+                if (MyStreamingEndpoint.CacheControl.MaxAge != null)
                 {
-                    textBoxMaxCacheAge.Text = ((TimeSpan)MyOrigin.CacheControl.MaxAge).TotalSeconds.ToString();
+                    textBoxMaxCacheAge.Text = ((TimeSpan)MyStreamingEndpoint.CacheControl.MaxAge).TotalSeconds.ToString();
                 }
                 else
                 {
@@ -199,20 +199,20 @@ namespace AMSExplorer
             MaxCacheAgeInitial = textBoxMaxCacheAge.Text;
 
 
-            if (MyOrigin.AccessControl != null)
+            if (MyStreamingEndpoint.AccessControl != null)
             {
-                if (MyOrigin.AccessControl.IPAllowList != null)
+                if (MyStreamingEndpoint.AccessControl.IPAllowList != null)
                 {
                     checkBoxStreamingIPlistSet.Checked = true;
-                    foreach (var endpoint in MyOrigin.AccessControl.IPAllowList)
+                    foreach (var endpoint in MyStreamingEndpoint.AccessControl.IPAllowList)
                     {
                         endpointSettingList.Add(endpoint);
                     }
                 }
-                if (MyOrigin.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList != null)
+                if (MyStreamingEndpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList != null)
                 {
                     checkBoxAkamai.Checked = true;
-                    foreach (var setting in MyOrigin.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList)
+                    foreach (var setting in MyStreamingEndpoint.AccessControl.AkamaiSignatureHeaderAuthenticationKeyList)
                     {
                         AkamaiSettingList.Add(setting);
                     }
@@ -223,20 +223,20 @@ namespace AMSExplorer
             dataGridViewIP.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
             dataGridViewAkamai.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
 
-            if (MyOrigin.CrossSiteAccessPolicies != null)
+            if (MyStreamingEndpoint.CrossSiteAccessPolicies != null)
             {
-                if (MyOrigin.CrossSiteAccessPolicies.ClientAccessPolicy != null)
+                if (MyStreamingEndpoint.CrossSiteAccessPolicies.ClientAccessPolicy != null)
                 {
                     checkBoxclientpolicy.Checked = true;
-                    textBoxClientPolicy.Text = MyOrigin.CrossSiteAccessPolicies.ClientAccessPolicy;
+                    textBoxClientPolicy.Text = MyStreamingEndpoint.CrossSiteAccessPolicies.ClientAccessPolicy;
                 }
-                if (MyOrigin.CrossSiteAccessPolicies.CrossDomainPolicy != null)
+                if (MyStreamingEndpoint.CrossSiteAccessPolicies.CrossDomainPolicy != null)
                 {
                     checkBoxcrossdomain.Checked = true;
-                    textBoxCrossDomPolicy.Text = MyOrigin.CrossSiteAccessPolicies.CrossDomainPolicy;
+                    textBoxCrossDomPolicy.Text = MyStreamingEndpoint.CrossSiteAccessPolicies.CrossDomainPolicy;
                 }
             }
-            textboxorigindesc.Text = MyOrigin.Description;
+            textboxorigindesc.Text = MyStreamingEndpoint.Description;
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -361,8 +361,8 @@ namespace AMSExplorer
 
         private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
         {
-         
-           
+
+
         }
 
 

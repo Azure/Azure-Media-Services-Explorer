@@ -123,8 +123,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         public EncodingPremium(CloudMediaContext context)
         {
             InitializeComponent();

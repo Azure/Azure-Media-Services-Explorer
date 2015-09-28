@@ -466,5 +466,17 @@ namespace AMSExplorer.Properties {
                 this["DefaultLocatorDurationDaysNew"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string DeleteInstallationFile {
+            get {
+                return ((string)(this["DeleteInstallationFile"]));
+            }
+            set {
+                this["DeleteInstallationFile"] = value;
+            }
+        }
     }
 }

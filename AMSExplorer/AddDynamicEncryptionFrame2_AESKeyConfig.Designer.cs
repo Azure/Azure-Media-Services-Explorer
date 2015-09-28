@@ -74,6 +74,7 @@
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttongenerateContentKey.Location = new System.Drawing.Point(553, 136);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
             this.buttongenerateContentKey.Size = new System.Drawing.Size(75, 29);
@@ -86,6 +87,7 @@
             // 
             this.textBoxcontentkey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxcontentkey.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxcontentkey.Location = new System.Drawing.Point(16, 131);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
             this.textBoxcontentkey.Size = new System.Drawing.Size(438, 23);
@@ -95,6 +97,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(13, 113);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(74, 15);
@@ -160,6 +163,7 @@
             this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.Controls.Add(this.radioButtonContentKeyBase64);
             this.panel2.Controls.Add(this.radioButtonContentKeyHex);
+            this.panel2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.panel2.Location = new System.Drawing.Point(462, 121);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(87, 55);
@@ -172,6 +176,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.radioButtonKeySpecifiedByUser);
             this.groupBox2.Controls.Add(this.radioButtonKeyRandomGeneration);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(14, 114);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(644, 115);
@@ -181,6 +186,7 @@
             // 
             // label3
             // 
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label3.Location = new System.Drawing.Point(36, 29);
             this.label3.Name = "label3";
@@ -192,6 +198,7 @@
             // radioButtonKeySpecifiedByUser
             // 
             this.radioButtonKeySpecifiedByUser.AutoSize = true;
+            this.radioButtonKeySpecifiedByUser.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonKeySpecifiedByUser.Location = new System.Drawing.Point(40, 81);
             this.radioButtonKeySpecifiedByUser.Name = "radioButtonKeySpecifiedByUser";
             this.radioButtonKeySpecifiedByUser.Size = new System.Drawing.Size(134, 19);
@@ -203,6 +210,7 @@
             // 
             this.radioButtonKeyRandomGeneration.AutoSize = true;
             this.radioButtonKeyRandomGeneration.Checked = true;
+            this.radioButtonKeyRandomGeneration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButtonKeyRandomGeneration.Location = new System.Drawing.Point(40, 54);
             this.radioButtonKeyRandomGeneration.Name = "radioButtonKeyRandomGeneration";
             this.radioButtonKeyRandomGeneration.Size = new System.Drawing.Size(259, 19);
@@ -229,6 +237,7 @@
             this.groupBoxCrypto.Controls.Add(this.textBoxcontentkey);
             this.groupBoxCrypto.Controls.Add(this.label4);
             this.groupBoxCrypto.Enabled = false;
+            this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxCrypto.Location = new System.Drawing.Point(14, 252);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
             this.groupBoxCrypto.Size = new System.Drawing.Size(644, 317);
@@ -239,6 +248,7 @@
             // label2
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label2.Location = new System.Drawing.Point(187, 38);
             this.label2.Name = "label2";
@@ -251,6 +261,7 @@
             // 
             this.textBoxkeyid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxkeyid.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxkeyid.Location = new System.Drawing.Point(15, 56);
             this.textBoxkeyid.Name = "textBoxkeyid";
             this.textBoxkeyid.Size = new System.Drawing.Size(439, 23);
@@ -259,6 +270,7 @@
             // buttonGenKeyID
             // 
             this.buttonGenKeyID.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGenKeyID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonGenKeyID.Location = new System.Drawing.Point(553, 53);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
             this.buttonGenKeyID.Size = new System.Drawing.Size(75, 29);
@@ -270,6 +282,7 @@
             // label10
             // 
             this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label10.Location = new System.Drawing.Point(187, 113);
             this.label10.Name = "label10";
@@ -281,6 +294,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label5.Location = new System.Drawing.Point(12, 38);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 15);
@@ -290,6 +304,7 @@
             // labelkeylaurl
             // 
             this.labelkeylaurl.AutoSize = true;
+            this.labelkeylaurl.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelkeylaurl.Location = new System.Drawing.Point(13, 188);
             this.labelkeylaurl.Name = "labelkeylaurl";
             this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
@@ -301,6 +316,7 @@
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.panel4.Controls.Add(this.radioButtonKeyIDGuid);
             this.panel4.Controls.Add(this.radioButtonKeyIDBase64);
+            this.panel4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.panel4.Location = new System.Drawing.Point(462, 38);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(87, 55);
@@ -336,6 +352,7 @@
             // 
             this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLAURL.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxLAURL.Location = new System.Drawing.Point(15, 206);
             this.textBoxLAURL.Name = "textBoxLAURL";
             this.textBoxLAURL.Size = new System.Drawing.Size(439, 23);

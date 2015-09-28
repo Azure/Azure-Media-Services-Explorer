@@ -129,6 +129,7 @@
             // checkBoxUseStorageEncryption
             // 
             this.checkBoxUseStorageEncryption.AutoSize = true;
+            this.checkBoxUseStorageEncryption.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxUseStorageEncryption.Location = new System.Drawing.Point(49, 27);
             this.checkBoxUseStorageEncryption.Name = "checkBoxUseStorageEncryption";
             this.checkBoxUseStorageEncryption.Size = new System.Drawing.Size(396, 19);
@@ -139,6 +140,7 @@
             // checkBoxUseProtectedConfig
             // 
             this.checkBoxUseProtectedConfig.AutoSize = true;
+            this.checkBoxUseProtectedConfig.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxUseProtectedConfig.Location = new System.Drawing.Point(49, 53);
             this.checkBoxUseProtectedConfig.Name = "checkBoxUseProtectedConfig";
             this.checkBoxUseProtectedConfig.Size = new System.Drawing.Size(246, 19);
@@ -149,6 +151,7 @@
             // checkBoxOneUpDownload
             // 
             this.checkBoxOneUpDownload.AutoSize = true;
+            this.checkBoxOneUpDownload.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxOneUpDownload.Location = new System.Drawing.Point(49, 80);
             this.checkBoxOneUpDownload.Name = "checkBoxOneUpDownload";
             this.checkBoxOneUpDownload.Size = new System.Drawing.Size(214, 19);
@@ -159,6 +162,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label1.Location = new System.Drawing.Point(139, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(138, 15);
@@ -168,6 +172,7 @@
             // comboBoxNbItems
             // 
             this.comboBoxNbItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxNbItems.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxNbItems.FormattingEnabled = true;
             this.comboBoxNbItems.Location = new System.Drawing.Point(49, 28);
             this.comboBoxNbItems.Name = "comboBoxNbItems";
@@ -188,6 +193,7 @@
             // checkBoxDisplayAssetID
             // 
             this.checkBoxDisplayAssetID.AutoSize = true;
+            this.checkBoxDisplayAssetID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayAssetID.Location = new System.Drawing.Point(49, 59);
             this.checkBoxDisplayAssetID.Name = "checkBoxDisplayAssetID";
             this.checkBoxDisplayAssetID.Size = new System.Drawing.Size(67, 19);
@@ -198,6 +204,7 @@
             // checkBoxDisplayJobID
             // 
             this.checkBoxDisplayJobID.AutoSize = true;
+            this.checkBoxDisplayJobID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayJobID.Location = new System.Drawing.Point(49, 85);
             this.checkBoxDisplayJobID.Name = "checkBoxDisplayJobID";
             this.checkBoxDisplayJobID.Size = new System.Drawing.Size(57, 19);
@@ -217,6 +224,7 @@
             this.groupBox1.Controls.Add(this.checkBoxDisplayJobID);
             this.groupBox1.Controls.Add(this.comboBoxNbItems);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetID);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(9, 7);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(560, 255);
@@ -227,6 +235,7 @@
             // checkBoxDisplayAssetStorage
             // 
             this.checkBoxDisplayAssetStorage.AutoSize = true;
+            this.checkBoxDisplayAssetStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(49, 192);
             this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
             this.checkBoxDisplayAssetStorage.Size = new System.Drawing.Size(97, 19);
@@ -237,6 +246,7 @@
             // checkBoxAutoRefresh
             // 
             this.checkBoxAutoRefresh.AutoSize = true;
+            this.checkBoxAutoRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxAutoRefresh.Location = new System.Drawing.Point(49, 218);
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.checkBoxAutoRefresh.Size = new System.Drawing.Size(144, 19);
@@ -248,6 +258,7 @@
             // comboBoxAutoRefreshTime
             // 
             this.comboBoxAutoRefreshTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxAutoRefreshTime.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxAutoRefreshTime.FormattingEnabled = true;
             this.comboBoxAutoRefreshTime.Items.AddRange(new object[] {
             "30",
@@ -262,6 +273,7 @@
             // checkBoxDisplayOriginID
             // 
             this.checkBoxDisplayOriginID.AutoSize = true;
+            this.checkBoxDisplayOriginID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayOriginID.Location = new System.Drawing.Point(49, 165);
             this.checkBoxDisplayOriginID.Name = "checkBoxDisplayOriginID";
             this.checkBoxDisplayOriginID.Size = new System.Drawing.Size(144, 19);
@@ -272,6 +284,7 @@
             // checkBoxDisplayProgramID
             // 
             this.checkBoxDisplayProgramID.AutoSize = true;
+            this.checkBoxDisplayProgramID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayProgramID.Location = new System.Drawing.Point(49, 138);
             this.checkBoxDisplayProgramID.Name = "checkBoxDisplayProgramID";
             this.checkBoxDisplayProgramID.Size = new System.Drawing.Size(85, 19);
@@ -282,6 +295,7 @@
             // checkBoxDisplayChannelID
             // 
             this.checkBoxDisplayChannelID.AutoSize = true;
+            this.checkBoxDisplayChannelID.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxDisplayChannelID.Location = new System.Drawing.Point(49, 112);
             this.checkBoxDisplayChannelID.Name = "checkBoxDisplayChannelID";
             this.checkBoxDisplayChannelID.Size = new System.Drawing.Size(83, 19);
@@ -302,6 +316,7 @@
             this.groupBox2.Controls.Add(this.pictureBox1);
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
+            this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(9, 269);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(560, 201);
@@ -312,6 +327,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label8.Location = new System.Drawing.Point(47, 167);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(186, 15);
@@ -320,6 +336,7 @@
             // 
             // numericUpDownTokenDuration
             // 
+            this.numericUpDownTokenDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownTokenDuration.Location = new System.Drawing.Point(250, 165);
             this.numericUpDownTokenDuration.Maximum = new decimal(new int[] {
             36500,
@@ -343,6 +360,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label3.Location = new System.Drawing.Point(47, 136);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(174, 15);
@@ -351,6 +369,7 @@
             // 
             // numericUpDownLocatorDuration
             // 
+            this.numericUpDownLocatorDuration.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownLocatorDuration.Location = new System.Drawing.Point(250, 134);
             this.numericUpDownLocatorDuration.Maximum = new decimal(new int[] {
             36500,
@@ -384,6 +403,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.Location = new System.Drawing.Point(47, 108);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 15);
@@ -392,6 +412,7 @@
             // 
             // numericUpDownPriority
             // 
+            this.numericUpDownPriority.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownPriority.Location = new System.Drawing.Point(250, 104);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
             this.numericUpDownPriority.Size = new System.Drawing.Size(108, 23);
@@ -417,6 +438,7 @@
             this.groupBox3.Controls.Add(this.labelcdn);
             this.groupBox3.Controls.Add(this.textBoxCustomPlayer);
             this.groupBox3.Controls.Add(this.checkBoxEnableCustomPlayer);
+            this.groupBox3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(7, 7);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(562, 147);
@@ -426,6 +448,7 @@
             // 
             // labelcdn
             // 
+            this.labelcdn.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.labelcdn.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.labelcdn.Location = new System.Drawing.Point(15, 95);
             this.labelcdn.Name = "labelcdn";
@@ -436,6 +459,7 @@
             // 
             // textBoxCustomPlayer
             // 
+            this.textBoxCustomPlayer.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxCustomPlayer.Location = new System.Drawing.Point(19, 54);
             this.textBoxCustomPlayer.Name = "textBoxCustomPlayer";
             this.textBoxCustomPlayer.Size = new System.Drawing.Size(536, 23);
@@ -444,6 +468,7 @@
             // checkBoxEnableCustomPlayer
             // 
             this.checkBoxEnableCustomPlayer.AutoSize = true;
+            this.checkBoxEnableCustomPlayer.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.checkBoxEnableCustomPlayer.Location = new System.Drawing.Point(19, 28);
             this.checkBoxEnableCustomPlayer.Name = "checkBoxEnableCustomPlayer";
             this.checkBoxEnableCustomPlayer.Size = new System.Drawing.Size(61, 19);
@@ -468,6 +493,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.Location = new System.Drawing.Point(47, 68);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(169, 15);
@@ -477,6 +503,7 @@
             // numericUpDownAMEPrice
             // 
             this.numericUpDownAMEPrice.DecimalPlaces = 2;
+            this.numericUpDownAMEPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownAMEPrice.Increment = new decimal(new int[] {
             1,
             0,
@@ -495,6 +522,7 @@
             // numericUpDownLegacyEncodingPrice
             // 
             this.numericUpDownLegacyEncodingPrice.DecimalPlaces = 2;
+            this.numericUpDownLegacyEncodingPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownLegacyEncodingPrice.Increment = new decimal(new int[] {
             1,
             0,
@@ -513,6 +541,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label5.Location = new System.Drawing.Point(45, 128);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(226, 15);
@@ -523,6 +552,7 @@
             // 
             this.numericUpDownIndexingPrice.DecimalPlaces = 2;
             this.numericUpDownIndexingPrice.Enabled = false;
+            this.numericUpDownIndexingPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownIndexingPrice.Increment = new decimal(new int[] {
             1,
             0,
@@ -541,6 +571,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label6.Location = new System.Drawing.Point(45, 158);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(218, 15);
@@ -549,6 +580,7 @@
             // 
             // textBoxCurrency
             // 
+            this.textBoxCurrency.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxCurrency.Location = new System.Drawing.Point(337, 27);
             this.textBoxCurrency.Name = "textBoxCurrency";
             this.textBoxCurrency.Size = new System.Drawing.Size(59, 23);
@@ -568,6 +600,7 @@
             this.groupBox4.Controls.Add(this.numericUpDownIndexingPrice);
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(7, 7);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(562, 233);
@@ -578,6 +611,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label9.Location = new System.Drawing.Point(47, 98);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(275, 15);
@@ -587,6 +621,7 @@
             // numericUpDownAMEPremiumWorkflowPrice
             // 
             this.numericUpDownAMEPremiumWorkflowPrice.DecimalPlaces = 2;
+            this.numericUpDownAMEPremiumWorkflowPrice.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownAMEPremiumWorkflowPrice.Increment = new decimal(new int[] {
             1,
             0,
@@ -606,6 +641,7 @@
             // 
             this.amspriceslink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.amspriceslink.AutoSize = true;
+            this.amspriceslink.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.amspriceslink.Location = new System.Drawing.Point(47, 193);
             this.amspriceslink.Name = "amspriceslink";
             this.amspriceslink.Size = new System.Drawing.Size(125, 15);
@@ -617,6 +653,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label7.Location = new System.Drawing.Point(45, 30);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(103, 15);
@@ -678,6 +715,7 @@
             this.groupBox5.Controls.Add(this.textBoxVLCPath);
             this.groupBox5.Controls.Add(this.label10);
             this.groupBox5.Controls.Add(this.textBoxffmpegPath);
+            this.groupBox5.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox5.Location = new System.Drawing.Point(7, 171);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(562, 155);
@@ -688,6 +726,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label11.Location = new System.Drawing.Point(15, 96);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(34, 15);
@@ -696,6 +735,7 @@
             // 
             // textBoxVLCPath
             // 
+            this.textBoxVLCPath.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxVLCPath.Location = new System.Drawing.Point(75, 96);
             this.textBoxVLCPath.Name = "textBoxVLCPath";
             this.textBoxVLCPath.Size = new System.Drawing.Size(480, 23);
@@ -704,6 +744,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label10.Location = new System.Drawing.Point(15, 54);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 15);
@@ -712,6 +753,7 @@
             // 
             // textBoxffmpegPath
             // 
+            this.textBoxffmpegPath.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxffmpegPath.Location = new System.Drawing.Point(75, 54);
             this.textBoxffmpegPath.Name = "textBoxffmpegPath";
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);

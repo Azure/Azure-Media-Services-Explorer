@@ -484,7 +484,7 @@
             // 
             this.accountmgtlink.AutoSize = true;
             this.accountmgtlink.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.accountmgtlink.Location = new System.Drawing.Point(338, 5);
+            this.accountmgtlink.Location = new System.Drawing.Point(338, 19);
             this.accountmgtlink.Name = "accountmgtlink";
             this.accountmgtlink.Size = new System.Drawing.Size(221, 15);
             this.accountmgtlink.TabIndex = 34;

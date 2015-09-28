@@ -120,6 +120,7 @@ namespace AMSExplorer
             this.comboBoxMetrics.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMetrics.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxMetrics.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.comboBoxMetrics.FormattingEnabled = true;
             this.comboBoxMetrics.Location = new System.Drawing.Point(14, 44);
             this.comboBoxMetrics.Name = "comboBoxMetrics";
@@ -129,6 +130,7 @@ namespace AMSExplorer
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label3.Location = new System.Drawing.Point(11, 25);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 15);
@@ -137,17 +139,19 @@ namespace AMSExplorer
             // 
             // label8
             // 
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label8.Location = new System.Drawing.Point(140, 107);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(131, 18);
+            this.label8.Size = new System.Drawing.Size(287, 18);
             this.label8.TabIndex = 71;
-            this.label8.Text = "Put 0 for no retention";
+            this.label8.Text = "Put 0 for no retention, 5 is a common setting";
             // 
             // linkLabelStorageAnalytics
             // 
             this.linkLabelStorageAnalytics.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelStorageAnalytics.AutoSize = true;
+            this.linkLabelStorageAnalytics.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.linkLabelStorageAnalytics.Location = new System.Drawing.Point(287, 25);
             this.linkLabelStorageAnalytics.Name = "linkLabelStorageAnalytics";
             this.linkLabelStorageAnalytics.Size = new System.Drawing.Size(140, 15);
@@ -166,6 +170,7 @@ namespace AMSExplorer
             this.groupBox1.Controls.Add(this.linkLabelStorageAnalytics);
             this.groupBox1.Controls.Add(this.comboBoxMetrics);
             this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(19, 136);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(435, 143);
@@ -175,6 +180,7 @@ namespace AMSExplorer
             // 
             // numericUpDownRetention
             // 
+            this.numericUpDownRetention.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.numericUpDownRetention.Location = new System.Drawing.Point(14, 105);
             this.numericUpDownRetention.Maximum = new decimal(new int[] {
             365,
@@ -193,6 +199,7 @@ namespace AMSExplorer
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.Location = new System.Drawing.Point(11, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(99, 15);
@@ -209,7 +216,7 @@ namespace AMSExplorer
             this.labelStorageAccount.Name = "labelStorageAccount";
             this.labelStorageAccount.Size = new System.Drawing.Size(431, 23);
             this.labelStorageAccount.TabIndex = 74;
-            this.labelStorageAccount.Text = "Storage account : {0}";
+            this.labelStorageAccount.Text = "Settings for storage account : {0}";
             // 
             // StorageSettings
             // 

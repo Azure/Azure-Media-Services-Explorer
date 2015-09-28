@@ -120,6 +120,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxAuthPol.Controls.Add(this.radioButtonTokenAuthPolicy);
             this.groupBoxAuthPol.Controls.Add(this.radioButtonOpenAuthPolicy);
+            this.groupBoxAuthPol.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxAuthPol.Location = new System.Drawing.Point(14, 84);
             this.groupBoxAuthPol.Name = "groupBoxAuthPol";
             this.groupBoxAuthPol.Size = new System.Drawing.Size(653, 90);
@@ -131,6 +132,7 @@
             // 
             this.radioButtonTokenAuthPolicy.AutoSize = true;
             this.radioButtonTokenAuthPolicy.Checked = true;
+            this.radioButtonTokenAuthPolicy.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonTokenAuthPolicy.Location = new System.Drawing.Point(23, 25);
             this.radioButtonTokenAuthPolicy.Name = "radioButtonTokenAuthPolicy";
             this.radioButtonTokenAuthPolicy.Size = new System.Drawing.Size(57, 19);
@@ -143,6 +145,7 @@
             // radioButtonOpenAuthPolicy
             // 
             this.radioButtonOpenAuthPolicy.AutoSize = true;
+            this.radioButtonOpenAuthPolicy.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.radioButtonOpenAuthPolicy.Location = new System.Drawing.Point(23, 52);
             this.radioButtonOpenAuthPolicy.Name = "radioButtonOpenAuthPolicy";
             this.radioButtonOpenAuthPolicy.Size = new System.Drawing.Size(54, 19);

@@ -101,8 +101,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         public string IndexerTitle
         {
             get
@@ -126,8 +124,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         public string IndexerProcessorName
         {
             get
@@ -148,7 +144,6 @@ namespace AMSExplorer
 
             buttonJobOptions.Initialize(_context);
         }
-
 
         private void Indexer_Load(object sender, EventArgs e)
         {

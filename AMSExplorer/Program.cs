@@ -252,6 +252,7 @@ namespace AMSExplorer
             return number > 1 ? "s" : "";
         }
 
+        public static Uri AllReleaseNotesUrl = null;
         public static string MessageNewVersion = string.Empty;
 
         public static void CheckAMSEVersion()
@@ -267,17 +268,22 @@ namespace AMSExplorer
             {
                 try
                 {
-                    Uri RelNotesUrl = null;
                     Uri BinaryUrl = null;
+                    Uri ReleaseNotesUrl = null;
 
                     var xmlversion = XDocument.Parse(e.Result);
                     Version versionAMSEGitHub = new Version(xmlversion.Descendants("Versions").Descendants("Production").Attributes("Version").FirstOrDefault().Value.ToString());
                     var RelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("ReleaseNotesUrl").FirstOrDefault();
+                    var AllRelNotesUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("AllReleaseNotesUrl").FirstOrDefault();
                     var BinaryUrlXML = xmlversion.Descendants("Versions").Descendants("Production").Attributes("BinaryUrl").FirstOrDefault();
 
                     if (RelNotesUrlXML != null)
                     {
-                        RelNotesUrl = new Uri(RelNotesUrlXML.Value.ToString());
+                        ReleaseNotesUrl = new Uri(RelNotesUrlXML.Value.ToString());
+                    }
+                    if (AllRelNotesUrlXML != null)
+                    {
+                        AllReleaseNotesUrl = new Uri(AllRelNotesUrlXML.Value.ToString());
                     }
                     if (BinaryUrlXML != null)
                     {
@@ -295,7 +301,7 @@ namespace AMSExplorer
                             Environment.Exit(0);
                         }
                         */
-                        var form = new SoftwareUpdate(RelNotesUrl, versionAMSEGitHub, BinaryUrl);
+                        var form = new SoftwareUpdate(AllReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
                 }
@@ -536,7 +542,10 @@ namespace AMSExplorer
 
             Registry.SetValue(featureControlRegKey + "FEATURE_NINPUT_LEGACYMODE",
                 appName, 0, RegistryValueKind.DWord);
+
+
         }
+
 
         static UInt32 GetBrowserEmulationMode()
         {
@@ -588,6 +597,7 @@ namespace AMSExplorer
 
     public class Constants
     {
+        //public const string GitHubAMSEVersion = "file://c://temp//version.xml";
         public const string GitHubAMSEVersion = "https://raw.githubusercontent.com/Azure/Azure-Media-Services-Explorer/master/version.xml";
         public const string GitHubAMSEReleases = "https://github.com/Azure/Azure-Media-Services-Explorer/releases";
         public const string GitHubAMSELink = "http://aka.ms/amse";

@@ -101,6 +101,7 @@
             this.textBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDescription.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxDescription.Location = new System.Drawing.Point(10, 167);
             this.textBoxDescription.MaxLength = 5000;
             this.textBoxDescription.Multiline = true;
@@ -112,6 +113,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label2.Location = new System.Drawing.Point(7, 149);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 15);
@@ -122,6 +124,7 @@
             // 
             this.textBoxTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTitle.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxTitle.Location = new System.Drawing.Point(10, 110);
             this.textBoxTitle.MaxLength = 128;
             this.textBoxTitle.Name = "textBoxTitle";
@@ -132,7 +135,7 @@
             // 
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetName.Location = new System.Drawing.Point(11, 22);
+            this.labelAssetName.Location = new System.Drawing.Point(21, 17);
             this.labelAssetName.Name = "labelAssetName";
             this.labelAssetName.Size = new System.Drawing.Size(370, 35);
             this.labelAssetName.TabIndex = 50;
@@ -141,6 +144,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label1.Location = new System.Drawing.Point(7, 91);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 15);
@@ -176,6 +180,7 @@
             this.groupBox1.Controls.Add(this.textBoxTitle);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textBoxDescription);
+            this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(14, 113);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(612, 246);
@@ -185,6 +190,7 @@
             // 
             // label4
             // 
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label4.Location = new System.Drawing.Point(7, 29);
             this.label4.Name = "label4";

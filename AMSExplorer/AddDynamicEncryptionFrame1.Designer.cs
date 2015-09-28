@@ -36,12 +36,12 @@
             this.radioButtonNoDynEnc = new System.Windows.Forms.RadioButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.radioButtonDecryptStorage = new System.Windows.Forms.RadioButton();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBoxDelPolProtocols = new System.Windows.Forms.GroupBox();
             this.checkBoxProtocolSmooth = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolHLS = new System.Windows.Forms.CheckBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxAuthPol = new System.Windows.Forms.GroupBox();
@@ -53,9 +53,9 @@
             this.radioButtonNoAuthPolicy = new System.Windows.Forms.RadioButton();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.groupBoxDelPolProtocols.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBoxDelPolProtocols.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBoxAuthPol.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
@@ -162,26 +162,6 @@
             this.radioButtonDecryptStorage.UseVisualStyleBackColor = true;
             this.radioButtonDecryptStorage.CheckedChanged += new System.EventHandler(this.radioButtonDecryptStorage_CheckedChanged);
             // 
-            // pictureBox3
-            // 
-            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.pictureBox3.Location = new System.Drawing.Point(26, 58);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox3.TabIndex = 60;
-            this.pictureBox3.TabStop = false;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
-            this.pictureBox2.Location = new System.Drawing.Point(26, 33);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 51;
-            this.pictureBox2.TabStop = false;
-            // 
             // groupBoxDelPolProtocols
             // 
             this.groupBoxDelPolProtocols.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -191,7 +171,7 @@
             this.groupBoxDelPolProtocols.Controls.Add(this.checkBoxProtocolHLS);
             this.groupBoxDelPolProtocols.Location = new System.Drawing.Point(52, 154);
             this.groupBoxDelPolProtocols.Name = "groupBoxDelPolProtocols";
-            this.groupBoxDelPolProtocols.Size = new System.Drawing.Size(252, 128);
+            this.groupBoxDelPolProtocols.Size = new System.Drawing.Size(311, 128);
             this.groupBoxDelPolProtocols.TabIndex = 47;
             this.groupBoxDelPolProtocols.TabStop = false;
             this.groupBoxDelPolProtocols.Text = "Delivery policy protocols";
@@ -231,6 +211,26 @@
             this.checkBoxProtocolHLS.TabIndex = 55;
             this.checkBoxProtocolHLS.Text = "HLS";
             this.checkBoxProtocolHLS.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = global::AMSExplorer.Bitmaps.DRM_protection;
+            this.pictureBox3.Location = new System.Drawing.Point(26, 58);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox3.TabIndex = 60;
+            this.pictureBox3.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.envelope_encryption;
+            this.pictureBox2.Location = new System.Drawing.Point(26, 33);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 51;
+            this.pictureBox2.TabStop = false;
             // 
             // label1
             // 
@@ -370,10 +370,10 @@
             this.groupBoxKeyType.ResumeLayout(false);
             this.groupBoxKeyType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.groupBoxDelPolProtocols.ResumeLayout(false);
             this.groupBoxDelPolProtocols.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.groupBoxAuthPol.ResumeLayout(false);
             this.groupBoxAuthPol.PerformLayout();
