@@ -40,7 +40,7 @@ namespace AMSExplorer
         private ulong? _timescale = TimeSpan.TicksPerSecond;
         ILocator _tempLocator = null; // for preview
         Mainform _mainform;
-        bool backupcheckboxtrim = false; // used when user select reencode to save the status of trim checkbox
+        bool backupCheckboxTrim = false; // used when user select reencode to save the status of trim checkbox
 
         public JobOptionsVar JobOptions
         {
@@ -383,7 +383,10 @@ namespace AMSExplorer
 
         private void checkBoxTrimming_CheckedChanged(object sender, EventArgs e)
         {
-            if (!radioButtonClipWithReencode.Checked) backupcheckboxtrim = checkBoxTrimming.Checked; // let's save status
+            if (!radioButtonClipWithReencode.Checked && !radioButtonAssetFilter.Checked)
+            {
+                backupCheckboxTrim = checkBoxTrimming.Checked; // let's save status
+            }
             timeControlStart.Enabled =
             timeControlEnd.Enabled =
             textBoxDurationTime.Enabled =
@@ -406,9 +409,10 @@ namespace AMSExplorer
         private void radioButtonClipWithReencode_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton senderr = sender as RadioButton;
-            if (radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
+            if ((radioButtonClipWithReencode.Checked && senderr.Name == radioButtonClipWithReencode.Name)  // reencoding
+                ||
+                (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name)) // asset filtering
             {
-                backupcheckboxtrim = checkBoxTrimming.Checked;
                 checkBoxTrimming.Checked = true;
                 checkBoxTrimming.Enabled = false;
                 textBoxConfiguration.Enabled = panelJob.Visible = false;
@@ -416,24 +420,18 @@ namespace AMSExplorer
                 ResetConfigXML();
                 DisplayAccuracy();
             }
-            else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) || (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name))  // archive
+            else if ((radioButtonArchiveAllBitrate.Checked && senderr.Name == radioButtonArchiveAllBitrate.Name) // archive all bitrate
+                ||
+                (radioButtonArchiveTopBitrate.Checked && senderr.Name == radioButtonArchiveTopBitrate.Name))  // archive top bitrate
             {
-                checkBoxTrimming.Checked = backupcheckboxtrim;
+                checkBoxTrimming.Checked = backupCheckboxTrim;
                 checkBoxTrimming.Enabled = true;
                 textBoxConfiguration.Enabled = panelJob.Visible = true;
                 UpdateButtonOk();
                 ResetConfigXML();
                 DisplayAccuracy();
             }
-            else if (radioButtonAssetFilter.Checked && senderr.Name == radioButtonAssetFilter.Name) // asset filter
-            {
-                checkBoxTrimming.Checked = backupcheckboxtrim;
-                checkBoxTrimming.Enabled = false;
-                textBoxConfiguration.Enabled = panelJob.Visible = false;
-                UpdateButtonOk();
-                ResetConfigXML();
-                DisplayAccuracy();
-            }
+
         }
 
         private void UpdateButtonOk()
@@ -513,6 +511,7 @@ namespace AMSExplorer
             {
                 webBrowserPreview2.Url = null;
             }
+           
         }
 
 
