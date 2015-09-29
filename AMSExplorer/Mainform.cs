@@ -9489,7 +9489,7 @@ namespace AMSExplorer
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://ie.microsoft.com/testdrive/graphics/captionmaker");
+            Process.Start(@"https://dev.modern.ie/testdrive/demos/captionmaker/");
         }
 
         private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)

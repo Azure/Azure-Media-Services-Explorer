@@ -906,7 +906,8 @@ namespace AMSExplorer
                         switch (processor.Name)
                         {
                             case (Constants.AzureMediaEncoder):
-                                // AME Encoding task
+                            case (Constants.AzureMediaEncoderStandard):
+                                // AME or Media Standard Encoding task
                                 pricetask = lsizeoutputprocessed * (double)Properties.Settings.Default.AMEPrice;
                                 break;
                             case (Constants.AzureMediaEncoderPremiumWorkflow):
@@ -926,7 +927,12 @@ namespace AMSExplorer
                             case (Constants.AzureMediaIndexer):
                                 // Indexing task
                                 // TO DO: GET DURATION OF CONTENT
-                                //pricetask = lsizeprocessed * (double)Properties.Settings.Default.LegacyEncodingPrice;
+                                //pricetask = ?
+                                break;
+                            case (Constants.AzureMediaHyperlapse):
+                                // Hyperlapse task
+                                // TO DO when final cost 
+                                //pricetask = ?
                                 break;
                             default:
                                 break;
@@ -2331,7 +2337,7 @@ namespace AMSExplorer
                         {
                             Urlstr = AssetInfo.AddParameterToUrlString(Urlstr, string.Format(AssetInfo.format_url, AssetInfo.format_dash));
                         }
-                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.4.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
+                        FullPlayBackLink = @"http://dashif.org/reference/players/javascript/1.5.0/samples/dash-if-reference-player/index.html?url=" + Urlstr;
                         break;
 
                     case PlayerType.DASHAzurePage:
