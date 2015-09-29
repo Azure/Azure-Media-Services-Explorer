@@ -44,6 +44,7 @@ namespace AMSExplorer
             this.numericUpDownRetention = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.labelStorageAccount = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRetention)).BeginInit();
@@ -52,7 +53,7 @@ namespace AMSExplorer
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 73);
+            this.label1.Location = new System.Drawing.Point(17, 67);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(136, 15);
             this.label1.TabIndex = 38;
@@ -98,7 +99,7 @@ namespace AMSExplorer
             this.comboBoxVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxVersion.FormattingEnabled = true;
-            this.comboBoxVersion.Location = new System.Drawing.Point(20, 91);
+            this.comboBoxVersion.Location = new System.Drawing.Point(20, 85);
             this.comboBoxVersion.Name = "comboBoxVersion";
             this.comboBoxVersion.Size = new System.Drawing.Size(434, 23);
             this.comboBoxVersion.TabIndex = 66;
@@ -107,7 +108,7 @@ namespace AMSExplorer
             // 
             this.moreinfoLiveStreamingProfilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoLiveStreamingProfilelink.AutoSize = true;
-            this.moreinfoLiveStreamingProfilelink.Location = new System.Drawing.Point(238, 73);
+            this.moreinfoLiveStreamingProfilelink.Location = new System.Drawing.Point(238, 67);
             this.moreinfoLiveStreamingProfilelink.Name = "moreinfoLiveStreamingProfilelink";
             this.moreinfoLiveStreamingProfilelink.Size = new System.Drawing.Size(216, 15);
             this.moreinfoLiveStreamingProfilelink.TabIndex = 67;
@@ -218,6 +219,18 @@ namespace AMSExplorer
             this.labelStorageAccount.TabIndex = 74;
             this.labelStorageAccount.Text = "Settings for storage account : {0}";
             // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Location = new System.Drawing.Point(213, 111);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(241, 18);
+            this.label4.TabIndex = 75;
+            this.label4.Text = "2011-08-18 or higher is recommended";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // StorageSettings
             // 
             this.AcceptButton = this.buttonUpdate;
@@ -226,6 +239,7 @@ namespace AMSExplorer
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(469, 352);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelStorageAccount);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.moreinfoLiveStreamingProfilelink);
@@ -262,5 +276,6 @@ namespace AMSExplorer
         private System.Windows.Forms.NumericUpDown numericUpDownRetention;
         public System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelStorageAccount;
+        private System.Windows.Forms.Label label4;
     }
 }
