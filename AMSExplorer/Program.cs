@@ -247,6 +247,40 @@ namespace AMSExplorer
             }
         }
 
+        public static string AnalyzeTextAndReportSyntaxError(string myText)
+        {
+            string strReturn = string.Empty;
+            bool Error = false;
+            var type = Program.AnalyseConfigurationString(myText);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+                try
+                {
+                    var jo = JObject.Parse(myText);
+                }
+                catch (Exception ex)
+                {
+                    strReturn = string.Format("JSON Syntax error: {0}", ex.Message);
+                    Error = true;
+                }
+            }
+            else if (type == TypeConfig.XML) // XML 
+            {
+                try
+                {
+                    var xml = XElement.Load(new StringReader(myText));
+                }
+                catch (Exception ex)
+                {
+                    strReturn = string.Format("XML Syntax error: {0}", ex.Message);
+                    Error = true;
+                }
+            }
+
+            return strReturn;
+        }
+
         public static string ReturnS(int number)
         {
             return number > 1 ? "s" : "";

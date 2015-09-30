@@ -50,22 +50,26 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageJobs = new System.Windows.Forms.TabPage();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTasks = new System.Windows.Forms.NumericUpDown();
             this.panelJobMode = new System.Windows.Forms.Panel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.tabPageTask1 = new System.Windows.Forms.TabPage();
-            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
+            this.labelWarningJSON1 = new System.Windows.Forms.Label();
             this.comboBoxAssetInput1 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonLoadXML1 = new System.Windows.Forms.Button();
             this.textBoxConfiguration1 = new System.Windows.Forms.TextBox();
             this.tabPageTask2 = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON2 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.comboBoxAssetInput2 = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.buttonLoadXML2 = new System.Windows.Forms.Button();
             this.textBoxConfiguration2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -75,9 +79,10 @@
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTask3 = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON3 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.comboBoxAssetInput3 = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.buttonLoadXML3 = new System.Windows.Forms.Button();
             this.textBoxConfiguration3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -87,9 +92,10 @@
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTask4 = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON4 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.comboBoxAssetInput4 = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.buttonLoadXML4 = new System.Windows.Forms.Button();
             this.textBoxConfiguration4 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -99,9 +105,10 @@
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageTask5 = new System.Windows.Forms.TabPage();
+            this.labelWarningJSON5 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.comboBoxAssetInput5 = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.buttonLoadXML5 = new System.Windows.Forms.Button();
             this.textBoxConfiguration5 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -112,16 +119,16 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
             this.buttonTaskOptions2 = new AMSExplorer.ButtonJobOptions();
             this.buttonTaskOptions3 = new AMSExplorer.ButtonJobOptions();
             this.buttonTaskOptions4 = new AMSExplorer.ButtonJobOptions();
             this.buttonTaskOptions5 = new AMSExplorer.ButtonJobOptions();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTasks)).BeginInit();
             this.panelJobMode.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).BeginInit();
@@ -131,8 +138,6 @@
             this.tabPageTask4.SuspendLayout();
             this.tabPageTask5.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -301,7 +306,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 427);
+            this.label3.Location = new System.Drawing.Point(17, 405);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -311,7 +316,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(20, 447);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(20, 425);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(469, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -328,7 +333,7 @@
             this.listViewInputAssets.Location = new System.Drawing.Point(20, 37);
             this.listViewInputAssets.MultiSelect = false;
             this.listViewInputAssets.Name = "listViewInputAssets";
-            this.listViewInputAssets.Size = new System.Drawing.Size(818, 359);
+            this.listViewInputAssets.Size = new System.Drawing.Size(818, 337);
             this.listViewInputAssets.TabIndex = 39;
             this.listViewInputAssets.UseCompatibleStateImageBehavior = false;
             this.listViewInputAssets.View = System.Windows.Forms.View.Details;
@@ -362,6 +367,32 @@
             this.tabPageJobs.TabIndex = 0;
             this.tabPageJobs.Text = "Job(s)";
             this.tabPageJobs.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 276);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 77;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 256);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 15);
+            this.label5.TabIndex = 76;
+            this.label5.Text = "Priority:";
+            // 
+            // numericUpDownPriority
+            // 
+            this.numericUpDownPriority.Location = new System.Drawing.Point(37, 276);
+            this.numericUpDownPriority.Name = "numericUpDownPriority";
+            this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
+            this.numericUpDownPriority.TabIndex = 75;
             // 
             // label6
             // 
@@ -426,6 +457,7 @@
             // 
             // tabPageTask1
             // 
+            this.tabPageTask1.Controls.Add(this.labelWarningJSON1);
             this.tabPageTask1.Controls.Add(this.buttonTaskOptions1);
             this.tabPageTask1.Controls.Add(this.comboBoxAssetInput1);
             this.tabPageTask1.Controls.Add(this.label15);
@@ -444,14 +476,18 @@
             this.tabPageTask1.Text = "Task1";
             this.tabPageTask1.UseVisualStyleBackColor = true;
             // 
-            // buttonTaskOptions1
+            // labelWarningJSON1
             // 
-            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
-            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions1.TabIndex = 73;
-            this.buttonTaskOptions1.Text = "Task options...";
-            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
+            this.labelWarningJSON1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON1.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON1.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON1.Name = "labelWarningJSON1";
+            this.labelWarningJSON1.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON1.TabIndex = 81;
+            this.labelWarningJSON1.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON1.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comboBoxAssetInput1
             // 
@@ -475,9 +511,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 294);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(138, 15);
+            this.label2.Size = new System.Drawing.Size(172, 15);
             this.label2.TabIndex = 38;
-            this.label2.Text = "String or XML (editable) :";
+            this.label2.Text = "String, XML or JSON (editable) :";
             // 
             // buttonLoadXML1
             // 
@@ -502,17 +538,18 @@
             this.textBoxConfiguration1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxConfiguration1.Size = new System.Drawing.Size(829, 174);
             this.textBoxConfiguration1.TabIndex = 27;
-            this.textBoxConfiguration1.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            this.textBoxConfiguration1.TextChanged += new System.EventHandler(this.textBoxConfiguration1_TextChanged);
             // 
             // tabPageTask2
             // 
-            this.tabPageTask2.Controls.Add(this.buttonTaskOptions2);
+            this.tabPageTask2.Controls.Add(this.labelWarningJSON2);
+            this.tabPageTask2.Controls.Add(this.label7);
             this.tabPageTask2.Controls.Add(this.comboBoxAssetInput2);
             this.tabPageTask2.Controls.Add(this.label16);
-            this.tabPageTask2.Controls.Add(this.label7);
             this.tabPageTask2.Controls.Add(this.buttonLoadXML2);
             this.tabPageTask2.Controls.Add(this.textBoxConfiguration2);
             this.tabPageTask2.Controls.Add(this.label8);
+            this.tabPageTask2.Controls.Add(this.buttonTaskOptions2);
             this.tabPageTask2.Controls.Add(this.listViewProcessors2);
             this.tabPageTask2.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask2.Name = "tabPageTask2";
@@ -520,6 +557,28 @@
             this.tabPageTask2.TabIndex = 3;
             this.tabPageTask2.Text = "Task2";
             this.tabPageTask2.UseVisualStyleBackColor = true;
+            // 
+            // labelWarningJSON2
+            // 
+            this.labelWarningJSON2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON2.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON2.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON2.Name = "labelWarningJSON2";
+            this.labelWarningJSON2.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON2.TabIndex = 80;
+            this.labelWarningJSON2.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON2.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(12, 294);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(172, 15);
+            this.label7.TabIndex = 75;
+            this.label7.Text = "String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput2
             // 
@@ -538,19 +597,10 @@
             this.label16.TabIndex = 44;
             this.label16.Text = "Input asset(s) :";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(12, 312);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(138, 15);
-            this.label7.TabIndex = 42;
-            this.label7.Text = "String or XML (editable) :";
-            // 
             // buttonLoadXML2
             // 
             this.buttonLoadXML2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML2.Location = new System.Drawing.Point(688, 297);
+            this.buttonLoadXML2.Location = new System.Drawing.Point(687, 279);
             this.buttonLoadXML2.Name = "buttonLoadXML2";
             this.buttonLoadXML2.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML2.TabIndex = 39;
@@ -564,13 +614,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration2.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration2.Location = new System.Drawing.Point(16, 330);
+            this.textBoxConfiguration2.Location = new System.Drawing.Point(15, 312);
             this.textBoxConfiguration2.Multiline = true;
             this.textBoxConfiguration2.Name = "textBoxConfiguration2";
             this.textBoxConfiguration2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration2.Size = new System.Drawing.Size(829, 155);
+            this.textBoxConfiguration2.Size = new System.Drawing.Size(829, 174);
             this.textBoxConfiguration2.TabIndex = 40;
-            this.textBoxConfiguration2.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            this.textBoxConfiguration2.TextChanged += new System.EventHandler(this.textBoxConfiguration2_TextChanged);
             // 
             // label8
             // 
@@ -619,13 +669,14 @@
             // 
             // tabPageTask3
             // 
-            this.tabPageTask3.Controls.Add(this.buttonTaskOptions3);
+            this.tabPageTask3.Controls.Add(this.labelWarningJSON3);
+            this.tabPageTask3.Controls.Add(this.label9);
             this.tabPageTask3.Controls.Add(this.comboBoxAssetInput3);
             this.tabPageTask3.Controls.Add(this.label17);
-            this.tabPageTask3.Controls.Add(this.label9);
             this.tabPageTask3.Controls.Add(this.buttonLoadXML3);
             this.tabPageTask3.Controls.Add(this.textBoxConfiguration3);
             this.tabPageTask3.Controls.Add(this.label10);
+            this.tabPageTask3.Controls.Add(this.buttonTaskOptions3);
             this.tabPageTask3.Controls.Add(this.listViewProcessors3);
             this.tabPageTask3.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask3.Name = "tabPageTask3";
@@ -633,6 +684,28 @@
             this.tabPageTask3.TabIndex = 4;
             this.tabPageTask3.Text = "Task3";
             this.tabPageTask3.UseVisualStyleBackColor = true;
+            // 
+            // labelWarningJSON3
+            // 
+            this.labelWarningJSON3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON3.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON3.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON3.Name = "labelWarningJSON3";
+            this.labelWarningJSON3.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON3.TabIndex = 81;
+            this.labelWarningJSON3.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON3.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(12, 294);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(172, 15);
+            this.label9.TabIndex = 75;
+            this.label9.Text = "String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput3
             // 
@@ -651,19 +724,10 @@
             this.label17.TabIndex = 46;
             this.label17.Text = "Input asset(s) :";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 312);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(138, 15);
-            this.label9.TabIndex = 42;
-            this.label9.Text = "String or XML (editable) :";
-            // 
             // buttonLoadXML3
             // 
             this.buttonLoadXML3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML3.Location = new System.Drawing.Point(687, 297);
+            this.buttonLoadXML3.Location = new System.Drawing.Point(687, 279);
             this.buttonLoadXML3.Name = "buttonLoadXML3";
             this.buttonLoadXML3.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML3.TabIndex = 39;
@@ -677,13 +741,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration3.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration3.Location = new System.Drawing.Point(16, 330);
+            this.textBoxConfiguration3.Location = new System.Drawing.Point(15, 312);
             this.textBoxConfiguration3.Multiline = true;
             this.textBoxConfiguration3.Name = "textBoxConfiguration3";
             this.textBoxConfiguration3.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration3.Size = new System.Drawing.Size(829, 155);
+            this.textBoxConfiguration3.Size = new System.Drawing.Size(829, 174);
             this.textBoxConfiguration3.TabIndex = 40;
-            this.textBoxConfiguration3.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            this.textBoxConfiguration3.TextChanged += new System.EventHandler(this.textBoxConfiguration3_TextChanged);
             // 
             // label10
             // 
@@ -732,13 +796,14 @@
             // 
             // tabPageTask4
             // 
-            this.tabPageTask4.Controls.Add(this.buttonTaskOptions4);
+            this.tabPageTask4.Controls.Add(this.labelWarningJSON4);
+            this.tabPageTask4.Controls.Add(this.label11);
             this.tabPageTask4.Controls.Add(this.comboBoxAssetInput4);
             this.tabPageTask4.Controls.Add(this.label18);
-            this.tabPageTask4.Controls.Add(this.label11);
             this.tabPageTask4.Controls.Add(this.buttonLoadXML4);
             this.tabPageTask4.Controls.Add(this.textBoxConfiguration4);
             this.tabPageTask4.Controls.Add(this.label12);
+            this.tabPageTask4.Controls.Add(this.buttonTaskOptions4);
             this.tabPageTask4.Controls.Add(this.listViewProcessors4);
             this.tabPageTask4.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask4.Name = "tabPageTask4";
@@ -746,6 +811,28 @@
             this.tabPageTask4.TabIndex = 5;
             this.tabPageTask4.Text = "Task4";
             this.tabPageTask4.UseVisualStyleBackColor = true;
+            // 
+            // labelWarningJSON4
+            // 
+            this.labelWarningJSON4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON4.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON4.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON4.Name = "labelWarningJSON4";
+            this.labelWarningJSON4.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON4.TabIndex = 81;
+            this.labelWarningJSON4.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON4.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(12, 294);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(172, 15);
+            this.label11.TabIndex = 75;
+            this.label11.Text = "String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput4
             // 
@@ -764,19 +851,10 @@
             this.label18.TabIndex = 48;
             this.label18.Text = "Input asset(s) :";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(12, 312);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(138, 15);
-            this.label11.TabIndex = 42;
-            this.label11.Text = "String or XML (editable) :";
-            // 
             // buttonLoadXML4
             // 
             this.buttonLoadXML4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML4.Location = new System.Drawing.Point(688, 297);
+            this.buttonLoadXML4.Location = new System.Drawing.Point(687, 279);
             this.buttonLoadXML4.Name = "buttonLoadXML4";
             this.buttonLoadXML4.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML4.TabIndex = 39;
@@ -790,13 +868,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration4.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration4.Location = new System.Drawing.Point(16, 330);
+            this.textBoxConfiguration4.Location = new System.Drawing.Point(15, 312);
             this.textBoxConfiguration4.Multiline = true;
             this.textBoxConfiguration4.Name = "textBoxConfiguration4";
             this.textBoxConfiguration4.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration4.Size = new System.Drawing.Size(829, 155);
+            this.textBoxConfiguration4.Size = new System.Drawing.Size(829, 174);
             this.textBoxConfiguration4.TabIndex = 40;
-            this.textBoxConfiguration4.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            this.textBoxConfiguration4.TextChanged += new System.EventHandler(this.textBoxConfiguration4_TextChanged);
             // 
             // label12
             // 
@@ -845,13 +923,14 @@
             // 
             // tabPageTask5
             // 
-            this.tabPageTask5.Controls.Add(this.buttonTaskOptions5);
+            this.tabPageTask5.Controls.Add(this.labelWarningJSON5);
+            this.tabPageTask5.Controls.Add(this.label13);
             this.tabPageTask5.Controls.Add(this.comboBoxAssetInput5);
             this.tabPageTask5.Controls.Add(this.label19);
-            this.tabPageTask5.Controls.Add(this.label13);
             this.tabPageTask5.Controls.Add(this.buttonLoadXML5);
             this.tabPageTask5.Controls.Add(this.textBoxConfiguration5);
             this.tabPageTask5.Controls.Add(this.label14);
+            this.tabPageTask5.Controls.Add(this.buttonTaskOptions5);
             this.tabPageTask5.Controls.Add(this.listViewProcessors5);
             this.tabPageTask5.Location = new System.Drawing.Point(4, 24);
             this.tabPageTask5.Name = "tabPageTask5";
@@ -859,6 +938,28 @@
             this.tabPageTask5.TabIndex = 6;
             this.tabPageTask5.Text = "Task5";
             this.tabPageTask5.UseVisualStyleBackColor = true;
+            // 
+            // labelWarningJSON5
+            // 
+            this.labelWarningJSON5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningJSON5.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningJSON5.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON5.Name = "labelWarningJSON5";
+            this.labelWarningJSON5.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON5.TabIndex = 81;
+            this.labelWarningJSON5.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON5.Text = "XML Syntax error. {0}";
+            this.labelWarningJSON5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(12, 294);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(172, 15);
+            this.label13.TabIndex = 75;
+            this.label13.Text = "String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput5
             // 
@@ -877,19 +978,10 @@
             this.label19.TabIndex = 50;
             this.label19.Text = "Input asset(s) :";
             // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(12, 312);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(138, 15);
-            this.label13.TabIndex = 42;
-            this.label13.Text = "String or XML (editable) :";
-            // 
             // buttonLoadXML5
             // 
             this.buttonLoadXML5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML5.Location = new System.Drawing.Point(687, 297);
+            this.buttonLoadXML5.Location = new System.Drawing.Point(687, 279);
             this.buttonLoadXML5.Name = "buttonLoadXML5";
             this.buttonLoadXML5.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML5.TabIndex = 39;
@@ -903,13 +995,13 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration5.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration5.Location = new System.Drawing.Point(16, 330);
+            this.textBoxConfiguration5.Location = new System.Drawing.Point(15, 312);
             this.textBoxConfiguration5.Multiline = true;
             this.textBoxConfiguration5.Name = "textBoxConfiguration5";
             this.textBoxConfiguration5.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration5.Size = new System.Drawing.Size(829, 155);
+            this.textBoxConfiguration5.Size = new System.Drawing.Size(829, 174);
             this.textBoxConfiguration5.TabIndex = 40;
-            this.textBoxConfiguration5.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
+            this.textBoxConfiguration5.TextChanged += new System.EventHandler(this.textBoxConfiguration5_TextChanged);
             // 
             // label14
             // 
@@ -979,9 +1071,20 @@
             this.panel1.Size = new System.Drawing.Size(919, 55);
             this.panel1.TabIndex = 67;
             // 
+            // buttonTaskOptions1
+            // 
+            this.buttonTaskOptions1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
+            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions1.TabIndex = 73;
+            this.buttonTaskOptions1.Text = "Task options...";
+            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
+            // 
             // buttonTaskOptions2
             // 
-            this.buttonTaskOptions2.Location = new System.Drawing.Point(684, 491);
+            this.buttonTaskOptions2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions2.Location = new System.Drawing.Point(684, 489);
             this.buttonTaskOptions2.Name = "buttonTaskOptions2";
             this.buttonTaskOptions2.Size = new System.Drawing.Size(160, 27);
             this.buttonTaskOptions2.TabIndex = 74;
@@ -990,7 +1093,8 @@
             // 
             // buttonTaskOptions3
             // 
-            this.buttonTaskOptions3.Location = new System.Drawing.Point(687, 491);
+            this.buttonTaskOptions3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions3.Location = new System.Drawing.Point(684, 489);
             this.buttonTaskOptions3.Name = "buttonTaskOptions3";
             this.buttonTaskOptions3.Size = new System.Drawing.Size(160, 27);
             this.buttonTaskOptions3.TabIndex = 74;
@@ -999,7 +1103,8 @@
             // 
             // buttonTaskOptions4
             // 
-            this.buttonTaskOptions4.Location = new System.Drawing.Point(685, 491);
+            this.buttonTaskOptions4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions4.Location = new System.Drawing.Point(684, 489);
             this.buttonTaskOptions4.Name = "buttonTaskOptions4";
             this.buttonTaskOptions4.Size = new System.Drawing.Size(160, 27);
             this.buttonTaskOptions4.TabIndex = 74;
@@ -1008,38 +1113,13 @@
             // 
             // buttonTaskOptions5
             // 
-            this.buttonTaskOptions5.Location = new System.Drawing.Point(685, 491);
+            this.buttonTaskOptions5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions5.Location = new System.Drawing.Point(684, 489);
             this.buttonTaskOptions5.Name = "buttonTaskOptions5";
             this.buttonTaskOptions5.Size = new System.Drawing.Size(160, 27);
             this.buttonTaskOptions5.TabIndex = 74;
             this.buttonTaskOptions5.Text = "Task options...";
             this.buttonTaskOptions5.UseVisualStyleBackColor = true;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 276);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
-            this.pictureBox2.TabIndex = 77;
-            this.pictureBox2.TabStop = false;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(36, 256);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(48, 15);
-            this.label5.TabIndex = 76;
-            this.label5.Text = "Priority:";
-            // 
-            // numericUpDownPriority
-            // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(37, 276);
-            this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
-            this.numericUpDownPriority.TabIndex = 75;
             // 
             // MultipleProcessor
             // 
@@ -1062,6 +1142,8 @@
             this.tabPageAssets.PerformLayout();
             this.tabPageJobs.ResumeLayout(false);
             this.tabPageJobs.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTasks)).EndInit();
             this.panelJobMode.ResumeLayout(false);
             this.panelJobMode.PerformLayout();
@@ -1077,8 +1159,6 @@
             this.tabPageTask5.ResumeLayout(false);
             this.tabPageTask5.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1123,7 +1203,6 @@
         private System.Windows.Forms.TabPage tabPageTask3;
         private System.Windows.Forms.TabPage tabPageTask4;
         private System.Windows.Forms.TabPage tabPageTask5;
-        public System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button buttonLoadXML2;
         private System.Windows.Forms.TextBox textBoxConfiguration2;
         private System.Windows.Forms.Label label8;
@@ -1132,7 +1211,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader6;
-        public System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button buttonLoadXML3;
         private System.Windows.Forms.TextBox textBoxConfiguration3;
         private System.Windows.Forms.Label label10;
@@ -1141,7 +1219,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
-        public System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button buttonLoadXML4;
         private System.Windows.Forms.TextBox textBoxConfiguration4;
         private System.Windows.Forms.Label label12;
@@ -1150,7 +1227,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
         private System.Windows.Forms.ColumnHeader columnHeader14;
-        public System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button buttonLoadXML5;
         private System.Windows.Forms.TextBox textBoxConfiguration5;
         private System.Windows.Forms.Label label14;
@@ -1177,5 +1253,14 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.Label label11;
+        public System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelWarningJSON1;
+        private System.Windows.Forms.Label labelWarningJSON2;
+        private System.Windows.Forms.Label labelWarningJSON3;
+        private System.Windows.Forms.Label labelWarningJSON4;
+        private System.Windows.Forms.Label labelWarningJSON5;
     }
 }

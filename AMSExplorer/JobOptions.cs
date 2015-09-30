@@ -63,7 +63,7 @@ namespace AMSExplorer
         }
 
 
-        public JobOptions(CloudMediaContext myContext)
+        public JobOptions(CloudMediaContext myContext, bool taskMode)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -72,6 +72,11 @@ namespace AMSExplorer
             savedSettings = defaultSettings;
 
             ControlsResetToDefault();
+            if (taskMode)
+            {
+                this.Text = this.Text.Replace("Job", "Task");
+                labelJobOptions.Text= labelJobOptions.Text.Replace("Job", "Task");
+            }
 
         }
 
@@ -126,9 +131,9 @@ namespace AMSExplorer
         }
 
 
-        public void Initialize(CloudMediaContext mycontext)
+        public void Initialize(CloudMediaContext mycontext, bool taskMode = false)
         {
-            myjoboptions = new JobOptions(mycontext);
+            myjoboptions = new JobOptions(mycontext, taskMode);
         }
 
         void ButtonJobOptions_Click(object sender, EventArgs e)
