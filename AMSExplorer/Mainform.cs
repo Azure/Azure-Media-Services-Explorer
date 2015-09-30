@@ -9708,26 +9708,33 @@ namespace AMSExplorer
         {
             IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-
             if (streamingendpoint.State == StreamingEndpointState.Stopped)
             {
                 if (streamingendpoint.ScaleUnits > 0)
                 {
-                    Task.Run(async () =>
+                    if (MessageBox.Show(string.Format("Are you sure you want to {0} CDN on Streaming Endpoint '{1}' ?", enable ? "enable" : "disable", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        streamingendpoint.CdnEnabled = enable;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                    });
+                        Task.Run(async () =>
+                        {
+                            streamingendpoint.CdnEnabled = enable;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            DoRefreshGridStreamingEndpointV(false);
+                        });
+                    }
                 }
                 else if (enable) // 0 scale unit and user wants to enable cdn
                 {
-                    Task.Run(async () =>
+                    if (MessageBox.Show(string.Format("The Streaming Endpoint '{0}' does not have a reserved unit. Explorer will add a unit and enable CDN. Do you want to continue ?", streamingendpoint.Name), "Unit and Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
-                        await ScaleStreamingEndpoint(streamingendpoint, 1);
-                        streamingendpoint.CdnEnabled = enable;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                    });
+                        Task.Run(async () =>
+                        {
+                            TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
+                            await ScaleStreamingEndpoint(streamingendpoint, 1);
+                            streamingendpoint.CdnEnabled = enable;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            DoRefreshGridStreamingEndpointV(false);
+                        });
+                    }
                 }
             }
         }
@@ -9763,13 +9770,24 @@ namespace AMSExplorer
         {
             // enable Azure CDN operation if one se selected and in stopped state
             List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
-            bool sestopped = (streamingendpoints.Count == 1 && streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
-            bool sesingle = (streamingendpoints.Count == 1);
 
-            disableAzureCDNToolStripMenuItem1.Enabled = sestopped && streamingendpoints.FirstOrDefault().CdnEnabled;
-            enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !streamingendpoints.FirstOrDefault().CdnEnabled;
-            enableAzureCDNToolStripMenuItem1.Visible = sesingle && !streamingendpoints.FirstOrDefault().CdnEnabled;
-            disableAzureCDNToolStripMenuItem1.Visible = sesingle && streamingendpoints.FirstOrDefault().CdnEnabled;
+            if (streamingendpoints.Count == 1)
+            {
+                bool sestopped = (streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
+                bool cdnenabled = streamingendpoints.FirstOrDefault().CdnEnabled;
+
+                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
+                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
+                enableAzureCDNToolStripMenuItem1.Visible = !cdnenabled;
+                disableAzureCDNToolStripMenuItem1.Visible = cdnenabled;
+            }
+            else // so the user can see the feature
+            {
+                disableAzureCDNToolStripMenuItem1.Enabled = false;
+                enableAzureCDNToolStripMenuItem1.Enabled = false;
+                enableAzureCDNToolStripMenuItem1.Visible = true;
+                disableAzureCDNToolStripMenuItem1.Visible = true;
+            }
         }
 
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)

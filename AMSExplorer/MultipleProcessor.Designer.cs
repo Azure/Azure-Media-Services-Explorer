@@ -112,6 +112,7 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -424,6 +425,7 @@
             // 
             // tabPageTask1
             // 
+            this.tabPageTask1.Controls.Add(this.buttonTaskOptions1);
             this.tabPageTask1.Controls.Add(this.comboBoxAssetInput1);
             this.tabPageTask1.Controls.Add(this.label15);
             this.tabPageTask1.Controls.Add(this.label2);
@@ -461,7 +463,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 312);
+            this.label2.Location = new System.Drawing.Point(12, 294);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(138, 15);
             this.label2.TabIndex = 38;
@@ -470,7 +472,7 @@
             // buttonLoadXML1
             // 
             this.buttonLoadXML1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLoadXML1.Location = new System.Drawing.Point(687, 297);
+            this.buttonLoadXML1.Location = new System.Drawing.Point(687, 279);
             this.buttonLoadXML1.Name = "buttonLoadXML1";
             this.buttonLoadXML1.Size = new System.Drawing.Size(157, 27);
             this.buttonLoadXML1.TabIndex = 25;
@@ -484,7 +486,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration1.Location = new System.Drawing.Point(15, 330);
+            this.textBoxConfiguration1.Location = new System.Drawing.Point(15, 312);
             this.textBoxConfiguration1.Multiline = true;
             this.textBoxConfiguration1.Name = "textBoxConfiguration1";
             this.textBoxConfiguration1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -963,6 +965,15 @@
             this.panel1.Size = new System.Drawing.Size(919, 55);
             this.panel1.TabIndex = 67;
             // 
+            // buttonTaskOptions1
+            // 
+            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
+            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions1.TabIndex = 73;
+            this.buttonTaskOptions1.Text = "Task options...";
+            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
+            // 
             // MultipleProcessor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -1090,5 +1101,6 @@
         private System.Windows.Forms.ComboBox comboBoxAssetInput5;
         private System.Windows.Forms.Label label19;
         private ButtonJobOptions buttonJobOptions;
+        private ButtonJobOptions buttonTaskOptions1;
     }
 }

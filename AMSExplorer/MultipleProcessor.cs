@@ -215,6 +215,7 @@ namespace AMSExplorer
             _context = context;
             _myJob = myJob;
             buttonJobOptions.Initialize(_context);
+            buttonTaskOptions1.Initialize(_context);
 
             if (_myJob != null) // we are in resubmit mode
             {

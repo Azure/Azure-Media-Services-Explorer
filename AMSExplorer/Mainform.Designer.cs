@@ -2266,14 +2266,14 @@
             // 
             this.enableAzureCDNToolStripMenuItem1.Name = "enableAzureCDNToolStripMenuItem1";
             this.enableAzureCDNToolStripMenuItem1.Size = new System.Drawing.Size(340, 22);
-            this.enableAzureCDNToolStripMenuItem1.Text = "Enable Azure CDN";
+            this.enableAzureCDNToolStripMenuItem1.Text = "Enable Azure CDN...";
             this.enableAzureCDNToolStripMenuItem1.Click += new System.EventHandler(this.enableAzureCDNToolStripMenuItem1_Click);
             // 
             // disableAzureCDNToolStripMenuItem1
             // 
             this.disableAzureCDNToolStripMenuItem1.Name = "disableAzureCDNToolStripMenuItem1";
             this.disableAzureCDNToolStripMenuItem1.Size = new System.Drawing.Size(340, 22);
-            this.disableAzureCDNToolStripMenuItem1.Text = "Disable Azure CDN";
+            this.disableAzureCDNToolStripMenuItem1.Text = "Disable Azure CDN...";
             this.disableAzureCDNToolStripMenuItem1.Click += new System.EventHandler(this.disableAzureCDNToolStripMenuItem1_Click);
             // 
             // toolStripSeparator34
@@ -3330,14 +3330,14 @@
             // 
             this.enableAzureCDNToolStripMenuItem.Name = "enableAzureCDNToolStripMenuItem";
             this.enableAzureCDNToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
-            this.enableAzureCDNToolStripMenuItem.Text = "Enable Azure CDN";
+            this.enableAzureCDNToolStripMenuItem.Text = "Enable Azure CDN...";
             this.enableAzureCDNToolStripMenuItem.Click += new System.EventHandler(this.enableAzureCDNToolStripMenuItem_Click);
             // 
             // disableAzureCDNToolStripMenuItem
             // 
             this.disableAzureCDNToolStripMenuItem.Name = "disableAzureCDNToolStripMenuItem";
             this.disableAzureCDNToolStripMenuItem.Size = new System.Drawing.Size(340, 22);
-            this.disableAzureCDNToolStripMenuItem.Text = "Disable Azure CDN";
+            this.disableAzureCDNToolStripMenuItem.Text = "Disable Azure CDN...";
             this.disableAzureCDNToolStripMenuItem.Click += new System.EventHandler(this.disableAzureCDNToolStripMenuItem_Click);
             // 
             // toolStripSeparator33
