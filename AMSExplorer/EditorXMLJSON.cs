@@ -55,6 +55,7 @@ namespace AMSExplorer
                 buttonOk.Text = "Save";
                 buttonInsertSample.Visible = false;
             };
+            labelWarningJSON.Text = string.Empty;
         }
 
         private void EditorXMLJSON_Load(object sender, EventArgs e)
@@ -78,37 +79,10 @@ namespace AMSExplorer
 
         private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
         {
-            bool Error = false;
-            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
-            if (type == TypeConfig.JSON)
-            {
-                // Let's check JSON syntax
-
-                try
-                {
-                    var jo = JObject.Parse(textBoxConfiguration.Text);
-                }
-                catch (Exception ex)
-                {
-                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
-                    Error = true;
-                }
-            }
-            else if (type == TypeConfig.XML) // XML 
-            {
-                try
-                {
-                    var xml = XElement.Load(new StringReader(textBoxConfiguration.Text));
-                }
-                catch (Exception ex)
-                {
-                    labelWarningJSON.Text = string.Format("Error in XML data: {0}", ex.Message);
-                    Error = true;
-                }
-            }
-
-            labelWarningJSON.Visible = Error;
+            labelWarningJSON.Text = Program.AnalyzeTextAndReportSyntaxError(textBoxConfiguration.Text);
         }
+
+
 
         private void buttonInsertSample_Click(object sender, EventArgs e)
         {

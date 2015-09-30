@@ -186,7 +186,7 @@
             this.labelcdn.Size = new System.Drawing.Size(331, 74);
             this.labelcdn.TabIndex = 69;
             this.labelcdn.Text = "Azure CDN is enabled.\r\n\r\nAs a consequence, Allowed IP addresses, Akamai authentic" +
-    "ation and custom host names are disabled.";
+    "ation, custom host names and 0 unit are disabled.";
             // 
             // panelAkamai
             // 
@@ -522,14 +522,14 @@
             this.textBoxClientPolicy.Size = new System.Drawing.Size(863, 212);
             this.textBoxClientPolicy.TabIndex = 59;
             // 
-            // labelOriginName
+            // labelSEName
             // 
             this.labelSEName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSEName.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelSEName.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelSEName.Location = new System.Drawing.Point(21, 13);
-            this.labelSEName.Name = "labelOriginName";
+            this.labelSEName.Name = "labelSEName";
             this.labelSEName.Size = new System.Drawing.Size(868, 23);
             this.labelSEName.TabIndex = 37;
             this.labelSEName.Text = "Streaming endpoint : {0}";

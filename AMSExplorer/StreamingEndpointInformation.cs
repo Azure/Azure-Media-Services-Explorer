@@ -173,6 +173,7 @@ namespace AMSExplorer
             // AZURE CDN
             panelCustomHostnames.Enabled = panelStreamingAllowedIP.Enabled = panelAkamai.Enabled = !MyStreamingEndpoint.CdnEnabled;
             labelcdn.Visible = MyStreamingEndpoint.CdnEnabled;
+            numericUpDownRU.Minimum = MyStreamingEndpoint.CdnEnabled ? 1 : 0;
 
             if (MyStreamingEndpoint.ScaleUnits != null)
             {

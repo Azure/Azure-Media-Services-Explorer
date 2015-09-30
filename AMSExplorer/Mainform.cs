@@ -4089,7 +4089,7 @@ namespace AMSExplorer
                     foreach (IAsset asset in SelectedAssets)
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
-                        IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                        IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
                         foreach (var usertask in gentasks)
                         // let's create all tasks and output assets
@@ -4113,11 +4113,12 @@ namespace AMSExplorer
                                   tasknameloc,
                                  usertask.Processor,
                                  usertask.ProcessorConfiguration,
-                                 form.JobOptions.TasksOptionsSetting
+                                 usertask.TaskOptions.TasksOptionsSetting// form.JobOptions.TasksOptionsSetting
                                  );
+                            task.Priority = usertask.TaskOptions.Priority;
 
                             string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                            task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                            task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
                         }
                         // let(s branch the input assets
                         foreach (var usertask in gentasks)
@@ -4161,7 +4162,7 @@ namespace AMSExplorer
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
 
-                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
                     foreach (var usertask in gentasks)
                     // let's create all tasks and output assets
@@ -4185,11 +4186,12 @@ namespace AMSExplorer
                             tasknameloc,
                            usertask.Processor,
                            usertask.ProcessorConfiguration,
-                           form.JobOptions.TasksOptionsSetting
+                           usertask.TaskOptions.TasksOptionsSetting// form.JobOptions.TasksOptionsSetting
                            );
 
+                        task.Priority = usertask.TaskOptions.Priority;
                         string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, assetname).Replace(Constants.NameconvProcessorname, usertask.Processor.Name);
-                        task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                        task.OutputAssets.AddNew(outputassetnameloc, usertask.TaskOptions.StorageSelected, usertask.TaskOptions.OutputAssetsCreationOptions);
                     }
                     // let(s branch the input assets
                     foreach (var usertask in gentasks)
@@ -9135,34 +9137,37 @@ namespace AMSExplorer
                 EncodingProcessorsList = _context.MediaProcessors.ToList().OrderBy(p => p.Vendor).ThenBy(p => p.Name).ThenBy(p => new Version(p.Version)).ToList(),
                 EncodingJobName = string.Format("{0} (resubmitted on {1})", myJob.Name, DateTime.Now.ToString()),
                 EncodingOutputAssetName = string.Format("{0} (resubmitted on {1})", myJob.OutputMediaAssets.FirstOrDefault().Name, DateTime.Now.ToString()),
-                JobOptions = new JobOptionsVar
+                SingleTaskOptions = new JobOptionsVar
                 {
-                    Priority = myJob.Priority,
-                    OutputAssetsCreationOptions = myJob.OutputMediaAssets.FirstOrDefault().Options,
-                    StorageSelected = myJob.OutputMediaAssets.FirstOrDefault().StorageAccountName,
+                    Priority = myJob.Tasks.FirstOrDefault().Priority,
+                    OutputAssetsCreationOptions = myJob.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().Options,
+                    StorageSelected = myJob.Tasks.FirstOrDefault().OutputAssets.FirstOrDefault().StorageAccountName,
                     TasksOptionsSetting = myJob.Tasks.FirstOrDefault().Options
                 },
-                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
+                EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets,
+                JobPriority = myJob.Priority
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
 
-                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name); ;
-                IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name); ;
+                IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
-                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
+                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
 
                 ITask task = job.Tasks.AddNew(
                             tasknameloc,
-                           form.EncodingProcessorSelected,
-                           form.EncodingConfiguration,
-                           form.JobOptions.TasksOptionsSetting
+                           form.SingleEncodingProcessorSelected,
+                           form.SingleEncodingConfiguration,
+                           form.SingleTaskOptions.TasksOptionsSetting
                            );
+                task.Priority = form.SingleTaskOptions.Priority;
+
                 // Specify the graph asset to be encoded, followed by the input video asset to be used
                 task.InputAssets.AddRange(myJob.InputMediaAssets.ToList());
-                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.EncodingProcessorSelected.Name);
-                task.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.StorageSelected, form.JobOptions.OutputAssetsCreationOptions);
+                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
+                task.OutputAssets.AddNew(outputassetnameloc, form.SingleTaskOptions.StorageSelected, form.SingleTaskOptions.OutputAssetsCreationOptions);
 
                 TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
                 // Submit the job and wait until it is completed. 
@@ -9720,26 +9725,33 @@ namespace AMSExplorer
         {
             IStreamingEndpoint streamingendpoint = ReturnSelectedStreamingEndpoints().FirstOrDefault();
 
-
             if (streamingendpoint.State == StreamingEndpointState.Stopped)
             {
                 if (streamingendpoint.ScaleUnits > 0)
                 {
-                    Task.Run(async () =>
+                    if (MessageBox.Show(string.Format("Are you sure you want to {0} CDN on Streaming Endpoint '{1}' ?", enable ? "enable" : "disable", streamingendpoint.Name), "Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        streamingendpoint.CdnEnabled = enable;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                    });
+                        Task.Run(async () =>
+                        {
+                            streamingendpoint.CdnEnabled = enable;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            DoRefreshGridStreamingEndpointV(false);
+                        });
+                    }
                 }
                 else if (enable) // 0 scale unit and user wants to enable cdn
                 {
-                    Task.Run(async () =>
+                    if (MessageBox.Show(string.Format("The Streaming Endpoint '{0}' does not have a reserved unit. Explorer will add a unit and enable CDN. Do you want to continue ?", streamingendpoint.Name), "Unit and Azure CDN", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == System.Windows.Forms.DialogResult.Yes)
                     {
-                        TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
-                        await ScaleStreamingEndpoint(streamingendpoint, 1);
-                        streamingendpoint.CdnEnabled = enable;
-                        await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
-                    });
+                        Task.Run(async () =>
+                        {
+                            TextBoxLogWriteLine("Adding a streaming unit to enable Azure CDN...");
+                            await ScaleStreamingEndpoint(streamingendpoint, 1);
+                            streamingendpoint.CdnEnabled = enable;
+                            await StreamingEndpointExecuteOperationAsync(streamingendpoint.SendUpdateOperationAsync, streamingendpoint, "updated");
+                            DoRefreshGridStreamingEndpointV(false);
+                        });
+                    }
                 }
             }
         }
@@ -9775,13 +9787,24 @@ namespace AMSExplorer
         {
             // enable Azure CDN operation if one se selected and in stopped state
             List<IStreamingEndpoint> streamingendpoints = ReturnSelectedStreamingEndpoints();
-            bool sestopped = (streamingendpoints.Count == 1 && streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
-            bool sesingle = (streamingendpoints.Count == 1);
 
-            disableAzureCDNToolStripMenuItem1.Enabled = sestopped && streamingendpoints.FirstOrDefault().CdnEnabled;
-            enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !streamingendpoints.FirstOrDefault().CdnEnabled;
-            enableAzureCDNToolStripMenuItem1.Visible = sesingle && !streamingendpoints.FirstOrDefault().CdnEnabled;
-            disableAzureCDNToolStripMenuItem1.Visible = sesingle && streamingendpoints.FirstOrDefault().CdnEnabled;
+            if (streamingendpoints.Count == 1)
+            {
+                bool sestopped = (streamingendpoints.FirstOrDefault().State == StreamingEndpointState.Stopped);
+                bool cdnenabled = streamingendpoints.FirstOrDefault().CdnEnabled;
+
+                disableAzureCDNToolStripMenuItem1.Enabled = sestopped && cdnenabled;
+                enableAzureCDNToolStripMenuItem1.Enabled = sestopped && !cdnenabled;
+                enableAzureCDNToolStripMenuItem1.Visible = !cdnenabled;
+                disableAzureCDNToolStripMenuItem1.Visible = cdnenabled;
+            }
+            else // so the user can see the feature
+            {
+                disableAzureCDNToolStripMenuItem1.Enabled = false;
+                enableAzureCDNToolStripMenuItem1.Enabled = false;
+                enableAzureCDNToolStripMenuItem1.Visible = true;
+                disableAzureCDNToolStripMenuItem1.Visible = true;
+            }
         }
 
         private void toAnotherAzureMediaServicesAccountToolStripMenuItem1_Click_1(object sender, EventArgs e)

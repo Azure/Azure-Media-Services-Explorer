@@ -61,15 +61,31 @@ namespace AMSExplorer
             }
         }
 
-        public JobOptionsVar JobOptions
+        public JobOptionsVar SingleTaskOptions
         {
             get
             {
-                return buttonJobOptions.GetSettings();
+                return buttonTaskOptions1.GetSettings();
             }
             set
             {
-                buttonJobOptions.SetSettings(value);
+                buttonTaskOptions1.SetSettings(value);
+                buttonTaskOptions2.SetSettings(value);
+                buttonTaskOptions3.SetSettings(value);
+                buttonTaskOptions4.SetSettings(value);
+                buttonTaskOptions5.SetSettings(value);
+            }
+        }
+
+        public int JobPriority
+        {
+            get
+            {
+                return (int)numericUpDownPriority.Value;
+            }
+            set
+            {
+                numericUpDownPriority.Value = value;
             }
         }
 
@@ -114,7 +130,7 @@ namespace AMSExplorer
             }
         }
 
-        public IMediaProcessor EncodingProcessorSelected
+        public IMediaProcessor SingleEncodingProcessorSelected
         {
             get
             {
@@ -135,7 +151,7 @@ namespace AMSExplorer
         }
 
 
-        public string EncodingConfiguration
+        public string SingleEncodingConfiguration
         {
             get
             {
@@ -158,7 +174,8 @@ namespace AMSExplorer
                         Processor = Procs[ReturnListViewProcessor(index_task).SelectedIndices[0]],
                         ProcessorConfiguration = ReturnTextBoxConfiguration(index_task).Text,
                         InputAsset = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAsset,
-                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType
+                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType,
+                        TaskOptions = ReturnTaskConfiguration(index_task).GetSettings()
                     };
                     listtasks.Add(mytask);
 
@@ -182,7 +199,11 @@ namespace AMSExplorer
             return (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
         }
 
-       
+        private ButtonJobOptions ReturnTaskConfiguration(int index_task)
+        {
+            return (ButtonJobOptions)this.Controls.Find("buttonTaskOptions" + index_task.ToString(), true).FirstOrDefault();
+        }
+
 
         public TaskJobCreationMode EncodingCreationMode
         {
@@ -199,7 +220,6 @@ namespace AMSExplorer
                         radioButtonOneJobPerInputAsset.Checked = true;
                         break;
 
-
                     case TaskJobCreationMode.SingleJobForAllInputAssets:
                         radioButtonSingleJobForAllInputAssets.Checked = true;
                         break;
@@ -214,7 +234,15 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _myJob = myJob;
-            buttonJobOptions.Initialize(_context);
+            buttonTaskOptions1.Initialize(_context, true);
+            buttonTaskOptions2.Initialize(_context, true);
+            buttonTaskOptions3.Initialize(_context, true);
+            buttonTaskOptions4.Initialize(_context, true);
+            buttonTaskOptions5.Initialize(_context, true);
+            buttonTaskOptions1.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions2.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions2.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions2.Click += ButtonTaskOptions_Click;
 
             if (_myJob != null) // we are in resubmit mode
             {
@@ -224,7 +252,15 @@ namespace AMSExplorer
                 numericUpDownTasks.Enabled = false;
                 SelectedAssets = myJob.InputMediaAssets.ToList();
             }
+
+            labelWarningJSON1.Text = labelWarningJSON2.Text = labelWarningJSON3.Text = labelWarningJSON4.Text = labelWarningJSON5.Text = string.Empty;
+
             init = false;
+        }
+
+        private void ButtonTaskOptions_Click(object sender, EventArgs e)
+        {
+            UpdateGeneralWarning();
         }
 
         private void buttonload_Click(object sender, EventArgs e)
@@ -243,6 +279,7 @@ namespace AMSExplorer
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
+                UpdateGeneralWarning();
             }
         }
 
@@ -250,8 +287,8 @@ namespace AMSExplorer
         private void GenericProcessor_Load(object sender, EventArgs e)
         {
             UpdateJobSummary();
-            UpdateWarning();
-           
+            UpdateGeneralWarning();
+
         }
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
@@ -288,7 +325,7 @@ namespace AMSExplorer
                 }
             }
             buttonOk.Enabled = allprocessorsselected;
-            UpdateWarning();
+            UpdateGeneralWarning();
         }
 
         private void radioButton_CheckedChanged(object sender, EventArgs e)
@@ -316,35 +353,48 @@ namespace AMSExplorer
 
         }
 
-        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
-        {
-            UpdateWarning();
-        }
 
-        private void UpdateWarning()
+
+        private void UpdateGeneralWarning()
         {
             if (init) return; // we don't want to run the code below if the form is in init mode
 
             int nbtaskwithemptyconfig = 0;
+            int nbDecryptTaskWithOutputStoragEncrypted = 0;
+
             for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
             {
                 TextBox mytextboxconfig = ReturnTextBoxConfiguration(index_task);
                 var processorcontrol = ReturnListViewProcessor(index_task);
 
                 string processorname = processorcontrol.SelectedIndices.Count > 0 ? Procs[processorcontrol.SelectedIndices[0]].Name : string.Empty;
-                if (string.IsNullOrEmpty(mytextboxconfig.Text) && processorname != Constants.AzureMediaEncoderPremiumWorkflow) nbtaskwithemptyconfig++;
+                if (string.IsNullOrEmpty(mytextboxconfig.Text) && processorname != Constants.AzureMediaEncoderPremiumWorkflow && processorname != MediaProcessorNames.StorageDecryption)
+                {
+                    nbtaskwithemptyconfig++;
+                }
+                if (ReturnTaskConfiguration(index_task).GetSettings().OutputAssetsCreationOptions == AssetCreationOptions.StorageEncrypted && processorname == MediaProcessorNames.StorageDecryption)
+                {
+                    nbDecryptTaskWithOutputStoragEncrypted++;
+                }
             }
+            string separator = " | ";
             if (nbtaskwithemptyconfig > 1)
             {
-                labelWarning.Text = "Note: several processors configuration string/XML are empty";
+                labelWarning.Text = "Several processor configuration are empty";
             }
             else if (nbtaskwithemptyconfig > 0)
             {
-                labelWarning.Text = "Note: one processor configuration string/XML is empty";
+                labelWarning.Text = "One processor configuration is empty";
             }
             else
             {
                 labelWarning.Text = string.Empty;
+                separator = "";
+            }
+
+            if (nbDecryptTaskWithOutputStoragEncrypted > 0)
+            {
+                labelWarning.Text += separator + "Decryptor task(s) setting error: output asset should be decrypted";
             }
         }
 
@@ -475,8 +525,36 @@ namespace AMSExplorer
             numberoftasks = (int)numericUpDownTasks.Value;
             UpdateInputAssetsInTasks();
             UpdateJobSummary();
-            UpdateWarning();
+            UpdateGeneralWarning();
         }
 
+        private void textBoxConfiguration1_TextChanged(object sender, EventArgs e)
+        {
+            labelWarningJSON1.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            UpdateGeneralWarning();
+        }
+
+        private void textBoxConfiguration2_TextChanged(object sender, EventArgs e)
+        {
+            labelWarningJSON2.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            UpdateGeneralWarning();
+        }
+
+        private void textBoxConfiguration3_TextChanged(object sender, EventArgs e)
+        {
+            labelWarningJSON3.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            UpdateGeneralWarning();
+        }
+
+        private void textBoxConfiguration4_TextChanged(object sender, EventArgs e)
+        {
+            labelWarningJSON4.Text = Program.AnalyzeTextAndReportSyntaxError(((TextBox)sender).Text);
+            UpdateGeneralWarning();
+        }
+
+        private void textBoxConfiguration5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

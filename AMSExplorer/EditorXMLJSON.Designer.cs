@@ -107,10 +107,9 @@
             this.labelWarningJSON.Name = "labelWarningJSON";
             this.labelWarningJSON.Size = new System.Drawing.Size(656, 21);
             this.labelWarningJSON.TabIndex = 78;
-            this.labelWarningJSON.Tag = "XML Syntax error. {0}";
+            this.labelWarningJSON.Tag = "";
             this.labelWarningJSON.Text = "XML Syntax error. {0}";
             this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.labelWarningJSON.Visible = false;
             // 
             // buttonInsertSample
             // 
@@ -122,7 +121,7 @@
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
-            // EncodingPremiumXML
+            // EditorXMLJSON
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -134,7 +133,7 @@
             this.Controls.Add(this.textBoxConfiguration);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "EncodingPremiumXML";
+            this.Name = "EditorXMLJSON";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "XML Data";
             this.Load += new System.EventHandler(this.EditorXMLJSON_Load);

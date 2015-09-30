@@ -93,11 +93,6 @@
             // numericUpDownRU
             // 
             this.numericUpDownRU.Location = new System.Drawing.Point(99, 29);
-            this.numericUpDownRU.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.numericUpDownRU.Name = "numericUpDownRU";
             this.numericUpDownRU.Size = new System.Drawing.Size(84, 23);
             this.numericUpDownRU.TabIndex = 0;
@@ -106,6 +101,7 @@
             0,
             0,
             0});
+            this.numericUpDownRU.ValueChanged += new System.EventHandler(this.numericUpDownRU_ValueChanged);
             // 
             // label2
             // 

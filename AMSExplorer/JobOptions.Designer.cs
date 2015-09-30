@@ -41,7 +41,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label5 = new System.Windows.Forms.Label();
+            this.labelJobOptions = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -167,16 +167,16 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
-            // label5
+            // labelJobOptions
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.ForeColor = System.Drawing.Color.DarkBlue;
-            this.label5.Location = new System.Drawing.Point(12, 9);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(88, 20);
-            this.label5.TabIndex = 75;
-            this.label5.Text = "Job Options";
+            this.labelJobOptions.AutoSize = true;
+            this.labelJobOptions.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelJobOptions.ForeColor = System.Drawing.Color.DarkBlue;
+            this.labelJobOptions.Location = new System.Drawing.Point(12, 9);
+            this.labelJobOptions.Name = "labelJobOptions";
+            this.labelJobOptions.Size = new System.Drawing.Size(88, 20);
+            this.labelJobOptions.TabIndex = 75;
+            this.labelJobOptions.Text = "Job Options";
             // 
             // JobOptions
             // 
@@ -186,7 +186,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(400, 288);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.labelJobOptions);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.checkBoxUseStorageEncryption);
@@ -225,6 +225,6 @@
         private System.Windows.Forms.CheckBox checkBoxUseStorageEncryption;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label labelJobOptions;
     }
 }
