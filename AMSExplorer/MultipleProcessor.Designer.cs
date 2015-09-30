@@ -50,13 +50,13 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPageJobs = new System.Windows.Forms.TabPage();
-            this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTasks = new System.Windows.Forms.NumericUpDown();
             this.panelJobMode = new System.Windows.Forms.Panel();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.tabPageTask1 = new System.Windows.Forms.TabPage();
+            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
             this.comboBoxAssetInput1 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -112,7 +112,13 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
+            this.buttonTaskOptions2 = new AMSExplorer.ButtonJobOptions();
+            this.buttonTaskOptions3 = new AMSExplorer.ButtonJobOptions();
+            this.buttonTaskOptions4 = new AMSExplorer.ButtonJobOptions();
+            this.buttonTaskOptions5 = new AMSExplorer.ButtonJobOptions();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -125,12 +131,14 @@
             this.tabPageTask4.SuspendLayout();
             this.tabPageTask5.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 201);
+            this.label1.Location = new System.Drawing.Point(34, 202);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 15);
             this.label1.TabIndex = 18;
@@ -164,9 +172,9 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(19, 220);
+            this.textBoxJobName.Location = new System.Drawing.Point(37, 220);
             this.textBoxJobName.Name = "textBoxJobName";
-            this.textBoxJobName.Size = new System.Drawing.Size(821, 23);
+            this.textBoxJobName.Size = new System.Drawing.Size(803, 23);
             this.textBoxJobName.TabIndex = 13;
             // 
             // openFileDialogPreset
@@ -336,7 +344,9 @@
             // 
             // tabPageJobs
             // 
-            this.tabPageJobs.Controls.Add(this.buttonJobOptions);
+            this.tabPageJobs.Controls.Add(this.pictureBox2);
+            this.tabPageJobs.Controls.Add(this.label5);
+            this.tabPageJobs.Controls.Add(this.numericUpDownPriority);
             this.tabPageJobs.Controls.Add(this.label6);
             this.tabPageJobs.Controls.Add(this.numericUpDownTasks);
             this.tabPageJobs.Controls.Add(this.panelJobMode);
@@ -353,19 +363,10 @@
             this.tabPageJobs.Text = "Job(s)";
             this.tabPageJobs.UseVisualStyleBackColor = true;
             // 
-            // buttonJobOptions
-            // 
-            this.buttonJobOptions.Location = new System.Drawing.Point(19, 264);
-            this.buttonJobOptions.Name = "buttonJobOptions";
-            this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
-            this.buttonJobOptions.TabIndex = 72;
-            this.buttonJobOptions.Text = "Job options...";
-            this.buttonJobOptions.UseVisualStyleBackColor = true;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(16, 348);
+            this.label6.Location = new System.Drawing.Point(34, 355);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 15);
             this.label6.TabIndex = 42;
@@ -373,7 +374,7 @@
             // 
             // numericUpDownTasks
             // 
-            this.numericUpDownTasks.Location = new System.Drawing.Point(19, 368);
+            this.numericUpDownTasks.Location = new System.Drawing.Point(37, 373);
             this.numericUpDownTasks.Maximum = new decimal(new int[] {
             5,
             0,
@@ -416,7 +417,7 @@
             // labelsummaryjob
             // 
             this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(16, 310);
+            this.labelsummaryjob.Location = new System.Drawing.Point(34, 315);
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(426, 25);
             this.labelsummaryjob.TabIndex = 38;
@@ -442,6 +443,15 @@
             this.tabPageTask1.Tag = "0";
             this.tabPageTask1.Text = "Task1";
             this.tabPageTask1.UseVisualStyleBackColor = true;
+            // 
+            // buttonTaskOptions1
+            // 
+            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
+            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions1.TabIndex = 73;
+            this.buttonTaskOptions1.Text = "Task options...";
+            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
             // 
             // comboBoxAssetInput1
             // 
@@ -496,6 +506,7 @@
             // 
             // tabPageTask2
             // 
+            this.tabPageTask2.Controls.Add(this.buttonTaskOptions2);
             this.tabPageTask2.Controls.Add(this.comboBoxAssetInput2);
             this.tabPageTask2.Controls.Add(this.label16);
             this.tabPageTask2.Controls.Add(this.label7);
@@ -557,7 +568,7 @@
             this.textBoxConfiguration2.Multiline = true;
             this.textBoxConfiguration2.Name = "textBoxConfiguration2";
             this.textBoxConfiguration2.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration2.Size = new System.Drawing.Size(829, 175);
+            this.textBoxConfiguration2.Size = new System.Drawing.Size(829, 155);
             this.textBoxConfiguration2.TabIndex = 40;
             this.textBoxConfiguration2.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -608,6 +619,7 @@
             // 
             // tabPageTask3
             // 
+            this.tabPageTask3.Controls.Add(this.buttonTaskOptions3);
             this.tabPageTask3.Controls.Add(this.comboBoxAssetInput3);
             this.tabPageTask3.Controls.Add(this.label17);
             this.tabPageTask3.Controls.Add(this.label9);
@@ -669,7 +681,7 @@
             this.textBoxConfiguration3.Multiline = true;
             this.textBoxConfiguration3.Name = "textBoxConfiguration3";
             this.textBoxConfiguration3.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration3.Size = new System.Drawing.Size(829, 175);
+            this.textBoxConfiguration3.Size = new System.Drawing.Size(829, 155);
             this.textBoxConfiguration3.TabIndex = 40;
             this.textBoxConfiguration3.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -720,6 +732,7 @@
             // 
             // tabPageTask4
             // 
+            this.tabPageTask4.Controls.Add(this.buttonTaskOptions4);
             this.tabPageTask4.Controls.Add(this.comboBoxAssetInput4);
             this.tabPageTask4.Controls.Add(this.label18);
             this.tabPageTask4.Controls.Add(this.label11);
@@ -781,7 +794,7 @@
             this.textBoxConfiguration4.Multiline = true;
             this.textBoxConfiguration4.Name = "textBoxConfiguration4";
             this.textBoxConfiguration4.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration4.Size = new System.Drawing.Size(829, 175);
+            this.textBoxConfiguration4.Size = new System.Drawing.Size(829, 155);
             this.textBoxConfiguration4.TabIndex = 40;
             this.textBoxConfiguration4.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -832,6 +845,7 @@
             // 
             // tabPageTask5
             // 
+            this.tabPageTask5.Controls.Add(this.buttonTaskOptions5);
             this.tabPageTask5.Controls.Add(this.comboBoxAssetInput5);
             this.tabPageTask5.Controls.Add(this.label19);
             this.tabPageTask5.Controls.Add(this.label13);
@@ -893,7 +907,7 @@
             this.textBoxConfiguration5.Multiline = true;
             this.textBoxConfiguration5.Name = "textBoxConfiguration5";
             this.textBoxConfiguration5.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration5.Size = new System.Drawing.Size(829, 175);
+            this.textBoxConfiguration5.Size = new System.Drawing.Size(829, 155);
             this.textBoxConfiguration5.TabIndex = 40;
             this.textBoxConfiguration5.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -965,14 +979,67 @@
             this.panel1.Size = new System.Drawing.Size(919, 55);
             this.panel1.TabIndex = 67;
             // 
-            // buttonTaskOptions1
+            // buttonTaskOptions2
             // 
-            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
-            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions1.TabIndex = 73;
-            this.buttonTaskOptions1.Text = "Task options...";
-            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
+            this.buttonTaskOptions2.Location = new System.Drawing.Point(684, 491);
+            this.buttonTaskOptions2.Name = "buttonTaskOptions2";
+            this.buttonTaskOptions2.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions2.TabIndex = 74;
+            this.buttonTaskOptions2.Text = "Task options...";
+            this.buttonTaskOptions2.UseVisualStyleBackColor = true;
+            // 
+            // buttonTaskOptions3
+            // 
+            this.buttonTaskOptions3.Location = new System.Drawing.Point(687, 491);
+            this.buttonTaskOptions3.Name = "buttonTaskOptions3";
+            this.buttonTaskOptions3.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions3.TabIndex = 74;
+            this.buttonTaskOptions3.Text = "Task options...";
+            this.buttonTaskOptions3.UseVisualStyleBackColor = true;
+            // 
+            // buttonTaskOptions4
+            // 
+            this.buttonTaskOptions4.Location = new System.Drawing.Point(685, 491);
+            this.buttonTaskOptions4.Name = "buttonTaskOptions4";
+            this.buttonTaskOptions4.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions4.TabIndex = 74;
+            this.buttonTaskOptions4.Text = "Task options...";
+            this.buttonTaskOptions4.UseVisualStyleBackColor = true;
+            // 
+            // buttonTaskOptions5
+            // 
+            this.buttonTaskOptions5.Location = new System.Drawing.Point(685, 491);
+            this.buttonTaskOptions5.Name = "buttonTaskOptions5";
+            this.buttonTaskOptions5.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions5.TabIndex = 74;
+            this.buttonTaskOptions5.Text = "Task options...";
+            this.buttonTaskOptions5.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = global::AMSExplorer.Bitmaps.change_priority;
+            this.pictureBox2.Location = new System.Drawing.Point(6, 276);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(16, 16);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 77;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(36, 256);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(48, 15);
+            this.label5.TabIndex = 76;
+            this.label5.Text = "Priority:";
+            // 
+            // numericUpDownPriority
+            // 
+            this.numericUpDownPriority.Location = new System.Drawing.Point(37, 276);
+            this.numericUpDownPriority.Name = "numericUpDownPriority";
+            this.numericUpDownPriority.Size = new System.Drawing.Size(68, 23);
+            this.numericUpDownPriority.TabIndex = 75;
             // 
             // MultipleProcessor
             // 
@@ -1010,6 +1077,8 @@
             this.tabPageTask5.ResumeLayout(false);
             this.tabPageTask5.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1100,7 +1169,13 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.ComboBox comboBoxAssetInput5;
         private System.Windows.Forms.Label label19;
-        private ButtonJobOptions buttonJobOptions;
         private ButtonJobOptions buttonTaskOptions1;
+        private ButtonJobOptions buttonTaskOptions2;
+        private ButtonJobOptions buttonTaskOptions3;
+        private ButtonJobOptions buttonTaskOptions4;
+        private ButtonJobOptions buttonTaskOptions5;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownPriority;
     }
 }

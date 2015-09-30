@@ -2732,6 +2732,7 @@ namespace AMSExplorer
         public string ProcessorConfiguration;
         public TypeInputAssetGeneric InputAssetType;
         public string InputAsset;
+        public JobOptionsVar TaskOptions;
     }
 
     public class GenericTaskAsset

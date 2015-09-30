@@ -61,15 +61,31 @@ namespace AMSExplorer
             }
         }
 
-        public JobOptionsVar JobOptions
+        public JobOptionsVar SingleTaskOptions
         {
             get
             {
-                return buttonJobOptions.GetSettings();
+                return buttonTaskOptions1.GetSettings();
             }
             set
             {
-                buttonJobOptions.SetSettings(value);
+                buttonTaskOptions1.SetSettings(value);
+                buttonTaskOptions2.SetSettings(value);
+                buttonTaskOptions3.SetSettings(value);
+                buttonTaskOptions4.SetSettings(value);
+                buttonTaskOptions5.SetSettings(value);
+            }
+        }
+
+        public int JobPriority
+        {
+            get
+            {
+                return (int) numericUpDownPriority.Value;
+            }
+            set
+            {
+                numericUpDownPriority.Value = value;
             }
         }
 
@@ -114,7 +130,7 @@ namespace AMSExplorer
             }
         }
 
-        public IMediaProcessor EncodingProcessorSelected
+        public IMediaProcessor SingleEncodingProcessorSelected
         {
             get
             {
@@ -135,7 +151,7 @@ namespace AMSExplorer
         }
 
 
-        public string EncodingConfiguration
+        public string SingleEncodingConfiguration
         {
             get
             {
@@ -158,7 +174,8 @@ namespace AMSExplorer
                         Processor = Procs[ReturnListViewProcessor(index_task).SelectedIndices[0]],
                         ProcessorConfiguration = ReturnTextBoxConfiguration(index_task).Text,
                         InputAsset = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAsset,
-                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType
+                        InputAssetType = listofinputassets[index_task - 1][mycomboboxassetinput.SelectedIndex].InputAssetType,
+                        TaskOptions = ReturnTaskConfiguration(index_task).GetSettings()
                     };
                     listtasks.Add(mytask);
 
@@ -182,7 +199,12 @@ namespace AMSExplorer
             return (TextBox)this.Controls.Find("textBoxConfiguration" + index_task.ToString(), true).FirstOrDefault();
         }
 
-       
+        private ButtonJobOptions ReturnTaskConfiguration(int index_task)
+        {
+            return (ButtonJobOptions)this.Controls.Find("buttonTaskOptions" + index_task.ToString(), true).FirstOrDefault();
+        }
+
+
 
         public TaskJobCreationMode EncodingCreationMode
         {
@@ -214,8 +236,11 @@ namespace AMSExplorer
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _myJob = myJob;
-            buttonJobOptions.Initialize(_context);
             buttonTaskOptions1.Initialize(_context);
+            buttonTaskOptions2.Initialize(_context);
+            buttonTaskOptions3.Initialize(_context);
+            buttonTaskOptions4.Initialize(_context);
+            buttonTaskOptions5.Initialize(_context);
 
             if (_myJob != null) // we are in resubmit mode
             {
