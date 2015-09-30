@@ -60,36 +60,8 @@ namespace AMSExplorer
                 textBoxkeyseed.Text = value;
             }
         }
-        public Uri PlayReadyLAurl
-        {
-            get
-            {
-                Uri myuri = null;
-                try
-                {
-                    myuri = new Uri(textBoxLAurl.Text);
-                }
-                catch
-                {
-
-                }
-
-                return myuri;
-            }
-            set
-            {
-                textBoxLAurl.Text = value.ToString();
-            }
-        }
-
-        public bool PlayReadyLAurlEncodeForSL
-        {
-            get
-            {
-                return checkBoxEncodingSL.Enabled ? checkBoxEncodingSL.Checked : false;
-            }
-
-        }
+    
+     
         public string CENCContentKey
         {
             get
@@ -132,32 +104,11 @@ namespace AMSExplorer
             }
         }
 
-        public string PlayReadyCustomAttributes
-        {
-            get
-            {
-                return string.IsNullOrEmpty(textBoxCustomAttributes.Text) ? null : textBoxCustomAttributes.Text;
-            }
-        }
+     
 
-        public string WidevineLAurl
-        {
-            get
-            {
-                string myuri = null;
-                if (checkBoxWidevine.Checked)
-                {
-                    myuri = LAURLWidevine.Text.Trim();
-                }
-                return myuri;
-            }
-            set
-            {
-                LAURLWidevine.Text = value.ToString();
-            }
-        }
+    
 
-        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool DoNotAskURL, bool ForceUseToProvideKey, bool laststep = false, bool WidevineEnabled = true)
+        public AddDynamicEncryptionFrame2_CENCKeyConfig( bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -170,9 +121,10 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
+            /*
             if (DoNotAskURL)
             {
-                textBoxLAurl.Enabled = false;
+                //textBoxLAurl.Enabled = false;
                 panelPlayReadyTest.Visible = false;
             }
             if (!laststep)
@@ -180,14 +132,12 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
-
-            groupBoxWidevine.Enabled = WidevineEnabled;
-
+            */
         }
 
         private void buttonPlayReadyTestSettings_Click(object sender, EventArgs e)
         {
-            textBoxLAurl.Text = _PlayReadyTestLAURL;
+            //textBoxLAurl.Text = _PlayReadyTestLAURL;
             textBoxkeyseed.Text = _PlayReadyTestKeySeed;
             textBoxcontentkey.Text = string.Empty;
         }
@@ -230,7 +180,7 @@ namespace AMSExplorer
             UpdateCalculatedContentKey();
             buttonOk.Enabled = validation;
 
-            checkBoxEncodingSL.Enabled = (textBoxLAurl.Text.Contains("&"));
+            //checkBoxEncodingSL.Enabled = (textBoxLAurl.Text.Contains("&"));
         }
 
         private void textBoxkeyseed_TextChanged(object sender, EventArgs e)
@@ -386,17 +336,6 @@ namespace AMSExplorer
             if (radioButtonKeySpecifiedByUser.Checked) groupBoxCrypto.Enabled = true;
         }
 
-        private void buttonAddExampleCustomAttributes_Click(object sender, EventArgs e)
-        {
-
-            textBoxCustomAttributes.Text = File.ReadAllText(Path.Combine(Mainform._configurationXMLFiles, @"PlayReadyCustomAttributes.xml"));
-
-        }
-
-        private void checkBoxWidevine_CheckedChanged(object sender, EventArgs e)
-        {
-            LAURLWidevine.Enabled = checkBoxWidevine.Checked;
-        }
 
         private void LAUR_Validating(object sender, CancelEventArgs e)
         {

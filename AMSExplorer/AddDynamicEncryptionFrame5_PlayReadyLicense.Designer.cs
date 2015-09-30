@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame4_PlayReadyLicense
+    partial class AddDynamicEncryptionFrame5_PlayReadyLicense
     {
         /// <summary>
         /// Required designer variable.

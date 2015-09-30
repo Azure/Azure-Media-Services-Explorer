@@ -98,32 +98,9 @@ namespace AMSExplorer
             }
         }
 
-        public Uri AESLaUrl
-        {
-            get
-            {
-                Uri myuri = null;
-                if (textBoxLAURL.Enabled)
-                {
-                    try
-                    {
-                        myuri = new Uri(textBoxLAURL.Text);
-                    }
-                    catch
-                    {
+     
 
-                    }
-                }
-
-                return myuri;
-            }
-            set
-            {
-                textBoxLAURL.Text = value.ToString();
-            }
-        }
-
-        public AddDynamicEncryptionFrame2_AESKeyConfig(bool ForceUseToProvideKey, bool DoNotAskURL, bool laststep = false)
+        public AddDynamicEncryptionFrame2_AESKeyConfig(bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -136,18 +113,15 @@ namespace AMSExplorer
                 groupBoxCrypto.Enabled = true;
             }
 
+            /*
             if (!laststep)
             {
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+            */
 
-            if (DoNotAskURL)
-            {
-                labelkeylaurl.Visible = false;
-                textBoxLAURL.Visible = false;
-                textBoxLAURL.Enabled = false;
-            }
+           
         }
 
         private void PlayReadyExternalServer_Load(object sender, EventArgs e)

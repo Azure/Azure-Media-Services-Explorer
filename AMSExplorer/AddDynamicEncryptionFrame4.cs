@@ -34,7 +34,7 @@ using System.IdentityModel.Tokens;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame3 : Form
+    public partial class AddDynamicEncryptionFrame4 : Form
     {
         private BindingList<MyTokenClaim> TokenClaimsList = new BindingList<MyTokenClaim>();
         private X509Certificate2 cert = null;
@@ -165,7 +165,7 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame3(CloudMediaContext context, int step, int option, string tokenSymmetricKey, bool laststep = true)
+        public AddDynamicEncryptionFrame4(CloudMediaContext context, int step, int option, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

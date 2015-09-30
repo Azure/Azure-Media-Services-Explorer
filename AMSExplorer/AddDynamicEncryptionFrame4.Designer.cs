@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame3
+    partial class AddDynamicEncryptionFrame4
     {
         /// <summary>
         /// Required designer variable.

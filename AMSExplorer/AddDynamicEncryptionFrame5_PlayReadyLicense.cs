@@ -31,7 +31,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame4_PlayReadyLicense : Form
+    public partial class AddDynamicEncryptionFrame5_PlayReadyLicense : Form
     {
         private string PlayReadyPolicyImportedfromXML = null;
 
@@ -109,7 +109,7 @@ namespace AMSExplorer
         }
 
 
-        public AddDynamicEncryptionFrame4_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
+        public AddDynamicEncryptionFrame5_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;

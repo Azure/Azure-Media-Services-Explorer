@@ -146,11 +146,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddDynamicEncryptionFrame3.cs">
+    <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame3.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame3_AESDelivery.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame3_CENCDelivery.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame4.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
     </Compile>
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.cs">
       <SubType>Form</SubType>
@@ -318,11 +330,11 @@
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </Compile>
     <Compile Include="ManagementREST.cs" />
-    <Compile Include="AddDynamicEncryptionFrame4_PlayReadyLicense.cs">
+    <Compile Include="AddDynamicEncryptionFrame5_PlayReadyLicense.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddDynamicEncryptionFrame4_PlayReadyLicense.Designer.cs">
-      <DependentUpon>AddDynamicEncryptionFrame4_PlayReadyLicense.cs</DependentUpon>
+    <Compile Include="AddDynamicEncryptionFrame5_PlayReadyLicense.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
     </Compile>
     <Compile Include="AddDynamicEncryptionFrame1.cs">
       <SubType>Form</SubType>
@@ -590,8 +602,14 @@
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame3.resx">
-      <DependentUpon>AddDynamicEncryptionFrame3.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3_AESDelivery.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3_AESDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame3_CENCDelivery.resx">
+      <DependentUpon>AddDynamicEncryptionFrame3_CENCDelivery.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame4.resx">
+      <DependentUpon>AddDynamicEncryptionFrame4.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
@@ -678,8 +696,8 @@
     <EmbeddedResource Include="ProcessFromJobTemplate.resx">
       <DependentUpon>ProcessFromJobTemplate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddDynamicEncryptionFrame4_PlayReadyLicense.resx">
-      <DependentUpon>AddDynamicEncryptionFrame4_PlayReadyLicense.cs</DependentUpon>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame5_PlayReadyLicense.resx">
+      <DependentUpon>AddDynamicEncryptionFrame5_PlayReadyLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame1.resx">
       <DependentUpon>AddDynamicEncryptionFrame1.cs</DependentUpon>

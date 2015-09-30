@@ -72,21 +72,44 @@ namespace AMSExplorer
             }
         }
 
-        public int GetNumberOfAuthorizationPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+        public string PlayReadyCustomAttributes
         {
             get
             {
-                if (radioButtonNoAuthPolicy.Checked)
+                if (checkBoxPlayReadyPackaging.Checked && !string.IsNullOrEmpty(textBoxCustomAttributes.Text))
                 {
-                    return 0;
+                    return textBoxCustomAttributes.Text;
                 }
                 else
                 {
-                    return (int)numericUpDownNbOptions.Value;
+                    return null;
                 }
             }
         }
 
+        public bool WidevinePackaging
+        {
+            get
+            {
+                return (checkBoxProtocolDASH.Checked && EnableDynEnc) ? checkBoxWidevinePackaging.Checked : false;
+            }
+        }
+
+        public bool PlayReadyPackaging
+        {
+            get
+            {
+                return EnableDynEnc ? checkBoxPlayReadyPackaging.Checked : false;
+            }
+        }
+
+        public bool EnableDynEnc
+        {
+            get
+            {
+                return checkBoxEnableDynEnc.Checked;
+            }
+        }
 
 
         private CloudMediaContext _context;
@@ -102,16 +125,12 @@ namespace AMSExplorer
 
         private void SetupDynEnc_Load(object sender, EventArgs e)
         {
-            UpdateradioButtonNoAuthPolicyTextBox();
         }
-
 
 
 
         private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
-            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
 
@@ -125,31 +144,30 @@ namespace AMSExplorer
 
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
-            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
-            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
-        private void UpdateradioButtonNoAuthPolicyTextBox()
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonNoDynEnc.Checked || radioButtonCENCKey.Checked)
-            {
-                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "PlayReady license", "licenses");
-            }
-            else if (radioButtonEnvelope.Checked)
-            {
-                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "AES key", "keys");
-            }
+            panelDynEnc.Enabled = checkBoxEnableDynEnc.Checked;
+        }
+
+        private void checkBoxPlayReadyPackaging_CheckedChanged(object sender, EventArgs e)
+        {
+            textBoxCustomAttributes.Enabled = checkBoxPlayReadyPackaging.Checked;
+        }
+
+        private void checkBoxProtocolDASH_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBoxWidevinePackaging.Visible = checkBoxProtocolDASH.Checked;
         }
     }
 }

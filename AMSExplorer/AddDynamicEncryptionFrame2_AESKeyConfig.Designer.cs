@@ -47,11 +47,9 @@
             this.buttonGenKeyID = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.labelkeylaurl = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.radioButtonKeyIDGuid = new System.Windows.Forms.RadioButton();
             this.radioButtonKeyIDBase64 = new System.Windows.Forms.RadioButton();
-            this.textBoxLAURL = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -229,9 +227,7 @@
             this.groupBoxCrypto.Controls.Add(this.buttonGenKeyID);
             this.groupBoxCrypto.Controls.Add(this.label10);
             this.groupBoxCrypto.Controls.Add(this.label5);
-            this.groupBoxCrypto.Controls.Add(this.labelkeylaurl);
             this.groupBoxCrypto.Controls.Add(this.panel4);
-            this.groupBoxCrypto.Controls.Add(this.textBoxLAURL);
             this.groupBoxCrypto.Controls.Add(this.panel2);
             this.groupBoxCrypto.Controls.Add(this.buttongenerateContentKey);
             this.groupBoxCrypto.Controls.Add(this.textBoxcontentkey);
@@ -301,16 +297,6 @@
             this.label5.TabIndex = 31;
             this.label5.Text = "Key ID:";
             // 
-            // labelkeylaurl
-            // 
-            this.labelkeylaurl.AutoSize = true;
-            this.labelkeylaurl.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelkeylaurl.Location = new System.Drawing.Point(13, 188);
-            this.labelkeylaurl.Name = "labelkeylaurl";
-            this.labelkeylaurl.Size = new System.Drawing.Size(110, 15);
-            this.labelkeylaurl.TabIndex = 73;
-            this.labelkeylaurl.Text = "Key Acquisition Url:";
-            // 
             // panel4
             // 
             this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -348,16 +334,6 @@
             this.radioButtonKeyIDBase64.Text = "Base64";
             this.radioButtonKeyIDBase64.UseVisualStyleBackColor = true;
             // 
-            // textBoxLAURL
-            // 
-            this.textBoxLAURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLAURL.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxLAURL.Location = new System.Drawing.Point(15, 206);
-            this.textBoxLAURL.Name = "textBoxLAURL";
-            this.textBoxLAURL.Size = new System.Drawing.Size(439, 23);
-            this.textBoxLAURL.TabIndex = 72;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -376,7 +352,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 761);
+            this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.groupBox2);
@@ -416,8 +392,6 @@
         private System.Windows.Forms.RadioButton radioButtonKeyRandomGeneration;
         private System.Windows.Forms.GroupBox groupBoxCrypto;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox textBoxLAURL;
-        public System.Windows.Forms.Label labelkeylaurl;
         public System.Windows.Forms.Button buttonOk;
         private System.Windows.Forms.Label label10;
         public System.Windows.Forms.TextBox textBoxkeyid;
