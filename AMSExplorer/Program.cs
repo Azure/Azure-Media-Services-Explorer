@@ -990,13 +990,32 @@ namespace AMSExplorer
             long assetSize = 0;
             foreach (IAssetFile fileItem in asset.AssetFiles)
             {
-                if (fileItem.IsPrimary) builder.AppendLine("Primary");
-                builder.AppendLine("Name: " + fileItem.Name);
-                builder.AppendLine("Size: " + fileItem.ContentFileSize + " Bytes");
+                if (fileItem.IsPrimary)
+                {
+                    builder.AppendLine("   ------------(-P-R-I-M-A-R-Y-)------------------");
+                }
+                else
+                {
+                    builder.AppendLine("   -----------------------------------------------");
+                }
+
+
+                builder.AppendLine("   File Name           : " + fileItem.Name);
+                builder.AppendLine("   Size                : " + fileItem.ContentFileSize + " Bytes");
+                builder.AppendLine("   Last Modified (UTC) : " + fileItem.LastModified);
+                builder.AppendLine("");
                 assetSize += fileItem.ContentFileSize;
-                builder.AppendLine("==============");
             }
             return assetSize;
+        }
+
+        private static void ListAssetInfo(IAsset asset, ref StringBuilder builder)
+        {
+            // Display the info associated with asset. 
+            builder.AppendLine("===============================================");
+            builder.AppendLine("Asset Name          : " + asset.Name);
+            builder.AppendLine("Asset Id            : " + asset.Id);
+            builder.AppendLine("Last Modified (UTC) : " + asset.LastModified);
         }
 
         public static IMediaProcessor GetMediaProcessorFromId(string processorID, CloudMediaContext _context)
@@ -1029,10 +1048,11 @@ namespace AMSExplorer
             if (SelectedJobs.Count > 0)
             {
                 // Job Stats
+                sb.AppendLine(section);
 
                 foreach (IJob theJob in SelectedJobs)
                 {
-                    sb.AppendLine(section);
+
                     sb.AppendLine(" START OF JOB REPORT");
                     sb.AppendLine(section);
                     sb.AppendLine("");
@@ -1059,14 +1079,17 @@ namespace AMSExplorer
                     sb.AppendLine("Number of tasks     : " + theJob.Tasks.Count);
                     sb.AppendLine("Media Account       : " + theJob.GetMediaContext().Credentials.ClientId);
                     sb.AppendLine("");
-
+                    sb.AppendLine(section);
                     foreach (ITask task in theJob.Tasks)
                     {
+                        sb.AppendLine("Task Name           : " + task.Name);
                         sb.AppendLine(section);
                         sb.AppendLine("");
-                        sb.AppendLine("Task Name           : " + task.Name);
                         sb.AppendLine("Task ID             : " + task.Id);
                         sb.AppendLine("Task Priority       : " + task.Priority);
+                        sb.AppendLine("Task State          : " + task.State);
+                        sb.AppendLine("Task Options        : " + task.Options);
+
                         sb.AppendLine("Media Processor     : " + task.MediaProcessorId);
                         IMediaProcessor processor = JobInfo.GetMediaProcessorFromId(task.MediaProcessorId, (CloudMediaContext)theJob.GetMediaContext());
                         if (processor != null)
@@ -1096,6 +1119,54 @@ namespace AMSExplorer
                         }
 
                         sb.AppendLine("");
+
+                        sb.AppendLine("Task Body           : ");
+                        sb.AppendLine("=====================");
+                        sb.AppendLine(task.TaskBody);
+                        sb.AppendLine("");
+
+                        sb.AppendLine("Task Configuration  : ");
+                        sb.AppendLine("=====================");
+                        sb.AppendLine(task.Configuration);
+                        sb.AppendLine("");
+
+                        sb.AppendLine("Input Assets        :");
+                        sb.AppendLine("=====================");
+                        sb.AppendLine("");
+
+                        foreach (IAsset asset in task.InputAssets)
+                        {
+                            if (asset.State == AssetState.Deleted)
+                            {
+                                sb.AppendLine("Asset Deleted");
+                            }
+                            else
+                            {
+                                ListAssetInfo(asset, ref sb);
+                                sb.AppendLine("");
+                                ListFilesInAsset(asset, ref sb);
+                            }
+                        }
+                        sb.AppendLine("");
+                        sb.AppendLine("Output Assets       :");
+                        sb.AppendLine("=====================");
+                        sb.AppendLine("");
+
+                        foreach (IAsset asset in task.OutputAssets)
+                        {
+                            if (asset.State == AssetState.Deleted)
+                            {
+                                sb.AppendLine("Asset Deleted");
+                            }
+                            else
+                            {
+                                ListAssetInfo(asset, ref sb);
+                                sb.AppendLine("");
+                                ListFilesInAsset(asset, ref sb);
+                            }
+                        }
+                        sb.AppendLine("");
+
                         if (task.State == JobState.Error)
                         {
                             foreach (var errordetail in task.ErrorDetails)
@@ -1109,18 +1180,7 @@ namespace AMSExplorer
                         {
                             TaskSizeAndPrice MyTaskSizePrice = CalculateTaskSizeAndPrice(task, (CloudMediaContext)theJob.GetMediaContext());
 
-                            sb.AppendLine("Input Assets:");
-                            foreach (IAsset asset in task.InputAssets)
-                            {
-                                if (asset.State == AssetState.Deleted)
-                                {
-                                    sb.AppendLine("Asset Deleted");
-                                }
-                            }
-                            sb.AppendLine("");
-                            sb.AppendLine("Output Assets :");
-                            foreach (IAsset asset in task.OutputAssets)
-                                ListFilesInAsset(asset, ref sb);
+
 
                             if (theJob.Tasks.Count > 1) // only display for the task if there are several tasks
                             {

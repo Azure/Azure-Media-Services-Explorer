@@ -584,7 +584,7 @@ namespace AMSExplorer
             }
             else // no reencode or asset filter but stream copy
             {
-                string taskname = "Subclipping of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
+                string taskname = "Subclipping (archive extraction) of " + Constants.NameconvInputasset;
                 IMediaProcessor Proc = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
                 _mainform.LaunchJobs(
