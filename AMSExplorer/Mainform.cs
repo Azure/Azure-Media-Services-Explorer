@@ -4585,6 +4585,12 @@ namespace AMSExplorer
             JR.CreateOutlookMail();
         }
 
+        private void DoCopyJobReportToClipboard()
+        {
+            JobInfo JR = new JobInfo(ReturnSelectedJobs());
+            JR.CopyStatsToClipBoard();
+        }
+
         private void createOutlookReportEmailToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateJobReportEmail();
@@ -4984,6 +4990,12 @@ namespace AMSExplorer
         {
             AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
             AR.CreateOutlookMail();
+        }
+
+        private void DoCopyAssetReportToClipboard()
+        {
+            AssetInfo AR = new AssetInfo(ReturnSelectedAssets());
+            AR.CopyStatsToClipBoard();
         }
 
         private void createOutlookReportEmailToolStripMenuItem2_Click(object sender, EventArgs e)
@@ -10731,6 +10743,46 @@ namespace AMSExplorer
         {
             if (Program.AllReleaseNotesUrl != null)
                 Process.Start(Program.AllReleaseNotesUrl.ToString());
+        }
+
+        private void toolStripMenuItem27_Click_1(object sender, EventArgs e)
+        {
+            DoCreateJobReportEmail();
+        }
+
+        private void copyReportToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyJobReportToClipboard();
+        }
+
+        private void toolStripMenuItem28_Click_1(object sender, EventArgs e)
+        {
+            DoCreateJobReportEmail();
+        }
+
+        private void copyToClipboardToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoCopyJobReportToClipboard();
+        }
+
+        private void copyToClipboardToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            DoCopyAssetReportToClipboard();
+        }
+
+        private void toolStripMenuItem29_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetReportEmail();
+        }
+
+        private void toolStripMenuItem30_Click(object sender, EventArgs e)
+        {
+            DoCreateAssetReportEmail();
+        }
+
+        private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DoCopyAssetReportToClipboard();
         }
     }
 }

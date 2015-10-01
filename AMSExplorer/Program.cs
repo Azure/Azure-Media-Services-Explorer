@@ -999,7 +999,6 @@ namespace AMSExplorer
                     builder.AppendLine("   -----------------------------------------------");
                 }
 
-
                 builder.AppendLine("   File Name           : " + fileItem.Name);
                 builder.AppendLine("   Size                : " + fileItem.ContentFileSize + " Bytes");
                 builder.AppendLine("   Last Modified (UTC) : " + fileItem.LastModified);
@@ -2089,27 +2088,30 @@ namespace AMSExplorer
 
                 foreach (IAssetFile fileItem in MyAsset.AssetFiles)
                 {
-                    if (fileItem.IsPrimary) sb.AppendLine("Primary");
-                    sb.AppendLine("Name                 : " + fileItem.Name);
-                    sb.AppendLine("Id                   : " + fileItem.Id);
-                    sb.AppendLine("File size            : " + fileItem.ContentFileSize + " Bytes");
-                    sb.AppendLine("Mime type            : " + fileItem.MimeType);
-                    sb.AppendLine("Init vector          : " + fileItem.InitializationVector);
-                    sb.AppendLine("Created              : " + fileItem.Created);
-                    sb.AppendLine("Last modified        : " + fileItem.LastModified);
-                    sb.AppendLine("Encrypted            : " + fileItem.IsEncrypted);
-                    sb.AppendLine("EncryptionScheme     : " + fileItem.EncryptionScheme);
-                    sb.AppendLine("EncryptionVersion    : " + fileItem.EncryptionVersion);
-                    sb.AppendLine("Encryption key id    : " + fileItem.EncryptionKeyId);
-                    sb.AppendLine("InitializationVector : " + fileItem.InitializationVector);
-                    sb.AppendLine("ParentAssetId        : " + fileItem.ParentAssetId);
-                    sb.AppendLine("==============");
+                    if (fileItem.IsPrimary)
+                    {
+                        sb.AppendLine("   ------------(-P-R-I-M-A-R-Y-)------------------");
+                    }
+                    else
+                    {
+                        sb.AppendLine("   -----------------------------------------------");
+                    }
+                    sb.AppendLine("   Name                 : " + fileItem.Name);
+                    sb.AppendLine("   Id                   : " + fileItem.Id);
+                    sb.AppendLine("   File size            : " + fileItem.ContentFileSize + " Bytes");
+                    sb.AppendLine("   Mime type            : " + fileItem.MimeType);
+                    sb.AppendLine("   Init vector          : " + fileItem.InitializationVector);
+                    sb.AppendLine("   Created              : " + fileItem.Created);
+                    sb.AppendLine("   Last modified (UTC)  : " + fileItem.LastModified);
+                    sb.AppendLine("   Encrypted            : " + fileItem.IsEncrypted);
+                    sb.AppendLine("   EncryptionScheme     : " + fileItem.EncryptionScheme);
+                    sb.AppendLine("   EncryptionVersion    : " + fileItem.EncryptionVersion);
+                    sb.AppendLine("   Encryption key id    : " + fileItem.EncryptionKeyId);
+                    sb.AppendLine("   InitializationVector : " + fileItem.InitializationVector);
+                    sb.AppendLine("   ParentAssetId        : " + fileItem.ParentAssetId);
                     sb.AppendLine("");
                 }
-
                 sb.Append(GetDescriptionLocators(MyAsset, SelectedSE));
-
-
             }
             sb.AppendLine("");
             sb.AppendLine("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");

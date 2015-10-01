@@ -41,6 +41,8 @@
             this.ContextMenuItemAssetDisplayInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.displayParentJobToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem30 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToClipboardToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem17 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem18 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem19 = new System.Windows.Forms.ToolStripMenuItem();
@@ -114,6 +116,8 @@
             this.batchUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupAWatchFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOutlookReportEmailToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToClipboardToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromAzureStorageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fromASingleHTTPURLAmazonS3EtcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -166,6 +170,8 @@
             this.inputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.outputAssetInformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createReportEmailToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem28 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToClipboardToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.priorityToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cancelJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -275,6 +281,8 @@
             this.ContextMenuItemJobInputAssetInformation = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobOpenOutputAsset = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCreateOutlookReportEmail = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem27 = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyReportToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator12 = new System.Windows.Forms.ToolStripSeparator();
             this.ContextMenuItemJobChangePriority = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobCancel = new System.Windows.Forms.ToolStripMenuItem();
@@ -561,12 +569,31 @@
             // 
             // ContextMenuItemAssetCreateOutlookReportEmail
             // 
+            this.ContextMenuItemAssetCreateOutlookReportEmail.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem30,
+            this.copyToClipboardToolStripMenuItem3});
             this.ContextMenuItemAssetCreateOutlookReportEmail.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemAssetCreateOutlookReportEmail.Image")));
             this.ContextMenuItemAssetCreateOutlookReportEmail.Name = "ContextMenuItemAssetCreateOutlookReportEmail";
-            this.ContextMenuItemAssetCreateOutlookReportEmail.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.ContextMenuItemAssetCreateOutlookReportEmail.Size = new System.Drawing.Size(343, 22);
-            this.ContextMenuItemAssetCreateOutlookReportEmail.Text = "Create Outlook report email";
+            this.ContextMenuItemAssetCreateOutlookReportEmail.Text = "Report";
             this.ContextMenuItemAssetCreateOutlookReportEmail.Click += new System.EventHandler(this.createOutlookReportEmailToolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem30
+            // 
+            this.toolStripMenuItem30.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem30.Image")));
+            this.toolStripMenuItem30.Name = "toolStripMenuItem30";
+            this.toolStripMenuItem30.Size = new System.Drawing.Size(243, 22);
+            this.toolStripMenuItem30.Text = "Create Outlook email";
+            this.toolStripMenuItem30.Click += new System.EventHandler(this.toolStripMenuItem30_Click);
+            // 
+            // copyToClipboardToolStripMenuItem3
+            // 
+            this.copyToClipboardToolStripMenuItem3.Name = "copyToClipboardToolStripMenuItem3";
+            this.copyToClipboardToolStripMenuItem3.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.A)));
+            this.copyToClipboardToolStripMenuItem3.Size = new System.Drawing.Size(243, 22);
+            this.copyToClipboardToolStripMenuItem3.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem3.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem3_Click);
             // 
             // toolStripMenuItem17
             // 
@@ -1215,12 +1242,29 @@
             // 
             // createOutlookReportEmailToolStripMenuItem1
             // 
-            this.createOutlookReportEmailToolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("createOutlookReportEmailToolStripMenuItem1.Image")));
+            this.createOutlookReportEmailToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem29,
+            this.copyToClipboardToolStripMenuItem2});
             this.createOutlookReportEmailToolStripMenuItem1.Name = "createOutlookReportEmailToolStripMenuItem1";
-            this.createOutlookReportEmailToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
             this.createOutlookReportEmailToolStripMenuItem1.Size = new System.Drawing.Size(343, 22);
-            this.createOutlookReportEmailToolStripMenuItem1.Text = "Create Outlook report email";
-            this.createOutlookReportEmailToolStripMenuItem1.Click += new System.EventHandler(this.createOutlookReportEmailToolStripMenuItem1_Click);
+            this.createOutlookReportEmailToolStripMenuItem1.Text = "Report";
+            // 
+            // toolStripMenuItem29
+            // 
+            this.toolStripMenuItem29.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem29.Image")));
+            this.toolStripMenuItem29.Name = "toolStripMenuItem29";
+            this.toolStripMenuItem29.Size = new System.Drawing.Size(243, 22);
+            this.toolStripMenuItem29.Text = "Create Outlook email";
+            this.toolStripMenuItem29.Click += new System.EventHandler(this.toolStripMenuItem29_Click);
+            // 
+            // copyToClipboardToolStripMenuItem2
+            // 
+            this.copyToClipboardToolStripMenuItem2.Name = "copyToClipboardToolStripMenuItem2";
+            this.copyToClipboardToolStripMenuItem2.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.A)));
+            this.copyToClipboardToolStripMenuItem2.Size = new System.Drawing.Size(243, 22);
+            this.copyToClipboardToolStripMenuItem2.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem2.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem2_Click);
             // 
             // importToolStripMenuItem
             // 
@@ -1644,7 +1688,7 @@
             this.displayJobInformationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("displayJobInformationToolStripMenuItem.Image")));
             this.displayJobInformationToolStripMenuItem.Name = "displayJobInformationToolStripMenuItem";
             this.displayJobInformationToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.displayJobInformationToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.displayJobInformationToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.displayJobInformationToolStripMenuItem.Text = "Display information";
             this.displayJobInformationToolStripMenuItem.Click += new System.EventHandler(this.displayJobInformationToolStripMenuItem_Click);
             // 
@@ -1652,7 +1696,7 @@
             // 
             this.displayErrorToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.help;
             this.displayErrorToolStripMenuItem2.Name = "displayErrorToolStripMenuItem2";
-            this.displayErrorToolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
+            this.displayErrorToolStripMenuItem2.Size = new System.Drawing.Size(226, 22);
             this.displayErrorToolStripMenuItem2.Text = "Display error";
             this.displayErrorToolStripMenuItem2.Click += new System.EventHandler(this.displayErrorToolStripMenuItem2_Click);
             // 
@@ -1661,7 +1705,7 @@
             this.inputAssetInformationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("inputAssetInformationToolStripMenuItem.Image")));
             this.inputAssetInformationToolStripMenuItem.Name = "inputAssetInformationToolStripMenuItem";
             this.inputAssetInformationToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.inputAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.inputAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.inputAssetInformationToolStripMenuItem.Text = "Input asset information";
             this.inputAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.inputAssetInformationToolStripMenuItem_Click);
             // 
@@ -1670,29 +1714,47 @@
             this.outputAssetInformationToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("outputAssetInformationToolStripMenuItem.Image")));
             this.outputAssetInformationToolStripMenuItem.Name = "outputAssetInformationToolStripMenuItem";
             this.outputAssetInformationToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.outputAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.outputAssetInformationToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.outputAssetInformationToolStripMenuItem.Text = "Output asset information";
             this.outputAssetInformationToolStripMenuItem.Click += new System.EventHandler(this.outputAssetInformationToolStripMenuItem_Click);
             // 
             // createReportEmailToolStripMenuItem
             // 
+            this.createReportEmailToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem28,
+            this.copyToClipboardToolStripMenuItem1});
             this.createReportEmailToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("createReportEmailToolStripMenuItem.Image")));
             this.createReportEmailToolStripMenuItem.Name = "createReportEmailToolStripMenuItem";
-            this.createReportEmailToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.createReportEmailToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
-            this.createReportEmailToolStripMenuItem.Text = "Create Outlook report email";
-            this.createReportEmailToolStripMenuItem.Click += new System.EventHandler(this.createReportEmailToolStripMenuItem_Click);
+            this.createReportEmailToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
+            this.createReportEmailToolStripMenuItem.Text = "Report";
+            // 
+            // toolStripMenuItem28
+            // 
+            this.toolStripMenuItem28.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem28.Image")));
+            this.toolStripMenuItem28.Name = "toolStripMenuItem28";
+            this.toolStripMenuItem28.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItem28.Text = "Create Outlook email";
+            this.toolStripMenuItem28.Click += new System.EventHandler(this.toolStripMenuItem28_Click_1);
+            // 
+            // copyToClipboardToolStripMenuItem1
+            // 
+            this.copyToClipboardToolStripMenuItem1.Name = "copyToClipboardToolStripMenuItem1";
+            this.copyToClipboardToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.J)));
+            this.copyToClipboardToolStripMenuItem1.Size = new System.Drawing.Size(239, 22);
+            this.copyToClipboardToolStripMenuItem1.Text = "Copy to clipboard";
+            this.copyToClipboardToolStripMenuItem1.Click += new System.EventHandler(this.copyToClipboardToolStripMenuItem1_Click);
             // 
             // toolStripSeparator11
             // 
             this.toolStripSeparator11.Name = "toolStripSeparator11";
-            this.toolStripSeparator11.Size = new System.Drawing.Size(263, 6);
+            this.toolStripSeparator11.Size = new System.Drawing.Size(223, 6);
             // 
             // priorityToolStripMenuItem
             // 
             this.priorityToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("priorityToolStripMenuItem.Image")));
             this.priorityToolStripMenuItem.Name = "priorityToolStripMenuItem";
-            this.priorityToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.priorityToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.priorityToolStripMenuItem.Text = "Change priority...";
             this.priorityToolStripMenuItem.Click += new System.EventHandler(this.priorityToolStripMenuItem_Click);
             // 
@@ -1701,7 +1763,7 @@
             this.cancelJobToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("cancelJobToolStripMenuItem.Image")));
             this.cancelJobToolStripMenuItem.Name = "cancelJobToolStripMenuItem";
             this.cancelJobToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.cancelJobToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.cancelJobToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.cancelJobToolStripMenuItem.Text = "Cancel job(s)";
             this.cancelJobToolStripMenuItem.Click += new System.EventHandler(this.cancelJobToolStripMenuItem_Click);
             // 
@@ -1711,7 +1773,7 @@
             this.resubmitToolStripMenuItem1.Name = "resubmitToolStripMenuItem1";
             this.resubmitToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.resubmitToolStripMenuItem1.Size = new System.Drawing.Size(266, 22);
+            this.resubmitToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
             this.resubmitToolStripMenuItem1.Text = "Resubmit...";
             this.resubmitToolStripMenuItem1.Click += new System.EventHandler(this.resubmitToolStripMenuItem1_Click);
             // 
@@ -1719,7 +1781,7 @@
             // 
             this.saveAsTemplateToolStripMenuItem1.Name = "saveAsTemplateToolStripMenuItem1";
             this.saveAsTemplateToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsTemplateToolStripMenuItem1.Size = new System.Drawing.Size(266, 22);
+            this.saveAsTemplateToolStripMenuItem1.Size = new System.Drawing.Size(226, 22);
             this.saveAsTemplateToolStripMenuItem1.Text = "Save as template...";
             this.saveAsTemplateToolStripMenuItem1.Click += new System.EventHandler(this.saveAsTemplateToolStripMenuItem1_Click);
             // 
@@ -1730,7 +1792,7 @@
             this.allJobsToolStripMenuItem});
             this.deleteToolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem2.Image")));
             this.deleteToolStripMenuItem2.Name = "deleteToolStripMenuItem2";
-            this.deleteToolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
+            this.deleteToolStripMenuItem2.Size = new System.Drawing.Size(226, 22);
             this.deleteToolStripMenuItem2.Text = "Delete";
             // 
             // selectedJobToolStripMenuItem
@@ -2589,28 +2651,28 @@
             this.saveAsTemplateToolStripMenuItem,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(267, 258);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(227, 258);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
             // 
             // refreshToolStripMenuItem2
             // 
             this.refreshToolStripMenuItem2.Image = global::AMSExplorer.Bitmaps.refresh;
             this.refreshToolStripMenuItem2.Name = "refreshToolStripMenuItem2";
-            this.refreshToolStripMenuItem2.Size = new System.Drawing.Size(266, 22);
+            this.refreshToolStripMenuItem2.Size = new System.Drawing.Size(226, 22);
             this.refreshToolStripMenuItem2.Text = "Refresh";
             this.refreshToolStripMenuItem2.Click += new System.EventHandler(this.refreshToolStripMenuItem2_Click);
             // 
             // toolStripSeparator18
             // 
             this.toolStripSeparator18.Name = "toolStripSeparator18";
-            this.toolStripSeparator18.Size = new System.Drawing.Size(263, 6);
+            this.toolStripSeparator18.Size = new System.Drawing.Size(223, 6);
             // 
             // ContextMenuItemJobDisplayInfo
             // 
             this.ContextMenuItemJobDisplayInfo.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobDisplayInfo.Image")));
             this.ContextMenuItemJobDisplayInfo.Name = "ContextMenuItemJobDisplayInfo";
             this.ContextMenuItemJobDisplayInfo.ShortcutKeys = System.Windows.Forms.Keys.F4;
-            this.ContextMenuItemJobDisplayInfo.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobDisplayInfo.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobDisplayInfo.Text = "Display information";
             this.ContextMenuItemJobDisplayInfo.Click += new System.EventHandler(this.toolStripMenuJobDisplayInfo_Click);
             // 
@@ -2618,7 +2680,7 @@
             // 
             this.displayErrorToolStripMenuItem3.Image = global::AMSExplorer.Bitmaps.help;
             this.displayErrorToolStripMenuItem3.Name = "displayErrorToolStripMenuItem3";
-            this.displayErrorToolStripMenuItem3.Size = new System.Drawing.Size(266, 22);
+            this.displayErrorToolStripMenuItem3.Size = new System.Drawing.Size(226, 22);
             this.displayErrorToolStripMenuItem3.Text = "Display error";
             this.displayErrorToolStripMenuItem3.Click += new System.EventHandler(this.displayErrorToolStripMenuItem3_Click);
             // 
@@ -2627,7 +2689,7 @@
             this.ContextMenuItemJobInputAssetInformation.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobInputAssetInformation.Image")));
             this.ContextMenuItemJobInputAssetInformation.Name = "ContextMenuItemJobInputAssetInformation";
             this.ContextMenuItemJobInputAssetInformation.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.ContextMenuItemJobInputAssetInformation.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobInputAssetInformation.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobInputAssetInformation.Text = "Input asset information";
             this.ContextMenuItemJobInputAssetInformation.Click += new System.EventHandler(this.inputAssetInformationToolStripMenuItem1_Click);
             // 
@@ -2636,29 +2698,47 @@
             this.ContextMenuItemJobOpenOutputAsset.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobOpenOutputAsset.Image")));
             this.ContextMenuItemJobOpenOutputAsset.Name = "ContextMenuItemJobOpenOutputAsset";
             this.ContextMenuItemJobOpenOutputAsset.ShortcutKeys = System.Windows.Forms.Keys.F7;
-            this.ContextMenuItemJobOpenOutputAsset.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobOpenOutputAsset.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobOpenOutputAsset.Text = "Output asset information";
             this.ContextMenuItemJobOpenOutputAsset.Click += new System.EventHandler(this.openOutputAssetToolStripMenuItem_Click);
             // 
             // ContextMenuItemJobCreateOutlookReportEmail
             // 
+            this.ContextMenuItemJobCreateOutlookReportEmail.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem27,
+            this.copyReportToClipboardToolStripMenuItem});
             this.ContextMenuItemJobCreateOutlookReportEmail.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobCreateOutlookReportEmail.Image")));
             this.ContextMenuItemJobCreateOutlookReportEmail.Name = "ContextMenuItemJobCreateOutlookReportEmail";
-            this.ContextMenuItemJobCreateOutlookReportEmail.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.M)));
-            this.ContextMenuItemJobCreateOutlookReportEmail.Size = new System.Drawing.Size(266, 22);
-            this.ContextMenuItemJobCreateOutlookReportEmail.Text = "Create Outlook report email";
-            this.ContextMenuItemJobCreateOutlookReportEmail.Click += new System.EventHandler(this.createOutlookReportEmailToolStripMenuItem_Click);
+            this.ContextMenuItemJobCreateOutlookReportEmail.Size = new System.Drawing.Size(226, 22);
+            this.ContextMenuItemJobCreateOutlookReportEmail.Text = "Job report";
+            // 
+            // toolStripMenuItem27
+            // 
+            this.toolStripMenuItem27.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem27.Image")));
+            this.toolStripMenuItem27.Name = "toolStripMenuItem27";
+            this.toolStripMenuItem27.Size = new System.Drawing.Size(239, 22);
+            this.toolStripMenuItem27.Text = "Create Outlook email";
+            this.toolStripMenuItem27.Click += new System.EventHandler(this.toolStripMenuItem27_Click_1);
+            // 
+            // copyReportToClipboardToolStripMenuItem
+            // 
+            this.copyReportToClipboardToolStripMenuItem.Name = "copyReportToClipboardToolStripMenuItem";
+            this.copyReportToClipboardToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.J)));
+            this.copyReportToClipboardToolStripMenuItem.Size = new System.Drawing.Size(239, 22);
+            this.copyReportToClipboardToolStripMenuItem.Text = "Copy to clipboard";
+            this.copyReportToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyReportToClipboardToolStripMenuItem_Click);
             // 
             // toolStripSeparator12
             // 
             this.toolStripSeparator12.Name = "toolStripSeparator12";
-            this.toolStripSeparator12.Size = new System.Drawing.Size(263, 6);
+            this.toolStripSeparator12.Size = new System.Drawing.Size(223, 6);
             // 
             // ContextMenuItemJobChangePriority
             // 
             this.ContextMenuItemJobChangePriority.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobChangePriority.Image")));
             this.ContextMenuItemJobChangePriority.Name = "ContextMenuItemJobChangePriority";
-            this.ContextMenuItemJobChangePriority.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobChangePriority.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobChangePriority.Text = "Change priority...";
             this.ContextMenuItemJobChangePriority.Click += new System.EventHandler(this.changePriorityToolStripMenuItem_Click);
             // 
@@ -2667,7 +2747,7 @@
             this.ContextMenuItemJobCancel.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobCancel.Image")));
             this.ContextMenuItemJobCancel.Name = "ContextMenuItemJobCancel";
             this.ContextMenuItemJobCancel.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Down)));
-            this.ContextMenuItemJobCancel.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobCancel.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobCancel.Text = "Cancel...";
             this.ContextMenuItemJobCancel.Click += new System.EventHandler(this.toolStripMenuJobsCancel_Click);
             // 
@@ -2677,7 +2757,7 @@
             this.resubmitToolStripMenuItem.Name = "resubmitToolStripMenuItem";
             this.resubmitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-            this.resubmitToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.resubmitToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.resubmitToolStripMenuItem.Text = "Resubmit...";
             this.resubmitToolStripMenuItem.Click += new System.EventHandler(this.resubmitToolStripMenuItem_Click);
             // 
@@ -2685,7 +2765,7 @@
             // 
             this.saveAsTemplateToolStripMenuItem.Name = "saveAsTemplateToolStripMenuItem";
             this.saveAsTemplateToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsTemplateToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.saveAsTemplateToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.saveAsTemplateToolStripMenuItem.Text = "Save as template...";
             this.saveAsTemplateToolStripMenuItem.Click += new System.EventHandler(this.saveAsTemplateToolStripMenuItem_Click);
             // 
@@ -2694,7 +2774,7 @@
             this.ContextMenuItemJobDelete.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobDelete.Image")));
             this.ContextMenuItemJobDelete.Name = "ContextMenuItemJobDelete";
             this.ContextMenuItemJobDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
-            this.ContextMenuItemJobDelete.Size = new System.Drawing.Size(266, 22);
+            this.ContextMenuItemJobDelete.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobDelete.Text = "Delete...";
             this.ContextMenuItemJobDelete.Click += new System.EventHandler(this.toolStripMenuItemJobsDelete_Click);
             // 
@@ -5141,6 +5221,14 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelEncRU;
         private System.Windows.Forms.ToolStripMenuItem storageVersionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem explorerReleaseNotesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem27;
+        private System.Windows.Forms.ToolStripMenuItem copyReportToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem28;
+        private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem29;
+        private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
+        private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem3;
     }
 }
 
