@@ -1969,7 +1969,6 @@ namespace AMSExplorer
                 DoRefreshGridAssetV(false);
                 this.Cursor = Cursors.Default;
             }
-           
         }
 
 
@@ -2951,8 +2950,7 @@ namespace AMSExplorer
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(_context.Jobs.ToList());
-
+            DoDeleteAllJobs();
         }
 
         private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2994,6 +2992,54 @@ namespace AMSExplorer
             }
         }
 
+
+        private void DoDeleteAllJobs()
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                bool Error = false;
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                while (true)
+                {
+                    // Enumerate through all jobs(1000 at a time)
+                    var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listjobs.Count;
+                    Task[] deleteTasks = listjobs.Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", listjobs.Count));
+
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                DoRefreshGridJobV(false);
+                this.Cursor = Cursors.Default;
+            }
+
+        }
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10853,6 +10899,26 @@ namespace AMSExplorer
         {
             DoDeleteAllAssets();
         }
+
+        private void visibleJobsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+        }
+
+        private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+        }
+
+        private void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllJobs();
+        }
+
+        private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(ReturnSelectedJobs());
+        }
     }
 }
 
@@ -12061,18 +12127,11 @@ namespace AMSExplorer
             }
 
         }
-        public IEnumerable<IJob> DisplayedJobs
-        {
-            get
-            {
-                return jobs;
-            }
-
-        }
-
+       
         static BindingList<JobEntry> _MyObservJob;
         static BindingList<JobEntry> _MyObservAssethisPage;
-        static IEnumerable<IJob> jobs;
+        public IEnumerable<IJob> jobs;
+        //static IEnumerable<IJob> jobs;
         static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
         static private int _jobsperpage = 50; //nb of items per page
         static private int _pagecount = 1;

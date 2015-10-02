@@ -183,6 +183,7 @@
             this.saveAsTemplateToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedJobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visibleJobsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupDynamicEncryptionForTheAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -293,6 +294,9 @@
             this.resubmitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsTemplateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemJobDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.selectedJobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visibleJobsInGridToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.allJobsToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabelConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelWatchFolder = new System.Windows.Forms.ToolStripStatusLabel();
@@ -538,7 +542,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1828,6 +1832,7 @@
             // 
             this.deleteToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectedJobToolStripMenuItem,
+            this.visibleJobsInGridToolStripMenuItem,
             this.allJobsToolStripMenuItem});
             this.deleteToolStripMenuItem2.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem2.Image")));
             this.deleteToolStripMenuItem2.Name = "deleteToolStripMenuItem2";
@@ -1841,6 +1846,13 @@
             this.selectedJobToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.selectedJobToolStripMenuItem.Text = "Selected job(s)...";
             this.selectedJobToolStripMenuItem.Click += new System.EventHandler(this.selectedJobToolStripMenuItem_Click);
+            // 
+            // visibleJobsInGridToolStripMenuItem
+            // 
+            this.visibleJobsInGridToolStripMenuItem.Name = "visibleJobsInGridToolStripMenuItem";
+            this.visibleJobsInGridToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.visibleJobsInGridToolStripMenuItem.Text = "Visible jobs in grid...";
+            this.visibleJobsInGridToolStripMenuItem.Click += new System.EventHandler(this.visibleJobsInGridToolStripMenuItem_Click);
             // 
             // allJobsToolStripMenuItem
             // 
@@ -2690,7 +2702,7 @@
             this.saveAsTemplateToolStripMenuItem,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(227, 258);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(227, 280);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
             // 
             // refreshToolStripMenuItem2
@@ -2810,12 +2822,39 @@
             // 
             // ContextMenuItemJobDelete
             // 
+            this.ContextMenuItemJobDelete.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.selectedJobsToolStripMenuItem,
+            this.visibleJobsInGridToolStripMenuItem1,
+            this.allJobsToolStripMenuItem1});
             this.ContextMenuItemJobDelete.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemJobDelete.Image")));
             this.ContextMenuItemJobDelete.Name = "ContextMenuItemJobDelete";
-            this.ContextMenuItemJobDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.ContextMenuItemJobDelete.Size = new System.Drawing.Size(226, 22);
             this.ContextMenuItemJobDelete.Text = "Delete...";
             this.ContextMenuItemJobDelete.Click += new System.EventHandler(this.toolStripMenuItemJobsDelete_Click);
+            // 
+            // selectedJobsToolStripMenuItem
+            // 
+            this.selectedJobsToolStripMenuItem.Name = "selectedJobsToolStripMenuItem";
+            this.selectedJobsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.selectedJobsToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.selectedJobsToolStripMenuItem.Text = "Selected jobs...";
+            this.selectedJobsToolStripMenuItem.Click += new System.EventHandler(this.selectedJobsToolStripMenuItem_Click);
+            // 
+            // visibleJobsInGridToolStripMenuItem1
+            // 
+            this.visibleJobsInGridToolStripMenuItem1.Name = "visibleJobsInGridToolStripMenuItem1";
+            this.visibleJobsInGridToolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            this.visibleJobsInGridToolStripMenuItem1.Text = "Visible jobs in grid...";
+            this.visibleJobsInGridToolStripMenuItem1.Click += new System.EventHandler(this.visibleJobsInGridToolStripMenuItem1_Click);
+            // 
+            // allJobsToolStripMenuItem1
+            // 
+            this.allJobsToolStripMenuItem1.Name = "allJobsToolStripMenuItem1";
+            this.allJobsToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Delete)));
+            this.allJobsToolStripMenuItem1.Size = new System.Drawing.Size(205, 22);
+            this.allJobsToolStripMenuItem1.Text = "All jobs...";
+            this.allJobsToolStripMenuItem1.Click += new System.EventHandler(this.allJobsToolStripMenuItem1_Click);
             // 
             // statusStrip1
             // 
@@ -5272,6 +5311,10 @@
         private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteVisibleAssetsInGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteAllAssetsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visibleJobsInGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem visibleJobsInGridToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem1;
     }
 }
 
