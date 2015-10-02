@@ -266,6 +266,7 @@ namespace AMSExplorer
             notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
+     
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
             // If upload in the queue, let's wait our turn
@@ -304,7 +305,6 @@ namespace AMSExplorer
                 blockBlob = mediaBlobContainer.GetBlockBlobReference(fileName);
                 TextBoxLogWriteLine("Created a reference for block blob in Azure....");
 
-                //blockBlob.StartCopyFromBlob(ObjectUrl, null, null, null);
                 blockBlob.StartCopy(ObjectUrl);
 
                 DateTime startTime = DateTime.UtcNow;
@@ -8626,7 +8626,7 @@ namespace AMSExplorer
                         var form = new ChooseStreamingEndpoint(_context, asset);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
-                            url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilter, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName).ToString();
+                            url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                         }
                         else
                         {

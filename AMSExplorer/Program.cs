@@ -1491,6 +1491,11 @@ namespace AMSExplorer
             }
         }
 
+        public static string AddHLSNoAudioOnlyModeToUrlString(string urlstr)
+        {
+            return AddParameterToUrlString(urlstr, "audio-only=false");
+        }
+
         public static string AddProtocolFormatInUrlString(string urlstr, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified)
         {
             switch (protocol)
@@ -1536,15 +1541,23 @@ namespace AMSExplorer
         }
 
         // return the URL with hostname from streaming endpoint
-        public static Uri RW(Uri url, IStreamingEndpoint se, string filter = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null)
+        public static Uri RW(Uri url, IStreamingEndpoint se, string filters = null, bool https = false, string customHostName = null, AMSOutputProtocols protocol = AMSOutputProtocols.NotSpecified, string audiotrackname = null, bool HLSNoAudioOnly = false)
         {
             if (url != null)
             {
                 string hostname = se.HostName;
 
-                string path = AddFilterToUrlString(url.AbsolutePath, filter);
+                string path = AddFilterToUrlString(url.AbsolutePath, filters);
                 path = AddProtocolFormatInUrlString(path, protocol);
-                path = AddAudioTrackToUrlString(path, audiotrackname);
+                
+                if (protocol == AMSOutputProtocols.HLSv3)
+                {
+                    path = AddAudioTrackToUrlString(path, audiotrackname);
+                    if (HLSNoAudioOnly)
+                    {
+                        path = AddHLSNoAudioOnlyModeToUrlString(path);
+                    }
+                }
 
                 UriBuilder urib = new UriBuilder()
                 {
@@ -2233,7 +2246,7 @@ namespace AMSExplorer
                         var form = new ChooseStreamingEndpoint(context, myasset, filter, typeplayer);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
-                            Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilter, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName).ToString();
+                            Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                             choosenSE = form.SelectStreamingEndpoint;
                         }
                         else

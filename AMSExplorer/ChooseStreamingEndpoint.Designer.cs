@@ -48,6 +48,8 @@
             this.radioButtonSmooth = new System.Windows.Forms.RadioButton();
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.checkBoxNoAudioOnly = new System.Windows.Forms.CheckBox();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -135,6 +137,7 @@
             // 
             this.groupBoxForceLocator.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxForceLocator.Controls.Add(this.label8);
             this.groupBoxForceLocator.Controls.Add(this.listBoxFilter);
             this.groupBoxForceLocator.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxForceLocator.Location = new System.Drawing.Point(18, 247);
@@ -142,7 +145,7 @@
             this.groupBoxForceLocator.Size = new System.Drawing.Size(207, 242);
             this.groupBoxForceLocator.TabIndex = 3;
             this.groupBoxForceLocator.TabStop = false;
-            this.groupBoxForceLocator.Text = "Filter";
+            this.groupBoxForceLocator.Text = "Filter(s)";
             // 
             // listBoxFilter
             // 
@@ -154,6 +157,7 @@
             this.listBoxFilter.ItemHeight = 15;
             this.listBoxFilter.Location = new System.Drawing.Point(13, 22);
             this.listBoxFilter.Name = "listBoxFilter";
+            this.listBoxFilter.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
             this.listBoxFilter.Size = new System.Drawing.Size(176, 199);
             this.listBoxFilter.TabIndex = 62;
             // 
@@ -172,6 +176,7 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.checkBoxNoAudioOnly);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxHLSAudioTrackName);
             this.groupBox1.Controls.Add(this.radioButtonSmoothLegacy);
@@ -193,7 +198,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Location = new System.Drawing.Point(40, 114);
+            this.label1.Location = new System.Drawing.Point(46, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(107, 15);
             this.label1.TabIndex = 7;
@@ -203,7 +208,7 @@
             // 
             this.textBoxHLSAudioTrackName.Enabled = false;
             this.textBoxHLSAudioTrackName.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.textBoxHLSAudioTrackName.Location = new System.Drawing.Point(151, 111);
+            this.textBoxHLSAudioTrackName.Location = new System.Drawing.Point(159, 91);
             this.textBoxHLSAudioTrackName.Name = "textBoxHLSAudioTrackName";
             this.textBoxHLSAudioTrackName.Size = new System.Drawing.Size(150, 23);
             this.textBoxHLSAudioTrackName.TabIndex = 6;
@@ -212,7 +217,7 @@
             // 
             this.radioButtonSmoothLegacy.AutoSize = true;
             this.radioButtonSmoothLegacy.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonSmoothLegacy.Location = new System.Drawing.Point(23, 64);
+            this.radioButtonSmoothLegacy.Location = new System.Drawing.Point(23, 47);
             this.radioButtonSmoothLegacy.Name = "radioButtonSmoothLegacy";
             this.radioButtonSmoothLegacy.Size = new System.Drawing.Size(161, 19);
             this.radioButtonSmoothLegacy.TabIndex = 5;
@@ -256,7 +261,7 @@
             // 
             this.radioButtonHLSv3.AutoSize = true;
             this.radioButtonHLSv3.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonHLSv3.Location = new System.Drawing.Point(23, 89);
+            this.radioButtonHLSv3.Location = new System.Drawing.Point(23, 72);
             this.radioButtonHLSv3.Name = "radioButtonHLSv3";
             this.radioButtonHLSv3.Size = new System.Drawing.Size(61, 19);
             this.radioButtonHLSv3.TabIndex = 1;
@@ -269,7 +274,7 @@
             this.radioButtonSmooth.AutoSize = true;
             this.radioButtonSmooth.Checked = true;
             this.radioButtonSmooth.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.radioButtonSmooth.Location = new System.Drawing.Point(23, 39);
+            this.radioButtonSmooth.Location = new System.Drawing.Point(23, 22);
             this.radioButtonSmooth.Name = "radioButtonSmooth";
             this.radioButtonSmooth.Size = new System.Drawing.Size(161, 19);
             this.radioButtonSmooth.TabIndex = 0;
@@ -297,6 +302,28 @@
             this.label5.Size = new System.Drawing.Size(184, 20);
             this.label5.TabIndex = 65;
             this.label5.Text = "Streaming URL Generation";
+            // 
+            // label8
+            // 
+            this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label8.Location = new System.Drawing.Point(6, 223);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(195, 16);
+            this.label8.TabIndex = 70;
+            this.label8.Text = "You can select up to 3 filters";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // checkBoxNoAudioOnly
+            // 
+            this.checkBoxNoAudioOnly.AutoSize = true;
+            this.checkBoxNoAudioOnly.Enabled = false;
+            this.checkBoxNoAudioOnly.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBoxNoAudioOnly.Location = new System.Drawing.Point(49, 116);
+            this.checkBoxNoAudioOnly.Name = "checkBoxNoAudioOnly";
+            this.checkBoxNoAudioOnly.Size = new System.Drawing.Size(135, 19);
+            this.checkBoxNoAudioOnly.TabIndex = 8;
+            this.checkBoxNoAudioOnly.Text = "No audio only mode";
+            this.checkBoxNoAudioOnly.UseVisualStyleBackColor = true;
             // 
             // ChooseStreamingEndpoint
             // 
@@ -350,5 +377,7 @@
         private System.Windows.Forms.RadioButton radioButtonHttp;
         public System.Windows.Forms.Label label;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox checkBoxNoAudioOnly;
     }
 }
