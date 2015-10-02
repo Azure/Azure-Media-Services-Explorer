@@ -44,19 +44,26 @@ namespace AMSExplorer
             }
         }
 
-        public string SelectedFilter
+        public string SelectedFilters
         {
             get
             {
-                var sel = listBoxFilter.SelectedItem as Item;
-                if (sel != null)
+                string filters = string.Empty;
+                bool first = true;
+                foreach (var f in listBoxFilter.SelectedItems)
                 {
-                    return (sel.Value as string);
+                    string v = (f as Item).Value as string;
+                    if (v != null)
+                    {
+                        filters += (first ? "" : ";") + v;
+                        first = false;
+                    }
                 }
-                else
+                if (string.IsNullOrEmpty(filters))
                 {
-                    return null;
+                    filters = null;
                 }
+                return filters;
             }
         }
 
@@ -90,6 +97,14 @@ namespace AMSExplorer
             }
         }
 
+        public bool ReturnHLSNoAudioOnlyMode
+        {
+            get
+            {
+                return checkBoxNoAudioOnly.Checked;
+            }
+        }
+
         public AMSOutputProtocols ReturnStreamingProtocol
         {
             get
@@ -110,7 +125,7 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string filter = null, PlayerType playertype =PlayerType.AzureMediaPlayer)
+        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -124,7 +139,7 @@ namespace AMSExplorer
         private void ChooseStreamingEndpoint_Load(object sender, EventArgs e)
         {
             label.Text = string.Format(label.Text, _asset.Name);
-            
+
             // SE List
             IStreamingEndpoint BestSE = AssetInfo.GetBestStreamingEndpoint(_context);
             foreach (var se in _context.StreamingEndpoints)
@@ -177,7 +192,7 @@ namespace AMSExplorer
 
         private void radioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxHLSAudioTrackName.Enabled = radioButtonHLSv3.Checked;
+            textBoxHLSAudioTrackName.Enabled = checkBoxNoAudioOnly.Enabled = radioButtonHLSv3.Checked;
         }
     }
 }
