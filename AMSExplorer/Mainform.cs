@@ -266,7 +266,7 @@ namespace AMSExplorer
             notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
-     
+
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
             // If upload in the queue, let's wait our turn
@@ -1905,7 +1905,7 @@ namespace AMSExplorer
                     bool Error = false;
                     try
                     {
-                        Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
+                        Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
                         TextBoxLogWriteLine("Deleting asset(s)");
                         this.Cursor = Cursors.WaitCursor;
                         Task.WaitAll(deleteTasks);
@@ -1924,10 +1924,58 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDeleteAllAssets()
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                bool Error = false;
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                while (true)
+                {
+                    // Enumerate through all assets (1000 at a time)
+                    var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listassets.Count;
+                    Task[] deleteTasks = listassets.Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", listassets.Count));
+
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                DoRefreshGridAssetV(false);
+                this.Cursor = Cursors.Default;
+            }
+           
+        }
+
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAssets(_context.Assets.ToList());
+            DoDeleteAllAssets();
         }
 
 
@@ -10783,6 +10831,27 @@ namespace AMSExplorer
         private void copyToClipboardToolStripMenuItem3_Click(object sender, EventArgs e)
         {
             DoCopyAssetReportToClipboard();
+        }
+
+        private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+        }
+
+        private void deleteVisibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+
+        }
+
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDeleteSelectedAssets();
+        }
+
+        private void deleteAllAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllAssets();
         }
     }
 }

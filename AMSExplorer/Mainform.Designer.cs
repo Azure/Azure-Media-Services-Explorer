@@ -60,6 +60,9 @@
             this.mergeAssetsToANewAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetRename = new System.Windows.Forms.ToolStripMenuItem();
             this.ContextMenuItemAssetDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteVisibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.encodeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.encodeAssetsWithAzureMediaEncodersystemPresetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -131,6 +134,7 @@
             this.mergeSelectedAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectedAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
@@ -534,7 +538,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 534);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -739,12 +743,39 @@
             // 
             // ContextMenuItemAssetDelete
             // 
+            this.ContextMenuItemAssetDelete.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteSelectedToolStripMenuItem,
+            this.deleteVisibleAssetsInGridToolStripMenuItem,
+            this.deleteAllAssetsToolStripMenuItem});
             this.ContextMenuItemAssetDelete.Image = ((System.Drawing.Image)(resources.GetObject("ContextMenuItemAssetDelete.Image")));
             this.ContextMenuItemAssetDelete.Name = "ContextMenuItemAssetDelete";
-            this.ContextMenuItemAssetDelete.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.ContextMenuItemAssetDelete.Size = new System.Drawing.Size(343, 22);
             this.ContextMenuItemAssetDelete.Text = "Delete...";
             this.ContextMenuItemAssetDelete.Click += new System.EventHandler(this.toolStripMenuItemDelete_Click);
+            // 
+            // deleteSelectedToolStripMenuItem
+            // 
+            this.deleteSelectedToolStripMenuItem.Name = "deleteSelectedToolStripMenuItem";
+            this.deleteSelectedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
+            this.deleteSelectedToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.deleteSelectedToolStripMenuItem.Text = "Delete selected assets...";
+            this.deleteSelectedToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedToolStripMenuItem_Click);
+            // 
+            // deleteVisibleAssetsInGridToolStripMenuItem
+            // 
+            this.deleteVisibleAssetsInGridToolStripMenuItem.Name = "deleteVisibleAssetsInGridToolStripMenuItem";
+            this.deleteVisibleAssetsInGridToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.deleteVisibleAssetsInGridToolStripMenuItem.Text = "Delete visible assets in grid...";
+            this.deleteVisibleAssetsInGridToolStripMenuItem.Click += new System.EventHandler(this.deleteVisibleAssetsInGridToolStripMenuItem_Click);
+            // 
+            // deleteAllAssetsToolStripMenuItem
+            // 
+            this.deleteAllAssetsToolStripMenuItem.Name = "deleteAllAssetsToolStripMenuItem";
+            this.deleteAllAssetsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
+            | System.Windows.Forms.Keys.Delete)));
+            this.deleteAllAssetsToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.deleteAllAssetsToolStripMenuItem.Text = "Delete all assets...";
+            this.deleteAllAssetsToolStripMenuItem.Click += new System.EventHandler(this.deleteAllAssetsToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
@@ -1366,11 +1397,12 @@
             // 
             this.deleteToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.selectedAssetToolStripMenuItem,
+            this.visibleAssetsInGridToolStripMenuItem,
             this.allAssetsToolStripMenuItem});
             this.deleteToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("deleteToolStripMenuItem.Image")));
             this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
             this.deleteToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
-            this.deleteToolStripMenuItem.Text = "Delete...";
+            this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // selectedAssetToolStripMenuItem
             // 
@@ -1379,6 +1411,13 @@
             this.selectedAssetToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.selectedAssetToolStripMenuItem.Text = "Selected asset(s)...";
             this.selectedAssetToolStripMenuItem.Click += new System.EventHandler(this.selectedAssetToolStripMenuItem_Click);
+            // 
+            // visibleAssetsInGridToolStripMenuItem
+            // 
+            this.visibleAssetsInGridToolStripMenuItem.Name = "visibleAssetsInGridToolStripMenuItem";
+            this.visibleAssetsInGridToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
+            this.visibleAssetsInGridToolStripMenuItem.Text = "Visible asset(s) in grid...";
+            this.visibleAssetsInGridToolStripMenuItem.Click += new System.EventHandler(this.visibleAssetsInGridToolStripMenuItem_Click);
             // 
             // allAssetsToolStripMenuItem
             // 
@@ -5229,6 +5268,10 @@
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem30;
         private System.Windows.Forms.ToolStripMenuItem copyToClipboardToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem visibleAssetsInGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteSelectedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteVisibleAssetsInGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllAssetsToolStripMenuItem;
     }
 }
 
