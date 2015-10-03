@@ -1126,7 +1126,14 @@ namespace AMSExplorer
 
                         sb.AppendLine("Task Configuration  : ");
                         sb.AppendLine("=====================");
-                        sb.AppendLine(task.Configuration);
+                        if (task.Options== TaskOptions.None)
+                        {
+                            sb.AppendLine(task.Configuration);
+                        }
+                        else
+                        {
+                            sb.AppendLine("(Not displayed here as task configuration is protected. This data is visible in Job Information / Tasks)");
+                        }
                         sb.AppendLine("");
 
                         sb.AppendLine("Input Assets        :");
