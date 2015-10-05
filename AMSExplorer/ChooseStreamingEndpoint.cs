@@ -33,6 +33,7 @@ namespace AMSExplorer
         IAsset _asset;
         string _filter;
         PlayerType _playertype;
+        private string _url;
 
         public IStreamingEndpoint SelectStreamingEndpoint
         {
@@ -48,12 +49,30 @@ namespace AMSExplorer
         {
             get
             {
+                //string filters = string.Empty;
+                //bool first = true;
+                //foreach (var f in listBoxFilter.SelectedItems)
+                //{
+                //    string v = (f as Item).Value as string;
+                //    if (v != null)
+                //    {
+                //        filters += (first ? "" : ";") + v;
+                //        first = false;
+                //    }
+                //}
+                //if (string.IsNullOrEmpty(filters))
+                //{
+                //    filters = null;
+                //}
+                //return filters;
+
                 string filters = string.Empty;
                 bool first = true;
-                foreach (var f in listBoxFilter.SelectedItems)
+                foreach (var f in listViewFilters.CheckedItems)
                 {
-                    string v = (f as Item).Value as string;
-                    if (v != null)
+                    var ff = f as ListViewItem;
+                    string v = (f as ListViewItem).SubItems[1].Text;
+                    if (v != "")
                     {
                         filters += (first ? "" : ";") + v;
                         first = false;
@@ -125,7 +144,7 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer)
+        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -133,6 +152,7 @@ namespace AMSExplorer
             _asset = asset;
             _filter = filter;
             _playertype = playertype;
+            _url = Url;
         }
 
 
@@ -153,46 +173,97 @@ namespace AMSExplorer
             }
 
             // Filters
-            listBoxFilter.Items.Add(new Item("(none)", null));
+
             // asset filters
             _asset.AssetFilters.ToList().ForEach(f =>
             {
-                listBoxFilter.Items.Add(new Item("asset filter : " + f.Name, f.Name));
+                var lvitem = new ListViewItem(new string[] { "asset filter : " + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
                 {
-                    listBoxFilter.SelectedIndex = listBoxFilter.Items.Count - 1;
+                    lvitem.Checked = true;
                 }
+                listViewFilters.Items.Add(lvitem);
             }
             );
 
             // global filters
             _context.Filters.ToList().ForEach(f =>
            {
-
-               listBoxFilter.Items.Add(new Item("global filter : " + f.Name, f.Name));
-               if (_filter != null && f.Name == _filter && listBoxFilter.SelectedIndex < 0) // only if not already selected (asset filter priuority > global filter)
+               var lvitem = new ListViewItem(new string[] { "global filter : " + f.Name, f.Name });
+               if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count== 0) // only if not already selected (asset filter priority > global filter)
                {
-                   listBoxFilter.SelectedIndex = listBoxFilter.Items.Count - 1;
+                   lvitem.Checked = true;
                }
+               listViewFilters.Items.Add(lvitem);
            }
            );
 
-            if (listBoxFilter.SelectedIndex < 0)
-            {
-                listBoxFilter.SelectedIndex = 0;
-            }
-
+          
 
             if (_playertype == PlayerType.DASHIFRefPlayer || _playertype == PlayerType.DASHLiveAzure)
             {
                 radioButtonDASH.Checked = true;
             }
 
+            UpdatePreviewUrl();
         }
 
         private void radioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxHLSAudioTrackName.Enabled = checkBoxNoAudioOnly.Enabled = radioButtonHLSv3.Checked;
+            textBoxHLSAudioTrackName.Enabled = checkBoxNoAudioOnly.Enabled = labelaudiotrackname.Enabled = radioButtonHLSv3.Checked;
+            UpdatePreviewUrl();
+        }
+
+        private void UpdatePreviewUrl()
+        {
+            try
+            {
+                textBoxPreviewURL.Text = AssetInfo.RW(new Uri(_url), SelectStreamingEndpoint, SelectedFilters, ReturnHttps, ReturnSelectCustomHostName, ReturnStreamingProtocol, ReturnHLSAudioTrackName, ReturnHLSNoAudioOnlyMode).ToString();
+            }
+            catch
+            {
+                textBoxPreviewURL.Text = "Error";
+            }
+        }
+
+        private void listBoxSE_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewUrl();
+        }
+
+        private void radioButtonHttp_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewUrl();
+        }
+
+        private void listBoxFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewUrl();
+        }
+
+        private void textBoxHLSAudioTrackName_TextChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewUrl();
+        }
+
+        private void checkBoxNoAudioOnly_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdatePreviewUrl();
+        }
+
+        private void radioButtonSmooth_CheckedChanged(object sender, EventArgs e)
+        {
+            var checkb = (RadioButton)sender;
+
+            if (checkb.Checked)  // to do it one time
+                UpdatePreviewUrl();
+        }
+
+      
+
+        private void listViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
+        {
+            UpdatePreviewUrl();
         }
     }
 }

@@ -8705,7 +8705,7 @@ namespace AMSExplorer
 
                     if (_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
-                        var form = new ChooseStreamingEndpoint(_context, asset);
+                        var form = new ChooseStreamingEndpoint(_context, asset, url);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
