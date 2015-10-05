@@ -1275,7 +1275,7 @@ namespace AMSExplorer
                                 destinationBlob = assetTargetContainer.GetBlockBlobReference(AFDup.Name);
 
                                 destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+                                destinationBlob.StartCopy(sourceCloudBlob);
 
                                 CloudBlockBlob blob;
                                 blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AFDup.Name);
@@ -1283,6 +1283,7 @@ namespace AMSExplorer
                                 while (blob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    blob.FetchAttributes();
                                 }
                                 destinationBlob.FetchAttributes();
                                 AFDup.ContentFileSize = sourceCloudBlob.Properties.Length;
