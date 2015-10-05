@@ -383,7 +383,7 @@ namespace AMSExplorer
             {
                 DGAsset.Rows.Add("IsStreamable", myAsset.IsStreamable);
                 DGAsset.Rows.Add("SupportsDynamicEncryption", myAsset.SupportsDynamicEncryption);
-                DGAsset.Rows.Add("Uri", myAsset.Uri);
+                DGAsset.Rows.Add("Storage Url", myAsset.Uri);
                 DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
