@@ -266,7 +266,7 @@ namespace AMSExplorer
             notifyIcon1.ShowBalloonTip(3000, title, text, Error ? ToolTipIcon.Error : ToolTipIcon.Info);
         }
 
-     
+
         private void ProcessImportFromHttp(Uri ObjectUrl, string assetname, string fileName, int index)
         {
             // If upload in the queue, let's wait our turn
@@ -322,6 +322,7 @@ namespace AMSExplorer
 
                         if (tempBlockBlob.Name == fileName)
                         {
+                            tempBlockBlob.FetchAttributes();
                             var copyStatus = tempBlockBlob.CopyState;
                             if (copyStatus != null)
                             {
@@ -1905,7 +1906,7 @@ namespace AMSExplorer
                     bool Error = false;
                     try
                     {
-                        Task[] deleteTasks = SelectedAssets.ToList().Select(a => a.DeleteAsync()).ToArray();
+                        Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
                         TextBoxLogWriteLine("Deleting asset(s)");
                         this.Cursor = Cursors.WaitCursor;
                         Task.WaitAll(deleteTasks);
@@ -1924,10 +1925,57 @@ namespace AMSExplorer
             }
         }
 
+        private void DoDeleteAllAssets()
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                bool Error = false;
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                while (true)
+                {
+                    // Enumerate through all assets (1000 at a time)
+                    var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listassets.Count;
+                    Task[] deleteTasks = listassets.Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", listassets.Count));
+
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                DoRefreshGridAssetV(false);
+                this.Cursor = Cursors.Default;
+            }
+        }
+
 
         private void allAssetsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteAssets(_context.Assets.ToList());
+            DoDeleteAllAssets();
         }
 
 
@@ -2036,7 +2084,6 @@ namespace AMSExplorer
                 string assetTargetContainerName = uploadUri.Segments[1];
                 CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
 
-
                 CloudBlockBlob sourceCloudBlob, destinationBlob;
                 long Length = 0;
                 long BytesCopied = 0;
@@ -2067,14 +2114,13 @@ namespace AMSExplorer
 
                     if (sourceCloudBlob.Properties.Length > 0)
                     {
-
                         try
                         {
                             IAssetFile assetFile = asset.AssetFiles.Create(fileName);
                             destinationBlob = assetTargetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+                            destinationBlob.StartCopy(sourceCloudBlob);
 
                             CloudBlockBlob blob;
                             blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(fileName);
@@ -2082,10 +2128,9 @@ namespace AMSExplorer
                             while (blob.CopyState.Status == CopyStatus.Pending)
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(fileName);
+                                blob.FetchAttributes();
                                 percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                 DoGridTransferUpdateProgress(percentComplete, index);
-
                             }
 
                             if (blob.CopyState.Status == CopyStatus.Failed)
@@ -2115,11 +2160,9 @@ namespace AMSExplorer
                             Error = true;
                         }
 
-
                         BytesCopied += sourceCloudBlob.Properties.Length;
                         percentComplete = (long)100 * (long)BytesCopied / (long)Length;
                         if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
-
                     }
                 }
 
@@ -2189,7 +2232,6 @@ namespace AMSExplorer
                     Length += sourceCloudBlob.Properties.Length;
                 }
 
-
                 // do the copy
                 int nbblob = 0;
                 bool Error = false;
@@ -2209,29 +2251,24 @@ namespace AMSExplorer
                             destinationBlob = assetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken));
+                            destinationBlob.StartCopy(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken));
 
-
-                            CloudBlockBlob blob;
-                            blob = (CloudBlockBlob)assetContainer.GetBlobReferenceFromServer(fileName);
-
-                            while (blob.CopyState.Status == CopyStatus.Pending)
+                            while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                blob = (CloudBlockBlob)assetContainer.GetBlobReferenceFromServer(fileName);
-                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
+                                destinationBlob.FetchAttributes();
+                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
                                 DoGridTransferUpdateProgress(percentComplete, index);
                             }
 
-                            if (blob.CopyState.Status == CopyStatus.Failed)
+                            if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                             {
-                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                DoGridTransferDeclareError(index, destinationBlob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
 
                             destinationBlob.FetchAttributes();
-
                             assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
                             assetFile.Update();
                         }
@@ -2333,7 +2370,7 @@ namespace AMSExplorer
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+                                destinationBlob.StartCopy(sourceCloudBlob);
 
                                 CloudBlockBlob blob;
                                 blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
@@ -2341,7 +2378,7 @@ namespace AMSExplorer
                                 while (blob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
+                                    blob.FetchAttributes();
                                     percentComplete = (long)100 * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
                                     DoGridTransferUpdateProgress((int)percentComplete, index);
 
@@ -2442,7 +2479,6 @@ namespace AMSExplorer
                         Length += file.ContentFileSize;
                     }
 
-
                     // do the copy
                     int nbblob = 0;
                     foreach (IAssetFile file in SelectedFiles)
@@ -2458,23 +2494,19 @@ namespace AMSExplorer
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken));
+                                destinationBlob.StartCopy(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken));
 
-                                CloudBlockBlob blob;
-                                blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
-
-                                while (blob.CopyState.Status == CopyStatus.Pending)
+                                while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
-                                    percentComplete = 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
+                                    destinationBlob.FetchAttributes();
+                                    percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
                                     DoGridTransferUpdateProgress(percentComplete, index);
-
                                 }
 
-                                if (blob.CopyState.Status == CopyStatus.Failed)
+                                if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(index, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2617,7 +2649,8 @@ namespace AMSExplorer
                                         destinationCloudBlockBlob = DestinationCloudBlobContainer.GetBlockBlobReference(destinationAssetFile.Name);
 
                                         destinationCloudBlockBlob.DeleteIfExists();
-                                        destinationCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
+                                        //destinationCloudBlockBlob.StartCopyFromBlob(file.GetSasUri());
+                                        destinationCloudBlockBlob.StartCopy(file.GetSasUri());
 
                                         CloudBlockBlob blob;
                                         blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
@@ -2625,7 +2658,7 @@ namespace AMSExplorer
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
-                                            blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
+                                            blob.FetchAttributes();
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                             DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, index);
                                         }
@@ -2684,7 +2717,7 @@ namespace AMSExplorer
                             var mediablobs = SourceCloudBlobContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
-                                List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
+                                List<Task> mylistresults = new List<Task>();
 
                                 foreach (var blob in mediablobs)
                                 {
@@ -2702,7 +2735,7 @@ namespace AMSExplorer
                                         {
                                             CloudBlockBlob targetBlob = DestinationCloudBlobContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
-                                            mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent), null, null));
+                                            mylistresults.Add(targetBlob.StartCopyAsync(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent)));
                                         }
                                     }
                                 }
@@ -2903,8 +2936,7 @@ namespace AMSExplorer
 
         private void allJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeleteJobs(_context.Jobs.ToList());
-
+            DoDeleteAllJobs();
         }
 
         private void selectedJobToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2946,6 +2978,54 @@ namespace AMSExplorer
             }
         }
 
+
+        private void DoDeleteAllJobs()
+        {
+            if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+            {
+                bool Error = false;
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+                this.Cursor = Cursors.WaitCursor;
+
+                while (true)
+                {
+                    // Enumerate through all jobs(1000 at a time)
+                    var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listjobs.Count;
+                    Task[] deleteTasks = listjobs.Select(a => a.DeleteAsync()).ToArray();
+                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", listjobs.Count));
+
+                    try
+                    {
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                DoRefreshGridJobV(false);
+                this.Cursor = Cursors.Default;
+            }
+
+        }
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -5300,7 +5380,6 @@ namespace AMSExplorer
 
                 Thread.Sleep(111);
             }
-            // }
         }
 
 
@@ -5316,7 +5395,7 @@ namespace AMSExplorer
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(_HelpFiles + "/AzureMedia.chm");
+            Process.Start(_HelpFiles + "MediaServices.chm");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7719,43 +7798,43 @@ namespace AMSExplorer
                                     List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                     List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5list = new List<AddDynamicEncryptionFrame5_PlayReadyLicense>();
                                     bool usercancelledform4or5 = false;
-                                    int step = 3;
-                                    string tokensymmetrickey = null;
+                                int step = 3;
+                                string tokensymmetrickey = null;
                                     for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptions; i++)
-                                    {
+                                {
                                         AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_CENC.Left, Top = form2_CENC.Top };
                                         if (form4.ShowDialog() == DialogResult.OK)
-                                        {
-                                            step++;
+                                    {
+                                        step++;
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
                                             AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                            if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
-                                            {
-                                                step++;
+                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                        {
+                                            step++;
                                                 if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                                {
+                                            {
                                                     form5list.Add(form5_PlayReadyLicense);
-                                                }
-                                                else
-                                                {
+                                            }
+                                            else
+                                            {
                                                     usercancelledform4or5 = true;
-                                                }
                                             }
                                         }
-                                        else
-                                        {
-                                            usercancelledform4or5 = true;
-                                        }
                                     }
-                                    if (!usercancelledform4or5)
+                                    else
                                     {
-                                        DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_CENC,form3_CENC, form4list, form5list, true);
-                                        oktoproceed = true;
-                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                            usercancelledform4or5 = true;
                                     }
                                 }
+                                    if (!usercancelledform4or5)
+                                {
+                                        DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_CENC,form3_CENC, form4list, form5list, true);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                }
+                            }
                               
                             }
                             break;
@@ -7771,28 +7850,28 @@ namespace AMSExplorer
                                 {
                                     List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                     bool usercancelledform4 = false;
-                                    string tokensymmetrickey = null;
+                                string tokensymmetrickey = null;
                                     for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
-                                    {
+                                {
                                         AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
                                         if (form4.ShowDialog() == DialogResult.OK)
-                                        {
+                                    {
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
-                                        }
-                                        else
-                                        {
-                                            usercancelledform4 = true;
-                                        }
                                     }
+                                    else
+                                    {
+                                            usercancelledform4 = true;
+                                    }
+                                }
 
                                     if (!usercancelledform4)
-                                    {
+                                {
                                         DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
-                                        oktoproceed = true;
-                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
-                                    }
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                }
                                 }
                                
                             }
@@ -10796,6 +10875,67 @@ namespace AMSExplorer
         {
             DoCopyAssetReportToClipboard();
         }
+
+        private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+    }
+
+        private void deleteVisibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
+
+}
+
+        private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuDeleteSelectedAssets();
+        }
+
+        private void deleteAllAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllAssets();
+        }
+
+        private void visibleJobsInGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+        }
+
+        private void visibleJobsInGridToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(dataGridViewJobsV.jobs.ToList());
+        }
+
+        private void allJobsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            DoDeleteAllJobs();
+        }
+
+        private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeleteJobs(ReturnSelectedJobs());
+        }
+
+        private void toolStripMenuItem31_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_ClientSDK.chm");
+        }
+
+        private void toolStripMenuItem35_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_ClientSDK_Ext_API.chm");
+        }
+
+        private void toolStripMenuItem32_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_Operations_RESTAPI.chm");
+        }
+
+        private void toolStripMenuItem34_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_RESTAPI.chm");
+        }
     }
 }
 
@@ -12004,18 +12144,11 @@ namespace AMSExplorer
             }
 
         }
-        public IEnumerable<IJob> DisplayedJobs
-        {
-            get
-            {
-                return jobs;
-            }
-
-        }
 
         static BindingList<JobEntry> _MyObservJob;
         static BindingList<JobEntry> _MyObservAssethisPage;
-        static IEnumerable<IJob> jobs;
+        public IEnumerable<IJob> jobs;
+        //static IEnumerable<IJob> jobs;
         static List<string> _MyListJobsMonitored = new List<string>(); // List of jobds monitored. It contains the jobs ids. Used when a new job is discovered (created by another program) to activate the display of job progress
         static private int _jobsperpage = 50; //nb of items per page
         static private int _pagecount = 1;

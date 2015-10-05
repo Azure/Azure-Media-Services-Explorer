@@ -75,7 +75,7 @@ namespace AMSExplorer
             xlWorkSheet.Cells[row, index++] = AssetInfo.GetSize(asset);
             int backindex = index;
             var urls = AssetInfo.GetURIs(asset);
-            if (urls!=null)
+            if (urls != null)
             {
                 foreach (var url in urls)
                 {
@@ -97,6 +97,7 @@ namespace AMSExplorer
             {
                 xlWorkSheet.Cells[row, index++] = asset.AlternateId;
                 xlWorkSheet.Cells[row, index++] = asset.StorageAccount.Name;
+                xlWorkSheet.Cells[row, index++] = asset.Uri == null ? string.Empty : asset.Uri.ToString();
                 var streamingloc = asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
                 xlWorkSheet.Cells[row, index++] = streamingloc.Count();
                 if (localtime)
@@ -209,6 +210,7 @@ namespace AMSExplorer
             {
                 xlWorkSheet.Cells[row, index++] = "Alternate Id";
                 xlWorkSheet.Cells[row, index++] = "Storage Account";
+                xlWorkSheet.Cells[row, index++] = "Storage Url";
                 xlWorkSheet.Cells[row, index++] = "Streaming Locators Count";
                 xlWorkSheet.Cells[row, index++] = "Streaming Min Expiration time";
                 xlWorkSheet.Cells[row, index++] = "Streaming Max Expiration time";

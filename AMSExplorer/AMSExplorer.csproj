@@ -588,6 +588,21 @@
     <None Include="Chocolatey\amsexplorer.nuspec" />
     <None Include="Chocolatey\tools\chocolateyinstall.ps1" />
     <None Include="Chocolatey\tools\chocolateyuninstall.ps1" />
+    <Content Include="HelpFiles\MediaServices.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\MediaServices_ClientSDK.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\MediaServices_ClientSDK_Ext_API.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\MediaServices_Operations_RESTAPI.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HelpFiles\MediaServices_RESTAPI.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="IconsPNG\filter.png" />
     <None Include="IconsPNG\filters.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
@@ -802,9 +817,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Configurations\Thumbnails.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="HelpFiles\AzureMedia.chm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="IconsPNG\about.png" />

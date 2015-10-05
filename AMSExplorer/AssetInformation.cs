@@ -383,7 +383,7 @@ namespace AMSExplorer
             {
                 DGAsset.Rows.Add("IsStreamable", myAsset.IsStreamable);
                 DGAsset.Rows.Add("SupportsDynamicEncryption", myAsset.SupportsDynamicEncryption);
-                DGAsset.Rows.Add("Uri", myAsset.Uri);
+                DGAsset.Rows.Add("Storage Url", myAsset.Uri);
                 DGAsset.Rows.Add("Storage Account Name", myAsset.StorageAccount.Name);
                 DGAsset.Rows.Add("Storage Account Byte used", AssetInfo.FormatByteSize(myAsset.StorageAccount.BytesUsed));
                 DGAsset.Rows.Add("Storage Account Is Default", myAsset.StorageAccount.IsDefault);
@@ -1275,7 +1275,7 @@ namespace AMSExplorer
                                 destinationBlob = assetTargetContainer.GetBlockBlobReference(AFDup.Name);
 
                                 destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(sourceCloudBlob);
+                                destinationBlob.StartCopy(sourceCloudBlob);
 
                                 CloudBlockBlob blob;
                                 blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(AFDup.Name);
@@ -1283,6 +1283,7 @@ namespace AMSExplorer
                                 while (blob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
+                                    blob.FetchAttributes();
                                 }
                                 destinationBlob.FetchAttributes();
                                 AFDup.ContentFileSize = sourceCloudBlob.Properties.Length;
