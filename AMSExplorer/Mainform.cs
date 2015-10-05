@@ -5380,7 +5380,6 @@ namespace AMSExplorer
 
                 Thread.Sleep(111);
             }
-            // }
         }
 
 
@@ -5396,7 +5395,7 @@ namespace AMSExplorer
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(_HelpFiles + "/AzureMedia.chm");
+            Process.Start(_HelpFiles + "MediaServices.chm");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10904,6 +10903,26 @@ namespace AMSExplorer
         private void selectedJobsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteJobs(ReturnSelectedJobs());
+        }
+
+        private void toolStripMenuItem31_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_ClientSDK.chm");
+        }
+
+        private void toolStripMenuItem35_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_ClientSDK_Ext_API.chm");
+        }
+
+        private void toolStripMenuItem32_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_Operations_RESTAPI.chm");
+        }
+
+        private void toolStripMenuItem34_Click(object sender, EventArgs e)
+        {
+            Process.Start(_HelpFiles + "MediaServices_RESTAPI.chm");
         }
     }
 }

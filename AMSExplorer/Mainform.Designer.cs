@@ -273,6 +273,11 @@
             this.hTML5CaptionMakerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaHelpFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem31 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem35 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem32 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem34 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator38 = new System.Windows.Forms.ToolStripSeparator();
             this.azureMediaServicesMSDNToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.azureMediaServicesForumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator13 = new System.Windows.Forms.ToolStripSeparator();
@@ -2626,6 +2631,11 @@
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.azureMediaHelpFileToolStripMenuItem,
+            this.toolStripMenuItem31,
+            this.toolStripMenuItem35,
+            this.toolStripMenuItem32,
+            this.toolStripMenuItem34,
+            this.toolStripSeparator38,
             this.azureMediaServicesMSDNToolStripMenuItem,
             this.azureMediaServicesForumToolStripMenuItem,
             this.toolStripSeparator13,
@@ -2641,16 +2651,57 @@
             this.azureMediaHelpFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("azureMediaHelpFileToolStripMenuItem.Image")));
             this.azureMediaHelpFileToolStripMenuItem.Name = "azureMediaHelpFileToolStripMenuItem";
             this.azureMediaHelpFileToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.azureMediaHelpFileToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
-            this.azureMediaHelpFileToolStripMenuItem.Text = "Azure Media Services help file";
+            this.azureMediaHelpFileToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
+            this.azureMediaHelpFileToolStripMenuItem.Text = "Media Services References help file";
             this.azureMediaHelpFileToolStripMenuItem.Click += new System.EventHandler(this.azureMediaHelpFileToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem31
+            // 
+            this.toolStripMenuItem31.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem31.Image")));
+            this.toolStripMenuItem31.Name = "toolStripMenuItem31";
+            this.toolStripMenuItem31.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.toolStripMenuItem31.Size = new System.Drawing.Size(360, 22);
+            this.toolStripMenuItem31.Text = "Media Services .NET Client SDK help file";
+            this.toolStripMenuItem31.Click += new System.EventHandler(this.toolStripMenuItem31_Click);
+            // 
+            // toolStripMenuItem35
+            // 
+            this.toolStripMenuItem35.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem35.Image")));
+            this.toolStripMenuItem35.Name = "toolStripMenuItem35";
+            this.toolStripMenuItem35.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.toolStripMenuItem35.Size = new System.Drawing.Size(360, 22);
+            this.toolStripMenuItem35.Text = "Media Services .NET Client Extensions SDK help file";
+            this.toolStripMenuItem35.Click += new System.EventHandler(this.toolStripMenuItem35_Click);
+            // 
+            // toolStripMenuItem32
+            // 
+            this.toolStripMenuItem32.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem32.Image")));
+            this.toolStripMenuItem32.Name = "toolStripMenuItem32";
+            this.toolStripMenuItem32.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.toolStripMenuItem32.Size = new System.Drawing.Size(360, 22);
+            this.toolStripMenuItem32.Text = "Operations on Media Services help file";
+            this.toolStripMenuItem32.Click += new System.EventHandler(this.toolStripMenuItem32_Click);
+            // 
+            // toolStripMenuItem34
+            // 
+            this.toolStripMenuItem34.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem34.Image")));
+            this.toolStripMenuItem34.Name = "toolStripMenuItem34";
+            this.toolStripMenuItem34.ShortcutKeys = System.Windows.Forms.Keys.F1;
+            this.toolStripMenuItem34.Size = new System.Drawing.Size(360, 22);
+            this.toolStripMenuItem34.Text = "Media Services REST API References help file";
+            this.toolStripMenuItem34.Click += new System.EventHandler(this.toolStripMenuItem34_Click);
+            // 
+            // toolStripSeparator38
+            // 
+            this.toolStripSeparator38.Name = "toolStripSeparator38";
+            this.toolStripSeparator38.Size = new System.Drawing.Size(357, 6);
             // 
             // azureMediaServicesMSDNToolStripMenuItem
             // 
             this.azureMediaServicesMSDNToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("azureMediaServicesMSDNToolStripMenuItem.Image")));
             this.azureMediaServicesMSDNToolStripMenuItem.Name = "azureMediaServicesMSDNToolStripMenuItem";
             this.azureMediaServicesMSDNToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F1)));
-            this.azureMediaServicesMSDNToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.azureMediaServicesMSDNToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.azureMediaServicesMSDNToolStripMenuItem.Text = "Azure Media Services Documentation";
             this.azureMediaServicesMSDNToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesDocumentationToolStripMenuItem_Click_1);
             // 
@@ -2660,20 +2711,20 @@
             this.azureMediaServicesForumToolStripMenuItem.Name = "azureMediaServicesForumToolStripMenuItem";
             this.azureMediaServicesForumToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.F1)));
-            this.azureMediaServicesForumToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.azureMediaServicesForumToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.azureMediaServicesForumToolStripMenuItem.Text = "Azure Media Services Forum";
             this.azureMediaServicesForumToolStripMenuItem.Click += new System.EventHandler(this.azureMediaServicesForumToolStripMenuItem_Click_1);
             // 
             // toolStripSeparator13
             // 
             this.toolStripSeparator13.Name = "toolStripSeparator13";
-            this.toolStripSeparator13.Size = new System.Drawing.Size(310, 6);
+            this.toolStripSeparator13.Size = new System.Drawing.Size(357, 6);
             // 
             // explorerReleaseNotesToolStripMenuItem
             // 
             this.explorerReleaseNotesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.external_link;
             this.explorerReleaseNotesToolStripMenuItem.Name = "explorerReleaseNotesToolStripMenuItem";
-            this.explorerReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.explorerReleaseNotesToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.explorerReleaseNotesToolStripMenuItem.Text = "Explorer Release Notes";
             this.explorerReleaseNotesToolStripMenuItem.Click += new System.EventHandler(this.explorerReleaseNotesToolStripMenuItem_Click);
             // 
@@ -2681,7 +2732,7 @@
             // 
             this.aboutToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("aboutToolStripMenuItem.Image")));
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(313, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(360, 22);
             this.aboutToolStripMenuItem.Text = "About...";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -2702,7 +2753,7 @@
             this.saveAsTemplateToolStripMenuItem,
             this.ContextMenuItemJobDelete});
             this.contextMenuStripJobs.Name = "contextMenuStripJobs";
-            this.contextMenuStripJobs.Size = new System.Drawing.Size(227, 280);
+            this.contextMenuStripJobs.Size = new System.Drawing.Size(227, 258);
             this.contextMenuStripJobs.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripJobs_Opening);
             // 
             // refreshToolStripMenuItem2
@@ -5315,6 +5366,11 @@
         private System.Windows.Forms.ToolStripMenuItem selectedJobsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem visibleJobsInGridToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem allJobsToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem31;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem35;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
     }
 }
 
