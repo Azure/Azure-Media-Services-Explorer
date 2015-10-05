@@ -322,6 +322,7 @@ namespace AMSExplorer
 
                         if (tempBlockBlob.Name == fileName)
                         {
+                            tempBlockBlob.FetchAttributes();
                             var copyStatus = tempBlockBlob.CopyState;
                             if (copyStatus != null)
                             {
@@ -2083,7 +2084,6 @@ namespace AMSExplorer
                 string assetTargetContainerName = uploadUri.Segments[1];
                 CloudBlobContainer assetTargetContainer = cloudBlobClient.GetContainerReference(assetTargetContainerName);
 
-
                 CloudBlockBlob sourceCloudBlob, destinationBlob;
                 long Length = 0;
                 long BytesCopied = 0;
@@ -2120,7 +2120,6 @@ namespace AMSExplorer
                             destinationBlob = assetTargetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            //destinationBlob.StartCopyFromBlob(sourceCloudBlob);
                             destinationBlob.StartCopy(sourceCloudBlob);
 
                             CloudBlockBlob blob;
@@ -2130,7 +2129,6 @@ namespace AMSExplorer
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
                                 blob.FetchAttributes();
-                                //blob = (CloudBlockBlob)assetTargetContainer.GetBlobReferenceFromServer(fileName);
                                 percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                 DoGridTransferUpdateProgress(percentComplete, index);
                             }
@@ -2162,11 +2160,9 @@ namespace AMSExplorer
                             Error = true;
                         }
 
-
                         BytesCopied += sourceCloudBlob.Properties.Length;
                         percentComplete = (long)100 * (long)BytesCopied / (long)Length;
                         if (!Error) DoGridTransferUpdateProgress(percentComplete, index);
-
                     }
                 }
 
@@ -2236,7 +2232,6 @@ namespace AMSExplorer
                     Length += sourceCloudBlob.Properties.Length;
                 }
 
-
                 // do the copy
                 int nbblob = 0;
                 bool Error = false;
@@ -2256,29 +2251,24 @@ namespace AMSExplorer
                             destinationBlob = assetContainer.GetBlockBlobReference(fileName);
 
                             destinationBlob.DeleteIfExists();
-                            destinationBlob.StartCopyFromBlob(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken));
+                            destinationBlob.StartCopy(new Uri(sourceBlob.Uri.AbsoluteUri + blobToken));
 
-
-                            CloudBlockBlob blob;
-                            blob = (CloudBlockBlob)assetContainer.GetBlobReferenceFromServer(fileName);
-
-                            while (blob.CopyState.Status == CopyStatus.Pending)
+                            while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                             {
                                 Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                blob = (CloudBlockBlob)assetContainer.GetBlobReferenceFromServer(fileName);
-                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / (long)Length;
+                                destinationBlob.FetchAttributes();
+                                percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SelectedBlobs.Count)) * 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / (long)Length;
                                 DoGridTransferUpdateProgress(percentComplete, index);
                             }
 
-                            if (blob.CopyState.Status == CopyStatus.Failed)
+                            if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                             {
-                                DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                DoGridTransferDeclareError(index, destinationBlob.CopyState.StatusDescription);
                                 Error = true;
                                 break;
                             }
 
                             destinationBlob.FetchAttributes();
-
                             assetFile.ContentFileSize = sourceCloudBlob.Properties.Length;
                             assetFile.Update();
                         }
@@ -2489,7 +2479,6 @@ namespace AMSExplorer
                         Length += file.ContentFileSize;
                     }
 
-
                     // do the copy
                     int nbblob = 0;
                     foreach (IAssetFile file in SelectedFiles)
@@ -2505,23 +2494,19 @@ namespace AMSExplorer
                             {
                                 destinationBlob = TargetContainer.GetBlockBlobReference(file.Name);
                                 destinationBlob.DeleteIfExists();
-                                destinationBlob.StartCopyFromBlob(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken));
+                                destinationBlob.StartCopy(new Uri(sourceCloudBlob.Uri.AbsoluteUri + blobToken));
 
-                                CloudBlockBlob blob;
-                                blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
-
-                                while (blob.CopyState.Status == CopyStatus.Pending)
+                                while (destinationBlob.CopyState.Status == CopyStatus.Pending)
                                 {
                                     Task.Delay(TimeSpan.FromSeconds(1d)).Wait();
-                                    blob = (CloudBlockBlob)TargetContainer.GetBlobReferenceFromServer(file.Name);
-                                    percentComplete = 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
+                                    destinationBlob.FetchAttributes();
+                                    percentComplete = 100d * (long)(BytesCopied + destinationBlob.CopyState.BytesCopied) / Length;
                                     DoGridTransferUpdateProgress(percentComplete, index);
-
                                 }
 
-                                if (blob.CopyState.Status == CopyStatus.Failed)
+                                if (destinationBlob.CopyState.Status == CopyStatus.Failed)
                                 {
-                                    DoGridTransferDeclareError(index, blob.CopyState.StatusDescription);
+                                    DoGridTransferDeclareError(index, destinationBlob.CopyState.StatusDescription);
                                     Error = true;
                                     break;
                                 }
@@ -2673,7 +2658,6 @@ namespace AMSExplorer
                                         while (blob.CopyState.Status == CopyStatus.Pending)
                                         {
                                             Task.Delay(TimeSpan.FromSeconds(0.5d)).Wait();
-                                            //blob = (CloudBlockBlob)DestinationCloudBlobContainer.GetBlobReferenceFromServer(file.Name);
                                             blob.FetchAttributes();
                                             percentComplete = (Convert.ToDouble(nbblob) / Convert.ToDouble(SourceAsset.AssetFiles.Count())) * 100d * (long)(BytesCopied + blob.CopyState.BytesCopied) / Length;
                                             DoGridTransferUpdateProgressText(string.Format("File '{0}'", file.Name), (int)percentComplete, index);
@@ -2733,7 +2717,6 @@ namespace AMSExplorer
                             var mediablobs = SourceCloudBlobContainer.ListBlobs();
                             if (mediablobs.ToList().Any(b => b.GetType() == typeof(CloudBlobDirectory))) // there are fragblobs
                             {
-                                //List<ICancellableAsyncResult> mylistresults = new List<ICancellableAsyncResult>();
                                 List<Task> mylistresults = new List<Task>();
 
                                 foreach (var blob in mediablobs)
@@ -2753,7 +2736,6 @@ namespace AMSExplorer
                                             CloudBlockBlob targetBlob = DestinationCloudBlobContainer.GetBlockBlobReference(blockblob.Name);
                                             // copy using src blob as SAS
                                             mylistresults.Add(targetBlob.StartCopyAsync(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent)));
-                                            //mylistresults.Add(targetBlob.BeginStartCopyFromBlob(new Uri(blockblob.Uri.AbsoluteUri + SourceLocator.ContentAccessComponent), null, null));
                                         }
                                     }
                                 }
