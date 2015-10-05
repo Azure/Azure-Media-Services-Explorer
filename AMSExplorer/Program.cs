@@ -2693,6 +2693,7 @@ namespace AMSExplorer
     public enum TaskJobCreationMode
     {
         OneJobPerInputAsset = 0,
+        OneJobPerVisibleAsset,
         SingleJobForAllInputAssets
     }
 

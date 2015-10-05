@@ -478,6 +478,8 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.toolStripSeparator39 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator40 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -537,6 +539,7 @@
             this.ContextMenuItemThumbnails,
             this.ContextMenuItemIndexer,
             this.processAssetsWithHyperlapseToolStripMenuItem1,
+            this.toolStripSeparator40,
             this.submitFromTemplateToolStripMenuItem,
             this.ContextMenuItemGenericProcessor,
             this.packageToolStripMenuItem,
@@ -547,7 +550,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 512);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 540);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1523,6 +1526,7 @@
             this.generateThumbnailsForTheAssetsToolStripMenuItem,
             this.indexAssetsToolStripMenuItem,
             this.processAssetsWithHyperlapseToolStripMenuItem,
+            this.toolStripSeparator39,
             this.processAssetsWithAJobTemplateToolStripMenuItem,
             this.processAssetsadvancedModeWithToolStripMenuItem,
             this.toolStripSeparatorBottomIndex,
@@ -4858,6 +4862,16 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
+            // toolStripSeparator39
+            // 
+            this.toolStripSeparator39.Name = "toolStripSeparator39";
+            this.toolStripSeparator39.Size = new System.Drawing.Size(541, 6);
+            // 
+            // toolStripSeparator40
+            // 
+            this.toolStripSeparator40.Name = "toolStripSeparator40";
+            this.toolStripSeparator40.Size = new System.Drawing.Size(340, 6);
+            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5371,6 +5385,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem32;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem34;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
     }
 }
 

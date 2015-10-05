@@ -34,6 +34,7 @@ namespace AMSExplorer
     {
         public XDocument doc;
         public List<IAsset> SelectedAssets;
+        public IEnumerable<IAsset> VisibleAssets;
 
         private bool init = true;
 
@@ -166,7 +167,6 @@ namespace AMSExplorer
                 List<GenericTask> listtasks = new List<GenericTask>();
                 for (int index_task = 1; index_task <= numericUpDownTasks.Value; index_task++)
                 {
-
                     ComboBox mycomboboxassetinput = ReturnComboBoxAssetInput(index_task);
 
                     GenericTask mytask = new GenericTask()
@@ -178,7 +178,6 @@ namespace AMSExplorer
                         TaskOptions = ReturnTaskConfiguration(index_task).GetSettings()
                     };
                     listtasks.Add(mytask);
-
                 }
                 return listtasks;
             }
@@ -209,15 +208,25 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonOneJobPerInputAsset.Checked) return TaskJobCreationMode.OneJobPerInputAsset;
-                else return TaskJobCreationMode.SingleJobForAllInputAssets;
+                if (radioButtonOneJobPerSelectedAsset.Checked)
+                {
+                    return TaskJobCreationMode.OneJobPerInputAsset;
+                }
+                else if (radioButtonOneJobPerVisibleAsset.Checked)
+                {
+                    return TaskJobCreationMode.OneJobPerVisibleAsset;
+                }
+                else
+                {
+                    return TaskJobCreationMode.SingleJobForAllInputAssets;
+                }
             }
             set
             {
                 switch (value)
                 {
                     case TaskJobCreationMode.OneJobPerInputAsset:
-                        radioButtonOneJobPerInputAsset.Checked = true;
+                        radioButtonOneJobPerSelectedAsset.Checked = true;
                         break;
 
                     case TaskJobCreationMode.SingleJobForAllInputAssets:
@@ -241,8 +250,9 @@ namespace AMSExplorer
             buttonTaskOptions5.Initialize(_context, true);
             buttonTaskOptions1.Click += ButtonTaskOptions_Click;
             buttonTaskOptions2.Click += ButtonTaskOptions_Click;
-            buttonTaskOptions2.Click += ButtonTaskOptions_Click;
-            buttonTaskOptions2.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions3.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions4.Click += ButtonTaskOptions_Click;
+            buttonTaskOptions5.Click += ButtonTaskOptions_Click;
 
             if (_myJob != null) // we are in resubmit mode
             {
@@ -288,7 +298,6 @@ namespace AMSExplorer
         {
             UpdateJobSummary();
             UpdateGeneralWarning();
-
         }
 
         private void listViewProcessors_SelectedIndexChanged(object sender, EventArgs e)
@@ -314,9 +323,6 @@ namespace AMSExplorer
                         {
                             MessageBox.Show("You must at least have two input assets : the workflow file and the video file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         }
-
-                        //mytextboxconfig.Text = string.Empty;
-                        //mytextboxconfig.Enabled = false;
                     }
                     else
                     {
@@ -336,7 +342,16 @@ namespace AMSExplorer
 
         private void UpdateJobSummary()
         {
-            int nbjobs = (radioButtonOneJobPerInputAsset.Checked ? SelectedAssets.Count : 1);
+            int nbjobs = 1;
+
+            if (radioButtonOneJobPerSelectedAsset.Checked)
+            {
+                nbjobs = SelectedAssets.Count;
+            }
+            else if (radioButtonOneJobPerVisibleAsset.Checked)
+            {
+                nbjobs = VisibleAssets.Count();
+            }
 
             labelsummaryjob.Text = string.Format(labelsummaryjob.Tag as string,
                 nbjobs,
@@ -345,14 +360,20 @@ namespace AMSExplorer
                  numberoftasks > 1 ? "s" : ""
                  );
 
-            pictureBoxJob.Image = radioButtonSingleJobForAllInputAssets.Checked ? bitmap_singletasksinglejob : radioButtonOneJobPerInputAsset.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
+            if (radioButtonSingleJobForAllInputAssets.Checked)
+            {
+                pictureBoxJob.Image = bitmap_singletasksinglejob;
+            }
+            else
+            {
+                pictureBoxJob.Image = bitmap_multitasksmultijobs;
+            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
 
         }
-
 
 
         private void UpdateGeneralWarning()
@@ -449,7 +470,6 @@ namespace AMSExplorer
                 {
                     mycombobox.Items.Add("Input asset");
                     listinputpertask.Add(new GenericTaskAsset() { InputAssetType = TypeInputAssetGeneric.InputJobAssets });
-
                 }
 
                 //let's propose the output asset of other tasks

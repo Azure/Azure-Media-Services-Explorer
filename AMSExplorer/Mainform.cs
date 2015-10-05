@@ -4153,19 +4153,22 @@ namespace AMSExplorer
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - " + Constants.NameconvProcessorname + " processed",
                 SelectedAssets = SelectedAssets,
+                VisibleAssets = dataGridViewAssetsV.assets,
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // Read and update the configuration XML.
-                //
-
                 var gentasks = form.GetGenericTasks;
 
-
-                if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset) // a job for each input asset
+                if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset || form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
+                // a job for each input asset
                 {
+                    if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
+                    {
+                        SelectedAssets = dataGridViewAssetsV.assets.ToList();
+                    }
+
                     foreach (IAsset asset in SelectedAssets)
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
