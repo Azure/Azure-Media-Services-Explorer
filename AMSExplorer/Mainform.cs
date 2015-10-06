@@ -1252,10 +1252,10 @@ namespace AMSExplorer
 
                 CreateLocator form = new CreateLocator(true)
                 {
-                    LocStartDate = DateTime.Now.ToLocalTime(),
-                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
+                    LocatorStartDate = DateTime.Now.ToLocalTime(),
+                    LocatorEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
-                    LocHasStartDate = false,
+                    LocatorHasStartDate = false,
                     LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
                 };
 
@@ -1267,8 +1267,8 @@ namespace AMSExplorer
                         {
                             var tasks = asset
                                 .Locators
-                                .Where(locator => locator.Type == form.LocType)
-                                .Select(locator => UpdateLocatorExpirationDate(locator, form.LocEndDate));
+                                .Where(locator => locator.Type == form.LocatorType)
+                                .Select(locator => UpdateLocatorExpirationDate(locator, form.LocatorEndDate));
 
                             await Task.WhenAll(tasks);
                         }
@@ -1579,10 +1579,10 @@ namespace AMSExplorer
 
                 CreateLocator form = new CreateLocator()
                 {
-                    LocStartDate = DateTime.Now.ToLocalTime(),
-                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
+                    LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
+                    LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
-                    LocHasStartDate = false,
+                    LocatorHasStartDate = false,
                     LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
                 };
 
@@ -1592,37 +1592,17 @@ namespace AMSExplorer
                     AccessPermissions accessPolicyPermissions = AccessPermissions.Read;
 
                     // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = form.LocEndDate.Subtract(DateTime.Now.ToLocalTime());
+                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (form.LocatorStartDate != null)
+                    {
+                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                    }
 
                     sbuilder.Clear();
 
-                    //foreach (IAsset AssetTOProcess in SelectedAssets)
-
-                    //    if (AssetTOProcess != null)
-                    //    {
-                    //        //delete
-                    //        TextBoxLogWriteLine("Creating locator for asset '{0}'... ", AssetTOProcess.Name);
-                    //        try
-                    //        {
-
-                    //            Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
-                    //        }
-
-                    //        catch (Exception e)
-                    //        {
-                    //            // Add useful information to the exception
-                    //            TextBoxLogWriteLine("There is a problem when creating the locator on asset '{0}'.", AssetTOProcess.Name, true);
-                    //            TextBoxLogWriteLine(e);
-                    //        }
-                    //    }
-
-
-
-
                     try
                     {
-
-                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
+                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocatorType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocatorStartDate, form.ForceLocatorGuid));
                     }
 
                     catch (Exception e)
@@ -1639,13 +1619,25 @@ namespace AMSExplorer
 
         private void ProcessCreateLocator(LocatorType locatorType, List<IAsset> assets, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
+            IAccessPolicy policy;
+            try
+            {
+                policy = _context.AccessPolicies.Create("AP AMSE", accessPolicyDuration, accessPolicyPermissions);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error. Could not create access policy.", true);
+                TextBoxLogWriteLine(ex);
+                return;
+            }
+
             foreach (var AssetToP in assets)
             {
 
                 ILocator locator = null;
+
                 try
                 {
-                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + AssetToP, accessPolicyDuration, accessPolicyPermissions);
                     if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
                     {
                         locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
