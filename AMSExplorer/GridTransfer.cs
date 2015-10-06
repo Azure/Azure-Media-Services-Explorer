@@ -112,9 +112,7 @@ namespace AMSExplorer
             dataGridViewTransfer.Columns["DestLocation"].Width = 140;
             dataGridViewTransfer.Columns["DestLocation"].HeaderText = "Destination";
 
-
-
-
+            tabPageTransfers.Invoke(new Action(() => tabPageTransfers.Text = string.Format(Constants.TabTransfers + " ({0})", 0)));
         }
         public int DoGridTransferAddItem(string text, TransferType TType, bool PutInTheQueue)
         {

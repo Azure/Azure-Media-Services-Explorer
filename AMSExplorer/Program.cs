@@ -2250,7 +2250,7 @@ namespace AMSExplorer
                         )
 
                     {
-                        var form = new ChooseStreamingEndpoint(context, myasset, filter, typeplayer);
+                        var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -2693,6 +2693,7 @@ namespace AMSExplorer
     public enum TaskJobCreationMode
     {
         OneJobPerInputAsset = 0,
+        OneJobPerVisibleAsset,
         SingleJobForAllInputAssets
     }
 

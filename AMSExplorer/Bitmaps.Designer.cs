@@ -365,7 +365,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_dvr_filter {
             get {
-                object obj = ResourceManager.GetObject("media-services-dvr-filter", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_dvr_filter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -375,7 +375,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_livebackoff_filter {
             get {
-                object obj = ResourceManager.GetObject("media-services-livebackoff-filter", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_livebackoff_filter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -385,7 +385,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_multiple_rules_filters {
             get {
-                object obj = ResourceManager.GetObject("media-services-multiple-rules-filters", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_multiple_rules_filters", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -395,7 +395,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_rendition_filter2 {
             get {
-                object obj = ResourceManager.GetObject("media-services-rendition-filter2", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_rendition_filter2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -405,7 +405,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_subclips_filter {
             get {
-                object obj = ResourceManager.GetObject("media-services-subclips-filter", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_subclips_filter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -415,7 +415,7 @@ namespace AMSExplorer {
         /// </summary>
         internal static System.Drawing.Bitmap media_services_trim_filter {
             get {
-                object obj = ResourceManager.GetObject("media-services-trim-filter", resourceCulture);
+                object obj = ResourceManager.GetObject("media_services_trim_filter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

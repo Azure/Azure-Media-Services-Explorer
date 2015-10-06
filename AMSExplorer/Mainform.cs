@@ -313,7 +313,6 @@ namespace AMSExplorer
 
                 while (continueLoop)
                 {
-
                     IEnumerable<IListBlobItem> blobsList = mediaBlobContainer.ListBlobs(null, true, BlobListingDetails.Copy);
                     foreach (var blob in blobsList)
                     {
@@ -779,7 +778,7 @@ namespace AMSExplorer
             }
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
 
         private void DoRefreshGridJobV(bool firstime)
@@ -808,7 +807,7 @@ namespace AMSExplorer
             }
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
-            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
+            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
 
             // job progress restore
             dataGridViewJobsV.RestoreJobProgress();
@@ -1252,10 +1251,10 @@ namespace AMSExplorer
 
                 CreateLocator form = new CreateLocator(true)
                 {
-                    LocStartDate = DateTime.Now.ToLocalTime(),
-                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
+                    LocatorStartDate = DateTime.Now.ToLocalTime(),
+                    LocatorEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
-                    LocHasStartDate = false,
+                    LocatorHasStartDate = false,
                     LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
                 };
 
@@ -1267,8 +1266,8 @@ namespace AMSExplorer
                         {
                             var tasks = asset
                                 .Locators
-                                .Where(locator => locator.Type == form.LocType)
-                                .Select(locator => UpdateLocatorExpirationDate(locator, form.LocEndDate));
+                                .Where(locator => locator.Type == form.LocatorType)
+                                .Select(locator => UpdateLocatorExpirationDate(locator, form.LocatorEndDate));
 
                             await Task.WhenAll(tasks);
                         }
@@ -1579,10 +1578,10 @@ namespace AMSExplorer
 
                 CreateLocator form = new CreateLocator()
                 {
-                    LocStartDate = DateTime.Now.ToLocalTime(),
-                    LocEndDate = DateTime.Now.ToLocalTime().AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
+                    LocatorStartDate = DateTime.UtcNow.AddMinutes(-5),
+                    LocatorEndDate = DateTime.UtcNow.AddDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew),
                     LocAssetName = labelAssetName,
-                    LocHasStartDate = false,
+                    LocatorHasStartDate = false,
                     LocWarning = _context.StreamingEndpoints.Where(o => o.ScaleUnits > 0).ToList().Count > 0 ? string.Empty : "Dynamic packaging will not work as there is no scale unit streaming endpoint in this account."
                 };
 
@@ -1592,37 +1591,17 @@ namespace AMSExplorer
                     AccessPermissions accessPolicyPermissions = AccessPermissions.Read;
 
                     // The duration for the locator's access policy.
-                    TimeSpan accessPolicyDuration = form.LocEndDate.Subtract(DateTime.Now.ToLocalTime());
+                    TimeSpan accessPolicyDuration = form.LocatorEndDate.Subtract(DateTime.UtcNow);
+                    if (form.LocatorStartDate != null)
+                    {
+                        accessPolicyDuration = form.LocatorEndDate.Subtract((DateTime)form.LocatorStartDate);
+                    }
 
                     sbuilder.Clear();
 
-                    //foreach (IAsset AssetTOProcess in SelectedAssets)
-
-                    //    if (AssetTOProcess != null)
-                    //    {
-                    //        //delete
-                    //        TextBoxLogWriteLine("Creating locator for asset '{0}'... ", AssetTOProcess.Name);
-                    //        try
-                    //        {
-
-                    //            Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, AssetTOProcess, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
-                    //        }
-
-                    //        catch (Exception e)
-                    //        {
-                    //            // Add useful information to the exception
-                    //            TextBoxLogWriteLine("There is a problem when creating the locator on asset '{0}'.", AssetTOProcess.Name, true);
-                    //            TextBoxLogWriteLine(e);
-                    //        }
-                    //    }
-
-
-
-
                     try
                     {
-
-                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocStartDate, form.ForceLocatorGuid));
+                        Task.Factory.StartNew(() => ProcessCreateLocator(form.LocatorType, SelectedAssets, accessPolicyPermissions, accessPolicyDuration, form.LocatorStartDate, form.ForceLocatorGuid));
                     }
 
                     catch (Exception e)
@@ -1639,13 +1618,25 @@ namespace AMSExplorer
 
         private void ProcessCreateLocator(LocatorType locatorType, List<IAsset> assets, AccessPermissions accessPolicyPermissions, TimeSpan accessPolicyDuration, Nullable<DateTime> startTime, string ForceLocatorGUID)
         {
+            IAccessPolicy policy;
+            try
+            {
+                policy = _context.AccessPolicies.Create("AP AMSE", accessPolicyDuration, accessPolicyPermissions);
+            }
+            catch (Exception ex)
+            {
+                TextBoxLogWriteLine("Error. Could not create access policy.", true);
+                TextBoxLogWriteLine(ex);
+                return;
+            }
+
             foreach (var AssetToP in assets)
             {
 
                 ILocator locator = null;
+
                 try
                 {
-                    IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + AssetToP, accessPolicyDuration, accessPolicyPermissions);
                     if (locatorType == LocatorType.Sas || string.IsNullOrEmpty(ForceLocatorGUID)) // It's a SAS loctor or user does not want to force the GUID if this is a Streaming locator
                     {
                         locator = _context.Locators.CreateLocator(locatorType, AssetToP, policy, startTime);
@@ -3852,6 +3843,8 @@ namespace AMSExplorer
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
 
             comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
@@ -4153,19 +4146,22 @@ namespace AMSExplorer
                 EncodingJobName = Constants.NameconvProcessorname + " processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - " + Constants.NameconvProcessorname + " processed",
                 SelectedAssets = SelectedAssets,
+                VisibleAssets = dataGridViewAssetsV.assets,
                 EncodingCreationMode = TaskJobCreationMode.SingleJobForAllInputAssets
             };
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                // Read and update the configuration XML.
-                //
-
                 var gentasks = form.GetGenericTasks;
 
-
-                if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset) // a job for each input asset
+                if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerInputAsset || form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
+                // a job for each input asset
                 {
+                    if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
+                {
+                        SelectedAssets = dataGridViewAssetsV.assets.ToList();
+                    }
+
                     foreach (IAsset asset in SelectedAssets)
                     {
                         string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
@@ -5638,7 +5634,7 @@ namespace AMSExplorer
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0})", dataGridViewChannelsV.DisplayedCount)));
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, _context.Channels.Count())));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
@@ -8714,7 +8710,7 @@ namespace AMSExplorer
 
                     if (_context.StreamingEndpoints.Count() > 1 || (_context.StreamingEndpoints.FirstOrDefault() != null && _context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || _context.Filters.Count() > 0 || (asset.AssetFilters.Count() > 0))
                     {
-                        var form = new ChooseStreamingEndpoint(_context, asset);
+                        var form = new ChooseStreamingEndpoint(_context, asset, url);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             url = AssetInfo.RW(new Uri(url), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
@@ -10590,7 +10586,6 @@ namespace AMSExplorer
         private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateAssetFilter();
-
         }
 
         private void toolStripMenuItem25_Click(object sender, EventArgs e)
@@ -10743,7 +10738,6 @@ namespace AMSExplorer
         private void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoExportMetadata();
-
         }
 
         private void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10761,11 +10755,14 @@ namespace AMSExplorer
             DoStorageVersion();
         }
 
-        private void DoStorageVersion()
+        private void DoStorageVersion(string storageName = null)
         {
             string valuekey = "";
             bool StorageKeyKnown = false;
-            string storageName = ReturnSelectedStorage().Name;
+            if (storageName == null)
+            {
+                storageName = ReturnSelectedStorage().Name;
+            }
 
             if (storageName == _context.DefaultStorageAccount.Name && havestoragecredentials)
             {
@@ -10879,13 +10876,12 @@ namespace AMSExplorer
         private void visibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
-    }
+        }
 
         private void deleteVisibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
-
-}
+        }
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10935,6 +10931,15 @@ namespace AMSExplorer
         private void toolStripMenuItem34_Click(object sender, EventArgs e)
         {
             Process.Start(_HelpFiles + "MediaServices_RESTAPI.chm");
+        }
+
+        private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                string storagename = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString();
+                DoStorageVersion(storagename);
+            }
         }
     }
 }
@@ -11348,7 +11353,6 @@ namespace AMSExplorer
             {
                 return _pagecount;
             }
-
         }
         public int CurrentPage
         {
@@ -11356,7 +11360,6 @@ namespace AMSExplorer
             {
                 return _currentpage;
             }
-
         }
         public string OrderAssetsInGrid
         {
@@ -11368,7 +11371,6 @@ namespace AMSExplorer
             {
                 _orderassets = value;
             }
-
         }
         public bool Initialized
         {
@@ -11376,7 +11378,6 @@ namespace AMSExplorer
             {
                 return _initialized;
             }
-
         }
         public SearchObject SearchInName
         {
@@ -11389,7 +11390,6 @@ namespace AMSExplorer
                 _searchinname = value;
             }
         }
-
 
 
         public string StateFilter
@@ -11658,18 +11658,16 @@ namespace AMSExplorer
                         break;
 
                     case SearchIn.AssetFileName:
-                        var query = _context.Files.ToList().Where(f =>
+                        var query = _context.Files.AsEnumerable().Where(f =>
                         f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(query, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        assets = assets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
                         break;
-
 
                     case SearchIn.AssetFileId:
-                        var queryafid = _context.Files.ToList().Where(f =>
+                        var queryafid = _context.Files.AsEnumerable().Where(f =>
                         f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryafid, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        assets = assets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
                         break;
-
 
                     case SearchIn.LocatorPath:
                         string locatorid = _searchinname.Text;
@@ -11677,11 +11675,27 @@ namespace AMSExplorer
                         {
                             locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
                         }
-                        var queryl = _context.Locators.ToList().Where(l =>
+                        var queryl = _context.Locators.AsEnumerable().Where(l =>
                         l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
                         assets = assets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
                         break;
 
+                    case SearchIn.ProgramId:
+                        string programid = _searchinname.Text;
+                        if (programid.StartsWith(Constants.ProgramIdPrefix))
+                        {
+                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
+                        }
+                        var queryp = _context.Programs.AsEnumerable().Where(p =>
+                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        break;
+
+                    case SearchIn.ProgramName:
+                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
+                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        break;
 
                     default:
                         break;
@@ -12275,10 +12289,8 @@ namespace AMSExplorer
                                  ));
                         break;
 
-
                     default:
                         break;
-
                 }
             }
 

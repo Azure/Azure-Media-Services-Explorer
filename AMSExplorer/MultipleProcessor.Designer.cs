@@ -35,7 +35,7 @@
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
             this.processorlabel = new System.Windows.Forms.Label();
             this.radioButtonSingleJobForAllInputAssets = new System.Windows.Forms.RadioButton();
-            this.radioButtonOneJobPerInputAsset = new System.Windows.Forms.RadioButton();
+            this.radioButtonOneJobPerSelectedAsset = new System.Windows.Forms.RadioButton();
             this.listViewProcessors1 = new System.Windows.Forms.ListView();
             this.ListViewVendor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ListViewName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -60,6 +60,7 @@
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.tabPageTask1 = new System.Windows.Forms.TabPage();
             this.labelWarningJSON1 = new System.Windows.Forms.Label();
+            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
             this.comboBoxAssetInput1 = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,6 +74,7 @@
             this.buttonLoadXML2 = new System.Windows.Forms.Button();
             this.textBoxConfiguration2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.buttonTaskOptions2 = new AMSExplorer.ButtonJobOptions();
             this.listViewProcessors2 = new System.Windows.Forms.ListView();
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -86,6 +88,7 @@
             this.buttonLoadXML3 = new System.Windows.Forms.Button();
             this.textBoxConfiguration3 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.buttonTaskOptions3 = new AMSExplorer.ButtonJobOptions();
             this.listViewProcessors3 = new System.Windows.Forms.ListView();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -99,6 +102,7 @@
             this.buttonLoadXML4 = new System.Windows.Forms.Button();
             this.textBoxConfiguration4 = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.buttonTaskOptions4 = new AMSExplorer.ButtonJobOptions();
             this.listViewProcessors4 = new System.Windows.Forms.ListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -112,6 +116,7 @@
             this.buttonLoadXML5 = new System.Windows.Forms.Button();
             this.textBoxConfiguration5 = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
+            this.buttonTaskOptions5 = new AMSExplorer.ButtonJobOptions();
             this.listViewProcessors5 = new System.Windows.Forms.ListView();
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -119,11 +124,7 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonTaskOptions1 = new AMSExplorer.ButtonJobOptions();
-            this.buttonTaskOptions2 = new AMSExplorer.ButtonJobOptions();
-            this.buttonTaskOptions3 = new AMSExplorer.ButtonJobOptions();
-            this.buttonTaskOptions4 = new AMSExplorer.ButtonJobOptions();
-            this.buttonTaskOptions5 = new AMSExplorer.ButtonJobOptions();
+            this.radioButtonOneJobPerVisibleAsset = new System.Windows.Forms.RadioButton();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -202,26 +203,26 @@
             this.radioButtonSingleJobForAllInputAssets.Checked = true;
             this.radioButtonSingleJobForAllInputAssets.Location = new System.Drawing.Point(31, 22);
             this.radioButtonSingleJobForAllInputAssets.Name = "radioButtonSingleJobForAllInputAssets";
-            this.radioButtonSingleJobForAllInputAssets.Size = new System.Drawing.Size(372, 64);
+            this.radioButtonSingleJobForAllInputAssets.Size = new System.Drawing.Size(372, 49);
             this.radioButtonSingleJobForAllInputAssets.TabIndex = 36;
             this.radioButtonSingleJobForAllInputAssets.TabStop = true;
-            this.radioButtonSingleJobForAllInputAssets.Text = "Single job\r\n(pass all selected assets as inputs to a single job)\r\nRequired for Pr" +
-    "emium Encoder, and AME for multi asset stitching.\r\nThe order of the assets is im" +
-    "portant.";
+            this.radioButtonSingleJobForAllInputAssets.Text = "Single job - Pass all selected assets as inputs to a single job\r\nRequired for Pre" +
+    "mium Encoder, and AME for multi asset stitching.\r\nThe order of the assets is imp" +
+    "ortant.";
             this.radioButtonSingleJobForAllInputAssets.UseVisualStyleBackColor = true;
             this.radioButtonSingleJobForAllInputAssets.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
-            // radioButtonOneJobPerInputAsset
+            // radioButtonOneJobPerSelectedAsset
             // 
-            this.radioButtonOneJobPerInputAsset.AutoSize = true;
-            this.radioButtonOneJobPerInputAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonOneJobPerInputAsset.Location = new System.Drawing.Point(31, 115);
-            this.radioButtonOneJobPerInputAsset.Name = "radioButtonOneJobPerInputAsset";
-            this.radioButtonOneJobPerInputAsset.Size = new System.Drawing.Size(147, 19);
-            this.radioButtonOneJobPerInputAsset.TabIndex = 35;
-            this.radioButtonOneJobPerInputAsset.Text = "One job per input asset";
-            this.radioButtonOneJobPerInputAsset.UseVisualStyleBackColor = true;
-            this.radioButtonOneJobPerInputAsset.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.radioButtonOneJobPerSelectedAsset.AutoSize = true;
+            this.radioButtonOneJobPerSelectedAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButtonOneJobPerSelectedAsset.Location = new System.Drawing.Point(31, 87);
+            this.radioButtonOneJobPerSelectedAsset.Name = "radioButtonOneJobPerSelectedAsset";
+            this.radioButtonOneJobPerSelectedAsset.Size = new System.Drawing.Size(193, 19);
+            this.radioButtonOneJobPerSelectedAsset.TabIndex = 35;
+            this.radioButtonOneJobPerSelectedAsset.Text = "One job per selected input asset";
+            this.radioButtonOneJobPerSelectedAsset.UseVisualStyleBackColor = true;
+            this.radioButtonOneJobPerSelectedAsset.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // listViewProcessors1
             // 
@@ -428,8 +429,9 @@
             // 
             // panelJobMode
             // 
+            this.panelJobMode.Controls.Add(this.radioButtonOneJobPerVisibleAsset);
             this.panelJobMode.Controls.Add(this.radioButtonSingleJobForAllInputAssets);
-            this.panelJobMode.Controls.Add(this.radioButtonOneJobPerInputAsset);
+            this.panelJobMode.Controls.Add(this.radioButtonOneJobPerSelectedAsset);
             this.panelJobMode.Location = new System.Drawing.Point(6, 6);
             this.panelJobMode.Name = "panelJobMode";
             this.panelJobMode.Size = new System.Drawing.Size(472, 180);
@@ -448,7 +450,7 @@
             // labelsummaryjob
             // 
             this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(34, 315);
+            this.labelsummaryjob.Location = new System.Drawing.Point(34, 466);
             this.labelsummaryjob.Name = "labelsummaryjob";
             this.labelsummaryjob.Size = new System.Drawing.Size(426, 25);
             this.labelsummaryjob.TabIndex = 38;
@@ -488,6 +490,16 @@
             this.labelWarningJSON1.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON1.Text = "XML Syntax error. {0}";
             this.labelWarningJSON1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // buttonTaskOptions1
+            // 
+            this.buttonTaskOptions1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
+            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions1.TabIndex = 73;
+            this.buttonTaskOptions1.Text = "Task options...";
+            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
             // 
             // comboBoxAssetInput1
             // 
@@ -630,6 +642,16 @@
             this.label8.TabIndex = 41;
             this.label8.Text = "Select a processor :";
             // 
+            // buttonTaskOptions2
+            // 
+            this.buttonTaskOptions2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions2.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions2.Name = "buttonTaskOptions2";
+            this.buttonTaskOptions2.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions2.TabIndex = 74;
+            this.buttonTaskOptions2.Text = "Task options...";
+            this.buttonTaskOptions2.UseVisualStyleBackColor = true;
+            // 
             // listViewProcessors2
             // 
             this.listViewProcessors2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -756,6 +778,16 @@
             this.label10.Size = new System.Drawing.Size(189, 15);
             this.label10.TabIndex = 41;
             this.label10.Text = "Select a processor :";
+            // 
+            // buttonTaskOptions3
+            // 
+            this.buttonTaskOptions3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions3.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions3.Name = "buttonTaskOptions3";
+            this.buttonTaskOptions3.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions3.TabIndex = 74;
+            this.buttonTaskOptions3.Text = "Task options...";
+            this.buttonTaskOptions3.UseVisualStyleBackColor = true;
             // 
             // listViewProcessors3
             // 
@@ -884,6 +916,16 @@
             this.label12.TabIndex = 41;
             this.label12.Text = "Select a processor :";
             // 
+            // buttonTaskOptions4
+            // 
+            this.buttonTaskOptions4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions4.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions4.Name = "buttonTaskOptions4";
+            this.buttonTaskOptions4.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions4.TabIndex = 74;
+            this.buttonTaskOptions4.Text = "Task options...";
+            this.buttonTaskOptions4.UseVisualStyleBackColor = true;
+            // 
             // listViewProcessors4
             // 
             this.listViewProcessors4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1011,6 +1053,16 @@
             this.label14.TabIndex = 41;
             this.label14.Text = "Select a processor :";
             // 
+            // buttonTaskOptions5
+            // 
+            this.buttonTaskOptions5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonTaskOptions5.Location = new System.Drawing.Point(684, 489);
+            this.buttonTaskOptions5.Name = "buttonTaskOptions5";
+            this.buttonTaskOptions5.Size = new System.Drawing.Size(160, 27);
+            this.buttonTaskOptions5.TabIndex = 74;
+            this.buttonTaskOptions5.Text = "Task options...";
+            this.buttonTaskOptions5.UseVisualStyleBackColor = true;
+            // 
             // listViewProcessors5
             // 
             this.listViewProcessors5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -1071,55 +1123,16 @@
             this.panel1.Size = new System.Drawing.Size(919, 55);
             this.panel1.TabIndex = 67;
             // 
-            // buttonTaskOptions1
+            // radioButtonOneJobPerVisibleAsset
             // 
-            this.buttonTaskOptions1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTaskOptions1.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions1.Name = "buttonTaskOptions1";
-            this.buttonTaskOptions1.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions1.TabIndex = 73;
-            this.buttonTaskOptions1.Text = "Task options...";
-            this.buttonTaskOptions1.UseVisualStyleBackColor = true;
-            // 
-            // buttonTaskOptions2
-            // 
-            this.buttonTaskOptions2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTaskOptions2.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions2.Name = "buttonTaskOptions2";
-            this.buttonTaskOptions2.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions2.TabIndex = 74;
-            this.buttonTaskOptions2.Text = "Task options...";
-            this.buttonTaskOptions2.UseVisualStyleBackColor = true;
-            // 
-            // buttonTaskOptions3
-            // 
-            this.buttonTaskOptions3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTaskOptions3.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions3.Name = "buttonTaskOptions3";
-            this.buttonTaskOptions3.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions3.TabIndex = 74;
-            this.buttonTaskOptions3.Text = "Task options...";
-            this.buttonTaskOptions3.UseVisualStyleBackColor = true;
-            // 
-            // buttonTaskOptions4
-            // 
-            this.buttonTaskOptions4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTaskOptions4.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions4.Name = "buttonTaskOptions4";
-            this.buttonTaskOptions4.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions4.TabIndex = 74;
-            this.buttonTaskOptions4.Text = "Task options...";
-            this.buttonTaskOptions4.UseVisualStyleBackColor = true;
-            // 
-            // buttonTaskOptions5
-            // 
-            this.buttonTaskOptions5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonTaskOptions5.Location = new System.Drawing.Point(684, 489);
-            this.buttonTaskOptions5.Name = "buttonTaskOptions5";
-            this.buttonTaskOptions5.Size = new System.Drawing.Size(160, 27);
-            this.buttonTaskOptions5.TabIndex = 74;
-            this.buttonTaskOptions5.Text = "Task options...";
-            this.buttonTaskOptions5.UseVisualStyleBackColor = true;
+            this.radioButtonOneJobPerVisibleAsset.AutoSize = true;
+            this.radioButtonOneJobPerVisibleAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButtonOneJobPerVisibleAsset.Location = new System.Drawing.Point(31, 122);
+            this.radioButtonOneJobPerVisibleAsset.Name = "radioButtonOneJobPerVisibleAsset";
+            this.radioButtonOneJobPerVisibleAsset.Size = new System.Drawing.Size(220, 19);
+            this.radioButtonOneJobPerVisibleAsset.TabIndex = 37;
+            this.radioButtonOneJobPerVisibleAsset.Text = "One job per visible input asset in grid";
+            this.radioButtonOneJobPerVisibleAsset.UseVisualStyleBackColor = true;
             // 
             // MultipleProcessor
             // 
@@ -1172,7 +1185,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
         private System.Windows.Forms.Label processorlabel;
         private System.Windows.Forms.RadioButton radioButtonSingleJobForAllInputAssets;
-        private System.Windows.Forms.RadioButton radioButtonOneJobPerInputAsset;
+        private System.Windows.Forms.RadioButton radioButtonOneJobPerSelectedAsset;
         private System.Windows.Forms.ListView listViewProcessors1;
         private System.Windows.Forms.ColumnHeader ListViewVendor;
         private System.Windows.Forms.ColumnHeader ListViewName;
@@ -1262,5 +1275,6 @@
         private System.Windows.Forms.Label labelWarningJSON3;
         private System.Windows.Forms.Label labelWarningJSON4;
         private System.Windows.Forms.Label labelWarningJSON5;
+        private System.Windows.Forms.RadioButton radioButtonOneJobPerVisibleAsset;
     }
 }
