@@ -313,7 +313,6 @@ namespace AMSExplorer
 
                 while (continueLoop)
                 {
-
                     IEnumerable<IListBlobItem> blobsList = mediaBlobContainer.ListBlobs(null, true, BlobListingDetails.Copy);
                     foreach (var blob in blobsList)
                     {
@@ -10575,7 +10574,6 @@ namespace AMSExplorer
         private void createAnAssetFilterToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCreateAssetFilter();
-
         }
 
         private void toolStripMenuItem25_Click(object sender, EventArgs e)
@@ -10728,7 +10726,6 @@ namespace AMSExplorer
         private void informationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoExportMetadata();
-
         }
 
         private void exportAssetsInformationToExcelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10746,11 +10743,14 @@ namespace AMSExplorer
             DoStorageVersion();
         }
 
-        private void DoStorageVersion()
+        private void DoStorageVersion(string storageName = null)
         {
             string valuekey = "";
             bool StorageKeyKnown = false;
-            string storageName = ReturnSelectedStorage().Name;
+            if (storageName == null)
+            {
+                storageName = ReturnSelectedStorage().Name;
+            }
 
             if (storageName == _context.DefaultStorageAccount.Name && havestoragecredentials)
             {
@@ -10869,7 +10869,6 @@ namespace AMSExplorer
         private void deleteVisibleAssetsInGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoDeleteAssets(dataGridViewAssetsV.assets.ToList());
-
         }
 
         private void deleteSelectedToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10920,6 +10919,15 @@ namespace AMSExplorer
         private void toolStripMenuItem34_Click(object sender, EventArgs e)
         {
             Process.Start(_HelpFiles + "MediaServices_RESTAPI.chm");
+        }
+
+        private void dataGridViewStorage_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                string storagename = dataGridViewStorage.Rows[e.RowIndex].Cells[dataGridViewStorage.Columns["StrictName"].Index].Value.ToString();
+                DoStorageVersion(storagename);
+            }
         }
     }
 }
