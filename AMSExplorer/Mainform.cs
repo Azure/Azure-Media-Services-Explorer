@@ -779,7 +779,7 @@ namespace AMSExplorer
             }
             comboBoxPageAssets.Invoke(new Action(() => comboBoxPageAssets.SelectedIndex = dataGridViewAssetsV.CurrentPage - 1));
 
-            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0})", dataGridViewAssetsV.DisplayedCount)));
+            tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
         }
 
         private void DoRefreshGridJobV(bool firstime)
@@ -808,7 +808,7 @@ namespace AMSExplorer
             }
             comboBoxPageJobs.Invoke(new Action(() => comboBoxPageJobs.SelectedIndex = dataGridViewJobsV.CurrentPage - 1));
             //uodate tab nimber of jobs
-            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0})", dataGridViewJobsV.DisplayedCount)));
+            tabPageJobs.Invoke(new Action(() => tabPageJobs.Text = string.Format(Constants.TabJobs + " ({0}/{1})", dataGridViewJobsV.DisplayedCount, _context.Jobs.Count())));
 
             // job progress restore
             dataGridViewJobsV.RestoreJobProgress();
@@ -3844,6 +3844,8 @@ namespace AMSExplorer
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
 
             comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
@@ -5633,7 +5635,7 @@ namespace AMSExplorer
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0})", dataGridViewChannelsV.DisplayedCount)));
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, _context.Channels.Count())));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
@@ -11331,7 +11333,6 @@ namespace AMSExplorer
             {
                 return _pagecount;
             }
-
         }
         public int CurrentPage
         {
@@ -11339,7 +11340,6 @@ namespace AMSExplorer
             {
                 return _currentpage;
             }
-
         }
         public string OrderAssetsInGrid
         {
@@ -11351,7 +11351,6 @@ namespace AMSExplorer
             {
                 _orderassets = value;
             }
-
         }
         public bool Initialized
         {
@@ -11359,7 +11358,6 @@ namespace AMSExplorer
             {
                 return _initialized;
             }
-
         }
         public SearchObject SearchInName
         {
@@ -11372,7 +11370,6 @@ namespace AMSExplorer
                 _searchinname = value;
             }
         }
-
 
 
         public string StateFilter
@@ -11641,18 +11638,16 @@ namespace AMSExplorer
                         break;
 
                     case SearchIn.AssetFileName:
-                        var query = _context.Files.ToList().Where(f =>
+                        var query = _context.Files.AsEnumerable().Where(f =>
                         f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(query, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        assets = assets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
                         break;
-
 
                     case SearchIn.AssetFileId:
-                        var queryafid = _context.Files.ToList().Where(f =>
+                        var queryafid = _context.Files.AsEnumerable().Where(f =>
                         f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryafid, o => o.Id, a => a.Asset.Id, (o, id) => o).Distinct();
+                        assets = assets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
                         break;
-
 
                     case SearchIn.LocatorPath:
                         string locatorid = _searchinname.Text;
@@ -11660,11 +11655,27 @@ namespace AMSExplorer
                         {
                             locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
                         }
-                        var queryl = _context.Locators.ToList().Where(l =>
+                        var queryl = _context.Locators.AsEnumerable().Where(l =>
                         l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
                         assets = assets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
                         break;
 
+                    case SearchIn.ProgramId:
+                        string programid = _searchinname.Text;
+                        if (programid.StartsWith(Constants.ProgramIdPrefix))
+                        {
+                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
+                        }
+                        var queryp = _context.Programs.AsEnumerable().Where(p =>
+                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        break;
+
+                    case SearchIn.ProgramName:
+                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
+                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                        assets = assets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        break;
 
                     default:
                         break;
@@ -12258,10 +12269,8 @@ namespace AMSExplorer
                                  ));
                         break;
 
-
                     default:
                         break;
-
                 }
             }
 
