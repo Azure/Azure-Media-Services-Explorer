@@ -11294,6 +11294,8 @@ namespace AMSExplorer
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
+        //public IQueryable<IAsset> assets;
+        //public List<IAsset> assets;
         static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
 
         static private int _assetsperpage = 50; //nb of items per page
@@ -11616,80 +11618,218 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-
             IEnumerable<AssetEntry> assetquery;
-
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+
+
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                //assets = listassets.AsEnumerable().Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            assets = context.Assets;
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.AssetName:
-                        assets = assets.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+
+                        assets = context.Assets.Where(a =>
+                                 (a.Name.Contains(_searchinname.Text))
+                                 &&
+                                 (!filterday || a.LastModified > datefilter)
                                  );
                         break;
 
-                    case SearchIn.AssetId:
-                        assets = assets.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                    case SearchIn.AssetAltId:
+                        assets = context.Assets.Where(a =>
+                                  (a.AlternateId.Contains(_searchinname.Text))
+                                  &&
+                                  (!filterday || a.LastModified > datefilter)
+                                  );
                         break;
 
-                    case SearchIn.AssetAltId:
-                        assets = assets.Where(a =>
-                              (a.AlternateId != null && a.AlternateId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                    case SearchIn.AssetId:
+                        string assetguid = _searchinname.Text;
+                        if (assetguid.StartsWith(Constants.AssetIdPrefix))
+                        {
+                            assetguid = assetguid.Substring(Constants.AssetIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(assetguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            assets = context.Assets.Where(a =>
+                                                             (a.Id == Constants.AssetIdPrefix + assetguid)
+                                                             &&
+                                                             (!filterday || a.LastModified > datefilter)
+                                                             );
+                        }
+
                         break;
+
 
                     case SearchIn.AssetFileName:
-                        var query = _context.Files.AsEnumerable().Where(f =>
-                        f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
-                        break;
-
-                    case SearchIn.AssetFileId:
-                        var queryafid = _context.Files.AsEnumerable().Where(f =>
-                        f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
+                        var queryfiles = context.Files.AsEnumerable().Where(f => f.Name.Contains(_searchinname.Text)).Select(f => f.ParentAssetId);
+                        assets = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                )
+                        .AsEnumerable().Where(a => queryfiles.Contains(a.Id)).OrderBy(a => a.LastModified);
                         break;
 
                     case SearchIn.LocatorPath:
-                        string locatorid = _searchinname.Text;
-                        if (locatorid.StartsWith(Constants.LocatorIdPrefix))
+                        string locatorguid = _searchinname.Text;
+                        if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
                         {
-                            locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
+                            locatorguid = locatorguid.Substring(Constants.LocatorIdPrefix.Length);
                         }
-                        var queryl = _context.Locators.AsEnumerable().Where(l =>
-                        l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
+                        try
+                        {
+                            var g = new Guid(locatorguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
+                            if (myloc != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                    (!filterday || a.LastModified > datefilter)
+                                                                    &&
+                                                                    a.Id == myloc.AssetId
+                                                                    );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+
                         break;
 
                     case SearchIn.ProgramId:
-                        string programid = _searchinname.Text;
-                        if (programid.StartsWith(Constants.ProgramIdPrefix))
+                        string programguid = _searchinname.Text;
+                        if (programguid.StartsWith(Constants.ProgramIdPrefix))
                         {
-                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
+                            programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
                         }
-                        var queryp = _context.Programs.AsEnumerable().Where(p =>
-                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        try
+                        {
+                            var g = new Guid(programguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
+                            if (queryprog != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   &&
+                                                                   queryprog.AssetId == a.Id
+                                                                   );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No program was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
                         break;
 
                     case SearchIn.ProgramName:
-                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
-                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        var queryprog2 = context.Programs.Where(p => p.Name.Contains(_searchinname.Text)).AsEnumerable().Select(p => p.AssetId);
+                        assets = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                                              )
+                        .AsEnumerable().Where(a => queryprog2.Contains(a.Id)).OrderBy(a => a.LastModified);
+                        // 
                         break;
 
+
+                    /*
+                                    case SearchIn.AssetAltId:
+                                        listassets = listassets.Where(a =>
+                                               (a.AlternateId == _searchinname.Text)
+                                              );
+                                        break;
+
+                                    case SearchIn.AssetFileName:
+                                        var query = _context.Files.AsEnumerable().Where(f =>
+                                        //f.Name.Contains(_searchinname.Text));
+                                        f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                                        listassets = listassets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
+                                        break;
+
+                                    case SearchIn.AssetFileId:
+                                        var queryafid = _context.Files.AsEnumerable().Where(f =>
+                                        f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                                        //f.Id == _searchinname.Text);
+                                        listassets = listassets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
+                                        break;
+
+                                    case SearchIn.LocatorPath:
+                                        string locatorid = _searchinname.Text;
+                                        if (locatorid.StartsWith(Constants.LocatorIdPrefix))
+                                        {
+                                            locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
+                                        }
+                                        var queryl = _context.Locators.AsEnumerable().Where(l =>
+                                        l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
+                                        //var queryl = _context.Locators.Where(l =>
+                                        //l.Path.Contains(locatorid));
+                                        listassets = listassets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
+                                        break;
+
+                                    case SearchIn.ProgramId:
+                                        string programid = _searchinname.Text;
+                                        if (programid.StartsWith(Constants.ProgramIdPrefix))
+                                        {
+                                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
+                                        }
+                                        var queryp = _context.Programs.AsEnumerable().Where(p =>
+                                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
+                                        //var queryp = _context.Programs.Where(p => p.Id == programid).FirstOrDefault();
+                                        //assets = assets.Where(a => (queryp!=null) && (queryp.AssetId == a.Id));
+                                        listassets = listassets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                                        break;
+
+                                    case SearchIn.ProgramName:
+                                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
+                                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
+                                        //var queryp2 = _context.Programs.Where(p =>
+                                        //p.Name.Contains(_searchinname.Text));
+                                        listassets = listassets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                                        break;
+                                        */
                     default:
                         break;
 
                 }
             }
+
+
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
             {
@@ -11739,6 +11879,11 @@ namespace AMSExplorer
                 }
             }
 
+
+
+
+
+            // let's sort the aggregate results
             var size = new Func<IAsset, long>(AssetInfo.GetSize);
 
             switch (_orderassets)
@@ -11781,6 +11926,7 @@ namespace AMSExplorer
             }
 
 
+
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
                 assets = assets.Take(50);
@@ -11799,7 +11945,7 @@ namespace AMSExplorer
                 //         assetquery = from a in assets
                 //                      select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName, Publication = cacheAssetentries.ContainsKey(a.Id) ? cacheAssetentries[a.Id].Publication:null  };
 
-                assetquery = assets.Select(a =>
+                assetquery = assets.AsEnumerable().Select(a =>
                 // let's return the data cached in memory of it exists and last modified time is the same
                 (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
                               new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
