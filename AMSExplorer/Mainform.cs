@@ -11840,62 +11840,140 @@ namespace AMSExplorer
 
                     default:
                         break;
-
                 }
             }
-
+            else // no search
+            {
+                assets = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                &&
+                                (a.StorageAccountName == context.DefaultStorageAccount.Name)
+                                );
+            }
 
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
             {
-                switch (_statefilter)
+                IList<IAsset> passets = new List<IAsset>();
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+
+                while (true)
                 {
-                    case StatusAssets.Published:
-                        assets = assets.Where(a => a.Locators.Any());
+                    // Enumerate through all assets (1000 at a time)
+                    var listassets = assets.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listassets.Count;
+                   // IEnumerable<IAsset> fassets = listassets;
+                    IList<IAsset> fassets = new List<IAsset>();
+
+                    switch (_statefilter)
+                    {
+                       
+                        case StatusAssets.Published:
+                        case StatusAssets.PublishedExpired:
+
+                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+                            IList<IAsset> lassets = new List<IAsset>();
+
+                            int skipSizeLoc = 0;
+                            int batchSizeLoc = 1000;
+                            int currentSkipSizeLoc = 0;
+
+
+                            while (true)
+                            {
+                                // Enumerate through all locators (1000 at a time)
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSize).Take(batchSize).ToList().Select(l=>l.AssetId).ToList();
+                                currentSkipSizeLoc += listlocators.Count;
+
+                                var assetexpired = listassets.Where(a => listlocators.Contains(a.Id));
+
+                                foreach (var a in assetexpired)
+                                {
+                                    lassets.Add(a);
+                                }
+
+                                if (currentSkipSizeLoc == batchSizeLoc)
+                                {
+                                    skipSizeLoc += batchSize;
+                                    currentSkipSizeLoc = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in lassets)
+                            {
+                                fassets.Add(a);
+                            }
+
+
+                            //fassets = listassets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
+                            break;
+
+                            /*
+                        case StatusAssets.NotPublished:
+                            fassets = listassets.Where(a => a.Locators.Count == 0);
+                            break;
+                        case StatusAssets.Storage:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                            break;
+                        case StatusAssets.CENC:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                            break;
+                        case StatusAssets.Envelope:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                            break;
+                        case StatusAssets.NotEncrypted:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
+                            break;
+                        case StatusAssets.DynEnc:
+                            fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+                            break;
+                        case StatusAssets.Streamable:
+                            fassets = listassets.Where(a => a.IsStreamable);
+                            break;
+                        case StatusAssets.SupportDynEnc:
+                            fassets = listassets.Where(a => a.SupportsDynamicEncryption);
+                            break;
+                        case StatusAssets.Empty:
+                            fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
+                            break;
+                        case StatusAssets.DefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                            break;
+                        case StatusAssets.NotDefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                            break;
+                            */
+                        default:
+                            break;
+                    }
+
+                    foreach (var a in fassets)
+                    {
+                        passets.Add(a);
+                    }
+
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
                         break;
-                    case StatusAssets.PublishedExpired:
-                        assets = assets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
-                        break;
-                    case StatusAssets.NotPublished:
-                        assets = assets.Where(a => a.Locators.Count == 0);
-                        break;
-                    case StatusAssets.Storage:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                        break;
-                    case StatusAssets.CENC:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                        break;
-                    case StatusAssets.Envelope:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                        break;
-                    case StatusAssets.NotEncrypted:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.None);
-                        break;
-                    case StatusAssets.DynEnc:
-                        assets = assets.Where(a => a.DeliveryPolicies.Any());
-                        break;
-                    case StatusAssets.Streamable:
-                        assets = assets.Where(a => a.IsStreamable);
-                        break;
-                    case StatusAssets.SupportDynEnc:
-                        assets = assets.Where(a => a.SupportsDynamicEncryption);
-                        break;
-                    case StatusAssets.Empty:
-                        assets = assets.Where(a => a.AssetFiles.Count() == 0);
-                        break;
-                    case StatusAssets.DefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                        break;
-                    case StatusAssets.NotDefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                        break;
-                    default:
-                        break;
+                    }
                 }
+
+                assets = passets;
+
             }
-
-
-
 
 
             // let's sort the aggregate results
