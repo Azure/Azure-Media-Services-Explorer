@@ -1424,7 +1424,6 @@
             // selectedAssetToolStripMenuItem
             // 
             this.selectedAssetToolStripMenuItem.Name = "selectedAssetToolStripMenuItem";
-            this.selectedAssetToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.selectedAssetToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.selectedAssetToolStripMenuItem.Text = "Selected asset(s)...";
             this.selectedAssetToolStripMenuItem.Click += new System.EventHandler(this.selectedAssetToolStripMenuItem_Click);

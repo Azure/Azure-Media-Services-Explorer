@@ -3985,6 +3985,23 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
+
+            // let's add a button to textbox search
+            var btn = new Button();
+            btn.Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2);
+            btn.Location = new Point(textBoxAssetSearch.ClientSize.Width - btn.Width, -1);
+            btn.Anchor = AnchorStyles.Right;
+            btn.Cursor = Cursors.Default;
+            btn.Text = "X";
+            btn.BackColor = SystemColors.Window;
+            btn.Click += Btn_Click;
+            textBoxAssetSearch.Controls.Add(btn);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btn.Width << 16));
+            //base.OnLoad(e);
+
+
+
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
 
@@ -3994,6 +4011,15 @@ namespace AMSExplorer
             DisplaySplashDuringLoading = false;
             Show();
         }
+
+        private void Btn_Click(object sender, EventArgs e)
+        {
+            textBoxAssetSearch.Text = string.Empty;
+            DoAssetSearch();
+        }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         private void UpdateLabelStorageEncryption()
         {
@@ -4814,6 +4840,11 @@ namespace AMSExplorer
         }
 
         private void buttonAssetSearch_Click(object sender, EventArgs e)
+        {
+            DoAssetSearch();
+        }
+
+        private void DoAssetSearch()
         {
             if (dataGridViewAssetsV.Initialized)
             {
