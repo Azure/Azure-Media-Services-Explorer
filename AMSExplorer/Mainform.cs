@@ -3838,28 +3838,25 @@ namespace AMSExplorer
             UpdateLabelStorageEncryption();
 
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset Id :", SearchIn.AssetId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for asset Id :", SearchIn.AssetId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset alt Id :", SearchIn.AssetAltId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in locator Id :", SearchIn.LocatorId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for file Id :", SearchIn.AssetFileId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for locator Id :", SearchIn.LocatorId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
 
             comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in job Id :", SearchIn.JobId.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task name :", SearchIn.TaskName.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task Id :", SearchIn.TaskId.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task proc id :", SearchIn.TaskProcessorId.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search for job Id :", SearchIn.JobId.ToString()));
             comboBoxSearchJobOption.SelectedIndex = 0;
 
             comboBoxSearchChannelOption.Items.Add(new Item("Search in channel name :", SearchIn.ChannelName.ToString()));
-            comboBoxSearchChannelOption.Items.Add(new Item("Search in channel Id :", SearchIn.ChannelId.ToString()));
+            comboBoxSearchChannelOption.Items.Add(new Item("Search for channel Id :", SearchIn.ChannelId.ToString()));
             comboBoxSearchChannelOption.SelectedIndex = 0;
 
             comboBoxSearchProgramOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
-            comboBoxSearchProgramOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchProgramOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
             comboBoxSearchProgramOption.SelectedIndex = 0;
 
             comboBoxOrderAssets.Items.AddRange(
@@ -3986,20 +3983,31 @@ namespace AMSExplorer
             DoRefreshGridFiltersV(true);
 
 
-            // let's add a button to textbox search
-            var btn = new Button();
-            btn.Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2);
-            btn.Location = new Point(textBoxAssetSearch.ClientSize.Width - btn.Width, -1);
-            btn.Anchor = AnchorStyles.Right;
-            btn.Cursor = Cursors.Default;
-            btn.Text = "X";
-            btn.BackColor = SystemColors.Window;
-            btn.Click += Btn_Click;
-            textBoxAssetSearch.Controls.Add(btn);
+            // let's add a button to asset textbox search
+            var btna = new Button();
+            btna.Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2);
+            btna.Location = new Point(textBoxAssetSearch.ClientSize.Width - btna.Width, -1);
+            btna.Anchor = AnchorStyles.Right;
+            btna.Cursor = Cursors.Default;
+            btna.Text = "X";
+            btna.BackColor = SystemColors.Window;
+            btna.Click += Btna_Click;
+            textBoxAssetSearch.Controls.Add(btna);
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
-            SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btn.Width << 16));
-            //base.OnLoad(e);
+            SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btna.Width << 16));
 
+            // let's add a button to job textbox search
+            var btnj = new Button();
+            btnj.Size = new Size(18, textBoxJobSearch.ClientSize.Height + 2);
+            btnj.Location = new Point(textBoxJobSearch.ClientSize.Width - btnj.Width, -1);
+            btnj.Anchor = AnchorStyles.Right;
+            btnj.Cursor = Cursors.Default;
+            btnj.Text = "X";
+            btnj.BackColor = SystemColors.Window;
+            btnj.Click += Btnj_Click;
+            textBoxJobSearch.Controls.Add(btnj);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
 
 
             // let's monitor channels or programs which are in "intermediate" state
@@ -4012,12 +4020,16 @@ namespace AMSExplorer
             Show();
         }
 
-        private void Btn_Click(object sender, EventArgs e)
+        private void Btna_Click(object sender, EventArgs e)
         {
             textBoxAssetSearch.Text = string.Empty;
             DoAssetSearch();
         }
-
+        private void Btnj_Click(object sender, EventArgs e)
+        {
+            textBoxJobSearch.Text = string.Empty;
+            DoJobSearch();
+        }
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
@@ -4831,12 +4843,7 @@ namespace AMSExplorer
 
         private void buttonJobSearch_Click(object sender, EventArgs e)
         {
-            if (dataGridViewJobsV.Initialized)
-            {
-                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchJobOption.SelectedItem as Item).Value);
-                dataGridViewJobsV.SearchInName = new SearchObject { Text = textBoxJobSearch.Text, SearchType = stype };
-                DoRefreshGridJobV(false);
-            }
+            DoJobSearch();
         }
 
         private void buttonAssetSearch_Click(object sender, EventArgs e)
@@ -4851,6 +4858,16 @@ namespace AMSExplorer
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchAssetOption.SelectedItem as Item).Value);
                 dataGridViewAssetsV.SearchInName = new SearchObject { Text = textBoxAssetSearch.Text, SearchType = stype };
                 DoRefreshGridAssetV(false);
+            }
+        }
+
+        private void DoJobSearch()
+        {
+            if (dataGridViewJobsV.Initialized)
+            {
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchJobOption.SelectedItem as Item).Value);
+                dataGridViewJobsV.SearchInName = new SearchObject { Text = textBoxJobSearch.Text, SearchType = stype };
+                DoRefreshGridJobV(false);
             }
         }
 
@@ -11651,7 +11668,7 @@ namespace AMSExplorer
             }
 
 
-            assets = context.Assets;
+           // assets = context.Assets;
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
@@ -11910,7 +11927,7 @@ namespace AMSExplorer
                             }
                             break;
 
-                      
+
 
                         /*
                     case StatusAssets.NotPublished:
@@ -12470,54 +12487,82 @@ namespace AMSExplorer
 
             IEnumerable<JobEntry> jobquery;
 
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
-            if (_filterjobsstate != "All")
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
             {
-                jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            //jobs = context.Jobs;
+            bool filterstate = _filterjobsstate != "All";
+            JobState jobstate = JobState.Finished;
+            if (filterstate)
+            {
+                jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
+                //jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
 
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.JobName:
-                        jobs = jobs.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        jobs = context.Jobs.Where(j =>
+                                                 (j.Name.Contains(_searchinname.Text))
+                                                 &&
+                                                 (!filterday || j.LastModified > datefilter)
+                                                 &&
+                                                 (!filterstate || j.State == jobstate)
+                                                 );
                         break;
 
                     case SearchIn.JobId:
-                        jobs = jobs.Where(a =>
-                               (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                               );
+                        string jobguid = _searchinname.Text;
+                        if (jobguid.StartsWith(Constants.JobIdPrefix))
+                        {
+                            jobguid = jobguid.Substring(Constants.JobIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(jobguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with job Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            jobs = context.Jobs.Where(j =>
+                                                    (j.Id == Constants.JobIdPrefix + jobguid)
+                                                    &&
+                                                    (!filterday || j.LastModified > datefilter)
+                                                    &&
+                                                    (!filterstate || j.State == jobstate)
+                                                    );
+                        }
                         break;
 
-                    case SearchIn.TaskName:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                          (t.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)));
-                        break;
-
-                    case SearchIn.TaskId:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                                 (t.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                                 ));
-                        break;
-
-                    case SearchIn.TaskProcessorId:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                                 (t.MediaProcessorId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                                 ));
-                        break;
-
+                   
                     default:
                         break;
                 }
             }
-
+            else
+            {
+                jobs = context.Jobs.Where(j =>
+                                 (!filterday || j.LastModified > datefilter)
+                                 &&
+                                 (!filterstate || j.State == jobstate)
+                                );
+            }
 
             switch (_orderjobs)
             {
