@@ -3842,7 +3842,7 @@ namespace AMSExplorer
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset alt Id :", SearchIn.AssetAltId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search in locator Id :", SearchIn.LocatorId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
@@ -11639,6 +11639,7 @@ namespace AMSExplorer
 
                 switch (_searchinname.SearchType)
                 {
+                    // Search on Asset name
                     case SearchIn.AssetName:
 
                         assets = context.Assets.Where(a =>
@@ -11648,6 +11649,7 @@ namespace AMSExplorer
                                  );
                         break;
 
+                    // Search on Asset aternate id
                     case SearchIn.AssetAltId:
                         assets = context.Assets.Where(a =>
                                   (a.AlternateId.Contains(_searchinname.Text))
@@ -11656,6 +11658,7 @@ namespace AMSExplorer
                                   );
                         break;
 
+                    // Search on Asset ID
                     case SearchIn.AssetId:
                         string assetguid = _searchinname.Text;
                         if (assetguid.StartsWith(Constants.AssetIdPrefix))
@@ -11669,7 +11672,7 @@ namespace AMSExplorer
                         catch
                         {
                             Error = true;
-                            MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         if (!Error)
                         {
@@ -11682,7 +11685,7 @@ namespace AMSExplorer
 
                         break;
 
-
+                    // Search on Asset file name
                     case SearchIn.AssetFileName:
                         var queryfiles = context.Files.AsEnumerable().Where(f => f.Name.Contains(_searchinname.Text)).Select(f => f.ParentAssetId);
                         assets = context.Assets.Where(a =>
@@ -11691,7 +11694,42 @@ namespace AMSExplorer
                         .AsEnumerable().Where(a => queryfiles.Contains(a.Id)).OrderBy(a => a.LastModified);
                         break;
 
-                    case SearchIn.LocatorPath:
+                    // Search on Asset file ID
+                    case SearchIn.AssetFileId:
+                        string fileguid = _searchinname.Text;
+                        if (fileguid.StartsWith(Constants.AssetFileIdPrefix))
+                        {
+                            fileguid = fileguid.Substring(Constants.AssetFileIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(fileguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with file asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
+                            if (myfile != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   &&
+                                                                   myfile.Asset.Id == a.Id
+                                                                   );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No file was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        break;
+
+                    // Search on Locator id / guid
+                    case SearchIn.LocatorId:
                         string locatorguid = _searchinname.Text;
                         if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
                         {
@@ -11704,7 +11742,7 @@ namespace AMSExplorer
                         catch
                         {
                             Error = true;
-                            MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         if (!Error)
                         {
@@ -11725,6 +11763,7 @@ namespace AMSExplorer
 
                         break;
 
+                    // Search on Program id / guid
                     case SearchIn.ProgramId:
                         string programguid = _searchinname.Text;
                         if (programguid.StartsWith(Constants.ProgramIdPrefix))
@@ -11738,7 +11777,7 @@ namespace AMSExplorer
                         catch
                         {
                             Error = true;
-                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         if (!Error)
                         {
@@ -11758,71 +11797,16 @@ namespace AMSExplorer
                         }
                         break;
 
+                    // Search on Program name
                     case SearchIn.ProgramName:
                         var queryprog2 = context.Programs.Where(p => p.Name.Contains(_searchinname.Text)).AsEnumerable().Select(p => p.AssetId);
                         assets = context.Assets.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
                                                               )
                         .AsEnumerable().Where(a => queryprog2.Contains(a.Id)).OrderBy(a => a.LastModified);
-                        // 
                         break;
 
 
-                    /*
-                                    case SearchIn.AssetAltId:
-                                        listassets = listassets.Where(a =>
-                                               (a.AlternateId == _searchinname.Text)
-                                              );
-                                        break;
-
-                                    case SearchIn.AssetFileName:
-                                        var query = _context.Files.AsEnumerable().Where(f =>
-                                        //f.Name.Contains(_searchinname.Text));
-                                        f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                                        listassets = listassets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
-                                        break;
-
-                                    case SearchIn.AssetFileId:
-                                        var queryafid = _context.Files.AsEnumerable().Where(f =>
-                                        f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                                        //f.Id == _searchinname.Text);
-                                        listassets = listassets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
-                                        break;
-
-                                    case SearchIn.LocatorPath:
-                                        string locatorid = _searchinname.Text;
-                                        if (locatorid.StartsWith(Constants.LocatorIdPrefix))
-                                        {
-                                            locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
-                                        }
-                                        var queryl = _context.Locators.AsEnumerable().Where(l =>
-                                        l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
-                                        //var queryl = _context.Locators.Where(l =>
-                                        //l.Path.Contains(locatorid));
-                                        listassets = listassets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
-                                        break;
-
-                                    case SearchIn.ProgramId:
-                                        string programid = _searchinname.Text;
-                                        if (programid.StartsWith(Constants.ProgramIdPrefix))
-                                        {
-                                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
-                                        }
-                                        var queryp = _context.Programs.AsEnumerable().Where(p =>
-                                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
-                                        //var queryp = _context.Programs.Where(p => p.Id == programid).FirstOrDefault();
-                                        //assets = assets.Where(a => (queryp!=null) && (queryp.AssetId == a.Id));
-                                        listassets = listassets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
-                                        break;
-
-                                    case SearchIn.ProgramName:
-                                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
-                                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                                        //var queryp2 = _context.Programs.Where(p =>
-                                        //p.Name.Contains(_searchinname.Text));
-                                        listassets = listassets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
-                                        break;
-                                        */
                     default:
                         break;
 

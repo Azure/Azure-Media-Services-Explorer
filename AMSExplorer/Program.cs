@@ -2872,7 +2872,7 @@ namespace AMSExplorer
         AssetAltId,
         AssetFileName,
         AssetFileId,
-        LocatorPath,
+        LocatorId,
         JobName,
         JobId,
         TaskName,
