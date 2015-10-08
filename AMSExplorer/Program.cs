@@ -688,6 +688,7 @@ namespace AMSExplorer
         public const string ContentKeyIdPrefix = "nb:kid:UUID:";
         public const string JobIdPrefix = "nb:jid:UUID:";
         public const string TaskIdPrefix = "nb:tid:UUID:";
+        public const string ChannelIdPrefix = "nb:chid:UUID:";
         public const string ProgramIdPrefix = "nb:pgid:UUID:";
 
         public const string ProdAPIServer = "https://media.windows.net";

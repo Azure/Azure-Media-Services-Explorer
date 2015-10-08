@@ -3982,7 +3982,21 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
+            AddButtonsToSearchTextBox();
 
+
+            // let's monitor channels or programs which are in "intermediate" state
+            RestoreChannelsAndProgramsStatusMonitoring();
+
+            dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
+            dateTimePickerEndDate.Value = DateTime.Now;
+
+            DisplaySplashDuringLoading = false;
+            Show();
+        }
+
+        private void AddButtonsToSearchTextBox()
+        {
             // let's add a button to asset textbox search
             var btna = new Button();
             btna.Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2);
@@ -4009,15 +4023,31 @@ namespace AMSExplorer
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
 
+            // let's add a button to job textbox search
+            var btnc = new Button();
+            btnc.Size = new Size(18, textBoxSearchNameChannel.ClientSize.Height + 2);
+            btnc.Location = new Point(textBoxSearchNameChannel.ClientSize.Width - btnc.Width, -1);
+            btnc.Anchor = AnchorStyles.Right;
+            btnc.Cursor = Cursors.Default;
+            btnc.Text = "X";
+            btnc.BackColor = SystemColors.Window;
+            btnc.Click += Btnc_Click;
+            textBoxSearchNameChannel.Controls.Add(btnc);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxSearchNameChannel.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
 
-            // let's monitor channels or programs which are in "intermediate" state
-            RestoreChannelsAndProgramsStatusMonitoring();
-
-            dateTimePickerStartDate.Value = DateTime.Now.AddDays(-7d);
-            dateTimePickerEndDate.Value = DateTime.Now;
-
-            DisplaySplashDuringLoading = false;
-            Show();
+            // let's add a button to job textbox search
+            var btnp = new Button();
+            btnp.Size = new Size(18, textBoxSearchNameProgram.ClientSize.Height + 2);
+            btnp.Location = new Point(textBoxSearchNameProgram.ClientSize.Width - btnp.Width, -1);
+            btnp.Anchor = AnchorStyles.Right;
+            btnp.Cursor = Cursors.Default;
+            btnp.Text = "X";
+            btnp.BackColor = SystemColors.Window;
+            btnp.Click += Btnp_Click;
+            textBoxSearchNameProgram.Controls.Add(btnp);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxSearchNameProgram.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnp.Width << 16));
         }
 
         private void Btna_Click(object sender, EventArgs e)
@@ -4029,6 +4059,16 @@ namespace AMSExplorer
         {
             textBoxJobSearch.Text = string.Empty;
             DoJobSearch();
+        }
+        private void Btnc_Click(object sender, EventArgs e)
+        {
+            textBoxSearchNameChannel.Text = string.Empty;
+            DoChannelSearch();
+        }
+        private void Btnp_Click(object sender, EventArgs e)
+        {
+            textBoxSearchNameProgram.Text = string.Empty;
+            DoProgramSearch();
         }
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
@@ -7761,6 +7801,11 @@ namespace AMSExplorer
 
         private void buttonSetFilterProgram_Click(object sender, EventArgs e)
         {
+            DoProgramSearch();
+        }
+
+        private void DoProgramSearch()
+        {
             if (dataGridViewProgramsV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchProgramOption.SelectedItem as Item).Value);
@@ -10256,6 +10301,11 @@ namespace AMSExplorer
 
         private void buttonSetFilterChannel_Click(object sender, EventArgs e)
         {
+            DoChannelSearch();
+        }
+
+        private void DoChannelSearch()
+        {
             if (dataGridViewChannelsV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchChannelOption.SelectedItem as Item).Value);
@@ -12496,7 +12546,7 @@ namespace AMSExplorer
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
 
-            //jobs = context.Jobs;
+            // STATE
             bool filterstate = _filterjobsstate != "All";
             JobState jobstate = JobState.Finished;
             if (filterstate)

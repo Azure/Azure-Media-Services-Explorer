@@ -334,24 +334,61 @@ namespace AMSExplorer
 
             IEnumerable<ChannelEntry> channelquery;
 
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            channels = (days == -1) ? context.Channels : context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            // STATE
+            bool filterstate = FilterState != "All";
+            ChannelState channelstate = ChannelState.Running;
+            if (filterstate)
+            {
+                channelstate = (ChannelState)Enum.Parse(typeof(ChannelState), FilterState);
+            }
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ChannelName:
-                        channels = channels.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        channels = context.Channels.Where(c =>
+                                                 (c.Name.ToLower().Contains(_searchinname.Text.ToLower()))
+                                                 &&
+                                                 (!filterday || c.LastModified > datefilter)
+                                                 );
                         break;
 
                     case SearchIn.ChannelId:
-                        channels = channels.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                        string channelguid = _searchinname.Text;
+                        if (channelguid.StartsWith(Constants.ChannelIdPrefix))
+                        {
+                            channelguid = channelguid.Substring(Constants.ChannelIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(channelguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with channel Id. Is it a valid GUID or channel Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            channels = context.Channels.Where(c =>
+                                                    (c.Id == Constants.ChannelIdPrefix + channelguid)
+                                                    &&
+                                                    (!filterday || c.LastModified > datefilter)
+                                                    );
+                        }
                         break;
 
                     default:
@@ -359,13 +396,17 @@ namespace AMSExplorer
 
                 }
             }
-
-
-            if (FilterState != "All")
+            else
             {
-                channels = channels.Where(c => c.State == (ChannelState)Enum.Parse(typeof(ChannelState), _statefilter));
+                channels = context.Channels.Where(c =>
+                                                (!filterday || c.LastModified > datefilter)
+                                                );
             }
 
+            if (filterstate)
+            {
+                channels = channels.Where(c => c.State == channelstate);
+            }
 
             switch (_orderitems)
             {
@@ -732,31 +773,66 @@ namespace AMSExplorer
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
+            
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
 
-            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ProgramName:
-                        programs = programs.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        programs = context.Programs.Where(p =>
+                                                (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
+                                                 &&
+                                                 (!filterday || p.LastModified > datefilter)
+                                                 );
                         break;
 
                     case SearchIn.ProgramId:
-                        programs = programs.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                        string programguid = _searchinname.Text;
+                        if (programguid.StartsWith(Constants.ProgramIdPrefix))
+                        {
+                            programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(programguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            programs = context.Programs.Where(p =>
+                                                    (p.Id == Constants.ProgramIdPrefix + programguid)
+                                                    &&
+                                                    (!filterday || p.LastModified > datefilter)
+                                                    );
+                        }
                         break;
 
                     default:
                         break;
-
                 }
+            }
+            else
+            {
+                programs = context.Programs.Where(p =>
+                                                   (!filterday || p.LastModified > datefilter)
+                                                   );
             }
 
 

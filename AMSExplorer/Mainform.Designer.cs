@@ -1860,7 +1860,6 @@
             // selectedJobToolStripMenuItem
             // 
             this.selectedJobToolStripMenuItem.Name = "selectedJobToolStripMenuItem";
-            this.selectedJobToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.Delete;
             this.selectedJobToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.selectedJobToolStripMenuItem.Text = "Selected job(s)...";
             this.selectedJobToolStripMenuItem.Click += new System.EventHandler(this.selectedJobToolStripMenuItem_Click);
