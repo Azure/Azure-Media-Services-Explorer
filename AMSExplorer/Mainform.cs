@@ -11237,17 +11237,7 @@ namespace AMSExplorer
         public const string All = "All";
         public const string Published = "Published";
         public const string PublishedExpired = "Published but expired";
-        public const string NotPublished = "Not published";
-        public const string Streamable = "Streamable";
-        public const string CENC = "CENC static";
-        public const string Envelope = "Envelope static";
-        public const string Storage = "Storage encrypted";
-        public const string SupportDynEnc = "Support dyn. encryption";
-        public const string DynEnc = "Dynamic encrypted";
-        public const string NotEncrypted = "Not encrypted";
-        public const string Empty = "Empty";
-        public const string DefaultStorage = "Default storage";
-        public const string NotDefaultStorage = "Not default storage";
+        public const string DynEnc = "With Dyn Enc";
     }
 
     public static class FilterTime
@@ -11257,7 +11247,7 @@ namespace AMSExplorer
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
-        public const string All = "All";
+        public const string All = "First 1000 items";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
@@ -11650,16 +11640,16 @@ namespace AMSExplorer
             this.FindForm().Cursor = Cursors.WaitCursor;
 
             IEnumerable<AssetEntry> assetquery;
+
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-
-
             bool filterday = days != -1;
             DateTime datefilter = DateTime.UtcNow;
             if (filterday)
             {
-                //assets = listassets.AsEnumerable().Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
+
 
             assets = context.Assets;
 
@@ -11846,10 +11836,10 @@ namespace AMSExplorer
             {
                 assets = context.Assets.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
-                                &&
-                                (a.StorageAccountName == context.DefaultStorageAccount.Name)
                                 );
             }
+
+
 
 
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
@@ -11865,12 +11855,11 @@ namespace AMSExplorer
                     // Enumerate through all assets (1000 at a time)
                     var listassets = assets.Skip(skipSize).Take(batchSize).ToList();
                     currentSkipSize += listassets.Count;
-                   // IEnumerable<IAsset> fassets = listassets;
                     IList<IAsset> fassets = new List<IAsset>();
 
                     switch (_statefilter)
                     {
-                       
+
                         case StatusAssets.Published:
                         case StatusAssets.PublishedExpired:
 
@@ -11885,7 +11874,7 @@ namespace AMSExplorer
                             while (true)
                             {
                                 // Enumerate through all locators (1000 at a time)
-                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSize).Take(batchSize).ToList().Select(l=>l.AssetId).ToList();
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSize).Take(batchSize).ToList().Select(l => l.AssetId).ToList();
                                 currentSkipSizeLoc += listlocators.Count;
 
                                 var assetexpired = listassets.Where(a => listlocators.Contains(a.Id));
@@ -11910,46 +11899,54 @@ namespace AMSExplorer
                             {
                                 fassets.Add(a);
                             }
-
-
-                            //fassets = listassets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
                             break;
 
-                            /*
-                        case StatusAssets.NotPublished:
-                            fassets = listassets.Where(a => a.Locators.Count == 0);
-                            break;
-                        case StatusAssets.Storage:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                            break;
-                        case StatusAssets.CENC:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                            break;
-                        case StatusAssets.Envelope:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                            break;
-                        case StatusAssets.NotEncrypted:
-                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
-                            break;
+
                         case StatusAssets.DynEnc:
-                            fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+                            var assetwithDelPol = listassets.Where(a => a.DeliveryPolicies.Any());
+                            foreach (var a in assetwithDelPol)
+                            {
+                                fassets.Add(a);
+                            }
                             break;
-                        case StatusAssets.Streamable:
-                            fassets = listassets.Where(a => a.IsStreamable);
-                            break;
-                        case StatusAssets.SupportDynEnc:
-                            fassets = listassets.Where(a => a.SupportsDynamicEncryption);
-                            break;
-                        case StatusAssets.Empty:
-                            fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
-                            break;
-                        case StatusAssets.DefaultStorage:
-                            fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                            break;
-                        case StatusAssets.NotDefaultStorage:
-                            fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                            break;
-                            */
+
+                      
+
+                        /*
+                    case StatusAssets.NotPublished:
+                        fassets = listassets.Where(a => a.Locators.Count == 0);
+                        break;
+                    case StatusAssets.Storage:
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                        break;
+                    case StatusAssets.CENC:
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                        break;
+                    case StatusAssets.Envelope:
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                        break;
+                    case StatusAssets.NotEncrypted:
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
+                        break;
+                    case StatusAssets.DynEnc:
+                        fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+                        break;
+                    case StatusAssets.Streamable:
+                        fassets = listassets.Where(a => a.IsStreamable);
+                        break;
+                    case StatusAssets.SupportDynEnc:
+                        fassets = listassets.Where(a => a.SupportsDynamicEncryption);
+                        break;
+                    case StatusAssets.Empty:
+                        fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
+                        break;
+                    case StatusAssets.DefaultStorage:
+                        fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                        break;
+                    case StatusAssets.NotDefaultStorage:
+                        fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                        break;
+                        */
                         default:
                             break;
                     }
