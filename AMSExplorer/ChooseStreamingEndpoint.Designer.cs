@@ -148,7 +148,7 @@
             this.groupBoxForceLocator.Size = new System.Drawing.Size(207, 228);
             this.groupBoxForceLocator.TabIndex = 3;
             this.groupBoxForceLocator.TabStop = false;
-            this.groupBoxForceLocator.Text = "Filter(s)";
+            this.groupBoxForceLocator.Text = "Filters";
             // 
             // listViewFilters
             // 
@@ -161,7 +161,7 @@
             this.listViewFilters.GridLines = true;
             this.listViewFilters.Location = new System.Drawing.Point(13, 22);
             this.listViewFilters.Name = "listViewFilters";
-            this.listViewFilters.Size = new System.Drawing.Size(179, 167);
+            this.listViewFilters.Size = new System.Drawing.Size(179, 180);
             this.listViewFilters.TabIndex = 71;
             this.listViewFilters.UseCompatibleStateImageBehavior = false;
             this.listViewFilters.View = System.Windows.Forms.View.List;
@@ -169,6 +169,7 @@
             // 
             // label8
             // 
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label8.Location = new System.Drawing.Point(6, 205);
             this.label8.Name = "label8";

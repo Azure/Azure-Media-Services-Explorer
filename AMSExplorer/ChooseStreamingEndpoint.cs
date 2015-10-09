@@ -175,7 +175,9 @@ namespace AMSExplorer
             // Filters
 
             // asset filters
-            _asset.AssetFilters.ToList().ForEach(f =>
+            var afilters = _asset.AssetFilters.ToList();
+            var afiltersnames = afilters.Select(a => a.Name).ToList();
+            afilters.ForEach(f =>
             {
                 var lvitem = new ListViewItem(new string[] { "asset filter : " + f.Name, f.Name });
                 if (_filter != null && f.Name == _filter)
@@ -190,15 +192,19 @@ namespace AMSExplorer
             _context.Filters.ToList().ForEach(f =>
            {
                var lvitem = new ListViewItem(new string[] { "global filter : " + f.Name, f.Name });
-               if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count== 0) // only if not already selected (asset filter priority > global filter)
+               if (_filter != null && f.Name == _filter && listViewFilters.CheckedItems.Count == 0) // only if not already selected (asset filter priority > global filter)
                {
                    lvitem.Checked = true;
+               }
+               if (afiltersnames.Contains(f.Name)) // global filter with same name than asset filter
+               {
+                   lvitem.ForeColor = Color.Gray;
                }
                listViewFilters.Items.Add(lvitem);
            }
            );
 
-          
+
 
             if (_playertype == PlayerType.DASHIFRefPlayer || _playertype == PlayerType.DASHLiveAzure)
             {
@@ -259,7 +265,7 @@ namespace AMSExplorer
                 UpdatePreviewUrl();
         }
 
-      
+
 
         private void listViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
         {

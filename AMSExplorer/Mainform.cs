@@ -3025,12 +3025,12 @@ namespace AMSExplorer
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://dashif.org/reference/players/javascript/");
+            Process.Start(Constants.PlayerDASHIFList);
         }
 
         private void iVXHLSPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614");
+            Process.Start(Constants.Player3IVXHLS);
         }
 
 
@@ -3201,7 +3201,7 @@ namespace AMSExplorer
         private void oSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("1) Set the src to MPEG-DASH or Smooth Streaming source" + Constants.endline + "2) Select 'Microsoft Adaptive Streaming Plugin'" + Constants.endline + "3) Click 'Preview and Update'");
-            System.Diagnostics.Process ieProcess = System.Diagnostics.Process.Start("iexplore", @"http://wamsclient.cloudapp.net/release/setup.html");
+            System.Diagnostics.Process ieProcess = System.Diagnostics.Process.Start("iexplore", Constants.PlayerOSMFRCst);
         }
 
 
@@ -3815,12 +3815,12 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/azuremediaplayer");
+            Process.Start(Constants.PlayerAMP);
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://www.w3schools.com/html/html5_video.asp");
+            Process.Start(Constants.PlayerInfoHTML5Video);
         }
 
         private void dynamicPackagingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5469,12 +5469,12 @@ namespace AMSExplorer
 
         private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"https://azure.microsoft.com/en-us/documentation/services/media-services/");
+            Process.Start(Constants.LinkMoreInfoDocAMS);
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices");
+            Process.Start(Constants.LinkForumAMS);
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -7766,7 +7766,7 @@ namespace AMSExplorer
 
         private void azureMediaBlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://azure.microsoft.com/blog/topics/media-services/");
+            Process.Start(Constants.LinkBlogAMS);
         }
 
 
@@ -8815,7 +8815,7 @@ namespace AMSExplorer
 
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://www.jwplayer.com/partners/azure/");
+            Process.Start(Constants.PlayerJWPlayerPartnership);
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9208,7 +9208,7 @@ namespace AMSExplorer
 
         private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://sltoken.azurewebsites.net");
+            Process.Start(Constants.PlayerSLToken);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9235,7 +9235,7 @@ namespace AMSExplorer
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://dashplayer.azurewebsites.net");
+            Process.Start(Constants.PlayerDASHAzure);
         }
 
         private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9491,7 +9491,7 @@ namespace AMSExplorer
 
         private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aestoken.azurewebsites.net");
+            Process.Start(Constants.PlayerAESToken);
         }
 
         private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9674,7 +9674,7 @@ namespace AMSExplorer
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://dev.modern.ie/testdrive/demos/captionmaker/");
+            Process.Start(Constants.DemoCaptionMaker);
         }
 
         private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10285,8 +10285,7 @@ namespace AMSExplorer
 
         private void azureMediaServicesSamplesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://github.com/AzureMediaServicesSamples");
-
+            Process.Start(Constants.AMSSamples);
         }
 
         private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10700,7 +10699,7 @@ namespace AMSExplorer
 
         private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/ampdiagnostics");
+            Process.Start(Constants.PlayerAMPDiagnostics);
         }
 
         private void dataGridViewV_Resize(object sender, EventArgs e)
