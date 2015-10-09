@@ -350,6 +350,8 @@ namespace AMSExplorer
                 channelstate = (ChannelState)Enum.Parse(typeof(ChannelState), FilterState);
             }
 
+            IQueryable<IChannel> channelssrv = context.Channels;
+
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
@@ -358,7 +360,7 @@ namespace AMSExplorer
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ChannelName:
-                        channels = context.Channels.Where(c =>
+                        channelssrv = context.Channels.Where(c =>
                                                  (c.Name.ToLower().Contains(_searchinname.Text.ToLower()))
                                                  &&
                                                  (!filterday || c.LastModified > datefilter)
@@ -382,7 +384,7 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            channels = context.Channels.Where(c =>
+                            channelssrv = context.Channels.Where(c =>
                                                     (c.Id == Constants.ChannelIdPrefix + channelguid)
                                                     &&
                                                     (!filterday || c.LastModified > datefilter)
@@ -397,91 +399,63 @@ namespace AMSExplorer
             }
             else
             {
-                channels = context.Channels.Where(c =>
+                channelssrv = context.Channels.Where(c =>
                                                 (!filterday || c.LastModified > datefilter)
                                                 );
             }
 
-            if (filterstate)
-            {
-                channels = channels.Where(c => c.State == channelstate);
-            }
+           
 
             switch (_orderitems)
             {
                 case OrderChannels.LastModified:
-                    channelquery = from c in channels
-                                   orderby c.LastModified descending
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderByDescending(p => p.LastModified);
+
                     break;
 
 
                 case OrderChannels.Name:
-                    channelquery = from c in channels
-                                   orderby c.Name
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderBy(p => p.LastModified);
+
                     break;
 
                 case OrderChannels.State:
-                    channelquery = from c in channels
-                                   orderby c.State
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderBy(p => p.State);
+
                     break;
 
                 default:
-                    channelquery = from c in channels
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
                     break;
+            }
+
+
+
+            IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
+
+            if (filterstate)
+            {
+                channels = channels.Where(c => c.State == channelstate); // this query has to be locally. Not supported on the server
             }
 
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
-                channelquery = channelquery.Take(50);
+                channels = channels.Take(50);
             }
+
+            channelquery = channels.Select(c =>
+                       new ChannelEntry
+                       {
+                           Name = c.Name,
+                           Id = c.Id,
+                           Description = c.Description,
+                           InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                           Encoding = ReturnChannelBitmap(c),
+                           InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                           PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                           State = c.State,
+                           LastModified = c.LastModified.ToLocalTime()
+                       });
+
 
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());

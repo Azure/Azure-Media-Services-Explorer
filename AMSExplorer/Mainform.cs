@@ -3970,6 +3970,8 @@ namespace AMSExplorer
           );
             comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
+            AddButtonsToSearchTextBox();
+
             // List of state and numbers of jobs per state
 
             DoRefreshGridJobV(true);
@@ -3982,7 +3984,7 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
-            AddButtonsToSearchTextBox();
+           
 
 
             // let's monitor channels or programs which are in "intermediate" state
@@ -3992,6 +3994,7 @@ namespace AMSExplorer
             dateTimePickerEndDate.Value = DateTime.Now;
 
             DisplaySplashDuringLoading = false;
+
             Show();
         }
 
@@ -5862,7 +5865,6 @@ namespace AMSExplorer
 
         public void DoRefreshGridFiltersV(bool firstime)
         {
-
             if (firstime)
             {
                 // Storage tab
@@ -6852,6 +6854,7 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
         {
+            Debug.WriteLine("channel sel changed : begin");
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
             if (SelectedChannels.Count > 0)
             {
@@ -6863,7 +6866,11 @@ namespace AMSExplorer
                 {
 
                 }
-                DoRefreshGridProgramV(false);
+                Task.Run(() =>
+                {
+                    Debug.WriteLine("channel sel changed : before refresh");
+                    DoRefreshGridProgramV(false);
+                });
             }
         }
 
@@ -11036,7 +11043,10 @@ namespace AMSExplorer
             if (dataGridViewProgramsV.Initialized)
             {
                 dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
-                DoRefreshGridProgramV(false);
+                Task.Run(() =>
+                {
+                    DoRefreshGridProgramV(false);
+                });
             }
         }
     }
@@ -11730,7 +11740,7 @@ namespace AMSExplorer
             }
 
 
-           // assets = context.Assets;
+            // assets = context.Assets;
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
@@ -12616,7 +12626,7 @@ namespace AMSExplorer
                         }
                         break;
 
-                   
+
                     default:
                         break;
                 }
