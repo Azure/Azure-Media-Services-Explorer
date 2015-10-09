@@ -45,8 +45,7 @@ using System.Drawing.Drawing2D;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
-
-
+using System.Linq.Expressions;
 
 namespace AMSExplorer
 {
@@ -768,12 +767,13 @@ namespace AMSExplorer
         public void RefreshPrograms(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
+            if (idsList.Count == 0) return;
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
-            
+
             // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
             bool filterday = days != -1;
@@ -783,6 +783,16 @@ namespace AMSExplorer
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
 
+            // STATE
+            bool pFilterOnState = FilterState != "All";
+            ProgramState myStateFilter = ProgramState.Running;
+            if (pFilterOnState)
+            {
+                myStateFilter = (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter);
+                //programs = programs.Where(p => p.State == (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter));
+            }
+
+            bool bListEmpty = (idsList.Count == 0);
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
@@ -796,6 +806,8 @@ namespace AMSExplorer
                                                 (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
                                                  &&
                                                  (!filterday || p.LastModified > datefilter)
+                                                 &&
+                                                 (!pFilterOnState || p.State == myStateFilter)
                                                  );
                         break;
 
@@ -818,8 +830,7 @@ namespace AMSExplorer
                         {
                             programs = context.Programs.Where(p =>
                                                     (p.Id == Constants.ProgramIdPrefix + programguid)
-                                                    &&
-                                                    (!filterday || p.LastModified > datefilter)
+                                                    // no need to filter the date or ID as user request a specific ID
                                                     );
                         }
                         break;
@@ -831,94 +842,92 @@ namespace AMSExplorer
             else
             {
                 programs = context.Programs.Where(p =>
-                                                   (!filterday || p.LastModified > datefilter)
-                                                   );
+                                                (!filterday || p.LastModified > datefilter)
+                                              );
+
+                if (idsList.Count == 1)
+                {
+                    programs = programs.Where(p => p.ChannelId == idsList[0]);
+                }
+                else if (idsList.Count > 1)
+                {
+                    // let's build the query for all the IDs
+                    // The IQueryable data to query.
+                    IQueryable<IProgram> queryableData = programs.AsQueryable<IProgram>();
+
+                    // Compose the expression tree that represents the parameter to the predicate.
+                    ParameterExpression pe = Expression.Parameter(typeof(IProgram), "p");
+
+                    List<Expression> exp = new List<Expression>();
+                    foreach (var s in idsList)
+                    {
+                        // ***** Where(p => p.ChannelId == "nb:chid:UUID:29aae99e-66d9-4a54-8cf0-8f652fd0f0ff" || p.ChannelId == "nb:chid:UUID:....)) *****
+                        // Create an expression tree that represents the expression 'p.ChannelId == "nb:chid:UUID:2....
+                        Expression left = Expression.Property(pe, typeof(IProgram).GetProperty("ChannelId"));
+                        Expression right = Expression.Constant(s);
+                        exp.Add(Expression.Equal(left, right));
+                    }
+                    // Combine the expression trees to create an expression tree that represents the
+                    Expression predicateBody = Expression.OrElse(exp[0], exp[1]);
+                    for (int i = 2; i < idsList.Count; i++)
+                    {
+                        predicateBody = Expression.OrElse(predicateBody, exp[i]);
+                    }
+
+                    // Create an expression tree that represents the expression
+                    MethodCallExpression whereCallExpression = Expression.Call(
+                       typeof(Queryable),
+                       "Where",
+                       new Type[] { queryableData.ElementType },
+                       queryableData.Expression,
+                       Expression.Lambda<Func<IProgram, bool>>(predicateBody, new ParameterExpression[] { pe }));
+                    // ***** End Where *****
+
+                    // Create an executable query from the expression tree.
+                    programs = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
+                }
+
             }
 
 
-            if (FilterState != "All")
-            {
-                programs = programs.Where(p => p.State == (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter));
-            }
-
-
+           
+            // Sorting
             switch (_orderitems)
             {
                 case OrderPrograms.LastModified:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderByDescending(p => p.LastModified)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-                        }).ToArray();
+                    programs = programs.OrderByDescending(p => p.LastModified);
                     break;
 
                 case OrderPrograms.Name:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                        }).ToArray();
+                    programs = programs.OrderBy(p => p.Name);
                     break;
 
                 case OrderPrograms.State:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.State)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                        }).ToArray();
+                    programs = programs.OrderBy(p => p.State);
                     break;
 
                 default:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId))
-           .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-              (p, c) =>
-                  new ProgramEntry
-                  {
-                      Name = p.Name,
-                      Id = p.Id,
-                      Description = p.Description,
-                      ArchiveWindowLength = p.ArchiveWindowLength,
-                      State = p.State,
-                      LastModified = p.LastModified.ToLocalTime(),
-                      ChannelName = c.Name,
-                      ChannelId = c.Id,
-                      Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                  }).ToArray();
                     break;
             }
+           
+            if (pFilterOnState)
+            {
+                programs = programs.Where(p => p.State == myStateFilter);
+            }
+
+            programquery = programs.AsEnumerable().Select(p =>
+                         new ProgramEntry
+                         {
+                             Name = p.Name,
+                             Id = p.Id,
+                             Description = p.Description,
+                             ArchiveWindowLength = p.ArchiveWindowLength,
+                             State = p.State,
+                             LastModified = p.LastModified.ToLocalTime(),
+                             ChannelName = p.Channel.Name,
+                             ChannelId = p.Channel.Id,
+                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+                         });
 
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
