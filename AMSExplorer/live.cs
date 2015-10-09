@@ -196,7 +196,7 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;
-            channelquery = from c in _context.Channels
+            channelquery = from c in _context.Channels.Take(0)
                            orderby c.LastModified descending
                            select new ChannelEntry
                            {
@@ -629,7 +629,7 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservPrograms.Count();
+                return _MyObservPrograms != null ? _MyObservPrograms.Count() : 0;
             }
         }
 
@@ -641,8 +641,8 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;
-            programquery = from c in _context.Programs
-                           //orderby c.LastModified descending
+            programquery = from c in _context.Programs.Take(0)
+                               //orderby c.LastModified descending
                            select new ProgramEntry
                            {
                                Name = c.Name,
@@ -941,7 +941,7 @@ namespace AMSExplorer
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                          });
 
-            
+
 
             _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());

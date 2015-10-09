@@ -665,6 +665,8 @@ namespace AMSExplorer
         public const string TabTransfers = "Transfers"; // name of the Transfers tab
         public const string TabJobs = "Jobs"; // name of the Jobs tab
         public const string TabLive = "Live"; // name of the Live tab
+        public const string LabelProgram = "Programs"; // name of the Live tab
+        public const string LabelChannel = "Channels"; // name of the Live tab
         public const string TabProcessors = "Processors"; // name of the Processors tab
         public const string TabOrigins = "Streaming endpoints"; // name of the Origins tab
         public const string TabStorage = "Storage"; // name of the Origins tab

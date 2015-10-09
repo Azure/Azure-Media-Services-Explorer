@@ -438,6 +438,7 @@
             this.comboBoxOrderJobs = new System.Windows.Forms.ComboBox();
             this.dataGridViewJobsV = new AMSExplorer.DataGridViewJobs();
             this.tabPageLive = new System.Windows.Forms.TabPage();
+            this.checkBoxAnyChannel = new System.Windows.Forms.CheckBox();
             this.comboBoxSearchProgramOption = new System.Windows.Forms.ComboBox();
             this.comboBoxSearchChannelOption = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
@@ -448,10 +449,10 @@
             this.label26 = new System.Windows.Forms.Label();
             this.buttonSetFilterChannel = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.labelPrograms = new System.Windows.Forms.Label();
             this.comboBoxFilterTimeProgram = new System.Windows.Forms.ComboBox();
             this.comboBoxStatusProgram = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
+            this.labelChannels = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.comboBoxOrderProgram = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
@@ -480,7 +481,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.checkBoxAnyChannel = new System.Windows.Forms.CheckBox();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -4293,10 +4293,10 @@
             this.tabPageLive.Controls.Add(this.buttonSetFilterChannel);
             this.tabPageLive.Controls.Add(this.textBoxSearchNameChannel);
             this.tabPageLive.Controls.Add(this.label15);
-            this.tabPageLive.Controls.Add(this.label14);
+            this.tabPageLive.Controls.Add(this.labelPrograms);
             this.tabPageLive.Controls.Add(this.comboBoxFilterTimeProgram);
             this.tabPageLive.Controls.Add(this.comboBoxStatusProgram);
-            this.tabPageLive.Controls.Add(this.label13);
+            this.tabPageLive.Controls.Add(this.labelChannels);
             this.tabPageLive.Controls.Add(this.label16);
             this.tabPageLive.Controls.Add(this.comboBoxOrderProgram);
             this.tabPageLive.Controls.Add(this.label18);
@@ -4311,6 +4311,18 @@
             this.tabPageLive.TabIndex = 6;
             this.tabPageLive.Text = "Live";
             this.tabPageLive.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxAnyChannel
+            // 
+            this.checkBoxAnyChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAnyChannel.AutoSize = true;
+            this.checkBoxAnyChannel.Location = new System.Drawing.Point(907, 413);
+            this.checkBoxAnyChannel.Name = "checkBoxAnyChannel";
+            this.checkBoxAnyChannel.Size = new System.Drawing.Size(92, 19);
+            this.checkBoxAnyChannel.TabIndex = 64;
+            this.checkBoxAnyChannel.Text = "Any channel";
+            this.checkBoxAnyChannel.UseVisualStyleBackColor = true;
+            this.checkBoxAnyChannel.CheckedChanged += new System.EventHandler(this.checkBoxAnyChannel_CheckedChanged);
             // 
             // comboBoxSearchProgramOption
             // 
@@ -4425,15 +4437,15 @@
             this.label15.TabIndex = 52;
             this.label15.Text = "Filter :";
             // 
-            // label14
+            // labelPrograms
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(6, 236);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(57, 13);
-            this.label14.TabIndex = 32;
-            this.label14.Text = "Programs";
+            this.labelPrograms.AutoSize = true;
+            this.labelPrograms.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrograms.Location = new System.Drawing.Point(6, 236);
+            this.labelPrograms.Name = "labelPrograms";
+            this.labelPrograms.Size = new System.Drawing.Size(57, 13);
+            this.labelPrograms.TabIndex = 32;
+            this.labelPrograms.Text = "Programs";
             // 
             // comboBoxFilterTimeProgram
             // 
@@ -4459,15 +4471,15 @@
             this.comboBoxStatusProgram.TabIndex = 49;
             this.comboBoxStatusProgram.SelectedIndexChanged += new System.EventHandler(this.comboBoxStatusProgram_SelectedIndexChanged);
             // 
-            // label13
+            // labelChannels
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(2, 4);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(55, 13);
-            this.label13.TabIndex = 31;
-            this.label13.Text = "Channels";
+            this.labelChannels.AutoSize = true;
+            this.labelChannels.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelChannels.Location = new System.Drawing.Point(2, 4);
+            this.labelChannels.Name = "labelChannels";
+            this.labelChannels.Size = new System.Drawing.Size(55, 13);
+            this.labelChannels.TabIndex = 31;
+            this.labelChannels.Text = "Channels";
             // 
             // label16
             // 
@@ -4523,6 +4535,7 @@
             this.dataGridViewProgramsV.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewProgramsV.AnyChannel = false;
             this.dataGridViewProgramsV.ChannelSourceIDs = ((System.Collections.Generic.List<string>)(resources.GetObject("dataGridViewProgramsV.ChannelSourceIDs")));
             this.dataGridViewProgramsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewProgramsV.ContextMenuStrip = this.contextMenuStripPrograms;
@@ -4872,18 +4885,6 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
-            // 
-            // checkBoxAnyChannel
-            // 
-            this.checkBoxAnyChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.checkBoxAnyChannel.AutoSize = true;
-            this.checkBoxAnyChannel.Location = new System.Drawing.Point(907, 413);
-            this.checkBoxAnyChannel.Name = "checkBoxAnyChannel";
-            this.checkBoxAnyChannel.Size = new System.Drawing.Size(92, 19);
-            this.checkBoxAnyChannel.TabIndex = 64;
-            this.checkBoxAnyChannel.Text = "Any channel";
-            this.checkBoxAnyChannel.UseVisualStyleBackColor = true;
-            this.checkBoxAnyChannel.CheckedChanged += new System.EventHandler(this.checkBoxAnyChannel_CheckedChanged);
             // 
             // Mainform
             // 
@@ -5307,9 +5308,9 @@
         private System.Windows.Forms.ToolStripMenuItem azureMediaServicesSamplesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem processAssetsWithHyperlapseToolStripMenuItem1;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelChannels;
         private DataGridViewLiveChannel dataGridViewChannelsV;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label labelPrograms;
         private System.Windows.Forms.Label label15;
         private DataGridViewLiveProgram dataGridViewProgramsV;
         private System.Windows.Forms.ComboBox comboBoxFilterTimeProgram;

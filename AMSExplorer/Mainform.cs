@@ -5722,7 +5722,9 @@ namespace AMSExplorer
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, _context.Channels.Count())));
+            var count = _context.Channels.Count();
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
+            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(Constants.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
@@ -5735,6 +5737,8 @@ namespace AMSExplorer
             Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
             int backupindex = 0;
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
+            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(Constants.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
+
         }
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
@@ -11516,7 +11520,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -12485,7 +12489,7 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;// Program.ConnectAndGetNewContext(_credentials);
-            jobquery = from j in _context.Jobs
+            jobquery = from j in _context.Jobs.Take(0)
                        orderby j.LastModified descending
                        select new JobEntry
                        {
