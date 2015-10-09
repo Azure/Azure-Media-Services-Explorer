@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
+            AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -480,6 +480,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.checkBoxAnyChannel = new System.Windows.Forms.CheckBox();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -3890,9 +3891,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject3.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject3.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject3;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4280,6 +4281,7 @@
             // 
             // tabPageLive
             // 
+            this.tabPageLive.Controls.Add(this.checkBoxAnyChannel);
             this.tabPageLive.Controls.Add(this.comboBoxSearchProgramOption);
             this.tabPageLive.Controls.Add(this.comboBoxSearchChannelOption);
             this.tabPageLive.Controls.Add(this.label24);
@@ -4531,9 +4533,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject2.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject2;
+            searchObject4.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject4.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject4;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4560,9 +4562,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject3.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject3;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject2.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject2;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -4824,10 +4826,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -4870,6 +4872,18 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
+            // 
+            // checkBoxAnyChannel
+            // 
+            this.checkBoxAnyChannel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkBoxAnyChannel.AutoSize = true;
+            this.checkBoxAnyChannel.Location = new System.Drawing.Point(907, 413);
+            this.checkBoxAnyChannel.Name = "checkBoxAnyChannel";
+            this.checkBoxAnyChannel.Size = new System.Drawing.Size(92, 19);
+            this.checkBoxAnyChannel.TabIndex = 64;
+            this.checkBoxAnyChannel.Text = "Any channel";
+            this.checkBoxAnyChannel.UseVisualStyleBackColor = true;
+            this.checkBoxAnyChannel.CheckedChanged += new System.EventHandler(this.checkBoxAnyChannel_CheckedChanged);
             // 
             // Mainform
             // 
@@ -5386,6 +5400,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator38;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
+        private System.Windows.Forms.CheckBox checkBoxAnyChannel;
     }
 }
 

@@ -501,7 +501,7 @@ namespace AMSExplorer
         static BindingList<ProgramEntry> _MyObservPrograms;
         static BindingList<ProgramEntry> _MyObservProgramsthisPage;
 
-        static IEnumerable<IProgram> programs;
+
         static private int _itemssperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -517,6 +517,7 @@ namespace AMSExplorer
         static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+        static private bool _anyChannel = false;
 
         public List<string> ChannelSourceIDs
         {
@@ -569,6 +570,18 @@ namespace AMSExplorer
             {
                 _orderitems = value;
             }
+        }
+
+        public bool AnyChannel
+        {
+            get
+            {
+                return _anyChannel;
+            }
+            set
+            {
+                _anyChannel = value;
+            }
 
         }
         public string FilterState
@@ -619,13 +632,7 @@ namespace AMSExplorer
                 return _MyObservPrograms.Count();
             }
         }
-        public IEnumerable<IProgram> DisplayedItems
-        {
-            get
-            {
-                return programs;
-            }
-        }
+
 
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
@@ -635,7 +642,7 @@ namespace AMSExplorer
 
             _context = context;
             programquery = from c in _context.Programs
-                           orderby c.LastModified descending
+                           //orderby c.LastModified descending
                            select new ProgramEntry
                            {
                                Name = c.Name,
@@ -773,6 +780,7 @@ namespace AMSExplorer
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
+            IQueryable<IProgram> programssrv = context.Programs;
 
             // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
@@ -802,13 +810,11 @@ namespace AMSExplorer
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ProgramName:
-                        programs = context.Programs.Where(p =>
+                        programssrv = context.Programs.Where(p =>
                                                 (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
                                                  &&
                                                  (!filterday || p.LastModified > datefilter)
-                                                 &&
-                                                 (!pFilterOnState || p.State == myStateFilter)
-                                                 );
+                                                  );
                         break;
 
                     case SearchIn.ProgramId:
@@ -828,7 +834,7 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            programs = context.Programs.Where(p =>
+                            programssrv = context.Programs.Where(p =>
                                                     (p.Id == Constants.ProgramIdPrefix + programguid)
                                                     // no need to filter the date or ID as user request a specific ID
                                                     );
@@ -841,19 +847,19 @@ namespace AMSExplorer
             }
             else
             {
-                programs = context.Programs.Where(p =>
+                programssrv = context.Programs.Where(p =>
                                                 (!filterday || p.LastModified > datefilter)
                                               );
 
-                if (idsList.Count == 1)
+                if (idsList.Count == 1 && !_anyChannel)
                 {
-                    programs = programs.Where(p => p.ChannelId == idsList[0]);
+                    programssrv = programssrv.Where(p => p.ChannelId == idsList[0]);
                 }
-                else if (idsList.Count > 1)
+                else if (idsList.Count > 1 && !_anyChannel)
                 {
                     // let's build the query for all the IDs
                     // The IQueryable data to query.
-                    IQueryable<IProgram> queryableData = programs.AsQueryable<IProgram>();
+                    IQueryable<IProgram> queryableData = programssrv.AsQueryable<IProgram>();
 
                     // Compose the expression tree that represents the parameter to the predicate.
                     ParameterExpression pe = Expression.Parameter(typeof(IProgram), "p");
@@ -884,38 +890,44 @@ namespace AMSExplorer
                     // ***** End Where *****
 
                     // Create an executable query from the expression tree.
-                    programs = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
+                    programssrv = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
                 }
 
             }
 
 
-           
+
             // Sorting
             switch (_orderitems)
             {
                 case OrderPrograms.LastModified:
-                    programs = programs.OrderByDescending(p => p.LastModified);
+                    programssrv = programssrv.OrderByDescending(p => p.LastModified);
                     break;
 
                 case OrderPrograms.Name:
-                    programs = programs.OrderBy(p => p.Name);
+                    programssrv = programssrv.OrderBy(p => p.Name);
                     break;
 
                 case OrderPrograms.State:
-                    programs = programs.OrderBy(p => p.State);
+                    programssrv = programssrv.OrderBy(p => p.State);
                     break;
 
                 default:
                     break;
             }
-           
+
+            IEnumerable<IProgram> programs = programssrv.AsEnumerable(); // local query now
             if (pFilterOnState)
             {
-                programs = programs.Where(p => p.State == myStateFilter);
+                programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
             }
 
-            programquery = programs.AsEnumerable().Select(p =>
+            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            {
+                programs = programs.Take(50);
+            }
+
+            programquery = programs.Select(p =>
                          new ProgramEntry
                          {
                              Name = p.Name,
@@ -929,10 +941,7 @@ namespace AMSExplorer
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                          });
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
-            {
-                programquery = programquery.Take(50);
-            }
+            
 
             _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());

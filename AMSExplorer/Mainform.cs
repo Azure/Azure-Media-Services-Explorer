@@ -11026,6 +11026,15 @@ namespace AMSExplorer
                 DoStorageVersion(storagename);
             }
         }
+
+        private void checkBoxAnyChannel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewProgramsV.Initialized)
+            {
+                dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
+                DoRefreshGridProgramV(false);
+            }
+        }
     }
 }
 
