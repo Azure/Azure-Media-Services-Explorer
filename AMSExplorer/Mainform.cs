@@ -11979,6 +11979,10 @@ namespace AMSExplorer
 
 
                         /*
+
+                        // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
+                        // executed locally and would be slow. Could be reintroduce if customer demand.
+
                     case StatusAssets.NotPublished:
                         fassets = listassets.Where(a => a.Locators.Count == 0);
                         break;
