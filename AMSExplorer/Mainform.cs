@@ -1826,7 +1826,11 @@ namespace AMSExplorer
             List<IAsset> SelectedAssets = new List<IAsset>();
             foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
             {
-                SelectedAssets.Add(_context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                var asset = _context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (asset != null)
+                {
+                    SelectedAssets.Add(asset);
+                }
             }
             SelectedAssets.Reverse();
             return SelectedAssets;
@@ -3984,7 +3988,7 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
-           
+
 
 
             // let's monitor channels or programs which are in "intermediate" state
@@ -5732,12 +5736,17 @@ namespace AMSExplorer
 
         private void DoRefreshGridProgramV(bool firstime)
         {
+
             if (firstime)
             {
+                Debug.WriteLine("DoRefreshGridProgramVforsttime");
                 dataGridViewProgramsV.Init(_credentials, _context);
             }
+            else
+            {
+                Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
+            }
 
-            Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
             int backupindex = 0;
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
             labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(Constants.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
@@ -5938,7 +5947,12 @@ namespace AMSExplorer
             List<IChannel> SelectedChannels = new List<IChannel>();
             foreach (DataGridViewRow Row in dataGridViewChannelsV.SelectedRows)
             {
-                SelectedChannels.Add(_context.Channels.Where(j => j.Id == Row.Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                // sometimes, the channel can be null (if just deleted)
+                var channel = _context.Channels.Where(j => j.Id == Row.Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (channel != null)
+                {
+                    SelectedChannels.Add(channel);
+                }
             }
             SelectedChannels.Reverse();
             return SelectedChannels;
@@ -5948,7 +5962,11 @@ namespace AMSExplorer
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                var se = _context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (se != null)
+                {
+                    SelectedOrigins.Add(se);
+                }
             }
             SelectedOrigins.Reverse();
             return SelectedOrigins;
@@ -5956,31 +5974,17 @@ namespace AMSExplorer
 
         private List<IProgram> ReturnSelectedPrograms()
         {
-            bool Error = false;
             List<IProgram> SelectedPrograms = new List<IProgram>();
             foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                try
+                var program = _context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (program != null)
                 {
-                    SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
-                }
-                catch
-                {
-                    Error = true;
-                    break;
-
+                    SelectedPrograms.Add(program);
                 }
             }
-            if (!Error)
-            {
-                SelectedPrograms.Reverse();
-                return SelectedPrograms;
-            }
-            else
-            {
-                return null;
-            }
-
+            SelectedPrograms.Reverse();
+            return SelectedPrograms;
         }
 
         private async void DoStopChannels()
@@ -6328,7 +6332,7 @@ namespace AMSExplorer
 
 
         internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
-        // used for Streaming Endpoint and Channel creation
+                                                                                                                                                                                                // used for Streaming Endpoint and Channel creation
         {
             IOperation operation = null;
             try
@@ -6854,21 +6858,16 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
         {
-            Debug.WriteLine("channel sel changed : begin");
+            Debug.WriteLine("channel selection changed : begin");
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
             if (SelectedChannels.Count > 0)
             {
-                try // sometimes, the channel can be null (if just deleted)
-                {
-                    dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
-                }
-                catch
-                {
 
-                }
+                dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+
                 Task.Run(() =>
                 {
-                    Debug.WriteLine("channel sel changed : before refresh");
+                    Debug.WriteLine("channel selection changed : before refresh");
                     DoRefreshGridProgramV(false);
                 });
             }
@@ -7131,6 +7130,7 @@ namespace AMSExplorer
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            return;
             var cellprogramstatevalue = dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["State"].Index].Value;
 
             if (cellprogramstatevalue != null)

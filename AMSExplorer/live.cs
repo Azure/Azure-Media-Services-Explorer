@@ -750,6 +750,8 @@ namespace AMSExplorer
             if (!_initialized) return;
             if (idsList.Count == 0) return;
 
+            Debug.WriteLine("RefreshPrograms : start");
+
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
 
@@ -922,6 +924,9 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+
+            Debug.WriteLine("RefreshPrograms : end");
+
         }
     }
 
