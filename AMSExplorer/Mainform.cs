@@ -11671,9 +11671,7 @@ namespace AMSExplorer
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
 
-
                         cacheAssetentries[asset.Id] = AE; // let's put it in cache (or update the cache)
-
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -12214,6 +12212,7 @@ namespace AMSExplorer
                                 break;
 
                             case PublishStatus.NotPublished:
+                            default:
                                 break;
                         }
                         break;
@@ -12237,7 +12236,7 @@ namespace AMSExplorer
                                 break;
 
                             case PublishStatus.NotPublished:
-
+                            default:
                                 break;
                         }
                         break;
@@ -12249,18 +12248,13 @@ namespace AMSExplorer
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
                 returnedText += !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
-
             }
 
-
-            AssetBitmapAndText ABT = new AssetBitmapAndText()
+            return new AssetBitmapAndText()
             {
                 bitmap = returnedImage,
                 MouseOverDesc = returnedText ?? "Not published"
-
             };
-
-            return ABT;
         }
 
         private static Bitmap AddBitmap(Bitmap bitmap1, Bitmap bitmap2)
@@ -12317,20 +12311,28 @@ namespace AMSExplorer
 
         private static AssetBitmapAndText BuildBitmapAssetFilters(IAsset asset)
         {
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
-            var filters = asset.AssetFilters;
+            var filcount = asset.AssetFilters.Count();
 
-            if (filters.Count() > 1)
+            if (filcount == 0)
             {
-                ABT.bitmap = AssetFiltersImage;
-                ABT.MouseOverDesc = string.Format("{0} filters", filters.Count());
+                return new AssetBitmapAndText();
             }
-            else if (filters.Count() == 1)
+            else if (filcount == 1)
             {
-                ABT.bitmap = AssetFilterImage;
-                ABT.MouseOverDesc = string.Format("1 filter");
+                return new AssetBitmapAndText()
+                {
+                    bitmap = AssetFilterImage,
+                    MouseOverDesc = "1 filter"
+                }; ;
             }
-            return ABT;
+            else // >1
+            {
+                return new AssetBitmapAndText()
+                {
+                    bitmap = AssetFiltersImage,
+                    MouseOverDesc = string.Format("{0} filters", filcount)
+                };
+            }
         }
 
 
