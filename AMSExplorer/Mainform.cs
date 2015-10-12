@@ -11327,6 +11327,7 @@ namespace AMSExplorer
         public const string Published = "Published";
         public const string PublishedExpired = "Published but expired";
         public const string DynEnc = "With Dyn Enc";
+        public const string Empty = "Empty";
     }
 
     public static class FilterTime
@@ -11742,8 +11743,6 @@ namespace AMSExplorer
             }
 
 
-            // assets = context.Assets;
-
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
@@ -11961,11 +11960,10 @@ namespace AMSExplorer
                             int batchSizeLoc = 1000;
                             int currentSkipSizeLoc = 0;
 
-
                             while (true)
                             {
                                 // Enumerate through all locators (1000 at a time)
-                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSize).Take(batchSize).ToList().Select(l => l.AssetId).ToList();
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
                                 currentSkipSizeLoc += listlocators.Count;
 
                                 var assetexpired = listassets.Where(a => listlocators.Contains(a.Id));
@@ -12002,6 +12000,44 @@ namespace AMSExplorer
                             break;
 
 
+                        case StatusAssets.Empty:
+
+                            IList<IAsset> lassets2 = listassets;
+
+                            int skipSizeEmpty = 0;
+                            int batchSizeEmpty = 1000;
+                            int currentSkipSizeEmpty = 0;
+
+
+                            while (true)
+                            {
+                                // Enumerate through all files (1000 at a time)
+                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+                                currentSkipSizeEmpty += listfiles.Count;
+
+                                var assetsnotempty = listassets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+                                foreach (var a in assetsnotempty)
+                                {
+                                    lassets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
+                                }
+
+                                if (currentSkipSizeEmpty == batchSizeEmpty)
+                                {
+                                    skipSizeEmpty += batchSizeEmpty;
+                                    currentSkipSizeEmpty = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in lassets2)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
 
                         /*
 
