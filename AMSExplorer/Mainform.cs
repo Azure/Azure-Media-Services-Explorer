@@ -11624,18 +11624,18 @@ namespace AMSExplorer
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IAsset asset;
+            IAsset asset = null;
 
             PublishStatus SASLoc;
             PublishStatus OrigLoc;
-            int i = 0;
 
-            var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList();
-            listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
+            //var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analized
+            //listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
+
+            var listae = _MyObservAsset.OrderBy(a => cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
 
             foreach (AssetEntry AE in listae)
             {
-                asset = null;
                 try
                 {
                     asset = _context.Assets.Where(a => a.Id == AE.Id).FirstOrDefault();
@@ -11646,30 +11646,34 @@ namespace AMSExplorer
                         AE.LastModified = asset.LastModified.ToLocalTime();
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
+
                         AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = assetBitmapAndText.bitmap;
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         assetBitmapAndText = BuildBitmapPublication(asset);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         AE.Type = AssetInfo.GetAssetType(asset);
                         AE.SizeLong = myAssetInfo.GetSize();
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+
                         assetBitmapAndText = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate;
-                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
+                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now.ToLocalTime());
+
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
-                        cacheAssetentries.Add(asset.Id, AE); // let's put it in cache
-                        i++;
-                        if (i % 5 == 0)
-                        {
-                            this.BeginInvoke(new Action(() => this.Refresh()), null);
-                        }
+
+
+                        cacheAssetentries[asset.Id] = AE; // let's put it in cache (or update the cache)
+
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...

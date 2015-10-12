@@ -47,6 +47,7 @@ using System.Runtime.Serialization;
 using Microsoft.Win32;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
+using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
@@ -2605,25 +2606,235 @@ namespace AMSExplorer
     }
 
 
-    public class AssetEntry
+    public class AssetEntry : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        public string _Name;
+        public string Name
+        {
+            get
+            { return _Name; }
+            set
+            {
+                if (value != _Name)
+                {
+                    _Name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         public string Id { get; set; }
-        public string Type { get; set; }
-        public Nullable<DateTime> LastModified { get; set; }
-        public string Size { get; set; }
-        public long SizeLong { get; set; }
+
+        public string _Type;
+        public string Type
+        {
+            get
+            { return _Type; }
+            set
+            {
+                if (value != _Type)
+                {
+                    _Type = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Nullable<DateTime> _LastModified;
+        public Nullable<DateTime> LastModified
+        {
+            get
+            { return _LastModified; }
+            set
+            {
+                if (value != _LastModified)
+                {
+                    _LastModified = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _Size;
+        public string Size
+        {
+            get
+            { return _Size; }
+            set
+            {
+                if (value != _Size)
+                {
+                    _Size = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private long _SizeLong;
+        public long SizeLong
+        {
+            get
+            { return _SizeLong; }
+            set
+            {
+                if (value != _SizeLong)
+                {
+                    _SizeLong = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
         public string Storage { get; set; }
-        public Bitmap StaticEncryption { get; set; }
-        public string StaticEncryptionMouseOver { get; set; }
-        public Bitmap DynamicEncryption { get; set; }
-        public string DynamicEncryptionMouseOver { get; set; }
-        public Bitmap Publication { get; set; }
-        public Bitmap Filters { get; set; }
-        public string FiltersMouseOver { get; set; }
-        public string PublicationMouseOver { get; set; }
-        public Nullable<DateTime> LocatorExpirationDate { get; set; }
-        public bool LocatorExpirationDateWarning { get; set; }
+
+        public Bitmap _StaticEncryption=null;
+        public Bitmap StaticEncryption
+        {
+            get
+            { return _StaticEncryption; }
+            set
+            {
+                if (value != _StaticEncryption)
+                {
+                    _StaticEncryption = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _StaticEncryptionMouseOver;
+        public string StaticEncryptionMouseOver
+        {
+            get
+            { return _StaticEncryptionMouseOver; }
+            set
+            {
+                if (value != _StaticEncryptionMouseOver)
+                {
+                    _StaticEncryptionMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Bitmap _DynamicEncryption;
+        public Bitmap DynamicEncryption
+        {
+            get
+            { return _DynamicEncryption; }
+            set
+            {
+                if (value != _DynamicEncryption)
+                {
+                    _DynamicEncryption = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _DynamicEncryptionMouseOver;
+        public string DynamicEncryptionMouseOver
+        {
+            get
+            { return _DynamicEncryptionMouseOver; }
+            set
+            {
+                if (value != _DynamicEncryptionMouseOver)
+                {
+                    _DynamicEncryptionMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Bitmap _Publication = null;
+
+        public Bitmap Publication
+        {
+            get
+            { return _Publication; }
+            set
+            {
+                if (value != _Publication)
+                {
+                    _Publication = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private Bitmap _Filters = null;
+        public Bitmap Filters
+        {
+            get
+            { return _Filters; }
+            set
+            {
+                if (value != _Filters)
+                {
+                    _Filters = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _FiltersMouseOver;
+        public string FiltersMouseOver
+        {
+            get
+            { return _FiltersMouseOver; }
+            set
+            {
+                if (value != _FiltersMouseOver)
+                {
+                    _FiltersMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _PublicationMouseOver;
+        public string PublicationMouseOver
+        {
+            get
+            { return _PublicationMouseOver; }
+            set
+            {
+                if (value != _PublicationMouseOver)
+                {
+                    _PublicationMouseOver = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Nullable<DateTime> _LocatorExpirationDate;
+        public Nullable<DateTime> LocatorExpirationDate
+        {
+            get
+            { return _LocatorExpirationDate; }
+            set
+            {
+                if (value != _LocatorExpirationDate)
+                {
+                    _LocatorExpirationDate = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private bool _LocatorExpirationDateWarning;
+        public bool LocatorExpirationDateWarning
+        {
+            get
+            { return _LocatorExpirationDateWarning; }
+            set
+            {
+                if (value != _LocatorExpirationDateWarning)
+                {
+                    _LocatorExpirationDateWarning = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
+
     }
 
     public class EndPointMapping
