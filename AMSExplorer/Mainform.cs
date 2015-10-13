@@ -11910,11 +11910,42 @@ namespace AMSExplorer
 
                     // Search on Program name
                     case SearchIn.ProgramName:
-                        var queryprog2 = context.Programs.Where(p => p.Name.Contains(_searchinname.Text)).AsEnumerable().Select(p => p.AssetId);
-                        assets = context.Assets.Where(a =>
-                                (!filterday || a.LastModified > datefilter)
-                                                              )
-                        .AsEnumerable().Where(a => queryprog2.Contains(a.Id)).OrderBy(a => a.LastModified);
+                        // we take only the first 1000 programs that contains the text. We could improve this by paging the query (to do)
+                        var queryprog2 = context.Programs.Where(p => p.Name.ToLower().Contains(_searchinname.Text.ToLower())).AsEnumerable().Select(p=>p.AssetId).ToList();
+                       
+                        IList<IAsset> passets = new List<IAsset>();
+
+                        int skipSizePr = 0;
+                        int batchSizePr = 1000;
+                        int currentSkipSizePr = 0;
+
+                        while (true)
+                        {
+                            // Enumerate through all assets (1000 at a time)
+                            var assetsq = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter))
+                                .Skip(skipSizePr).Take(batchSizePr).ToList();
+
+                            currentSkipSizePr += assetsq.Count;
+
+                            var assetsq2 = assetsq.Where(a => queryprog2.Contains(a.Id)); // assets which are in the program query
+
+                            foreach (var a in assetsq2)
+                            {
+                                passets.Add(a);
+                            }
+
+                            if (currentSkipSizePr == batchSizePr)
+                            {
+                                skipSizePr += batchSizePr;
+                                currentSkipSizePr = 0;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        assets = passets;
                         break;
 
 
@@ -11931,14 +11962,13 @@ namespace AMSExplorer
 
 
 
-
+            // FILTERING
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
             {
                 IList<IAsset> passets = new List<IAsset>();
                 int skipSize = 0;
                 int batchSize = 1000;
                 int currentSkipSize = 0;
-
 
                 while (true)
                 {
@@ -11949,7 +11979,6 @@ namespace AMSExplorer
 
                     switch (_statefilter)
                     {
-
                         case StatusAssets.Published:
                         case StatusAssets.PublishedExpired:
 

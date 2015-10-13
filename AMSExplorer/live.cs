@@ -404,8 +404,6 @@ namespace AMSExplorer
                                                 );
             }
 
-           
-
             switch (_orderitems)
             {
                 case OrderChannels.LastModified:
@@ -427,7 +425,6 @@ namespace AMSExplorer
                 default:
                     break;
             }
-
 
 
             IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
@@ -455,7 +452,6 @@ namespace AMSExplorer
                            State = c.State,
                            LastModified = c.LastModified.ToLocalTime()
                        });
-
 
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
@@ -917,8 +913,6 @@ namespace AMSExplorer
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
                          });
 
-
-
             _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
@@ -926,7 +920,6 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
 
             Debug.WriteLine("RefreshPrograms : end");
-
         }
     }
 
