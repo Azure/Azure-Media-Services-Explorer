@@ -120,7 +120,6 @@ namespace AMSExplorer
             {
                 return _initialized;
             }
-
         }
         public string TimeFilter
         {
@@ -139,14 +138,6 @@ namespace AMSExplorer
             {
                 return _MyObservChannels.Count();
             }
-
-        }
-        public IEnumerable<IChannel> DisplayedJobs
-        {
-            get
-            {
-                return channels;
-            }
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
@@ -154,7 +145,6 @@ namespace AMSExplorer
         static BindingList<ChannelEntry> _MyObservChannels;
         static BindingList<ChannelEntry> _MyObservChannelthisPage;
 
-        static IEnumerable<IChannel> channels;
         static private int _channelsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;

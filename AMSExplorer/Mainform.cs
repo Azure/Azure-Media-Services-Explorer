@@ -84,10 +84,11 @@ namespace AMSExplorer
         private bool HyperlapsePresent = true;
         private bool AMEStandardPresent = true;
 
-
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
+
+        private bool backupCheckboxAnychannel = false;
 
         public Mainform()
         {
@@ -11040,13 +11041,29 @@ namespace AMSExplorer
 
         private void checkBoxAnyChannel_CheckedChanged(object sender, EventArgs e)
         {
-            if (dataGridViewProgramsV.Initialized)
+            if (dataGridViewProgramsV.Initialized && string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
             {
+
                 dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
                 Task.Run(() =>
                 {
                     DoRefreshGridProgramV(false);
                 });
+            }
+        }
+
+        private void textBoxSearchNameProgram_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
+            {
+                checkBoxAnyChannel.Checked = backupCheckboxAnychannel;
+                checkBoxAnyChannel.Enabled = true;
+            }
+            else if (checkBoxAnyChannel.Enabled) // not empty and checkbox is still enabled
+            {
+                backupCheckboxAnychannel = checkBoxAnyChannel.Checked;
+                checkBoxAnyChannel.Checked = true;
+                checkBoxAnyChannel.Enabled = false;
             }
         }
     }
@@ -11911,8 +11928,8 @@ namespace AMSExplorer
                     // Search on Program name
                     case SearchIn.ProgramName:
                         // we take only the first 1000 programs that contains the text. We could improve this by paging the query (to do)
-                        var queryprog2 = context.Programs.Where(p => p.Name.ToLower().Contains(_searchinname.Text.ToLower())).AsEnumerable().Select(p=>p.AssetId).ToList();
-                       
+                        var queryprog2 = context.Programs.Where(p => p.Name.ToLower().Contains(_searchinname.Text.ToLower())).AsEnumerable().Select(p => p.AssetId).ToList();
+
                         IList<IAsset> passets = new List<IAsset>();
 
                         int skipSizePr = 0;
