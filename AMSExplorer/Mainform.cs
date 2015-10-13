@@ -89,6 +89,7 @@ namespace AMSExplorer
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
 
         private bool backupCheckboxAnychannel = false;
+        private bool CheckboxAnychannelChangedByCode = false;
 
         public Mainform()
         {
@@ -4031,7 +4032,7 @@ namespace AMSExplorer
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
 
-            // let's add a button to job textbox search
+            // let's add a button to channel textbox search
             var btnc = new Button();
             btnc.Size = new Size(18, textBoxSearchNameChannel.ClientSize.Height + 2);
             btnc.Location = new Point(textBoxSearchNameChannel.ClientSize.Width - btnc.Width, -1);
@@ -4044,7 +4045,7 @@ namespace AMSExplorer
             // Send EM_SETMARGINS to prevent text from disappearing underneath the button
             SendMessage(textBoxSearchNameChannel.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
 
-            // let's add a button to job textbox search
+            // let's add a button to program textbox search
             var btnp = new Button();
             btnp.Size = new Size(18, textBoxSearchNameProgram.ClientSize.Height + 2);
             btnp.Location = new Point(textBoxSearchNameProgram.ClientSize.Width - btnp.Width, -1);
@@ -9635,6 +9636,8 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
                         ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                        dataGridViewAssetsV.PurgeCacheAsset(myAsset);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
 
@@ -11041,7 +11044,7 @@ namespace AMSExplorer
 
         private void checkBoxAnyChannel_CheckedChanged(object sender, EventArgs e)
         {
-            if (dataGridViewProgramsV.Initialized && string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
+            if (dataGridViewProgramsV.Initialized && !CheckboxAnychannelChangedByCode)
             {
 
                 dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
@@ -11050,17 +11053,20 @@ namespace AMSExplorer
                     DoRefreshGridProgramV(false);
                 });
             }
+            CheckboxAnychannelChangedByCode = false;
         }
 
         private void textBoxSearchNameProgram_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
             {
+                CheckboxAnychannelChangedByCode = true;
                 checkBoxAnyChannel.Checked = backupCheckboxAnychannel;
                 checkBoxAnyChannel.Enabled = true;
             }
             else if (checkBoxAnyChannel.Enabled) // not empty and checkbox is still enabled
             {
+                CheckboxAnychannelChangedByCode = true;
                 backupCheckboxAnychannel = checkBoxAnyChannel.Checked;
                 checkBoxAnyChannel.Checked = true;
                 checkBoxAnyChannel.Enabled = false;

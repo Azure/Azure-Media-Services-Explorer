@@ -2292,7 +2292,6 @@ namespace AMSExplorer
                         &&
                         (context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
-
                     {
                         var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer);
                         if (form.ShowDialog() == DialogResult.OK)
@@ -2682,7 +2681,7 @@ namespace AMSExplorer
         }
         public string Storage { get; set; }
 
-        public Bitmap _StaticEncryption=null;
+        public Bitmap _StaticEncryption = null;
         public Bitmap StaticEncryption
         {
             get
