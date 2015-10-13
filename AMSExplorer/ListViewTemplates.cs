@@ -107,11 +107,9 @@ namespace AMSExplorer
             _context = context;
             _selectedjobtemplate = selectedjobtemplate;
             LoadTemplates();
-
         }
         private void LoadTemplates()
         {
-
             this.BeginUpdate();
             this.Items.Clear();
             foreach (var template in _context.JobTemplates)
@@ -141,8 +139,6 @@ namespace AMSExplorer
             }
         }
     }
-
-
 
     class ListViewWorkflows : ListView
     {
@@ -449,11 +445,8 @@ namespace AMSExplorer
                 {
                     returnString = string.Format("The file\n'{0}'\nhas an aspect ratio of {1:0.000} which is different from {2:0.000} (16:9)", file, aspectRatioImage, Constants.SlateJPGAspectRatio);
                 }
-
             }
             return returnString;
         }
     }
-
-
 }
