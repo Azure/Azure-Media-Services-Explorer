@@ -336,7 +336,7 @@ namespace AMSExplorer
                             Environment.Exit(0);
                         }
                         */
-                        var form = new SoftwareUpdate(AllReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
+                        var form = new SoftwareUpdate(ReleaseNotesUrl, versionAMSEGitHub, BinaryUrl);
                         form.ShowDialog();
                     }
                 }
