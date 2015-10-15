@@ -126,12 +126,12 @@ namespace AMSExplorer
 
         private void linkLabelContact_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment");
+            System.Diagnostics.Process.Start(Constants.LinkMailtoAMSE);
         }
 
         private void linkLabelWebSite_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://aka.ms/amse");
+            System.Diagnostics.Process.Start(Constants.LinkAMSE);
         }
 
         private void buttonLicTerms_Click(object sender, EventArgs e)

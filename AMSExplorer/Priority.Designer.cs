@@ -28,32 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.numericUpDownPriority = new System.Windows.Forms.NumericUpDown();
             this.buttonUpdate = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 27);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 13);
-            this.label1.TabIndex = 38;
-            this.label1.Text = "Priority:";
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(189, 13);
+            this.buttonCancel.Location = new System.Drawing.Point(220, 15);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 40;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -61,9 +52,9 @@
             // 
             // numericUpDownPriority
             // 
-            this.numericUpDownPriority.Location = new System.Drawing.Point(29, 43);
+            this.numericUpDownPriority.Location = new System.Drawing.Point(34, 50);
             this.numericUpDownPriority.Name = "numericUpDownPriority";
-            this.numericUpDownPriority.Size = new System.Drawing.Size(93, 20);
+            this.numericUpDownPriority.Size = new System.Drawing.Size(108, 23);
             this.numericUpDownPriority.TabIndex = 41;
             this.numericUpDownPriority.Value = new decimal(new int[] {
             10,
@@ -77,9 +68,9 @@
             this.buttonUpdate.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonUpdate.Image = global::AMSExplorer.Bitmaps.change_priority;
             this.buttonUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonUpdate.Location = new System.Drawing.Point(30, 13);
+            this.buttonUpdate.Location = new System.Drawing.Point(35, 15);
             this.buttonUpdate.Name = "buttonUpdate";
-            this.buttonUpdate.Size = new System.Drawing.Size(153, 23);
+            this.buttonUpdate.Size = new System.Drawing.Size(178, 27);
             this.buttonUpdate.TabIndex = 39;
             this.buttonUpdate.Text = "Update job(s) priority";
             this.buttonUpdate.UseVisualStyleBackColor = true;
@@ -87,9 +78,9 @@
             // label5
             // 
             this.label5.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label5.Location = new System.Drawing.Point(129, 46);
+            this.label5.Location = new System.Drawing.Point(150, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(137, 17);
+            this.label5.Size = new System.Drawing.Size(160, 20);
             this.label5.TabIndex = 51;
             this.label5.Text = "(100 is the highest priority)";
             // 
@@ -100,22 +91,37 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonUpdate);
-            this.panel1.Location = new System.Drawing.Point(-4, 119);
+            this.panel1.Location = new System.Drawing.Point(-5, 137);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(302, 48);
+            this.panel1.Size = new System.Drawing.Size(352, 55);
             this.panel1.TabIndex = 63;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.DarkBlue;
+            this.label2.Location = new System.Drawing.Point(12, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(83, 20);
+            this.label2.TabIndex = 76;
+            this.label2.Text = "Job Priority";
             // 
             // Priority
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.buttonUpdate;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(296, 167);
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(345, 193);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.numericUpDownPriority);
-            this.Controls.Add(this.label1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "Priority";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Change Job Priority";
             this.Load += new System.EventHandler(this.Priority_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownPriority)).EndInit();
@@ -126,12 +132,11 @@
         }
 
         #endregion
-
-        public System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.NumericUpDown numericUpDownPriority;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label2;
     }
 }

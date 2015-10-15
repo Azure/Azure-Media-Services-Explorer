@@ -53,7 +53,6 @@ namespace AMSExplorer
                 checkBoxTTML.Checked = value.TTML;
                 checkBoxWEBVTT.Checked = value.WebVTT;
             }
-
         }
 
         public IndexerOptions()

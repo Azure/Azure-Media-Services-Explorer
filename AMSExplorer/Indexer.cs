@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using Microsoft.WindowsAzure.MediaServices.Client;
 using System.Xml.Linq;
+using System.Security;
 
 
 namespace AMSExplorer
@@ -100,8 +101,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         public string IndexerTitle
         {
             get
@@ -117,15 +116,13 @@ namespace AMSExplorer
         {
             get
             {
-                return textBoxDescription.Text;
+                return textBoxDescription.Text.Replace(Constants.endline, " ");
             }
             set
             {
                 textBoxDescription.Text = value;
             }
         }
-
-
 
         public string IndexerProcessorName
         {
@@ -147,7 +144,6 @@ namespace AMSExplorer
 
             buttonJobOptions.Initialize(_context);
         }
-
 
         private void Indexer_Load(object sender, EventArgs e)
         {

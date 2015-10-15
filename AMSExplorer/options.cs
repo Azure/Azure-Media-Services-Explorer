@@ -56,10 +56,10 @@ namespace AMSExplorer
             Properties.Settings.Default.CustomPlayerEnabled = checkBoxEnableCustomPlayer.Checked;
 
             Properties.Settings.Default.DefaultJobPriority = (int)numericUpDownPriority.Value;
-            Properties.Settings.Default.DefaultLocatorDurationDays = (int)numericUpDownLocatorDuration.Value;
+            Properties.Settings.Default.DefaultLocatorDurationDaysNew = (int)numericUpDownLocatorDuration.Value;
             Properties.Settings.Default.DefaultTokenDuration = (int)numericUpDownTokenDuration.Value;
             Properties.Settings.Default.AMEPrice = numericUpDownAMEPrice.Value;
-            Properties.Settings.Default.AMEPremiumWorkflowPreviewPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
+            Properties.Settings.Default.MEPremiumWorkflowPrice = numericUpDownAMEPremiumWorkflowPrice.Value;
             Properties.Settings.Default.LegacyEncodingPrice = numericUpDownLegacyEncodingPrice.Value;
             Properties.Settings.Default.IndexingPrice = numericUpDownIndexingPrice.Value;
             Properties.Settings.Default.Currency = textBoxCurrency.Text;
@@ -90,12 +90,12 @@ namespace AMSExplorer
             if (indexc == -1) indexc = 1; // not found!
             comboBoxNbItems.SelectedIndex = indexc;
 
-            textBoxCustomPlayer.Text = Constants.AMSPlayer + Constants.NameconvManifestURL;
+            textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions , Constants.NameconvManifestURL);
             checkBoxEnableCustomPlayer.Checked = false;
 
             numericUpDownPriority.Value = 10;
             textBoxCurrency.Text = "$";
-            numericUpDownLocatorDuration.Value = 365;
+            numericUpDownLocatorDuration.Value = 3650;
             numericUpDownTokenDuration.Value = 60;
             numericUpDownAMEPrice.Value = ((decimal)1.99);
             numericUpDownAMEPremiumWorkflowPrice.Value = ((decimal)1.99);
@@ -109,7 +109,10 @@ namespace AMSExplorer
             Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathAMEStdFiles; // we reset the XML files folders
             Properties.Settings.Default.PremiumWorkflowPresetXMLFilesCurrentFolder = Application.StartupPath + Constants.PathPremiumWorkflowFiles;
             Properties.Settings.Default.DefaultSlateCurrentFolder = Application.StartupPath + Constants.PathDefaultSlateJPG;
-      
+
+            Properties.Settings.Default.DynEncTokenIssuer = "http://testacs";
+            Properties.Settings.Default.DynEncTokenAudience = "urn:test";
+
             Program.SaveAndProtectUserConfig();
         }
 
@@ -138,12 +141,12 @@ namespace AMSExplorer
             textBoxCustomPlayer.Enabled = checkBoxEnableCustomPlayer.Checked;
 
             numericUpDownPriority.Value = Properties.Settings.Default.DefaultJobPriority;
-            numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDays;
+            numericUpDownLocatorDuration.Value = Properties.Settings.Default.DefaultLocatorDurationDaysNew;
             numericUpDownTokenDuration.Value = Properties.Settings.Default.DefaultTokenDuration;
 
             textBoxCurrency.Text = Properties.Settings.Default.Currency;
             numericUpDownAMEPrice.Value = Properties.Settings.Default.AMEPrice;
-            numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.AMEPremiumWorkflowPreviewPrice;
+            numericUpDownAMEPremiumWorkflowPrice.Value = Properties.Settings.Default.MEPremiumWorkflowPrice;
             numericUpDownLegacyEncodingPrice.Value = Properties.Settings.Default.LegacyEncodingPrice;
             numericUpDownIndexingPrice.Value = Properties.Settings.Default.IndexingPrice;
 

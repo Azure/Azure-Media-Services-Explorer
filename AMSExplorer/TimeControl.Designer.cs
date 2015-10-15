@@ -37,6 +37,8 @@
             this.numericUpDownDays = new System.Windows.Forms.NumericUpDown();
             this.label40 = new System.Windows.Forms.Label();
             this.trackBarTime = new System.Windows.Forms.TrackBar();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).BeginInit();
@@ -47,89 +49,89 @@
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(164, 0);
+            this.label42.Location = new System.Drawing.Point(349, 0);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(49, 13);
+            this.label42.Size = new System.Drawing.Size(51, 15);
             this.label42.TabIndex = 117;
             this.label42.Text = "Seconds";
             // 
             // numericUpDownSeconds
             // 
             this.numericUpDownSeconds.DecimalPlaces = 2;
-            this.numericUpDownSeconds.Location = new System.Drawing.Point(167, 16);
+            this.numericUpDownSeconds.Location = new System.Drawing.Point(352, 18);
             this.numericUpDownSeconds.Maximum = new decimal(new int[] {
-            5999,
-            0,
-            0,
-            131072});
+            1610612735,
+            1960709702,
+            -1042360779,
+            1769472});
             this.numericUpDownSeconds.Name = "numericUpDownSeconds";
-            this.numericUpDownSeconds.Size = new System.Drawing.Size(63, 20);
+            this.numericUpDownSeconds.Size = new System.Drawing.Size(73, 23);
             this.numericUpDownSeconds.TabIndex = 116;
             this.numericUpDownSeconds.ValueChanged += new System.EventHandler(this.HandleValueChanged);
             // 
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(111, 0);
+            this.label39.Location = new System.Drawing.Point(287, 0);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(44, 13);
+            this.label39.Size = new System.Drawing.Size(50, 15);
             this.label39.TabIndex = 115;
             this.label39.Text = "Minutes";
             // 
             // numericUpDownMinutes
             // 
-            this.numericUpDownMinutes.Location = new System.Drawing.Point(114, 16);
+            this.numericUpDownMinutes.Location = new System.Drawing.Point(290, 18);
             this.numericUpDownMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numericUpDownMinutes.Name = "numericUpDownMinutes";
-            this.numericUpDownMinutes.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownMinutes.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownMinutes.TabIndex = 112;
             this.numericUpDownMinutes.ValueChanged += new System.EventHandler(this.HandleValueChanged);
             // 
             // label41
             // 
             this.label41.AutoSize = true;
-            this.label41.Location = new System.Drawing.Point(5, 0);
+            this.label41.Location = new System.Drawing.Point(163, 0);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(31, 13);
+            this.label41.Size = new System.Drawing.Size(32, 15);
             this.label41.TabIndex = 113;
             this.label41.Text = "Days";
             // 
             // numericUpDownHours
             // 
-            this.numericUpDownHours.Location = new System.Drawing.Point(61, 16);
+            this.numericUpDownHours.Location = new System.Drawing.Point(229, 18);
             this.numericUpDownHours.Maximum = new decimal(new int[] {
             23,
             0,
             0,
             0});
             this.numericUpDownHours.Name = "numericUpDownHours";
-            this.numericUpDownHours.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownHours.TabIndex = 111;
             this.numericUpDownHours.ValueChanged += new System.EventHandler(this.HandleValueChanged);
             // 
             // numericUpDownDays
             // 
-            this.numericUpDownDays.Location = new System.Drawing.Point(8, 16);
+            this.numericUpDownDays.Location = new System.Drawing.Point(167, 18);
             this.numericUpDownDays.Maximum = new decimal(new int[] {
             1874919424,
             2328306,
             0,
             0});
             this.numericUpDownDays.Name = "numericUpDownDays";
-            this.numericUpDownDays.Size = new System.Drawing.Size(47, 20);
+            this.numericUpDownDays.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownDays.TabIndex = 110;
             this.numericUpDownDays.ValueChanged += new System.EventHandler(this.HandleValueChanged);
             // 
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(58, 0);
+            this.label40.Location = new System.Drawing.Point(225, 0);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(35, 13);
+            this.label40.Size = new System.Drawing.Size(39, 15);
             this.label40.TabIndex = 114;
             this.label40.Text = "Hours";
             // 
@@ -139,19 +141,41 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trackBarTime.BackColor = System.Drawing.SystemColors.Window;
             this.trackBarTime.Enabled = false;
-            this.trackBarTime.Location = new System.Drawing.Point(3, 42);
+            this.trackBarTime.Location = new System.Drawing.Point(3, 48);
             this.trackBarTime.Maximum = 1000;
             this.trackBarTime.Name = "trackBarTime";
-            this.trackBarTime.Size = new System.Drawing.Size(286, 45);
+            this.trackBarTime.Size = new System.Drawing.Size(437, 45);
             this.trackBarTime.TabIndex = 119;
             this.trackBarTime.Scroll += new System.EventHandler(this.trackBarStart_Scroll);
             this.trackBarTime.ValueChanged += new System.EventHandler(this.HandleTrackBarValueChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(59, 15);
+            this.label1.TabIndex = 124;
+            this.label1.Text = "Start time";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(59, 15);
+            this.label2.TabIndex = 125;
+            this.label2.Text = "Start time";
+            // 
             // TimeControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.trackBarTime);
             this.Controls.Add(this.label42);
             this.Controls.Add(this.numericUpDownSeconds);
@@ -161,8 +185,9 @@
             this.Controls.Add(this.numericUpDownHours);
             this.Controls.Add(this.numericUpDownDays);
             this.Controls.Add(this.label40);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "TimeControl";
-            this.Size = new System.Drawing.Size(289, 95);
+            this.Size = new System.Drawing.Size(441, 110);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSeconds)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHours)).EndInit();
@@ -184,5 +209,7 @@
         private System.Windows.Forms.NumericUpDown numericUpDownDays;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.TrackBar trackBarTime;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
     }
 }

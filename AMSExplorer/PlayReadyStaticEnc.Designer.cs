@@ -69,33 +69,33 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 407);
+            this.label3.Location = new System.Drawing.Point(28, 470);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(174, 13);
+            this.label3.Size = new System.Drawing.Size(193, 15);
             this.label3.TabIndex = 22;
-            this.label3.Text = "Please enter an output asset name:";
+            this.label3.Text = "Please enter an output asset name :";
             // 
             // textboxoutputassetname
             // 
-            this.textboxoutputassetname.Location = new System.Drawing.Point(27, 426);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(31, 492);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
-            this.textboxoutputassetname.Size = new System.Drawing.Size(460, 20);
+            this.textboxoutputassetname.Size = new System.Drawing.Size(536, 23);
             this.textboxoutputassetname.TabIndex = 21;
             // 
             // processorlabel
             // 
-            this.processorlabel.Location = new System.Drawing.Point(24, 458);
+            this.processorlabel.Location = new System.Drawing.Point(28, 528);
             this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(463, 22);
+            this.processorlabel.Size = new System.Drawing.Size(540, 25);
             this.processorlabel.TabIndex = 20;
             this.processorlabel.Text = "processor name";
             // 
             // moreinfotestserver
             // 
             this.moreinfotestserver.AutoSize = true;
-            this.moreinfotestserver.Location = new System.Drawing.Point(190, 65);
+            this.moreinfotestserver.Location = new System.Drawing.Point(222, 75);
             this.moreinfotestserver.Name = "moreinfotestserver";
-            this.moreinfotestserver.Size = new System.Drawing.Size(152, 13);
+            this.moreinfotestserver.Size = new System.Drawing.Size(163, 15);
             this.moreinfotestserver.TabIndex = 19;
             this.moreinfotestserver.TabStop = true;
             this.moreinfotestserver.Text = "PlayReady test server web site";
@@ -105,9 +105,9 @@
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(409, 12);
+            this.buttonCancel.Location = new System.Drawing.Point(477, 14);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(99, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(115, 27);
             this.buttonCancel.TabIndex = 16;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -115,17 +115,17 @@
             // label
             // 
             this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(188, 47);
+            this.label.Location = new System.Drawing.Point(219, 54);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(264, 13);
+            this.label.Size = new System.Drawing.Size(292, 15);
             this.label.TabIndex = 28;
             this.label.Text = "You can specifiy your own data or use the test settings";
             // 
             // buttonPlayReadyTestSettings
             // 
-            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(23, 48);
+            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(27, 55);
             this.buttonPlayReadyTestSettings.Name = "buttonPlayReadyTestSettings";
-            this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(159, 32);
+            this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(185, 37);
             this.buttonPlayReadyTestSettings.TabIndex = 29;
             this.buttonPlayReadyTestSettings.Text = "Use PlayReady Test Settings";
             this.buttonPlayReadyTestSettings.UseVisualStyleBackColor = true;
@@ -135,10 +135,10 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(23, 132);
+            this.tabControl1.Location = new System.Drawing.Point(27, 152);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(468, 262);
+            this.tabControl1.Size = new System.Drawing.Size(546, 302);
             this.tabControl1.TabIndex = 33;
             // 
             // tabPage1
@@ -153,26 +153,26 @@
             this.tabPage1.Controls.Add(this.textBoxcontentkey);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(460, 236);
+            this.tabPage1.Size = new System.Drawing.Size(538, 274);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Basic settings";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // textBoxLAurl
             // 
-            this.textBoxLAurl.Location = new System.Drawing.Point(24, 82);
+            this.textBoxLAurl.Location = new System.Drawing.Point(28, 95);
             this.textBoxLAurl.Name = "textBoxLAurl";
-            this.textBoxLAurl.Size = new System.Drawing.Size(414, 20);
+            this.textBoxLAurl.Size = new System.Drawing.Size(482, 23);
             this.textBoxLAurl.TabIndex = 37;
             // 
             // buttongenerateContentKey
             // 
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(355, 187);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(414, 216);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
-            this.buttongenerateContentKey.Size = new System.Drawing.Size(83, 25);
+            this.buttongenerateContentKey.Size = new System.Drawing.Size(97, 29);
             this.buttongenerateContentKey.TabIndex = 40;
             this.buttongenerateContentKey.Text = "Generate";
             this.buttongenerateContentKey.UseVisualStyleBackColor = true;
@@ -181,34 +181,34 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(21, 120);
+            this.label1.Location = new System.Drawing.Point(24, 138);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
+            this.label1.Size = new System.Drawing.Size(60, 15);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Key Seed:";
+            this.label1.Text = "Key Seed :";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 66);
+            this.label2.Location = new System.Drawing.Point(24, 76);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(117, 13);
+            this.label2.Size = new System.Drawing.Size(133, 15);
             this.label2.TabIndex = 35;
-            this.label2.Text = "License Acquisition Url:";
+            this.label2.Text = "License Acquisition Url :";
             // 
             // textBoxkeyseed
             // 
-            this.textBoxkeyseed.Location = new System.Drawing.Point(24, 136);
+            this.textBoxkeyseed.Location = new System.Drawing.Point(28, 157);
             this.textBoxkeyseed.Name = "textBoxkeyseed";
-            this.textBoxkeyseed.Size = new System.Drawing.Size(414, 20);
+            this.textBoxkeyseed.Size = new System.Drawing.Size(482, 23);
             this.textBoxkeyseed.TabIndex = 34;
             this.textBoxkeyseed.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // buttonGenKeyID
             // 
-            this.buttonGenKeyID.Location = new System.Drawing.Point(355, 25);
+            this.buttonGenKeyID.Location = new System.Drawing.Point(414, 29);
             this.buttonGenKeyID.Name = "buttonGenKeyID";
-            this.buttonGenKeyID.Size = new System.Drawing.Size(83, 25);
+            this.buttonGenKeyID.Size = new System.Drawing.Size(97, 29);
             this.buttonGenKeyID.TabIndex = 33;
             this.buttonGenKeyID.Text = "Generate";
             this.buttonGenKeyID.UseVisualStyleBackColor = true;
@@ -216,37 +216,37 @@
             // 
             // textBoxkeyid
             // 
-            this.textBoxkeyid.Location = new System.Drawing.Point(24, 28);
+            this.textBoxkeyid.Location = new System.Drawing.Point(28, 32);
             this.textBoxkeyid.Name = "textBoxkeyid";
-            this.textBoxkeyid.Size = new System.Drawing.Size(325, 20);
+            this.textBoxkeyid.Size = new System.Drawing.Size(378, 23);
             this.textBoxkeyid.TabIndex = 32;
             this.textBoxkeyid.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // textBoxcontentkey
             // 
-            this.textBoxcontentkey.Location = new System.Drawing.Point(24, 190);
+            this.textBoxcontentkey.Location = new System.Drawing.Point(28, 219);
             this.textBoxcontentkey.Name = "textBoxcontentkey";
-            this.textBoxcontentkey.Size = new System.Drawing.Size(325, 20);
+            this.textBoxcontentkey.Size = new System.Drawing.Size(378, 23);
             this.textBoxcontentkey.TabIndex = 35;
             this.textBoxcontentkey.TextChanged += new System.EventHandler(this.textBox_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(21, 12);
+            this.label5.Location = new System.Drawing.Point(24, 14);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.Size = new System.Drawing.Size(46, 15);
             this.label5.TabIndex = 31;
-            this.label5.Text = "Key ID:";
+            this.label5.Text = "Key ID :";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(21, 174);
+            this.label4.Location = new System.Drawing.Point(24, 201);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
+            this.label4.Size = new System.Drawing.Size(77, 15);
             this.label4.TabIndex = 34;
-            this.label4.Text = "Content key:";
+            this.label4.Text = "Content key :";
             // 
             // tabPage2
             // 
@@ -256,54 +256,54 @@
             this.tabPage2.Controls.Add(this.label6);
             this.tabPage2.Controls.Add(this.checkBoxadjustSubSamples);
             this.tabPage2.Controls.Add(this.checkBoxuseSencBox);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(460, 236);
+            this.tabPage2.Size = new System.Drawing.Size(538, 274);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Advanced settings";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // textBoxCustomAttributes
             // 
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(22, 83);
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(26, 96);
             this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
-            this.textBoxCustomAttributes.Size = new System.Drawing.Size(414, 20);
+            this.textBoxCustomAttributes.Size = new System.Drawing.Size(482, 23);
             this.textBoxCustomAttributes.TabIndex = 39;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(19, 67);
+            this.label7.Location = new System.Drawing.Point(22, 77);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(92, 13);
+            this.label7.Size = new System.Drawing.Size(110, 15);
             this.label7.TabIndex = 38;
-            this.label7.Text = "Custom Attributes:";
+            this.label7.Text = "Custom Attributes :";
             // 
             // textBoxServiceID
             // 
-            this.textBoxServiceID.Location = new System.Drawing.Point(22, 31);
+            this.textBoxServiceID.Location = new System.Drawing.Point(26, 36);
             this.textBoxServiceID.Name = "textBoxServiceID";
-            this.textBoxServiceID.Size = new System.Drawing.Size(414, 20);
+            this.textBoxServiceID.Size = new System.Drawing.Size(482, 23);
             this.textBoxServiceID.TabIndex = 37;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(19, 15);
+            this.label6.Location = new System.Drawing.Point(22, 17);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.Size = new System.Drawing.Size(64, 15);
             this.label6.TabIndex = 36;
-            this.label6.Text = "Service ID:";
+            this.label6.Text = "Service ID :";
             // 
             // checkBoxadjustSubSamples
             // 
             this.checkBoxadjustSubSamples.AutoSize = true;
             this.checkBoxadjustSubSamples.Checked = true;
             this.checkBoxadjustSubSamples.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxadjustSubSamples.Location = new System.Drawing.Point(22, 148);
+            this.checkBoxadjustSubSamples.Location = new System.Drawing.Point(26, 171);
             this.checkBoxadjustSubSamples.Name = "checkBoxadjustSubSamples";
-            this.checkBoxadjustSubSamples.Size = new System.Drawing.Size(113, 17);
+            this.checkBoxadjustSubSamples.Size = new System.Drawing.Size(122, 19);
             this.checkBoxadjustSubSamples.TabIndex = 33;
             this.checkBoxadjustSubSamples.Text = "adjustSubSamples";
             this.checkBoxadjustSubSamples.UseVisualStyleBackColor = true;
@@ -313,9 +313,9 @@
             this.checkBoxuseSencBox.AutoSize = true;
             this.checkBoxuseSencBox.Checked = true;
             this.checkBoxuseSencBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxuseSencBox.Location = new System.Drawing.Point(22, 125);
+            this.checkBoxuseSencBox.Location = new System.Drawing.Point(26, 144);
             this.checkBoxuseSencBox.Name = "checkBoxuseSencBox";
-            this.checkBoxuseSencBox.Size = new System.Drawing.Size(86, 17);
+            this.checkBoxuseSencBox.Size = new System.Drawing.Size(88, 19);
             this.checkBoxuseSencBox.TabIndex = 32;
             this.checkBoxuseSencBox.Text = "useSencBox";
             this.checkBoxuseSencBox.UseVisualStyleBackColor = true;
@@ -323,16 +323,16 @@
             // labelAssetName
             // 
             this.labelAssetName.AutoSize = true;
-            this.labelAssetName.Location = new System.Drawing.Point(58, 19);
+            this.labelAssetName.Location = new System.Drawing.Point(68, 22);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(58, 13);
+            this.labelAssetName.Size = new System.Drawing.Size(63, 15);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::AMSExplorer.Bitmaps.DRM_protection;
-            this.pictureBox1.Location = new System.Drawing.Point(27, 19);
+            this.pictureBox1.Location = new System.Drawing.Point(31, 22);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(16, 16);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -345,9 +345,9 @@
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOk.Location = new System.Drawing.Point(244, 12);
+            this.buttonOk.Location = new System.Drawing.Point(285, 14);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(159, 23);
+            this.buttonOk.Size = new System.Drawing.Size(185, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "Launch encryption";
             this.buttonOk.Text = "Launch encryption";
@@ -361,16 +361,16 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-3, 484);
+            this.panel1.Location = new System.Drawing.Point(-3, 558);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(523, 48);
+            this.panel1.Size = new System.Drawing.Size(610, 55);
             this.panel1.TabIndex = 63;
             // 
             // buttonAzureSettings
             // 
-            this.buttonAzureSettings.Location = new System.Drawing.Point(23, 86);
+            this.buttonAzureSettings.Location = new System.Drawing.Point(27, 99);
             this.buttonAzureSettings.Name = "buttonAzureSettings";
-            this.buttonAzureSettings.Size = new System.Drawing.Size(159, 32);
+            this.buttonAzureSettings.Size = new System.Drawing.Size(185, 37);
             this.buttonAzureSettings.TabIndex = 64;
             this.buttonAzureSettings.Text = "Use Azure Media Settings";
             this.buttonAzureSettings.UseVisualStyleBackColor = true;
@@ -378,10 +378,12 @@
             // 
             // PlayReadyStaticEnc
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.buttonOk;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(517, 532);
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(603, 614);
             this.Controls.Add(this.buttonAzureSettings);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetName);
@@ -393,7 +395,9 @@
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.moreinfotestserver);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "PlayReadyStaticEnc";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PlayReady Static Encryption";
             this.Load += new System.EventHandler(this.PlayReadyStaticEnc_Load);
             this.tabControl1.ResumeLayout(false);

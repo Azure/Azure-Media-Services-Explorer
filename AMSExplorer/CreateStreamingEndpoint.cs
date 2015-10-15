@@ -75,5 +75,17 @@ namespace AMSExplorer
 
         }
 
+        private void numericUpDownRU_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericUpDownRU.Value==0)
+            {
+                checkBoxEnableAzureCDN.Enabled = false;
+                checkBoxEnableAzureCDN.Checked = false;
+            }
+            else
+            {
+                checkBoxEnableAzureCDN.Enabled = true;
+            }
+        }
     }
 }

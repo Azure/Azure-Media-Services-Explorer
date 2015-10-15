@@ -157,7 +157,7 @@
   <data name="index" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\index.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-dvr-filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_dvr_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-dvr-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="modetaskjob21" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -172,7 +172,7 @@
   <data name="archive" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\archive.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-trim-filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_trim_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-trim-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="encoding" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -199,13 +199,13 @@
   <data name="modetaskjob1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>BitmapsPNG\modetaskjob1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-livebackoff-filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_livebackoff_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-livebackoff-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="packaging" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\packaging.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-rendition-filter2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_rendition_filter2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-rendition-filter2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="known_asset" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -235,7 +235,7 @@
   <data name="watch_folder" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\watch_folder.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-multiple-rules-filters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_multiple_rules_filters" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-multiple-rules-filters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="download" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -289,7 +289,7 @@
   <data name="SAS_locator" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\SAS_locator.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="media-services-subclips-filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="media_services_subclips_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\media-services-subclips-filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="thumbnails" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -300,5 +300,8 @@
   </data>
   <data name="Display_information_filter" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\Display_information_filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="encodingPremium" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\encodingPremium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

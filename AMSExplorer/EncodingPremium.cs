@@ -32,12 +32,13 @@ namespace AMSExplorer
 {
     public partial class EncodingPremium : Form
     {
-        private int numberofinputassets;
+        public int EncodingNumberOfInputAssets;
+        public string EncodingPremiumWorkflowPresetXMLFiles;
+
         private List<IMediaProcessor> Procs;
         private Bitmap bitmap_multitasksinglejob = Bitmaps.modeltaskxenio1;
         private Bitmap bitmap_multitasksmultijobs = Bitmaps.modeltaskxenio2;
         private CloudMediaContext _context;
-        public string EncodingPremiumWorkflowPresetXMLFiles;
 
         public List<IMediaProcessor> EncodingProcessorsList
         {
@@ -58,6 +59,14 @@ namespace AMSExplorer
             }
         }
 
+        public string XMLData
+        {
+            get
+            {
+                return buttonPremiumXMLData.GetXML();
+            }
+        }
+
         public JobOptionsVar JobOptions
         {
             get
@@ -71,7 +80,6 @@ namespace AMSExplorer
         }
 
 
-
         public List<IAsset> SelectedPremiumWorkflows
         {
             get
@@ -80,37 +88,7 @@ namespace AMSExplorer
             }
         }
 
-        public bool EncodingMultipleJobs
-        {
-            get
-            {
-                return !radioButtonSingleJob.Checked;
-            }
-            set
-            {
-                radioButtonSingleJob.Checked = !value;
-                radioButtonMultipleJob.Checked = value;
-            }
-        }
 
-
-        public int EncodingNumberInputAssets
-        {
-            set
-            {
-                if (value == 1)
-                {
-                    radioButtonMultipleJob.Enabled = false;
-                    radioButtonSingleJob.Enabled = false;
-                }
-                else
-                {
-                    radioButtonMultipleJob.Checked = true;
-
-                }
-                numberofinputassets = value;
-            }
-        }
         public string EncodingJobName
         {
             get
@@ -145,14 +123,14 @@ namespace AMSExplorer
             }
         }
 
-
-
         public EncodingPremium(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             buttonJobOptions.Initialize(_context);
+            buttonPremiumXMLData.Initialize();
+            pictureBoxJob.Image = bitmap_multitasksmultijobs;
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
@@ -166,34 +144,27 @@ namespace AMSExplorer
             Process.Start(e.Link.LinkData as string);
         }
 
-        private void radioButtonMultipleJob_CheckedChanged(object sender, EventArgs e)
-        {
-            UpdateJobSummary();
-        }
+
 
         private void UpdateJobSummary()
         {
-            labelsummaryjob.Text = "You are going to submit "
-                + (radioButtonMultipleJob.Checked ? numberofinputassets.ToString() + " jobs" : "1 job")
-            + " with "
-            + (listViewWorkflows.SelectedIndices.Count == 1 ? "1 task" : listViewWorkflows.SelectedIndices.Count.ToString() + " tasks")
-            ;
-
-            pictureBoxJob.Image = radioButtonMultipleJob.Checked ? bitmap_multitasksmultijobs : bitmap_multitasksinglejob;
-
-        }
-
-        private void listbox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            UpdateJobSummary();
-            buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
+            if (listViewWorkflows.SelectedIndices.Count > 0)
+            {
+                labelsummaryjob.Text = string.Format("You are going to submit {0} job{1} with {2} task{3}.",
+                EncodingNumberOfInputAssets,
+                EncodingNumberOfInputAssets > 1 ? "s" : "",
+                listViewWorkflows.SelectedIndices.Count,
+                 listViewWorkflows.SelectedIndices.Count > 1 ? "s" : "");
+            }
+            else
+            {
+                labelsummaryjob.Text = string.Empty;
+            }
         }
 
         private void EncodingPremiumWorkflow_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoPremiumEncoder));
-
-
             listViewWorkflows.LoadWorkflows(_context);
             UpdateJobSummary();
         }
@@ -262,13 +233,14 @@ namespace AMSExplorer
                                                       );
                 AssetInfo.SetFileAsPrimary(asset, safeFileName);
             }
-            catch (Exception e)
+            catch
             {
             }
         }
 
         private void listViewWorkflows_SelectedIndexChanged(object sender, EventArgs e)
         {
+            UpdateJobSummary();
             buttonOk.Enabled = listViewWorkflows.SelectedItems.Count > 0;
         }
     }

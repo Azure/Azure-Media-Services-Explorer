@@ -29,7 +29,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.IO;
-
+using System.Diagnostics;
 
 namespace AMSExplorer
 {
@@ -39,27 +39,48 @@ namespace AMSExplorer
         private bool EncodingTabDisplayed = false;
         private bool InitPhase = true;
         private BindingList<AudioStream> audiostreams = new BindingList<AudioStream>();
+        private string defaultEncodingPreset = "";
 
         public readonly List<LiveProfile> Profiles = new List<LiveProfile>
         {
             new LiveProfile()
             {
+                Type = ChannelEncodingType.Standard,
                 Name ="Default720p",
                 Video = new List<LiveVideoProfile>()
-                { 
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_30fps_3500kbps"}, 
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_30fps_2200kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_30fps_1350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_30fps_850kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_30fps_550kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_30fps_350kbps"},
-                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_30fps_200kbps"},
+                {
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_2200kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_1350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_850kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_550kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_200kbps"},
                         },
                 Audio = new LiveAudioProfile()
                     {
-                    Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo" 
+                    Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
                     }
-                
+            },
+             new LiveProfile()
+            {
+                Type = ChannelEncodingType.Premium,
+                Name ="Default1080p",
+                Video = new List<LiveVideoProfile>()
+                {
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 6000, Width= 1920, Height= 1080, Profile= "High", OutputStreamName= "Video_1920x1080_6000kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 3500, Width= 1280, Height= 720, Profile= "High", OutputStreamName= "Video_1280x720_3500kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 2200, Width= 960, Height= 540, Profile= "Main", OutputStreamName= "Video_960x540_2200kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 1350, Width= 704, Height= 396, Profile= "Main", OutputStreamName= "Video_704x396_1350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 850, Width= 512, Height= 288, Profile= "Main", OutputStreamName= "Video_512x288_850kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 550, Width= 384, Height= 216, Profile= "Main", OutputStreamName= "Video_384x216_550kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 350, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_350kbps"},
+                    new LiveVideoProfile(){Codec = "H.264", Bitrate= 200, Width= 340, Height= 192, Profile= "Baseline", OutputStreamName= "Video_340x192_200kbps"},
+                        },
+                Audio = new LiveAudioProfile()
+                    {
+                    Codec= "HE-AAC v1", Bitrate= 64, SamplingRate= 44.1, Channels= "Stereo"
+                    }
             }
         };
 
@@ -82,7 +103,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (ChannelEncodingType)(Enum.Parse(typeof(ChannelEncodingType), (string)comboBoxEncodingType.SelectedItem));
+                return (ChannelEncodingType)(Enum.Parse(typeof(ChannelEncodingType), (string)(comboBoxEncodingType.SelectedItem as Item).Value));
             }
         }
 
@@ -92,8 +113,8 @@ namespace AMSExplorer
             {
                 ChannelEncoding encodingoption = new ChannelEncoding()
                 {
-                    SystemPreset = comboBoxEncodingPreset.Text,
-                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value)),
+                    SystemPreset = radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset, // default preset or custom
+                    AdMarkerSource = (AdMarkerSource)(Enum.Parse(typeof(AdMarkerSource), ((Item)comboBoxAdMarkerSource.SelectedItem).Value))
                 };
                 if (this.Protocol == StreamingProtocol.RTPMPEG2TS)
                 { // RTP
@@ -122,10 +143,10 @@ namespace AMSExplorer
                 if (checkBoxInsertSlateOnAdMarker.Checked)
                 {
                     myslate = new ChannelSlate()
-                                   {
-                                       InsertSlateOnAdMarker = checkBoxInsertSlateOnAdMarker.Checked,
-                                       DefaultSlateAssetId = listViewJPG1.GetSelectedJPG.FirstOrDefault() != null ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
-                                   };
+                    {
+                        InsertSlateOnAdMarker = checkBoxInsertSlateOnAdMarker.Checked,
+                        DefaultSlateAssetId = listViewJPG1.GetSelectedJPG.FirstOrDefault() != null ? listViewJPG1.GetSelectedJPG.FirstOrDefault().Id : null,
+                    };
                 }
                 return myslate;
             }
@@ -183,16 +204,24 @@ namespace AMSExplorer
                 List<IPRange> ips = new List<IPRange>();
                 IPRange ip;
 
-                if (checkBoxRestrictIngestIP.Checked)
+                try
                 {
-                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                    if (checkBoxRestrictIngestIP.Checked)
+                    {
+                        ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictIngestIP.Text) };
+                    }
+                    else
+                    {
+                        ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    }
+                    ips.Add(ip);
+                    return ips;
                 }
-                else
+                catch
                 {
-                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    throw;
                 }
-                ips.Add(ip);
-                return ips;
+
             }
         }
 
@@ -201,17 +230,24 @@ namespace AMSExplorer
             get
             {
                 List<IPRange> ips = new List<IPRange>();
-                IPRange ip;
 
                 if (checkBoxRestrictPreviewIP.Checked)
                 {
-                    ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                    try
+                    {
+                        IPRange ip = new IPRange() { Name = "default", Address = IPAddress.Parse(textBoxRestrictPreviewIP.Text) };
+                        ips.Add(ip);
+                    }
+                    catch
+                    {
+                        throw;
+                    }
                 }
                 else
                 {
-                    ip = new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    //ip = null;// new IPRange() { Name = "Allow All", Address = IPAddress.Parse("0.0.0.0"), SubnetPrefixLength = 0 };
+                    ips = null;
                 }
-                ips.Add(ip);
                 return ips;
             }
         }
@@ -232,17 +268,17 @@ namespace AMSExplorer
 
         private void CreateLiveChannel_Load(object sender, EventArgs e)
         {
-
             FillComboProtocols(false);
 
-            comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // license type
-            comboBoxEncodingType.SelectedItem = Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None);
+            //comboBoxEncodingType.Items.AddRange(Enum.GetNames(typeof(ChannelEncodingType)).ToArray()); // live encoding type
+            comboBoxEncodingType.Items.Add(new Item("None", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None)));
+            comboBoxEncodingType.Items.Add(new Item("Standard", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Standard)));
+            comboBoxEncodingType.Items.Add(new Item("Premium (preview)", Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.Premium)));
+            comboBoxEncodingType.SelectedIndex = 0;
+
             tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
             tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
             tabControlLiveChannel.TabPages.Remove(tabPageAdConfig);
-
-            comboBoxEncodingPreset.Items.Add("Default720p");
-            comboBoxEncodingPreset.SelectedIndex = 0;
 
             dataGridViewAudioStreams.DataSource = audiostreams;
             dataGridViewAudioStreams.DataError += new DataGridViewDataErrorEventHandler(dataGridView_DataError);
@@ -259,11 +295,16 @@ namespace AMSExplorer
                 comboBoxAudioLanguageMain.Items.Add(myitem);
                 comboBoxAudioLanguageAddition.Items.Add(myitem);
             }
+
+            moreinfoLiveEncodingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveEncodingProfilelink.Text.Length, Constants.LinkMoreInfoLiveEncoding));
+            moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
+            linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
+
+
             InitPhase = false;
         }
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
         {
-
             MessageBox.Show("Wrong format");
         }
 
@@ -271,7 +312,6 @@ namespace AMSExplorer
         {
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
             if (!checkBoxRestrictIngestIP.Checked) errorProvider1.SetError(textBoxRestrictIngestIP, String.Empty);
-
         }
 
         private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
@@ -305,8 +345,11 @@ namespace AMSExplorer
         {
             if (!InitPhase)
             {
+                moreinfoLiveEncodingProfilelink.Visible = !(EncodingType == ChannelEncodingType.None);
+                moreinfoLiveStreamingProfilelink.Visible = !moreinfoLiveEncodingProfilelink.Visible;
+
                 // let's display the encoding tab if encoding has been choosen
-                if (comboBoxEncodingType.Text == Enum.GetName(typeof(ChannelEncodingType), ChannelEncodingType.None) && EncodingTabDisplayed)
+                if ((EncodingType == ChannelEncodingType.None) && EncodingTabDisplayed)
                 {
                     tabControlLiveChannel.TabPages.Remove(tabPageLiveEncoding);
                     tabControlLiveChannel.TabPages.Remove(tabPageAudioOptions);
@@ -314,13 +357,18 @@ namespace AMSExplorer
                     EncodingTabDisplayed = false;
                     FillComboProtocols(false);
                 }
-                else if (!EncodingTabDisplayed)
+                else
                 {
-                    tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
-                    tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
-                    tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
-                    EncodingTabDisplayed = true;
                     FillComboProtocols(true);
+                    SetLabelDefaultEncLabel();
+                    UpdateProfileGrids();
+                    if (!EncodingTabDisplayed)
+                    {
+                        tabControlLiveChannel.TabPages.Add(tabPageLiveEncoding);
+                        tabControlLiveChannel.TabPages.Add(tabPageAudioOptions);
+                        tabControlLiveChannel.TabPages.Add(tabPageAdConfig);
+                        EncodingTabDisplayed = true;
+                    }
                 }
             }
         }
@@ -328,7 +376,6 @@ namespace AMSExplorer
         private void FillComboProtocols(bool displayrtp)
         {
             comboBoxProtocolInput.Items.Clear();
-
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.FragmentedMP4), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.FragmentedMP4)));
             comboBoxProtocolInput.Items.Add(new Item(Program.ReturnNameForProtocol(StreamingProtocol.RTMP), Enum.GetName(typeof(StreamingProtocol), StreamingProtocol.RTMP)));
             if (displayrtp)
@@ -338,17 +385,22 @@ namespace AMSExplorer
             comboBoxProtocolInput.SelectedIndex = 0;
         }
 
+        private void SetLabelDefaultEncLabel()
+        {
+            // default encoding profile name
+            var profileliveselected = Profiles.Where(p => p.Type == EncodingType).FirstOrDefault();
+            if (profileliveselected != null)
+            {
+                defaultEncodingPreset = profileliveselected.Name;
+                radioButtonDefaultPreset.Text = string.Format((radioButtonDefaultPreset.Tag as string), defaultEncodingPreset);
+            }
+        }
+
+
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
             if (!checkBoxRestrictPreviewIP.Checked) errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
-
-
-        }
-
-        private void textBoxRestrictPreviewIP_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
@@ -428,7 +480,7 @@ namespace AMSExplorer
                 file.Upload(FileName);
                 AssetInfo.SetFileAsPrimary(asset, SafeFileName);
             }
-            catch (Exception e)
+            catch
             {
                 asset = null;
             }
@@ -508,7 +560,6 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
-
         }
 
 
@@ -525,36 +576,49 @@ namespace AMSExplorer
 
         }
 
-        private void UpdateProfileGrids()
+        private string ReturnLiveEncodingProfile()
         {
-            var profileliveselected = Profiles.Where(p => p.Name == comboBoxEncodingPreset.Text).FirstOrDefault();
-            if (profileliveselected != null)
+            if (EncodingType != ChannelEncodingType.None)
             {
-                dataGridViewVideoProf.DataSource = profileliveselected.Video;
-
-
-
-                List<LiveAudioProfile> profmultiaudio = new List<LiveAudioProfile>();
-
-                var option = this.EncodingOptions;
-                if (option != null && option.AudioStreams != null)
-                {
-                    foreach (var audiostream in this.EncodingOptions.AudioStreams)
-                    {
-                        profmultiaudio.Add(new LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                    }
-                }
-                else // no specific audio language specified
-                {
-                    profmultiaudio.Add(new LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
-                }
-
-                dataGridViewAudioProf.DataSource = profmultiaudio;
+                return radioButtonCustomPreset.Checked ? textBoxCustomPreset.Text : defaultEncodingPreset;
             }
             else
             {
-                dataGridViewVideoProf.DataSource = null;
-                dataGridViewAudioProf.DataSource = null;
+                return null;
+            }
+        }
+
+        private void UpdateProfileGrids()
+        {
+            string encodingprofile = ReturnLiveEncodingProfile();
+            if (encodingprofile != null)
+            {
+                var profileliveselected = Profiles.Where(p => p.Name == encodingprofile).FirstOrDefault();
+                if (profileliveselected != null)
+                {
+                    dataGridViewVideoProf.DataSource = profileliveselected.Video;
+                    List<LiveAudioProfile> profmultiaudio = new List<LiveAudioProfile>();
+
+                    var option = this.EncodingOptions;
+                    if (option != null && option.AudioStreams != null)
+                    {
+                        foreach (var audiostream in this.EncodingOptions.AudioStreams)
+                        {
+                            profmultiaudio.Add(new LiveAudioProfile() { Language = audiostream.Language, Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                        }
+                    }
+                    else // no specific audio language specified
+                    {
+                        profmultiaudio.Add(new LiveAudioProfile() { Language = "und", Bitrate = profileliveselected.Audio.Bitrate, Channels = profileliveselected.Audio.Channels, Codec = profileliveselected.Audio.Codec, SamplingRate = profileliveselected.Audio.SamplingRate });
+                    }
+
+                    dataGridViewAudioProf.DataSource = profmultiaudio;
+                }
+                else
+                {
+                    dataGridViewVideoProf.DataSource = null;
+                    dataGridViewAudioProf.DataSource = null;
+                }
             }
         }
 
@@ -563,15 +627,29 @@ namespace AMSExplorer
             UpdateProfileGrids();
         }
 
-        private void comboBoxEncodingPreset_TextChanged(object sender, EventArgs e)
-        {
-            UpdateProfileGrids();
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             panelMultiAudio.Enabled = checkBoxEnableMultiAudio.Checked;
             UpdateProfileGrids();
+        }
+
+        private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+
+        }
+
+        private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
+        {
+            UpdateProfileGrids();
+            textBoxCustomPreset.Enabled = radioButtonCustomPreset.Checked;
+        }
+
+        private void moreinfoLiveEncodingProfilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            Process.Start(e.Link.LinkData as string);
         }
     }
 
@@ -599,7 +677,7 @@ namespace AMSExplorer
     public class LiveProfile
     {
         public string Name { get; set; }
-
+        public ChannelEncodingType Type { get; set; }
         public List<LiveVideoProfile> Video { get; set; }
         public LiveAudioProfile Audio { get; set; }
     }

@@ -215,9 +215,6 @@ namespace AMSExplorer
             }
             cloudBlobClient = storageAccount.CreateCloudBlobClient();
             mediaBlobContainers = cloudBlobClient.ListContainers();
-
-
-
         }
 
         private void DoListBlobs(bool ResetSearch)
@@ -251,7 +248,7 @@ namespace AMSExplorer
 
             listViewBlobs.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             listViewBlobs.EndUpdate();
-            buttonUpload.Enabled = false;
+            buttonExport.Enabled = false;
 
         }
 
@@ -338,7 +335,7 @@ namespace AMSExplorer
                 }
             }
             if (radioButtonSelectedContainer.Checked) iscontainerok = (listViewBlobs.SelectedIndices.Count > 0);
-            buttonUpload.Enabled = (listViewAssetFiles.SelectedItems.Count > 0 && iscontainerok);
+            buttonExport.Enabled = (listViewAssetFiles.SelectedItems.Count > 0 && iscontainerok);
         }
 
         private void radioButtonOtherStorage_CheckedChanged(object sender, EventArgs e)

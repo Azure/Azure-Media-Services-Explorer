@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Do not remove this test for UTF-8: if “Ω” doesn’t appear as greek uppercase omega letter enclosed in quotation marks, you should use an editor that supports UTF-8, not this one. -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+  <metadata>
+    <!-- Read this before publishing packages to chocolatey.org: https://github.com/chocolatey/chocolatey/wiki/CreatePackages -->
+    <id>amsexplorer</id>
+    <title>Azure Media Services Explorer</title>
+    <version>3.28.0.0</version>
+    <authors>Microsoft Corporation</authors>
+    <owners>Microsoft</owners>
+    <summary>Azure Media Services Explorer</summary>
+    <description>*Azure Media Services Explorer is a tool for Windows that does upload, download, process, encode, package, and stream assets and live channels with Azure Media Services. Source code is also provided.*
+*A general description is available [here](http://azure.microsoft.com/blog/2014/10/08/managing-media-workflows-with-the-new-azure-media-services-explorer-tool) and there is a recent blog post on [live encoding and Explorer](http://azure.microsoft.com/blog/2015/05/27/using-azure-media-services-explorer-for-live-encoding).*
+*Contact: amse@microsoft.com*
+</description>
+    <projectUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectUrl>
+    <packageSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/tree/master/AMSExplorer/Chocolatey</packageSourceUrl>
+    <projectSourceUrl>https://github.com/Azure/Azure-Media-Services-Explorer/</projectSourceUrl>
+    <!--<docsUrl></docsUrl>
+    <mailingListUrl></mailingListUrl>-->
+    <bugTrackerUrl>https://github.com/Azure/Azure-Media-Services-Explorer/issues</bugTrackerUrl>
+    <tags>amsexplorer AMSE AMS Azure Media Explorer Encoding Streaming</tags>
+    <copyright></copyright>
+    <licenseUrl>https://github.com/Azure/Azure-Media-Services-Explorer/blob/master/LICENSE.md</licenseUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://cdn.rawgit.com/Azure/Azure-Media-Services-Explorer/master/AMSExplorer/BitmapsPNG/Azure%20Explorer.png</iconUrl>
+    <!--<dependencies>
+      <dependency id="dotnet4.5.2" version="4.5.2.20140902" />
+    </dependencies>-->
+    <releaseNotes>This update brings the following features and improvements :
+* Code updated to use **Media Services SDK v3.4.0.0** and **Visual Studio 2015**
+* The new installer checks the requirement for .NET 4.5.2
+* Moved all API calls from REST to .NET SDK for asset and global filters
+* **New options to search** in Id or name of assets, asset files, locators, jobs, channels and programs
+* Option to specify the manifest name for live programs
+* **Dynamic encryption updates**: an external AES key server can be configured, and it's possible to use the same key (key id) for several assets (AES or PlayReady)
+* Added support for **Premium Live Encoding** (in private preview)
+* Fixes to subclipping (currently in private preview)
+* UI updates and bug fixes
+    </releaseNotes>
+  </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
+</package>

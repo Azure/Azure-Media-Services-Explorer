@@ -258,7 +258,7 @@ namespace AMSExplorer
                     }
 
                 }
-                catch (Exception ex)
+                catch
                 {
                     labelWarningStorage.Text = "Erreur when connecting to account.";
                 }

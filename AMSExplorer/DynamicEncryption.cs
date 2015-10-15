@@ -76,7 +76,7 @@ namespace AMSExplorer
 
             var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
                 {
-                    new ContentKeyAuthorizationPolicyRestriction { Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction), 
+                    new ContentKeyAuthorizationPolicyRestriction { Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction),
                         KeyRestrictionType = (int)PlayReadyKeyRestriction }
                 };
 
@@ -157,19 +157,19 @@ namespace AMSExplorer
 
 
 
-        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset)  // with key generated randomly
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, Guid? keyId = null)  // with key generated randomly
         {
             // Create envelope encryption content key
             byte[] contentKey = GetRandomBuffer(16);
-            return CreateEnvelopeTypeContentKey(asset, contentKey);
+            return CreateEnvelopeTypeContentKey(asset, contentKey, keyId);
         }
 
-        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, byte[] contentKey)
+        static public IContentKey CreateEnvelopeTypeContentKey(IAsset asset, byte[] contentKey, Guid? keyId = null)
         {
-            Guid keyId = Guid.NewGuid();
+            if (keyId == null) keyId = Guid.NewGuid();
 
             IContentKey key = asset.GetMediaContext().ContentKeys.Create(
-                                    keyId,
+                                    (Guid)keyId,
                                     contentKey,
                                     "ContentKey Envelope",
                                     ContentKeyType.EnvelopeEncryption);
@@ -188,10 +188,10 @@ namespace AMSExplorer
             // and create authorization policy          
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
     {
-        new ContentKeyAuthorizationPolicyRestriction 
-        { 
-            Name = "Open Authorization Policy", 
-            KeyRestrictionType = (int)ContentKeyRestrictionType.Open, 
+        new ContentKeyAuthorizationPolicyRestriction
+        {
+            Name = "Open Authorization Policy",
+            KeyRestrictionType = (int)ContentKeyRestrictionType.Open,
             Requirements = null
         }
     };
@@ -248,11 +248,11 @@ namespace AMSExplorer
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
     {
-        new ContentKeyAuthorizationPolicyRestriction 
-        { 
-            Name = tname+ " Token Authorization Policy", 
+        new ContentKeyAuthorizationPolicyRestriction
+        {
+            Name = tname+ " Token Authorization Policy",
             KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
-            Requirements = tokenTemplateString, 
+            Requirements = tokenTemplateString,
         }
     };
 
@@ -395,7 +395,7 @@ namespace AMSExplorer
                             Guid rawkey = EncryptionUtils.GetKeyIdAsGuid(form.GetContentKeyFromSelectedOption.Id);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(tokenTemplateString);
 
-                            if (tokenTemplate.OpenIdConnectDiscoveryDocument==null)
+                            if (tokenTemplate.OpenIdConnectDiscoveryDocument == null)
                             {
                                 MyResult.TokenType = tokenTemplate.TokenType;
                                 MyResult.IsTokenKeySymmetric = (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey));
@@ -502,9 +502,11 @@ namespace AMSExplorer
             return MyResult;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyAES(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri keyAcquisitionUri)
         {
-            Uri keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
+            // if user does not specify a custom LA URL, let's use the AES key server from Azure Media Services
+            if (keyAcquisitionUri == null)
+                keyAcquisitionUri = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.BaselineHttp);
 
             string envelopeEncryptionIV = Convert.ToBase64String(GetRandomBuffer(16));
 
@@ -512,7 +514,7 @@ namespace AMSExplorer
             //   key url that will have KID=<Guid> appended to the envelope and
             //   the Initialization Vector (IV) to use for the envelope encryption.
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration =
-                new Dictionary<AssetDeliveryPolicyConfigurationKey, string> 
+                new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
             {
                 {AssetDeliveryPolicyConfigurationKey.EnvelopeKeyAcquisitionUrl, keyAcquisitionUri.ToString()},
                 {AssetDeliveryPolicyConfigurationKey.EnvelopeEncryptionIVAsBase64, envelopeEncryptionIV}
@@ -545,26 +547,34 @@ namespace AMSExplorer
             return assetDeliveryPolicy;
         }
 
-        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri acquisitionUrl = null, bool EncodeLAURLForSilverlight = false, string CustomAttributes = null)
+        static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AssetDeliveryProtocol assetdeliveryprotocol, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string playreadyCustomAttributes = null, string widevineAcquisitionUrl = null)
         {
             string stringacquisitionUrl;
-            if (EncodeLAURLForSilverlight && acquisitionUrl != null)
+            if (playreadyEncodeLAURLForSilverlight && playreadyAcquisitionUrl != null)
             {
-                stringacquisitionUrl = acquisitionUrl.ToString().Replace("&", "%26");
+                stringacquisitionUrl = playreadyAcquisitionUrl.ToString().Replace("&", "%26");
             }
             else
             {
-                if (acquisitionUrl == null) acquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+                if (playreadyAcquisitionUrl == null) playreadyAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
 
-                stringacquisitionUrl = System.Security.SecurityElement.Escape(acquisitionUrl.ToString());
+                stringacquisitionUrl = System.Security.SecurityElement.Escape(playreadyAcquisitionUrl.ToString());
             }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>
-    {
-        {AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl},
-         };
-            if (CustomAttributes != null) // let's add custom attributes
             {
-                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, CustomAttributes);
+                {
+                    AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringacquisitionUrl
+                },
+         };
+            if (playreadyCustomAttributes != null) // let's add custom attributes
+            {
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, playreadyCustomAttributes);
+            }
+
+            // Widevine
+            if (widevineAcquisitionUrl != null) // let's add Widevine
+            {
+                assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
@@ -666,7 +676,16 @@ namespace AMSExplorer
                 IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
                 if (clonedkey == null) // key does not exist in target account
                 {
-                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                    try
+                    {
+                        clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                    }
+                    catch
+                    {
+                        // we cannot create the key but the guid is taken.
+                        throw new Exception(String.Format("Key {0} is not in the account but it cannot be created (same key id already exists in the datacenter? ", key.Id));
+                    }
+
                 }
                 destinationAsset.ContentKeys.Add(clonedkey);
 

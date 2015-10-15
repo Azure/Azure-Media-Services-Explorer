@@ -30,7 +30,7 @@ namespace AMSExplorer
     public partial class CreateLocator : Form
     {
 
-        public DateTime? LocStartDate
+        public DateTime? LocatorStartDate
         {
             get
             {
@@ -38,33 +38,33 @@ namespace AMSExplorer
             }
             set
             {
-                dateTimePickerStartDate.Value = (DateTime)value;
-                dateTimePickerStartTime.Value = (DateTime)value;
+                dateTimePickerStartDate.Value = ((DateTime)value).ToLocalTime();
+                dateTimePickerStartTime.Value = ((DateTime)value).ToLocalTime();
             }
         }
 
-        public bool LocHasStartDate
+        public bool LocatorHasStartDate
         {
             get { return checkBoxStartDate.Checked; }
             set { checkBoxStartDate.Checked = value; }
         }
 
-        public DateTime LocEndDate
+        public DateTime LocatorEndDate
         {
             get
             {
-                if (radioButtonEndCustom.Checked) return dateTimePickerEndDate.Value;
+                if (radioButtonEndCustom.Checked) return dateTimePickerEndDate.Value.ToUniversalTime();
                 else if (radioButtonEndYear.Checked) return DateTime.UtcNow.AddYears(1);
                 else return DateTime.UtcNow.AddYears(100);
             }
             set
             {
-                dateTimePickerEndDate.Value = value;
-                dateTimePickerEndTime.Value = value;
+                dateTimePickerEndDate.Value = ((DateTime)value).ToLocalTime();
+                dateTimePickerEndTime.Value = ((DateTime)value).ToLocalTime();
             }
         }
 
-        public LocatorType LocType
+        public LocatorType LocatorType
         {
             get
             {

@@ -107,11 +107,9 @@ namespace AMSExplorer
             _context = context;
             _selectedjobtemplate = selectedjobtemplate;
             LoadTemplates();
-
         }
         private void LoadTemplates()
         {
-
             this.BeginUpdate();
             this.Items.Clear();
             foreach (var template in _context.JobTemplates)
@@ -141,8 +139,6 @@ namespace AMSExplorer
             }
         }
     }
-
-
 
     class ListViewWorkflows : ListView
     {
@@ -232,14 +228,15 @@ namespace AMSExplorer
             this.BeginUpdate();
             this.Items.Clear();
 
-            var query = _context.Files.ToList().Where(f => (
-          f.Name.EndsWith(".xenio", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".kayak", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".workflow", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".blueprint", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".graph", StringComparison.OrdinalIgnoreCase)
-          || f.Name.EndsWith(".zenium", StringComparison.OrdinalIgnoreCase)
-          )).ToArray();
+            // Server side request
+            var query = _context.Files.Where(f => (
+                                            f.Name.EndsWith(".xenio") // upercase/lowercase ignored
+                                            || f.Name.EndsWith(".kayak")
+                                            || f.Name.EndsWith(".workflow")
+                                            || f.Name.EndsWith(".blueprint")
+                                            || f.Name.EndsWith(".graph")
+                                            || f.Name.EndsWith(".zenium")
+                                            )).ToArray();
 
             foreach (IAssetFile file in query)
             {
@@ -353,24 +350,27 @@ namespace AMSExplorer
 
             string searchlower = searchstring.ToLower();
             bool bsearchempty = string.IsNullOrEmpty(searchstring);
-            var query = _context.Files.ToList().Where(f =>
-                (f.Name.EndsWith(Constants.SlateJPGExtension, StringComparison.OrdinalIgnoreCase) && f.IsPrimary)
-                &&
-                (f.ContentFileSize <= Constants.maxSlateJPGFileSize)
-                &&
-                (
-                bsearchempty
-                ||
-                (f.Name.ToLower().Contains(searchlower) || f.Id.ToLower().Contains(searchlower) || f.Asset.Name.ToLower().Contains(searchlower) || f.Asset.Id.ToLower().Contains(searchlower)))
-                )
-                .ToArray();
+
+            // this query is done in the back-end
+            var query = _context.Files.Where(f =>
+                        f.Name.EndsWith(Constants.SlateJPGExtension)
+                        &&
+                        f.IsPrimary
+                        &&
+                        f.ContentFileSize <= Constants.maxSlateJPGFileSize
+                        &&
+                        (bsearchempty || f.Name.Contains(searchlower))
+                        ).AsEnumerable();
+
+            // local query
+            query = query.Where(f =>
+            bsearchempty || (f.Id.ToLower().Contains(searchlower) || f.Asset.Name.ToLower().Contains(searchlower) || f.Asset.Id.ToLower().Contains(searchlower)));
 
             string defaultslateassetid = null;
             if (_channelslate != null && _channelslate.DefaultSlateAssetId != null)
             {
                 defaultslateassetid = _channelslate.DefaultSlateAssetId;
             }
-
 
             foreach (IAssetFile file in query)
             {
@@ -445,11 +445,8 @@ namespace AMSExplorer
                 {
                     returnString = string.Format("The file\n'{0}'\nhas an aspect ratio of {1:0.000} which is different from {2:0.000} (16:9)", file, aspectRatioImage, Constants.SlateJPGAspectRatio);
                 }
-                
             }
             return returnString;
         }
     }
-
-
 }

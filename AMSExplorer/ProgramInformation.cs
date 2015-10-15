@@ -39,8 +39,6 @@ namespace AMSExplorer
     {
         public IProgram MyProgram;
         private CloudMediaContext MyContext;
-        private MediaServiceContextForDynManifest MyDynManifestContext;
-
         private IEnumerable<Uri> ValidURIs;
         private IEnumerable<Uri> NotValidURIs;
         public IEnumerable<IStreamingEndpoint> MyStreamingEndpoints;
@@ -61,13 +59,12 @@ namespace AMSExplorer
         }
 
 
-        public ProgramInformation(Mainform mainform, CloudMediaContext context, MediaServiceContextForDynManifest contextdynman)
+        public ProgramInformation(Mainform mainform, CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             MyMainForm = mainform;
             MyContext = context;
-            MyDynManifestContext = contextdynman;
         }
 
         private void contextMenuStripDG_MouseClick(object sender, MouseEventArgs e)
@@ -102,7 +99,7 @@ namespace AMSExplorer
             IAsset AssetToDisplayP = MyProgram.Asset;
             if (AssetToDisplayP != null)
             {
-                AssetInformation form = new AssetInformation(MyMainForm, MyContext, MyDynManifestContext)
+                AssetInformation form = new AssetInformation(MyMainForm, MyContext)
                 {
                     myAsset = AssetToDisplayP,
                     myStreamingEndpoints = MyStreamingEndpoints // we want to keep the same sorting
@@ -166,9 +163,5 @@ namespace AMSExplorer
         {
 
         }
-
-
-
-
     }
 }

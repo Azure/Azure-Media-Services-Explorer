@@ -203,6 +203,9 @@ namespace AMSExplorer
                 comboBoxMappingList.Items.Add(map.Name);
             }
             comboBoxMappingList.SelectedIndex = 0;
+
+            textBoxIssuer.Text = Properties.Settings.Default.DynEncTokenIssuer;
+            textBoxAudience.Text = Properties.Settings.Default.DynEncTokenAudience;
         }
 
 
@@ -216,7 +219,9 @@ namespace AMSExplorer
 
         private void buttonOk_Click(object sender, EventArgs e)
         {
-
+            Properties.Settings.Default.DynEncTokenIssuer= textBoxIssuer.Text ;
+            Properties.Settings.Default.DynEncTokenAudience = textBoxAudience.Text;
+            Program.SaveAndProtectUserConfig();
         }
 
         private void radioButtonOpen_CheckedChanged(object sender, EventArgs e)
@@ -250,36 +255,43 @@ namespace AMSExplorer
         {
 
             RadioButton rb = sender as RadioButton;
-            if (rb != null)
+            if (rb != null && rb.Checked)
             {
-                if (rb.Checked)
+                panelJWT.Enabled = radioButtonJWTX509.Checked;
+                panelSymKey.Enabled = !radioButtonJWTX509.Checked;
+
+                if (radioButtonJWTX509.Checked)
                 {
+                    DisplayTab(tabPageTokenX509);
+                }
+                else if (radioButtonJWTOpenId.Checked)
+                {
+                    DisplayTab(tabPageOpenId);
+                }
+                else
+                {
+                    DisplayTab(tabPageTokenSymmetric);
+                }
+                UpdateButtonOk();
+            }
+        }
 
-                    panelJWT.Enabled = radioButtonJWTX509.Checked;
-                    panelSymKey.Enabled = !radioButtonJWTX509.Checked;
-
-
-                    if (radioButtonJWTX509.Checked)
-                    {
-                        tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
-                        tabControlTokenType.TabPages.Remove(tabPageOpenId);
-                        tabControlTokenType.TabPages.Add(tabPageTokenX509);
-                    }
-                    else if (radioButtonJWTOpenId.Checked)
-                    {
-                        tabControlTokenType.TabPages.Remove(tabPageTokenSymmetric);
-                        tabControlTokenType.TabPages.Add(tabPageOpenId);
-                        tabControlTokenType.TabPages.Remove(tabPageTokenX509);
-                    }
-                    else
-                    {
-                        tabControlTokenType.TabPages.Add(tabPageTokenSymmetric);
-                        tabControlTokenType.TabPages.Remove(tabPageOpenId);
-                        tabControlTokenType.TabPages.Remove(tabPageTokenX509);
-                    }
-                    UpdateButtonOk();
+        private void DisplayTab(TabPage tabToAdd)
+        {
+            bool found = false;
+            foreach (TabPage tab in tabControlTokenType.TabPages)
+            {
+                if (tab.Name == tabToAdd.Name)
+                {
+                    found = true;
+                }
+                else if (tab.Name != "tabPageTokenType")
+                {
+                    tabControlTokenType.TabPages.Remove(tab);
                 }
             }
+            if (!found)
+                tabControlTokenType.TabPages.Add(tabToAdd);
         }
 
         private void UpdateButtonOk()

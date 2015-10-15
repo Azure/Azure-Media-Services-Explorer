@@ -44,7 +44,7 @@ namespace AMSExplorer
                 {
                     return AssetDeliveryPolicyType.DynamicCommonEncryption;
                 }
-                else if(radioButtonDecryptStorage.Checked)
+                else if (radioButtonDecryptStorage.Checked)
                 {
                     return AssetDeliveryPolicyType.NoDynamicEncryption;
                 }
@@ -102,7 +102,7 @@ namespace AMSExplorer
 
         private void SetupDynEnc_Load(object sender, EventArgs e)
         {
-
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
 
@@ -110,7 +110,8 @@ namespace AMSExplorer
 
         private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonEnvelope.Checked) radioButtonDefineAuthPol.Checked = true;
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
 
@@ -125,26 +126,30 @@ namespace AMSExplorer
         private void radioButtonDecryptStorage_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
-            // groupBoxAuthPol.Enabled = !radioButtonDecryptStorage.Checked;
         }
 
         private void radioButtonCENCKey_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
-            /*
-                  radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked;
-                  if (!radioButtonCENCKey.Checked && radioButtonNoAuthPolicy.Checked) // if not PlayReady mode, then let's uncheck no playreay lic server if it checked
-                  {
-                      radioButtonOpenAuthPolicy.Checked = true;
-                  }
-             * */
+            radioButtonNoAuthPolicy.Enabled = radioButtonCENCKey.Checked || radioButtonEnvelope.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
         private void radioButtonNoDynEnc_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxDelPolProtocols.Enabled = !radioButtonNoDynEnc.Checked;
+            UpdateradioButtonNoAuthPolicyTextBox();
         }
 
-
+        private void UpdateradioButtonNoAuthPolicyTextBox()
+        {
+            if (radioButtonNoDynEnc.Checked || radioButtonCENCKey.Checked)
+            {
+                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "PlayReady license", "licenses");
+            }
+            else if (radioButtonEnvelope.Checked)
+            {
+                radioButtonNoAuthPolicy.Text = string.Format(((string)radioButtonNoAuthPolicy.Tag), "AES key", "keys");
+            }
+        }
     }
 }

@@ -71,12 +71,12 @@
             this.DGErrors.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DGErrors.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGErrors.ContextMenuStrip = this.contextMenuStrip;
-            this.DGErrors.Location = new System.Drawing.Point(9, 284);
+            this.DGErrors.Location = new System.Drawing.Point(10, 240);
             this.DGErrors.MultiSelect = false;
             this.DGErrors.Name = "DGErrors";
             this.DGErrors.ReadOnly = true;
             this.DGErrors.RowHeadersVisible = false;
-            this.DGErrors.Size = new System.Drawing.Size(737, 124);
+            this.DGErrors.Size = new System.Drawing.Size(729, 143);
             this.DGErrors.TabIndex = 14;
             // 
             // contextMenuStrip
@@ -97,9 +97,9 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(10, 268);
+            this.label3.Location = new System.Drawing.Point(12, 221);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(37, 15);
             this.label3.TabIndex = 13;
             this.label3.Text = "Errors";
             // 
@@ -107,9 +107,9 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(675, 13);
+            this.buttonClose.Location = new System.Drawing.Point(656, 15);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(99, 23);
+            this.buttonClose.Size = new System.Drawing.Size(115, 27);
             this.buttonClose.TabIndex = 11;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -126,12 +126,12 @@
             this.DGTasks.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGTasks.ColumnHeadersVisible = false;
             this.DGTasks.ContextMenuStrip = this.contextMenuStrip;
-            this.DGTasks.Location = new System.Drawing.Point(3, 6);
+            this.DGTasks.Location = new System.Drawing.Point(3, 7);
             this.DGTasks.MultiSelect = false;
             this.DGTasks.Name = "DGTasks";
             this.DGTasks.ReadOnly = true;
             this.DGTasks.RowHeadersVisible = false;
-            this.DGTasks.Size = new System.Drawing.Size(726, 301);
+            this.DGTasks.Size = new System.Drawing.Size(716, 259);
             this.DGTasks.TabIndex = 10;
             // 
             // DGJob
@@ -146,20 +146,20 @@
             this.DGJob.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGJob.ColumnHeadersVisible = false;
             this.DGJob.ContextMenuStrip = this.contextMenuStrip;
-            this.DGJob.Location = new System.Drawing.Point(9, 6);
+            this.DGJob.Location = new System.Drawing.Point(10, 7);
             this.DGJob.MultiSelect = false;
             this.DGJob.Name = "DGJob";
             this.DGJob.ReadOnly = true;
             this.DGJob.RowHeadersVisible = false;
-            this.DGJob.Size = new System.Drawing.Size(737, 259);
+            this.DGJob.Size = new System.Drawing.Size(729, 211);
             this.DGJob.TabIndex = 8;
             // 
             // buttonCopyStats
             // 
             this.buttonCopyStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopyStats.Location = new System.Drawing.Point(69, 414);
+            this.buttonCopyStats.Location = new System.Drawing.Point(80, 390);
             this.buttonCopyStats.Name = "buttonCopyStats";
-            this.buttonCopyStats.Size = new System.Drawing.Size(104, 23);
+            this.buttonCopyStats.Size = new System.Drawing.Size(121, 27);
             this.buttonCopyStats.TabIndex = 15;
             this.buttonCopyStats.Text = "Copy to clipboard";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
@@ -168,9 +168,9 @@
             // buttonCreateMail
             // 
             this.buttonCreateMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCreateMail.Location = new System.Drawing.Point(179, 414);
+            this.buttonCreateMail.Location = new System.Drawing.Point(209, 390);
             this.buttonCreateMail.Name = "buttonCreateMail";
-            this.buttonCreateMail.Size = new System.Drawing.Size(138, 23);
+            this.buttonCreateMail.Size = new System.Drawing.Size(161, 27);
             this.buttonCreateMail.TabIndex = 16;
             this.buttonCreateMail.Text = "Create new Outlook email";
             this.buttonCreateMail.UseVisualStyleBackColor = true;
@@ -182,9 +182,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxTasks.FormattingEnabled = true;
             this.listBoxTasks.HorizontalScrollbar = true;
-            this.listBoxTasks.Location = new System.Drawing.Point(6, 6);
+            this.listBoxTasks.ItemHeight = 15;
+            this.listBoxTasks.Location = new System.Drawing.Point(7, 7);
             this.listBoxTasks.Name = "listBoxTasks";
-            this.listBoxTasks.Size = new System.Drawing.Size(734, 82);
+            this.listBoxTasks.Size = new System.Drawing.Size(725, 94);
             this.listBoxTasks.TabIndex = 22;
             this.listBoxTasks.SelectedIndexChanged += new System.EventHandler(this.listBoxTasks_SelectedIndexChanged);
             // 
@@ -195,10 +196,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 40);
+            this.tabControl1.Location = new System.Drawing.Point(14, 46);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 469);
+            this.tabControl1.Size = new System.Drawing.Size(756, 455);
             this.tabControl1.TabIndex = 35;
             // 
             // tabPage1
@@ -209,10 +210,10 @@
             this.tabPage1.Controls.Add(this.DGErrors);
             this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.DGJob);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 443);
+            this.tabPage1.Size = new System.Drawing.Size(748, 427);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Job information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -221,9 +222,9 @@
             // 
             this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 419);
+            this.label5.Location = new System.Drawing.Point(7, 395);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.Size = new System.Drawing.Size(63, 15);
             this.label5.TabIndex = 26;
             this.label5.Text = "Job report:";
             // 
@@ -231,10 +232,10 @@
             // 
             this.tabPage2.Controls.Add(this.tabControl2);
             this.tabPage2.Controls.Add(this.listBoxTasks);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 443);
+            this.tabPage2.Size = new System.Drawing.Size(748, 427);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Tasks";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -246,19 +247,19 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
-            this.tabControl2.Location = new System.Drawing.Point(6, 98);
+            this.tabControl2.Location = new System.Drawing.Point(7, 113);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
-            this.tabControl2.Size = new System.Drawing.Size(740, 339);
+            this.tabControl2.Size = new System.Drawing.Size(732, 303);
             this.tabControl2.TabIndex = 23;
             // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.DGTasks);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(732, 313);
+            this.tabPage3.Size = new System.Drawing.Size(724, 275);
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Task information";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -266,10 +267,10 @@
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.textBoxConfiguration);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(732, 313);
+            this.tabPage4.Size = new System.Drawing.Size(724, 275);
             this.tabPage4.TabIndex = 1;
             this.tabPage4.Text = "Configuration";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -280,22 +281,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(6, 6);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(7, 7);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ReadOnly = true;
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(720, 301);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(708, 259);
             this.textBoxConfiguration.TabIndex = 28;
             // 
             // labelJobNameTitle
             // 
             this.labelJobNameTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelJobNameTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelJobNameTitle.Location = new System.Drawing.Point(17, 9);
+            this.labelJobNameTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelJobNameTitle.Location = new System.Drawing.Point(20, 10);
             this.labelJobNameTitle.Name = "labelJobNameTitle";
-            this.labelJobNameTitle.Size = new System.Drawing.Size(745, 20);
+            this.labelJobNameTitle.Size = new System.Drawing.Size(738, 23);
             this.labelJobNameTitle.TabIndex = 36;
             this.labelJobNameTitle.Text = "Job : ";
             // 
@@ -305,21 +306,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Location = new System.Drawing.Point(-2, 513);
+            this.panel1.Location = new System.Drawing.Point(-2, 506);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(786, 48);
+            this.panel1.Size = new System.Drawing.Size(786, 55);
             this.panel1.TabIndex = 63;
             // 
             // JobInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.buttonClose;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelJobNameTitle);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "JobInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Job Information";
             this.Load += new System.EventHandler(this.JobInformation_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).EndInit();

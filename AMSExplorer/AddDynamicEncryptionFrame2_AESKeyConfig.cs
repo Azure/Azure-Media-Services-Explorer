@@ -46,7 +46,7 @@ namespace AMSExplorer
             }
         }
 
-    
+
         public string AESContentKey
         {
             get
@@ -63,9 +63,67 @@ namespace AMSExplorer
                 textBoxcontentkey.Text = value;
             }
         }
-       
 
-        public AddDynamicEncryptionFrame2_AESKeyConfig(bool ForceUseToProvideKey)
+        public Guid? AESKeyId
+        {
+            get
+            {
+                try
+                {
+                    if (radioButtonKeySpecifiedByUser.Checked)
+                    {
+                        if (radioButtonKeyIDGuid.Checked) // GUID
+                        {
+                            return (Guid?)new Guid(textBoxkeyid.Text);
+                        }
+                        else // Base64
+                        {
+                            return (Guid?)new Guid(Convert.FromBase64String(textBoxkeyid.Text));
+                        }
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                    
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+            set
+            {
+                textBoxkeyid.Text = value.ToString();
+            }
+        }
+
+        public Uri AESLaUrl
+        {
+            get
+            {
+                Uri myuri = null;
+                if (textBoxLAURL.Enabled)
+                {
+                    try
+                    {
+                        myuri = new Uri(textBoxLAURL.Text);
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
+                return myuri;
+            }
+            set
+            {
+                textBoxLAURL.Text = value.ToString();
+            }
+        }
+
+        public AddDynamicEncryptionFrame2_AESKeyConfig(bool ForceUseToProvideKey, bool DoNotAskURL, bool laststep = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -77,8 +135,20 @@ namespace AMSExplorer
                 radioButtonKeySpecifiedByUser.Checked = true;
                 groupBoxCrypto.Enabled = true;
             }
-         }
 
+            if (!laststep)
+            {
+                buttonOk.Text = "Next";
+                buttonOk.Image = null;
+            }
+
+            if (DoNotAskURL)
+            {
+                labelkeylaurl.Visible = false;
+                textBoxLAURL.Visible = false;
+                textBoxLAURL.Enabled = false;
+            }
+        }
 
         private void PlayReadyExternalServer_Load(object sender, EventArgs e)
         {
@@ -130,11 +200,18 @@ namespace AMSExplorer
             if (radioButtonContentKeyBase64.Checked)
                 textBoxcontentkey.Text = Convert.ToBase64String(DynamicEncryption.HexStringToByteArray(textBoxcontentkey.Text));
         }
-      
+
 
         private void radioButtonKeyRandomGeneration_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxCrypto.Enabled = radioButtonKeySpecifiedByUser.Checked;
+        }
+
+        private void buttonGenKeyID_Click(object sender, EventArgs e)
+        {
+            radioButtonKeyIDGuid.Checked = true;
+            textBoxkeyid.Text = Guid.NewGuid().ToString();
+            radioButtonContentKeyBase64.Checked = true;
         }
     }
 }

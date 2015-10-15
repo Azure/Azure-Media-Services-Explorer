@@ -51,6 +51,7 @@
             this.toolStripMenuItemOpenFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDownloadFile = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uploadASmallFileInTheAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.folderBrowserDialogDownload = new System.Windows.Forms.FolderBrowserDialog();
@@ -68,6 +69,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonAudioVideoAnalysis = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.buttonEditOnline = new System.Windows.Forms.Button();
             this.buttonDeleteAll = new System.Windows.Forms.Button();
             this.buttonFileMetadata = new System.Windows.Forms.Button();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
@@ -126,7 +128,6 @@
             this.labelAssetNameTitle = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.deleteAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DGAsset)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.contextMenuStripLocators.SuspendLayout();
@@ -162,12 +163,12 @@
             this.DGAsset.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGAsset.ColumnHeadersVisible = false;
             this.DGAsset.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGAsset.Location = new System.Drawing.Point(6, 6);
+            this.DGAsset.Location = new System.Drawing.Point(7, 7);
             this.DGAsset.MultiSelect = false;
             this.DGAsset.Name = "DGAsset";
             this.DGAsset.ReadOnly = true;
             this.DGAsset.RowHeadersVisible = false;
-            this.DGAsset.Size = new System.Drawing.Size(740, 397);
+            this.DGAsset.Size = new System.Drawing.Size(863, 456);
             this.DGAsset.TabIndex = 0;
             // 
             // contextMenuStripDG
@@ -188,9 +189,9 @@
             // 
             this.buttonClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClose.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonClose.Location = new System.Drawing.Point(697, 12);
+            this.buttonClose.Location = new System.Drawing.Point(813, 14);
             this.buttonClose.Name = "buttonClose";
-            this.buttonClose.Size = new System.Drawing.Size(75, 23);
+            this.buttonClose.Size = new System.Drawing.Size(87, 27);
             this.buttonClose.TabIndex = 3;
             this.buttonClose.Text = "Close";
             this.buttonClose.UseVisualStyleBackColor = true;
@@ -287,9 +288,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TreeViewLocators.ContextMenuStrip = this.contextMenuStripLocators;
-            this.TreeViewLocators.Location = new System.Drawing.Point(6, 31);
+            this.TreeViewLocators.Location = new System.Drawing.Point(7, 36);
             this.TreeViewLocators.Name = "TreeViewLocators";
-            this.TreeViewLocators.Size = new System.Drawing.Size(740, 345);
+            this.TreeViewLocators.Size = new System.Drawing.Size(863, 395);
             this.TreeViewLocators.TabIndex = 19;
             this.TreeViewLocators.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewLocators_AfterSelect);
             // 
@@ -304,12 +305,12 @@
             this.DGFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGFiles.ColumnHeadersVisible = false;
             this.DGFiles.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGFiles.Location = new System.Drawing.Point(330, 6);
+            this.DGFiles.Location = new System.Drawing.Point(385, 7);
             this.DGFiles.MultiSelect = false;
             this.DGFiles.Name = "DGFiles";
             this.DGFiles.ReadOnly = true;
             this.DGFiles.RowHeadersVisible = false;
-            this.DGFiles.Size = new System.Drawing.Size(410, 397);
+            this.DGFiles.Size = new System.Drawing.Size(478, 456);
             this.DGFiles.TabIndex = 20;
             // 
             // contextMenuStripFiles
@@ -362,6 +363,13 @@
             this.deleteFileToolStripMenuItem.Text = "Delete file";
             this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
             // 
+            // deleteAllFilesToolStripMenuItem
+            // 
+            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
+            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
+            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
+            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
+            // 
             // duplicateFileToolStripMenuItem
             // 
             this.duplicateFileToolStripMenuItem.Name = "duplicateFileToolStripMenuItem";
@@ -380,18 +388,18 @@
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 414);
+            this.label4.Location = new System.Drawing.Point(7, 476);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 13);
+            this.label4.Size = new System.Drawing.Size(73, 15);
             this.label4.TabIndex = 26;
             this.label4.Text = "Asset report:";
             // 
             // buttonCreateMail
             // 
             this.buttonCreateMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCreateMail.Location = new System.Drawing.Point(188, 409);
+            this.buttonCreateMail.Location = new System.Drawing.Point(219, 470);
             this.buttonCreateMail.Name = "buttonCreateMail";
-            this.buttonCreateMail.Size = new System.Drawing.Size(138, 23);
+            this.buttonCreateMail.Size = new System.Drawing.Size(161, 27);
             this.buttonCreateMail.TabIndex = 25;
             this.buttonCreateMail.Text = "Create new Outlook email";
             this.buttonCreateMail.UseVisualStyleBackColor = true;
@@ -400,9 +408,9 @@
             // buttonCopyStats
             // 
             this.buttonCopyStats.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCopyStats.Location = new System.Drawing.Point(78, 409);
+            this.buttonCopyStats.Location = new System.Drawing.Point(91, 470);
             this.buttonCopyStats.Name = "buttonCopyStats";
-            this.buttonCopyStats.Size = new System.Drawing.Size(104, 23);
+            this.buttonCopyStats.Size = new System.Drawing.Size(121, 27);
             this.buttonCopyStats.TabIndex = 24;
             this.buttonCopyStats.Text = "Copy to clipboard";
             this.buttonCopyStats.UseVisualStyleBackColor = true;
@@ -412,9 +420,9 @@
             // 
             this.buttonSetPrimary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSetPrimary.Enabled = false;
-            this.buttonSetPrimary.Location = new System.Drawing.Point(9, 409);
+            this.buttonSetPrimary.Location = new System.Drawing.Point(10, 469);
             this.buttonSetPrimary.Name = "buttonSetPrimary";
-            this.buttonSetPrimary.Size = new System.Drawing.Size(88, 23);
+            this.buttonSetPrimary.Size = new System.Drawing.Size(104, 27);
             this.buttonSetPrimary.TabIndex = 27;
             this.buttonSetPrimary.Text = "Set as Primary";
             this.buttonSetPrimary.UseVisualStyleBackColor = true;
@@ -424,9 +432,9 @@
             // 
             this.buttonDeleteFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteFile.Enabled = false;
-            this.buttonDeleteFile.Location = new System.Drawing.Point(332, 409);
+            this.buttonDeleteFile.Location = new System.Drawing.Point(581, 469);
             this.buttonDeleteFile.Name = "buttonDeleteFile";
-            this.buttonDeleteFile.Size = new System.Drawing.Size(54, 23);
+            this.buttonDeleteFile.Size = new System.Drawing.Size(56, 27);
             this.buttonDeleteFile.TabIndex = 28;
             this.buttonDeleteFile.Text = "Delete";
             this.toolTip1.SetToolTip(this.buttonDeleteFile, "Delete the selected file");
@@ -437,9 +445,9 @@
             // 
             this.buttonDownloadFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDownloadFile.Enabled = false;
-            this.buttonDownloadFile.Location = new System.Drawing.Point(255, 409);
+            this.buttonDownloadFile.Location = new System.Drawing.Point(341, 469);
             this.buttonDownloadFile.Name = "buttonDownloadFile";
-            this.buttonDownloadFile.Size = new System.Drawing.Size(71, 23);
+            this.buttonDownloadFile.Size = new System.Drawing.Size(80, 27);
             this.buttonDownloadFile.TabIndex = 29;
             this.buttonDownloadFile.Text = "Download";
             this.buttonDownloadFile.UseVisualStyleBackColor = true;
@@ -449,9 +457,9 @@
             // 
             this.buttonOpenFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpenFile.Enabled = false;
-            this.buttonOpenFile.Location = new System.Drawing.Point(204, 409);
+            this.buttonOpenFile.Location = new System.Drawing.Point(229, 469);
             this.buttonOpenFile.Name = "buttonOpenFile";
-            this.buttonOpenFile.Size = new System.Drawing.Size(45, 23);
+            this.buttonOpenFile.Size = new System.Drawing.Size(52, 27);
             this.buttonOpenFile.TabIndex = 30;
             this.buttonOpenFile.Text = "Open";
             this.toolTip1.SetToolTip(this.buttonOpenFile, "Open the selected file in a browser");
@@ -469,9 +477,9 @@
             this.listViewFiles.ContextMenuStrip = this.contextMenuStripFiles;
             this.listViewFiles.FullRowSelect = true;
             this.listViewFiles.HideSelection = false;
-            this.listViewFiles.Location = new System.Drawing.Point(9, 6);
+            this.listViewFiles.Location = new System.Drawing.Point(10, 7);
             this.listViewFiles.Name = "listViewFiles";
-            this.listViewFiles.Size = new System.Drawing.Size(315, 397);
+            this.listViewFiles.Size = new System.Drawing.Size(367, 455);
             this.listViewFiles.TabIndex = 31;
             this.listViewFiles.UseCompatibleStateImageBehavior = false;
             this.listViewFiles.View = System.Windows.Forms.View.Details;
@@ -497,10 +505,10 @@
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(12, 44);
+            this.tabControl1.Location = new System.Drawing.Point(14, 51);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(760, 464);
+            this.tabControl1.Size = new System.Drawing.Size(887, 535);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage1
@@ -510,10 +518,10 @@
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.buttonCopyStats);
             this.tabPage1.Controls.Add(this.buttonCreateMail);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 438);
+            this.tabPage1.Size = new System.Drawing.Size(879, 507);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Asset information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -521,9 +529,9 @@
             // buttonAudioVideoAnalysis
             // 
             this.buttonAudioVideoAnalysis.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAudioVideoAnalysis.Location = new System.Drawing.Point(615, 409);
+            this.buttonAudioVideoAnalysis.Location = new System.Drawing.Point(717, 470);
             this.buttonAudioVideoAnalysis.Name = "buttonAudioVideoAnalysis";
-            this.buttonAudioVideoAnalysis.Size = new System.Drawing.Size(131, 23);
+            this.buttonAudioVideoAnalysis.Size = new System.Drawing.Size(153, 27);
             this.buttonAudioVideoAnalysis.TabIndex = 27;
             this.buttonAudioVideoAnalysis.Text = "Audio/Video analysis";
             this.buttonAudioVideoAnalysis.UseVisualStyleBackColor = true;
@@ -532,6 +540,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.buttonEditOnline);
             this.tabPage2.Controls.Add(this.buttonDeleteAll);
             this.tabPage2.Controls.Add(this.buttonFileMetadata);
             this.tabPage2.Controls.Add(this.progressBarUpload);
@@ -543,21 +552,34 @@
             this.tabPage2.Controls.Add(this.buttonSetPrimary);
             this.tabPage2.Controls.Add(this.DGFiles);
             this.tabPage2.Controls.Add(this.listViewFiles);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 438);
+            this.tabPage2.Size = new System.Drawing.Size(879, 507);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Asset Files";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // buttonEditOnline
+            // 
+            this.buttonEditOnline.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonEditOnline.Enabled = false;
+            this.buttonEditOnline.Location = new System.Drawing.Point(287, 469);
+            this.buttonEditOnline.Name = "buttonEditOnline";
+            this.buttonEditOnline.Size = new System.Drawing.Size(48, 27);
+            this.buttonEditOnline.TabIndex = 37;
+            this.buttonEditOnline.Text = "Edit";
+            this.toolTip1.SetToolTip(this.buttonEditOnline, "Edit the content of the selected file");
+            this.buttonEditOnline.UseVisualStyleBackColor = true;
+            this.buttonEditOnline.Click += new System.EventHandler(this.buttonEditOnline_Click);
             // 
             // buttonDeleteAll
             // 
             this.buttonDeleteAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDeleteAll.Enabled = false;
-            this.buttonDeleteAll.Location = new System.Drawing.Point(542, 408);
+            this.buttonDeleteAll.Location = new System.Drawing.Point(643, 469);
             this.buttonDeleteAll.Name = "buttonDeleteAll";
-            this.buttonDeleteAll.Size = new System.Drawing.Size(77, 23);
+            this.buttonDeleteAll.Size = new System.Drawing.Size(79, 27);
             this.buttonDeleteAll.TabIndex = 36;
             this.buttonDeleteAll.Text = "Delete All";
             this.toolTip1.SetToolTip(this.buttonDeleteAll, "Delete the selected file");
@@ -568,9 +590,9 @@
             // 
             this.buttonFileMetadata.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFileMetadata.Enabled = false;
-            this.buttonFileMetadata.Location = new System.Drawing.Point(103, 409);
+            this.buttonFileMetadata.Location = new System.Drawing.Point(120, 469);
             this.buttonFileMetadata.Name = "buttonFileMetadata";
-            this.buttonFileMetadata.Size = new System.Drawing.Size(95, 23);
+            this.buttonFileMetadata.Size = new System.Drawing.Size(103, 27);
             this.buttonFileMetadata.TabIndex = 35;
             this.buttonFileMetadata.Text = "Show metadata";
             this.toolTip1.SetToolTip(this.buttonFileMetadata, "Duplicate the selected file");
@@ -581,9 +603,9 @@
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(625, 408);
+            this.progressBarUpload.Location = new System.Drawing.Point(729, 469);
             this.progressBarUpload.Name = "progressBarUpload";
-            this.progressBarUpload.Size = new System.Drawing.Size(115, 23);
+            this.progressBarUpload.Size = new System.Drawing.Size(134, 27);
             this.progressBarUpload.TabIndex = 34;
             this.progressBarUpload.Visible = false;
             // 
@@ -591,9 +613,9 @@
             // 
             this.buttonUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonUpload.Enabled = false;
-            this.buttonUpload.Location = new System.Drawing.Point(467, 409);
+            this.buttonUpload.Location = new System.Drawing.Point(427, 469);
             this.buttonUpload.Name = "buttonUpload";
-            this.buttonUpload.Size = new System.Drawing.Size(69, 23);
+            this.buttonUpload.Size = new System.Drawing.Size(69, 27);
             this.buttonUpload.TabIndex = 33;
             this.buttonUpload.Text = "Upload";
             this.toolTip1.SetToolTip(this.buttonUpload, "Upload file(s) to the asset. Use for small file(s) only.");
@@ -604,9 +626,9 @@
             // 
             this.buttonDuplicate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDuplicate.Enabled = false;
-            this.buttonDuplicate.Location = new System.Drawing.Point(392, 409);
+            this.buttonDuplicate.Location = new System.Drawing.Point(502, 469);
             this.buttonDuplicate.Name = "buttonDuplicate";
-            this.buttonDuplicate.Size = new System.Drawing.Size(69, 23);
+            this.buttonDuplicate.Size = new System.Drawing.Size(73, 27);
             this.buttonDuplicate.TabIndex = 32;
             this.buttonDuplicate.Text = "Duplicate";
             this.toolTip1.SetToolTip(this.buttonDuplicate, "Duplicate the selected file");
@@ -621,10 +643,10 @@
             this.tabPage6.Controls.Add(this.buttonCreateAssetFilter);
             this.tabPage6.Controls.Add(this.buttonFilterInfo);
             this.tabPage6.Controls.Add(this.dataGridViewFilters);
-            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Location = new System.Drawing.Point(4, 24);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage6.Size = new System.Drawing.Size(752, 438);
+            this.tabPage6.Size = new System.Drawing.Size(879, 507);
             this.tabPage6.TabIndex = 5;
             this.tabPage6.Text = "Asset Filters";
             this.tabPage6.UseVisualStyleBackColor = true;
@@ -632,9 +654,9 @@
             // buttonPlayFilter
             // 
             this.buttonPlayFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonPlayFilter.Location = new System.Drawing.Point(410, 409);
+            this.buttonPlayFilter.Location = new System.Drawing.Point(478, 470);
             this.buttonPlayFilter.Name = "buttonPlayFilter";
-            this.buttonPlayFilter.Size = new System.Drawing.Size(120, 23);
+            this.buttonPlayFilter.Size = new System.Drawing.Size(140, 27);
             this.buttonPlayFilter.TabIndex = 41;
             this.buttonPlayFilter.Text = "Play with this filter";
             this.buttonPlayFilter.UseVisualStyleBackColor = true;
@@ -643,9 +665,9 @@
             // buttonDuplicateFilter
             // 
             this.buttonDuplicateFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDuplicateFilter.Location = new System.Drawing.Point(316, 409);
+            this.buttonDuplicateFilter.Location = new System.Drawing.Point(369, 470);
             this.buttonDuplicateFilter.Name = "buttonDuplicateFilter";
-            this.buttonDuplicateFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonDuplicateFilter.Size = new System.Drawing.Size(103, 27);
             this.buttonDuplicateFilter.TabIndex = 40;
             this.buttonDuplicateFilter.Text = "Duplicate";
             this.buttonDuplicateFilter.UseVisualStyleBackColor = true;
@@ -654,9 +676,9 @@
             // buttonDeleteFilter
             // 
             this.buttonDeleteFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDeleteFilter.Location = new System.Drawing.Point(222, 409);
+            this.buttonDeleteFilter.Location = new System.Drawing.Point(259, 470);
             this.buttonDeleteFilter.Name = "buttonDeleteFilter";
-            this.buttonDeleteFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonDeleteFilter.Size = new System.Drawing.Size(103, 27);
             this.buttonDeleteFilter.TabIndex = 39;
             this.buttonDeleteFilter.Text = "Delete";
             this.buttonDeleteFilter.UseVisualStyleBackColor = true;
@@ -665,9 +687,9 @@
             // buttonCreateAssetFilter
             // 
             this.buttonCreateAssetFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(128, 409);
+            this.buttonCreateAssetFilter.Location = new System.Drawing.Point(149, 470);
             this.buttonCreateAssetFilter.Name = "buttonCreateAssetFilter";
-            this.buttonCreateAssetFilter.Size = new System.Drawing.Size(88, 23);
+            this.buttonCreateAssetFilter.Size = new System.Drawing.Size(103, 27);
             this.buttonCreateAssetFilter.TabIndex = 38;
             this.buttonCreateAssetFilter.Text = "Create";
             this.buttonCreateAssetFilter.UseVisualStyleBackColor = true;
@@ -676,9 +698,9 @@
             // buttonFilterInfo
             // 
             this.buttonFilterInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonFilterInfo.Location = new System.Drawing.Point(6, 409);
+            this.buttonFilterInfo.Location = new System.Drawing.Point(7, 470);
             this.buttonFilterInfo.Name = "buttonFilterInfo";
-            this.buttonFilterInfo.Size = new System.Drawing.Size(116, 23);
+            this.buttonFilterInfo.Size = new System.Drawing.Size(135, 27);
             this.buttonFilterInfo.TabIndex = 37;
             this.buttonFilterInfo.Text = "Filter info/update";
             this.buttonFilterInfo.UseVisualStyleBackColor = true;
@@ -695,12 +717,12 @@
             this.dataGridViewFilters.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridViewFilters.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewFilters.ContextMenuStrip = this.contextMenuStripFilter;
-            this.dataGridViewFilters.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewFilters.Location = new System.Drawing.Point(7, 7);
             this.dataGridViewFilters.Name = "dataGridViewFilters";
             this.dataGridViewFilters.ReadOnly = true;
             this.dataGridViewFilters.RowHeadersVisible = false;
             this.dataGridViewFilters.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewFilters.Size = new System.Drawing.Size(740, 397);
+            this.dataGridViewFilters.Size = new System.Drawing.Size(863, 456);
             this.dataGridViewFilters.TabIndex = 36;
             this.dataGridViewFilters.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewFilters_CellContentDoubleClick);
             // 
@@ -764,10 +786,10 @@
             this.tabPage5.Controls.Add(this.listViewAutPolOptions);
             this.tabPage5.Controls.Add(this.dataGridViewKeys);
             this.tabPage5.Controls.Add(this.listViewKeys);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Location = new System.Drawing.Point(4, 24);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(752, 438);
+            this.tabPage5.Size = new System.Drawing.Size(879, 507);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Content keys";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -775,9 +797,9 @@
             // buttonRemoveAuthPol
             // 
             this.buttonRemoveAuthPol.Enabled = false;
-            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(110, 236);
+            this.buttonRemoveAuthPol.Location = new System.Drawing.Point(128, 272);
             this.buttonRemoveAuthPol.Name = "buttonRemoveAuthPol";
-            this.buttonRemoveAuthPol.Size = new System.Drawing.Size(120, 23);
+            this.buttonRemoveAuthPol.Size = new System.Drawing.Size(140, 27);
             this.buttonRemoveAuthPol.TabIndex = 43;
             this.buttonRemoveAuthPol.Text = "Remove auth policy";
             this.buttonRemoveAuthPol.UseVisualStyleBackColor = true;
@@ -786,9 +808,9 @@
             // buttonRemoveKey
             // 
             this.buttonRemoveKey.Enabled = false;
-            this.buttonRemoveKey.Location = new System.Drawing.Point(11, 236);
+            this.buttonRemoveKey.Location = new System.Drawing.Point(13, 272);
             this.buttonRemoveKey.Name = "buttonRemoveKey";
-            this.buttonRemoveKey.Size = new System.Drawing.Size(93, 23);
+            this.buttonRemoveKey.Size = new System.Drawing.Size(108, 27);
             this.buttonRemoveKey.TabIndex = 42;
             this.buttonRemoveKey.Text = "Remove key";
             this.buttonRemoveKey.UseVisualStyleBackColor = true;
@@ -798,9 +820,9 @@
             // 
             this.buttonGetTestToken.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonGetTestToken.Enabled = false;
-            this.buttonGetTestToken.Location = new System.Drawing.Point(236, 409);
+            this.buttonGetTestToken.Location = new System.Drawing.Point(275, 470);
             this.buttonGetTestToken.Name = "buttonGetTestToken";
-            this.buttonGetTestToken.Size = new System.Drawing.Size(104, 23);
+            this.buttonGetTestToken.Size = new System.Drawing.Size(121, 27);
             this.buttonGetTestToken.TabIndex = 41;
             this.buttonGetTestToken.Text = "Get Test Token";
             this.buttonGetTestToken.UseVisualStyleBackColor = true;
@@ -809,9 +831,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(236, 246);
+            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(275, 284);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(135, 13);
+            this.label3.Size = new System.Drawing.Size(158, 15);
             this.label3.TabIndex = 40;
             this.label3.Text = "Authorization policy options";
             // 
@@ -827,12 +850,12 @@
             this.dataGridViewAutPolOption.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAutPolOption.ColumnHeadersVisible = false;
             this.dataGridViewAutPolOption.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(461, 262);
+            this.dataGridViewAutPolOption.Location = new System.Drawing.Point(538, 302);
             this.dataGridViewAutPolOption.MultiSelect = false;
             this.dataGridViewAutPolOption.Name = "dataGridViewAutPolOption";
             this.dataGridViewAutPolOption.ReadOnly = true;
             this.dataGridViewAutPolOption.RowHeadersVisible = false;
-            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(281, 170);
+            this.dataGridViewAutPolOption.Size = new System.Drawing.Size(328, 194);
             this.dataGridViewAutPolOption.TabIndex = 38;
             // 
             // listViewAutPolOptions
@@ -844,10 +867,10 @@
             this.listViewAutPolOptions.ContextMenuStrip = this.contextMenuStripAuthPol;
             this.listViewAutPolOptions.FullRowSelect = true;
             this.listViewAutPolOptions.HideSelection = false;
-            this.listViewAutPolOptions.Location = new System.Drawing.Point(236, 262);
+            this.listViewAutPolOptions.Location = new System.Drawing.Point(275, 302);
             this.listViewAutPolOptions.MultiSelect = false;
             this.listViewAutPolOptions.Name = "listViewAutPolOptions";
-            this.listViewAutPolOptions.Size = new System.Drawing.Size(219, 141);
+            this.listViewAutPolOptions.Size = new System.Drawing.Size(255, 160);
             this.listViewAutPolOptions.TabIndex = 39;
             this.listViewAutPolOptions.UseCompatibleStateImageBehavior = false;
             this.listViewAutPolOptions.View = System.Windows.Forms.View.Details;
@@ -863,13 +886,13 @@
             this.contextMenuStripAuthPol.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.getTestTokenToolStripMenuItem});
             this.contextMenuStripAuthPol.Name = "contextMenuStripAuthPol";
-            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(163, 26);
+            this.contextMenuStripAuthPol.Size = new System.Drawing.Size(161, 26);
             this.contextMenuStripAuthPol.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAuthPol_Opening);
             // 
             // getTestTokenToolStripMenuItem
             // 
             this.getTestTokenToolStripMenuItem.Name = "getTestTokenToolStripMenuItem";
-            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+            this.getTestTokenToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
             this.getTestTokenToolStripMenuItem.Text = "Get Test Token...";
             this.getTestTokenToolStripMenuItem.Click += new System.EventHandler(this.getTestTokenToolStripMenuItem_Click);
             // 
@@ -884,12 +907,12 @@
             this.dataGridViewKeys.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewKeys.ColumnHeadersVisible = false;
             this.dataGridViewKeys.ContextMenuStrip = this.contextMenuStripDG;
-            this.dataGridViewKeys.Location = new System.Drawing.Point(236, 6);
+            this.dataGridViewKeys.Location = new System.Drawing.Point(275, 7);
             this.dataGridViewKeys.MultiSelect = false;
             this.dataGridViewKeys.Name = "dataGridViewKeys";
             this.dataGridViewKeys.ReadOnly = true;
             this.dataGridViewKeys.RowHeadersVisible = false;
-            this.dataGridViewKeys.Size = new System.Drawing.Size(506, 224);
+            this.dataGridViewKeys.Size = new System.Drawing.Size(590, 258);
             this.dataGridViewKeys.TabIndex = 35;
             // 
             // listViewKeys
@@ -899,10 +922,10 @@
             this.listViewKeys.ContextMenuStrip = this.contextMenuStripKey;
             this.listViewKeys.FullRowSelect = true;
             this.listViewKeys.HideSelection = false;
-            this.listViewKeys.Location = new System.Drawing.Point(11, 6);
+            this.listViewKeys.Location = new System.Drawing.Point(13, 7);
             this.listViewKeys.MultiSelect = false;
             this.listViewKeys.Name = "listViewKeys";
-            this.listViewKeys.Size = new System.Drawing.Size(219, 224);
+            this.listViewKeys.Size = new System.Drawing.Size(255, 258);
             this.listViewKeys.TabIndex = 36;
             this.listViewKeys.UseCompatibleStateImageBehavior = false;
             this.listViewKeys.View = System.Windows.Forms.View.Details;
@@ -933,9 +956,9 @@
             this.tabPage4.Controls.Add(this.buttonRemoveDelPol);
             this.tabPage4.Controls.Add(this.DGDelPol);
             this.tabPage4.Controls.Add(this.listViewDelPol);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Location = new System.Drawing.Point(4, 24);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(752, 438);
+            this.tabPage4.Size = new System.Drawing.Size(879, 507);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Delivery policies";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -944,9 +967,9 @@
             // 
             this.buttonRemoveDelPol.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveDelPol.Enabled = false;
-            this.buttonRemoveDelPol.Location = new System.Drawing.Point(9, 408);
+            this.buttonRemoveDelPol.Location = new System.Drawing.Point(10, 469);
             this.buttonRemoveDelPol.Name = "buttonRemoveDelPol";
-            this.buttonRemoveDelPol.Size = new System.Drawing.Size(134, 23);
+            this.buttonRemoveDelPol.Size = new System.Drawing.Size(156, 27);
             this.buttonRemoveDelPol.TabIndex = 34;
             this.buttonRemoveDelPol.Text = "Remove delivery policy";
             this.toolTip1.SetToolTip(this.buttonRemoveDelPol, "Delete the selected file");
@@ -965,12 +988,12 @@
             this.DGDelPol.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGDelPol.ColumnHeadersVisible = false;
             this.DGDelPol.ContextMenuStrip = this.contextMenuStripDG;
-            this.DGDelPol.Location = new System.Drawing.Point(330, 6);
+            this.DGDelPol.Location = new System.Drawing.Point(385, 7);
             this.DGDelPol.MultiSelect = false;
             this.DGDelPol.Name = "DGDelPol";
             this.DGDelPol.ReadOnly = true;
             this.DGDelPol.RowHeadersVisible = false;
-            this.DGDelPol.Size = new System.Drawing.Size(410, 396);
+            this.DGDelPol.Size = new System.Drawing.Size(478, 455);
             this.DGDelPol.TabIndex = 32;
             this.DGDelPol.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -983,10 +1006,10 @@
             this.listViewDelPol.ContextMenuStrip = this.contextMenuStripDelPol;
             this.listViewDelPol.FullRowSelect = true;
             this.listViewDelPol.HideSelection = false;
-            this.listViewDelPol.Location = new System.Drawing.Point(9, 6);
+            this.listViewDelPol.Location = new System.Drawing.Point(10, 7);
             this.listViewDelPol.MultiSelect = false;
             this.listViewDelPol.Name = "listViewDelPol";
-            this.listViewDelPol.Size = new System.Drawing.Size(315, 396);
+            this.listViewDelPol.Size = new System.Drawing.Size(367, 454);
             this.listViewDelPol.TabIndex = 33;
             this.listViewDelPol.UseCompatibleStateImageBehavior = false;
             this.listViewDelPol.View = System.Windows.Forms.View.Details;
@@ -1029,33 +1052,33 @@
             this.tabPage3.Controls.Add(this.label1);
             this.tabPage3.Controls.Add(this.buttonFlash);
             this.tabPage3.Controls.Add(this.TreeViewLocators);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(752, 438);
+            this.tabPage3.Size = new System.Drawing.Size(879, 507);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Locators";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(348, 9);
+            this.label5.Location = new System.Drawing.Point(406, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 13);
+            this.label5.Size = new System.Drawing.Size(39, 15);
             this.label5.TabIndex = 34;
             this.label5.Text = "Filter :";
             // 
             // comboBoxLocatorsFilters
             // 
-            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxLocatorsFilters.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLocatorsFilters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxLocatorsFilters.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxLocatorsFilters.FormattingEnabled = true;
-            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(389, 6);
+            this.comboBoxLocatorsFilters.Location = new System.Drawing.Point(454, 7);
             this.comboBoxLocatorsFilters.Name = "comboBoxLocatorsFilters";
-            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxLocatorsFilters.Size = new System.Drawing.Size(180, 23);
             this.comboBoxLocatorsFilters.TabIndex = 33;
             this.comboBoxLocatorsFilters.SelectedIndexChanged += new System.EventHandler(this.comboBoxLocatorsFilters_SelectedIndexChanged);
             // 
@@ -1063,9 +1086,9 @@
             // 
             this.checkBoxHttps.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkBoxHttps.AutoSize = true;
-            this.checkBoxHttps.Location = new System.Drawing.Point(562, 9);
+            this.checkBoxHttps.Location = new System.Drawing.Point(673, 10);
             this.checkBoxHttps.Name = "checkBoxHttps";
-            this.checkBoxHttps.Size = new System.Drawing.Size(184, 17);
+            this.checkBoxHttps.Size = new System.Drawing.Size(198, 19);
             this.checkBoxHttps.TabIndex = 32;
             this.checkBoxHttps.Text = "HTTPS streaming endpoint URLs";
             this.checkBoxHttps.UseVisualStyleBackColor = true;
@@ -1075,9 +1098,9 @@
             // 
             this.buttonDashLiveAzure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDashLiveAzure.Enabled = false;
-            this.buttonDashLiveAzure.Location = new System.Drawing.Point(559, 412);
+            this.buttonDashLiveAzure.Location = new System.Drawing.Point(652, 473);
             this.buttonDashLiveAzure.Name = "buttonDashLiveAzure";
-            this.buttonDashLiveAzure.Size = new System.Drawing.Size(70, 23);
+            this.buttonDashLiveAzure.Size = new System.Drawing.Size(82, 27);
             this.buttonDashLiveAzure.TabIndex = 31;
             this.buttonDashLiveAzure.Text = "DASH Live";
             this.buttonDashLiveAzure.UseVisualStyleBackColor = true;
@@ -1086,20 +1109,22 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(7, 9);
+            this.label2.Location = new System.Drawing.Point(8, 10);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(104, 13);
+            this.label2.Size = new System.Drawing.Size(118, 15);
             this.label2.TabIndex = 30;
             this.label2.Text = "Streaming endpoint :";
             // 
             // comboBoxStreamingEndpoint
             // 
+            this.comboBoxStreamingEndpoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxStreamingEndpoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStreamingEndpoint.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.comboBoxStreamingEndpoint.FormattingEnabled = true;
-            this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(117, 6);
+            this.comboBoxStreamingEndpoint.Location = new System.Drawing.Point(136, 7);
             this.comboBoxStreamingEndpoint.Name = "comboBoxStreamingEndpoint";
-            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(215, 21);
+            this.comboBoxStreamingEndpoint.Size = new System.Drawing.Size(250, 23);
             this.comboBoxStreamingEndpoint.TabIndex = 29;
             this.comboBoxStreamingEndpoint.SelectedIndexChanged += new System.EventHandler(this.comboBoxStreamingEndpoint_SelectedIndexChanged);
             // 
@@ -1107,9 +1132,9 @@
             // 
             this.buttonOpen.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonOpen.Enabled = false;
-            this.buttonOpen.Location = new System.Drawing.Point(72, 382);
+            this.buttonOpen.Location = new System.Drawing.Point(84, 439);
             this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(50, 23);
+            this.buttonOpen.Size = new System.Drawing.Size(58, 27);
             this.buttonOpen.TabIndex = 25;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
@@ -1119,9 +1144,9 @@
             // 
             this.buttonDel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDel.Enabled = false;
-            this.buttonDel.Location = new System.Drawing.Point(9, 382);
+            this.buttonDel.Location = new System.Drawing.Point(10, 439);
             this.buttonDel.Name = "buttonDel";
-            this.buttonDel.Size = new System.Drawing.Size(57, 23);
+            this.buttonDel.Size = new System.Drawing.Size(66, 27);
             this.buttonDel.TabIndex = 28;
             this.buttonDel.Text = "Delete";
             this.buttonDel.UseVisualStyleBackColor = true;
@@ -1131,9 +1156,9 @@
             // 
             this.buttonAzureMediaPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAzureMediaPlayer.Enabled = false;
-            this.buttonAzureMediaPlayer.Location = new System.Drawing.Point(94, 411);
+            this.buttonAzureMediaPlayer.Location = new System.Drawing.Point(110, 472);
             this.buttonAzureMediaPlayer.Name = "buttonAzureMediaPlayer";
-            this.buttonAzureMediaPlayer.Size = new System.Drawing.Size(112, 23);
+            this.buttonAzureMediaPlayer.Size = new System.Drawing.Size(131, 27);
             this.buttonAzureMediaPlayer.TabIndex = 27;
             this.buttonAzureMediaPlayer.Text = "Azure Media Player";
             this.buttonAzureMediaPlayer.UseVisualStyleBackColor = true;
@@ -1143,9 +1168,9 @@
             // 
             this.buttonSLMonitor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonSLMonitor.Enabled = false;
-            this.buttonSLMonitor.Location = new System.Drawing.Point(332, 412);
+            this.buttonSLMonitor.Location = new System.Drawing.Point(387, 473);
             this.buttonSLMonitor.Name = "buttonSLMonitor";
-            this.buttonSLMonitor.Size = new System.Drawing.Size(103, 23);
+            this.buttonSLMonitor.Size = new System.Drawing.Size(120, 27);
             this.buttonSLMonitor.TabIndex = 26;
             this.buttonSLMonitor.Text = "Silverlight Monitor";
             this.buttonSLMonitor.UseVisualStyleBackColor = true;
@@ -1155,9 +1180,9 @@
             // 
             this.buttonHTML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonHTML.Enabled = false;
-            this.buttonHTML.Location = new System.Drawing.Point(635, 412);
+            this.buttonHTML.Location = new System.Drawing.Point(741, 473);
             this.buttonHTML.Name = "buttonHTML";
-            this.buttonHTML.Size = new System.Drawing.Size(111, 23);
+            this.buttonHTML.Size = new System.Drawing.Size(129, 27);
             this.buttonHTML.TabIndex = 24;
             this.buttonHTML.Text = "HTML Player (MP4)";
             this.buttonHTML.UseVisualStyleBackColor = true;
@@ -1167,9 +1192,9 @@
             // 
             this.buttonDASH.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonDASH.Enabled = false;
-            this.buttonDASH.Location = new System.Drawing.Point(441, 412);
+            this.buttonDASH.Location = new System.Drawing.Point(514, 473);
             this.buttonDASH.Name = "buttonDASH";
-            this.buttonDASH.Size = new System.Drawing.Size(112, 23);
+            this.buttonDASH.Size = new System.Drawing.Size(131, 27);
             this.buttonDASH.TabIndex = 23;
             this.buttonDASH.Text = "DASH-IF Ref player";
             this.buttonDASH.UseVisualStyleBackColor = true;
@@ -1179,9 +1204,9 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 416);
+            this.label1.Location = new System.Drawing.Point(14, 478);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
+            this.label1.Size = new System.Drawing.Size(83, 15);
             this.label1.TabIndex = 21;
             this.label1.Text = "Playback with:";
             // 
@@ -1189,9 +1214,9 @@
             // 
             this.buttonFlash.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonFlash.Enabled = false;
-            this.buttonFlash.Location = new System.Drawing.Point(249, 412);
+            this.buttonFlash.Location = new System.Drawing.Point(290, 473);
             this.buttonFlash.Name = "buttonFlash";
-            this.buttonFlash.Size = new System.Drawing.Size(77, 23);
+            this.buttonFlash.Size = new System.Drawing.Size(90, 27);
             this.buttonFlash.TabIndex = 20;
             this.buttonFlash.Text = "Flash OSMF";
             this.buttonFlash.UseVisualStyleBackColor = true;
@@ -1201,10 +1226,10 @@
             // 
             this.labelAssetNameTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetNameTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelAssetNameTitle.Location = new System.Drawing.Point(18, 9);
+            this.labelAssetNameTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssetNameTitle.Location = new System.Drawing.Point(21, 10);
             this.labelAssetNameTitle.Name = "labelAssetNameTitle";
-            this.labelAssetNameTitle.Size = new System.Drawing.Size(753, 32);
+            this.labelAssetNameTitle.Size = new System.Drawing.Size(878, 37);
             this.labelAssetNameTitle.TabIndex = 35;
             this.labelAssetNameTitle.Text = "Asset : ";
             // 
@@ -1214,28 +1239,25 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonClose);
-            this.panel1.Location = new System.Drawing.Point(0, 514);
+            this.panel1.Location = new System.Drawing.Point(0, 593);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(785, 48);
+            this.panel1.Size = new System.Drawing.Size(916, 55);
             this.panel1.TabIndex = 36;
-            // 
-            // deleteAllFilesToolStripMenuItem
-            // 
-            this.deleteAllFilesToolStripMenuItem.Name = "deleteAllFilesToolStripMenuItem";
-            this.deleteAllFilesToolStripMenuItem.Size = new System.Drawing.Size(234, 22);
-            this.deleteAllFilesToolStripMenuItem.Text = "Delete all files";
-            this.deleteAllFilesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllFilesToolStripMenuItem_Click);
             // 
             // AssetInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.buttonClose;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.CancelButton = this.buttonClose;
+            this.ClientSize = new System.Drawing.Size(915, 647);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.labelAssetNameTitle);
             this.Controls.Add(this.tabControl1);
+            this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "AssetInformation";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Asset Information";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.AssetInformation_FormClosed);
             this.Load += new System.EventHandler(this.AssetInformation_Load);
@@ -1367,5 +1389,6 @@
         private System.Windows.Forms.ToolStripMenuItem playWithThisFilterToolStripMenuItem;
         private System.Windows.Forms.Button buttonDeleteAll;
         private System.Windows.Forms.ToolStripMenuItem deleteAllFilesToolStripMenuItem;
+        private System.Windows.Forms.Button buttonEditOnline;
     }
 }
