@@ -49,6 +49,8 @@
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
             this.labelJobNameTitle = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.tabBody = new System.Windows.Forms.TabPage();
+            this.textBoxTaskBody = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGErrors)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGTasks)).BeginInit();
@@ -60,6 +62,7 @@
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabBody.SuspendLayout();
             this.SuspendLayout();
             // 
             // DGErrors
@@ -131,7 +134,7 @@
             this.DGTasks.Name = "DGTasks";
             this.DGTasks.ReadOnly = true;
             this.DGTasks.RowHeadersVisible = false;
-            this.DGTasks.Size = new System.Drawing.Size(716, 259);
+            this.DGTasks.Size = new System.Drawing.Size(716, 261);
             this.DGTasks.TabIndex = 10;
             // 
             // DGJob
@@ -247,6 +250,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl2.Controls.Add(this.tabPage3);
             this.tabControl2.Controls.Add(this.tabPage4);
+            this.tabControl2.Controls.Add(this.tabBody);
             this.tabControl2.Location = new System.Drawing.Point(7, 113);
             this.tabControl2.Name = "tabControl2";
             this.tabControl2.SelectedIndex = 0;
@@ -286,7 +290,7 @@
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ReadOnly = true;
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(708, 259);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(708, 261);
             this.textBoxConfiguration.TabIndex = 28;
             // 
             // labelJobNameTitle
@@ -310,6 +314,31 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(786, 55);
             this.panel1.TabIndex = 63;
+            // 
+            // tabBody
+            // 
+            this.tabBody.Controls.Add(this.textBoxTaskBody);
+            this.tabBody.Location = new System.Drawing.Point(4, 24);
+            this.tabBody.Name = "tabBody";
+            this.tabBody.Padding = new System.Windows.Forms.Padding(3);
+            this.tabBody.Size = new System.Drawing.Size(724, 275);
+            this.tabBody.TabIndex = 2;
+            this.tabBody.Text = "Body";
+            this.tabBody.UseVisualStyleBackColor = true;
+            // 
+            // textBoxTaskBody
+            // 
+            this.textBoxTaskBody.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTaskBody.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxTaskBody.Location = new System.Drawing.Point(8, 7);
+            this.textBoxTaskBody.Multiline = true;
+            this.textBoxTaskBody.Name = "textBoxTaskBody";
+            this.textBoxTaskBody.ReadOnly = true;
+            this.textBoxTaskBody.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBoxTaskBody.Size = new System.Drawing.Size(708, 261);
+            this.textBoxTaskBody.TabIndex = 29;
             // 
             // JobInformation
             // 
@@ -340,6 +369,8 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabBody.ResumeLayout(false);
+            this.tabBody.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -366,5 +397,7 @@
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox textBoxConfiguration;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TabPage tabBody;
+        private System.Windows.Forms.TextBox textBoxTaskBody;
     }
 }
