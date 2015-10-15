@@ -683,7 +683,16 @@ namespace AMSExplorer
                 IContentKey clonedkey = DestinationContext.ContentKeys.Where(k => k.Id == key.Id).FirstOrDefault();
                 if (clonedkey == null) // key does not exist in target account
                 {
-                    clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                    try
+                    {
+                        clonedkey = DestinationContext.ContentKeys.Create(new Guid(key.Id.Replace(Constants.ContentKeyIdPrefix, "")), key.GetClearKeyValue(), key.Name, key.ContentKeyType);
+                    }
+                    catch
+                    {
+                        // we cannot create the key but the guid is taken.
+                        throw new Exception(String.Format("Key {0} is not in the account but it cannot be created (same key id already exists in the datacenter? ", key.Id));
+                    }
+
                 }
                 destinationAsset.ContentKeys.Add(clonedkey);
 

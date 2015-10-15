@@ -45,8 +45,7 @@ using System.Drawing.Drawing2D;
 using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Specialized;
 using System.Runtime.Serialization;
-
-
+using System.Linq.Expressions;
 
 namespace AMSExplorer
 {
@@ -121,7 +120,6 @@ namespace AMSExplorer
             {
                 return _initialized;
             }
-
         }
         public string TimeFilter
         {
@@ -140,14 +138,6 @@ namespace AMSExplorer
             {
                 return _MyObservChannels.Count();
             }
-
-        }
-        public IEnumerable<IChannel> DisplayedJobs
-        {
-            get
-            {
-                return channels;
-            }
         }
 
         private List<StatusInfo> ListStatus = new List<StatusInfo>();
@@ -155,7 +145,6 @@ namespace AMSExplorer
         static BindingList<ChannelEntry> _MyObservChannels;
         static BindingList<ChannelEntry> _MyObservChannelthisPage;
 
-        static IEnumerable<IChannel> channels;
         static private int _channelsperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -197,7 +186,7 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;
-            channelquery = from c in _context.Channels
+            channelquery = from c in _context.Channels.Take(0)
                            orderby c.LastModified descending
                            select new ChannelEntry
                            {
@@ -334,24 +323,63 @@ namespace AMSExplorer
 
             IEnumerable<ChannelEntry> channelquery;
 
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            channels = (days == -1) ? context.Channels : context.Channels.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            // STATE
+            bool filterstate = FilterState != "All";
+            ChannelState channelstate = ChannelState.Running;
+            if (filterstate)
+            {
+                channelstate = (ChannelState)Enum.Parse(typeof(ChannelState), FilterState);
+            }
+
+            IQueryable<IChannel> channelssrv = context.Channels;
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ChannelName:
-                        channels = channels.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        channelssrv = context.Channels.Where(c =>
+                                                 (c.Name.ToLower().Contains(_searchinname.Text.ToLower()))
+                                                 &&
+                                                 (!filterday || c.LastModified > datefilter)
+                                                 );
                         break;
 
                     case SearchIn.ChannelId:
-                        channels = channels.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                        string channelguid = _searchinname.Text;
+                        if (channelguid.StartsWith(Constants.ChannelIdPrefix))
+                        {
+                            channelguid = channelguid.Substring(Constants.ChannelIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(channelguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with channel Id. Is it a valid GUID or channel Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            channelssrv = context.Channels.Where(c =>
+                                                    (c.Id == Constants.ChannelIdPrefix + channelguid)
+                                                    &&
+                                                    (!filterday || c.LastModified > datefilter)
+                                                    );
+                        }
                         break;
 
                     default:
@@ -359,89 +387,61 @@ namespace AMSExplorer
 
                 }
             }
-
-
-            if (FilterState != "All")
+            else
             {
-                channels = channels.Where(c => c.State == (ChannelState)Enum.Parse(typeof(ChannelState), _statefilter));
+                channelssrv = context.Channels.Where(c =>
+                                                (!filterday || c.LastModified > datefilter)
+                                                );
             }
-
 
             switch (_orderitems)
             {
                 case OrderChannels.LastModified:
-                    channelquery = from c in channels
-                                   orderby c.LastModified descending
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderByDescending(p => p.LastModified);
+
                     break;
 
 
                 case OrderChannels.Name:
-                    channelquery = from c in channels
-                                   orderby c.Name
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderBy(p => p.LastModified);
+
                     break;
 
                 case OrderChannels.State:
-                    channelquery = from c in channels
-                                   orderby c.State
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
+                    channelssrv = channelssrv.OrderBy(p => p.State);
+
                     break;
 
                 default:
-                    channelquery = from c in channels
-                                   select new ChannelEntry
-                                   {
-                                       Name = c.Name,
-                                       Id = c.Id,
-                                       Description = c.Description,
-                                       InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
-                                       Encoding = ReturnChannelBitmap(c),
-                                       InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
-                                       PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
-                                       State = c.State,
-                                       LastModified = c.LastModified.ToLocalTime()
-                                   };
                     break;
+            }
+
+
+            IEnumerable<IChannel> channels = channelssrv.AsEnumerable(); // local query now
+
+            if (filterstate)
+            {
+                channels = channels.Where(c => c.State == channelstate); // this query has to be locally. Not supported on the server
             }
 
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
-                channelquery = channelquery.Take(50);
+                channels = channels.Take(50);
             }
+
+            channelquery = channels.Select(c =>
+                       new ChannelEntry
+                       {
+                           Name = c.Name,
+                           Id = c.Id,
+                           Description = c.Description,
+                           InputProtocol = string.Format("{0} ({1})", Program.ReturnNameForProtocol(c.Input.StreamingProtocol), c.Input.Endpoints.Count),
+                           Encoding = ReturnChannelBitmap(c),
+                           InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
+                           PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
+                           State = c.State,
+                           LastModified = c.LastModified.ToLocalTime()
+                       });
 
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
             _MyObservChannelthisPage = new BindingList<ChannelEntry>(_MyObservChannels.Skip(_channelsperpage * (_currentpage - 1)).Take(_channelsperpage).ToList());
@@ -461,7 +461,7 @@ namespace AMSExplorer
         static BindingList<ProgramEntry> _MyObservPrograms;
         static BindingList<ProgramEntry> _MyObservProgramsthisPage;
 
-        static IEnumerable<IProgram> programs;
+
         static private int _itemssperpage = 50; //nb of items per page
         static private int _pagecount = 1;
         static private int _currentpage = 1;
@@ -477,6 +477,7 @@ namespace AMSExplorer
         static BackgroundWorker WorkerRefreshChannels;
         public string _published = "Published";
         static Bitmap Streaminglocatorimage = Bitmaps.streaming_locator;
+        static private bool _anyChannel = false;
 
         public List<string> ChannelSourceIDs
         {
@@ -529,6 +530,18 @@ namespace AMSExplorer
             {
                 _orderitems = value;
             }
+        }
+
+        public bool AnyChannel
+        {
+            get
+            {
+                return _anyChannel;
+            }
+            set
+            {
+                _anyChannel = value;
+            }
 
         }
         public string FilterState
@@ -576,16 +589,10 @@ namespace AMSExplorer
         {
             get
             {
-                return _MyObservPrograms.Count();
+                return _MyObservPrograms != null ? _MyObservPrograms.Count() : 0;
             }
         }
-        public IEnumerable<IProgram> DisplayedItems
-        {
-            get
-            {
-                return programs;
-            }
-        }
+
 
 
         public void Init(CredentialsEntry credentials, CloudMediaContext context)
@@ -594,8 +601,8 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;
-            programquery = from c in _context.Programs
-                           orderby c.LastModified descending
+            programquery = from c in _context.Programs.Take(0)
+                               //orderby c.LastModified descending
                            select new ProgramEntry
                            {
                                Name = c.Name,
@@ -727,133 +734,182 @@ namespace AMSExplorer
         public void RefreshPrograms(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
+            if (idsList.Count == 0) return;
+
+            Debug.WriteLine("RefreshPrograms : start");
 
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
-            int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            IQueryable<IProgram> programssrv = context.Programs;
 
-            programs = (days == -1) ? context.Programs : context.Programs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+            // DAYS
+            int days = FilterTime.ReturnNumberOfDays(_timefilter);
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            // STATE
+            bool pFilterOnState = FilterState != "All";
+            ProgramState myStateFilter = ProgramState.Running;
+            if (pFilterOnState)
+            {
+                myStateFilter = (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter);
+                //programs = programs.Where(p => p.State == (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter));
+            }
+
+            bool bListEmpty = (idsList.Count == 0);
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.ProgramName:
-                        programs = programs.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        programssrv = context.Programs.Where(p =>
+                                                (p.Name.ToLower().Contains(_searchinname.Text.ToLower()))
+                                                 &&
+                                                 (!filterday || p.LastModified > datefilter)
+                                                  );
                         break;
 
                     case SearchIn.ProgramId:
-                        programs = programs.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                        string programguid = _searchinname.Text;
+                        if (programguid.StartsWith(Constants.ProgramIdPrefix))
+                        {
+                            programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(programguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            programssrv = context.Programs.Where(p =>
+                                                    (p.Id == Constants.ProgramIdPrefix + programguid)
+                                                    // no need to filter the date or ID as user request a specific ID
+                                                    );
+                        }
                         break;
 
                     default:
                         break;
-
                 }
             }
-
-
-            if (FilterState != "All")
+            else
             {
-                programs = programs.Where(p => p.State == (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter));
+                programssrv = context.Programs.Where(p =>
+                                                (!filterday || p.LastModified > datefilter)
+                                              );
+
+                if (idsList.Count == 1 && !_anyChannel)
+                {
+                    programssrv = programssrv.Where(p => p.ChannelId == idsList[0]);
+                }
+                else if (idsList.Count > 1 && !_anyChannel)
+                {
+                    // let's build the query for all the IDs
+                    // The IQueryable data to query.
+                    IQueryable<IProgram> queryableData = programssrv.AsQueryable<IProgram>();
+
+                    // Compose the expression tree that represents the parameter to the predicate.
+                    ParameterExpression pe = Expression.Parameter(typeof(IProgram), "p");
+
+                    List<Expression> exp = new List<Expression>();
+                    foreach (var s in idsList)
+                    {
+                        // ***** Where(p => p.ChannelId == "nb:chid:UUID:29aae99e-66d9-4a54-8cf0-8f652fd0f0ff" || p.ChannelId == "nb:chid:UUID:....)) *****
+                        // Create an expression tree that represents the expression 'p.ChannelId == "nb:chid:UUID:2....
+                        Expression left = Expression.Property(pe, typeof(IProgram).GetProperty("ChannelId"));
+                        Expression right = Expression.Constant(s);
+                        exp.Add(Expression.Equal(left, right));
+                    }
+                    // Combine the expression trees to create an expression tree that represents the
+                    Expression predicateBody = Expression.OrElse(exp[0], exp[1]);
+                    for (int i = 2; i < idsList.Count; i++)
+                    {
+                        predicateBody = Expression.OrElse(predicateBody, exp[i]);
+                    }
+
+                    // Create an expression tree that represents the expression
+                    MethodCallExpression whereCallExpression = Expression.Call(
+                       typeof(Queryable),
+                       "Where",
+                       new Type[] { queryableData.ElementType },
+                       queryableData.Expression,
+                       Expression.Lambda<Func<IProgram, bool>>(predicateBody, new ParameterExpression[] { pe }));
+                    // ***** End Where *****
+
+                    // Create an executable query from the expression tree.
+                    programssrv = queryableData.Provider.CreateQuery<IProgram>(whereCallExpression);
+                }
+
             }
 
 
+
+            // Sorting
             switch (_orderitems)
             {
                 case OrderPrograms.LastModified:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderByDescending(p => p.LastModified)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-                        }).ToArray();
+                    programssrv = programssrv.OrderByDescending(p => p.LastModified);
                     break;
 
                 case OrderPrograms.Name:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.Name)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                        }).ToArray();
+                    programssrv = programssrv.OrderBy(p => p.Name);
                     break;
 
                 case OrderPrograms.State:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId)).OrderBy(p => p.State)
-                 .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-                    (p, c) =>
-                        new ProgramEntry
-                        {
-                            Name = p.Name,
-                            Id = p.Id,
-                            Description = p.Description,
-                            ArchiveWindowLength = p.ArchiveWindowLength,
-                            State = p.State,
-                            LastModified = p.LastModified.ToLocalTime(),
-                            ChannelName = c.Name,
-                            ChannelId = c.Id,
-                            Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                        }).ToArray();
+                    programssrv = programssrv.OrderBy(p => p.State);
                     break;
 
                 default:
-                    programquery = programs.AsEnumerable().Where(p => idsList.Contains(p.ChannelId))
-           .Join(_context.Channels.AsEnumerable(), p => p.ChannelId, c => c.Id,
-              (p, c) =>
-                  new ProgramEntry
-                  {
-                      Name = p.Name,
-                      Id = p.Id,
-                      Description = p.Description,
-                      ArchiveWindowLength = p.ArchiveWindowLength,
-                      State = p.State,
-                      LastModified = p.LastModified.ToLocalTime(),
-                      ChannelName = c.Name,
-                      ChannelId = c.Id,
-                      Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
-
-                  }).ToArray();
                     break;
+            }
+
+            IEnumerable<IProgram> programs = programssrv.AsEnumerable(); // local query now
+            if (pFilterOnState)
+            {
+                programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
             }
 
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
-                programquery = programquery.Take(50);
+                programs = programs.Take(50);
             }
+
+            programquery = programs.Select(p =>
+                         new ProgramEntry
+                         {
+                             Name = p.Name,
+                             Id = p.Id,
+                             Description = p.Description,
+                             ArchiveWindowLength = p.ArchiveWindowLength,
+                             State = p.State,
+                             LastModified = p.LastModified.ToLocalTime(),
+                             ChannelName = p.Channel.Name,
+                             ChannelId = p.Channel.Id,
+                             Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
+                         });
 
             _MyObservPrograms = new BindingList<ProgramEntry>(programquery.ToList());
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
             _refreshedatleastonetime = true;
             this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+
+            Debug.WriteLine("RefreshPrograms : end");
         }
     }
 

@@ -84,10 +84,12 @@ namespace AMSExplorer
         private bool HyperlapsePresent = true;
         private bool AMEStandardPresent = true;
 
-
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
         private bool EncodingRUFeatureOn = true; // On some test account, there is no Encoding RU so let's switch to OFF the feature in that case
+
+        private bool backupCheckboxAnychannel = false;
+        private bool CheckboxAnychannelChangedByCode = false;
 
         public Mainform()
         {
@@ -1826,7 +1828,11 @@ namespace AMSExplorer
             List<IAsset> SelectedAssets = new List<IAsset>();
             foreach (DataGridViewRow Row in dataGridViewAssetsV.SelectedRows)
             {
-                SelectedAssets.Add(_context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                var asset = _context.Assets.Where(j => j.Id == Row.Cells[dataGridViewAssetsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (asset != null)
+                {
+                    SelectedAssets.Add(asset);
+                }
             }
             SelectedAssets.Reverse();
             return SelectedAssets;
@@ -3025,12 +3031,12 @@ namespace AMSExplorer
 
         private void dASHIFHTML5ReferencePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://dashif.org/reference/players/javascript/");
+            Process.Start(Constants.PlayerDASHIFList);
         }
 
         private void iVXHLSPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://apps.microsoft.com/windows/en-us/app/3ivx-hls-player/f79ce7d0-2993-4658-bc4e-83dc182a0614");
+            Process.Start(Constants.Player3IVXHLS);
         }
 
 
@@ -3201,7 +3207,7 @@ namespace AMSExplorer
         private void oSMFToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("1) Set the src to MPEG-DASH or Smooth Streaming source" + Constants.endline + "2) Select 'Microsoft Adaptive Streaming Plugin'" + Constants.endline + "3) Click 'Preview and Update'");
-            System.Diagnostics.Process ieProcess = System.Diagnostics.Process.Start("iexplore", @"http://wamsclient.cloudapp.net/release/setup.html");
+            System.Diagnostics.Process ieProcess = System.Diagnostics.Process.Start("iexplore", Constants.PlayerOSMFRCst);
         }
 
 
@@ -3815,12 +3821,12 @@ namespace AMSExplorer
 
         private void azureMediaServicesPlayerPageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/azuremediaplayer");
+            Process.Start(Constants.PlayerAMP);
         }
 
         private void hTML5VideoElementToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://www.w3schools.com/html/html5_video.asp");
+            Process.Start(Constants.PlayerInfoHTML5Video);
         }
 
         private void dynamicPackagingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3838,28 +3844,25 @@ namespace AMSExplorer
             UpdateLabelStorageEncryption();
 
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset name :", SearchIn.AssetName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in asset Id :", SearchIn.AssetId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for asset Id :", SearchIn.AssetId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in asset alt Id :", SearchIn.AssetAltId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in file name :", SearchIn.AssetFileName.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in file Id :", SearchIn.AssetFileId.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in locator :", SearchIn.LocatorPath.ToString()));
-            comboBoxSearchAssetOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for file Id :", SearchIn.AssetFileId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for locator Id :", SearchIn.LocatorId.ToString()));
+            comboBoxSearchAssetOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
             comboBoxSearchAssetOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
             comboBoxSearchAssetOption.SelectedIndex = 0;
 
             comboBoxSearchJobOption.Items.Add(new Item("Search in job name :", SearchIn.JobName.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in job Id :", SearchIn.JobId.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task name :", SearchIn.TaskName.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task Id :", SearchIn.TaskId.ToString()));
-            comboBoxSearchJobOption.Items.Add(new Item("Search in task proc id :", SearchIn.TaskProcessorId.ToString()));
+            comboBoxSearchJobOption.Items.Add(new Item("Search for job Id :", SearchIn.JobId.ToString()));
             comboBoxSearchJobOption.SelectedIndex = 0;
 
             comboBoxSearchChannelOption.Items.Add(new Item("Search in channel name :", SearchIn.ChannelName.ToString()));
-            comboBoxSearchChannelOption.Items.Add(new Item("Search in channel Id :", SearchIn.ChannelId.ToString()));
+            comboBoxSearchChannelOption.Items.Add(new Item("Search for channel Id :", SearchIn.ChannelId.ToString()));
             comboBoxSearchChannelOption.SelectedIndex = 0;
 
             comboBoxSearchProgramOption.Items.Add(new Item("Search in program name :", SearchIn.ProgramName.ToString()));
-            comboBoxSearchProgramOption.Items.Add(new Item("Search in program Id :", SearchIn.ProgramId.ToString()));
+            comboBoxSearchProgramOption.Items.Add(new Item("Search for program Id :", SearchIn.ProgramId.ToString()));
             comboBoxSearchProgramOption.SelectedIndex = 0;
 
             comboBoxOrderAssets.Items.AddRange(
@@ -3973,6 +3976,8 @@ namespace AMSExplorer
           );
             comboBoxOrderStreamingEndpoints.SelectedIndex = 0;
 
+            AddButtonsToSearchTextBox();
+
             // List of state and numbers of jobs per state
 
             DoRefreshGridJobV(true);
@@ -3985,6 +3990,9 @@ namespace AMSExplorer
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
 
+
+
+
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
 
@@ -3992,8 +4000,87 @@ namespace AMSExplorer
             dateTimePickerEndDate.Value = DateTime.Now;
 
             DisplaySplashDuringLoading = false;
+
             Show();
         }
+
+        private void AddButtonsToSearchTextBox()
+        {
+            // let's add a button to asset textbox search
+            var btna = new Button();
+            btna.Size = new Size(18, textBoxAssetSearch.ClientSize.Height + 2);
+            btna.Location = new Point(textBoxAssetSearch.ClientSize.Width - btna.Width, -1);
+            btna.Anchor = AnchorStyles.Right;
+            btna.Cursor = Cursors.Default;
+            btna.Text = "X";
+            btna.BackColor = SystemColors.Window;
+            btna.Click += Btna_Click;
+            textBoxAssetSearch.Controls.Add(btna);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxAssetSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btna.Width << 16));
+
+            // let's add a button to job textbox search
+            var btnj = new Button();
+            btnj.Size = new Size(18, textBoxJobSearch.ClientSize.Height + 2);
+            btnj.Location = new Point(textBoxJobSearch.ClientSize.Width - btnj.Width, -1);
+            btnj.Anchor = AnchorStyles.Right;
+            btnj.Cursor = Cursors.Default;
+            btnj.Text = "X";
+            btnj.BackColor = SystemColors.Window;
+            btnj.Click += Btnj_Click;
+            textBoxJobSearch.Controls.Add(btnj);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxJobSearch.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnj.Width << 16));
+
+            // let's add a button to channel textbox search
+            var btnc = new Button();
+            btnc.Size = new Size(18, textBoxSearchNameChannel.ClientSize.Height + 2);
+            btnc.Location = new Point(textBoxSearchNameChannel.ClientSize.Width - btnc.Width, -1);
+            btnc.Anchor = AnchorStyles.Right;
+            btnc.Cursor = Cursors.Default;
+            btnc.Text = "X";
+            btnc.BackColor = SystemColors.Window;
+            btnc.Click += Btnc_Click;
+            textBoxSearchNameChannel.Controls.Add(btnc);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxSearchNameChannel.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnc.Width << 16));
+
+            // let's add a button to program textbox search
+            var btnp = new Button();
+            btnp.Size = new Size(18, textBoxSearchNameProgram.ClientSize.Height + 2);
+            btnp.Location = new Point(textBoxSearchNameProgram.ClientSize.Width - btnp.Width, -1);
+            btnp.Anchor = AnchorStyles.Right;
+            btnp.Cursor = Cursors.Default;
+            btnp.Text = "X";
+            btnp.BackColor = SystemColors.Window;
+            btnp.Click += Btnp_Click;
+            textBoxSearchNameProgram.Controls.Add(btnp);
+            // Send EM_SETMARGINS to prevent text from disappearing underneath the button
+            SendMessage(textBoxSearchNameProgram.Handle, 0xd3, (IntPtr)2, (IntPtr)(btnp.Width << 16));
+        }
+
+        private void Btna_Click(object sender, EventArgs e)
+        {
+            textBoxAssetSearch.Text = string.Empty;
+            DoAssetSearch();
+        }
+        private void Btnj_Click(object sender, EventArgs e)
+        {
+            textBoxJobSearch.Text = string.Empty;
+            DoJobSearch();
+        }
+        private void Btnc_Click(object sender, EventArgs e)
+        {
+            textBoxSearchNameChannel.Text = string.Empty;
+            DoChannelSearch();
+        }
+        private void Btnp_Click(object sender, EventArgs e)
+        {
+            textBoxSearchNameProgram.Text = string.Empty;
+            DoProgramSearch();
+        }
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
         private void UpdateLabelStorageEncryption()
         {
@@ -4805,21 +4892,31 @@ namespace AMSExplorer
 
         private void buttonJobSearch_Click(object sender, EventArgs e)
         {
-            if (dataGridViewJobsV.Initialized)
-            {
-                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchJobOption.SelectedItem as Item).Value);
-                dataGridViewJobsV.SearchInName = new SearchObject { Text = textBoxJobSearch.Text, SearchType = stype };
-                DoRefreshGridJobV(false);
-            }
+            DoJobSearch();
         }
 
         private void buttonAssetSearch_Click(object sender, EventArgs e)
+        {
+            DoAssetSearch();
+        }
+
+        private void DoAssetSearch()
         {
             if (dataGridViewAssetsV.Initialized)
             {
                 SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchAssetOption.SelectedItem as Item).Value);
                 dataGridViewAssetsV.SearchInName = new SearchObject { Text = textBoxAssetSearch.Text, SearchType = stype };
                 DoRefreshGridAssetV(false);
+            }
+        }
+
+        private void DoJobSearch()
+        {
+            if (dataGridViewJobsV.Initialized)
+            {
+                SearchIn stype = (SearchIn)Enum.Parse(typeof(SearchIn), (comboBoxSearchJobOption.SelectedItem as Item).Value);
+                dataGridViewJobsV.SearchInName = new SearchObject { Text = textBoxJobSearch.Text, SearchType = stype };
+                DoRefreshGridJobV(false);
             }
         }
 
@@ -5381,12 +5478,12 @@ namespace AMSExplorer
 
         private void azureMediaServicesDocumentationToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"https://azure.microsoft.com/en-us/documentation/services/media-services/");
+            Process.Start(Constants.LinkMoreInfoDocAMS);
         }
 
         private void azureMediaServicesForumToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
-            Process.Start(@"https://social.msdn.microsoft.com/Forums/azure/en-US/home?forum=MediaServices");
+            Process.Start(Constants.LinkForumAMS);
         }
 
         private void azureMediaHelpFileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -5634,19 +5731,28 @@ namespace AMSExplorer
             }
 
             dataGridViewChannelsV.Invoke(new Action(() => dataGridViewChannelsV.RefreshChannels(_context, 1)));
-            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, _context.Channels.Count())));
+            var count = _context.Channels.Count();
+            tabPageLive.Invoke(new Action(() => tabPageLive.Text = string.Format(Constants.TabLive + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
+            labelChannels.Invoke(new Action(() => labelChannels.Text = string.Format(Constants.LabelChannel + " ({0}/{1})", dataGridViewChannelsV.DisplayedCount, count)));
         }
 
         private void DoRefreshGridProgramV(bool firstime)
         {
+
             if (firstime)
             {
+                Debug.WriteLine("DoRefreshGridProgramVforsttime");
                 dataGridViewProgramsV.Init(_credentials, _context);
             }
+            else
+            {
+                Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
+            }
 
-            Debug.WriteLine("DoRefreshGridProgramVNotforsttime");
             int backupindex = 0;
             dataGridViewProgramsV.Invoke(new Action(() => dataGridViewProgramsV.RefreshPrograms(_context, backupindex + 1)));
+            labelPrograms.Invoke(new Action(() => labelPrograms.Text = string.Format(Constants.LabelProgram + " ({0}/{1})", dataGridViewProgramsV.DisplayedCount, _context.Programs.Count())));
+
         }
 
         private void DoRefreshGridStreamingEndpointV(bool firstime)
@@ -5770,7 +5876,6 @@ namespace AMSExplorer
 
         public void DoRefreshGridFiltersV(bool firstime)
         {
-
             if (firstime)
             {
                 // Storage tab
@@ -5844,7 +5949,12 @@ namespace AMSExplorer
             List<IChannel> SelectedChannels = new List<IChannel>();
             foreach (DataGridViewRow Row in dataGridViewChannelsV.SelectedRows)
             {
-                SelectedChannels.Add(_context.Channels.Where(j => j.Id == Row.Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                // sometimes, the channel can be null (if just deleted)
+                var channel = _context.Channels.Where(j => j.Id == Row.Cells[dataGridViewChannelsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (channel != null)
+                {
+                    SelectedChannels.Add(channel);
+                }
             }
             SelectedChannels.Reverse();
             return SelectedChannels;
@@ -5854,7 +5964,11 @@ namespace AMSExplorer
             List<IStreamingEndpoint> SelectedOrigins = new List<IStreamingEndpoint>();
             foreach (DataGridViewRow Row in dataGridViewStreamingEndpointsV.SelectedRows)
             {
-                SelectedOrigins.Add(_context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
+                var se = _context.StreamingEndpoints.Where(j => j.Id == Row.Cells[dataGridViewStreamingEndpointsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (se != null)
+                {
+                    SelectedOrigins.Add(se);
+                }
             }
             SelectedOrigins.Reverse();
             return SelectedOrigins;
@@ -5862,31 +5976,17 @@ namespace AMSExplorer
 
         private List<IProgram> ReturnSelectedPrograms()
         {
-            bool Error = false;
             List<IProgram> SelectedPrograms = new List<IProgram>();
             foreach (DataGridViewRow Row in dataGridViewProgramsV.SelectedRows)
             {
-                try
+                var program = _context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault();
+                if (program != null)
                 {
-                    SelectedPrograms.Add(_context.Programs.Where(j => j.Id == Row.Cells[dataGridViewProgramsV.Columns["Id"].Index].Value.ToString()).FirstOrDefault());
-                }
-                catch
-                {
-                    Error = true;
-                    break;
-
+                    SelectedPrograms.Add(program);
                 }
             }
-            if (!Error)
-            {
-                SelectedPrograms.Reverse();
-                return SelectedPrograms;
-            }
-            else
-            {
-                return null;
-            }
-
+            SelectedPrograms.Reverse();
+            return SelectedPrograms;
         }
 
         private async void DoStopChannels()
@@ -6234,7 +6334,7 @@ namespace AMSExplorer
 
 
         internal async Task<IOperation> IObjectExecuteOperationAsync(Func<Task<IOperation>> fCall, string objectname, string objectlogname, string strStatusSuccess, CloudMediaContext context) // used for creation 
-        // used for Streaming Endpoint and Channel creation
+                                                                                                                                                                                                // used for Streaming Endpoint and Channel creation
         {
             IOperation operation = null;
             try
@@ -6760,18 +6860,18 @@ namespace AMSExplorer
 
         private void dataGridViewLiveV_SelectionChanged(object sender, EventArgs e)
         {
+            Debug.WriteLine("channel selection changed : begin");
             List<IChannel> SelectedChannels = ReturnSelectedChannels();
             if (SelectedChannels.Count > 0)
             {
-                try // sometimes, the channel can be null (if just deleted)
-                {
-                    dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
-                }
-                catch
-                {
 
-                }
-                DoRefreshGridProgramV(false);
+                dataGridViewProgramsV.ChannelSourceIDs = SelectedChannels.Select(c => c.Id).ToList();
+
+                Task.Run(() =>
+                {
+                    Debug.WriteLine("channel selection changed : before refresh");
+                    DoRefreshGridProgramV(false);
+                });
             }
         }
 
@@ -7032,6 +7132,7 @@ namespace AMSExplorer
 
         private void dataGridViewProgramV_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
+            return;
             var cellprogramstatevalue = dataGridViewProgramsV.Rows[e.RowIndex].Cells[dataGridViewProgramsV.Columns["State"].Index].Value;
 
             if (cellprogramstatevalue != null)
@@ -7678,7 +7779,7 @@ namespace AMSExplorer
 
         private void azureMediaBlogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://azure.microsoft.com/blog/topics/media-services/");
+            Process.Start(Constants.LinkBlogAMS);
         }
 
 
@@ -7712,6 +7813,11 @@ namespace AMSExplorer
         }
 
         private void buttonSetFilterProgram_Click(object sender, EventArgs e)
+        {
+            DoProgramSearch();
+        }
+
+        private void DoProgramSearch()
         {
             if (dataGridViewProgramsV.Initialized)
             {
@@ -8734,7 +8840,7 @@ namespace AMSExplorer
 
         private void jwPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://www.jwplayer.com/partners/azure/");
+            Process.Start(Constants.PlayerJWPlayerPartnership);
         }
 
         private void removeDynamicEncryptionForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9127,7 +9233,7 @@ namespace AMSExplorer
 
         private void silverlightSmoothStreamingPlayReadyTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://sltoken.azurewebsites.net");
+            Process.Start(Constants.PlayerSLToken);
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9154,7 +9260,7 @@ namespace AMSExplorer
 
         private void dASHLivePlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://dashplayer.azurewebsites.net");
+            Process.Start(Constants.PlayerDASHAzure);
         }
 
         private void packageTheSmoothStreamingAssetsToHLSV3staticToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9410,7 +9516,7 @@ namespace AMSExplorer
 
         private void flashSmoothStreamingAESTokenPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aestoken.azurewebsites.net");
+            Process.Start(Constants.PlayerAESToken);
         }
 
         private void withFlashAESTokenPlayerToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -9542,6 +9648,8 @@ namespace AMSExplorer
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
                         IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
                         ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                        dataGridViewAssetsV.PurgeCacheAsset(myAsset);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                     }
                 }
 
@@ -9593,7 +9701,7 @@ namespace AMSExplorer
 
         private void hTML5CaptionMakerToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://dev.modern.ie/testdrive/demos/captionmaker/");
+            Process.Start(Constants.DemoCaptionMaker);
         }
 
         private void removeKeysForTheAssetsToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -10204,8 +10312,7 @@ namespace AMSExplorer
 
         private void azureMediaServicesSamplesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"https://github.com/AzureMediaServicesSamples");
-
+            Process.Start(Constants.AMSSamples);
         }
 
         private void processAssetsWithHyperlapseToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10219,6 +10326,11 @@ namespace AMSExplorer
         }
 
         private void buttonSetFilterChannel_Click(object sender, EventArgs e)
+        {
+            DoChannelSearch();
+        }
+
+        private void DoChannelSearch()
         {
             if (dataGridViewChannelsV.Initialized)
             {
@@ -10614,7 +10726,7 @@ namespace AMSExplorer
 
         private void azureMediaPlayerDiagnosticsCenterToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Process.Start(@"http://aka.ms/ampdiagnostics");
+            Process.Start(Constants.PlayerAMPDiagnostics);
         }
 
         private void dataGridViewV_Resize(object sender, EventArgs e)
@@ -10941,6 +11053,37 @@ namespace AMSExplorer
                 DoStorageVersion(storagename);
             }
         }
+
+        private void checkBoxAnyChannel_CheckedChanged(object sender, EventArgs e)
+        {
+            if (dataGridViewProgramsV.Initialized && !CheckboxAnychannelChangedByCode)
+            {
+
+                dataGridViewProgramsV.AnyChannel = ((CheckBox)sender).Checked;
+                Task.Run(() =>
+                {
+                    DoRefreshGridProgramV(false);
+                });
+            }
+            CheckboxAnychannelChangedByCode = false;
+        }
+
+        private void textBoxSearchNameProgram_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBoxSearchNameProgram.Text))
+            {
+                CheckboxAnychannelChangedByCode = true;
+                checkBoxAnyChannel.Checked = backupCheckboxAnychannel;
+                checkBoxAnyChannel.Enabled = true;
+            }
+            else if (checkBoxAnyChannel.Enabled) // not empty and checkbox is still enabled
+            {
+                CheckboxAnychannelChangedByCode = true;
+                backupCheckboxAnychannel = checkBoxAnyChannel.Checked;
+                checkBoxAnyChannel.Checked = true;
+                checkBoxAnyChannel.Enabled = false;
+            }
+        }
     }
 }
 
@@ -11218,17 +11361,8 @@ namespace AMSExplorer
         public const string All = "All";
         public const string Published = "Published";
         public const string PublishedExpired = "Published but expired";
-        public const string NotPublished = "Not published";
-        public const string Streamable = "Streamable";
-        public const string CENC = "CENC static";
-        public const string Envelope = "Envelope static";
-        public const string Storage = "Storage encrypted";
-        public const string SupportDynEnc = "Support dyn. encryption";
-        public const string DynEnc = "Dynamic encrypted";
-        public const string NotEncrypted = "Not encrypted";
+        public const string DynEnc = "With Dyn Enc";
         public const string Empty = "Empty";
-        public const string DefaultStorage = "Default storage";
-        public const string NotDefaultStorage = "Not default storage";
     }
 
     public static class FilterTime
@@ -11238,7 +11372,7 @@ namespace AMSExplorer
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
-        public const string All = "All";
+        public const string All = "First 1000 items";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
@@ -11306,6 +11440,8 @@ namespace AMSExplorer
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
+        //public IQueryable<IAsset> assets;
+        //public List<IAsset> assets;
         static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
 
         static private int _assetsperpage = 50; //nb of items per page
@@ -11430,7 +11566,7 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -11524,18 +11660,18 @@ namespace AMSExplorer
         {
             Debug.WriteLine("WorkerAnalyzeAssets_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
-            IAsset asset;
+            IAsset asset = null;
 
             PublishStatus SASLoc;
             PublishStatus OrigLoc;
-            int i = 0;
 
-            var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList();
-            listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
+            //var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analized
+            //listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
+
+            var listae = _MyObservAsset.OrderBy(a => cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
 
             foreach (AssetEntry AE in listae)
             {
-                asset = null;
                 try
                 {
                     asset = _context.Assets.Where(a => a.Id == AE.Id).FirstOrDefault();
@@ -11546,30 +11682,32 @@ namespace AMSExplorer
                         AE.LastModified = asset.LastModified.ToLocalTime();
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
+
                         AssetBitmapAndText assetBitmapAndText = ReturnStaticProtectedBitmap(asset);
                         AE.StaticEncryption = assetBitmapAndText.bitmap;
                         AE.StaticEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         assetBitmapAndText = BuildBitmapPublication(asset);
                         AE.Publication = assetBitmapAndText.bitmap;
                         AE.PublicationMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         AE.Type = AssetInfo.GetAssetType(asset);
                         AE.SizeLong = myAssetInfo.GetSize();
                         AE.Size = AssetInfo.FormatByteSize(AE.SizeLong);
+
                         assetBitmapAndText = BuildBitmapDynEncryption(asset);
                         AE.DynamicEncryption = assetBitmapAndText.bitmap;
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
+
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
                         AE.LocatorExpirationDate = LocDate;
-                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now);
+                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now.ToLocalTime());
+
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
                         AE.FiltersMouseOver = assetBitmapAndText.MouseOverDesc;
-                        cacheAssetentries.Add(asset.Id, AE); // let's put it in cache
-                        i++;
-                        if (i % 5 == 0)
-                        {
-                            this.BeginInvoke(new Action(() => this.Refresh()), null);
-                        }
+
+                        cacheAssetentries[asset.Id] = AE; // let's put it in cache (or update the cache)
                     }
                 }
                 catch // in some case, we have a timeout on Assets.Where...
@@ -11628,129 +11766,409 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-
             IEnumerable<AssetEntry> assetquery;
 
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            assets = (days == -1) ? context.Assets : context.Assets.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
+            {
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
+                    // Search on Asset name
                     case SearchIn.AssetName:
-                        assets = assets.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
+
+                        assets = context.Assets.Where(a =>
+                                 (a.Name.Contains(_searchinname.Text))
+                                 &&
+                                 (!filterday || a.LastModified > datefilter)
                                  );
                         break;
 
-                    case SearchIn.AssetId:
-                        assets = assets.Where(a =>
-                              (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
-                        break;
-
+                    // Search on Asset aternate id
                     case SearchIn.AssetAltId:
-                        assets = assets.Where(a =>
-                              (a.AlternateId != null && a.AlternateId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                              );
+                        assets = context.Assets.Where(a =>
+                                  (a.AlternateId.Contains(_searchinname.Text))
+                                  &&
+                                  (!filterday || a.LastModified > datefilter)
+                                  );
                         break;
 
+                    // Search on Asset ID
+                    case SearchIn.AssetId:
+                        string assetguid = _searchinname.Text;
+                        if (assetguid.StartsWith(Constants.AssetIdPrefix))
+                        {
+                            assetguid = assetguid.Substring(Constants.AssetIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(assetguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            assets = context.Assets.Where(a =>
+                                                             (a.Id == Constants.AssetIdPrefix + assetguid)
+                                                             &&
+                                                             (!filterday || a.LastModified > datefilter)
+                                                             );
+                        }
+
+                        break;
+
+                    // Search on Asset file name
                     case SearchIn.AssetFileName:
-                        var query = _context.Files.AsEnumerable().Where(f =>
-                        f.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(query, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
+                        var queryfiles = context.Files.AsEnumerable().Where(f => f.Name.Contains(_searchinname.Text)).Select(f => f.ParentAssetId);
+                        assets = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                )
+                        .AsEnumerable().Where(a => queryfiles.Contains(a.Id)).OrderBy(a => a.LastModified);
                         break;
 
+                    // Search on Asset file ID
                     case SearchIn.AssetFileId:
-                        var queryafid = _context.Files.AsEnumerable().Where(f =>
-                        f.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryafid, o => o.Id, a => a.ParentAssetId, (o, id) => o).Distinct();
-                        break;
-
-                    case SearchIn.LocatorPath:
-                        string locatorid = _searchinname.Text;
-                        if (locatorid.StartsWith(Constants.LocatorIdPrefix))
+                        string fileguid = _searchinname.Text;
+                        if (fileguid.StartsWith(Constants.AssetFileIdPrefix))
                         {
-                            locatorid = locatorid.Substring(Constants.LocatorIdPrefix.Length);
+                            fileguid = fileguid.Substring(Constants.AssetFileIdPrefix.Length);
                         }
-                        var queryl = _context.Locators.AsEnumerable().Where(l =>
-                        l.Path.IndexOf(locatorid, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryl, o => o.Id, l => l.AssetId, (o, id) => o).Distinct();
+                        try
+                        {
+                            var g = new Guid(fileguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with file asset Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
+                            if (myfile != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   &&
+                                                                   myfile.Asset.Id == a.Id
+                                                                   );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No file was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
                         break;
 
+                    // Search on Locator id / guid
+                    case SearchIn.LocatorId:
+                        string locatorguid = _searchinname.Text;
+                        if (locatorguid.StartsWith(Constants.LocatorIdPrefix))
+                        {
+                            locatorguid = locatorguid.Substring(Constants.LocatorIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(locatorguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with locator Id. Is it a valid GUID or locator Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
+                            if (myloc != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                    (!filterday || a.LastModified > datefilter)
+                                                                    &&
+                                                                    a.Id == myloc.AssetId
+                                                                    );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+
+                        break;
+
+                    // Search on Program id / guid
                     case SearchIn.ProgramId:
-                        string programid = _searchinname.Text;
-                        if (programid.StartsWith(Constants.ProgramIdPrefix))
+                        string programguid = _searchinname.Text;
+                        if (programguid.StartsWith(Constants.ProgramIdPrefix))
                         {
-                            programid = programid.Substring(Constants.ProgramIdPrefix.Length);
+                            programguid = programguid.Substring(Constants.ProgramIdPrefix.Length);
                         }
-                        var queryp = _context.Programs.AsEnumerable().Where(p =>
-                        p.Id.IndexOf(programid, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryp, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        try
+                        {
+                            var g = new Guid(programguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with program Id. Is it a valid GUID or program Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
+                            if (queryprog != null)
+                            {
+                                assets = context.Assets.Where(a =>
+                                                                   (!filterday || a.LastModified > datefilter)
+                                                                   &&
+                                                                   queryprog.AssetId == a.Id
+                                                                   );
+                            }
+                            else
+                            {
+                                MessageBox.Show("No program was found with this Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
                         break;
 
+                    // Search on Program name
                     case SearchIn.ProgramName:
-                        var queryp2 = _context.Programs.AsEnumerable().Where(p =>
-                        p.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1);
-                        assets = assets.Join(queryp2, o => o.Id, p => p.AssetId, (o, id) => o).Distinct();
+                        // we take only the first 1000 programs that contains the text. We could improve this by paging the query (to do)
+                        var queryprog2 = context.Programs.Where(p => p.Name.ToLower().Contains(_searchinname.Text.ToLower())).AsEnumerable().Select(p => p.AssetId).ToList();
+
+                        IList<IAsset> passets = new List<IAsset>();
+
+                        int skipSizePr = 0;
+                        int batchSizePr = 1000;
+                        int currentSkipSizePr = 0;
+
+                        while (true)
+                        {
+                            // Enumerate through all assets (1000 at a time)
+                            var assetsq = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter))
+                                .Skip(skipSizePr).Take(batchSizePr).ToList();
+
+                            currentSkipSizePr += assetsq.Count;
+
+                            var assetsq2 = assetsq.Where(a => queryprog2.Contains(a.Id)); // assets which are in the program query
+
+                            foreach (var a in assetsq2)
+                            {
+                                passets.Add(a);
+                            }
+
+                            if (currentSkipSizePr == batchSizePr)
+                            {
+                                skipSizePr += batchSizePr;
+                                currentSkipSizePr = 0;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+                        assets = passets;
                         break;
+
 
                     default:
                         break;
-
                 }
             }
+            else // no search
+            {
+                assets = context.Assets.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                );
+            }
 
+
+
+            // FILTERING
             if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
             {
-                switch (_statefilter)
+                IList<IAsset> passets = new List<IAsset>();
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+
+                while (true)
                 {
-                    case StatusAssets.Published:
-                        assets = assets.Where(a => a.Locators.Any());
-                        break;
-                    case StatusAssets.PublishedExpired:
-                        assets = assets.Where(a => a.Locators.Any(l => l.ExpirationDateTime < DateTime.UtcNow));
-                        break;
+                    // Enumerate through all assets (1000 at a time)
+                    var listassets = assets.Skip(skipSize).Take(batchSize).ToList();
+                    currentSkipSize += listassets.Count;
+                    IList<IAsset> fassets = new List<IAsset>();
+
+                    switch (_statefilter)
+                    {
+                        case StatusAssets.Published:
+                        case StatusAssets.PublishedExpired:
+
+                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+                            IList<IAsset> lassets = new List<IAsset>();
+
+                            int skipSizeLoc = 0;
+                            int batchSizeLoc = 1000;
+                            int currentSkipSizeLoc = 0;
+
+                            while (true)
+                            {
+                                // Enumerate through all locators (1000 at a time)
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
+                                currentSkipSizeLoc += listlocators.Count;
+
+                                var assetexpired = listassets.Where(a => listlocators.Contains(a.Id));
+
+                                foreach (var a in assetexpired)
+                                {
+                                    lassets.Add(a);
+                                }
+
+                                if (currentSkipSizeLoc == batchSizeLoc)
+                                {
+                                    skipSizeLoc += batchSize;
+                                    currentSkipSizeLoc = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in lassets)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+
+                        case StatusAssets.DynEnc:
+                            var assetwithDelPol = listassets.Where(a => a.DeliveryPolicies.Any());
+                            foreach (var a in assetwithDelPol)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+
+                        case StatusAssets.Empty:
+
+                            IList<IAsset> lassets2 = listassets;
+
+                            int skipSizeEmpty = 0;
+                            int batchSizeEmpty = 1000;
+                            int currentSkipSizeEmpty = 0;
+
+
+                            while (true)
+                            {
+                                // Enumerate through all files (1000 at a time)
+                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+                                currentSkipSizeEmpty += listfiles.Count;
+
+                                var assetsnotempty = listassets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+                                foreach (var a in assetsnotempty)
+                                {
+                                    lassets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
+                                }
+
+                                if (currentSkipSizeEmpty == batchSizeEmpty)
+                                {
+                                    skipSizeEmpty += batchSizeEmpty;
+                                    currentSkipSizeEmpty = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in lassets2)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+                        /*
+
+                        // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
+                        // executed locally and would be slow. Could be reintroduce if customer demand.
+
                     case StatusAssets.NotPublished:
-                        assets = assets.Where(a => a.Locators.Count == 0);
+                        fassets = listassets.Where(a => a.Locators.Count == 0);
                         break;
                     case StatusAssets.Storage:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
                         break;
                     case StatusAssets.CENC:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
                         break;
                     case StatusAssets.Envelope:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
                         break;
                     case StatusAssets.NotEncrypted:
-                        assets = assets.Where(a => a.Options == AssetCreationOptions.None);
+                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
                         break;
                     case StatusAssets.DynEnc:
-                        assets = assets.Where(a => a.DeliveryPolicies.Any());
+                        fassets = listassets.Where(a => a.DeliveryPolicies.Any());
                         break;
                     case StatusAssets.Streamable:
-                        assets = assets.Where(a => a.IsStreamable);
+                        fassets = listassets.Where(a => a.IsStreamable);
                         break;
                     case StatusAssets.SupportDynEnc:
-                        assets = assets.Where(a => a.SupportsDynamicEncryption);
+                        fassets = listassets.Where(a => a.SupportsDynamicEncryption);
                         break;
                     case StatusAssets.Empty:
-                        assets = assets.Where(a => a.AssetFiles.Count() == 0);
+                        fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
                         break;
                     case StatusAssets.DefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                        fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
                         break;
                     case StatusAssets.NotDefaultStorage:
-                        assets = assets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                        fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
                         break;
-                    default:
+                        */
+                        default:
+                            break;
+                    }
+
+                    foreach (var a in fassets)
+                    {
+                        passets.Add(a);
+                    }
+
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
                         break;
+                    }
                 }
+
+                assets = passets;
+
             }
 
+
+            // let's sort the aggregate results
             var size = new Func<IAsset, long>(AssetInfo.GetSize);
 
             switch (_orderassets)
@@ -11793,6 +12211,7 @@ namespace AMSExplorer
             }
 
 
+
             if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
             {
                 assets = assets.Take(50);
@@ -11811,7 +12230,7 @@ namespace AMSExplorer
                 //         assetquery = from a in assets
                 //                      select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName, Publication = cacheAssetentries.ContainsKey(a.Id) ? cacheAssetentries[a.Id].Publication:null  };
 
-                assetquery = assets.Select(a =>
+                assetquery = assets.AsEnumerable().Select(a =>
                 // let's return the data cached in memory of it exists and last modified time is the same
                 (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
                               new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
@@ -11893,6 +12312,7 @@ namespace AMSExplorer
                                 break;
 
                             case PublishStatus.NotPublished:
+                            default:
                                 break;
                         }
                         break;
@@ -11916,7 +12336,7 @@ namespace AMSExplorer
                                 break;
 
                             case PublishStatus.NotPublished:
-
+                            default:
                                 break;
                         }
                         break;
@@ -11928,18 +12348,13 @@ namespace AMSExplorer
 
                 returnedImage = AddBitmap(returnedImage, newbitmap);
                 returnedText += !string.IsNullOrEmpty(newtext) ? newtext + Constants.endline : string.Empty;
-
             }
 
-
-            AssetBitmapAndText ABT = new AssetBitmapAndText()
+            return new AssetBitmapAndText()
             {
                 bitmap = returnedImage,
                 MouseOverDesc = returnedText ?? "Not published"
-
             };
-
-            return ABT;
         }
 
         private static Bitmap AddBitmap(Bitmap bitmap1, Bitmap bitmap2)
@@ -11996,20 +12411,28 @@ namespace AMSExplorer
 
         private static AssetBitmapAndText BuildBitmapAssetFilters(IAsset asset)
         {
-            AssetBitmapAndText ABT = new AssetBitmapAndText();
-            var filters = asset.AssetFilters;
+            var filcount = asset.AssetFilters.Count();
 
-            if (filters.Count() > 1)
+            if (filcount == 0)
             {
-                ABT.bitmap = AssetFiltersImage;
-                ABT.MouseOverDesc = string.Format("{0} filters", filters.Count());
+                return new AssetBitmapAndText();
             }
-            else if (filters.Count() == 1)
+            else if (filcount == 1)
             {
-                ABT.bitmap = AssetFilterImage;
-                ABT.MouseOverDesc = string.Format("1 filter");
+                return new AssetBitmapAndText()
+                {
+                    bitmap = AssetFilterImage,
+                    MouseOverDesc = "1 filter"
+                }; ;
             }
-            return ABT;
+            else // >1
+            {
+                return new AssetBitmapAndText()
+                {
+                    bitmap = AssetFiltersImage,
+                    MouseOverDesc = string.Format("{0} filters", filcount)
+                };
+            }
         }
 
 
@@ -12182,7 +12605,7 @@ namespace AMSExplorer
             _credentials = credentials;
 
             _context = context;// Program.ConnectAndGetNewContext(_credentials);
-            jobquery = from j in _context.Jobs
+            jobquery = from j in _context.Jobs.Take(0)
                        orderby j.LastModified descending
                        select new JobEntry
                        {
@@ -12246,54 +12669,82 @@ namespace AMSExplorer
 
             IEnumerable<JobEntry> jobquery;
 
+            // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
-            jobs = (days == -1) ? context.Jobs : context.Jobs.Where(a => (a.LastModified > (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)))));
-
-            if (_filterjobsstate != "All")
+            bool filterday = days != -1;
+            DateTime datefilter = DateTime.UtcNow;
+            if (filterday)
             {
-                jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
+                datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
+            }
+
+            // STATE
+            bool filterstate = _filterjobsstate != "All";
+            JobState jobstate = JobState.Finished;
+            if (filterstate)
+            {
+                jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
+                //jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
 
 
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
+                bool Error = false;
+
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.JobName:
-                        jobs = jobs.Where(a =>
-                                 (a.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)  // for no case sensitive
-                                 );
+                        jobs = context.Jobs.Where(j =>
+                                                 (j.Name.Contains(_searchinname.Text))
+                                                 &&
+                                                 (!filterday || j.LastModified > datefilter)
+                                                 &&
+                                                 (!filterstate || j.State == jobstate)
+                                                 );
                         break;
 
                     case SearchIn.JobId:
-                        jobs = jobs.Where(a =>
-                               (a.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                               );
+                        string jobguid = _searchinname.Text;
+                        if (jobguid.StartsWith(Constants.JobIdPrefix))
+                        {
+                            jobguid = jobguid.Substring(Constants.JobIdPrefix.Length);
+                        }
+                        try
+                        {
+                            var g = new Guid(jobguid);
+                        }
+                        catch
+                        {
+                            Error = true;
+                            MessageBox.Show("Error with job Id. Is it a valid GUID or asset Id ?", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        if (!Error)
+                        {
+                            jobs = context.Jobs.Where(j =>
+                                                    (j.Id == Constants.JobIdPrefix + jobguid)
+                                                    &&
+                                                    (!filterday || j.LastModified > datefilter)
+                                                    &&
+                                                    (!filterstate || j.State == jobstate)
+                                                    );
+                        }
                         break;
 
-                    case SearchIn.TaskName:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                          (t.Name.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)));
-                        break;
-
-                    case SearchIn.TaskId:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                                 (t.Id.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                                 ));
-                        break;
-
-                    case SearchIn.TaskProcessorId:
-                        jobs = jobs.Where(j => j.Tasks.Any(t =>
-                                 (t.MediaProcessorId.IndexOf(_searchinname.Text, StringComparison.OrdinalIgnoreCase) != -1)
-                                 ));
-                        break;
 
                     default:
                         break;
                 }
             }
-
+            else
+            {
+                jobs = context.Jobs.Where(j =>
+                                 (!filterday || j.LastModified > datefilter)
+                                 &&
+                                 (!filterstate || j.State == jobstate)
+                                );
+            }
 
             switch (_orderjobs)
             {

@@ -90,7 +90,7 @@ namespace AMSExplorer
             if (indexc == -1) indexc = 1; // not found!
             comboBoxNbItems.SelectedIndex = indexc;
 
-            textBoxCustomPlayer.Text = Constants.AMSPlayer + Constants.NameconvManifestURL;
+            textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions , Constants.NameconvManifestURL);
             checkBoxEnableCustomPlayer.Checked = false;
 
             numericUpDownPriority.Value = 10;
