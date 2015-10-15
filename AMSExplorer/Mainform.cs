@@ -424,11 +424,10 @@ namespace AMSExplorer
             }
             bool Error = false;
 
-            string[] progressafname = new string[filePaths.Count()];
-            double[] progressafint = new double[filePaths.Count()];
-
-            int indexa = 0;
             IAsset asset = null;
+
+            var progress = new Dictionary<string, double>(); // used to store progress of all files
+            filePaths.ToList().ForEach(f => progress[Path.GetFileName(f)] = 0d);
 
             try
             {
@@ -438,20 +437,8 @@ namespace AMSExplorer
                                                                Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                                (af, p) =>
                                                                {
-                                                                   int indexc = Array.IndexOf(progressafname, af.Name);
-                                                                   if (indexc == -1)
-                                                                   {
-                                                                       progressafname[indexa] = af.Name;
-                                                                       progressafint[indexa] = (int)p.Progress;
-                                                                       indexa++;
-
-                                                                   }
-                                                                   else
-                                                                   {
-                                                                       progressafint[indexc] = (int)p.Progress;
-                                                                   }
-
-                                                                   DoGridTransferUpdateProgress(progressafint.Average(), index);
+                                                                   progress[af.Name] = p.Progress;
+                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
                                                                }
                                                                );
                 //SetISMFileAsPrimary(asset); // no need as primary seems to be set by .CreateFromFolder
@@ -1094,12 +1081,15 @@ namespace AMSExplorer
                 }
                 if (!ErrorCurrentAssetFolderCreation)
                 {
+                    var progress = new Dictionary<string, double>(); // used to store progress of all files
+                    mediaAsset.AssetFiles.ToList().ForEach(f => progress[f.Name] = 0d);
                     try
                     {
                         mediaAsset.DownloadToFolder(foldera,
                                                                                          (af, p) =>
                                                                                          {
-                                                                                             DoGridTransferUpdateProgress(p.Progress, index);
+                                                                                             progress[af.Name] = p.Progress;
+                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
                                                                                          }
                                                                                         );
                     }
@@ -1482,7 +1472,7 @@ namespace AMSExplorer
             {
                 bool ErrorFolderCreation = false;
                 _backuprootfolderdownload = form.FolderPath; // for reuse later
-                if (!File.Exists(form.FolderPath))
+                if (!Directory.Exists(form.FolderPath))
                 {
                     if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.FolderPath), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
