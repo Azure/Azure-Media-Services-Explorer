@@ -16,3 +16,5 @@ In order to compile this setup project, you must install InstallShield Limited E
 - This should trigger the process to install and activate InstallShield.
 
 Contact: amse@microsoft.com
+
+![Screen capture](https://cloud.githubusercontent.com/assets/8104205/10526542/d696c884-738b-11e5-80d1-669eb488172f.png)
