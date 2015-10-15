@@ -531,7 +531,7 @@ namespace AMSExplorer
         {
             TextBox tb = (TextBox)sender;
 
-            if (!IsChannelNameValid(textboxchannelname.Text))
+            if (!IsChannelNameValid(tb.Text))
             {
                 errorProvider1.SetError(tb, "Channel name is not valid");
             }

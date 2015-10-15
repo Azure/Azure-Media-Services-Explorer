@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
@@ -68,6 +69,7 @@
             this.checkBoxDynEnc = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxStartProgramNow = new System.Windows.Forms.CheckBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -77,6 +79,7 @@
             this.tabPage3.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -166,6 +169,7 @@
             this.textboxprogramname.Name = "textboxprogramname";
             this.textboxprogramname.Size = new System.Drawing.Size(504, 23);
             this.textboxprogramname.TabIndex = 0;
+            this.textboxprogramname.Validating += new System.ComponentModel.CancelEventHandler(this.textboxprogramname_Validating);
             // 
             // label1
             // 
@@ -505,6 +509,10 @@
             this.checkBoxStartProgramNow.Text = "Start the program now";
             this.checkBoxStartProgramNow.UseVisualStyleBackColor = true;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // CreateProgram
             // 
             this.AcceptButton = this.buttonOk;
@@ -541,6 +549,7 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -588,5 +597,6 @@
         private System.Windows.Forms.TextBox textBoxManifestName;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labelCloneLocators;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
