@@ -1646,7 +1646,6 @@ namespace AMSExplorer
 
         public static long GetSize(IAsset asset)
         {
-
             long size = 0;
             foreach (IAssetFile objFile in asset.AssetFiles)
             { size += objFile.ContentFileSize; }
