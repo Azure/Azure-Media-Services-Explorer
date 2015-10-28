@@ -738,7 +738,7 @@ namespace AMSExplorer
 
             Debug.WriteLine("RefreshPrograms : start");
 
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.WaitCursor));
+            this.FindForm().Cursor = Cursors.WaitCursor;
             _context = context;
 
             IEnumerable<ProgramEntry> programquery;
@@ -950,7 +950,7 @@ namespace AMSExplorer
             _MyObservProgramsthisPage = new BindingList<ProgramEntry>(_MyObservPrograms.Skip(_itemssperpage * (_currentpage - 1)).Take(_itemssperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservProgramsthisPage));
             _refreshedatleastonetime = true;
-            this.BeginInvoke(new Action(() => this.FindForm().Cursor = Cursors.Default));
+            this.FindForm().Cursor = Cursors.Default;
 
             Debug.WriteLine("RefreshPrograms : end");
         }
