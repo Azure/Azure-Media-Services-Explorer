@@ -857,35 +857,79 @@ namespace AMSExplorer
             }
 
 
+            // let's get all the results locally
+
+            IList<IProgram> aggregateListPrograms = new List<IProgram>();
+            int skipSize = 0;
+            int batchSize = 1000;
+            int currentSkipSize = 0;
+            while (true)
+            {
+                // Enumerate through all jobs (1000 at a time)
+                var programsq = programssrv
+                    .Skip(skipSize).Take(batchSize).ToList();
+
+                currentSkipSize += programsq.Count;
+
+                foreach (var j in programsq)
+                {
+                    aggregateListPrograms.Add(j);
+                }
+
+                if (currentSkipSize == batchSize)
+                {
+                    skipSize += batchSize;
+                    currentSkipSize = 0;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            IEnumerable<IProgram> programs = programssrv.AsEnumerable(); // local query now
+            programs = aggregateListPrograms;
+
+
+            if (pFilterOnState)
+            {
+                programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
+            }
+
 
             // Sorting
+            // this query has to be locally. Not supported on the server (it will page...)
             switch (_orderitems)
             {
                 case OrderPrograms.LastModified:
-                    programssrv = programssrv.OrderByDescending(p => p.LastModified);
+                    programs = programs.OrderByDescending(p => p.LastModified);
                     break;
 
                 case OrderPrograms.Name:
-                    programssrv = programssrv.OrderBy(p => p.Name);
+                    programs = programs.OrderBy(p => p.Name);
                     break;
 
                 case OrderPrograms.State:
-                    programssrv = programssrv.OrderBy(p => p.State);
+                    programs = programs.OrderBy(p => p.State);
                     break;
 
                 default:
                     break;
             }
 
-            IEnumerable<IProgram> programs = programssrv.AsEnumerable(); // local query now
-            if (pFilterOnState)
-            {
-                programs = programs.Where(p => p.State.Equals(myStateFilter)); // this query has to be locally. Not supported on the server
-            }
+           
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            if ((!string.IsNullOrEmpty(_timefilter)))
             {
-                programs = programs.Take(50);
+                if (_timefilter == FilterTime.First50Items)
+                {
+                    programs = programs.Take(50);
+
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    programs = programs.Take(1000);
+
+                }
             }
 
             programquery = programs.Select(p =>
