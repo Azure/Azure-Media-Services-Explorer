@@ -97,6 +97,7 @@
             // 
             this.numericUpDownRU.Location = new System.Drawing.Point(99, 29);
             this.numericUpDownRU.Name = "numericUpDownRU";
+            this.numericUpDownRU.ReadOnly = true;
             this.numericUpDownRU.Size = new System.Drawing.Size(84, 23);
             this.numericUpDownRU.TabIndex = 0;
             this.numericUpDownRU.Value = new decimal(new int[] {

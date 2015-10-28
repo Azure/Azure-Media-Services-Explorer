@@ -71,6 +71,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGOrigin)).BeginInit();
             this.contextMenuStripOI.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -85,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRU)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // DGOrigin
@@ -405,6 +407,7 @@
             this.textBoxMaxCacheAge.Name = "textBoxMaxCacheAge";
             this.textBoxMaxCacheAge.Size = new System.Drawing.Size(116, 23);
             this.textBoxMaxCacheAge.TabIndex = 9;
+            this.textBoxMaxCacheAge.TextChanged += new System.EventHandler(this.textBoxMaxCacheAge_TextChanged);
             // 
             // lblMaxCacheAge
             // 
@@ -428,6 +431,7 @@
             // 
             this.numericUpDownRU.Location = new System.Drawing.Point(17, 100);
             this.numericUpDownRU.Name = "numericUpDownRU";
+            this.numericUpDownRU.ReadOnly = true;
             this.numericUpDownRU.Size = new System.Drawing.Size(76, 23);
             this.numericUpDownRU.TabIndex = 0;
             this.toolTip1.SetToolTip(this.numericUpDownRU, "1 unit = 200 mbps");
@@ -557,6 +561,10 @@
             this.panel1.Size = new System.Drawing.Size(922, 55);
             this.panel1.TabIndex = 64;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // StreamingEndpointInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -594,6 +602,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -642,5 +651,6 @@
         private System.Windows.Forms.Panel panelStreamingAllowedIP;
         private System.Windows.Forms.Label labelcdn;
         private System.Windows.Forms.Button buttonAllowAllStreamingIP;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
