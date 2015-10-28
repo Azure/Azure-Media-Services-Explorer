@@ -759,7 +759,6 @@ namespace AMSExplorer
             if (pFilterOnState)
             {
                 myStateFilter = (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter);
-                //programs = programs.Where(p => p.State == (ProgramState)Enum.Parse(typeof(ProgramState), _statefilter));
             }
 
             bool bListEmpty = (idsList.Count == 0);
