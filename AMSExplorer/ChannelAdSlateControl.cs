@@ -442,55 +442,6 @@ namespace AMSExplorer
             this.Close();
         }
 
-        private void textBoxCueId_Validating(object sender, CancelEventArgs e)
-        {
-            bool Error = false;
-            TextBox tb = (TextBox)sender;
-
-            try
-            {
-                Convert.ToInt32(tb.Text);
-
-            }
-            catch
-            {
-                Error = true;
-            }
-
-            if (Error)
-            {
-                errorProvider1.SetError(tb, "Advertising Cue Id is not valid");
-            }
-            else
-            {
-                errorProvider1.SetError(tb, String.Empty);
-            }
-        }
-
-        private void textBoxADSignalDuration_Validating(object sender, CancelEventArgs e)
-        {
-            bool Error = false;
-            TextBox tb = (TextBox)sender;
-
-            try
-            {
-                Convert.ToDouble(tb.Text);
-            }
-            catch
-            {
-                Error = true;
-            }
-
-            if (Error)
-            {
-                errorProvider1.SetError(tb, "Duration value is not valid");
-            }
-            else
-            {
-                errorProvider1.SetError(tb, String.Empty);
-            }
-        }
-
         private void checkBoxPreviewSlate_CheckedChanged(object sender, EventArgs e)
         {
             pictureBoxPreviewSlate.Visible = labelSlatePreviewInfo.Visible = checkBoxPreviewSlate.Checked;
@@ -521,6 +472,55 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void textBoxADSignalDuration_TextChanged(object sender, EventArgs e)
+        {
+            bool Error = false;
+            TextBox tb = (TextBox)sender;
+
+            try
+            {
+                Convert.ToDouble(tb.Text);
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                errorProvider1.SetError(tb, "Duration value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textBoxCueId_TextChanged(object sender, EventArgs e)
+        {
+            bool Error = false;
+            TextBox tb = (TextBox)sender;
+
+            try
+            {
+                Convert.ToInt32(tb.Text);
+
+            }
+            catch
+            {
+                Error = true;
+            }
+
+            if (Error)
+            {
+                errorProvider1.SetError(tb, "Advertising Cue Id is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
         }
     }
 }

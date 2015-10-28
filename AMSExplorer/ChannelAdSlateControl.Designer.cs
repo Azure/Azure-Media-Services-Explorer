@@ -186,7 +186,7 @@
             this.labelSlatePreviewInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelSlatePreviewInfo.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 184);
+            this.labelSlatePreviewInfo.Location = new System.Drawing.Point(3, 183);
             this.labelSlatePreviewInfo.Name = "labelSlatePreviewInfo";
             this.labelSlatePreviewInfo.Size = new System.Drawing.Size(288, 16);
             this.labelSlatePreviewInfo.TabIndex = 60;
@@ -201,7 +201,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pictureBoxPreviewSlate.Location = new System.Drawing.Point(7, 23);
             this.pictureBoxPreviewSlate.Name = "pictureBoxPreviewSlate";
-            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(280, 157);
+            this.pictureBoxPreviewSlate.Size = new System.Drawing.Size(280, 156);
             this.pictureBoxPreviewSlate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxPreviewSlate.TabIndex = 4;
             this.pictureBoxPreviewSlate.TabStop = false;
@@ -221,7 +221,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(9, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(565, 145);
+            this.groupBox1.Size = new System.Drawing.Size(564, 145);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Advertising";
@@ -229,7 +229,7 @@
             // buttongenerateContentKey
             // 
             this.buttongenerateContentKey.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttongenerateContentKey.Location = new System.Drawing.Point(175, 44);
+            this.buttongenerateContentKey.Location = new System.Drawing.Point(188, 43);
             this.buttongenerateContentKey.Name = "buttongenerateContentKey";
             this.buttongenerateContentKey.Size = new System.Drawing.Size(76, 27);
             this.buttongenerateContentKey.TabIndex = 59;
@@ -244,7 +244,7 @@
             this.buttonInsertAD.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAD.Image = global::AMSExplorer.Bitmaps.create;
             this.buttonInsertAD.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAD.Location = new System.Drawing.Point(335, 67);
+            this.buttonInsertAD.Location = new System.Drawing.Point(334, 67);
             this.buttonInsertAD.Name = "buttonInsertAD";
             this.buttonInsertAD.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAD.TabIndex = 57;
@@ -259,7 +259,7 @@
             this.buttonInsertAdAndSlate.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonInsertAdAndSlate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonInsertAdAndSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(335, 100);
+            this.buttonInsertAdAndSlate.Location = new System.Drawing.Point(334, 100);
             this.buttonInsertAdAndSlate.Name = "buttonInsertAdAndSlate";
             this.buttonInsertAdAndSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonInsertAdAndSlate.TabIndex = 56;
@@ -283,11 +283,11 @@
             this.textBoxADSignalDuration.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxADSignalDuration.Location = new System.Drawing.Point(15, 104);
             this.textBoxADSignalDuration.Name = "textBoxADSignalDuration";
-            this.textBoxADSignalDuration.Size = new System.Drawing.Size(156, 23);
+            this.textBoxADSignalDuration.Size = new System.Drawing.Size(152, 23);
             this.textBoxADSignalDuration.TabIndex = 54;
             this.textBoxADSignalDuration.Text = "30";
             this.toolTip1.SetToolTip(this.textBoxADSignalDuration, "Ad duration in seconds (decimal is supported)");
-            this.textBoxADSignalDuration.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxADSignalDuration_Validating);
+            this.textBoxADSignalDuration.TextChanged += new System.EventHandler(this.textBoxADSignalDuration_TextChanged);
             // 
             // label1
             // 
@@ -307,7 +307,7 @@
             this.textBoxCueId.Size = new System.Drawing.Size(152, 23);
             this.textBoxCueId.TabIndex = 52;
             this.toolTip1.SetToolTip(this.textBoxCueId, "An integer that identifies the ad");
-            this.textBoxCueId.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxCueId_Validating);
+            this.textBoxCueId.TextChanged += new System.EventHandler(this.textBoxCueId_TextChanged);
             // 
             // groupBox2
             // 
@@ -327,7 +327,7 @@
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox2.Location = new System.Drawing.Point(9, 167);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(565, 367);
+            this.groupBox2.Size = new System.Drawing.Size(564, 367);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Slate";
@@ -337,7 +337,7 @@
             this.label15.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.label15.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.label15.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label15.Location = new System.Drawing.Point(26, 265);
+            this.label15.Location = new System.Drawing.Point(25, 265);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(521, 15);
             this.label15.TabIndex = 84;
@@ -363,14 +363,14 @@
             this.textBoxJPGSearch.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.textBoxJPGSearch.Location = new System.Drawing.Point(145, 235);
             this.textBoxJPGSearch.Name = "textBoxJPGSearch";
-            this.textBoxJPGSearch.Size = new System.Drawing.Size(183, 23);
+            this.textBoxJPGSearch.Size = new System.Drawing.Size(182, 23);
             this.textBoxJPGSearch.TabIndex = 82;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
             // 
             // progressBarUpload
             // 
             this.progressBarUpload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBarUpload.Location = new System.Drawing.Point(335, 235);
+            this.progressBarUpload.Location = new System.Drawing.Point(334, 235);
             this.progressBarUpload.Name = "progressBarUpload";
             this.progressBarUpload.Size = new System.Drawing.Size(98, 27);
             this.progressBarUpload.TabIndex = 81;
@@ -381,7 +381,7 @@
             // 
             this.buttonUploadSlate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonUploadSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.buttonUploadSlate.Location = new System.Drawing.Point(440, 235);
+            this.buttonUploadSlate.Location = new System.Drawing.Point(439, 235);
             this.buttonUploadSlate.Name = "buttonUploadSlate";
             this.buttonUploadSlate.Size = new System.Drawing.Size(107, 27);
             this.buttonUploadSlate.TabIndex = 80;
@@ -401,7 +401,7 @@
             this.listViewJPG1.Location = new System.Drawing.Point(15, 28);
             this.listViewJPG1.MultiSelect = false;
             this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(532, 200);
+            this.listViewJPG1.Size = new System.Drawing.Size(531, 200);
             this.listViewJPG1.TabIndex = 61;
             this.listViewJPG1.Tag = -1;
             this.listViewJPG1.UseCompatibleStateImageBehavior = false;
@@ -414,7 +414,7 @@
             this.buttonHideSlate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonHideSlate.Image = global::AMSExplorer.Bitmaps.cancel;
             this.buttonHideSlate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonHideSlate.Location = new System.Drawing.Point(335, 333);
+            this.buttonHideSlate.Location = new System.Drawing.Point(334, 333);
             this.buttonHideSlate.Name = "buttonHideSlate";
             this.buttonHideSlate.Size = new System.Drawing.Size(212, 27);
             this.buttonHideSlate.TabIndex = 59;
@@ -429,7 +429,7 @@
             this.buttonShowSLate.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.buttonShowSLate.Image = global::AMSExplorer.Bitmaps.thumbnails;
             this.buttonShowSLate.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonShowSLate.Location = new System.Drawing.Point(335, 300);
+            this.buttonShowSLate.Location = new System.Drawing.Point(334, 300);
             this.buttonShowSLate.Name = "buttonShowSLate";
             this.buttonShowSLate.Size = new System.Drawing.Size(212, 27);
             this.buttonShowSLate.TabIndex = 58;
@@ -459,7 +459,7 @@
             this.textBoxSlateDuration.TabIndex = 58;
             this.textBoxSlateDuration.Text = "30";
             this.toolTip1.SetToolTip(this.textBoxSlateDuration, "Slate duration in seconds (decimal is supported)");
-            this.textBoxSlateDuration.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxADSignalDuration_Validating);
+            this.textBoxSlateDuration.TextChanged += new System.EventHandler(this.textBoxADSignalDuration_TextChanged);
             // 
             // labelChannelName
             // 
