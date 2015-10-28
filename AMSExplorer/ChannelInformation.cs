@@ -348,6 +348,7 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+            checkKeyFrameValue();
         }
 
         private void checkBoxHLSFragPerSeg_CheckedChanged(object sender, EventArgs e)
@@ -381,6 +382,23 @@ namespace AMSExplorer
         private void tabPage4_Leave(object sender, EventArgs e)
         {
             webBrowserPreview.Url = null;
+        }
+
+        private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
+        {
+            checkKeyFrameValue();
+        }
+
+        private void checkKeyFrameValue()
+        {
+            if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
+            {
+                errorProvider1.SetError(textBoxKeyFrame, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxKeyFrame, String.Empty);
+            }
         }
     }
 

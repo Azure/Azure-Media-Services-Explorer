@@ -54,7 +54,7 @@ namespace AMSExplorer
         {
             get
             {
-                return new TimeSpan((int)numericUpDownArchiveDays.Value, (int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
+                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
             }
         }
 
@@ -147,8 +147,7 @@ namespace AMSExplorer
 
             textBoxDescription.Text = MyProgram.Description;
 
-            numericUpDownArchiveDays.Value = MyProgram.ArchiveWindowLength.Days;
-            numericUpDownArchiveHours.Value = MyProgram.ArchiveWindowLength.Hours;
+            numericUpDownArchiveHours.Value =Convert.ToInt16(MyProgram.ArchiveWindowLength.TotalHours);
             numericUpDownArchiveMinutes.Value = MyProgram.ArchiveWindowLength.Minutes;
 
         }

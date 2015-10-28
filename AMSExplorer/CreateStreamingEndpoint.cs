@@ -21,6 +21,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -30,8 +31,8 @@ namespace AMSExplorer
     {
         public string StreamingEndpointName
         {
-            get { return textboxoriginname.Text; }
-            set { textboxoriginname.Text = value; }
+            get { return textboxSEName.Text; }
+            set { textboxSEName.Text = value; }
         }
         public string StreamingEndpointDescription
         {
@@ -60,9 +61,9 @@ namespace AMSExplorer
         }
 
 
-        private void CreateOrigin_Load(object sender, EventArgs e)
+        private void CreateStreamingEndpoint_Load(object sender, EventArgs e)
         {
-
+            checkSEName();
         }
 
         private void buttonOk_Click(object sender, EventArgs e)
@@ -86,6 +87,31 @@ namespace AMSExplorer
             {
                 checkBoxEnableAzureCDN.Enabled = true;
             }
+        }
+
+        private void checkSEName()
+        {
+            TextBox tb = textboxSEName;
+
+            if (!IsSENameValid(tb.Text))
+            {
+                errorProvider1.SetError(tb, "Streaming Endpoint name is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        internal static bool IsSENameValid(string name)
+        {
+            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9-]{0,30}[a-zA-Z0-9])?$", RegexOptions.Compiled);
+            return (reg.IsMatch(name));
+        }
+
+        private void textboxSEName_TextChanged(object sender, EventArgs e)
+        {
+            checkSEName();
         }
     }
 }

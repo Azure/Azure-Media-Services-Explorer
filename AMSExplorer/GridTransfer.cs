@@ -51,23 +51,168 @@ using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Timers;
 using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens;
-
+using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
-    public class TransferEntry
+    public class TransferEntry : INotifyPropertyChanged
     {
-        public string Name { get; set; }
-        public TransferType Type { get; set; }
-        public TransferState State { get; set; }
-        public double Progress { get; set; }
-        public string ProgressText { get; set; }
-        public Nullable<DateTime> SubmitTime { get; set; }
-        public Nullable<DateTime> StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string DestLocation { get; set; }
+        private string _Name;
+        public string Name
+        {
+            get
+            { return _Name; }
+            set
+            {
+                if (value != _Name)
+                {
+                    _Name = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private TransferType _Type;
+        public TransferType Type
+        {
+            get
+            { return _Type; }
+            set
+            {
+                if (value != _Type)
+                {
+                    _Type = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private TransferState _State;
+        public TransferState State
+        {
+            get
+            { return _State; }
+            set
+            {
+                if (value != _State)
+                {
+                    _State = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private double _Progress;
+        public double Progress
+        {
+            get
+            { return _Progress; }
+            set
+            {
+                if (value != _Progress)
+                {
+                    _Progress = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private string _ProgressText;
+        public string ProgressText
+        {
+            get
+            { return _ProgressText; }
+            set
+            {
+                if (value != _ProgressText)
+                {
+                    _ProgressText = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Nullable<DateTime> _SubmitTime;
+        public Nullable<DateTime> SubmitTime
+        {
+            get
+            { return _SubmitTime; }
+            set
+            {
+                if (value != _SubmitTime)
+                {
+                    _SubmitTime = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private Nullable<DateTime> _StartTime;
+        public Nullable<DateTime> StartTime
+        {
+            get
+            { return _StartTime; }
+            set
+            {
+                if (value != _StartTime)
+                {
+                    _StartTime = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        private string _EndTime;
+        public string EndTime
+        {
+            get
+            { return _EndTime; }
+            set
+            {
+                if (value != _EndTime)
+                {
+                    _EndTime = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private string _DestLocation;
+        public string DestLocation
+        {
+            get
+            { return _DestLocation; }
+            set
+            {
+                if (value != _DestLocation)
+                {
+                    _DestLocation = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
         public bool processedinqueue { get; set; }  // true if we want to process in the queue. Otherwise, we don't wait and we do paralell transfers
-        public string ErrorDescription { get; set; }
+
+        private string _ErrorDescription;
+        public string ErrorDescription
+        {
+            get
+            { return _ErrorDescription; }
+            set
+            {
+                if (value != _ErrorDescription)
+                {
+                    _ErrorDescription = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String p = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(p));
+            }
+        }
     }
 
     public partial class Mainform : Form
@@ -164,7 +309,7 @@ namespace AMSExplorer
                 _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString() + " ?";
             }
 
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
 
         private void DoGridTransferDeclareCompleted(int index, string DestLocation)  // Process is completed
@@ -179,10 +324,10 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() =>
             {
                 this.Notify("Transfer completed", string.Format("{0}", _MyListTransfer[index].Name));
-                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.",  _MyListTransfer[index].Name));
+                this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
             }));
 
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
 
         private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed
@@ -203,7 +348,7 @@ namespace AMSExplorer
             _MyListTransfer[index].ProgressText = "Error: " + ErrorDesc;
             _MyListTransfer[index].ErrorDescription = ErrorDesc;
             if (DoGridTransferIsQueueRequested(index)) _MyListTransferQueue.Remove(index);
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
 
             this.BeginInvoke(new Action(() =>
             {
@@ -219,7 +364,7 @@ namespace AMSExplorer
             _MyListTransfer[index].Progress = 0;
             _MyListTransfer[index].State = TransferState.Processing;
             _MyListTransfer[index].StartTime = DateTime.Now;
-            dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
+            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
             this.TextBoxLogWriteLine(string.Format("Transfer '{0}': started", _MyListTransfer[index].Name));
         }
 

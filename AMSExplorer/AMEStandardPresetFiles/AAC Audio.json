@@ -1,0 +1,20 @@
+{
+  "Version": 1.0,
+  "Codecs": [
+    {
+      "Profile": "AACLC",
+      "Channels": 2,
+      "SamplingRate": 48000,
+      "Bitrate": 128,
+      "Type": "AACAudio"
+    }
+  ],
+  "Outputs": [
+    {
+      "FileName": "{Basename}_AAC_{AudioBitrate}.mp4",
+      "Format": {
+        "Type": "MP4Format"
+      }
+    }
+  ]
+}

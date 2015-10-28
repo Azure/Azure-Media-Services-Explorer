@@ -64,6 +64,7 @@
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.openFileDialogSlate = new System.Windows.Forms.OpenFileDialog();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
             this.contextMenuStripDG.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -75,6 +76,7 @@
             this.tabPagePolicies.SuspendLayout();
             this.tabPagePreview.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // DGChannel
@@ -190,6 +192,7 @@
             this.numericUpDownHLSFragPerSeg.Enabled = false;
             this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(22, 433);
             this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
+            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
             this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(140, 23);
             this.numericUpDownHLSFragPerSeg.TabIndex = 55;
             this.numericUpDownHLSFragPerSeg.Value = new decimal(new int[] {
@@ -227,6 +230,7 @@
             this.textBoxKeyFrame.Name = "textBoxKeyFrame";
             this.textBoxKeyFrame.Size = new System.Drawing.Size(140, 23);
             this.textBoxKeyFrame.TabIndex = 51;
+            this.textBoxKeyFrame.TextChanged += new System.EventHandler(this.textBoxKeyFrame_TextChanged);
             // 
             // checkBoxInputSet
             // 
@@ -468,6 +472,10 @@
             // 
             this.openFileDialogSlate.Filter = "Image|*.jpg|All files (*.*)|*.*";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // ChannelInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -499,6 +507,7 @@
             this.tabPagePolicies.PerformLayout();
             this.tabPagePreview.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -540,5 +549,6 @@
         private System.Windows.Forms.TabPage tabPagePreview;
         private System.Windows.Forms.WebBrowser webBrowserPreview;
         private System.Windows.Forms.OpenFileDialog openFileDialogSlate;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

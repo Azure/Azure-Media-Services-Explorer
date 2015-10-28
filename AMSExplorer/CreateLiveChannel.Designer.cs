@@ -84,6 +84,7 @@
             this.panelInsertSlate = new System.Windows.Forms.Panel();
             this.label14 = new System.Windows.Forms.Label();
             this.textBoxJPGSearch = new System.Windows.Forms.TextBox();
+            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             this.label15 = new System.Windows.Forms.Label();
             this.progressBarUpload = new System.Windows.Forms.ProgressBar();
             this.buttonUploadSlate = new System.Windows.Forms.Button();
@@ -97,7 +98,6 @@
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelWarning = new System.Windows.Forms.Label();
             this.linkLabelMoreInfoPrice = new System.Windows.Forms.LinkLabel();
-            this.listViewJPG1 = new AMSExplorer.ListViewSlateJPG();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownHLSFragPerSeg)).BeginInit();
             this.panel1.SuspendLayout();
             this.tabControlLiveChannel.SuspendLayout();
@@ -147,7 +147,7 @@
             this.textBoxRestrictIngestIP.Name = "textBoxRestrictIngestIP";
             this.textBoxRestrictIngestIP.Size = new System.Drawing.Size(278, 23);
             this.textBoxRestrictIngestIP.TabIndex = 6;
-            this.textBoxRestrictIngestIP.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRestrictIP_Validating);
+            this.textBoxRestrictIngestIP.TextChanged += new System.EventHandler(this.textBoxIP_TextChanged);
             // 
             // checkBoxRestrictIngestIP
             // 
@@ -177,7 +177,7 @@
             this.textboxchannelname.Name = "textboxchannelname";
             this.textboxchannelname.Size = new System.Drawing.Size(500, 23);
             this.textboxchannelname.TabIndex = 0;
-            this.textboxchannelname.Validating += new System.ComponentModel.CancelEventHandler(this.textboxchannelname_Validating);
+            this.textboxchannelname.TextChanged += new System.EventHandler(this.textboxchannelname_TextChanged);
             // 
             // label4
             // 
@@ -225,6 +225,7 @@
             this.numericUpDownHLSFragPerSeg.Enabled = false;
             this.numericUpDownHLSFragPerSeg.Location = new System.Drawing.Point(22, 344);
             this.numericUpDownHLSFragPerSeg.Name = "numericUpDownHLSFragPerSeg";
+            this.numericUpDownHLSFragPerSeg.ReadOnly = true;
             this.numericUpDownHLSFragPerSeg.Size = new System.Drawing.Size(140, 23);
             this.numericUpDownHLSFragPerSeg.TabIndex = 4;
             // 
@@ -235,6 +236,7 @@
             this.textBoxKeyFrame.Name = "textBoxKeyFrame";
             this.textBoxKeyFrame.Size = new System.Drawing.Size(140, 23);
             this.textBoxKeyFrame.TabIndex = 2;
+            this.textBoxKeyFrame.TextChanged += new System.EventHandler(this.textBoxKeyFrame_TextChanged);
             // 
             // label5
             // 
@@ -357,7 +359,7 @@
             this.textBoxRestrictPreviewIP.Name = "textBoxRestrictPreviewIP";
             this.textBoxRestrictPreviewIP.Size = new System.Drawing.Size(278, 23);
             this.textBoxRestrictPreviewIP.TabIndex = 49;
-            this.textBoxRestrictPreviewIP.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxRestrictIP_Validating);
+            this.textBoxRestrictPreviewIP.TextChanged += new System.EventHandler(this.textBoxIP_TextChanged);
             // 
             // label2
             // 
@@ -496,6 +498,7 @@
             // 
             this.numericUpDownVideoStreamIndex.Location = new System.Drawing.Point(19, 36);
             this.numericUpDownVideoStreamIndex.Name = "numericUpDownVideoStreamIndex";
+            this.numericUpDownVideoStreamIndex.ReadOnly = true;
             this.numericUpDownVideoStreamIndex.Size = new System.Drawing.Size(140, 23);
             this.numericUpDownVideoStreamIndex.TabIndex = 72;
             this.toolTip1.SetToolTip(this.numericUpDownVideoStreamIndex, resources.GetString("numericUpDownVideoStreamIndex.ToolTip"));
@@ -592,6 +595,7 @@
             // 
             this.numericUpDownAudioIndexAddition.Location = new System.Drawing.Point(262, 31);
             this.numericUpDownAudioIndexAddition.Name = "numericUpDownAudioIndexAddition";
+            this.numericUpDownAudioIndexAddition.ReadOnly = true;
             this.numericUpDownAudioIndexAddition.Size = new System.Drawing.Size(119, 23);
             this.numericUpDownAudioIndexAddition.TabIndex = 79;
             this.toolTip1.SetToolTip(this.numericUpDownAudioIndexAddition, resources.GetString("numericUpDownAudioIndexAddition.ToolTip"));
@@ -663,6 +667,7 @@
             // 
             this.numericUpDownAudioIndexMain.Location = new System.Drawing.Point(268, 40);
             this.numericUpDownAudioIndexMain.Name = "numericUpDownAudioIndexMain";
+            this.numericUpDownAudioIndexMain.ReadOnly = true;
             this.numericUpDownAudioIndexMain.Size = new System.Drawing.Size(119, 23);
             this.numericUpDownAudioIndexMain.TabIndex = 74;
             this.toolTip1.SetToolTip(this.numericUpDownAudioIndexMain, resources.GetString("numericUpDownAudioIndexMain.ToolTip"));
@@ -716,6 +721,23 @@
             this.textBoxJPGSearch.Size = new System.Drawing.Size(319, 23);
             this.textBoxJPGSearch.TabIndex = 85;
             this.textBoxJPGSearch.TextChanged += new System.EventHandler(this.textBoxJPGSearch_TextChanged);
+            // 
+            // listViewJPG1
+            // 
+            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listViewJPG1.FullRowSelect = true;
+            this.listViewJPG1.HideSelection = false;
+            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
+            this.listViewJPG1.MultiSelect = false;
+            this.listViewJPG1.Name = "listViewJPG1";
+            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
+            this.listViewJPG1.TabIndex = 84;
+            this.listViewJPG1.Tag = -1;
+            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
+            this.listViewJPG1.View = System.Windows.Forms.View.Details;
+            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // label15
             // 
@@ -826,23 +848,6 @@
             this.linkLabelMoreInfoPrice.TabStop = true;
             this.linkLabelMoreInfoPrice.Text = "More information";
             this.linkLabelMoreInfoPrice.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoLiveEncodingProfilelink_LinkClicked);
-            // 
-            // listViewJPG1
-            // 
-            this.listViewJPG1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listViewJPG1.FullRowSelect = true;
-            this.listViewJPG1.HideSelection = false;
-            this.listViewJPG1.Location = new System.Drawing.Point(20, 37);
-            this.listViewJPG1.MultiSelect = false;
-            this.listViewJPG1.Name = "listViewJPG1";
-            this.listViewJPG1.Size = new System.Drawing.Size(448, 131);
-            this.listViewJPG1.TabIndex = 84;
-            this.listViewJPG1.Tag = -1;
-            this.listViewJPG1.UseCompatibleStateImageBehavior = false;
-            this.listViewJPG1.View = System.Windows.Forms.View.Details;
-            this.listViewJPG1.SelectedIndexChanged += new System.EventHandler(this.listViewJPG1_SelectedIndexChanged);
             // 
             // CreateLiveChannel
             // 

@@ -300,7 +300,7 @@ namespace AMSExplorer
             moreinfoLiveStreamingProfilelink.Links.Add(new LinkLabel.Link(0, moreinfoLiveStreamingProfilelink.Text.Length, Constants.LinkMoreInfoLiveStreaming));
             linkLabelMoreInfoPrice.Links.Add(new LinkLabel.Link(0, linkLabelMoreInfoPrice.Text.Length, Constants.LinkMoreInfoPricing));
 
-
+            checkChannelName();
             InitPhase = false;
         }
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -311,7 +311,14 @@ namespace AMSExplorer
         private void checkBoxRestrictIngestIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictIngestIP.Enabled = checkBoxRestrictIngestIP.Checked;
-            if (!checkBoxRestrictIngestIP.Checked) errorProvider1.SetError(textBoxRestrictIngestIP, String.Empty);
+            if (!checkBoxRestrictIngestIP.Checked)
+            {
+                errorProvider1.SetError(textBoxRestrictIngestIP, String.Empty);
+            }
+            else
+            {
+                checkIPAddress(textBoxRestrictIngestIP);
+            }
         }
 
         private void checkBoxHLSFragPerSegDefined_CheckedChanged(object sender, EventArgs e)
@@ -322,6 +329,7 @@ namespace AMSExplorer
         private void checkBoxKeyFrameIntDefined_CheckedChanged(object sender, EventArgs e)
         {
             textBoxKeyFrame.Enabled = checkBoxKeyFrameIntDefined.Checked;
+            checkKeyFrameValue();
         }
 
         private void comboBoxProtocolInput_SelectedIndexChanged(object sender, EventArgs e)
@@ -400,7 +408,14 @@ namespace AMSExplorer
         private void checkBoxRestrictPreviewIP_CheckedChanged(object sender, EventArgs e)
         {
             textBoxRestrictPreviewIP.Enabled = checkBoxRestrictPreviewIP.Checked;
-            if (!checkBoxRestrictPreviewIP.Checked) errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
+            if (!checkBoxRestrictPreviewIP.Checked)
+            {
+                errorProvider1.SetError(textBoxRestrictPreviewIP, String.Empty);
+            }
+            else
+            {
+                checkIPAddress(textBoxRestrictPreviewIP);
+            }
         }
 
         private void buttonAddAudioStream_Click(object sender, EventArgs e)
@@ -525,26 +540,13 @@ namespace AMSExplorer
             }
         }
 
-
-
-        private void textboxchannelname_Validating(object sender, CancelEventArgs e)
-        {
-            TextBox tb = (TextBox)sender;
-
-            if (!IsChannelNameValid(textboxchannelname.Text))
-            {
-                errorProvider1.SetError(tb, "Channel name is not valid");
-            }
-            else
-            {
-                errorProvider1.SetError(tb, String.Empty);
-            }
-        }
-
         private void textBoxRestrictIP_Validating(object sender, CancelEventArgs e)
         {
-            TextBox tb = (TextBox)sender;
+            checkIPAddress((TextBox)sender);
+        }
 
+        private void checkIPAddress(TextBox tb)
+        {
             bool Error = false;
             try
             {
@@ -554,14 +556,12 @@ namespace AMSExplorer
             {
                 errorProvider1.SetError(tb, "Incorrect IP address");
                 Error = true;
-
             }
             if (!Error)
             {
                 errorProvider1.SetError(tb, String.Empty);
             }
         }
-
 
         private void listViewJPG1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -637,7 +637,6 @@ namespace AMSExplorer
         private void textBoxCustomPreset_TextChanged(object sender, EventArgs e)
         {
             UpdateProfileGrids();
-
         }
 
         private void radioButtonCustomPreset_CheckedChanged(object sender, EventArgs e)
@@ -650,6 +649,47 @@ namespace AMSExplorer
         {
             // Send the URL to the operating system.
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void textboxchannelname_TextChanged(object sender, EventArgs e)
+        {
+            checkChannelName();
+        }
+
+        private void checkChannelName()
+        {
+            TextBox tb = textboxchannelname;
+
+            if (!IsChannelNameValid(tb.Text))
+            {
+                errorProvider1.SetError(tb, "Channel name is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void checkKeyFrameValue()
+        {
+            if (checkBoxKeyFrameIntDefined.Checked && KeyframeInterval == null)
+            {
+                errorProvider1.SetError(textBoxKeyFrame, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxKeyFrame, String.Empty);
+            }
+        }
+
+        private void textBoxKeyFrame_TextChanged(object sender, EventArgs e)
+        {
+            checkKeyFrameValue();
+        }
+
+        private void textBoxIP_TextChanged(object sender, EventArgs e)
+        {
+            checkIPAddress((TextBox)sender);
         }
     }
 

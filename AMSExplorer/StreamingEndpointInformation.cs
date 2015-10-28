@@ -238,6 +238,8 @@ namespace AMSExplorer
                 }
             }
             textboxorigindesc.Text = MyStreamingEndpoint.Description;
+
+            checkMaxCacheAgeValue();
         }
 
         void dataGridView_DataError(object sender, DataGridViewDataErrorEventArgs e)
@@ -376,6 +378,23 @@ namespace AMSExplorer
         {
             checkBoxStreamingIPlistSet.Checked = false;
             endpointSettingList.Clear();
+        }
+
+        private void textBoxMaxCacheAge_TextChanged(object sender, EventArgs e)
+        {
+            checkMaxCacheAgeValue();
+        }
+
+        private void checkMaxCacheAgeValue()
+        {
+            if (!string.IsNullOrWhiteSpace(textBoxMaxCacheAge.Text) && MaxCacheAge == null)
+            {
+                errorProvider1.SetError(textBoxMaxCacheAge, "Value is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(textBoxMaxCacheAge, String.Empty);
+            }
         }
     }
 }

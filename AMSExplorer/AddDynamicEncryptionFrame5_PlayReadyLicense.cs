@@ -67,7 +67,7 @@ namespace AMSExplorer
 
                 if (checkBoxEndDate.Checked)
                 {
-                    if (radioButtonStartDateAbsolute.Checked)
+                    if (radioButtonEndDateAbsolute.Checked)
                     {
                         licenseTemplate.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
                     }

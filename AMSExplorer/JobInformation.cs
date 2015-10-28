@@ -181,7 +181,6 @@ namespace AMSExplorer
             DGTasks.Rows.Add("Progress", task.Progress);
             DGTasks.Rows.Add("Duration", task.RunningDuration);
             DGTasks.Rows.Add("Perf Message", task.PerfMessage);
-            DGTasks.Rows.Add("Configuration", task.Configuration);
             DGTasks.Rows.Add("Encryption Key Id", task.EncryptionKeyId);
             DGTasks.Rows.Add("Encryption Scheme", task.EncryptionScheme);
             DGTasks.Rows.Add("Encryption Version", task.EncryptionVersion);
@@ -191,8 +190,6 @@ namespace AMSExplorer
             DGTasks.Rows.Add("Mediaprocessor Id", task.MediaProcessorId);
             if (processor != null) DGTasks.Rows.Add("Mediaprocessor Name", processor.Name);
 
-
-            DGTasks.Rows.Add("Task Body", task.TaskBody);
             DGTasks.Rows.Add("Options", task.Options);
             DGTasks.Rows.Add("Initialization Vector", task.InitializationVector);
 
@@ -231,6 +228,7 @@ namespace AMSExplorer
 
             }
             textBoxConfiguration.Text = task.GetClearConfiguration();
+            textBoxTaskBody.Text = task.TaskBody;
         }
     }
 }

@@ -580,6 +580,12 @@
     <Content Include="AMEStandardPresetFiles\H264 Single Bitrate Low Quality SD for Android.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="AMEStandardPresetFiles\AAC Good Quality Audio.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="AMEStandardPresetFiles\AAC Audio.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="BitmapsPNG\hyperlapse-large.png" />
     <Content Include="Configurations\Hyperlapse.xml">
       <SubType>Designer</SubType>

@@ -424,11 +424,10 @@ namespace AMSExplorer
             }
             bool Error = false;
 
-            string[] progressafname = new string[filePaths.Count()];
-            double[] progressafint = new double[filePaths.Count()];
-
-            int indexa = 0;
             IAsset asset = null;
+
+            var progress = new Dictionary<string, double>(); // used to store progress of all files
+            filePaths.ToList().ForEach(f => progress[Path.GetFileName(f)] = 0d);
 
             try
             {
@@ -438,20 +437,8 @@ namespace AMSExplorer
                                                                Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
                                                                (af, p) =>
                                                                {
-                                                                   int indexc = Array.IndexOf(progressafname, af.Name);
-                                                                   if (indexc == -1)
-                                                                   {
-                                                                       progressafname[indexa] = af.Name;
-                                                                       progressafint[indexa] = (int)p.Progress;
-                                                                       indexa++;
-
-                                                                   }
-                                                                   else
-                                                                   {
-                                                                       progressafint[indexc] = (int)p.Progress;
-                                                                   }
-
-                                                                   DoGridTransferUpdateProgress(progressafint.Average(), index);
+                                                                   progress[af.Name] = p.Progress;
+                                                                   DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
                                                                }
                                                                );
                 //SetISMFileAsPrimary(asset); // no need as primary seems to be set by .CreateFromFolder
@@ -1094,12 +1081,15 @@ namespace AMSExplorer
                 }
                 if (!ErrorCurrentAssetFolderCreation)
                 {
+                    var progress = new Dictionary<string, double>(); // used to store progress of all files
+                    mediaAsset.AssetFiles.ToList().ForEach(f => progress[f.Name] = 0d);
                     try
                     {
                         mediaAsset.DownloadToFolder(foldera,
                                                                                          (af, p) =>
                                                                                          {
-                                                                                             DoGridTransferUpdateProgress(p.Progress, index);
+                                                                                             progress[af.Name] = p.Progress;
+                                                                                             DoGridTransferUpdateProgress(progress.ToList().Average(l => l.Value), index);
                                                                                          }
                                                                                         );
                     }
@@ -1482,7 +1472,7 @@ namespace AMSExplorer
             {
                 bool ErrorFolderCreation = false;
                 _backuprootfolderdownload = form.FolderPath; // for reuse later
-                if (!File.Exists(form.FolderPath))
+                if (!Directory.Exists(form.FolderPath))
                 {
                     if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.FolderPath), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                     {
@@ -6633,7 +6623,7 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
+                TextBoxLogWriteLine("Channel '{0}' : creating...", form.ChannelName);
 
                 bool Error = false;
                 ChannelCreationOptions options = new ChannelCreationOptions();
@@ -6753,6 +6743,8 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
+
                     channel.Description = form.GetChannelDescription;
                     channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
@@ -11368,16 +11360,17 @@ namespace AMSExplorer
     public static class FilterTime
     {
         public const string First50Items = "First 50 items";
+        public const string First1000Items = "First 1000 items";
         public const string LastDay = "Last 24 hours";
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
-        public const string All = "First 1000 items";
+        public const string All = "All";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
             int days = -1;
-            if (timeFilter != string.Empty && timeFilter != null && timeFilter != FilterTime.All)
+            if (timeFilter != null)
             {
                 switch (timeFilter)
                 {
@@ -11766,7 +11759,6 @@ namespace AMSExplorer
             }
             this.FindForm().Cursor = Cursors.WaitCursor;
 
-            IEnumerable<AssetEntry> assetquery;
 
             // DAYS
             int days = FilterTime.ReturnNumberOfDays(_timefilter);
@@ -11777,27 +11769,63 @@ namespace AMSExplorer
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
 
+            var assetsServerQuery = context.Assets.AsQueryable(); ;
+            bool SwitchedToLocalQuery = false;
 
-            // search
+            ///////////////////////
+            // SEARCH
+            ///////////////////////
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
                 bool Error = false;
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+                string strsearch = _searchinname.Text.ToLower();
 
                 switch (_searchinname.SearchType)
                 {
                     // Search on Asset name
                     case SearchIn.AssetName:
 
-                        assets = context.Assets.Where(a =>
+                        IList<IAsset> newAssetList = new List<IAsset>();
+
+                        while (true)
+                        {
+                            // Enumerate through all assets (1000 at a time)
+                            var assetsq = context.Assets.Where(a =>
                                  (a.Name.Contains(_searchinname.Text))
                                  &&
                                  (!filterday || a.LastModified > datefilter)
-                                 );
+                                 )
+                                .Skip(skipSize).Take(batchSize).ToList();
+
+                            currentSkipSize += assetsq.Count;
+
+                            foreach (var a in assetsq)
+                            {
+                                newAssetList.Add(a);
+                            }
+
+                            if (currentSkipSize == batchSize)
+                            {
+                                skipSize += batchSize;
+                                currentSkipSize = 0;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        SwitchedToLocalQuery = true;
+                        assets = newAssetList;
+
                         break;
 
                     // Search on Asset aternate id
                     case SearchIn.AssetAltId:
-                        assets = context.Assets.Where(a =>
+                        assetsServerQuery = context.Assets.Where(a =>
                                   (a.AlternateId.Contains(_searchinname.Text))
                                   &&
                                   (!filterday || a.LastModified > datefilter)
@@ -11822,22 +11850,56 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            assets = context.Assets.Where(a =>
+                            assetsServerQuery = context.Assets.Where(a =>
                                                              (a.Id == Constants.AssetIdPrefix + assetguid)
                                                              &&
                                                              (!filterday || a.LastModified > datefilter)
                                                              );
                         }
-
                         break;
+
 
                     // Search on Asset file name
                     case SearchIn.AssetFileName:
-                        var queryfiles = context.Files.AsEnumerable().Where(f => f.Name.Contains(_searchinname.Text)).Select(f => f.ParentAssetId);
-                        assets = context.Assets.Where(a =>
+                        IList<string> assetFileListID = new List<string>();
+
+                        while (true)
+                        {
+                            // Enumerate through all asset files (1000 at a time)
+                            var filesq = context.Files
+                                .Skip(skipSize).Take(batchSize).ToList();
+
+                            currentSkipSize += filesq.Count;
+                            var filesq2 = filesq.Where(f => f.Name.ToLower().Contains(strsearch)).Select(f => f.ParentAssetId);
+
+                            foreach (var a in filesq2)
+                            {
+                                assetFileListID.Add(a);
+                            }
+
+                            if (currentSkipSize == batchSize)
+                            {
+                                skipSize += batchSize;
+                                currentSkipSize = 0;
+                            }
+                            else
+                            {
+                                break;
+                            }
+                        }
+
+                        var assetlist = new List<IAsset>();
+                        foreach (var a in assetFileListID.Distinct())
+                        {
+                            assetlist.Add(AssetInfo.GetAsset(a, context));
+                        }
+
+                        SwitchedToLocalQuery = true;
+                        assets = assetlist.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
-                                )
-                        .AsEnumerable().Where(a => queryfiles.Contains(a.Id)).OrderBy(a => a.LastModified);
+                                );
+
+
                         break;
 
                     // Search on Asset file ID
@@ -11861,7 +11923,7 @@ namespace AMSExplorer
                             var myfile = context.Files.Where(f => f.Id == Constants.AssetFileIdPrefix + fileguid).FirstOrDefault();
                             if (myfile != null)
                             {
-                                assets = context.Assets.Where(a =>
+                                assetsServerQuery = context.Assets.Where(a =>
                                                                    (!filterday || a.LastModified > datefilter)
                                                                    &&
                                                                    myfile.Asset.Id == a.Id
@@ -11895,7 +11957,7 @@ namespace AMSExplorer
                             var myloc = context.Locators.Where(l => l.Id == Constants.LocatorIdPrefix + locatorguid).FirstOrDefault();
                             if (myloc != null)
                             {
-                                assets = context.Assets.Where(a =>
+                                assetsServerQuery = context.Assets.Where(a =>
                                                                     (!filterday || a.LastModified > datefilter)
                                                                     &&
                                                                     a.Id == myloc.AssetId
@@ -11906,7 +11968,6 @@ namespace AMSExplorer
                                 MessageBox.Show("No locator was found using this locator Id.", "Not found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
-
                         break;
 
                     // Search on Program id / guid
@@ -11930,7 +11991,7 @@ namespace AMSExplorer
                             var queryprog = context.Programs.Where(p => p.Id == Constants.ProgramIdPrefix + programguid).FirstOrDefault();
                             if (queryprog != null)
                             {
-                                assets = context.Assets.Where(a =>
+                                assetsServerQuery = context.Assets.Where(a =>
                                                                    (!filterday || a.LastModified > datefilter)
                                                                    &&
                                                                    queryprog.AssetId == a.Id
@@ -11945,42 +12006,45 @@ namespace AMSExplorer
 
                     // Search on Program name
                     case SearchIn.ProgramName:
-                        // we take only the first 1000 programs that contains the text. We could improve this by paging the query (to do)
-                        var queryprog2 = context.Programs.Where(p => p.Name.ToLower().Contains(_searchinname.Text.ToLower())).AsEnumerable().Select(p => p.AssetId).ToList();
 
-                        IList<IAsset> passets = new List<IAsset>();
-
-                        int skipSizePr = 0;
-                        int batchSizePr = 1000;
-                        int currentSkipSizePr = 0;
+                        IList<string> assetFileListIDP = new List<string>();
 
                         while (true)
                         {
-                            // Enumerate through all assets (1000 at a time)
-                            var assetsq = context.Assets.Where(a =>
-                                (!filterday || a.LastModified > datefilter))
-                                .Skip(skipSizePr).Take(batchSizePr).ToList();
+                            // Enumerate through all programs (1000 at a time)
+                            var programsq = context.Programs
+                                .Skip(skipSize).Take(batchSize).ToList();
 
-                            currentSkipSizePr += assetsq.Count;
+                            currentSkipSize += programsq.Count;
+                            var programsq2 = programsq.Where(p => p.Name.ToLower().Contains(strsearch)).Select(p => p.AssetId);
 
-                            var assetsq2 = assetsq.Where(a => queryprog2.Contains(a.Id)); // assets which are in the program query
-
-                            foreach (var a in assetsq2)
+                            foreach (var a in programsq2)
                             {
-                                passets.Add(a);
+                                assetFileListIDP.Add(a);
                             }
 
-                            if (currentSkipSizePr == batchSizePr)
+                            if (currentSkipSize == batchSize)
                             {
-                                skipSizePr += batchSizePr;
-                                currentSkipSizePr = 0;
+                                skipSize += batchSize;
+                                currentSkipSize = 0;
                             }
                             else
                             {
                                 break;
                             }
                         }
-                        assets = passets;
+
+                        var assetlist2 = new List<IAsset>();
+                        foreach (var a in assetFileListIDP)
+                        {
+                            assetlist2.Add(AssetInfo.GetAsset(a, context));
+                        }
+
+                        SwitchedToLocalQuery = true;
+                        assets = assetlist2.Where(a =>
+                                (!filterday || a.LastModified > datefilter)
+                                );
+
                         break;
 
 
@@ -11988,121 +12052,136 @@ namespace AMSExplorer
                         break;
                 }
             }
-            else // no search
+            else // NO SEARCH
             {
-                assets = context.Assets.Where(a =>
+                assetsServerQuery = context.Assets.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
                                 );
             }
 
+            ///////////////////////
+            // STATE FILTER
+            ///////////////////////
+            // we need to do paging
 
+            IList<IAsset> aggregateListAssets = new List<IAsset>();
+            int skipSize2 = 0;
+            int batchSize2 = 1000;
+            int currentSkipSize2 = 0;
 
-            // FILTERING
-            if ((!string.IsNullOrEmpty(_statefilter)) && _statefilter != StatusAssets.All)
+            while (true)
             {
-                IList<IAsset> passets = new List<IAsset>();
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
+                // Enumerate through all assets (1000 at a time)
+                IEnumerable<IAsset> listPagedAssets;
+                IList<IAsset> fassets = new List<IAsset>();
 
-                while (true)
+                if (SwitchedToLocalQuery)
                 {
-                    // Enumerate through all assets (1000 at a time)
-                    var listassets = assets.Skip(skipSize).Take(batchSize).ToList();
-                    currentSkipSize += listassets.Count;
-                    IList<IAsset> fassets = new List<IAsset>();
+                    listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+                }
+                else
+                {
+                    listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+                }
+                currentSkipSize2 += listPagedAssets.Count();
 
-                    switch (_statefilter)
-                    {
-                        case StatusAssets.Published:
-                        case StatusAssets.PublishedExpired:
+                switch (_statefilter)
+                {
+                    case StatusAssets.Published:
+                    case StatusAssets.PublishedExpired:
 
-                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
-                            IList<IAsset> lassets = new List<IAsset>();
+                        bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+                        IList<IAsset> newListAssets1 = new List<IAsset>();
 
-                            int skipSizeLoc = 0;
-                            int batchSizeLoc = 1000;
-                            int currentSkipSizeLoc = 0;
+                        int skipSizeLoc = 0;
+                        int batchSizeLoc = 1000;
+                        int currentSkipSizeLoc = 0;
 
-                            while (true)
+                        while (true)
+                        {
+                            // Enumerate through all locators (1000 at a time)
+                            var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
+                            currentSkipSizeLoc += listlocators.Count;
+
+                            var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
+
+                            foreach (var a in assetexpired)
                             {
-                                // Enumerate through all locators (1000 at a time)
-                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
-                                currentSkipSizeLoc += listlocators.Count;
-
-                                var assetexpired = listassets.Where(a => listlocators.Contains(a.Id));
-
-                                foreach (var a in assetexpired)
-                                {
-                                    lassets.Add(a);
-                                }
-
-                                if (currentSkipSizeLoc == batchSizeLoc)
-                                {
-                                    skipSizeLoc += batchSize;
-                                    currentSkipSizeLoc = 0;
-                                }
-                                else
-                                {
-                                    break;
-                                }
+                                newListAssets1.Add(a);
                             }
 
-                            foreach (var a in lassets)
+                            if (currentSkipSizeLoc == batchSizeLoc)
                             {
-                                fassets.Add(a);
+                                skipSizeLoc += batchSizeLoc;
+                                currentSkipSizeLoc = 0;
                             }
-                            break;
-
-
-                        case StatusAssets.DynEnc:
-                            var assetwithDelPol = listassets.Where(a => a.DeliveryPolicies.Any());
-                            foreach (var a in assetwithDelPol)
+                            else
                             {
-                                fassets.Add(a);
+                                break;
                             }
-                            break;
+                        }
+
+                        foreach (var a in newListAssets1)
+                        {
+                            fassets.Add(a);
+                        }
+                        break;
 
 
-                        case StatusAssets.Empty:
+                    case StatusAssets.DynEnc:
+                        var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
+                        foreach (var a in assetwithDelPol)
+                        {
+                            fassets.Add(a);
+                        }
+                        break;
 
-                            IList<IAsset> lassets2 = listassets;
+                    case StatusAssets.Empty:
 
-                            int skipSizeEmpty = 0;
-                            int batchSizeEmpty = 1000;
-                            int currentSkipSizeEmpty = 0;
+                        IList<IAsset> newListAssets2 = listPagedAssets.ToList();
 
+                        int skipSizeEmpty = 0;
+                        int batchSizeEmpty = 1000;
+                        int currentSkipSizeEmpty = 0;
 
-                            while (true)
+                        while (true)
+                        {
+                            // Enumerate through all files (1000 at a time)
+                            var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+                            currentSkipSizeEmpty += listfiles.Count;
+
+                            var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+                            foreach (var a in assetsnotempty)
                             {
-                                // Enumerate through all files (1000 at a time)
-                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
-                                currentSkipSizeEmpty += listfiles.Count;
-
-                                var assetsnotempty = listassets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
-
-                                foreach (var a in assetsnotempty)
-                                {
-                                    lassets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
-                                }
-
-                                if (currentSkipSizeEmpty == batchSizeEmpty)
-                                {
-                                    skipSizeEmpty += batchSizeEmpty;
-                                    currentSkipSizeEmpty = 0;
-                                }
-                                else
-                                {
-                                    break;
-                                }
+                                newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
                             }
 
-                            foreach (var a in lassets2)
+                            if (currentSkipSizeEmpty == batchSizeEmpty)
                             {
-                                fassets.Add(a);
+                                skipSizeEmpty += batchSizeEmpty;
+                                currentSkipSizeEmpty = 0;
                             }
-                            break;
+                            else
+                            {
+                                break;
+                            }
+                        }
 
+                        foreach (var a in newListAssets2)
+                        {
+                            fassets.Add(a);
+                        }
+                        break;
+
+
+                    case StatusAssets.All: // we need this to parse all assets
+                    default:
+                        foreach (var a in listPagedAssets)
+                        {
+                            fassets.Add(a);
+                        }
+                        break;
                         /*
 
                         // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
@@ -12142,34 +12221,34 @@ namespace AMSExplorer
                         fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
                         break;
                         */
-                        default:
-                            break;
-                    }
-
-                    foreach (var a in fassets)
-                    {
-                        passets.Add(a);
-                    }
-
-
-                    if (currentSkipSize == batchSize)
-                    {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
                 }
 
-                assets = passets;
+                foreach (var a in fassets)
+                {
+                    aggregateListAssets.Add(a);
+                }
 
+
+                if (currentSkipSize2 == batchSize2)
+                {
+                    skipSize2 += batchSize2;
+                    currentSkipSize2 = 0;
+                }
+                else
+                {
+                    break;
+                }
             }
+            SwitchedToLocalQuery = true;
+            assets = aggregateListAssets;
 
-
+            ///////////////////////
+            // SORTING
+            ///////////////////////
             // let's sort the aggregate results
             var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+            // client side only ! (a take is done otherwise)
 
             switch (_orderassets)
             {
@@ -12212,10 +12291,18 @@ namespace AMSExplorer
 
 
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            if ((!string.IsNullOrEmpty(_timefilter)))
             {
-                assets = assets.Take(50);
+                if (_timefilter == FilterTime.First50Items)
+                {
+                    assets = assets.Take(50);
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    assets = assets.Take(1000);
+                }
             }
+
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
@@ -12227,13 +12314,10 @@ namespace AMSExplorer
 
             try
             {
-                //         assetquery = from a in assets
-                //                      select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName, Publication = cacheAssetentries.ContainsKey(a.Id) ? cacheAssetentries[a.Id].Publication:null  };
-
-                assetquery = assets.AsEnumerable().Select(a =>
-                // let's return the data cached in memory of it exists and last modified time is the same
-                (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
-                              new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
+                IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
+               // let's return the data cached in memory of it exists and last modified time is the same
+               (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
+                             new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
                               );
 
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
@@ -12677,6 +12761,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
+            var jobsServerQuery = context.Jobs.AsQueryable(); ;
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
@@ -12684,7 +12769,6 @@ namespace AMSExplorer
             if (filterstate)
             {
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
-                //jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
 
 
@@ -12696,13 +12780,14 @@ namespace AMSExplorer
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.JobName:
-                        jobs = context.Jobs.Where(j =>
-                                                 (j.Name.Contains(_searchinname.Text))
-                                                 &&
-                                                 (!filterday || j.LastModified > datefilter)
-                                                 &&
-                                                 (!filterstate || j.State == jobstate)
-                                                 );
+                        jobsServerQuery = context.Jobs.Where(j =>
+                                             (j.Name.Contains(_searchinname.Text))
+                                             &&
+                                             (!filterday || j.LastModified > datefilter)
+                                             &&
+                                             (!filterstate || j.State == jobstate)
+                                             );
+
                         break;
 
                     case SearchIn.JobId:
@@ -12722,7 +12807,7 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            jobs = context.Jobs.Where(j =>
+                            jobsServerQuery = context.Jobs.Where(j =>
                                                     (j.Id == Constants.JobIdPrefix + jobguid)
                                                     &&
                                                     (!filterday || j.LastModified > datefilter)
@@ -12739,12 +12824,47 @@ namespace AMSExplorer
             }
             else
             {
-                jobs = context.Jobs.Where(j =>
+                jobsServerQuery = context.Jobs.Where(j =>
                                  (!filterday || j.LastModified > datefilter)
                                  &&
                                  (!filterstate || j.State == jobstate)
                                 );
             }
+
+
+
+            // let's get all the results locally
+
+            IList<IJob> aggregateListJobs = new List<IJob>();
+            int skipSize = 0;
+            int batchSize = 1000;
+            int currentSkipSize = 0;
+            while (true)
+            {
+                // Enumerate through all jobs (1000 at a time)
+                var jobsq = jobsServerQuery
+                    .Skip(skipSize).Take(batchSize).ToList();
+
+                currentSkipSize += jobsq.Count;
+
+                foreach (var j in jobsq)
+                {
+                    aggregateListJobs.Add(j);
+                }
+
+                if (currentSkipSize == batchSize)
+                {
+                    skipSize += batchSize;
+                    currentSkipSize = 0;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            jobs = aggregateListJobs;
+
+
 
             switch (_orderjobs)
             {
@@ -12801,9 +12921,17 @@ namespace AMSExplorer
                     break;
             }
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
-                jobs = jobs.Take(50);
+                if (_timefilter == FilterTime.First50Items)
+                {
+                    jobs = jobs.Take(50);
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    jobs = jobs.Take(1000);
+                }
+
             }
 
             _context = context;

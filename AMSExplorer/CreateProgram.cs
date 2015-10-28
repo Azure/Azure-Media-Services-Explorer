@@ -24,6 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using System.Text.RegularExpressions;
 
 namespace AMSExplorer
 {
@@ -49,11 +50,10 @@ namespace AMSExplorer
         {
             get
             {
-                return new TimeSpan((int)numericUpDownArchiveDays.Value, (int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
+                return new TimeSpan((int)numericUpDownArchiveHours.Value, (int)numericUpDownArchiveMinutes.Value, 0); ;
             }
             set
             {
-                numericUpDownArchiveDays.Value = value.Days;
                 numericUpDownArchiveHours.Value = value.Hours;
                 numericUpDownArchiveMinutes.Value = value.Minutes;
             }
@@ -84,7 +84,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
         public string ReplicaLocatorID
         {
             get { return labelLocatorID.Text; }
@@ -93,7 +93,7 @@ namespace AMSExplorer
 
         public string ForceManifestName
         {
-            get 
+            get
             {
                 if (checkBoxReplica.Checked)
                 {
@@ -168,6 +168,7 @@ namespace AMSExplorer
                 comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
                 if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
             }
+            checkProgramName();
         }
 
         private void checkBoxReplica_CheckedChanged(object sender, EventArgs e)
@@ -215,6 +216,31 @@ namespace AMSExplorer
                 labelManifestFile.Text = filename;
                 labelLocatorID.Text = locId;
             }
+        }
+
+        internal static bool IsProgramNameValid(string name)
+        {
+            Regex reg = new Regex(@"^[a-zA-Z0-9]([a-zA-Z0-9- ]{0,254}[a-zA-Z0-9])?$", RegexOptions.Compiled);
+            return (reg.IsMatch(name));
+        }
+
+        private void checkProgramName()
+        {
+            TextBox tb = textboxprogramname;
+
+            if (!IsProgramNameValid(tb.Text))
+            {
+                errorProvider1.SetError(tb, "Program name is not valid");
+            }
+            else
+            {
+                errorProvider1.SetError(tb, String.Empty);
+            }
+        }
+
+        private void textboxprogramname_TextChanged(object sender, EventArgs e)
+        {
+            checkProgramName();
         }
     }
 }
