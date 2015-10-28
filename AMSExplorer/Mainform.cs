@@ -6623,7 +6623,7 @@ namespace AMSExplorer
             };
             if (form.ShowDialog() == DialogResult.OK)
             {
-                TextBoxLogWriteLine("Creating Channel '{0}'...", form.ChannelName);
+                TextBoxLogWriteLine("Channel '{0}' : creating...", form.ChannelName);
 
                 bool Error = false;
                 ChannelCreationOptions options = new ChannelCreationOptions();
@@ -6743,6 +6743,8 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
+                    TextBoxLogWriteLine("Channel '{0}' : updating...", channel.Name);
+
                     channel.Description = form.GetChannelDescription;
                     channel.Input.KeyFrameInterval = form.KeyframeInterval;
 
