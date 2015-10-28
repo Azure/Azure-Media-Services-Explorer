@@ -11778,7 +11778,7 @@ namespace AMSExplorer
 
                         while (true)
                         {
-                            // Enumerate through all programs (1000 at a time)
+                            // Enumerate through all assets (1000 at a time)
                             var assetsq = context.Assets.Where(a =>
                                  (a.Name.Contains(_searchinname.Text))
                                  &&
@@ -11877,15 +11877,15 @@ namespace AMSExplorer
                         var assetlist = new List<IAsset>();
                         foreach (var a in assetFileListID.Distinct())
                         {
-                            assetlist.Add(AssetInfo.GetAsset(a,context));
+                            assetlist.Add(AssetInfo.GetAsset(a, context));
                         }
 
                         SwitchedToLocalQuery = true;
                         assets = assetlist.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
                                 );
-                        
-                       
+
+
                         break;
 
                     // Search on Asset file ID
@@ -11994,7 +11994,7 @@ namespace AMSExplorer
                     case SearchIn.ProgramName:
 
                         IList<string> assetFileListIDP = new List<string>();
-                       
+
                         while (true)
                         {
                             // Enumerate through all programs (1000 at a time)
@@ -12300,8 +12300,6 @@ namespace AMSExplorer
 
             try
             {
-                //         assetquery = from a in assets
-                //                      select new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName, Publication = cacheAssetentries.ContainsKey(a.Id) ? cacheAssetentries[a.Id].Publication:null  };
                 IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
                // let's return the data cached in memory of it exists and last modified time is the same
                (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
@@ -12749,6 +12747,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
+            var jobsServerQuery = context.Jobs.AsQueryable(); ;
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
@@ -12756,7 +12755,6 @@ namespace AMSExplorer
             if (filterstate)
             {
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
-                //jobs = jobs.Where(j => j.State == (JobState)Enum.Parse(typeof(JobState), _filterjobsstate));
             }
 
 
@@ -12768,13 +12766,14 @@ namespace AMSExplorer
                 switch (_searchinname.SearchType)
                 {
                     case SearchIn.JobName:
-                        jobs = context.Jobs.Where(j =>
-                                                 (j.Name.Contains(_searchinname.Text))
-                                                 &&
-                                                 (!filterday || j.LastModified > datefilter)
-                                                 &&
-                                                 (!filterstate || j.State == jobstate)
-                                                 );
+                        jobsServerQuery = context.Jobs.Where(j =>
+                                             (j.Name.Contains(_searchinname.Text))
+                                             &&
+                                             (!filterday || j.LastModified > datefilter)
+                                             &&
+                                             (!filterstate || j.State == jobstate)
+                                             );
+
                         break;
 
                     case SearchIn.JobId:
@@ -12794,7 +12793,7 @@ namespace AMSExplorer
                         }
                         if (!Error)
                         {
-                            jobs = context.Jobs.Where(j =>
+                            jobsServerQuery = context.Jobs.Where(j =>
                                                     (j.Id == Constants.JobIdPrefix + jobguid)
                                                     &&
                                                     (!filterday || j.LastModified > datefilter)
@@ -12811,12 +12810,47 @@ namespace AMSExplorer
             }
             else
             {
-                jobs = context.Jobs.Where(j =>
+                jobsServerQuery = context.Jobs.Where(j =>
                                  (!filterday || j.LastModified > datefilter)
                                  &&
                                  (!filterstate || j.State == jobstate)
                                 );
             }
+
+
+
+            // let's get all the results locally
+
+            IList<IJob> aggregateListJobs = new List<IJob>();
+            int skipSize = 0;
+            int batchSize = 1000;
+            int currentSkipSize = 0;
+            while (true)
+            {
+                // Enumerate through all jobs (1000 at a time)
+                var jobsq = jobsServerQuery
+                    .Skip(skipSize).Take(batchSize).ToList();
+
+                currentSkipSize += jobsq.Count;
+
+                foreach (var j in jobsq)
+                {
+                    aggregateListJobs.Add(j);
+                }
+
+                if (currentSkipSize == batchSize)
+                {
+                    skipSize += batchSize;
+                    currentSkipSize = 0;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            jobs = aggregateListJobs;
+
+
 
             switch (_orderjobs)
             {
@@ -12873,9 +12907,17 @@ namespace AMSExplorer
                     break;
             }
 
-            if ((!string.IsNullOrEmpty(_timefilter)) && _timefilter == FilterTime.First50Items)
+            if (!string.IsNullOrEmpty(_timefilter))
             {
-                jobs = jobs.Take(50);
+                if (_timefilter == FilterTime.First50Items)
+                {
+                    jobs = jobs.Take(50);
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    jobs = jobs.Take(1000);
+                }
+
             }
 
             _context = context;
