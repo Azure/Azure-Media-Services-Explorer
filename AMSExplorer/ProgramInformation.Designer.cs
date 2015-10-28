@@ -43,15 +43,14 @@
             this.label11 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveMinutes = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.numericUpDownArchiveHours = new System.Windows.Forms.NumericUpDown();
-            this.numericUpDownArchiveDays = new System.Windows.Forms.NumericUpDown();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.label3 = new System.Windows.Forms.Label();
             this.labelProgramName = new System.Windows.Forms.Label();
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonUpdateClose = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
             this.contextMenuStripDG.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGChannel)).BeginInit();
@@ -60,7 +59,6 @@
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -70,7 +68,7 @@
             this.contextMenuStripDG.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemFilesCopyClipboard});
             this.contextMenuStripDG.Name = "contextMenuStripDG";
-            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 48);
+            this.contextMenuStripDG.Size = new System.Drawing.Size(170, 26);
             this.contextMenuStripDG.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripDG_Opening);
             this.contextMenuStripDG.MouseClick += new System.Windows.Forms.MouseEventHandler(this.contextMenuStripDG_MouseClick);
             // 
@@ -169,12 +167,11 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.label11);
             this.groupBox4.Controls.Add(this.numericUpDownArchiveMinutes);
             this.groupBox4.Controls.Add(this.label10);
-            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.numericUpDownArchiveHours);
-            this.groupBox4.Controls.Add(this.numericUpDownArchiveDays);
             this.groupBox4.Controls.Add(this.pictureBox2);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Location = new System.Drawing.Point(23, 110);
@@ -187,7 +184,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(331, 24);
+            this.label11.Location = new System.Drawing.Point(260, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 15);
             this.label11.TabIndex = 63;
@@ -195,7 +192,7 @@
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(335, 43);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(264, 41);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
@@ -208,44 +205,23 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(269, 24);
+            this.label10.Location = new System.Drawing.Point(198, 22);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 15);
             this.label10.TabIndex = 61;
             this.label10.Text = "Hours";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(208, 24);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 15);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "Days";
-            // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(273, 43);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(202, 41);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
-            23,
+            25,
             0,
             0,
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveHours.TabIndex = 59;
-            // 
-            // numericUpDownArchiveDays
-            // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(211, 43);
-            this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownArchiveDays.Name = "numericUpDownArchiveDays";
-            this.numericUpDownArchiveDays.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownArchiveDays.TabIndex = 58;
             // 
             // pictureBox2
             // 
@@ -312,6 +288,15 @@
             this.panel1.Size = new System.Drawing.Size(791, 55);
             this.panel1.TabIndex = 63;
             // 
+            // label9
+            // 
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(325, 43);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 15);
+            this.label9.TabIndex = 74;
+            this.label9.Text = "5 min to 25 hours max";
+            // 
             // ProgramInformation
             // 
             this.AcceptButton = this.buttonClose;
@@ -340,7 +325,6 @@
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveHours)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -366,11 +350,10 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveMinutes;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown numericUpDownArchiveHours;
-        private System.Windows.Forms.NumericUpDown numericUpDownArchiveDays;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label9;
     }
 }

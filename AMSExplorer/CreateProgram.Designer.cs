@@ -33,8 +33,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.numericUpDownArchiveDays = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textboxprogramname = new System.Windows.Forms.TextBox();
@@ -70,7 +68,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxStartProgramNow = new System.Windows.Forms.CheckBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).BeginInit();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveMinutes)).BeginInit();
@@ -122,27 +120,6 @@
             this.label4.TabIndex = 48;
             this.label4.Text = "New asset name :";
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(210, 19);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(32, 15);
-            this.label9.TabIndex = 60;
-            this.label9.Text = "Days";
-            // 
-            // numericUpDownArchiveDays
-            // 
-            this.numericUpDownArchiveDays.Location = new System.Drawing.Point(213, 37);
-            this.numericUpDownArchiveDays.Maximum = new decimal(new int[] {
-            1000,
-            0,
-            0,
-            0});
-            this.numericUpDownArchiveDays.Name = "numericUpDownArchiveDays";
-            this.numericUpDownArchiveDays.Size = new System.Drawing.Size(55, 23);
-            this.numericUpDownArchiveDays.TabIndex = 0;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -169,7 +146,7 @@
             this.textboxprogramname.Name = "textboxprogramname";
             this.textboxprogramname.Size = new System.Drawing.Size(504, 23);
             this.textboxprogramname.TabIndex = 0;
-            this.textboxprogramname.Validating += new System.ComponentModel.CancelEventHandler(this.textboxprogramname_Validating);
+            this.textboxprogramname.TextChanged += new System.EventHandler(this.textboxprogramname_TextChanged);
             // 
             // label1
             // 
@@ -235,6 +212,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.label33);
             this.tabPage1.Controls.Add(this.comboBoxStorage);
             this.tabPage1.Controls.Add(this.textBoxAssetName);
@@ -243,10 +221,8 @@
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.pictureBox1);
-            this.tabPage1.Controls.Add(this.numericUpDownArchiveDays);
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.numericUpDownArchiveHours);
-            this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -277,20 +253,21 @@
             // 
             // numericUpDownArchiveMinutes
             // 
-            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(337, 37);
+            this.numericUpDownArchiveMinutes.Location = new System.Drawing.Point(266, 34);
             this.numericUpDownArchiveMinutes.Maximum = new decimal(new int[] {
             59,
             0,
             0,
             0});
             this.numericUpDownArchiveMinutes.Name = "numericUpDownArchiveMinutes";
+            this.numericUpDownArchiveMinutes.ReadOnly = true;
             this.numericUpDownArchiveMinutes.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveMinutes.TabIndex = 2;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(334, 19);
+            this.label11.Location = new System.Drawing.Point(263, 16);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(50, 15);
             this.label11.TabIndex = 63;
@@ -309,7 +286,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(272, 19);
+            this.label10.Location = new System.Drawing.Point(201, 16);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(39, 15);
             this.label10.TabIndex = 61;
@@ -317,13 +294,14 @@
             // 
             // numericUpDownArchiveHours
             // 
-            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(275, 37);
+            this.numericUpDownArchiveHours.Location = new System.Drawing.Point(204, 34);
             this.numericUpDownArchiveHours.Maximum = new decimal(new int[] {
-            23,
+            25,
             0,
             0,
             0});
             this.numericUpDownArchiveHours.Name = "numericUpDownArchiveHours";
+            this.numericUpDownArchiveHours.ReadOnly = true;
             this.numericUpDownArchiveHours.Size = new System.Drawing.Size(55, 23);
             this.numericUpDownArchiveHours.TabIndex = 1;
             // 
@@ -513,6 +491,15 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // label9
+            // 
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(327, 37);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(144, 15);
+            this.label9.TabIndex = 73;
+            this.label9.Text = "5 min to 25 hours max";
+            // 
             // CreateProgram
             // 
             this.AcceptButton = this.buttonOk;
@@ -537,7 +524,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Create a new program for channel {0}";
             this.Load += new System.EventHandler(this.CreateLocator_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownArchiveDays)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -563,8 +549,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textboxprogramname;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.NumericUpDown numericUpDownArchiveDays;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.CheckBox checkBoxCreateLocator;
@@ -598,5 +582,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label labelCloneLocators;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label label9;
     }
 }
