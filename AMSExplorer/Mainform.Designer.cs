@@ -4266,7 +4266,7 @@
             this.dataGridViewJobsV.JobssPerPage = 50;
             this.dataGridViewJobsV.Location = new System.Drawing.Point(6, 6);
             this.dataGridViewJobsV.Name = "dataGridViewJobsV";
-            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified";
+            this.dataGridViewJobsV.OrderJobsInGrid = "Last modified >";
             this.dataGridViewJobsV.ReadOnly = true;
             this.dataGridViewJobsV.RowHeadersVisible = false;
             this.dataGridViewJobsV.SearchInName = null;

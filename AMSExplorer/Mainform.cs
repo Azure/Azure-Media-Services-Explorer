@@ -4555,7 +4555,7 @@ namespace AMSExplorer
             int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
 
-            Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
+            //Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
 
             var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
@@ -11738,7 +11738,7 @@ namespace AMSExplorer
         public void RefreshAssets(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
-            Debug.WriteLine("RefreshAssets");
+            Debug.WriteLine("RefreshAssets Start");
 
             if (WorkerAnalyzeAssets.IsBusy)
             {
@@ -12320,6 +12320,7 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
             _refreshedatleastonetime = true;
 
+            Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
             this.FindForm().Cursor = Cursors.Default;
@@ -12736,6 +12737,8 @@ namespace AMSExplorer
         {
             if (!_initialized || context == null) return;
 
+            Debug.WriteLine("Refresh Jobs Start");
+
             this.FindForm().Cursor = Cursors.WaitCursor;
             _context = context;
 
@@ -12749,7 +12752,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
-            var jobsServerQuery = context.Jobs.AsQueryable(); ;
+            var jobsServerQuery = context.Jobs.AsQueryable();
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
@@ -12758,6 +12761,8 @@ namespace AMSExplorer
             {
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
             }
+
+
 
 
             // search
@@ -12909,6 +12914,9 @@ namespace AMSExplorer
                     break;
             }
 
+
+
+
             if (!string.IsNullOrEmpty(_timefilter))
             {
                 if (_timefilter == FilterTime.First50Items)
@@ -12919,8 +12927,8 @@ namespace AMSExplorer
                 {
                     jobs = jobs.Take(1000);
                 }
-
             }
+
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
@@ -12956,6 +12964,9 @@ namespace AMSExplorer
             _MyObservAssethisPage = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (_currentpage - 1)).Take(_jobsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
             _refreshedatleastonetime = true;
+
+            Debug.WriteLine("Refresh Jobs End");
+
             this.FindForm().Cursor = Cursors.Default;
         }
 
