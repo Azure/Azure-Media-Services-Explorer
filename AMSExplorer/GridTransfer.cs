@@ -327,7 +327,6 @@ namespace AMSExplorer
                 this.TextBoxLogWriteLine(string.Format("Transfer '{0}' completed.", _MyListTransfer[index].Name));
             }));
 
-            //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);
         }
 
         private void DoGridTransferDeclareError(int index, Exception e)  // Process is completed

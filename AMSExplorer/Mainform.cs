@@ -1624,7 +1624,6 @@ namespace AMSExplorer
 
             foreach (var AssetToP in assets)
             {
-
                 ILocator locator = null;
 
                 try
@@ -1656,7 +1655,6 @@ namespace AMSExplorer
                 }
 
                 StringBuilder sbuilderThisAsset = new StringBuilder();
-                sbuilderThisAsset.AppendLine("");
                 sbuilderThisAsset.AppendLine("Asset:");
                 sbuilderThisAsset.AppendLine(AssetToP.Name);
                 sbuilderThisAsset.AppendLine("Locator ID:");
@@ -1729,7 +1727,6 @@ namespace AMSExplorer
                     ProgressiveDownloadUris.ForEach(uri =>
                     {
                         sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
-
                     }
                                         );
                 }
@@ -4946,6 +4943,7 @@ namespace AMSExplorer
                         case TransferType.ImportFromHttp:
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
+                        case TransferType.UploadWithExternalTool:
                             IAsset asset = AssetInfo.GetAsset(location, _context);
                             if (asset != null) DisplayInfo(asset);
                             break;
@@ -11064,6 +11062,77 @@ namespace AMSExplorer
                 checkBoxAnyChannel.Enabled = false;
             }
         }
+
+        private void withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoBulkUpload();
+        }
+
+        private void DoBulkUpload()
+        {
+            UploadBulk form = new UploadBulk(_context);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                IIngestManifest manifest = _context.IngestManifests.Create("IngestManifest-" + form.AssetName);
+                // Create the assets that will be associated with this bulk ingest manifest
+                IAsset destAsset = _context.Assets.Create(form.AssetName, AssetCreationOptions.None);
+
+                IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+
+                StringBuilder sbuilderManifest = new StringBuilder();
+                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                TextBoxLogWriteLine(sbuilderManifest.ToString());
+
+                if (manifest.BlobStorageUriForUpload != null)
+                {
+                    sbuilder.Clear();
+                    sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                       // COPY to clipboard. We need to create a STA thread for it
+                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                    MyThread.SetApartmentState(ApartmentState.STA);
+                    MyThread.IsBackground = true;
+                    MyThread.Start(sbuilder.ToString());
+                }
+                int index = DoGridTransferAddItem("Upload to AMS with external tool (" + manifest.Name + ")", TransferType.UploadWithExternalTool, false);
+                // Start a worker thread that does copy.
+                Task.Factory.StartNew(() => MonitorBulkUploadProgress(_context, manifest.Id, index, destAsset.Id));
+                DotabControlMainSwitch(Constants.TabTransfers);
+
+                DoRefreshGridAssetV(false);
+            }
+        }
+
+        private void MonitorBulkUploadProgress(CloudMediaContext context, string bulkManifestId, int index, string assetId)
+        {
+            bool bContinue = true;
+            while (bContinue)
+            {
+                IIngestManifest manifest = context.IngestManifests.Where(m => m.Id == bulkManifestId).FirstOrDefault();
+
+                if (manifest != null)
+                {
+                    DoGridTransferUpdateProgressText(
+                        string.Format("Pending Files : {0}, Finished Files : {1}", manifest.Statistics.PendingFilesCount, manifest.Statistics.FinishedFilesCount),
+                        (float)manifest.Statistics.FinishedFilesCount / (float)(manifest.Statistics.FinishedFilesCount + manifest.Statistics.PendingFilesCount) * 100,
+                        index);
+                    if (manifest.Statistics.PendingFilesCount == 0)
+                    {
+                        DoGridTransferDeclareCompleted(index, assetId);
+                        bContinue = false;
+                    }
+
+                    if (manifest.Statistics.FinishedFilesCount < manifest.Statistics.PendingFilesCount)
+                        Thread.Sleep(2000);
+                }
+                else // Manifest is null
+                    bContinue = false;
+            }
+        }
     }
 }
 
@@ -11396,12 +11465,13 @@ namespace AMSExplorer
     public enum TransferType
     {
         UploadFromFile = 0,
-        UploadFromFolder = 1,
-        ImportFromAzureStorage = 2,
-        ImportFromHttp = 3,
-        ExportToOtherAMSAccount = 4,
-        ExportToAzureStorage = 5,
-        DownloadToLocal = 6
+        UploadFromFolder,
+        ImportFromAzureStorage,
+        ImportFromHttp,
+        ExportToOtherAMSAccount,
+        ExportToAzureStorage,
+        DownloadToLocal,
+        UploadWithExternalTool
     }
 
 

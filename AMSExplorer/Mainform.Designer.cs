@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
+            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -481,6 +481,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -551,7 +552,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 540);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1247,7 +1248,8 @@
             this.fromASingleFileToolStripMenuItem,
             this.fromMultipleFilesToolStripMenuItem,
             this.batchUploadToolStripMenuItem,
-            this.setupAWatchFolderToolStripMenuItem});
+            this.setupAWatchFolderToolStripMenuItem,
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem});
             this.uploadFromASingleFileToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("uploadFromASingleFileToolStripMenuItem.Image")));
             this.uploadFromASingleFileToolStripMenuItem.Name = "uploadFromASingleFileToolStripMenuItem";
             this.uploadFromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
@@ -1257,7 +1259,7 @@
             // 
             this.fromASingleFileToolStripMenuItem.Name = "fromASingleFileToolStripMenuItem";
             this.fromASingleFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
             this.fromASingleFileToolStripMenuItem.Text = "From local files (single file assets)...";
             this.fromASingleFileToolStripMenuItem.Click += new System.EventHandler(this.fromASingleFileToolStripMenuItem_Click);
             // 
@@ -1266,7 +1268,7 @@
             this.fromMultipleFilesToolStripMenuItem.Name = "fromMultipleFilesToolStripMenuItem";
             this.fromMultipleFilesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
             this.fromMultipleFilesToolStripMenuItem.Text = "From a local folder (multiple files asset)...";
             this.fromMultipleFilesToolStripMenuItem.Click += new System.EventHandler(this.fromMultipleFilesToolStripMenuItem_Click);
             // 
@@ -1276,7 +1278,7 @@
             this.batchUploadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
             this.batchUploadToolStripMenuItem.Text = "Batch upload...";
             this.batchUploadToolStripMenuItem.Click += new System.EventHandler(this.batchUploadToolStripMenuItem_Click);
             // 
@@ -1285,7 +1287,7 @@
             this.setupAWatchFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("setupAWatchFolderToolStripMenuItem.Image")));
             this.setupAWatchFolderToolStripMenuItem.Name = "setupAWatchFolderToolStripMenuItem";
             this.setupAWatchFolderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
             this.setupAWatchFolderToolStripMenuItem.Text = "Setup a watch folder";
             this.setupAWatchFolderToolStripMenuItem.Click += new System.EventHandler(this.setupAWatchFolderToolStripMenuItem_Click);
             // 
@@ -3892,9 +3894,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject1.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject1;
+            searchObject4.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject4.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject4;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4547,9 +4549,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject2.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject2;
+            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject1.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject1;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4576,9 +4578,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject3.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject3;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject2.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject2;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -4840,10 +4842,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart.Legends.Add(legend2);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -4886,6 +4888,13 @@
             this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
+            // 
+            // withAnExternalAsperaSignantAzCopyToolStripMenuItem
+            // 
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name = "withAnExternalAsperaSignantAzCopyToolStripMenuItem";
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "With an high speed client application (Aspera/Signant/AzCopy)...";
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Click += new System.EventHandler(this.withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -5403,6 +5412,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
         private System.Windows.Forms.CheckBox checkBoxAnyChannel;
+        private System.Windows.Forms.ToolStripMenuItem withAnExternalAsperaSignantAzCopyToolStripMenuItem;
     }
 }
 
