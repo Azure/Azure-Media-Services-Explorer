@@ -53,6 +53,7 @@
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.moreinfoprofilelink = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -290,6 +291,18 @@
             this.dataGridViewTextBoxColumn2.HeaderText = "Value";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
+            // moreinfoprofilelink
+            // 
+            this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.moreinfoprofilelink.AutoSize = true;
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(525, 40);
+            this.moreinfoprofilelink.Name = "moreinfoprofilelink";
+            this.moreinfoprofilelink.Size = new System.Drawing.Size(101, 15);
+            this.moreinfoprofilelink.TabIndex = 71;
+            this.moreinfoprofilelink.TabStop = true;
+            this.moreinfoprofilelink.Text = "More information";
+            this.moreinfoprofilelink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.moreinfoprofilelink_LinkClicked);
+            // 
             // Indexer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -297,6 +310,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 614);
+            this.Controls.Add(this.moreinfoprofilelink);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.buttonGenOptions);
             this.Controls.Add(this.comboBoxLanguage);
@@ -348,5 +362,6 @@
         private System.Windows.Forms.Button buttonGenOptions;
         private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.LinkLabel moreinfoprofilelink;
     }
 }

@@ -52,8 +52,7 @@ using System.Timers;
 using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Queue;
-
-
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 
 namespace AMSExplorer
 {
@@ -10875,40 +10874,57 @@ namespace AMSExplorer
             }
             if (StorageKeyKnown) // if we have the storage credentials
             {
-                var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
-                var blobClient = storageAccount.CreateCloudBlobClient();
-
-                // Get the current service properties
-                var serviceProperties = blobClient.GetServiceProperties();
-
-                var form = new StorageSettings(storageName, serviceProperties);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                bool Error = false;
+                ServiceProperties serviceProperties=null;
+                CloudBlobClient blobClient = null;
+                try
                 {
+                    var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
+                    blobClient = storageAccount.CreateCloudBlobClient();
 
-                    // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
-                    //serviceProperties.DefaultServiceVersion = "2011-08-18";
-                    try
-                    {
-                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
-                            form.RequestedStorageVersion ?? StorageSettings.noversion,
-                            form.RequestedMetricsLevel.ToString(),
-                            form.RequestedMetricsRetention ?? 0
-                            );
-                        serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
-                        serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
-                        serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+                    // Get the current service properties
+                    serviceProperties = blobClient.GetServiceProperties();
+                }
+                catch (Exception ex)
+                {
+                    Error = true;
+                    MessageBox.Show("Error when accessing the storage account.\nIs the key correct ?\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine("Error when accessing the storage account.\nIs the key correct ?", true);
+                    TextBoxLogWriteLine(ex);
+                }
 
-                        // Save the updated service properties
-                        blobClient.SetServiceProperties(serviceProperties);
-                        TextBoxLogWriteLine("Storage settings applied.");
-                    }
-                    catch (Exception ex)
+                if (!Error)
+                {
+                    var form = new StorageSettings(storageName, serviceProperties);
+
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        TextBoxLogWriteLine("Error when setting the storage version.", true);
-                        TextBoxLogWriteLine(ex);
+
+                        // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
+                        //serviceProperties.DefaultServiceVersion = "2011-08-18";
+                        try
+                        {
+                            TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
+                                form.RequestedStorageVersion ?? StorageSettings.noversion,
+                                form.RequestedMetricsLevel.ToString(),
+                                form.RequestedMetricsRetention ?? 0
+                                );
+                            serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
+                            serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
+                            serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+
+                            // Save the updated service properties
+                            blobClient.SetServiceProperties(serviceProperties);
+                            TextBoxLogWriteLine("Storage settings applied.");
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when setting the storage version.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
                 }
+                
             }
         }
 
