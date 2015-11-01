@@ -31,86 +31,33 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class UploadBulk : Form
+    public partial class BulkCreateManifest : Form
     {
-        private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
         private IIngestManifest _manifest;
 
-        public string AssetName
+        public string ManifestName
         {
             get
             {
-                return textBoxAssetName.Text;
+                return textBoxManifestName.Text;
             }
         }
 
-        public string[] AssetFiles
-        {
-            get
-            {
-                return assetFiles.Select(a => a.FileName).ToArray();
-            }
-        }
-
-        public DownloadToFolderOption FolderOption
-        {
-            get
-            {
-                DownloadToFolderOption option = DownloadToFolderOption.DoNotCreateSubfolder;
-                if (checkBoxCreateSubfolder.Checked)
-                {
-                    option = radioButtonAssetName.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.SubfolderAssetId;
-                }
-                return option;
-            }
-
-        }
-
-
-
-        public UploadBulk(CloudMediaContext context, IIngestManifest manifest)
+        public BulkCreateManifest(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-            dataGridAssetFiles.DataSource = assetFiles;
             _context = context;
-            _manifest = manifest;
         }
 
         private void UploadBulk_Load(object sender, EventArgs e)
         {
-            labelCloudWatchFolder.Text = string.Format(labelCloudWatchFolder.Text, _manifest.Name);
         }
 
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-        }
-
-        private void buttonAddFiles_Click(object sender, EventArgs e)
-        {
-            assetFiles.AddNew();
-        }
-
-        private void buttonDelFiles_Click(object sender, EventArgs e)
-        {
-            if (dataGridAssetFiles.SelectedRows.Count == 1)
-            {
-                assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
-            }
-        }
-
-
-        class BulkAssetFile
-        {
-            string _fileName;
-            public string FileName { get { return _fileName; } set { _fileName = value; } }
-
-            public BulkAssetFile()
-            {
-                _fileName = string.Empty;
-            }
         }
 
         private void buttonOk_Click(object sender, EventArgs e)

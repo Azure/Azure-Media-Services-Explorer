@@ -43,6 +43,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.labelCloudWatchFolder = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -80,7 +81,7 @@
             this.groupBox2.Controls.Add(this.checkBoxCreateSubfolder);
             this.groupBox2.Controls.Add(this.radioButtonAssetId);
             this.groupBox2.Controls.Add(this.radioButtonAssetName);
-            this.groupBox2.Location = new System.Drawing.Point(14, 365);
+            this.groupBox2.Location = new System.Drawing.Point(14, 382);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(758, 104);
             this.groupBox2.TabIndex = 1;
@@ -143,7 +144,7 @@
             this.groupBox1.Controls.Add(this.buttonDelFiles);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxAssetName);
-            this.groupBox1.Location = new System.Drawing.Point(15, 51);
+            this.groupBox1.Location = new System.Drawing.Point(15, 76);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(757, 289);
             this.groupBox1.TabIndex = 61;
@@ -218,6 +219,16 @@
             this.label5.TabIndex = 72;
             this.label5.Text = "Upload Asset(s) with an external uploader";
             // 
+            // labelCloudWatchFolder
+            // 
+            this.labelCloudWatchFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelCloudWatchFolder.Location = new System.Drawing.Point(15, 48);
+            this.labelCloudWatchFolder.Name = "labelCloudWatchFolder";
+            this.labelCloudWatchFolder.Size = new System.Drawing.Size(755, 15);
+            this.labelCloudWatchFolder.TabIndex = 78;
+            this.labelCloudWatchFolder.Text = "Using the cloud watchfolder \'{0}\'";
+            // 
             // UploadBulk
             // 
             this.AcceptButton = this.buttonOk;
@@ -226,6 +237,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.labelCloudWatchFolder);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
@@ -263,5 +275,6 @@
         private System.Windows.Forms.DataGridView dataGridAssetFiles;
         private System.Windows.Forms.Button buttonAddFiles;
         private System.Windows.Forms.Button buttonDelFiles;
+        private System.Windows.Forms.Label labelCloudWatchFolder;
     }
 }

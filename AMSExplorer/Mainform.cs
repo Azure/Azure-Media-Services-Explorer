@@ -738,6 +738,7 @@ namespace AMSExplorer
             DoRefreshGridProcessorV(false);
             DoRefreshGridStorageV(false);
             DoRefreshGridFiltersV(false);
+            DoRefreshGridIngestManifestV(false);
         }
 
         public void DoRefreshGridAssetV(bool firstime)
@@ -801,6 +802,18 @@ namespace AMSExplorer
             dataGridViewJobsV.RestoreJobProgress();
         }
 
+        public void DoRefreshGridIngestManifestV(bool firstime)
+        {
+            if (firstime)
+            {
+                dataGridViewIngestManifestsV.Init(_credentials, _context);
+                Debug.WriteLine("DoRefreshGridUngestManifestforsttime");
+                dataGridViewIngestManifestsV.AnalyzeItemsInBackground();
+            }
+            Debug.WriteLine("DoRefreshGridUngestManifestNotforsttime");
+            dataGridViewIngestManifestsV.Invoke(new Action(() => dataGridViewIngestManifestsV.RefreshIngestManifests(_context)));
+            // tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
+        }
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1831,6 +1844,15 @@ namespace AMSExplorer
                 SelectedJobs.Add(_context.Jobs.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
             SelectedJobs.Reverse();
             return SelectedJobs;
+        }
+
+        private List<IIngestManifest> ReturnSelectedIngestManifests()
+        {
+            List<IIngestManifest> SelectedIngestManifests = new List<IIngestManifest>();
+            foreach (DataGridViewRow Row in dataGridViewIngestManifestsV.SelectedRows)
+                SelectedIngestManifests.Add(_context.IngestManifests.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
+            SelectedIngestManifests.Reverse();
+            return SelectedIngestManifests;
         }
 
         private IStorageAccount ReturnSelectedStorage()
@@ -3968,6 +3990,7 @@ namespace AMSExplorer
 
             DoRefreshGridJobV(true);
             DoGridTransferInit();
+            DoRefreshGridIngestManifestV(true);
             DoRefreshGridAssetV(true);
             DoRefreshGridChannelV(true);
             DoRefreshGridProgramV(true);
@@ -10875,7 +10898,7 @@ namespace AMSExplorer
             if (StorageKeyKnown) // if we have the storage credentials
             {
                 bool Error = false;
-                ServiceProperties serviceProperties=null;
+                ServiceProperties serviceProperties = null;
                 CloudBlobClient blobClient = null;
                 try
                 {
@@ -10924,7 +10947,7 @@ namespace AMSExplorer
                         }
                     }
                 }
-                
+
             }
         }
 
@@ -11086,14 +11109,14 @@ namespace AMSExplorer
 
         private void DoBulkUpload()
         {
+            /*
             UploadBulk form = new UploadBulk(_context);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                IIngestManifest manifest = _context.IngestManifests.Create("IngestManifest-" + form.AssetName);
+                IIngestManifest manifest = _context.IngestManifests.FirstOrDefault();//.Create("IngestManifest-" + form.AssetName);
                 // Create the assets that will be associated with this bulk ingest manifest
                 IAsset destAsset = _context.Assets.Create(form.AssetName, AssetCreationOptions.None);
-
                 IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
 
                 StringBuilder sbuilderManifest = new StringBuilder();
@@ -11121,6 +11144,7 @@ namespace AMSExplorer
 
                 DoRefreshGridAssetV(false);
             }
+            */
         }
 
         private void MonitorBulkUploadProgress(CloudMediaContext context, string bulkManifestId, int index, string assetId)
@@ -11149,6 +11173,141 @@ namespace AMSExplorer
                     bContinue = false;
             }
         }
+
+        private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
+        {
+            Program.dataGridViewV_Resize(sender);
+        }
+
+        private void deleteToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DeleteIngestManifests();
+        }
+
+        private void DeleteIngestManifests()
+        {
+            var ims = ReturnSelectedIngestManifests();
+            if (ims.Count > 0)
+            {
+                string question = (ims.Count == 1) ? "Delete cloud watchfolder " + ims[0].Name + " ?" : "Delete these " + ims.Count + " cloud watchfolders ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Cloud watchfolder deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    try
+                    {
+                        Task[] deleteTasks = ims.Select(a => a.DeleteAsync()).ToArray();
+                        TextBoxLogWriteLine("Deleting cloud watchfolder(s)");
+                        this.Cursor = Cursors.WaitCursor;
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the cloud watchfolder(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Cloud watchfolder(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridIngestManifestV(false);
+                }
+            }
+        }
+
+        private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeclareAssetToUploadBulk();
+        }
+
+        private void DoDeclareAssetToUploadBulk()
+        {
+            var manifest = ReturnSelectedIngestManifests().FirstOrDefault();
+            if (manifest == null) return;
+
+            UploadBulk form = new UploadBulk(_context, manifest);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                //IIngestManifest manifest = _context.IngestManifests.FirstOrDefault();//.Create("IngestManifest-" + form.AssetName);
+                // Create the assets that will be associated with this bulk ingest manifest
+                IAsset destAsset = _context.Assets.Create(form.AssetName, AssetCreationOptions.None);
+                IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+
+                /*
+                StringBuilder sbuilderManifest = new StringBuilder();
+                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                TextBoxLogWriteLine(sbuilderManifest.ToString());
+
+                if (manifest.BlobStorageUriForUpload != null)
+                {
+                    sbuilder.Clear();
+                    sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                       // COPY to clipboard. We need to create a STA thread for it
+                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                    MyThread.SetApartmentState(ApartmentState.STA);
+                    MyThread.IsBackground = true;
+                    MyThread.Start(sbuilder.ToString());
+                }
+                int index = DoGridTransferAddItem("Upload to AMS with external tool (" + manifest.Name + ")", TransferType.UploadWithExternalTool, false);
+                // Start a worker thread that does copy.
+                Task.Factory.StartNew(() => MonitorBulkUploadProgress(_context, manifest.Id, index, destAsset.Id));
+                DotabControlMainSwitch(Constants.TabTransfers);
+
+                DoRefreshGridAssetV(false);
+                */
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoNewIngestManifest();
+        }
+
+        private void DoNewIngestManifest()
+        {
+            BulkCreateManifest form = new BulkCreateManifest(_context);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName);
+
+                StringBuilder sbuilderManifest = new StringBuilder();
+                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                TextBoxLogWriteLine(sbuilderManifest.ToString());
+
+                sbuilder.Clear();
+                sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                   // COPY to clipboard. We need to create a STA thread for it
+                System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                MyThread.SetApartmentState(ApartmentState.STA);
+                MyThread.IsBackground = true;
+                MyThread.Start(sbuilder.ToString());
+
+                DoRefreshGridIngestManifestV(false);
+            }
+        }
+
+        private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyIngestURL();
+        }
+
+        private void DoCopyIngestURL()
+        {
+            var im = ReturnSelectedIngestManifests().FirstOrDefault();
+            if (im!= null)
+            {
+                System.Windows.Forms.Clipboard.SetText(im.BlobStorageUriForUpload);
+            }
+        }
     }
 }
 
@@ -11157,7 +11316,7 @@ namespace AMSExplorer
 namespace AMSExplorer
 {
     /// <summary>
-    /// A DataGridViewColumn implementation that provides a column that
+    /// AataGridViewColumn implementation that provides a column that
     /// will display a progress bar.
     /// </summary>
     public class DataGridViewProgressBarColumn : DataGridViewTextBoxColumn
@@ -11507,8 +11666,6 @@ namespace AMSExplorer
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
-        //public IQueryable<IAsset> assets;
-        //public List<IAsset> assets;
         static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
 
         static private int _assetsperpage = 50; //nb of items per page

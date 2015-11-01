@@ -30,11 +30,11 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Mainform));
-            AMSExplorer.SearchObject searchObject4 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject1 = new AMSExplorer.SearchObject();
             AMSExplorer.SearchObject searchObject2 = new AMSExplorer.SearchObject();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            AMSExplorer.SearchObject searchObject3 = new AMSExplorer.SearchObject();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.contextMenuStripAssets = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.refreshToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
@@ -119,6 +119,7 @@
             this.fromMultipleFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchUploadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.setupAWatchFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createOutlookReportEmailToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem29 = new System.Windows.Forms.ToolStripMenuItem();
             this.copyToClipboardToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
@@ -422,6 +423,12 @@
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
+            this.dataGridViewIngestManifestsV = new AMSExplorer.DataGridViewIngestManifest();
+            this.contextMenuStripIngestManifests = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
+            this.defineAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
             this.comboBoxSearchJobOption = new System.Windows.Forms.ComboBox();
@@ -481,7 +488,7 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -504,6 +511,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).BeginInit();
             this.contextMenuStripFilters.SuspendLayout();
             this.tabPageTransfers.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).BeginInit();
+            this.contextMenuStripIngestManifests.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).BeginInit();
             this.tabPageJobs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobsV)).BeginInit();
@@ -1290,6 +1299,13 @@
             this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
             this.setupAWatchFolderToolStripMenuItem.Text = "Setup a watch folder";
             this.setupAWatchFolderToolStripMenuItem.Click += new System.EventHandler(this.setupAWatchFolderToolStripMenuItem_Click);
+            // 
+            // withAnExternalAsperaSignantAzCopyToolStripMenuItem
+            // 
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name = "withAnExternalAsperaSignantAzCopyToolStripMenuItem";
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "With an high speed client application (Aspera/Signant/AzCopy)...";
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Click += new System.EventHandler(this.withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click);
             // 
             // createOutlookReportEmailToolStripMenuItem1
             // 
@@ -3894,9 +3910,9 @@
             this.dataGridViewAssetsV.OrderAssetsInGrid = "Last modified";
             this.dataGridViewAssetsV.ReadOnly = true;
             this.dataGridViewAssetsV.RowHeadersVisible = false;
-            searchObject4.SearchType = AMSExplorer.SearchIn.AssetName;
-            searchObject4.Text = "";
-            this.dataGridViewAssetsV.SearchInName = searchObject4;
+            searchObject1.SearchType = AMSExplorer.SearchIn.AssetName;
+            searchObject1.Text = "";
+            this.dataGridViewAssetsV.SearchInName = searchObject1;
             this.dataGridViewAssetsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAssetsV.Size = new System.Drawing.Size(994, 401);
             this.dataGridViewAssetsV.StateFilter = "";
@@ -4056,6 +4072,7 @@
             // tabPageTransfers
             // 
             this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageTransfers.Controls.Add(this.dataGridViewIngestManifestsV);
             this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
             this.tabPageTransfers.Location = new System.Drawing.Point(4, 24);
             this.tabPageTransfers.Name = "tabPageTransfers";
@@ -4063,6 +4080,62 @@
             this.tabPageTransfers.Size = new System.Drawing.Size(1006, 441);
             this.tabPageTransfers.TabIndex = 2;
             this.tabPageTransfers.Text = "Transfers";
+            // 
+            // dataGridViewIngestManifestsV
+            // 
+            this.dataGridViewIngestManifestsV.AllowUserToAddRows = false;
+            this.dataGridViewIngestManifestsV.AllowUserToDeleteRows = false;
+            this.dataGridViewIngestManifestsV.AllowUserToResizeRows = false;
+            this.dataGridViewIngestManifestsV.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridViewIngestManifestsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewIngestManifestsV.ContextMenuStrip = this.contextMenuStripIngestManifests;
+            this.dataGridViewIngestManifestsV.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewIngestManifestsV.MultiSelect = false;
+            this.dataGridViewIngestManifestsV.Name = "dataGridViewIngestManifestsV";
+            this.dataGridViewIngestManifestsV.ReadOnly = true;
+            this.dataGridViewIngestManifestsV.RowHeadersVisible = false;
+            this.dataGridViewIngestManifestsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewIngestManifestsV.Size = new System.Drawing.Size(997, 114);
+            this.dataGridViewIngestManifestsV.TabIndex = 33;
+            this.dataGridViewIngestManifestsV.Resize += new System.EventHandler(this.dataGridViewIngestManifestsV_Resize);
+            // 
+            // contextMenuStripIngestManifests
+            // 
+            this.contextMenuStripIngestManifests.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.deleteToolStripMenuItem3,
+            this.toolStripSeparator41,
+            this.copyIngestURLToClipboardToolStripMenuItem,
+            this.defineAssetToolStripMenuItem});
+            this.contextMenuStripIngestManifests.Name = "contextMenuStripIngestManifests";
+            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(229, 120);
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.newToolStripMenuItem.Text = "New...";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem3
+            // 
+            this.deleteToolStripMenuItem3.Name = "deleteToolStripMenuItem3";
+            this.deleteToolStripMenuItem3.Size = new System.Drawing.Size(228, 22);
+            this.deleteToolStripMenuItem3.Text = "Delete...";
+            this.deleteToolStripMenuItem3.Click += new System.EventHandler(this.deleteToolStripMenuItem3_Click);
+            // 
+            // toolStripSeparator41
+            // 
+            this.toolStripSeparator41.Name = "toolStripSeparator41";
+            this.toolStripSeparator41.Size = new System.Drawing.Size(225, 6);
+            // 
+            // defineAssetToolStripMenuItem
+            // 
+            this.defineAssetToolStripMenuItem.Name = "defineAssetToolStripMenuItem";
+            this.defineAssetToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.defineAssetToolStripMenuItem.Text = "Define asset...";
+            this.defineAssetToolStripMenuItem.Click += new System.EventHandler(this.defineAssetToolStripMenuItem_Click);
             // 
             // dataGridViewTransfer
             // 
@@ -4074,13 +4147,13 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewTransfer.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTransfer.ContextMenuStrip = this.contextMenuStripTransfers;
-            this.dataGridViewTransfer.Location = new System.Drawing.Point(6, 6);
+            this.dataGridViewTransfer.Location = new System.Drawing.Point(6, 136);
             this.dataGridViewTransfer.MultiSelect = false;
             this.dataGridViewTransfer.Name = "dataGridViewTransfer";
             this.dataGridViewTransfer.ReadOnly = true;
             this.dataGridViewTransfer.RowHeadersVisible = false;
             this.dataGridViewTransfer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 429);
+            this.dataGridViewTransfer.Size = new System.Drawing.Size(997, 299);
             this.dataGridViewTransfer.TabIndex = 32;
             this.dataGridViewTransfer.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTransfer_CellContentClick);
             this.dataGridViewTransfer.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewTransfer_CellFormatting);
@@ -4549,9 +4622,9 @@
             this.dataGridViewProgramsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewProgramsV.ReadOnly = true;
             this.dataGridViewProgramsV.RowHeadersVisible = false;
-            searchObject1.SearchType = AMSExplorer.SearchIn.ProgramName;
-            searchObject1.Text = "";
-            this.dataGridViewProgramsV.SearchInName = searchObject1;
+            searchObject2.SearchType = AMSExplorer.SearchIn.ProgramName;
+            searchObject2.Text = "";
+            this.dataGridViewProgramsV.SearchInName = searchObject2;
             this.dataGridViewProgramsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewProgramsV.Size = new System.Drawing.Size(993, 152);
             this.dataGridViewProgramsV.TabIndex = 31;
@@ -4578,9 +4651,9 @@
             this.dataGridViewChannelsV.OrderItemsInGrid = "Last modified";
             this.dataGridViewChannelsV.ReadOnly = true;
             this.dataGridViewChannelsV.RowHeadersVisible = false;
-            searchObject2.SearchType = AMSExplorer.SearchIn.ChannelName;
-            searchObject2.Text = "";
-            this.dataGridViewChannelsV.SearchInName = searchObject2;
+            searchObject3.SearchType = AMSExplorer.SearchIn.ChannelName;
+            searchObject3.Text = "";
+            this.dataGridViewChannelsV.SearchInName = searchObject3;
             this.dataGridViewChannelsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewChannelsV.Size = new System.Drawing.Size(993, 159);
             this.dataGridViewChannelsV.TabIndex = 30;
@@ -4842,10 +4915,10 @@
             this.chart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea2.Name = "ChartArea1";
-            this.chart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chart.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            this.chart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(5, 33);
             this.chart.Name = "chart";
             this.chart.Size = new System.Drawing.Size(997, 402);
@@ -4889,12 +4962,12 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // withAnExternalAsperaSignantAzCopyToolStripMenuItem
+            // copyIngestURLToClipboardToolStripMenuItem
             // 
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name = "withAnExternalAsperaSignantAzCopyToolStripMenuItem";
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "With an high speed client application (Aspera/Signant/AzCopy)...";
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Click += new System.EventHandler(this.withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click);
+            this.copyIngestURLToClipboardToolStripMenuItem.Name = "copyIngestURLToClipboardToolStripMenuItem";
+            this.copyIngestURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.copyIngestURLToClipboardToolStripMenuItem.Text = "Copy Ingest URL to clipboard";
+            this.copyIngestURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyIngestURLToClipboardToolStripMenuItem_Click);
             // 
             // Mainform
             // 
@@ -4939,6 +5012,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilters.ResumeLayout(false);
             this.tabPageTransfers.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).EndInit();
+            this.contextMenuStripIngestManifests.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
             this.tabPageJobs.ResumeLayout(false);
             this.tabPageJobs.PerformLayout();
@@ -5413,6 +5488,13 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
         private System.Windows.Forms.CheckBox checkBoxAnyChannel;
         private System.Windows.Forms.ToolStripMenuItem withAnExternalAsperaSignantAzCopyToolStripMenuItem;
+        private DataGridViewIngestManifest dataGridViewIngestManifestsV;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripIngestManifests;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem3;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator41;
+        private System.Windows.Forms.ToolStripMenuItem defineAssetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyIngestURLToClipboardToolStripMenuItem;
     }
 }
 
