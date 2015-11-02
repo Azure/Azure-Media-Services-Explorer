@@ -808,7 +808,7 @@ namespace AMSExplorer
             {
                 dataGridViewIngestManifestsV.Init(_credentials, _context);
                 Debug.WriteLine("DoRefreshGridUngestManifestforsttime");
-                dataGridViewIngestManifestsV.AnalyzeItemsInBackground();
+                //dataGridViewIngestManifestsV.AnalyzeItemsInBackground();
             }
             Debug.WriteLine("DoRefreshGridUngestManifestNotforsttime");
             dataGridViewIngestManifestsV.Invoke(new Action(() => dataGridViewIngestManifestsV.RefreshIngestManifests(_context)));

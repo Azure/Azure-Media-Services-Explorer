@@ -292,7 +292,7 @@ namespace AMSExplorer
                     }
                 }
 
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(10000); // 10s
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;
@@ -322,6 +322,16 @@ namespace AMSExplorer
                           };
             _MyObservIngestManifest = new BindingList<IngestManifestEntry>(imquery.ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservIngestManifest));
+
+            if (_MyObservIngestManifest.Count > 0)
+            {
+                AnalyzeItemsInBackground();
+            }
+            else
+            {
+                WorkerUpdateIngestManifest.CancelAsync();
+            }
+
             Debug.WriteLine("Refresh Ingest Manifest End");
             this.FindForm().Cursor = Cursors.Default;
         }
