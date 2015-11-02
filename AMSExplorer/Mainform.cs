@@ -11109,6 +11109,25 @@ namespace AMSExplorer
 
         private void DoBulkUpload()
         {
+            bool usercancelled = false;
+            if (_context.IngestManifests.Count() == 0)
+            {
+                // no bulk container
+
+                if (MessageBox.Show("There is no bulk ingest container configured.\nCreate one ?", "Bulk ingest container", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    usercancelled = !DoNewIngestManifest();
+                }
+                else
+                {
+                    usercancelled = true;
+                }
+            }
+
+            if (!usercancelled && _context.IngestManifests.Count() > 0)
+            {
+                DoDeclareAssetToUploadBulk(_context.IngestManifests.FirstOrDefault());
+            }
             /*
             UploadBulk form = new UploadBulk(_context);
 
@@ -11147,32 +11166,7 @@ namespace AMSExplorer
             */
         }
 
-        private void MonitorBulkUploadProgress(CloudMediaContext context, string bulkManifestId, int index, string assetId)
-        {
-            bool bContinue = true;
-            while (bContinue)
-            {
-                IIngestManifest manifest = context.IngestManifests.Where(m => m.Id == bulkManifestId).FirstOrDefault();
 
-                if (manifest != null)
-                {
-                    DoGridTransferUpdateProgressText(
-                        string.Format("Pending Files : {0}, Finished Files : {1}", manifest.Statistics.PendingFilesCount, manifest.Statistics.FinishedFilesCount),
-                        (float)manifest.Statistics.FinishedFilesCount / (float)(manifest.Statistics.FinishedFilesCount + manifest.Statistics.PendingFilesCount) * 100,
-                        index);
-                    if (manifest.Statistics.PendingFilesCount == 0)
-                    {
-                        DoGridTransferDeclareCompleted(index, assetId);
-                        bContinue = false;
-                    }
-
-                    if (manifest.Statistics.FinishedFilesCount < manifest.Statistics.PendingFilesCount)
-                        Thread.Sleep(2000);
-                }
-                else // Manifest is null
-                    bContinue = false;
-            }
-        }
 
         private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
         {
@@ -11216,49 +11210,19 @@ namespace AMSExplorer
 
         private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeclareAssetToUploadBulk();
+            DoDeclareAssetToUploadBulk(ReturnSelectedIngestManifests().FirstOrDefault());
         }
 
-        private void DoDeclareAssetToUploadBulk()
+        private void DoDeclareAssetToUploadBulk(IIngestManifest manifest)
         {
-            var manifest = ReturnSelectedIngestManifests().FirstOrDefault();
             if (manifest == null) return;
 
-            UploadBulk form = new UploadBulk(_context, manifest);
-
+            BulkUpload form = new BulkUpload(_context, manifest);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                //IIngestManifest manifest = _context.IngestManifests.FirstOrDefault();//.Create("IngestManifest-" + form.AssetName);
                 // Create the assets that will be associated with this bulk ingest manifest
-                IAsset destAsset = _context.Assets.Create(form.AssetName, AssetCreationOptions.None);
+                IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
                 IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-
-                /*
-                StringBuilder sbuilderManifest = new StringBuilder();
-                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
-                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
-                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
-                TextBoxLogWriteLine(sbuilderManifest.ToString());
-
-                if (manifest.BlobStorageUriForUpload != null)
-                {
-                    sbuilder.Clear();
-                    sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
-                                                                       // COPY to clipboard. We need to create a STA thread for it
-                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                    MyThread.SetApartmentState(ApartmentState.STA);
-                    MyThread.IsBackground = true;
-                    MyThread.Start(sbuilder.ToString());
-                }
-                int index = DoGridTransferAddItem("Upload to AMS with external tool (" + manifest.Name + ")", TransferType.UploadWithExternalTool, false);
-                // Start a worker thread that does copy.
-                Task.Factory.StartNew(() => MonitorBulkUploadProgress(_context, manifest.Id, index, destAsset.Id));
-                DotabControlMainSwitch(Constants.TabTransfers);
-
-                DoRefreshGridAssetV(false);
-                */
             }
         }
 
@@ -11267,13 +11231,13 @@ namespace AMSExplorer
             DoNewIngestManifest();
         }
 
-        private void DoNewIngestManifest()
+        private bool DoNewIngestManifest() // return false if user cancelled
         {
             BulkCreateManifest form = new BulkCreateManifest(_context);
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName);
+                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName, form.StorageSelected);
 
                 StringBuilder sbuilderManifest = new StringBuilder();
                 sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
@@ -11292,7 +11256,13 @@ namespace AMSExplorer
                 MyThread.Start(sbuilder.ToString());
 
                 DoRefreshGridIngestManifestV(false);
+                return true;
             }
+            else
+            {
+                return false;
+            }
+
         }
 
         private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -11300,13 +11270,59 @@ namespace AMSExplorer
             DoCopyIngestURL();
         }
 
-        private void DoCopyIngestURL()
+        private void DoCopyIngestURL(bool Aspera = false)
         {
             var im = ReturnSelectedIngestManifests().FirstOrDefault();
-            if (im!= null)
+            if (im != null)
             {
-                System.Windows.Forms.Clipboard.SetText(im.BlobStorageUriForUpload);
+                string myurl = string.Empty;
+                if (!Aspera)
+                {
+                    myurl = im.BlobStorageUriForUpload;
+                    TextBoxLogWriteLine("Bulk Ingest URL : {0}", myurl);
+                }
+                else
+                {
+                    string storKey = "InsertStorageKey";
+                    if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+                    {
+                        storKey = _credentials.StorageKey;
+                    }
+                    myurl = "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
+                    TextBoxLogWriteLine("Bulk Ingest URL (Aspera) : {0}", myurl);
+                }
+                System.Windows.Forms.Clipboard.SetText(myurl);
             }
+        }
+
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoBulkContainerInfo();
+        }
+
+        private void DoBulkContainerInfo()
+        {
+            var manifest = ReturnSelectedIngestManifests().FirstOrDefault();
+            if (manifest != null)
+            {
+                var form = new BulkContainerInfo(this, _context, manifest);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    manifest.Name = form.IngestManifestName;
+                    Task.Run(async () =>
+                    {
+                        await manifest.UpdateAsync();
+                        DoRefreshGridIngestManifestV(false);
+                    }
+           );
+                }
+            }
+        }
+
+        private void copyAsperaURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyIngestURL(true);
         }
     }
 }

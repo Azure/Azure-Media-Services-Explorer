@@ -59,21 +59,6 @@ namespace AMSExplorer
             }
         }
 
-        private DateTime _LastModified;
-        public DateTime LastModified
-        {
-            get
-            { return _LastModified; }
-            set
-            {
-                if (value != _LastModified)
-                {
-                    _LastModified = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
-
         private string _StorageAccountName;
         public string StorageAccountName
         {
@@ -89,16 +74,31 @@ namespace AMSExplorer
             }
         }
 
-        private string _Statistics;
-        public string Statistics
+        private int _PendingFiles;
+        public int PendingFiles
         {
             get
-            { return _Statistics; }
+            { return _PendingFiles; }
             set
             {
-                if (value != _Statistics)
+                if (value != _PendingFiles)
                 {
-                    _Statistics = value;
+                    _PendingFiles = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private int _FinishedFiles;
+        public int FinishedFiles
+        {
+            get
+            { return _FinishedFiles; }
+            set
+            {
+                if (value != _FinishedFiles)
+                {
+                    _FinishedFiles = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -129,6 +129,21 @@ namespace AMSExplorer
                 if (value != _Progress)
                 {
                     _Progress = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private DateTime _LastModified;
+        public DateTime LastModified
+        {
+            get
+            { return _LastModified; }
+            set
+            {
+                if (value != _LastModified)
+                {
+                    _LastModified = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -190,7 +205,7 @@ namespace AMSExplorer
             this.Columns.Add(col);
             BindingList<IngestManifestEntry> MyObservJobInPage = new BindingList<IngestManifestEntry>(ingestmanifestquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
-            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayJobIDinGrid;
+            this.Columns["Id"].Visible = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
             this.Columns["Progress"].DisplayIndex = 5;
             this.Columns["Progress"].Width = 150;
             // this.Columns["Tasks"].Width = 50;
@@ -241,12 +256,20 @@ namespace AMSExplorer
                 foreach (var im in _context.IngestManifests.ToList())
                 {
                     var img = _MyObservIngestManifest.Where(i => i.Id == im.Id).FirstOrDefault();
-                    if (img!=null)
+                    if (img != null)
                     {
                         img.State = im.State;
                         img.LastModified = im.LastModified.ToLocalTime();
-                        img.Statistics = string.Format("Pending Files : {0}, Finished Files : {1}", im.Statistics.PendingFilesCount, im.Statistics.FinishedFilesCount);
-                        img.Progress = (float)im.Statistics.FinishedFilesCount / (float)(im.Statistics.FinishedFilesCount + im.Statistics.PendingFilesCount) * 100;
+                        img.PendingFiles = im.Statistics.PendingFilesCount;
+                        img.FinishedFiles = im.Statistics.FinishedFilesCount;
+                        if (im.Statistics.FinishedFilesCount + im.Statistics.PendingFilesCount==0)
+                        {
+                            img.Progress = 101;
+                        }
+                        else
+                        {
+                            img.Progress = (float)im.Statistics.FinishedFilesCount / (float)(im.Statistics.FinishedFilesCount + im.Statistics.PendingFilesCount) * 100;
+                        }
                     }
                 }
 

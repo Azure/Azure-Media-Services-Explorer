@@ -31,7 +31,7 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class UploadBulk : Form
+    public partial class BulkUpload : Form
     {
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
@@ -53,23 +53,16 @@ namespace AMSExplorer
             }
         }
 
-        public DownloadToFolderOption FolderOption
+        public string StorageSelected
         {
             get
             {
-                DownloadToFolderOption option = DownloadToFolderOption.DoNotCreateSubfolder;
-                if (checkBoxCreateSubfolder.Checked)
-                {
-                    option = radioButtonAssetName.Checked ? DownloadToFolderOption.SubfolderAssetName : DownloadToFolderOption.SubfolderAssetId;
-                }
-                return option;
+                return ((Item)comboBoxStorage.SelectedItem).Value;
             }
-
         }
 
-
-
-        public UploadBulk(CloudMediaContext context, IIngestManifest manifest)
+      
+        public BulkUpload(CloudMediaContext context, IIngestManifest manifest)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -80,7 +73,15 @@ namespace AMSExplorer
 
         private void UploadBulk_Load(object sender, EventArgs e)
         {
-            labelCloudWatchFolder.Text = string.Format(labelCloudWatchFolder.Text, _manifest.Name);
+            comboBoxStorage.Items.Clear();
+            foreach (var storage in _context.StorageAccounts)
+            {
+                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
+                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+            }
+
+            labelUsingBulkContLabel.Text = string.Format(labelUsingBulkContLabel.Text, _manifest.Name);
+
         }
 
 
@@ -111,11 +112,6 @@ namespace AMSExplorer
             {
                 _fileName = string.Empty;
             }
-        }
-
-        private void buttonOk_Click(object sender, EventArgs e)
-        {
-
         }
     }
 

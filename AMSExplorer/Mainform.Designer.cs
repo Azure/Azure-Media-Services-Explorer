@@ -423,11 +423,17 @@
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.duplicateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPageTransfers = new System.Windows.Forms.TabPage();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.dataGridViewIngestManifestsV = new AMSExplorer.DataGridViewIngestManifest();
             this.contextMenuStripIngestManifests = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyAsperaURLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator42 = new System.Windows.Forms.ToolStripSeparator();
             this.defineAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.tabPageJobs = new System.Windows.Forms.TabPage();
@@ -488,7 +494,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.copyIngestURLToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -1268,7 +1273,7 @@
             // 
             this.fromASingleFileToolStripMenuItem.Name = "fromASingleFileToolStripMenuItem";
             this.fromASingleFileToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.U)));
-            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.fromASingleFileToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
             this.fromASingleFileToolStripMenuItem.Text = "From local files (single file assets)...";
             this.fromASingleFileToolStripMenuItem.Click += new System.EventHandler(this.fromASingleFileToolStripMenuItem_Click);
             // 
@@ -1277,7 +1282,7 @@
             this.fromMultipleFilesToolStripMenuItem.Name = "fromMultipleFilesToolStripMenuItem";
             this.fromMultipleFilesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.fromMultipleFilesToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
             this.fromMultipleFilesToolStripMenuItem.Text = "From a local folder (multiple files asset)...";
             this.fromMultipleFilesToolStripMenuItem.Click += new System.EventHandler(this.fromMultipleFilesToolStripMenuItem_Click);
             // 
@@ -1287,7 +1292,7 @@
             this.batchUploadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Alt) 
             | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.U)));
-            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.batchUploadToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
             this.batchUploadToolStripMenuItem.Text = "Batch upload...";
             this.batchUploadToolStripMenuItem.Click += new System.EventHandler(this.batchUploadToolStripMenuItem_Click);
             // 
@@ -1296,15 +1301,15 @@
             this.setupAWatchFolderToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("setupAWatchFolderToolStripMenuItem.Image")));
             this.setupAWatchFolderToolStripMenuItem.Name = "setupAWatchFolderToolStripMenuItem";
             this.setupAWatchFolderToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
+            this.setupAWatchFolderToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
             this.setupAWatchFolderToolStripMenuItem.Text = "Setup a watch folder";
             this.setupAWatchFolderToolStripMenuItem.Click += new System.EventHandler(this.setupAWatchFolderToolStripMenuItem_Click);
             // 
             // withAnExternalAsperaSignantAzCopyToolStripMenuItem
             // 
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Name = "withAnExternalAsperaSignantAzCopyToolStripMenuItem";
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(417, 22);
-            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "With an high speed client application (Aspera/Signant/AzCopy)...";
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Size = new System.Drawing.Size(364, 22);
+            this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Text = "Bulk upload (for use with an external uploader)...";
             this.withAnExternalAsperaSignantAzCopyToolStripMenuItem.Click += new System.EventHandler(this.withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click);
             // 
             // createOutlookReportEmailToolStripMenuItem1
@@ -4072,6 +4077,8 @@
             // tabPageTransfers
             // 
             this.tabPageTransfers.BackColor = System.Drawing.SystemColors.Window;
+            this.tabPageTransfers.Controls.Add(this.label8);
+            this.tabPageTransfers.Controls.Add(this.label7);
             this.tabPageTransfers.Controls.Add(this.dataGridViewIngestManifestsV);
             this.tabPageTransfers.Controls.Add(this.dataGridViewTransfer);
             this.tabPageTransfers.Location = new System.Drawing.Point(4, 24);
@@ -4080,6 +4087,26 @@
             this.tabPageTransfers.Size = new System.Drawing.Size(1006, 441);
             this.tabPageTransfers.TabIndex = 2;
             this.tabPageTransfers.Text = "Transfers";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(6, 120);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(125, 13);
+            this.label8.TabIndex = 35;
+            this.label8.Text = "Transfers with Explorer";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(217, 13);
+            this.label7.TabIndex = 34;
+            this.label7.Text = "Bulk Ingest Containers (external upload)";
             // 
             // dataGridViewIngestManifestsV
             // 
@@ -4090,13 +4117,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridViewIngestManifestsV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewIngestManifestsV.ContextMenuStrip = this.contextMenuStripIngestManifests;
-            this.dataGridViewIngestManifestsV.Location = new System.Drawing.Point(6, 6);
-            this.dataGridViewIngestManifestsV.MultiSelect = false;
+            this.dataGridViewIngestManifestsV.Location = new System.Drawing.Point(6, 19);
             this.dataGridViewIngestManifestsV.Name = "dataGridViewIngestManifestsV";
             this.dataGridViewIngestManifestsV.ReadOnly = true;
             this.dataGridViewIngestManifestsV.RowHeadersVisible = false;
             this.dataGridViewIngestManifestsV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewIngestManifestsV.Size = new System.Drawing.Size(997, 114);
+            this.dataGridViewIngestManifestsV.Size = new System.Drawing.Size(997, 89);
             this.dataGridViewIngestManifestsV.TabIndex = 33;
             this.dataGridViewIngestManifestsV.Resize += new System.EventHandler(this.dataGridViewIngestManifestsV_Resize);
             // 
@@ -4104,36 +4130,65 @@
             // 
             this.contextMenuStripIngestManifests.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
+            this.infoToolStripMenuItem,
             this.deleteToolStripMenuItem3,
             this.toolStripSeparator41,
             this.copyIngestURLToClipboardToolStripMenuItem,
+            this.copyAsperaURLToolStripMenuItem,
+            this.toolStripSeparator42,
             this.defineAssetToolStripMenuItem});
             this.contextMenuStripIngestManifests.Name = "contextMenuStripIngestManifests";
-            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(229, 120);
+            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(276, 148);
             // 
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
             this.newToolStripMenuItem.Text = "New...";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // infoToolStripMenuItem
+            // 
+            this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
+            this.infoToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.infoToolStripMenuItem.Text = "Info...";
+            this.infoToolStripMenuItem.Click += new System.EventHandler(this.infoToolStripMenuItem_Click);
             // 
             // deleteToolStripMenuItem3
             // 
             this.deleteToolStripMenuItem3.Name = "deleteToolStripMenuItem3";
-            this.deleteToolStripMenuItem3.Size = new System.Drawing.Size(228, 22);
+            this.deleteToolStripMenuItem3.Size = new System.Drawing.Size(275, 22);
             this.deleteToolStripMenuItem3.Text = "Delete...";
             this.deleteToolStripMenuItem3.Click += new System.EventHandler(this.deleteToolStripMenuItem3_Click);
             // 
             // toolStripSeparator41
             // 
             this.toolStripSeparator41.Name = "toolStripSeparator41";
-            this.toolStripSeparator41.Size = new System.Drawing.Size(225, 6);
+            this.toolStripSeparator41.Size = new System.Drawing.Size(272, 6);
+            // 
+            // copyIngestURLToClipboardToolStripMenuItem
+            // 
+            this.copyIngestURLToClipboardToolStripMenuItem.Name = "copyIngestURLToClipboardToolStripMenuItem";
+            this.copyIngestURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.copyIngestURLToClipboardToolStripMenuItem.Text = "Copy Ingest URL to clipboard";
+            this.copyIngestURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyIngestURLToClipboardToolStripMenuItem_Click);
+            // 
+            // copyAsperaURLToolStripMenuItem
+            // 
+            this.copyAsperaURLToolStripMenuItem.Name = "copyAsperaURLToolStripMenuItem";
+            this.copyAsperaURLToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
+            this.copyAsperaURLToolStripMenuItem.Text = "Copy Ingest URL (Aspera) to clipboard";
+            this.copyAsperaURLToolStripMenuItem.Click += new System.EventHandler(this.copyAsperaURLToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator42
+            // 
+            this.toolStripSeparator42.Name = "toolStripSeparator42";
+            this.toolStripSeparator42.Size = new System.Drawing.Size(272, 6);
             // 
             // defineAssetToolStripMenuItem
             // 
             this.defineAssetToolStripMenuItem.Name = "defineAssetToolStripMenuItem";
-            this.defineAssetToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.defineAssetToolStripMenuItem.Size = new System.Drawing.Size(275, 22);
             this.defineAssetToolStripMenuItem.Text = "Define asset...";
             this.defineAssetToolStripMenuItem.Click += new System.EventHandler(this.defineAssetToolStripMenuItem_Click);
             // 
@@ -4962,13 +5017,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // copyIngestURLToClipboardToolStripMenuItem
-            // 
-            this.copyIngestURLToClipboardToolStripMenuItem.Name = "copyIngestURLToClipboardToolStripMenuItem";
-            this.copyIngestURLToClipboardToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
-            this.copyIngestURLToClipboardToolStripMenuItem.Text = "Copy Ingest URL to clipboard";
-            this.copyIngestURLToClipboardToolStripMenuItem.Click += new System.EventHandler(this.copyIngestURLToClipboardToolStripMenuItem_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5012,6 +5060,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFilters)).EndInit();
             this.contextMenuStripFilters.ResumeLayout(false);
             this.tabPageTransfers.ResumeLayout(false);
+            this.tabPageTransfers.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewIngestManifestsV)).EndInit();
             this.contextMenuStripIngestManifests.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTransfer)).EndInit();
@@ -5495,6 +5544,11 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator41;
         private System.Windows.Forms.ToolStripMenuItem defineAssetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyIngestURLToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem infoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyAsperaURLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator42;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class UploadBulk
+    partial class BulkUpload
     {
         /// <summary>
         /// Required designer variable.
@@ -30,10 +30,6 @@
         {
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBoxCreateSubfolder = new System.Windows.Forms.CheckBox();
-            this.radioButtonAssetId = new System.Windows.Forms.RadioButton();
-            this.radioButtonAssetName = new System.Windows.Forms.RadioButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -43,8 +39,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.labelCloudWatchFolder = new System.Windows.Forms.Label();
-            this.groupBox2.SuspendLayout();
+            this.label33 = new System.Windows.Forms.Label();
+            this.comboBoxStorage = new System.Windows.Forms.ComboBox();
+            this.labelUsingBulkContLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridAssetFiles)).BeginInit();
@@ -54,73 +51,24 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Location = new System.Drawing.Point(510, 14);
+            this.buttonOk.Location = new System.Drawing.Point(310, 14);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(143, 27);
             this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "Generate Upload URL";
             this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(660, 14);
+            this.buttonCancel.Location = new System.Drawing.Point(460, 14);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(112, 27);
             this.buttonCancel.TabIndex = 5;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.checkBoxCreateSubfolder);
-            this.groupBox2.Controls.Add(this.radioButtonAssetId);
-            this.groupBox2.Controls.Add(this.radioButtonAssetName);
-            this.groupBox2.Location = new System.Drawing.Point(14, 382);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(758, 104);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Options";
-            // 
-            // checkBoxCreateSubfolder
-            // 
-            this.checkBoxCreateSubfolder.AutoSize = true;
-            this.checkBoxCreateSubfolder.Checked = true;
-            this.checkBoxCreateSubfolder.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCreateSubfolder.Location = new System.Drawing.Point(26, 22);
-            this.checkBoxCreateSubfolder.Name = "checkBoxCreateSubfolder";
-            this.checkBoxCreateSubfolder.Size = new System.Drawing.Size(179, 19);
-            this.checkBoxCreateSubfolder.TabIndex = 72;
-            this.checkBoxCreateSubfolder.Text = "Create a subfolder based on :";
-            this.checkBoxCreateSubfolder.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAssetId
-            // 
-            this.radioButtonAssetId.AutoSize = true;
-            this.radioButtonAssetId.Location = new System.Drawing.Point(55, 73);
-            this.radioButtonAssetId.Name = "radioButtonAssetId";
-            this.radioButtonAssetId.Size = new System.Drawing.Size(66, 19);
-            this.radioButtonAssetId.TabIndex = 71;
-            this.radioButtonAssetId.Text = "Asset Id";
-            this.radioButtonAssetId.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonAssetName
-            // 
-            this.radioButtonAssetName.AutoSize = true;
-            this.radioButtonAssetName.Checked = true;
-            this.radioButtonAssetName.Location = new System.Drawing.Point(55, 48);
-            this.radioButtonAssetName.Name = "radioButtonAssetName";
-            this.radioButtonAssetName.Size = new System.Drawing.Size(86, 19);
-            this.radioButtonAssetName.TabIndex = 4;
-            this.radioButtonAssetName.TabStop = true;
-            this.radioButtonAssetName.Text = "Asset name";
-            this.radioButtonAssetName.UseVisualStyleBackColor = true;
             // 
             // panel1
             // 
@@ -131,25 +79,27 @@
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 507);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(787, 55);
+            this.panel1.Size = new System.Drawing.Size(587, 55);
             this.panel1.TabIndex = 60;
             // 
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label33);
+            this.groupBox1.Controls.Add(this.comboBoxStorage);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.dataGridAssetFiles);
             this.groupBox1.Controls.Add(this.buttonAddFiles);
             this.groupBox1.Controls.Add(this.buttonDelFiles);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Controls.Add(this.textBoxAssetName);
-            this.groupBox1.Location = new System.Drawing.Point(15, 76);
+            this.groupBox1.Location = new System.Drawing.Point(15, 105);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(757, 289);
+            this.groupBox1.Size = new System.Drawing.Size(557, 367);
             this.groupBox1.TabIndex = 61;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Local folder";
+            this.groupBox1.Text = "Asset";
             // 
             // label2
             // 
@@ -168,7 +118,7 @@
             this.dataGridAssetFiles.Name = "dataGridAssetFiles";
             this.dataGridAssetFiles.RowHeadersVisible = false;
             this.dataGridAssetFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridAssetFiles.Size = new System.Drawing.Size(392, 122);
+            this.dataGridAssetFiles.Size = new System.Drawing.Size(270, 122);
             this.dataGridAssetFiles.TabIndex = 74;
             // 
             // buttonAddFiles
@@ -205,7 +155,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxAssetName.Location = new System.Drawing.Point(22, 47);
             this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(622, 23);
+            this.textBoxAssetName.Size = new System.Drawing.Size(517, 23);
             this.textBoxAssetName.TabIndex = 0;
             // 
             // label5
@@ -219,36 +169,49 @@
             this.label5.TabIndex = 72;
             this.label5.Text = "Upload Asset(s) with an external uploader";
             // 
-            // labelCloudWatchFolder
+            // label33
             // 
-            this.labelCloudWatchFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelCloudWatchFolder.Location = new System.Drawing.Point(15, 48);
-            this.labelCloudWatchFolder.Name = "labelCloudWatchFolder";
-            this.labelCloudWatchFolder.Size = new System.Drawing.Size(755, 15);
-            this.labelCloudWatchFolder.TabIndex = 78;
-            this.labelCloudWatchFolder.Text = "Using the cloud watchfolder \'{0}\'";
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(21, 290);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(53, 15);
+            this.label33.TabIndex = 79;
+            this.label33.Text = "Storage :";
             // 
-            // UploadBulk
+            // comboBoxStorage
+            // 
+            this.comboBoxStorage.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxStorage.FormattingEnabled = true;
+            this.comboBoxStorage.Location = new System.Drawing.Point(22, 308);
+            this.comboBoxStorage.Name = "comboBoxStorage";
+            this.comboBoxStorage.Size = new System.Drawing.Size(221, 23);
+            this.comboBoxStorage.TabIndex = 78;
+            // 
+            // labelUsingBulkContLabel
+            // 
+            this.labelUsingBulkContLabel.Location = new System.Drawing.Point(15, 58);
+            this.labelUsingBulkContLabel.Name = "labelUsingBulkContLabel";
+            this.labelUsingBulkContLabel.Size = new System.Drawing.Size(539, 15);
+            this.labelUsingBulkContLabel.TabIndex = 80;
+            this.labelUsingBulkContLabel.Text = "Using Bulk Container \'{0}\'";
+            // 
+            // BulkUpload
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Controls.Add(this.labelCloudWatchFolder);
+            this.ClientSize = new System.Drawing.Size(584, 561);
+            this.Controls.Add(this.labelUsingBulkContLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "UploadBulk";
+            this.Name = "BulkUpload";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Upload asset(s)";
             this.Load += new System.EventHandler(this.UploadBulk_Load);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -262,19 +225,17 @@
 
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.RadioButton radioButtonAssetName;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox textBoxAssetName;
-        private System.Windows.Forms.CheckBox checkBoxCreateSubfolder;
-        private System.Windows.Forms.RadioButton radioButtonAssetId;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridAssetFiles;
         private System.Windows.Forms.Button buttonAddFiles;
         private System.Windows.Forms.Button buttonDelFiles;
-        private System.Windows.Forms.Label labelCloudWatchFolder;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.ComboBox comboBoxStorage;
+        private System.Windows.Forms.Label labelUsingBulkContLabel;
     }
 }
