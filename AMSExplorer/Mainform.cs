@@ -11320,6 +11320,8 @@ namespace AMSExplorer
                 copyAsperaURLToolStripMenuItem.Enabled =
                 defineAssetToolStripMenuItem.Enabled =
                 singleitem;
+
+            deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
         }
 
         private void dataGridViewIngestManifestsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

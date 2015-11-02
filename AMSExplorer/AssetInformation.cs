@@ -1353,7 +1353,14 @@ namespace AMSExplorer
 
         private void MyUploadProgressChanged(object sender, UploadProgressChangedEventArgs e)
         {
-            progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
+            try
+            {
+                progressBarUpload.BeginInvoke(new Action(() => progressBarUpload.Value = (int)e.Progress), null);
+            }
+            catch
+            {
+
+            }
 
         }
 
@@ -2204,7 +2211,7 @@ namespace AMSExplorer
                     var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
-                       
+
                         StreamWriter outfile = new StreamWriter(filePath, false, fileEncoding);
 
                         outfile.Write(editform.PremiumXML);
@@ -2215,6 +2222,7 @@ namespace AMSExplorer
                         assetFileToEdit.Delete();
 
                         progressBarUpload.Visible = true;
+                        buttonClose.Enabled = false;
 
                         await Task.Factory.StartNew(() => ProcessUploadFileToAsset(Path.GetFileName(filePath), filePath, myAsset));
 
@@ -2230,7 +2238,7 @@ namespace AMSExplorer
                         // Refresh the asset.
                         myAsset = Mainform._context.Assets.Where(a => a.Id == myAsset.Id).FirstOrDefault();
                         progressBarUpload.Visible = false;
-
+                        buttonClose.Enabled = true;
                         ListAssetFiles();
                     }
                 }
