@@ -40,6 +40,7 @@ namespace AMSExplorer
         {
             Properties.Settings.Default.DisplayAssetIDinGrid = checkBoxDisplayAssetID.Checked;
             Properties.Settings.Default.DisplayAssetStorageinGrid = checkBoxDisplayAssetStorage.Checked;
+            Properties.Settings.Default.DisplayIngestManifestIDinGrid = checkBoxDisplayBulkContId.Checked;
             Properties.Settings.Default.DisplayJobIDinGrid = checkBoxDisplayJobID.Checked;
             Properties.Settings.Default.DisplayLiveChannelIDinGrid = checkBoxDisplayChannelID.Checked;
             Properties.Settings.Default.DisplayLiveProgramIDinGrid = checkBoxDisplayProgramID.Checked;
@@ -75,6 +76,7 @@ namespace AMSExplorer
         {
             checkBoxDisplayAssetID.Checked = false;
             checkBoxDisplayAssetStorage.Checked = false;
+            checkBoxDisplayBulkContId.Checked = false;
             checkBoxDisplayJobID.Checked = false;
             checkBoxDisplayChannelID.Checked = false;
             checkBoxDisplayOriginID.Checked = false;
@@ -90,7 +92,7 @@ namespace AMSExplorer
             if (indexc == -1) indexc = 1; // not found!
             comboBoxNbItems.SelectedIndex = indexc;
 
-            textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions , Constants.NameconvManifestURL);
+            textBoxCustomPlayer.Text = string.Format(Constants.PlayerAMPinOptions, Constants.NameconvManifestURL);
             checkBoxEnableCustomPlayer.Checked = false;
 
             numericUpDownPriority.Value = 10;
@@ -125,6 +127,7 @@ namespace AMSExplorer
 
             checkBoxDisplayAssetID.Checked = Properties.Settings.Default.DisplayAssetIDinGrid;
             checkBoxDisplayAssetStorage.Checked = Properties.Settings.Default.DisplayAssetStorageinGrid;
+            checkBoxDisplayBulkContId.Checked = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
             checkBoxDisplayJobID.Checked = Properties.Settings.Default.DisplayJobIDinGrid;
             checkBoxDisplayChannelID.Checked = Properties.Settings.Default.DisplayLiveChannelIDinGrid;
             checkBoxDisplayProgramID.Checked = Properties.Settings.Default.DisplayLiveProgramIDinGrid;

@@ -403,7 +403,7 @@ namespace AMSExplorer
 
 
                 case OrderChannels.Name:
-                    channelssrv = channelssrv.OrderBy(p => p.LastModified);
+                    channelssrv = channelssrv.OrderBy(p => p.Name);
 
                     break;
 

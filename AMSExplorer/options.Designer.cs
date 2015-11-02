@@ -82,6 +82,7 @@
             this.textBoxVLCPath = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxffmpegPath = new System.Windows.Forms.TextBox();
+            this.checkBoxDisplayBulkContId = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownTokenDuration)).BeginInit();
@@ -205,7 +206,7 @@
             // 
             this.checkBoxDisplayJobID.AutoSize = true;
             this.checkBoxDisplayJobID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayJobID.Location = new System.Drawing.Point(49, 85);
+            this.checkBoxDisplayJobID.Location = new System.Drawing.Point(49, 84);
             this.checkBoxDisplayJobID.Name = "checkBoxDisplayJobID";
             this.checkBoxDisplayJobID.Size = new System.Drawing.Size(57, 19);
             this.checkBoxDisplayJobID.TabIndex = 16;
@@ -214,6 +215,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.checkBoxDisplayBulkContId);
             this.groupBox1.Controls.Add(this.checkBoxDisplayAssetStorage);
             this.groupBox1.Controls.Add(this.checkBoxAutoRefresh);
             this.groupBox1.Controls.Add(this.comboBoxAutoRefreshTime);
@@ -227,7 +229,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(9, 7);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(560, 255);
+            this.groupBox1.Size = new System.Drawing.Size(560, 277);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Grids Display";
@@ -236,7 +238,7 @@
             // 
             this.checkBoxDisplayAssetStorage.AutoSize = true;
             this.checkBoxDisplayAssetStorage.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(49, 192);
+            this.checkBoxDisplayAssetStorage.Location = new System.Drawing.Point(49, 209);
             this.checkBoxDisplayAssetStorage.Name = "checkBoxDisplayAssetStorage";
             this.checkBoxDisplayAssetStorage.Size = new System.Drawing.Size(97, 19);
             this.checkBoxDisplayAssetStorage.TabIndex = 22;
@@ -247,7 +249,7 @@
             // 
             this.checkBoxAutoRefresh.AutoSize = true;
             this.checkBoxAutoRefresh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(49, 218);
+            this.checkBoxAutoRefresh.Location = new System.Drawing.Point(49, 234);
             this.checkBoxAutoRefresh.Name = "checkBoxAutoRefresh";
             this.checkBoxAutoRefresh.Size = new System.Drawing.Size(144, 19);
             this.checkBoxAutoRefresh.TabIndex = 21;
@@ -265,7 +267,7 @@
             "60",
             "300",
             "600"});
-            this.comboBoxAutoRefreshTime.Location = new System.Drawing.Point(210, 216);
+            this.comboBoxAutoRefreshTime.Location = new System.Drawing.Point(199, 232);
             this.comboBoxAutoRefreshTime.Name = "comboBoxAutoRefreshTime";
             this.comboBoxAutoRefreshTime.Size = new System.Drawing.Size(72, 23);
             this.comboBoxAutoRefreshTime.TabIndex = 20;
@@ -274,7 +276,7 @@
             // 
             this.checkBoxDisplayOriginID.AutoSize = true;
             this.checkBoxDisplayOriginID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayOriginID.Location = new System.Drawing.Point(49, 165);
+            this.checkBoxDisplayOriginID.Location = new System.Drawing.Point(49, 184);
             this.checkBoxDisplayOriginID.Name = "checkBoxDisplayOriginID";
             this.checkBoxDisplayOriginID.Size = new System.Drawing.Size(144, 19);
             this.checkBoxDisplayOriginID.TabIndex = 19;
@@ -285,7 +287,7 @@
             // 
             this.checkBoxDisplayProgramID.AutoSize = true;
             this.checkBoxDisplayProgramID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayProgramID.Location = new System.Drawing.Point(49, 138);
+            this.checkBoxDisplayProgramID.Location = new System.Drawing.Point(49, 159);
             this.checkBoxDisplayProgramID.Name = "checkBoxDisplayProgramID";
             this.checkBoxDisplayProgramID.Size = new System.Drawing.Size(85, 19);
             this.checkBoxDisplayProgramID.TabIndex = 18;
@@ -296,7 +298,7 @@
             // 
             this.checkBoxDisplayChannelID.AutoSize = true;
             this.checkBoxDisplayChannelID.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.checkBoxDisplayChannelID.Location = new System.Drawing.Point(49, 112);
+            this.checkBoxDisplayChannelID.Location = new System.Drawing.Point(49, 134);
             this.checkBoxDisplayChannelID.Name = "checkBoxDisplayChannelID";
             this.checkBoxDisplayChannelID.Size = new System.Drawing.Size(83, 19);
             this.checkBoxDisplayChannelID.TabIndex = 17;
@@ -317,7 +319,7 @@
             this.groupBox2.Controls.Add(this.checkBoxUseProtectedConfig);
             this.groupBox2.Controls.Add(this.checkBoxOneUpDownload);
             this.groupBox2.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(9, 269);
+            this.groupBox2.Location = new System.Drawing.Point(9, 305);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(560, 201);
             this.groupBox2.TabIndex = 50;
@@ -759,6 +761,17 @@
             this.textBoxffmpegPath.Size = new System.Drawing.Size(480, 23);
             this.textBoxffmpegPath.TabIndex = 9;
             // 
+            // checkBoxDisplayBulkContId
+            // 
+            this.checkBoxDisplayBulkContId.AutoSize = true;
+            this.checkBoxDisplayBulkContId.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.checkBoxDisplayBulkContId.Location = new System.Drawing.Point(49, 109);
+            this.checkBoxDisplayBulkContId.Name = "checkBoxDisplayBulkContId";
+            this.checkBoxDisplayBulkContId.Size = new System.Drawing.Size(117, 19);
+            this.checkBoxDisplayBulkContId.TabIndex = 23;
+            this.checkBoxDisplayBulkContId.Text = "Bulk Container Id";
+            this.checkBoxDisplayBulkContId.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AcceptButton = this.buttonOk;
@@ -857,5 +870,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox textBoxffmpegPath;
         private System.Windows.Forms.Label labelcdn;
+        private System.Windows.Forms.CheckBox checkBoxDisplayBulkContId;
     }
 }

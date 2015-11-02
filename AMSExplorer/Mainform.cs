@@ -52,8 +52,7 @@ using System.Timers;
 using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Queue;
-
-
+using Microsoft.WindowsAzure.Storage.Shared.Protocol;
 
 namespace AMSExplorer
 {
@@ -739,6 +738,7 @@ namespace AMSExplorer
             DoRefreshGridProcessorV(false);
             DoRefreshGridStorageV(false);
             DoRefreshGridFiltersV(false);
+            DoRefreshGridIngestManifestV(false);
         }
 
         public void DoRefreshGridAssetV(bool firstime)
@@ -802,6 +802,18 @@ namespace AMSExplorer
             dataGridViewJobsV.RestoreJobProgress();
         }
 
+        public void DoRefreshGridIngestManifestV(bool firstime)
+        {
+            if (firstime)
+            {
+                dataGridViewIngestManifestsV.Init(_credentials, _context);
+                Debug.WriteLine("DoRefreshGridUngestManifestforsttime");
+                //dataGridViewIngestManifestsV.AnalyzeItemsInBackground();
+            }
+            Debug.WriteLine("DoRefreshGridUngestManifestNotforsttime");
+            dataGridViewIngestManifestsV.Invoke(new Action(() => dataGridViewIngestManifestsV.RefreshIngestManifests(_context)));
+            // tabPageAssets.Invoke(new Action(() => tabPageAssets.Text = string.Format(Constants.TabAssets + " ({0}/{1})", dataGridViewAssetsV.DisplayedCount, _context.Assets.Count())));
+        }
 
         private void fromASingleFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1624,7 +1636,6 @@ namespace AMSExplorer
 
             foreach (var AssetToP in assets)
             {
-
                 ILocator locator = null;
 
                 try
@@ -1656,7 +1667,6 @@ namespace AMSExplorer
                 }
 
                 StringBuilder sbuilderThisAsset = new StringBuilder();
-                sbuilderThisAsset.AppendLine("");
                 sbuilderThisAsset.AppendLine("Asset:");
                 sbuilderThisAsset.AppendLine(AssetToP.Name);
                 sbuilderThisAsset.AppendLine("Locator ID:");
@@ -1729,7 +1739,6 @@ namespace AMSExplorer
                     ProgressiveDownloadUris.ForEach(uri =>
                     {
                         sbuilderThisAsset.AppendLine(AddBracket(uri.AbsoluteUri));
-
                     }
                                         );
                 }
@@ -1835,6 +1844,15 @@ namespace AMSExplorer
                 SelectedJobs.Add(_context.Jobs.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
             SelectedJobs.Reverse();
             return SelectedJobs;
+        }
+
+        private List<IIngestManifest> ReturnSelectedIngestManifests()
+        {
+            List<IIngestManifest> SelectedIngestManifests = new List<IIngestManifest>();
+            foreach (DataGridViewRow Row in dataGridViewIngestManifestsV.SelectedRows)
+                SelectedIngestManifests.Add(_context.IngestManifests.Where(j => j.Id == Row.Cells["Id"].Value.ToString()).FirstOrDefault());
+            SelectedIngestManifests.Reverse();
+            return SelectedIngestManifests;
         }
 
         private IStorageAccount ReturnSelectedStorage()
@@ -3972,6 +3990,7 @@ namespace AMSExplorer
 
             DoRefreshGridJobV(true);
             DoGridTransferInit();
+            DoRefreshGridIngestManifestV(true);
             DoRefreshGridAssetV(true);
             DoRefreshGridChannelV(true);
             DoRefreshGridProgramV(true);
@@ -4555,7 +4574,7 @@ namespace AMSExplorer
             int indexsize = dataGridViewAssetsV.Columns["Size"].Index;//4
             int indexlocalexp = dataGridViewAssetsV.Columns[dataGridViewAssetsV._locatorexpirationdate].Index; //13
 
-            Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
+            //Debug.Print("cellformatting" + e.RowIndex + " " + e.ColumnIndex);
 
             var cell = dataGridViewAssetsV.Rows[e.RowIndex].Cells[indextype];  // Type cell
             if (cell.Value != null)
@@ -4946,6 +4965,7 @@ namespace AMSExplorer
                         case TransferType.ImportFromHttp:
                         case TransferType.UploadFromFile:
                         case TransferType.UploadFromFolder:
+                        case TransferType.UploadWithExternalTool:
                             IAsset asset = AssetInfo.GetAsset(location, _context);
                             if (asset != null) DisplayInfo(asset);
                             break;
@@ -10889,40 +10909,57 @@ namespace AMSExplorer
             }
             if (StorageKeyKnown) // if we have the storage credentials
             {
-                var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
-                var blobClient = storageAccount.CreateCloudBlobClient();
-
-                // Get the current service properties
-                var serviceProperties = blobClient.GetServiceProperties();
-
-                var form = new StorageSettings(storageName, serviceProperties);
-
-                if (form.ShowDialog() == DialogResult.OK)
+                bool Error = false;
+                ServiceProperties serviceProperties = null;
+                CloudBlobClient blobClient = null;
+                try
                 {
+                    var storageAccount = new CloudStorageAccount(new StorageCredentials(storageName, valuekey), _credentials.ReturnStorageSuffix(), true);
+                    blobClient = storageAccount.CreateCloudBlobClient();
 
-                    // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
-                    //serviceProperties.DefaultServiceVersion = "2011-08-18";
-                    try
-                    {
-                        TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
-                            form.RequestedStorageVersion ?? StorageSettings.noversion,
-                            form.RequestedMetricsLevel.ToString(),
-                            form.RequestedMetricsRetention ?? 0
-                            );
-                        serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
-                        serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
-                        serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+                    // Get the current service properties
+                    serviceProperties = blobClient.GetServiceProperties();
+                }
+                catch (Exception ex)
+                {
+                    Error = true;
+                    MessageBox.Show("Error when accessing the storage account.\nIs the key correct ?\n\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine("Error when accessing the storage account.\nIs the key correct ?", true);
+                    TextBoxLogWriteLine(ex);
+                }
 
-                        // Save the updated service properties
-                        blobClient.SetServiceProperties(serviceProperties);
-                        TextBoxLogWriteLine("Storage settings applied.");
-                    }
-                    catch (Exception ex)
+                if (!Error)
+                {
+                    var form = new StorageSettings(storageName, serviceProperties);
+
+                    if (form.ShowDialog() == DialogResult.OK)
                     {
-                        TextBoxLogWriteLine("Error when setting the storage version.", true);
-                        TextBoxLogWriteLine(ex);
+
+                        // Set the default service version to 2011-08-18 (or a higher version like 2012-03-01)
+                        //serviceProperties.DefaultServiceVersion = "2011-08-18";
+                        try
+                        {
+                            TextBoxLogWriteLine("Setting storage version to '{0}', Metrics to level '{1}' and {2} days retention  ...",
+                                form.RequestedStorageVersion ?? StorageSettings.noversion,
+                                form.RequestedMetricsLevel.ToString(),
+                                form.RequestedMetricsRetention ?? 0
+                                );
+                            serviceProperties.DefaultServiceVersion = form.RequestedStorageVersion;
+                            serviceProperties.HourMetrics.MetricsLevel = form.RequestedMetricsLevel;
+                            serviceProperties.HourMetrics.RetentionDays = form.RequestedMetricsRetention;
+
+                            // Save the updated service properties
+                            blobClient.SetServiceProperties(serviceProperties);
+                            TextBoxLogWriteLine("Storage settings applied.");
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when setting the storage version.", true);
+                            TextBoxLogWriteLine(ex);
+                        }
                     }
                 }
+
             }
         }
 
@@ -11076,6 +11113,242 @@ namespace AMSExplorer
                 checkBoxAnyChannel.Enabled = false;
             }
         }
+
+        private void withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoBulkUpload();
+        }
+
+        private void DoBulkUpload()
+        {
+            bool usercancelled = false;
+            if (_context.IngestManifests.Count() == 0)
+            {
+                // no bulk container
+
+                if (MessageBox.Show("There is no bulk ingest container configured.\nCreate one ?", "Bulk ingest container", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    usercancelled = !DoNewIngestManifest();
+                }
+                else
+                {
+                    usercancelled = true;
+                }
+            }
+
+            if (!usercancelled && _context.IngestManifests.Count() > 0)
+            {
+                DoDeclareAssetToUploadBulk(_context.IngestManifests.FirstOrDefault());
+            }
+        }
+
+
+        private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
+        {
+            Program.dataGridViewV_Resize(sender);
+        }
+
+        private void deleteToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            DeleteIngestManifests();
+        }
+
+        private void DeleteIngestManifests()
+        {
+            var ims = ReturnSelectedIngestManifests();
+            if (ims.Count > 0)
+            {
+                string question = (ims.Count == 1) ? "Delete cloud watchfolder " + ims[0].Name + " ?" : "Delete these " + ims.Count + " cloud watchfolders ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Cloud watchfolder deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    bool Error = false;
+                    try
+                    {
+                        Task[] deleteTasks = ims.Select(a => a.DeleteAsync()).ToArray();
+                        TextBoxLogWriteLine("Deleting cloud watchfolder(s)");
+                        this.Cursor = Cursors.WaitCursor;
+                        Task.WaitAll(deleteTasks);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the cloud watchfolder(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error) TextBoxLogWriteLine("Cloud watchfolder(s) deleted.");
+                    this.Cursor = Cursors.Default;
+                    DoRefreshGridIngestManifestV(false);
+                }
+            }
+        }
+
+        private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoDeclareAssetToUploadBulk(ReturnSelectedIngestManifests().FirstOrDefault());
+        }
+
+        private void DoDeclareAssetToUploadBulk(IIngestManifest manifest)
+        {
+            if (manifest == null) return;
+
+            BulkUpload form = new BulkUpload(_context, manifest);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                if (form.AssetFiles.Count() > 0)
+                {
+                    try
+                    {
+                        // Create the assets that will be associated with this bulk ingest manifest
+                        IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
+                        IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+                        /*
+                        var file = bulkAsset.IngestManifestFiles.FirstOrDefault();
+                        if (file!=null) file.IsPrimary = true;
+                        manifest.Update();
+                        */
+                        TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
+                        TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when declaring asset.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("There is no asset file name(s)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine("There is no asset file name(s).", true);
+                }
+            }
+        }
+
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoNewIngestManifest();
+        }
+
+        private bool DoNewIngestManifest() // return false if user cancelled
+        {
+            BulkCreateManifest form = new BulkCreateManifest(_context);
+
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName, form.StorageSelected);
+
+                StringBuilder sbuilderManifest = new StringBuilder();
+                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                TextBoxLogWriteLine(sbuilderManifest.ToString());
+
+                sbuilder.Clear();
+                sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                   // COPY to clipboard. We need to create a STA thread for it
+                System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                MyThread.SetApartmentState(ApartmentState.STA);
+                MyThread.IsBackground = true;
+                MyThread.Start(sbuilder.ToString());
+
+                DoRefreshGridIngestManifestV(false);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyIngestURL();
+        }
+
+        private void DoCopyIngestURL(bool Aspera = false)
+        {
+            var im = ReturnSelectedIngestManifests().FirstOrDefault();
+            if (im != null)
+            {
+                string myurl = string.Empty;
+                if (!Aspera)
+                {
+                    myurl = im.BlobStorageUriForUpload;
+                    TextBoxLogWriteLine("Bulk Ingest URL : {0}", myurl);
+                }
+                else
+                {
+                    string storKey = "InsertStorageKey";
+                    if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+                    {
+                        storKey = _credentials.StorageKey;
+                    }
+                    myurl = "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
+                    TextBoxLogWriteLine("Bulk Ingest URL (Aspera) : {0}", myurl);
+                }
+                System.Windows.Forms.Clipboard.SetText(myurl);
+            }
+        }
+
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoBulkContainerInfo(ReturnSelectedIngestManifests().FirstOrDefault());
+        }
+
+        private void DoBulkContainerInfo(IIngestManifest manifest)
+        {
+            if (manifest != null)
+            {
+                var form = new BulkContainerInfo(this, _context, manifest);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    manifest.Name = form.IngestManifestName;
+                    Task.Run(async () =>
+                    {
+                        await manifest.UpdateAsync();
+                        DoRefreshGridIngestManifestV(false);
+                    }
+           );
+                }
+            }
+        }
+
+        private void copyAsperaURLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCopyIngestURL(true);
+        }
+
+        private void contextMenuStripIngestManifests_Opening(object sender, CancelEventArgs e)
+        {
+            var manifests = ReturnSelectedIngestManifests();
+            bool singleitem = (manifests.Count == 1);
+
+            infoToolStripMenuItem.Enabled =
+                copyIngestURLToClipboardToolStripMenuItem.Enabled =
+                copyAsperaURLToolStripMenuItem.Enabled =
+                defineAssetToolStripMenuItem.Enabled =
+                singleitem;
+
+            deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
+        }
+
+        private void dataGridViewIngestManifestsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                var manifestId = dataGridViewIngestManifestsV.Rows[e.RowIndex].Cells[dataGridViewIngestManifestsV.Columns["Id"].Index].Value.ToString();
+                DoBulkContainerInfo(_context.IngestManifests.Where(m=>m.Id==manifestId).FirstOrDefault());
+            }
+        }
+
+        private void toolStripMenuItem33Refresh_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridIngestManifestV(false);
+        }
     }
 }
 
@@ -11084,7 +11357,7 @@ namespace AMSExplorer
 namespace AMSExplorer
 {
     /// <summary>
-    /// A DataGridViewColumn implementation that provides a column that
+    /// AataGridViewColumn implementation that provides a column that
     /// will display a progress bar.
     /// </summary>
     public class DataGridViewProgressBarColumn : DataGridViewTextBoxColumn
@@ -11408,12 +11681,13 @@ namespace AMSExplorer
     public enum TransferType
     {
         UploadFromFile = 0,
-        UploadFromFolder = 1,
-        ImportFromAzureStorage = 2,
-        ImportFromHttp = 3,
-        ExportToOtherAMSAccount = 4,
-        ExportToAzureStorage = 5,
-        DownloadToLocal = 6
+        UploadFromFolder,
+        ImportFromAzureStorage,
+        ImportFromHttp,
+        ExportToOtherAMSAccount,
+        ExportToAzureStorage,
+        DownloadToLocal,
+        UploadWithExternalTool
     }
 
 
@@ -11433,8 +11707,6 @@ namespace AMSExplorer
 
         static BindingList<AssetEntry> _MyObservAsset;
         public IEnumerable<IAsset> assets;
-        //public IQueryable<IAsset> assets;
-        //public List<IAsset> assets;
         static Dictionary<string, AssetEntry> cacheAssetentries = new Dictionary<string, AssetEntry>();
 
         static private int _assetsperpage = 50; //nb of items per page
@@ -11750,7 +12022,7 @@ namespace AMSExplorer
         public void RefreshAssets(CloudMediaContext context, int pagetodisplay) // all assets are refreshed
         {
             if (!_initialized) return;
-            Debug.WriteLine("RefreshAssets");
+            Debug.WriteLine("RefreshAssets Start");
 
             if (WorkerAnalyzeAssets.IsBusy)
             {
@@ -12332,6 +12604,7 @@ namespace AMSExplorer
             this.BeginInvoke(new Action(() => this.DataSource = MyObservAssethisPage));
             _refreshedatleastonetime = true;
 
+            Debug.WriteLine("RefreshAssets End");
             AnalyzeItemsInBackground();
 
             this.FindForm().Cursor = Cursors.Default;
@@ -12748,6 +13021,8 @@ namespace AMSExplorer
         {
             if (!_initialized || context == null) return;
 
+            Debug.WriteLine("Refresh Jobs Start");
+
             this.FindForm().Cursor = Cursors.WaitCursor;
             _context = context;
 
@@ -12761,7 +13036,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
-            var jobsServerQuery = context.Jobs.AsQueryable(); ;
+            var jobsServerQuery = context.Jobs.AsQueryable();
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
@@ -12770,6 +13045,8 @@ namespace AMSExplorer
             {
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
             }
+
+
 
 
             // search
@@ -12921,6 +13198,9 @@ namespace AMSExplorer
                     break;
             }
 
+
+
+
             if (!string.IsNullOrEmpty(_timefilter))
             {
                 if (_timefilter == FilterTime.First50Items)
@@ -12931,8 +13211,8 @@ namespace AMSExplorer
                 {
                     jobs = jobs.Take(1000);
                 }
-
             }
+
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
@@ -12968,6 +13248,9 @@ namespace AMSExplorer
             _MyObservAssethisPage = new BindingList<JobEntry>(_MyObservJob.Skip(_jobsperpage * (_currentpage - 1)).Take(_jobsperpage).ToList());
             this.BeginInvoke(new Action(() => this.DataSource = _MyObservAssethisPage));
             _refreshedatleastonetime = true;
+
+            Debug.WriteLine("Refresh Jobs End");
+
             this.FindForm().Cursor = Cursors.Default;
         }
 

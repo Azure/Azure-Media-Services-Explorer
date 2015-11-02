@@ -148,6 +148,7 @@ namespace AMSExplorer
         private void Indexer_Load(object sender, EventArgs e)
         {
             comboBoxLanguage.SelectedIndex = 0;
+            moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexer));
         }
 
         private void buttonGenOptions_Click(object sender, EventArgs e)
@@ -179,6 +180,12 @@ namespace AMSExplorer
             settings.Add(new XElement("add", new XAttribute("key", "CaptionFormats"), new XAttribute("value", cformats)));
 
             return doc.Declaration.ToString() + doc.ToString();
+        }
+
+        private void moreinfoprofilelink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            // Send the URL to the operating system.
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }

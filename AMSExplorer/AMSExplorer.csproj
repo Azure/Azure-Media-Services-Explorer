@@ -194,11 +194,30 @@
     <Compile Include="ChooseStreamingEndpoint.Designer.cs">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataGridViewIngestManifest.cs" />
+    <Compile Include="BulkCreateManifest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkCreateManifest.Designer.cs">
+      <DependentUpon>BulkCreateManifest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BulkUpload.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkUpload.Designer.cs">
+      <DependentUpon>BulkUpload.cs</DependentUpon>
+    </Compile>
     <Compile Include="DownloadToLocal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DownloadToLocal.Designer.cs">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BulkContainerInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkContainerInfo.Designer.cs">
+      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="SoftwareUpdate.cs">
       <SubType>Form</SubType>
@@ -647,8 +666,17 @@
     <EmbeddedResource Include="ChooseStreamingEndpoint.resx">
       <DependentUpon>ChooseStreamingEndpoint.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BulkCreateManifest.resx">
+      <DependentUpon>BulkCreateManifest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BulkUpload.resx">
+      <DependentUpon>BulkUpload.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DownloadToLocal.resx">
       <DependentUpon>DownloadToLocal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BulkContainerInfo.resx">
+      <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>

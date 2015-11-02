@@ -478,5 +478,17 @@ namespace AMSExplorer.Properties {
                 this["DeleteInstallationFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool DisplayIngestManifestIDinGrid {
+            get {
+                return ((bool)(this["DisplayIngestManifestIDinGrid"]));
+            }
+            set {
+                this["DisplayIngestManifestIDinGrid"] = value;
+            }
+        }
     }
 }

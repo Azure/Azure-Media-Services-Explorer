@@ -56,6 +56,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDownTasks = new System.Windows.Forms.NumericUpDown();
             this.panelJobMode = new System.Windows.Forms.Panel();
+            this.radioButtonOneJobPerVisibleAsset = new System.Windows.Forms.RadioButton();
             this.pictureBoxJob = new System.Windows.Forms.PictureBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.tabPageTask1 = new System.Windows.Forms.TabPage();
@@ -124,7 +125,6 @@
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.labelWarning = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.radioButtonOneJobPerVisibleAsset = new System.Windows.Forms.RadioButton();
             this.tabcontrolgeneric.SuspendLayout();
             this.tabPageAssets.SuspendLayout();
             this.tabPageJobs.SuspendLayout();
@@ -437,6 +437,17 @@
             this.panelJobMode.Size = new System.Drawing.Size(472, 180);
             this.panelJobMode.TabIndex = 40;
             // 
+            // radioButtonOneJobPerVisibleAsset
+            // 
+            this.radioButtonOneJobPerVisibleAsset.AutoSize = true;
+            this.radioButtonOneJobPerVisibleAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.radioButtonOneJobPerVisibleAsset.Location = new System.Drawing.Point(31, 122);
+            this.radioButtonOneJobPerVisibleAsset.Name = "radioButtonOneJobPerVisibleAsset";
+            this.radioButtonOneJobPerVisibleAsset.Size = new System.Drawing.Size(220, 19);
+            this.radioButtonOneJobPerVisibleAsset.TabIndex = 37;
+            this.radioButtonOneJobPerVisibleAsset.Text = "One job per visible input asset in grid";
+            this.radioButtonOneJobPerVisibleAsset.UseVisualStyleBackColor = true;
+            // 
             // pictureBoxJob
             // 
             this.pictureBoxJob.Image = global::AMSExplorer.Bitmaps.modetaskjob1;
@@ -483,9 +494,9 @@
             this.labelWarningJSON1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON1.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON1.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON1.Location = new System.Drawing.Point(267, 291);
             this.labelWarningJSON1.Name = "labelWarningJSON1";
-            this.labelWarningJSON1.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON1.Size = new System.Drawing.Size(414, 21);
             this.labelWarningJSON1.TabIndex = 81;
             this.labelWarningJSON1.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON1.Text = "XML Syntax error. {0}";
@@ -523,9 +534,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 294);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(172, 15);
+            this.label2.Size = new System.Drawing.Size(249, 15);
             this.label2.TabIndex = 38;
-            this.label2.Text = "String, XML or JSON (editable) :";
+            this.label2.Text = "Configuration String, XML or JSON (editable) :";
             // 
             // buttonLoadXML1
             // 
@@ -575,9 +586,9 @@
             this.labelWarningJSON2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON2.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON2.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON2.Location = new System.Drawing.Point(267, 291);
             this.labelWarningJSON2.Name = "labelWarningJSON2";
-            this.labelWarningJSON2.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON2.Size = new System.Drawing.Size(414, 21);
             this.labelWarningJSON2.TabIndex = 80;
             this.labelWarningJSON2.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON2.Text = "XML Syntax error. {0}";
@@ -588,9 +599,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(12, 294);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(172, 15);
+            this.label7.Size = new System.Drawing.Size(249, 15);
             this.label7.TabIndex = 75;
-            this.label7.Text = "String, XML or JSON (editable) :";
+            this.label7.Text = "Configuration String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput2
             // 
@@ -712,9 +723,9 @@
             this.labelWarningJSON3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON3.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON3.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON3.Location = new System.Drawing.Point(267, 291);
             this.labelWarningJSON3.Name = "labelWarningJSON3";
-            this.labelWarningJSON3.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON3.Size = new System.Drawing.Size(414, 21);
             this.labelWarningJSON3.TabIndex = 81;
             this.labelWarningJSON3.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON3.Text = "XML Syntax error. {0}";
@@ -725,9 +736,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 294);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(172, 15);
+            this.label9.Size = new System.Drawing.Size(249, 15);
             this.label9.TabIndex = 75;
-            this.label9.Text = "String, XML or JSON (editable) :";
+            this.label9.Text = "Configuration String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput3
             // 
@@ -849,9 +860,9 @@
             this.labelWarningJSON4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON4.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON4.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON4.Location = new System.Drawing.Point(267, 291);
             this.labelWarningJSON4.Name = "labelWarningJSON4";
-            this.labelWarningJSON4.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON4.Size = new System.Drawing.Size(414, 21);
             this.labelWarningJSON4.TabIndex = 81;
             this.labelWarningJSON4.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON4.Text = "XML Syntax error. {0}";
@@ -862,9 +873,9 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(12, 294);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(172, 15);
+            this.label11.Size = new System.Drawing.Size(249, 15);
             this.label11.TabIndex = 75;
-            this.label11.Text = "String, XML or JSON (editable) :";
+            this.label11.Text = "Configuration String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput4
             // 
@@ -986,9 +997,9 @@
             this.labelWarningJSON5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON5.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON5.Location = new System.Drawing.Point(188, 291);
+            this.labelWarningJSON5.Location = new System.Drawing.Point(267, 291);
             this.labelWarningJSON5.Name = "labelWarningJSON5";
-            this.labelWarningJSON5.Size = new System.Drawing.Size(493, 21);
+            this.labelWarningJSON5.Size = new System.Drawing.Size(414, 21);
             this.labelWarningJSON5.TabIndex = 81;
             this.labelWarningJSON5.Tag = "XML Syntax error. {0}";
             this.labelWarningJSON5.Text = "XML Syntax error. {0}";
@@ -999,9 +1010,9 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(12, 294);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(172, 15);
+            this.label13.Size = new System.Drawing.Size(249, 15);
             this.label13.TabIndex = 75;
-            this.label13.Text = "String, XML or JSON (editable) :";
+            this.label13.Text = "Configuration String, XML or JSON (editable) :";
             // 
             // comboBoxAssetInput5
             // 
@@ -1122,17 +1133,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(919, 55);
             this.panel1.TabIndex = 67;
-            // 
-            // radioButtonOneJobPerVisibleAsset
-            // 
-            this.radioButtonOneJobPerVisibleAsset.AutoSize = true;
-            this.radioButtonOneJobPerVisibleAsset.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.radioButtonOneJobPerVisibleAsset.Location = new System.Drawing.Point(31, 122);
-            this.radioButtonOneJobPerVisibleAsset.Name = "radioButtonOneJobPerVisibleAsset";
-            this.radioButtonOneJobPerVisibleAsset.Size = new System.Drawing.Size(220, 19);
-            this.radioButtonOneJobPerVisibleAsset.TabIndex = 37;
-            this.radioButtonOneJobPerVisibleAsset.Text = "One job per visible input asset in grid";
-            this.radioButtonOneJobPerVisibleAsset.UseVisualStyleBackColor = true;
             // 
             // MultipleProcessor
             // 
