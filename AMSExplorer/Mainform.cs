@@ -11128,44 +11128,7 @@ namespace AMSExplorer
             {
                 DoDeclareAssetToUploadBulk(_context.IngestManifests.FirstOrDefault());
             }
-            /*
-            UploadBulk form = new UploadBulk(_context);
-
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                IIngestManifest manifest = _context.IngestManifests.FirstOrDefault();//.Create("IngestManifest-" + form.AssetName);
-                // Create the assets that will be associated with this bulk ingest manifest
-                IAsset destAsset = _context.Assets.Create(form.AssetName, AssetCreationOptions.None);
-                IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-
-                StringBuilder sbuilderManifest = new StringBuilder();
-                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
-                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
-                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
-                TextBoxLogWriteLine(sbuilderManifest.ToString());
-
-                if (manifest.BlobStorageUriForUpload != null)
-                {
-                    sbuilder.Clear();
-                    sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
-                                                                       // COPY to clipboard. We need to create a STA thread for it
-                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                    MyThread.SetApartmentState(ApartmentState.STA);
-                    MyThread.IsBackground = true;
-                    MyThread.Start(sbuilder.ToString());
-                }
-                int index = DoGridTransferAddItem("Upload to AMS with external tool (" + manifest.Name + ")", TransferType.UploadWithExternalTool, false);
-                // Start a worker thread that does copy.
-                Task.Factory.StartNew(() => MonitorBulkUploadProgress(_context, manifest.Id, index, destAsset.Id));
-                DotabControlMainSwitch(Constants.TabTransfers);
-
-                DoRefreshGridAssetV(false);
-            }
-            */
         }
-
 
 
         private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
@@ -11220,17 +11183,33 @@ namespace AMSExplorer
             BulkUpload form = new BulkUpload(_context, manifest);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if ( form.AssetFiles.Count() > 0)
+                if (form.AssetFiles.Count() > 0)
                 {
-                    // Create the assets that will be associated with this bulk ingest manifest
-                    IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
-                    IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+                    try
+                    {
+                        // Create the assets that will be associated with this bulk ingest manifest
+                        IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
+                        IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+                        /*
+                        var file = bulkAsset.IngestManifestFiles.FirstOrDefault();
+                        if (file!=null) file.IsPrimary = true;
+                        manifest.Update();
+                        */
+                        TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
+                        TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+                    }
+                    catch (Exception ex)
+                    {
+                        TextBoxLogWriteLine("Error when declaring asset.", true);
+                        TextBoxLogWriteLine(ex);
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("There is no asset file name(s)","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("There is no asset file name(s)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    TextBoxLogWriteLine("There is no asset file name(s).", true);
                 }
-             }
+            }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -11305,12 +11284,11 @@ namespace AMSExplorer
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoBulkContainerInfo();
+            DoBulkContainerInfo(ReturnSelectedIngestManifests().FirstOrDefault());
         }
 
-        private void DoBulkContainerInfo()
+        private void DoBulkContainerInfo(IIngestManifest manifest)
         {
-            var manifest = ReturnSelectedIngestManifests().FirstOrDefault();
             if (manifest != null)
             {
                 var form = new BulkContainerInfo(this, _context, manifest);
@@ -11340,8 +11318,22 @@ namespace AMSExplorer
             infoToolStripMenuItem.Enabled =
                 copyIngestURLToClipboardToolStripMenuItem.Enabled =
                 copyAsperaURLToolStripMenuItem.Enabled =
-                defineAssetToolStripMenuItem.Enabled = 
+                defineAssetToolStripMenuItem.Enabled =
                 singleitem;
+        }
+
+        private void dataGridViewIngestManifestsV_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex > -1)
+            {
+                var manifestId = dataGridViewIngestManifestsV.Rows[e.RowIndex].Cells[dataGridViewIngestManifestsV.Columns["Id"].Index].Value.ToString();
+                DoBulkContainerInfo(_context.IngestManifests.Where(m=>m.Id==manifestId).FirstOrDefault());
+            }
+        }
+
+        private void toolStripMenuItem33Refresh_Click(object sender, EventArgs e)
+        {
+            DoRefreshGridIngestManifestV(false);
         }
     }
 }

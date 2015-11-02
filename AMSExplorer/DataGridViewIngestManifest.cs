@@ -74,7 +74,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
 
         private int _PendingFiles;
         public int PendingFiles
@@ -106,7 +106,7 @@ namespace AMSExplorer
             }
         }
 
-      
+
 
         private double _Progress;
         public double Progress
@@ -258,18 +258,30 @@ namespace AMSExplorer
             Debug.WriteLine("WorkerUpdateIngestManifest_DoWork");
             BackgroundWorker worker = sender as BackgroundWorker;
 
+            Mainform myform = (Mainform)this.FindForm();
+
             while (true)
             {
-                foreach (var im in _context.IngestManifests.ToList())
+                var manifestsupdated = _context.IngestManifests.ToList();
+
+                foreach (var im in _context.IngestManifests.AsEnumerable())
                 {
                     var img = _MyObservIngestManifest.Where(i => i.Id == im.Id).FirstOrDefault();
                     if (img != null)
                     {
+                        if (im.Statistics.PendingFilesCount == 0 && img.PendingFiles != im.Statistics.PendingFilesCount)
+                        {
+                            // Notify if upload completed for one bulk ingest container
+                            myform.Notify(string.Format("Bulk ingest completed with {0} error(s)", im.Statistics.ErrorFilesCount), string.Format("Container '{0}'", im.Name), im.Statistics.ErrorFilesCount > 0);
+                            myform.TextBoxLogWriteLine(string.Format("Bulk ingest on container '{0}' completed with {1} error(s)", im.Name, im.Statistics.ErrorFilesCount), im.Statistics.ErrorFilesCount > 0);
+                        }
+
                         img.State = im.State;
                         img.LastModified = im.LastModified.ToLocalTime();
                         img.PendingFiles = im.Statistics.PendingFilesCount;
                         img.FinishedFiles = im.Statistics.FinishedFilesCount;
-                        if (im.Statistics.FinishedFilesCount + im.Statistics.PendingFilesCount==0)
+
+                        if (im.Statistics.FinishedFilesCount + im.Statistics.PendingFilesCount == 0)
                         {
                             img.Progress = 101;
                         }
@@ -280,8 +292,7 @@ namespace AMSExplorer
                     }
                 }
 
-                //this.BeginInvoke(new Action(() => this.DataSource = _MyObservIngestManifest));
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(3000);
                 if (worker.CancellationPending == true)
                 {
                     e.Cancel = true;

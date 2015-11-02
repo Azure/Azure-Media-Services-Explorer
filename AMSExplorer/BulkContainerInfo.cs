@@ -154,7 +154,6 @@ namespace AMSExplorer
                 DGAssetManifest.Rows.Add("Last Modified", am.LastModified);
                 DGAssetManifest.Rows.Add("Asset Name", am.Asset.Name);
                 DGAssetManifest.Rows.Add("Asset Id", am.Asset.Id);
-                DGAssetManifest.Rows.Add("State", am.IngestManifestFiles.FirstOrDefault().State);
 
                 int i = 1;
                 foreach (var f in am.IngestManifestFiles)
