@@ -87,6 +87,7 @@ namespace AMSExplorer
         private void ProgramInformation_Load_1(object sender, EventArgs e)
         {
             labelPBulkName.Text += _manifest.Name;
+
             DGBulkManifest.ColumnCount = 2;
             DGBulkManifest.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
@@ -94,17 +95,17 @@ namespace AMSExplorer
             DGAssetManifest.Columns[0].DefaultCellStyle.BackColor = Color.Gainsboro;
 
             // Bulk manifest info
+            DGBulkManifest.Rows.Add("Blob Storage URL For Upload", _manifest.BlobStorageUriForUpload);
             DGBulkManifest.Rows.Add("Name", _manifest.Name);
             DGBulkManifest.Rows.Add("Id", _manifest.Id);
             DGBulkManifest.Rows.Add("State", (IngestManifestState)_manifest.State);
             DGBulkManifest.Rows.Add("Created", ((DateTime)_manifest.Created).ToLocalTime());
             DGBulkManifest.Rows.Add("Last Modified", ((DateTime)_manifest.LastModified).ToLocalTime());
-            DGBulkManifest.Rows.Add("BlobStorageUriForUpload", _manifest.BlobStorageUriForUpload);
-            DGBulkManifest.Rows.Add("StorageAccountName", _manifest.StorageAccountName);
-            DGBulkManifest.Rows.Add("PendingFilesCount", _manifest.Statistics.PendingFilesCount);
-            DGBulkManifest.Rows.Add("FinishedFilesCount", _manifest.Statistics.FinishedFilesCount);
-            DGBulkManifest.Rows.Add("ErrorFilesCount", _manifest.Statistics.ErrorFilesCount);
-            DGBulkManifest.Rows.Add("ErrorFilesDetails", _manifest.Statistics.ErrorFilesDetails);
+            DGBulkManifest.Rows.Add("Storage Account Name", _manifest.StorageAccountName);
+            DGBulkManifest.Rows.Add("Pending Files Count", _manifest.Statistics.PendingFilesCount);
+            DGBulkManifest.Rows.Add("Finished Files Count", _manifest.Statistics.FinishedFilesCount);
+            DGBulkManifest.Rows.Add("Error Files Count", _manifest.Statistics.ErrorFilesCount);
+            DGBulkManifest.Rows.Add("Error Files Details", _manifest.Statistics.ErrorFilesDetails);
 
             ListAssetManifests();
             textBoxName.Text = _manifest.Name;

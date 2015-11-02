@@ -49,7 +49,7 @@ namespace AMSExplorer
         {
             get
             {
-                return assetFiles.Select(a => a.FileName).ToArray();
+                return assetFiles.Where(a=> !string.IsNullOrWhiteSpace(a.FileName)).Select(a => a.FileName).ToArray();
             }
         }
 

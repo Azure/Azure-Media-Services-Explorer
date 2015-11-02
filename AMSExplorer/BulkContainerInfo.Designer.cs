@@ -77,7 +77,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(748, 417);
+            this.tabPage1.Size = new System.Drawing.Size(748, 420);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Bulk container information";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.DGBulkManifest.Name = "DGBulkManifest";
             this.DGBulkManifest.ReadOnly = true;
             this.DGBulkManifest.RowHeadersVisible = false;
-            this.DGBulkManifest.Size = new System.Drawing.Size(732, 399);
+            this.DGBulkManifest.Size = new System.Drawing.Size(732, 402);
             this.DGBulkManifest.TabIndex = 0;
             // 
             // tabControl1
@@ -110,10 +110,10 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Location = new System.Drawing.Point(14, 54);
+            this.tabControl1.Location = new System.Drawing.Point(14, 51);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(756, 445);
+            this.tabControl1.Size = new System.Drawing.Size(756, 448);
             this.tabControl1.TabIndex = 34;
             // 
             // tabPage2
@@ -123,7 +123,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(748, 378);
+            this.tabPage2.Size = new System.Drawing.Size(748, 417);
             this.tabPage2.TabIndex = 3;
             this.tabPage2.Text = "Settings";
             this.tabPage2.UseVisualStyleBackColor = true;

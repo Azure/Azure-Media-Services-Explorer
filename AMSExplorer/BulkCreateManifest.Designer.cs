@@ -79,7 +79,7 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(15, 151);
+            this.label1.Location = new System.Drawing.Point(15, 162);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(172, 15);
             this.label1.TabIndex = 73;
@@ -89,7 +89,7 @@
             // 
             this.textBoxManifestName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxManifestName.Location = new System.Drawing.Point(15, 169);
+            this.textBoxManifestName.Location = new System.Drawing.Point(15, 180);
             this.textBoxManifestName.Name = "textBoxManifestName";
             this.textBoxManifestName.Size = new System.Drawing.Size(422, 23);
             this.textBoxManifestName.TabIndex = 0;
@@ -121,13 +121,14 @@
             this.comboBoxStorage.Location = new System.Drawing.Point(16, 240);
             this.comboBoxStorage.Name = "comboBoxStorage";
             this.comboBoxStorage.Size = new System.Drawing.Size(221, 23);
-            this.comboBoxStorage.TabIndex = 74;
+            this.comboBoxStorage.TabIndex = 1;
             // 
             // label2
             // 
+            this.label2.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label2.Location = new System.Drawing.Point(15, 49);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(555, 85);
+            this.label2.Size = new System.Drawing.Size(555, 102);
             this.label2.TabIndex = 76;
             this.label2.Text = resources.GetString("label2.Text");
             // 

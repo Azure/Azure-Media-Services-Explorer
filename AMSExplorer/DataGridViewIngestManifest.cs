@@ -59,20 +59,22 @@ namespace AMSExplorer
             }
         }
 
-        private string _StorageAccountName;
-        public string StorageAccountName
+        private string _URLForUpload;
+        public string URLForUpload
         {
             get
-            { return _StorageAccountName; }
+            { return _URLForUpload; }
             set
             {
-                if (value != _StorageAccountName)
+                if (value != _URLForUpload)
                 {
-                    _StorageAccountName = value;
+                    _URLForUpload = value;
                     NotifyPropertyChanged();
                 }
             }
         }
+
+      
 
         private int _PendingFiles;
         public int PendingFiles
@@ -104,20 +106,7 @@ namespace AMSExplorer
             }
         }
 
-        private string _URLForUpload;
-        public string URLForUpload
-        {
-            get
-            { return _URLForUpload; }
-            set
-            {
-                if (value != _URLForUpload)
-                {
-                    _URLForUpload = value;
-                    NotifyPropertyChanged();
-                }
-            }
-        }
+      
 
         private double _Progress;
         public double Progress
@@ -144,6 +133,21 @@ namespace AMSExplorer
                 if (value != _LastModified)
                 {
                     _LastModified = value;
+                    NotifyPropertyChanged();
+                }
+            }
+        }
+
+        private string _StorageAccountName;
+        public string StorageAccountName
+        {
+            get
+            { return _StorageAccountName; }
+            set
+            {
+                if (value != _StorageAccountName)
+                {
+                    _StorageAccountName = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -190,7 +194,7 @@ namespace AMSExplorer
                                       Id = im.Id,
                                       State = im.State,
                                       LastModified = im.LastModified,
-
+                                      URLForUpload = im.BlobStorageUriForUpload
                                   };
 
             DataGridViewProgressBarColumn col = new DataGridViewProgressBarColumn()
@@ -206,8 +210,11 @@ namespace AMSExplorer
             BindingList<IngestManifestEntry> MyObservJobInPage = new BindingList<IngestManifestEntry>(ingestmanifestquery.Take(0).ToList());
             this.DataSource = MyObservJobInPage;
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
-            this.Columns["Progress"].DisplayIndex = 5;
+            this.Columns["Progress"].DisplayIndex = 6;
             this.Columns["Progress"].Width = 150;
+            //this.Columns["URLForUpload"].DisplayIndex = 6;
+            this.Columns["URLForUpload"].Width = 200;
+
             // this.Columns["Tasks"].Width = 50;
             //this.Columns["Priority"].Width = 50;
             // this.Columns["State"].Width = 80;

@@ -11220,10 +11220,17 @@ namespace AMSExplorer
             BulkUpload form = new BulkUpload(_context, manifest);
             if (form.ShowDialog() == DialogResult.OK)
             {
-                // Create the assets that will be associated with this bulk ingest manifest
-                IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
-                IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-            }
+                if ( form.AssetFiles.Count() > 0)
+                {
+                    // Create the assets that will be associated with this bulk ingest manifest
+                    IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
+                    IIngestManifestAsset bulkAsset1 = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
+                }
+                else
+                {
+                    MessageBox.Show("There is no asset file name(s)","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+             }
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -11323,6 +11330,18 @@ namespace AMSExplorer
         private void copyAsperaURLToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoCopyIngestURL(true);
+        }
+
+        private void contextMenuStripIngestManifests_Opening(object sender, CancelEventArgs e)
+        {
+            var manifests = ReturnSelectedIngestManifests();
+            bool singleitem = (manifests.Count == 1);
+
+            infoToolStripMenuItem.Enabled =
+                copyIngestURLToClipboardToolStripMenuItem.Enabled =
+                copyAsperaURLToolStripMenuItem.Enabled =
+                defineAssetToolStripMenuItem.Enabled = 
+                singleitem;
         }
     }
 }

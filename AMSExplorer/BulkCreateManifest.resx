@@ -119,9 +119,10 @@
   </resheader>
   <data name="label2.Text" xml:space="preserve">
     <value>Ingesting assets in Bulk involves decoupling asset creation from the upload process.
+
 1) Create a bulk ingest container
-2) Declare the asset and files configuration to upload
+2) Declare the asset and files to upload
 3) Use the upload method of your choice to upload the associated files to the bulk ingest container
-4) Azure Media Services will complete the asset creation</value>
+4) Azure Media Services will automatically complete the asset creation</value>
   </data>
 </root>
