@@ -171,7 +171,7 @@
             this.buttonBrowseFile.Name = "buttonBrowseFile";
             this.buttonBrowseFile.Size = new System.Drawing.Size(95, 23);
             this.buttonBrowseFile.TabIndex = 1;
-            this.buttonBrowseFile.Text = "Browse";
+            this.buttonBrowseFile.Text = "Browse...";
             this.buttonBrowseFile.UseVisualStyleBackColor = true;
             this.buttonBrowseFile.Click += new System.EventHandler(this.buttonBrowseFile_Click);
             // 

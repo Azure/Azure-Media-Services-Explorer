@@ -11109,25 +11109,7 @@ namespace AMSExplorer
 
         private void DoBulkUpload()
         {
-            bool usercancelled = false;
-            if (_context.IngestManifests.Count() == 0)
-            {
-                // no bulk container
-
-                if (MessageBox.Show("There is no bulk ingest container configured.\nCreate one ?", "Bulk ingest container", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    usercancelled = !DoNewIngestManifest();
-                }
-                else
-                {
-                    usercancelled = true;
-                }
-            }
-
-            if (!usercancelled && _context.IngestManifests.Count() > 0)
-            {
-                DoDeclareAssetToUploadBulk(_context.IngestManifests.FirstOrDefault());
-            }
+            DoDeclareAssetToUploadBulk();
         }
 
 
@@ -11173,36 +11155,88 @@ namespace AMSExplorer
 
         private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeclareAssetToUploadBulk(ReturnSelectedIngestManifests().FirstOrDefault());
+            DoDeclareAssetToUploadBulk();
         }
 
-        private void DoDeclareAssetToUploadBulk(IIngestManifest manifest)
+        private void DoDeclareAssetToUploadBulk()
         {
-            if (manifest == null) return;
 
-            BulkUpload form = new BulkUpload(_context, manifest);
+
+            BulkUpload form = new BulkUpload(_context);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.AssetFiles.Count() > 0)
                 {
+                    IIngestManifest manifest = _context.IngestManifests.Create(form.IngestName, form.IngestStorageSelected);
+
+                    StringBuilder sbuilderManifest = new StringBuilder();
+                    sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                    sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                    sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                    string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                    sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                    TextBoxLogWriteLine(sbuilderManifest.ToString());
+
+                    sbuilder.Clear();
+                    sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                       // COPY to clipboard. We need to create a STA thread for it
+                    System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                    MyThread.SetApartmentState(ApartmentState.STA);
+                    MyThread.IsBackground = true;
+                    MyThread.Start(sbuilder.ToString());
+
+                    IAsset destAsset;
                     try
                     {
                         // Create the assets that will be associated with this bulk ingest manifest
-                        IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
+                        destAsset = _context.Assets.Create(form.AssetName, form.AssetStorageSelected, form.EncryptAssetFiles ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                        //IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.StorageEncrypted);
                         IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-                        /*
-                        var file = bulkAsset.IngestManifestFiles.FirstOrDefault();
-                        if (file!=null) file.IsPrimary = true;
-                        manifest.Update();
-                        */
-                        TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
-                        TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
                     }
                     catch (Exception ex)
                     {
                         TextBoxLogWriteLine("Error when declaring asset.", true);
                         TextBoxLogWriteLine(ex);
+                        return;
                     }
+
+
+                    if (form.EncryptAssetFiles)
+                    {
+                        bool ErrorFolderCreation = false;
+
+                        if (!Directory.Exists(form.EncryptToFolder))
+                        {
+                            if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.EncryptToFolder), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                            {
+                                try
+                                {
+                                    Directory.CreateDirectory(form.EncryptToFolder);
+                                }
+                                catch
+                                {
+                                    ErrorFolderCreation = true;
+                                    MessageBox.Show(string.Format("Error when creating folder '{0}'.", form.EncryptToFolder), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    TextBoxLogWriteLine("Error when creating folder '{0}'.", form.EncryptToFolder, true);
+                                }
+                            }
+                            else
+                            {
+                                ErrorFolderCreation = true;
+                                TextBoxLogWriteLine("User cancelled the folder creation.", true);
+                            }
+                        }
+                        if (!ErrorFolderCreation)
+                        {
+                            TextBoxLogWriteLine("Encryption of asset files...");
+                            manifest.EncryptFiles(form.EncryptToFolder);
+                            TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", form.EncryptToFolder);
+                        }
+                    }
+                    TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
+                    TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+                    DoRefreshGridIngestManifestV(false);
+
                 }
                 else
                 {
@@ -11212,10 +11246,7 @@ namespace AMSExplorer
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            DoNewIngestManifest();
-        }
+       /*
 
         private bool DoNewIngestManifest() // return false if user cancelled
         {
@@ -11250,6 +11281,7 @@ namespace AMSExplorer
             }
 
         }
+        */
 
         private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -11318,7 +11350,6 @@ namespace AMSExplorer
             infoToolStripMenuItem.Enabled =
                 copyIngestURLToClipboardToolStripMenuItem.Enabled =
                 copyAsperaURLToolStripMenuItem.Enabled =
-                defineAssetToolStripMenuItem.Enabled =
                 singleitem;
 
             deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
@@ -11329,7 +11360,7 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 var manifestId = dataGridViewIngestManifestsV.Rows[e.RowIndex].Cells[dataGridViewIngestManifestsV.Columns["Id"].Index].Value.ToString();
-                DoBulkContainerInfo(_context.IngestManifests.Where(m=>m.Id==manifestId).FirstOrDefault());
+                DoBulkContainerInfo(_context.IngestManifests.Where(m => m.Id == manifestId).FirstOrDefault());
             }
         }
 

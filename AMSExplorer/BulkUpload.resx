@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="openFileDialogAssetFiles.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="folderBrowserDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>186, 17</value>
+  </metadata>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Ingesting assets in Bulk involves decoupling asset creation from the upload process.
+
+1) Create a bulk ingest container
+2) Declare the asset and files to upload
+3) Optional: files are encrypted locally to a new folder
+3) Use the upload method of your choice to upload the associated files to the bulk ingest container
+4) Azure Media Services will automatically complete the asset creation</value>
+  </data>
 </root>

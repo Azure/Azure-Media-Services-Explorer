@@ -35,8 +35,14 @@ namespace AMSExplorer
     {
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
-        private IIngestManifest _manifest;
 
+        public string IngestName
+        {
+            get
+            {
+                return textBoxManifestName.Text;
+            }
+        }
         public string AssetName
         {
             get
@@ -49,39 +55,64 @@ namespace AMSExplorer
         {
             get
             {
-                return assetFiles.Where(a=> !string.IsNullOrWhiteSpace(a.FileName)).Select(a => a.FileName).ToArray();
+                return assetFiles.Where(a => !string.IsNullOrWhiteSpace(a.FileName)).Select(a => a.FileName).ToArray();
             }
         }
 
-        public string StorageSelected
+        public string AssetStorageSelected
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return ((Item)comboBoxStorageAsset.SelectedItem).Value;
             }
         }
 
-      
-        public BulkUpload(CloudMediaContext context, IIngestManifest manifest)
+        public string IngestStorageSelected
+        {
+            get
+            { 
+                return ((Item)comboBoxStorageIngest.SelectedItem).Value;
+            }
+        }
+
+        public bool EncryptAssetFiles
+        {
+            get
+            {
+                return checkBoxEncrypt.Checked;
+            }
+        }
+
+        public string EncryptToFolder
+        {
+            get
+            {
+                return checkBoxEncrypt.Checked ? textBoxFolderPath.Text : null;
+            }
+        }
+
+        public BulkUpload(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             dataGridAssetFiles.DataSource = assetFiles;
             _context = context;
-            _manifest = manifest;
         }
 
         private void UploadBulk_Load(object sender, EventArgs e)
         {
-            comboBoxStorage.Items.Clear();
+            comboBoxStorageAsset.Items.Clear();
             foreach (var storage in _context.StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                var it = new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name);
+                comboBoxStorageIngest.Items.Add(it);
+                comboBoxStorageAsset.Items.Add(it);
+                if (storage.Name == _context.DefaultStorageAccount.Name)
+                {
+                    comboBoxStorageIngest.SelectedIndex = comboBoxStorageIngest.Items.Count - 1;
+                    comboBoxStorageAsset.SelectedIndex = comboBoxStorageAsset.Items.Count - 1;
+                }
             }
-
-            labelUsingBulkContLabel.Text = string.Format(labelUsingBulkContLabel.Text, _manifest.Name);
-
         }
 
 
@@ -96,22 +127,58 @@ namespace AMSExplorer
 
         private void buttonDelFiles_Click(object sender, EventArgs e)
         {
-            if (dataGridAssetFiles.SelectedRows.Count == 1)
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
             {
-                assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
+                List<BulkAssetFile> removeItems = new List<BulkAssetFile>();
+
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    //assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
+                    removeItems.Add(assetFiles[row.Index]);
+                    //assetFiles.RemoveAt(row.Index);
+                }
+
+                foreach (BulkAssetFile item in removeItems)
+                    assetFiles.Remove(item);
             }
         }
 
 
         class BulkAssetFile
         {
-            string _fileName;
+            private string _fileName;
             public string FileName { get { return _fileName; } set { _fileName = value; } }
 
             public BulkAssetFile()
             {
                 _fileName = string.Empty;
             }
+        }
+
+        private void buttonSelectFiles_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogAssetFiles.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var file in openFileDialogAssetFiles.FileNames)
+                {
+                    assetFiles.Add(new BulkAssetFile() { FileName = file });
+                }
+                textBoxFolderPath.Text = Path.GetDirectoryName(assetFiles[0].FileName) + @"\Encrypted";
+            }
+        }
+
+        private void buttonBrowseFile_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = checkBoxEncrypt.Checked;
         }
     }
 

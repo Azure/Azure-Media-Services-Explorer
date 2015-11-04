@@ -428,7 +428,7 @@
             this.dataGridViewTransfer = new System.Windows.Forms.DataGridView();
             this.dataGridViewIngestManifestsV = new AMSExplorer.DataGridViewIngestManifest();
             this.contextMenuStripIngestManifests = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem33Refresh = new System.Windows.Forms.ToolStripMenuItem();
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator41 = new System.Windows.Forms.ToolStripSeparator();
@@ -494,7 +494,6 @@
             this.buttonbuildchart = new System.Windows.Forms.Button();
             this.richTextBoxLog = new System.Windows.Forms.RichTextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.toolStripMenuItem33Refresh = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripAssets.SuspendLayout();
             this.menuStripMain.SuspendLayout();
             this.contextMenuStripJobs.SuspendLayout();
@@ -4157,24 +4156,24 @@
             // 
             this.contextMenuStripIngestManifests.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem33Refresh,
-            this.newToolStripMenuItem,
+            this.defineAssetToolStripMenuItem,
             this.infoToolStripMenuItem,
             this.deleteToolStripMenuItem3,
             this.toolStripSeparator41,
             this.copyIngestURLToClipboardToolStripMenuItem,
             this.copyAsperaURLToolStripMenuItem,
-            this.toolStripSeparator42,
-            this.defineAssetToolStripMenuItem});
+            this.toolStripSeparator42});
             this.contextMenuStripIngestManifests.Name = "contextMenuStripIngestManifests";
-            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(281, 192);
+            this.contextMenuStripIngestManifests.Size = new System.Drawing.Size(281, 148);
             this.contextMenuStripIngestManifests.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripIngestManifests_Opening);
             // 
-            // newToolStripMenuItem
+            // toolStripMenuItem33Refresh
             // 
-            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.newToolStripMenuItem.Text = "New bulk ingest container...";
-            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            this.toolStripMenuItem33Refresh.Image = global::AMSExplorer.Bitmaps.refresh;
+            this.toolStripMenuItem33Refresh.Name = "toolStripMenuItem33Refresh";
+            this.toolStripMenuItem33Refresh.Size = new System.Drawing.Size(280, 22);
+            this.toolStripMenuItem33Refresh.Text = "Refresh";
+            this.toolStripMenuItem33Refresh.Click += new System.EventHandler(this.toolStripMenuItem33Refresh_Click);
             // 
             // infoToolStripMenuItem
             // 
@@ -4218,7 +4217,7 @@
             // 
             this.defineAssetToolStripMenuItem.Name = "defineAssetToolStripMenuItem";
             this.defineAssetToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
-            this.defineAssetToolStripMenuItem.Text = "Declare asset to upload...";
+            this.defineAssetToolStripMenuItem.Text = "New bulk ingest container...";
             this.defineAssetToolStripMenuItem.Click += new System.EventHandler(this.defineAssetToolStripMenuItem_Click);
             // 
             // tabPageJobs
@@ -5021,14 +5020,6 @@
             this.notifyIcon1.Text = "{0} - AMS Explorer";
             this.notifyIcon1.Visible = true;
             // 
-            // toolStripMenuItem33Refresh
-            // 
-            this.toolStripMenuItem33Refresh.Image = global::AMSExplorer.Bitmaps.refresh;
-            this.toolStripMenuItem33Refresh.Name = "toolStripMenuItem33Refresh";
-            this.toolStripMenuItem33Refresh.Size = new System.Drawing.Size(280, 22);
-            this.toolStripMenuItem33Refresh.Text = "Refresh";
-            this.toolStripMenuItem33Refresh.Click += new System.EventHandler(this.toolStripMenuItem33Refresh_Click);
-            // 
             // Mainform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5551,7 +5542,6 @@
         private System.Windows.Forms.ToolStripMenuItem withAnExternalAsperaSignantAzCopyToolStripMenuItem;
         private DataGridViewIngestManifest dataGridViewIngestManifestsV;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripIngestManifests;
-        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem3;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator41;
         private System.Windows.Forms.ToolStripMenuItem defineAssetToolStripMenuItem;
