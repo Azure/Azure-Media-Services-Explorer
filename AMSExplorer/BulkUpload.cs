@@ -253,8 +253,6 @@ namespace AMSExplorer
         }
 
 
-
-
         private void buttonSelectFiles_Click(object sender, EventArgs e)
         {
             if (openFileDialogAssetFiles.ShowDialog() == DialogResult.OK)
@@ -265,7 +263,8 @@ namespace AMSExplorer
                 }
                 if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
                 {
-                    textBoxFolderPath.Text = Path.GetDirectoryName(assetFiles[0].FileName) + @"\Encrypted";
+                    FileInfo file = new FileInfo(assetFiles[0].FileName);
+                    textBoxFolderPath.Text = Path.Combine(file.Directory.Parent.FullName, file.Directory.Name + "_Encrypted");
                 }
             }
             ReindexAssetListAndDoSomeChecks();
@@ -276,7 +275,7 @@ namespace AMSExplorer
             folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
             if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
             {
-                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath;
+                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath ;
             }
         }
 
@@ -291,7 +290,7 @@ namespace AMSExplorer
             {
                 if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
                 {
-                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"\Encrypted";
+                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"_Encrypted";
                 }
 
                 var folders = Directory.GetDirectories(folderBrowserDialog1.SelectedPath).ToList();

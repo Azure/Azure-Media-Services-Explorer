@@ -112,9 +112,9 @@
             this.label5.ForeColor = System.Drawing.Color.DarkBlue;
             this.label5.Location = new System.Drawing.Point(14, 18);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(355, 20);
+            this.label5.Size = new System.Drawing.Size(246, 20);
             this.label5.TabIndex = 72;
-            this.label5.Text = "Declare asset(s) to upload with an external uploader";
+            this.label5.Text = "New bulk ingest for external upload";
             // 
             // openFileDialogAssetFiles
             // 
@@ -296,7 +296,7 @@
             this.label6.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label6.Location = new System.Drawing.Point(19, 20);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(555, 125);
+            this.label6.Size = new System.Drawing.Size(710, 187);
             this.label6.TabIndex = 77;
             this.label6.Text = resources.GetString("label6.Text");
             // 
@@ -424,7 +424,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "BulkUpload";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Declare asset(s) to upload";
+            this.Text = "New bulk Ingest";
             this.Load += new System.EventHandler(this.UploadBulk_Load);
             this.panel1.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);

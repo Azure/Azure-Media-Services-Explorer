@@ -76,15 +76,13 @@ namespace AMSExplorer
         }
 
 
-
         private void contextMenuStripDG_Opening(object sender, CancelEventArgs e)
         {
 
         }
 
 
-
-        private void ProgramInformation_Load_1(object sender, EventArgs e)
+        private void BulkContainerInfo_Load(object sender, EventArgs e)
         {
             labelPBulkName.Text += _manifest.Name;
 
@@ -106,7 +104,6 @@ namespace AMSExplorer
             DGBulkManifest.Rows.Add("Finished Files Count", _manifest.Statistics.FinishedFilesCount);
             DGBulkManifest.Rows.Add("Error Files Count", _manifest.Statistics.ErrorFilesCount);
             DGBulkManifest.Rows.Add("Error Files Details", _manifest.Statistics.ErrorFilesDetails);
-
             ListAssetManifests();
             textBoxName.Text = _manifest.Name;
         }
@@ -119,7 +116,7 @@ namespace AMSExplorer
             listViewAssetManifests.BeginUpdate();
             foreach (var im in _manifest.IngestManifestAssets)
             {
-                ListViewItem item = new ListViewItem(im.Asset.Name, 0);
+                ListViewItem item = new ListViewItem( im.Asset.Name, 0);
                 listViewAssetManifests.Items.Add(item);
             }
             listViewAssetManifests.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
@@ -155,11 +152,20 @@ namespace AMSExplorer
                 DGAssetManifest.Rows.Add("Asset Name", am.Asset.Name);
                 DGAssetManifest.Rows.Add("Asset Id", am.Asset.Id);
 
-                int i = 1;
+
+                var numberpending = am.IngestManifestFiles.AsEnumerable().Count(f => f.State == IngestManifestFileState.Pending);
+                var numbererror = am.IngestManifestFiles.AsEnumerable().Count(f => f.State == IngestManifestFileState.Error);
+                var numberfinished = am.IngestManifestFiles.AsEnumerable().Count(f => f.State == IngestManifestFileState.Finished);
+                DGAssetManifest.Rows.Add("Pending files count", numberpending);
+                DGAssetManifest.Rows.Add("Error files count", numbererror);
+                DGAssetManifest.Rows.Add("Finished files count", numberfinished);
+
+                int i = 0;
                 foreach (var f in am.IngestManifestFiles)
                 {
-                    DGAssetManifest.Rows.Add("File Name #" + i, f.Name);
-                    DGAssetManifest.Rows.Add("File State #" + i, (IngestManifestFileState)f.State);
+                    DGAssetManifest.Rows.Add(string.Format("File #{0} Name", i), f.Name);
+                    DGAssetManifest.Rows.Add(string.Format("File #{0} State", i), (IngestManifestFileState)f.State);
+                    DGAssetManifest.Rows.Add(string.Format("File #{0} Encrypted", i), f.IsEncrypted);
                 }
             }
         }
