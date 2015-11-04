@@ -28,6 +28,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
@@ -43,19 +44,18 @@ namespace AMSExplorer
                 return textBoxManifestName.Text;
             }
         }
-        public string AssetName
-        {
-            get
-            {
-                return textBoxAssetName.Text;
-            }
-        }
 
-        public string[] AssetFiles
+        public List<BulkAsset> AssetFiles
         {
             get
             {
-                return assetFiles.Where(a => !string.IsNullOrWhiteSpace(a.FileName)).Select(a => a.FileName).ToArray();
+                var myList = new List<BulkAsset>();
+                var listofguid = assetFiles.GroupBy(a => a.AssetGuid).ToList();
+                foreach (var asset in listofguid)
+                {
+                    myList.Add(new BulkAsset() { AssetName = asset.FirstOrDefault().AssetName, AssetFiles = asset.Select(a => a.FileName).ToArray() });
+                }
+                return myList;
             }
         }
 
@@ -70,7 +70,7 @@ namespace AMSExplorer
         public string IngestStorageSelected
         {
             get
-            { 
+            {
                 return ((Item)comboBoxStorageIngest.SelectedItem).Value;
             }
         }
@@ -113,6 +113,10 @@ namespace AMSExplorer
                     comboBoxStorageAsset.SelectedIndex = comboBoxStorageAsset.Items.Count - 1;
                 }
             }
+            dataGridAssetFiles.Columns["AssetGuid"].Visible = false;
+            dataGridAssetFiles.Columns["AssetIndex"].ReadOnly = true;
+            dataGridAssetFiles.Columns["FileName"].ReadOnly = true;
+            labelWarningFiles.Text = "";
         }
 
 
@@ -120,10 +124,7 @@ namespace AMSExplorer
         {
         }
 
-        private void buttonAddFiles_Click(object sender, EventArgs e)
-        {
-            assetFiles.AddNew();
-        }
+
 
         private void buttonDelFiles_Click(object sender, EventArgs e)
         {
@@ -140,20 +141,119 @@ namespace AMSExplorer
 
                 foreach (BulkAssetFile item in removeItems)
                     assetFiles.Remove(item);
+
+                ReindexAssetListAndDoSomeChecks();
             }
         }
 
-
-        class BulkAssetFile
+        private void ReindexAssetListAndDoSomeChecks()
         {
-            private string _fileName;
-            public string FileName { get { return _fileName; } set { _fileName = value; } }
-
-            public BulkAssetFile()
+            // reindex
+            int index = -1;
+            Guid g = Guid.NewGuid();
+            string assetname = null;
+            foreach (var f in assetFiles)
             {
-                _fileName = string.Empty;
+                if (f.AssetGuid != g)
+                {
+                    index++;
+                    assetname = f.AssetName;
+                }
+                else
+                {
+                    f.AssetName = assetname; // let's make sure all asset files from the same asset have the same asset name
+                }
+                f.AssetIndex = index;
+               
+                g = f.AssetGuid;
+            }
+
+           
+
+            // let's check filename duplicates
+            var listfilenames = assetFiles.Select(a => Path.GetFileName(a.FileName)).Distinct().ToList();
+            if (listfilenames.Count != assetFiles.Count)
+            {
+                labelWarningFiles.Text = "Warning : two files have the same file name. This is not supported inside the same bulk ingest container.";
+            }
+            else
+            {
+                labelWarningFiles.Text = "";
             }
         }
+
+
+        class BulkAssetFile : INotifyPropertyChanged
+        {
+            private Guid _guid;
+            public Guid AssetGuid
+            {
+                get { return _guid; }
+                set { _guid = value; }
+            }
+
+            private int _index;
+            public int AssetIndex
+            {
+                get { return _index; }
+                set
+                {
+                    if (value != _index)
+                    {
+                        _index = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string _assetname;
+            public string AssetName
+            {
+                get { return _assetname; }
+                set
+                {
+                    if (value != _assetname)
+                    {
+                        _assetname = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string _fileName;
+            public string FileName
+            {
+                get { return _fileName; }
+                set
+                {
+                    if (value != _fileName)
+                    {
+                        _fileName = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            private void NotifyPropertyChanged([CallerMemberName] String p = "")
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(p));
+                }
+            }
+
+        }
+
+        public class BulkAsset
+        {
+            public string[] AssetFiles;
+            public string AssetName;
+        }
+
+
+
 
         private void buttonSelectFiles_Click(object sender, EventArgs e)
         {
@@ -161,13 +261,14 @@ namespace AMSExplorer
             {
                 foreach (var file in openFileDialogAssetFiles.FileNames)
                 {
-                    assetFiles.Add(new BulkAssetFile() { FileName = file });
+                    assetFiles.Add(new BulkAssetFile() { AssetName = Path.GetFileName(file), FileName = file });
                 }
                 if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
                 {
                     textBoxFolderPath.Text = Path.GetDirectoryName(assetFiles[0].FileName) + @"\Encrypted";
                 }
             }
+            ReindexAssetListAndDoSomeChecks();
         }
 
         private void buttonBrowseFile_Click(object sender, EventArgs e)
@@ -183,7 +284,93 @@ namespace AMSExplorer
         {
             buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = checkBoxEncrypt.Checked;
         }
+
+        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
+                {
+                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"\Encrypted";
+                }
+
+                var folders = Directory.GetDirectories(folderBrowserDialog1.SelectedPath).ToList();
+                var files = Directory.GetFiles(folderBrowserDialog1.SelectedPath).ToList();
+
+                if (files.Count > 0)
+                {
+                    Guid g = Guid.NewGuid();
+                    foreach (var file in files)
+                    {
+                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folderBrowserDialog1.SelectedPath), FileName = file });
+                    }
+                }
+
+                folders.RemoveAll(f => Directory.GetFiles(f).Count() == 0); // we remove all folder with 0 file in it at the root
+
+                foreach (var folder in folders)
+                {
+                    var filesinfolder = Directory.GetFiles(folder).ToList();
+
+                    if (filesinfolder.Count > 0)
+                    {
+                        Guid g = Guid.NewGuid();
+                        string thisassetname = Path.GetFileNameWithoutExtension(filesinfolder[0]);
+                        foreach (var file in filesinfolder)
+                        {
+                            assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folder), FileName = file });
+                        }
+                    }
+                }
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
+
+        private void dataGridAssetFiles_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridAssetFiles.Columns["AssetName"].Index)  // user edited the asset name
+            {
+                string newAssetName = assetFiles[e.RowIndex].AssetName;
+                var g = assetFiles[e.RowIndex].AssetGuid;
+                var asset = assetFiles.Where(a => a.AssetGuid == g);
+                foreach (var f in asset)
+                {
+                    f.AssetName = newAssetName;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            assetFiles.Clear();
+        }
+
+        private void buttonGroupSelectionInOneAsset_Click(object sender, EventArgs e)
+        {
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
+            {
+                Guid g = Guid.NewGuid();
+
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    assetFiles[row.Index].AssetGuid = g;
+                }
+
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
+
+        private void buttonSplitSelection_Click(object sender, EventArgs e)
+        {
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    assetFiles[row.Index].AssetGuid = Guid.NewGuid();
+                }
+
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
     }
-
-
 }

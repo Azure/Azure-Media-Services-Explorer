@@ -11185,25 +11185,31 @@ namespace AMSExplorer
                     MyThread.IsBackground = true;
                     MyThread.Start(sbuilder.ToString());
 
-                    IAsset destAsset;
-                    try
-                    {
-                        // Create the assets that will be associated with this bulk ingest manifest
-                        destAsset = _context.Assets.Create(form.AssetName, form.AssetStorageSelected, form.EncryptAssetFiles ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
-                        //IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.StorageEncrypted);
-                        IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-                    }
-                    catch (Exception ex)
-                    {
-                        TextBoxLogWriteLine("Error when declaring asset.", true);
-                        TextBoxLogWriteLine(ex);
-                        return;
-                    }
 
+                    // Create the assets that will be associated with this bulk ingest manifest
+                    foreach (var asset in form.AssetFiles)
+                    {
+                        try
+                        {
+
+                            IAsset destAsset = _context.Assets.Create(asset.AssetName, form.AssetStorageSelected, form.EncryptAssetFiles ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                            IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, asset.AssetFiles);
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when declaring asset '{0}'.", asset.AssetName, true);
+                            TextBoxLogWriteLine(ex);
+                            return;
+                        }
+                    }
+                    TextBoxLogWriteLine("{0} assets declared for bulk ingest container '{1}'.", form.AssetFiles.Count, manifest.Name);
+
+
+                    // Encryption of files
+                    bool ErrorFolderCreation = false;
 
                     if (form.EncryptAssetFiles)
                     {
-                        bool ErrorFolderCreation = false;
 
                         if (!Directory.Exists(form.EncryptToFolder))
                         {
@@ -11229,12 +11235,20 @@ namespace AMSExplorer
                         if (!ErrorFolderCreation)
                         {
                             TextBoxLogWriteLine("Encryption of asset files...");
-                            manifest.EncryptFiles(form.EncryptToFolder);
-                            TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", form.EncryptToFolder);
+                            try
+                            {
+                                manifest.EncryptFiles(form.EncryptToFolder);
+                                TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", form.EncryptToFolder);
+                            }
+                            catch
+                            {
+                                TextBoxLogWriteLine("Error when encrypting files to folders '{0}'.", form.EncryptToFolder, true);
+                                ErrorFolderCreation = true;
+                            }
                         }
                     }
-                    TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
-                    TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+
+                    if (!ErrorFolderCreation) TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
                     DoRefreshGridIngestManifestV(false);
 
                 }
@@ -11246,42 +11260,42 @@ namespace AMSExplorer
             }
         }
 
-       /*
+        /*
 
-        private bool DoNewIngestManifest() // return false if user cancelled
-        {
-            BulkCreateManifest form = new BulkCreateManifest(_context);
+         private bool DoNewIngestManifest() // return false if user cancelled
+         {
+             BulkCreateManifest form = new BulkCreateManifest(_context);
 
-            if (form.ShowDialog() == DialogResult.OK)
-            {
-                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName, form.StorageSelected);
+             if (form.ShowDialog() == DialogResult.OK)
+             {
+                 IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName, form.StorageSelected);
 
-                StringBuilder sbuilderManifest = new StringBuilder();
-                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
-                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
-                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
-                TextBoxLogWriteLine(sbuilderManifest.ToString());
+                 StringBuilder sbuilderManifest = new StringBuilder();
+                 sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
+                 sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
+                 sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
+                 string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
+                 sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
+                 TextBoxLogWriteLine(sbuilderManifest.ToString());
 
-                sbuilder.Clear();
-                sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
-                                                                   // COPY to clipboard. We need to create a STA thread for it
-                System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                MyThread.SetApartmentState(ApartmentState.STA);
-                MyThread.IsBackground = true;
-                MyThread.Start(sbuilder.ToString());
+                 sbuilder.Clear();
+                 sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
+                                                                    // COPY to clipboard. We need to create a STA thread for it
+                 System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
+                 MyThread.SetApartmentState(ApartmentState.STA);
+                 MyThread.IsBackground = true;
+                 MyThread.Start(sbuilder.ToString());
 
-                DoRefreshGridIngestManifestV(false);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+                 DoRefreshGridIngestManifestV(false);
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
 
-        }
-        */
+         }
+         */
 
         private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
         {

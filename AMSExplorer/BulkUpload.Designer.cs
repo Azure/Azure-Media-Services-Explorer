@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BulkUpload));
             this.buttonOk = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
@@ -40,8 +41,6 @@
             this.buttonSelectFiles = new System.Windows.Forms.Button();
             this.comboBoxStorageAsset = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBoxAssetName = new System.Windows.Forms.TextBox();
             this.buttonDelFiles = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridAssetFiles = new System.Windows.Forms.DataGridView();
@@ -56,6 +55,13 @@
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.buttonSelectFolder = new System.Windows.Forms.Button();
+            this.labelWarningFiles = new System.Windows.Forms.Label();
+            this.buttonRemoveAll = new System.Windows.Forms.Button();
+            this.buttonGroupSelectionInOneAsset = new System.Windows.Forms.Button();
+            this.buttonSplitSelection = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -130,11 +136,15 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label1);
+            this.tabPage1.Controls.Add(this.buttonSplitSelection);
+            this.tabPage1.Controls.Add(this.buttonGroupSelectionInOneAsset);
+            this.tabPage1.Controls.Add(this.buttonRemoveAll);
+            this.tabPage1.Controls.Add(this.labelWarningFiles);
+            this.tabPage1.Controls.Add(this.buttonSelectFolder);
             this.tabPage1.Controls.Add(this.buttonSelectFiles);
             this.tabPage1.Controls.Add(this.comboBoxStorageAsset);
             this.tabPage1.Controls.Add(this.label33);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.textBoxAssetName);
             this.tabPage1.Controls.Add(this.buttonDelFiles);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.dataGridAssetFiles);
@@ -143,59 +153,45 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(752, 355);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Destination Asset";
+            this.tabPage1.Text = "Destination Assets";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonSelectFiles
             // 
             this.buttonSelectFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectFiles.Location = new System.Drawing.Point(592, 96);
+            this.buttonSelectFiles.Location = new System.Drawing.Point(592, 39);
             this.buttonSelectFiles.Name = "buttonSelectFiles";
             this.buttonSelectFiles.Size = new System.Drawing.Size(143, 27);
             this.buttonSelectFiles.TabIndex = 81;
             this.buttonSelectFiles.Text = "Select local file(s)...";
+            this.toolTip1.SetToolTip(this.buttonSelectFiles, "Each file selected will be declared as a single asset");
             this.buttonSelectFiles.UseVisualStyleBackColor = true;
             this.buttonSelectFiles.Click += new System.EventHandler(this.buttonSelectFiles_Click);
             // 
             // comboBoxStorageAsset
             // 
+            this.comboBoxStorageAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxStorageAsset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStorageAsset.FormattingEnabled = true;
-            this.comboBoxStorageAsset.Location = new System.Drawing.Point(20, 225);
+            this.comboBoxStorageAsset.Location = new System.Drawing.Point(20, 315);
             this.comboBoxStorageAsset.Name = "comboBoxStorageAsset";
             this.comboBoxStorageAsset.Size = new System.Drawing.Size(221, 23);
             this.comboBoxStorageAsset.TabIndex = 78;
             // 
             // label33
             // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(17, 207);
+            this.label33.Location = new System.Drawing.Point(17, 297);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(53, 15);
             this.label33.TabIndex = 79;
             this.label33.Text = "Storage :";
             // 
-            // label1
-            // 
-            this.label1.Location = new System.Drawing.Point(17, 11);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 15);
-            this.label1.TabIndex = 73;
-            this.label1.Text = "Asset Name :";
-            // 
-            // textBoxAssetName
-            // 
-            this.textBoxAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxAssetName.Location = new System.Drawing.Point(20, 29);
-            this.textBoxAssetName.Name = "textBoxAssetName";
-            this.textBoxAssetName.Size = new System.Drawing.Size(715, 23);
-            this.textBoxAssetName.TabIndex = 0;
-            // 
             // buttonDelFiles
             // 
-            this.buttonDelFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelFiles.Location = new System.Drawing.Point(592, 129);
+            this.buttonDelFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDelFiles.Location = new System.Drawing.Point(592, 216);
             this.buttonDelFiles.Name = "buttonDelFiles";
             this.buttonDelFiles.Size = new System.Drawing.Size(143, 27);
             this.buttonDelFiles.TabIndex = 76;
@@ -205,7 +201,7 @@
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(17, 78);
+            this.label2.Location = new System.Drawing.Point(17, 21);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 15);
             this.label2.TabIndex = 77;
@@ -215,18 +211,19 @@
             // 
             this.dataGridAssetFiles.AllowUserToAddRows = false;
             this.dataGridAssetFiles.AllowUserToDeleteRows = false;
+            this.dataGridAssetFiles.AllowUserToResizeRows = false;
             this.dataGridAssetFiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridAssetFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridAssetFiles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridAssetFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridAssetFiles.Location = new System.Drawing.Point(20, 96);
+            this.dataGridAssetFiles.Location = new System.Drawing.Point(20, 39);
             this.dataGridAssetFiles.Name = "dataGridAssetFiles";
-            this.dataGridAssetFiles.ReadOnly = true;
             this.dataGridAssetFiles.RowHeadersVisible = false;
             this.dataGridAssetFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridAssetFiles.Size = new System.Drawing.Size(566, 94);
+            this.dataGridAssetFiles.Size = new System.Drawing.Size(566, 237);
             this.dataGridAssetFiles.TabIndex = 74;
+            this.dataGridAssetFiles.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridAssetFiles_CellEndEdit);
             // 
             // tabPage2
             // 
@@ -244,13 +241,12 @@
             // 
             // label4
             // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label4.Location = new System.Drawing.Point(250, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(315, 15);
             this.label4.TabIndex = 82;
-            this.label4.Text = "A key will be generated and copied to the target asset";
+            this.label4.Text = "A key will be generated and copied to the target asset(s)";
             // 
             // checkBoxEncrypt
             // 
@@ -341,6 +337,75 @@
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
             // 
+            // buttonSelectFolder
+            // 
+            this.buttonSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectFolder.Location = new System.Drawing.Point(592, 72);
+            this.buttonSelectFolder.Name = "buttonSelectFolder";
+            this.buttonSelectFolder.Size = new System.Drawing.Size(143, 27);
+            this.buttonSelectFolder.TabIndex = 82;
+            this.buttonSelectFolder.Text = "Select a folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectFolder, "The folder and each subfolder will be considered as a different asset");
+            this.buttonSelectFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
+            // 
+            // labelWarningFiles
+            // 
+            this.labelWarningFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningFiles.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningFiles.Location = new System.Drawing.Point(20, 279);
+            this.labelWarningFiles.Name = "labelWarningFiles";
+            this.labelWarningFiles.Size = new System.Drawing.Size(566, 15);
+            this.labelWarningFiles.TabIndex = 83;
+            this.labelWarningFiles.Tag = "";
+            this.labelWarningFiles.Text = "Warning: two files have the same name";
+            this.labelWarningFiles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // buttonRemoveAll
+            // 
+            this.buttonRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveAll.Location = new System.Drawing.Point(592, 249);
+            this.buttonRemoveAll.Name = "buttonRemoveAll";
+            this.buttonRemoveAll.Size = new System.Drawing.Size(143, 27);
+            this.buttonRemoveAll.TabIndex = 84;
+            this.buttonRemoveAll.Text = "Remove all";
+            this.buttonRemoveAll.UseVisualStyleBackColor = true;
+            this.buttonRemoveAll.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // buttonGroupSelectionInOneAsset
+            // 
+            this.buttonGroupSelectionInOneAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGroupSelectionInOneAsset.Location = new System.Drawing.Point(592, 161);
+            this.buttonGroupSelectionInOneAsset.Name = "buttonGroupSelectionInOneAsset";
+            this.buttonGroupSelectionInOneAsset.Size = new System.Drawing.Size(143, 49);
+            this.buttonGroupSelectionInOneAsset.TabIndex = 85;
+            this.buttonGroupSelectionInOneAsset.Text = "Group selection in a single asset";
+            this.buttonGroupSelectionInOneAsset.UseVisualStyleBackColor = true;
+            this.buttonGroupSelectionInOneAsset.Click += new System.EventHandler(this.buttonGroupSelectionInOneAsset_Click);
+            // 
+            // buttonSplitSelection
+            // 
+            this.buttonSplitSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSplitSelection.Location = new System.Drawing.Point(592, 106);
+            this.buttonSplitSelection.Name = "buttonSplitSelection";
+            this.buttonSplitSelection.Size = new System.Drawing.Size(143, 49);
+            this.buttonSplitSelection.TabIndex = 86;
+            this.buttonSplitSelection.Text = "Split selection to multiple assets";
+            this.buttonSplitSelection.UseVisualStyleBackColor = true;
+            this.buttonSplitSelection.Click += new System.EventHandler(this.buttonSplitSelection_Click);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(271, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(315, 15);
+            this.label1.TabIndex = 87;
+            this.label1.Text = "Asset Name can be edited in the grid";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // BulkUpload
             // 
             this.AcceptButton = this.buttonOk;
@@ -387,8 +452,6 @@
         private System.Windows.Forms.Button buttonSelectFiles;
         private System.Windows.Forms.ComboBox comboBoxStorageAsset;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxAssetName;
         private System.Windows.Forms.Button buttonDelFiles;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView dataGridAssetFiles;
@@ -403,5 +466,12 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox comboBoxStorageIngest;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonSelectFolder;
+        private System.Windows.Forms.Label labelWarningFiles;
+        private System.Windows.Forms.Button buttonRemoveAll;
+        private System.Windows.Forms.Button buttonGroupSelectionInOneAsset;
+        private System.Windows.Forms.Button buttonSplitSelection;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label1;
     }
 }
