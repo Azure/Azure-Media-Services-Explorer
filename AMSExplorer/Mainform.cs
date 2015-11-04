@@ -1940,25 +1940,15 @@ namespace AMSExplorer
 
                 this.Cursor = Cursors.WaitCursor;
 
+                // let's build the list of tasks
+                TextBoxLogWriteLine("Listing all the assets...");
+                List<Task> deleteTasks = new List<Task>();
                 while (true)
                 {
                     // Enumerate through all assets (1000 at a time)
                     var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
                     currentSkipSize += listassets.Count;
-                    Task[] deleteTasks = listassets.Select(a => a.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", listassets.Count));
-
-                    try
-                    {
-                        Task.WaitAll(deleteTasks);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
+                    deleteTasks.AddRange(listassets.Select(a => a.DeleteAsync()).ToArray());
 
                     if (currentSkipSize == batchSize)
                     {
@@ -1970,6 +1960,20 @@ namespace AMSExplorer
                         break;
                     }
                 }
+
+                TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", deleteTasks.Count));
+                try
+                {
+                    Task.WaitAll(deleteTasks.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+
                 if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
                 DoRefreshGridAssetV(false);
                 this.Cursor = Cursors.Default;
@@ -2994,25 +2998,16 @@ namespace AMSExplorer
 
                 this.Cursor = Cursors.WaitCursor;
 
+                // let's build the tasks list
+                TextBoxLogWriteLine("Listing the jobs...");
+                List<Task> deleteTasks = new List<Task>();
+
                 while (true)
                 {
-                    // Enumerate through all jobs(1000 at a time)
+                    // Enumerate through all jobs (1000 at a time)
                     var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
                     currentSkipSize += listjobs.Count;
-                    Task[] deleteTasks = listjobs.Select(a => a.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", listjobs.Count));
-
-                    try
-                    {
-                        Task.WaitAll(deleteTasks);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
+                    deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
 
                     if (currentSkipSize == batchSize)
                     {
@@ -3024,11 +3019,24 @@ namespace AMSExplorer
                         break;
                     }
                 }
+
+                TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
+                try
+                {
+                    Task.WaitAll(deleteTasks.ToArray());
+                }
+                catch (Exception ex)
+                {
+                    // Add useful information to the exception
+                    TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                    TextBoxLogWriteLine(ex);
+                    Error = true;
+                }
+
                 if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
                 DoRefreshGridJobV(false);
                 this.Cursor = Cursors.Default;
             }
-
         }
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
