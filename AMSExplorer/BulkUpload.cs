@@ -163,7 +163,10 @@ namespace AMSExplorer
                 {
                     assetFiles.Add(new BulkAssetFile() { FileName = file });
                 }
-                textBoxFolderPath.Text = Path.GetDirectoryName(assetFiles[0].FileName) + @"\Encrypted";
+                if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
+                {
+                    textBoxFolderPath.Text = Path.GetDirectoryName(assetFiles[0].FileName) + @"\Encrypted";
+                }
             }
         }
 
