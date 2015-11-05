@@ -12414,7 +12414,7 @@ namespace AMSExplorer
 
 
             // SHORTCUT (needed for account with large number fo assets)
-            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items))
+            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
             {
                 if (_timefilter == FilterTime.First50Items)
                 {
@@ -12423,6 +12423,10 @@ namespace AMSExplorer
                 else if (_timefilter == FilterTime.First1000Items)
                 {
                     assets = assetsServerQuery.Take(1000);
+                }
+                else
+                {
+                    assets = assetsServerQuery;
                 }
             }
             else // general case
@@ -12599,7 +12603,6 @@ namespace AMSExplorer
                         aggregateListAssets.Add(a);
                     }
 
-
                     if (currentSkipSize2 == batchSize2)
                     {
                         skipSize2 += batchSize2;
@@ -12660,12 +12663,11 @@ namespace AMSExplorer
                         break;
                 }
 
-
                 if (_timefilter == FilterTime.First50Items)
                 {
                     assets = assets.Take(50);
                 }
-                else if (_timefilter == FilterTime.First1000Items)
+                else // if (_timefilter == FilterTime.First1000Items)
                 {
                     assets = assets.Take(1000);
                 }
