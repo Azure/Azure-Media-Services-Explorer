@@ -96,16 +96,16 @@ namespace AMSExplorer
             DGJob.Rows.Add("Priority", MyJob.Priority);
             DGJob.Rows.Add("Overall progress", MyJob.GetOverallProgress());
 
-            if (MyJob.StartTime != null) DGJob.Rows.Add("Start Time", ((DateTime)MyJob.StartTime).ToLocalTime());
-            if (MyJob.EndTime != null) DGJob.Rows.Add("End Time", ((DateTime)MyJob.EndTime).ToLocalTime());
+            if (MyJob.StartTime != null) DGJob.Rows.Add("Start Time", ((DateTime)MyJob.StartTime).ToLocalTime().ToString("G"));
+            if (MyJob.EndTime != null) DGJob.Rows.Add("End Time", ((DateTime)MyJob.EndTime).ToLocalTime().ToString("G"));
 
             if ((MyJob.StartTime != null) && (MyJob.EndTime != null))
             {
                 DGJob.Rows.Add("Job Duration", ((DateTime)MyJob.EndTime).Subtract((DateTime)MyJob.StartTime));
             }
             DGJob.Rows.Add("CPU Duration", MyJob.RunningDuration);
-            DGJob.Rows.Add("Created", ((DateTime)MyJob.Created).ToLocalTime());
-            DGJob.Rows.Add("Last Modified", ((DateTime)MyJob.LastModified).ToLocalTime());
+            DGJob.Rows.Add("Created", ((DateTime)MyJob.Created).ToLocalTime().ToString("G"));
+            DGJob.Rows.Add("Last Modified", ((DateTime)MyJob.LastModified).ToLocalTime().ToString("G"));
             DGJob.Rows.Add("Template Id", MyJob.TemplateId);
 
             string sid = "";
@@ -176,8 +176,8 @@ namespace AMSExplorer
             DGTasks.Rows.Add("Id", task.Id);
             DGTasks.Rows.Add("State", task.State);
             DGTasks.Rows.Add("Priority", task.Priority);
-            if (task.StartTime != null) DGTasks.Rows.Add("Start Time", ((DateTime)task.StartTime).ToLocalTime());
-            if (task.EndTime != null) DGTasks.Rows.Add("End Time", ((DateTime)task.EndTime).ToLocalTime());
+            if (task.StartTime != null) DGTasks.Rows.Add("Start Time", ((DateTime)task.StartTime).ToLocalTime().ToString("G"));
+            if (task.EndTime != null) DGTasks.Rows.Add("End Time", ((DateTime)task.EndTime).ToLocalTime().ToString("G"));
             DGTasks.Rows.Add("Progress", task.Progress);
             DGTasks.Rows.Add("Duration", task.RunningDuration);
             DGTasks.Rows.Add("Perf Message", task.PerfMessage);

@@ -260,7 +260,7 @@
             this.Name = "BulkContainerInfo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Program Information";
-            this.Load += new System.EventHandler(this.ProgramInformation_Load_1);
+            this.Load += new System.EventHandler(this.BulkContainerInfo_Load);
             this.Shown += new System.EventHandler(this.ProgramInformation_Shown);
             this.contextMenuStripDG.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);

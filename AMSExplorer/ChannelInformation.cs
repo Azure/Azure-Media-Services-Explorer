@@ -148,8 +148,8 @@ namespace AMSExplorer
             DGChannel.Rows.Add("Name", MyChannel.Name);
             DGChannel.Rows.Add("Id", MyChannel.Id);
             DGChannel.Rows.Add("State", (ChannelState)MyChannel.State);
-            DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime());
-            DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime());
+            DGChannel.Rows.Add("Created", ((DateTime)MyChannel.Created).ToLocalTime().ToString("G"));
+            DGChannel.Rows.Add("Last Modified", ((DateTime)MyChannel.LastModified).ToLocalTime().ToString("G"));
             DGChannel.Rows.Add("Description", MyChannel.Description);
             DGChannel.Rows.Add("Input protocol", MyChannel.Input.StreamingProtocol);
             DGChannel.Rows.Add("Encoding Type", MyChannel.EncodingType);

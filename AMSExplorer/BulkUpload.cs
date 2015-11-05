@@ -28,6 +28,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Reflection;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace AMSExplorer
 {
@@ -35,53 +36,87 @@ namespace AMSExplorer
     {
         private BindingList<BulkAssetFile> assetFiles = new BindingList<BulkAssetFile>();
         private CloudMediaContext _context;
-        private IIngestManifest _manifest;
 
-        public string AssetName
+        public string IngestName
         {
             get
             {
-                return textBoxAssetName.Text;
+                return textBoxManifestName.Text;
             }
         }
 
-        public string[] AssetFiles
+        public List<BulkAsset> AssetFiles
         {
             get
             {
-                return assetFiles.Where(a=> !string.IsNullOrWhiteSpace(a.FileName)).Select(a => a.FileName).ToArray();
+                var myList = new List<BulkAsset>();
+                var listofguid = assetFiles.GroupBy(a => a.AssetGuid).ToList();
+                foreach (var asset in listofguid)
+                {
+                    myList.Add(new BulkAsset() { AssetName = asset.FirstOrDefault().AssetName, AssetFiles = asset.Select(a => a.FileName).ToArray() });
+                }
+                return myList;
             }
         }
 
-        public string StorageSelected
+        public string AssetStorageSelected
         {
             get
             {
-                return ((Item)comboBoxStorage.SelectedItem).Value;
+                return ((Item)comboBoxStorageAsset.SelectedItem).Value;
             }
         }
 
-      
-        public BulkUpload(CloudMediaContext context, IIngestManifest manifest)
+        public string IngestStorageSelected
+        {
+            get
+            {
+                return ((Item)comboBoxStorageIngest.SelectedItem).Value;
+            }
+        }
+
+        public bool EncryptAssetFiles
+        {
+            get
+            {
+                return checkBoxEncrypt.Checked;
+            }
+        }
+
+        public string EncryptToFolder
+        {
+            get
+            {
+                return checkBoxEncrypt.Checked ? textBoxFolderPath.Text : null;
+            }
+        }
+
+        public BulkUpload(CloudMediaContext context)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             dataGridAssetFiles.DataSource = assetFiles;
             _context = context;
-            _manifest = manifest;
         }
 
         private void UploadBulk_Load(object sender, EventArgs e)
         {
-            comboBoxStorage.Items.Clear();
+            comboBoxStorageAsset.Items.Clear();
             foreach (var storage in _context.StorageAccounts)
             {
-                comboBoxStorage.Items.Add(new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name));
-                if (storage.Name == _context.DefaultStorageAccount.Name) comboBoxStorage.SelectedIndex = comboBoxStorage.Items.Count - 1;
+                var it = new Item(string.Format("{0} {1}", storage.Name, storage.IsDefault ? "(default)" : ""), storage.Name);
+                comboBoxStorageIngest.Items.Add(it);
+                comboBoxStorageAsset.Items.Add(it);
+                if (storage.Name == _context.DefaultStorageAccount.Name)
+                {
+                    comboBoxStorageIngest.SelectedIndex = comboBoxStorageIngest.Items.Count - 1;
+                    comboBoxStorageAsset.SelectedIndex = comboBoxStorageAsset.Items.Count - 1;
+                }
             }
-
-            labelUsingBulkContLabel.Text = string.Format(labelUsingBulkContLabel.Text, _manifest.Name);
-
+            dataGridAssetFiles.Columns["AssetGuid"].Visible = false;
+            dataGridAssetFiles.Columns["AssetIndex"].ReadOnly = true;
+            dataGridAssetFiles.Columns["FileName"].ReadOnly = true;
+            labelWarningFiles.Text = "";
         }
 
 
@@ -89,31 +124,252 @@ namespace AMSExplorer
         {
         }
 
-        private void buttonAddFiles_Click(object sender, EventArgs e)
-        {
-            assetFiles.AddNew();
-        }
+
 
         private void buttonDelFiles_Click(object sender, EventArgs e)
         {
-            if (dataGridAssetFiles.SelectedRows.Count == 1)
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
             {
-                assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
+                List<BulkAssetFile> removeItems = new List<BulkAssetFile>();
+
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    //assetFiles.RemoveAt(dataGridAssetFiles.SelectedRows[0].Index);
+                    removeItems.Add(assetFiles[row.Index]);
+                    //assetFiles.RemoveAt(row.Index);
+                }
+
+                foreach (BulkAssetFile item in removeItems)
+                    assetFiles.Remove(item);
+
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
+
+        private void ReindexAssetListAndDoSomeChecks()
+        {
+            // reindex
+            int index = -1;
+            Guid g = Guid.NewGuid();
+            string assetname = null;
+            foreach (var f in assetFiles)
+            {
+                if (f.AssetGuid != g)
+                {
+                    index++;
+                    assetname = f.AssetName;
+                }
+                else
+                {
+                    f.AssetName = assetname; // let's make sure all asset files from the same asset have the same asset name
+                }
+                f.AssetIndex = index;
+               
+                g = f.AssetGuid;
+            }
+
+           
+
+            // let's check filename duplicates
+            var listfilenames = assetFiles.Select(a => Path.GetFileName(a.FileName)).Distinct().ToList();
+            if (listfilenames.Count != assetFiles.Count)
+            {
+                labelWarningFiles.Text = "Warning : two files have the same file name. This is not supported inside the same bulk ingest container.";
+            }
+            else
+            {
+                labelWarningFiles.Text = "";
             }
         }
 
 
-        class BulkAssetFile
+        class BulkAssetFile : INotifyPropertyChanged
         {
-            string _fileName;
-            public string FileName { get { return _fileName; } set { _fileName = value; } }
-
-            public BulkAssetFile()
+            private Guid _guid;
+            public Guid AssetGuid
             {
-                _fileName = string.Empty;
+                get { return _guid; }
+                set { _guid = value; }
+            }
+
+            private int _index;
+            public int AssetIndex
+            {
+                get { return _index; }
+                set
+                {
+                    if (value != _index)
+                    {
+                        _index = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string _assetname;
+            public string AssetName
+            {
+                get { return _assetname; }
+                set
+                {
+                    if (value != _assetname)
+                    {
+                        _assetname = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            private string _fileName;
+            public string FileName
+            {
+                get { return _fileName; }
+                set
+                {
+                    if (value != _fileName)
+                    {
+                        _fileName = value;
+                        NotifyPropertyChanged();
+                    }
+                }
+            }
+
+            public event PropertyChangedEventHandler PropertyChanged;
+
+            private void NotifyPropertyChanged([CallerMemberName] String p = "")
+            {
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs(p));
+                }
+            }
+
+        }
+
+        public class BulkAsset
+        {
+            public string[] AssetFiles;
+            public string AssetName;
+        }
+
+
+        private void buttonSelectFiles_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogAssetFiles.ShowDialog() == DialogResult.OK)
+            {
+                foreach (var file in openFileDialogAssetFiles.FileNames)
+                {
+                    assetFiles.Add(new BulkAssetFile() { AssetName = Path.GetFileName(file), FileName = file });
+                }
+                if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
+                {
+                    FileInfo file = new FileInfo(assetFiles[0].FileName);
+                    textBoxFolderPath.Text = Path.Combine(file.Directory.Parent.FullName, file.Directory.Name + "_Encrypted");
+                }
+            }
+            ReindexAssetListAndDoSomeChecks();
+        }
+
+        private void buttonBrowseFile_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.SelectedPath = textBoxFolderPath.Text;
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath ;
+            }
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonBrowseFile.Enabled = textBoxFolderPath.Enabled = checkBoxEncrypt.Checked;
+        }
+
+        private void buttonSelectFolder_Click(object sender, EventArgs e)
+        {
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                if (string.IsNullOrWhiteSpace(textBoxFolderPath.Text))
+                {
+                    textBoxFolderPath.Text = folderBrowserDialog1.SelectedPath + @"_Encrypted";
+                }
+
+                var folders = Directory.GetDirectories(folderBrowserDialog1.SelectedPath).ToList();
+                var files = Directory.GetFiles(folderBrowserDialog1.SelectedPath).ToList();
+
+                if (files.Count > 0)
+                {
+                    Guid g = Guid.NewGuid();
+                    foreach (var file in files)
+                    {
+                        assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folderBrowserDialog1.SelectedPath), FileName = file });
+                    }
+                }
+
+                folders.RemoveAll(f => Directory.GetFiles(f).Count() == 0); // we remove all folder with 0 file in it at the root
+
+                foreach (var folder in folders)
+                {
+                    var filesinfolder = Directory.GetFiles(folder).ToList();
+
+                    if (filesinfolder.Count > 0)
+                    {
+                        Guid g = Guid.NewGuid();
+                        string thisassetname = Path.GetFileNameWithoutExtension(filesinfolder[0]);
+                        foreach (var file in filesinfolder)
+                        {
+                            assetFiles.Add(new BulkAssetFile() { AssetGuid = g, AssetName = Path.GetFileName(folder), FileName = file });
+                        }
+                    }
+                }
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
+
+        private void dataGridAssetFiles_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dataGridAssetFiles.Columns["AssetName"].Index)  // user edited the asset name
+            {
+                string newAssetName = assetFiles[e.RowIndex].AssetName;
+                var g = assetFiles[e.RowIndex].AssetGuid;
+                var asset = assetFiles.Where(a => a.AssetGuid == g);
+                foreach (var f in asset)
+                {
+                    f.AssetName = newAssetName;
+                }
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            assetFiles.Clear();
+        }
+
+        private void buttonGroupSelectionInOneAsset_Click(object sender, EventArgs e)
+        {
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
+            {
+                Guid g = Guid.NewGuid();
+
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    assetFiles[row.Index].AssetGuid = g;
+                }
+
+                ReindexAssetListAndDoSomeChecks();
+            }
+        }
+
+        private void buttonSplitSelection_Click(object sender, EventArgs e)
+        {
+            if (dataGridAssetFiles.SelectedRows.Count > 0)
+            {
+                foreach (DataGridViewRow row in dataGridAssetFiles.SelectedRows)
+                {
+                    assetFiles[row.Index].AssetGuid = Guid.NewGuid();
+                }
+
+                ReindexAssetListAndDoSomeChecks();
             }
         }
     }
-
-
 }

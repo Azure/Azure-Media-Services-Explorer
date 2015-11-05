@@ -198,7 +198,7 @@ namespace AMSExplorer
                                InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                                PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                                State = c.State,
-                               LastModified = c.LastModified.ToLocalTime()
+                               LastModified = c.LastModified.ToLocalTime().ToString("G")
                            };
 
 
@@ -271,7 +271,7 @@ namespace AMSExplorer
                 {
                     _MyObservChannels[index].State = channel.State;
                     _MyObservChannels[index].Description = channel.Description;
-                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime();
+                    _MyObservChannels[index].LastModified = channel.LastModified.ToLocalTime().ToString("G");
                     this.Refresh();
                 }
             }
@@ -440,7 +440,7 @@ namespace AMSExplorer
                            InputUrl = c.Input.Endpoints.FirstOrDefault().Url,
                            PreviewUrl = c.Preview.Endpoints.FirstOrDefault().Url,
                            State = c.State,
-                           LastModified = c.LastModified.ToLocalTime()
+                           LastModified = c.LastModified.ToLocalTime().ToString("G")
                        });
 
             _MyObservChannels = new BindingList<ChannelEntry>(channelquery.ToList());
@@ -610,7 +610,7 @@ namespace AMSExplorer
                                State = c.State,
                                Description = c.Description,
                                ArchiveWindowLength = c.ArchiveWindowLength,
-                               LastModified = c.LastModified.ToLocalTime(),
+                               LastModified = c.LastModified.ToLocalTime().ToString("G"),
                                Published = null,
                                ChannelName = c.Channel.Name,
                                ChannelId = c.Channel.Id
@@ -684,7 +684,7 @@ namespace AMSExplorer
                         _MyObservPrograms[index].State = program.State;
                         _MyObservPrograms[index].Description = program.Description;
                         _MyObservPrograms[index].ArchiveWindowLength = program.ArchiveWindowLength;
-                        _MyObservPrograms[index].LastModified = program.LastModified;
+                        _MyObservPrograms[index].LastModified = program.LastModified.ToLocalTime().ToString("G");
                         this.Refresh();
                     }
                     catch
@@ -940,7 +940,7 @@ namespace AMSExplorer
                              Description = p.Description,
                              ArchiveWindowLength = p.ArchiveWindowLength,
                              State = p.State,
-                             LastModified = p.LastModified.ToLocalTime(),
+                             LastModified = p.LastModified.ToLocalTime().ToString("G"),
                              ChannelName = p.Channel.Name,
                              ChannelId = p.Channel.Id,
                              Published = p.Asset.Locators.Where(l => l.Type == LocatorType.OnDemandOrigin).Count() > 0 ? Streaminglocatorimage : null,
@@ -1122,7 +1122,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public ChannelState State { get; set; }
-        public DateTime LastModified { get; set; }
+        public string LastModified { get; set; }
         public string Description { get; set; }
         public string InputProtocol { get; set; }
         public Bitmap Encoding { get; set; }
@@ -1135,7 +1135,7 @@ namespace AMSExplorer
         public string Name { get; set; }
         public string Id { get; set; }
         public ProgramState State { get; set; }
-        public DateTime LastModified { get; set; }
+        public string LastModified { get; set; }
         public string Description { get; set; }
         public TimeSpan? ArchiveWindowLength { get; set; }
         public Bitmap Published { get; set; }

@@ -49,14 +49,13 @@ namespace AMSExplorer
 {
     public class StreamingEndpointEntry
     {
-
         public string Name { get; set; }
         public string Id { get; set; }
         public StreamingEndpointState State { get; set; }
         public string CDN { get; set; }
         public string Description { get; set; }
         public int? ScaleUnits { get; set; }
-        public DateTime LastModified { get; set; }
+        public string LastModified { get; set; }
 
     }
 
@@ -195,8 +194,7 @@ namespace AMSExplorer
                               Description = o.Description,
                               ScaleUnits = o.ScaleUnits,
                               State = o.State,
-                              LastModified = o.LastModified.ToLocalTime()
-                              
+                              LastModified = o.LastModified.ToLocalTime().ToString("G")
                           };
 
 
@@ -251,7 +249,7 @@ namespace AMSExplorer
                 {
                     _MyObservStreamingEndpoints[index].State = origin.State;
                     _MyObservStreamingEndpoints[index].Description = origin.Description;
-                    _MyObservStreamingEndpoints[index].LastModified = origin.LastModified;
+                    _MyObservStreamingEndpoints[index].LastModified = origin.LastModified.ToLocalTime().ToString("G");
                     if (origin.ScaleUnits != null)
                     {
                         _MyObservStreamingEndpoints[index].ScaleUnits = (int)origin.ScaleUnits;
@@ -374,7 +372,7 @@ namespace AMSExplorer
                                 CDN = c.CdnEnabled ? "CDN" : string.Empty,
                                 ScaleUnits = c.ScaleUnits,
                                 State = c.State,
-                                LastModified = c.LastModified.ToLocalTime(),
+                                LastModified = c.LastModified.ToLocalTime().ToString("G"),
                             };
 
 

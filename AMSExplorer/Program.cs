@@ -1046,7 +1046,7 @@ namespace AMSExplorer
 
                 builder.AppendLine("   File Name           : " + fileItem.Name);
                 builder.AppendLine("   Size                : " + fileItem.ContentFileSize + " Bytes");
-                builder.AppendLine("   Last Modified (UTC) : " + fileItem.LastModified);
+                builder.AppendLine("   Last Modified (UTC) : " + fileItem.LastModified.ToString("G"));
                 builder.AppendLine("");
                 assetSize += fileItem.ContentFileSize;
             }
@@ -1059,7 +1059,7 @@ namespace AMSExplorer
             builder.AppendLine("===============================================");
             builder.AppendLine("Asset Name          : " + asset.Name);
             builder.AppendLine("Asset Id            : " + asset.Id);
-            builder.AppendLine("Last Modified (UTC) : " + asset.LastModified);
+            builder.AppendLine("Last Modified (UTC) : " + asset.LastModified.ToString("G"));
         }
 
         public static IMediaProcessor GetMediaProcessorFromId(string processorID, CloudMediaContext _context)
@@ -2165,8 +2165,8 @@ namespace AMSExplorer
                     sb.AppendLine("   File size            : " + fileItem.ContentFileSize + " Bytes");
                     sb.AppendLine("   Mime type            : " + fileItem.MimeType);
                     sb.AppendLine("   Init vector          : " + fileItem.InitializationVector);
-                    sb.AppendLine("   Created              : " + fileItem.Created);
-                    sb.AppendLine("   Last modified (UTC)  : " + fileItem.LastModified);
+                    sb.AppendLine("   Created (UTC)        : " + fileItem.Created.ToString("G"));
+                    sb.AppendLine("   Last modified (UTC)  : " + fileItem.LastModified.ToString("G"));
                     sb.AppendLine("   Encrypted            : " + fileItem.IsEncrypted);
                     sb.AppendLine("   EncryptionScheme     : " + fileItem.EncryptionScheme);
                     sb.AppendLine("   EncryptionVersion    : " + fileItem.EncryptionVersion);
@@ -2598,7 +2598,7 @@ namespace AMSExplorer
         public int Tasks { get; set; }
         public int Priority { get; set; }
         public JobState State { get; set; }
-        public Nullable<DateTime> StartTime { get; set; }
+        public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Duration { get; set; }
         public Double Progress { get; set; }
@@ -2637,8 +2637,8 @@ namespace AMSExplorer
                 }
             }
         }
-        private Nullable<DateTime> _LastModified;
-        public Nullable<DateTime> LastModified
+        private string _LastModified;
+        public string LastModified
         {
             get
             { return _LastModified; }
@@ -2795,8 +2795,8 @@ namespace AMSExplorer
                 }
             }
         }
-        private Nullable<DateTime> _LocatorExpirationDate;
-        public Nullable<DateTime> LocatorExpirationDate
+        private string _LocatorExpirationDate;
+        public string LocatorExpirationDate
         {
             get
             { return _LocatorExpirationDate; }

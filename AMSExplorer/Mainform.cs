@@ -90,6 +90,12 @@ namespace AMSExplorer
         private bool backupCheckboxAnychannel = false;
         private bool CheckboxAnychannelChangedByCode = false;
 
+        private bool largeAccount = false; // if nb assets > trigger
+        private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        private const int maxNbAssets = 1000000;
+        private const int maxNbJobs = 50000;
+
         public Mainform()
         {
             InitializeComponent();
@@ -252,6 +258,25 @@ namespace AMSExplorer
                 EncodingRUFeatureOn = false;
                 TextBoxLogWriteLine("There is an error when accessing to the Encoding Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
             }
+
+            // nb assets limits
+            int nbassets = _context.Assets.Count();
+            largeAccount = nbassets > triggerForLargeAccountNbAssets;
+            if (largeAccount)
+            {
+                TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
+            }
+            if (nbassets > (0.75 * maxNbAssets))
+            {
+                TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
+            }
+            // nb jobs limits
+            int nbjobs = _context.Jobs.Count();
+            if (nbjobs > (0.75 * maxNbJobs))
+            {
+                TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
+            }
+
             ApplySettingsOptions(true);
         }
 
@@ -1479,7 +1504,6 @@ namespace AMSExplorer
 
             var form = new DownloadToLocal(SelectedAssets, _backuprootfolderdownload);
 
-
             if (form.ShowDialog() == DialogResult.OK)
             {
                 bool ErrorFolderCreation = false;
@@ -1908,24 +1932,27 @@ namespace AMSExplorer
                 string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    bool Error = false;
-                    try
+                    Task.Run(async () =>
                     {
-                        Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
-                        TextBoxLogWriteLine("Deleting asset(s)");
-                        this.Cursor = Cursors.WaitCursor;
-                        Task.WaitAll(deleteTasks);
+                        bool Error = false;
+                        try
+                        {
+                            Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
+                            TextBoxLogWriteLine("Deleting asset(s)");
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                        DoRefreshGridAssetV(false);
                     }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                    this.Cursor = Cursors.Default;
-                    DoRefreshGridAssetV(false);
+          );
+
                 }
             }
         }
@@ -1934,24 +1961,38 @@ namespace AMSExplorer
         {
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                bool Error = false;
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-
-                this.Cursor = Cursors.WaitCursor;
-
-                while (true)
+                Task.Run(async () =>
                 {
-                    // Enumerate through all assets (1000 at a time)
-                    var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
-                    currentSkipSize += listassets.Count;
-                    Task[] deleteTasks = listassets.Select(a => a.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", listassets.Count));
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
 
+                    // let's build the list of tasks
+                    TextBoxLogWriteLine("Listing all the assets...");
+                    List<Task> deleteTasks = new List<Task>();
+                    while (true)
+                    {
+                        // Enumerate through all assets (1000 at a time)
+                        var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listassets.Count;
+                        deleteTasks.AddRange(listassets.Select(a => a.DeleteAsync()).ToArray());
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", deleteTasks.Count));
                     try
                     {
-                        Task.WaitAll(deleteTasks);
+                        Task.WaitAll(deleteTasks.ToArray());
                     }
                     catch (Exception ex)
                     {
@@ -1961,19 +2002,12 @@ namespace AMSExplorer
                         Error = true;
                     }
 
-                    if (currentSkipSize == batchSize)
-                    {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                    DoRefreshGridAssetV(false);
                 }
-                if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                DoRefreshGridAssetV(false);
-                this.Cursor = Cursors.Default;
+           );
+
+
             }
         }
 
@@ -2961,24 +2995,28 @@ namespace AMSExplorer
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    bool Error = false;
-                    Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine("Deleting job(s)");
-                    this.Cursor = Cursors.WaitCursor;
-                    try
+                    Task.Run(async () =>
                     {
-                        Task.WaitAll(deleteTasks);
+                        bool Error = false;
+                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
+                        TextBoxLogWriteLine("Deleting job(s)");
+                        this.Cursor = Cursors.WaitCursor;
+                        try
+                        {
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                        this.Cursor = Cursors.Default;
+                        DoRefreshGridJobV(false);
                     }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                    this.Cursor = Cursors.Default;
-                    DoRefreshGridJobV(false);
+           );
                 }
             }
         }
@@ -2988,24 +3026,40 @@ namespace AMSExplorer
         {
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                bool Error = false;
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-
-                this.Cursor = Cursors.WaitCursor;
-
-                while (true)
+                Task.Run(async () =>
                 {
-                    // Enumerate through all jobs(1000 at a time)
-                    var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
-                    currentSkipSize += listjobs.Count;
-                    Task[] deleteTasks = listjobs.Select(a => a.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", listjobs.Count));
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
 
+
+                    // let's build the tasks list
+                    TextBoxLogWriteLine("Listing the jobs...");
+                    List<Task> deleteTasks = new List<Task>();
+
+                    while (true)
+                    {
+                        // Enumerate through all jobs (1000 at a time)
+                        var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listjobs.Count;
+                        deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
                     try
                     {
-                        Task.WaitAll(deleteTasks);
+                        Task.WaitAll(deleteTasks.ToArray());
                     }
                     catch (Exception ex)
                     {
@@ -3015,21 +3069,13 @@ namespace AMSExplorer
                         Error = true;
                     }
 
-                    if (currentSkipSize == batchSize)
-                    {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
-                    }
-                    else
-                    {
-                        break;
-                    }
+                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    DoRefreshGridJobV(false);
                 }
-                if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                DoRefreshGridJobV(false);
-                this.Cursor = Cursors.Default;
-            }
+          );
 
+
+            }
         }
 
         private void silverlightMonitoringPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3848,6 +3894,10 @@ namespace AMSExplorer
         {
             Hide();
 
+            comboBoxOrderAssets.Enabled = comboBoxStateAssets.Enabled = !largeAccount;
+            comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
+
+
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
@@ -3998,9 +4048,6 @@ namespace AMSExplorer
             DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
-
-
-
 
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
@@ -5239,9 +5286,32 @@ namespace AMSExplorer
             DoOpenJobAsset(true);
         }
 
+        private void DoCreateTestsAssets()
+        {
+            Task.Run(async () =>
+            {
+                int i = 168744;
+                int c = 0;
+                while (i < 200001)
+                {
+                    // String.Format("{0:00000}", 15);          // "00015"
+
+                    _context.Assets.CreateAsync("Asset-" + string.Format("{0:000000}", i), AssetCreationOptions.None, CancellationToken.None);
+                    i++;
+                    c++;
+                    if (c == 100)
+                    {
+                        Debug.WriteLine(i);
+                        c = 0;
+                    }
+                }
+            }
+                        );
+        }
 
         private void DoExportAssetToAzureStorage()
         {
+
             string valuekey = "";
             bool UseDefaultStorage = true;
             string containername = "";
@@ -11116,31 +11186,9 @@ namespace AMSExplorer
 
         private void withAnExternalAsperaSignantAzCopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoBulkUpload();
+            DoCreateNewBulkUpload();
         }
 
-        private void DoBulkUpload()
-        {
-            bool usercancelled = false;
-            if (_context.IngestManifests.Count() == 0)
-            {
-                // no bulk container
-
-                if (MessageBox.Show("There is no bulk ingest container configured.\nCreate one ?", "Bulk ingest container", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    usercancelled = !DoNewIngestManifest();
-                }
-                else
-                {
-                    usercancelled = true;
-                }
-            }
-
-            if (!usercancelled && _context.IngestManifests.Count() > 0)
-            {
-                DoDeclareAssetToUploadBulk(_context.IngestManifests.FirstOrDefault());
-            }
-        }
 
 
         private void dataGridViewIngestManifestsV_Resize(object sender, EventArgs e)
@@ -11158,25 +11206,25 @@ namespace AMSExplorer
             var ims = ReturnSelectedIngestManifests();
             if (ims.Count > 0)
             {
-                string question = (ims.Count == 1) ? "Delete cloud watchfolder " + ims[0].Name + " ?" : "Delete these " + ims.Count + " cloud watchfolders ?";
-                if (System.Windows.Forms.MessageBox.Show(question, "Cloud watchfolder deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                string question = (ims.Count == 1) ? "Delete bulk container " + ims[0].Name + " ?" : "Delete these " + ims.Count + " bulk containers ?";
+                if (System.Windows.Forms.MessageBox.Show(question, "Bulk container deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
                     bool Error = false;
                     try
                     {
                         Task[] deleteTasks = ims.Select(a => a.DeleteAsync()).ToArray();
-                        TextBoxLogWriteLine("Deleting cloud watchfolder(s)");
+                        TextBoxLogWriteLine("Deleting bulk container(s)");
                         this.Cursor = Cursors.WaitCursor;
                         Task.WaitAll(deleteTasks);
                     }
                     catch (Exception ex)
                     {
                         // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the cloud watchfolder(s)", true);
+                        TextBoxLogWriteLine("There is a problem when deleting the bulk container(s)", true);
                         TextBoxLogWriteLine(ex);
                         Error = true;
                     }
-                    if (!Error) TextBoxLogWriteLine("Cloud watchfolder(s) deleted.");
+                    if (!Error) TextBoxLogWriteLine("Bulk container(s) deleted.");
                     this.Cursor = Cursors.Default;
                     DoRefreshGridIngestManifestV(false);
                 }
@@ -11185,36 +11233,50 @@ namespace AMSExplorer
 
         private void defineAssetToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoDeclareAssetToUploadBulk(ReturnSelectedIngestManifests().FirstOrDefault());
+            DoCreateNewBulkUpload();
         }
 
-        private void DoDeclareAssetToUploadBulk(IIngestManifest manifest)
+        private void DoCreateNewBulkUpload()
         {
-            if (manifest == null) return;
-
-            BulkUpload form = new BulkUpload(_context, manifest);
+            BulkUpload form = new BulkUpload(_context);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 if (form.AssetFiles.Count() > 0)
                 {
-                    try
+
+                    // Encryption of files
+                    if (form.EncryptAssetFiles)
                     {
-                        // Create the assets that will be associated with this bulk ingest manifest
-                        IAsset destAsset = _context.Assets.Create(form.AssetName, form.StorageSelected, AssetCreationOptions.None);
-                        IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, form.AssetFiles);
-                        /*
-                        var file = bulkAsset.IngestManifestFiles.FirstOrDefault();
-                        if (file!=null) file.IsPrimary = true;
-                        manifest.Update();
-                        */
-                        TextBoxLogWriteLine("Asset '{0}' declared for bulk ingest container '{1}'.", destAsset.Name, manifest.Name);
-                        TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+
+                        if (!Directory.Exists(form.EncryptToFolder))
+                        {
+                            if (MessageBox.Show(string.Format("Folder '{0}' does not exist." + Constants.endline + "Do you want to create it ?", form.EncryptToFolder), "Folder does not exist", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                            {
+                                try
+                                {
+                                    Directory.CreateDirectory(form.EncryptToFolder);
+                                }
+                                catch
+                                {
+                                    MessageBox.Show(string.Format("Error when creating folder '{0}'.", form.EncryptToFolder), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    TextBoxLogWriteLine("Bulk: Error when creating folder '{0}'.", form.EncryptToFolder, true);
+                                }
+                            }
+                            else
+                            {
+                                TextBoxLogWriteLine("Bulk: User cancelled the folder creation.", true);
+                                return;
+                            }
+                        }
                     }
-                    catch (Exception ex)
+
+                    Task.Run(async () =>
                     {
-                        TextBoxLogWriteLine("Error when declaring asset.", true);
-                        TextBoxLogWriteLine(ex);
+                        DoProcessCreateBulkIngestAndEncryptFiles(form.IngestName, form.IngestStorageSelected, form.AssetFiles, form.AssetStorageSelected, form.EncryptAssetFiles, form.EncryptToFolder);
                     }
+           );
+
+
                 }
                 else
                 {
@@ -11224,43 +11286,57 @@ namespace AMSExplorer
             }
         }
 
-        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        private void DoProcessCreateBulkIngestAndEncryptFiles(string IngestName, string IngestStorage, List<BulkUpload.BulkAsset> assetFiles, string assetStorage, bool encryptFiles, string encryptToFolder)
         {
-            DoNewIngestManifest();
-        }
+            TextBoxLogWriteLine("Creating bulk ingest '{0}'...", IngestName);
+            IIngestManifest manifest = _context.IngestManifests.Create(IngestName, IngestStorage);
 
-        private bool DoNewIngestManifest() // return false if user cancelled
-        {
-            BulkCreateManifest form = new BulkCreateManifest(_context);
-
-            if (form.ShowDialog() == DialogResult.OK)
+            // Create the assets that will be associated with this bulk ingest manifest
+            foreach (var asset in assetFiles)
             {
-                IIngestManifest manifest = _context.IngestManifests.Create(form.ManifestName, form.StorageSelected);
-
-                StringBuilder sbuilderManifest = new StringBuilder();
-                sbuilderManifest.AppendLine("Ingest Manifest Name : " + manifest.Name);
-                sbuilderManifest.AppendLine("Ingest Manifest Id : " + manifest.Id);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (copied to clipboard) : " + manifest.BlobStorageUriForUpload);
-                string asperaUrl = "azu://" + manifest.StorageAccountName + ":" + _credentials.StorageKey + "@" + manifest.BlobStorageUriForUpload.Substring(manifest.BlobStorageUriForUpload.IndexOf(".") + 1);
-                sbuilderManifest.AppendLine("Ingest Manifest URL (Aspera) : " + asperaUrl);
-                TextBoxLogWriteLine(sbuilderManifest.ToString());
-
-                sbuilder.Clear();
-                sbuilder.Append(manifest.BlobStorageUriForUpload); // we add this builder to the general builder
-                                                                   // COPY to clipboard. We need to create a STA thread for it
-                System.Threading.Thread MyThread = new Thread(new ParameterizedThreadStart(DoCopyClipboard));
-                MyThread.SetApartmentState(ApartmentState.STA);
-                MyThread.IsBackground = true;
-                MyThread.Start(sbuilder.ToString());
-
-                DoRefreshGridIngestManifestV(false);
-                return true;
+                try
+                {
+                    IAsset destAsset = _context.Assets.Create(asset.AssetName, assetStorage, encryptFiles ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None);
+                    IIngestManifestAsset bulkAsset = manifest.IngestManifestAssets.Create(destAsset, asset.AssetFiles);
+                }
+                catch (Exception ex)
+                {
+                    TextBoxLogWriteLine("Bulk: Error when declaring asset '{0}'.", asset.AssetName, true);
+                    TextBoxLogWriteLine(ex);
+                    return;
+                }
             }
-            else
+            TextBoxLogWriteLine("Bulk: {0} asset(s) / {1} file(s) declared for bulk ingest container '{2}'.", assetFiles.Count, manifest.Statistics.PendingFilesCount, manifest.Name);
+
+
+            // Encryption of files
+            bool Error = false;
+            if (encryptFiles)
             {
-                return false;
+
+                TextBoxLogWriteLine("Encryption of asset files for bulk upload...");
+                try
+                {
+                    manifest.EncryptFilesAsync(encryptToFolder, CancellationToken.None).Wait();
+
+                    //manifest.EncryptFiles(encryptToFolder);
+                    TextBoxLogWriteLine("Encryption of asset files done to folder {0}.", encryptToFolder);
+                    Process.Start(encryptToFolder);
+                }
+                catch
+                {
+                    TextBoxLogWriteLine("Error when encrypting files to folder '{0}'.", encryptToFolder, true);
+                    Error = true;
+                }
+
             }
 
+            if (!Error)
+            {
+                TextBoxLogWriteLine("You can upload the file(s) to {0}", manifest.BlobStorageUriForUpload);
+                TextBoxLogWriteLine("Ingest Manifest URL (Aspera) : {0}", GenerateAsperaUrl(manifest));
+            }
+            DoRefreshGridIngestManifestV(false);
         }
 
         private void copyIngestURLToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -11281,18 +11357,27 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    string storKey = "InsertStorageKey";
-                    if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
-                    {
-                        storKey = _credentials.StorageKey;
-                    }
-                    myurl = "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
+                    myurl = GenerateAsperaUrl(im);
                     TextBoxLogWriteLine("Bulk Ingest URL (Aspera) : {0}", myurl);
                 }
                 System.Windows.Forms.Clipboard.SetText(myurl);
             }
         }
 
+        private static string GenerateAsperaUrl(IIngestManifest im)
+        {
+            string storKey = "InsertStorageKey";
+            if (im.StorageAccountName == _context.DefaultStorageAccount.Name && !string.IsNullOrEmpty(_credentials.StorageKey))
+            {
+                storKey = _credentials.StorageKey;
+            }
+            return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
+        }
+
+        private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateTestsAssets();
+        }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -11330,7 +11415,6 @@ namespace AMSExplorer
             infoToolStripMenuItem.Enabled =
                 copyIngestURLToClipboardToolStripMenuItem.Enabled =
                 copyAsperaURLToolStripMenuItem.Enabled =
-                defineAssetToolStripMenuItem.Enabled =
                 singleitem;
 
             deleteToolStripMenuItem3.Enabled = manifests.Count > 0;
@@ -11341,7 +11425,7 @@ namespace AMSExplorer
             if (e.RowIndex > -1)
             {
                 var manifestId = dataGridViewIngestManifestsV.Rows[e.RowIndex].Cells[dataGridViewIngestManifestsV.Columns["Id"].Index].Value.ToString();
-                DoBulkContainerInfo(_context.IngestManifests.Where(m=>m.Id==manifestId).FirstOrDefault());
+                DoBulkContainerInfo(_context.IngestManifests.Where(m => m.Id == manifestId).FirstOrDefault());
             }
         }
 
@@ -11638,7 +11722,6 @@ namespace AMSExplorer
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
-        public const string All = "All";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
@@ -11831,7 +11914,11 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry {
+                Name = a.Name,
+                Id = a.Id,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Storage = a.StorageAccountName };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -11944,7 +12031,7 @@ namespace AMSExplorer
                     {
                         AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.Name = asset.Name;
-                        AE.LastModified = asset.LastModified.ToLocalTime();
+                        AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
 
@@ -11965,8 +12052,8 @@ namespace AMSExplorer
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                        AE.LocatorExpirationDate = LocDate;
-                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now.ToLocalTime());
+                        AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString():null;
+                        AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()):false;
 
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
@@ -12060,16 +12147,21 @@ namespace AMSExplorer
                     // Search on Asset name
                     case SearchIn.AssetName:
 
+                        assetsServerQuery = context.Assets.Where(a =>
+                                (a.Name.Contains(_searchinname.Text))
+                                &&
+                                (!filterday || a.LastModified > datefilter)
+                                );
+                        /*
+                        if (assetsServerQuery.Count() > 1000) // we need to paginate
+                        {
+
                         IList<IAsset> newAssetList = new List<IAsset>();
 
                         while (true)
                         {
                             // Enumerate through all assets (1000 at a time)
-                            var assetsq = context.Assets.Where(a =>
-                                 (a.Name.Contains(_searchinname.Text))
-                                 &&
-                                 (!filterday || a.LastModified > datefilter)
-                                 )
+                                var assetsq = assetsServerQuery
                                 .Skip(skipSize).Take(batchSize).ToList();
 
                             currentSkipSize += assetsq.Count;
@@ -12092,7 +12184,8 @@ namespace AMSExplorer
 
                         SwitchedToLocalQuery = true;
                         assets = newAssetList;
-
+                        }
+                        */
                         break;
 
                     // Search on Asset aternate id
@@ -12331,250 +12424,267 @@ namespace AMSExplorer
                                 );
             }
 
-            ///////////////////////
-            // STATE FILTER
-            ///////////////////////
-            // we need to do paging
 
-            IList<IAsset> aggregateListAssets = new List<IAsset>();
-            int skipSize2 = 0;
-            int batchSize2 = 1000;
-            int currentSkipSize2 = 0;
-
-            while (true)
+            // SHORTCUT (needed for account with large number fo assets)
+            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
             {
-                // Enumerate through all assets (1000 at a time)
-                IEnumerable<IAsset> listPagedAssets;
-                IList<IAsset> fassets = new List<IAsset>();
-
-                if (SwitchedToLocalQuery)
+                if (_timefilter == FilterTime.First50Items)
                 {
-                    listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+                    assets = assetsServerQuery.Take(50);
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    assets = assetsServerQuery.Take(1000);
                 }
                 else
                 {
-                    listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+                    assets = assetsServerQuery;
                 }
-                currentSkipSize2 += listPagedAssets.Count();
+            }
+            else // general case
 
-                switch (_statefilter)
+            {
+
+                ///////////////////////
+                // STATE FILTER
+                ///////////////////////
+                // we need to do paging
+                // not excuted for large account as state filter control is disabled
+
+                IList<IAsset> aggregateListAssets = new List<IAsset>();
+                int skipSize2 = 0;
+                int batchSize2 = 1000;
+                int currentSkipSize2 = 0;
+
+                while (true)
                 {
-                    case StatusAssets.Published:
-                    case StatusAssets.PublishedExpired:
+                    // Enumerate through all assets (1000 at a time)
+                    IEnumerable<IAsset> listPagedAssets;
+                    IList<IAsset> fassets = new List<IAsset>();
 
-                        bool bexpired = _statefilter == StatusAssets.PublishedExpired;
-                        IList<IAsset> newListAssets1 = new List<IAsset>();
+                    if (SwitchedToLocalQuery)
+                    {
+                        listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+                    }
+                    else
+                    {
+                        listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+                    }
+                    currentSkipSize2 += listPagedAssets.Count();
 
-                        int skipSizeLoc = 0;
-                        int batchSizeLoc = 1000;
-                        int currentSkipSizeLoc = 0;
+                    switch (_statefilter)
+                    {
+                        case StatusAssets.Published:
+                        case StatusAssets.PublishedExpired:
 
-                        while (true)
-                        {
-                            // Enumerate through all locators (1000 at a time)
-                            var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
-                            currentSkipSizeLoc += listlocators.Count;
+                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+                            IList<IAsset> newListAssets1 = new List<IAsset>();
 
-                            var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
+                            int skipSizeLoc = 0;
+                            int batchSizeLoc = 1000;
+                            int currentSkipSizeLoc = 0;
 
-                            foreach (var a in assetexpired)
+                            while (true)
                             {
-                                newListAssets1.Add(a);
+                                // Enumerate through all locators (1000 at a time)
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
+                                currentSkipSizeLoc += listlocators.Count;
+
+                                var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
+
+                                foreach (var a in assetexpired)
+                                {
+                                    newListAssets1.Add(a);
+                                }
+
+                                if (currentSkipSizeLoc == batchSizeLoc)
+                                {
+                                    skipSizeLoc += batchSizeLoc;
+                                    currentSkipSizeLoc = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
 
-                            if (currentSkipSizeLoc == batchSizeLoc)
+                            foreach (var a in newListAssets1)
                             {
-                                skipSizeLoc += batchSizeLoc;
-                                currentSkipSizeLoc = 0;
+                                fassets.Add(a);
                             }
-                            else
-                            {
-                                break;
-                            }
-                        }
+                            break;
 
-                        foreach (var a in newListAssets1)
-                        {
-                            fassets.Add(a);
-                        }
+
+                        case StatusAssets.DynEnc:
+                            var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
+                            foreach (var a in assetwithDelPol)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+                        case StatusAssets.Empty:
+
+                            IList<IAsset> newListAssets2 = listPagedAssets.ToList();
+
+                            int skipSizeEmpty = 0;
+                            int batchSizeEmpty = 1000;
+                            int currentSkipSizeEmpty = 0;
+
+                            while (true)
+                            {
+                                // Enumerate through all files (1000 at a time)
+                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+                                currentSkipSizeEmpty += listfiles.Count;
+
+                                var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+                                foreach (var a in assetsnotempty)
+                                {
+                                    newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
+                                }
+
+                                if (currentSkipSizeEmpty == batchSizeEmpty)
+                                {
+                                    skipSizeEmpty += batchSizeEmpty;
+                                    currentSkipSizeEmpty = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in newListAssets2)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+
+                        case StatusAssets.All: // we need this to parse all assets
+                        default:
+                            foreach (var a in listPagedAssets)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+                            /*
+
+                            // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
+                            // executed locally and would be slow. Could be reintroduce if customer demand.
+
+                        case StatusAssets.NotPublished:
+                            fassets = listassets.Where(a => a.Locators.Count == 0);
+                            break;
+                        case StatusAssets.Storage:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                            break;
+                        case StatusAssets.CENC:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                            break;
+                        case StatusAssets.Envelope:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                            break;
+                        case StatusAssets.NotEncrypted:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
+                            break;
+                        case StatusAssets.DynEnc:
+                            fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+                            break;
+                        case StatusAssets.Streamable:
+                            fassets = listassets.Where(a => a.IsStreamable);
+                            break;
+                        case StatusAssets.SupportDynEnc:
+                            fassets = listassets.Where(a => a.SupportsDynamicEncryption);
+                            break;
+                        case StatusAssets.Empty:
+                            fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
+                            break;
+                        case StatusAssets.DefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                            break;
+                        case StatusAssets.NotDefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                            break;
+                            */
+                    }
+
+                    foreach (var a in fassets)
+                    {
+                        aggregateListAssets.Add(a);
+                    }
+
+                    if (currentSkipSize2 == batchSize2)
+                    {
+                        skipSize2 += batchSize2;
+                        currentSkipSize2 = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                SwitchedToLocalQuery = true;
+                assets = aggregateListAssets;
+
+                ///////////////////////
+                // SORTING
+                ///////////////////////
+                // let's sort the aggregate results
+                var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+                // client side only ! (a take is done otherwise)
+
+                switch (_orderassets)
+                {
+                    case OrderAssets.LastModifiedDescending:
+                        assets = from a in assets orderby a.LastModified descending select a;
                         break;
 
-
-                    case StatusAssets.DynEnc:
-                        var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
-                        foreach (var a in assetwithDelPol)
-                        {
-                            fassets.Add(a);
-                        }
+                    case OrderAssets.LastModifiedAscending:
+                        assets = from a in assets orderby a.LastModified ascending select a;
                         break;
 
-                    case StatusAssets.Empty:
-
-                        IList<IAsset> newListAssets2 = listPagedAssets.ToList();
-
-                        int skipSizeEmpty = 0;
-                        int batchSizeEmpty = 1000;
-                        int currentSkipSizeEmpty = 0;
-
-                        while (true)
-                        {
-                            // Enumerate through all files (1000 at a time)
-                            var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
-                            currentSkipSizeEmpty += listfiles.Count;
-
-                            var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
-
-                            foreach (var a in assetsnotempty)
-                            {
-                                newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
-                            }
-
-                            if (currentSkipSizeEmpty == batchSizeEmpty)
-                            {
-                                skipSizeEmpty += batchSizeEmpty;
-                                currentSkipSizeEmpty = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        foreach (var a in newListAssets2)
-                        {
-                            fassets.Add(a);
-                        }
+                    case OrderAssets.NameAscending:
+                        assets = from a in assets orderby a.Name ascending select a;
                         break;
 
+                    case OrderAssets.NameDescending:
+                        assets = from a in assets orderby a.Name descending select a;
+                        break;
 
-                    case StatusAssets.All: // we need this to parse all assets
+                    case OrderAssets.SizeDescending:
+                        assets = from a in assets orderby size(a) descending select a;
+                        break;
+
+                    case OrderAssets.SizeAscending:
+                        assets = from a in assets orderby size(a) ascending select a;
+                        break;
+
+                    case OrderAssets.LocatorExpirationAscending:
+                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
+                        break;
+
+                    case OrderAssets.LocatorExpirationDescending:
+                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
+                        break;
+
                     default:
-                        foreach (var a in listPagedAssets)
-                        {
-                            fassets.Add(a);
-                        }
+                        assets = from a in assets orderby a.LastModified descending select a;
                         break;
-                        /*
-
-                        // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
-                        // executed locally and would be slow. Could be reintroduce if customer demand.
-
-                    case StatusAssets.NotPublished:
-                        fassets = listassets.Where(a => a.Locators.Count == 0);
-                        break;
-                    case StatusAssets.Storage:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                        break;
-                    case StatusAssets.CENC:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                        break;
-                    case StatusAssets.Envelope:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                        break;
-                    case StatusAssets.NotEncrypted:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
-                        break;
-                    case StatusAssets.DynEnc:
-                        fassets = listassets.Where(a => a.DeliveryPolicies.Any());
-                        break;
-                    case StatusAssets.Streamable:
-                        fassets = listassets.Where(a => a.IsStreamable);
-                        break;
-                    case StatusAssets.SupportDynEnc:
-                        fassets = listassets.Where(a => a.SupportsDynamicEncryption);
-                        break;
-                    case StatusAssets.Empty:
-                        fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
-                        break;
-                    case StatusAssets.DefaultStorage:
-                        fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                        break;
-                    case StatusAssets.NotDefaultStorage:
-                        fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                        break;
-                        */
                 }
 
-                foreach (var a in fassets)
-                {
-                    aggregateListAssets.Add(a);
-                }
-
-
-                if (currentSkipSize2 == batchSize2)
-                {
-                    skipSize2 += batchSize2;
-                    currentSkipSize2 = 0;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            SwitchedToLocalQuery = true;
-            assets = aggregateListAssets;
-
-            ///////////////////////
-            // SORTING
-            ///////////////////////
-            // let's sort the aggregate results
-            var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-            // client side only ! (a take is done otherwise)
-
-            switch (_orderassets)
-            {
-                case OrderAssets.LastModifiedDescending:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-
-                case OrderAssets.LastModifiedAscending:
-                    assets = from a in assets orderby a.LastModified ascending select a;
-                    break;
-
-                case OrderAssets.NameAscending:
-                    assets = from a in assets orderby a.Name ascending select a;
-                    break;
-
-                case OrderAssets.NameDescending:
-                    assets = from a in assets orderby a.Name descending select a;
-                    break;
-
-                case OrderAssets.SizeDescending:
-                    assets = from a in assets orderby size(a) descending select a;
-                    break;
-
-                case OrderAssets.SizeAscending:
-                    assets = from a in assets orderby size(a) ascending select a;
-                    break;
-
-                case OrderAssets.LocatorExpirationAscending:
-                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
-                    break;
-
-                case OrderAssets.LocatorExpirationDescending:
-                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
-                    break;
-
-                default:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-            }
-
-
-
-            if ((!string.IsNullOrEmpty(_timefilter)))
-            {
                 if (_timefilter == FilterTime.First50Items)
                 {
                     assets = assets.Take(50);
                 }
-                else if (_timefilter == FilterTime.First1000Items)
+                else // if (_timefilter == FilterTime.First1000Items)
                 {
                     assets = assets.Take(1000);
                 }
-            }
 
+            }// end of general case
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
@@ -12588,9 +12698,19 @@ namespace AMSExplorer
             {
                 IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
                // let's return the data cached in memory of it exists and last modified time is the same
-               (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
-                             new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
-                              );
+               (cacheAssetentries.ContainsKey(a.Id) 
+               && cacheAssetentries[a.Id].LastModified != null 
+               && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ? 
+               cacheAssetentries[a.Id] :
+                             new AssetEntry
+                             {
+                                 Name = a.Name,
+                                 Id = a.Id,
+                                 Type = null,
+                                 LastModified = a.LastModified.ToLocalTime().ToString("G"),
+                                 Storage = a.StorageAccountName
+                             }
+                              ));
 
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
@@ -12971,8 +13091,8 @@ namespace AMSExplorer
                            Tasks = j.Tasks.Count,
                            Priority = j.Priority,
                            State = j.State,
-                           StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                           StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
+                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                            Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                            Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                        };
@@ -13046,9 +13166,6 @@ namespace AMSExplorer
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
             }
 
-
-
-
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
@@ -13109,100 +13226,117 @@ namespace AMSExplorer
             }
 
 
-
-            // let's get all the results locally
-
-            IList<IJob> aggregateListJobs = new List<IJob>();
-            int skipSize = 0;
-            int batchSize = 1000;
-            int currentSkipSize = 0;
-            while (true)
+            // SHORTCUT (needed for account with large number of jobs)
+            if (_orderjobs == OrderJobs.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items))
             {
-                // Enumerate through all jobs (1000 at a time)
-                var jobsq = jobsServerQuery
-                    .Skip(skipSize).Take(batchSize).ToList();
-
-                currentSkipSize += jobsq.Count;
-
-                foreach (var j in jobsq)
+                if (_timefilter == FilterTime.First50Items)
                 {
-                    aggregateListJobs.Add(j);
+                    jobs = jobsServerQuery.Take(50);
                 }
-
-                if (currentSkipSize == batchSize)
+                else if (_timefilter == FilterTime.First1000Items)
                 {
-                    skipSize += batchSize;
-                    currentSkipSize = 0;
-                }
-                else
-                {
-                    break;
+                    jobs = jobsServerQuery.Take(1000);
                 }
             }
-            jobs = aggregateListJobs;
+            else // general case
 
-
-
-            switch (_orderjobs)
             {
-                case OrderJobs.LastModifiedDescending:
-                    jobs = from j in jobs orderby j.LastModified descending select j;
-                    break;
-
-                case OrderJobs.LastModifiedAscending:
-                    jobs = from j in jobs orderby j.LastModified ascending select j;
-                    break;
-
-                case OrderJobs.NameDescending:
-                    jobs = from j in jobs orderby j.Name descending select j;
-                    break;
-
-                case OrderJobs.NameAscending:
-                    jobs = from j in jobs orderby j.Name ascending select j;
-                    break;
-
-                case OrderJobs.EndTimeDescending:
-                    jobs = from j in jobs orderby j.EndTime descending select j;
-                    break;
-
-                case OrderJobs.EndTimeAscending:
-                    jobs = from j in jobs orderby j.EndTime ascending select j;
-                    break;
-
-                case OrderJobs.ProcessTimeDescending:
-                    jobs = from j in jobs orderby j.RunningDuration descending select j;
-                    break;
-
-                case OrderJobs.ProcessTimeAscending:
-                    jobs = from j in jobs orderby j.RunningDuration ascending select j;
-                    break;
-
-                case OrderJobs.StartTimeDescending:
-                    jobs = from j in jobs orderby j.StartTime descending select j;
-                    break;
-
-                case OrderJobs.StartTimeAscending:
-                    jobs = from j in jobs orderby j.StartTime ascending select j;
-                    break;
-
-                case OrderJobs.StateDescending:
-                    jobs = from j in jobs orderby j.State descending select j;
-                    break;
-
-                case OrderJobs.StateAscending:
-                    jobs = from j in jobs orderby j.State ascending select j;
-                    break;
-
-                default:
-                    jobs = from j in jobs orderby j.LastModified descending select j;
-                    break;
-            }
 
 
 
 
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
+                // let's get all the results locally
+
+                IList<IJob> aggregateListJobs = new List<IJob>();
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+                while (true)
+                {
+                    // Enumerate through all jobs (1000 at a time)
+                    var jobsq = jobsServerQuery
+                        .Skip(skipSize).Take(batchSize).ToList();
+
+                    currentSkipSize += jobsq.Count;
+
+                    foreach (var j in jobsq)
+                    {
+                        aggregateListJobs.Add(j);
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                jobs = aggregateListJobs;
+
+
+
+                switch (_orderjobs)
+                {
+                    case OrderJobs.LastModifiedDescending:
+                        jobs = from j in jobs orderby j.LastModified descending select j;
+                        break;
+
+                    case OrderJobs.LastModifiedAscending:
+                        jobs = from j in jobs orderby j.LastModified ascending select j;
+                        break;
+
+                    case OrderJobs.NameDescending:
+                        jobs = from j in jobs orderby j.Name descending select j;
+                        break;
+
+                    case OrderJobs.NameAscending:
+                        jobs = from j in jobs orderby j.Name ascending select j;
+                        break;
+
+                    case OrderJobs.EndTimeDescending:
+                        jobs = from j in jobs orderby j.EndTime descending select j;
+                        break;
+
+                    case OrderJobs.EndTimeAscending:
+                        jobs = from j in jobs orderby j.EndTime ascending select j;
+                        break;
+
+                    case OrderJobs.ProcessTimeDescending:
+                        jobs = from j in jobs orderby j.RunningDuration descending select j;
+                        break;
+
+                    case OrderJobs.ProcessTimeAscending:
+                        jobs = from j in jobs orderby j.RunningDuration ascending select j;
+                        break;
+
+                    case OrderJobs.StartTimeDescending:
+                        jobs = from j in jobs orderby j.StartTime descending select j;
+                        break;
+
+                    case OrderJobs.StartTimeAscending:
+                        jobs = from j in jobs orderby j.StartTime ascending select j;
+                        break;
+
+                    case OrderJobs.StateDescending:
+                        jobs = from j in jobs orderby j.State descending select j;
+                        break;
+
+                    case OrderJobs.StateAscending:
+                        jobs = from j in jobs orderby j.State ascending select j;
+                        break;
+
+                    default:
+                        jobs = from j in jobs orderby j.LastModified descending select j;
+                        break;
+                }
+
+
+
+
+
                 if (_timefilter == FilterTime.First50Items)
                 {
                     jobs = jobs.Take(50);
@@ -13211,8 +13345,9 @@ namespace AMSExplorer
                 {
                     jobs = jobs.Take(1000);
                 }
-            }
 
+
+            } // end of general case
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
@@ -13232,8 +13367,8 @@ namespace AMSExplorer
                                Tasks = j.Tasks.Count,
                                Priority = j.Priority,
                                State = j.State,
-                               StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                               StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
+                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                                Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
@@ -13310,8 +13445,8 @@ namespace AMSExplorer
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
-                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
-                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
+                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? ((DateTime)JobRefreshed.StartTime).ToLocalTime().ToString("G") : null;
+                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString("G") : null;
 
                                    _MyObservJob[index].State = JobRefreshed.State;
                                    Debug.WriteLine(index.ToString() + JobRefreshed.State);
@@ -13328,10 +13463,12 @@ namespace AMSExplorer
                                        DateTime ETA = DateTime.Now.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                                        TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
 
-                                       ETAstr = "Estimated: " + ETA.ToString();
+                                       ETAstr = "Estimated: " + ETA.ToString("G");
                                        Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
-                                       _MyObservJob[index].EndTime = ETA.ToString(@"g") + " ?";
-                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
+                                       _MyObservJob[index].EndTime = ETA.ToString(@"G") + " ?";
+                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? 
+                                                    ((TimeSpan)((DateTime)JobRefreshed.EndTime - (DateTime)JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss")
+                                                    : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                                    }
 
                                    int indexdisplayed = -1;
@@ -13368,8 +13505,8 @@ namespace AMSExplorer
                                    _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
                                    _MyObservJob[index].Progress = 101d;// progress;  we don't want the progress bar to be displayed
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
-                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
-                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
+                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? ((DateTime)JobRefreshed.StartTime).ToLocalTime().ToString("G") : null;
+                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString("G") : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
 
                                    if (_MyListJobsMonitored.Contains(JobRefreshed.Id)) // we want to display only one time
