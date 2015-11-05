@@ -137,6 +137,7 @@
             this.selectedAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createTestAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
@@ -551,7 +552,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 540);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -1217,7 +1218,8 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.mergeSelectedAssetsToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.createTestAssetsToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             this.assetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.assetToolStripMenuItem.Text = "Asset";
@@ -1444,6 +1446,15 @@
             this.allAssetsToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.allAssetsToolStripMenuItem.Text = "All assets...";
             this.allAssetsToolStripMenuItem.Click += new System.EventHandler(this.allAssetsToolStripMenuItem_Click);
+            // 
+            // createTestAssetsToolStripMenuItem
+            // 
+            this.createTestAssetsToolStripMenuItem.Enabled = false;
+            this.createTestAssetsToolStripMenuItem.Name = "createTestAssetsToolStripMenuItem";
+            this.createTestAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.createTestAssetsToolStripMenuItem.Text = "CreateTestAssets";
+            this.createTestAssetsToolStripMenuItem.Visible = false;
+            this.createTestAssetsToolStripMenuItem.Click += new System.EventHandler(this.createTestAssetsToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -5403,6 +5414,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator40;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator39;
         private System.Windows.Forms.CheckBox checkBoxAnyChannel;
+        private System.Windows.Forms.ToolStripMenuItem createTestAssetsToolStripMenuItem;
     }
 }
 
