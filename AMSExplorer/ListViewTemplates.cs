@@ -115,7 +115,7 @@ namespace AMSExplorer
             foreach (var template in _context.JobTemplates)
             {
                 ListViewItem item = new ListViewItem(template.Name);
-                item.SubItems.Add(template.LastModified.ToLocalTime().ToString());
+                item.SubItems.Add(template.LastModified.ToLocalTime().ToString("G"));
                 item.SubItems.Add(template.NumberofInputAssets.ToString());
                 item.SubItems.Add(template.TemplateType.ToString());
                 item.SubItems.Add(template.Id);
@@ -243,7 +243,7 @@ namespace AMSExplorer
                 if (file.Asset.AssetFiles.Count() == 1)
                 {
                     ListViewItem item = new ListViewItem(file.Name, 0);
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);
@@ -379,7 +379,7 @@ namespace AMSExplorer
                     bool bdefaultchannelslate = defaultslateassetid == file.ParentAssetId;
 
                     ListViewItem item = new ListViewItem(file.Name + ((bdefaultchannelslate) ? " (default channel slate)" : string.Empty), 0);
-                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString());
+                    item.SubItems.Add(file.LastModified.ToLocalTime().ToString("G"));
                     item.SubItems.Add(AssetInfo.FormatByteSize(file.ContentFileSize));
                     item.SubItems.Add(file.Asset.Name);
                     item.SubItems.Add(file.Asset.Id);

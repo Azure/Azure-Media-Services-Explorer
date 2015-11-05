@@ -155,8 +155,8 @@ namespace AMSExplorer
             DGOrigin.Rows.Add("Id", MyStreamingEndpoint.Id);
             DGOrigin.Rows.Add("State", (StreamingEndpointState)MyStreamingEndpoint.State);
             DGOrigin.Rows.Add("CDN Enabled", MyStreamingEndpoint.CdnEnabled);
-            DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime());
-            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime());
+            DGOrigin.Rows.Add("Created", ((DateTime)MyStreamingEndpoint.Created).ToLocalTime().ToString("G"));
+            DGOrigin.Rows.Add("Last Modified", ((DateTime)MyStreamingEndpoint.LastModified).ToLocalTime().ToString("G"));
             DGOrigin.Rows.Add("Description", MyStreamingEndpoint.Description);
             DGOrigin.Rows.Add("Host name", MyStreamingEndpoint.HostName);
 

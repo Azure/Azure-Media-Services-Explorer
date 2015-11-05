@@ -121,8 +121,8 @@ namespace AMSExplorer
             DGChannel.Rows.Add("Name", MyProgram.Name);
             DGChannel.Rows.Add("Id", MyProgram.Id);
             DGChannel.Rows.Add("State", (ChannelState)MyProgram.State);
-            DGChannel.Rows.Add("Created", ((DateTime)MyProgram.Created).ToLocalTime());
-            DGChannel.Rows.Add("Last Modified", ((DateTime)MyProgram.LastModified).ToLocalTime());
+            DGChannel.Rows.Add("Created", ((DateTime)MyProgram.Created).ToLocalTime().ToString("G"));
+            DGChannel.Rows.Add("Last Modified", ((DateTime)MyProgram.LastModified).ToLocalTime().ToString("G"));
             DGChannel.Rows.Add("Description", MyProgram.Description);
             DGChannel.Rows.Add("Archive Window Length", MyProgram.ArchiveWindowLength);
             DGChannel.Rows.Add("Manifest Name", MyProgram.ManifestName);

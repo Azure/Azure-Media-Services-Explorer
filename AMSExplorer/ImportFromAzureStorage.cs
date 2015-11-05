@@ -214,7 +214,7 @@ namespace AMSExplorer
                     if (BlobContainer.Name.Contains(textBoxSearch.Text))
                     {
                         ListViewItem item = new ListViewItem(Path.GetFileName(BlobContainer.Name), 0);
-                        item.SubItems.Add(BlobContainer.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString());
+                        item.SubItems.Add(BlobContainer.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString("G"));
                         listViewBlobs.Items.Add(item);
                     }
                 }
@@ -251,7 +251,7 @@ namespace AMSExplorer
                     CloudBlockBlob cloudBlockBlob = b as CloudBlockBlob;
                     string lastModified = "";
                     ListViewItem item = new ListViewItem(Path.GetFileName(b.Uri.LocalPath), 0);
-                    lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString();
+                    lastModified = cloudBlockBlob.Properties.LastModified.Value.UtcDateTime.ToLocalTime().ToString("G");
                     item.SubItems.Add(lastModified);
                     item.SubItems.Add(AssetInfo.FormatByteSize(cloudBlockBlob.Properties.Length));
                     // Place a check mark next to the item.

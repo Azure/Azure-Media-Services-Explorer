@@ -106,8 +106,6 @@ namespace AMSExplorer
             }
         }
 
-
-
         private double _Progress;
         public double Progress
         {
@@ -123,8 +121,8 @@ namespace AMSExplorer
             }
         }
 
-        private DateTime _LastModified;
-        public DateTime LastModified
+        private string _LastModified;
+        public string LastModified
         {
             get
             { return _LastModified; }
@@ -193,7 +191,7 @@ namespace AMSExplorer
                                       Name = im.Name,
                                       Id = im.Id,
                                       State = im.State,
-                                      LastModified = im.LastModified,
+                                      LastModified = im.LastModified.ToLocalTime().ToString("G"),
                                       URLForUpload = im.BlobStorageUriForUpload
                                   };
 
@@ -277,7 +275,7 @@ namespace AMSExplorer
                         }
 
                         img.State = im.State;
-                        img.LastModified = im.LastModified.ToLocalTime();
+                        img.LastModified = im.LastModified.ToLocalTime().ToString("G");
                         img.PendingFiles = im.Statistics.PendingFilesCount;
                         img.FinishedFiles = im.Statistics.FinishedFilesCount;
 
@@ -316,7 +314,7 @@ namespace AMSExplorer
                           {
                               Name = im.Name,
                               Id = im.Id,
-                              LastModified = im.LastModified.ToLocalTime(),
+                              LastModified = im.LastModified.ToLocalTime().ToString("G"),
                               StorageAccountName = im.StorageAccountName,
                               URLForUpload = im.BlobStorageUriForUpload
                           };

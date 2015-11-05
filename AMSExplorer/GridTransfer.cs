@@ -306,7 +306,7 @@ namespace AMSExplorer
             {
                 TimeSpan interval = (TimeSpan)(DateTime.UtcNow - ((DateTime)_MyListTransfer[index].StartTime).ToUniversalTime());
                 DateTime ETA = DateTime.UtcNow.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
-                _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString() + " ?";
+                _MyListTransfer[index].EndTime = ETA.ToLocalTime().ToString("G") + " ?";
             }
 
             //dataGridViewTransfer.BeginInvoke(new Action(() => dataGridViewTransfer.Refresh()), null);

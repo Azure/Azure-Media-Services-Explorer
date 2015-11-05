@@ -11902,7 +11902,11 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry { Name = a.Name, Id = a.Id, LastModified = ((DateTime)a.LastModified).ToLocalTime(), Storage = a.StorageAccountName };
+            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry {
+                Name = a.Name,
+                Id = a.Id,
+                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                Storage = a.StorageAccountName };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -12015,7 +12019,7 @@ namespace AMSExplorer
                     {
                         AssetInfo myAssetInfo = new AssetInfo(asset);
                         AE.Name = asset.Name;
-                        AE.LastModified = asset.LastModified.ToLocalTime();
+                        AE.LastModified = asset.LastModified.ToLocalTime().ToString("G");
                         SASLoc = myAssetInfo.GetPublishedStatus(LocatorType.Sas);
                         OrigLoc = myAssetInfo.GetPublishedStatus(LocatorType.OnDemandOrigin);
 
@@ -12036,8 +12040,8 @@ namespace AMSExplorer
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                        AE.LocatorExpirationDate = LocDate;
-                        AE.LocatorExpirationDateWarning = (LocDate < DateTime.Now.ToLocalTime());
+                        AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString():null;
+                        AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()):false;
 
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
@@ -12657,8 +12661,6 @@ namespace AMSExplorer
                 }
 
 
-
-
                 if (_timefilter == FilterTime.First50Items)
                 {
                     assets = assets.Take(50);
@@ -12682,9 +12684,19 @@ namespace AMSExplorer
             {
                 IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
                // let's return the data cached in memory of it exists and last modified time is the same
-               (cacheAssetentries.ContainsKey(a.Id) && cacheAssetentries[a.Id].LastModified != null && ((DateTime)cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime())) ? cacheAssetentries[a.Id] :
-                             new AssetEntry { Name = a.Name, Id = a.Id, Type = null, LastModified = a.LastModified.ToLocalTime(), Storage = a.StorageAccountName }
-                              );
+               (cacheAssetentries.ContainsKey(a.Id) 
+               && cacheAssetentries[a.Id].LastModified != null 
+               && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ? 
+               cacheAssetentries[a.Id] :
+                             new AssetEntry
+                             {
+                                 Name = a.Name,
+                                 Id = a.Id,
+                                 Type = null,
+                                 LastModified = a.LastModified.ToLocalTime().ToString("G"),
+                                 Storage = a.StorageAccountName
+                             }
+                              ));
 
                 _MyObservAsset = new BindingList<AssetEntry>(assetquery.ToList());
             }
@@ -13065,8 +13077,8 @@ namespace AMSExplorer
                            Tasks = j.Tasks.Count,
                            Priority = j.Priority,
                            State = j.State,
-                           StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                           StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
+                           EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                            Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                            Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                        };
@@ -13341,8 +13353,8 @@ namespace AMSExplorer
                                Tasks = j.Tasks.Count,
                                Priority = j.Priority,
                                State = j.State,
-                               StartTime = j.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)j.StartTime).ToLocalTime() : null,
-                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString() : null,
+                               StartTime = j.StartTime.HasValue ? ((DateTime)j.StartTime).ToLocalTime().ToString("G") : null,
+                               EndTime = j.EndTime.HasValue ? ((DateTime)j.EndTime).ToLocalTime().ToString("G") : null,
                                Duration = (j.StartTime.HasValue && j.EndTime.HasValue) ? ((DateTime)j.EndTime).Subtract((DateTime)j.StartTime).ToString(@"d\.hh\:mm\:ss") : string.Empty,
                                Progress = (j.State == JobState.Scheduled || j.State == JobState.Processing || j.State == JobState.Queued) ? j.GetOverallProgress() : 101d
                            };
@@ -13419,8 +13431,8 @@ namespace AMSExplorer
                                    double progress = JobRefreshed.GetOverallProgress();
                                    _MyObservJob[index].Progress = progress;
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
-                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
-                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
+                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? ((DateTime)JobRefreshed.StartTime).ToLocalTime().ToString("G") : null;
+                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString("G") : null;
 
                                    _MyObservJob[index].State = JobRefreshed.State;
                                    Debug.WriteLine(index.ToString() + JobRefreshed.State);
@@ -13437,10 +13449,12 @@ namespace AMSExplorer
                                        DateTime ETA = DateTime.Now.AddSeconds((100d / progress - 1d) * interval.TotalSeconds);
                                        TimeSpan estimatedduration = (TimeSpan)(ETA - startlocaltime);
 
-                                       ETAstr = "Estimated: " + ETA.ToString();
+                                       ETAstr = "Estimated: " + ETA.ToString("G");
                                        Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
-                                       _MyObservJob[index].EndTime = ETA.ToString(@"g") + " ?";
-                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
+                                       _MyObservJob[index].EndTime = ETA.ToString(@"G") + " ?";
+                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? 
+                                                    ((TimeSpan)((DateTime)JobRefreshed.EndTime - (DateTime)JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss")
+                                                    : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                                    }
 
                                    int indexdisplayed = -1;
@@ -13477,8 +13491,8 @@ namespace AMSExplorer
                                    _MyObservJob[index].Duration = JobRefreshed.StartTime.HasValue ? ((TimeSpan)(DateTime.UtcNow - JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss") : null;
                                    _MyObservJob[index].Progress = 101d;// progress;  we don't want the progress bar to be displayed
                                    _MyObservJob[index].Priority = JobRefreshed.Priority;
-                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? (Nullable<DateTime>)((DateTime)JobRefreshed.StartTime).ToLocalTime() : null;
-                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString() : null;
+                                   _MyObservJob[index].StartTime = JobRefreshed.StartTime.HasValue ? ((DateTime)JobRefreshed.StartTime).ToLocalTime().ToString("G") : null;
+                                   _MyObservJob[index].EndTime = JobRefreshed.EndTime.HasValue ? ((DateTime)JobRefreshed.EndTime).ToLocalTime().ToString("G") : null;
                                    _MyObservJob[index].State = JobRefreshed.State;
 
                                    if (_MyListJobsMonitored.Contains(JobRefreshed.Id)) // we want to display only one time

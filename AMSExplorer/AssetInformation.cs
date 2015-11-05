@@ -368,8 +368,8 @@ namespace AMSExplorer
             DGAsset.Rows.Add("AlternateId", myAsset.AlternateId);
             if (size != -1) DGAsset.Rows.Add("Size", AssetInfo.FormatByteSize(size));
             DGAsset.Rows.Add("State", (AssetState)myAsset.State);
-            DGAsset.Rows.Add("Created", ((DateTime)myAsset.Created).ToLocalTime());
-            DGAsset.Rows.Add("Last Modified", ((DateTime)myAsset.LastModified).ToLocalTime());
+            DGAsset.Rows.Add("Created", ((DateTime)myAsset.Created).ToLocalTime().ToString("G"));
+            DGAsset.Rows.Add("Last Modified", ((DateTime)myAsset.LastModified).ToLocalTime().ToString("G"));
             DGAsset.Rows.Add("Creation Options", (AssetCreationOptions)myAsset.Options);
 
             var program = myContext.Programs.Where(p => p.AssetId == myAsset.Id).FirstOrDefault();
@@ -621,12 +621,12 @@ namespace AMSExplorer
 
                     if (locator.StartTime != null)
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                           string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString()))
+                           string.Format("Start time: {0}", (((DateTime)locator.StartTime).ToLocalTime().ToString("G")))
                            ));
 
                     if (locator.ExpirationDateTime != null)
                         TreeViewLocators.Nodes[indexloc].Nodes[0].Nodes.Add(new TreeNode(
-                         string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString()))
+                         string.Format("Expiration date time: {0}", (((DateTime)locator.ExpirationDateTime).ToLocalTime().ToString("G")))
                          ));
 
                     if (locator.Type == LocatorType.OnDemandOrigin)
@@ -731,8 +731,8 @@ namespace AMSExplorer
                 DGFiles.Rows.Add("Id", AF.Id);
                 DGFiles.Rows.Add("File size", AssetInfo.FormatByteSize(AF.ContentFileSize));
                 DGFiles.Rows.Add("Mime type", AF.MimeType);
-                DGFiles.Rows.Add("Created", AF.Created.ToLocalTime());
-                DGFiles.Rows.Add("Last modified", AF.LastModified.ToLocalTime());
+                DGFiles.Rows.Add("Created", AF.Created.ToLocalTime().ToString("G"));
+                DGFiles.Rows.Add("Last modified", AF.LastModified.ToLocalTime().ToString("G"));
                 DGFiles.Rows.Add("Primary file", AF.IsPrimary);
                 DGFiles.Rows.Add("Encrypted", AF.IsEncrypted);
                 DGFiles.Rows.Add("Encryption scheme", AF.EncryptionScheme);
@@ -773,8 +773,8 @@ namespace AMSExplorer
                 dataGridViewKeys.Rows.Add("Id", key.Id);
                 dataGridViewKeys.Rows.Add("Content key type", key.ContentKeyType);
                 dataGridViewKeys.Rows.Add("Checksum", key.Checksum);
-                dataGridViewKeys.Rows.Add("Created", key.Created.ToLocalTime());
-                dataGridViewKeys.Rows.Add("Las modified", key.LastModified.ToLocalTime());
+                dataGridViewKeys.Rows.Add("Created", key.Created.ToLocalTime().ToString("G"));
+                dataGridViewKeys.Rows.Add("Las modified", key.LastModified.ToLocalTime().ToString("G"));
                 dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
                 dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
                 dataGridViewKeys.Rows.Add("GetClearKeyValue", Convert.ToBase64String(key.GetClearKeyValue()));
