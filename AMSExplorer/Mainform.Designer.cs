@@ -138,6 +138,7 @@
             this.selectedAssetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.visibleAssetsInGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.allAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createTestAssetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemFilterInfo = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem23 = new System.Windows.Forms.ToolStripMenuItem();
@@ -1232,7 +1233,8 @@
             this.copyAssetFilesToAzureStorageToolStripMenuItem,
             this.renameToolStripMenuItem,
             this.mergeSelectedAssetsToolStripMenuItem,
-            this.deleteToolStripMenuItem});
+            this.deleteToolStripMenuItem,
+            this.createTestAssetsToolStripMenuItem});
             this.assetToolStripMenuItem.Name = "assetToolStripMenuItem";
             this.assetToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
             this.assetToolStripMenuItem.Text = "Asset";
@@ -1467,6 +1469,15 @@
             this.allAssetsToolStripMenuItem.Size = new System.Drawing.Size(214, 22);
             this.allAssetsToolStripMenuItem.Text = "All assets...";
             this.allAssetsToolStripMenuItem.Click += new System.EventHandler(this.allAssetsToolStripMenuItem_Click);
+            // 
+            // createTestAssetsToolStripMenuItem
+            // 
+            this.createTestAssetsToolStripMenuItem.Enabled = false;
+            this.createTestAssetsToolStripMenuItem.Name = "createTestAssetsToolStripMenuItem";
+            this.createTestAssetsToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
+            this.createTestAssetsToolStripMenuItem.Text = "CreateTestAssets";
+            this.createTestAssetsToolStripMenuItem.Visible = false;
+            this.createTestAssetsToolStripMenuItem.Click += new System.EventHandler(this.createTestAssetsToolStripMenuItem_Click);
             // 
             // filterToolStripMenuItem
             // 
@@ -5552,6 +5563,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem33Refresh;
+        private System.Windows.Forms.ToolStripMenuItem createTestAssetsToolStripMenuItem;
     }
 }
 

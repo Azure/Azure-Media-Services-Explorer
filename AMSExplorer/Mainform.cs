@@ -5246,9 +5246,32 @@ namespace AMSExplorer
             DoOpenJobAsset(true);
         }
 
+        private void DoCreateTestsAssets()
+        {
+            Task.Run(async () =>
+            {
+                int i = 168744;
+                int c = 0;
+                while (i < 200001)
+                {
+                    // String.Format("{0:00000}", 15);          // "00015"
+
+                    _context.Assets.CreateAsync("Asset-" + string.Format("{0:000000}", i), AssetCreationOptions.None, CancellationToken.None);
+                    i++;
+                    c++;
+                    if (c == 100)
+                    {
+                        Debug.WriteLine(i);
+                        c = 0;
+                    }
+                }
+            }
+                        );
+        }
 
         private void DoExportAssetToAzureStorage()
         {
+
             string valuekey = "";
             bool UseDefaultStorage = true;
             string containername = "";
@@ -11299,6 +11322,11 @@ namespace AMSExplorer
             return "azu://" + im.StorageAccountName + ":" + storKey + "@" + im.BlobStorageUriForUpload.Substring(im.BlobStorageUriForUpload.IndexOf(".") + 1);
         }
 
+        private void createTestAssetsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoCreateTestsAssets();
+        }
+
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DoBulkContainerInfo(ReturnSelectedIngestManifests().FirstOrDefault());
@@ -12064,16 +12092,21 @@ namespace AMSExplorer
                     // Search on Asset name
                     case SearchIn.AssetName:
 
+                        assetsServerQuery = context.Assets.Where(a =>
+                                (a.Name.Contains(_searchinname.Text))
+                                &&
+                                (!filterday || a.LastModified > datefilter)
+                                );
+                        /*
+                        if (assetsServerQuery.Count() > 1000) // we need to paginate
+                        {
+
                         IList<IAsset> newAssetList = new List<IAsset>();
 
                         while (true)
                         {
                             // Enumerate through all assets (1000 at a time)
-                            var assetsq = context.Assets.Where(a =>
-                                 (a.Name.Contains(_searchinname.Text))
-                                 &&
-                                 (!filterday || a.LastModified > datefilter)
-                                 )
+                                var assetsq = assetsServerQuery
                                 .Skip(skipSize).Take(batchSize).ToList();
 
                             currentSkipSize += assetsq.Count;
@@ -12096,7 +12129,8 @@ namespace AMSExplorer
 
                         SwitchedToLocalQuery = true;
                         assets = newAssetList;
-
+                        }
+                        */
                         break;
 
                     // Search on Asset aternate id
@@ -12335,250 +12369,270 @@ namespace AMSExplorer
                                 );
             }
 
-            ///////////////////////
-            // STATE FILTER
-            ///////////////////////
-            // we need to do paging
 
-            IList<IAsset> aggregateListAssets = new List<IAsset>();
-            int skipSize2 = 0;
-            int batchSize2 = 1000;
-            int currentSkipSize2 = 0;
-
-            while (true)
+            // SHORTCUT (needed for account with large number fo assets)
+            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") /*&& _orderassets == OrderAssets.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items)*/)
             {
-                // Enumerate through all assets (1000 at a time)
-                IEnumerable<IAsset> listPagedAssets;
-                IList<IAsset> fassets = new List<IAsset>();
-
-                if (SwitchedToLocalQuery)
+                if ((!string.IsNullOrEmpty(_timefilter)))
                 {
-                    listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+                    if (_timefilter == FilterTime.First50Items)
+                    {
+                        assets = assetsServerQuery.Take(50);
+                    }
+                    else if (_timefilter == FilterTime.First1000Items)
+                    {
+                        assets = assetsServerQuery.Take(1000);
+                    }
                 }
-                else
+            }
+            else // general case
+
+            {
+
+                ///////////////////////
+                // STATE FILTER
+                ///////////////////////
+                // we need to do paging
+
+                IList<IAsset> aggregateListAssets = new List<IAsset>();
+                int skipSize2 = 0;
+                int batchSize2 = 1000;
+                int currentSkipSize2 = 0;
+
+                while (true)
                 {
-                    listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+                    // Enumerate through all assets (1000 at a time)
+                    IEnumerable<IAsset> listPagedAssets;
+                    IList<IAsset> fassets = new List<IAsset>();
+
+                    if (SwitchedToLocalQuery)
+                    {
+                        listPagedAssets = assets.Skip(skipSize2).Take(batchSize2).ToList();
+                    }
+                    else
+                    {
+                        listPagedAssets = assetsServerQuery.Skip(skipSize2).Take(batchSize2).ToList();
+                    }
+                    currentSkipSize2 += listPagedAssets.Count();
+
+                    switch (_statefilter)
+                    {
+                        case StatusAssets.Published:
+                        case StatusAssets.PublishedExpired:
+
+                            bool bexpired = _statefilter == StatusAssets.PublishedExpired;
+                            IList<IAsset> newListAssets1 = new List<IAsset>();
+
+                            int skipSizeLoc = 0;
+                            int batchSizeLoc = 1000;
+                            int currentSkipSizeLoc = 0;
+
+                            while (true)
+                            {
+                                // Enumerate through all locators (1000 at a time)
+                                var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
+                                currentSkipSizeLoc += listlocators.Count;
+
+                                var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
+
+                                foreach (var a in assetexpired)
+                                {
+                                    newListAssets1.Add(a);
+                                }
+
+                                if (currentSkipSizeLoc == batchSizeLoc)
+                                {
+                                    skipSizeLoc += batchSizeLoc;
+                                    currentSkipSizeLoc = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in newListAssets1)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+
+                        case StatusAssets.DynEnc:
+                            var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
+                            foreach (var a in assetwithDelPol)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+                        case StatusAssets.Empty:
+
+                            IList<IAsset> newListAssets2 = listPagedAssets.ToList();
+
+                            int skipSizeEmpty = 0;
+                            int batchSizeEmpty = 1000;
+                            int currentSkipSizeEmpty = 0;
+
+                            while (true)
+                            {
+                                // Enumerate through all files (1000 at a time)
+                                var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
+                                currentSkipSizeEmpty += listfiles.Count;
+
+                                var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
+
+                                foreach (var a in assetsnotempty)
+                                {
+                                    newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
+                                }
+
+                                if (currentSkipSizeEmpty == batchSizeEmpty)
+                                {
+                                    skipSizeEmpty += batchSizeEmpty;
+                                    currentSkipSizeEmpty = 0;
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+
+                            foreach (var a in newListAssets2)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+
+
+                        case StatusAssets.All: // we need this to parse all assets
+                        default:
+                            foreach (var a in listPagedAssets)
+                            {
+                                fassets.Add(a);
+                            }
+                            break;
+                            /*
+
+                            // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
+                            // executed locally and would be slow. Could be reintroduce if customer demand.
+
+                        case StatusAssets.NotPublished:
+                            fassets = listassets.Where(a => a.Locators.Count == 0);
+                            break;
+                        case StatusAssets.Storage:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
+                            break;
+                        case StatusAssets.CENC:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
+                            break;
+                        case StatusAssets.Envelope:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
+                            break;
+                        case StatusAssets.NotEncrypted:
+                            fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
+                            break;
+                        case StatusAssets.DynEnc:
+                            fassets = listassets.Where(a => a.DeliveryPolicies.Any());
+                            break;
+                        case StatusAssets.Streamable:
+                            fassets = listassets.Where(a => a.IsStreamable);
+                            break;
+                        case StatusAssets.SupportDynEnc:
+                            fassets = listassets.Where(a => a.SupportsDynamicEncryption);
+                            break;
+                        case StatusAssets.Empty:
+                            fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
+                            break;
+                        case StatusAssets.DefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
+                            break;
+                        case StatusAssets.NotDefaultStorage:
+                            fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
+                            break;
+                            */
+                    }
+
+                    foreach (var a in fassets)
+                    {
+                        aggregateListAssets.Add(a);
+                    }
+
+
+                    if (currentSkipSize2 == batchSize2)
+                    {
+                        skipSize2 += batchSize2;
+                        currentSkipSize2 = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-                currentSkipSize2 += listPagedAssets.Count();
+                SwitchedToLocalQuery = true;
+                assets = aggregateListAssets;
 
-                switch (_statefilter)
+                ///////////////////////
+                // SORTING
+                ///////////////////////
+                // let's sort the aggregate results
+                var size = new Func<IAsset, long>(AssetInfo.GetSize);
+
+                // client side only ! (a take is done otherwise)
+
+                switch (_orderassets)
                 {
-                    case StatusAssets.Published:
-                    case StatusAssets.PublishedExpired:
-
-                        bool bexpired = _statefilter == StatusAssets.PublishedExpired;
-                        IList<IAsset> newListAssets1 = new List<IAsset>();
-
-                        int skipSizeLoc = 0;
-                        int batchSizeLoc = 1000;
-                        int currentSkipSizeLoc = 0;
-
-                        while (true)
-                        {
-                            // Enumerate through all locators (1000 at a time)
-                            var listlocators = context.Locators.Where(l => !bexpired || l.ExpirationDateTime < DateTime.UtcNow).Skip(skipSizeLoc).Take(batchSizeLoc).ToList().Select(l => l.AssetId).ToList();
-                            currentSkipSizeLoc += listlocators.Count;
-
-                            var assetexpired = listPagedAssets.Where(a => listlocators.Contains(a.Id));
-
-                            foreach (var a in assetexpired)
-                            {
-                                newListAssets1.Add(a);
-                            }
-
-                            if (currentSkipSizeLoc == batchSizeLoc)
-                            {
-                                skipSizeLoc += batchSizeLoc;
-                                currentSkipSizeLoc = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        foreach (var a in newListAssets1)
-                        {
-                            fassets.Add(a);
-                        }
+                    case OrderAssets.LastModifiedDescending:
+                        assets = from a in assets orderby a.LastModified descending select a;
                         break;
 
-
-                    case StatusAssets.DynEnc:
-                        var assetwithDelPol = listPagedAssets.Where(a => a.DeliveryPolicies.Any());
-                        foreach (var a in assetwithDelPol)
-                        {
-                            fassets.Add(a);
-                        }
+                    case OrderAssets.LastModifiedAscending:
+                        assets = from a in assets orderby a.LastModified ascending select a;
                         break;
 
-                    case StatusAssets.Empty:
-
-                        IList<IAsset> newListAssets2 = listPagedAssets.ToList();
-
-                        int skipSizeEmpty = 0;
-                        int batchSizeEmpty = 1000;
-                        int currentSkipSizeEmpty = 0;
-
-                        while (true)
-                        {
-                            // Enumerate through all files (1000 at a time)
-                            var listfiles = context.Files.Where(f => f.ContentFileSize > 0).Skip(skipSizeEmpty).Take(batchSizeEmpty).ToList().Select(f => f.ParentAssetId).ToList();
-                            currentSkipSizeEmpty += listfiles.Count;
-
-                            var assetsnotempty = listPagedAssets.Where(a => listfiles.Contains(a.Id)).ToList(); ;
-
-                            foreach (var a in assetsnotempty)
-                            {
-                                newListAssets2.Remove(a); // if file with size >0, then we remove it parenrt id from the lis
-                            }
-
-                            if (currentSkipSizeEmpty == batchSizeEmpty)
-                            {
-                                skipSizeEmpty += batchSizeEmpty;
-                                currentSkipSizeEmpty = 0;
-                            }
-                            else
-                            {
-                                break;
-                            }
-                        }
-
-                        foreach (var a in newListAssets2)
-                        {
-                            fassets.Add(a);
-                        }
+                    case OrderAssets.NameAscending:
+                        assets = from a in assets orderby a.Name ascending select a;
                         break;
 
+                    case OrderAssets.NameDescending:
+                        assets = from a in assets orderby a.Name descending select a;
+                        break;
 
-                    case StatusAssets.All: // we need this to parse all assets
+                    case OrderAssets.SizeDescending:
+                        assets = from a in assets orderby size(a) descending select a;
+                        break;
+
+                    case OrderAssets.SizeAscending:
+                        assets = from a in assets orderby size(a) ascending select a;
+                        break;
+
+                    case OrderAssets.LocatorExpirationAscending:
+                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
+                        break;
+
+                    case OrderAssets.LocatorExpirationDescending:
+                        assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
+                        break;
+
                     default:
-                        foreach (var a in listPagedAssets)
-                        {
-                            fassets.Add(a);
-                        }
+                        assets = from a in assets orderby a.LastModified descending select a;
                         break;
-                        /*
-
-                        // below is REMOVED  as queries are executed by the back-end in order to process all assets and be quick. Th equery below needs to be
-                        // executed locally and would be slow. Could be reintroduce if customer demand.
-
-                    case StatusAssets.NotPublished:
-                        fassets = listassets.Where(a => a.Locators.Count == 0);
-                        break;
-                    case StatusAssets.Storage:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.StorageEncrypted);
-                        break;
-                    case StatusAssets.CENC:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.CommonEncryptionProtected);
-                        break;
-                    case StatusAssets.Envelope:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.EnvelopeEncryptionProtected);
-                        break;
-                    case StatusAssets.NotEncrypted:
-                        fassets = listassets.Where(a => a.Options == AssetCreationOptions.None);
-                        break;
-                    case StatusAssets.DynEnc:
-                        fassets = listassets.Where(a => a.DeliveryPolicies.Any());
-                        break;
-                    case StatusAssets.Streamable:
-                        fassets = listassets.Where(a => a.IsStreamable);
-                        break;
-                    case StatusAssets.SupportDynEnc:
-                        fassets = listassets.Where(a => a.SupportsDynamicEncryption);
-                        break;
-                    case StatusAssets.Empty:
-                        fassets = listassets.Where(a => a.AssetFiles.Count() == 0);
-                        break;
-                    case StatusAssets.DefaultStorage:
-                        fassets = listassets.Where(a => a.StorageAccountName == _context.DefaultStorageAccount.Name);
-                        break;
-                    case StatusAssets.NotDefaultStorage:
-                        fassets = listassets.Where(a => a.StorageAccountName != _context.DefaultStorageAccount.Name);
-                        break;
-                        */
                 }
 
-                foreach (var a in fassets)
+
+
+                if ((!string.IsNullOrEmpty(_timefilter)))
                 {
-                    aggregateListAssets.Add(a);
+                    if (_timefilter == FilterTime.First50Items)
+                    {
+                        assets = assets.Take(50);
+                    }
+                    else if (_timefilter == FilterTime.First1000Items)
+                    {
+                        assets = assets.Take(1000);
+                    }
                 }
-
-
-                if (currentSkipSize2 == batchSize2)
-                {
-                    skipSize2 += batchSize2;
-                    currentSkipSize2 = 0;
-                }
-                else
-                {
-                    break;
-                }
-            }
-            SwitchedToLocalQuery = true;
-            assets = aggregateListAssets;
-
-            ///////////////////////
-            // SORTING
-            ///////////////////////
-            // let's sort the aggregate results
-            var size = new Func<IAsset, long>(AssetInfo.GetSize);
-
-            // client side only ! (a take is done otherwise)
-
-            switch (_orderassets)
-            {
-                case OrderAssets.LastModifiedDescending:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-
-                case OrderAssets.LastModifiedAscending:
-                    assets = from a in assets orderby a.LastModified ascending select a;
-                    break;
-
-                case OrderAssets.NameAscending:
-                    assets = from a in assets orderby a.Name ascending select a;
-                    break;
-
-                case OrderAssets.NameDescending:
-                    assets = from a in assets orderby a.Name descending select a;
-                    break;
-
-                case OrderAssets.SizeDescending:
-                    assets = from a in assets orderby size(a) descending select a;
-                    break;
-
-                case OrderAssets.SizeAscending:
-                    assets = from a in assets orderby size(a) ascending select a;
-                    break;
-
-                case OrderAssets.LocatorExpirationAscending:
-                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) ascending select a;
-                    break;
-
-                case OrderAssets.LocatorExpirationDescending:
-                    assets = from a in assets where a.Locators.Any() orderby a.Locators.Min(l => l.ExpirationDateTime) descending select a;
-                    break;
-
-                default:
-                    assets = from a in assets orderby a.LastModified descending select a;
-                    break;
-            }
-
-
-
-            if ((!string.IsNullOrEmpty(_timefilter)))
-            {
-                if (_timefilter == FilterTime.First50Items)
-                {
-                    assets = assets.Take(50);
-                }
-                else if (_timefilter == FilterTime.First1000Items)
-                {
-                    assets = assets.Take(1000);
-                }
-            }
-
+            }// end of general case
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)assets.Count()) / ((double)_assetsperpage));
