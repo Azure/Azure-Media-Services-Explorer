@@ -90,6 +90,12 @@ namespace AMSExplorer
         private bool backupCheckboxAnychannel = false;
         private bool CheckboxAnychannelChangedByCode = false;
 
+        private bool largeAccount = false; // if nb assets > trigger
+        private int triggerForLargeAccountNbAssets = 10000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        private int triggerForLargeAccountNbJobs = 5000; // account with more than 10000 assets is considered as large account. Some queries will be disabled
+        private const int maxNbAssets = 1000000;
+        private const int maxNbJobs = 50000;
+
         public Mainform()
         {
             InitializeComponent();
@@ -252,6 +258,25 @@ namespace AMSExplorer
                 EncodingRUFeatureOn = false;
                 TextBoxLogWriteLine("There is an error when accessing to the Encoding Reserved Units API. Some controls are disabled in the processors tab.", true); // Warning
             }
+
+            // nb assets limits
+            int nbassets = _context.Assets.Count();
+            largeAccount = nbassets > triggerForLargeAccountNbAssets;
+            if (largeAccount)
+            {
+                TextBoxLogWriteLine("This account contains a lot of assets. Some queries are disabled."); // Warning
+            }
+            if (nbassets > (0.75 * maxNbAssets))
+            {
+                TextBoxLogWriteLine("This account contains {0} assets. Warning, the limit is {1}.", nbassets, maxNbAssets, true); // Warning
+            }
+            // nb jobs limits
+            int nbjobs = _context.Jobs.Count();
+            if (nbjobs > (0.75 * maxNbJobs))
+            {
+                TextBoxLogWriteLine("This account contains {0} jobs. Warning, the limit is {1}.", nbjobs, maxNbJobs, true); // Warning
+            }
+
             ApplySettingsOptions(true);
         }
 
@@ -1907,24 +1932,27 @@ namespace AMSExplorer
                 string question = (SelectedAssets.Count == 1) ? "Delete " + SelectedAssets[0].Name + " ?" : "Delete these " + SelectedAssets.Count + " assets ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    bool Error = false;
-                    try
+                    Task.Run(async () =>
                     {
-                        Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
-                        TextBoxLogWriteLine("Deleting asset(s)");
-                        this.Cursor = Cursors.WaitCursor;
-                        Task.WaitAll(deleteTasks);
+                        bool Error = false;
+                        try
+                        {
+                            Task[] deleteTasks = SelectedAssets.Select(a => a.DeleteAsync()).ToArray();
+                            TextBoxLogWriteLine("Deleting asset(s)");
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                        DoRefreshGridAssetV(false);
                     }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                    this.Cursor = Cursors.Default;
-                    DoRefreshGridAssetV(false);
+          );
+
                 }
             }
         }
@@ -1933,50 +1961,53 @@ namespace AMSExplorer
         {
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the assets ?", "Asset deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                bool Error = false;
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-
-                this.Cursor = Cursors.WaitCursor;
-
-                // let's build the list of tasks
-                TextBoxLogWriteLine("Listing all the assets...");
-                List<Task> deleteTasks = new List<Task>();
-                while (true)
+                Task.Run(async () =>
                 {
-                    // Enumerate through all assets (1000 at a time)
-                    var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
-                    currentSkipSize += listassets.Count;
-                    deleteTasks.AddRange(listassets.Select(a => a.DeleteAsync()).ToArray());
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
 
-                    if (currentSkipSize == batchSize)
+                    // let's build the list of tasks
+                    TextBoxLogWriteLine("Listing all the assets...");
+                    List<Task> deleteTasks = new List<Task>();
+                    while (true)
                     {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
+                        // Enumerate through all assets (1000 at a time)
+                        var listassets = _context.Assets.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listassets.Count;
+                        deleteTasks.AddRange(listassets.Select(a => a.DeleteAsync()).ToArray());
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+
+                    TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", deleteTasks.Count));
+                    try
                     {
-                        break;
+                        Task.WaitAll(deleteTasks.ToArray());
                     }
-                }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
 
-                TextBoxLogWriteLine(string.Format("Deleting {0} asset(s)", deleteTasks.Count));
-                try
-                {
-                    Task.WaitAll(deleteTasks.ToArray());
+                    if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
+                    DoRefreshGridAssetV(false);
                 }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when deleting the asset(s)", true);
-                    TextBoxLogWriteLine(ex);
-                    Error = true;
-                }
+           );
 
-                if (!Error) TextBoxLogWriteLine("Asset(s) deleted.");
-                DoRefreshGridAssetV(false);
-                this.Cursor = Cursors.Default;
+
             }
         }
 
@@ -2964,24 +2995,28 @@ namespace AMSExplorer
                 string question = (SelectedJobs.Count == 1) ? "Delete " + SelectedJobs[0].Name + " ?" : "Delete these " + SelectedJobs.Count + " jobs ?";
                 if (System.Windows.Forms.MessageBox.Show(question, "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
                 {
-                    bool Error = false;
-                    Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
-                    TextBoxLogWriteLine("Deleting job(s)");
-                    this.Cursor = Cursors.WaitCursor;
-                    try
+                    Task.Run(async () =>
                     {
-                        Task.WaitAll(deleteTasks);
+                        bool Error = false;
+                        Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
+                        TextBoxLogWriteLine("Deleting job(s)");
+                        this.Cursor = Cursors.WaitCursor;
+                        try
+                        {
+                            Task.WaitAll(deleteTasks);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Add useful information to the exception
+                            TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
+                        if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                        this.Cursor = Cursors.Default;
+                        DoRefreshGridJobV(false);
                     }
-                    catch (Exception ex)
-                    {
-                        // Add useful information to the exception
-                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                        TextBoxLogWriteLine(ex);
-                        Error = true;
-                    }
-                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                    this.Cursor = Cursors.Default;
-                    DoRefreshGridJobV(false);
+           );
                 }
             }
         }
@@ -2991,51 +3026,55 @@ namespace AMSExplorer
         {
             if (System.Windows.Forms.MessageBox.Show("Are you sure that you want to delete ALL the jobs ?", "Job deletion", System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
             {
-                bool Error = false;
-                int skipSize = 0;
-                int batchSize = 1000;
-                int currentSkipSize = 0;
-
-                this.Cursor = Cursors.WaitCursor;
-
-                // let's build the tasks list
-                TextBoxLogWriteLine("Listing the jobs...");
-                List<Task> deleteTasks = new List<Task>();
-
-                while (true)
+                Task.Run(async () =>
                 {
-                    // Enumerate through all jobs (1000 at a time)
-                    var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
-                    currentSkipSize += listjobs.Count;
-                    deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
+                    bool Error = false;
+                    int skipSize = 0;
+                    int batchSize = 1000;
+                    int currentSkipSize = 0;
 
-                    if (currentSkipSize == batchSize)
+
+                    // let's build the tasks list
+                    TextBoxLogWriteLine("Listing the jobs...");
+                    List<Task> deleteTasks = new List<Task>();
+
+                    while (true)
                     {
-                        skipSize += batchSize;
-                        currentSkipSize = 0;
+                        // Enumerate through all jobs (1000 at a time)
+                        var listjobs = _context.Jobs.Skip(skipSize).Take(batchSize).ToList();
+                        currentSkipSize += listjobs.Count;
+                        deleteTasks.AddRange(listjobs.Select(a => a.DeleteAsync()).ToArray());
+
+                        if (currentSkipSize == batchSize)
+                        {
+                            skipSize += batchSize;
+                            currentSkipSize = 0;
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
-                    else
+
+                    TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
+                    try
                     {
-                        break;
+                        Task.WaitAll(deleteTasks.ToArray());
                     }
-                }
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
 
-                TextBoxLogWriteLine(string.Format("Deleting {0} job(s)", deleteTasks.Count));
-                try
-                {
-                    Task.WaitAll(deleteTasks.ToArray());
+                    if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
+                    DoRefreshGridJobV(false);
                 }
-                catch (Exception ex)
-                {
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There is a problem when deleting the job(s)", true);
-                    TextBoxLogWriteLine(ex);
-                    Error = true;
-                }
+          );
 
-                if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                DoRefreshGridJobV(false);
-                this.Cursor = Cursors.Default;
+
             }
         }
 
@@ -3855,6 +3894,10 @@ namespace AMSExplorer
         {
             Hide();
 
+            comboBoxOrderAssets.Enabled = comboBoxStateAssets.Enabled = !largeAccount;
+            comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
+
+
             toolStripStatusLabelWatchFolder.Visible = false;
             UpdateLabelStorageEncryption();
 
@@ -4005,9 +4048,6 @@ namespace AMSExplorer
             DoRefreshGridProcessorV(true);
             DoRefreshGridStorageV(true);
             DoRefreshGridFiltersV(true);
-
-
-
 
             // let's monitor channels or programs which are in "intermediate" state
             RestoreChannelsAndProgramsStatusMonitoring();
@@ -11670,7 +11710,6 @@ namespace AMSExplorer
         public const string LastWeek = "Last week";
         public const string LastMonth = "Last month";
         public const string LastYear = "Last year";
-        public const string All = "All";
 
         public static int ReturnNumberOfDays(string timeFilter)
         {
@@ -12371,18 +12410,15 @@ namespace AMSExplorer
 
 
             // SHORTCUT (needed for account with large number fo assets)
-            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") /*&& _orderassets == OrderAssets.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items)*/)
+            if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items))
             {
-                if ((!string.IsNullOrEmpty(_timefilter)))
+                if (_timefilter == FilterTime.First50Items)
                 {
-                    if (_timefilter == FilterTime.First50Items)
-                    {
-                        assets = assetsServerQuery.Take(50);
-                    }
-                    else if (_timefilter == FilterTime.First1000Items)
-                    {
-                        assets = assetsServerQuery.Take(1000);
-                    }
+                    assets = assetsServerQuery.Take(50);
+                }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    assets = assetsServerQuery.Take(1000);
                 }
             }
             else // general case
@@ -12393,6 +12429,7 @@ namespace AMSExplorer
                 // STATE FILTER
                 ///////////////////////
                 // we need to do paging
+                // not excuted for large account as state filter control is disabled
 
                 IList<IAsset> aggregateListAssets = new List<IAsset>();
                 int skipSize2 = 0;
@@ -12621,17 +12658,16 @@ namespace AMSExplorer
 
 
 
-                if ((!string.IsNullOrEmpty(_timefilter)))
+
+                if (_timefilter == FilterTime.First50Items)
                 {
-                    if (_timefilter == FilterTime.First50Items)
-                    {
-                        assets = assets.Take(50);
-                    }
-                    else if (_timefilter == FilterTime.First1000Items)
-                    {
-                        assets = assets.Take(1000);
-                    }
+                    assets = assets.Take(50);
                 }
+                else if (_timefilter == FilterTime.First1000Items)
+                {
+                    assets = assets.Take(1000);
+                }
+
             }// end of general case
 
             _context = context;
@@ -13104,9 +13140,6 @@ namespace AMSExplorer
                 jobstate = (JobState)Enum.Parse(typeof(JobState), _filterjobsstate);
             }
 
-
-
-
             // search
             if (_searchinname != null && !string.IsNullOrEmpty(_searchinname.Text))
             {
@@ -13167,100 +13200,117 @@ namespace AMSExplorer
             }
 
 
-
-            // let's get all the results locally
-
-            IList<IJob> aggregateListJobs = new List<IJob>();
-            int skipSize = 0;
-            int batchSize = 1000;
-            int currentSkipSize = 0;
-            while (true)
+            // SHORTCUT (needed for account with large number of jobs)
+            if (_orderjobs == OrderJobs.LastModifiedDescending && (_timefilter == FilterTime.First50Items || _timefilter == FilterTime.First1000Items))
             {
-                // Enumerate through all jobs (1000 at a time)
-                var jobsq = jobsServerQuery
-                    .Skip(skipSize).Take(batchSize).ToList();
-
-                currentSkipSize += jobsq.Count;
-
-                foreach (var j in jobsq)
+                if (_timefilter == FilterTime.First50Items)
                 {
-                    aggregateListJobs.Add(j);
+                    jobs = jobsServerQuery.Take(50);
                 }
-
-                if (currentSkipSize == batchSize)
+                else if (_timefilter == FilterTime.First1000Items)
                 {
-                    skipSize += batchSize;
-                    currentSkipSize = 0;
-                }
-                else
-                {
-                    break;
+                    jobs = jobsServerQuery.Take(1000);
                 }
             }
-            jobs = aggregateListJobs;
+            else // general case
 
-
-
-            switch (_orderjobs)
             {
-                case OrderJobs.LastModifiedDescending:
-                    jobs = from j in jobs orderby j.LastModified descending select j;
-                    break;
-
-                case OrderJobs.LastModifiedAscending:
-                    jobs = from j in jobs orderby j.LastModified ascending select j;
-                    break;
-
-                case OrderJobs.NameDescending:
-                    jobs = from j in jobs orderby j.Name descending select j;
-                    break;
-
-                case OrderJobs.NameAscending:
-                    jobs = from j in jobs orderby j.Name ascending select j;
-                    break;
-
-                case OrderJobs.EndTimeDescending:
-                    jobs = from j in jobs orderby j.EndTime descending select j;
-                    break;
-
-                case OrderJobs.EndTimeAscending:
-                    jobs = from j in jobs orderby j.EndTime ascending select j;
-                    break;
-
-                case OrderJobs.ProcessTimeDescending:
-                    jobs = from j in jobs orderby j.RunningDuration descending select j;
-                    break;
-
-                case OrderJobs.ProcessTimeAscending:
-                    jobs = from j in jobs orderby j.RunningDuration ascending select j;
-                    break;
-
-                case OrderJobs.StartTimeDescending:
-                    jobs = from j in jobs orderby j.StartTime descending select j;
-                    break;
-
-                case OrderJobs.StartTimeAscending:
-                    jobs = from j in jobs orderby j.StartTime ascending select j;
-                    break;
-
-                case OrderJobs.StateDescending:
-                    jobs = from j in jobs orderby j.State descending select j;
-                    break;
-
-                case OrderJobs.StateAscending:
-                    jobs = from j in jobs orderby j.State ascending select j;
-                    break;
-
-                default:
-                    jobs = from j in jobs orderby j.LastModified descending select j;
-                    break;
-            }
 
 
 
 
-            if (!string.IsNullOrEmpty(_timefilter))
-            {
+                // let's get all the results locally
+
+                IList<IJob> aggregateListJobs = new List<IJob>();
+                int skipSize = 0;
+                int batchSize = 1000;
+                int currentSkipSize = 0;
+                while (true)
+                {
+                    // Enumerate through all jobs (1000 at a time)
+                    var jobsq = jobsServerQuery
+                        .Skip(skipSize).Take(batchSize).ToList();
+
+                    currentSkipSize += jobsq.Count;
+
+                    foreach (var j in jobsq)
+                    {
+                        aggregateListJobs.Add(j);
+                    }
+
+                    if (currentSkipSize == batchSize)
+                    {
+                        skipSize += batchSize;
+                        currentSkipSize = 0;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                jobs = aggregateListJobs;
+
+
+
+                switch (_orderjobs)
+                {
+                    case OrderJobs.LastModifiedDescending:
+                        jobs = from j in jobs orderby j.LastModified descending select j;
+                        break;
+
+                    case OrderJobs.LastModifiedAscending:
+                        jobs = from j in jobs orderby j.LastModified ascending select j;
+                        break;
+
+                    case OrderJobs.NameDescending:
+                        jobs = from j in jobs orderby j.Name descending select j;
+                        break;
+
+                    case OrderJobs.NameAscending:
+                        jobs = from j in jobs orderby j.Name ascending select j;
+                        break;
+
+                    case OrderJobs.EndTimeDescending:
+                        jobs = from j in jobs orderby j.EndTime descending select j;
+                        break;
+
+                    case OrderJobs.EndTimeAscending:
+                        jobs = from j in jobs orderby j.EndTime ascending select j;
+                        break;
+
+                    case OrderJobs.ProcessTimeDescending:
+                        jobs = from j in jobs orderby j.RunningDuration descending select j;
+                        break;
+
+                    case OrderJobs.ProcessTimeAscending:
+                        jobs = from j in jobs orderby j.RunningDuration ascending select j;
+                        break;
+
+                    case OrderJobs.StartTimeDescending:
+                        jobs = from j in jobs orderby j.StartTime descending select j;
+                        break;
+
+                    case OrderJobs.StartTimeAscending:
+                        jobs = from j in jobs orderby j.StartTime ascending select j;
+                        break;
+
+                    case OrderJobs.StateDescending:
+                        jobs = from j in jobs orderby j.State descending select j;
+                        break;
+
+                    case OrderJobs.StateAscending:
+                        jobs = from j in jobs orderby j.State ascending select j;
+                        break;
+
+                    default:
+                        jobs = from j in jobs orderby j.LastModified descending select j;
+                        break;
+                }
+
+
+
+
+
                 if (_timefilter == FilterTime.First50Items)
                 {
                     jobs = jobs.Take(50);
@@ -13269,8 +13319,9 @@ namespace AMSExplorer
                 {
                     jobs = jobs.Take(1000);
                 }
-            }
 
+
+            } // end of general case
 
             _context = context;
             _pagecount = (int)Math.Ceiling(((double)jobs.Count()) / ((double)_jobsperpage));
