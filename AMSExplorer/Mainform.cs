@@ -1531,6 +1531,53 @@ namespace AMSExplorer
                 }
                 if (!ErrorFolderCreation)
                 {
+                    var listfiles = new List<string>();
+                    foreach (var asset in SelectedAssets)
+                    {
+                        string path = form.FolderPath;
+                        if (form.FolderOption == DownloadToFolderOption.SubfolderAssetName)
+                        {
+                            path = Path.Combine(path, asset.Name);
+                        }
+                        else if (form.FolderOption == DownloadToFolderOption.SubfolderAssetId)
+                        {
+                            path = Path.Combine(path, asset.Id);
+                        }
+                        listfiles.AddRange(asset.AssetFiles.ToList().Where(f => File.Exists(path + @"\\" + f.Name)).Select(f => path + @"\\" + f.Name).ToList());
+                    }
+                    if (listfiles.Count > 0)
+                    {
+                        string text;
+                        if (listfiles.Count > 1)
+                        {
+                            text = string.Format(
+                                                "The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?",
+                                                string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
+                                                );
+                        }
+                        else
+                        {
+                            text = string.Format(
+                                                 "The following file is already in the folder\n\n{0}\n\nOverwite the file ?",
+                                                 string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
+                                                 );
+                        }
+
+                        if (MessageBox.Show(text, "File(s) overwrite", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        try
+                        {
+                            listfiles.ForEach(f => File.Delete(f));
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error when deleting files", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
                     string label = string.Format("Download of asset '{0}'", mediaAsset.Name);
                     if (SelectedAssets.Count > 1) label = string.Format("Download of {0} assets", SelectedAssets.Count);
 
@@ -11902,11 +11949,15 @@ namespace AMSExplorer
             IEnumerable<AssetEntry> assetquery;
             _context = context;
 
-            assetquery = from a in context.Assets.Take(0) orderby a.LastModified descending select new AssetEntry {
-                Name = a.Name,
-                Id = a.Id,
-                LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
-                Storage = a.StorageAccountName };
+            assetquery = from a in context.Assets.Take(0)
+                         orderby a.LastModified descending
+                         select new AssetEntry
+                         {
+                             Name = a.Name,
+                             Id = a.Id,
+                             LastModified = ((DateTime)a.LastModified).ToLocalTime().ToString("G"),
+                             Storage = a.StorageAccountName
+                         };
 
             DataGridViewCellStyle cellstyle = new DataGridViewCellStyle()
             {
@@ -12040,8 +12091,8 @@ namespace AMSExplorer
                         AE.DynamicEncryptionMouseOver = assetBitmapAndText.MouseOverDesc;
 
                         DateTime? LocDate = asset.Locators.Any() ? (DateTime?)asset.Locators.Min(l => l.ExpirationDateTime).ToLocalTime() : null;
-                        AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString():null;
-                        AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()):false;
+                        AE.LocatorExpirationDate = LocDate.HasValue ? ((DateTime)LocDate).ToLocalTime().ToString() : null;
+                        AE.LocatorExpirationDateWarning = LocDate.HasValue ? (LocDate < DateTime.Now.ToLocalTime()) : false;
 
                         assetBitmapAndText = BuildBitmapAssetFilters(asset);
                         AE.Filters = assetBitmapAndText.bitmap;
@@ -12686,9 +12737,9 @@ namespace AMSExplorer
             {
                 IEnumerable<AssetEntry> assetquery = assets.AsEnumerable().Select(a =>
                // let's return the data cached in memory of it exists and last modified time is the same
-               (cacheAssetentries.ContainsKey(a.Id) 
-               && cacheAssetentries[a.Id].LastModified != null 
-               && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ? 
+               (cacheAssetentries.ContainsKey(a.Id)
+               && cacheAssetentries[a.Id].LastModified != null
+               && (cacheAssetentries[a.Id].LastModified == a.LastModified.ToLocalTime().ToString("G")) ?
                cacheAssetentries[a.Id] :
                              new AssetEntry
                              {
@@ -13454,7 +13505,7 @@ namespace AMSExplorer
                                        ETAstr = "Estimated: " + ETA.ToString("G");
                                        Durationstr = "Estimated: " + estimatedduration.ToString(@"d\.hh\:mm\:ss");
                                        _MyObservJob[index].EndTime = ETA.ToString(@"G") + " ?";
-                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ? 
+                                       _MyObservJob[index].Duration = JobRefreshed.EndTime.HasValue ?
                                                     ((TimeSpan)((DateTime)JobRefreshed.EndTime - (DateTime)JobRefreshed.StartTime)).ToString(@"d\.hh\:mm\:ss")
                                                     : estimatedduration.ToString(@"d\.hh\:mm\:ss") + " ?";
                                    }

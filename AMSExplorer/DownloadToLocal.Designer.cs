@@ -108,6 +108,7 @@
             this.checkBoxCreateSubfolder.TabIndex = 72;
             this.checkBoxCreateSubfolder.Text = "Create a subfolder based on :";
             this.checkBoxCreateSubfolder.UseVisualStyleBackColor = true;
+            this.checkBoxCreateSubfolder.CheckedChanged += new System.EventHandler(this.checkBoxCreateSubfolder_CheckedChanged);
             // 
             // radioButtonAssetId
             // 
