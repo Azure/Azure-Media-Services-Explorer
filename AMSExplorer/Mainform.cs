@@ -80,8 +80,11 @@ namespace AMSExplorer
         WatchFolderSettings MyWatchFolderSettings = new WatchFolderSettings();
 
         private bool AMEPremiumWorkflowPresent = true;
-        private bool HyperlapsePresent = true;
         private bool AMEStandardPresent = true;
+        private bool AMFaceDetectorPresent = true;
+        private bool AMRedactorPresent = true;
+        private bool AMMotionDetectorPresent = true;
+        private bool AMStabilizerPresent = true;
 
         private System.Timers.Timer TimerAutoRefresh;
         bool DisplaySplashDuringLoading;
@@ -222,11 +225,32 @@ namespace AMSExplorer
                 subclipToolStripMenuItem.Visible = false;
             }
 
-            if (GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse) == null)
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaFaceDetector) == null)
             {
-                HyperlapsePresent = false;
-                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;
-                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false;
+                AMFaceDetectorPresent = false;
+                ProcessFaceDetectortoolStripMenuItem.Visible = false;
+                toolStripMenuItemFaceDetector.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaMotionDetector) == null)
+            {
+                AMMotionDetectorPresent = false;
+                ProcessMotionDetectortoolStripMenuItem.Visible = false;
+                toolStripMenuItemMotionDetector.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaRedactor) == null)
+            {
+                AMRedactorPresent = false;
+                ProcessRedactortoolStripMenuItem.Visible = false;
+                toolStripMenuItemRedactor.Visible = false;
+            }
+
+            if (GetLatestMediaProcessorByName(Constants.AzureMediaStabilizer) == null)
+            {
+                AMStabilizerPresent = false;
+                ProcessStabilizertoolStripMenuItem.Visible = false;
+                toolStripMenuItemStabilizer.Visible = false;
             }
 
             // Timer Auto Refresh
@@ -3047,7 +3071,6 @@ namespace AMSExplorer
                         bool Error = false;
                         Task[] deleteTasks = SelectedJobs.ToList().Select(j => j.DeleteAsync()).ToArray();
                         TextBoxLogWriteLine("Deleting job(s)");
-                        this.Cursor = Cursors.WaitCursor;
                         try
                         {
                             Task.WaitAll(deleteTasks);
@@ -3060,7 +3083,6 @@ namespace AMSExplorer
                             Error = true;
                         }
                         if (!Error) TextBoxLogWriteLine("Job(s) deleted.");
-                        this.Cursor = Cursors.Default;
                         DoRefreshGridJobV(false);
                     }
            );
@@ -3599,6 +3621,45 @@ namespace AMSExplorer
             }
         }
 
+        private void DoMenuMediaIntelligence(string processorStr)
+        {
+            List<IAsset> SelectedAssets = ReturnSelectedAssets();
+
+            if (SelectedAssets.Count == 0 || SelectedAssets.FirstOrDefault() == null)
+            {
+                MessageBox.Show("No asset was selected, or asset is null.");
+            }
+            else
+            {
+                CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
+
+                string labeldb = (SelectedAssets.Count > 1) ?
+                    string.Format("Process these {0} assets with {1} ?", SelectedAssets.Count, processorStr) :
+                    string.Format("Process asset '{0}'  with {1} ?", SelectedAssets.FirstOrDefault().Name, processorStr);
+
+                string jobname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
+                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
+                string outputassetname = string.Format("{0} - processed with {1}", Constants.NameconvInputasset, processorStr);
+
+                if (System.Windows.Forms.MessageBox.Show(labeldb, processorStr, System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                {
+                    // Get the SDK extension method to  get a reference to the processor
+                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(processorStr);
+
+                    LaunchJobs(processor,
+                        SelectedAssets,
+                        jobname,
+                        Properties.Settings.Default.DefaultJobPriority,
+                        taskname,
+                        outputassetname,
+                        new List<string> { @"{'Version':'1.0'}" },
+                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
+                        Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
+                        );
+                }
+            }
+        }
+
 
         private void DoMenuProtectWithPlayReadyStatic()
         {
@@ -3843,13 +3904,7 @@ namespace AMSExplorer
                 return;
             }
 
-            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
-                ||
-                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
-                ))
-            {
-                MessageBox.Show("Source asset must be a single MP4 or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
 
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
@@ -3874,6 +3929,17 @@ namespace AMSExplorer
                 );
 
                 LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
+            }
+        }
+
+        private static void CheckSingleFileMP4MOVWMVExtension(List<IAsset> SelectedAssets)
+        {
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
+                ||
+                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mov", StringComparison.OrdinalIgnoreCase) && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
+                ))
+            {
+                MessageBox.Show("Source asset must be a single MP4, MOV or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -5661,11 +5727,32 @@ namespace AMSExplorer
                 ContextMenuItemPremiumWorkflow.Enabled = false; // mouse context menu
             }
 
-            // let's disable Hyperlapse if not present
-            if (!HyperlapsePresent)
+            // let's disable FaceDetector if not present
+            if (!AMFaceDetectorPresent)
             {
-                processAssetsWithHyperlapseToolStripMenuItem.Enabled = false;  //menu
-                processAssetsWithHyperlapseToolStripMenuItem1.Enabled = false; // mouse context menu
+                ProcessFaceDetectortoolStripMenuItem.Enabled = false;
+                toolStripMenuItemFaceDetector.Enabled = false;
+            }
+
+            // let's disable Motion Detector if not present
+            if (!AMMotionDetectorPresent)
+            {
+                ProcessMotionDetectortoolStripMenuItem.Enabled = false;
+                toolStripMenuItemMotionDetector.Enabled = false;
+            }
+
+            // let's disable Redactor if not present
+            if (!AMRedactorPresent)
+            {
+                ProcessRedactortoolStripMenuItem.Enabled = false;
+                toolStripMenuItemRedactor.Enabled = false;
+            }
+
+            // let's disable Stabilizer if not present
+            if (!AMStabilizerPresent)
+            {
+                ProcessStabilizertoolStripMenuItem.Enabled = false;
+                toolStripMenuItemStabilizer.Enabled = false;
             }
 
             // let's disable AME Std if not present
@@ -11470,11 +11557,66 @@ namespace AMSExplorer
         {
             DoRefreshGridIngestManifestV(false);
         }
-       
+
 
         private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
+        }
+
+        private void toolStripMenuItem36_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
+
+        private void toolStripMenuItem33_Click(object sender, EventArgs e)
+        {
+            DoMenuIndexAssets();
+        }
+
+        private void toolStripMenuItem37_Click(object sender, EventArgs e)
+        {
+            DoMenuHyperlapseAssets();
+        }
+
+        private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector);
+        }
+
+        private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaRedactor);
+        }
+
+        private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector);
+        }
+
+        private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer);
+        }
+
+        private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector);
+        }
+
+        private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaRedactor);
+        }
+
+        private void ProcessMotionDetectortoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector);
+        }
+
+        private void ProcessStabilizertoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer);
         }
     }
 }
@@ -12175,7 +12317,7 @@ namespace AMSExplorer
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
 
-            var assetsServerQuery = context.Assets.AsQueryable(); ;
+            IQueryable<IAsset> assetsServerQuery=null;// = context.Assets.AsQueryable(); ;
             bool SwitchedToLocalQuery = false;
 
             ///////////////////////
@@ -13203,7 +13345,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
-            var jobsServerQuery = context.Jobs.AsQueryable();
+            IQueryable<IJob> jobsServerQuery=null;// = context.Jobs.AsQueryable();
 
             // STATE
             bool filterstate = _filterjobsstate != "All";
