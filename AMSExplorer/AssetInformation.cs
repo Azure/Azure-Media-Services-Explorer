@@ -944,6 +944,41 @@ namespace AMSExplorer
             {
                 if (folderBrowserDialogDownload.ShowDialog() == DialogResult.OK)
                 {
+                    // let's check if this overwites existing files
+                    var listfiles = SelectedAssetFiles.ToList().Where(f => File.Exists(folderBrowserDialogDownload.SelectedPath + @"\\" + f.Name)).Select(f => folderBrowserDialogDownload.SelectedPath + @"\\" + f.Name).ToList();
+                    if (listfiles.Count > 0)
+                    {
+                        string text;
+                        if (listfiles.Count > 1)
+                        {
+                            text = string.Format(
+                                                "The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?",
+                                                string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
+                                                );
+                        }
+                        else
+                        {
+                            text = string.Format(
+                                                 "The following file is already in the folder\n\n{0}\n\nOverwite the file ?",
+                                                 string.Join("\n", listfiles.Select(f => Path.GetFileName(f)).ToArray())
+                                                 );
+                        }
+
+                        if (MessageBox.Show(text, "File(s) overwrite", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        try
+                        {
+                            listfiles.ForEach(f => File.Delete(f));
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error when deleting files", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
                     try
                     {
                         foreach (var assetfile in SelectedAssetFiles)
