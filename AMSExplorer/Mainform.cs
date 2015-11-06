@@ -1555,7 +1555,7 @@ namespace AMSExplorer
                 }
                 if (!ErrorFolderCreation)
                 {
-                    var listfiles = new List<string>();
+                    var listfiles = new List<string>(); // let's see if some files exist in the destination
                     foreach (var asset in SelectedAssets)
                     {
                         string path = form.FolderPath;
@@ -1572,7 +1572,14 @@ namespace AMSExplorer
                     if (listfiles.Count > 0)
                     {
                         string text;
-                        if (listfiles.Count > 1)
+                        if (listfiles.Count > 20)
+                        {
+                            text = string.Format(
+                                                "{0} files are already in the folder(s)\n\nOverwite the files ?",
+                                                listfiles.Count
+                                                );
+                        }
+                        else if (listfiles.Count > 1)
                         {
                             text = string.Format(
                                                 "The following files are already in the folder(s)\n\n{0}\n\nOverwite the files ?",

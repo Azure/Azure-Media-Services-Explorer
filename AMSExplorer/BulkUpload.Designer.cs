@@ -38,6 +38,12 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.buttonSplitSelection = new System.Windows.Forms.Button();
+            this.buttonGroupSelectionInOneAsset = new System.Windows.Forms.Button();
+            this.buttonRemoveAll = new System.Windows.Forms.Button();
+            this.labelWarningFiles = new System.Windows.Forms.Label();
+            this.buttonSelectFolder = new System.Windows.Forms.Button();
             this.buttonSelectFiles = new System.Windows.Forms.Button();
             this.comboBoxStorageAsset = new System.Windows.Forms.ComboBox();
             this.label33 = new System.Windows.Forms.Label();
@@ -55,13 +61,7 @@
             this.textBoxManifestName = new System.Windows.Forms.TextBox();
             this.comboBoxStorageIngest = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.buttonSelectFolder = new System.Windows.Forms.Button();
-            this.labelWarningFiles = new System.Windows.Forms.Label();
-            this.buttonRemoveAll = new System.Windows.Forms.Button();
-            this.buttonGroupSelectionInOneAsset = new System.Windows.Forms.Button();
-            this.buttonSplitSelection = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -78,7 +78,7 @@
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(143, 27);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "Declare Asset(s)";
+            this.buttonOk.Text = "Create Bulk Ingest";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // buttonCancel
@@ -155,6 +155,75 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Destination Assets";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label1.Location = new System.Drawing.Point(271, 21);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(315, 15);
+            this.label1.TabIndex = 87;
+            this.label1.Text = "Asset Name can be edited in the grid";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // buttonSplitSelection
+            // 
+            this.buttonSplitSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSplitSelection.Location = new System.Drawing.Point(592, 106);
+            this.buttonSplitSelection.Name = "buttonSplitSelection";
+            this.buttonSplitSelection.Size = new System.Drawing.Size(143, 49);
+            this.buttonSplitSelection.TabIndex = 86;
+            this.buttonSplitSelection.Text = "Split selection to multiple assets";
+            this.buttonSplitSelection.UseVisualStyleBackColor = true;
+            this.buttonSplitSelection.Click += new System.EventHandler(this.buttonSplitSelection_Click);
+            // 
+            // buttonGroupSelectionInOneAsset
+            // 
+            this.buttonGroupSelectionInOneAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonGroupSelectionInOneAsset.Location = new System.Drawing.Point(592, 161);
+            this.buttonGroupSelectionInOneAsset.Name = "buttonGroupSelectionInOneAsset";
+            this.buttonGroupSelectionInOneAsset.Size = new System.Drawing.Size(143, 49);
+            this.buttonGroupSelectionInOneAsset.TabIndex = 85;
+            this.buttonGroupSelectionInOneAsset.Text = "Group selection in a single asset";
+            this.buttonGroupSelectionInOneAsset.UseVisualStyleBackColor = true;
+            this.buttonGroupSelectionInOneAsset.Click += new System.EventHandler(this.buttonGroupSelectionInOneAsset_Click);
+            // 
+            // buttonRemoveAll
+            // 
+            this.buttonRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveAll.Location = new System.Drawing.Point(592, 249);
+            this.buttonRemoveAll.Name = "buttonRemoveAll";
+            this.buttonRemoveAll.Size = new System.Drawing.Size(143, 27);
+            this.buttonRemoveAll.TabIndex = 84;
+            this.buttonRemoveAll.Text = "Remove all";
+            this.buttonRemoveAll.UseVisualStyleBackColor = true;
+            this.buttonRemoveAll.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labelWarningFiles
+            // 
+            this.labelWarningFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelWarningFiles.ForeColor = System.Drawing.Color.Red;
+            this.labelWarningFiles.Location = new System.Drawing.Point(20, 279);
+            this.labelWarningFiles.Name = "labelWarningFiles";
+            this.labelWarningFiles.Size = new System.Drawing.Size(566, 15);
+            this.labelWarningFiles.TabIndex = 83;
+            this.labelWarningFiles.Tag = "";
+            this.labelWarningFiles.Text = "Warning: two files have the same name";
+            this.labelWarningFiles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // buttonSelectFolder
+            // 
+            this.buttonSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSelectFolder.Location = new System.Drawing.Point(592, 72);
+            this.buttonSelectFolder.Name = "buttonSelectFolder";
+            this.buttonSelectFolder.Size = new System.Drawing.Size(143, 27);
+            this.buttonSelectFolder.TabIndex = 82;
+            this.buttonSelectFolder.Text = "Select a folder...";
+            this.toolTip1.SetToolTip(this.buttonSelectFolder, "The folder and each subfolder will be considered as a different asset");
+            this.buttonSelectFolder.UseVisualStyleBackColor = true;
+            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
             // 
             // buttonSelectFiles
             // 
@@ -336,75 +405,6 @@
             this.label7.Size = new System.Drawing.Size(53, 15);
             this.label7.TabIndex = 83;
             this.label7.Text = "Storage :";
-            // 
-            // buttonSelectFolder
-            // 
-            this.buttonSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSelectFolder.Location = new System.Drawing.Point(592, 72);
-            this.buttonSelectFolder.Name = "buttonSelectFolder";
-            this.buttonSelectFolder.Size = new System.Drawing.Size(143, 27);
-            this.buttonSelectFolder.TabIndex = 82;
-            this.buttonSelectFolder.Text = "Select a folder...";
-            this.toolTip1.SetToolTip(this.buttonSelectFolder, "The folder and each subfolder will be considered as a different asset");
-            this.buttonSelectFolder.UseVisualStyleBackColor = true;
-            this.buttonSelectFolder.Click += new System.EventHandler(this.buttonSelectFolder_Click);
-            // 
-            // labelWarningFiles
-            // 
-            this.labelWarningFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelWarningFiles.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningFiles.Location = new System.Drawing.Point(20, 279);
-            this.labelWarningFiles.Name = "labelWarningFiles";
-            this.labelWarningFiles.Size = new System.Drawing.Size(566, 15);
-            this.labelWarningFiles.TabIndex = 83;
-            this.labelWarningFiles.Tag = "";
-            this.labelWarningFiles.Text = "Warning: two files have the same name";
-            this.labelWarningFiles.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // buttonRemoveAll
-            // 
-            this.buttonRemoveAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveAll.Location = new System.Drawing.Point(592, 249);
-            this.buttonRemoveAll.Name = "buttonRemoveAll";
-            this.buttonRemoveAll.Size = new System.Drawing.Size(143, 27);
-            this.buttonRemoveAll.TabIndex = 84;
-            this.buttonRemoveAll.Text = "Remove all";
-            this.buttonRemoveAll.UseVisualStyleBackColor = true;
-            this.buttonRemoveAll.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // buttonGroupSelectionInOneAsset
-            // 
-            this.buttonGroupSelectionInOneAsset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonGroupSelectionInOneAsset.Location = new System.Drawing.Point(592, 161);
-            this.buttonGroupSelectionInOneAsset.Name = "buttonGroupSelectionInOneAsset";
-            this.buttonGroupSelectionInOneAsset.Size = new System.Drawing.Size(143, 49);
-            this.buttonGroupSelectionInOneAsset.TabIndex = 85;
-            this.buttonGroupSelectionInOneAsset.Text = "Group selection in a single asset";
-            this.buttonGroupSelectionInOneAsset.UseVisualStyleBackColor = true;
-            this.buttonGroupSelectionInOneAsset.Click += new System.EventHandler(this.buttonGroupSelectionInOneAsset_Click);
-            // 
-            // buttonSplitSelection
-            // 
-            this.buttonSplitSelection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSplitSelection.Location = new System.Drawing.Point(592, 106);
-            this.buttonSplitSelection.Name = "buttonSplitSelection";
-            this.buttonSplitSelection.Size = new System.Drawing.Size(143, 49);
-            this.buttonSplitSelection.TabIndex = 86;
-            this.buttonSplitSelection.Text = "Split selection to multiple assets";
-            this.buttonSplitSelection.UseVisualStyleBackColor = true;
-            this.buttonSplitSelection.Click += new System.EventHandler(this.buttonSplitSelection_Click);
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label1.Location = new System.Drawing.Point(271, 21);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(315, 15);
-            this.label1.TabIndex = 87;
-            this.label1.Text = "Asset Name can be edited in the grid";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // BulkUpload
             // 
