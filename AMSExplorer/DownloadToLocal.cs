@@ -68,7 +68,6 @@ namespace AMSExplorer
             {
                 return checkBoxOpenFileAfterExport.Checked;
             }
-
         }
 
         public DownloadToLocal(IEnumerable<IAsset> selassets, string backupfolder)
@@ -85,6 +84,10 @@ namespace AMSExplorer
             {
                 textBoxFolderPath.Text = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
             }
+            else
+            {
+                textBoxFolderPath.Text = _backupfolder;
+            }
             labelAssetName.Text = string.Format(labelAssetName.Text, _selassets.Count(), _selassets.Count() > 1 ? "s" : "");
         }
       
@@ -99,6 +102,11 @@ namespace AMSExplorer
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+        }
+
+        private void checkBoxCreateSubfolder_CheckedChanged(object sender, EventArgs e)
+        {
+            radioButtonAssetName.Enabled = radioButtonAssetId.Enabled = checkBoxCreateSubfolder.Checked;
         }
     }
 }

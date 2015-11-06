@@ -721,6 +721,8 @@ namespace AMSExplorer
         public const string LinkSMFHealth = "http://smf.cloudapp.net/healthmonitor";
         public const string LinkSMFHealthToLaunch = "http://smf.cloudapp.net/healthmonitor?Autoplay=true&url={0}";
 
+        public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
+
         public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
         public const string AssetFileIdPrefix = "nb:cid:UUID:";
