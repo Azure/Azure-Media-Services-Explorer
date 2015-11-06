@@ -134,7 +134,7 @@ namespace AMSExplorer
 
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
-            textBoxPRLAurl.Enabled = radioButtonExternalPRServer.Checked;
+            panelExternalPlayReady.Enabled = radioButtonExternalPRServer.Checked;
         }
     }
 }

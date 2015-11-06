@@ -36,7 +36,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonEnvelope.Checked)
+                if (radioButtonAESClearKey.Checked)
                 {
                     return AssetDeliveryPolicyType.DynamicEnvelopeEncryption;
                 }
@@ -59,7 +59,7 @@ namespace AMSExplorer
         {
             get
             {
-                return radioButtonEnvelope.Checked ? ContentKeyType.EnvelopeEncryption : ContentKeyType.CommonEncryption;
+                return radioButtonAESClearKey.Checked ? ContentKeyType.EnvelopeEncryption : ContentKeyType.CommonEncryption;
             }
         }
 
@@ -129,10 +129,6 @@ namespace AMSExplorer
 
 
 
-        private void radioButtonEnvelope_CheckedChanged(object sender, EventArgs e)
-        {
-        }
-
 
 
 
@@ -168,6 +164,11 @@ namespace AMSExplorer
         private void checkBoxProtocolDASH_CheckedChanged(object sender, EventArgs e)
         {
             checkBoxWidevinePackaging.Visible = checkBoxProtocolDASH.Checked;
+        }
+
+        private void radioButtonAESClearKey_CheckedChanged(object sender, EventArgs e)
+        {
+            panelPackaging.Enabled = !radioButtonAESClearKey.Checked;
         }
     }
 }

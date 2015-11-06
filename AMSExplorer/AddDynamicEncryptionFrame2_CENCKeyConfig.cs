@@ -60,8 +60,8 @@ namespace AMSExplorer
                 textBoxkeyseed.Text = value;
             }
         }
-    
-     
+
+
         public string CENCContentKey
         {
             get
@@ -104,11 +104,11 @@ namespace AMSExplorer
             }
         }
 
-     
 
-    
 
-        public AddDynamicEncryptionFrame2_CENCKeyConfig( bool ForceUseToProvideKey)
+
+
+        public AddDynamicEncryptionFrame2_CENCKeyConfig(bool ForceUseToProvideKey)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -168,9 +168,16 @@ namespace AMSExplorer
 
         private void textBox_TextChanged(object sender, EventArgs e)
         {
+            ValidateDataForButtonOk();
+        }
+
+        private void ValidateDataForButtonOk()
+        {
             bool validation = false;
 
-            if (!string.IsNullOrEmpty(textBoxkeyseed.Text) ||
+            if (
+                radioButtonKeyRandomGeneration.Checked ||
+                !string.IsNullOrEmpty(textBoxkeyseed.Text) ||
                 (string.IsNullOrEmpty(textBoxkeyseed.Text) && !string.IsNullOrEmpty(textBoxkeyid.Text) && !string.IsNullOrEmpty(textBoxcontentkey.Text))
                 )
             {
@@ -333,7 +340,8 @@ namespace AMSExplorer
 
         private void radioButtonKeySpecifiedByUser_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButtonKeySpecifiedByUser.Checked) groupBoxCrypto.Enabled = true;
+            groupBoxCrypto.Enabled = radioButtonKeySpecifiedByUser.Checked;
+            ValidateDataForButtonOk();
         }
 
 

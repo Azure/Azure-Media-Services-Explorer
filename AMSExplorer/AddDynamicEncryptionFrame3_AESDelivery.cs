@@ -55,7 +55,7 @@ namespace AMSExplorer
                 textBoxLAURL.Text = value.ToString();
             }
         }
-   
+
 
         public int GetNumberOfAuthorizationPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
         {
@@ -81,6 +81,14 @@ namespace AMSExplorer
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+
+            /*
+             if (!laststep)
+             {
+                 buttonOk.Text = "Next";
+                 buttonOk.Image = null;
+             }
+            */
         }
 
         private void SetupDynEnc_Load(object sender, EventArgs e)
@@ -92,6 +100,11 @@ namespace AMSExplorer
         {
 
         }
-     
+
+        private void radioButtonDefineAuthPol_CheckedChanged(object sender, EventArgs e)
+        {
+            buttonOk.Text = radioButtonDefineAuthPol.Checked ? "Next" : "Ok";
+            textBoxLAURL.Enabled = labelkeylaurl.Enabled = !radioButtonDefineAuthPol.Checked;
+        }
     }
 }

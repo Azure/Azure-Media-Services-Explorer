@@ -399,7 +399,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 710);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
@@ -578,7 +578,7 @@
             this.tabControlTokenProperties.Location = new System.Drawing.Point(14, 381);
             this.tabControlTokenProperties.Name = "tabControlTokenProperties";
             this.tabControlTokenProperties.SelectedIndex = 0;
-            this.tabControlTokenProperties.Size = new System.Drawing.Size(653, 257);
+            this.tabControlTokenProperties.Size = new System.Drawing.Size(653, 235);
             this.tabControlTokenProperties.TabIndex = 86;
             // 
             // tabPage2
@@ -592,7 +592,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(645, 229);
+            this.tabPage2.Size = new System.Drawing.Size(645, 207);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Token Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -641,21 +641,21 @@
             this.label4.TabIndex = 73;
             this.label4.Text = "Other claims :";
             // 
-            // AddDynamicEncryptionFrame3
+            // AddDynamicEncryptionFrame4
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 763);
+            this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.tabControlTokenProperties);
             this.Controls.Add(this.tabControlTokenType);
             this.Controls.Add(this.labelStep);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBoxAuthPol);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "AddDynamicEncryptionFrame3";
+            this.Name = "AddDynamicEncryptionFrame4";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.SetupDynEnc_Load);

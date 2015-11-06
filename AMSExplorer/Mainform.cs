@@ -4350,7 +4350,7 @@ namespace AMSExplorer
                 // a job for each input asset
                 {
                     if (form.EncodingCreationMode == TaskJobCreationMode.OneJobPerVisibleAsset)
-                {
+                    {
                         SelectedAssets = dataGridViewAssetsV.assets.ToList();
                     }
 
@@ -8016,59 +8016,59 @@ namespace AMSExplorer
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
                             //bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
                             AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
-                                
+
                                 forceusertoprovidekey)
-                              //  !NeedToDisplayPlayReadyLicense,
-                               // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
+                            //  !NeedToDisplayPlayReadyLicense,
+                            // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
                             { Left = form1.Left, Top = form1.Top };
                             if (form2_CENC.ShowDialog() == DialogResult.OK)
                             {
-                                var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context,form1.PlayReadyPackaging, form1.WidevinePackaging); 
-                                if (form3_CENC.ShowDialog()==DialogResult.OK)
+                                var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
+                                if (form3_CENC.ShowDialog() == DialogResult.OK)
                                 {
                                     bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0;
 
                                     List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                     List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5list = new List<AddDynamicEncryptionFrame5_PlayReadyLicense>();
                                     bool usercancelledform4or5 = false;
-                                int step = 3;
-                                string tokensymmetrickey = null;
+                                    int step = 3;
+                                    string tokensymmetrickey = null;
                                     for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptions; i++)
-                                {
+                                    {
                                         AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_CENC.Left, Top = form2_CENC.Top };
                                         if (form4.ShowDialog() == DialogResult.OK)
-                                    {
-                                        step++;
+                                        {
+                                            step++;
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
                                             AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
-                                        {
-                                            step++;
+                                            if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                            {
+                                                step++;
                                                 if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                            {
+                                                {
                                                     form5list.Add(form5_PlayReadyLicense);
-                                            }
-                                            else
-                                            {
+                                                }
+                                                else
+                                                {
                                                     usercancelledform4or5 = true;
+                                                }
                                             }
                                         }
-                                    }
-                                    else
-                                    {
+                                        else
+                                        {
                                             usercancelledform4or5 = true;
+                                        }
+                                    }
+                                    if (!usercancelledform4or5)
+                                    {
+                                        DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, true);
+                                        oktoproceed = true;
+                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                                     }
                                 }
-                                    if (!usercancelledform4or5)
-                                {
-                                        DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_CENC,form3_CENC, form4list, form5list, true);
-                                    oktoproceed = true;
-                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
-                                }
-                            }
-                              
+
                             }
                             break;
 
@@ -8079,34 +8079,34 @@ namespace AMSExplorer
                             if (form2_AES.ShowDialog() == DialogResult.OK)
                             {
                                 var form3_AES = new AddDynamicEncryptionFrame3_AESDelivery(_context);
-                                if (form3_AES.ShowDialog()==DialogResult.OK)
+                                if (form3_AES.ShowDialog() == DialogResult.OK)
                                 {
                                     List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                     bool usercancelledform4 = false;
-                                string tokensymmetrickey = null;
+                                    string tokensymmetrickey = null;
                                     for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
-                                {
+                                    {
                                         AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
                                         if (form4.ShowDialog() == DialogResult.OK)
-                                    {
+                                        {
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
-                                    }
-                                    else
-                                    {
+                                        }
+                                        else
+                                        {
                                             usercancelledform4 = true;
+                                        }
+                                    }
+
+                                    if (!usercancelledform4)
+                                    {
+                                        DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
+                                        oktoproceed = true;
+                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
                                     }
                                 }
 
-                                    if (!usercancelledform4)
-                                {
-                                        DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
-                                    oktoproceed = true;
-                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
-                                }
-                                }
-                               
                             }
                             break;
 
@@ -8373,11 +8373,11 @@ namespace AMSExplorer
                         {
                             if (form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
                             {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1, name, _context, null, false,  form3_CENC.WidevineLAurl);
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1, name, _context, null, false, form3_CENC.WidevineLAurl);
                             }
                             else // Licenses NOT delivered by Azure Media Services but by a third party server
                             {
-                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1, name, _context, form3_CENC.PlayReadyLAurl, form3_CENC.PlayReadyLAurlEncodeForSL,  form3_CENC.WidevineLAurl);
+                                DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1, name, _context, form3_CENC.PlayReadyLAurl, form3_CENC.PlayReadyLAurlEncodeForSL, form3_CENC.WidevineLAurl);
                             }
 
                             TextBoxLogWriteLine("Created asset delivery policy '{0}' for asset '{1}'.", DelPol.AssetDeliveryPolicyType, AssetToProcess.Name);
@@ -9772,19 +9772,30 @@ namespace AMSExplorer
         {
             foreach (var myAsset in listassets)
             {
+                bool Error = false;
                 if (!IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // No streaming locator valid
                 {
+
                     if (MessageBox.Show(string.Format("There is no valid streaming locator for asset '{0}'.\nDo you want to create one ?", myAsset.Name), "Streaming locator", MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
                     {
                         TextBoxLogWriteLine("Creating locator for asset '{0}'", myAsset.Name);
-                        IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
-                        ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
-                        dataGridViewAssetsV.PurgeCacheAsset(myAsset);
-                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        try
+                        {
+                            IAccessPolicy policy = _context.AccessPolicies.Create("AP:" + myAsset.Name, TimeSpan.FromDays(Properties.Settings.Default.DefaultLocatorDurationDaysNew), AccessPermissions.Read);
+                            ILocator MyLocator = _context.Locators.CreateLocator(LocatorType.OnDemandOrigin, myAsset, policy, null);
+                            dataGridViewAssetsV.PurgeCacheAsset(myAsset);
+                            dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        }
+                        catch (Exception ex)
+                        {
+                            TextBoxLogWriteLine("Error when creating locator for asset '{0}'", myAsset.Name, true); // this could happen if asset is storage protected with no delivery policy
+                            TextBoxLogWriteLine(ex);
+                            Error = true;
+                        }
                     }
                 }
 
-                if (IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
+                if (!Error && IsThereALocatorValid(myAsset, ref PlayBackLocator, LocatorType.OnDemandOrigin)) // There is a streaming locator valid
                 {
                     Uri MyUri = PlayBackLocator.GetSmoothStreamingUri();
 
@@ -11482,7 +11493,7 @@ namespace AMSExplorer
         {
             DoRefreshGridIngestManifestV(false);
         }
-       
+
 
         private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {

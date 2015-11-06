@@ -209,14 +209,13 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(384, 13);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(176, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
-            this.buttonOk.Text = "OK";
+            this.buttonOk.Text = "Next";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // panelPlayReadyTest
@@ -225,7 +224,7 @@
             this.panelPlayReadyTest.Controls.Add(this.label);
             this.panelPlayReadyTest.Controls.Add(this.moreinfotestserver);
             this.panelPlayReadyTest.Controls.Add(this.buttonPlayReadyTestSettings);
-            this.panelPlayReadyTest.Location = new System.Drawing.Point(29, 529);
+            this.panelPlayReadyTest.Location = new System.Drawing.Point(254, 291);
             this.panelPlayReadyTest.Name = "panelPlayReadyTest";
             this.panelPlayReadyTest.Size = new System.Drawing.Size(381, 83);
             this.panelPlayReadyTest.TabIndex = 41;
@@ -237,7 +236,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 710);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
@@ -418,6 +417,7 @@
             this.groupBoxCrypto.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxCrypto.Controls.Add(this.panelContentKey);
+            this.groupBoxCrypto.Controls.Add(this.panelPlayReadyTest);
             this.groupBoxCrypto.Controls.Add(this.panelKeyId);
             this.groupBoxCrypto.Controls.Add(this.panel3);
             this.groupBoxCrypto.Controls.Add(this.label1);
@@ -426,7 +426,7 @@
             this.groupBoxCrypto.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxCrypto.Location = new System.Drawing.Point(17, 213);
             this.groupBoxCrypto.Name = "groupBoxCrypto";
-            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 278);
+            this.groupBoxCrypto.Size = new System.Drawing.Size(640, 380);
             this.groupBoxCrypto.TabIndex = 74;
             this.groupBoxCrypto.TabStop = false;
             this.groupBoxCrypto.Text = "CENC Content Key";
@@ -505,7 +505,6 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.panelPlayReadyTest);
             this.Controls.Add(this.groupBoxCrypto);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.panel1);

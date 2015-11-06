@@ -120,8 +120,6 @@ namespace AMSExplorer
                 buttonOk.Image = null;
             }
             */
-
-           
         }
 
         private void PlayReadyExternalServer_Load(object sender, EventArgs e)

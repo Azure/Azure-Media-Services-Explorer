@@ -109,7 +109,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 708);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
@@ -118,14 +118,13 @@
             // 
             this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOk.Image = global::AMSExplorer.Bitmaps.DRM_protection;
             this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(384, 13);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(176, 27);
             this.buttonOk.TabIndex = 17;
             this.buttonOk.Tag = "";
-            this.buttonOk.Text = "OK";
+            this.buttonOk.Text = "Next";
             this.buttonOk.UseVisualStyleBackColor = true;
             // 
             // radioButtonContentKeyBase64

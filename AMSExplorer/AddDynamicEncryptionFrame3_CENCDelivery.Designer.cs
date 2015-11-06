@@ -33,9 +33,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBoxPlayReady = new System.Windows.Forms.GroupBox();
-            this.panelPlayReadyTest = new System.Windows.Forms.Panel();
-            this.label = new System.Windows.Forms.Label();
-            this.moreinfotestserver = new System.Windows.Forms.LinkLabel();
             this.buttonPlayReadyTestSettings = new System.Windows.Forms.Button();
             this.textBoxPRLAurl = new System.Windows.Forms.TextBox();
             this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
@@ -51,16 +48,18 @@
             this.label11 = new System.Windows.Forms.Label();
             this.LAURLWidevine = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.panelExternalPlayReady = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
-            this.panelPlayReadyTest.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).BeginInit();
             this.groupBoxWidevine.SuspendLayout();
+            this.panelExternalPlayReady.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(386, 13);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(176, 27);
@@ -97,18 +96,14 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 710);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
             // 
             // groupBoxPlayReady
             // 
-            this.groupBoxPlayReady.Controls.Add(this.panelPlayReadyTest);
-            this.groupBoxPlayReady.Controls.Add(this.textBoxPRLAurl);
-            this.groupBoxPlayReady.Controls.Add(this.checkBoxEncodingSL);
-            this.groupBoxPlayReady.Controls.Add(this.label3);
-            this.groupBoxPlayReady.Controls.Add(this.label7);
+            this.groupBoxPlayReady.Controls.Add(this.panelExternalPlayReady);
             this.groupBoxPlayReady.Controls.Add(this.label8);
             this.groupBoxPlayReady.Controls.Add(this.label2);
             this.groupBoxPlayReady.Controls.Add(this.numericUpDownNbOptions);
@@ -122,43 +117,13 @@
             this.groupBoxPlayReady.TabStop = false;
             this.groupBoxPlayReady.Text = "PlayReady";
             // 
-            // panelPlayReadyTest
-            // 
-            this.panelPlayReadyTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelPlayReadyTest.Controls.Add(this.label);
-            this.panelPlayReadyTest.Controls.Add(this.moreinfotestserver);
-            this.panelPlayReadyTest.Controls.Add(this.buttonPlayReadyTestSettings);
-            this.panelPlayReadyTest.Location = new System.Drawing.Point(67, 174);
-            this.panelPlayReadyTest.Name = "panelPlayReadyTest";
-            this.panelPlayReadyTest.Size = new System.Drawing.Size(381, 83);
-            this.panelPlayReadyTest.TabIndex = 81;
-            // 
-            // label
-            // 
-            this.label.AutoSize = true;
-            this.label.Location = new System.Drawing.Point(3, 4);
-            this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(289, 15);
-            this.label.TabIndex = 28;
-            this.label.Text = "You can specify your own data or use the test settings";
-            // 
-            // moreinfotestserver
-            // 
-            this.moreinfotestserver.AutoSize = true;
-            this.moreinfotestserver.Location = new System.Drawing.Point(3, 23);
-            this.moreinfotestserver.Name = "moreinfotestserver";
-            this.moreinfotestserver.Size = new System.Drawing.Size(163, 15);
-            this.moreinfotestserver.TabIndex = 19;
-            this.moreinfotestserver.TabStop = true;
-            this.moreinfotestserver.Text = "PlayReady test server web site";
-            // 
             // buttonPlayReadyTestSettings
             // 
-            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(3, 43);
+            this.buttonPlayReadyTestSettings.Location = new System.Drawing.Point(26, 62);
             this.buttonPlayReadyTestSettings.Name = "buttonPlayReadyTestSettings";
             this.buttonPlayReadyTestSettings.Size = new System.Drawing.Size(185, 37);
             this.buttonPlayReadyTestSettings.TabIndex = 29;
-            this.buttonPlayReadyTestSettings.Text = "Use PlayReady Test Settings";
+            this.buttonPlayReadyTestSettings.Text = "Use PlayReady Test Server";
             this.buttonPlayReadyTestSettings.UseVisualStyleBackColor = true;
             this.buttonPlayReadyTestSettings.Click += new System.EventHandler(this.buttonPlayReadyTestSettings_Click);
             // 
@@ -166,9 +131,8 @@
             // 
             this.textBoxPRLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPRLAurl.Enabled = false;
             this.textBoxPRLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxPRLAurl.Location = new System.Drawing.Point(67, 145);
+            this.textBoxPRLAurl.Location = new System.Drawing.Point(26, 33);
             this.textBoxPRLAurl.Name = "textBoxPRLAurl";
             this.textBoxPRLAurl.Size = new System.Drawing.Size(419, 23);
             this.textBoxPRLAurl.TabIndex = 78;
@@ -179,7 +143,7 @@
             this.checkBoxEncodingSL.AutoSize = true;
             this.checkBoxEncodingSL.Enabled = false;
             this.checkBoxEncodingSL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBoxEncodingSL.Location = new System.Drawing.Point(528, 146);
+            this.checkBoxEncodingSL.Location = new System.Drawing.Point(485, 37);
             this.checkBoxEncodingSL.Name = "checkBoxEncodingSL";
             this.checkBoxEncodingSL.Size = new System.Drawing.Size(109, 19);
             this.checkBoxEncodingSL.TabIndex = 80;
@@ -190,7 +154,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(64, 127);
+            this.label3.Location = new System.Drawing.Point(23, 13);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(133, 15);
             this.label3.TabIndex = 77;
@@ -202,7 +166,7 @@
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label7.Location = new System.Drawing.Point(492, 147);
+            this.label7.Location = new System.Drawing.Point(453, 36);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(30, 15);
             this.label7.TabIndex = 79;
@@ -309,9 +273,9 @@
             this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.label11.Location = new System.Drawing.Point(492, 79);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 15);
+            this.label11.Size = new System.Drawing.Size(30, 15);
             this.label11.TabIndex = 86;
-            this.label11.Text = "(Url, Optional)";
+            this.label11.Text = "(Url)";
             // 
             // LAURLWidevine
             // 
@@ -333,6 +297,21 @@
             this.label4.TabIndex = 70;
             this.label4.Text = "As of today, Widevine licenses must be delivered by a third party.";
             // 
+            // panelExternalPlayReady
+            // 
+            this.panelExternalPlayReady.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelExternalPlayReady.Controls.Add(this.textBoxPRLAurl);
+            this.panelExternalPlayReady.Controls.Add(this.buttonPlayReadyTestSettings);
+            this.panelExternalPlayReady.Controls.Add(this.label7);
+            this.panelExternalPlayReady.Controls.Add(this.checkBoxEncodingSL);
+            this.panelExternalPlayReady.Controls.Add(this.label3);
+            this.panelExternalPlayReady.Enabled = false;
+            this.panelExternalPlayReady.Location = new System.Drawing.Point(41, 122);
+            this.panelExternalPlayReady.Name = "panelExternalPlayReady";
+            this.panelExternalPlayReady.Size = new System.Drawing.Size(597, 127);
+            this.panelExternalPlayReady.TabIndex = 81;
+            // 
             // AddDynamicEncryptionFrame3_CENCDelivery
             // 
             this.AcceptButton = this.buttonOk;
@@ -353,11 +332,11 @@
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);
             this.groupBoxPlayReady.PerformLayout();
-            this.panelPlayReadyTest.ResumeLayout(false);
-            this.panelPlayReadyTest.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptions)).EndInit();
             this.groupBoxWidevine.ResumeLayout(false);
             this.groupBoxWidevine.PerformLayout();
+            this.panelExternalPlayReady.ResumeLayout(false);
+            this.panelExternalPlayReady.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,9 +363,7 @@
         public System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox LAURLWidevine;
-        private System.Windows.Forms.Panel panelPlayReadyTest;
-        public System.Windows.Forms.Label label;
-        private System.Windows.Forms.LinkLabel moreinfotestserver;
         private System.Windows.Forms.Button buttonPlayReadyTestSettings;
+        private System.Windows.Forms.Panel panelExternalPlayReady;
     }
 }

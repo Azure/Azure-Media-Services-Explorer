@@ -48,6 +48,7 @@
             // buttonOk
             // 
             this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonOk.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.buttonOk.Location = new System.Drawing.Point(386, 13);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(176, 27);
@@ -84,7 +85,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Controls.Add(this.buttonCancel);
-            this.panel1.Location = new System.Drawing.Point(-1, 710);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
@@ -184,6 +185,7 @@
             this.radioButtonDefineAuthPol.TabStop = true;
             this.radioButtonDefineAuthPol.Text = "Yes - Define an authorization policy for the content key with";
             this.radioButtonDefineAuthPol.UseVisualStyleBackColor = true;
+            this.radioButtonDefineAuthPol.CheckedChanged += new System.EventHandler(this.radioButtonDefineAuthPol_CheckedChanged);
             // 
             // radioButtonNoAuthPolicy
             // 

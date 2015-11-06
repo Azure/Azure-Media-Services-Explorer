@@ -893,7 +893,7 @@
             this.labelWarning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelWarning.AutoSize = true;
             this.labelWarning.ForeColor = System.Drawing.Color.Red;
-            this.labelWarning.Location = new System.Drawing.Point(28, 675);
+            this.labelWarning.Location = new System.Drawing.Point(28, 653);
             this.labelWarning.Name = "labelWarning";
             this.labelWarning.Size = new System.Drawing.Size(52, 15);
             this.labelWarning.TabIndex = 45;
@@ -906,7 +906,7 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
-            this.panel1.Location = new System.Drawing.Point(-1, 710);
+            this.panel1.Location = new System.Drawing.Point(-1, 688);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 63;
@@ -960,14 +960,14 @@
             this.openFileDialogPreset.DefaultExt = "xml";
             this.openFileDialogPreset.Filter = "XML files|*.xml|All files|*.*";
             // 
-            // AddDynamicEncryptionFrame4_PlayReadyLicense
+            // AddDynamicEncryptionFrame5_PlayReadyLicense
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(681, 763);
+            this.ClientSize = new System.Drawing.Size(681, 741);
             this.Controls.Add(this.linkLabelPlayReadyPolicy);
             this.Controls.Add(this.buttonImportXML);
             this.Controls.Add(this.checkBoxImportPolicyFile);
@@ -979,7 +979,7 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.moreinfocompliance);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "AddDynamicEncryptionFrame4_PlayReadyLicense";
+            this.Name = "AddDynamicEncryptionFrame5_PlayReadyLicense";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);
