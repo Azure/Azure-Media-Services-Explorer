@@ -3941,6 +3941,8 @@ namespace AMSExplorer
         {
             Hide();
 
+            linkLabelFeedbackAMS.Links.Add(new LinkLabel.Link(0, linkLabelFeedbackAMS.Text.Length, Constants.LinkFeedbackAMS));
+
             comboBoxOrderAssets.Enabled = comboBoxStateAssets.Enabled = !largeAccount;
             comboBoxOrderJobs.Enabled = _context.Jobs.Count() < triggerForLargeAccountNbJobs;
 
@@ -11467,6 +11469,12 @@ namespace AMSExplorer
         private void toolStripMenuItem33Refresh_Click(object sender, EventArgs e)
         {
             DoRefreshGridIngestManifestV(false);
+        }
+       
+
+        private void linkLabelFeedbackAMS_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
         }
     }
 }
