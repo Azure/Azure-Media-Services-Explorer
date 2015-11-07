@@ -201,6 +201,12 @@
     <Compile Include="BulkContainerInfo.Designer.cs">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaIntelligenceGeneric.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaIntelligenceGeneric.Designer.cs">
+      <DependentUpon>MediaIntelligenceGeneric.cs</DependentUpon>
+    </Compile>
     <Compile Include="SoftwareUpdate.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -650,6 +656,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BulkContainerInfo.resx">
       <DependentUpon>BulkContainerInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaIntelligenceGeneric.resx">
+      <DependentUpon>MediaIntelligenceGeneric.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SoftwareUpdate.resx">
       <DependentUpon>SoftwareUpdate.cs</DependentUpon>

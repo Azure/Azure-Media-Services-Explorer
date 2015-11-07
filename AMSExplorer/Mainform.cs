@@ -3640,29 +3640,33 @@ namespace AMSExplorer
             {
                 CheckSingleFileMP4MOVWMVExtension(SelectedAssets);
 
-                string labeldb = (SelectedAssets.Count > 1) ?
-                    string.Format("Process these {0} assets with {1} ?", SelectedAssets.Count, processorStr) :
-                    string.Format("Process asset '{0}'  with {1} ?", SelectedAssets.FirstOrDefault().Name, processorStr);
+                // Get the SDK extension method to  get a reference to the processor.
+                IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                string jobname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
-                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
-                string outputassetname = string.Format("{0} - processed with {1}", Constants.NameconvInputasset, processorStr);
-
-                if (System.Windows.Forms.MessageBox.Show(labeldb, processorStr, System.Windows.Forms.MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.Yes)
+                var form = new MediaIntelligenceGeneric(_context, processorStr)
                 {
-                    // Get the SDK extension method to  get a reference to the processor
-                    IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(processorStr);
-
+                    MIJobName = processorStr +" processing of " + Constants.NameconvInputasset,
+                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with "+ processorStr,
+                    MIProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
+                    MIInputAssetName = (SelectedAssets.Count > 1) ? 
+                    string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
+                    : string.Format( "Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
+                };
+                                
+                string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
+              
+                if (form.ShowDialog() == DialogResult.OK)
+                {
                     LaunchJobs(processor,
                         SelectedAssets,
-                        jobname,
-                        Properties.Settings.Default.DefaultJobPriority,
+                        form.MIJobName,
+                        form.JobOptions.Priority,
                         taskname,
-                        outputassetname,
+                        form.MIOutputAssetName,
                         new List<string> { @"{'Version':'1.0'}" },
-                        Properties.Settings.Default.useStorageEncryption ? AssetCreationOptions.StorageEncrypted : AssetCreationOptions.None,
-                        Properties.Settings.Default.useProtectedConfiguration ? TaskOptions.ProtectedConfiguration : TaskOptions.None
-                        );
+                        form.JobOptions.OutputAssetsCreationOptions,
+                        form.JobOptions.TasksOptionsSetting,
+                        form.JobOptions.StorageSelected);
                 }
             }
         }
