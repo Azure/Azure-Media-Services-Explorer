@@ -305,26 +305,26 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(752, 355);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Encryption at REST";
+            this.tabPage2.Text = "Storage Encryption";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
             this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(250, 17);
+            this.label4.Location = new System.Drawing.Point(37, 85);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(315, 15);
+            this.label4.Size = new System.Drawing.Size(471, 15);
             this.label4.TabIndex = 82;
-            this.label4.Text = "A key will be generated and copied to the target asset(s)";
+            this.label4.Text = "key(s) will be locally generated and copied to the target asset(s) in AMS";
             // 
             // checkBoxEncrypt
             // 
             this.checkBoxEncrypt.AutoSize = true;
             this.checkBoxEncrypt.Location = new System.Drawing.Point(21, 16);
             this.checkBoxEncrypt.Name = "checkBoxEncrypt";
-            this.checkBoxEncrypt.Size = new System.Drawing.Size(223, 19);
+            this.checkBoxEncrypt.Size = new System.Drawing.Size(243, 19);
             this.checkBoxEncrypt.TabIndex = 0;
-            this.checkBoxEncrypt.Text = "Encrypt local asset files to this folder :";
+            this.checkBoxEncrypt.Text = "Encrypt the local asset files to this folder :";
             this.checkBoxEncrypt.UseVisualStyleBackColor = true;
             this.checkBoxEncrypt.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -332,7 +332,7 @@
             // 
             this.buttonBrowseFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonBrowseFile.Enabled = false;
-            this.buttonBrowseFile.Location = new System.Drawing.Point(642, 46);
+            this.buttonBrowseFile.Location = new System.Drawing.Point(639, 46);
             this.buttonBrowseFile.Name = "buttonBrowseFile";
             this.buttonBrowseFile.Size = new System.Drawing.Size(95, 23);
             this.buttonBrowseFile.TabIndex = 3;
@@ -345,9 +345,9 @@
             this.textBoxFolderPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxFolderPath.Enabled = false;
-            this.textBoxFolderPath.Location = new System.Drawing.Point(21, 46);
+            this.textBoxFolderPath.Location = new System.Drawing.Point(40, 46);
             this.textBoxFolderPath.Name = "textBoxFolderPath";
-            this.textBoxFolderPath.Size = new System.Drawing.Size(614, 23);
+            this.textBoxFolderPath.Size = new System.Drawing.Size(592, 23);
             this.textBoxFolderPath.TabIndex = 2;
             // 
             // tabPage3

@@ -136,4 +136,7 @@
 5) Use the upload method of your choice to upload the associated files to the bulk ingest container
 6) Azure Media Services will automatically complete the asset creation</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>355, 17</value>
+  </metadata>
 </root>

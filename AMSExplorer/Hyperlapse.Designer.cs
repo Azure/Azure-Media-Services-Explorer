@@ -32,7 +32,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Hyperlapse));
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
-            this.processorlabel = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.labelAssetName = new System.Windows.Forms.Label();
@@ -40,6 +39,7 @@
             this.textBoxJobName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.panelTimes = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -65,7 +65,8 @@
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label9 = new System.Windows.Forms.Label();
+            this.labelPreview = new System.Windows.Forms.Label();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panelTimes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNumFrames)).BeginInit();
@@ -95,15 +96,6 @@
             this.textboxoutputassetname.Size = new System.Drawing.Size(364, 23);
             this.textboxoutputassetname.TabIndex = 21;
             // 
-            // processorlabel
-            // 
-            this.processorlabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.processorlabel.Location = new System.Drawing.Point(14, 505);
-            this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(617, 25);
-            this.processorlabel.TabIndex = 20;
-            this.processorlabel.Text = "processor name";
-            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -128,9 +120,10 @@
             // 
             this.labelAssetName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelAssetName.Location = new System.Drawing.Point(113, 68);
+            this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelAssetName.Location = new System.Drawing.Point(112, 59);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(513, 35);
+            this.labelAssetName.Size = new System.Drawing.Size(397, 15);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
@@ -186,6 +179,16 @@
             this.groupBox1.TabIndex = 58;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Settings";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label9.Location = new System.Drawing.Point(17, 151);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(96, 30);
+            this.label9.TabIndex = 83;
+            this.label9.Text = "1 = video\r\nstabilization only";
             // 
             // panelTimes
             // 
@@ -428,7 +431,7 @@
             // 
             this.moreinfoprofilelink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoprofilelink.AutoSize = true;
-            this.moreinfoprofilelink.Location = new System.Drawing.Point(525, 53);
+            this.moreinfoprofilelink.Location = new System.Drawing.Point(525, 86);
             this.moreinfoprofilelink.Name = "moreinfoprofilelink";
             this.moreinfoprofilelink.Size = new System.Drawing.Size(101, 15);
             this.moreinfoprofilelink.TabIndex = 70;
@@ -470,15 +473,29 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label9
+            // labelPreview
             // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(17, 151);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(96, 30);
-            this.label9.TabIndex = 83;
-            this.label9.Text = "1 = video\r\nstabilization only";
+            this.labelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelPreview.AutoSize = true;
+            this.labelPreview.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPreview.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelPreview.Location = new System.Drawing.Point(567, 39);
+            this.labelPreview.Name = "labelPreview";
+            this.labelPreview.Size = new System.Drawing.Size(59, 20);
+            this.labelPreview.TabIndex = 74;
+            this.labelPreview.Text = "Preview";
+            this.labelPreview.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelProcessorVersion.Location = new System.Drawing.Point(502, 59);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
+            this.labelProcessorVersion.TabIndex = 78;
+            this.labelProcessorVersion.Text = "Version {0}";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Hyperlapse
             // 
@@ -488,6 +505,8 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 614);
+            this.Controls.Add(this.labelProcessorVersion);
+            this.Controls.Add(this.labelPreview);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.moreinfoprofilelink);
@@ -499,7 +518,6 @@
             this.Controls.Add(this.labelAssetName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
-            this.Controls.Add(this.processorlabel);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Name = "Hyperlapse";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -524,7 +542,6 @@
 
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textboxoutputassetname;
-        private System.Windows.Forms.Label processorlabel;
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.Label label2;
@@ -558,5 +575,7 @@
         private System.Windows.Forms.Panel panelTimes;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.Label labelPreview;
+        private System.Windows.Forms.Label labelProcessorVersion;
     }
 }

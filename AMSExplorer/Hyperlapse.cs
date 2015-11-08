@@ -35,6 +35,7 @@ namespace AMSExplorer
     {
         private CloudMediaContext _context;
         const int maxframe = 10000; // In public preview, limited to 10 000 frames
+        private string _processorVersion;
 
         public string HyperlapseInputAssetName
         {
@@ -109,19 +110,6 @@ namespace AMSExplorer
             }
         }
 
-
-        public string HyperlapseProcessorName
-        {
-            get
-            {
-                return processorlabel.Text;
-            }
-            set
-            {
-                processorlabel.Text = value;
-            }
-        }
-
         public JobOptionsVar JobOptions
         {
             get
@@ -134,11 +122,12 @@ namespace AMSExplorer
             }
         }
 
-        public Hyperlapse(CloudMediaContext context)
+        public Hyperlapse(CloudMediaContext context, string processorVersion)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _processorVersion = processorVersion;
             buttonJobOptions.Initialize(_context);
 
         }
@@ -149,6 +138,7 @@ namespace AMSExplorer
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
             linkLabelHowItWorks.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkHowItWorksHyperlapse));
             comboBoxFrameRate.SelectedIndex = 2;
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
         }
 
         public static string LoadAndUpdateHyperlapseConfiguration(string xmlFileName, int startFrame, int numFrames, int speed)

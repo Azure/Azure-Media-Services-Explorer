@@ -48,7 +48,7 @@ namespace AMSExplorer
 
         private const string defaultprofile = "H264 Multiple Bitrate 720p";
         bool usereditmode = false;
-      
+
         public readonly IList<Profile> Profiles = new List<Profile> {
             new Profile() {Prof=@"AAC Good Quality Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 192 kbps."},
             new Profile() {Prof=@"AAC Audio", Desc="Produces a single MP4 file containing only stereo audio encoded at 128 kbps."},
@@ -79,6 +79,7 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
         private int _nbInputAssets;
+        private string _processorVersion;
 
         public string EncodingLabel
         {
@@ -97,31 +98,6 @@ namespace AMSExplorer
             set
             {
                 textBoxJobName.Text = value;
-            }
-        }
-
-
-        public List<IMediaProcessor> EncodingProcessorsList
-        {
-            set
-            {
-                foreach (IMediaProcessor pr in value)
-                {
-                    comboBoxProcessor.Items.Add(string.Format("{0} {1} Version {2} ({3})", pr.Vendor, pr.Name, pr.Version, pr.Description));
-                }
-                if (comboBoxProcessor.Items.Count > 0)
-                {
-                    comboBoxProcessor.SelectedIndex = 0;
-                }
-                Procs = value;
-            }
-        }
-
-        public IMediaProcessor EncodingProcessorSelected
-        {
-            get
-            {
-                return Procs[comboBoxProcessor.SelectedIndex];
             }
         }
 
@@ -159,11 +135,12 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, SubClipConfiguration subclipConfig = null)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _processorVersion = processorVersion;
             _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
             _nbInputAssets = nbInputAssets;
@@ -183,6 +160,8 @@ namespace AMSExplorer
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
+
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
             if (_subclipConfig != null && _subclipConfig.Trimming)
             {
@@ -219,7 +198,7 @@ namespace AMSExplorer
             }
         }
 
-       
+
         private void UpdateTextBoxJSON(string jsondata)
         {
             var mode = Program.AnalyseConfigurationString(jsondata);
@@ -227,7 +206,7 @@ namespace AMSExplorer
             {
                 textBoxConfiguration.Text = jsondata;
             }
-            else if (mode== TypeConfig.JSON) // JSON
+            else if (mode == TypeConfig.JSON) // JSON
             {
                 var jo = JObject.Parse(jsondata);
                 dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
@@ -359,10 +338,10 @@ namespace AMSExplorer
 
             bool Error = false;
             var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
-            if (type==TypeConfig.JSON)
+            if (type == TypeConfig.JSON)
             {
                 // Let's check JSON syntax
-                
+
                 try
                 {
                     var jo = JObject.Parse(textBoxConfiguration.Text);
@@ -373,7 +352,7 @@ namespace AMSExplorer
                     Error = true;
                 }
             }
-            else if(type == TypeConfig.XML) // XML 
+            else if (type == TypeConfig.XML) // XML 
             {
                 try
                 {
@@ -385,7 +364,7 @@ namespace AMSExplorer
                     Error = true;
                 }
             }
-          
+
             labelWarningJSON.Visible = Error;
         }
 

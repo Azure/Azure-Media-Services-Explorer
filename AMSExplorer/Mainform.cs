@@ -3643,18 +3643,17 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaIntelligenceGeneric(_context, processorStr)
+                var form = new MediaIntelligenceGeneric(_context, processor, true)
                 {
-                    MIJobName = processorStr +" processing of " + Constants.NameconvInputasset,
-                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with "+ processorStr,
-                    MIProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
-                    MIInputAssetName = (SelectedAssets.Count > 1) ? 
+                    MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
+                    MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
+                    MIInputAssetName = (SelectedAssets.Count > 1) ?
                     string.Format("{0} assets have been selected for processing.", SelectedAssets.Count)
-                    : string.Format( "Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
+                    : string.Format("Asset '{0}' will be processed.", SelectedAssets.FirstOrDefault().Name)
                 };
-                                
+
                 string taskname = string.Format("{0} processing of {1} ", processorStr, Constants.NameconvInputasset);
-              
+
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LaunchJobs(processor,
@@ -3871,11 +3870,10 @@ namespace AMSExplorer
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
-            Indexer form = new Indexer(_context)
+            Indexer form = new Indexer(_context, processor.Version)
             {
                 IndexerJobName = "Media Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
-                IndexerProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
             };
 
@@ -3920,11 +3918,10 @@ namespace AMSExplorer
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaHyperlapse);
 
-            Hyperlapse form = new Hyperlapse(_context)
+            Hyperlapse form = new Hyperlapse(_context, processor.Version)
             {
                 HyperlapseJobName = "Hyperlapse processing of " + Constants.NameconvInputasset,
                 HyperlapseOutputAssetName = Constants.NameconvInputasset + " - Hyperlapsed",
-                HyperlapseProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 HyperlapseInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for Hyperlapse processing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be processed by Hyperlapse.",
             };
 
@@ -7450,12 +7447,11 @@ namespace AMSExplorer
             string taskname = "Thumbnails generation of " + Constants.NameconvInputasset;
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
 
-            Thumbnails form = new Thumbnails(_context)
+            Thumbnails form = new Thumbnails(_context, processor.Version)
             {
                 ThumbnailsFileName = "{OriginalFilename}_{ThumbnailIndex}.{DefaultExtension}",
-                ThumbnailsInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for thumbnails generation." : "Generate thumbnails for '" + SelectedAssets.FirstOrDefault().Name + "'  ?",
+                ThumbnailsInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for thumbnails generation." : "This will generate thumbnails for asset '" + SelectedAssets.FirstOrDefault().Name + "'.",
                 ThumbnailsOutputAssetName = Constants.NameconvInputasset + " - Thumbnails",
-                ThumbnailsProcessorName = "Processor: " + processor.Vendor + " / " + processor.Name + " v" + processor.Version,
                 ThumbnailsJobName = "Thumbnails generation of " + Constants.NameconvInputasset,
                 ThumbnailsTimeValue = "0:0:0",
                 ThumbnailsTimeStep = "0:0:5",
@@ -10717,16 +10713,15 @@ namespace AMSExplorer
 
             string taskname = "Media Encoder Standard processing of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
-            List<IMediaProcessor> Procs = GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
+            var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count)
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version)
             {
                 EncodingLabel = (SelectedAssets.Count > 1) ?
                 string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
                 :
                 "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
 
-                EncodingProcessorsList = Procs,
                 EncodingJobName = "Media Encoder Standard processing of " + Constants.NameconvInputasset,
                 EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
                 EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
@@ -10742,10 +10737,10 @@ namespace AMSExplorer
                 {
                     string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
-                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, form.EncodingProcessorSelected.Name + " v" + form.EncodingProcessorSelected.Version);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
                     ITask AMEStandardTask = job.Tasks.AddNew(
                         tasknameloc,
-                      form.EncodingProcessorSelected,// processor,
+                        processor,
                        form.EncodingConfiguration,
                        form.JobOptions.TasksOptionsSetting
                       );
@@ -12328,7 +12323,7 @@ namespace AMSExplorer
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
 
-            IQueryable<IAsset> assetsServerQuery=null;// = context.Assets.AsQueryable(); ;
+            IQueryable<IAsset> assetsServerQuery = null;// = context.Assets.AsQueryable(); ;
             bool SwitchedToLocalQuery = false;
 
             ///////////////////////
@@ -13356,7 +13351,7 @@ namespace AMSExplorer
             {
                 datefilter = (DateTime.UtcNow.Add(-TimeSpan.FromDays(days)));
             }
-            IQueryable<IJob> jobsServerQuery=null;// = context.Jobs.AsQueryable();
+            IQueryable<IJob> jobsServerQuery = null;// = context.Jobs.AsQueryable();
 
             // STATE
             bool filterstate = _filterjobsstate != "All";

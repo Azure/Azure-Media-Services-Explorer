@@ -34,7 +34,8 @@ namespace AMSExplorer
     public partial class MediaIntelligenceGeneric : Form
     {
         private CloudMediaContext _context;
-        private string _processorName;
+        private IMediaProcessor _processor;
+        private bool _preview;
 
         public string MIInputAssetName
         {
@@ -71,20 +72,7 @@ namespace AMSExplorer
                 textBoxJobName.Text = value;
             }
         }
-             
-
-
-        public string MIProcessorName
-        {
-            get
-            {
-                return processorlabel.Text;
-            }
-            set
-            {
-                processorlabel.Text = value;
-            }
-        }
+     
 
         public JobOptionsVar JobOptions
         {
@@ -98,14 +86,14 @@ namespace AMSExplorer
             }
         }
 
-        public MediaIntelligenceGeneric(CloudMediaContext context, string processorName)
+        public MediaIntelligenceGeneric(CloudMediaContext context, IMediaProcessor processor, bool preview)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
-            _processorName = processorName;
+            _processor = processor;
+            _preview = preview;
             buttonJobOptions.Initialize(_context);
-
         }
 
 
@@ -115,10 +103,11 @@ namespace AMSExplorer
 
             // we don't have yet link or picture for MI Greneric
             moreinfoprofilelink.Visible = false;
-            pictureBox1.Visible = false;
 
-            labelProcessorName.Text = _processorName;
-            this.Text = _processorName;
+            labelProcessorName.Text = _processor.Name;
+            labelPreview.Visible = _preview;
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text,  _processor.Version);
+            this.Text = _processor.Name;
         }
 
      

@@ -30,7 +30,6 @@
         {
             this.label3 = new System.Windows.Forms.Label();
             this.textboxoutputassetname = new System.Windows.Forms.TextBox();
-            this.processorlabel = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxTimeValue = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -56,13 +55,14 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
             this.label13 = new System.Windows.Forms.Label();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(24, 469);
+            this.label3.Location = new System.Drawing.Point(24, 483);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 15);
             this.label3.TabIndex = 22;
@@ -72,18 +72,10 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(28, 487);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(28, 501);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(350, 23);
             this.textboxoutputassetname.TabIndex = 21;
-            // 
-            // processorlabel
-            // 
-            this.processorlabel.Location = new System.Drawing.Point(24, 524);
-            this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(426, 25);
-            this.processorlabel.TabIndex = 20;
-            this.processorlabel.Text = "processor name";
             // 
             // buttonCancel
             // 
@@ -98,7 +90,7 @@
             // 
             // textBoxTimeValue
             // 
-            this.textBoxTimeValue.Location = new System.Drawing.Point(28, 154);
+            this.textBoxTimeValue.Location = new System.Drawing.Point(28, 168);
             this.textBoxTimeValue.Name = "textBoxTimeValue";
             this.textBoxTimeValue.Size = new System.Drawing.Size(140, 23);
             this.textBoxTimeValue.TabIndex = 37;
@@ -106,7 +98,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 135);
+            this.label2.Location = new System.Drawing.Point(24, 149);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 15);
             this.label2.TabIndex = 35;
@@ -116,7 +108,7 @@
             // 
             this.textBoxFileName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxFileName.Location = new System.Drawing.Point(28, 82);
+            this.textBoxFileName.Location = new System.Drawing.Point(28, 96);
             this.textBoxFileName.Name = "textBoxFileName";
             this.textBoxFileName.Size = new System.Drawing.Size(593, 23);
             this.textBoxFileName.TabIndex = 34;
@@ -124,15 +116,16 @@
             // labelAssetName
             // 
             this.labelAssetName.AutoSize = true;
+            this.labelAssetName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelAssetName.Location = new System.Drawing.Point(24, 43);
             this.labelAssetName.Name = "labelAssetName";
-            this.labelAssetName.Size = new System.Drawing.Size(63, 15);
+            this.labelAssetName.Size = new System.Drawing.Size(64, 15);
             this.labelAssetName.TabIndex = 50;
             this.labelAssetName.Text = "assetname";
             // 
             // textBoxTimeStep
             // 
-            this.textBoxTimeStep.Location = new System.Drawing.Point(28, 209);
+            this.textBoxTimeStep.Location = new System.Drawing.Point(28, 223);
             this.textBoxTimeStep.Name = "textBoxTimeStep";
             this.textBoxTimeStep.Size = new System.Drawing.Size(140, 23);
             this.textBoxTimeStep.TabIndex = 52;
@@ -140,7 +133,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(24, 190);
+            this.label4.Location = new System.Drawing.Point(24, 204);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(65, 15);
             this.label4.TabIndex = 51;
@@ -149,7 +142,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(24, 64);
+            this.label1.Location = new System.Drawing.Point(24, 78);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 15);
             this.label1.TabIndex = 36;
@@ -159,7 +152,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(28, 432);
+            this.textBoxJobName.Location = new System.Drawing.Point(28, 446);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(350, 23);
             this.textBoxJobName.TabIndex = 54;
@@ -167,7 +160,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(24, 413);
+            this.label5.Location = new System.Drawing.Point(24, 427);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(64, 15);
             this.label5.TabIndex = 53;
@@ -182,14 +175,14 @@
             "Png",
             "Gif",
             "Bmp"});
-            this.comboBoxThumbnailFormat.Location = new System.Drawing.Point(28, 320);
+            this.comboBoxThumbnailFormat.Location = new System.Drawing.Point(28, 334);
             this.comboBoxThumbnailFormat.Name = "comboBoxThumbnailFormat";
             this.comboBoxThumbnailFormat.Size = new System.Drawing.Size(140, 23);
             this.comboBoxThumbnailFormat.TabIndex = 55;
             // 
             // textBoxSize
             // 
-            this.textBoxSize.Location = new System.Drawing.Point(28, 376);
+            this.textBoxSize.Location = new System.Drawing.Point(28, 390);
             this.textBoxSize.Name = "textBoxSize";
             this.textBoxSize.Size = new System.Drawing.Size(140, 23);
             this.textBoxSize.TabIndex = 57;
@@ -197,7 +190,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(24, 358);
+            this.label6.Location = new System.Drawing.Point(24, 372);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(33, 15);
             this.label6.TabIndex = 56;
@@ -206,7 +199,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(24, 301);
+            this.label7.Location = new System.Drawing.Point(24, 315);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(51, 15);
             this.label7.TabIndex = 58;
@@ -216,7 +209,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(176, 157);
+            this.label8.Location = new System.Drawing.Point(176, 171);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 15);
             this.label8.TabIndex = 59;
@@ -226,7 +219,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label9.Location = new System.Drawing.Point(176, 212);
+            this.label9.Location = new System.Drawing.Point(176, 226);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(128, 15);
             this.label9.TabIndex = 60;
@@ -236,7 +229,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label10.Location = new System.Drawing.Point(176, 268);
+            this.label10.Location = new System.Drawing.Point(176, 282);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(82, 15);
             this.label10.TabIndex = 63;
@@ -244,7 +237,7 @@
             // 
             // textBoxTimeStop
             // 
-            this.textBoxTimeStop.Location = new System.Drawing.Point(28, 264);
+            this.textBoxTimeStop.Location = new System.Drawing.Point(28, 278);
             this.textBoxTimeStop.Name = "textBoxTimeStop";
             this.textBoxTimeStop.Size = new System.Drawing.Size(140, 23);
             this.textBoxTimeStop.TabIndex = 62;
@@ -252,7 +245,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(24, 246);
+            this.label11.Location = new System.Drawing.Point(24, 260);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(92, 15);
             this.label11.TabIndex = 61;
@@ -262,7 +255,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label12.Location = new System.Drawing.Point(31, 109);
+            this.label12.Location = new System.Drawing.Point(31, 123);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(564, 15);
             this.label12.TabIndex = 64;
@@ -288,7 +281,7 @@
             this.label34.AutoSize = true;
             this.label34.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold);
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(128)))), ((int)(((byte)(171)))));
-            this.label34.Location = new System.Drawing.Point(420, 9);
+            this.label34.Location = new System.Drawing.Point(419, 14);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(202, 25);
             this.label34.TabIndex = 69;
@@ -310,7 +303,7 @@
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(461, 432);
+            this.buttonJobOptions.Location = new System.Drawing.Point(461, 446);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 73;
@@ -328,6 +321,17 @@
             this.label13.TabIndex = 77;
             this.label13.Text = "Thumbnails Generation";
             // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelProcessorVersion.Location = new System.Drawing.Point(497, 38);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
+            this.labelProcessorVersion.TabIndex = 79;
+            this.labelProcessorVersion.Text = "Version {0}";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
             // Thumbnails
             // 
             this.AcceptButton = this.buttonOk;
@@ -336,6 +340,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(645, 614);
+            this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.panel1);
@@ -361,7 +366,6 @@
             this.Controls.Add(this.textBoxFileName);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
-            this.Controls.Add(this.processorlabel);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Thumbnails";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -377,7 +381,6 @@
 
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox textboxoutputassetname;
-        private System.Windows.Forms.Label processorlabel;
         public System.Windows.Forms.Button buttonOk;
         public System.Windows.Forms.Button buttonCancel;
         public System.Windows.Forms.TextBox textBoxTimeValue;
@@ -403,5 +406,6 @@
         private System.Windows.Forms.Panel panel1;
         private ButtonJobOptions buttonJobOptions;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label labelProcessorVersion;
     }
 }
