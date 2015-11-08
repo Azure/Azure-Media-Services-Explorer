@@ -4502,7 +4502,8 @@ namespace AMSExplorer
                 }
                 else if (form.EncodingCreationMode == TaskJobCreationMode.SingleJobForAllInputAssets) // Create one job for all inp
                 {
-                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
+                    string inputasssetname = SelectedAssets.Count == 1 ? SelectedAssets.FirstOrDefault().Name : "multiple assets";
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, gentasks.Count > 1 ? "multi processors" : gentasks.FirstOrDefault().Processor.Name); ;
 
                     IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
@@ -4513,7 +4514,7 @@ namespace AMSExplorer
                         switch (usertask.InputAssetType)
                         {
                             case TypeInputAssetGeneric.InputJobAssets:
-                                assetname = "multiple assets";
+                                assetname = inputasssetname;
                                 break;
                             case TypeInputAssetGeneric.SpecificAssetID:
                                 assetname = AssetInfo.GetAsset(usertask.InputAsset, _context).Name;
@@ -4528,7 +4529,7 @@ namespace AMSExplorer
                             tasknameloc,
                            usertask.Processor,
                            usertask.ProcessorConfiguration,
-                           usertask.TaskOptions.TasksOptionsSetting// form.JobOptions.TasksOptionsSetting
+                           usertask.TaskOptions.TasksOptionsSetting
                            );
 
                         task.Priority = usertask.TaskOptions.Priority;
@@ -9556,11 +9557,12 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                string inputasssetname = SelectedJobs.FirstOrDefault().InputMediaAssets.Count == 1 ? SelectedJobs.FirstOrDefault().InputMediaAssets.FirstOrDefault().Name : "multiple assets";
+                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name); ;
 
-                string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name); ;
                 IJob job = _context.Jobs.Create(jobnameloc, form.JobPriority);
 
-                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
+                string tasknameloc = taskname.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
 
                 ITask task = job.Tasks.AddNew(
                             tasknameloc,
@@ -9572,7 +9574,7 @@ namespace AMSExplorer
 
                 // Specify the graph asset to be encoded, followed by the input video asset to be used
                 task.InputAssets.AddRange(myJob.InputMediaAssets.ToList());
-                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, "multiple assets").Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
+                string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, inputasssetname).Replace(Constants.NameconvProcessorname, form.SingleEncodingProcessorSelected.Name);
                 task.OutputAssets.AddNew(outputassetnameloc, form.SingleTaskOptions.StorageSelected, form.SingleTaskOptions.OutputAssetsCreationOptions);
 
                 TextBoxLogWriteLine("Submitting encoding job '{0}'", jobnameloc);
@@ -11624,6 +11626,20 @@ namespace AMSExplorer
         {
             DoMenuMediaIntelligence(Constants.AzureMediaStabilizer);
         }
+
+        private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
+        {
+            var bulks = ReturnSelectedIngestManifests();
+            bool single = bulks.Count == 1;
+            bool oneOrMore = bulks.Count > 0;
+
+            toolStripMenuItem36BulkIngestInfo.Enabled =
+               toolStripMenuItem38CopyBulkURL.Enabled =
+               toolStripMenuItem39CopyBulkAspera.Enabled =
+               single;
+
+            toolStripMenuItem37DelBulk.Enabled = oneOrMore;
+        }
     }
 }
 
@@ -12211,9 +12227,6 @@ namespace AMSExplorer
 
             PublishStatus SASLoc;
             PublishStatus OrigLoc;
-
-            //var listae = _MyObservAsset.Where(a => !cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analized
-            //listae.AddRange(_MyObservAsset.Where(a => cacheAssetentries.ContainsKey(a.Id)).ToList());
 
             var listae = _MyObservAsset.OrderBy(a => cacheAssetentries.ContainsKey(a.Id)).ToList(); // as priority, assets not yet analyzed
 
