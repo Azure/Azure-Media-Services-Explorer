@@ -526,15 +526,14 @@ namespace AMSExplorer
 
             if (subclipConfig.Reencode) // reencode the clip
             {
-                List<IMediaProcessor> Procs = Mainform.GetMediaProcessorsByName(Constants.AzureMediaEncoderStandard);
-                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count, subclipConfig)
+                var processor = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+                EncodingAMEStandard form2 = new EncodingAMEStandard(_context, _selectedAssets.Count,processor.Version, subclipConfig)
                 {
                     EncodingLabel = (_selectedAssets.Count > 1) ?
                                     string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", _selectedAssets.Count, Program.ReturnS(_selectedAssets.Count), _selectedAssets.Count)
                                     :
                                     "Asset '" + _selectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
 
-                    EncodingProcessorsList = Procs,
                     EncodingJobName = "Subclipping with reencoding of " + Constants.NameconvInputasset,
                     EncodingOutputAssetName = Constants.NameconvInputasset + "- Subclipped with reencoding",
                     EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
@@ -546,7 +545,7 @@ namespace AMSExplorer
                 {
                     string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
                     _mainform.LaunchJobs(
-                       form2.EncodingProcessorSelected,
+                       processor,
                        _selectedAssets,
                        form2.EncodingJobName,
                        form2.JobOptions.Priority,
@@ -556,7 +555,6 @@ namespace AMSExplorer
                        form2.JobOptions.OutputAssetsCreationOptions,
                        form2.JobOptions.TasksOptionsSetting,
                        form2.JobOptions.StorageSelected);
-
                 }
             }
             else if (subclipConfig.CreateAssetFilter) // create a asset filter

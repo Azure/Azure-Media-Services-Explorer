@@ -136,16 +136,16 @@ namespace AMSExplorer
             }
         }
 
-        private string _StorageAccountName;
-        public string StorageAccountName
+        private string _Storage;
+        public string Storage
         {
             get
-            { return _StorageAccountName; }
+            { return _Storage; }
             set
             {
-                if (value != _StorageAccountName)
+                if (value != _Storage)
                 {
-                    _StorageAccountName = value;
+                    _Storage = value;
                     NotifyPropertyChanged();
                 }
             }
@@ -210,15 +210,14 @@ namespace AMSExplorer
             this.Columns["Id"].Visible = Properties.Settings.Default.DisplayIngestManifestIDinGrid;
             this.Columns["Progress"].DisplayIndex = 6;
             this.Columns["Progress"].Width = 150;
-            //this.Columns["URLForUpload"].DisplayIndex = 6;
             this.Columns["URLForUpload"].Width = 200;
-
-            // this.Columns["Tasks"].Width = 50;
-            //this.Columns["Priority"].Width = 50;
-            // this.Columns["State"].Width = 80;
-            // this.Columns["StartTime"].Width = 150;
-            // this.Columns["EndTime"].Width = 150;
-            // this.Columns["Duration"].Width = 90;
+            this.Columns["LastModified"].HeaderText = "Last modified";
+            this.Columns["LastModified"].Width = 140;
+            this.Columns["Storage"].Width = 140;
+            this.Columns["PendingFiles"].HeaderText = "Pending Files";
+            this.Columns["FinishedFiles"].HeaderText = "Finished Files";
+            this.Columns["URLForUpload"].HeaderText = "Ingest Url";
+            this.Columns["LastModified"].HeaderText = "Last modified";
 
             WorkerUpdateIngestManifest = new BackgroundWorker()
             {
@@ -315,7 +314,7 @@ namespace AMSExplorer
                               Name = im.Name,
                               Id = im.Id,
                               LastModified = im.LastModified.ToLocalTime().ToString("G"),
-                              StorageAccountName = im.StorageAccountName,
+                              Storage = im.StorageAccountName,
                               URLForUpload = im.BlobStorageUriForUpload
                           };
             _MyObservIngestManifest = new BindingList<IngestManifestEntry>(imquery.ToList());

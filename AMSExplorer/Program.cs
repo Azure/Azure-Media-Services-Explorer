@@ -644,6 +644,11 @@ namespace AMSExplorer
         public const string ZeniumEncoder = "Digital Rapids - Kayak Cloud Engine";
         public const string AzureMediaIndexer = "Azure Media Indexer";
         public const string AzureMediaHyperlapse = "Azure Media Hyperlapse";
+        public const string AzureMediaFaceDetector = "Azure Media Face Detector";
+        public const string AzureMediaRedactor = "Azure Media Redactor";
+        public const string AzureMediaMotionDetector = "Azure Media Motion Detector";
+        public const string AzureMediaStabilizer = "Azure Media Stabilizer";
+
         public const string NameconvInputasset = "{Input Asset Name}";
         public const string NameconvUploadasset = "{File Name}";
         public const string NameconvWorkflow = "{Workflow}";

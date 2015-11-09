@@ -36,6 +36,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IndexerOptions formOptions = new IndexerOptions();
         private IndexerOptionsVar optionsVar = new IndexerOptionsVar() { AIB = true, Keywords = true, SAMI = true, TTML = true, WebVTT = true };
+        private string _version;
 
         public IndexerOptionsVar IndexerGenerationOptions
         {
@@ -124,23 +125,12 @@ namespace AMSExplorer
             }
         }
 
-        public string IndexerProcessorName
-        {
-            get
-            {
-                return processorlabel.Text;
-            }
-            set
-            {
-                processorlabel.Text = value;
-            }
-        }
-
-        public Indexer(CloudMediaContext context)
+        public Indexer(CloudMediaContext context, string version)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _version = version;
 
             buttonJobOptions.Initialize(_context);
         }
@@ -148,6 +138,7 @@ namespace AMSExplorer
         private void Indexer_Load(object sender, EventArgs e)
         {
             comboBoxLanguage.SelectedIndex = 0;
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _version);
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoIndexer));
         }
 

@@ -43,8 +43,6 @@
             this.buttonLoadXML = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxConfiguration = new System.Windows.Forms.TextBox();
-            this.comboBoxProcessor = new System.Windows.Forms.ComboBox();
-            this.processorlabel = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.buttonOk = new System.Windows.Forms.Button();
@@ -64,6 +62,7 @@
             this.checkBoxSourceTrimming = new System.Windows.Forms.CheckBox();
             this.labelsummaryjob = new System.Windows.Forms.Label();
             this.buttonJobOptions = new AMSExplorer.ButtonJobOptions();
+            this.labelProcessorVersion = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.Preset.SuspendLayout();
@@ -75,7 +74,7 @@
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(25, 557);
+            this.label3.Location = new System.Drawing.Point(25, 550);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(126, 15);
             this.label3.TabIndex = 22;
@@ -85,7 +84,7 @@
             // 
             this.textboxoutputassetname.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textboxoutputassetname.Location = new System.Drawing.Point(27, 575);
+            this.textboxoutputassetname.Location = new System.Drawing.Point(27, 568);
             this.textboxoutputassetname.Name = "textboxoutputassetname";
             this.textboxoutputassetname.Size = new System.Drawing.Size(521, 23);
             this.textboxoutputassetname.TabIndex = 21;
@@ -94,7 +93,7 @@
             // 
             this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(25, 509);
+            this.label1.Location = new System.Drawing.Point(25, 502);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 15);
             this.label1.TabIndex = 18;
@@ -104,7 +103,7 @@
             // 
             this.textBoxJobName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxJobName.Location = new System.Drawing.Point(28, 527);
+            this.textBoxJobName.Location = new System.Drawing.Point(28, 520);
             this.textBoxJobName.Name = "textBoxJobName";
             this.textBoxJobName.Size = new System.Drawing.Size(522, 23);
             this.textBoxJobName.TabIndex = 13;
@@ -224,25 +223,6 @@
             this.textBoxConfiguration.TabIndex = 27;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
-            // comboBoxProcessor
-            // 
-            this.comboBoxProcessor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxProcessor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxProcessor.FormattingEnabled = true;
-            this.comboBoxProcessor.Location = new System.Drawing.Point(23, 68);
-            this.comboBoxProcessor.Name = "comboBoxProcessor";
-            this.comboBoxProcessor.Size = new System.Drawing.Size(733, 23);
-            this.comboBoxProcessor.TabIndex = 32;
-            // 
-            // processorlabel
-            // 
-            this.processorlabel.Location = new System.Drawing.Point(20, 51);
-            this.processorlabel.Name = "processorlabel";
-            this.processorlabel.Size = new System.Drawing.Size(73, 25);
-            this.processorlabel.TabIndex = 31;
-            this.processorlabel.Text = "Processor:";
-            // 
             // label34
             // 
             this.label34.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -306,7 +286,7 @@
             // 
             this.moreinfoame.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.moreinfoame.AutoSize = true;
-            this.moreinfoame.Location = new System.Drawing.Point(655, 38);
+            this.moreinfoame.Location = new System.Drawing.Point(655, 68);
             this.moreinfoame.Name = "moreinfoame";
             this.moreinfoame.Size = new System.Drawing.Size(101, 15);
             this.moreinfoame.TabIndex = 73;
@@ -321,7 +301,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.Preset);
             this.tabControl1.Controls.Add(this.Advanced);
-            this.tabControl1.Location = new System.Drawing.Point(24, 111);
+            this.tabControl1.Location = new System.Drawing.Point(24, 97);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(732, 389);
@@ -457,21 +437,32 @@
             this.labelsummaryjob.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelsummaryjob.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelsummaryjob.Location = new System.Drawing.Point(20, 21);
+            this.labelsummaryjob.Location = new System.Drawing.Point(20, 49);
             this.labelsummaryjob.Name = "labelsummaryjob";
-            this.labelsummaryjob.Size = new System.Drawing.Size(498, 20);
+            this.labelsummaryjob.Size = new System.Drawing.Size(614, 41);
             this.labelsummaryjob.TabIndex = 76;
             this.labelsummaryjob.Text = "You will submit n jobs with n tasks";
             // 
             // buttonJobOptions
             // 
             this.buttonJobOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonJobOptions.Location = new System.Drawing.Point(596, 527);
+            this.buttonJobOptions.Location = new System.Drawing.Point(596, 520);
             this.buttonJobOptions.Name = "buttonJobOptions";
             this.buttonJobOptions.Size = new System.Drawing.Size(160, 27);
             this.buttonJobOptions.TabIndex = 75;
             this.buttonJobOptions.Text = "Job options...";
             this.buttonJobOptions.UseVisualStyleBackColor = true;
+            // 
+            // labelProcessorVersion
+            // 
+            this.labelProcessorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelProcessorVersion.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.labelProcessorVersion.Location = new System.Drawing.Point(628, 38);
+            this.labelProcessorVersion.Name = "labelProcessorVersion";
+            this.labelProcessorVersion.Size = new System.Drawing.Size(124, 20);
+            this.labelProcessorVersion.TabIndex = 77;
+            this.labelProcessorVersion.Text = "Version {0}";
+            this.labelProcessorVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // EncodingAMEStandard
             // 
@@ -480,14 +471,13 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 661);
+            this.Controls.Add(this.labelProcessorVersion);
             this.Controls.Add(this.labelsummaryjob);
             this.Controls.Add(this.buttonJobOptions);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.textboxoutputassetname);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxJobName);
-            this.Controls.Add(this.comboBoxProcessor);
-            this.Controls.Add(this.processorlabel);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.moreinfoame);
@@ -518,8 +508,6 @@
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxConfiguration;
         public System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBoxProcessor;
-        private System.Windows.Forms.Label processorlabel;
         private System.Windows.Forms.TextBox textboxoutputassetname;
         private System.Windows.Forms.TextBox textBoxJobName;
         public System.Windows.Forms.Label label34;
@@ -549,5 +537,6 @@
         public System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxSourceDurationTime;
         private System.Windows.Forms.Label labelsummaryjob;
+        private System.Windows.Forms.Label labelProcessorVersion;
     }
 }

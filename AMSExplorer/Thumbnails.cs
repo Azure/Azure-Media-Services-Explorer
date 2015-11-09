@@ -31,6 +31,7 @@ namespace AMSExplorer
     public partial class Thumbnails : Form
     {
         private CloudMediaContext _context;
+        private string _processorVersion;
 
         public string ThumbnailsInputAssetName
         {
@@ -150,31 +151,19 @@ namespace AMSExplorer
             }
         }
 
-
-        public string ThumbnailsProcessorName
-        {
-            get
-            {
-                return processorlabel.Text;
-            }
-            set
-            {
-                processorlabel.Text = value;
-            }
-        }
-
-
-        public Thumbnails(CloudMediaContext context)
+        public Thumbnails(CloudMediaContext context, string processorVersion)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
+            _processorVersion = processorVersion;
             buttonJobOptions.Initialize(_context);
         }
 
 
         private void Thumbnails_Load(object sender, EventArgs e)
         {
+            labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text, _processorVersion);
 
         }
     }
