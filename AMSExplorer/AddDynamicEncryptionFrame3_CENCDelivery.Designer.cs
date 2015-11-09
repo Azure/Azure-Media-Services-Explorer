@@ -39,26 +39,27 @@
             this.label7 = new System.Windows.Forms.Label();
             this.checkBoxEncodingSL = new System.Windows.Forms.CheckBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDownNbOptionsPR = new System.Windows.Forms.NumericUpDown();
             this.radioButtonDeliverPRfromAMS = new System.Windows.Forms.RadioButton();
             this.radioButtonExternalPRServer = new System.Windows.Forms.RadioButton();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericUpDownNbOptionsPlayReady = new System.Windows.Forms.NumericUpDown();
             this.groupBoxWidevine = new System.Windows.Forms.GroupBox();
+            this.panelExternalWidevine = new System.Windows.Forms.Panel();
+            this.textBoxWVLAurl = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.radioButtonExternalWVServer = new System.Windows.Forms.RadioButton();
             this.radioButtonDeliverWVFromAMS = new System.Windows.Forms.RadioButton();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.LAURLWidevine = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            this.numericUpDownNbOptionsWidevine = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.numericUpDownNbOptionsWV = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.groupBoxPlayReady.SuspendLayout();
             this.panelExternalPlayReady.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).BeginInit();
             this.groupBoxWidevine.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWV)).BeginInit();
+            this.panelExternalWidevine.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWidevine)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -109,15 +110,14 @@
             // groupBoxPlayReady
             // 
             this.groupBoxPlayReady.Controls.Add(this.panelExternalPlayReady);
-            this.groupBoxPlayReady.Controls.Add(this.label8);
-            this.groupBoxPlayReady.Controls.Add(this.label2);
-            this.groupBoxPlayReady.Controls.Add(this.numericUpDownNbOptionsPR);
             this.groupBoxPlayReady.Controls.Add(this.radioButtonDeliverPRfromAMS);
             this.groupBoxPlayReady.Controls.Add(this.radioButtonExternalPRServer);
+            this.groupBoxPlayReady.Controls.Add(this.numericUpDownNbOptionsPlayReady);
+            this.groupBoxPlayReady.Controls.Add(this.label2);
             this.groupBoxPlayReady.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxPlayReady.Location = new System.Drawing.Point(12, 91);
+            this.groupBoxPlayReady.Location = new System.Drawing.Point(12, 87);
             this.groupBoxPlayReady.Name = "groupBoxPlayReady";
-            this.groupBoxPlayReady.Size = new System.Drawing.Size(645, 265);
+            this.groupBoxPlayReady.Size = new System.Drawing.Size(645, 226);
             this.groupBoxPlayReady.TabIndex = 52;
             this.groupBoxPlayReady.TabStop = false;
             this.groupBoxPlayReady.Text = "PlayReady";
@@ -132,7 +132,7 @@
             this.panelExternalPlayReady.Controls.Add(this.checkBoxEncodingSL);
             this.panelExternalPlayReady.Controls.Add(this.label3);
             this.panelExternalPlayReady.Enabled = false;
-            this.panelExternalPlayReady.Location = new System.Drawing.Point(41, 122);
+            this.panelExternalPlayReady.Location = new System.Drawing.Point(41, 81);
             this.panelExternalPlayReady.Name = "panelExternalPlayReady";
             this.panelExternalPlayReady.Size = new System.Drawing.Size(597, 127);
             this.panelExternalPlayReady.TabIndex = 81;
@@ -192,11 +192,36 @@
             this.label3.TabIndex = 77;
             this.label3.Text = "License Acquisition Url :";
             // 
+            // radioButtonDeliverPRfromAMS
+            // 
+            this.radioButtonDeliverPRfromAMS.AutoSize = true;
+            this.radioButtonDeliverPRfromAMS.Checked = true;
+            this.radioButtonDeliverPRfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonDeliverPRfromAMS.Location = new System.Drawing.Point(41, 34);
+            this.radioButtonDeliverPRfromAMS.Name = "radioButtonDeliverPRfromAMS";
+            this.radioButtonDeliverPRfromAMS.Size = new System.Drawing.Size(193, 19);
+            this.radioButtonDeliverPRfromAMS.TabIndex = 63;
+            this.radioButtonDeliverPRfromAMS.TabStop = true;
+            this.radioButtonDeliverPRfromAMS.Text = "From Azure Media Services with";
+            this.radioButtonDeliverPRfromAMS.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonExternalPRServer
+            // 
+            this.radioButtonExternalPRServer.AutoSize = true;
+            this.radioButtonExternalPRServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonExternalPRServer.Location = new System.Drawing.Point(41, 59);
+            this.radioButtonExternalPRServer.Name = "radioButtonExternalPRServer";
+            this.radioButtonExternalPRServer.Size = new System.Drawing.Size(214, 19);
+            this.radioButtonExternalPRServer.TabIndex = 62;
+            this.radioButtonExternalPRServer.Text = "An external PlayReady server is used";
+            this.radioButtonExternalPRServer.UseVisualStyleBackColor = true;
+            this.radioButtonExternalPRServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalPRServer_CheckedChanged);
+            // 
             // label8
             // 
             this.label8.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label8.Location = new System.Drawing.Point(64, 58);
+            this.label8.Location = new System.Drawing.Point(50, 566);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(574, 42);
             this.label8.TabIndex = 69;
@@ -207,176 +232,152 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(521, 33);
+            this.label2.Location = new System.Drawing.Point(300, 38);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 15);
             this.label2.TabIndex = 65;
             this.label2.Text = "option(s)";
             // 
-            // numericUpDownNbOptionsPR
+            // numericUpDownNbOptionsPlayReady
             // 
-            this.numericUpDownNbOptionsPR.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownNbOptionsPR.Location = new System.Drawing.Point(461, 31);
-            this.numericUpDownNbOptionsPR.Maximum = new decimal(new int[] {
+            this.numericUpDownNbOptionsPlayReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownNbOptionsPlayReady.Location = new System.Drawing.Point(240, 34);
+            this.numericUpDownNbOptionsPlayReady.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.numericUpDownNbOptionsPR.Minimum = new decimal(new int[] {
+            this.numericUpDownNbOptionsPlayReady.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            this.numericUpDownNbOptionsPR.Name = "numericUpDownNbOptionsPR";
-            this.numericUpDownNbOptionsPR.Size = new System.Drawing.Size(54, 23);
-            this.numericUpDownNbOptionsPR.TabIndex = 64;
-            this.numericUpDownNbOptionsPR.Value = new decimal(new int[] {
+            this.numericUpDownNbOptionsPlayReady.Name = "numericUpDownNbOptionsPlayReady";
+            this.numericUpDownNbOptionsPlayReady.Size = new System.Drawing.Size(54, 23);
+            this.numericUpDownNbOptionsPlayReady.TabIndex = 64;
+            this.numericUpDownNbOptionsPlayReady.Value = new decimal(new int[] {
             1,
             0,
             0,
             0});
-            // 
-            // radioButtonDeliverPRfromAMS
-            // 
-            this.radioButtonDeliverPRfromAMS.AutoSize = true;
-            this.radioButtonDeliverPRfromAMS.Checked = true;
-            this.radioButtonDeliverPRfromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDeliverPRfromAMS.Location = new System.Drawing.Point(41, 31);
-            this.radioButtonDeliverPRfromAMS.Name = "radioButtonDeliverPRfromAMS";
-            this.radioButtonDeliverPRfromAMS.Size = new System.Drawing.Size(414, 19);
-            this.radioButtonDeliverPRfromAMS.TabIndex = 63;
-            this.radioButtonDeliverPRfromAMS.TabStop = true;
-            this.radioButtonDeliverPRfromAMS.Text = "From Azure Media Services - Authorization policy for the content key with";
-            this.radioButtonDeliverPRfromAMS.UseVisualStyleBackColor = true;
-            // 
-            // radioButtonExternalPRServer
-            // 
-            this.radioButtonExternalPRServer.AutoSize = true;
-            this.radioButtonExternalPRServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalPRServer.Location = new System.Drawing.Point(41, 97);
-            this.radioButtonExternalPRServer.Name = "radioButtonExternalPRServer";
-            this.radioButtonExternalPRServer.Size = new System.Drawing.Size(330, 19);
-            this.radioButtonExternalPRServer.TabIndex = 62;
-            this.radioButtonExternalPRServer.Text = "An external PlayReady server is used to deliver the licenses";
-            this.radioButtonExternalPRServer.UseVisualStyleBackColor = true;
-            this.radioButtonExternalPRServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalPRServer_CheckedChanged);
             // 
             // groupBoxWidevine
             // 
+            this.groupBoxWidevine.Controls.Add(this.numericUpDownNbOptionsWidevine);
+            this.groupBoxWidevine.Controls.Add(this.panelExternalWidevine);
             this.groupBoxWidevine.Controls.Add(this.label6);
-            this.groupBoxWidevine.Controls.Add(this.numericUpDownNbOptionsWV);
             this.groupBoxWidevine.Controls.Add(this.radioButtonExternalWVServer);
             this.groupBoxWidevine.Controls.Add(this.radioButtonDeliverWVFromAMS);
-            this.groupBoxWidevine.Controls.Add(this.label5);
-            this.groupBoxWidevine.Controls.Add(this.label11);
-            this.groupBoxWidevine.Controls.Add(this.LAURLWidevine);
-            this.groupBoxWidevine.Controls.Add(this.label4);
             this.groupBoxWidevine.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxWidevine.Location = new System.Drawing.Point(12, 400);
+            this.groupBoxWidevine.Location = new System.Drawing.Point(12, 338);
             this.groupBoxWidevine.Name = "groupBoxWidevine";
             this.groupBoxWidevine.Size = new System.Drawing.Size(645, 203);
             this.groupBoxWidevine.TabIndex = 71;
             this.groupBoxWidevine.TabStop = false;
             this.groupBoxWidevine.Text = "Widevine";
             // 
+            // panelExternalWidevine
+            // 
+            this.panelExternalWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelExternalWidevine.Controls.Add(this.textBoxWVLAurl);
+            this.panelExternalWidevine.Controls.Add(this.label4);
+            this.panelExternalWidevine.Controls.Add(this.label5);
+            this.panelExternalWidevine.Enabled = false;
+            this.panelExternalWidevine.Location = new System.Drawing.Point(41, 82);
+            this.panelExternalWidevine.Name = "panelExternalWidevine";
+            this.panelExternalWidevine.Size = new System.Drawing.Size(597, 84);
+            this.panelExternalWidevine.TabIndex = 83;
+            // 
+            // textBoxWVLAurl
+            // 
+            this.textBoxWVLAurl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxWVLAurl.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxWVLAurl.Location = new System.Drawing.Point(26, 33);
+            this.textBoxWVLAurl.Name = "textBoxWVLAurl";
+            this.textBoxWVLAurl.Size = new System.Drawing.Size(419, 23);
+            this.textBoxWVLAurl.TabIndex = 78;
+            // 
+            // label4
+            // 
+            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
+            this.label4.Location = new System.Drawing.Point(453, 36);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(30, 15);
+            this.label4.TabIndex = 79;
+            this.label4.Text = "(Url)";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(23, 13);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 15);
+            this.label5.TabIndex = 77;
+            this.label5.Text = "License Acquisition Url :";
+            // 
             // radioButtonExternalWVServer
             // 
             this.radioButtonExternalWVServer.AutoSize = true;
             this.radioButtonExternalWVServer.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonExternalWVServer.Location = new System.Drawing.Point(58, 75);
+            this.radioButtonExternalWVServer.Location = new System.Drawing.Point(41, 57);
             this.radioButtonExternalWVServer.Name = "radioButtonExternalWVServer";
-            this.radioButtonExternalWVServer.Size = new System.Drawing.Size(325, 19);
+            this.radioButtonExternalWVServer.Size = new System.Drawing.Size(209, 19);
             this.radioButtonExternalWVServer.TabIndex = 82;
-            this.radioButtonExternalWVServer.Text = "An external Widevine server is used to deliver the licenses";
+            this.radioButtonExternalWVServer.Text = "An external Widevine server is used";
             this.radioButtonExternalWVServer.UseVisualStyleBackColor = true;
+            this.radioButtonExternalWVServer.CheckedChanged += new System.EventHandler(this.radioButtonExternalWVServer_CheckedChanged);
             // 
             // radioButtonDeliverWVFromAMS
             // 
             this.radioButtonDeliverWVFromAMS.AutoSize = true;
             this.radioButtonDeliverWVFromAMS.Checked = true;
             this.radioButtonDeliverWVFromAMS.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButtonDeliverWVFromAMS.Location = new System.Drawing.Point(58, 13);
+            this.radioButtonDeliverWVFromAMS.Location = new System.Drawing.Point(41, 32);
             this.radioButtonDeliverWVFromAMS.Name = "radioButtonDeliverWVFromAMS";
-            this.radioButtonDeliverWVFromAMS.Size = new System.Drawing.Size(414, 19);
+            this.radioButtonDeliverWVFromAMS.Size = new System.Drawing.Size(193, 19);
             this.radioButtonDeliverWVFromAMS.TabIndex = 82;
             this.radioButtonDeliverWVFromAMS.TabStop = true;
-            this.radioButtonDeliverWVFromAMS.Text = "From Azure Media Services - Authorization policy for the content key with";
+            this.radioButtonDeliverWVFromAMS.Text = "From Azure Media Services with";
             this.radioButtonDeliverWVFromAMS.UseVisualStyleBackColor = true;
             // 
-            // label5
+            // numericUpDownNbOptionsWidevine
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(64, 99);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(133, 15);
-            this.label5.TabIndex = 81;
-            this.label5.Text = "License Acquisition Url :";
-            // 
-            // label11
-            // 
-            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label11.Location = new System.Drawing.Point(494, 120);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(30, 15);
-            this.label11.TabIndex = 86;
-            this.label11.Text = "(Url)";
-            // 
-            // LAURLWidevine
-            // 
-            this.LAURLWidevine.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.LAURLWidevine.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.LAURLWidevine.Location = new System.Drawing.Point(67, 117);
-            this.LAURLWidevine.Name = "LAURLWidevine";
-            this.LAURLWidevine.Size = new System.Drawing.Size(419, 23);
-            this.LAURLWidevine.TabIndex = 85;
-            // 
-            // label4
-            // 
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.SystemColors.WindowFrame;
-            this.label4.Location = new System.Drawing.Point(38, 35);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(583, 23);
-            this.label4.TabIndex = 70;
-            this.label4.Text = "As of today, Widevine licenses must be delivered by a third party.";
+            this.numericUpDownNbOptionsWidevine.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDownNbOptionsWidevine.Location = new System.Drawing.Point(240, 32);
+            this.numericUpDownNbOptionsWidevine.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.numericUpDownNbOptionsWidevine.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numericUpDownNbOptionsWidevine.Name = "numericUpDownNbOptionsWidevine";
+            this.numericUpDownNbOptionsWidevine.Size = new System.Drawing.Size(54, 23);
+            this.numericUpDownNbOptionsWidevine.TabIndex = 82;
+            this.numericUpDownNbOptionsWidevine.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(535, 15);
+            this.label6.Location = new System.Drawing.Point(300, 36);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(55, 15);
             this.label6.TabIndex = 83;
             this.label6.Text = "option(s)";
-            // 
-            // numericUpDownNbOptionsWV
-            // 
-            this.numericUpDownNbOptionsWV.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDownNbOptionsWV.Location = new System.Drawing.Point(475, 13);
-            this.numericUpDownNbOptionsWV.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.numericUpDownNbOptionsWV.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.numericUpDownNbOptionsWV.Name = "numericUpDownNbOptionsWV";
-            this.numericUpDownNbOptionsWV.Size = new System.Drawing.Size(54, 23);
-            this.numericUpDownNbOptionsWV.TabIndex = 82;
-            this.numericUpDownNbOptionsWV.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // AddDynamicEncryptionFrame3_CENCDelivery
             // 
@@ -386,6 +387,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(681, 741);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.groupBoxWidevine);
             this.Controls.Add(this.groupBoxPlayReady);
             this.Controls.Add(this.panel1);
@@ -400,10 +402,12 @@
             this.groupBoxPlayReady.PerformLayout();
             this.panelExternalPlayReady.ResumeLayout(false);
             this.panelExternalPlayReady.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsPlayReady)).EndInit();
             this.groupBoxWidevine.ResumeLayout(false);
             this.groupBoxWidevine.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWV)).EndInit();
+            this.panelExternalWidevine.ResumeLayout(false);
+            this.panelExternalWidevine.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownNbOptionsWidevine)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -417,24 +421,24 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.GroupBox groupBoxPlayReady;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsPR;
+        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsPlayReady;
         private System.Windows.Forms.RadioButton radioButtonDeliverPRfromAMS;
         private System.Windows.Forms.RadioButton radioButtonExternalPRServer;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox groupBoxWidevine;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textBoxPRLAurl;
         private System.Windows.Forms.CheckBox checkBoxEncodingSL;
         public System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox LAURLWidevine;
         private System.Windows.Forms.Button buttonPlayReadyTestSettings;
         private System.Windows.Forms.Panel panelExternalPlayReady;
         private System.Windows.Forms.RadioButton radioButtonExternalWVServer;
         private System.Windows.Forms.RadioButton radioButtonDeliverWVFromAMS;
+        private System.Windows.Forms.Panel panelExternalWidevine;
+        private System.Windows.Forms.TextBox textBoxWVLAurl;
+        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsWidevine;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.NumericUpDown numericUpDownNbOptionsWV;
     }
 }

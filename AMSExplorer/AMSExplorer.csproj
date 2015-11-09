@@ -170,6 +170,12 @@
     <Compile Include="AddDynamicEncryptionFrame2_AESKeyConfig.Designer.cs">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddDynamicEncryptionFrame6_WidevineLicense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDynamicEncryptionFrame6_WidevineLicense.Designer.cs">
+      <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChannelRunOnPremisesEncoder.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -653,6 +659,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AddDynamicEncryptionFrame2_AESKeyConfig.resx">
       <DependentUpon>AddDynamicEncryptionFrame2_AESKeyConfig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDynamicEncryptionFrame6_WidevineLicense.resx">
+      <DependentUpon>AddDynamicEncryptionFrame6_WidevineLicense.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ChannelRunOnPremisesEncoder.resx">
       <DependentUpon>ChannelRunOnPremisesEncoder.cs</DependentUpon>

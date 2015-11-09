@@ -34,6 +34,7 @@ namespace AMSExplorer
         private readonly string _PlayReadyTestLAURL = "http://playready.directtaps.net/pr/svc/rightsmanager.asmx?PlayRight=1&UseSimpleNonPersistentLicense=1";
         private readonly string _PlayReadyTestKeySeed = "XVBovsmzhP9gRIZxWfFta3VVRPzVEWmJsazEJ46I";
 
+     
         public Uri PlayReadyLAurl
         {
             get
@@ -72,47 +73,49 @@ namespace AMSExplorer
                 string myuri = null;
                 if (_WidevinePackagingEnabled)
                 {
-                    myuri = LAURLWidevine.Text.Trim();
+                    myuri = textBoxWVLAurl.Text.Trim();
                 }
                 return myuri;
             }
             set
             {
-                LAURLWidevine.Text = value.ToString();
+                textBoxWVLAurl.Text = value.ToString();
             }
         }
 
 
 
-        public int GetNumberOfAuthorizationPlayReadyPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+        public int GetNumberOfAuthorizationPolicyOptionsPlayReady // if 0, then no authorization policy. If > 0, then renturn the number of options
         {
             get
             {
-                if (radioButtonExternalPRServer.Checked)
+                if (radioButtonExternalPRServer.Checked && radioButtonExternalPRServer.Checked)
                 {
                     return 0;
                 }
                 else
                 {
-                    return (int)numericUpDownNbOptionsPR.Value;
+                    return (int)numericUpDownNbOptionsPlayReady.Value;
                 }
             }
         }
 
-        public int GetNumberOfAuthorizationWidevinePolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+        public int GetNumberOfAuthorizationPolicyOptionsWidevine // if 0, then no authorization policy. If > 0, then renturn the number of options
         {
             get
             {
-                if (radioButtonExternalWVServer.Checked)
+                if (radioButtonExternalWVServer.Checked && radioButtonExternalWVServer.Checked)
                 {
                     return 0;
                 }
                 else
                 {
-                    return (int)numericUpDownNbOptionsWV.Value;
+                    return (int)numericUpDownNbOptionsWidevine.Value;
                 }
             }
         }
+
+
 
         private CloudMediaContext _context;
         private bool _PlayReadyPackagingEnabled;
@@ -149,6 +152,19 @@ namespace AMSExplorer
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
             panelExternalPlayReady.Enabled = radioButtonExternalPRServer.Checked;
+            if (radioButtonExternalPRServer.Checked && radioButtonExternalWVServer.Checked)
+            {
+                numericUpDownNbOptionsPlayReady.Enabled = false;
+            }
+            else
+            {
+                numericUpDownNbOptionsPlayReady.Enabled = true;
+            }
+        }
+
+        private void radioButtonExternalWVServer_CheckedChanged(object sender, EventArgs e)
+        {
+            panelExternalWidevine.Enabled = radioButtonExternalWVServer.Checked;
         }
     }
 }

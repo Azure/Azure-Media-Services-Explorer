@@ -1,6 +1,6 @@
 ﻿namespace AMSExplorer
 {
-    partial class AddDynamicEncryptionFrame5_PlayReadyLicense
+    partial class AddDynamicEncryptionFrame6_WidevineLicense
     {
         /// <summary>
         /// Required designer variable.
@@ -918,9 +918,9 @@
             this.labelstep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelstep.Location = new System.Drawing.Point(26, 21);
             this.labelstep.Name = "labelstep";
-            this.labelstep.Size = new System.Drawing.Size(402, 42);
+            this.labelstep.Size = new System.Drawing.Size(396, 42);
             this.labelstep.TabIndex = 85;
-            this.labelstep.Text = "Step {0}\r\nSpecify the PlayReady license template for option #{1}";
+            this.labelstep.Text = "Step {0}\r\nSpecify the Widevine license template for option #{1}";
             // 
             // checkBoxImportPolicyFile
             // 
@@ -960,7 +960,7 @@
             this.openFileDialogPreset.DefaultExt = "xml";
             this.openFileDialogPreset.Filter = "XML files|*.xml|All files|*.*";
             // 
-            // AddDynamicEncryptionFrame5_PlayReadyLicense
+            // AddDynamicEncryptionFrame6_WidevineLicense
             // 
             this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -979,7 +979,7 @@
             this.Controls.Add(this.label13);
             this.Controls.Add(this.moreinfocompliance);
             this.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.Name = "AddDynamicEncryptionFrame5_PlayReadyLicense";
+            this.Name = "AddDynamicEncryptionFrame6_WidevineLicense";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Dynamic Encryption - Step {0}";
             this.Load += new System.EventHandler(this.PlayReadyLicense_Load);

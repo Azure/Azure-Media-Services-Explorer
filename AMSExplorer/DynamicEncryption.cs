@@ -241,7 +241,7 @@ namespace AMSExplorer
 
         }
 
-        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyPlayReady(IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
+        public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType deliveryType, IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
         {
             string tokenTemplateString = GenerateTokenRequirements(tokentype, Audience, Issuer, tokenclaimslist, AddContentKeyIdentifierClaim, mytokenverificationkey, openIdDiscoveryPath);
             string tname = detailedtokentype.ToString();
@@ -257,8 +257,8 @@ namespace AMSExplorer
     };
 
             IContentKeyAuthorizationPolicyOption policyOption =
-         _context.ContentKeyAuthorizationPolicyOptions.Create(tname + "Token option",
-             ContentKeyDeliveryType.PlayReadyLicense,
+         _context.ContentKeyAuthorizationPolicyOptions.Create(tname + " Token option "+ deliveryType.ToString(),
+             deliveryType,
                  restrictions, newLicenseTemplate);
 
             IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
@@ -565,9 +565,9 @@ namespace AMSExplorer
             }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
 
-            
+
             // PlayReady
-            if(form1.PlayReadyPackaging)
+            if (form1.PlayReadyPackaging)
             {
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringPRacquisitionUrl);
 
@@ -576,7 +576,7 @@ namespace AMSExplorer
                     assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyCustomAttributes, form1.PlayReadyCustomAttributes);
                 }
             }
-           
+
 
             // Widevine
             if (form1.WidevinePackaging && widevineAcquisitionUrl != null) // let's add Widevine

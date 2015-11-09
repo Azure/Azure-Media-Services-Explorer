@@ -31,11 +31,10 @@ using System.IO;
 
 namespace AMSExplorer
 {
-    public partial class AddDynamicEncryptionFrame5_PlayReadyLicense : Form
+    public partial class AddDynamicEncryptionFrame6_WidevineLicense : Form
     {
         private string PlayReadyPolicyImportedfromXML = null;
 
-       
         public string GetLicenseTemplate
         {
             get
@@ -109,7 +108,7 @@ namespace AMSExplorer
         }
 
 
-        public AddDynamicEncryptionFrame5_PlayReadyLicense(int step = -1, int option = -1, bool laststep = true)
+        public AddDynamicEncryptionFrame6_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
