@@ -53,6 +53,8 @@ using System.Text.RegularExpressions;
 using System.IdentityModel.Tokens;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Microsoft.WindowsAzure.Storage.Shared.Protocol;
+using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -8121,14 +8123,14 @@ namespace AMSExplorer
                                 var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
                                 if (form3_CENC.ShowDialog() == DialogResult.OK)
                                 {
-                                    bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0;
+                                    bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions > 0;
 
                                     List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
                                     List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5list = new List<AddDynamicEncryptionFrame5_PlayReadyLicense>();
                                     bool usercancelledform4or5 = false;
                                     int step = 3;
                                     string tokensymmetrickey = null;
-                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptions; i++)
+                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions; i++)
                                     {
                                         AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_CENC.Left, Top = form2_CENC.Top };
                                         if (form4.ShowDialog() == DialogResult.OK)
@@ -8136,7 +8138,7 @@ namespace AMSExplorer
                                             step++;
                                             form4list.Add(form4);
                                             tokensymmetrickey = form4.SymmetricKey;
-                                            AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptions - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                            AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
                                             if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                             {
                                                 step++;
@@ -8157,7 +8159,7 @@ namespace AMSExplorer
                                     }
                                     if (!usercancelledform4or5)
                                     {
-                                        DoDynamicEncryptionAndKeyDeliveryWithPlayReady(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, true);
+                                        DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, true);
                                         oktoproceed = true;
                                         dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
                                         dataGridViewAssetsV.AnalyzeItemsInBackground();
@@ -8227,7 +8229,7 @@ namespace AMSExplorer
 
 
 
-        private void DoDynamicEncryptionAndKeyDeliveryWithPlayReady(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form3list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form4PlayReadyLicenseList, bool DisplayUI)
+        private void DoDynamicEncryptionAndKeyDeliveryWithCENC(List<IAsset> SelectedAssets, AddDynamicEncryptionFrame1 form1, AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC, AddDynamicEncryptionFrame3_CENCDelivery form3_CENC, List<AddDynamicEncryptionFrame4> form4list, List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5PlayReadyLicenseList, bool DisplayUI)
         {
             bool ErrorCreationKey = false;
             bool reusekey = false;
@@ -8276,7 +8278,8 @@ namespace AMSExplorer
                     {
                         ErrorCreationKey = false;
 
-                        if (form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0 && (form2_CENC.ContentKeyRandomGeneration)) // Azure will deliver the license and user want to auto generate the key, so we can create a key with a random content key
+                        if ((form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions+ form3_CENC.GetNumberOfAuthorizationWidevinePolicyOptions) > 0 && (form2_CENC.ContentKeyRandomGeneration))
+                            // Azure will deliver the PR or WV license and user want to auto generate the key, so we can create a key with a random content key
                         {
                             try
                             {
@@ -8295,7 +8298,7 @@ namespace AMSExplorer
                             }
 
                         }
-                        else // user wants to deliver with an external PlayReady server or want to provide the key, so let's create the key based on what the user input
+                        else // user wants to deliver with an external PlayReady or Widevine server or want to provide the key, so let's create the key based on what the user input
                         {
                             // if the key does not exist in the account (same key id), let's create it
                             if ((firstkeycreation && !reusekey) || form2_CENC.KeyId == null) // if we need to generate a new key id for each asset
@@ -8352,16 +8355,17 @@ namespace AMSExplorer
                             }
                         }
                     }
-                    else if (form3_CENC.GetNumberOfAuthorizationPolicyOptions == 0)  // user wants to deliver with an external PlayReady server but the key exists already !
+                    else if (form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions + form3_CENC.GetNumberOfAuthorizationWidevinePolicyOptions == 0) 
+                        // user wants to deliver with an external PlayReady and/or Widevine server but the key exists already !
                     {
-                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady server can deliver the license for this asset.", AssetToProcess.Name, true);
+                        TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
                     }
                     else // let's use existing content key
                     {
                         contentKey = contentkeys.FirstOrDefault();
                         TextBoxLogWriteLine("Existing key '{0}' will be used for asset '{1}'.", contentKey.Id, AssetToProcess.Name);
                     }
-                    if (form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0) // PlayReady license and delivery from Azure Media Services
+                    if (form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions > 0) // PlayReady license and delivery from Azure Media Services
                     {
                         // let's create the Authorization Policy
                         IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
@@ -8372,14 +8376,14 @@ namespace AMSExplorer
                         contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
                         contentKey = contentKey.UpdateAsync().Result;
 
-                        foreach (var form3 in form3list)
+                        foreach (var form4 in form4list)
                         {
                             // let's build the PlayReady license template
                             string PlayReadyLicenseDeliveryConfig = null;
                             ErrorCreationKey = false;
                             try
                             {
-                                PlayReadyLicenseDeliveryConfig = form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate;
+                                PlayReadyLicenseDeliveryConfig = form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
                                 // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
                             }
                             catch (Exception e)
@@ -8394,7 +8398,7 @@ namespace AMSExplorer
                                 IContentKeyAuthorizationPolicyOption policyOption = null;
                                 try
                                 {
-                                    switch (form3.GetKeyRestrictionType)
+                                    switch (form4.GetKeyRestrictionType)
                                     {
                                         case ContentKeyRestrictionType.Open:
                                             policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.PlayReadyLicense, PlayReadyLicenseDeliveryConfig, _context);
@@ -8405,38 +8409,38 @@ namespace AMSExplorer
                                         case ContentKeyRestrictionType.TokenRestricted:
                                             TokenVerificationKey mytokenverifkey = null;
                                             string OpenIdDoc = null;
-                                            switch (form3.GetDetailedTokenType)
+                                            switch (form4.GetDetailedTokenType)
                                             {
                                                 case ExplorerTokenType.SWT:
                                                 case ExplorerTokenType.JWTSym:
-                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form3.SymmetricKey));
+                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
                                                     break;
 
                                                 case ExplorerTokenType.JWTOpenID:
-                                                    OpenIdDoc = form3.GetOpenIdDiscoveryDocument;
+                                                    OpenIdDoc = form4.GetOpenIdDiscoveryDocument;
                                                     break;
 
                                                 case ExplorerTokenType.JWTX509:
-                                                    mytokenverifkey = new X509CertTokenVerificationKey(form3.GetX509Certificate);
+                                                    mytokenverifkey = new X509CertTokenVerificationKey(form4.GetX509Certificate);
                                                     break;
                                             }
 
-                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form3.GetAudience, form3.GetIssuer, form3.GetTokenRequiredClaims, form3.AddContentKeyIdentifierClaim, form3.GetTokenType, form3.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
                                             TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             contentKeyAuthorizationPolicy.Options.Add(policyOption);
 
-                                            if (form3.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
+                                            if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
                                             {
                                                 // let display a test token
                                                 X509SigningCredentials signingcred = null;
-                                                if (form3.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                                if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
                                                 {
-                                                    signingcred = new X509SigningCredentials(form3.GetX509Certificate);
+                                                    signingcred = new X509SigningCredentials(form4.GetX509Certificate);
                                                 }
 
                                                 _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
                                                 DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
-                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form3list.IndexOf(form3), form3.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form4list.IndexOf(form4), form4.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
                                                 System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
                                             }
                                             break;
@@ -8458,6 +8462,132 @@ namespace AMSExplorer
                         contentKeyAuthorizationPolicy.Update();
                     }
 
+
+
+                    // Widevine license delivery
+                    if (form3_CENC.GetNumberOfAuthorizationWidevinePolicyOptions > 0) // Widevine license and delivery from Azure Media Services
+                    {
+                        // let's create the Authorization Policy
+                        IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
+                                       ContentKeyAuthorizationPolicies.
+                                       CreateAsync("My Authorization Policy").Result;
+
+                        // Associate the content key authorization policy with the content key.
+                        contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
+                        contentKey = contentKey.UpdateAsync().Result;
+
+                        foreach (var form4 in form4list)
+                        {
+                            // let's build the PlayReady license template
+                            string WidevineLicenseDeliveryConfig = null;
+                            ErrorCreationKey = false;
+                            try
+                            {
+                                //WidevineLicenseDeliveryConfig = form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
+
+                                var template = new WidevineMessage
+                                {
+                                    allowed_track_types = AllowedTrackTypes.SD_HD,
+                                    content_key_specs = new[]
+                  {
+                        new ContentKeySpecs
+                        {
+                            key_id = contentKey.Id,
+                            required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
+                            security_level = 1,
+                            track_type = "SD"
+                        }
+                    },
+                                    policy_overrides = new
+                                    {
+                                        can_play = true,
+                                        can_persist = true,
+                                        can_renew = true,
+                                        license_duration_seconds = 10,
+                                        renewal_delay_seconds = 3,
+                                    }
+                                };
+
+                                WidevineLicenseDeliveryConfig = JsonConvert.SerializeObject(template);
+                            }
+                            catch (Exception e)
+                            {
+                                // Add useful information to the exception
+                                TextBoxLogWriteLine("There is a problem when configuring the Widevine license template.", true);
+                                TextBoxLogWriteLine(e);
+                                ErrorCreationKey = true;
+                            }
+                            if (!ErrorCreationKey)
+                            {
+                                IContentKeyAuthorizationPolicyOption policyOption = null;
+                                try
+                                {
+                                    switch (form4.GetKeyRestrictionType)
+                                    {
+                                        case ContentKeyRestrictionType.Open:
+                                            policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.Widevine, WidevineLicenseDeliveryConfig, _context);
+                                            TextBoxLogWriteLine("Created Open authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+                                            break;
+
+                                        case ContentKeyRestrictionType.TokenRestricted:
+                                            TokenVerificationKey mytokenverifkey = null;
+                                            string OpenIdDoc = null;
+                                            switch (form4.GetDetailedTokenType)
+                                            {
+                                                case ExplorerTokenType.SWT:
+                                                case ExplorerTokenType.JWTSym:
+                                                    mytokenverifkey = new SymmetricVerificationKey(Convert.FromBase64String(form4.SymmetricKey));
+                                                    break;
+
+                                                case ExplorerTokenType.JWTOpenID:
+                                                    OpenIdDoc = form4.GetOpenIdDiscoveryDocument;
+                                                    break;
+
+                                                case ExplorerTokenType.JWTX509:
+                                                    mytokenverifkey = new X509CertTokenVerificationKey(form4.GetX509Certificate);
+                                                    break;
+                                            }
+
+                                            policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyPlayReady(contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, WidevineLicenseDeliveryConfig, OpenIdDoc);
+                                            TextBoxLogWriteLine("Created Token CENC authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
+                                            contentKeyAuthorizationPolicy.Options.Add(policyOption);
+
+                                            if (form4.GetDetailedTokenType != ExplorerTokenType.JWTOpenID) // not possible to create a test token if OpenId is used
+                                            {
+                                                // let display a test token
+                                                X509SigningCredentials signingcred = null;
+                                                if (form4.GetDetailedTokenType == ExplorerTokenType.JWTX509)
+                                                {
+                                                    signingcred = new X509SigningCredentials(form4.GetX509Certificate);
+                                                }
+
+                                                _context = Program.ConnectAndGetNewContext(_credentials); // otherwise cache issues with multiple options
+                                                DynamicEncryption.TokenResult testToken = DynamicEncryption.GetTestToken(AssetToProcess, _context, form1.GetContentKeyType, signingcred, policyOption.Id);
+                                                TextBoxLogWriteLine("The authorization test token for option #{0} ({1} with Bearer) is:\n{2}", form4list.IndexOf(form4), form4.GetTokenType.ToString(), Constants.Bearer + testToken.TokenString);
+                                                System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
+                                            }
+                                            break;
+
+
+                                        default:
+                                            break;
+                                    }
+                                }
+                                catch (Exception e)
+                                {
+                                    // Add useful information to the exception
+                                    TextBoxLogWriteLine("There is a problem when creating the authorization policy for '{0}'.", AssetToProcess.Name, true);
+                                    TextBoxLogWriteLine(e);
+                                    ErrorCreationKey = true;
+                                }
+                            }
+                        }
+                        contentKeyAuthorizationPolicy.Update();
+                    }
+
+
+
                     // Let's create the Asset Delivery Policy now
                     if (form1.GetDeliveryPolicyType != AssetDeliveryPolicyType.None && form1.EnableDynEnc)
                     {
@@ -8466,7 +8596,7 @@ namespace AMSExplorer
                         ErrorCreationKey = false;
                         try
                         {
-                            if (form3_CENC.GetNumberOfAuthorizationPolicyOptions > 0) // Licenses delivered by Azure Media Services
+                            if (form3_CENC.GetNumberOfAuthorizationPlayReadyPolicyOptions > 0) // Licenses delivered by Azure Media Services
                             {
                                 DelPol = DynamicEncryption.CreateAssetDeliveryPolicyCENC(AssetToProcess, contentKey, form1, name, _context, null, false, form3_CENC.WidevineLAurl);
                             }

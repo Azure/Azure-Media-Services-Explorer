@@ -70,7 +70,7 @@ namespace AMSExplorer
             get
             {
                 string myuri = null;
-                if ( _WidevinePackagingEnabled)
+                if (_WidevinePackagingEnabled)
                 {
                     myuri = LAURLWidevine.Text.Trim();
                 }
@@ -82,9 +82,9 @@ namespace AMSExplorer
             }
         }
 
-   
 
-        public int GetNumberOfAuthorizationPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+
+        public int GetNumberOfAuthorizationPlayReadyPolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
         {
             get
             {
@@ -94,23 +94,37 @@ namespace AMSExplorer
                 }
                 else
                 {
-                    return (int)numericUpDownNbOptions.Value;
+                    return (int)numericUpDownNbOptionsPR.Value;
                 }
             }
         }
 
+        public int GetNumberOfAuthorizationWidevinePolicyOptions // if 0, then no authorization policy. If > 0, then renturn the number of options
+        {
+            get
+            {
+                if (radioButtonExternalWVServer.Checked)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return (int)numericUpDownNbOptionsWV.Value;
+                }
+            }
+        }
 
         private CloudMediaContext _context;
         private bool _PlayReadyPackagingEnabled;
         private bool _WidevinePackagingEnabled;
 
-        public AddDynamicEncryptionFrame3_CENCDelivery(CloudMediaContext context,bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
+        public AddDynamicEncryptionFrame3_CENCDelivery(CloudMediaContext context, bool PlayReadyPackagingEnabled, bool WidevinePackagingEnabled)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _PlayReadyPackagingEnabled = PlayReadyPackagingEnabled;
-            _WidevinePackagingEnabled= WidevinePackagingEnabled;
+            _WidevinePackagingEnabled = WidevinePackagingEnabled;
             groupBoxWidevine.Enabled = WidevinePackagingEnabled;
             radioButtonExternalPRServer.Enabled = PlayReadyPackagingEnabled;
         }
