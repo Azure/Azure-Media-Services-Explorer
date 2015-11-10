@@ -37,8 +37,8 @@ using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.IdentityModel.Tokens;
 using System.Windows.Forms;
-
-
+using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
@@ -179,7 +179,32 @@ namespace AMSExplorer
             return key;
         }
 
+        public static string CreateWidevineConfigSophisticated(/*Uri keyDeliveryUrl*/)
+        {
+            var template = new WidevineMessage
+            {
+                allowed_track_types = AllowedTrackTypes.SD_HD,
+                content_key_specs = new[]
+                {
+                    new ContentKeySpecs
+                    {
+                        required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
+                        security_level = 1,
+                        track_type = "SD"
+                    }
+                },
+                policy_overrides = new
+                {
+                    can_play = true,
+                    can_persist = true,
+                    can_renew = true,
+                    //renewal_server_url = keyDeliveryUrl.ToString(),
+                }
+            };
 
+            string configuration = JsonConvert.SerializeObject(template);
+            return configuration;
+        }
 
 
         static public IContentKeyAuthorizationPolicyOption AddOpenAuthorizationPolicyOption(IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
@@ -549,26 +574,25 @@ namespace AMSExplorer
 
         static public IAssetDeliveryPolicy CreateAssetDeliveryPolicyCENC(IAsset asset, IContentKey key, AddDynamicEncryptionFrame1 form1, string name, CloudMediaContext _context, Uri playreadyAcquisitionUrl = null, bool playreadyEncodeLAURLForSilverlight = false, string widevineAcquisitionUrl = null)
         {
-            string stringPRacquisitionUrl;
-            if (playreadyEncodeLAURLForSilverlight && playreadyAcquisitionUrl != null)
-            {
-                stringPRacquisitionUrl = playreadyAcquisitionUrl.ToString().Replace("&", "%26");
-            }
-            else
-            {
-                if (playreadyAcquisitionUrl == null)
-                {
-                    playreadyAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
-                }
-
-                stringPRacquisitionUrl = System.Security.SecurityElement.Escape(playreadyAcquisitionUrl.ToString());
-            }
             Dictionary<AssetDeliveryPolicyConfigurationKey, string> assetDeliveryPolicyConfiguration = new Dictionary<AssetDeliveryPolicyConfigurationKey, string>();
-
 
             // PlayReady
             if (form1.PlayReadyPackaging)
             {
+                string stringPRacquisitionUrl;
+                if (playreadyEncodeLAURLForSilverlight && playreadyAcquisitionUrl != null)
+                {
+                    stringPRacquisitionUrl = playreadyAcquisitionUrl.ToString().Replace("&", "%26");
+                }
+                else
+                {
+                    if (playreadyAcquisitionUrl == null)
+                    {
+                        playreadyAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.PlayReadyLicense);
+                    }
+                    stringPRacquisitionUrl = System.Security.SecurityElement.Escape(playreadyAcquisitionUrl.ToString());
+                }
+
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.PlayReadyLicenseAcquisitionUrl, stringPRacquisitionUrl);
 
                 if (form1.PlayReadyCustomAttributes != null) // let's add custom attributes
@@ -579,8 +603,12 @@ namespace AMSExplorer
 
 
             // Widevine
-            if (form1.WidevinePackaging && widevineAcquisitionUrl != null) // let's add Widevine
+            if (form1.WidevinePackaging) // let's add Widevine
             {
+                if (widevineAcquisitionUrl == null)
+                {
+                    widevineAcquisitionUrl = key.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine).ToString();
+                }
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 

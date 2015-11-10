@@ -8111,7 +8111,7 @@ namespace AMSExplorer
                         ///////////////////////////////////////////// CENC Dynamic Encryption
                         case AssetDeliveryPolicyType.DynamicCommonEncryption:
                         case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
-                            //bool NeedToDisplayPlayReadyLicense = form1.GetNumberOfAuthorizationPolicyOptions > 0;
+
                             AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
 
                                 forceusertoprovidekey)
@@ -8137,7 +8137,7 @@ namespace AMSExplorer
                                     string tokensymmetrickey = null;
                                     for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                                     {
-                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
 
                                         if (form4.ShowDialog() == DialogResult.OK)
                                         {
@@ -8158,7 +8158,6 @@ namespace AMSExplorer
                                                     usercancelledform4or5 = true;
                                                 }
                                             }
-
                                         }
                                         else
                                         {
@@ -8169,7 +8168,7 @@ namespace AMSExplorer
                                     // widevine
                                     for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
                                     {
-                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, !NeedToDisplayPlayReadyLicense) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
 
                                         if (form4.ShowDialog() == DialogResult.OK)
                                         {
@@ -8187,8 +8186,6 @@ namespace AMSExplorer
                                             {
                                                 usercancelledform4or6 = true;
                                             }
-
-
                                         }
                                         else
                                         {
@@ -8203,7 +8200,6 @@ namespace AMSExplorer
                                         dataGridViewAssetsV.AnalyzeItemsInBackground();
                                     }
                                 }
-
                             }
                             break;
 
@@ -8393,8 +8389,9 @@ namespace AMSExplorer
                             }
                         }
                     }
-                    else if (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
-                    // user wants to deliver with an external PlayReady and/or Widevine server but the key exists already !
+                    else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
+                    // TO DO ? : if user wants to deliver license from external servers
+                        // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
                     {
                         TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
                     }
@@ -8408,7 +8405,7 @@ namespace AMSExplorer
                         // let's create the Authorization Policy
                         IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
                                        ContentKeyAuthorizationPolicies.
-                                       CreateAsync("My Authorization Policy").Result;
+                                       CreateAsync("Authorization Policy").Result;
 
                         // Associate the content key authorization policy with the content key.
                         contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;
@@ -8441,7 +8438,7 @@ namespace AMSExplorer
                             }
                             else
                             { // user wants to define a Widevine license for this option
-
+                                /*
                                 var template = new WidevineMessage
                                 {
                                     allowed_track_types = AllowedTrackTypes.SD_HD,
@@ -8449,7 +8446,7 @@ namespace AMSExplorer
                                     {
                                             new ContentKeySpecs
                                             {
-                                                key_id = contentKey.Id,
+                                                //key_id = contentKey.Id,
                                                 required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
                                                 security_level = 1,
                                                 track_type = "SD"
@@ -8463,9 +8460,10 @@ namespace AMSExplorer
                                         license_duration_seconds = 10,
                                         renewal_delay_seconds = 3,
                                     }
-                                };
+                                };*/
+                                WidevineLicenseDeliveryConfig = "{}";//  DynamicEncryption.CreateWidevineConfigSophisticated();
 
-                                WidevineLicenseDeliveryConfig = JsonConvert.SerializeObject(template);
+                               // WidevineLicenseDeliveryConfig = JsonConvert.SerializeObject(template);
                             }
 
                             if (!ErrorCreationKey)
@@ -8731,7 +8729,7 @@ namespace AMSExplorer
                         // let's create the Authorization Policy
                         IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
                                        ContentKeyAuthorizationPolicies.
-                                       CreateAsync("My Authorization Policy").Result;
+                                       CreateAsync("Authorization Policy").Result;
 
                         // Associate the content key authorization policy with the content key.
                         contentKey.AuthorizationPolicyId = contentKeyAuthorizationPolicy.Id;

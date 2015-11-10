@@ -396,7 +396,7 @@
             this.Name = "AddDynamicEncryptionFrame3_CENCDelivery";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Dynamic Encryption - Step 3";
-            this.Load += new System.EventHandler(this.SetupDynEnc_Load);
+            this.Load += new System.EventHandler(this.AddDynamicEncryptionFrame3_Load);
             this.panel1.ResumeLayout(false);
             this.groupBoxPlayReady.ResumeLayout(false);
             this.groupBoxPlayReady.PerformLayout();

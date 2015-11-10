@@ -89,7 +89,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonExternalPRServer.Checked && radioButtonExternalPRServer.Checked)
+                if (radioButtonExternalPRServer.Checked && radioButtonExternalPRServer.Checked || !_PlayReadyPackagingEnabled)
                 {
                     return 0;
                 }
@@ -104,7 +104,7 @@ namespace AMSExplorer
         {
             get
             {
-                if (radioButtonExternalWVServer.Checked && radioButtonExternalWVServer.Checked)
+                if ((radioButtonExternalWVServer.Checked && radioButtonExternalWVServer.Checked) || !_WidevinePackagingEnabled)
                 {
                     return 0;
                 }
@@ -128,13 +128,14 @@ namespace AMSExplorer
             _context = context;
             _PlayReadyPackagingEnabled = PlayReadyPackagingEnabled;
             _WidevinePackagingEnabled = WidevinePackagingEnabled;
-            groupBoxWidevine.Enabled = WidevinePackagingEnabled;
-            radioButtonExternalPRServer.Enabled = PlayReadyPackagingEnabled;
         }
 
 
-        private void SetupDynEnc_Load(object sender, EventArgs e)
+        private void AddDynamicEncryptionFrame3_Load(object sender, EventArgs e)
         {
+            groupBoxPlayReady.Enabled = _PlayReadyPackagingEnabled;
+            groupBoxWidevine.Enabled = _WidevinePackagingEnabled;
+
         }
 
 

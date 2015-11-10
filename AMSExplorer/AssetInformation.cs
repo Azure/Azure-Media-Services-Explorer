@@ -804,7 +804,7 @@ namespace AMSExplorer
                 {
                     myAuthPolicy = null;
                 }
-
+                /* // No need for this
                 switch (key.ContentKeyType)
                 {
 
@@ -836,7 +836,7 @@ namespace AMSExplorer
                     default:
                         break;
 
-                }
+                }*/
             }
             else
             {
