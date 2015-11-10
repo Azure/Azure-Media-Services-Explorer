@@ -844,28 +844,6 @@ namespace AMSExplorer
             }
         }
 
-        private static string FormatXmlString(string xmlString)
-        {
-
-            if (string.IsNullOrEmpty(xmlString))
-            {
-
-                return xmlString;
-
-            }
-
-            else
-            {
-
-                System.Xml.Linq.XElement element = System.Xml.Linq.XElement.Parse(xmlString);
-
-                return element.ToString();
-
-            }
-
-        }
-
-
 
         private void AssetInformation_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -1595,7 +1573,7 @@ namespace AMSExplorer
 
                     dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
                     dataGridViewAutPolOption.Rows.Add("Id", option.Id);
-                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", FormatXmlString(option.KeyDeliveryConfiguration));
+                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", option.KeyDeliveryConfiguration);
                     dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
                     List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
                     foreach (var restriction in objList_restriction)
@@ -1608,7 +1586,7 @@ namespace AMSExplorer
                         }
                         if (restriction.Requirements != null)
                         {
-                            dataGridViewAutPolOption.Rows.Add("Restriction Requirements", FormatXmlString(restriction.Requirements));
+                            dataGridViewAutPolOption.Rows.Add("Restriction Requirements", restriction.Requirements);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
                             dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
                             if (tokenTemplate.PrimaryVerificationKey != null)
