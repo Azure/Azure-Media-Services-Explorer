@@ -8390,8 +8390,8 @@ namespace AMSExplorer
                         }
                     }
                     else if (false)//form1.PlayReadyPackaging form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady == 0 || form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine == 0)
-                    // TO DO ? : if user wants to deliver license from external servers
-                        // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
+                                   // TO DO ? : if user wants to deliver license from external servers
+                                   // user wants to deliver license with an external PlayReady and/or Widevine server but the key exists already !
                     {
                         TextBoxLogWriteLine("Warning for asset '{0}'. A CENC key already exists. You need to make sure that your external PlayReady or Widevine server can deliver the license for this asset.", AssetToProcess.Name, true);
                     }
@@ -8438,32 +8438,11 @@ namespace AMSExplorer
                             }
                             else
                             { // user wants to define a Widevine license for this option
-                                /*
-                                var template = new WidevineMessage
-                                {
-                                    allowed_track_types = AllowedTrackTypes.SD_HD,
-                                    content_key_specs = new[]
-                                    {
-                                            new ContentKeySpecs
-                                            {
-                                                //key_id = contentKey.Id,
-                                                required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
-                                                security_level = 1,
-                                                track_type = "SD"
-                                            }
-                                        },
-                                    policy_overrides = new
-                                    {
-                                        can_play = true,
-                                        can_persist = true,
-                                        can_renew = true,
-                                        license_duration_seconds = 10,
-                                        renewal_delay_seconds = 3,
-                                    }
-                                };*/
-                                WidevineLicenseDeliveryConfig = "{}";//  DynamicEncryption.CreateWidevineConfigSophisticated();
+                              
+                                WidevineLicenseDeliveryConfig = form6WidevineLicenseList[form4list.IndexOf(form4)].GetWidevineConfiguration(contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine));
+                                //WidevineLicenseDeliveryConfig = "{}";//  DynamicEncryption.CreateWidevineConfigSophisticated();
 
-                               // WidevineLicenseDeliveryConfig = JsonConvert.SerializeObject(template);
+                                // WidevineLicenseDeliveryConfig = JsonConvert.SerializeObject(template);
                             }
 
                             if (!ErrorCreationKey)
@@ -8508,14 +8487,30 @@ namespace AMSExplorer
                                                     break;
                                             }
 
-
                                             if (ItIsAPlayReadyOption)
                                             {
                                                 policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType.PlayReadyLicense, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, PlayReadyLicenseDeliveryConfig, OpenIdDoc);
                                                 TextBoxLogWriteLine("Created Token PlayReady authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             }
-                                            else
+                                            else //widevine
                                             {
+                                                /*
+                                                // test code
+                                                Uri keyDeliveryUrl = contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine);
+
+                                                string configuration = DynamicEncryption.CreateWidevineConfigSophisticated(keyDeliveryUrl);
+
+                                                byte[] tokenKey = EncryptionHelper.GetTestDataBuffer(16);
+
+                                                var restriction = DynamicEncryption.MakeTokenPolicyRestriction((SymmetricVerificationKey)mytokenverifkey, TokenType.SWT, form4.GetIssuer, form4.GetAudience);
+
+                                                policyOption = DynamicEncryption.AddPolicyOption(_context, restriction, ContentKeyDeliveryType.Widevine, configuration);
+
+                                                string token = DynamicEncryption.MakeSwtToken((SymmetricVerificationKey)mytokenverifkey, form4.GetIssuer, form4.GetAudience);
+                                                */
+
+
+
                                                 policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType.Widevine, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, WidevineLicenseDeliveryConfig, OpenIdDoc);
                                                 TextBoxLogWriteLine("Created Token Widevine authorization policy for the asset {0} ", contentKey.Id, AssetToProcess.Name);
                                             }
@@ -12754,6 +12749,12 @@ namespace AMSExplorer
                 assetsServerQuery = context.Assets.Where(a =>
                                 (!filterday || a.LastModified > datefilter)
                                 );
+            }
+
+            if (!SwitchedToLocalQuery && assetsServerQuery == null) // teh current query did not find asset (locator id search for example)
+            {
+                assets = _context.Assets.AsEnumerable().Take(0);
+                SwitchedToLocalQuery = true;
             }
 
 

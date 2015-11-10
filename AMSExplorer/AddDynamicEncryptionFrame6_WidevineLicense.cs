@@ -28,85 +28,59 @@ using Microsoft.WindowsAzure.MediaServices.Client.ContentKeyAuthorization;
 using Microsoft.WindowsAzure.MediaServices.Client.DynamicEncryption;
 using System.Xml;
 using System.IO;
+using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
+using Newtonsoft.Json;
 
 namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame6_WidevineLicense : Form
     {
-        private string PlayReadyPolicyImportedfromXML = null;
+        public string GetWidevineConfiguration(Uri keyDeliveryUrl)
+        {
 
-        public string GetLicenseTemplate
-        {
-            get
+            var template = new WidevineMessage
             {
-                return checkBoxImportPolicyFile.Checked ? PlayReadyPolicyImportedfromXML : DynamicEncryption.ConfigurePlayReadyLicenseTemplate(GetLicenseTemplateFromControls);
-            }
-        }
-        private PlayReadyLicenseTemplate GetLicenseTemplateFromControls
-        {
-            get
-            {
-                PlayReadyLicenseTemplate licenseTemplate = new PlayReadyLicenseTemplate()
+                content_key_specs = new[]
+                                  {
+                                            new ContentKeySpecs
+                                            {
+                                                required_output_protection = new RequiredOutputProtection { hdcp = (Hdcp)(Enum.Parse(typeof(Hdcp), (string)comboBoxReqOutputProtection.SelectedItem))},
+                                                track_type = textBoxTrackType.Text
+                                            }
+                                        },
+                policy_overrides = new
                 {
-                    LicenseType = (PlayReadyLicenseType)(Enum.Parse(typeof(PlayReadyLicenseType), (string)comboBoxType.SelectedItem)),
-                    AllowTestDevices = checkBoxAllowTestDevices.Checked,
+                    can_play = checkBoxCanPlay.Checked,
+                    can_persist = checkBoxCanPersist.Checked,
+                    can_renew = checkBoxCanRenew.Checked
+                }
+            };
+
+            if (checkBoxAllowTrackType.Checked)
+            {
+                template.allowed_track_types = (AllowedTrackTypes)(Enum.Parse(typeof(AllowedTrackTypes), (string)comboBoxAllowedTrackTypes.SelectedItem));
+            }
+
+            if (checkBoxSecLevel.Checked)
+            {
+                template.content_key_specs.FirstOrDefault().security_level = (int)numericUpDownSecLevel.Value;
+            }
+
+            if (checkBoxCanRenew.Checked)
+            {
+                template.policy_overrides = new
+                {
+                    can_play = checkBoxCanPlay.Checked,
+                    can_persist = checkBoxCanPersist.Checked,
+                    can_renew = checkBoxCanRenew.Checked,
+                    renewal_server_url = keyDeliveryUrl.ToString()
                 };
-
-                if (checkBoxStartDate.Checked)
-                {
-                    if (radioButtonStartDateAbsolute.Checked)
-                    {
-                        licenseTemplate.BeginDate = (DateTime)dateTimePickerStartDate.Value.ToUniversalTime();
-                    }
-                    else // Relative
-                    {
-                        licenseTemplate.RelativeBeginDate = (TimeSpan)new TimeSpan((int)numericUpDownStartDateDays.Value, (int)numericUpDownStartDateHours.Value, (int)numericUpDownStartDateMinutes.Value, 0);
-                    }
-                }
-
-                if (checkBoxEndDate.Checked)
-                {
-                    if (radioButtonEndDateAbsolute.Checked)
-                    {
-                        licenseTemplate.ExpirationDate = (DateTime)dateTimePickerEndDate.Value.ToUniversalTime();
-                    }
-                    else // Relative
-                    {
-                        licenseTemplate.RelativeExpirationDate = (TimeSpan)new TimeSpan((int)numericUpDownEndDateDays.Value, (int)numericUpDownEndDateHours.Value, (int)numericUpDownEndDateMinutes.Value, 0);
-                    }
-                }
-
-                if (checkBoxFPExp.Checked) licenseTemplate.PlayRight.FirstPlayExpiration = (TimeSpan)new TimeSpan((int)numericUpDownFPExpDays.Value, (int)numericUpDownFPExpHours.Value, (int)numericUpDownFPExpMinutes.Value, 0);
-
-                if (licenseTemplate.PlayRight == null) licenseTemplate.PlayRight = new PlayReadyPlayRight();
-                if (checkBoxCompressedDigitalAudioOPL.Checked) licenseTemplate.PlayRight.CompressedDigitalAudioOpl = (int)numericUpDownCompressedDigitalAudioOPL.Value;
-                if (checkBoxCompressedDigitalVideoOPL.Checked) licenseTemplate.PlayRight.CompressedDigitalVideoOpl = (int)numericUpDownCompressedDigitalVideoOPL.Value;
-                if (checkBoxUncompressedDigitalAudioOPL.Checked) licenseTemplate.PlayRight.UncompressedDigitalAudioOpl = (int)numericUpDownUncompressedDigitalAudioOPL.Value;
-                if (checkBoxUncompressedDigitalVideoOPL.Checked) licenseTemplate.PlayRight.UncompressedDigitalVideoOpl = (int)numericUpDownUncompressedDigitalVideoOPL.Value;
-                if (checkBoxAnalogVideoOPL.Checked) licenseTemplate.PlayRight.AnalogVideoOpl = (int)numericUpDownAnalogVideoOPL.Value;
-
-                licenseTemplate.PlayRight.DigitalVideoOnlyContentRestriction = checkBoxDigitalVideoOnlyContentRestriction.Checked;
-                licenseTemplate.PlayRight.ImageConstraintForAnalogComponentVideoRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
-                licenseTemplate.PlayRight.ImageConstraintForAnalogComputerMonitorRestriction = checkBoxImageConstraintForAnalogComponentVideoRestriction.Checked;
-
-                licenseTemplate.PlayRight.AllowPassingVideoContentToUnknownOutput = (UnknownOutputPassingOption)(Enum.Parse(typeof(UnknownOutputPassingOption), (string)comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem));
-
-                return licenseTemplate;
             }
+
+
+
+            return JsonConvert.SerializeObject(template);
         }
-
-        public string PlayReadyPolicyName
-        {
-            get
-            {
-                return textBoxPolicyName.Text;
-            }
-            set
-            {
-                textBoxPolicyName.Text = value;
-            }
-        }
-
 
         public AddDynamicEncryptionFrame6_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
         {
@@ -125,184 +99,29 @@ namespace AMSExplorer
             }
         }
 
-
-        private void action_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void AddDynamicEncryptionFrame6_WidevineLicense_Load(object sender, EventArgs e)
         {
-            Process.Start(e.Link.LinkData as string);
-        }
+            comboBoxAllowedTrackTypes.Items.AddRange(Enum.GetNames(typeof(AllowedTrackTypes)).ToArray());
+            comboBoxAllowedTrackTypes.SelectedItem = Enum.GetName(typeof(AllowedTrackTypes), AllowedTrackTypes.SD_HD);
 
-        private void PlayReadyLicense_Load(object sender, EventArgs e)
-        {
-            moreinfocompliance.Links.Add(new LinkLabel.Link(0, moreinfocompliance.Text.Length, Constants.LinkPlayReadyCompliance));
-            linkLabelPlayReadyPolicy.Links.Add(new LinkLabel.Link(0, linkLabelPlayReadyPolicy.Text.Length, Constants.LinkPlayReadyTemplateInfo));
-
-            comboBoxType.Items.AddRange(Enum.GetNames(typeof(PlayReadyLicenseType)).ToArray()); // license type
-            comboBoxType.SelectedItem = Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent);
-
-            comboBoxAllowPassingVideoContentUnknownOutput.Items.AddRange(Enum.GetNames(typeof(UnknownOutputPassingOption)).ToArray());
-            comboBoxAllowPassingVideoContentUnknownOutput.SelectedItem = Enum.GetName(typeof(UnknownOutputPassingOption), UnknownOutputPassingOption.NotAllowed);
+            comboBoxReqOutputProtection.Items.AddRange(Enum.GetNames(typeof(Hdcp)).ToArray());
+            comboBoxReqOutputProtection.SelectedItem = Enum.GetName(typeof(Hdcp), Hdcp.HDCP_NONE);
         }
 
 
-        private void checkBoxStartDate_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxSecLevel_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonStartDateAbsolute.Enabled = checkBoxStartDate.Checked;
-            radioButtonStartDateRelative.Enabled = checkBoxStartDate.Checked;
-            panelStartDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
-            panelStartDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
-
-            value_SelectedIndexChanged(sender, e);
+            numericUpDownSecLevel.Enabled = checkBoxSecLevel.Checked;
         }
 
-        private void checkBoxEndDate_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxTrackType_CheckedChanged(object sender, EventArgs e)
         {
-            radioButtonEndDateAbsolute.Enabled = checkBoxEndDate.Checked;
-            radioButtonEndDateRelative.Enabled = checkBoxEndDate.Checked;
-            panelEndDateAbsolute.Enabled = checkBoxStartDate.Checked && radioButtonStartDateAbsolute.Checked;
-            panelEndDateRelative.Enabled = checkBoxStartDate.Checked && radioButtonStartDateRelative.Checked;
-
-            value_SelectedIndexChanged(sender, e);
+            textBoxTrackType.Enabled = checkBoxTrackType.Checked;
         }
 
-        private void dateTimePickerStartDate_ValueChanged(object sender, EventArgs e)
+        private void checkBoxAllowTrackType_CheckedChanged(object sender, EventArgs e)
         {
-            dateTimePickerStartTime.Value = dateTimePickerStartDate.Value;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void dateTimePickerStartTime_ValueChanged(object sender, EventArgs e)
-        {
-            dateTimePickerStartDate.Value = dateTimePickerStartTime.Value;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void dateTimePickerEndDate_ValueChanged(object sender, EventArgs e)
-        {
-            dateTimePickerEndTime.Value = dateTimePickerEndDate.Value;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void dateTimePickerEndTime_ValueChanged(object sender, EventArgs e)
-        {
-            dateTimePickerEndDate.Value = dateTimePickerEndTime.Value;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void value_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            bool Error = false;
-            try
-            {
-                PlayReadyLicenseTemplate plt = this.GetLicenseTemplateFromControls;
-            }
-            catch (Exception ex)
-            {
-                labelWarning.Text = Program.GetErrorMessage(ex);
-                Error = true;
-            }
-
-            if (!Error) labelWarning.Text = string.Empty;
-
-        }
-
-        private void checkBoxCompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownCompressedDigitalAudioOPL.Enabled = checkBoxCompressedDigitalAudioOPL.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void checkBoxCompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownCompressedDigitalVideoOPL.Enabled = checkBoxCompressedDigitalVideoOPL.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void checkBoxUncompressedDigitalAudioOPL_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownUncompressedDigitalAudioOPL.Enabled = checkBoxUncompressedDigitalAudioOPL.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void checkBoxUncompressedDigitalVideoOPL_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownUncompressedDigitalVideoOPL.Enabled = checkBoxUncompressedDigitalVideoOPL.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void checkBoxAnalogVideoOPL_CheckedChanged(object sender, EventArgs e)
-        {
-            numericUpDownAnalogVideoOPL.Enabled = checkBoxAnalogVideoOPL.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if ((string)comboBoxType.SelectedItem == Enum.GetName(typeof(PlayReadyLicenseType), PlayReadyLicenseType.Nonpersistent))  // Non persistent
-            {
-                groupBoxFirstPlay.Enabled = false;
-                checkBoxFPExp.Checked = false;
-                groupBoxEndDate.Enabled = false;
-                checkBoxEndDate.Checked = false;
-                groupBoxStartDate.Enabled = false;
-                checkBoxStartDate.Checked = false;
-            }
-            else
-            {
-                groupBoxFirstPlay.Enabled = true;
-                groupBoxEndDate.Enabled = true;
-                groupBoxStartDate.Enabled = true;
-            }
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void checkBoxFPExp_CheckedChanged(object sender, EventArgs e)
-        {
-            panelFirstPlayExpiration.Enabled = checkBoxFPExp.Checked;
-            value_SelectedIndexChanged(sender, e);
-        }
-
-        private void radioButtonsStartDate_CheckedChanged(object sender, EventArgs e)
-        {
-            panelStartDateAbsolute.Enabled = radioButtonStartDateAbsolute.Checked;
-            panelStartDateRelative.Enabled = radioButtonStartDateRelative.Checked;
-        }
-
-        private void radioButtonsEndDate_CheckedChanged(object sender, EventArgs e)
-        {
-            panelEndDateAbsolute.Enabled = radioButtonEndDateAbsolute.Checked;
-            panelEndDateRelative.Enabled = radioButtonEndDateRelative.Checked;
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            tabControlPlayReadySettings.Enabled = !checkBoxImportPolicyFile.Checked;
-            buttonImportXML.Enabled = checkBoxImportPolicyFile.Checked;
-            if (checkBoxImportPolicyFile.Checked && PlayReadyPolicyImportedfromXML == null)
-            {
-                buttonOk.Enabled = false;
-            }
-            else
-            {
-                buttonOk.Enabled = true;
-            }
-        }
-
-        private void buttonImportXML_Click(object sender, EventArgs e)
-        {
-            if (openFileDialogPreset.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    StreamReader streamReader = new StreamReader(openFileDialogPreset.FileName);
-                    PlayReadyPolicyImportedfromXML = streamReader.ReadToEnd();
-                    streamReader.Close();
-                    buttonOk.Enabled = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read XML from disk. Original error: " + ex.Message);
-                }
-            }
+            comboBoxAllowedTrackTypes.Enabled = checkBoxAllowTrackType.Checked;
         }
     }
 }

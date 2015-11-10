@@ -179,32 +179,7 @@ namespace AMSExplorer
             return key;
         }
 
-        public static string CreateWidevineConfigSophisticated(/*Uri keyDeliveryUrl*/)
-        {
-            var template = new WidevineMessage
-            {
-                allowed_track_types = AllowedTrackTypes.SD_HD,
-                content_key_specs = new[]
-                {
-                    new ContentKeySpecs
-                    {
-                        required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
-                        security_level = 1,
-                        track_type = "SD"
-                    }
-                },
-                policy_overrides = new
-                {
-                    can_play = true,
-                    can_persist = true,
-                    can_renew = true,
-                    //renewal_server_url = keyDeliveryUrl.ToString(),
-                }
-            };
-
-            string configuration = JsonConvert.SerializeObject(template);
-            return configuration;
-        }
+  
 
 
         static public IContentKeyAuthorizationPolicyOption AddOpenAuthorizationPolicyOption(IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
@@ -282,7 +257,7 @@ namespace AMSExplorer
     };
 
             IContentKeyAuthorizationPolicyOption policyOption =
-         _context.ContentKeyAuthorizationPolicyOptions.Create(tname + " Token option "+ deliveryType.ToString(),
+         _context.ContentKeyAuthorizationPolicyOptions.Create(tname + " Token option " + deliveryType.ToString(),
              deliveryType,
                  restrictions, newLicenseTemplate);
 
@@ -323,6 +298,96 @@ namespace AMSExplorer
                 TokenrestrictionTemplate.RequiredClaims.Add(t);
             }
             return TokenRestrictionTemplateSerializer.Serialize(TokenrestrictionTemplate);
+        }
+
+
+        // new functions since widevine implementation
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="symmetricKey"></param>
+        /// <param name="tokenType"></param>
+        /// <returns></returns>
+        public static ContentKeyAuthorizationPolicyRestriction MakeTokenPolicyRestriction(SymmetricVerificationKey tokenVerificationKey, TokenType tokenType, string issuer, string audience)
+        {
+            TokenRestrictionTemplate tokenRestrictionTemplate = MakeRestrictionTemplate(tokenVerificationKey, tokenType, issuer, audience);
+
+            string requirements = TokenRestrictionTemplateSerializer.Serialize(tokenRestrictionTemplate);
+
+            return new ContentKeyAuthorizationPolicyRestriction
+            {
+                Name = "test",
+                KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
+                Requirements = requirements
+            };
+        }
+
+        private static TokenRestrictionTemplate MakeRestrictionTemplate(TokenVerificationKey tokenVerificationKey, TokenType tokenType, string issuer, string audience)
+        {
+            TokenRestrictionTemplate tokenRestrictionTemplate = new TokenRestrictionTemplate(tokenType)
+            {
+                PrimaryVerificationKey = tokenVerificationKey,
+                Issuer = issuer,
+                Audience = audience,
+            };
+
+            return tokenRestrictionTemplate;
+        }
+
+        public static IContentKeyAuthorizationPolicyOption AddPolicyOption(
+            CloudMediaContext _mediaContext,
+            ContentKeyAuthorizationPolicyRestriction restriction,
+           ContentKeyDeliveryType deliveryType,
+           string configuration = null)
+        {
+            var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
+            {
+                restriction
+            };
+
+            return _mediaContext.ContentKeyAuthorizationPolicyOptions.Create(
+                "test",
+                deliveryType,
+                restrictions,
+                configuration);
+
+          
+        }
+
+        public static string CreateWidevineConfigSophisticated(Uri keyDeliveryUrl)
+        {
+            var template = new WidevineMessage
+            {
+                allowed_track_types = AllowedTrackTypes.SD_HD,
+                content_key_specs = new[]
+                {
+                    new ContentKeySpecs
+                    {
+                        required_output_protection = new RequiredOutputProtection { hdcp = Hdcp.HDCP_NONE},
+                        security_level = 1,
+                        track_type = "SD"
+                    }
+                },
+                policy_overrides = new
+                {
+                    can_play = true,
+                    can_persist = true,
+                    can_renew = true,
+                    renewal_server_url = keyDeliveryUrl.ToString(),
+                }
+            };
+
+            string configuration = JsonConvert.SerializeObject(template);
+            return configuration;
+        }
+
+        public static string MakeSwtToken(SymmetricVerificationKey tokenVerificationKey, string issuer, string audience)
+        {
+            TokenRestrictionTemplate tokenRestrictionTemplate = MakeRestrictionTemplate(tokenVerificationKey, TokenType.SWT, issuer, audience);
+
+            string swtTokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenRestrictionTemplate);
+
+            return swtTokenString;
         }
 
         static public X509Certificate2 GetCertificateFromFile(bool informuser = false)
@@ -612,10 +677,18 @@ namespace AMSExplorer
                 assetDeliveryPolicyConfiguration.Add(AssetDeliveryPolicyConfigurationKey.WidevineLicenseAcquisitionUrl, widevineAcquisitionUrl);
             }
 
+            // let's check the protocol: DASH only if only Widevine packaging
+            var protocol = form1.GetAssetDeliveryProtocol;
+            if (!form1.PlayReadyPackaging && form1.WidevinePackaging)
+            {
+                protocol = AssetDeliveryProtocol.Dash;
+            }
+
+
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
                 name,
                 AssetDeliveryPolicyType.DynamicCommonEncryption,
-               form1.GetAssetDeliveryProtocol,
+               protocol,
                 assetDeliveryPolicyConfiguration);
 
             // Add AssetDelivery Policy to the asset
