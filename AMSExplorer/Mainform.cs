@@ -12632,6 +12632,12 @@ namespace AMSExplorer
                                 );
             }
 
+            if(!SwitchedToLocalQuery && assetsServerQuery==null) // teh current query did not find asset (locator id search for example)
+            {
+                assets = _context.Assets.AsEnumerable().Take(0);
+                SwitchedToLocalQuery = true;
+            }
+
 
             // SHORTCUT (needed for account with large number fo assets)
             if (!SwitchedToLocalQuery && (_statefilter == StatusAssets.All || _statefilter == "") && _orderassets == OrderAssets.LastModifiedDescending)
