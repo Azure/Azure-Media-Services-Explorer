@@ -3869,6 +3869,8 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
+            var proposedfiles = CheckSingleFileIndexerSupportedExtensions(SelectedAssets);
+
             // Get the SDK extension method to  get a reference to the Azure Media Indexer.
             IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaIndexer);
 
@@ -3876,32 +3878,40 @@ namespace AMSExplorer
             {
                 IndexerJobName = "Media Indexing of " + Constants.NameconvInputasset,
                 IndexerOutputAssetName = Constants.NameconvInputasset + " - Indexed",
-                IndexerInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for media indexing." : "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
+
+                IndexerInputAssetName = (SelectedAssets.Count > 1) ?
+                SelectedAssets.Count + " assets have been selected for media indexing."
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be indexed.",
             };
 
             string taskname = "Media Indexing of " + Constants.NameconvInputasset;
 
             if (form.ShowDialog() == DialogResult.OK)
             {
-                string configIndexer = Indexer.LoadAndUpdateIndexerConfiguration(
+                foreach (var asset in SelectedAssets)
+                {
+                    string configIndexer = Indexer.LoadAndUpdateIndexerConfiguration(
                 Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
                 form.IndexerTitle,
                 form.IndexerDescription,
                 form.IndexerLanguage,
-               form.IndexerGenerationOptions
+               form.IndexerGenerationOptions,
+               proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
                 );
 
-                LaunchJobs(processor,
-                    SelectedAssets,
-                    form.IndexerJobName,
-                    form.JobOptions.Priority,
-                    taskname,
-                    form.IndexerOutputAssetName,
-                    new List<string> { configIndexer },
-                    form.JobOptions.OutputAssetsCreationOptions,
-                    form.JobOptions.TasksOptionsSetting,
-                    form.JobOptions.StorageSelected
-                    );
+                    LaunchJobs(processor,
+                   new List<IAsset> { asset },
+                   form.IndexerJobName,
+                   form.JobOptions.Priority,
+                   taskname,
+                   form.IndexerOutputAssetName,
+                   new List<string> { configIndexer },
+                   form.JobOptions.OutputAssetsCreationOptions,
+                   form.JobOptions.TasksOptionsSetting,
+                   form.JobOptions.StorageSelected
+                   );
+                }
             }
         }
 
@@ -3951,6 +3961,87 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Source asset must be a single MP4, MOV or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private static Dictionary<string, string> CheckSingleFileIndexerSupportedExtensions(List<IAsset> SelectedAssets)
+        {
+            var IndexAnotherFile = new Dictionary<string, string>();
+
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() == 1 &&
+                 (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
+                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
+                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
+                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
+                 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
+                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
+                 ))
+                )
+            {
+                MessageBox.Show("If the input asset contains only one file, it must be a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            int MultiFileAssetPb = 0;
+            string assetnamepb = string.Empty;
+
+            foreach (var asset in SelectedAssets)
+            {
+                if (asset.AssetFiles.Count() > 1)
+                {
+                    var pf = asset.AssetFiles.Where(a => a.IsPrimary).FirstOrDefault();
+                    if (pf != null
+                        && !pf.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
+                        && !pf.Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
+                        )
+                    { // primary file is not ok to index
+                        if (SelectedAssets.Count < 10)
+                        {
+                            var supportedfile = asset.AssetFiles.AsEnumerable().Where(af =>
+                                                    af.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
+                                                    || af.Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
+                                                    || pf.Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
+                                                    || pf.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
+                                                    || pf.Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
+                                                    || pf.Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
+                                                    || pf.Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
+                                                    ).ToList().OrderByDescending(af => af.ContentFileSize);
+                            if (supportedfile.Count() > 0) // but there is one that can be indexed
+                            {
+                                var proposedfile = supportedfile.FirstOrDefault().Name;
+                                if (MessageBox.Show(string.Format("Asset '{0}' is a multi file asset and the primary file '{1}' is not supported as an input.\n\nConfigure Indexer to index file '{2}' ?", asset.Name, pf.Name, proposedfile), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                                {
+                                    IndexAnotherFile.Add(asset.Id, proposedfile);
+                                }
+                            }
+                            else
+                            {
+                                MultiFileAssetPb++; // if too many assets, we do not ask the user but we will warm him
+                                assetnamepb = asset.Name;
+                            }
+                        }
+                        else
+                        {
+                            MultiFileAssetPb++; // if too many assets, we do not ask the user but we will warm him
+                            assetnamepb = asset.Name;
+                        }
+                    }
+                }
+            }
+
+            if (MultiFileAssetPb == 1)
+            {
+                MessageBox.Show(string.Format("Asset '{0}' is a multi file asset and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", assetnamepb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            else if (MultiFileAssetPb > 1)
+            {
+                MessageBox.Show(string.Format("There are '{0}' assets which are multi file asset and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", MultiFileAssetPb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            return IndexAnotherFile;
         }
 
         private void decryptAssetToolStripMenuItem_Click(object sender, EventArgs e)
