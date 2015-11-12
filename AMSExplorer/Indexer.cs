@@ -151,12 +151,16 @@ namespace AMSExplorer
             }
         }
 
-        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar)
+        public static string LoadAndUpdateIndexerConfiguration(string xmlFileName, string AssetTitle, string AssetDescription, string Language, IndexerOptionsVar optionsVar, string proposedfile =null)
         {
             // Prepare the encryption task template
             XDocument doc = XDocument.Load(xmlFileName);
 
             var inputxml = doc.Element("configuration").Element("input");
+            if (proposedfile!=null)
+            {
+                inputxml.Add(new XAttribute("name", proposedfile));
+            }
             if (!string.IsNullOrEmpty(AssetTitle)) inputxml.Add(new XElement("metadata", new XAttribute("key", "title"), new XAttribute("value", AssetTitle)));
             if (!string.IsNullOrEmpty(AssetDescription)) inputxml.Add(new XElement("metadata", new XAttribute("key", "description"), new XAttribute("value", AssetDescription)));
 
