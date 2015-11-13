@@ -712,14 +712,44 @@ namespace AMSExplorer
             }
         }
 
+        public void TextBoxLogWriteLine()
+        {
+            TextBoxLogWriteLine(string.Empty);
+        }
+
         public void TextBoxLogWriteLine(string text, bool Error = false)
         {
+            bool stringEmpty = string.IsNullOrEmpty(text);
             text += Environment.NewLine;
             string date = string.Format("[{0}] ", String.Format("{0:G}", DateTime.Now));
 
             if (richTextBoxLog.InvokeRequired)
             {
                 richTextBoxLog.BeginInvoke(new Action(() =>
+                {
+                    if (!stringEmpty)
+                    {
+                        richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
+                        richTextBoxLog.SelectionLength = 0;
+
+                        richTextBoxLog.SelectionColor = Color.Gray;
+                        richTextBoxLog.AppendText(date);
+
+                        richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
+                        richTextBoxLog.SelectionLength = 0;
+
+                        richTextBoxLog.SelectionColor = Error ? Color.Red : Color.Black;
+                    }
+                    richTextBoxLog.AppendText(text);
+                    if (!stringEmpty)
+                    {
+                        richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
+                    }
+                }));
+            }
+            else
+            {
+                if (!stringEmpty)
                 {
                     richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
                     richTextBoxLog.SelectionLength = 0;
@@ -731,24 +761,12 @@ namespace AMSExplorer
                     richTextBoxLog.SelectionLength = 0;
 
                     richTextBoxLog.SelectionColor = Error ? Color.Red : Color.Black;
-                    richTextBoxLog.AppendText(text);
-                    richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
-                }));
-            }
-            else
-            {
-                richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
-                richTextBoxLog.SelectionLength = 0;
-
-                richTextBoxLog.SelectionColor = Color.Gray;
-                richTextBoxLog.AppendText(date);
-
-                richTextBoxLog.SelectionStart = richTextBoxLog.TextLength;
-                richTextBoxLog.SelectionLength = 0;
-
-                richTextBoxLog.SelectionColor = Error ? Color.Red : Color.Black;
+                }
                 richTextBoxLog.AppendText(text);
-                richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
+                if (!stringEmpty)
+                {
+                    richTextBoxLog.SelectionColor = richTextBoxLog.ForeColor;
+                }
             }
         }
 
@@ -3301,7 +3319,7 @@ namespace AMSExplorer
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string taskname = "Azure Media Encoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvAMEpreset;
-                LaunchJobs(
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
                     form.EncodingProcessorSelected,
                     SelectedAssets,
                     form.EncodingJobName,
@@ -3566,7 +3584,7 @@ namespace AMSExplorer
                 jobname = jobname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 taskname = taskname.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
                 string outputassetname = form.HLSOutputAssetName.Replace(Constants.NameconvFormathls, form.HLSEncrypt ? "HLS/AES" : "HLS");
-                LaunchJobs(processor,
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
                     jobname, Properties.Settings.Default.DefaultJobPriority,
                     taskname, outputassetname,
@@ -3614,7 +3632,7 @@ namespace AMSExplorer
                                 _configurationXMLFiles,
                                 "MediaPackager_MP4toSmooth.xml"));
 
-                    LaunchJobs(processor,
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                         SelectedAssets,
                         jobname,
                         Properties.Settings.Default.DefaultJobPriority,
@@ -3656,7 +3674,7 @@ namespace AMSExplorer
 
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LaunchJobs(processor,
+                    LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                         SelectedAssets,
                         form.MIJobName,
                         form.JobOptions.Priority,
@@ -3727,7 +3745,7 @@ namespace AMSExplorer
                 form.PlayReadyServiceId,
                 form.PlayReadyCustomAttributes);
 
-                LaunchJobs(processor,
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
                     jobname,
                     Properties.Settings.Default.DefaultJobPriority,
@@ -3741,14 +3759,84 @@ namespace AMSExplorer
         }
 
 
-        public void LaunchJobs(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
+        public void LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
         {
-            foreach (IAsset asset in selectedassets)
+            // a job per asset, one task per config
+            Task.Factory.StartNew(() =>
             {
-                string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
-                IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
-                foreach (string config in configuration)
+                foreach (IAsset asset in selectedassets)
                 {
+                    string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
+                    IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
+                    foreach (string config in configuration)
+                    {
+                        string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                        ITask myTask = myJob.Tasks.AddNew(
+                               tasknameloc,
+                              processor,
+                              config,
+                              myTaskOptions);
+
+                        myTask.InputAssets.Add(asset);
+
+                        // Add an output asset to contain the results of the task
+                        string outputassetnameloc = outputassetname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
+                        if (storageaccountname == "")
+                        {
+                            myTask.OutputAssets.AddNew(outputassetnameloc, asset.StorageAccountName, myAssetCreationOptions); // let's use the same storage account than the input asset
+                        }
+                        else
+                        {
+                            myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
+                        }
+                    }
+
+                    // Submit the job and wait until it is completed. 
+                    bool Error = false;
+                    try
+                    {
+                        TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
+                        myJob.Submit();
+                    }
+
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error)
+                    {
+                        TextBoxLogWriteLine("Job '{0}' : submitted.", jobnameloc);
+                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob));
+                    }
+                    TextBoxLogWriteLine("");
+                }
+
+                DotabControlMainSwitch(Constants.TabJobs);
+                DoRefreshGridJobV(false);
+
+            }
+
+                );
+        }
+
+
+        public void LaunchJobs_OneJobPerInputAssetWithSpecificConfig(IMediaProcessor processor, List<IAsset> selectedassets, string jobname, int jobpriority, string taskname, string outputassetname, List<string> configuration, AssetCreationOptions myAssetCreationOptions, TaskOptions myTaskOptions, string storageaccountname = "")
+        {
+            // a job per asset, one task per job, but each task has a specific config
+            Task.Factory.StartNew(() =>
+            {
+                int index = -1;
+
+                foreach (IAsset asset in selectedassets)
+                {
+                    index++;
+                    string jobnameloc = jobname.Replace(Constants.NameconvInputasset, asset.Name);
+                    IJob myJob = _context.Jobs.Create(jobnameloc, jobpriority);
+                    string config = configuration[index];
+
                     string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvAMEpreset, config);
                     ITask myTask = myJob.Tasks.AddNew(
                            tasknameloc,
@@ -3768,32 +3856,37 @@ namespace AMSExplorer
                     {
                         myTask.OutputAssets.AddNew(outputassetnameloc, storageaccountname, myAssetCreationOptions);
                     }
-                }
 
 
-                // Submit the job and wait until it is completed. 
-                try
-                {
-                    myJob.Submit();
-                }
-                catch (Exception e)
-                {
-                    // Add useful information to the exception
-                    if (selectedassets.Count < 5)  // only if 4 or less jobs submitted
+                    // Submit the job and wait until it is completed. 
+                    bool Error = false;
+                    try
                     {
-                        MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        TextBoxLogWriteLine("Job '{0}' : submitting...", jobnameloc);
+                        myJob.Submit();
                     }
 
-                    // Add useful information to the exception
-                    TextBoxLogWriteLine("There has been a problem when submitting the job {0}.", jobnameloc, true);
-                    TextBoxLogWriteLine(e);
-                    return;
+                    catch (Exception ex)
+                    {
+                        // Add useful information to the exception
+                        TextBoxLogWriteLine("Job '{0}' : problem", jobnameloc, true);
+                        TextBoxLogWriteLine(ex);
+                        Error = true;
+                    }
+                    if (!Error)
+                    {
+                        TextBoxLogWriteLine("Job '{0}' : submitted.", jobnameloc);
+                        Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob));
+                    }
+                    TextBoxLogWriteLine();
                 }
-                TextBoxLogWriteLine("Job '{0}' submitted.", jobnameloc);
-                Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(myJob));
+
+                DotabControlMainSwitch(Constants.TabJobs);
+                DoRefreshGridJobV(false);
+
             }
-            DotabControlMainSwitch(Constants.TabJobs);
-            DoRefreshGridJobV(false);
+
+                );
         }
 
 
@@ -3838,7 +3931,7 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.WindowsAzureMediaPackager);
 
-                LaunchJobs(processor,
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
                     jobname,
                     Properties.Settings.Default.DefaultJobPriority,
@@ -3887,29 +3980,34 @@ namespace AMSExplorer
 
             if (form.ShowDialog() == DialogResult.OK)
             {
+                var ListConfig = new List<string>();
                 foreach (var asset in SelectedAssets)
                 {
-                    string configIndexer = Indexer.LoadAndUpdateIndexerConfiguration(
-                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
-                form.IndexerTitle,
-                form.IndexerDescription,
-                form.IndexerLanguage,
-               form.IndexerGenerationOptions,
-               proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
-                );
-
-                    LaunchJobs(processor,
-                   new List<IAsset> { asset },
-                   form.IndexerJobName,
-                   form.JobOptions.Priority,
-                   taskname,
-                   form.IndexerOutputAssetName,
-                   new List<string> { configIndexer },
-                   form.JobOptions.OutputAssetsCreationOptions,
-                   form.JobOptions.TasksOptionsSetting,
-                   form.JobOptions.StorageSelected
-                   );
+                    ListConfig.Add(
+                                    Indexer.LoadAndUpdateIndexerConfiguration(
+                                                                                Path.Combine(_configurationXMLFiles, @"MediaIndexer.xml"),
+                                                                                form.IndexerTitle,
+                                                                                form.IndexerDescription,
+                                                                                form.IndexerLanguage,
+                                                                                form.IndexerGenerationOptions,
+                                                                                proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
+                                                                                )
+                                                                                );
+                   
                 }
+                LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
+                            processor,
+                            SelectedAssets,
+                            form.IndexerJobName,
+                            form.JobOptions.Priority,
+                            taskname,
+                            form.IndexerOutputAssetName,
+                            ListConfig,
+                            form.JobOptions.OutputAssetsCreationOptions,
+                            form.JobOptions.TasksOptionsSetting,
+                            form.JobOptions.StorageSelected
+                                );
+
             }
         }
 
@@ -3946,16 +4044,19 @@ namespace AMSExplorer
                 form.HyperlapseSpeed
                 );
 
-                LaunchJobs(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor, SelectedAssets, form.HyperlapseJobName, form.JobOptions.Priority, taskname, form.HyperlapseOutputAssetName, new List<string> { configHyperlapse }, form.JobOptions.OutputAssetsCreationOptions, form.JobOptions.TasksOptionsSetting, form.JobOptions.StorageSelected);
             }
         }
 
         private static void CheckSingleFileMP4MOVWMVExtension(List<IAsset> SelectedAssets)
         {
-            if (SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
+            var mediaFileExtensions = new[] { ".MOV", ".WMV", ".MP4" };
+
+            if (
+                SelectedAssets.Any(a => a.AssetFiles.Count() != 1)
                 ||
-                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mov", StringComparison.OrdinalIgnoreCase) && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase) && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)))
-                ))
+                SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && (!mediaFileExtensions.Contains(Path.GetExtension(a.AssetFiles.FirstOrDefault().Name).ToUpperInvariant())))
+                )
             {
                 MessageBox.Show("Source asset must be a single MP4, MOV or WMV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -3963,18 +4064,11 @@ namespace AMSExplorer
 
         private static Dictionary<string, string> CheckSingleFileIndexerSupportedExtensions(List<IAsset> SelectedAssets)
         {
+            var mediaFileExtensions = new[] { ".MP4", ".WMV", ".MP3", ".M4A", ".WMA", ".AAC", ".WAV" };
+
             var IndexAnotherFile = new Dictionary<string, string>();
 
-            if (SelectedAssets.Any(a => a.AssetFiles.Count() == 1 &&
-                 (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
-                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
-                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
-                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
-                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
-                 && (!a.AssetFiles.FirstOrDefault().Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
-                 && !a.AssetFiles.FirstOrDefault().Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase))
-                 ))
-                )
+            if (SelectedAssets.Any(a => a.AssetFiles.Count() == 1 && !mediaFileExtensions.Contains(Path.GetExtension(a.AssetFiles.FirstOrDefault().Name).ToUpperInvariant())))
             {
                 MessageBox.Show("If the input asset contains only one file, it must be a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -3987,31 +4081,17 @@ namespace AMSExplorer
                 if (asset.AssetFiles.Count() > 1)
                 {
                     var pf = asset.AssetFiles.Where(a => a.IsPrimary).FirstOrDefault();
-                    if (pf != null
-                        && !pf.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
-                        && !pf.Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
-                        )
+                    if (pf != null && !mediaFileExtensions.Contains(Path.GetExtension(pf.Name).ToUpperInvariant()))
                     { // primary file is not ok to index
                         if (SelectedAssets.Count < 10)
                         {
                             var supportedfile = asset.AssetFiles.AsEnumerable().Where(af =>
-                                                    af.Name.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase)
-                                                    || af.Name.EndsWith(".wmv", StringComparison.OrdinalIgnoreCase)
-                                                    || pf.Name.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)
-                                                    || pf.Name.EndsWith(".m4a", StringComparison.OrdinalIgnoreCase)
-                                                    || pf.Name.EndsWith(".wma", StringComparison.OrdinalIgnoreCase)
-                                                    || pf.Name.EndsWith(".aac", StringComparison.OrdinalIgnoreCase)
-                                                    || pf.Name.EndsWith(".wav", StringComparison.OrdinalIgnoreCase)
-                                                    ).ToList().OrderByDescending(af => af.ContentFileSize);
+                                                    mediaFileExtensions.Contains(Path.GetExtension(af.Name).ToUpperInvariant()))
+                                                    .ToList().OrderByDescending(af => af.ContentFileSize);
                             if (supportedfile.Count() > 0) // but there is one that can be indexed
                             {
                                 var proposedfile = supportedfile.FirstOrDefault().Name;
-                                if (MessageBox.Show(string.Format("Asset '{0}' is a multi file asset and the primary file '{1}' is not supported as an input.\n\nConfigure Indexer to index file '{2}' ?", asset.Name, pf.Name, proposedfile), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                                if (MessageBox.Show(string.Format("The asset '{0}'\nis a multi file asset and the primary file '{1}'\nis not supported as an input.\n\nConfigure Indexer to index file '{2}' ?", asset.Name, pf.Name, proposedfile), "Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                                 {
                                     IndexAnotherFile.Add(asset.Id, proposedfile);
                                 }
@@ -4037,7 +4117,7 @@ namespace AMSExplorer
             }
             else if (MultiFileAssetPb > 1)
             {
-                MessageBox.Show(string.Format("There are '{0}' assets which are multi file asset and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", MultiFileAssetPb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(string.Format("There are '{0}' assets which are multi files assets and the primary file is not a MP4, WMV, MP3, M4A, WMA, AAC or WAV file.\nIndexing will probably fail.", MultiFileAssetPb), "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             return IndexAnotherFile;
         }
@@ -4073,7 +4153,7 @@ namespace AMSExplorer
                 IMediaProcessor processor = _context.MediaProcessors.GetLatestMediaProcessorByName(
                     MediaProcessorNames.StorageDecryption);
 
-                LaunchJobs(processor,
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
                     jobname,
                     Properties.Settings.Default.DefaultJobPriority,
@@ -7565,7 +7645,7 @@ namespace AMSExplorer
                 form.ThumbnailsTimeStop
                 );
 
-                LaunchJobs(processor,
+                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
                     SelectedAssets,
                     form.ThumbnailsJobName,
                     form.JobOptions.Priority,
