@@ -82,7 +82,6 @@ namespace AMSExplorer
             {
                 return checkBoxAddContentKeyIdentifierClaim.Checked;
             }
-
         }
 
         public IList<TokenClaim> GetTokenRequiredClaims
@@ -165,14 +164,14 @@ namespace AMSExplorer
 
         private CloudMediaContext _context;
 
-        public AddDynamicEncryptionFrame4(CloudMediaContext context, int step, int option, string tokenSymmetricKey, bool laststep = true)
+        public AddDynamicEncryptionFrame4(CloudMediaContext context, int step, int option, string DRMName, string tokenSymmetricKey, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
 
             this.Text = string.Format(this.Text, step);
-            labelStep.Text = string.Format(labelStep.Text, step, option);
+            labelStep.Text = string.Format(labelStep.Text, step, option, DRMName);
 
             if (!laststep)
             {
@@ -188,7 +187,6 @@ namespace AMSExplorer
                 textBoxSymKey.Text = tokenSymmetricKey;
             }
         }
-
 
 
         private void SetupDynEnc_Load(object sender, EventArgs e)

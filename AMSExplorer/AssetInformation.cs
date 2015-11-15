@@ -109,7 +109,6 @@ namespace AMSExplorer
         private void toolStripMenuItemPlaybackSilverlight_Click(object sender, EventArgs e)
         {
             DoSLPlayer();
-
         }
 
         private void DoSLPlayer()
@@ -129,7 +128,6 @@ namespace AMSExplorer
                         default:
                             break;
                     }
-
                 }
                 else
                 {
@@ -160,9 +158,7 @@ namespace AMSExplorer
                         default:
                             break;
                     }
-
                 }
-
             }
         }
 
@@ -719,8 +715,6 @@ namespace AMSExplorer
 
         }
 
-
-
         private void DoDisplayFileProperties()
         {
             if (listViewFiles.SelectedItems.Count > 0)
@@ -979,12 +973,10 @@ namespace AMSExplorer
         private void buttonCopyStats_Click(object sender, EventArgs e)
         {
             DoAssetStats();
-
         }
 
         private void DoAssetStats()
         {
-
             AssetInfo MyAssetReport = new AssetInfo(myAsset);
             MyAssetReport.CopyStatsToClipBoard();
         }
@@ -1226,7 +1218,6 @@ namespace AMSExplorer
                         default:
                             break;
                     }
-
                 }
             }
         }
@@ -1374,7 +1365,6 @@ namespace AMSExplorer
             {
 
             }
-
         }
 
         private void ProcessDownloadFileToAsset(IAssetFile assetFile, string destfolderpath)

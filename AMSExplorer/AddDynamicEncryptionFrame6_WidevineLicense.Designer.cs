@@ -42,15 +42,18 @@
             this.checkBoxCanPersist = new System.Windows.Forms.CheckBox();
             this.checkBoxCanPlay = new System.Windows.Forms.CheckBox();
             this.comboBoxAllowedTrackTypes = new System.Windows.Forms.ComboBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.buttonOk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelstep = new System.Windows.Forms.Label();
             this.openFileDialogPreset = new System.Windows.Forms.OpenFileDialog();
+            this.groupBoxAdvLicense = new System.Windows.Forms.GroupBox();
+            this.radioButtonBasic = new System.Windows.Forms.RadioButton();
+            this.radioButtonAdvanced = new System.Windows.Forms.RadioButton();
             this.tabControlPlayReadySettings.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecLevel)).BeginInit();
             this.panel1.SuspendLayout();
+            this.groupBoxAdvLicense.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonCancel
@@ -67,7 +70,6 @@
             // tabControlPlayReadySettings
             // 
             this.tabControlPlayReadySettings.Controls.Add(this.tabPage3);
-            this.tabControlPlayReadySettings.Controls.Add(this.tabPage1);
             this.tabControlPlayReadySettings.Location = new System.Drawing.Point(27, 153);
             this.tabControlPlayReadySettings.Name = "tabControlPlayReadySettings";
             this.tabControlPlayReadySettings.SelectedIndex = 0;
@@ -76,17 +78,9 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.checkBoxAllowTrackType);
-            this.tabPage3.Controls.Add(this.checkBoxTrackType);
-            this.tabPage3.Controls.Add(this.checkBoxSecLevel);
-            this.tabPage3.Controls.Add(this.numericUpDownSecLevel);
-            this.tabPage3.Controls.Add(this.textBoxTrackType);
-            this.tabPage3.Controls.Add(this.label2);
-            this.tabPage3.Controls.Add(this.comboBoxReqOutputProtection);
-            this.tabPage3.Controls.Add(this.checkBoxCanRenew);
-            this.tabPage3.Controls.Add(this.checkBoxCanPersist);
-            this.tabPage3.Controls.Add(this.checkBoxCanPlay);
-            this.tabPage3.Controls.Add(this.comboBoxAllowedTrackTypes);
+            this.tabPage3.Controls.Add(this.radioButtonAdvanced);
+            this.tabPage3.Controls.Add(this.radioButtonBasic);
+            this.tabPage3.Controls.Add(this.groupBoxAdvLicense);
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(632, 482);
@@ -99,7 +93,7 @@
             this.checkBoxAllowTrackType.AutoSize = true;
             this.checkBoxAllowTrackType.Checked = true;
             this.checkBoxAllowTrackType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxAllowTrackType.Location = new System.Drawing.Point(31, 52);
+            this.checkBoxAllowTrackType.Location = new System.Drawing.Point(11, 36);
             this.checkBoxAllowTrackType.Name = "checkBoxAllowTrackType";
             this.checkBoxAllowTrackType.Size = new System.Drawing.Size(139, 19);
             this.checkBoxAllowTrackType.TabIndex = 67;
@@ -112,7 +106,7 @@
             this.checkBoxTrackType.AutoSize = true;
             this.checkBoxTrackType.Checked = true;
             this.checkBoxTrackType.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTrackType.Location = new System.Drawing.Point(31, 306);
+            this.checkBoxTrackType.Location = new System.Drawing.Point(21, 212);
             this.checkBoxTrackType.Name = "checkBoxTrackType";
             this.checkBoxTrackType.Size = new System.Drawing.Size(88, 19);
             this.checkBoxTrackType.TabIndex = 66;
@@ -125,7 +119,7 @@
             this.checkBoxSecLevel.AutoSize = true;
             this.checkBoxSecLevel.Checked = true;
             this.checkBoxSecLevel.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxSecLevel.Location = new System.Drawing.Point(31, 346);
+            this.checkBoxSecLevel.Location = new System.Drawing.Point(21, 252);
             this.checkBoxSecLevel.Name = "checkBoxSecLevel";
             this.checkBoxSecLevel.Size = new System.Drawing.Size(104, 19);
             this.checkBoxSecLevel.TabIndex = 65;
@@ -135,7 +129,7 @@
             // 
             // numericUpDownSecLevel
             // 
-            this.numericUpDownSecLevel.Location = new System.Drawing.Point(193, 346);
+            this.numericUpDownSecLevel.Location = new System.Drawing.Point(183, 252);
             this.numericUpDownSecLevel.Maximum = new decimal(new int[] {
             5,
             0,
@@ -152,7 +146,7 @@
             // 
             // textBoxTrackType
             // 
-            this.textBoxTrackType.Location = new System.Drawing.Point(193, 304);
+            this.textBoxTrackType.Location = new System.Drawing.Point(183, 210);
             this.textBoxTrackType.Name = "textBoxTrackType";
             this.textBoxTrackType.Size = new System.Drawing.Size(120, 23);
             this.textBoxTrackType.TabIndex = 53;
@@ -161,7 +155,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(28, 268);
+            this.label2.Location = new System.Drawing.Point(18, 174);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(159, 15);
             this.label2.TabIndex = 51;
@@ -171,7 +165,7 @@
             // 
             this.comboBoxReqOutputProtection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxReqOutputProtection.FormattingEnabled = true;
-            this.comboBoxReqOutputProtection.Location = new System.Drawing.Point(193, 265);
+            this.comboBoxReqOutputProtection.Location = new System.Drawing.Point(183, 171);
             this.comboBoxReqOutputProtection.Name = "comboBoxReqOutputProtection";
             this.comboBoxReqOutputProtection.Size = new System.Drawing.Size(207, 23);
             this.comboBoxReqOutputProtection.TabIndex = 50;
@@ -179,7 +173,7 @@
             // checkBoxCanRenew
             // 
             this.checkBoxCanRenew.AutoSize = true;
-            this.checkBoxCanRenew.Location = new System.Drawing.Point(31, 185);
+            this.checkBoxCanRenew.Location = new System.Drawing.Point(15, 123);
             this.checkBoxCanRenew.Name = "checkBoxCanRenew";
             this.checkBoxCanRenew.Size = new System.Drawing.Size(85, 19);
             this.checkBoxCanRenew.TabIndex = 49;
@@ -191,7 +185,7 @@
             this.checkBoxCanPersist.AutoSize = true;
             this.checkBoxCanPersist.Checked = true;
             this.checkBoxCanPersist.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCanPersist.Location = new System.Drawing.Point(31, 160);
+            this.checkBoxCanPersist.Location = new System.Drawing.Point(15, 98);
             this.checkBoxCanPersist.Name = "checkBoxCanPersist";
             this.checkBoxCanPersist.Size = new System.Drawing.Size(84, 19);
             this.checkBoxCanPersist.TabIndex = 48;
@@ -203,7 +197,7 @@
             this.checkBoxCanPlay.AutoSize = true;
             this.checkBoxCanPlay.Checked = true;
             this.checkBoxCanPlay.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxCanPlay.Location = new System.Drawing.Point(31, 135);
+            this.checkBoxCanPlay.Location = new System.Drawing.Point(15, 73);
             this.checkBoxCanPlay.Name = "checkBoxCanPlay";
             this.checkBoxCanPlay.Size = new System.Drawing.Size(72, 19);
             this.checkBoxCanPlay.TabIndex = 47;
@@ -214,20 +208,10 @@
             // 
             this.comboBoxAllowedTrackTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxAllowedTrackTypes.FormattingEnabled = true;
-            this.comboBoxAllowedTrackTypes.Location = new System.Drawing.Point(193, 50);
+            this.comboBoxAllowedTrackTypes.Location = new System.Drawing.Point(173, 34);
             this.comboBoxAllowedTrackTypes.Name = "comboBoxAllowedTrackTypes";
             this.comboBoxAllowedTrackTypes.Size = new System.Drawing.Size(207, 23);
             this.comboBoxAllowedTrackTypes.TabIndex = 45;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(632, 482);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "Advanced settings";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // buttonOk
             // 
@@ -270,6 +254,50 @@
             this.openFileDialogPreset.DefaultExt = "xml";
             this.openFileDialogPreset.Filter = "XML files|*.xml|All files|*.*";
             // 
+            // groupBoxAdvLicense
+            // 
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxCanPlay);
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxAllowTrackType);
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxCanPersist);
+            this.groupBoxAdvLicense.Controls.Add(this.comboBoxAllowedTrackTypes);
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxTrackType);
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxCanRenew);
+            this.groupBoxAdvLicense.Controls.Add(this.checkBoxSecLevel);
+            this.groupBoxAdvLicense.Controls.Add(this.comboBoxReqOutputProtection);
+            this.groupBoxAdvLicense.Controls.Add(this.numericUpDownSecLevel);
+            this.groupBoxAdvLicense.Controls.Add(this.label2);
+            this.groupBoxAdvLicense.Controls.Add(this.textBoxTrackType);
+            this.groupBoxAdvLicense.Enabled = false;
+            this.groupBoxAdvLicense.Location = new System.Drawing.Point(23, 82);
+            this.groupBoxAdvLicense.Name = "groupBoxAdvLicense";
+            this.groupBoxAdvLicense.Size = new System.Drawing.Size(587, 312);
+            this.groupBoxAdvLicense.TabIndex = 68;
+            this.groupBoxAdvLicense.TabStop = false;
+            this.groupBoxAdvLicense.Text = "Advanced license";
+            // 
+            // radioButtonBasic
+            // 
+            this.radioButtonBasic.AutoSize = true;
+            this.radioButtonBasic.Checked = true;
+            this.radioButtonBasic.Location = new System.Drawing.Point(23, 22);
+            this.radioButtonBasic.Name = "radioButtonBasic";
+            this.radioButtonBasic.Size = new System.Drawing.Size(91, 19);
+            this.radioButtonBasic.TabIndex = 69;
+            this.radioButtonBasic.TabStop = true;
+            this.radioButtonBasic.Text = "Basic license";
+            this.radioButtonBasic.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonAdvanced
+            // 
+            this.radioButtonAdvanced.AutoSize = true;
+            this.radioButtonAdvanced.Location = new System.Drawing.Point(23, 47);
+            this.radioButtonAdvanced.Name = "radioButtonAdvanced";
+            this.radioButtonAdvanced.Size = new System.Drawing.Size(123, 19);
+            this.radioButtonAdvanced.TabIndex = 70;
+            this.radioButtonAdvanced.Text = "Advanced license :";
+            this.radioButtonAdvanced.UseVisualStyleBackColor = true;
+            this.radioButtonAdvanced.CheckedChanged += new System.EventHandler(this.radioButtonAdvanced_CheckedChanged);
+            // 
             // AddDynamicEncryptionFrame6_WidevineLicense
             // 
             this.AcceptButton = this.buttonOk;
@@ -291,6 +319,8 @@
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownSecLevel)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.groupBoxAdvLicense.ResumeLayout(false);
+            this.groupBoxAdvLicense.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -301,7 +331,6 @@
         public System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TabControl tabControlPlayReadySettings;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelstep;
         private System.Windows.Forms.OpenFileDialog openFileDialogPreset;
@@ -316,5 +345,8 @@
         private System.Windows.Forms.CheckBox checkBoxSecLevel;
         private System.Windows.Forms.CheckBox checkBoxTrackType;
         private System.Windows.Forms.CheckBox checkBoxAllowTrackType;
+        private System.Windows.Forms.RadioButton radioButtonAdvanced;
+        private System.Windows.Forms.RadioButton radioButtonBasic;
+        private System.Windows.Forms.GroupBox groupBoxAdvLicense;
     }
 }

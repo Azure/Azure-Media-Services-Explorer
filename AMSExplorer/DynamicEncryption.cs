@@ -76,7 +76,8 @@ namespace AMSExplorer
 
             var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
                 {
-                    new ContentKeyAuthorizationPolicyRestriction { Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction),
+                    new ContentKeyAuthorizationPolicyRestriction {
+                        Requirements = null, Name = Enum.GetName(typeof(ContentKeyRestrictionType),PlayReadyKeyRestriction),
                         KeyRestrictionType = (int)PlayReadyKeyRestriction }
                 };
 
@@ -179,7 +180,7 @@ namespace AMSExplorer
             return key;
         }
 
-  
+
 
 
         static public IContentKeyAuthorizationPolicyOption AddOpenAuthorizationPolicyOption(IContentKey contentKey, ContentKeyDeliveryType contentkeydeliverytype, string keydeliveryconfig, CloudMediaContext _context)
@@ -215,16 +216,15 @@ namespace AMSExplorer
 
             string tname = detailedtokentype.ToString();
 
-            List<ContentKeyAuthorizationPolicyRestriction> restrictions =
-                    new List<ContentKeyAuthorizationPolicyRestriction>();
+            List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>();
 
             ContentKeyAuthorizationPolicyRestriction restriction =
-                    new ContentKeyAuthorizationPolicyRestriction
-                    {
-                        Name = tname + " Token Authorization Policy",
-                        KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
-                        Requirements = tokenTemplateString
-                    };
+                                                                    new ContentKeyAuthorizationPolicyRestriction
+                                                                    {
+                                                                        Name = tname + " Token Authorization Policy",
+                                                                        KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
+                                                                        Requirements = tokenTemplateString
+                                                                    };
 
             restrictions.Add(restriction);
 
@@ -238,7 +238,6 @@ namespace AMSExplorer
                     );
 
             return policyOption;
-
         }
 
         public static IContentKeyAuthorizationPolicyOption AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType deliveryType, IContentKey contentKey, string Audience, string Issuer, IList<TokenClaim> tokenclaimslist, bool AddContentKeyIdentifierClaim, TokenType tokentype, ExplorerTokenType detailedtokentype, TokenVerificationKey mytokenverificationkey, CloudMediaContext _context, string newLicenseTemplate, string openIdDiscoveryPath = null)
@@ -247,24 +246,19 @@ namespace AMSExplorer
             string tname = detailedtokentype.ToString();
 
             List<ContentKeyAuthorizationPolicyRestriction> restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
-    {
-        new ContentKeyAuthorizationPolicyRestriction
-        {
-            Name = tname+ " Token Authorization Policy",
-            KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
-            Requirements = tokenTemplateString,
-        }
-    };
+                                                        {
+                                                            new ContentKeyAuthorizationPolicyRestriction
+                                                            {
+                                                                Name = tname + " Token Authorization Policy",
+                                                                KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
+                                                                Requirements = tokenTemplateString,
+                                                            }
+                                                        };
 
             IContentKeyAuthorizationPolicyOption policyOption =
          _context.ContentKeyAuthorizationPolicyOptions.Create(tname + " Token option " + deliveryType.ToString(),
              deliveryType,
                  restrictions, newLicenseTemplate);
-
-            IContentKeyAuthorizationPolicy contentKeyAuthorizationPolicy = _context.
-                        ContentKeyAuthorizationPolicies.
-                        CreateAsync("Deliver Common Content Key with no restrictions").
-                        Result;
 
 
             return policyOption;
@@ -301,58 +295,6 @@ namespace AMSExplorer
         }
 
 
-        // new functions since widevine implementation
-        /// <summary>
-        ///
-        /// </summary>
-        /// <param name="symmetricKey"></param>
-        /// <param name="tokenType"></param>
-        /// <returns></returns>
-        public static ContentKeyAuthorizationPolicyRestriction MakeTokenPolicyRestriction(SymmetricVerificationKey tokenVerificationKey, TokenType tokenType, string issuer, string audience)
-        {
-            TokenRestrictionTemplate tokenRestrictionTemplate = MakeRestrictionTemplate(tokenVerificationKey, tokenType, issuer, audience);
-
-            string requirements = TokenRestrictionTemplateSerializer.Serialize(tokenRestrictionTemplate);
-
-            return new ContentKeyAuthorizationPolicyRestriction
-            {
-                Name = "test",
-                KeyRestrictionType = (int)ContentKeyRestrictionType.TokenRestricted,
-                Requirements = requirements
-            };
-        }
-
-        private static TokenRestrictionTemplate MakeRestrictionTemplate(TokenVerificationKey tokenVerificationKey, TokenType tokenType, string issuer, string audience)
-        {
-            TokenRestrictionTemplate tokenRestrictionTemplate = new TokenRestrictionTemplate(tokenType)
-            {
-                PrimaryVerificationKey = tokenVerificationKey,
-                Issuer = issuer,
-                Audience = audience,
-            };
-
-            return tokenRestrictionTemplate;
-        }
-
-        public static IContentKeyAuthorizationPolicyOption AddPolicyOption(
-            CloudMediaContext _mediaContext,
-            ContentKeyAuthorizationPolicyRestriction restriction,
-           ContentKeyDeliveryType deliveryType,
-           string configuration = null)
-        {
-            var restrictions = new List<ContentKeyAuthorizationPolicyRestriction>
-            {
-                restriction
-            };
-
-            return _mediaContext.ContentKeyAuthorizationPolicyOptions.Create(
-                "test",
-                deliveryType,
-                restrictions,
-                configuration);
-
-          
-        }
 
         public static string CreateWidevineConfigSophisticated(Uri keyDeliveryUrl)
         {
@@ -381,14 +323,7 @@ namespace AMSExplorer
             return configuration;
         }
 
-        public static string MakeSwtToken(SymmetricVerificationKey tokenVerificationKey, string issuer, string audience)
-        {
-            TokenRestrictionTemplate tokenRestrictionTemplate = MakeRestrictionTemplate(tokenVerificationKey, TokenType.SWT, issuer, audience);
 
-            string swtTokenString = TokenRestrictionTemplateSerializer.GenerateTestToken(tokenRestrictionTemplate);
-
-            return swtTokenString;
-        }
 
         static public X509Certificate2 GetCertificateFromFile(bool informuser = false)
         {
@@ -446,7 +381,6 @@ namespace AMSExplorer
             var query = from key in MyAsset.ContentKeys
                         join autpol in _context.ContentKeyAuthorizationPolicies on key.AuthorizationPolicyId equals autpol.Id
                         select new { aupolid = autpol.Id };
-
 
 
             foreach (var key in query)

@@ -331,13 +331,13 @@
             this.dataGridViewTokenClaims.Name = "dataGridViewTokenClaims";
             this.dataGridViewTokenClaims.RowHeadersVisible = false;
             this.dataGridViewTokenClaims.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(602, 107);
+            this.dataGridViewTokenClaims.Size = new System.Drawing.Size(602, 100);
             this.dataGridViewTokenClaims.TabIndex = 53;
             // 
             // buttonDelClaim
             // 
             this.buttonDelClaim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelClaim.Location = new System.Drawing.Point(119, 185);
+            this.buttonDelClaim.Location = new System.Drawing.Point(119, 176);
             this.buttonDelClaim.Name = "buttonDelClaim";
             this.buttonDelClaim.Size = new System.Drawing.Size(87, 27);
             this.buttonDelClaim.TabIndex = 62;
@@ -348,7 +348,7 @@
             // buttonAddClaim
             // 
             this.buttonAddClaim.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonAddClaim.Location = new System.Drawing.Point(24, 185);
+            this.buttonAddClaim.Location = new System.Drawing.Point(24, 176);
             this.buttonAddClaim.Name = "buttonAddClaim";
             this.buttonAddClaim.Size = new System.Drawing.Size(87, 27);
             this.buttonAddClaim.TabIndex = 61;
@@ -411,9 +411,9 @@
             this.labelStep.ForeColor = System.Drawing.Color.DarkBlue;
             this.labelStep.Location = new System.Drawing.Point(26, 21);
             this.labelStep.Name = "labelStep";
-            this.labelStep.Size = new System.Drawing.Size(415, 42);
+            this.labelStep.Size = new System.Drawing.Size(464, 42);
             this.labelStep.TabIndex = 84;
-            this.labelStep.Text = "Step {0}\r\nSpecify the content key Authorization Policy Option #{1}";
+            this.labelStep.Text = "Step {0}\r\nSpecify the content key Authorization Policy Option #{1} for {2}";
             // 
             // tabControlTokenType
             // 
@@ -578,7 +578,7 @@
             this.tabControlTokenProperties.Location = new System.Drawing.Point(14, 381);
             this.tabControlTokenProperties.Name = "tabControlTokenProperties";
             this.tabControlTokenProperties.SelectedIndex = 0;
-            this.tabControlTokenProperties.Size = new System.Drawing.Size(653, 235);
+            this.tabControlTokenProperties.Size = new System.Drawing.Size(653, 248);
             this.tabControlTokenProperties.TabIndex = 86;
             // 
             // tabPage2
@@ -592,7 +592,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(645, 207);
+            this.tabPage2.Size = new System.Drawing.Size(645, 220);
             this.tabPage2.TabIndex = 0;
             this.tabPage2.Text = "Token Properties";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -627,7 +627,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 24);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(645, 229);
+            this.tabPage3.Size = new System.Drawing.Size(645, 220);
             this.tabPage3.TabIndex = 1;
             this.tabPage3.Text = "Claims";
             this.tabPage3.UseVisualStyleBackColor = true;

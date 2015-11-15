@@ -37,49 +37,53 @@ namespace AMSExplorer
     {
         public string GetWidevineConfiguration(Uri keyDeliveryUrl)
         {
-
-            var template = new WidevineMessage
+            if (radioButtonBasic.Checked)
             {
-                content_key_specs = new[]
-                                  {
+                return "{}";
+            }
+            else
+            {
+                var template = new WidevineMessage
+                {
+                    content_key_specs = new[]
+                                                  {
                                             new ContentKeySpecs
                                             {
                                                 required_output_protection = new RequiredOutputProtection { hdcp = (Hdcp)(Enum.Parse(typeof(Hdcp), (string)comboBoxReqOutputProtection.SelectedItem))},
                                                 track_type = textBoxTrackType.Text
                                             }
                                         },
-                policy_overrides = new
-                {
-                    can_play = checkBoxCanPlay.Checked,
-                    can_persist = checkBoxCanPersist.Checked,
-                    can_renew = checkBoxCanRenew.Checked
-                }
-            };
-
-            if (checkBoxAllowTrackType.Checked)
-            {
-                template.allowed_track_types = (AllowedTrackTypes)(Enum.Parse(typeof(AllowedTrackTypes), (string)comboBoxAllowedTrackTypes.SelectedItem));
-            }
-
-            if (checkBoxSecLevel.Checked)
-            {
-                template.content_key_specs.FirstOrDefault().security_level = (int)numericUpDownSecLevel.Value;
-            }
-
-            if (checkBoxCanRenew.Checked)
-            {
-                template.policy_overrides = new
-                {
-                    can_play = checkBoxCanPlay.Checked,
-                    can_persist = checkBoxCanPersist.Checked,
-                    can_renew = checkBoxCanRenew.Checked,
-                    renewal_server_url = keyDeliveryUrl.ToString()
+                    policy_overrides = new
+                    {
+                        can_play = checkBoxCanPlay.Checked,
+                        can_persist = checkBoxCanPersist.Checked,
+                        can_renew = checkBoxCanRenew.Checked
+                    }
                 };
+
+                if (checkBoxAllowTrackType.Checked)
+                {
+                    template.allowed_track_types = (AllowedTrackTypes)(Enum.Parse(typeof(AllowedTrackTypes), (string)comboBoxAllowedTrackTypes.SelectedItem));
+                }
+
+                if (checkBoxSecLevel.Checked)
+                {
+                    template.content_key_specs.FirstOrDefault().security_level = (int)numericUpDownSecLevel.Value;
+                }
+
+                if (checkBoxCanRenew.Checked)
+                {
+                    template.policy_overrides = new
+                    {
+                        can_play = checkBoxCanPlay.Checked,
+                        can_persist = checkBoxCanPersist.Checked,
+                        can_renew = checkBoxCanRenew.Checked,
+                        renewal_server_url = keyDeliveryUrl.ToString()
+                    };
+                }
+
+                return JsonConvert.SerializeObject(template);
             }
-
-
-
-            return JsonConvert.SerializeObject(template);
         }
 
         public AddDynamicEncryptionFrame6_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
@@ -122,6 +126,11 @@ namespace AMSExplorer
         private void checkBoxAllowTrackType_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxAllowedTrackTypes.Enabled = checkBoxAllowTrackType.Checked;
+        }
+
+        private void radioButtonAdvanced_CheckedChanged(object sender, EventArgs e)
+        {
+            groupBoxAdvLicense.Enabled = radioButtonAdvanced.Checked;
         }
     }
 }
