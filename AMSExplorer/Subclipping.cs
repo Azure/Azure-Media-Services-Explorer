@@ -544,7 +544,7 @@ namespace AMSExplorer
                 if (form2.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
                     string taskname = "Subclipping with reencoding of " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
-                    _mainform.LaunchJobs(
+                    _mainform.LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
                        processor,
                        _selectedAssets,
                        form2.EncodingJobName,
@@ -585,7 +585,7 @@ namespace AMSExplorer
                 string taskname = "Subclipping (archive extraction) of " + Constants.NameconvInputasset;
                 IMediaProcessor Proc = Mainform.GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
 
-                _mainform.LaunchJobs(
+                _mainform.LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(
                     Proc,
                     _selectedAssets,
                     this.EncodingJobName,
