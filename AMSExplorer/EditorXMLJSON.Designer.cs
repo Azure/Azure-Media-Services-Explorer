@@ -80,11 +80,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 30);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 41);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(760, 460);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(760, 449);
             this.textBoxConfiguration.TabIndex = 67;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -103,9 +103,9 @@
             this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(116, 6);
+            this.labelWarningJSON.Location = new System.Drawing.Point(115, 13);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(656, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(657, 21);
             this.labelWarningJSON.TabIndex = 78;
             this.labelWarningJSON.Tag = "";
             this.labelWarningJSON.Text = "XML Syntax error. {0}";
@@ -113,7 +113,7 @@
             // 
             // buttonInsertSample
             // 
-            this.buttonInsertSample.Location = new System.Drawing.Point(13, 3);
+            this.buttonInsertSample.Location = new System.Drawing.Point(12, 12);
             this.buttonInsertSample.Name = "buttonInsertSample";
             this.buttonInsertSample.Size = new System.Drawing.Size(97, 23);
             this.buttonInsertSample.TabIndex = 79;

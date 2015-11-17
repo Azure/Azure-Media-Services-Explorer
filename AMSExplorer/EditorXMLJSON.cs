@@ -44,7 +44,7 @@ namespace AMSExplorer
             }
         }
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium=false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -53,8 +53,14 @@ namespace AMSExplorer
             if (editMode)
             {
                 buttonOk.Text = "Save";
-                buttonInsertSample.Visible = false;
-            };
+            }
+            else // readonly mode
+            {
+                buttonCancel.Text = "Close";
+                buttonOk.Visible = false;
+            }
+
+            buttonInsertSample.Visible = showSamplePremium;
             labelWarningJSON.Text = string.Empty;
         }
 
@@ -112,7 +118,7 @@ namespace AMSExplorer
 
         public void Initialize()
         {
-            myPremiumXML = new EditorXMLJSON();
+            myPremiumXML = new EditorXMLJSON(editMode:true, showSamplePremium:true);
         }
 
         void ButtonXML_Click(object sender, EventArgs e)

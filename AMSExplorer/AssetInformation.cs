@@ -771,7 +771,10 @@ namespace AMSExplorer
                 dataGridViewKeys.Rows.Add("Las modified", key.LastModified.ToLocalTime().ToString("G"));
                 dataGridViewKeys.Rows.Add("Protection key Id", key.ProtectionKeyId);
                 dataGridViewKeys.Rows.Add("Protection key type", key.ProtectionKeyType);
-                dataGridViewKeys.Rows.Add("GetClearKeyValue", Convert.ToBase64String(key.GetClearKeyValue()));
+                int i = dataGridViewKeys.Rows.Add("Clear Key Value", "see clear key");
+                DataGridViewButtonCell btn = new DataGridViewButtonCell();
+                dataGridViewKeys.Rows[i].Cells[1] = btn;
+                dataGridViewKeys.Rows[i].Cells[1].Value = "See clear key";
 
                 listViewAutPolOptions.Items.Clear();
                 dataGridViewAutPolOption.Rows.Clear();
@@ -2211,7 +2214,7 @@ namespace AMSExplorer
                         File.Delete(filePath);
                     }
 
-                    var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true);
+                    var editform = new EditorXMLJSON(string.Format("Online edit of '{0}'", assetFileToEdit.Name), datastring, true, false);
                     if (editform.Display() == DialogResult.OK)
                     { // OK
 
@@ -2256,6 +2259,35 @@ namespace AMSExplorer
 
         private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
         {
+
+        }
+
+        private void buttonSeeClearKey_Click_5(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SeeClearKey()
+        {
+            if (listViewKeys.SelectedItems.Count > 0)
+            {
+                IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                var editform = new EditorXMLJSON(string.Format("Clear key value of '{0}'", key.Name), Convert.ToBase64String(key.GetClearKeyValue()), false, false);
+                editform.Display();
+            }
+        }
+
+        private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            {
+
+                //TODO - Button Clicked - to see the key
+                SeeClearKey();
+            }
 
         }
     }
