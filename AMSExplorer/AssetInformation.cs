@@ -775,6 +775,7 @@ namespace AMSExplorer
                 DataGridViewButtonCell btn = new DataGridViewButtonCell();
                 dataGridViewKeys.Rows[i].Cells[1] = btn;
                 dataGridViewKeys.Rows[i].Cells[1].Value = "See clear key";
+                dataGridViewKeys.Rows[i].Cells[1].Tag = Convert.ToBase64String(key.GetClearKeyValue());
 
                 listViewAutPolOptions.Items.Clear();
                 dataGridViewAutPolOption.Rows.Clear();
@@ -1581,11 +1582,23 @@ namespace AMSExplorer
                         {
                             dataGridViewAutPolOption.Rows.Add("Restriction Requirements", restriction.Requirements);
                             TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
+
                             dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
                             if (tokenTemplate.PrimaryVerificationKey != null)
                             {
                                 dataGridViewAutPolOption.Rows.Add("Token Verification Key Type", (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey)) ? "Symmetric" : "Asymmetric (X509)");
+                                if (tokenTemplate.PrimaryVerificationKey.GetType() == typeof(SymmetricVerificationKey))
+                                {
+                                    var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
+
+                                    int i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "");// Convert.ToBase64String(verifkey.KeyValue));
+                                    DataGridViewButtonCell btn = new DataGridViewButtonCell();
+                                    dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
+                                    dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
+                                    dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
+                                }
                             }
+                           
                             if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                             {
                                 dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
@@ -2267,15 +2280,13 @@ namespace AMSExplorer
 
         }
 
-        private void SeeClearKey()
+        private void SeeClearKey(string key)
         {
-            if (listViewKeys.SelectedItems.Count > 0)
-            {
-                IContentKey key = myAsset.ContentKeys.Skip(listViewKeys.SelectedIndices[0]).Take(1).FirstOrDefault();
+           
 
-                var editform = new EditorXMLJSON(string.Format("Clear key value of '{0}'", key.Name), Convert.ToBase64String(key.GetClearKeyValue()), false, false);
+                var editform = new EditorXMLJSON("Clear key value", key.ToString(), false, false);
                 editform.Display();
-            }
+           
         }
 
         private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -2286,9 +2297,32 @@ namespace AMSExplorer
             {
 
                 //TODO - Button Clicked - to see the key
-                SeeClearKey();
+                SeeClearKey(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }
 
+        }
+
+        private void dataGridViewAutPolOption_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            {
+
+                //TODO - Button Clicked - to see the key
+                SeePrimaryVerificationKey(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
+            }
+        }
+
+        private void SeePrimaryVerificationKey(string key)
+        {
+            if (listViewAutPolOptions.SelectedItems.Count > 0)
+            {
+                 IContentKeyAuthorizationPolicyOption option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
+
+                var editform = new EditorXMLJSON("Verification key", key, false, false);
+                editform.Display();
+            }
         }
     }
 }

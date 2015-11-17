@@ -858,6 +858,7 @@
             this.dataGridViewAutPolOption.RowHeadersVisible = false;
             this.dataGridViewAutPolOption.Size = new System.Drawing.Size(328, 194);
             this.dataGridViewAutPolOption.TabIndex = 38;
+            this.dataGridViewAutPolOption.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewAutPolOption_CellContentClick);
             // 
             // listViewAutPolOptions
             // 

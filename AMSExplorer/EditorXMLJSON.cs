@@ -58,6 +58,7 @@ namespace AMSExplorer
             {
                 buttonCancel.Text = "Close";
                 buttonOk.Visible = false;
+                textBoxConfiguration.ReadOnly = true;
             }
 
             buttonInsertSample.Visible = showSamplePremium;
