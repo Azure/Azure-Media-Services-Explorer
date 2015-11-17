@@ -51,6 +51,7 @@
             this.label = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxPreviewURL = new System.Windows.Forms.TextBox();
+            this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
             this.groupBox4.SuspendLayout();
             this.groupBoxForceLocator.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -183,6 +184,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.comboBoxBrowser);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Controls.Add(this.buttonOk);
             this.panel1.Location = new System.Drawing.Point(-2, 507);
@@ -343,7 +345,6 @@
             // 
             this.textBoxPreviewURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxPreviewURL.Enabled = false;
             this.textBoxPreviewURL.Font = new System.Drawing.Font("Segoe UI Semilight", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBoxPreviewURL.Location = new System.Drawing.Point(17, 463);
             this.textBoxPreviewURL.Multiline = true;
@@ -351,6 +352,16 @@
             this.textBoxPreviewURL.ReadOnly = true;
             this.textBoxPreviewURL.Size = new System.Drawing.Size(553, 35);
             this.textBoxPreviewURL.TabIndex = 9;
+            // 
+            // comboBoxBrowser
+            // 
+            this.comboBoxBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.comboBoxBrowser.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxBrowser.FormattingEnabled = true;
+            this.comboBoxBrowser.Location = new System.Drawing.Point(19, 17);
+            this.comboBoxBrowser.Name = "comboBoxBrowser";
+            this.comboBoxBrowser.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxBrowser.TabIndex = 2;
             // 
             // ChooseStreamingEndpoint
             // 
@@ -408,5 +419,6 @@
         private System.Windows.Forms.CheckBox checkBoxNoAudioOnly;
         private System.Windows.Forms.TextBox textBoxPreviewURL;
         private System.Windows.Forms.ListView listViewFilters;
+        private System.Windows.Forms.ComboBox comboBoxBrowser;
     }
 }

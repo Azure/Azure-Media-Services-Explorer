@@ -24,6 +24,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.WindowsAzure.MediaServices.Client;
+using Microsoft.Win32;
 
 namespace AMSExplorer
 {
@@ -34,6 +35,7 @@ namespace AMSExplorer
         string _filter;
         PlayerType _playertype;
         private string _url;
+        private bool _displayBrowserSelection;
 
         public IStreamingEndpoint SelectStreamingEndpoint
         {
@@ -49,23 +51,6 @@ namespace AMSExplorer
         {
             get
             {
-                //string filters = string.Empty;
-                //bool first = true;
-                //foreach (var f in listBoxFilter.SelectedItems)
-                //{
-                //    string v = (f as Item).Value as string;
-                //    if (v != null)
-                //    {
-                //        filters += (first ? "" : ";") + v;
-                //        first = false;
-                //    }
-                //}
-                //if (string.IsNullOrEmpty(filters))
-                //{
-                //    filters = null;
-                //}
-                //return filters;
-
                 string filters = string.Empty;
                 bool first = true;
                 foreach (var f in listViewFilters.CheckedItems)
@@ -92,6 +77,15 @@ namespace AMSExplorer
             {
                 string val = (listBoxSE.SelectedItem as Item).Value as string;
                 return val.Split("|".ToCharArray())[1];
+            }
+        }
+
+        public string ReturnSelectedBrowser
+        {
+            get
+            {
+                return (comboBoxBrowser.SelectedItem as Item).Value as string;
+
             }
         }
 
@@ -144,7 +138,7 @@ namespace AMSExplorer
         }
 
 
-        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer)
+        public ChooseStreamingEndpoint(CloudMediaContext context, IAsset asset, string Url, string filter = null, PlayerType playertype = PlayerType.AzureMediaPlayer, bool displayBrowserSelection = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -153,6 +147,7 @@ namespace AMSExplorer
             _filter = filter;
             _playertype = playertype;
             _url = Url;
+            _displayBrowserSelection = displayBrowserSelection;
         }
 
 
@@ -211,7 +206,26 @@ namespace AMSExplorer
                 radioButtonDASH.Checked = true;
             }
 
+            comboBoxBrowser.Items.Add(new Item("Default browser", string.Empty));
+            if (_displayBrowserSelection)
+            {
+                if (IsWindows10()) comboBoxBrowser.Items.Add(new Item("Microsoft Edge", "microsoft-edge:"));
+                comboBoxBrowser.Items.Add(new Item("Internet Explorer", "iexplore.exe"));
+                comboBoxBrowser.Items.Add(new Item("Google Chrome", "chrome.exe"));
+                comboBoxBrowser.SelectedIndex = 0;
+            }
+            comboBoxBrowser.Visible = _displayBrowserSelection;
+
             UpdatePreviewUrl();
+        }
+
+        static bool IsWindows10()
+        {
+            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+
+            string productName = (string)reg.GetValue("ProductName");
+
+            return productName.StartsWith("Windows 10");
         }
 
         private void radioButtonHLSv3_CheckedChanged(object sender, EventArgs e)
@@ -270,6 +284,22 @@ namespace AMSExplorer
         private void listViewFilters_ItemChecked(object sender, ItemCheckedEventArgs e)
         {
             UpdatePreviewUrl();
+        }
+
+        private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void contextMenuStripURL_MouseClick(object sender, MouseEventArgs e)
+        {
+            ContextMenuStrip contextmenu = (ContextMenuStrip)sender;
+            TextBox textbox = (TextBox)contextmenu.SourceControl;
+
+            if (!(string.IsNullOrEmpty(textbox.Text)))
+            {
+                System.Windows.Forms.Clipboard.SetText(textbox.Text);
+            }
         }
     }
 }

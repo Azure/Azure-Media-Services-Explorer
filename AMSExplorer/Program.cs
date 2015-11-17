@@ -2290,6 +2290,7 @@ namespace AMSExplorer
             if (!string.IsNullOrEmpty(Urlstr))
             {
                 IStreamingEndpoint choosenSE = AssetInfo.GetBestStreamingEndpoint(context);
+                string selectedBrowser = string.Empty;
 
                 // Let's ask for SE if several SEs or Custom Host Names or Filters
                 if (!DoNotRewriteURL)
@@ -2300,11 +2301,12 @@ namespace AMSExplorer
                         (context.StreamingEndpoints.Count() > 1 || (context.StreamingEndpoints.FirstOrDefault() != null && context.StreamingEndpoints.FirstOrDefault().CustomHostNames.Count > 0) || context.Filters.Count() > 0 || (myasset.AssetFilters.Count() > 0))
                         )
                     {
-                        var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer);
+                        var form = new ChooseStreamingEndpoint(context, myasset, Urlstr, filter, typeplayer, true);
                         if (form.ShowDialog() == DialogResult.OK)
                         {
                             Urlstr = AssetInfo.RW(new Uri(Urlstr), form.SelectStreamingEndpoint, form.SelectedFilters, form.ReturnHttps, form.ReturnSelectCustomHostName, form.ReturnStreamingProtocol, form.ReturnHLSAudioTrackName, form.ReturnHLSNoAudioOnlyMode).ToString();
                             choosenSE = form.SelectStreamingEndpoint;
+                            selectedBrowser = form.ReturnSelectedBrowser;
                         }
                         else
                         {
@@ -2530,7 +2532,24 @@ namespace AMSExplorer
                         break;
                 }
 
-                if (FullPlayBackLink != null && launchbrowser) Process.Start(FullPlayBackLink);
+                if (FullPlayBackLink != null && launchbrowser)
+                {
+                    if (string.IsNullOrEmpty(selectedBrowser))
+                    {
+                        Process.Start(FullPlayBackLink);
+                    }
+                    else
+                    {
+                        if (selectedBrowser.Contains("edge"))
+                        {
+                            Process.Start(selectedBrowser + FullPlayBackLink);
+                        }
+                        else
+                        {
+                            Process.Start(selectedBrowser, FullPlayBackLink);
+                        }
+                    }
+                }
             }
 
             return FullPlayBackLink;
@@ -3164,6 +3183,8 @@ namespace AMSExplorer
         public bool EnableSettings { get; set; }
         public string Comment { get; set; }
     }
+
+
 
 
     public class IndexerOptionsVar

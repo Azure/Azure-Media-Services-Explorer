@@ -2253,5 +2253,10 @@ namespace AMSExplorer
 
             }
         }
+
+        private void toolStripMenuItemFilesCopyClipboard_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
