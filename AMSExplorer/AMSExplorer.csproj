@@ -889,7 +889,6 @@
     <None Include="IconsPNG\rename.png" />
     <None Include="IconsPNG\SAS_locator.png" />
     <None Include="IconsPNG\start.png" />
-    <None Include="IconsPNG\start-48.png" />
     <None Include="IconsPNG\storage_encryption.png" />
     <None Include="IconsPNG\streaming_locator.png" />
     <None Include="IconsPNG\thumbnails.png" />

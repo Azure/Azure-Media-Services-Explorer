@@ -620,10 +620,11 @@ namespace AMSExplorer
 
 
             var assetDeliveryPolicy = _context.AssetDeliveryPolicies.Create(
-                name,
-                AssetDeliveryPolicyType.DynamicCommonEncryption,
-               protocol,
-                assetDeliveryPolicyConfiguration);
+                                                                            name,
+                                                                            AssetDeliveryPolicyType.DynamicCommonEncryption,
+                                                                            protocol,
+                                                                            assetDeliveryPolicyConfiguration
+                                                                            );
 
             // Add AssetDelivery Policy to the asset
             asset.DeliveryPolicies.Add(assetDeliveryPolicy);

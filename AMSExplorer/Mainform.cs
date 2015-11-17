@@ -3995,7 +3995,7 @@ namespace AMSExplorer
                                                                                 proposedfiles.ContainsKey(asset.Id) ? proposedfiles[asset.Id] : null
                                                                                 )
                                                                                 );
-                   
+
                 }
                 LaunchJobs_OneJobPerInputAssetWithSpecificConfig(
                             processor,
@@ -8592,7 +8592,6 @@ namespace AMSExplorer
                                 try
                                 {
                                     PlayReadyLicenseDeliveryConfig = form5PlayReadyLicenseList[form4list.IndexOf(form4)].GetLicenseTemplate;
-                                    // PlayReadyLicenseDeliveryConfig = DynamicEncryption.ConfigurePlayReadyLicenseTemplate(form4PlayReadyLicenseList[form3list.IndexOf(form3)].GetLicenseTemplate);
                                 }
                                 catch (Exception e)
                                 {
@@ -8604,9 +8603,9 @@ namespace AMSExplorer
                             }
                             else
                             { // user wants to define a Widevine license for this option
-                            
-                                WidevineLicenseDeliveryConfig = 
-                                    form6WidevineLicenseList[form4list.IndexOf(form4)- form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady]
+
+                                WidevineLicenseDeliveryConfig =
+                                    form6WidevineLicenseList[form4list.IndexOf(form4) - form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady]
                                     .GetWidevineConfiguration(contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine));
                             }
 
@@ -8621,13 +8620,13 @@ namespace AMSExplorer
                                             if (ItIsAPlayReadyOption)
                                             {
                                                 policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.PlayReadyLicense, PlayReadyLicenseDeliveryConfig, _context);
-                                                TextBoxLogWriteLine("Created PlayReady Open authorization policy for the asset '{0}' ",  AssetToProcess.Name);
+                                                TextBoxLogWriteLine("Created PlayReady Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
                                                 contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                             }
                                             else // widevine
                                             {
                                                 policyOption = DynamicEncryption.AddOpenAuthorizationPolicyOption(contentKey, ContentKeyDeliveryType.Widevine, WidevineLicenseDeliveryConfig, _context);
-                                                TextBoxLogWriteLine("Created Widevine Open authorization policy for the asset '{0}' ",  AssetToProcess.Name);
+                                                TextBoxLogWriteLine("Created Widevine Open authorization policy for the asset '{0}' ", AssetToProcess.Name);
                                                 contentKeyAuthorizationPolicy.Options.Add(policyOption);
                                             }
                                             break;
@@ -8658,21 +8657,6 @@ namespace AMSExplorer
                                             }
                                             else //widevine
                                             {
-                                                /*
-                                                // test code
-                                                Uri keyDeliveryUrl = contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine);
-
-                                                string configuration = DynamicEncryption.CreateWidevineConfigSophisticated(keyDeliveryUrl);
-
-                                                byte[] tokenKey = EncryptionHelper.GetTestDataBuffer(16);
-
-                                                var restriction = DynamicEncryption.MakeTokenPolicyRestriction((SymmetricVerificationKey)mytokenverifkey, TokenType.SWT, form4.GetIssuer, form4.GetAudience);
-
-                                                policyOption = DynamicEncryption.AddPolicyOption(_context, restriction, ContentKeyDeliveryType.Widevine, configuration);
-
-                                                string token = DynamicEncryption.MakeSwtToken((SymmetricVerificationKey)mytokenverifkey, form4.GetIssuer, form4.GetAudience);
-                                                */
-
                                                 policyOption = DynamicEncryption.AddTokenRestrictedAuthorizationPolicyCENC(ContentKeyDeliveryType.Widevine, contentKey, form4.GetAudience, form4.GetIssuer, form4.GetTokenRequiredClaims, form4.AddContentKeyIdentifierClaim, form4.GetTokenType, form4.GetDetailedTokenType, mytokenverifkey, _context, WidevineLicenseDeliveryConfig, OpenIdDoc);
                                                 TextBoxLogWriteLine("Created Token Widevine authorization policy for the asset '{0}'", AssetToProcess.Name);
                                             }
@@ -8758,7 +8742,6 @@ namespace AMSExplorer
                 aeskey = form2.AESContentKey;
                 aeslaurl = form3_AES.AESLaUrl;
             }
-
 
 
             if (!form2.ContentKeyRandomGeneration && (form2.AESKeyId != null))  // user want to manually enter the cryptography data and key if providedd 
