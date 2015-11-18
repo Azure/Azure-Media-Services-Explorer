@@ -646,7 +646,7 @@ namespace AMSExplorer
             asset.Delete();
         }
 
-        public void DeleteLocatorsForAsset(IAsset asset)
+        public void DeleteLocatorsForAsset(IAsset asset, bool onlyStreamingLocators)
         {
             if (asset != null)
             {
@@ -654,6 +654,11 @@ namespace AMSExplorer
                 var locators = from a in _context.Locators
                                where a.AssetId == assetId
                                select a;
+
+                if (onlyStreamingLocators)
+                {
+                    locators = locators.Where(l => l.Type == LocatorType.OnDemandOrigin);
+                }
 
                 foreach (var locator in locators)
                 {
@@ -1893,7 +1898,7 @@ namespace AMSExplorer
         }
 
 
-        private void DoDeleteAllLocatorsOnAssets(List<IAsset> SelectedAssets)
+        private void DoDeleteAllLocatorsOnAssets(List<IAsset> SelectedAssets, bool onlyStreamingLocators = false)
         {
             if (SelectedAssets.Count > 0)
             {
@@ -1909,7 +1914,7 @@ namespace AMSExplorer
                             TextBoxLogWriteLine("Deleting locators of asset '{0}'", AssetToProcess.Name);
                             try
                             {
-                                DeleteLocatorsForAsset(AssetToProcess);
+                                DeleteLocatorsForAsset(AssetToProcess, onlyStreamingLocators);
                                 TextBoxLogWriteLine("Deletion done.");
                             }
 
@@ -8263,168 +8268,185 @@ namespace AMSExplorer
 
         private bool SetupDynamicEncryption(List<IAsset> SelectedAssets, bool forceusertoprovidekey)
         {
+            if (SelectedAssets.Count == 0) return false;
+
             string labelAssetName;
             bool oktoproceed = false;
-            if (SelectedAssets.Count > 0)
+
+            // check if assets are published
+            var publishedAssets = SelectedAssets.Where(a => a.Locators.Count > 0).ToList();
+            if (publishedAssets.Count > 0)
             {
-                labelAssetName = "Dynamic encryption will be applied for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
-                if (SelectedAssets.Count > 1)
+                if (MessageBox.Show("Some selected asset(s) are published.\nYou need to unpublish them before doing any dynamic encryption change.\n\nOk to unpublish (delete locators) ?", "Published assets", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
-                    labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
+                    DoDeleteAllLocatorsOnAssets(publishedAssets, true);
                 }
-                AddDynamicEncryptionFrame1 form1 = new AddDynamicEncryptionFrame1(_context);
-
-                if (form1.ShowDialog() == DialogResult.OK)
+                else
                 {
+                    return false;
+                }
+            }
 
-                    switch (form1.GetDeliveryPolicyType)
-                    {
-                        ///////////////////////////////////////////// CENC Dynamic Encryption
-                        case AssetDeliveryPolicyType.DynamicCommonEncryption:
-                        case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
 
-                            AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
 
-                                forceusertoprovidekey)
-                            //  !NeedToDisplayPlayReadyLicense,
-                            // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
-                            { Left = form1.Left, Top = form1.Top };
-                            if (form2_CENC.ShowDialog() == DialogResult.OK)
+            labelAssetName = "Dynamic encryption will be applied for Asset '" + SelectedAssets.FirstOrDefault().Name + "'.";
+            if (SelectedAssets.Count > 1)
+            {
+                labelAssetName = "Dynamic encryption will applied to the " + SelectedAssets.Count.ToString() + " selected assets.";
+            }
+            AddDynamicEncryptionFrame1 form1 = new AddDynamicEncryptionFrame1(_context);
+
+            if (form1.ShowDialog() == DialogResult.OK)
+            {
+
+                switch (form1.GetDeliveryPolicyType)
+                {
+                    ///////////////////////////////////////////// CENC Dynamic Encryption
+                    case AssetDeliveryPolicyType.DynamicCommonEncryption:
+                    case AssetDeliveryPolicyType.None: // in that case, user want to configure license delivery on an asset already encrypted
+
+                        AddDynamicEncryptionFrame2_CENCKeyConfig form2_CENC = new AddDynamicEncryptionFrame2_CENCKeyConfig(
+
+                            forceusertoprovidekey)
+                        //  !NeedToDisplayPlayReadyLicense,
+                        // ((form1.GetAssetDeliveryProtocol & AssetDeliveryProtocol.Dash) == AssetDeliveryProtocol.Dash) && (form1.GetDeliveryPolicyType == AssetDeliveryPolicyType.DynamicCommonEncryption))
+                        { Left = form1.Left, Top = form1.Top };
+                        if (form2_CENC.ShowDialog() == DialogResult.OK)
+                        {
+                            var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
+                            if (form3_CENC.ShowDialog() == DialogResult.OK)
                             {
-                                var form3_CENC = new AddDynamicEncryptionFrame3_CENCDelivery(_context, form1.PlayReadyPackaging, form1.WidevinePackaging);
-                                if (form3_CENC.ShowDialog() == DialogResult.OK)
+                                bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0;
+                                bool NeedToDisplayWidevineLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0;
+
+                                List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
+                                List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5list = new List<AddDynamicEncryptionFrame5_PlayReadyLicense>();
+                                List<AddDynamicEncryptionFrame6_WidevineLicense> form6list = new List<AddDynamicEncryptionFrame6_WidevineLicense>();
+
+                                bool usercancelledform4or5 = false;
+                                bool usercancelledform4or6 = false;
+
+                                int step = 3;
+                                string tokensymmetrickey = null;
+                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
                                 {
-                                    bool NeedToDisplayPlayReadyLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady > 0;
-                                    bool NeedToDisplayWidevineLicense = form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine > 0;
+                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
 
-                                    List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
-                                    List<AddDynamicEncryptionFrame5_PlayReadyLicense> form5list = new List<AddDynamicEncryptionFrame5_PlayReadyLicense>();
-                                    List<AddDynamicEncryptionFrame6_WidevineLicense> form6list = new List<AddDynamicEncryptionFrame6_WidevineLicense>();
-
-                                    bool usercancelledform4or5 = false;
-                                    bool usercancelledform4or6 = false;
-
-                                    int step = 3;
-                                    string tokensymmetrickey = null;
-                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady; i++)
+                                    if (form4.ShowDialog() == DialogResult.OK)
                                     {
-                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "PlayReady", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                        if (form4.ShowDialog() == DialogResult.OK)
+                                        step++;
+                                        form4list.Add(form4);
+                                        tokensymmetrickey = form4.SymmetricKey;
+                                        AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        step++;
+                                        if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
-                                            step++;
-                                            form4list.Add(form4);
-                                            tokensymmetrickey = form4.SymmetricKey;
-                                            AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                            AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                            step++;
-                                            if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
+                                            if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
                                             {
-                                                if (form5_PlayReadyLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                                {
-                                                    form5list.Add(form5_PlayReadyLicense);
-                                                }
-                                                else
-                                                {
-                                                    usercancelledform4or5 = true;
-                                                }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            usercancelledform4or5 = true;
-                                        }
-                                    }
-
-                                    // widevine
-                                    for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
-                                    {
-                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
-
-                                        if (form4.ShowDialog() == DialogResult.OK)
-                                        {
-                                            step++;
-                                            form4list.Add(form4);
-                                            tokensymmetrickey = form4.SymmetricKey;
-                                            AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                            step++;
-
-                                            if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
-                                            {
-                                                form6list.Add(form6_WidevineLicense);
+                                                form5list.Add(form5_PlayReadyLicense);
                                             }
                                             else
                                             {
-                                                usercancelledform4or6 = true;
+                                                usercancelledform4or5 = true;
                                             }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        usercancelledform4or5 = true;
+                                    }
+                                }
+
+                                // widevine
+                                for (int i = 0; i < form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine; i++)
+                                {
+                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, step, i + 1, "Widevine", tokensymmetrickey, false) { Left = form2_CENC.Left, Top = form2_CENC.Top };
+
+                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    {
+                                        step++;
+                                        form4list.Add(form4);
+                                        tokensymmetrickey = form4.SymmetricKey;
+                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        step++;
+
+                                        if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
+                                        {
+                                            form6list.Add(form6_WidevineLicense);
                                         }
                                         else
                                         {
                                             usercancelledform4or6 = true;
                                         }
                                     }
-                                    if (!usercancelledform4or5 && !usercancelledform4or6)
+                                    else
                                     {
-                                        DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, form6list, true);
-                                        oktoproceed = true;
-                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                        usercancelledform4or6 = true;
                                     }
                                 }
-                            }
-                            break;
-
-                        ///////////////////////////////////////////// AES Dynamic Encryption
-                        case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
-                            AddDynamicEncryptionFrame2_AESKeyConfig form2_AES =
-                                new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey) { Left = form1.Left, Top = form1.Top };
-                            if (form2_AES.ShowDialog() == DialogResult.OK)
-                            {
-                                var form3_AES = new AddDynamicEncryptionFrame3_AESDelivery(_context);
-                                if (form3_AES.ShowDialog() == DialogResult.OK)
+                                if (!usercancelledform4or5 && !usercancelledform4or6)
                                 {
-                                    List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
-                                    bool usercancelledform4 = false;
-                                    string tokensymmetrickey = null;
-                                    for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
-                                    {
-                                        AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
-                                        if (form4.ShowDialog() == DialogResult.OK)
-                                        {
-                                            form4list.Add(form4);
-                                            tokensymmetrickey = form4.SymmetricKey;
-                                        }
-                                        else
-                                        {
-                                            usercancelledform4 = true;
-                                        }
-                                    }
-
-                                    if (!usercancelledform4)
-                                    {
-                                        DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
-                                        oktoproceed = true;
-                                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                                        dataGridViewAssetsV.AnalyzeItemsInBackground();
-                                    }
+                                    DoDynamicEncryptionAndKeyDeliveryWithCENC(SelectedAssets, form1, form2_CENC, form3_CENC, form4list, form5list, form6list, true);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
                                 }
                             }
-                            break;
+                        }
+                        break;
 
-                        ///////////////////////////////////////////// Decrypt storage protected content
-                        case AssetDeliveryPolicyType.NoDynamicEncryption:
-                            AddDynDecryption(SelectedAssets, form1, _context);
-                            oktoproceed = true;
-                            dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
-                            dataGridViewAssetsV.AnalyzeItemsInBackground();
-                            break;
+                    ///////////////////////////////////////////// AES Dynamic Encryption
+                    case AssetDeliveryPolicyType.DynamicEnvelopeEncryption:
+                        AddDynamicEncryptionFrame2_AESKeyConfig form2_AES =
+                            new AddDynamicEncryptionFrame2_AESKeyConfig(forceusertoprovidekey) { Left = form1.Left, Top = form1.Top };
+                        if (form2_AES.ShowDialog() == DialogResult.OK)
+                        {
+                            var form3_AES = new AddDynamicEncryptionFrame3_AESDelivery(_context);
+                            if (form3_AES.ShowDialog() == DialogResult.OK)
+                            {
+                                List<AddDynamicEncryptionFrame4> form4list = new List<AddDynamicEncryptionFrame4>();
+                                bool usercancelledform4 = false;
+                                string tokensymmetrickey = null;
+                                for (int i = 0; i < form3_AES.GetNumberOfAuthorizationPolicyOptions; i++)
+                                {
+                                    AddDynamicEncryptionFrame4 form4 = new AddDynamicEncryptionFrame4(_context, i + 3, i + 1, "AES", tokensymmetrickey, true) { Left = form2_AES.Left, Top = form2_AES.Top };
+                                    if (form4.ShowDialog() == DialogResult.OK)
+                                    {
+                                        form4list.Add(form4);
+                                        tokensymmetrickey = form4.SymmetricKey;
+                                    }
+                                    else
+                                    {
+                                        usercancelledform4 = true;
+                                    }
+                                }
 
-                        default:
-                            break;
+                                if (!usercancelledform4)
+                                {
+                                    DoDynamicEncryptionWithAES(SelectedAssets, form1, form2_AES, form3_AES, form4list, true);
+                                    oktoproceed = true;
+                                    dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                                    dataGridViewAssetsV.AnalyzeItemsInBackground();
+                                }
+                            }
+                        }
+                        break;
 
-                    }
+                    ///////////////////////////////////////////// Decrypt storage protected content
+                    case AssetDeliveryPolicyType.NoDynamicEncryption:
+                        AddDynDecryption(SelectedAssets, form1, _context);
+                        oktoproceed = true;
+                        dataGridViewAssetsV.PurgeCacheAssets(SelectedAssets);
+                        dataGridViewAssetsV.AnalyzeItemsInBackground();
+                        break;
+
+                    default:
+                        break;
+
                 }
             }
+
             return oktoproceed;
         }
 
@@ -9056,10 +9078,10 @@ namespace AMSExplorer
 
             if (SelectedAssets.Count > 0)
             {
-                labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
+                labelAssetName = string.Format("Locators, dynamic encryption policies and key authorization policies will be removed for asset '{0}'.", SelectedAssets.FirstOrDefault().Name);
                 if (SelectedAssets.Count > 1)
                 {
-                    labelAssetName = string.Format("Dynamic encryption policies and key authorization policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
+                    labelAssetName = string.Format("Locators, dynamic encryption policies and key authorization policies will removed for these {0} selected assets.", SelectedAssets.Count.ToString());
                 }
                 labelAssetName += Constants.endline + "Do you want to also DELETE the policies ?";
                 DialogResult myDialogResult = MessageBox.Show(labelAssetName, "Dynamic encryption", MessageBoxButtons.YesNoCancel);

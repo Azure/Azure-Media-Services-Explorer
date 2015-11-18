@@ -153,19 +153,14 @@ namespace AMSExplorer
         private void radioButtonExternalPRServer_CheckedChanged(object sender, EventArgs e)
         {
             panelExternalPlayReady.Enabled = radioButtonExternalPRServer.Checked;
-            if (radioButtonExternalPRServer.Checked && radioButtonExternalWVServer.Checked)
-            {
-                numericUpDownNbOptionsPlayReady.Enabled = false;
-            }
-            else
-            {
-                numericUpDownNbOptionsPlayReady.Enabled = true;
-            }
+            numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalPRServer.Checked;
+           
         }
 
         private void radioButtonExternalWVServer_CheckedChanged(object sender, EventArgs e)
         {
             panelExternalWidevine.Enabled = radioButtonExternalWVServer.Checked;
+            numericUpDownNbOptionsPlayReady.Enabled = !radioButtonExternalWVServer.Checked;
         }
     }
 }
