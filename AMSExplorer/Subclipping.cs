@@ -503,7 +503,7 @@ namespace AMSExplorer
                 }
                 if (myuri != null)
                 {
-                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                    string myurl = AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.AzureMediaPlayerFrame, Urlstr: myuri.ToString(), DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Auto, technology: AzureMediaPlayerTechnologies.Auto, launchbrowser: false, UISelectSEFiltersAndProtocols: false, mainForm: _mainform);
                     webBrowserPreview2.Url = new Uri(myurl);
                 }
             }

@@ -200,7 +200,6 @@ namespace AMSExplorer
            );
 
 
-
             if (_playertype == PlayerType.DASHIFRefPlayer || _playertype == PlayerType.DASHLiveAzure)
             {
                 radioButtonDASH.Checked = true;
@@ -208,10 +207,10 @@ namespace AMSExplorer
 
             comboBoxBrowser.Items.Add(new Item("Default browser", string.Empty));
             if (_displayBrowserSelection)
-            {
-                if (IsWindows10()) comboBoxBrowser.Items.Add(new Item("Microsoft Edge", "microsoft-edge:"));
-                comboBoxBrowser.Items.Add(new Item("Internet Explorer", "iexplore.exe"));
-                comboBoxBrowser.Items.Add(new Item("Google Chrome", "chrome.exe"));
+            { // let's add the browser options to lplayback the content (IE, Edge, Chrome...)
+                if (IsWindows10()) comboBoxBrowser.Items.Add(new Item(Constants.BrowserEdge[0], Constants.BrowserEdge[1]));
+                comboBoxBrowser.Items.Add(new Item(Constants.BrowserIE[0], Constants.BrowserIE[1]));
+                comboBoxBrowser.Items.Add(new Item(Constants.BrowserChrome[0], Constants.BrowserChrome[1]));
                 comboBoxBrowser.SelectedIndex = 0;
             }
             comboBoxBrowser.Visible = _displayBrowserSelection;

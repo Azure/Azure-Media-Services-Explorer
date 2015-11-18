@@ -1072,7 +1072,7 @@ namespace AMSExplorer
                                     Uri SmoothUri = MyLocator.GetSmoothStreamingUri();
                                     if (SmoothUri != null)
                                     {
-                                        string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
+                                        string playbackurl = AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, SmoothUri.AbsoluteUri, _context, this, oasset, launchbrowser: false, UISelectSEFiltersAndProtocols: false);
                                         sb.AppendLine("Link to playback the asset:");
                                         sb.AppendLine(playbackurl);
                                         sb.AppendLine();
@@ -8089,7 +8089,7 @@ namespace AMSExplorer
                 {
                     if (channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, UISelectSEFiltersAndProtocols: false);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: ptype, Urlstr: channel.Preview.Endpoints.FirstOrDefault().Url.AbsoluteUri, DoNotRewriteURL: true, context: _context, formatamp: AzureMediaPlayerFormats.Smooth, UISelectSEFiltersAndProtocols: false, mainForm: this);
                     }
                 }
             }
@@ -10135,7 +10135,7 @@ namespace AMSExplorer
 
                     if (MyUri != null)
                     {
-                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, myAsset, false, filter);
+                        AssetInfo.DoPlayBackWithStreamingEndpoint(playertype, MyUri.AbsoluteUri, _context, this, myAsset, false, filter);
                     }
                     else
                     {
@@ -10144,7 +10144,7 @@ namespace AMSExplorer
                         if (myAsset.AssetFiles.Count() == 1 && myAsset.AssetFiles.FirstOrDefault().Name.ToLower().EndsWith(".mp4") && (playertype == PlayerType.AzureMediaPlayer))
                         {
                             MessageBox.Show(string.Format("The asset '{0}' in a single MP4 file and cannot be played with adaptive streaming as there is no manifest file.\nThe MP4 file will be played through progressive download.", myAsset.Name), "Single MP4 file", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(PlayerType.AzureMediaPlayer, PlayBackLocator.Path + myAsset.AssetFiles.FirstOrDefault().Name, _context, this, myAsset, formatamp: AzureMediaPlayerFormats.VideoMP4, UISelectSEFiltersAndProtocols: false);
                         }
                         else
                         {
@@ -10202,8 +10202,8 @@ namespace AMSExplorer
                 if (!string.IsNullOrEmpty(testToken.TokenString))
                 {
                     TextBoxLogWriteLine("The authorization test token (with Bearer) is :\n{0}", Constants.Bearer + testToken.TokenString);
-                    System.Windows.Forms.Clipboard.SetText(Constants.Bearer + testToken.TokenString);
-                    MessageBox.Show(string.Format("The test token below has been be copied to the log window and clipboard.\n\n{0}", Constants.Bearer + testToken.TokenString), "Test token copied");
+                    var tokenDisplayForm = new EditorXMLJSON("Authorization test token", Constants.Bearer + testToken.TokenString, false, false);
+                    tokenDisplayForm.Display();
                     Error = false;
                 }
 

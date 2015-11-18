@@ -728,6 +728,10 @@ namespace AMSExplorer
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
 
+        public static readonly string[] BrowserEdge = { "Microsoft Edge", "microsoft-edge:" };
+        public static readonly string[] BrowserIE = { "Internet Explorer", "iexplore.exe" };
+        public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
+
         public const string LocatorIdPrefix = "nb:lid:UUID:";
         public const string AssetIdPrefix = "nb:cid:UUID:";
         public const string AssetFileIdPrefix = "nb:cid:UUID:";
@@ -2280,7 +2284,7 @@ namespace AMSExplorer
 
 
 
-        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context,
+        public static string DoPlayBackWithStreamingEndpoint(PlayerType typeplayer, string Urlstr, CloudMediaContext context, Mainform mainForm,
             IAsset myasset = null, bool DoNotRewriteURL = false, string filter = null, AssetProtectionType keytype = AssetProtectionType.None,
             AzureMediaPlayerFormats formatamp = AzureMediaPlayerFormats.Auto,
             AzureMediaPlayerTechnologies technology = AzureMediaPlayerTechnologies.Auto, bool launchbrowser = true, bool UISelectSEFiltersAndProtocols = true)
@@ -2534,20 +2538,27 @@ namespace AMSExplorer
 
                 if (FullPlayBackLink != null && launchbrowser)
                 {
-                    if (string.IsNullOrEmpty(selectedBrowser))
+                    try
                     {
-                        Process.Start(FullPlayBackLink);
-                    }
-                    else
-                    {
-                        if (selectedBrowser.Contains("edge"))
+                        if (string.IsNullOrEmpty(selectedBrowser))
                         {
-                            Process.Start(selectedBrowser + FullPlayBackLink);
+                            Process.Start(FullPlayBackLink);
                         }
                         else
                         {
-                            Process.Start(selectedBrowser, FullPlayBackLink);
+                            if (selectedBrowser.Contains("edge"))
+                            {
+                                Process.Start(selectedBrowser + FullPlayBackLink);
+                            }
+                            else
+                            {
+                                Process.Start(selectedBrowser, FullPlayBackLink);
+                            }
                         }
+                    }
+                    catch
+                    {
+                        mainForm.TextBoxLogWriteLine("Error when launching the browser.", true);
                     }
                 }
             }

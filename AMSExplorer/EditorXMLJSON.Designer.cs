@@ -36,6 +36,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.buttonInsertSample = new System.Windows.Forms.Button();
+            this.buttonCopyClipboard = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,11 +81,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxConfiguration.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 41);
+            this.textBoxConfiguration.Location = new System.Drawing.Point(12, 13);
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(760, 449);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(624, 460);
             this.textBoxConfiguration.TabIndex = 67;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -100,34 +101,48 @@
             // 
             // labelWarningJSON
             // 
-            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.labelWarningJSON.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.labelWarningJSON.ForeColor = System.Drawing.Color.Red;
-            this.labelWarningJSON.Location = new System.Drawing.Point(115, 13);
+            this.labelWarningJSON.Location = new System.Drawing.Point(12, 476);
             this.labelWarningJSON.Name = "labelWarningJSON";
-            this.labelWarningJSON.Size = new System.Drawing.Size(657, 21);
+            this.labelWarningJSON.Size = new System.Drawing.Size(760, 21);
             this.labelWarningJSON.TabIndex = 78;
             this.labelWarningJSON.Tag = "";
             this.labelWarningJSON.Text = "XML Syntax error. {0}";
-            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelWarningJSON.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // buttonInsertSample
             // 
-            this.buttonInsertSample.Location = new System.Drawing.Point(12, 12);
+            this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonInsertSample.Location = new System.Drawing.Point(647, 42);
             this.buttonInsertSample.Name = "buttonInsertSample";
-            this.buttonInsertSample.Size = new System.Drawing.Size(97, 23);
+            this.buttonInsertSample.Size = new System.Drawing.Size(128, 23);
             this.buttonInsertSample.TabIndex = 79;
             this.buttonInsertSample.Text = "Insert sample";
             this.buttonInsertSample.UseVisualStyleBackColor = true;
             this.buttonInsertSample.Click += new System.EventHandler(this.buttonInsertSample_Click);
             // 
+            // buttonCopyClipboard
+            // 
+            this.buttonCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(647, 13);
+            this.buttonCopyClipboard.Name = "buttonCopyClipboard";
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(128, 23);
+            this.buttonCopyClipboard.TabIndex = 80;
+            this.buttonCopyClipboard.Text = "Copy to clipboard";
+            this.buttonCopyClipboard.UseVisualStyleBackColor = true;
+            this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
+            // 
             // EditorXMLJSON
             // 
+            this.AcceptButton = this.buttonCancel;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonCopyClipboard);
             this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.labelWarningJSON);
             this.Controls.Add(this.textBoxConfiguration);
@@ -153,5 +168,6 @@
         private System.Windows.Forms.TextBox textBoxConfiguration;
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.Button buttonInsertSample;
+        private System.Windows.Forms.Button buttonCopyClipboard;
     }
 }

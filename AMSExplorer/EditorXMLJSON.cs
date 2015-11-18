@@ -44,7 +44,7 @@ namespace AMSExplorer
             }
         }
 
-        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium=false)
+        public EditorXMLJSON(string title = null, string text = null, bool editMode = false, bool showSamplePremium = false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -106,6 +106,11 @@ namespace AMSExplorer
             XDocument doc = XDocument.Parse(myxml);
             textBoxConfiguration.Text = doc.Declaration.ToString() + doc.ToString();
         }
+
+        private void buttonCopyClipboard_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(textBoxConfiguration.Text);
+        }
     }
 
     class ButtonPremiumXMLData : Button
@@ -119,7 +124,7 @@ namespace AMSExplorer
 
         public void Initialize()
         {
-            myPremiumXML = new EditorXMLJSON(editMode:true, showSamplePremium:true);
+            myPremiumXML = new EditorXMLJSON(editMode: true, showSamplePremium: true);
         }
 
         void ButtonXML_Click(object sender, EventArgs e)
