@@ -3309,6 +3309,7 @@ namespace AMSExplorer
                 MessageBox.Show("No asset was selected");
                 return;
             }
+            DisplayDeprecatedMessageAME();
 
             CheckQuicktimeAndDisplayMessage(SelectedAssets);
 
@@ -3556,7 +3557,7 @@ namespace AMSExplorer
             IAsset mediaAsset = SelectedAssets.FirstOrDefault();
             if (mediaAsset == null) return;
 
-            DisplayDeprecatedMessage();
+            DisplayDeprecatedMessageStaticPackagers();
 
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
@@ -3612,7 +3613,7 @@ namespace AMSExplorer
             }
             else
             {
-                DisplayDeprecatedMessage();
+                DisplayDeprecatedMessageStaticPackagers();
 
                 if (!SelectedAssets.All(a => a.AssetType == AssetType.MultiBitrateMP4 || a.AssetType == AssetType.MP4))
                 {
@@ -3707,7 +3708,7 @@ namespace AMSExplorer
             }
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            DisplayDeprecatedMessage();
+            DisplayDeprecatedMessageStaticPackagers();
 
             if (!SelectedAssets.All(a => a.AssetType == AssetType.SmoothStreaming))
             {
@@ -3914,7 +3915,7 @@ namespace AMSExplorer
             {
                 MessageBox.Show("Asset(s) should be in multi bitrate MP4 format.", "Format", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            DisplayDeprecatedMessage();
+            DisplayDeprecatedMessageStaticPackagers();
 
             string labeldb = "Validate '" + mediaAsset.Name + "'  ?";
 
@@ -3950,9 +3951,14 @@ namespace AMSExplorer
             }
         }
 
-        private void DisplayDeprecatedMessage()
+        private void DisplayDeprecatedMessageStaticPackagers()
         {
             MessageBox.Show("Windows Azure Media Packager and Windows Azure Media Encryptor will reach end of life on March 1, 2016. At that time, these components will no longer be available.  The format conversion and encryption capabilities will be available through dynamic packaging and dynamic encryption.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void DisplayDeprecatedMessageAME()
+        {
+            MessageBox.Show("Instead of using Azure Media Encoder, you should encode with \"Media Encoder Standard.\"\nIt provides better quality and performance, and it supports more input formats.", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DoMenuIndexAssets()
@@ -4492,6 +4498,8 @@ namespace AMSExplorer
             }
 
             if (SelectedAssets.FirstOrDefault() == null) return;
+
+            DisplayDeprecatedMessageAME();
 
             CheckQuicktimeAndDisplayMessage(SelectedAssets);
 

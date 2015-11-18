@@ -3397,7 +3397,6 @@
             this.subclipProgramsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipProgramsToolStripMenuItem.Size = new System.Drawing.Size(280, 22);
             this.subclipProgramsToolStripMenuItem.Text = "Subclip program(s)...";
-            this.subclipProgramsToolStripMenuItem.Visible = false;
             this.subclipProgramsToolStripMenuItem.Click += new System.EventHandler(this.subclipProgramsToolStripMenuItem_Click);
             // 
             // ContextMenuItemProgramPlayback
