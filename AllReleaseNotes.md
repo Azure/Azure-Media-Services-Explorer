@@ -5,6 +5,7 @@ Version 3.33.0.0 brings the following features and improvements :
 * Content keys and token keys are displayed with a button, to increase security
 * Possibility to select Microsoft Edge, Microsoft Internet Explorer or Google Chrome for asset playback
 * More checks on asset sources for Indexer task
+* Media Services SDK updated to 3.5.2
 * Bug fixes
 
 Version 3.32.0.0 brings the following features and improvements :
