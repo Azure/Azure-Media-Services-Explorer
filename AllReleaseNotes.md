@@ -1,3 +1,12 @@
+Version 3.33.0.0 brings the following features and improvements :
+
+* **Google Widevine license delivery** support (public preview). See [this announcement](https://azure.microsoft.com/en-us/blog/announcing-google-widevine-license-delivery-services-public-preview-in-azure-media-services/). Feature will continue to improve in the coming releases
+* **Dynamic encryption wizard update**. UI has been fully revisited.
+* Content keys and token keys are displayed with a button, to increase security
+* Possibility to select Microsoft Edge, Microsoft Internet Explorer or Google Chrome for asset playback
+* More checks on asset sources for Indexer task
+* Bug fixes
+
 Version 3.32.0.0 brings the following features and improvements :
 
 * **New bulk ingest manifest feature** (in transfers tab). Useful if you want to upload assets with an another client application (like Aspera or Signiant). Upload is decoupled from Azure Media Services asset creation. Any application that copies files to Azure Storage can be used.
