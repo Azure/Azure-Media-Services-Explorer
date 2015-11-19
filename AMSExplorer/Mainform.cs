@@ -3669,7 +3669,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaIntelligenceGeneric(_context, processor, true)
+                var form = new MediaInsightsGeneric(_context, processor, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,

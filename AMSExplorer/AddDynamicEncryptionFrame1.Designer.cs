@@ -40,28 +40,28 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.groupBoxDelPolProtocols = new System.Windows.Forms.GroupBox();
             this.panelDynEnc = new System.Windows.Forms.Panel();
-            this.label4 = new System.Windows.Forms.Label();
+            this.panelPackaging = new System.Windows.Forms.Panel();
+            this.checkBoxPlayReadyPackaging = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.checkBoxWidevinePackaging = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.checkBoxProtocolHLS = new System.Windows.Forms.CheckBox();
             this.checkBoxProtocolDASH = new System.Windows.Forms.CheckBox();
-            this.textBoxCustomAttributes = new System.Windows.Forms.TextBox();
             this.checkBoxProtocolSmooth = new System.Windows.Forms.CheckBox();
-            this.checkBoxPlayReadyPackaging = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.checkBoxWidevinePackaging = new System.Windows.Forms.CheckBox();
             this.checkBoxEnableDynEnc = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelPackaging = new System.Windows.Forms.Panel();
             this.groupBoxKeyType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.groupBoxDelPolProtocols.SuspendLayout();
             this.panelDynEnc.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panelPackaging.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOk
@@ -210,15 +210,32 @@
             this.panelDynEnc.Size = new System.Drawing.Size(633, 264);
             this.panelDynEnc.TabIndex = 86;
             // 
-            // label4
+            // panelPackaging
             // 
-            this.label4.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(3, 12);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(627, 18);
-            this.label4.TabIndex = 71;
-            this.label4.Text = "Delivery protocols";
+            this.panelPackaging.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelPackaging.Controls.Add(this.checkBoxPlayReadyPackaging);
+            this.panelPackaging.Controls.Add(this.label6);
+            this.panelPackaging.Controls.Add(this.checkBoxWidevinePackaging);
+            this.panelPackaging.Controls.Add(this.label7);
+            this.panelPackaging.Controls.Add(this.textBoxCustomAttributes);
+            this.panelPackaging.Location = new System.Drawing.Point(5, 137);
+            this.panelPackaging.Name = "panelPackaging";
+            this.panelPackaging.Size = new System.Drawing.Size(625, 124);
+            this.panelPackaging.TabIndex = 86;
+            // 
+            // checkBoxPlayReadyPackaging
+            // 
+            this.checkBoxPlayReadyPackaging.AutoSize = true;
+            this.checkBoxPlayReadyPackaging.Checked = true;
+            this.checkBoxPlayReadyPackaging.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxPlayReadyPackaging.Location = new System.Drawing.Point(32, 3);
+            this.checkBoxPlayReadyPackaging.Name = "checkBoxPlayReadyPackaging";
+            this.checkBoxPlayReadyPackaging.Size = new System.Drawing.Size(109, 19);
+            this.checkBoxPlayReadyPackaging.TabIndex = 58;
+            this.checkBoxPlayReadyPackaging.Text = "PlayReady DRM";
+            this.checkBoxPlayReadyPackaging.UseVisualStyleBackColor = true;
+            this.checkBoxPlayReadyPackaging.CheckedChanged += new System.EventHandler(this.checkBoxPlayReadyPackaging_CheckedChanged);
             // 
             // label6
             // 
@@ -232,6 +249,16 @@
             this.label6.TabIndex = 84;
             this.label6.Text = "name1:value1,name2:value2";
             // 
+            // checkBoxWidevinePackaging
+            // 
+            this.checkBoxWidevinePackaging.AutoSize = true;
+            this.checkBoxWidevinePackaging.Location = new System.Drawing.Point(32, 88);
+            this.checkBoxWidevinePackaging.Name = "checkBoxWidevinePackaging";
+            this.checkBoxWidevinePackaging.Size = new System.Drawing.Size(220, 19);
+            this.checkBoxWidevinePackaging.TabIndex = 59;
+            this.checkBoxWidevinePackaging.Text = "Widevine Modular DRM (DASH only)";
+            this.checkBoxWidevinePackaging.UseVisualStyleBackColor = true;
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -241,6 +268,26 @@
             this.label7.Size = new System.Drawing.Size(108, 15);
             this.label7.TabIndex = 85;
             this.label7.Text = "Custom attributes :";
+            // 
+            // textBoxCustomAttributes
+            // 
+            this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCustomAttributes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCustomAttributes.Location = new System.Drawing.Point(57, 48);
+            this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
+            this.textBoxCustomAttributes.Size = new System.Drawing.Size(543, 23);
+            this.textBoxCustomAttributes.TabIndex = 83;
+            // 
+            // label4
+            // 
+            this.label4.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(3, 12);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(627, 18);
+            this.label4.TabIndex = 71;
+            this.label4.Text = "Delivery protocols";
             // 
             // checkBoxProtocolHLS
             // 
@@ -267,16 +314,6 @@
             this.checkBoxProtocolDASH.UseVisualStyleBackColor = true;
             this.checkBoxProtocolDASH.CheckedChanged += new System.EventHandler(this.checkBoxProtocolDASH_CheckedChanged);
             // 
-            // textBoxCustomAttributes
-            // 
-            this.textBoxCustomAttributes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCustomAttributes.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCustomAttributes.Location = new System.Drawing.Point(57, 48);
-            this.textBoxCustomAttributes.Name = "textBoxCustomAttributes";
-            this.textBoxCustomAttributes.Size = new System.Drawing.Size(543, 23);
-            this.textBoxCustomAttributes.TabIndex = 83;
-            // 
             // checkBoxProtocolSmooth
             // 
             this.checkBoxProtocolSmooth.AutoSize = true;
@@ -289,19 +326,6 @@
             this.checkBoxProtocolSmooth.Text = "Smooth Streaming";
             this.checkBoxProtocolSmooth.UseVisualStyleBackColor = true;
             // 
-            // checkBoxPlayReadyPackaging
-            // 
-            this.checkBoxPlayReadyPackaging.AutoSize = true;
-            this.checkBoxPlayReadyPackaging.Checked = true;
-            this.checkBoxPlayReadyPackaging.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxPlayReadyPackaging.Location = new System.Drawing.Point(32, 3);
-            this.checkBoxPlayReadyPackaging.Name = "checkBoxPlayReadyPackaging";
-            this.checkBoxPlayReadyPackaging.Size = new System.Drawing.Size(109, 19);
-            this.checkBoxPlayReadyPackaging.TabIndex = 58;
-            this.checkBoxPlayReadyPackaging.Text = "PlayReady DRM";
-            this.checkBoxPlayReadyPackaging.UseVisualStyleBackColor = true;
-            this.checkBoxPlayReadyPackaging.CheckedChanged += new System.EventHandler(this.checkBoxPlayReadyPackaging_CheckedChanged);
-            // 
             // label5
             // 
             this.label5.BackColor = System.Drawing.SystemColors.ScrollBar;
@@ -311,16 +335,6 @@
             this.label5.Size = new System.Drawing.Size(628, 18);
             this.label5.TabIndex = 72;
             this.label5.Text = "Packaging";
-            // 
-            // checkBoxWidevinePackaging
-            // 
-            this.checkBoxWidevinePackaging.AutoSize = true;
-            this.checkBoxWidevinePackaging.Location = new System.Drawing.Point(32, 88);
-            this.checkBoxWidevinePackaging.Name = "checkBoxWidevinePackaging";
-            this.checkBoxWidevinePackaging.Size = new System.Drawing.Size(220, 19);
-            this.checkBoxWidevinePackaging.TabIndex = 59;
-            this.checkBoxWidevinePackaging.Text = "Widevine Modular DRM (DASH only)";
-            this.checkBoxWidevinePackaging.UseVisualStyleBackColor = true;
             // 
             // checkBoxEnableDynEnc
             // 
@@ -358,20 +372,6 @@
             this.panel1.Size = new System.Drawing.Size(684, 55);
             this.panel1.TabIndex = 51;
             // 
-            // panelPackaging
-            // 
-            this.panelPackaging.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.panelPackaging.Controls.Add(this.checkBoxPlayReadyPackaging);
-            this.panelPackaging.Controls.Add(this.label6);
-            this.panelPackaging.Controls.Add(this.checkBoxWidevinePackaging);
-            this.panelPackaging.Controls.Add(this.label7);
-            this.panelPackaging.Controls.Add(this.textBoxCustomAttributes);
-            this.panelPackaging.Location = new System.Drawing.Point(5, 137);
-            this.panelPackaging.Name = "panelPackaging";
-            this.panelPackaging.Size = new System.Drawing.Size(625, 124);
-            this.panelPackaging.TabIndex = 86;
-            // 
             // AddDynamicEncryptionFrame1
             // 
             this.AcceptButton = this.buttonOk;
@@ -398,9 +398,9 @@
             this.groupBoxDelPolProtocols.PerformLayout();
             this.panelDynEnc.ResumeLayout(false);
             this.panelDynEnc.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.panelPackaging.ResumeLayout(false);
             this.panelPackaging.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

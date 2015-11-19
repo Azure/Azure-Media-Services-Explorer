@@ -31,7 +31,7 @@ using System.Xml.Linq;
 
 namespace AMSExplorer
 {
-    public partial class MediaIntelligenceGeneric : Form
+    public partial class MediaInsightsGeneric : Form
     {
         private CloudMediaContext _context;
         private IMediaProcessor _processor;
@@ -86,7 +86,7 @@ namespace AMSExplorer
             }
         }
 
-        public MediaIntelligenceGeneric(CloudMediaContext context, IMediaProcessor processor, bool preview)
+        public MediaInsightsGeneric(CloudMediaContext context, IMediaProcessor processor, bool preview)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -97,7 +97,7 @@ namespace AMSExplorer
         }
 
 
-        private void MediaIntelligenceGeneric_Load(object sender, EventArgs e)
+        private void MediaInsightsGeneric_Load(object sender, EventArgs e)
         {
             moreinfoprofilelink.Links.Add(new LinkLabel.Link(0, moreinfoprofilelink.Text.Length, Constants.LinkMoreInfoHyperlapse));
 
