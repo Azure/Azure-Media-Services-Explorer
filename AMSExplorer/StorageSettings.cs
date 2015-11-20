@@ -54,7 +54,7 @@ namespace AMSExplorer
         {
             get
             {
-                return (numericUpDownRetention.Value  ==0)? null : (int?) numericUpDownRetention.Value;
+                return (numericUpDownRetention.Value == 0) ? null : (int?)numericUpDownRetention.Value;
             }
         }
 
@@ -62,13 +62,13 @@ namespace AMSExplorer
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
-             labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
+            labelStorageAccount.Text = string.Format(labelStorageAccount.Text, storageName);
             _serviceProperties = serviceProperties;
         }
 
         private void StorageVersion_Load(object sender, EventArgs e)
         {
-            var list = new List<string>() { noversion, "2015-02-21", "2014-02-14", "2013-08-15", "2012-02-12", "2011-08-18", "2009-09-19", "2009-07-17", "2009-04-14" };
+            var list = new List<string>() { noversion, "2015-04-05", "2015-02-21", "2014-02-14", "2013-08-15", "2012-02-12", "2011-08-18", "2009-09-19", "2009-07-17", "2009-04-14" };
             comboBoxVersion.Items.AddRange(list.ToArray());
             comboBoxVersion.Text = _serviceProperties.DefaultServiceVersion ?? noversion;
 
