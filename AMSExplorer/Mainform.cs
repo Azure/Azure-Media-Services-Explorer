@@ -11931,6 +11931,18 @@ namespace AMSExplorer
 
             toolStripMenuItem37DelBulk.Enabled = oneOrMore;
         }
+
+        private void toolStripMenuItem33_Click_1(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMESystemPreset();
+
+        }
+
+        private void toolStripMenuItem36_Click_1(object sender, EventArgs e)
+        {
+            DoMenuEncodeWithAMEAdvanced();
+
+        }
     }
 }
 
