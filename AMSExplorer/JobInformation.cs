@@ -173,6 +173,19 @@ namespace AMSExplorer
             DGTasks.Rows.Clear();
 
             DGTasks.Rows.Add("Name", task.Name);
+
+            int i = DGTasks.Rows.Add("Configuration", "");
+            DataGridViewButtonCell btn = new DataGridViewButtonCell();
+            DGTasks.Rows[i].Cells[1] = btn;
+            DGTasks.Rows[i].Cells[1].Value = "See clear value";
+            DGTasks.Rows[i].Cells[1].Tag = task.GetClearConfiguration();
+
+            i = DGTasks.Rows.Add("Body", "");
+            btn = new DataGridViewButtonCell();
+            DGTasks.Rows[i].Cells[1] = btn;
+            DGTasks.Rows[i].Cells[1].Value = "See value";
+            DGTasks.Rows[i].Cells[1].Tag = task.TaskBody;
+
             DGTasks.Rows.Add("Id", task.Id);
             DGTasks.Rows.Add("State", task.State);
             DGTasks.Rows.Add("Priority", task.Priority);
@@ -195,17 +208,17 @@ namespace AMSExplorer
 
             string sid = "";
             if (task.InputAssets.Count() > 1) sid = " #{0}"; else sid = "";
-            for (int i = 0; i < task.InputAssets.Count(); i++)
+            for (int j = 0; j < task.InputAssets.Count(); j++)
             {
-                DGTasks.Rows.Add("Input asset" + string.Format(sid, i + 1) + " Name", task.InputAssets[i].Name);
-                DGTasks.Rows.Add("Input asset" + string.Format(sid, i + 1) + " Id", task.InputAssets[i].Id);
+                DGTasks.Rows.Add("Input asset" + string.Format(sid, j + 1) + " Name", task.InputAssets[j].Name);
+                DGTasks.Rows.Add("Input asset" + string.Format(sid, j + 1) + " Id", task.InputAssets[j].Id);
             }
 
             if (task.OutputAssets.Count() > 1) sid = " #{0}"; else sid = "";
-            for (int i = 0; i < task.OutputAssets.Count(); i++)
+            for (int j = 0; j < task.OutputAssets.Count(); j++)
             {
-                DGTasks.Rows.Add("Output asset" + string.Format(sid, i + 1) + " Name", task.OutputAssets[i].Name);
-                DGTasks.Rows.Add("Output asset" + string.Format(sid, i + 1) + " Id", task.OutputAssets[i].Id);
+                DGTasks.Rows.Add("Output asset" + string.Format(sid, j + 1) + " Name", task.OutputAssets[j].Name);
+                DGTasks.Rows.Add("Output asset" + string.Format(sid, j + 1) + " Id", task.OutputAssets[j].Id);
             }
 
             TaskSizeAndPrice taskSizePrice = JobInfo.CalculateTaskSizeAndPrice(task, _context);
@@ -221,14 +234,27 @@ namespace AMSExplorer
                 DGTasks.Rows.Add("Input/output size", "undefined, task did not finish or one of the assets has been deleted");
 
             }
-           
-            for (int i = 0; i < task.ErrorDetails.Count(); i++)
+
+            for (int j = 0; j < task.ErrorDetails.Count(); j++)
             {
-                DGTasks.Rows.Add("Error", task.ErrorDetails[i].Code + ": " + task.ErrorDetails[i].Message);
+                DGTasks.Rows.Add("Error", task.ErrorDetails[j].Code + ": " + task.ErrorDetails[j].Message);
 
             }
-            textBoxConfiguration.Text = task.GetClearConfiguration();
-            textBoxTaskBody.Text = task.TaskBody;
+         }
+
+        private void DGTasks_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var senderGrid = (DataGridView)sender;
+            if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
+            {
+                SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
+            }
+        }
+
+        private void SeeValueInEditor(string dataname, string key)
+        {
+            var editform = new EditorXMLJSON(dataname, key, false, false);
+            editform.Display();
         }
     }
 }

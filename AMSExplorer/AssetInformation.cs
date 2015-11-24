@@ -92,7 +92,7 @@ namespace AMSExplorer
                     {
                         case AssetInfo._smooth_legacy:
                         case AssetInfo._smooth:
-                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm:myMainForm);
+                            AssetInfo.DoPlayBackWithStreamingEndpoint(typeplayer: PlayerType.FlashAzurePage, Urlstr: TreeViewLocators.SelectedNode.Text, DoNotRewriteURL: true, context: myContext, mainForm: myMainForm);
                             break;
 
                         case AssetInfo._dash:
@@ -1567,7 +1567,17 @@ namespace AMSExplorer
 
                     dataGridViewAutPolOption.Rows.Add("Name", option.Name != null ? option.Name : "<no name>");
                     dataGridViewAutPolOption.Rows.Add("Id", option.Id);
-                    dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", option.KeyDeliveryConfiguration);
+
+                    // Key delivery configuration
+                    //dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", option.KeyDeliveryConfiguration);
+
+                    int i = dataGridViewAutPolOption.Rows.Add("KeyDeliveryConfiguration", "");
+                    DataGridViewButtonCell btn = new DataGridViewButtonCell();
+                    dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
+                    dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                    dataGridViewAutPolOption.Rows[i].Cells[1].Tag = option.KeyDeliveryConfiguration;
+
+
                     dataGridViewAutPolOption.Rows.Add("KeyDeliveryType", option.KeyDeliveryType);
                     List<ContentKeyAuthorizationPolicyRestriction> objList_restriction = option.Restrictions;
                     foreach (var restriction in objList_restriction)
@@ -1580,9 +1590,14 @@ namespace AMSExplorer
                         }
                         if (restriction.Requirements != null)
                         {
-                            dataGridViewAutPolOption.Rows.Add("Restriction Requirements", restriction.Requirements);
-                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
+                            // Restriction Requirements
+                            i = dataGridViewAutPolOption.Rows.Add("Restriction Requirements", "");
+                            btn = new DataGridViewButtonCell();
+                            dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
+                            dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See value";
+                            dataGridViewAutPolOption.Rows[i].Cells[1].Tag = restriction.Requirements;
 
+                            TokenRestrictionTemplate tokenTemplate = TokenRestrictionTemplateSerializer.Deserialize(restriction.Requirements);
                             dataGridViewAutPolOption.Rows.Add("Token Type", tokenTemplate.TokenType);
                             if (tokenTemplate.PrimaryVerificationKey != null)
                             {
@@ -1591,14 +1606,14 @@ namespace AMSExplorer
                                 {
                                     var verifkey = (SymmetricVerificationKey)tokenTemplate.PrimaryVerificationKey;
 
-                                    int i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "");// Convert.ToBase64String(verifkey.KeyValue));
-                                    DataGridViewButtonCell btn = new DataGridViewButtonCell();
+                                    i = dataGridViewAutPolOption.Rows.Add("Primary Verification Key", "");
+                                    btn = new DataGridViewButtonCell();
                                     dataGridViewAutPolOption.Rows[i].Cells[1] = btn;
                                     dataGridViewAutPolOption.Rows[i].Cells[1].Value = "See key value";
                                     dataGridViewAutPolOption.Rows[i].Cells[1].Tag = Convert.ToBase64String(verifkey.KeyValue);
                                 }
                             }
-                           
+
                             if (tokenTemplate.OpenIdConnectDiscoveryDocument != null)
                             {
                                 dataGridViewAutPolOption.Rows.Add("OpenId Connect Discovery Document Uri", tokenTemplate.OpenIdConnectDiscoveryDocument.OpenIdDiscoveryUri);
@@ -2282,11 +2297,11 @@ namespace AMSExplorer
 
         private void SeeClearKey(string key)
         {
-           
 
-                var editform = new EditorXMLJSON("Clear key value", key.ToString(), false, false);
-                editform.Display();
-           
+
+            var editform = new EditorXMLJSON("Clear key value", key.ToString(), false, false);
+            editform.Display();
+
         }
 
         private void dataGridViewKeys_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -2305,24 +2320,16 @@ namespace AMSExplorer
         private void dataGridViewAutPolOption_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
-
             if (e.RowIndex >= 0 && senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].GetType() == typeof(DataGridViewButtonCell))
             {
-
-                //TODO - Button Clicked - to see the key
-                SeePrimaryVerificationKey(senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
+                SeeValueInEditor(senderGrid.Rows[e.RowIndex].Cells[0].Value.ToString(), senderGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Tag.ToString());
             }
         }
 
-        private void SeePrimaryVerificationKey(string key)
+        private void SeeValueInEditor(string dataname, string key)
         {
-            if (listViewAutPolOptions.SelectedItems.Count > 0)
-            {
-                 IContentKeyAuthorizationPolicyOption option = myAuthPolicy.Options.Skip(listViewAutPolOptions.SelectedIndices[0]).Take(1).FirstOrDefault();
-
-                var editform = new EditorXMLJSON("Verification key", key, false, false);
-                editform.Display();
-            }
+            var editform = new EditorXMLJSON(dataname, key, false, false);
+            editform.Display();
         }
     }
 }

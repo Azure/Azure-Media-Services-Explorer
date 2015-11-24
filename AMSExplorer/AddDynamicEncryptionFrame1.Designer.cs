@@ -252,6 +252,8 @@
             // checkBoxWidevinePackaging
             // 
             this.checkBoxWidevinePackaging.AutoSize = true;
+            this.checkBoxWidevinePackaging.Checked = true;
+            this.checkBoxWidevinePackaging.CheckState = System.Windows.Forms.CheckState.Checked;
             this.checkBoxWidevinePackaging.Location = new System.Drawing.Point(32, 88);
             this.checkBoxWidevinePackaging.Name = "checkBoxWidevinePackaging";
             this.checkBoxWidevinePackaging.Size = new System.Drawing.Size(220, 19);

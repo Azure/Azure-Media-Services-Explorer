@@ -8346,7 +8346,7 @@ namespace AMSExplorer
                                         form4list.Add(form4);
                                         tokensymmetrickey = form4.SymmetricKey;
                                         AddDynamicEncryptionFrame5_PlayReadyLicense form5_PlayReadyLicense = new AddDynamicEncryptionFrame5_PlayReadyLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
-                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        //AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
                                         step++;
                                         if (NeedToDisplayPlayReadyLicense) // it's a PlayReady license and user wants to deliver the license from Azure Media Services
                                         {
@@ -8376,7 +8376,7 @@ namespace AMSExplorer
                                         step++;
                                         form4list.Add(form4);
                                         tokensymmetrickey = form4.SymmetricKey;
-                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
+                                        AddDynamicEncryptionFrame6_WidevineLicense form6_WidevineLicense = new AddDynamicEncryptionFrame6_WidevineLicense(Constants.TemporaryWidevineLicenseServer, step, i + 1, i == (form3_CENC.GetNumberOfAuthorizationPolicyOptionsWidevine - 1)) { Left = form3_CENC.Left, Top = form3_CENC.Top };
                                         step++;
 
                                         if (form6_WidevineLicense.ShowDialog() == DialogResult.OK) // let's display the dialog box to configure the playready license
@@ -8636,7 +8636,7 @@ namespace AMSExplorer
 
                                 WidevineLicenseDeliveryConfig =
                                     form6WidevineLicenseList[form4list.IndexOf(form4) - form3_CENC.GetNumberOfAuthorizationPolicyOptionsPlayReady]
-                                    .GetWidevineConfiguration(contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine));
+                                    .GetWidevineConfiguration(contentKey.GetKeyDeliveryUrl(ContentKeyDeliveryType.Widevine).ToString());
                             }
 
                             if (!ErrorCreationKey)

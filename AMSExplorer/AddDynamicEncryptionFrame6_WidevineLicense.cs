@@ -30,12 +30,36 @@ using System.Xml;
 using System.IO;
 using Microsoft.WindowsAzure.MediaServices.Client.Widevine;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Microsoft.WindowsAzure.MediaServices.Client;
 
 namespace AMSExplorer
 {
     public partial class AddDynamicEncryptionFrame6_WidevineLicense : Form
     {
-        public string GetWidevineConfiguration(Uri keyDeliveryUrl)
+        private string _widevineTempUrl;
+
+        public string GetWidevineConfiguration(string keyDeliveryUrl)
+        {
+            var jsonstr = textBoxConfiguration.Text;
+            
+            try // let's replace the Acquisition URL if needed
+            {
+                dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsonstr);
+                if (obj.policy_overrides != null && obj.policy_overrides.renewal_server_url !=null)
+                {
+                    obj.policy_overrides.renewal_server_url = keyDeliveryUrl;
+                }
+                jsonstr = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.None);
+            }
+            catch
+            {
+
+            }
+            return jsonstr;
+        }
+
+        private string GetWidevineConfiguration(Uri keyDeliveryUrl)
         {
             if (radioButtonBasic.Checked)
             {
@@ -82,11 +106,11 @@ namespace AMSExplorer
                     };
                 }
 
-                return JsonConvert.SerializeObject(template);
+                return JsonConvert.SerializeObject(template, Newtonsoft.Json.Formatting.Indented);
             }
         }
 
-        public AddDynamicEncryptionFrame6_WidevineLicense(int step = -1, int option = -1, bool laststep = true)
+        public AddDynamicEncryptionFrame6_WidevineLicense(string widevineTempUrl, int step = -1, int option = -1, bool laststep = true)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -101,6 +125,7 @@ namespace AMSExplorer
                 buttonOk.Text = "Next";
                 buttonOk.Image = null;
             }
+            _widevineTempUrl = widevineTempUrl;
         }
 
         private void AddDynamicEncryptionFrame6_WidevineLicense_Load(object sender, EventArgs e)
@@ -110,27 +135,70 @@ namespace AMSExplorer
 
             comboBoxReqOutputProtection.Items.AddRange(Enum.GetNames(typeof(Hdcp)).ToArray());
             comboBoxReqOutputProtection.SelectedItem = Enum.GetName(typeof(Hdcp), Hdcp.HDCP_NONE);
+
+            linkLabelWidevinePolicy.Links.Add(new LinkLabel.Link(0, linkLabelWidevinePolicy.Text.Length, Constants.LinkWidevineTemplateInfo));
         }
 
 
         private void checkBoxSecLevel_CheckedChanged(object sender, EventArgs e)
         {
             numericUpDownSecLevel.Enabled = checkBoxSecLevel.Checked;
+            UpdateJsonConfig();
         }
 
         private void checkBoxTrackType_CheckedChanged(object sender, EventArgs e)
         {
             textBoxTrackType.Enabled = checkBoxTrackType.Checked;
+            UpdateJsonConfig();
         }
 
         private void checkBoxAllowTrackType_CheckedChanged(object sender, EventArgs e)
         {
             comboBoxAllowedTrackTypes.Enabled = checkBoxAllowTrackType.Checked;
+            UpdateJsonConfig();
+        }
+
+        private void UpdateJsonConfig()
+        {
+            textBoxConfiguration.Text = this.GetWidevineConfiguration(new Uri(_widevineTempUrl));
         }
 
         private void radioButtonAdvanced_CheckedChanged(object sender, EventArgs e)
         {
             groupBoxAdvLicense.Enabled = radioButtonAdvanced.Checked;
+            UpdateJsonConfig();
+        }
+
+        private void textBoxConfiguration_TextChanged(object sender, EventArgs e)
+        {
+            bool Error = false;
+            var type = Program.AnalyseConfigurationString(textBoxConfiguration.Text);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+
+                try
+                {
+                    var jo = JObject.Parse(textBoxConfiguration.Text);
+                }
+                catch (Exception ex)
+                {
+                    labelWarningJSON.Text = string.Format((string)labelWarningJSON.Tag, ex.Message);
+                    Error = true;
+                }
+            }
+            labelWarningJSON.Visible = Error;
+        }
+
+        private void StateChanged(object sender, EventArgs e)
+        {
+            UpdateJsonConfig();
+        }
+
+        private void linkLabelWidevinePolicy_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(e.Link.LinkData as string);
+
         }
     }
 }

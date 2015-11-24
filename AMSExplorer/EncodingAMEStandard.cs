@@ -208,7 +208,7 @@ namespace AMSExplorer
             }
             else if (mode == TypeConfig.JSON) // JSON
             {
-                var jo = JObject.Parse(jsondata);
+                //var jo = JObject.Parse(jsondata);
                 dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
                 if (checkBoxAddAutomatic.Checked)
                 {

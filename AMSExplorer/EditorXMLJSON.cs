@@ -111,6 +111,11 @@ namespace AMSExplorer
         {
             Clipboard.SetText(textBoxConfiguration.Text);
         }
+
+        private void buttonFormat_Click(object sender, EventArgs e)
+        {
+            textBoxConfiguration.Text = Program.AnalyzeAndIndentXMLJSON(textBoxConfiguration.Text);
+        }
     }
 
     class ButtonPremiumXMLData : Button

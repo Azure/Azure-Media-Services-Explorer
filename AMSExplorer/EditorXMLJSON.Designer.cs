@@ -37,6 +37,7 @@
             this.labelWarningJSON = new System.Windows.Forms.Label();
             this.buttonInsertSample = new System.Windows.Forms.Button();
             this.buttonCopyClipboard = new System.Windows.Forms.Button();
+            this.buttonFormat = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -134,6 +135,17 @@
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyClipboard.Click += new System.EventHandler(this.buttonCopyClipboard_Click);
             // 
+            // buttonFormat
+            // 
+            this.buttonFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFormat.Location = new System.Drawing.Point(647, 71);
+            this.buttonFormat.Name = "buttonFormat";
+            this.buttonFormat.Size = new System.Drawing.Size(128, 23);
+            this.buttonFormat.TabIndex = 81;
+            this.buttonFormat.Text = "Format data";
+            this.buttonFormat.UseVisualStyleBackColor = true;
+            this.buttonFormat.Click += new System.EventHandler(this.buttonFormat_Click);
+            // 
             // EditorXMLJSON
             // 
             this.AcceptButton = this.buttonCancel;
@@ -142,6 +154,7 @@
             this.BackColor = System.Drawing.SystemColors.Window;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.buttonFormat);
             this.Controls.Add(this.buttonCopyClipboard);
             this.Controls.Add(this.buttonInsertSample);
             this.Controls.Add(this.labelWarningJSON);
@@ -169,5 +182,6 @@
         private System.Windows.Forms.Label labelWarningJSON;
         private System.Windows.Forms.Button buttonInsertSample;
         private System.Windows.Forms.Button buttonCopyClipboard;
+        private System.Windows.Forms.Button buttonFormat;
     }
 }

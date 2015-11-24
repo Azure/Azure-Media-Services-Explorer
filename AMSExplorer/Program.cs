@@ -282,6 +282,43 @@ namespace AMSExplorer
             return strReturn;
         }
 
+        public static string AnalyzeAndIndentXMLJSON(string myText)
+        {
+            var type = Program.AnalyseConfigurationString(myText);
+            if (type == TypeConfig.JSON)
+            {
+                // Let's check JSON syntax
+                try
+                {
+                    dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(myText);
+                    myText = Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
+                }
+                catch
+                {
+                }
+            }
+            else if (type == TypeConfig.XML) // XML 
+            {
+                try
+                {
+                    XmlDocument document = new XmlDocument();
+                    document.Load(new StringReader(myText));
+
+                    StringBuilder builder = new StringBuilder();
+                    using (XmlTextWriter writer = new XmlTextWriter(new StringWriter(builder)))
+                    {
+                        writer.Formatting = Formatting.Indented;
+                        document.Save(writer);
+                    }
+                    myText = builder.ToString();
+                }
+                catch
+                {
+                }
+            }
+            return myText;
+        }
+
         public static string ReturnS(int number)
         {
             return number > 1 ? "s" : "";
@@ -728,6 +765,8 @@ namespace AMSExplorer
 
         public const string LinkFeedbackAMS = "http://aka.ms/amsvoice";
 
+        public const string TemporaryWidevineLicenseServer = "https://thiswillbereplacedbytheAMSwidevineurl/?KID=00000000-0000-0000-0000-000000000000";
+
         public static readonly string[] BrowserEdge = { "Microsoft Edge", "microsoft-edge:" };
         public static readonly string[] BrowserIE = { "Internet Explorer", "iexplore.exe" };
         public static readonly string[] BrowserChrome = { "Google Chrome", "chrome.exe" };
@@ -773,6 +812,8 @@ namespace AMSExplorer
 
         public const string LinkPlayReadyTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-playready-license-template-overview/";
         public const string LinkPlayReadyCompliance = "http://www.microsoft.com/playready/licensing/compliance/";
+        public const string LinkWidevineTemplateInfo = "https://azure.microsoft.com/en-us/documentation/articles/media-services-widevine-license-template-overview/";
+
 
         public const string LinkAMSE = "http://aka.ms/amse";
         public const string LinkMailtoAMSE = "mailto:amse@microsoft.com?subject=Azure Media Services Explorer - Question/Comment";
