@@ -42,7 +42,6 @@ namespace AMSExplorer
 
         private SubClipConfiguration _subclipConfig;
 
-        private List<IMediaProcessor> Procs;
         public List<IAsset> SelectedAssets;
         private CloudMediaContext _context;
 
@@ -78,8 +77,10 @@ namespace AMSExplorer
             new Profile() {Prof=@"H264 Single Bitrate High Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 500 kbps, and stereo AAC audio."},
             new Profile() {Prof=@"H264 Single Bitrate Low Quality SD for Android", Desc="Produces a single MP4 file with a bitrate of 56 kbps, and stereo AAC audio."}
            };
+
         private int _nbInputAssets;
         private string _processorVersion;
+        private bool _ThumbnailsModeOnly;
 
         public string EncodingLabel
         {
@@ -135,7 +136,7 @@ namespace AMSExplorer
         }
 
 
-        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null)
+        public EncodingAMEStandard(CloudMediaContext context, int nbInputAssets, string processorVersion, SubClipConfiguration subclipConfig = null, bool ThumbnailsModeOnly=false)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
@@ -144,6 +145,7 @@ namespace AMSExplorer
             _subclipConfig = subclipConfig; // used for trimming
             buttonJobOptions.Initialize(_context);
             _nbInputAssets = nbInputAssets;
+            _ThumbnailsModeOnly = ThumbnailsModeOnly; // used for thumbnail only mode from the menu
         }
 
 
@@ -156,7 +158,15 @@ namespace AMSExplorer
             // presets list
             var filePaths = Directory.GetFiles(EncodingAMEStdPresetJSONFilesFolder, "*.json").Select(f => Path.GetFileNameWithoutExtension(f));
             listboxPresets.Items.AddRange(filePaths.ToArray());
-            listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+            if (!_ThumbnailsModeOnly)
+            {
+                listboxPresets.SelectedIndex = listboxPresets.Items.IndexOf(defaultprofile);
+            }
+            else // Thumbnail mode only
+            {
+                textBoxConfiguration.Text = "{}";
+                tabControl1.SelectedTab = tabPageThJPG;
+            }
             label4KWarning.Text = string.Empty;
             moreinfoame.Links.Add(new LinkLabel.Link(0, moreinfoame.Text.Length, Constants.LinkMoreInfoMES));
             moreinfopresetslink.Links.Add(new LinkLabel.Link(0, moreinfopresetslink.Text.Length, Constants.LinkMorePresetsMES));
@@ -212,8 +222,43 @@ namespace AMSExplorer
                 dynamic obj = Newtonsoft.Json.JsonConvert.DeserializeObject(jsondata);
                 if (checkBoxAddAutomatic.Checked)
                 {
-                    // Cleaning
+                    ////////////////////////////
+                    // Cleaning of JSON
+                    ////////////////////////////
                     if (obj.Sources != null) obj.Sources.Parent.Remove();
+
+                    if (obj.Codecs != null) // clean thumbnail entry in Codecs
+                    {
+                        var listDelete = new List<dynamic>();
+                        foreach (var codec in obj.Codecs)
+                        {
+                            if (codec.JpgLayers != null || codec.PngLayers != null || codec.BmpLayers != null)
+                            {
+                                listDelete.Add(codec);
+                            }
+                        }
+                        listDelete.ForEach(c => c.Remove());
+                    }
+                    if (obj.Outputs != null) // clean thumbnail entry in Outputs
+                    {
+                        var listDelete = new List<dynamic>();
+                        foreach (var output in obj.Outputs)
+                        {
+                            if (output.Format != null && output.Format.Type != null && output.Format.Type.Type == JTokenType.String)
+                            {
+                                string valuestr = (string)output.Format.Type;
+                                if (valuestr == "JpgFormat" || valuestr == "PngFormat" || valuestr == "BmpFormat")
+                                {
+                                    listDelete.Add(output);
+                                }
+                            }
+                        }
+                        listDelete.ForEach(c => c.Remove());
+                    }
+                    ////////////////////////////
+                    // End of Cleaning
+                    ////////////////////////////
+
 
                     if (checkBoxSourceTrimming.Checked)
                     {
@@ -257,6 +302,96 @@ namespace AMSExplorer
                         entry.Streams.Add(stream);
 
                         if (!alreadyentry) obj.Sources.Add(entry);
+                    }
+
+
+                    // Thumbnails settings
+                    if (checkBoxGenThumbnailsJPG.Checked || checkBoxGenThumbnailsPNG.Checked || checkBoxGenThumbnailsBMP.Checked)
+                    {
+                        if (obj.Codecs == null)
+                        {
+                            obj.Codecs = new JArray() as dynamic;
+                        }
+
+
+                        if (obj.Outputs == null)
+                        {
+                            obj.Outputs = new JArray() as dynamic;
+                        }
+
+                        if (checkBoxGenThumbnailsJPG.Checked)
+                        {
+                            dynamic thOutputEntry = new JObject();
+                            thOutputEntry.FileName = textBoxThFileNameJPG.Text;
+                            dynamic Format = new JObject();
+
+                            dynamic thEntry = new JObject();
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartJPG.Text)) thEntry.Start = textBoxThTimeStartJPG.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepJPG.Text)) thEntry.Step = textBoxThTimeStepJPG.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeJPG.Text)) thEntry.Range = textBoxThTimeRangeJPG.Text;
+
+                            thEntry.Type = "JpgImage";
+                            thEntry.JpgLayers = new JArray() as dynamic;
+                            dynamic JpgLayer = new JObject();
+                            JpgLayer.Quality = (int)numericUpDownThQuality.Value;
+                            JpgLayer.Type = "JpgLayer";
+                            JpgLayer.Width = (int)numericUpDownThWidthJPG.Value;
+                            JpgLayer.Height = (int)numericUpDownThHeightJPG.Value;
+                            thEntry.JpgLayers.Add(JpgLayer);
+                            obj.Codecs.Add(thEntry);
+
+                            Format.Type = "JpgFormat";
+                            thOutputEntry.Format = Format;
+                            obj.Outputs.Add(thOutputEntry);
+                        }
+                        if (checkBoxGenThumbnailsPNG.Checked)
+                        {
+                            dynamic thOutputEntry = new JObject();
+                            thOutputEntry.FileName = textBoxThFileNamePNG.Text;
+                            dynamic Format = new JObject();
+
+                            dynamic thEntry = new JObject();
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartPNG.Text)) thEntry.Start = textBoxThTimeStartPNG.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepPNG.Text)) thEntry.Step = textBoxThTimeStepPNG.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangePNG.Text)) thEntry.Range = textBoxThTimeRangePNG.Text;
+
+                            thEntry.Type = "PngImage";
+                            thEntry.PngLayers = new JArray() as dynamic;
+                            dynamic PngLayer = new JObject();
+                            PngLayer.Type = "PngLayer";
+                            PngLayer.Width = (int)numericUpDownThWidthPNG.Value;
+                            PngLayer.Height = (int)numericUpDownThHeightPNG.Value;
+                            thEntry.PngLayers.Add(PngLayer);
+                            obj.Codecs.Add(thEntry);
+
+                            Format.Type = "PngFormat";
+                            thOutputEntry.Format = Format;
+                            obj.Outputs.Add(thOutputEntry);
+                        }
+                        if (checkBoxGenThumbnailsBMP.Checked)
+                        {
+                            dynamic thOutputEntry = new JObject();
+                            thOutputEntry.FileName = textBoxThFileNameBMP.Text;
+                            dynamic Format = new JObject();
+
+                            dynamic thEntry = new JObject();
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStartBMP.Text)) thEntry.Start = textBoxThTimeStartBMP.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeStepBMP.Text)) thEntry.Step = textBoxThTimeStepBMP.Text;
+                            if (!string.IsNullOrWhiteSpace(textBoxThTimeRangeBMP.Text)) thEntry.Range = textBoxThTimeRangeBMP.Text;
+
+                            thEntry.Type = "BmpImage";
+                            thEntry.BmpLayers = new JArray() as dynamic;
+                            dynamic BmpLayer = new JObject();
+                            BmpLayer.Type = "BmpLayer";
+                            BmpLayer.Width = (int)numericUpDownThWidthBMP.Value;
+                            BmpLayer.Height = (int)numericUpDownThHeightBMP.Value;
+                            thEntry.BmpLayers.Add(BmpLayer);
+                            obj.Codecs.Add(thEntry);
+
+                            Format.Type = "BmpFormat";
+                            thOutputEntry.Format = Format;
+                            obj.Outputs.Add(thOutputEntry);
+                        }
                     }
                 }
                 textBoxConfiguration.Text = obj.ToString();
@@ -371,15 +506,12 @@ namespace AMSExplorer
         private void moreinfoame_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
-
         }
 
         private void moreinfopresetslink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(e.Link.LinkData as string);
         }
-
-
 
 
         private void timeControlStartTime_ValueChanged(object sender, EventArgs e)
@@ -410,7 +542,30 @@ namespace AMSExplorer
 
         private void checkBoxAddAutomatic_CheckedChanged(object sender, EventArgs e)
         {
-            groupBoxTrim.Enabled = checkBoxAddAutomatic.Checked;
+        }
+
+  
+        private void checkBoxGenThumbnails_CheckedChanged(object sender, EventArgs e)
+        {
+            panelThumbnailsJPG.Enabled = checkBoxGenThumbnailsJPG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void ThumbnailSettingsChanged(object sender, EventArgs e)
+        {
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxGenThumbnailsPNG_CheckedChanged(object sender, EventArgs e)
+        {
+            panelThumbnailsPNG.Enabled = checkBoxGenThumbnailsPNG.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
+        }
+
+        private void checkBoxGenThumbnailsBMP_CheckedChanged(object sender, EventArgs e)
+        {
+            panelThumbnailsBMP.Enabled = checkBoxGenThumbnailsBMP.Checked;
+            UpdateTextBoxJSON(textBoxConfiguration.Text);
         }
     }
 

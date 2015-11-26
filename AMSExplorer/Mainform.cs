@@ -3504,30 +3504,7 @@ namespace AMSExplorer
             return doc.ToString();
         }
 
-        public static string LoadAndUpdateThumbnailsConfiguration(string xmlFileName, string ThumbnailsSize, string ThumbnailsType, string ThumbnailsFileName, string ThumbnailsTimeValue, string ThumbnailsTimeStep, string ThumbnailsTimeStop)
-        {
-            // Prepare the encryption task template
-            XDocument doc = XDocument.Load(xmlFileName);
-
-            var ThumbnailEl = doc.Element("Thumbnail");
-            var TimeEl = ThumbnailEl.Element("Time");
-
-            ThumbnailEl.Attribute("Size").SetValue(ThumbnailsSize);
-            ThumbnailEl.Attribute("Type").SetValue(ThumbnailsType);
-            ThumbnailEl.Attribute("Filename").SetValue(ThumbnailsFileName);
-
-            TimeEl.Attribute("Value").SetValue(ThumbnailsTimeValue);
-            TimeEl.Attribute("Step").SetValue(ThumbnailsTimeStep);
-            if (ThumbnailsTimeStop != string.Empty)
-                TimeEl.Add(new XAttribute("Stop", ThumbnailsTimeStop));
-
-            return doc.ToString();
-        }
-
-
-
-
-
+      
 
         /// <summary>
         /// Converts Smooth Stream to HLS.
@@ -7631,45 +7608,67 @@ namespace AMSExplorer
 
             if (SelectedAssets.FirstOrDefault() == null) return;
 
-            string taskname = "Thumbnails generation of " + Constants.NameconvInputasset;
-            IMediaProcessor processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoder);
+            string taskname = "Media Encoder Standard Thumbnails generation from " + Constants.NameconvInputasset + " with " + Constants.NameconvEncodername;
 
-            Thumbnails form = new Thumbnails(_context, processor.Version)
+            var processor = GetLatestMediaProcessorByName(Constants.AzureMediaEncoderStandard);
+
+            EncodingAMEStandard form = new EncodingAMEStandard(_context, SelectedAssets.Count, processor.Version, ThumbnailsModeOnly:true)
             {
-                ThumbnailsFileName = "{OriginalFilename}_{ThumbnailIndex}.{DefaultExtension}",
-                ThumbnailsInputAssetName = (SelectedAssets.Count > 1) ? SelectedAssets.Count + " assets have been selected for thumbnails generation." : "This will generate thumbnails for asset '" + SelectedAssets.FirstOrDefault().Name + "'.",
-                ThumbnailsOutputAssetName = Constants.NameconvInputasset + " - Thumbnails",
-                ThumbnailsJobName = "Thumbnails generation of " + Constants.NameconvInputasset,
-                ThumbnailsTimeValue = "0:0:0",
-                ThumbnailsTimeStep = "0:0:5",
-                ThumbnailsTimeStop = string.Empty,
-                ThumbnailsSize = "300,*",
-                ThumbnailsType = "Jpeg"
+                EncodingLabel = (SelectedAssets.Count > 1) ?
+                string.Format("{0} asset{1} selected. You are going to submit {0} job{1} with 1 task.", SelectedAssets.Count, Program.ReturnS(SelectedAssets.Count), SelectedAssets.Count)
+                :
+                "Asset '" + SelectedAssets.FirstOrDefault().Name + "' will be encoded (1 job with 1 task).",
+
+                EncodingJobName = "Thumbnails generation (MES) of " + Constants.NameconvInputasset,
+                EncodingOutputAssetName = Constants.NameconvInputasset + " - Media Standard encoded",
+                EncodingAMEStdPresetJSONFilesUserFolder = Properties.Settings.Default.AMEStandardPresetXMLFilesCurrentFolder,
+                EncodingAMEStdPresetJSONFilesFolder = Application.StartupPath + Constants.PathAMEStdFiles,
+                SelectedAssets = SelectedAssets
             };
+
 
 
             if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                string configThumbnails = LoadAndUpdateThumbnailsConfiguration(
-                Path.Combine(_configurationXMLFiles, @"Thumbnails.xml"),
-                form.ThumbnailsSize,
-                form.ThumbnailsType,
-                form.ThumbnailsFileName,
-                form.ThumbnailsTimeValue,
-                form.ThumbnailsTimeStep,
-                form.ThumbnailsTimeStop
-                );
+                foreach (IAsset asset in form.SelectedAssets)
+                {
+                    string jobnameloc = form.EncodingJobName.Replace(Constants.NameconvInputasset, asset.Name);
+                    IJob job = _context.Jobs.Create(jobnameloc, form.JobOptions.Priority);
+                    string tasknameloc = taskname.Replace(Constants.NameconvInputasset, asset.Name).Replace(Constants.NameconvEncodername, processor.Name + " v" + processor.Version);
+                    ITask AMEStandardTask = job.Tasks.AddNew(
+                        tasknameloc,
+                        processor,
+                       form.EncodingConfiguration,
+                       form.JobOptions.TasksOptionsSetting
+                      );
 
-                LaunchJobs_OneJobPerInputAsset_OneTaskPerfConfig(processor,
-                    SelectedAssets,
-                    form.ThumbnailsJobName,
-                    form.JobOptions.Priority,
-                    taskname,
-                    form.ThumbnailsOutputAssetName,
-                    new List<string> { configThumbnails },
-                    form.JobOptions.OutputAssetsCreationOptions,
-                    form.JobOptions.TasksOptionsSetting,
-                    form.JobOptions.StorageSelected);
+                    AMEStandardTask.InputAssets.Add(asset);
+
+                    // Add an output asset to contain the results of the job.  
+                    string outputassetnameloc = form.EncodingOutputAssetName.Replace(Constants.NameconvInputasset, asset.Name);
+                    AMEStandardTask.OutputAssets.AddNew(outputassetnameloc, form.JobOptions.OutputAssetsCreationOptions);
+
+                    // Submit the job  
+                    TextBoxLogWriteLine("Submitting job '{0}'", jobnameloc);
+                    try
+                    {
+                        job.Submit();
+                    }
+                    catch (Exception e)
+                    {
+                        // Add useful information to the exception
+                        if (SelectedAssets.Count < 5)
+                        {
+                            MessageBox.Show(string.Format("There has been a problem when submitting the job '{0}'", jobnameloc) + Constants.endline + Constants.endline + Program.GetErrorMessage(e), "Job Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        TextBoxLogWriteLine("There has been a problem when submitting the job '{0}' ", jobnameloc, true);
+                        TextBoxLogWriteLine(e);
+                        return;
+                    }
+                    Task.Factory.StartNew(() => dataGridViewJobsV.DoJobProgress(job));
+                }
+                DotabControlMainSwitch(Constants.TabJobs);
+                DoRefreshGridJobV(false);
             }
         }
 

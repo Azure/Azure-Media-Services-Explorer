@@ -221,6 +221,5 @@ namespace AMSExplorer
     {
         public string Prof { get; set; }
         public string Desc { get; set; }
-
     }
 }

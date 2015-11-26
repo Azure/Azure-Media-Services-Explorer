@@ -1963,12 +1963,12 @@ namespace AMSExplorer
                     else
                     { // multi files in asset
                         var AssetFiles = asset.AssetFiles.ToList();
-                        var JPGAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".gif", StringComparison.OrdinalIgnoreCase)).ToArray();
+                        var ThumbnailsAssetFiles = AssetFiles.Where(f => f.Name.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".png", StringComparison.OrdinalIgnoreCase) || f.Name.EndsWith(".bmp", StringComparison.OrdinalIgnoreCase)).ToArray();
 
-                        if ((JPGAssetFiles.Count() > 1) && (JPGAssetFiles.Count() >= (AssetFiles.Count - 1)))
+                        if ((ThumbnailsAssetFiles.Count() > 0) && (ThumbnailsAssetFiles.Count() >= (AssetFiles.Count - 1)))
                         {
                             type = Type_Thumbnails;
-                            number = JPGAssetFiles.Count();
+                            number = ThumbnailsAssetFiles.Count();
                         }
                     }
                     break;

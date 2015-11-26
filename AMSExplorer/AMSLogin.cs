@@ -28,7 +28,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Diagnostics;
 using System.Configuration;
-
+using System.Reflection;
 
 namespace AMSExplorer
 {
@@ -109,6 +109,9 @@ namespace AMSExplorer
                 comboBoxMappingList.Items.Add(map.Name);
             }
             comboBoxMappingList.SelectedIndex = 0;
+
+            // version
+            labelVersion.Text = String.Format("Version {0}", Assembly.GetExecutingAssembly().GetName().Version);
 
         }
 

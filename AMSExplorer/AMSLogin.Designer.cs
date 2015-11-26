@@ -71,6 +71,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelVersion = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -218,9 +219,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(16, 148);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(425, 15);
+            this.label3.Size = new System.Drawing.Size(408, 15);
             this.label3.TabIndex = 34;
-            this.label3.Text = "Default Storage Account Access Key (optional, needed for Azure import/export)";
+            this.label3.Text = "Default Storage Account Access Key (optional, for Azure Storage operations)";
             // 
             // textBoxAccountKey
             // 
@@ -508,6 +509,7 @@
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
+            this.panel1.Controls.Add(this.labelVersion);
             this.panel1.Controls.Add(this.buttonLogin);
             this.panel1.Controls.Add(this.buttonCancel);
             this.panel1.Location = new System.Drawing.Point(-1, 405);
@@ -519,6 +521,16 @@
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // labelVersion
+            // 
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.labelVersion.Location = new System.Drawing.Point(15, 21);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(78, 15);
+            this.labelVersion.TabIndex = 6;
+            this.labelVersion.Text = "Version ??????";
             // 
             // AMSLogin
             // 
@@ -554,6 +566,7 @@
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJob)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -604,5 +617,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Label labelVersion;
     }
 }
