@@ -3631,7 +3631,7 @@ namespace AMSExplorer
             }
         }
 
-        private void DoMenuMediaIntelligence(string processorStr)
+        private void DoMenuMediaIntelligence(string processorStr, Image processorImage)
         {
             List<IAsset> SelectedAssets = ReturnSelectedAssets();
 
@@ -3646,7 +3646,7 @@ namespace AMSExplorer
                 // Get the SDK extension method to  get a reference to the processor.
                 IMediaProcessor processor = GetLatestMediaProcessorByName(processorStr);
 
-                var form = new MediaInsightsGeneric(_context, processor, true)
+                var form = new MediaInsightsGeneric(_context, processor, processorImage, true)
                 {
                     MIJobName = processorStr + " processing of " + Constants.NameconvInputasset,
                     MIOutputAssetName = Constants.NameconvInputasset + " - processed with " + processorStr,
@@ -11879,42 +11879,42 @@ namespace AMSExplorer
 
         private void toolStripMenuItemFaceDetector_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector);
+            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void toolStripMenuItemRedactor_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaRedactor);
+            DoMenuMediaIntelligence(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
         }
 
         private void toolStripMenuItemMotionDetector_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector);
+            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
         }
 
         private void toolStripMenuItemStabilizer_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer);
+            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
         }
 
         private void ProcessFaceDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector);
+            DoMenuMediaIntelligence(Constants.AzureMediaFaceDetector, Bitmaps.face_detector);
         }
 
         private void ProcessRedactortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaRedactor);
+            DoMenuMediaIntelligence(Constants.AzureMediaRedactor, Bitmaps.media_redactor);
         }
 
         private void ProcessMotionDetectortoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector);
+            DoMenuMediaIntelligence(Constants.AzureMediaMotionDetector, Bitmaps.motion_detector);
         }
 
         private void ProcessStabilizertoolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer);
+            DoMenuMediaIntelligence(Constants.AzureMediaStabilizer, Bitmaps.media_stabilizer);
         }
 
         private void transferToolStripMenuItem_DropDownOpening(object sender, EventArgs e)

@@ -86,7 +86,7 @@
             this.textBoxConfiguration.Multiline = true;
             this.textBoxConfiguration.Name = "textBoxConfiguration";
             this.textBoxConfiguration.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxConfiguration.Size = new System.Drawing.Size(624, 460);
+            this.textBoxConfiguration.Size = new System.Drawing.Size(608, 460);
             this.textBoxConfiguration.TabIndex = 67;
             this.textBoxConfiguration.TextChanged += new System.EventHandler(this.textBoxConfiguration_TextChanged);
             // 
@@ -116,9 +116,9 @@
             // buttonInsertSample
             // 
             this.buttonInsertSample.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonInsertSample.Location = new System.Drawing.Point(647, 42);
+            this.buttonInsertSample.Location = new System.Drawing.Point(626, 42);
             this.buttonInsertSample.Name = "buttonInsertSample";
-            this.buttonInsertSample.Size = new System.Drawing.Size(128, 23);
+            this.buttonInsertSample.Size = new System.Drawing.Size(149, 23);
             this.buttonInsertSample.TabIndex = 79;
             this.buttonInsertSample.Text = "Insert sample";
             this.buttonInsertSample.UseVisualStyleBackColor = true;
@@ -127,9 +127,11 @@
             // buttonCopyClipboard
             // 
             this.buttonCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCopyClipboard.Location = new System.Drawing.Point(647, 13);
+            this.buttonCopyClipboard.Image = global::AMSExplorer.Bitmaps.copy_to_clipboard;
+            this.buttonCopyClipboard.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonCopyClipboard.Location = new System.Drawing.Point(626, 13);
             this.buttonCopyClipboard.Name = "buttonCopyClipboard";
-            this.buttonCopyClipboard.Size = new System.Drawing.Size(128, 23);
+            this.buttonCopyClipboard.Size = new System.Drawing.Size(149, 23);
             this.buttonCopyClipboard.TabIndex = 80;
             this.buttonCopyClipboard.Text = "Copy to clipboard";
             this.buttonCopyClipboard.UseVisualStyleBackColor = true;
@@ -138,9 +140,9 @@
             // buttonFormat
             // 
             this.buttonFormat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFormat.Location = new System.Drawing.Point(647, 71);
+            this.buttonFormat.Location = new System.Drawing.Point(626, 71);
             this.buttonFormat.Name = "buttonFormat";
-            this.buttonFormat.Size = new System.Drawing.Size(128, 23);
+            this.buttonFormat.Size = new System.Drawing.Size(149, 23);
             this.buttonFormat.TabIndex = 81;
             this.buttonFormat.Text = "Format data";
             this.buttonFormat.UseVisualStyleBackColor = true;

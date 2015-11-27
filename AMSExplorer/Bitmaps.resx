@@ -178,9 +178,6 @@
   <data name="encoding" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\encoding.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="filters" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>IconsPNG\filters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="transfer_destination" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\transfer_destination.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -303,5 +300,29 @@
   </data>
   <data name="encodingPremium" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>IconsPNG\encodingPremium.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copy_to_clipboard" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\copy_to_clipboard.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="face_detector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\face_detector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="filter1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\filter.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="filters" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\filters.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="media_redactor" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\media_redactor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="media_stabilizer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\media_stabilizer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="motion_detector" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\motion_detector.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="subclipping" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>IconsPNG\subclipping.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

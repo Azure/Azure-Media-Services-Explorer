@@ -582,7 +582,7 @@
             this.toolStripMenuItem22,
             this.ContextMenuItemAssetPlayback});
             this.contextMenuStripAssets.Name = "contextMenuStripAssets";
-            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 496);
+            this.contextMenuStripAssets.Size = new System.Drawing.Size(344, 518);
             this.contextMenuStripAssets.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripAssets_Opening);
             // 
             // refreshToolStripMenuItem1
@@ -882,6 +882,7 @@
             // 
             // subclipToolStripMenuItem
             // 
+            this.subclipToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.subclipToolStripMenuItem.Name = "subclipToolStripMenuItem";
             this.subclipToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipToolStripMenuItem.Size = new System.Drawing.Size(343, 22);
@@ -930,6 +931,7 @@
             // 
             // toolStripMenuItemFaceDetector
             // 
+            this.toolStripMenuItemFaceDetector.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.toolStripMenuItemFaceDetector.Name = "toolStripMenuItemFaceDetector";
             this.toolStripMenuItemFaceDetector.Size = new System.Drawing.Size(341, 22);
             this.toolStripMenuItemFaceDetector.Text = "Process asset(s) with Azure Media Face Detector";
@@ -937,6 +939,7 @@
             // 
             // toolStripMenuItemRedactor
             // 
+            this.toolStripMenuItemRedactor.Image = global::AMSExplorer.Bitmaps.media_redactor;
             this.toolStripMenuItemRedactor.Name = "toolStripMenuItemRedactor";
             this.toolStripMenuItemRedactor.Size = new System.Drawing.Size(341, 22);
             this.toolStripMenuItemRedactor.Text = "Process asset(s) with Azure Media Redactor";
@@ -944,6 +947,7 @@
             // 
             // toolStripMenuItemMotionDetector
             // 
+            this.toolStripMenuItemMotionDetector.Image = global::AMSExplorer.Bitmaps.motion_detector;
             this.toolStripMenuItemMotionDetector.Name = "toolStripMenuItemMotionDetector";
             this.toolStripMenuItemMotionDetector.Size = new System.Drawing.Size(341, 22);
             this.toolStripMenuItemMotionDetector.Text = "Process asset(s) with Azure Media Motion Detector";
@@ -951,6 +955,7 @@
             // 
             // toolStripMenuItemStabilizer
             // 
+            this.toolStripMenuItemStabilizer.Image = global::AMSExplorer.Bitmaps.media_stabilizer;
             this.toolStripMenuItemStabilizer.Name = "toolStripMenuItemStabilizer";
             this.toolStripMenuItemStabilizer.Size = new System.Drawing.Size(341, 22);
             this.toolStripMenuItemStabilizer.Text = "Process asset(s) with Azure Media Stabilizer";
@@ -1739,6 +1744,7 @@
             // 
             // subclipLiveStreamsarchivesToolStripMenuItem
             // 
+            this.subclipLiveStreamsarchivesToolStripMenuItem.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.subclipLiveStreamsarchivesToolStripMenuItem.Name = "subclipLiveStreamsarchivesToolStripMenuItem";
             this.subclipLiveStreamsarchivesToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem.Size = new System.Drawing.Size(419, 22);
@@ -1779,6 +1785,7 @@
             // 
             // ProcessFaceDetectortoolStripMenuItem
             // 
+            this.ProcessFaceDetectortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.face_detector;
             this.ProcessFaceDetectortoolStripMenuItem.Name = "ProcessFaceDetectortoolStripMenuItem";
             this.ProcessFaceDetectortoolStripMenuItem.Size = new System.Drawing.Size(419, 22);
             this.ProcessFaceDetectortoolStripMenuItem.Text = "Process asset(s) with Azure Media Face Detector";
@@ -1786,6 +1793,7 @@
             // 
             // ProcessRedactortoolStripMenuItem
             // 
+            this.ProcessRedactortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_redactor;
             this.ProcessRedactortoolStripMenuItem.Name = "ProcessRedactortoolStripMenuItem";
             this.ProcessRedactortoolStripMenuItem.Size = new System.Drawing.Size(419, 22);
             this.ProcessRedactortoolStripMenuItem.Text = "Process asset(s) with Azure Media Redactor";
@@ -1793,6 +1801,7 @@
             // 
             // ProcessMotionDetectortoolStripMenuItem
             // 
+            this.ProcessMotionDetectortoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.motion_detector;
             this.ProcessMotionDetectortoolStripMenuItem.Name = "ProcessMotionDetectortoolStripMenuItem";
             this.ProcessMotionDetectortoolStripMenuItem.Size = new System.Drawing.Size(419, 22);
             this.ProcessMotionDetectortoolStripMenuItem.Text = "Process asset(s) with Azure Media Motion Detector";
@@ -1800,6 +1809,7 @@
             // 
             // ProcessStabilizertoolStripMenuItem
             // 
+            this.ProcessStabilizertoolStripMenuItem.Image = global::AMSExplorer.Bitmaps.media_stabilizer;
             this.ProcessStabilizertoolStripMenuItem.Name = "ProcessStabilizertoolStripMenuItem";
             this.ProcessStabilizertoolStripMenuItem.Size = new System.Drawing.Size(419, 22);
             this.ProcessStabilizertoolStripMenuItem.Text = "Process asset(s) with Azure Media Stabilizer";
@@ -2535,6 +2545,7 @@
             // 
             // subclipLiveStreamsarchivesToolStripMenuItem1
             // 
+            this.subclipLiveStreamsarchivesToolStripMenuItem1.Image = global::AMSExplorer.Bitmaps.subclipping;
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Name = "subclipLiveStreamsarchivesToolStripMenuItem1";
             this.subclipLiveStreamsarchivesToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
             this.subclipLiveStreamsarchivesToolStripMenuItem1.Size = new System.Drawing.Size(292, 22);

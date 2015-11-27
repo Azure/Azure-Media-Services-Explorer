@@ -625,9 +625,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="IconsPNG\filter.png" />
-    <None Include="IconsPNG\filters.png" />
     <None Include="IconsPNG\Display_information_filter.png" />
     <None Include="IconsPNG\encodingPremium.png" />
+    <Content Include="IconsPNG\bulk_ingest.png" />
+    <Content Include="IconsPNG\copy_to_clipboard.png" />
+    <Content Include="IconsPNG\face_detector.png" />
+    <None Include="IconsPNG\filters.png" />
     <Content Include="IconsPNG\hyperlapse.png" />
     <None Include="Resources\media-services-dvr-filter.png" />
     <None Include="Resources\media-services-livebackoff-filter.png" />
@@ -635,6 +638,10 @@
     <None Include="Resources\media-services-trim-filter.png" />
     <None Include="Resources\media-services-subclips-filter.png" />
     <None Include="Resources\media-services-rendition-filter2.png" />
+    <Content Include="IconsPNG\media_redactor.png" />
+    <Content Include="IconsPNG\media_stabilizer.png" />
+    <Content Include="IconsPNG\motion_detector.png" />
+    <Content Include="IconsPNG\subclipping.png" />
     <Content Include="SlateJPG\DefaultAzurePortalSlate.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

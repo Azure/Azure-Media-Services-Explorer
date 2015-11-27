@@ -36,6 +36,7 @@ namespace AMSExplorer
         private CloudMediaContext _context;
         private IMediaProcessor _processor;
         private bool _preview;
+        private Image _processorImage;
 
         public string MIInputAssetName
         {
@@ -86,13 +87,14 @@ namespace AMSExplorer
             }
         }
 
-        public MediaInsightsGeneric(CloudMediaContext context, IMediaProcessor processor, bool preview)
+        public MediaInsightsGeneric(CloudMediaContext context, IMediaProcessor processor, Image processorImage, bool preview)
         {
             InitializeComponent();
             this.Icon = Bitmaps.Azure_Explorer_ico;
             _context = context;
             _processor = processor;
             _preview = preview;
+            _processorImage = processorImage;
             buttonJobOptions.Initialize(_context);
         }
 
@@ -107,6 +109,7 @@ namespace AMSExplorer
             labelProcessorName.Text = _processor.Name;
             labelPreview.Visible = _preview;
             labelProcessorVersion.Text = string.Format(labelProcessorVersion.Text,  _processor.Version);
+            buttonOk.Image = _processorImage;
             this.Text = _processor.Name;
         }
 
